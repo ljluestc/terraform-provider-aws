@@ -836,8 +836,7 @@ func testAccDatabaseConfig_base() string {
 func testAccDatabaseConfig_basic(rName string) string {
 	return acctest.ConfigCompose(
 		testAccDatabaseConfig_base(),
-		fmt.Sprintf(`	
-resource "aws_lightsail_database" "test" {
+		fmt.Sprintf(`resource "aws_lightsail_database" "test" {
   relational_database_name = %[1]q
   availability_zone        = data.aws_availability_zones.available.names[0]
   master_database_name     = "testdatabasename"
@@ -853,8 +852,7 @@ resource "aws_lightsail_database" "test" {
 func testAccDatabaseConfig_masterDatabaseName(rName string, masterDatabaseName string) string {
 	return acctest.ConfigCompose(
 		testAccDatabaseConfig_base(),
-		fmt.Sprintf(`	
-resource "aws_lightsail_database" "test" {
+		fmt.Sprintf(`resource "aws_lightsail_database" "test" {
   relational_database_name = %[1]q
   availability_zone        = data.aws_availability_zones.available.names[0]
   master_database_name     = %[2]q
@@ -870,8 +868,7 @@ resource "aws_lightsail_database" "test" {
 func testAccDatabaseConfig_masterUsername(rName string, masterUsername string) string {
 	return acctest.ConfigCompose(
 		testAccDatabaseConfig_base(),
-		fmt.Sprintf(`	
-resource "aws_lightsail_database" "test" {
+		fmt.Sprintf(`resource "aws_lightsail_database" "test" {
   relational_database_name = %[1]q
   availability_zone        = data.aws_availability_zones.available.names[0]
   master_database_name     = "testdatabasename"
@@ -887,8 +884,7 @@ resource "aws_lightsail_database" "test" {
 func testAccDatabaseConfig_masterPassword(rName string, masterPassword string) string {
 	return acctest.ConfigCompose(
 		testAccDatabaseConfig_base(),
-		fmt.Sprintf(`	
-resource "aws_lightsail_database" "test" {
+		fmt.Sprintf(`resource "aws_lightsail_database" "test" {
   relational_database_name = %[1]q
   availability_zone        = data.aws_availability_zones.available.names[0]
   master_database_name     = "testdatabasename"
@@ -904,8 +900,7 @@ resource "aws_lightsail_database" "test" {
 func testAccDatabaseConfig_preferredBackupWindow(rName string, preferredBackupWindow string) string {
 	return acctest.ConfigCompose(
 		testAccDatabaseConfig_base(),
-		fmt.Sprintf(`	
-resource "aws_lightsail_database" "test" {
+		fmt.Sprintf(`resource "aws_lightsail_database" "test" {
   relational_database_name = %[1]q
   availability_zone        = data.aws_availability_zones.available.names[0]
   master_database_name     = "testdatabasename"
@@ -923,8 +918,7 @@ resource "aws_lightsail_database" "test" {
 func testAccDatabaseConfig_preferredMaintenanceWindow(rName string, preferredMaintenanceWindow string) string {
 	return acctest.ConfigCompose(
 		testAccDatabaseConfig_base(),
-		fmt.Sprintf(`	
-resource "aws_lightsail_database" "test" {
+		fmt.Sprintf(`resource "aws_lightsail_database" "test" {
   relational_database_name     = %[1]q
   availability_zone            = data.aws_availability_zones.available.names[0]
   master_database_name         = "testdatabasename"
@@ -942,8 +936,7 @@ resource "aws_lightsail_database" "test" {
 func testAccDatabaseConfig_publiclyAccessible(rName string, publiclyAccessible bool) string {
 	return acctest.ConfigCompose(
 		testAccDatabaseConfig_base(),
-		fmt.Sprintf(`	
-resource "aws_lightsail_database" "test" {
+		fmt.Sprintf(`resource "aws_lightsail_database" "test" {
   relational_database_name = %[1]q
   availability_zone        = data.aws_availability_zones.available.names[0]
   master_database_name     = "testdatabasename"
@@ -961,8 +954,7 @@ resource "aws_lightsail_database" "test" {
 func testAccDatabaseConfig_backupRetentionEnabled(rName string, backupRetentionEnabled bool) string {
 	return acctest.ConfigCompose(
 		testAccDatabaseConfig_base(),
-		fmt.Sprintf(`	
-resource "aws_lightsail_database" "test" {
+		fmt.Sprintf(`resource "aws_lightsail_database" "test" {
   relational_database_name = %[1]q
   availability_zone        = data.aws_availability_zones.available.names[0]
   master_database_name     = "test"
@@ -980,8 +972,7 @@ resource "aws_lightsail_database" "test" {
 func testAccDatabaseConfig_finalSnapshotName(rName string, sName string) string {
 	return acctest.ConfigCompose(
 		testAccDatabaseConfig_base(),
-		fmt.Sprintf(`	
-resource "aws_lightsail_database" "test" {
+		fmt.Sprintf(`resource "aws_lightsail_database" "test" {
   relational_database_name = %[1]q
   availability_zone        = data.aws_availability_zones.available.names[0]
   master_database_name     = "test"
@@ -997,8 +988,7 @@ resource "aws_lightsail_database" "test" {
 func testAccDatabaseConfig_tags1(rName string, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(
 		testAccDatabaseConfig_base(),
-		fmt.Sprintf(`	
-resource "aws_lightsail_database" "test" {
+		fmt.Sprintf(`resource "aws_lightsail_database" "test" {
   relational_database_name = %[1]q
   availability_zone        = data.aws_availability_zones.available.names[0]
   master_database_name     = "testdatabasename"
@@ -1017,8 +1007,7 @@ resource "aws_lightsail_database" "test" {
 func testAccDatabaseConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(
 		testAccDatabaseConfig_base(),
-		fmt.Sprintf(`	
-resource "aws_lightsail_database" "test" {
+		fmt.Sprintf(`resource "aws_lightsail_database" "test" {
   relational_database_name = %[1]q
   availability_zone        = data.aws_availability_zones.available.names[0]
   master_database_name     = "testdatabasename"
@@ -1038,8 +1027,7 @@ resource "aws_lightsail_database" "test" {
 func testAccDatabaseConfig_ha(rName string) string {
 	return acctest.ConfigCompose(
 		testAccDatabaseConfig_base(),
-		fmt.Sprintf(`	
-resource "aws_lightsail_database" "test" {
+		fmt.Sprintf(`resource "aws_lightsail_database" "test" {
   relational_database_name = %[1]q
   master_database_name     = "testdatabasename"
   master_password          = "testdatabasepassword"

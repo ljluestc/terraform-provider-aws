@@ -410,8 +410,7 @@ data "aws_availability_zones" "available" {
 func testAccInstanceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(
 		testAccInstanceConfigBase(),
-		fmt.Sprintf(`	
-resource "aws_lightsail_instance" "test" {
+		fmt.Sprintf(`resource "aws_lightsail_instance" "test" {
   name              = "%s"
   availability_zone = data.aws_availability_zones.available.names[0]
   blueprint_id      = "amazon_linux_2"
@@ -423,8 +422,7 @@ resource "aws_lightsail_instance" "test" {
 func testAccInstanceConfig_availabilityZone(rName string, availabilityZone string) string {
 	return acctest.ConfigCompose(
 		testAccInstanceConfigBase(),
-		fmt.Sprintf(`	
-resource "aws_lightsail_instance" "test" {
+		fmt.Sprintf(`resource "aws_lightsail_instance" "test" {
   name              = %[1]q
   availability_zone = %[2]q
   blueprint_id      = "amazon_linux_2"

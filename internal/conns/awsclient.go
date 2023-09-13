@@ -125,8 +125,7 @@ func (client *AWSClient) DefaultKMSKeyPolicy() string {
 			"Resource": "*"
 		}
 	]
-}	
-`, client.Partition, client.AccountID)
+}`, client.Partition, client.AccountID)
 }
 
 // GlobalAcceleratorHostedZoneID returns the Route 53 hosted zone ID

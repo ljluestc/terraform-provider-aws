@@ -595,8 +595,7 @@ resource "aws_lightsail_distribution" "test" {
 func testAccDistributionConfig_tags1(rName, bucketName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(
 		testAccDistributionConfig_base(bucketName),
-		fmt.Sprintf(`	
-resource "aws_lightsail_distribution" "test" {
+		fmt.Sprintf(`resource "aws_lightsail_distribution" "test" {
   name      = %[1]q
   bundle_id = "small_1_0"
   origin {
@@ -632,8 +631,7 @@ resource "aws_lightsail_distribution" "test" {
 func testAccDistributionConfig_tags2(rName, bucketName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(
 		testAccDistributionConfig_base(bucketName),
-		fmt.Sprintf(`	
-resource "aws_lightsail_distribution" "test" {
+		fmt.Sprintf(`resource "aws_lightsail_distribution" "test" {
   name      = %[1]q
   bundle_id = "small_1_0"
   origin {
@@ -670,8 +668,7 @@ resource "aws_lightsail_distribution" "test" {
 func testAccDistributionConfig_cacheBehavior1(rName, bucketName, path1, behavior1 string) string {
 	return acctest.ConfigCompose(
 		testAccDistributionConfig_base(bucketName),
-		fmt.Sprintf(`	
-resource "aws_lightsail_distribution" "test" {
+		fmt.Sprintf(`resource "aws_lightsail_distribution" "test" {
   name      = %[1]q
   bundle_id = "small_1_0"
   origin {
@@ -708,8 +705,7 @@ resource "aws_lightsail_distribution" "test" {
 func testAccDistributionConfig_cacheBehavior2(rName, bucketName, path1, behavior1, path2, behavior2 string) string {
 	return acctest.ConfigCompose(
 		testAccDistributionConfig_base(bucketName),
-		fmt.Sprintf(`	
-resource "aws_lightsail_distribution" "test" {
+		fmt.Sprintf(`resource "aws_lightsail_distribution" "test" {
   name      = %[1]q
   bundle_id = "small_1_0"
   origin {
@@ -751,8 +747,7 @@ resource "aws_lightsail_distribution" "test" {
 func testAccDistributionConfig_cacheBehaviorSettings(rName, bucketName, allow1, allow2, header1, header2 string) string {
 	return acctest.ConfigCompose(
 		testAccDistributionConfig_base(bucketName),
-		fmt.Sprintf(`	
-resource "aws_lightsail_distribution" "test" {
+		fmt.Sprintf(`resource "aws_lightsail_distribution" "test" {
   name      = %[1]q
   bundle_id = "small_1_0"
   origin {

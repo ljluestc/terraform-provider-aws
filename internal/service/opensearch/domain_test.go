@@ -3402,16 +3402,13 @@ func testAccDomainConfig_logPublishingOptions(rName, logType string) string {
 			  master_user_password = "Barbarbarbar1!"
 			}
 	  	}
-	
 		domain_endpoint_options {
 	  		enforce_https       = true
 	  		tls_security_policy = "Policy-Min-TLS-1-2-2019-07"
 		}
-	
 		encrypt_at_rest {
 			enabled = true
 		}
-	
 		node_to_node_encryption {
 			enabled = true
 		}`

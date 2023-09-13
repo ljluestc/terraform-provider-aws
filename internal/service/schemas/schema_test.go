@@ -338,8 +338,7 @@ resource "aws_schemas_schema" "test" {
 }
 
 func testAccSchemaConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
-	return fmt.Sprintf(`	
-resource "aws_schemas_registry" "test" {
+	return fmt.Sprintf(`resource "aws_schemas_registry" "test" {
   name = %[1]q
 }
 

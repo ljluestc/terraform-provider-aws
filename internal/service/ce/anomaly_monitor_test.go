@@ -274,8 +274,7 @@ JSON
 }
 
 func testAccAnomalyMonitorConfig_tags1(rName string, tagKey1, tagValue1 string) string {
-	return fmt.Sprintf(`	
-resource "aws_ce_anomaly_monitor" "test" {
+	return fmt.Sprintf(`resource "aws_ce_anomaly_monitor" "test" {
   name         = %[1]q
   monitor_type = "CUSTOM"
 
@@ -304,8 +303,7 @@ JSON
 }
 
 func testAccAnomalyMonitorConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
-	return fmt.Sprintf(`	
-resource "aws_ce_anomaly_monitor" "test" {
+	return fmt.Sprintf(`resource "aws_ce_anomaly_monitor" "test" {
   name         = %[1]q
   monitor_type = "CUSTOM"
 
