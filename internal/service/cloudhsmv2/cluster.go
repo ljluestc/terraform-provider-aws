@@ -81,7 +81,7 @@ func ResourceCluster() *schema.Resource {
 				Computed: true,
 			},
 			"hsm_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate

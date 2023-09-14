@@ -61,7 +61,7 @@ func ResourceTrafficMirrorSession() *schema.Resource {
 				Optional: true,
 			},
 			"session_number": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Required:     true,
 				Validate
 func: validation.IntBetween(1, 32766),
@@ -77,7 +77,7 @@ func: validation.IntBetween(1, 32766),
 				Required: true,
 			},
 			"virtual_network_id": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				Computed:     true,
 				Validate

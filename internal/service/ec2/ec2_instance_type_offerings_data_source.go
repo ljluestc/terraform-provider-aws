@@ -39,7 +39,7 @@ func DataSourceInstanceTypeOfferings() *schema.Resource {
 				Elem:     &schema.Schema{Type: schema.TypeString},
 			},
 			"location_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Validate
 func: validation.StringInSlice(ec2.LocationType_Values(), false),

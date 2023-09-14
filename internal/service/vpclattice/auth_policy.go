@@ -44,8 +44,8 @@ func ResourceAuthPolicy() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"policy": {
-				Type:             schema.TypeString,
-				Required:         true,
+				Type:    schema.TypeString,
+				Required:true,
 				ValidateFunc:     validation.StringIsJSON,
 				DiffSuppressFunc: verify.SuppressEquivalentPolicyDiffs,
 				StateFunc: func(v interface{}) string {
@@ -58,7 +58,7 @@ func ResourceAuthPolicy() *schema.Resource {
 				Optional: true,
 			},
 			"resource_identifier": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: verify.ValidARN,
 			},
@@ -80,7 +80,7 @@ func resourceAuthPolicyPut(ctx context.Context, d *schema.ResourceData, meta int
 	}
 
 	in := &vpclattice.PutAuthPolicyInput{
-		Policy:             aws.String(policy),
+		Policy:    aws.String(policy),
 		ResourceIdentifier: aws.String(resourceId),
 	}
 

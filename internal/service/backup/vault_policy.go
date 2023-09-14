@@ -24,40 +24,40 @@ import (
 
 func ResourceVaultPolicy() *schema.Resource {
 	return &schema.Resource{
-		CreateWithoutTimeout: resourceVaultPolicyPut,
-		UpdateWithoutTimeout: resourceVaultPolicyPut,
-		ReadWithoutTimeout:   resourceVaultPolicyRead,
-		DeleteWithoutTimeout: resourceVaultPolicyDelete,
-		Importer: &schema.ResourceImporter{
-			StateContext: schema.ImportStatePassthroughContext,
-		},
+CreateWithoutTimeout: resourceVaultPolicyPut,
+UpdateWithoutTimeout: resourceVaultPolicyPut,
+ReadWithoutTimeout:   resourceVaultPolicyRead,
+DeleteWithoutTimeout: resourceVaultPolicyDelete,
+Importer: &schema.ResourceImporter{
+	StateContext: schema.ImportStatePassthroughContext,
+},
 
-		Schema: map[string]*schema.Schema{
-			"backup_vault_arn": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"backup_vault_name": {
-				Type:     schema.TypeString,
-				Required: true,
-				ForceNew: true,
-			},
-			"policy": {
-				Type:   schema.TypeString,
-				Required:              true,
-				Validate
-func:          validation.StringIsJSON,
-				DiffSuppress
+Schema: map[string]*schema.Schema{
+	"backup_vault_arn": {
+Type:     schema.TypeString,
+Computed: true,
+	},
+	"backup_vault_name": {
+Type:     schema.TypeString,
+Required: true,
+ForceNew: true,
+	},
+	"policy": {
+Type:   schema.TypeString,
+Required:     true,
+Validate
+func: validation.StringIsJSON,
+DiffSuppress
 func:      verify.SuppressEquivalentPolicyDiffs,
-				DiffSuppressOnRefresh: true,
-				State
+DiffSuppressOnRefresh: true,
+State
 func: 
 func(v interface{}) string {
-					json, _ := structure.NormalizeJsonString(v)
-					return json
-				},
-			},
-		},
+	json, _ := structure.NormalizeJsonString(v)
+	return json
+},
+	},
+},
 	}
 }
 
@@ -69,19 +69,19 @@ func resourceVaultPolicyPut(ctx context.Context, d *schema.ResourceData, meta in
 	policy, err := structure.NormalizeJsonString(d.Get("policy").(string))
 
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "policy (%s) is invalid JSON: %s", policy, err)
+return sdkdiag.AppendErrorf(diags, "policy (%s) is invalid JSON: %s", policy, err)
 	}
 
 	name := d.Get("backup_vault_name").(string)
 	input := &backup.PutBackupVaultAccessPolicyInput{
-		BackupVaultName: aws.String(name),
-		Policy:          aws.String(policy),
+BackupVaultName: aws.String(name),
+Policy: aws.String(policy),
 	}
 
 	_, err = conn.PutBackupVaultAccessPolicyWithContext(ctx, input)
 
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "creating Backup Vault Policy (%s): %s", name, err)
+return sdkdiag.AppendErrorf(diags, "creating Backup Vault Policy (%s): %s", name, err)
 	}
 
 	d.SetId(name)
@@ -97,13 +97,13 @@ func resourceVaultPolicyRead(ctx context.Context, d *schema.ResourceData, meta i
 	output, err := FindVaultAccessPolicyByName(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
-		log.Printf("[WARN] Backup Vault Policy (%s) not found, removing from state", d.Id())
-		d.SetId("")
-		return diags
+log.Printf("[WARN] Backup Vault Policy (%s) not found, removing from state", d.Id())
+d.SetId("")
+return diags
 	}
 
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "reading Backup Vault Policy (%s): %s", d.Id(), err)
+return sdkdiag.AppendErrorf(diags, "reading Backup Vault Policy (%s): %s", d.Id(), err)
 	}
 
 	d.Set("backup_vault_arn", output.BackupVaultArn)
@@ -112,13 +112,13 @@ func resourceVaultPolicyRead(ctx context.Context, d *schema.ResourceData, meta i
 	policyToSet, err := verify.SecondJSONUnlessEquivalent(d.Get("policy").(string), aws.StringValue(output.Policy))
 
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "while setting policy (%s), encountered: %s", policyToSet, err)
+return sdkdiag.AppendErrorf(diags, "while setting policy (%s), encountered: %s", policyToSet, err)
 	}
 
 	policyToSet, err = structure.NormalizeJsonString(policyToSet)
 
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "policy (%s) is invalid JSON: %s", policyToSet, err)
+return sdkdiag.AppendErrorf(diags, "policy (%s) is invalid JSON: %s", policyToSet, err)
 	}
 
 	d.Set("policy", policyToSet)
@@ -133,15 +133,15 @@ func resourceVaultPolicyDelete(ctx context.Context, d *schema.ResourceData, meta
 
 	log.Printf("[DEBUG] Deleting Backup Vault Policy (%s)", d.Id())
 	_, err := conn.DeleteBackupVaultAccessPolicyWithContext(ctx, &backup.DeleteBackupVaultAccessPolicyInput{
-		BackupVaultName: aws.String(d.Id()),
+BackupVaultName: aws.String(d.Id()),
 	})
 
 	if tfawserr.ErrCodeEquals(err, backup.ErrCodeResourceNotFoundException) || tfawserr.ErrCodeEquals(err, errCodeAccessDeniedException) {
-		return diags
+return diags
 	}
 
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "deleting Backup Vault Policy (%s): %s", d.Id(), err)
+return sdkdiag.AppendErrorf(diags, "deleting Backup Vault Policy (%s): %s", d.Id(), err)
 	}
 
 	return diags

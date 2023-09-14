@@ -26,35 +26,35 @@ func TestAccVPCNetworkInsightsPath_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckNetworkInsightsPathDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCNetworkInsightsPathConfig_basic(rName, "tcp"),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckNetworkInsightsPathDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCNetworkInsightsPathConfig_basic(rName, "tcp"),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckNetworkInsightsPathExists(ctx, resourceName),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "ec2", regexache.MustCompile(`network-insights-path/.+$`)),
-					resource.TestCheckResourceAttrPair(resourceName, "destination", "aws_network_interface.test.1", "id"),
-					resource.TestCheckResourceAttrPair(resourceName, "destination_arn", "aws_network_interface.test.1", "arn"),
-					resource.TestCheckResourceAttr(resourceName, "destination_ip", ""),
-					resource.TestCheckResourceAttr(resourceName, "destination_port", "0"),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "tcp"),
-					resource.TestCheckResourceAttrPair(resourceName, "source", "aws_network_interface.test.0", "id"),
-					resource.TestCheckResourceAttrPair(resourceName, "source_arn", "aws_network_interface.test.0", "arn"),
-					resource.TestCheckResourceAttr(resourceName, "source_ip", ""),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckNetworkInsightsPathExists(ctx, resourceName),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "ec2", regexache.MustCompile(`network-insights-path/.+$`)),
+	resource.TestCheckResourceAttrPair(resourceName, "destination", "aws_network_interface.test.1", "id"),
+	resource.TestCheckResourceAttrPair(resourceName, "destination_arn", "aws_network_interface.test.1", "arn"),
+	resource.TestCheckResourceAttr(resourceName, "destination_ip", ""),
+	resource.TestCheckResourceAttr(resourceName, "destination_port", "0"),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "tcp"),
+	resource.TestCheckResourceAttrPair(resourceName, "source", "aws_network_interface.test.0", "id"),
+	resource.TestCheckResourceAttrPair(resourceName, "source_arn", "aws_network_interface.test.0", "arn"),
+	resource.TestCheckResourceAttr(resourceName, "source_ip", ""),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -65,22 +65,22 @@ func TestAccVPCNetworkInsightsPath_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckNetworkInsightsPathDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCNetworkInsightsPathConfig_basic(rName, "udp"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckNetworkInsightsPathDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCNetworkInsightsPathConfig_basic(rName, "udp"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckNetworkInsightsPathExists(ctx, resourceName),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceNetworkInsightsPath(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckNetworkInsightsPathExists(ctx, resourceName),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceNetworkInsightsPath(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -91,46 +91,46 @@ func TestAccVPCNetworkInsightsPath_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckNetworkInsightsPathDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCNetworkInsightsPathConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckNetworkInsightsPathDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCNetworkInsightsPathConfig_tags1(rName, "key1", "value1"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckNetworkInsightsPathExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccVPCNetworkInsightsPathConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheck
+	testAccCheckNetworkInsightsPathExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccVPCNetworkInsightsPathConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckNetworkInsightsPathExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-			{
-				Config: testAccVPCNetworkInsightsPathConfig_tags1(rName, "key2", "value2"),
-				Check: resource.ComposeTestCheck
+	testAccCheckNetworkInsightsPathExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+	{
+Config: testAccVPCNetworkInsightsPathConfig_tags1(rName, "key2", "value2"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckNetworkInsightsPathExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-		},
+	testAccCheckNetworkInsightsPathExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+},
 	})
 }
 
@@ -141,29 +141,29 @@ func TestAccVPCNetworkInsightsPath_sourceAndDestinationARN(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckNetworkInsightsPathDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCNetworkInsightsPathConfig_sourceAndDestinationARN(rName, "tcp"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckNetworkInsightsPathDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCNetworkInsightsPathConfig_sourceAndDestinationARN(rName, "tcp"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckNetworkInsightsPathExists(ctx, resourceName),
-					resource.TestCheckResourceAttrPair(resourceName, "destination", "aws_network_interface.test.1", "id"),
-					resource.TestCheckResourceAttrPair(resourceName, "destination_arn", "aws_network_interface.test.1", "arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "source", "aws_network_interface.test.0", "id"),
-					resource.TestCheckResourceAttrPair(resourceName, "source_arn", "aws_network_interface.test.0", "arn"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckNetworkInsightsPathExists(ctx, resourceName),
+	resource.TestCheckResourceAttrPair(resourceName, "destination", "aws_network_interface.test.1", "id"),
+	resource.TestCheckResourceAttrPair(resourceName, "destination_arn", "aws_network_interface.test.1", "arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "source", "aws_network_interface.test.0", "id"),
+	resource.TestCheckResourceAttrPair(resourceName, "source_arn", "aws_network_interface.test.0", "arn"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -174,34 +174,34 @@ func TestAccVPCNetworkInsightsPath_sourceIP(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckNetworkInsightsPathDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCNetworkInsightsPathConfig_sourceIP(rName, "1.1.1.1"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckNetworkInsightsPathDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCNetworkInsightsPathConfig_sourceIP(rName, "1.1.1.1"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckNetworkInsightsPathExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "source_ip", "1.1.1.1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccVPCNetworkInsightsPathConfig_sourceIP(rName, "8.8.8.8"),
-				Check: resource.ComposeTestCheck
+	testAccCheckNetworkInsightsPathExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "source_ip", "1.1.1.1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccVPCNetworkInsightsPathConfig_sourceIP(rName, "8.8.8.8"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckNetworkInsightsPathExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "source_ip", "8.8.8.8"),
-				),
-			},
-		},
+	testAccCheckNetworkInsightsPathExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "source_ip", "8.8.8.8"),
+),
+	},
+},
 	})
 }
 
@@ -212,34 +212,34 @@ func TestAccVPCNetworkInsightsPath_destinationIP(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckNetworkInsightsPathDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCNetworkInsightsPathConfig_destinationIP(rName, "1.1.1.1"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckNetworkInsightsPathDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCNetworkInsightsPathConfig_destinationIP(rName, "1.1.1.1"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckNetworkInsightsPathExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "destination_ip", "1.1.1.1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccVPCNetworkInsightsPathConfig_destinationIP(rName, "8.8.8.8"),
-				Check: resource.ComposeTestCheck
+	testAccCheckNetworkInsightsPathExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "destination_ip", "1.1.1.1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccVPCNetworkInsightsPathConfig_destinationIP(rName, "8.8.8.8"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckNetworkInsightsPathExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "destination_ip", "8.8.8.8"),
-				),
-			},
-		},
+	testAccCheckNetworkInsightsPathExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "destination_ip", "8.8.8.8"),
+),
+	},
+},
 	})
 }
 
@@ -250,34 +250,34 @@ func TestAccVPCNetworkInsightsPath_destinationPort(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckNetworkInsightsPathDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCNetworkInsightsPathConfig_destinationPort(rName, 80),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckNetworkInsightsPathDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCNetworkInsightsPathConfig_destinationPort(rName, 80),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckNetworkInsightsPathExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "destination_port", "80"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccVPCNetworkInsightsPathConfig_destinationPort(rName, 443),
-				Check: resource.ComposeTestCheck
+	testAccCheckNetworkInsightsPathExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "destination_port", "80"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccVPCNetworkInsightsPathConfig_destinationPort(rName, 443),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckNetworkInsightsPathExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "destination_port", "443"),
-				),
-			},
-		},
+	testAccCheckNetworkInsightsPathExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "destination_port", "443"),
+),
+	},
+},
 	})
 }
 
@@ -286,20 +286,20 @@ func testAccCheckNetworkInsightsPathExists(ctx context.Context, n string) resour
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No EC2 Network Insights Path ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No EC2 Network Insights Path ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-		_, err := tfec2.FindNetworkInsightsPathByID(ctx, conn, rs.Primary.ID)
+_, err := tfec2.FindNetworkInsightsPathByID(ctx, conn, rs.Primary.ID)
 
-		return err
+return err
 	}
 }
 
@@ -308,27 +308,27 @@ func testAccCheckNetworkInsightsPathDestroy(ctx context.Context) resource.TestCh
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_ec2_network_insights_path" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_ec2_network_insights_path" {
+continue
+	}
 
-			_, err := tfec2.FindNetworkInsightsPathByID(ctx, conn, rs.Primary.ID)
+	_, err := tfec2.FindNetworkInsightsPathByID(ctx, conn, rs.Primary.ID)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("EC2 Network Insights Path %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("EC2 Network Insights Path %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -477,7 +477,7 @@ resource "aws_network_interface" "test" {
 }
 
 resource "aws_ec2_network_insights_path" "test" {
-  source         = aws_network_interface.test.id
+  source= aws_network_interface.test.id
   destination    = aws_internet_gateway.test.id
   protocol       = "tcp"
   destination_ip = %[2]q
@@ -503,9 +503,9 @@ resource "aws_network_interface" "test" {
 }
 
 resource "aws_ec2_network_insights_path" "test" {
-  source           = aws_network_interface.test[0].id
+  source  = aws_network_interface.test[0].id
   destination      = aws_network_interface.test[1].id
-  protocol         = "tcp"
+  protocol= "tcp"
   destination_port = %[2]d
 
   tags = {

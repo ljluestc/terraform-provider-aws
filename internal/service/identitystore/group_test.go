@@ -32,7 +32,7 @@ func TestAccIdentityStoreGroup_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.IdentityStoreEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:acctest.ErrorCheck(t, names.IdentityStoreEndpointID),
+		ErrorCheck:               acctest.ErrorCheck(t, names.IdentityStoreEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckGroupDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -67,7 +67,7 @@ func TestAccIdentityStoreGroup_disappears(t *testing.T) {
 			testAccPreCheckSSOAdminInstances(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:acctest.ErrorCheck(t, names.IdentityStoreEndpointID),
+		ErrorCheck:               acctest.ErrorCheck(t, names.IdentityStoreEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckGroupDestroy(ctx),
 		Steps: []resource.TestStep{

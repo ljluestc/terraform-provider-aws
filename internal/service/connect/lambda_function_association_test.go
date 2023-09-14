@@ -28,31 +28,31 @@ functionAssociation_basic(t *testing.T) {
 function_association.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLambda
+ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLambda
 functionAssociationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLambda
+Steps: []resource.TestStep{
+	{
+Config: testAccLambda
 functionAssociationConfig_basic(rName, rName2),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLambda
+	testAccCheckLambda
 functionAssociationExists(ctx, resourceName),
-					resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
-					resource.TestCheckResourceAttrSet(resourceName, "
+	resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
+	resource.TestCheckResourceAttrSet(resourceName, "
 function_arn"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -66,26 +66,26 @@ functionAssociation_disappears(t *testing.T) {
 function_association.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLambda
+ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLambda
 functionAssociationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLambda
+Steps: []resource.TestStep{
+	{
+Config: testAccLambda
 functionAssociationConfig_basic(rName, rName2),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLambda
+	testAccCheckLambda
 functionAssociationExists(ctx, resourceName),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfconnect.ResourceLambda
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfconnect.ResourceLambda
 functionAssociation(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -95,40 +95,40 @@ functionAssociationDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_connect_lambda_
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_connect_lambda_
 function_association" {
-				continue
-			}
+continue
+	}
 
-			instanceID, 
+	instanceID, 
 functionArn, err := tfconnect.Lambda
 functionAssociationParseResourceID(rs.Primary.ID)
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			lfaArn, err := tfconnect.FindLambda
+	lfaArn, err := tfconnect.FindLambda
 functionAssociationByARNWithContext(ctx, conn, instanceID, 
 functionArn)
 
-			if tfawserr.ErrCodeEquals(err, connect.ErrCodeResourceNotFoundException) {
-				continue
-			}
+	if tfawserr.ErrCodeEquals(err, connect.ErrCodeResourceNotFoundException) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			if lfaArn != "" {
-				return fmt.Errorf("Connect Lambda 
+	if lfaArn != "" {
+return fmt.Errorf("Connect Lambda 
 function Association (%s): still exists", 
 functionArn)
-			}
-		}
-		return nil
+	}
+}
+return nil
 	}
 }
 
@@ -138,46 +138,46 @@ functionAssociationExists(ctx context.Context, resourceName string) resource.Tes
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[resourceName]
-		if !ok {
-			return fmt.Errorf("Connect Lambda 
+rs, ok := s.RootModule().Resources[resourceName]
+if !ok {
+	return fmt.Errorf("Connect Lambda 
 function Association not found: %s", resourceName)
-		}
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("error Connect Lambda 
+if rs.Primary.ID == "" {
+	return fmt.Errorf("error Connect Lambda 
 function Association ID not set")
-		}
+}
 
-		instanceID, 
+instanceID, 
 functionArn, err := tfconnect.Lambda
 functionAssociationParseResourceID(rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)
 
-		lfaArn, err := tfconnect.FindLambda
+lfaArn, err := tfconnect.FindLambda
 functionAssociationByARNWithContext(ctx, conn, instanceID, 
 functionArn)
 
-		if err != nil {
-			return fmt.Errorf("error finding Connect Lambda 
+if err != nil {
+	return fmt.Errorf("error finding Connect Lambda 
 function Association by 
 function Arn (%s): %w", 
 functionArn, err)
-		}
+}
 
-		if lfaArn == "" {
-			return fmt.Errorf("error finding Connect Lambda 
+if lfaArn == "" {
+	return fmt.Errorf("error finding Connect Lambda 
 function Association by 
 function Arn (%s): not found", 
 functionArn)
-		}
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -230,7 +230,7 @@ resource "aws_connect_instance" "test" {
 func testAccLambda
 functionAssociationConfig_basic(rName string, rName2 string) string {
 	return acctest.ConfigCompose(
-		testAccLambda
+testAccLambda
 functionAssociationConfigBase(rName, rName2), `
 resource "aws_connect_lambda_
 function_association" "test" {

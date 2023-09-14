@@ -17,19 +17,19 @@ import (
 func TestAccVPCManagedPrefixListsDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCManagedPrefixListsDataSourceConfig_basic,
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCManagedPrefixListsDataSourceConfig_basic,
+Check: resource.ComposeTestCheck
 func(
-					acctest.CheckResourceAttrGreaterThanValue("data.aws_ec2_managed_prefix_lists.test", "ids.#", 0),
-				),
-			},
-		},
+	acctest.CheckResourceAttrGreaterThanValue("data.aws_ec2_managed_prefix_lists.test", "ids.#", 0),
+),
+	},
+},
 	})
 }
 
@@ -39,19 +39,19 @@ func TestAccVPCManagedPrefixListsDataSource_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCManagedPrefixListsDataSourceConfig_tags(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCManagedPrefixListsDataSourceConfig_tags(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttr("data.aws_ec2_managed_prefix_lists.test", "ids.#", "1"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttr("data.aws_ec2_managed_prefix_lists.test", "ids.#", "1"),
+),
+	},
+},
 	})
 }
 
@@ -59,19 +59,19 @@ func(
 func TestAccVPCManagedPrefixListsDataSource_noMatches(t *testing.T) {
 	ctx := acctest.Context(t)
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCManagedPrefixListsDataSourceConfig_noMatches,
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCManagedPrefixListsDataSourceConfig_noMatches,
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttr("data.aws_ec2_managed_prefix_lists.test", "ids.#", "0"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttr("data.aws_ec2_managed_prefix_lists.test", "ids.#", "0"),
+),
+	},
+},
 	})
 }
 
@@ -85,7 +85,7 @@ func testAccVPCManagedPrefixListsDataSourceConfig_tags(rName string) string {
 resource "aws_ec2_managed_prefix_list" "test" {
   address_family = "IPv4"
   max_entries    = 1
-  name           = %[1]q
+  name  = %[1]q
 
   tags = {
     Name = %[1]q

@@ -18,18 +18,18 @@ func TestAccCloudTrailServiceAccountDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_cloudtrail_service_account.main"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccServiceAccountDataSourceConfig_basic,
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr(dataSourceName, "id", expectedAccountID),
-					acctest.CheckResourceAttrGlobalARNAccountID(dataSourceName, "arn", expectedAccountID, "iam", "root"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccServiceAccountDataSourceConfig_basic,
+Check: resource.ComposeTestCheckFunc(
+	resource.TestCheckResourceAttr(dataSourceName, "id", expectedAccountID),
+	acctest.CheckResourceAttrGlobalARNAccountID(dataSourceName, "arn", expectedAccountID, "iam", "root"),
+),
+	},
+},
 	})
 }
 
@@ -40,18 +40,18 @@ func TestAccCloudTrailServiceAccountDataSource_region(t *testing.T) {
 	dataSourceName := "data.aws_cloudtrail_service_account.regional"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccServiceAccountDataSourceConfig_region,
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr(dataSourceName, "id", expectedAccountID),
-					acctest.CheckResourceAttrGlobalARNAccountID(dataSourceName, "arn", expectedAccountID, "iam", "root"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccServiceAccountDataSourceConfig_region,
+Check: resource.ComposeTestCheckFunc(
+	resource.TestCheckResourceAttr(dataSourceName, "id", expectedAccountID),
+	acctest.CheckResourceAttrGlobalARNAccountID(dataSourceName, "arn", expectedAccountID, "iam", "root"),
+),
+	},
+},
 	})
 }
 

@@ -25,32 +25,32 @@ func TestLBTargetGroupCloudWatchSuffixFromARN(t *testing.T) {
 	t.Parallel()
 
 	cases := []struct {
-		name   string
-		arn    *string
-		suffix string
+name   string
+arn    *string
+suffix string
 	}{
-		{
-			name:   "valid suffix",
-			arn:    aws.String(`arn:aws:elasticloadbalancing:us-east-1:123456:targetgroup/my-targets/73e2d6bc24d8a067`), //lintignore:AWSAT003,AWSAT005
-			suffix: `targetgroup/my-targets/73e2d6bc24d8a067`,
-		},
-		{
-			name:   "no suffix",
-			arn:    aws.String(`arn:aws:elasticloadbalancing:us-east-1:123456:targetgroup`), //lintignore:AWSAT003,AWSAT005
-			suffix: ``,
-		},
-		{
-			name:   "nil ARN",
-			arn:    nil,
-			suffix: ``,
-		},
+{
+	name:   "valid suffix",
+	arn:    aws.String(`arn:aws:elasticloadbalancing:us-east-1:123456:targetgroup/my-targets/73e2d6bc24d8a067`), //lintignore:AWSAT003,AWSAT005
+	suffix: `targetgroup/my-targets/73e2d6bc24d8a067`,
+},
+{
+	name:   "no suffix",
+	arn:    aws.String(`arn:aws:elasticloadbalancing:us-east-1:123456:targetgroup`), //lintignore:AWSAT003,AWSAT005
+	suffix: ``,
+},
+{
+	name:   "nil ARN",
+	arn:    nil,
+	suffix: ``,
+},
 	}
 
 	for _, tc := range cases {
-		actual := tfelbv2.TargetGroupSuffixFromARN(tc.arn)
-		if actual != tc.suffix {
-			t.Fatalf("bad suffix: %q\nExpected: %s\n     Got: %s", tc.name, tc.suffix, actual)
-		}
+actual := tfelbv2.TargetGroupSuffixFromARN(tc.arn)
+if actual != tc.suffix {
+	t.Fatalf("bad suffix: %q\nExpected: %s\n     Got: %s", tc.name, tc.suffix, actual)
+}
 	}
 }
 
@@ -58,32 +58,32 @@ func TestALBTargetGroupCloudWatchSuffixFromARN(t *testing.T) {
 	t.Parallel()
 
 	cases := []struct {
-		name   string
-		arn    *string
-		suffix string
+name   string
+arn    *string
+suffix string
 	}{
-		{
-			name:   "valid suffix",
-			arn:    aws.String(`arn:aws:elasticloadbalancing:us-east-1:123456:targetgroup/my-targets/73e2d6bc24d8a067`), //lintignore:AWSAT003,AWSAT005
-			suffix: `targetgroup/my-targets/73e2d6bc24d8a067`,
-		},
-		{
-			name:   "no suffix",
-			arn:    aws.String(`arn:aws:elasticloadbalancing:us-east-1:123456:targetgroup`), //lintignore:AWSAT003,AWSAT005
-			suffix: ``,
-		},
-		{
-			name:   "nil ARN",
-			arn:    nil,
-			suffix: ``,
-		},
+{
+	name:   "valid suffix",
+	arn:    aws.String(`arn:aws:elasticloadbalancing:us-east-1:123456:targetgroup/my-targets/73e2d6bc24d8a067`), //lintignore:AWSAT003,AWSAT005
+	suffix: `targetgroup/my-targets/73e2d6bc24d8a067`,
+},
+{
+	name:   "no suffix",
+	arn:    aws.String(`arn:aws:elasticloadbalancing:us-east-1:123456:targetgroup`), //lintignore:AWSAT003,AWSAT005
+	suffix: ``,
+},
+{
+	name:   "nil ARN",
+	arn:    nil,
+	suffix: ``,
+},
 	}
 
 	for _, tc := range cases {
-		actual := tfelbv2.TargetGroupSuffixFromARN(tc.arn)
-		if actual != tc.suffix {
-			t.Fatalf("bad suffix: %q\nExpected: %s\n     Got: %s", tc.name, tc.suffix, actual)
-		}
+actual := tfelbv2.TargetGroupSuffixFromARN(tc.arn)
+if actual != tc.suffix {
+	t.Fatalf("bad suffix: %q\nExpected: %s\n     Got: %s", tc.name, tc.suffix, actual)
+}
 	}
 }
 
@@ -94,40 +94,40 @@ func TestAccELBV2TargetGroup_backwardsCompatibility(t *testing.T) {
 	resourceName := "aws_alb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_backwardsCompatibility(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "port", "443"),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
-					resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
-					resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
-					resource.TestCheckResourceAttr(resourceName, "slow_start", "0"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "true"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "lb_cookie"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.cookie_duration", "10000"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/health"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "60"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8081"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTP"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "3"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "3"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "3"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.matcher", "200-299"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Name", rName),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_backwardsCompatibility(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "port", "443"),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
+	resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
+	resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
+	resource.TestCheckResourceAttr(resourceName, "slow_start", "0"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "true"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "lb_cookie"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.cookie_duration", "10000"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/health"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "60"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8081"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTP"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "3"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "3"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "3"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.matcher", "200-299"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Name", rName),
+),
+	},
+},
 	})
 }
 
@@ -138,50 +138,50 @@ func TestAccELBV2TargetGroup_ProtocolVersion_basic(t *testing.T) {
 	resourceName := "aws_lb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_protocolVersion(rName, "HTTP2"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &before),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "port", "443"),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
-					resource.TestCheckResourceAttr(resourceName, "protocol_version", "HTTP2"),
-					resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
-					resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
-					resource.TestCheckResourceAttr(resourceName, "slow_start", "0"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "true"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "lb_cookie"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.cookie_duration", "10000"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/health"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.enabled", "true"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "60"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8081"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTP"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "3"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "3"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "3"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.matcher", "200-299"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Name", rName),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_protocolVersion(rName, "HTTP1"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &after),
-					testAccCheckTargetGroupRecreated(&after, &before),
-					resource.TestCheckResourceAttr(resourceName, "protocol_version", "HTTP1"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_protocolVersion(rName, "HTTP2"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &before),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "port", "443"),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
+	resource.TestCheckResourceAttr(resourceName, "protocol_version", "HTTP2"),
+	resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
+	resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
+	resource.TestCheckResourceAttr(resourceName, "slow_start", "0"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "true"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "lb_cookie"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.cookie_duration", "10000"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/health"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.enabled", "true"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "60"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8081"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTP"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "3"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "3"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "3"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.matcher", "200-299"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Name", rName),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_protocolVersion(rName, "HTTP1"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &after),
+	testAccCheckTargetGroupRecreated(&after, &before),
+	resource.TestCheckResourceAttr(resourceName, "protocol_version", "HTTP1"),
+),
+	},
+},
 	})
 }
 
@@ -192,21 +192,21 @@ func TestAccELBV2TargetGroup_ProtocolVersion_grpcHealthCheck(t *testing.T) {
 	resourceName := "aws_lb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_grpcProtocolVersion(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &targetGroup1),
-					resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/Test.Check/healthcheck"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.matcher", "0-99"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_grpcProtocolVersion(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &targetGroup1),
+	resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/Test.Check/healthcheck"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.matcher", "0-99"),
+),
+	},
+},
 	})
 }
 
@@ -217,28 +217,28 @@ func TestAccELBV2TargetGroup_ProtocolVersion_grpcUpdate(t *testing.T) {
 	resourceName := "aws_lb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_basic(rName, 200),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &targetGroup1),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
-					resource.TestCheckResourceAttr(resourceName, "protocol_version", "HTTP1"),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_grpcProtocolVersion(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &targetGroup1),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "HTTP"),
-					resource.TestCheckResourceAttr(resourceName, "protocol_version", "GRPC"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_basic(rName, 200),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &targetGroup1),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
+	resource.TestCheckResourceAttr(resourceName, "protocol_version", "HTTP1"),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_grpcProtocolVersion(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &targetGroup1),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "HTTP"),
+	resource.TestCheckResourceAttr(resourceName, "protocol_version", "GRPC"),
+),
+	},
+},
 	})
 }
 
@@ -249,31 +249,31 @@ func TestAccELBV2TargetGroup_ipAddressType(t *testing.T) {
 	resourceName := "aws_lb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_ipAddressType(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &targetGroup1),
-					resource.TestCheckResourceAttr(resourceName, "target_type", "ip"),
-					resource.TestCheckResourceAttr(resourceName, "ip_address_type", "ipv6"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-				ImportStateVerifyIgnore: []string{
-					"connection_termination",
-					"lambda_multi_value_headers_enabled",
-					"proxy_protocol_v2",
-					"slow_start",
-				},
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_ipAddressType(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &targetGroup1),
+	resource.TestCheckResourceAttr(resourceName, "target_type", "ip"),
+	resource.TestCheckResourceAttr(resourceName, "ip_address_type", "ipv6"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+ImportStateVerifyIgnore: []string{
+	"connection_termination",
+	"lambda_multi_value_headers_enabled",
+	"proxy_protocol_v2",
+	"slow_start",
+},
+	},
+},
 	})
 }
 
@@ -284,19 +284,19 @@ func TestAccELBV2TargetGroup_tls(t *testing.T) {
 	resourceName := "aws_lb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_protocolTLS(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &targetGroup1),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "TLS"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_protocolTLS(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &targetGroup1),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "TLS"),
+),
+	},
+},
 	})
 }
 
@@ -307,56 +307,56 @@ func TestAccELBV2TargetGroup_HealthCheck_tcpHTTPS(t *testing.T) {
 	resourceName := "aws_lb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_typeTCPHTTPHealthCheck(rName, "/healthz", 2),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &confBefore),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "port", "8082"),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "TCP"),
-					resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
-					resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "300"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "30"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/healthz"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "443"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTPS"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "10"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "2"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Name", rName),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_typeTCPHTTPHealthCheck(rName, "/healthz2", 4),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &confAfter),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "port", "8082"),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "TCP"),
-					resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
-					resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "300"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "30"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/healthz2"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "443"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTPS"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "10"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "4"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "4"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Name", rName),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_typeTCPHTTPHealthCheck(rName, "/healthz", 2),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &confBefore),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "port", "8082"),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "TCP"),
+	resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
+	resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "300"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "30"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/healthz"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "443"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTPS"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "10"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "2"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Name", rName),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_typeTCPHTTPHealthCheck(rName, "/healthz2", 4),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &confAfter),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "port", "8082"),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "TCP"),
+	resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
+	resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "300"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "30"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/healthz2"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "443"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTPS"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "10"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "4"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "4"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Name", rName),
+),
+	},
+},
 	})
 }
 
@@ -367,30 +367,30 @@ func TestAccELBV2TargetGroup_attrsOnCreate(t *testing.T) {
 	resourceName := "aws_lb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_basic(rName, 0),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "0"),
-					resource.TestCheckResourceAttr(resourceName, "slow_start", "0"),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_basic(rName, 200),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
-					resource.TestCheckResourceAttr(resourceName, "slow_start", "0"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_basic(rName, 0),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "0"),
+	resource.TestCheckResourceAttr(resourceName, "slow_start", "0"),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_basic(rName, 200),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
+	resource.TestCheckResourceAttr(resourceName, "slow_start", "0"),
+),
+	},
+},
 	})
 }
 
@@ -401,43 +401,43 @@ func TestAccELBV2TargetGroup_basic(t *testing.T) {
 	resourceName := "aws_lb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_basic(rName, 200),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "port", "443"),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
-					resource.TestCheckResourceAttr(resourceName, "protocol_version", "HTTP1"),
-					resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
-					resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
-					resource.TestCheckResourceAttr(resourceName, "slow_start", "0"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "true"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "lb_cookie"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.cookie_duration", "10000"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/health"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.enabled", "true"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "60"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8081"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTP"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "3"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "3"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "3"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.matcher", "200-299"),
-					resource.TestCheckNoResourceAttr(resourceName, "preserve_client_ip"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Name", rName),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_basic(rName, 200),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "port", "443"),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
+	resource.TestCheckResourceAttr(resourceName, "protocol_version", "HTTP1"),
+	resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
+	resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
+	resource.TestCheckResourceAttr(resourceName, "slow_start", "0"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "true"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "lb_cookie"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.cookie_duration", "10000"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/health"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.enabled", "true"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "60"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8081"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTP"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "3"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "3"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "3"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.matcher", "200-299"),
+	resource.TestCheckNoResourceAttr(resourceName, "preserve_client_ip"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Name", rName),
+),
+	},
+},
 	})
 }
 
@@ -448,28 +448,28 @@ func TestAccELBV2TargetGroup_udp(t *testing.T) {
 	resourceName := "aws_lb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_basicUdp(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "port", "514"),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "UDP"),
-					resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "514"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "TCP"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Name", rName),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_basicUdp(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "port", "514"),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "UDP"),
+	resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "514"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "TCP"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Name", rName),
+),
+	},
+},
 	})
 }
 
@@ -481,27 +481,27 @@ func TestAccELBV2TargetGroup_ForceNew_name(t *testing.T) {
 	resourceName := "aws_lb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_basic(rNameBefore, 200),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &before),
-					resource.TestCheckResourceAttr(resourceName, "name", rNameBefore),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_basic(rNameAfter, 200),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &after),
-					testAccCheckTargetGroupRecreated(&after, &before),
-					resource.TestCheckResourceAttr(resourceName, "name", rNameAfter),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_basic(rNameBefore, 200),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &before),
+	resource.TestCheckResourceAttr(resourceName, "name", rNameBefore),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_basic(rNameAfter, 200),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &after),
+	testAccCheckTargetGroupRecreated(&after, &before),
+	resource.TestCheckResourceAttr(resourceName, "name", rNameAfter),
+),
+	},
+},
 	})
 }
 
@@ -512,27 +512,27 @@ func TestAccELBV2TargetGroup_ForceNew_port(t *testing.T) {
 	resourceName := "aws_lb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_basic(rName, 200),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &before),
-					resource.TestCheckResourceAttr(resourceName, "port", "443"),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_updatedPort(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &after),
-					testAccCheckTargetGroupRecreated(&after, &before),
-					resource.TestCheckResourceAttr(resourceName, "port", "442"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_basic(rName, 200),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &before),
+	resource.TestCheckResourceAttr(resourceName, "port", "443"),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_updatedPort(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &after),
+	testAccCheckTargetGroupRecreated(&after, &before),
+	resource.TestCheckResourceAttr(resourceName, "port", "442"),
+),
+	},
+},
 	})
 }
 
@@ -543,27 +543,27 @@ func TestAccELBV2TargetGroup_ForceNew_protocol(t *testing.T) {
 	resourceName := "aws_lb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_basic(rName, 200),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &before),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_updatedProtocol(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &after),
-					testAccCheckTargetGroupRecreated(&after, &before),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "HTTP"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_basic(rName, 200),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &before),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_updatedProtocol(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &after),
+	testAccCheckTargetGroupRecreated(&after, &before),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "HTTP"),
+),
+	},
+},
 	})
 }
 
@@ -574,25 +574,25 @@ func TestAccELBV2TargetGroup_ForceNew_vpc(t *testing.T) {
 	resourceName := "aws_lb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_basic(rName, 200),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &before),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_updatedVPC(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupRecreated(&after, &before),
-					testAccCheckTargetGroupExists(ctx, resourceName, &after),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_basic(rName, 200),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &before),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_updatedVPC(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupRecreated(&after, &before),
+	testAccCheckTargetGroupExists(ctx, resourceName, &after),
+),
+	},
+},
 	})
 }
 
@@ -603,35 +603,35 @@ func TestAccELBV2TargetGroup_Defaults_application(t *testing.T) {
 	resourceName := "aws_lb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_albDefaults(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "port", "443"),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "HTTP"),
-					resource.TestCheckResourceAttr(resourceName, "protocol_version", "HTTP1"),
-					resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
-					resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
-					resource.TestCheckResourceAttr(resourceName, "slow_start", "0"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "10"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8081"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTP"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "5"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "3"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "3"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Name", rName),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_albDefaults(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "port", "443"),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "HTTP"),
+	resource.TestCheckResourceAttr(resourceName, "protocol_version", "HTTP1"),
+	resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
+	resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
+	resource.TestCheckResourceAttr(resourceName, "slow_start", "0"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "10"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8081"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTP"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "5"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "3"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "3"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Name", rName),
+),
+	},
+},
 	})
 }
 
@@ -660,42 +660,42 @@ timeout  = 4
     `
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config:      testAccTargetGroupConfig_nlbDefaults(rName, healthCheckInvalid1),
-				ExpectError: regexache.MustCompile("health_check.path is not supported for target_groups with TCP protocol"),
-			},
-			{
-				Config:      testAccTargetGroupConfig_nlbDefaults(rName, healthCheckInvalid2),
-				ExpectError: regexache.MustCompile("health_check.matcher is not supported for target_groups with TCP protocol"),
-			},
-			{
-				Config: testAccTargetGroupConfig_nlbDefaults(rName, healthCheckValid),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "port", "443"),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "TCP"),
-					resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
-					resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
-					resource.TestCheckResourceAttr(resourceName, "slow_start", "0"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "10"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8081"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "TCP"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "4"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "3"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "3"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Name", rName),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config:      testAccTargetGroupConfig_nlbDefaults(rName, healthCheckInvalid1),
+ExpectError: regexache.MustCompile("health_check.path is not supported for target_groups with TCP protocol"),
+	},
+	{
+Config:      testAccTargetGroupConfig_nlbDefaults(rName, healthCheckInvalid2),
+ExpectError: regexache.MustCompile("health_check.matcher is not supported for target_groups with TCP protocol"),
+	},
+	{
+Config: testAccTargetGroupConfig_nlbDefaults(rName, healthCheckValid),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "port", "443"),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "TCP"),
+	resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
+	resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
+	resource.TestCheckResourceAttr(resourceName, "slow_start", "0"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "10"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8081"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "TCP"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "4"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "3"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "3"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Name", rName),
+),
+	},
+},
 	})
 }
 
@@ -706,32 +706,32 @@ func TestAccELBV2TargetGroup_HealthCheck_enable(t *testing.T) {
 	resourceName := "aws_lb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_noHealthcheck(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.enabled", "false"),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_enableHealthcheck(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.enabled", "true"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_noHealthcheck(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.enabled", "false"),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_enableHealthcheck(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.enabled", "true"),
+),
+	},
+},
 	})
 }
 
@@ -742,18 +742,18 @@ func TestAccELBV2TargetGroup_Name_generated(t *testing.T) {
 	resourceName := "aws_lb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_generatedName(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_generatedName(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+),
+	},
+},
 	})
 }
 
@@ -764,19 +764,19 @@ func TestAccELBV2TargetGroup_Name_prefix(t *testing.T) {
 	resourceName := "aws_lb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_namePrefix(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestMatchResourceAttr(resourceName, "name", regexache.MustCompile("^tf-")),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_namePrefix(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestMatchResourceAttr(resourceName, "name", regexache.MustCompile("^tf-")),
+),
+	},
+},
 	})
 }
 
@@ -787,59 +787,59 @@ func TestAccELBV2TargetGroup_NetworkLB_tcpHealthCheckUpdated(t *testing.T) {
 	resourceName := "aws_lb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_typeTCP(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &targetGroup1),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "port", "8082"),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "TCP"),
-					resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
-					resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
-					resource.TestCheckResourceAttr(resourceName, "proxy_protocol_v2", "false"),
-					resource.TestCheckResourceAttr(resourceName, "connection_termination", "false"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.enabled", "true"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "10"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "traffic-port"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "TCP"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "10"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "3"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "3"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Name", rName),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_typeTCPHealthCheckUpdated(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &targetGroup2),
-					testAccCheckTargetGroupNotRecreated(&targetGroup1, &targetGroup2),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "port", "8082"),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "TCP"),
-					resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
-					resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.enabled", "true"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "20"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8081"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "TCP"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "15"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "4"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "5"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Name", rName),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_typeTCP(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &targetGroup1),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "port", "8082"),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "TCP"),
+	resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
+	resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
+	resource.TestCheckResourceAttr(resourceName, "proxy_protocol_v2", "false"),
+	resource.TestCheckResourceAttr(resourceName, "connection_termination", "false"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.enabled", "true"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "10"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "traffic-port"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "TCP"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "10"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "3"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "3"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Name", rName),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_typeTCPHealthCheckUpdated(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &targetGroup2),
+	testAccCheckTargetGroupNotRecreated(&targetGroup1, &targetGroup2),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "port", "8082"),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "TCP"),
+	resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
+	resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.enabled", "true"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "20"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8081"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "TCP"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "15"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "4"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "5"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Name", rName),
+),
+	},
+},
 	})
 }
 
@@ -850,26 +850,26 @@ func TestAccELBV2TargetGroup_networkLB_TargetGroupWithConnectionTermination(t *t
 	resourceName := "aws_lb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_typeTCP(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &confBefore),
-					resource.TestCheckResourceAttr(resourceName, "connection_termination", "false"),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_typeTCPConnectionTermination(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &confAfter),
-					resource.TestCheckResourceAttr(resourceName, "connection_termination", "true"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_typeTCP(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &confBefore),
+	resource.TestCheckResourceAttr(resourceName, "connection_termination", "false"),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_typeTCPConnectionTermination(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &confAfter),
+	resource.TestCheckResourceAttr(resourceName, "connection_termination", "true"),
+),
+	},
+},
 	})
 }
 
@@ -880,26 +880,26 @@ func TestAccELBV2TargetGroup_NetworkLB_targetGroupWithProxy(t *testing.T) {
 	resourceName := "aws_lb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_typeTCP(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &confBefore),
-					resource.TestCheckResourceAttr(resourceName, "proxy_protocol_v2", "false"),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_typeTCPProxyProtocol(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &confAfter),
-					resource.TestCheckResourceAttr(resourceName, "proxy_protocol_v2", "true"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_typeTCP(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &confBefore),
+	resource.TestCheckResourceAttr(resourceName, "proxy_protocol_v2", "false"),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_typeTCPProxyProtocol(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &confAfter),
+	resource.TestCheckResourceAttr(resourceName, "proxy_protocol_v2", "true"),
+),
+	},
+},
 	})
 }
 
@@ -910,26 +910,26 @@ func TestAccELBV2TargetGroup_preserveClientIPValid(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_preserveClientIP(rName, true),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "preserve_client_ip", "true"),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_preserveClientIP(rName, false),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "preserve_client_ip", "false"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_preserveClientIP(rName, true),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "preserve_client_ip", "true"),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_preserveClientIP(rName, false),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "preserve_client_ip", "false"),
+),
+	},
+},
 	})
 }
 
@@ -940,32 +940,32 @@ func TestAccELBV2TargetGroup_Geneve_basic(t *testing.T) {
 	resourceName := "aws_lb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckGatewayLoadBalancer(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_protocolGeneve(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "port", "6081"),
-					resource.TestCheckResourceAttr(resourceName, "protocol", elbv2.ProtocolEnumGeneve),
-					resource.TestCheckResourceAttr(resourceName, "tags.Name", rName),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-				ImportStateVerifyIgnore: []string{
-					"connection_termination",
-					"lambda_multi_value_headers_enabled",
-					"proxy_protocol_v2",
-					"slow_start",
-				},
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckGatewayLoadBalancer(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_protocolGeneve(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "port", "6081"),
+	resource.TestCheckResourceAttr(resourceName, "protocol", elbv2.ProtocolEnumGeneve),
+	resource.TestCheckResourceAttr(resourceName, "tags.Name", rName),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+ImportStateVerifyIgnore: []string{
+	"connection_termination",
+	"lambda_multi_value_headers_enabled",
+	"proxy_protocol_v2",
+	"slow_start",
+},
+	},
+},
 	})
 }
 
@@ -976,37 +976,37 @@ func TestAccELBV2TargetGroup_Geneve_notSticky(t *testing.T) {
 	resourceName := "aws_lb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckGatewayLoadBalancer(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_protocolGeneve(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "port", "6081"),
-					resource.TestCheckResourceAttr(resourceName, "protocol", elbv2.ProtocolEnumGeneve),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_protocolGeneveHealth(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "port", "6081"),
-					resource.TestCheckResourceAttr(resourceName, "protocol", elbv2.ProtocolEnumGeneve),
-					resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/health"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.enabled", "true"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "60"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "80"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTP"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "3"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "3"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "3"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckGatewayLoadBalancer(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_protocolGeneve(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "port", "6081"),
+	resource.TestCheckResourceAttr(resourceName, "protocol", elbv2.ProtocolEnumGeneve),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_protocolGeneveHealth(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "port", "6081"),
+	resource.TestCheckResourceAttr(resourceName, "protocol", elbv2.ProtocolEnumGeneve),
+	resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/health"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.enabled", "true"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "60"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "80"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTP"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "3"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "3"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "3"),
+),
+	},
+},
 	})
 }
 
@@ -1017,34 +1017,34 @@ func TestAccELBV2TargetGroup_Geneve_Sticky(t *testing.T) {
 	resourceName := "aws_lb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckGatewayLoadBalancer(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_protocolGeneveSticky(rName, "source_ip_dest_ip"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "port", "6081"),
-					resource.TestCheckResourceAttr(resourceName, "protocol", elbv2.ProtocolEnumGeneve),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "true"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "source_ip_dest_ip"),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_protocolGeneveSticky(rName, "source_ip_dest_ip_proto"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "port", "6081"),
-					resource.TestCheckResourceAttr(resourceName, "protocol", elbv2.ProtocolEnumGeneve),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "true"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "source_ip_dest_ip_proto"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckGatewayLoadBalancer(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_protocolGeneveSticky(rName, "source_ip_dest_ip"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "port", "6081"),
+	resource.TestCheckResourceAttr(resourceName, "protocol", elbv2.ProtocolEnumGeneve),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "true"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "source_ip_dest_ip"),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_protocolGeneveSticky(rName, "source_ip_dest_ip_proto"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "port", "6081"),
+	resource.TestCheckResourceAttr(resourceName, "protocol", elbv2.ProtocolEnumGeneve),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "true"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "source_ip_dest_ip_proto"),
+),
+	},
+},
 	})
 }
 
@@ -1055,54 +1055,54 @@ func TestAccELBV2TargetGroup_Geneve_targetFailover(t *testing.T) {
 	resourceName := "aws_lb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckGatewayLoadBalancer(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_protocolGeneveTargetFailover(rName, "rebalance"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "port", "6081"),
-					resource.TestCheckResourceAttr(resourceName, "protocol", elbv2.ProtocolEnumGeneve),
-					resource.TestCheckResourceAttr(resourceName, "target_failover.0.on_deregistration", "rebalance"),
-					resource.TestCheckResourceAttr(resourceName, "target_failover.0.on_unhealthy", "rebalance"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-				ImportStateVerifyIgnore: []string{
-					"connection_termination",
-					"lambda_multi_value_headers_enabled",
-					"proxy_protocol_v2",
-					"slow_start",
-				},
-			},
-			{
-				Config: testAccTargetGroupConfig_protocolGeneveTargetFailover(rName, "no_rebalance"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "port", "6081"),
-					resource.TestCheckResourceAttr(resourceName, "protocol", elbv2.ProtocolEnumGeneve),
-					resource.TestCheckResourceAttr(resourceName, "target_failover.0.on_deregistration", "no_rebalance"),
-					resource.TestCheckResourceAttr(resourceName, "target_failover.0.on_unhealthy", "no_rebalance"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-				ImportStateVerifyIgnore: []string{
-					"connection_termination",
-					"lambda_multi_value_headers_enabled",
-					"proxy_protocol_v2",
-					"slow_start",
-				},
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckGatewayLoadBalancer(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_protocolGeneveTargetFailover(rName, "rebalance"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "port", "6081"),
+	resource.TestCheckResourceAttr(resourceName, "protocol", elbv2.ProtocolEnumGeneve),
+	resource.TestCheckResourceAttr(resourceName, "target_failover.0.on_deregistration", "rebalance"),
+	resource.TestCheckResourceAttr(resourceName, "target_failover.0.on_unhealthy", "rebalance"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+ImportStateVerifyIgnore: []string{
+	"connection_termination",
+	"lambda_multi_value_headers_enabled",
+	"proxy_protocol_v2",
+	"slow_start",
+},
+	},
+	{
+Config: testAccTargetGroupConfig_protocolGeneveTargetFailover(rName, "no_rebalance"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "port", "6081"),
+	resource.TestCheckResourceAttr(resourceName, "protocol", elbv2.ProtocolEnumGeneve),
+	resource.TestCheckResourceAttr(resourceName, "target_failover.0.on_deregistration", "no_rebalance"),
+	resource.TestCheckResourceAttr(resourceName, "target_failover.0.on_unhealthy", "no_rebalance"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+ImportStateVerifyIgnore: []string{
+	"connection_termination",
+	"lambda_multi_value_headers_enabled",
+	"proxy_protocol_v2",
+	"slow_start",
+},
+	},
+},
 	})
 }
 
@@ -1113,21 +1113,21 @@ func TestAccELBV2TargetGroup_Stickiness_defaultALB(t *testing.T) {
 	resourceName := "aws_lb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_stickinessDefault(rName, "HTTP"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "false"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "lb_cookie"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_stickinessDefault(rName, "HTTP"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "false"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "lb_cookie"),
+),
+	},
+},
 	})
 }
 
@@ -1138,39 +1138,39 @@ func TestAccELBV2TargetGroup_Stickiness_defaultNLB(t *testing.T) {
 	resourceName := "aws_lb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_stickinessDefault(rName, "TCP"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "false"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "source_ip"),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_stickinessDefault(rName, "UDP"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "false"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "source_ip"),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_stickinessDefault(rName, "TCP_UDP"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "false"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "source_ip"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_stickinessDefault(rName, "TCP"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "false"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "source_ip"),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_stickinessDefault(rName, "UDP"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "false"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "source_ip"),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_stickinessDefault(rName, "TCP_UDP"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "false"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "source_ip"),
+),
+	},
+},
 	})
 }
 
@@ -1179,29 +1179,29 @@ func TestAccELBV2TargetGroup_Stickiness_invalidALB(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config:      testAccTargetGroupConfig_stickinessValidity(rName, "HTTP", "source_ip", true),
-				ExpectError: regexache.MustCompile("Stickiness type 'source_ip' is not supported for target groups with"),
-			},
-			{
-				Config:      testAccTargetGroupConfig_stickinessValidity(rName, "HTTPS", "source_ip", true),
-				ExpectError: regexache.MustCompile("Stickiness type 'source_ip' is not supported for target groups with"),
-			},
-			{
-				Config:      testAccTargetGroupConfig_stickinessValidity(rName, "TLS", "lb_cookie", true),
-				ExpectError: regexache.MustCompile("Stickiness type 'lb_cookie' is not supported for target groups with"),
-			},
-			{
-				Config:             testAccTargetGroupConfig_stickinessValidity(rName, "TCP_UDP", "lb_cookie", false),
-				PlanOnly:           true,
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config:      testAccTargetGroupConfig_stickinessValidity(rName, "HTTP", "source_ip", true),
+ExpectError: regexache.MustCompile("Stickiness type 'source_ip' is not supported for target groups with"),
+	},
+	{
+Config:      testAccTargetGroupConfig_stickinessValidity(rName, "HTTPS", "source_ip", true),
+ExpectError: regexache.MustCompile("Stickiness type 'source_ip' is not supported for target groups with"),
+	},
+	{
+Config:      testAccTargetGroupConfig_stickinessValidity(rName, "TLS", "lb_cookie", true),
+ExpectError: regexache.MustCompile("Stickiness type 'lb_cookie' is not supported for target groups with"),
+	},
+	{
+Config:             testAccTargetGroupConfig_stickinessValidity(rName, "TCP_UDP", "lb_cookie", false),
+PlanOnly:           true,
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -1210,28 +1210,28 @@ func TestAccELBV2TargetGroup_Stickiness_invalidNLB(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config:      testAccTargetGroupConfig_stickinessValidity(rName, "TCP", "lb_cookie", true),
-				ExpectError: regexache.MustCompile("Stickiness type 'lb_cookie' is not supported for target groups with"),
-			},
-			{
-				Config:      testAccTargetGroupConfig_stickinessValidity(rName, "TCP", "lb_cookie", false),
-				ExpectError: regexache.MustCompile("Stickiness type 'lb_cookie' is not supported for target groups with"),
-			},
-			{
-				Config:      testAccTargetGroupConfig_stickinessValidity(rName, "UDP", "lb_cookie", true),
-				ExpectError: regexache.MustCompile("Stickiness type 'lb_cookie' is not supported for target groups with"),
-			},
-			{
-				Config:      testAccTargetGroupConfig_stickinessValidity(rName, "TCP_UDP", "lb_cookie", true),
-				ExpectError: regexache.MustCompile("Stickiness type 'lb_cookie' is not supported for target groups with"),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config:      testAccTargetGroupConfig_stickinessValidity(rName, "TCP", "lb_cookie", true),
+ExpectError: regexache.MustCompile("Stickiness type 'lb_cookie' is not supported for target groups with"),
+	},
+	{
+Config:      testAccTargetGroupConfig_stickinessValidity(rName, "TCP", "lb_cookie", false),
+ExpectError: regexache.MustCompile("Stickiness type 'lb_cookie' is not supported for target groups with"),
+	},
+	{
+Config:      testAccTargetGroupConfig_stickinessValidity(rName, "UDP", "lb_cookie", true),
+ExpectError: regexache.MustCompile("Stickiness type 'lb_cookie' is not supported for target groups with"),
+	},
+	{
+Config:      testAccTargetGroupConfig_stickinessValidity(rName, "TCP_UDP", "lb_cookie", true),
+ExpectError: regexache.MustCompile("Stickiness type 'lb_cookie' is not supported for target groups with"),
+	},
+},
 	})
 }
 
@@ -1242,32 +1242,32 @@ func TestAccELBV2TargetGroup_Stickiness_validALB(t *testing.T) {
 	resourceName := "aws_lb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_stickinessValidity(rName, "HTTP", "lb_cookie", true),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "true"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "lb_cookie"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.cookie_duration", "86400"),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_stickinessValidity(rName, "HTTPS", "lb_cookie", true),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "true"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "lb_cookie"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.cookie_duration", "86400"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_stickinessValidity(rName, "HTTP", "lb_cookie", true),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "true"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "lb_cookie"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.cookie_duration", "86400"),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_stickinessValidity(rName, "HTTPS", "lb_cookie", true),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "true"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "lb_cookie"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.cookie_duration", "86400"),
+),
+	},
+},
 	})
 }
 
@@ -1278,48 +1278,48 @@ func TestAccELBV2TargetGroup_Stickiness_validNLB(t *testing.T) {
 	resourceName := "aws_lb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_stickinessValidity(rName, "TCP", "source_ip", false),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "false"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "source_ip"),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_stickinessValidity(rName, "TCP", "source_ip", true),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "true"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "source_ip"),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_stickinessValidity(rName, "UDP", "source_ip", true),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "true"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "source_ip"),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_stickinessValidity(rName, "TCP_UDP", "source_ip", true),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "true"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "source_ip"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_stickinessValidity(rName, "TCP", "source_ip", false),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "false"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "source_ip"),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_stickinessValidity(rName, "TCP", "source_ip", true),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "true"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "source_ip"),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_stickinessValidity(rName, "UDP", "source_ip", true),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "true"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "source_ip"),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_stickinessValidity(rName, "TCP_UDP", "source_ip", true),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "true"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "source_ip"),
+),
+	},
+},
 	})
 }
 
@@ -1330,37 +1330,37 @@ func TestAccELBV2TargetGroup_tags(t *testing.T) {
 	resourceName := "aws_lb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_tags1(rName, "key2", "value2"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_tags1(rName, "key1", "value1"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_tags1(rName, "key2", "value2"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+},
 	})
 }
 
@@ -1371,85 +1371,85 @@ func TestAccELBV2TargetGroup_Stickiness_updateAppEnabled(t *testing.T) {
 	resourceName := "aws_lb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_appStickiness(rName, false, false),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "port", "443"),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
-					resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
-					resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/health2"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "30"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8082"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTPS"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "4"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "4"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "4"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.matcher", "200"),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_appStickiness(rName, true, true),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "port", "443"),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
-					resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
-					resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "true"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "app_cookie"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.cookie_name", "Cookie"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.cookie_duration", "10000"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/health2"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "30"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8082"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTPS"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "4"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "4"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "4"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.matcher", "200"),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_appStickiness(rName, true, false),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "port", "443"),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
-					resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
-					resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "false"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "app_cookie"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.cookie_name", "Cookie"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.cookie_duration", "10000"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/health2"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "30"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8082"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTPS"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "4"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "4"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "4"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.matcher", "200"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_appStickiness(rName, false, false),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "port", "443"),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
+	resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
+	resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/health2"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "30"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8082"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTPS"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "4"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "4"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "4"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.matcher", "200"),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_appStickiness(rName, true, true),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "port", "443"),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
+	resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
+	resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "true"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "app_cookie"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.cookie_name", "Cookie"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.cookie_duration", "10000"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/health2"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "30"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8082"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTPS"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "4"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "4"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "4"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.matcher", "200"),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_appStickiness(rName, true, false),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "port", "443"),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
+	resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
+	resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "false"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "app_cookie"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.cookie_name", "Cookie"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.cookie_duration", "10000"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/health2"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "30"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8082"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTPS"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "4"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "4"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "4"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.matcher", "200"),
+),
+	},
+},
 	})
 }
 
@@ -1460,62 +1460,62 @@ func TestAccELBV2TargetGroup_HealthCheck_update(t *testing.T) {
 	resourceName := "aws_lb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_basic(rName, 200),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "port", "443"),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
-					resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
-					resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "lb_cookie"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.cookie_duration", "10000"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.enabled", "true"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/health"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "60"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8081"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTP"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "3"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "3"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "3"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.matcher", "200-299"),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_updateHealthCheck(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "port", "443"),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
-					resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
-					resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "lb_cookie"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.cookie_duration", "10000"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.enabled", "true"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/health2"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "30"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8082"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTPS"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "4"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "4"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "4"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.matcher", "200"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_basic(rName, 200),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "port", "443"),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
+	resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
+	resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "lb_cookie"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.cookie_duration", "10000"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.enabled", "true"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/health"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "60"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8081"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTP"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "3"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "3"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "3"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.matcher", "200-299"),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_updateHealthCheck(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "port", "443"),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
+	resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
+	resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "lb_cookie"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.cookie_duration", "10000"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.enabled", "true"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/health2"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "30"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8082"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTPS"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "4"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "4"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "4"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.matcher", "200"),
+),
+	},
+},
 	})
 }
 
@@ -1526,83 +1526,83 @@ func TestAccELBV2TargetGroup_Stickiness_updateEnabled(t *testing.T) {
 	resourceName := "aws_lb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_stickiness(rName, false, false),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "port", "443"),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
-					resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
-					resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/health2"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "30"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8082"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTPS"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "4"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "4"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "4"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.matcher", "200"),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_stickiness(rName, true, true),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "port", "443"),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
-					resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
-					resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "true"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "lb_cookie"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.cookie_duration", "10000"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/health2"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "30"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8082"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTPS"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "4"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "4"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "4"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.matcher", "200"),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_stickiness(rName, true, false),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "port", "443"),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
-					resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
-					resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "false"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "lb_cookie"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.cookie_duration", "10000"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/health2"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "30"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8082"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTPS"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "4"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "4"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "4"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.matcher", "200"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_stickiness(rName, false, false),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "port", "443"),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
+	resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
+	resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/health2"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "30"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8082"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTPS"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "4"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "4"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "4"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.matcher", "200"),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_stickiness(rName, true, true),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "port", "443"),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
+	resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
+	resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "true"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "lb_cookie"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.cookie_duration", "10000"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/health2"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "30"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8082"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTPS"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "4"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "4"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "4"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.matcher", "200"),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_stickiness(rName, true, false),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "port", "443"),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
+	resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
+	resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "false"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "lb_cookie"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.cookie_duration", "10000"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/health2"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "30"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8082"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTPS"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "4"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "4"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "4"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.matcher", "200"),
+),
+	},
+},
 	})
 }
 
@@ -1613,22 +1613,22 @@ func TestAccELBV2TargetGroup_HealthCheck_without(t *testing.T) {
 	resourceName := "aws_lb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_noHealthcheck(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.enabled", "false"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_noHealthcheck(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.enabled", "false"),
+),
+	},
+},
 	})
 }
 
@@ -1639,41 +1639,41 @@ func TestAccELBV2TargetGroup_ALBAlias_basic(t *testing.T) {
 	resourceName := "aws_alb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_albBasic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "port", "443"),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
-					resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
-					resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
-					resource.TestCheckResourceAttr(resourceName, "slow_start", "0"),
-					resource.TestCheckResourceAttr(resourceName, "target_type", "instance"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "true"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "lb_cookie"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.cookie_duration", "10000"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/health"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "60"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8081"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTP"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "3"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "3"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "3"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.matcher", "200-299"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.TestName", rName),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_albBasic(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "port", "443"),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
+	resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
+	resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
+	resource.TestCheckResourceAttr(resourceName, "slow_start", "0"),
+	resource.TestCheckResourceAttr(resourceName, "target_type", "instance"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "true"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "lb_cookie"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.cookie_duration", "10000"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/health"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "60"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8081"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTP"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "3"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "3"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "3"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.matcher", "200-299"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.TestName", rName),
+),
+	},
+},
 	})
 }
 
@@ -1685,26 +1685,26 @@ func TestAccELBV2TargetGroup_ALBAlias_changeNameForceNew(t *testing.T) {
 	resourceName := "aws_alb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_albBasic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &before),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_albBasic(rNameAfter),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &after),
-					resource.TestCheckResourceAttr(resourceName, "name", rNameAfter),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_albBasic(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &before),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_albBasic(rNameAfter),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &after),
+	resource.TestCheckResourceAttr(resourceName, "name", rNameAfter),
+),
+	},
+},
 	})
 }
 
@@ -1715,26 +1715,26 @@ func TestAccELBV2TargetGroup_ALBAlias_changePortForceNew(t *testing.T) {
 	resourceName := "aws_alb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_albBasic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &before),
-					resource.TestCheckResourceAttr(resourceName, "port", "443"),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_albUpdatedPort(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &after),
-					resource.TestCheckResourceAttr(resourceName, "port", "442"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_albBasic(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &before),
+	resource.TestCheckResourceAttr(resourceName, "port", "443"),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_albUpdatedPort(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &after),
+	resource.TestCheckResourceAttr(resourceName, "port", "442"),
+),
+	},
+},
 	})
 }
 
@@ -1745,26 +1745,26 @@ func TestAccELBV2TargetGroup_ALBAlias_changeProtocolForceNew(t *testing.T) {
 	resourceName := "aws_alb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_albBasic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &before),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_albUpdatedProtocol(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &after),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "HTTP"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_albBasic(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &before),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_albUpdatedProtocol(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &after),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "HTTP"),
+),
+	},
+},
 	})
 }
 
@@ -1775,24 +1775,24 @@ func TestAccELBV2TargetGroup_ALBAlias_changeVPCForceNew(t *testing.T) {
 	resourceName := "aws_alb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_albBasic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &before),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_albUpdatedVPC(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &after),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_albBasic(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &before),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_albUpdatedVPC(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &after),
+),
+	},
+},
 	})
 }
 
@@ -1803,18 +1803,18 @@ func TestAccELBV2TargetGroup_ALBAlias_generatedName(t *testing.T) {
 	resourceName := "aws_alb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_albGeneratedName(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_albGeneratedName(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+),
+	},
+},
 	})
 }
 
@@ -1825,32 +1825,32 @@ func TestAccELBV2TargetGroup_ALBAlias_lambda(t *testing.T) {
 	resourceName := "aws_alb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_albLambda(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &targetGroup1),
-					resource.TestCheckResourceAttr(resourceName, "lambda_multi_value_headers_enabled", "false"),
-					resource.TestCheckResourceAttr(resourceName, "target_type", "lambda"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-				ImportStateVerifyIgnore: []string{
-					"connection_termination",
-					"deregistration_delay",
-					"proxy_protocol_v2",
-					"slow_start",
-					"load_balancing_algorithm_type",
-				},
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_albLambda(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &targetGroup1),
+	resource.TestCheckResourceAttr(resourceName, "lambda_multi_value_headers_enabled", "false"),
+	resource.TestCheckResourceAttr(resourceName, "target_type", "lambda"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+ImportStateVerifyIgnore: []string{
+	"connection_termination",
+	"deregistration_delay",
+	"proxy_protocol_v2",
+	"slow_start",
+	"load_balancing_algorithm_type",
+},
+	},
+},
 	})
 }
 
@@ -1861,48 +1861,48 @@ func TestAccELBV2TargetGroup_ALBAlias_lambdaMultiValueHeadersEnabled(t *testing.
 	resourceName := "aws_alb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_albLambdaMultiValueHeadersEnabled(rName, true),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &targetGroup1),
-					resource.TestCheckResourceAttr(resourceName, "lambda_multi_value_headers_enabled", "true"),
-					resource.TestCheckResourceAttr(resourceName, "target_type", "lambda"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-				ImportStateVerifyIgnore: []string{
-					"connection_termination",
-					"deregistration_delay",
-					"proxy_protocol_v2",
-					"slow_start",
-					"load_balancing_algorithm_type",
-				},
-			},
-			{
-				Config: testAccTargetGroupConfig_albLambdaMultiValueHeadersEnabled(rName, false),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &targetGroup1),
-					resource.TestCheckResourceAttr(resourceName, "lambda_multi_value_headers_enabled", "false"),
-					resource.TestCheckResourceAttr(resourceName, "target_type", "lambda"),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_albLambdaMultiValueHeadersEnabled(rName, true),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &targetGroup1),
-					resource.TestCheckResourceAttr(resourceName, "lambda_multi_value_headers_enabled", "true"),
-					resource.TestCheckResourceAttr(resourceName, "target_type", "lambda"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_albLambdaMultiValueHeadersEnabled(rName, true),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &targetGroup1),
+	resource.TestCheckResourceAttr(resourceName, "lambda_multi_value_headers_enabled", "true"),
+	resource.TestCheckResourceAttr(resourceName, "target_type", "lambda"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+ImportStateVerifyIgnore: []string{
+	"connection_termination",
+	"deregistration_delay",
+	"proxy_protocol_v2",
+	"slow_start",
+	"load_balancing_algorithm_type",
+},
+	},
+	{
+Config: testAccTargetGroupConfig_albLambdaMultiValueHeadersEnabled(rName, false),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &targetGroup1),
+	resource.TestCheckResourceAttr(resourceName, "lambda_multi_value_headers_enabled", "false"),
+	resource.TestCheckResourceAttr(resourceName, "target_type", "lambda"),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_albLambdaMultiValueHeadersEnabled(rName, true),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &targetGroup1),
+	resource.TestCheckResourceAttr(resourceName, "lambda_multi_value_headers_enabled", "true"),
+	resource.TestCheckResourceAttr(resourceName, "target_type", "lambda"),
+),
+	},
+},
 	})
 }
 
@@ -1911,24 +1911,24 @@ func TestAccELBV2TargetGroup_ALBAlias_missingPortProtocolVPC(t *testing.T) {
 	rName := fmt.Sprintf("test-target-group-%s", sdkacctest.RandString(10))
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config:      testAccTargetGroupConfig_albMissingPort(rName),
-				ExpectError: regexache.MustCompile(`port should be set when target type is`),
-			},
-			{
-				Config:      testAccTargetGroupConfig_albMissingProtocol(rName),
-				ExpectError: regexache.MustCompile(`protocol should be set when target type is`),
-			},
-			{
-				Config:      testAccTargetGroupConfig_albMissingVPC(rName),
-				ExpectError: regexache.MustCompile(`vpc_id should be set when target type is`),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config:      testAccTargetGroupConfig_albMissingPort(rName),
+ExpectError: regexache.MustCompile(`port should be set when target type is`),
+	},
+	{
+Config:      testAccTargetGroupConfig_albMissingProtocol(rName),
+ExpectError: regexache.MustCompile(`protocol should be set when target type is`),
+	},
+	{
+Config:      testAccTargetGroupConfig_albMissingVPC(rName),
+ExpectError: regexache.MustCompile(`vpc_id should be set when target type is`),
+	},
+},
 	})
 }
 
@@ -1939,19 +1939,19 @@ func TestAccELBV2TargetGroup_ALBAlias_namePrefix(t *testing.T) {
 	resourceName := "aws_alb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_albNamePrefix(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestMatchResourceAttr(resourceName, "name", regexache.MustCompile("^tf-")),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_albNamePrefix(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestMatchResourceAttr(resourceName, "name", regexache.MustCompile("^tf-")),
+),
+	},
+},
 	})
 }
 
@@ -1962,26 +1962,26 @@ func TestAccELBV2TargetGroup_ALBAlias_setAndUpdateSlowStart(t *testing.T) {
 	resourceName := "aws_alb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_albUpdateSlowStart(rName, 30),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &before),
-					resource.TestCheckResourceAttr(resourceName, "slow_start", "30"),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_albUpdateSlowStart(rName, 60),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &after),
-					resource.TestCheckResourceAttr(resourceName, "slow_start", "60"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_albUpdateSlowStart(rName, 30),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &before),
+	resource.TestCheckResourceAttr(resourceName, "slow_start", "30"),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_albUpdateSlowStart(rName, 60),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &after),
+	resource.TestCheckResourceAttr(resourceName, "slow_start", "60"),
+),
+	},
+},
 	})
 }
 
@@ -1992,29 +1992,29 @@ func TestAccELBV2TargetGroup_ALBAlias_tags(t *testing.T) {
 	resourceName := "aws_alb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_albBasic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.TestName", rName),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_albUpdateTags(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Environment", "Production"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Type", "ALB Target Group"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_albBasic(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.TestName", rName),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_albUpdateTags(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Environment", "Production"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Type", "ALB Target Group"),
+),
+	},
+},
 	})
 }
 
@@ -2025,60 +2025,60 @@ func TestAccELBV2TargetGroup_ALBAlias_updateHealthCheck(t *testing.T) {
 	resourceName := "aws_alb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_albBasic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "port", "443"),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
-					resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
-					resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "lb_cookie"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.cookie_duration", "10000"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/health"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "60"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8081"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTP"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "3"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "3"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "3"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.matcher", "200-299"),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_albUpdateHealthCheck(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "port", "443"),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
-					resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
-					resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "lb_cookie"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.cookie_duration", "10000"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/health2"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "30"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8082"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTPS"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "4"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "4"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "4"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.matcher", "200"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_albBasic(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "port", "443"),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
+	resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
+	resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "lb_cookie"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.cookie_duration", "10000"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/health"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "60"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8081"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTP"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "3"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "3"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "3"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.matcher", "200-299"),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_albUpdateHealthCheck(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "port", "443"),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
+	resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
+	resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "lb_cookie"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.cookie_duration", "10000"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/health2"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "30"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8082"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTPS"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "4"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "4"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "4"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.matcher", "200"),
+),
+	},
+},
 	})
 }
 
@@ -2089,39 +2089,39 @@ func TestAccELBV2TargetGroup_ALBAlias_updateLoadBalancingAlgorithmType(t *testin
 	resourceName := "aws_alb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_albLoadBalancingAlgorithm(rName, false, ""),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "load_balancing_algorithm_type", "round_robin"),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_albLoadBalancingAlgorithm(rName, true, "round_robin"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "load_balancing_algorithm_type", "round_robin"),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_albLoadBalancingAlgorithm(rName, true, "least_outstanding_requests"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "load_balancing_algorithm_type", "least_outstanding_requests"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_albLoadBalancingAlgorithm(rName, false, ""),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "load_balancing_algorithm_type", "round_robin"),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_albLoadBalancingAlgorithm(rName, true, "round_robin"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "load_balancing_algorithm_type", "round_robin"),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_albLoadBalancingAlgorithm(rName, true, "least_outstanding_requests"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "load_balancing_algorithm_type", "least_outstanding_requests"),
+),
+	},
+},
 	})
 }
 
@@ -2132,39 +2132,39 @@ func TestAccELBV2TargetGroup_ALBAlias_updateLoadBalancingCrossZoneEnabled(t *tes
 	resourceName := "aws_alb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_albLoadBalancingCrossZoneEnabled(rName, false, false),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "load_balancing_cross_zone_enabled", "use_load_balancer_configuration"),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_albLoadBalancingCrossZoneEnabled(rName, true, true),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "load_balancing_cross_zone_enabled", "true"),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_albLoadBalancingCrossZoneEnabled(rName, true, false),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "load_balancing_cross_zone_enabled", "false"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_albLoadBalancingCrossZoneEnabled(rName, false, false),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "load_balancing_cross_zone_enabled", "use_load_balancer_configuration"),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_albLoadBalancingCrossZoneEnabled(rName, true, true),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "load_balancing_cross_zone_enabled", "true"),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_albLoadBalancingCrossZoneEnabled(rName, true, false),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "load_balancing_cross_zone_enabled", "false"),
+),
+	},
+},
 	})
 }
 
@@ -2175,83 +2175,83 @@ func TestAccELBV2TargetGroup_ALBAlias_updateStickinessEnabled(t *testing.T) {
 	resourceName := "aws_alb_target_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_albStickiness(rName, false, false),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "port", "443"),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
-					resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
-					resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/health2"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "30"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8082"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTPS"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "4"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "4"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "4"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.matcher", "200"),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_albStickiness(rName, true, true),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "port", "443"),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
-					resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
-					resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "true"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "lb_cookie"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.cookie_duration", "10000"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/health2"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "30"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8082"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTPS"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "4"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "4"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "4"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.matcher", "200"),
-				),
-			},
-			{
-				Config: testAccTargetGroupConfig_albStickiness(rName, true, false),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "port", "443"),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
-					resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
-					resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "false"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "lb_cookie"),
-					resource.TestCheckResourceAttr(resourceName, "stickiness.0.cookie_duration", "10000"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/health2"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "30"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8082"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTPS"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "4"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "4"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "4"),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.matcher", "200"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_albStickiness(rName, false, false),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "port", "443"),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
+	resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
+	resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/health2"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "30"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8082"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTPS"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "4"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "4"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "4"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.matcher", "200"),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_albStickiness(rName, true, true),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "port", "443"),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
+	resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
+	resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "true"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "lb_cookie"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.cookie_duration", "10000"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/health2"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "30"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8082"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTPS"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "4"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "4"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "4"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.matcher", "200"),
+),
+	},
+	{
+Config: testAccTargetGroupConfig_albStickiness(rName, true, false),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "port", "443"),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
+	resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
+	resource.TestCheckResourceAttr(resourceName, "deregistration_delay", "200"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.enabled", "false"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.type", "lb_cookie"),
+	resource.TestCheckResourceAttr(resourceName, "stickiness.0.cookie_duration", "10000"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.path", "/health2"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.interval", "30"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.port", "8082"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.protocol", "HTTPS"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.timeout", "4"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "4"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.unhealthy_threshold", "4"),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.matcher", "200"),
+),
+	},
+},
 	})
 }
 
@@ -2262,94 +2262,94 @@ func TestAccELBV2TargetGroup_Name_noDuplicates(t *testing.T) {
 	resourceName := "aws_lb_target_group.first"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTargetGroupConfig_duplicateNameFirst(tgName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckTargetGroupExists(ctx, resourceName, &targetGroup),
-					resource.TestCheckResourceAttr(resourceName, "name", tgName),
-				),
-			},
-			{
-				Config:      testAccTargetGroupConfig_duplicateNameFirstAndSecond(tgName),
-				ExpectError: regexache.MustCompile("ELBv2 Target Group (.*?) already exist"),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTargetGroupConfig_duplicateNameFirst(tgName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckTargetGroupExists(ctx, resourceName, &targetGroup),
+	resource.TestCheckResourceAttr(resourceName, "name", tgName),
+),
+	},
+	{
+Config:      testAccTargetGroupConfig_duplicateNameFirstAndSecond(tgName),
+ExpectError: regexache.MustCompile("ELBv2 Target Group (.*?) already exist"),
+	},
+},
 	})
 }
 
 func testAccCheckTargetGroupDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ELBV2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).ELBV2Conn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_lb_target_group" && rs.Type != "aws_alb_target_group" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_lb_target_group" && rs.Type != "aws_alb_target_group" {
+continue
+	}
 
-			_, err := tfelbv2.FindTargetGroupByARN(ctx, conn, rs.Primary.ID)
+	_, err := tfelbv2.FindTargetGroupByARN(ctx, conn, rs.Primary.ID)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("ELBv2 Target Group %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("ELBv2 Target Group %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckTargetGroupExists(ctx context.Context, n string, v *elbv2.TargetGroup) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return errors.New("No ELBv2 Target Group ID is set")
-		}
+if rs.Primary.ID == "" {
+	return errors.New("No ELBv2 Target Group ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ELBV2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).ELBV2Conn(ctx)
 
-		output, err := tfelbv2.FindTargetGroupByARN(ctx, conn, rs.Primary.ID)
+output, err := tfelbv2.FindTargetGroupByARN(ctx, conn, rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*v = *output
+*v = *output
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckTargetGroupNotRecreated(i, j *elbv2.TargetGroup) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		if aws.StringValue(i.TargetGroupArn) != aws.StringValue(j.TargetGroupArn) {
-			return errors.New("ELBv2 Target Group was recreated")
-		}
+if aws.StringValue(i.TargetGroupArn) != aws.StringValue(j.TargetGroupArn) {
+	return errors.New("ELBv2 Target Group was recreated")
+}
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckTargetGroupRecreated(i, j *elbv2.TargetGroup) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		if aws.StringValue(i.TargetGroupArn) == aws.StringValue(j.TargetGroupArn) {
-			return errors.New("ELBv2 Target Group was not recreated")
-		}
+if aws.StringValue(i.TargetGroupArn) == aws.StringValue(j.TargetGroupArn) {
+	return errors.New("ELBv2 Target Group was not recreated")
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -2763,7 +2763,7 @@ func testAccTargetGroupConfig_appStickiness(rName string, addAppStickinessBlock 
 	var appSstickinessBlock string
 
 	if addAppStickinessBlock {
-		appSstickinessBlock = fmt.Sprintf(`
+appSstickinessBlock = fmt.Sprintf(`
 stickiness {
   enabled         = "%[1]t"
   type            = "app_cookie"
@@ -2958,7 +2958,7 @@ func testAccTargetGroupConfig_stickiness(rName string, addStickinessBlock bool, 
 	var stickinessBlock string
 
 	if addStickinessBlock {
-		stickinessBlock = fmt.Sprintf(`
+stickinessBlock = fmt.Sprintf(`
 stickiness {
   enabled         = "%[1]t"
   type            = "lb_cookie"
@@ -3536,7 +3536,7 @@ func testAccTargetGroupConfig_albLoadBalancingAlgorithm(rName string, nonDefault
 	var algoTypeParam string
 
 	if nonDefault {
-		algoTypeParam = fmt.Sprintf(`load_balancing_algorithm_type = "%s"`, algoType)
+algoTypeParam = fmt.Sprintf(`load_balancing_algorithm_type = "%s"`, algoType)
 	}
 
 	return fmt.Sprintf(`
@@ -3562,7 +3562,7 @@ func testAccTargetGroupConfig_albLoadBalancingCrossZoneEnabled(rName string, non
 	var crossZoneParam string
 
 	if nonDefault {
-		crossZoneParam = fmt.Sprintf(`load_balancing_cross_zone_enabled = "%v"`, enabled)
+crossZoneParam = fmt.Sprintf(`load_balancing_cross_zone_enabled = "%v"`, enabled)
 	}
 
 	return fmt.Sprintf(`
@@ -3642,7 +3642,7 @@ func testAccTargetGroupConfig_albStickiness(rName string, addStickinessBlock boo
 	var stickinessBlock string
 
 	if addStickinessBlock {
-		stickinessBlock = fmt.Sprintf(`
+stickinessBlock = fmt.Sprintf(`
 	  stickiness {
 	    enabled         = "%t"
 	    type            = "lb_cookie"

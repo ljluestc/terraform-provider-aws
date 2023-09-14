@@ -27,38 +27,38 @@ func TestAccS3ControlObjectLambdaAccessPoint_basic(t *testing.T) {
 	lambdaFunctionResourceName := "aws_lambda_function.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckObjectLambdaAccessPointDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccObjectLambdaAccessPointConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckObjectLambdaAccessPointExists(ctx, resourceName, &v),
-					acctest.CheckResourceAttrAccountID(resourceName, "account_id"),
-					acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "s3-object-lambda", fmt.Sprintf("accesspoint/%s", rName)),
-					resource.TestCheckResourceAttr(resourceName, "configuration.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "configuration.0.allowed_features.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "configuration.0.cloud_watch_metrics_enabled", "false"),
-					resource.TestCheckResourceAttrPair(resourceName, "configuration.0.supporting_access_point", accessPointResourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "configuration.0.transformation_configuration.#", "1"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "configuration.0.transformation_configuration.*", map[string]string{
-						"actions.#":              "1",
-						"content_transformation.#":              "1",
-						"content_transformation.0.aws_lambda.#": "1",
-						"content_transformation.0.aws_lambda.0.function_payload": "",
-					}),
-					resource.TestCheckTypeSetElemAttr(resourceName, "configuration.0.transformation_configuration.*.actions.*", "GetObject"),
-					resource.TestCheckTypeSetElemAttrPair(resourceName, "configuration.0.transformation_configuration.*.content_transformation.0.aws_lambda.0.function_arn", lambdaFunctionResourceName, "arn"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckObjectLambdaAccessPointDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccObjectLambdaAccessPointConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckObjectLambdaAccessPointExists(ctx, resourceName, &v),
+	acctest.CheckResourceAttrAccountID(resourceName, "account_id"),
+	acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "s3-object-lambda", fmt.Sprintf("accesspoint/%s", rName)),
+	resource.TestCheckResourceAttr(resourceName, "configuration.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "configuration.0.allowed_features.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "configuration.0.cloud_watch_metrics_enabled", "false"),
+	resource.TestCheckResourceAttrPair(resourceName, "configuration.0.supporting_access_point", accessPointResourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "configuration.0.transformation_configuration.#", "1"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "configuration.0.transformation_configuration.*", map[string]string{
+"actions.#":              "1",
+"content_transformation.#":              "1",
+"content_transformation.0.aws_lambda.#": "1",
+"content_transformation.0.aws_lambda.0.function_payload": "",
+	}),
+	resource.TestCheckTypeSetElemAttr(resourceName, "configuration.0.transformation_configuration.*.actions.*", "GetObject"),
+	resource.TestCheckTypeSetElemAttrPair(resourceName, "configuration.0.transformation_configuration.*.content_transformation.0.aws_lambda.0.function_arn", lambdaFunctionResourceName, "arn"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -69,20 +69,20 @@ func TestAccS3ControlObjectLambdaAccessPoint_disappears(t *testing.T) {
 	resourceName := "aws_s3control_object_lambda_access_point.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckObjectLambdaAccessPointDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccObjectLambdaAccessPointConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckObjectLambdaAccessPointExists(ctx, resourceName, &v),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfs3control.ResourceObjectLambdaAccessPoint(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckObjectLambdaAccessPointDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccObjectLambdaAccessPointConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckObjectLambdaAccessPointExists(ctx, resourceName, &v),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfs3control.ResourceObjectLambdaAccessPoint(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -95,124 +95,124 @@ func TestAccS3ControlObjectLambdaAccessPoint_update(t *testing.T) {
 	lambdaFunctionResourceName := "aws_lambda_function.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckObjectLambdaAccessPointDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccObjectLambdaAccessPointConfig_optionals(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckObjectLambdaAccessPointExists(ctx, resourceName, &v),
-					acctest.CheckResourceAttrAccountID(resourceName, "account_id"),
-					acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "s3-object-lambda", fmt.Sprintf("accesspoint/%s", rName)),
-					resource.TestCheckResourceAttr(resourceName, "configuration.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "configuration.0.allowed_features.#", "2"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "configuration.0.allowed_features.*", "GetObject-PartNumber"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "configuration.0.allowed_features.*", "GetObject-Range"),
-					resource.TestCheckResourceAttr(resourceName, "configuration.0.cloud_watch_metrics_enabled", "true"),
-					resource.TestCheckResourceAttrPair(resourceName, "configuration.0.supporting_access_point", accessPointResourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "configuration.0.transformation_configuration.#", "1"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "configuration.0.transformation_configuration.*", map[string]string{
-						"actions.#":              "1",
-						"content_transformation.#":              "1",
-						"content_transformation.0.aws_lambda.#": "1",
-						"content_transformation.0.aws_lambda.0.function_payload": "{\"res-x\": \"100\",\"res-y\": \"100\"}",
-					}),
-					resource.TestCheckTypeSetElemAttr(resourceName, "configuration.0.transformation_configuration.*.actions.*", "GetObject"),
-					resource.TestCheckTypeSetElemAttrPair(resourceName, "configuration.0.transformation_configuration.*.content_transformation.0.aws_lambda.0.function_arn", lambdaFunctionResourceName, "arn"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccObjectLambdaAccessPointConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckObjectLambdaAccessPointExists(ctx, resourceName, &v),
-					acctest.CheckResourceAttrAccountID(resourceName, "account_id"),
-					acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "s3-object-lambda", fmt.Sprintf("accesspoint/%s", rName)),
-					resource.TestCheckResourceAttr(resourceName, "configuration.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "configuration.0.allowed_features.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "configuration.0.cloud_watch_metrics_enabled", "false"),
-					resource.TestCheckResourceAttrPair(resourceName, "configuration.0.supporting_access_point", accessPointResourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "configuration.0.transformation_configuration.#", "1"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "configuration.0.transformation_configuration.*", map[string]string{
-						"actions.#":              "1",
-						"content_transformation.#":              "1",
-						"content_transformation.0.aws_lambda.#": "1",
-						"content_transformation.0.aws_lambda.0.function_payload": "",
-					}),
-					resource.TestCheckTypeSetElemAttr(resourceName, "configuration.0.transformation_configuration.*.actions.*", "GetObject"),
-					resource.TestCheckTypeSetElemAttrPair(resourceName, "configuration.0.transformation_configuration.*.content_transformation.0.aws_lambda.0.function_arn", lambdaFunctionResourceName, "arn"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckObjectLambdaAccessPointDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccObjectLambdaAccessPointConfig_optionals(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckObjectLambdaAccessPointExists(ctx, resourceName, &v),
+	acctest.CheckResourceAttrAccountID(resourceName, "account_id"),
+	acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "s3-object-lambda", fmt.Sprintf("accesspoint/%s", rName)),
+	resource.TestCheckResourceAttr(resourceName, "configuration.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "configuration.0.allowed_features.#", "2"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "configuration.0.allowed_features.*", "GetObject-PartNumber"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "configuration.0.allowed_features.*", "GetObject-Range"),
+	resource.TestCheckResourceAttr(resourceName, "configuration.0.cloud_watch_metrics_enabled", "true"),
+	resource.TestCheckResourceAttrPair(resourceName, "configuration.0.supporting_access_point", accessPointResourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "configuration.0.transformation_configuration.#", "1"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "configuration.0.transformation_configuration.*", map[string]string{
+"actions.#":              "1",
+"content_transformation.#":              "1",
+"content_transformation.0.aws_lambda.#": "1",
+"content_transformation.0.aws_lambda.0.function_payload": "{\"res-x\": \"100\",\"res-y\": \"100\"}",
+	}),
+	resource.TestCheckTypeSetElemAttr(resourceName, "configuration.0.transformation_configuration.*.actions.*", "GetObject"),
+	resource.TestCheckTypeSetElemAttrPair(resourceName, "configuration.0.transformation_configuration.*.content_transformation.0.aws_lambda.0.function_arn", lambdaFunctionResourceName, "arn"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccObjectLambdaAccessPointConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckObjectLambdaAccessPointExists(ctx, resourceName, &v),
+	acctest.CheckResourceAttrAccountID(resourceName, "account_id"),
+	acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "s3-object-lambda", fmt.Sprintf("accesspoint/%s", rName)),
+	resource.TestCheckResourceAttr(resourceName, "configuration.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "configuration.0.allowed_features.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "configuration.0.cloud_watch_metrics_enabled", "false"),
+	resource.TestCheckResourceAttrPair(resourceName, "configuration.0.supporting_access_point", accessPointResourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "configuration.0.transformation_configuration.#", "1"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "configuration.0.transformation_configuration.*", map[string]string{
+"actions.#":              "1",
+"content_transformation.#":              "1",
+"content_transformation.0.aws_lambda.#": "1",
+"content_transformation.0.aws_lambda.0.function_payload": "",
+	}),
+	resource.TestCheckTypeSetElemAttr(resourceName, "configuration.0.transformation_configuration.*.actions.*", "GetObject"),
+	resource.TestCheckTypeSetElemAttrPair(resourceName, "configuration.0.transformation_configuration.*.content_transformation.0.aws_lambda.0.function_arn", lambdaFunctionResourceName, "arn"),
+),
+	},
+},
 	})
 }
 
 func testAccCheckObjectLambdaAccessPointDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).S3ControlConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).S3ControlConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_s3control_object_lambda_access_point" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_s3control_object_lambda_access_point" {
+continue
+	}
 
-			accountID, name, err := tfs3control.ObjectLambdaAccessPointParseResourceID(rs.Primary.ID)
+	accountID, name, err := tfs3control.ObjectLambdaAccessPointParseResourceID(rs.Primary.ID)
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			_, err = tfs3control.FindObjectLambdaAccessPointByTwoPartKey(ctx, conn, accountID, name)
+	_, err = tfs3control.FindObjectLambdaAccessPointByTwoPartKey(ctx, conn, accountID, name)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("S3 Object Lambda Access Point %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("S3 Object Lambda Access Point %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckObjectLambdaAccessPointExists(ctx context.Context, n string, v *s3control.ObjectLambdaConfiguration) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No S3 Object Lambda Access Point ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No S3 Object Lambda Access Point ID is set")
+}
 
-		accountID, name, err := tfs3control.ObjectLambdaAccessPointParseResourceID(rs.Primary.ID)
+accountID, name, err := tfs3control.ObjectLambdaAccessPointParseResourceID(rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).S3ControlConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).S3ControlConn(ctx)
 
-		output, err := tfs3control.FindObjectLambdaAccessPointByTwoPartKey(ctx, conn, accountID, name)
+output, err := tfs3control.FindObjectLambdaAccessPointByTwoPartKey(ctx, conn, accountID, name)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*v = *output
+*v = *output
 
-		return nil
+return nil
 	}
 }
 

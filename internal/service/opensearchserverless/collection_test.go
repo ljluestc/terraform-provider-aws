@@ -29,31 +29,31 @@ func TestAccOpenSearchServerlessCollection_basic(t *testing.T) {
 	resourceName := "aws_opensearchserverless_collection.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, names.OpenSearchServerlessEndpointID)
-			testAccPreCheckCollection(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, names.OpenSearchServerlessEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCollectionDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccCollectionConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckCollectionExists(ctx, resourceName, &collection),
-					resource.TestCheckResourceAttrSet(resourceName, "type"),
-					resource.TestCheckResourceAttrSet(resourceName, "collection_endpoint"),
-					resource.TestCheckResourceAttrSet(resourceName, "dashboard_endpoint"),
-					resource.TestCheckResourceAttrSet(resourceName, "kms_key_arn"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, names.OpenSearchServerlessEndpointID)
+	testAccPreCheckCollection(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, names.OpenSearchServerlessEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckCollectionDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccCollectionConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckCollectionExists(ctx, resourceName, &collection),
+	resource.TestCheckResourceAttrSet(resourceName, "type"),
+	resource.TestCheckResourceAttrSet(resourceName, "collection_endpoint"),
+	resource.TestCheckResourceAttrSet(resourceName, "dashboard_endpoint"),
+	resource.TestCheckResourceAttrSet(resourceName, "kms_key_arn"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -64,41 +64,41 @@ func TestAccOpenSearchServerlessCollection_tags(t *testing.T) {
 	resourceName := "aws_opensearchserverless_collection.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, names.OpenSearchServerlessEndpointID)
-			testAccPreCheckCollection(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, names.OpenSearchServerlessEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCollectionDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccCollectionConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckCollectionExists(ctx, resourceName, &collection),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-				),
-			},
-			{
-				Config: testAccCollectionConfig_tags2(rName, "key1", "value1", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckCollectionExists(ctx, resourceName, &collection),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-			{
-				Config: testAccCollectionConfig_tags1(rName, "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckCollectionExists(ctx, resourceName, &collection),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, names.OpenSearchServerlessEndpointID)
+	testAccPreCheckCollection(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, names.OpenSearchServerlessEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckCollectionDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccCollectionConfig_tags1(rName, "key1", "value1"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckCollectionExists(ctx, resourceName, &collection),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+),
+	},
+	{
+Config: testAccCollectionConfig_tags2(rName, "key1", "value1", "key2", "value2"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckCollectionExists(ctx, resourceName, &collection),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+	{
+Config: testAccCollectionConfig_tags1(rName, "key2", "value2"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckCollectionExists(ctx, resourceName, &collection),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+},
 	})
 }
 
@@ -109,32 +109,32 @@ func TestAccOpenSearchServerlessCollection_update(t *testing.T) {
 	resourceName := "aws_opensearchserverless_collection.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, names.OpenSearchServerlessEndpointID)
-			testAccPreCheckCollection(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, names.OpenSearchServerlessEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCollectionDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccCollectionConfig_update(rName, "description"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckCollectionExists(ctx, resourceName, &collection),
-					resource.TestCheckResourceAttrSet(resourceName, "type"),
-					resource.TestCheckResourceAttr(resourceName, "description", "description"),
-				),
-			},
-			{
-				Config: testAccCollectionConfig_update(rName, "description updated"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckCollectionExists(ctx, resourceName, &collection),
-					resource.TestCheckResourceAttrSet(resourceName, "type"),
-					resource.TestCheckResourceAttr(resourceName, "description", "description updated"),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, names.OpenSearchServerlessEndpointID)
+	testAccPreCheckCollection(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, names.OpenSearchServerlessEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckCollectionDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccCollectionConfig_update(rName, "description"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckCollectionExists(ctx, resourceName, &collection),
+	resource.TestCheckResourceAttrSet(resourceName, "type"),
+	resource.TestCheckResourceAttr(resourceName, "description", "description"),
+),
+	},
+	{
+Config: testAccCollectionConfig_update(rName, "description updated"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckCollectionExists(ctx, resourceName, &collection),
+	resource.TestCheckResourceAttrSet(resourceName, "type"),
+	resource.TestCheckResourceAttr(resourceName, "description", "description updated"),
+),
+	},
+},
 	})
 }
 
@@ -146,74 +146,74 @@ func TestAccOpenSearchServerlessCollection_disappears(t *testing.T) {
 	resourceName := "aws_opensearchserverless_collection.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, names.OpenSearchServerlessEndpointID)
-			testAccPreCheckCollection(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, names.OpenSearchServerlessEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCollectionDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccCollectionConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckCollectionExists(ctx, resourceName, &collection),
-					acctest.CheckFrameworkResourceDisappears(ctx, acctest.Provider, tfopensearchserverless.ResourceCollection, resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, names.OpenSearchServerlessEndpointID)
+	testAccPreCheckCollection(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, names.OpenSearchServerlessEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckCollectionDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccCollectionConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckCollectionExists(ctx, resourceName, &collection),
+	acctest.CheckFrameworkResourceDisappears(ctx, acctest.Provider, tfopensearchserverless.ResourceCollection, resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
 func testAccCheckCollectionDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).OpenSearchServerlessClient(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).OpenSearchServerlessClient(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_opensearchserverless_collection" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_opensearchserverless_collection" {
+continue
+	}
 
-			_, err := tfopensearchserverless.FindCollectionByID(ctx, conn, rs.Primary.ID)
+	_, err := tfopensearchserverless.FindCollectionByID(ctx, conn, rs.Primary.ID)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return create.Error(names.OpenSearchServerless, create.ErrActionCheckingDestroyed, tfopensearchserverless.ResNameCollection, rs.Primary.ID, errors.New("not destroyed"))
-		}
+	return create.Error(names.OpenSearchServerless, create.ErrActionCheckingDestroyed, tfopensearchserverless.ResNameCollection, rs.Primary.ID, errors.New("not destroyed"))
+}
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckCollectionExists(ctx context.Context, name string, collection *types.CollectionDetail) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[name]
-		if !ok {
-			return create.Error(names.OpenSearchServerless, create.ErrActionCheckingExistence, tfopensearchserverless.ResNameCollection, name, errors.New("not found"))
-		}
+rs, ok := s.RootModule().Resources[name]
+if !ok {
+	return create.Error(names.OpenSearchServerless, create.ErrActionCheckingExistence, tfopensearchserverless.ResNameCollection, name, errors.New("not found"))
+}
 
-		if rs.Primary.ID == "" {
-			return create.Error(names.OpenSearchServerless, create.ErrActionCheckingExistence, tfopensearchserverless.ResNameCollection, name, errors.New("not set"))
-		}
+if rs.Primary.ID == "" {
+	return create.Error(names.OpenSearchServerless, create.ErrActionCheckingExistence, tfopensearchserverless.ResNameCollection, name, errors.New("not set"))
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).OpenSearchServerlessClient(ctx)
-		resp, err := tfopensearchserverless.FindCollectionByID(ctx, conn, rs.Primary.ID)
+conn := acctest.Provider.Meta().(*conns.AWSClient).OpenSearchServerlessClient(ctx)
+resp, err := tfopensearchserverless.FindCollectionByID(ctx, conn, rs.Primary.ID)
 
-		if err != nil {
-			return create.Error(names.OpenSearchServerless, create.ErrActionCheckingExistence, tfopensearchserverless.ResNameCollection, rs.Primary.ID, err)
-		}
+if err != nil {
+	return create.Error(names.OpenSearchServerless, create.ErrActionCheckingExistence, tfopensearchserverless.ResNameCollection, rs.Primary.ID, err)
+}
 
-		*collection = *resp
+*collection = *resp
 
-		return nil
+return nil
 	}
 }
 
@@ -224,11 +224,11 @@ func testAccPreCheckCollection(ctx context.Context, t *testing.T) {
 	_, err := conn.ListCollections(ctx, input)
 
 	if acctest.PreCheckSkipError(err) {
-		t.Skipf("skipping acceptance testing: %s", err)
+t.Skipf("skipping acceptance testing: %s", err)
 	}
 
 	if err != nil {
-		t.Fatalf("unexpected PreCheck error: %s", err)
+t.Fatalf("unexpected PreCheck error: %s", err)
 	}
 }
 
@@ -254,8 +254,8 @@ resource "aws_opensearchserverless_security_policy" "test" {
 
 func testAccCollectionConfig_basic(rName string) string {
 	return acctest.ConfigCompose(
-		testAccCollectionBaseConfig(rName),
-		fmt.Sprintf(`
+testAccCollectionBaseConfig(rName),
+fmt.Sprintf(`
 resource "aws_opensearchserverless_collection" "test" {
   name = %[1]q
 
@@ -267,8 +267,8 @@ resource "aws_opensearchserverless_collection" "test" {
 
 func testAccCollectionConfig_update(rName, description string) string {
 	return acctest.ConfigCompose(
-		testAccCollectionBaseConfig(rName),
-		fmt.Sprintf(`
+testAccCollectionBaseConfig(rName),
+fmt.Sprintf(`
 resource "aws_opensearchserverless_collection" "test" {
   name        = %[1]q
   description = %[2]q
@@ -281,8 +281,8 @@ resource "aws_opensearchserverless_collection" "test" {
 
 func testAccCollectionConfig_tags1(rName, key1, value1 string) string {
 	return acctest.ConfigCompose(
-		testAccCollectionBaseConfig(rName),
-		fmt.Sprintf(`
+testAccCollectionBaseConfig(rName),
+fmt.Sprintf(`
 resource "aws_opensearchserverless_collection" "test" {
   name = %[1]q
 
@@ -298,8 +298,8 @@ resource "aws_opensearchserverless_collection" "test" {
 
 func testAccCollectionConfig_tags2(rName, key1, value1, key2, value2 string) string {
 	return acctest.ConfigCompose(
-		testAccCollectionBaseConfig(rName),
-		fmt.Sprintf(`
+testAccCollectionBaseConfig(rName),
+fmt.Sprintf(`
 resource "aws_opensearchserverless_collection" "test" {
   name = %[1]q
 

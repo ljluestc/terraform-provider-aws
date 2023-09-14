@@ -18,30 +18,30 @@ func testAccOrganizationDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_organizations_organization.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckOrganizationsAccount(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, organizations.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccOrganizationDataSourceConfig_newOrganization,
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttrPair(resourceName, "accounts.#", dataSourceName, "accounts.#"),
-					resource.TestCheckResourceAttrPair(resourceName, "arn", dataSourceName, "arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "aws_service_access_principals.#", dataSourceName, "aws_service_access_principals.#"),
-					resource.TestCheckResourceAttrPair(resourceName, "enabled_policy_types.#", dataSourceName, "enabled_policy_types.#"),
-					resource.TestCheckResourceAttrPair(resourceName, "feature_set", dataSourceName, "feature_set"),
-					resource.TestCheckResourceAttrPair(resourceName, "id", dataSourceName, "id"),
-					resource.TestCheckResourceAttrPair(resourceName, "master_account_arn", dataSourceName, "master_account_arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "master_account_email", dataSourceName, "master_account_email"),
-					resource.TestCheckResourceAttrPair(resourceName, "master_account_id", dataSourceName, "master_account_id"),
-					resource.TestCheckResourceAttrPair(resourceName, "non_master_accounts.#", dataSourceName, "non_master_accounts.#"),
-					resource.TestCheckResourceAttrPair(resourceName, "roots.#", dataSourceName, "roots.#"),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckOrganizationsAccount(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, organizations.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccOrganizationDataSourceConfig_newOrganization,
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttrPair(resourceName, "accounts.#", dataSourceName, "accounts.#"),
+	resource.TestCheckResourceAttrPair(resourceName, "arn", dataSourceName, "arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "aws_service_access_principals.#", dataSourceName, "aws_service_access_principals.#"),
+	resource.TestCheckResourceAttrPair(resourceName, "enabled_policy_types.#", dataSourceName, "enabled_policy_types.#"),
+	resource.TestCheckResourceAttrPair(resourceName, "feature_set", dataSourceName, "feature_set"),
+	resource.TestCheckResourceAttrPair(resourceName, "id", dataSourceName, "id"),
+	resource.TestCheckResourceAttrPair(resourceName, "master_account_arn", dataSourceName, "master_account_arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "master_account_email", dataSourceName, "master_account_email"),
+	resource.TestCheckResourceAttrPair(resourceName, "master_account_id", dataSourceName, "master_account_id"),
+	resource.TestCheckResourceAttrPair(resourceName, "non_master_accounts.#", dataSourceName, "non_master_accounts.#"),
+	resource.TestCheckResourceAttrPair(resourceName, "roots.#", dataSourceName, "roots.#"),
+),
+	},
+},
 	})
 }
 
@@ -52,30 +52,30 @@ func testAccOrganizationDataSource_memberAccount(t *testing.T) {
 	dataSourceName := "data.aws_organizations_organization.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckOrganizationsEnabled(ctx, t)
-			acctest.PreCheckOrganizationMemberAccount(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, organizations.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccOrganizationDataSourceConfig_basic,
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckNoResourceAttr(dataSourceName, "accounts.#"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "arn"),
-					resource.TestCheckNoResourceAttr(dataSourceName, "aws_service_access_principals.#"),
-					resource.TestCheckNoResourceAttr(dataSourceName, "enabled_policy_types.#"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "feature_set"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "master_account_arn"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "master_account_email"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "master_account_id"),
-					resource.TestCheckNoResourceAttr(dataSourceName, "non_master_accounts.#"),
-					resource.TestCheckNoResourceAttr(dataSourceName, "roots.#"),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckOrganizationsEnabled(ctx, t)
+	acctest.PreCheckOrganizationMemberAccount(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, organizations.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccOrganizationDataSourceConfig_basic,
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckNoResourceAttr(dataSourceName, "accounts.#"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "arn"),
+	resource.TestCheckNoResourceAttr(dataSourceName, "aws_service_access_principals.#"),
+	resource.TestCheckNoResourceAttr(dataSourceName, "enabled_policy_types.#"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "feature_set"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "master_account_arn"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "master_account_email"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "master_account_id"),
+	resource.TestCheckNoResourceAttr(dataSourceName, "non_master_accounts.#"),
+	resource.TestCheckNoResourceAttr(dataSourceName, "roots.#"),
+),
+	},
+},
 	})
 }
 
@@ -87,30 +87,30 @@ func testAccOrganizationDataSource_delegatedAdministrator(t *testing.T) {
 	dataSourceName := "data.aws_organizations_organization.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckAlternateAccount(t)
-			acctest.PreCheckOrganizationManagementAccount(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, organizations.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccOrganizationDataSourceConfig_delegatedAdministrator,
-				Check: resource.ComposeAggregateTestCheckFunc(
-					acctest.CheckResourceAttrGreaterThanValue(dataSourceName, "accounts.#", 2),
-					resource.TestCheckResourceAttrSet(dataSourceName, "arn"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "aws_service_access_principals.#"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "enabled_policy_types.#"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "feature_set"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "master_account_arn"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "master_account_email"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "master_account_id"),
-					acctest.CheckResourceAttrGreaterThanValue(dataSourceName, "non_master_accounts.#", 1),
-					resource.TestCheckResourceAttrSet(dataSourceName, "roots.#"),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckAlternateAccount(t)
+	acctest.PreCheckOrganizationManagementAccount(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, organizations.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
+Steps: []resource.TestStep{
+	{
+Config: testAccOrganizationDataSourceConfig_delegatedAdministrator,
+Check: resource.ComposeAggregateTestCheckFunc(
+	acctest.CheckResourceAttrGreaterThanValue(dataSourceName, "accounts.#", 2),
+	resource.TestCheckResourceAttrSet(dataSourceName, "arn"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "aws_service_access_principals.#"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "enabled_policy_types.#"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "feature_set"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "master_account_arn"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "master_account_email"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "master_account_id"),
+	acctest.CheckResourceAttrGreaterThanValue(dataSourceName, "non_master_accounts.#", 1),
+	resource.TestCheckResourceAttrSet(dataSourceName, "roots.#"),
+),
+	},
+},
 	})
 }
 

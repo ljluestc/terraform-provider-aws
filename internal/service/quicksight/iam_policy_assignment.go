@@ -42,8 +42,8 @@ const (
 	ResNameIAMPolicyAssignment = "IAM Policy Assignment"
 
 	DefaultIAMPolicyAssignmentNamespace = "default"
-	identitiesUserKey    = "user"
-	identitiesGroupKey   = "group"
+	identitiesUserKey                   = "user"
+	identitiesGroupKey                  = "group"
 )
 
 type resourceIAMPolicyAssignment struct {
@@ -377,7 +377,7 @@ type resourceIAMPolicyAssignmentData struct {
 	AssignmentName   types.String `tfsdk:"assignment_name"`
 	AssignmentStatus types.String `tfsdk:"assignment_status"`
 	AWSAccountID     types.String `tfsdk:"aws_account_id"`
-	IDtypes.String `tfsdk:"id"`
+	IDtypes.String   `tfsdk:"id"`
 	Identities       types.List   `tfsdk:"identities"`
 	Namespace        types.String `tfsdk:"namespace"`
 	PolicyARN        types.String `tfsdk:"policy_arn"`

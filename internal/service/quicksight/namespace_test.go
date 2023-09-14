@@ -28,28 +28,28 @@ func TestAccQuickSightNamespace_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckNamespaceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccNamespaceConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckNamespaceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccNamespaceConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckNamespaceExists(ctx, resourceName, &namespace),
-					resource.TestCheckResourceAttr(resourceName, "namespace", rName),
-					resource.TestCheckResourceAttr(resourceName, "identity_store", quicksight.IdentityStoreQuicksight),
-					acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "quicksight", fmt.Sprintf("namespace/%[1]s", rName)),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckNamespaceExists(ctx, resourceName, &namespace),
+	resource.TestCheckResourceAttr(resourceName, "namespace", rName),
+	resource.TestCheckResourceAttr(resourceName, "identity_store", quicksight.IdentityStoreQuicksight),
+	acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "quicksight", fmt.Sprintf("namespace/%[1]s", rName)),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -61,22 +61,22 @@ func TestAccQuickSightNamespace_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckNamespaceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccNamespaceConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckNamespaceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccNamespaceConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckNamespaceExists(ctx, resourceName, &namespace),
-					acctest.CheckFrameworkResourceDisappears(ctx, acctest.Provider, tfquicksight.ResourceNamespace, resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckNamespaceExists(ctx, resourceName, &namespace),
+	acctest.CheckFrameworkResourceDisappears(ctx, acctest.Provider, tfquicksight.ResourceNamespace, resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -88,49 +88,49 @@ func TestAccQuickSightNamespace_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckNamespaceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccNamespaceConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckNamespaceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccNamespaceConfig_tags1(rName, "key1", "value1"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckNamespaceExists(ctx, resourceName, &namespace),
-					resource.TestCheckResourceAttr(resourceName, "namespace", rName),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccNamespaceConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheck
+	testAccCheckNamespaceExists(ctx, resourceName, &namespace),
+	resource.TestCheckResourceAttr(resourceName, "namespace", rName),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccNamespaceConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckNamespaceExists(ctx, resourceName, &namespace),
-					resource.TestCheckResourceAttr(resourceName, "namespace", rName),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-			{
-				Config: testAccNamespaceConfig_tags1(rName, "key2", "value2"),
-				Check: resource.ComposeTestCheck
+	testAccCheckNamespaceExists(ctx, resourceName, &namespace),
+	resource.TestCheckResourceAttr(resourceName, "namespace", rName),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+	{
+Config: testAccNamespaceConfig_tags1(rName, "key2", "value2"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckNamespaceExists(ctx, resourceName, &namespace),
-					resource.TestCheckResourceAttr(resourceName, "namespace", rName),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-		},
+	testAccCheckNamespaceExists(ctx, resourceName, &namespace),
+	resource.TestCheckResourceAttr(resourceName, "namespace", rName),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+},
 	})
 }
 
@@ -139,20 +139,20 @@ func testAccCheckNamespaceExists(ctx context.Context, resourceName string, names
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[resourceName]
-		if !ok {
-			return fmt.Errorf("Not found: %s", resourceName)
-		}
+rs, ok := s.RootModule().Resources[resourceName]
+if !ok {
+	return fmt.Errorf("Not found: %s", resourceName)
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
-		output, err := tfquicksight.FindNamespaceByID(ctx, conn, rs.Primary.ID)
-		if err != nil {
-			return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameNamespace, rs.Primary.ID, err)
-		}
+conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
+output, err := tfquicksight.FindNamespaceByID(ctx, conn, rs.Primary.ID)
+if err != nil {
+	return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameNamespace, rs.Primary.ID, err)
+}
 
-		*namespace = *output
+*namespace = *output
 
-		return nil
+return nil
 	}
 }
 
@@ -161,26 +161,26 @@ func testAccCheckNamespaceDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_quicksight_namespace" {
-				continue
-			}
+conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_quicksight_namespace" {
+continue
+	}
 
-			output, err := tfquicksight.FindNamespaceByID(ctx, conn, rs.Primary.ID)
-			if err != nil {
-				if tfawserr.ErrCodeEquals(err, quicksight.ErrCodeResourceNotFoundException) {
-					return nil
-				}
-				return err
-			}
+	output, err := tfquicksight.FindNamespaceByID(ctx, conn, rs.Primary.ID)
+	if err != nil {
+if tfawserr.ErrCodeEquals(err, quicksight.ErrCodeResourceNotFoundException) {
+	return nil
+}
+return err
+	}
 
-			if output != nil {
-				return create.Error(names.QuickSight, create.ErrActionCheckingDestroyed, tfquicksight.ResNameNamespace, rs.Primary.ID, err)
-			}
-		}
+	if output != nil {
+return create.Error(names.QuickSight, create.ErrActionCheckingDestroyed, tfquicksight.ResNameNamespace, rs.Primary.ID, err)
+	}
+}
 
-		return nil
+return nil
 	}
 }
 

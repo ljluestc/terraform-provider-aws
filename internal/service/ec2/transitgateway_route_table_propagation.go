@@ -42,14 +42,14 @@ func ResourceTransitGatewayRouteTablePropagation() *schema.Resource {
 				Computed: true,
 			},
 			"transit_gateway_attachment_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
 func: validation.NoZeroValues,
 			},
 			"transit_gateway_route_table_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate

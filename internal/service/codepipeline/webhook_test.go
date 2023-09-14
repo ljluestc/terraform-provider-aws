@@ -31,65 +31,65 @@ func TestAccCodePipelineWebhook_basic(t *testing.T) {
 	resourceName := "aws_codepipeline_webhook.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			testAccPreCheckSupported(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, codepipeline.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPipelineDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccWebhookConfig_basic(rName, githubToken),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckWebhookExists(ctx, resourceName, &v),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "codepipeline", regexache.MustCompile(fmt.Sprintf("webhook:%s", rName))),
-					resource.TestCheckResourceAttr(resourceName, "authentication", "GITHUB_HMAC"),
-					resource.TestCheckResourceAttr(resourceName, "target_action", "Source"),
-					resource.TestCheckResourceAttrPair(resourceName, "target_pipeline", "aws_codepipeline.test", "name"),
-					resource.TestCheckResourceAttr(resourceName, "filter.#", "1"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "filter.*", map[string]string{
-						"json_path":    "$.ref",
-						"match_equals": "refs/head/{Branch}",
-					}),
-					resource.TestCheckResourceAttrSet(resourceName, "url"),
-					resource.TestCheckResourceAttr(resourceName, "authentication_configuration.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "authentication_configuration.0.secret_token", "super-secret"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccWebhookConfig_filters(rName, githubToken),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckWebhookExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "filter.#", "2"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "filter.*", map[string]string{
-						"json_path":    "$.ref",
-						"match_equals": "refs/head/{Branch}",
-					}),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "filter.*", map[string]string{
-						"json_path":    "$.head_commit.modified",
-						"match_equals": "^.*mypath.*$",
-					}),
-				),
-			},
-			{
-				Config: testAccWebhookConfig_basic(rName, githubToken),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckWebhookExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "filter.#", "1"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "filter.*", map[string]string{
-						"json_path":    "$.ref",
-						"match_equals": "refs/head/{Branch}",
-					}),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	testAccPreCheckSupported(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, codepipeline.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckPipelineDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccWebhookConfig_basic(rName, githubToken),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckWebhookExists(ctx, resourceName, &v),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "codepipeline", regexache.MustCompile(fmt.Sprintf("webhook:%s", rName))),
+	resource.TestCheckResourceAttr(resourceName, "authentication", "GITHUB_HMAC"),
+	resource.TestCheckResourceAttr(resourceName, "target_action", "Source"),
+	resource.TestCheckResourceAttrPair(resourceName, "target_pipeline", "aws_codepipeline.test", "name"),
+	resource.TestCheckResourceAttr(resourceName, "filter.#", "1"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "filter.*", map[string]string{
+"json_path":    "$.ref",
+"match_equals": "refs/head/{Branch}",
+	}),
+	resource.TestCheckResourceAttrSet(resourceName, "url"),
+	resource.TestCheckResourceAttr(resourceName, "authentication_configuration.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "authentication_configuration.0.secret_token", "super-secret"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccWebhookConfig_filters(rName, githubToken),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckWebhookExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "filter.#", "2"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "filter.*", map[string]string{
+"json_path":    "$.ref",
+"match_equals": "refs/head/{Branch}",
+	}),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "filter.*", map[string]string{
+"json_path":    "$.head_commit.modified",
+"match_equals": "^.*mypath.*$",
+	}),
+),
+	},
+	{
+Config: testAccWebhookConfig_basic(rName, githubToken),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckWebhookExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "filter.#", "1"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "filter.*", map[string]string{
+"json_path":    "$.ref",
+"match_equals": "refs/head/{Branch}",
+	}),
+),
+	},
+},
 	})
 }
 
@@ -102,30 +102,30 @@ func TestAccCodePipelineWebhook_ipAuth(t *testing.T) {
 	resourceName := "aws_codepipeline_webhook.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			testAccPreCheckSupported(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, codepipeline.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPipelineDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccWebhookConfig_ipAuth(rName, githubToken),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckWebhookExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrSet(resourceName, "id"),
-					resource.TestCheckResourceAttrSet(resourceName, "url"),
-					resource.TestCheckResourceAttr(resourceName, "authentication_configuration.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "authentication_configuration.0.allowed_ip_range", "0.0.0.0/0"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	testAccPreCheckSupported(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, codepipeline.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckPipelineDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccWebhookConfig_ipAuth(rName, githubToken),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckWebhookExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrSet(resourceName, "id"),
+	resource.TestCheckResourceAttrSet(resourceName, "url"),
+	resource.TestCheckResourceAttr(resourceName, "authentication_configuration.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "authentication_configuration.0.allowed_ip_range", "0.0.0.0/0"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -138,28 +138,28 @@ func TestAccCodePipelineWebhook_unauthenticated(t *testing.T) {
 	resourceName := "aws_codepipeline_webhook.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			testAccPreCheckSupported(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, codepipeline.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPipelineDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccWebhookConfig_unauthenticated(rName, githubToken),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckWebhookExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrSet(resourceName, "id"),
-					resource.TestCheckResourceAttrSet(resourceName, "url"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	testAccPreCheckSupported(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, codepipeline.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckPipelineDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccWebhookConfig_unauthenticated(rName, githubToken),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckWebhookExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrSet(resourceName, "id"),
+	resource.TestCheckResourceAttrSet(resourceName, "url"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -172,59 +172,59 @@ func TestAccCodePipelineWebhook_tags(t *testing.T) {
 	resourceName := "aws_codepipeline_webhook.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			testAccPreCheckSupported(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, codepipeline.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPipelineDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccWebhookConfig_tags(rName, "tag1value", "tag2value", githubToken),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckWebhookExists(ctx, resourceName, &v1),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "3"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Name", rName),
-					resource.TestCheckResourceAttr(resourceName, "tags.tag1", "tag1value"),
-					resource.TestCheckResourceAttr(resourceName, "tags.tag2", "tag2value"),
-				),
-			},
-			{
-				Config: testAccWebhookConfig_tags(rName, "tag1valueUpdate", "tag2valueUpdate", githubToken),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckWebhookExists(ctx, resourceName, &v2),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "3"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Name", rName),
-					resource.TestCheckResourceAttr(resourceName, "tags.tag1", "tag1valueUpdate"),
-					resource.TestCheckResourceAttr(resourceName, "tags.tag2", "tag2valueUpdate"),
-					func(s *terraform.State) error {
-						if aws.StringValue(v2.Url) != aws.StringValue(v1.Url) {
-							return fmt.Errorf("Codepipeline webhook recreated when changing tags")
-						}
-						return nil
-					},
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccWebhookConfig_basic(rName, githubToken),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckWebhookExists(ctx, resourceName, &v3),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-					func(s *terraform.State) error {
-						if aws.StringValue(v3.Url) != aws.StringValue(v2.Url) {
-							return fmt.Errorf("Codepipeline webhook recreated when deleting tags")
-						}
-						return nil
-					},
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	testAccPreCheckSupported(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, codepipeline.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckPipelineDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccWebhookConfig_tags(rName, "tag1value", "tag2value", githubToken),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckWebhookExists(ctx, resourceName, &v1),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "3"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Name", rName),
+	resource.TestCheckResourceAttr(resourceName, "tags.tag1", "tag1value"),
+	resource.TestCheckResourceAttr(resourceName, "tags.tag2", "tag2value"),
+),
+	},
+	{
+Config: testAccWebhookConfig_tags(rName, "tag1valueUpdate", "tag2valueUpdate", githubToken),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckWebhookExists(ctx, resourceName, &v2),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "3"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Name", rName),
+	resource.TestCheckResourceAttr(resourceName, "tags.tag1", "tag1valueUpdate"),
+	resource.TestCheckResourceAttr(resourceName, "tags.tag2", "tag2valueUpdate"),
+	func(s *terraform.State) error {
+if aws.StringValue(v2.Url) != aws.StringValue(v1.Url) {
+	return fmt.Errorf("Codepipeline webhook recreated when changing tags")
+}
+return nil
+	},
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccWebhookConfig_basic(rName, githubToken),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckWebhookExists(ctx, resourceName, &v3),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+	func(s *terraform.State) error {
+if aws.StringValue(v3.Url) != aws.StringValue(v2.Url) {
+	return fmt.Errorf("Codepipeline webhook recreated when deleting tags")
+}
+return nil
+	},
+),
+	},
+},
 	})
 }
 
@@ -237,24 +237,24 @@ func TestAccCodePipelineWebhook_disappears(t *testing.T) {
 	resourceName := "aws_codepipeline_webhook.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			testAccPreCheckSupported(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, codepipeline.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPipelineDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccWebhookConfig_basic(rName, githubToken),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckWebhookExists(ctx, resourceName, &v),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfcodepipeline.ResourceWebhook(), resourceName),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfcodepipeline.ResourceWebhook(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	testAccPreCheckSupported(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, codepipeline.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckPipelineDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccWebhookConfig_basic(rName, githubToken),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckWebhookExists(ctx, resourceName, &v),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfcodepipeline.ResourceWebhook(), resourceName),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfcodepipeline.ResourceWebhook(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -267,66 +267,66 @@ func TestAccCodePipelineWebhook_UpdateAuthentication_secretToken(t *testing.T) {
 	resourceName := "aws_codepipeline_webhook.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			testAccPreCheckSupported(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, codepipeline.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPipelineDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccWebhookConfig_basic(rName, githubToken),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckWebhookExists(ctx, resourceName, &v1),
-					resource.TestCheckResourceAttrSet(resourceName, "id"),
-					resource.TestCheckResourceAttrSet(resourceName, "url"),
-					resource.TestCheckResourceAttr(resourceName, "authentication_configuration.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "authentication_configuration.0.secret_token", "super-secret"),
-				),
-			},
-			{
-				Config: testAccWebhookConfig_secretTokenUpdated(rName, githubToken),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckWebhookExists(ctx, resourceName, &v2),
-					resource.TestCheckResourceAttrSet(resourceName, "id"),
-					resource.TestCheckResourceAttrSet(resourceName, "url"),
-					resource.TestCheckResourceAttr(resourceName, "authentication_configuration.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "authentication_configuration.0.secret_token", "even-more-secret"),
-					func(s *terraform.State) error {
-						if aws.StringValue(v2.Url) == aws.StringValue(v1.Url) {
-							return fmt.Errorf("Codepipeline webhook not recreated when updating authentication_configuration.secret_token")
-						}
-						return nil
-					},
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	testAccPreCheckSupported(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, codepipeline.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckPipelineDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccWebhookConfig_basic(rName, githubToken),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckWebhookExists(ctx, resourceName, &v1),
+	resource.TestCheckResourceAttrSet(resourceName, "id"),
+	resource.TestCheckResourceAttrSet(resourceName, "url"),
+	resource.TestCheckResourceAttr(resourceName, "authentication_configuration.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "authentication_configuration.0.secret_token", "super-secret"),
+),
+	},
+	{
+Config: testAccWebhookConfig_secretTokenUpdated(rName, githubToken),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckWebhookExists(ctx, resourceName, &v2),
+	resource.TestCheckResourceAttrSet(resourceName, "id"),
+	resource.TestCheckResourceAttrSet(resourceName, "url"),
+	resource.TestCheckResourceAttr(resourceName, "authentication_configuration.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "authentication_configuration.0.secret_token", "even-more-secret"),
+	func(s *terraform.State) error {
+if aws.StringValue(v2.Url) == aws.StringValue(v1.Url) {
+	return fmt.Errorf("Codepipeline webhook not recreated when updating authentication_configuration.secret_token")
+}
+return nil
+	},
+),
+	},
+},
 	})
 }
 
 func testAccCheckWebhookExists(ctx context.Context, n string, webhook *codepipeline.ListWebhookItem) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No webhook ARN is set as ID")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No webhook ARN is set as ID")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).CodePipelineConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).CodePipelineConn(ctx)
 
-		resp, err := tfcodepipeline.GetWebhook(ctx, conn, rs.Primary.ID)
+resp, err := tfcodepipeline.GetWebhook(ctx, conn, rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*webhook = *resp
+*webhook = *resp
 
-		return nil
+return nil
 	}
 }
 

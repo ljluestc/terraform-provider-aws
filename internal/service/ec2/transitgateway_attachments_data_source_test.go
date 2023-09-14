@@ -20,19 +20,19 @@ func testAccTransitGatewayAttachmentsDataSource_Filter(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTransitGatewayAttachmentsDataSourceConfig_filter(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccTransitGatewayAttachmentsDataSourceConfig_filter(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttr(dataSourceName, "ids.#", "1"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttr(dataSourceName, "ids.#", "1"),
+),
+	},
+},
 	})
 }
 
@@ -46,9 +46,9 @@ resource "aws_ec2_transit_gateway" "test" {
 }
 
 resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
-  subnet_ids         = aws_subnet.test[*].id
+  subnet_ids= aws_subnet.test[*].id
   transit_gateway_id = aws_ec2_transit_gateway.test.id
-  vpc_id             = aws_vpc.test.id
+  vpc_id    = aws_vpc.test.id
 
   tags = {
     Name = %[1]q

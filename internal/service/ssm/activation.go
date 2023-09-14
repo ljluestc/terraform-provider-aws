@@ -26,59 +26,59 @@ import (
 // @Tags
 func ResourceActivation() *schema.Resource {
 	return &schema.Resource{
-		CreateWithoutTimeout: resourceActivationCreate,
-		ReadWithoutTimeout:   resourceActivationRead,
-		DeleteWithoutTimeout: resourceActivationDelete,
+CreateWithoutTimeout: resourceActivationCreate,
+ReadWithoutTimeout:   resourceActivationRead,
+DeleteWithoutTimeout: resourceActivationDelete,
 
-		Importer: &schema.ResourceImporter{
-			StateContext: schema.ImportStatePassthroughContext,
-		},
+Importer: &schema.ResourceImporter{
+	StateContext: schema.ImportStatePassthroughContext,
+},
 
-		Schema: map[string]*schema.Schema{
-			"activation_code": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"description": {
-				Type:     schema.TypeString,
-				Optional: true,
-				ForceNew: true,
-			},
-			"expiration_date": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
-				ForceNew:     true,
-				ValidateFunc: validation.IsRFC3339Time,
-			},
-			"expired": {
-				Type:     schema.TypeBool,
-				Computed: true,
-			},
-			"iam_role": {
-				Type:     schema.TypeString,
-				Required: true,
-				ForceNew: true,
-			},
-			"name": {
-				Type:     schema.TypeString,
-				Optional: true,
-				ForceNew: true,
-			},
-			"registration_count": {
-				Type:     schema.TypeInt,
-				Computed: true,
-			},
-			"registration_limit": {
-				Type:     schema.TypeInt,
-				Optional: true,
-				ForceNew: true,
-			},
-			names.AttrTags:    tftags.TagsSchemaForceNew(),
-			names.AttrTagsAll: tftags.TagsSchemaComputed(),
-		},
+Schema: map[string]*schema.Schema{
+	"activation_code": {
+Type:     schema.TypeString,
+Computed: true,
+	},
+	"description": {
+Type:     schema.TypeString,
+Optional: true,
+ForceNew: true,
+	},
+	"expiration_date": {
+Type:         schema.TypeString,
+Optional:     true,
+Computed:     true,
+ForceNew:     true,
+ValidateFunc: validation.IsRFC3339Time,
+	},
+	"expired": {
+Type:     schema.TypeBool,
+Computed: true,
+	},
+	"iam_role": {
+Type:     schema.TypeString,
+Required: true,
+ForceNew: true,
+	},
+	"name": {
+Type:     schema.TypeString,
+Optional: true,
+ForceNew: true,
+	},
+	"registration_count": {
+Type:     schema.TypeInt,
+Computed: true,
+	},
+	"registration_limit": {
+Type:     schema.TypeInt,
+Optional: true,
+ForceNew: true,
+	},
+	names.AttrTags:    tftags.TagsSchemaForceNew(),
+	names.AttrTagsAll: tftags.TagsSchemaComputed(),
+},
 
-		CustomizeDiff: verify.SetTagsDiff,
+CustomizeDiff: verify.SetTagsDiff,
 	}
 }
 
@@ -88,30 +88,30 @@ func resourceActivationCreate(ctx context.Context, d *schema.ResourceData, meta 
 
 	name := d.Get("name").(string)
 	input := &ssm.CreateActivationInput{
-		DefaultInstanceName: aws.String(name),
-		IamRole:             aws.String(d.Get("iam_role").(string)),
-		Tags: getTagsIn(ctx),
+DefaultInstanceName: aws.String(name),
+IamRole:             aws.String(d.Get("iam_role").(string)),
+Tags: getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
-		input.Description = aws.String(v.(string))
+input.Description = aws.String(v.(string))
 	}
 
 	if v, ok := d.GetOk("expiration_date"); ok {
-		t, _ := time.Parse(time.RFC3339, v.(string))
-		input.ExpirationDate = aws.Time(t)
+t, _ := time.Parse(time.RFC3339, v.(string))
+input.ExpirationDate = aws.Time(t)
 	}
 
 	if v, ok := d.GetOk("registration_limit"); ok {
-		input.RegistrationLimit = aws.Int64(int64(v.(int)))
+input.RegistrationLimit = aws.Int64(int64(v.(int)))
 	}
 
 	outputRaw, err := tfresource.RetryWhenAWSErrMessageContains(ctx, propagationTimeout, func() (interface{}, error) {
-		return conn.CreateActivationWithContext(ctx, input)
+return conn.CreateActivationWithContext(ctx, input)
 	}, "ValidationException", "Nonexistent role")
 
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "creating SSM Activation (%s): %s", name, err)
+return sdkdiag.AppendErrorf(diags, "creating SSM Activation (%s): %s", name, err)
 	}
 
 	output := outputRaw.(*ssm.CreateActivationOutput)
@@ -129,13 +129,13 @@ func resourceActivationRead(ctx context.Context, d *schema.ResourceData, meta in
 	activation, err := FindActivationByID(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
-		log.Printf("[WARN] SSM Activation %s not found, removing from state", d.Id())
-		d.SetId("")
-		return diags
+log.Printf("[WARN] SSM Activation %s not found, removing from state", d.Id())
+d.SetId("")
+return diags
 	}
 
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "reading SSM Activation (%s): %s", d.Id(), err)
+return sdkdiag.AppendErrorf(diags, "reading SSM Activation (%s): %s", d.Id(), err)
 	}
 
 	d.Set("description", activation.Description)
@@ -157,15 +157,15 @@ func resourceActivationDelete(ctx context.Context, d *schema.ResourceData, meta 
 
 	log.Printf("[DEBUG] Deleting SSM Activation: %s", d.Id())
 	_, err := conn.DeleteActivationWithContext(ctx, &ssm.DeleteActivationInput{
-		ActivationId: aws.String(d.Id()),
+ActivationId: aws.String(d.Id()),
 	})
 
 	if tfawserr.ErrCodeEquals(err, ssm.ErrCodeInvalidActivation) {
-		return diags
+return diags
 	}
 
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "deleting SSM Activation (%s): %s", d.Id(), err)
+return sdkdiag.AppendErrorf(diags, "deleting SSM Activation (%s): %s", d.Id(), err)
 	}
 
 	return diags
@@ -173,12 +173,12 @@ func resourceActivationDelete(ctx context.Context, d *schema.ResourceData, meta 
 
 func FindActivationByID(ctx context.Context, conn *ssm.SSM, id string) (*ssm.Activation, error) {
 	input := &ssm.DescribeActivationsInput{
-		Filters: []*ssm.DescribeActivationsFilter{
-			{
-				FilterKey:    aws.String("ActivationIds"),
-				FilterValues: aws.StringSlice([]string{id}),
-			},
-		},
+Filters: []*ssm.DescribeActivationsFilter{
+	{
+FilterKey:    aws.String("ActivationIds"),
+FilterValues: aws.StringSlice([]string{id}),
+	},
+},
 	}
 
 	return findActivation(ctx, conn, input)
@@ -188,29 +188,29 @@ func findActivation(ctx context.Context, conn *ssm.SSM, input *ssm.DescribeActiv
 	var output []*ssm.Activation
 
 	err := conn.DescribeActivationsPagesWithContext(ctx, input, func(page *ssm.DescribeActivationsOutput, lastPage bool) bool {
-		if page == nil {
-			return !lastPage
-		}
+if page == nil {
+	return !lastPage
+}
 
-		for _, v := range page.ActivationList {
-			if v != nil {
-				output = append(output, v)
-			}
-		}
+for _, v := range page.ActivationList {
+	if v != nil {
+output = append(output, v)
+	}
+}
 
-		return !lastPage
+return !lastPage
 	})
 
 	if err != nil {
-		return nil, err
+return nil, err
 	}
 
 	if len(output) == 0 || output[0] == nil {
-		return nil, tfresource.NewEmptyResultError(input)
+return nil, tfresource.NewEmptyResultError(input)
 	}
 
 	if count := len(output); count > 1 {
-		return nil, tfresource.NewTooManyResultsError(count, input)
+return nil, tfresource.NewTooManyResultsError(count, input)
 	}
 
 	return output[0], nil

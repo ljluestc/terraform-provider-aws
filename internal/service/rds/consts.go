@@ -44,11 +44,11 @@ const (
 
 func StorageType_Values() []string {
 	return []string{
-		storageTypeStandard,
-		storageTypeGP2,
-		storageTypeGP3,
-		storageTypeIO1,
-		storageTypeAuroraIOPT1,
+storageTypeStandard,
+storageTypeGP2,
+storageTypeGP3,
+storageTypeIO1,
+storageTypeAuroraIOPT1,
 	}
 }
 
@@ -132,10 +132,10 @@ const (
 
 func ClusterEngine_Values() []string {
 	return []string{
-		ClusterEngineAuroraMySQL,
-		ClusterEngineAuroraPostgreSQL,
-		ClusterEngineMySQL,
-		ClusterEnginePostgres,
+ClusterEngineAuroraMySQL,
+ClusterEngineAuroraPostgreSQL,
+ClusterEngineMySQL,
+ClusterEnginePostgres,
 	}
 }
 
@@ -147,9 +147,9 @@ const (
 
 func GlobalClusterEngine_Values() []string {
 	return []string{
-		GlobalClusterEngineAurora,
-		GlobalClusterEngineAuroraMySQL,
-		GlobalClusterEngineAuroraPostgreSQL,
+GlobalClusterEngineAurora,
+GlobalClusterEngineAuroraMySQL,
+GlobalClusterEngineAuroraPostgreSQL,
 	}
 }
 
@@ -163,11 +163,11 @@ const (
 
 func EngineMode_Values() []string {
 	return []string{
-		EngineModeGlobal,
-		EngineModeMultiMaster,
-		EngineModeParallelQuery,
-		EngineModeProvisioned,
-		EngineModeServerless,
+EngineModeGlobal,
+EngineModeMultiMaster,
+EngineModeParallelQuery,
+EngineModeProvisioned,
+EngineModeServerless,
 	}
 }
 
@@ -187,28 +187,28 @@ const (
 
 func ClusterExportableLogType_Values() []string {
 	return []string{
-		ExportableLogTypeAudit,
-		ExportableLogTypeError,
-		ExportableLogTypeGeneral,
-		ExportableLogTypePostgreSQL,
-		ExportableLogTypeSlowQuery,
-		ExportableLogTypeUpgrade,
+ExportableLogTypeAudit,
+ExportableLogTypeError,
+ExportableLogTypeGeneral,
+ExportableLogTypePostgreSQL,
+ExportableLogTypeSlowQuery,
+ExportableLogTypeUpgrade,
 	}
 }
 
 func InstanceExportableLogType_Values() []string {
 	return []string{
-		ExportableLogTypeAgent,
-		ExportableLogTypeAlert,
-		ExportableLogTypeAudit,
-		ExportableLogTypeError,
-		ExportableLogTypeGeneral,
-		ExportableLogTypeListener,
-		ExportableLogTypeOEMAgent,
-		ExportableLogTypePostgreSQL,
-		ExportableLogTypeSlowQuery,
-		ExportableLogTypeTrace,
-		ExportableLogTypeUpgrade,
+ExportableLogTypeAgent,
+ExportableLogTypeAlert,
+ExportableLogTypeAudit,
+ExportableLogTypeError,
+ExportableLogTypeGeneral,
+ExportableLogTypeListener,
+ExportableLogTypeOEMAgent,
+ExportableLogTypePostgreSQL,
+ExportableLogTypeSlowQuery,
+ExportableLogTypeTrace,
+ExportableLogTypeUpgrade,
 	}
 }
 
@@ -219,8 +219,8 @@ const (
 
 func NetworkType_Values() []string {
 	return []string{
-		NetworkTypeDual,
-		NetworkTypeIPv4,
+NetworkTypeDual,
+NetworkTypeIPv4,
 	}
 }
 
@@ -231,8 +231,8 @@ const (
 
 func RestoreType_Values() []string {
 	return []string{
-		RestoreTypeCopyOnWrite,
-		RestoreTypeFullCopy,
+RestoreTypeCopyOnWrite,
+RestoreTypeFullCopy,
 	}
 }
 
@@ -243,8 +243,8 @@ const (
 
 func TimeoutAction_Values() []string {
 	return []string{
-		TimeoutActionForceApplyCapacityChange,
-		TimeoutActionRollbackCapacityChange,
+TimeoutActionForceApplyCapacityChange,
+TimeoutActionRollbackCapacityChange,
 	}
 }
 
@@ -255,8 +255,8 @@ const (
 
 func backupTarget_Values() []string {
 	return []string{
-		backupTargetOutposts,
-		backupTargetRegion,
+backupTargetOutposts,
+backupTargetRegion,
 	}
 }
 

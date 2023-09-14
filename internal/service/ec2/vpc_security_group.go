@@ -61,7 +61,7 @@ func ResourceSecurityGroup() *schema.Resource {
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Default:      "Managed by Terraform",
@@ -71,7 +71,7 @@ func: validation.StringLenBetween(0, 255),
 			"egress":  securityGroupRuleSetNestedBlock,
 			"ingress": securityGroupRuleSetNestedBlock,
 			"name": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -83,7 +83,7 @@ func: validation.All(
 				),
 			},
 			"name_prefix": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -135,13 +135,13 @@ var (
 				Type:     schema.TypeList,
 				Optional: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Validate
 func: verify.ValidIPv4CIDRNetworkAddress,
 				},
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Validate
 func: validSecurityGroupRuleDescription,
@@ -154,7 +154,7 @@ func: validSecurityGroupRuleDescription,
 				Type:     schema.TypeList,
 				Optional: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Validate
 func: verify.ValidIPv6CIDRNetworkAddress,
 				},
@@ -196,7 +196,7 @@ func resourceSecurityGroupCreate(ctx context.Context, d *schema.ResourceData, me
 
 	name := create.Name(d.Get("name").(string), d.Get("name_prefix").(string))
 	inputC := &ec2.CreateSecurityGroupInput{
-		GroupName:         aws.String(name),
+		GroupName:aws.String(name),
 		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeSecurityGroup),
 	}
 
@@ -469,7 +469,7 @@ func forceRevokeSecurityGroupRules(ctx context.Context, conn *ec2.EC2, id string
 			_, err = conn.RevokeSecurityGroupIngressWithContext(ctx, input)
 		} else {
 			input := &ec2.RevokeSecurityGroupEgressInput{
-				GroupId:              rule.GroupId,
+				GroupId:     rule.GroupId,
 				SecurityGroupRuleIds: []*string{rule.SecurityGroupRuleId},
 			}
 

@@ -37,7 +37,7 @@ func TestAccFinSpaceKxDatabase_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 		},
-		ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckKxDatabaseDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -72,7 +72,7 @@ func TestAccFinSpaceKxDatabase_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 		},
-		ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckKxDatabaseDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -103,7 +103,7 @@ func TestAccFinSpaceKxDatabase_description(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 		},
-		ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckKxDatabaseDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -140,7 +140,7 @@ func TestAccFinSpaceKxDatabase_tags(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 		},
-		ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckKxDatabaseDestroy(ctx),
 		Steps: []resource.TestStep{

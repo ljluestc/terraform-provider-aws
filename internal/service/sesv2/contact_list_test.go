@@ -27,8 +27,8 @@ func TestAccSESV2ContactList_basic(t *testing.T) {
 
 	// Only one contact list is allowed per AWS account.
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, names.SESV2EndpointID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, names.SESV2EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckContactListDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -59,8 +59,8 @@ func TestAccSESV2ContactList_description(t *testing.T) {
 
 	// Only one contact list is allowed per AWS account.
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, names.SESV2EndpointID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, names.SESV2EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckContactListDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -94,8 +94,8 @@ func TestAccSESV2ContactList_topic(t *testing.T) {
 
 	// Only one contact list is allowed per AWS account.
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, names.SESV2EndpointID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, names.SESV2EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckContactListDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -137,8 +137,8 @@ func TestAccSESV2ContactList_tags(t *testing.T) {
 
 	// Only one contact list is allowed per AWS account.
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, names.SESV2EndpointID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, names.SESV2EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckContactListDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -175,8 +175,8 @@ func TestAccSESV2ContactList_disappears(t *testing.T) {
 
 	// Only one contact list is allowed per AWS account.
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, names.SESV2EndpointID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, names.SESV2EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckContactListDestroy(ctx),
 		Steps: []resource.TestStep{

@@ -29,67 +29,67 @@ import (
 // @Tags(identifierAttribute="arn")
 func ResourceDeployment() *schema.Resource {
 	return &schema.Resource{
-		CreateWithoutTimeout: resourceDeploymentCreate,
-		ReadWithoutTimeout:   resourceDeploymentRead,
-		UpdateWithoutTimeout: resourceDeploymentUpdate,
-		DeleteWithoutTimeout: resourceDeploymentDelete,
-		Importer: &schema.ResourceImporter{
-			StateContext: schema.ImportStatePassthroughContext,
-		},
+CreateWithoutTimeout: resourceDeploymentCreate,
+ReadWithoutTimeout:   resourceDeploymentRead,
+UpdateWithoutTimeout: resourceDeploymentUpdate,
+DeleteWithoutTimeout: resourceDeploymentDelete,
+Importer: &schema.ResourceImporter{
+	StateContext: schema.ImportStatePassthroughContext,
+},
 
-		Schema: map[string]*schema.Schema{
-			"application_id": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
-				ValidateFunc: validation.StringMatch(regexache.MustCompile(`[0-9a-z]{4,7}`), ""),
-			},
-			"arn": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"configuration_profile_id": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
-				ValidateFunc: validation.StringMatch(regexache.MustCompile(`[0-9a-z]{4,7}`), ""),
-			},
-			"configuration_version": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
-				ValidateFunc: validation.StringLenBetween(1, 1024),
-			},
-			"deployment_number": {
-				Type:     schema.TypeInt,
-				Computed: true,
-			},
-			"deployment_strategy_id": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
-				ValidateFunc: validation.StringMatch(regexache.MustCompile(`(^[0-9a-z]{4,7}$|^AppConfig\.[0-9A-Za-z]{9,40}$)`), ""),
-			},
-			"description": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				ForceNew:     true,
-				ValidateFunc: validation.StringLenBetween(0, 1024),
-			},
-			"environment_id": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
-				ValidateFunc: validation.StringMatch(regexache.MustCompile(`[0-9a-z]{4,7}`), ""),
-			},
-			"state": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			names.AttrTags:    tftags.TagsSchema(),
-			names.AttrTagsAll: tftags.TagsSchemaComputed(),
-		},
-		CustomizeDiff: verify.SetTagsDiff,
+Schema: map[string]*schema.Schema{
+	"application_id": {
+Type:         schema.TypeString,
+Required:     true,
+ForceNew:     true,
+ValidateFunc: validation.StringMatch(regexache.MustCompile(`[0-9a-z]{4,7}`), ""),
+	},
+	"arn": {
+Type:     schema.TypeString,
+Computed: true,
+	},
+	"configuration_profile_id": {
+Type:         schema.TypeString,
+Required:     true,
+ForceNew:     true,
+ValidateFunc: validation.StringMatch(regexache.MustCompile(`[0-9a-z]{4,7}`), ""),
+	},
+	"configuration_version": {
+Type:         schema.TypeString,
+Required:     true,
+ForceNew:     true,
+ValidateFunc: validation.StringLenBetween(1, 1024),
+	},
+	"deployment_number": {
+Type:     schema.TypeInt,
+Computed: true,
+	},
+	"deployment_strategy_id": {
+Type:         schema.TypeString,
+Required:     true,
+ForceNew:     true,
+ValidateFunc: validation.StringMatch(regexache.MustCompile(`(^[0-9a-z]{4,7}$|^AppConfig\.[0-9A-Za-z]{9,40}$)`), ""),
+	},
+	"description": {
+Type:         schema.TypeString,
+Optional:     true,
+ForceNew:     true,
+ValidateFunc: validation.StringLenBetween(0, 1024),
+	},
+	"environment_id": {
+Type:         schema.TypeString,
+Required:     true,
+ForceNew:     true,
+ValidateFunc: validation.StringMatch(regexache.MustCompile(`[0-9a-z]{4,7}`), ""),
+	},
+	"state": {
+Type:     schema.TypeString,
+Computed: true,
+	},
+	names.AttrTags:    tftags.TagsSchema(),
+	names.AttrTagsAll: tftags.TagsSchemaComputed(),
+},
+CustomizeDiff: verify.SetTagsDiff,
 	}
 }
 
@@ -98,23 +98,23 @@ func resourceDeploymentCreate(ctx context.Context, d *schema.ResourceData, meta 
 	conn := meta.(*conns.AWSClient).AppConfigConn(ctx)
 
 	input := &appconfig.StartDeploymentInput{
-		ApplicationId:          aws.String(d.Get("application_id").(string)),
-		EnvironmentId:          aws.String(d.Get("environment_id").(string)),
-		ConfigurationProfileId: aws.String(d.Get("configuration_profile_id").(string)),
-		ConfigurationVersion:   aws.String(d.Get("configuration_version").(string)),
-		DeploymentStrategyId:   aws.String(d.Get("deployment_strategy_id").(string)),
-		Description:            aws.String(d.Get("description").(string)),
-		Tags:    getTagsIn(ctx),
+ApplicationId:          aws.String(d.Get("application_id").(string)),
+EnvironmentId:          aws.String(d.Get("environment_id").(string)),
+ConfigurationProfileId: aws.String(d.Get("configuration_profile_id").(string)),
+ConfigurationVersion:   aws.String(d.Get("configuration_version").(string)),
+DeploymentStrategyId:   aws.String(d.Get("deployment_strategy_id").(string)),
+Description:            aws.String(d.Get("description").(string)),
+Tags:    getTagsIn(ctx),
 	}
 
 	output, err := conn.StartDeploymentWithContext(ctx, input)
 
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "starting AppConfig Deployment: %s", err)
+return sdkdiag.AppendErrorf(diags, "starting AppConfig Deployment: %s", err)
 	}
 
 	if output == nil {
-		return sdkdiag.AppendErrorf(diags, "starting AppConfig Deployment: empty response")
+return sdkdiag.AppendErrorf(diags, "starting AppConfig Deployment: empty response")
 	}
 
 	appID := aws.StringValue(output.ApplicationId)
@@ -133,37 +133,37 @@ func resourceDeploymentRead(ctx context.Context, d *schema.ResourceData, meta in
 	appID, envID, deploymentNum, err := DeploymentParseID(d.Id())
 
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "reading AppConfig Deployment (%s): %s", d.Id(), err)
+return sdkdiag.AppendErrorf(diags, "reading AppConfig Deployment (%s): %s", d.Id(), err)
 	}
 
 	input := &appconfig.GetDeploymentInput{
-		ApplicationId:    aws.String(appID),
-		DeploymentNumber: aws.Int64(int64(deploymentNum)),
-		EnvironmentId:    aws.String(envID),
+ApplicationId:    aws.String(appID),
+DeploymentNumber: aws.Int64(int64(deploymentNum)),
+EnvironmentId:    aws.String(envID),
 	}
 
 	output, err := conn.GetDeploymentWithContext(ctx, input)
 
 	if !d.IsNewResource() && tfawserr.ErrCodeEquals(err, appconfig.ErrCodeResourceNotFoundException) {
-		log.Printf("[WARN] Appconfig Deployment (%s) not found, removing from state", d.Id())
-		d.SetId("")
-		return diags
+log.Printf("[WARN] Appconfig Deployment (%s) not found, removing from state", d.Id())
+d.SetId("")
+return diags
 	}
 
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "reading AppConfig Deployment (%s): %s", d.Id(), err)
+return sdkdiag.AppendErrorf(diags, "reading AppConfig Deployment (%s): %s", d.Id(), err)
 	}
 
 	if output == nil {
-		return sdkdiag.AppendErrorf(diags, "reading AppConfig Deployment (%s): empty response", d.Id())
+return sdkdiag.AppendErrorf(diags, "reading AppConfig Deployment (%s): empty response", d.Id())
 	}
 
 	arn := arn.ARN{
-		AccountID: meta.(*conns.AWSClient).AccountID,
-		Partition: meta.(*conns.AWSClient).Partition,
-		Region:    meta.(*conns.AWSClient).Region,
-		Resource:  fmt.Sprintf("application/%s/environment/%s/deployment/%d", aws.StringValue(output.ApplicationId), aws.StringValue(output.EnvironmentId), aws.Int64Value(output.DeploymentNumber)),
-		Service:   "appconfig",
+AccountID: meta.(*conns.AWSClient).AccountID,
+Partition: meta.(*conns.AWSClient).Partition,
+Region:    meta.(*conns.AWSClient).Region,
+Resource:  fmt.Sprintf("application/%s/environment/%s/deployment/%d", aws.StringValue(output.ApplicationId), aws.StringValue(output.EnvironmentId), aws.Int64Value(output.DeploymentNumber)),
+Service:   "appconfig",
 	}.String()
 
 	d.Set("application_id", output.ApplicationId)
@@ -197,12 +197,12 @@ func DeploymentParseID(id string) (string, string, int, error) {
 	parts := strings.Split(id, "/")
 
 	if len(parts) != 3 || parts[0] == "" || parts[1] == "" || parts[2] == "" {
-		return "", "", 0, fmt.Errorf("unexpected format of ID (%q), expected ApplicationID:EnvironmentID:DeploymentNumber", id)
+return "", "", 0, fmt.Errorf("unexpected format of ID (%q), expected ApplicationID:EnvironmentID:DeploymentNumber", id)
 	}
 
 	num, err := strconv.Atoi(parts[2])
 	if err != nil {
-		return "", "", 0, fmt.Errorf("parsing AppConfig Deployment resource ID deployment_number: %w", err)
+return "", "", 0, fmt.Errorf("parsing AppConfig Deployment resource ID deployment_number: %w", err)
 	}
 
 	return parts[0], parts[1], num, nil

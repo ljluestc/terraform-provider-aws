@@ -32,7 +32,7 @@ func ResourceFirewallConfig() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"firewall_fail_open": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				Validate

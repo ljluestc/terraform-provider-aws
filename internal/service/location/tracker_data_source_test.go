@@ -20,25 +20,25 @@ func TestAccLocationTrackerDataSource_indexName(t *testing.T) {
 	resourceName := "aws_location_tracker.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, locationservice.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTrackerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTrackerDataSourceConfig_indexName(rName),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrPair(dataSourceName, "create_time", resourceName, "create_time"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "description", resourceName, "description"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "kms_key_id", resourceName, "kms_key_id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "position_filtering", resourceName, "position_filtering"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "tracker_arn", resourceName, "tracker_arn"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "tracker_name", resourceName, "tracker_name"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "update_time", resourceName, "update_time"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, locationservice.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTrackerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTrackerDataSourceConfig_indexName(rName),
+Check: resource.ComposeTestCheckFunc(
+	resource.TestCheckResourceAttrPair(dataSourceName, "create_time", resourceName, "create_time"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "description", resourceName, "description"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "kms_key_id", resourceName, "kms_key_id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "position_filtering", resourceName, "position_filtering"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "tracker_arn", resourceName, "tracker_arn"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "tracker_name", resourceName, "tracker_name"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "update_time", resourceName, "update_time"),
+),
+	},
+},
 	})
 }
 

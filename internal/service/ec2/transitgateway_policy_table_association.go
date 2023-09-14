@@ -42,14 +42,14 @@ func ResourceTransitGatewayPolicyTableAssociation() *schema.Resource {
 				Computed: true,
 			},
 			"transit_gateway_attachment_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
 func: validation.NoZeroValues,
 			},
 			"transit_gateway_policy_table_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate

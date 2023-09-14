@@ -27,32 +27,32 @@ func TestAccRDSSubnetGroup_basic(t *testing.T) {
 	resourceName := "aws_db_subnet_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSubnetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSubnetGroupConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckSubnetGroupExists(ctx, resourceName, &v),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "rds", regexache.MustCompile(fmt.Sprintf("subgrp:%s$", rName))),
-					resource.TestCheckResourceAttr(resourceName, "description", "Managed by Terraform"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "name_prefix", ""),
-					resource.TestCheckResourceAttr(resourceName, "subnet_ids.#", "2"),
-					resource.TestCheckResourceAttr(resourceName, "supported_network_types.#", "1"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "supported_network_types.*", "IPV4"),
-					resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckSubnetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSubnetGroupConfig_basic(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckSubnetGroupExists(ctx, resourceName, &v),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "rds", regexache.MustCompile(fmt.Sprintf("subgrp:%s$", rName))),
+	resource.TestCheckResourceAttr(resourceName, "description", "Managed by Terraform"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "name_prefix", ""),
+	resource.TestCheckResourceAttr(resourceName, "subnet_ids.#", "2"),
+	resource.TestCheckResourceAttr(resourceName, "supported_network_types.#", "1"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "supported_network_types.*", "IPV4"),
+	resource.TestCheckResourceAttrSet(resourceName, "vpc_id"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -63,20 +63,20 @@ func TestAccRDSSubnetGroup_disappears(t *testing.T) {
 	resourceName := "aws_db_subnet_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSubnetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSubnetGroupConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSubnetGroupExists(ctx, resourceName, &v),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfrds.ResourceSubnetGroup(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckSubnetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSubnetGroupConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckSubnetGroupExists(ctx, resourceName, &v),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfrds.ResourceSubnetGroup(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -87,25 +87,25 @@ func TestAccRDSSubnetGroup_nameGenerated(t *testing.T) {
 	resourceName := "aws_db_subnet_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSubnetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSubnetGroupConfig_nameGenerated(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSubnetGroupExists(ctx, resourceName, &v),
-					acctest.CheckResourceAttrNameGenerated(resourceName, "name"),
-					resource.TestCheckResourceAttr(resourceName, "name_prefix", id.UniqueIdPrefix),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckSubnetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSubnetGroupConfig_nameGenerated(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckSubnetGroupExists(ctx, resourceName, &v),
+	acctest.CheckResourceAttrNameGenerated(resourceName, "name"),
+	resource.TestCheckResourceAttr(resourceName, "name_prefix", id.UniqueIdPrefix),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -115,25 +115,25 @@ func TestAccRDSSubnetGroup_namePrefix(t *testing.T) {
 	resourceName := "aws_db_subnet_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSubnetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSubnetGroupConfig_namePrefix("tf-acc-test-prefix-"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSubnetGroupExists(ctx, resourceName, &v),
-					acctest.CheckResourceAttrNameFromPrefix(resourceName, "name", "tf-acc-test-prefix-"),
-					resource.TestCheckResourceAttr(resourceName, "name_prefix", "tf-acc-test-prefix-"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckSubnetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSubnetGroupConfig_namePrefix("tf-acc-test-prefix-"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckSubnetGroupExists(ctx, resourceName, &v),
+	acctest.CheckResourceAttrNameFromPrefix(resourceName, "name", "tf-acc-test-prefix-"),
+	resource.TestCheckResourceAttr(resourceName, "name_prefix", "tf-acc-test-prefix-"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -144,42 +144,42 @@ func TestAccRDSSubnetGroup_tags(t *testing.T) {
 	resourceName := "aws_db_subnet_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSubnetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSubnetGroupConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSubnetGroupExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccSubnetGroupConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSubnetGroupExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-			{
-				Config: testAccSubnetGroupConfig_tags1(rName, "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSubnetGroupExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckSubnetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSubnetGroupConfig_tags1(rName, "key1", "value1"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckSubnetGroupExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccSubnetGroupConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckSubnetGroupExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+	{
+Config: testAccSubnetGroupConfig_tags1(rName, "key2", "value2"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckSubnetGroupExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+},
 	})
 }
 
@@ -191,21 +191,21 @@ func TestAccRDSSubnetGroup_dualStack(t *testing.T) {
 	rName := fmt.Sprintf("tf-test-%d", sdkacctest.RandInt())
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSubnetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSubnetGroupConfig_dualStack(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSubnetGroupExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "supported_network_types.#", "2"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "supported_network_types.*", "IPV4"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "supported_network_types.*", "DUAL"),
-				),
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckSubnetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSubnetGroupConfig_dualStack(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckSubnetGroupExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "supported_network_types.#", "2"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "supported_network_types.*", "IPV4"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "supported_network_types.*", "DUAL"),
+),
+	},
+},
 	})
 }
 
@@ -216,33 +216,33 @@ func TestAccRDSSubnetGroup_updateDescription(t *testing.T) {
 	resourceName := "aws_db_subnet_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSubnetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSubnetGroupConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSubnetGroupExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "description", "Managed by Terraform"),
-					resource.TestCheckResourceAttr(resourceName, "subnet_ids.#", "2"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccDBSubnetGroupConfig_updatedDescription(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSubnetGroupExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "description", "test description updated"),
-					resource.TestCheckResourceAttr(resourceName, "subnet_ids.#", "2"),
-				),
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckSubnetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSubnetGroupConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckSubnetGroupExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "description", "Managed by Terraform"),
+	resource.TestCheckResourceAttr(resourceName, "subnet_ids.#", "2"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccDBSubnetGroupConfig_updatedDescription(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckSubnetGroupExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "description", "test description updated"),
+	resource.TestCheckResourceAttr(resourceName, "subnet_ids.#", "2"),
+),
+	},
+},
 	})
 }
 
@@ -253,83 +253,83 @@ func TestAccRDSSubnetGroup_updateSubnets(t *testing.T) {
 	resourceName := "aws_db_subnet_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSubnetGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSubnetGroupConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSubnetGroupExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "description", "Managed by Terraform"),
-					resource.TestCheckResourceAttr(resourceName, "subnet_ids.#", "2"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccDBSubnetGroupConfig_updatedSubnets(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSubnetGroupExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "description", "Managed by Terraform"),
-					resource.TestCheckResourceAttr(resourceName, "subnet_ids.#", "3"),
-				),
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckSubnetGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSubnetGroupConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckSubnetGroupExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "description", "Managed by Terraform"),
+	resource.TestCheckResourceAttr(resourceName, "subnet_ids.#", "2"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccDBSubnetGroupConfig_updatedSubnets(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckSubnetGroupExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "description", "Managed by Terraform"),
+	resource.TestCheckResourceAttr(resourceName, "subnet_ids.#", "3"),
+),
+	},
+},
 	})
 }
 
 func testAccCheckSubnetGroupDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_db_subnet_group" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_db_subnet_group" {
+continue
+	}
 
-			_, err := tfrds.FindDBSubnetGroupByName(ctx, conn, rs.Primary.ID)
+	_, err := tfrds.FindDBSubnetGroupByName(ctx, conn, rs.Primary.ID)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("RDS DB Subnet Group %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("RDS DB Subnet Group %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckSubnetGroupExists(ctx context.Context, n string, v *rds.DBSubnetGroup) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No RDS DB Subnet Group ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No RDS DB Subnet Group ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
 
-		output, err := tfrds.FindDBSubnetGroupByName(ctx, conn, rs.Primary.ID)
-		if err != nil {
-			return err
-		}
+output, err := tfrds.FindDBSubnetGroupByName(ctx, conn, rs.Primary.ID)
+if err != nil {
+	return err
+}
 
-		*v = *output
+*v = *output
 
-		return nil
+return nil
 	}
 }
 

@@ -35,7 +35,7 @@ func DataSourceQueryLogConfig() *schema.Resource {
 			},
 			"filter": namevaluesfilters.Schema(),
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Validate
 func: validResolverName,

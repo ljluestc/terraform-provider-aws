@@ -21,13 +21,13 @@ import (
 // it may also be a different identifier depending on the service.
 func listTags(ctx context.Context, conn *ssmcontacts.Client, identifier string) (tftags.KeyValueTags, error) {
 	input := &ssmcontacts.ListTagsForResourceInput{
-		ResourceARN: aws.String(identifier),
+ResourceARN: aws.String(identifier),
 	}
 
 	output, err := conn.ListTagsForResource(ctx, input)
 
 	if err != nil {
-		return tftags.New(ctx, nil), err
+return tftags.New(ctx, nil), err
 	}
 
 	return KeyValueTags(ctx, output.Tags), nil
@@ -39,11 +39,11 @@ func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier stri
 	tags, err := listTags(ctx, meta.(*conns.AWSClient).SSMContactsClient(ctx), identifier)
 
 	if err != nil {
-		return err
+return err
 	}
 
 	if inContext, ok := tftags.FromContext(ctx); ok {
-		inContext.TagsOut = types.Some(tags)
+inContext.TagsOut = types.Some(tags)
 	}
 
 	return nil
@@ -56,12 +56,12 @@ func Tags(tags tftags.KeyValueTags) []awstypes.Tag {
 	result := make([]awstypes.Tag, 0, len(tags))
 
 	for k, v := range tags.Map() {
-		tag := awstypes.Tag{
-			Key:   aws.String(k),
-			Value: aws.String(v),
-		}
+tag := awstypes.Tag{
+	Key:   aws.String(k),
+	Value: aws.String(v),
+}
 
-		result = append(result, tag)
+result = append(result, tag)
 	}
 
 	return result
@@ -72,7 +72,7 @@ func KeyValueTags(ctx context.Context, tags []awstypes.Tag) tftags.KeyValueTags 
 	m := make(map[string]*string, len(tags))
 
 	for _, tag := range tags {
-		m[aws.ToString(tag.Key)] = tag.Value
+m[aws.ToString(tag.Key)] = tag.Value
 	}
 
 	return tftags.New(ctx, m)
@@ -82,9 +82,9 @@ func KeyValueTags(ctx context.Context, tags []awstypes.Tag) tftags.KeyValueTags 
 // nil is returned if there are no input tags.
 func getTagsIn(ctx context.Context) []awstypes.Tag {
 	if inContext, ok := tftags.FromContext(ctx); ok {
-		if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
-			return tags
-		}
+if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
+	return tags
+}
 	}
 
 	return nil
@@ -93,7 +93,7 @@ func getTagsIn(ctx context.Context) []awstypes.Tag {
 // setTagsOut sets ssmcontacts service tags in Context.
 func setTagsOut(ctx context.Context, tags []awstypes.Tag) {
 	if inContext, ok := tftags.FromContext(ctx); ok {
-		inContext.TagsOut = types.Some(KeyValueTags(ctx, tags))
+inContext.TagsOut = types.Some(KeyValueTags(ctx, tags))
 	}
 }
 
@@ -109,31 +109,31 @@ func updateTags(ctx context.Context, conn *ssmcontacts.Client, identifier string
 	removedTags := oldTags.Removed(newTags)
 	removedTags = removedTags.IgnoreSystem(names.SSMContacts)
 	if len(removedTags) > 0 {
-		input := &ssmcontacts.UntagResourceInput{
-			ResourceARN: aws.String(identifier),
-			TagKeys:     removedTags.Keys(),
-		}
+input := &ssmcontacts.UntagResourceInput{
+	ResourceARN: aws.String(identifier),
+	TagKeys:     removedTags.Keys(),
+}
 
-		_, err := conn.UntagResource(ctx, input)
+_, err := conn.UntagResource(ctx, input)
 
-		if err != nil {
-			return fmt.Errorf("untagging resource (%s): %w", identifier, err)
-		}
+if err != nil {
+	return fmt.Errorf("untagging resource (%s): %w", identifier, err)
+}
 	}
 
 	updatedTags := oldTags.Updated(newTags)
 	updatedTags = updatedTags.IgnoreSystem(names.SSMContacts)
 	if len(updatedTags) > 0 {
-		input := &ssmcontacts.TagResourceInput{
-			ResourceARN: aws.String(identifier),
-			Tags:        Tags(updatedTags),
-		}
+input := &ssmcontacts.TagResourceInput{
+	ResourceARN: aws.String(identifier),
+	Tags:        Tags(updatedTags),
+}
 
-		_, err := conn.TagResource(ctx, input)
+_, err := conn.TagResource(ctx, input)
 
-		if err != nil {
-			return fmt.Errorf("tagging resource (%s): %w", identifier, err)
-		}
+if err != nil {
+	return fmt.Errorf("tagging resource (%s): %w", identifier, err)
+}
 	}
 
 	return nil

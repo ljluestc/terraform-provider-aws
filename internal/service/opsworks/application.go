@@ -46,7 +46,7 @@ func ResourceApplication() *schema.Resource {
 				ForceNew: true,
 			},
 			"type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				Validate
 func: validation.StringInSlice(opsworks.AppType_Values(), false),
@@ -82,7 +82,7 @@ func: validation.StringInSlice(opsworks.AppType_Values(), false),
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							Validate
 func: validation.StringInSlice(append(opsworks.SourceType_Values(), "other"), false),
@@ -133,7 +133,7 @@ func: validation.StringInSlice([]string{
 				Optional: true,
 			},
 			"data_source_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Validate
 func: verify.ValidARN,
@@ -332,12 +332,12 @@ func resourceApplicationCreate(ctx context.Context, d *schema.ResourceData, meta
 	}
 
 	req := &opsworks.CreateAppInput{
-		Name:             aws.String(d.Get("name").(string)),
+		Name:    aws.String(d.Get("name").(string)),
 		Shortname:        aws.String(d.Get("short_name").(string)),
-		StackId:          aws.String(d.Get("stack_id").(string)),
-		Type:             aws.String(d.Get("type").(string)),
+		StackId: aws.String(d.Get("stack_id").(string)),
+		Type:    aws.String(d.Get("type").(string)),
 		Description:      aws.String(d.Get("description").(string)),
-		Domains:          flex.ExpandStringList(d.Get("domains").([]interface{})),
+		Domains: flex.ExpandStringList(d.Get("domains").([]interface{})),
 		EnableSsl:        aws.Bool(d.Get("enable_ssl").(bool)),
 		SslConfiguration: resourceApplicationSSL(d),
 		AppSource:        resourceApplicationSource(d),
@@ -367,11 +367,11 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 	}
 
 	req := &opsworks.UpdateAppInput{
-		AppId:            aws.String(d.Id()),
-		Name:             aws.String(d.Get("name").(string)),
-		Type:             aws.String(d.Get("type").(string)),
+		AppId:   aws.String(d.Id()),
+		Name:    aws.String(d.Get("name").(string)),
+		Type:    aws.String(d.Get("type").(string)),
 		Description:      aws.String(d.Get("description").(string)),
-		Domains:          flex.ExpandStringList(d.Get("domains").([]interface{})),
+		Domains: flex.ExpandStringList(d.Get("domains").([]interface{})),
 		EnableSsl:        aws.Bool(d.Get("enable_ssl").(bool)),
 		SslConfiguration: resourceApplicationSSL(d),
 		AppSource:        resourceApplicationSource(d),
@@ -525,9 +525,9 @@ func resourceApplicationsDataSource(d *schema.ResourceData) []*opsworks.DataSour
 
 	if len(arn) > 0 || len(databaseName) > 0 || len(databaseType) > 0 {
 		result[0] = &opsworks.DataSource{
-			Arn:          aws.String(arn),
+			Arn: aws.String(arn),
 			DatabaseName: aws.String(databaseName),
-			Type:         aws.String(databaseType),
+			Type:aws.String(databaseType),
 		}
 	}
 	return result

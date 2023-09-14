@@ -77,7 +77,7 @@ func ResourceEIP() *schema.Resource {
 				Optional: true,
 			},
 			"domain": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				ForceNew:      true,
 				Optional:      true,
 				Computed:      true,
@@ -126,7 +126,7 @@ func:  validation.StringInSlice(ec2.DomainType_Values(), false),
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"vpc": {
-				Type:          schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional:      true,
 				ForceNew:      true,
 				Computed:      true,

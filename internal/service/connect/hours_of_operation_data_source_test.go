@@ -21,26 +21,26 @@ func testAccHoursOfOperationDataSource_hoursOfOperationID(t *testing.T) {
 	datasourceName := "data.aws_connect_hours_of_operation.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccHoursOfOperationDataSourceConfig_id(rName, resourceName),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccHoursOfOperationDataSourceConfig_id(rName, resourceName),
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(datasourceName, "hours_of_operation_id", resourceName, "hours_of_operation_id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "instance_id", resourceName, "instance_id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
-					resource.TestCheckResourceAttrPair(datasourceName, "description", resourceName, "description"),
-					resource.TestCheckResourceAttrPair(datasourceName, "time_zone", resourceName, "time_zone"),
-					resource.TestCheckResourceAttrPair(datasourceName, "config.#", resourceName, "config.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(datasourceName, "hours_of_operation_id", resourceName, "hours_of_operation_id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "instance_id", resourceName, "instance_id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
+	resource.TestCheckResourceAttrPair(datasourceName, "description", resourceName, "description"),
+	resource.TestCheckResourceAttrPair(datasourceName, "time_zone", resourceName, "time_zone"),
+	resource.TestCheckResourceAttrPair(datasourceName, "config.#", resourceName, "config.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
+),
+	},
+},
 	})
 }
 
@@ -53,26 +53,26 @@ func testAccHoursOfOperationDataSource_name(t *testing.T) {
 	datasourceName := "data.aws_connect_hours_of_operation.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccHoursOfOperationDataSourceConfig_name(rName, rName2),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccHoursOfOperationDataSourceConfig_name(rName, rName2),
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(datasourceName, "hours_of_operation_id", resourceName, "hours_of_operation_id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "instance_id", resourceName, "instance_id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
-					resource.TestCheckResourceAttrPair(datasourceName, "description", resourceName, "description"),
-					resource.TestCheckResourceAttrPair(datasourceName, "time_zone", resourceName, "time_zone"),
-					resource.TestCheckResourceAttrPair(datasourceName, "config.#", resourceName, "config.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(datasourceName, "hours_of_operation_id", resourceName, "hours_of_operation_id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "instance_id", resourceName, "instance_id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
+	resource.TestCheckResourceAttrPair(datasourceName, "description", resourceName, "description"),
+	resource.TestCheckResourceAttrPair(datasourceName, "time_zone", resourceName, "time_zone"),
+	resource.TestCheckResourceAttrPair(datasourceName, "config.#", resourceName, "config.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
+),
+	},
+},
 	})
 }
 
@@ -82,7 +82,7 @@ func testAccHoursOfOperationBaseDataSourceConfig(rName, rName2 string) string {
 resource "aws_connect_instance" "test" {
   identity_management_type = "CONNECT_MANAGED"
   inbound_calls_enabled    = true
-  instance_alias           = %[1]q
+  instance_alias  = %[1]q
   outbound_calls_enabled   = true
 }
 
@@ -131,7 +131,7 @@ resource "aws_connect_hours_of_operation" "test" {
 func testAccHoursOfOperationDataSourceConfig_id(rName, rName2 string) string {
 	return fmt.Sprintf(testAccHoursOfOperationBaseDataSourceConfig(rName, rName2) + `
 data "aws_connect_hours_of_operation" "test" {
-  instance_id           = aws_connect_instance.test.id
+  instance_id  = aws_connect_instance.test.id
   hours_of_operation_id = aws_connect_hours_of_operation.test.hours_of_operation_id
 }
 `)

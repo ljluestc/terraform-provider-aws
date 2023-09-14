@@ -30,117 +30,117 @@ func TestAccVPCSubnetDataSource_basic(t *testing.T) {
 	ds6ResourceName := "data.aws_subnet.by_az_id"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPCDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCSubnetDataSourceConfig_basic(rName, rInt),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckVPCDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCSubnetDataSourceConfig_basic(rName, rInt),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "id", snResourceName, "id"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "owner_id", snResourceName, "owner_id"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "availability_zone", snResourceName, "availability_zone"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "availability_zone_id", snResourceName, "availability_zone_id"),
-					resource.TestCheckResourceAttrSet(ds1ResourceName, "available_ip_address_count"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "vpc_id", vpcResourceName, "id"),
-					resource.TestCheckResourceAttr(ds1ResourceName, "cidr_block", cidr),
-					resource.TestCheckResourceAttr(ds1ResourceName, "tags.Name", rName),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "arn", snResourceName, "arn"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "customer_owned_ipv4_pool", snResourceName, "customer_owned_ipv4_pool"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "enable_dns64", snResourceName, "enable_dns64"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "enable_resource_name_dns_aaaa_record_on_launch", snResourceName, "enable_resource_name_dns_aaaa_record_on_launch"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "enable_resource_name_dns_a_record_on_launch", snResourceName, "enable_resource_name_dns_a_record_on_launch"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "ipv6_native", snResourceName, "ipv6_native"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "map_customer_owned_ip_on_launch", snResourceName, "map_customer_owned_ip_on_launch"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "outpost_arn", snResourceName, "outpost_arn"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "id", snResourceName, "id"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "owner_id", snResourceName, "owner_id"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "availability_zone", snResourceName, "availability_zone"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "availability_zone_id", snResourceName, "availability_zone_id"),
+	resource.TestCheckResourceAttrSet(ds1ResourceName, "available_ip_address_count"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "vpc_id", vpcResourceName, "id"),
+	resource.TestCheckResourceAttr(ds1ResourceName, "cidr_block", cidr),
+	resource.TestCheckResourceAttr(ds1ResourceName, "tags.Name", rName),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "arn", snResourceName, "arn"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "customer_owned_ipv4_pool", snResourceName, "customer_owned_ipv4_pool"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "enable_dns64", snResourceName, "enable_dns64"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "enable_resource_name_dns_aaaa_record_on_launch", snResourceName, "enable_resource_name_dns_aaaa_record_on_launch"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "enable_resource_name_dns_a_record_on_launch", snResourceName, "enable_resource_name_dns_a_record_on_launch"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "ipv6_native", snResourceName, "ipv6_native"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "map_customer_owned_ip_on_launch", snResourceName, "map_customer_owned_ip_on_launch"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "outpost_arn", snResourceName, "outpost_arn"),
 
-					resource.TestCheckResourceAttrPair(ds2ResourceName, "id", snResourceName, "id"),
-					resource.TestCheckResourceAttrPair(ds2ResourceName, "owner_id", snResourceName, "owner_id"),
-					resource.TestCheckResourceAttrPair(ds2ResourceName, "availability_zone", snResourceName, "availability_zone"),
-					resource.TestCheckResourceAttrPair(ds2ResourceName, "availability_zone_id", snResourceName, "availability_zone_id"),
-					resource.TestCheckResourceAttrSet(ds2ResourceName, "available_ip_address_count"),
-					resource.TestCheckResourceAttrPair(ds2ResourceName, "vpc_id", vpcResourceName, "id"),
-					resource.TestCheckResourceAttr(ds2ResourceName, "cidr_block", cidr),
-					resource.TestCheckResourceAttr(ds2ResourceName, "tags.Name", rName),
-					resource.TestCheckResourceAttrPair(ds2ResourceName, "arn", snResourceName, "arn"),
-					resource.TestCheckResourceAttrPair(ds2ResourceName, "customer_owned_ipv4_pool", snResourceName, "customer_owned_ipv4_pool"),
-					resource.TestCheckResourceAttrPair(ds2ResourceName, "enable_dns64", snResourceName, "enable_dns64"),
-					resource.TestCheckResourceAttrPair(ds2ResourceName, "enable_resource_name_dns_aaaa_record_on_launch", snResourceName, "enable_resource_name_dns_aaaa_record_on_launch"),
-					resource.TestCheckResourceAttrPair(ds2ResourceName, "enable_resource_name_dns_a_record_on_launch", snResourceName, "enable_resource_name_dns_a_record_on_launch"),
-					resource.TestCheckResourceAttrPair(ds2ResourceName, "ipv6_native", snResourceName, "ipv6_native"),
-					resource.TestCheckResourceAttrPair(ds2ResourceName, "map_customer_owned_ip_on_launch", snResourceName, "map_customer_owned_ip_on_launch"),
-					resource.TestCheckResourceAttrPair(ds2ResourceName, "outpost_arn", snResourceName, "outpost_arn"),
+	resource.TestCheckResourceAttrPair(ds2ResourceName, "id", snResourceName, "id"),
+	resource.TestCheckResourceAttrPair(ds2ResourceName, "owner_id", snResourceName, "owner_id"),
+	resource.TestCheckResourceAttrPair(ds2ResourceName, "availability_zone", snResourceName, "availability_zone"),
+	resource.TestCheckResourceAttrPair(ds2ResourceName, "availability_zone_id", snResourceName, "availability_zone_id"),
+	resource.TestCheckResourceAttrSet(ds2ResourceName, "available_ip_address_count"),
+	resource.TestCheckResourceAttrPair(ds2ResourceName, "vpc_id", vpcResourceName, "id"),
+	resource.TestCheckResourceAttr(ds2ResourceName, "cidr_block", cidr),
+	resource.TestCheckResourceAttr(ds2ResourceName, "tags.Name", rName),
+	resource.TestCheckResourceAttrPair(ds2ResourceName, "arn", snResourceName, "arn"),
+	resource.TestCheckResourceAttrPair(ds2ResourceName, "customer_owned_ipv4_pool", snResourceName, "customer_owned_ipv4_pool"),
+	resource.TestCheckResourceAttrPair(ds2ResourceName, "enable_dns64", snResourceName, "enable_dns64"),
+	resource.TestCheckResourceAttrPair(ds2ResourceName, "enable_resource_name_dns_aaaa_record_on_launch", snResourceName, "enable_resource_name_dns_aaaa_record_on_launch"),
+	resource.TestCheckResourceAttrPair(ds2ResourceName, "enable_resource_name_dns_a_record_on_launch", snResourceName, "enable_resource_name_dns_a_record_on_launch"),
+	resource.TestCheckResourceAttrPair(ds2ResourceName, "ipv6_native", snResourceName, "ipv6_native"),
+	resource.TestCheckResourceAttrPair(ds2ResourceName, "map_customer_owned_ip_on_launch", snResourceName, "map_customer_owned_ip_on_launch"),
+	resource.TestCheckResourceAttrPair(ds2ResourceName, "outpost_arn", snResourceName, "outpost_arn"),
 
-					resource.TestCheckResourceAttrPair(ds3ResourceName, "id", snResourceName, "id"),
-					resource.TestCheckResourceAttrPair(ds3ResourceName, "owner_id", snResourceName, "owner_id"),
-					resource.TestCheckResourceAttrPair(ds3ResourceName, "availability_zone", snResourceName, "availability_zone"),
-					resource.TestCheckResourceAttrPair(ds3ResourceName, "availability_zone_id", snResourceName, "availability_zone_id"),
-					resource.TestCheckResourceAttrSet(ds3ResourceName, "available_ip_address_count"),
-					resource.TestCheckResourceAttrPair(ds3ResourceName, "vpc_id", vpcResourceName, "id"),
-					resource.TestCheckResourceAttr(ds3ResourceName, "cidr_block", cidr),
-					resource.TestCheckResourceAttr(ds3ResourceName, "tags.Name", rName),
-					resource.TestCheckResourceAttrPair(ds3ResourceName, "arn", snResourceName, "arn"),
-					resource.TestCheckResourceAttrPair(ds3ResourceName, "customer_owned_ipv4_pool", snResourceName, "customer_owned_ipv4_pool"),
-					resource.TestCheckResourceAttrPair(ds3ResourceName, "enable_dns64", snResourceName, "enable_dns64"),
-					resource.TestCheckResourceAttrPair(ds3ResourceName, "enable_resource_name_dns_aaaa_record_on_launch", snResourceName, "enable_resource_name_dns_aaaa_record_on_launch"),
-					resource.TestCheckResourceAttrPair(ds3ResourceName, "enable_resource_name_dns_a_record_on_launch", snResourceName, "enable_resource_name_dns_a_record_on_launch"),
-					resource.TestCheckResourceAttrPair(ds3ResourceName, "ipv6_native", snResourceName, "ipv6_native"),
-					resource.TestCheckResourceAttrPair(ds3ResourceName, "map_customer_owned_ip_on_launch", snResourceName, "map_customer_owned_ip_on_launch"),
-					resource.TestCheckResourceAttrPair(ds3ResourceName, "outpost_arn", snResourceName, "outpost_arn"),
+	resource.TestCheckResourceAttrPair(ds3ResourceName, "id", snResourceName, "id"),
+	resource.TestCheckResourceAttrPair(ds3ResourceName, "owner_id", snResourceName, "owner_id"),
+	resource.TestCheckResourceAttrPair(ds3ResourceName, "availability_zone", snResourceName, "availability_zone"),
+	resource.TestCheckResourceAttrPair(ds3ResourceName, "availability_zone_id", snResourceName, "availability_zone_id"),
+	resource.TestCheckResourceAttrSet(ds3ResourceName, "available_ip_address_count"),
+	resource.TestCheckResourceAttrPair(ds3ResourceName, "vpc_id", vpcResourceName, "id"),
+	resource.TestCheckResourceAttr(ds3ResourceName, "cidr_block", cidr),
+	resource.TestCheckResourceAttr(ds3ResourceName, "tags.Name", rName),
+	resource.TestCheckResourceAttrPair(ds3ResourceName, "arn", snResourceName, "arn"),
+	resource.TestCheckResourceAttrPair(ds3ResourceName, "customer_owned_ipv4_pool", snResourceName, "customer_owned_ipv4_pool"),
+	resource.TestCheckResourceAttrPair(ds3ResourceName, "enable_dns64", snResourceName, "enable_dns64"),
+	resource.TestCheckResourceAttrPair(ds3ResourceName, "enable_resource_name_dns_aaaa_record_on_launch", snResourceName, "enable_resource_name_dns_aaaa_record_on_launch"),
+	resource.TestCheckResourceAttrPair(ds3ResourceName, "enable_resource_name_dns_a_record_on_launch", snResourceName, "enable_resource_name_dns_a_record_on_launch"),
+	resource.TestCheckResourceAttrPair(ds3ResourceName, "ipv6_native", snResourceName, "ipv6_native"),
+	resource.TestCheckResourceAttrPair(ds3ResourceName, "map_customer_owned_ip_on_launch", snResourceName, "map_customer_owned_ip_on_launch"),
+	resource.TestCheckResourceAttrPair(ds3ResourceName, "outpost_arn", snResourceName, "outpost_arn"),
 
-					resource.TestCheckResourceAttrPair(ds4ResourceName, "id", snResourceName, "id"),
-					resource.TestCheckResourceAttrPair(ds4ResourceName, "owner_id", snResourceName, "owner_id"),
-					resource.TestCheckResourceAttrPair(ds4ResourceName, "availability_zone", snResourceName, "availability_zone"),
-					resource.TestCheckResourceAttrPair(ds4ResourceName, "availability_zone_id", snResourceName, "availability_zone_id"),
-					resource.TestCheckResourceAttrPair(ds4ResourceName, "vpc_id", vpcResourceName, "id"),
-					resource.TestCheckResourceAttr(ds4ResourceName, "cidr_block", cidr),
-					resource.TestCheckResourceAttr(ds4ResourceName, "tags.Name", rName),
-					resource.TestCheckResourceAttrPair(ds4ResourceName, "arn", snResourceName, "arn"),
-					resource.TestCheckResourceAttrPair(ds4ResourceName, "customer_owned_ipv4_pool", snResourceName, "customer_owned_ipv4_pool"),
-					resource.TestCheckResourceAttrPair(ds4ResourceName, "enable_dns64", snResourceName, "enable_dns64"),
-					resource.TestCheckResourceAttrPair(ds4ResourceName, "enable_resource_name_dns_aaaa_record_on_launch", snResourceName, "enable_resource_name_dns_aaaa_record_on_launch"),
-					resource.TestCheckResourceAttrPair(ds4ResourceName, "enable_resource_name_dns_a_record_on_launch", snResourceName, "enable_resource_name_dns_a_record_on_launch"),
-					resource.TestCheckResourceAttrPair(ds4ResourceName, "ipv6_native", snResourceName, "ipv6_native"),
-					resource.TestCheckResourceAttrPair(ds4ResourceName, "map_customer_owned_ip_on_launch", snResourceName, "map_customer_owned_ip_on_launch"),
-					resource.TestCheckResourceAttrPair(ds4ResourceName, "outpost_arn", snResourceName, "outpost_arn"),
+	resource.TestCheckResourceAttrPair(ds4ResourceName, "id", snResourceName, "id"),
+	resource.TestCheckResourceAttrPair(ds4ResourceName, "owner_id", snResourceName, "owner_id"),
+	resource.TestCheckResourceAttrPair(ds4ResourceName, "availability_zone", snResourceName, "availability_zone"),
+	resource.TestCheckResourceAttrPair(ds4ResourceName, "availability_zone_id", snResourceName, "availability_zone_id"),
+	resource.TestCheckResourceAttrPair(ds4ResourceName, "vpc_id", vpcResourceName, "id"),
+	resource.TestCheckResourceAttr(ds4ResourceName, "cidr_block", cidr),
+	resource.TestCheckResourceAttr(ds4ResourceName, "tags.Name", rName),
+	resource.TestCheckResourceAttrPair(ds4ResourceName, "arn", snResourceName, "arn"),
+	resource.TestCheckResourceAttrPair(ds4ResourceName, "customer_owned_ipv4_pool", snResourceName, "customer_owned_ipv4_pool"),
+	resource.TestCheckResourceAttrPair(ds4ResourceName, "enable_dns64", snResourceName, "enable_dns64"),
+	resource.TestCheckResourceAttrPair(ds4ResourceName, "enable_resource_name_dns_aaaa_record_on_launch", snResourceName, "enable_resource_name_dns_aaaa_record_on_launch"),
+	resource.TestCheckResourceAttrPair(ds4ResourceName, "enable_resource_name_dns_a_record_on_launch", snResourceName, "enable_resource_name_dns_a_record_on_launch"),
+	resource.TestCheckResourceAttrPair(ds4ResourceName, "ipv6_native", snResourceName, "ipv6_native"),
+	resource.TestCheckResourceAttrPair(ds4ResourceName, "map_customer_owned_ip_on_launch", snResourceName, "map_customer_owned_ip_on_launch"),
+	resource.TestCheckResourceAttrPair(ds4ResourceName, "outpost_arn", snResourceName, "outpost_arn"),
 
-					resource.TestCheckResourceAttrPair(ds5ResourceName, "id", snResourceName, "id"),
-					resource.TestCheckResourceAttrPair(ds5ResourceName, "owner_id", snResourceName, "owner_id"),
-					resource.TestCheckResourceAttrPair(ds5ResourceName, "availability_zone", snResourceName, "availability_zone"),
-					resource.TestCheckResourceAttrPair(ds5ResourceName, "availability_zone_id", snResourceName, "availability_zone_id"),
-					resource.TestCheckResourceAttrPair(ds5ResourceName, "vpc_id", vpcResourceName, "id"),
-					resource.TestCheckResourceAttr(ds5ResourceName, "cidr_block", cidr),
-					resource.TestCheckResourceAttr(ds5ResourceName, "tags.Name", rName),
-					resource.TestCheckResourceAttrPair(ds5ResourceName, "arn", snResourceName, "arn"),
-					resource.TestCheckResourceAttrPair(ds5ResourceName, "customer_owned_ipv4_pool", snResourceName, "customer_owned_ipv4_pool"),
-					resource.TestCheckResourceAttrPair(ds5ResourceName, "enable_dns64", snResourceName, "enable_dns64"),
-					resource.TestCheckResourceAttrPair(ds5ResourceName, "map_customer_owned_ip_on_launch", snResourceName, "map_customer_owned_ip_on_launch"),
-					resource.TestCheckResourceAttrPair(ds5ResourceName, "enable_resource_name_dns_aaaa_record_on_launch", snResourceName, "enable_resource_name_dns_aaaa_record_on_launch"),
-					resource.TestCheckResourceAttrPair(ds5ResourceName, "enable_resource_name_dns_a_record_on_launch", snResourceName, "enable_resource_name_dns_a_record_on_launch"),
-					resource.TestCheckResourceAttrPair(ds5ResourceName, "ipv6_native", snResourceName, "ipv6_native"),
-					resource.TestCheckResourceAttrPair(ds5ResourceName, "outpost_arn", snResourceName, "outpost_arn"),
+	resource.TestCheckResourceAttrPair(ds5ResourceName, "id", snResourceName, "id"),
+	resource.TestCheckResourceAttrPair(ds5ResourceName, "owner_id", snResourceName, "owner_id"),
+	resource.TestCheckResourceAttrPair(ds5ResourceName, "availability_zone", snResourceName, "availability_zone"),
+	resource.TestCheckResourceAttrPair(ds5ResourceName, "availability_zone_id", snResourceName, "availability_zone_id"),
+	resource.TestCheckResourceAttrPair(ds5ResourceName, "vpc_id", vpcResourceName, "id"),
+	resource.TestCheckResourceAttr(ds5ResourceName, "cidr_block", cidr),
+	resource.TestCheckResourceAttr(ds5ResourceName, "tags.Name", rName),
+	resource.TestCheckResourceAttrPair(ds5ResourceName, "arn", snResourceName, "arn"),
+	resource.TestCheckResourceAttrPair(ds5ResourceName, "customer_owned_ipv4_pool", snResourceName, "customer_owned_ipv4_pool"),
+	resource.TestCheckResourceAttrPair(ds5ResourceName, "enable_dns64", snResourceName, "enable_dns64"),
+	resource.TestCheckResourceAttrPair(ds5ResourceName, "map_customer_owned_ip_on_launch", snResourceName, "map_customer_owned_ip_on_launch"),
+	resource.TestCheckResourceAttrPair(ds5ResourceName, "enable_resource_name_dns_aaaa_record_on_launch", snResourceName, "enable_resource_name_dns_aaaa_record_on_launch"),
+	resource.TestCheckResourceAttrPair(ds5ResourceName, "enable_resource_name_dns_a_record_on_launch", snResourceName, "enable_resource_name_dns_a_record_on_launch"),
+	resource.TestCheckResourceAttrPair(ds5ResourceName, "ipv6_native", snResourceName, "ipv6_native"),
+	resource.TestCheckResourceAttrPair(ds5ResourceName, "outpost_arn", snResourceName, "outpost_arn"),
 
-					resource.TestCheckResourceAttrPair(ds6ResourceName, "id", snResourceName, "id"),
-					resource.TestCheckResourceAttrPair(ds6ResourceName, "owner_id", snResourceName, "owner_id"),
-					resource.TestCheckResourceAttrPair(ds6ResourceName, "availability_zone", snResourceName, "availability_zone"),
-					resource.TestCheckResourceAttrPair(ds6ResourceName, "availability_zone_id", snResourceName, "availability_zone_id"),
-					resource.TestCheckResourceAttrPair(ds6ResourceName, "vpc_id", vpcResourceName, "id"),
-					resource.TestCheckResourceAttr(ds6ResourceName, "cidr_block", cidr),
-					resource.TestCheckResourceAttr(ds6ResourceName, "tags.Name", rName),
-					resource.TestCheckResourceAttrPair(ds6ResourceName, "arn", snResourceName, "arn"),
-					resource.TestCheckResourceAttrPair(ds6ResourceName, "customer_owned_ipv4_pool", snResourceName, "customer_owned_ipv4_pool"),
-					resource.TestCheckResourceAttrPair(ds6ResourceName, "enable_dns64", snResourceName, "enable_dns64"),
-					resource.TestCheckResourceAttrPair(ds6ResourceName, "enable_resource_name_dns_aaaa_record_on_launch", snResourceName, "enable_resource_name_dns_aaaa_record_on_launch"),
-					resource.TestCheckResourceAttrPair(ds6ResourceName, "enable_resource_name_dns_a_record_on_launch", snResourceName, "enable_resource_name_dns_a_record_on_launch"),
-					resource.TestCheckResourceAttrPair(ds6ResourceName, "ipv6_native", snResourceName, "ipv6_native"),
-					resource.TestCheckResourceAttrPair(ds6ResourceName, "map_customer_owned_ip_on_launch", snResourceName, "map_customer_owned_ip_on_launch"),
-					resource.TestCheckResourceAttrPair(ds6ResourceName, "outpost_arn", snResourceName, "outpost_arn"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(ds6ResourceName, "id", snResourceName, "id"),
+	resource.TestCheckResourceAttrPair(ds6ResourceName, "owner_id", snResourceName, "owner_id"),
+	resource.TestCheckResourceAttrPair(ds6ResourceName, "availability_zone", snResourceName, "availability_zone"),
+	resource.TestCheckResourceAttrPair(ds6ResourceName, "availability_zone_id", snResourceName, "availability_zone_id"),
+	resource.TestCheckResourceAttrPair(ds6ResourceName, "vpc_id", vpcResourceName, "id"),
+	resource.TestCheckResourceAttr(ds6ResourceName, "cidr_block", cidr),
+	resource.TestCheckResourceAttr(ds6ResourceName, "tags.Name", rName),
+	resource.TestCheckResourceAttrPair(ds6ResourceName, "arn", snResourceName, "arn"),
+	resource.TestCheckResourceAttrPair(ds6ResourceName, "customer_owned_ipv4_pool", snResourceName, "customer_owned_ipv4_pool"),
+	resource.TestCheckResourceAttrPair(ds6ResourceName, "enable_dns64", snResourceName, "enable_dns64"),
+	resource.TestCheckResourceAttrPair(ds6ResourceName, "enable_resource_name_dns_aaaa_record_on_launch", snResourceName, "enable_resource_name_dns_aaaa_record_on_launch"),
+	resource.TestCheckResourceAttrPair(ds6ResourceName, "enable_resource_name_dns_a_record_on_launch", snResourceName, "enable_resource_name_dns_a_record_on_launch"),
+	resource.TestCheckResourceAttrPair(ds6ResourceName, "ipv6_native", snResourceName, "ipv6_native"),
+	resource.TestCheckResourceAttrPair(ds6ResourceName, "map_customer_owned_ip_on_launch", snResourceName, "map_customer_owned_ip_on_launch"),
+	resource.TestCheckResourceAttrPair(ds6ResourceName, "outpost_arn", snResourceName, "outpost_arn"),
+),
+	},
+},
 	})
 }
 
@@ -151,23 +151,23 @@ func TestAccVPCSubnetDataSource_ipv6ByIPv6Filter(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCSubnetDataSourceConfig_ipv6(rName, rInt),
-			},
-			{
-				Config: testAccVPCSubnetDataSourceConfig_ipv6Filter(rName, rInt),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCSubnetDataSourceConfig_ipv6(rName, rInt),
+	},
+	{
+Config: testAccVPCSubnetDataSourceConfig_ipv6Filter(rName, rInt),
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttrSet("data.aws_subnet.by_ipv6_cidr", "ipv6_cidr_block_association_id"),
-					resource.TestCheckResourceAttrSet("data.aws_subnet.by_ipv6_cidr", "ipv6_cidr_block"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrSet("data.aws_subnet.by_ipv6_cidr", "ipv6_cidr_block_association_id"),
+	resource.TestCheckResourceAttrSet("data.aws_subnet.by_ipv6_cidr", "ipv6_cidr_block"),
+),
+	},
+},
 	})
 }
 
@@ -178,22 +178,22 @@ func TestAccVPCSubnetDataSource_ipv6ByIPv6CIDRBlock(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCSubnetDataSourceConfig_ipv6(rName, rInt),
-			},
-			{
-				Config: testAccVPCSubnetDataSourceConfig_ipv6IPv6CIDRBlock(rName, rInt),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCSubnetDataSourceConfig_ipv6(rName, rInt),
+	},
+	{
+Config: testAccVPCSubnetDataSourceConfig_ipv6IPv6CIDRBlock(rName, rInt),
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttrSet("data.aws_subnet.by_ipv6_cidr", "ipv6_cidr_block_association_id"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrSet("data.aws_subnet.by_ipv6_cidr", "ipv6_cidr_block_association_id"),
+),
+	},
+},
 	})
 }
 
@@ -204,19 +204,19 @@ func TestAccVPCSubnetDataSource_enableLniAtDeviceIndex(t *testing.T) {
 	dsResourceName := "data.aws_subnet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCSubnetDataSourceConfig_enableLniAtDeviceIndex(rName, 1),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCSubnetDataSourceConfig_enableLniAtDeviceIndex(rName, 1),
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttr(dsResourceName, "enable_lni_at_device_index", "1"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttr(dsResourceName, "enable_lni_at_device_index", "1"),
+),
+	},
+},
 	})
 }
 
@@ -241,7 +241,7 @@ resource "aws_vpc" "test" {
 }
 
 resource "aws_subnet" "test" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   cidr_block        = "172.%[2]d.123.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
 
@@ -303,7 +303,7 @@ resource "aws_vpc" "test" {
 }
 
 resource "aws_subnet" "test" {
-  availability_zone          = data.aws_outposts_outpost.test.availability_zone
+  availability_zone = data.aws_outposts_outpost.test.availability_zone
   cidr_block  = cidrsubnet(aws_vpc.test.cidr_block, 8, 0)
   enable_lni_at_device_index = %[2]d
   outpost_arn = data.aws_outposts_outpost.test.arn
@@ -342,7 +342,7 @@ resource "aws_vpc" "test" {
 }
 
 resource "aws_subnet" "test" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   cidr_block        = "172.%[2]d.123.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
   ipv6_cidr_block   = cidrsubnet(aws_vpc.test.ipv6_cidr_block, 8, 1)
@@ -376,7 +376,7 @@ resource "aws_vpc" "test" {
 }
 
 resource "aws_subnet" "test" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   cidr_block        = "172.%[2]d.123.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
   ipv6_cidr_block   = cidrsubnet(aws_vpc.test.ipv6_cidr_block, 8, 1)
@@ -417,7 +417,7 @@ resource "aws_vpc" "test" {
 }
 
 resource "aws_subnet" "test" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   cidr_block        = "172.%[2]d.123.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
   ipv6_cidr_block   = cidrsubnet(aws_vpc.test.ipv6_cidr_block, 8, 1)

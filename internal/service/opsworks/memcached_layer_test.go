@@ -22,22 +22,22 @@ func TestAccOpsWorksMemcachedLayer_basic(t *testing.T) {
 	resourceName := "aws_opsworks_memcached_layer.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
-		ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMemcachedLayerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccMemcachedLayerConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckMemcachedLayerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccMemcachedLayerConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLayerExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "allocated_memory", "512"),
-					resource.TestCheckResourceAttr(resourceName, "name", "Memcached"),
-				),
-			},
-		},
+	testAccCheckLayerExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "allocated_memory", "512"),
+	resource.TestCheckResourceAttr(resourceName, "name", "Memcached"),
+),
+	},
+},
 	})
 }
 
@@ -48,7 +48,7 @@ func testAccCheckMemcachedLayerDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
-		return testAccCheckLayerDestroy(ctx, "aws_opsworks_memcached_layer", s)
+return testAccCheckLayerDestroy(ctx, "aws_opsworks_memcached_layer", s)
 	}
 }
 

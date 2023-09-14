@@ -21,38 +21,38 @@ func TestAccVPCEndpointDataSource_gatewayBasic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCEndpointDataSourceConfig_gatewayBasic(rName),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCEndpointDataSourceConfig_gatewayBasic(rName),
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(datasourceName, "cidr_blocks.#", resourceName, "cidr_blocks.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "dns_entry.#", resourceName, "dns_entry.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "dns_options.#", resourceName, "dns_options.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "ip_address_type", resourceName, "ip_address_type"),
-					resource.TestCheckResourceAttrPair(datasourceName, "network_interface_ids.#", resourceName, "network_interface_ids.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "owner_id", resourceName, "owner_id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "policy", resourceName, "policy"),
-					resource.TestCheckResourceAttrPair(datasourceName, "prefix_list_id", resourceName, "prefix_list_id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "private_dns_enabled", resourceName, "private_dns_enabled"),
-					resource.TestCheckResourceAttrPair(datasourceName, "requester_managed", resourceName, "requester_managed"),
-					resource.TestCheckResourceAttrPair(datasourceName, "route_table_ids.#", resourceName, "route_table_ids.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "security_group_ids.#", resourceName, "security_group_ids.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "service_name", resourceName, "service_name"),
-					resource.TestCheckResourceAttrPair(datasourceName, "state", resourceName, "state"),
-					resource.TestCheckResourceAttrPair(datasourceName, "subnet_ids.#", resourceName, "subnet_ids.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
-					resource.TestCheckResourceAttrPair(datasourceName, "vpc_endpoint_type", resourceName, "vpc_endpoint_type"),
-					resource.TestCheckResourceAttrPair(datasourceName, "vpc_id", resourceName, "vpc_id"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(datasourceName, "cidr_blocks.#", resourceName, "cidr_blocks.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "dns_entry.#", resourceName, "dns_entry.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "dns_options.#", resourceName, "dns_options.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "ip_address_type", resourceName, "ip_address_type"),
+	resource.TestCheckResourceAttrPair(datasourceName, "network_interface_ids.#", resourceName, "network_interface_ids.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "owner_id", resourceName, "owner_id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "policy", resourceName, "policy"),
+	resource.TestCheckResourceAttrPair(datasourceName, "prefix_list_id", resourceName, "prefix_list_id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "private_dns_enabled", resourceName, "private_dns_enabled"),
+	resource.TestCheckResourceAttrPair(datasourceName, "requester_managed", resourceName, "requester_managed"),
+	resource.TestCheckResourceAttrPair(datasourceName, "route_table_ids.#", resourceName, "route_table_ids.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "security_group_ids.#", resourceName, "security_group_ids.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "service_name", resourceName, "service_name"),
+	resource.TestCheckResourceAttrPair(datasourceName, "state", resourceName, "state"),
+	resource.TestCheckResourceAttrPair(datasourceName, "subnet_ids.#", resourceName, "subnet_ids.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
+	resource.TestCheckResourceAttrPair(datasourceName, "vpc_endpoint_type", resourceName, "vpc_endpoint_type"),
+	resource.TestCheckResourceAttrPair(datasourceName, "vpc_id", resourceName, "vpc_id"),
+),
+	},
+},
 	})
 }
 
@@ -64,38 +64,38 @@ func TestAccVPCEndpointDataSource_byID(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCEndpointDataSourceConfig_byID(rName),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCEndpointDataSourceConfig_byID(rName),
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(datasourceName, "cidr_blocks.#", resourceName, "cidr_blocks.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "dns_entry.#", resourceName, "dns_entry.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "dns_options.#", resourceName, "dns_options.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "ip_address_type", resourceName, "ip_address_type"),
-					resource.TestCheckResourceAttrPair(datasourceName, "network_interface_ids.#", resourceName, "network_interface_ids.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "owner_id", resourceName, "owner_id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "policy", resourceName, "policy"),
-					resource.TestCheckResourceAttrPair(datasourceName, "prefix_list_id", resourceName, "prefix_list_id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "private_dns_enabled", resourceName, "private_dns_enabled"),
-					resource.TestCheckResourceAttrPair(datasourceName, "requester_managed", resourceName, "requester_managed"),
-					resource.TestCheckResourceAttrPair(datasourceName, "route_table_ids.#", resourceName, "route_table_ids.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "security_group_ids.#", resourceName, "security_group_ids.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "service_name", resourceName, "service_name"),
-					resource.TestCheckResourceAttrPair(datasourceName, "state", resourceName, "state"),
-					resource.TestCheckResourceAttrPair(datasourceName, "subnet_ids.#", resourceName, "subnet_ids.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
-					resource.TestCheckResourceAttrPair(datasourceName, "vpc_endpoint_type", resourceName, "vpc_endpoint_type"),
-					resource.TestCheckResourceAttrPair(datasourceName, "vpc_id", resourceName, "vpc_id"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(datasourceName, "cidr_blocks.#", resourceName, "cidr_blocks.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "dns_entry.#", resourceName, "dns_entry.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "dns_options.#", resourceName, "dns_options.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "ip_address_type", resourceName, "ip_address_type"),
+	resource.TestCheckResourceAttrPair(datasourceName, "network_interface_ids.#", resourceName, "network_interface_ids.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "owner_id", resourceName, "owner_id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "policy", resourceName, "policy"),
+	resource.TestCheckResourceAttrPair(datasourceName, "prefix_list_id", resourceName, "prefix_list_id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "private_dns_enabled", resourceName, "private_dns_enabled"),
+	resource.TestCheckResourceAttrPair(datasourceName, "requester_managed", resourceName, "requester_managed"),
+	resource.TestCheckResourceAttrPair(datasourceName, "route_table_ids.#", resourceName, "route_table_ids.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "security_group_ids.#", resourceName, "security_group_ids.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "service_name", resourceName, "service_name"),
+	resource.TestCheckResourceAttrPair(datasourceName, "state", resourceName, "state"),
+	resource.TestCheckResourceAttrPair(datasourceName, "subnet_ids.#", resourceName, "subnet_ids.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
+	resource.TestCheckResourceAttrPair(datasourceName, "vpc_endpoint_type", resourceName, "vpc_endpoint_type"),
+	resource.TestCheckResourceAttrPair(datasourceName, "vpc_id", resourceName, "vpc_id"),
+),
+	},
+},
 	})
 }
 
@@ -107,38 +107,38 @@ func TestAccVPCEndpointDataSource_byFilter(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCEndpointDataSourceConfig_byFilter(rName),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCEndpointDataSourceConfig_byFilter(rName),
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(datasourceName, "cidr_blocks.#", resourceName, "cidr_blocks.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "dns_entry.#", resourceName, "dns_entry.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "dns_options.#", resourceName, "dns_options.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "ip_address_type", resourceName, "ip_address_type"),
-					resource.TestCheckResourceAttrPair(datasourceName, "network_interface_ids.#", resourceName, "network_interface_ids.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "owner_id", resourceName, "owner_id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "policy", resourceName, "policy"),
-					resource.TestCheckResourceAttrPair(datasourceName, "prefix_list_id", resourceName, "prefix_list_id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "private_dns_enabled", resourceName, "private_dns_enabled"),
-					resource.TestCheckResourceAttrPair(datasourceName, "requester_managed", resourceName, "requester_managed"),
-					resource.TestCheckResourceAttrPair(datasourceName, "route_table_ids.#", resourceName, "route_table_ids.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "security_group_ids.#", resourceName, "security_group_ids.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "service_name", resourceName, "service_name"),
-					resource.TestCheckResourceAttrPair(datasourceName, "state", resourceName, "state"),
-					resource.TestCheckResourceAttrPair(datasourceName, "subnet_ids.#", resourceName, "subnet_ids.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
-					resource.TestCheckResourceAttrPair(datasourceName, "vpc_endpoint_type", resourceName, "vpc_endpoint_type"),
-					resource.TestCheckResourceAttrPair(datasourceName, "vpc_id", resourceName, "vpc_id"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(datasourceName, "cidr_blocks.#", resourceName, "cidr_blocks.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "dns_entry.#", resourceName, "dns_entry.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "dns_options.#", resourceName, "dns_options.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "ip_address_type", resourceName, "ip_address_type"),
+	resource.TestCheckResourceAttrPair(datasourceName, "network_interface_ids.#", resourceName, "network_interface_ids.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "owner_id", resourceName, "owner_id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "policy", resourceName, "policy"),
+	resource.TestCheckResourceAttrPair(datasourceName, "prefix_list_id", resourceName, "prefix_list_id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "private_dns_enabled", resourceName, "private_dns_enabled"),
+	resource.TestCheckResourceAttrPair(datasourceName, "requester_managed", resourceName, "requester_managed"),
+	resource.TestCheckResourceAttrPair(datasourceName, "route_table_ids.#", resourceName, "route_table_ids.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "security_group_ids.#", resourceName, "security_group_ids.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "service_name", resourceName, "service_name"),
+	resource.TestCheckResourceAttrPair(datasourceName, "state", resourceName, "state"),
+	resource.TestCheckResourceAttrPair(datasourceName, "subnet_ids.#", resourceName, "subnet_ids.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
+	resource.TestCheckResourceAttrPair(datasourceName, "vpc_endpoint_type", resourceName, "vpc_endpoint_type"),
+	resource.TestCheckResourceAttrPair(datasourceName, "vpc_id", resourceName, "vpc_id"),
+),
+	},
+},
 	})
 }
 
@@ -150,38 +150,38 @@ func TestAccVPCEndpointDataSource_byTags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCEndpointDataSourceConfig_byTags(rName),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCEndpointDataSourceConfig_byTags(rName),
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(datasourceName, "cidr_blocks.#", resourceName, "cidr_blocks.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "dns_entry.#", resourceName, "dns_entry.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "dns_options.#", resourceName, "dns_options.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "ip_address_type", resourceName, "ip_address_type"),
-					resource.TestCheckResourceAttrPair(datasourceName, "network_interface_ids.#", resourceName, "network_interface_ids.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "owner_id", resourceName, "owner_id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "policy", resourceName, "policy"),
-					resource.TestCheckResourceAttrPair(datasourceName, "prefix_list_id", resourceName, "prefix_list_id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "private_dns_enabled", resourceName, "private_dns_enabled"),
-					resource.TestCheckResourceAttrPair(datasourceName, "requester_managed", resourceName, "requester_managed"),
-					resource.TestCheckResourceAttrPair(datasourceName, "route_table_ids.#", resourceName, "route_table_ids.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "security_group_ids.#", resourceName, "security_group_ids.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "service_name", resourceName, "service_name"),
-					resource.TestCheckResourceAttrPair(datasourceName, "state", resourceName, "state"),
-					resource.TestCheckResourceAttrPair(datasourceName, "subnet_ids.#", resourceName, "subnet_ids.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
-					resource.TestCheckResourceAttrPair(datasourceName, "vpc_endpoint_type", resourceName, "vpc_endpoint_type"),
-					resource.TestCheckResourceAttrPair(datasourceName, "vpc_id", resourceName, "vpc_id"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(datasourceName, "cidr_blocks.#", resourceName, "cidr_blocks.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "dns_entry.#", resourceName, "dns_entry.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "dns_options.#", resourceName, "dns_options.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "ip_address_type", resourceName, "ip_address_type"),
+	resource.TestCheckResourceAttrPair(datasourceName, "network_interface_ids.#", resourceName, "network_interface_ids.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "owner_id", resourceName, "owner_id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "policy", resourceName, "policy"),
+	resource.TestCheckResourceAttrPair(datasourceName, "prefix_list_id", resourceName, "prefix_list_id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "private_dns_enabled", resourceName, "private_dns_enabled"),
+	resource.TestCheckResourceAttrPair(datasourceName, "requester_managed", resourceName, "requester_managed"),
+	resource.TestCheckResourceAttrPair(datasourceName, "route_table_ids.#", resourceName, "route_table_ids.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "security_group_ids.#", resourceName, "security_group_ids.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "service_name", resourceName, "service_name"),
+	resource.TestCheckResourceAttrPair(datasourceName, "state", resourceName, "state"),
+	resource.TestCheckResourceAttrPair(datasourceName, "subnet_ids.#", resourceName, "subnet_ids.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
+	resource.TestCheckResourceAttrPair(datasourceName, "vpc_endpoint_type", resourceName, "vpc_endpoint_type"),
+	resource.TestCheckResourceAttrPair(datasourceName, "vpc_id", resourceName, "vpc_id"),
+),
+	},
+},
 	})
 }
 
@@ -193,38 +193,38 @@ func TestAccVPCEndpointDataSource_gatewayWithRouteTableAndTags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCEndpointDataSourceConfig_gatewayRouteTableAndTags(rName),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCEndpointDataSourceConfig_gatewayRouteTableAndTags(rName),
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(datasourceName, "cidr_blocks.#", resourceName, "cidr_blocks.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "dns_entry.#", resourceName, "dns_entry.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "dns_options.#", resourceName, "dns_options.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "ip_address_type", resourceName, "ip_address_type"),
-					resource.TestCheckResourceAttrPair(datasourceName, "network_interface_ids.#", resourceName, "network_interface_ids.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "owner_id", resourceName, "owner_id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "policy", resourceName, "policy"),
-					resource.TestCheckResourceAttrPair(datasourceName, "prefix_list_id", resourceName, "prefix_list_id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "private_dns_enabled", resourceName, "private_dns_enabled"),
-					resource.TestCheckResourceAttrPair(datasourceName, "requester_managed", resourceName, "requester_managed"),
-					resource.TestCheckResourceAttrPair(datasourceName, "route_table_ids.#", resourceName, "route_table_ids.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "security_group_ids.#", resourceName, "security_group_ids.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "service_name", resourceName, "service_name"),
-					resource.TestCheckResourceAttrPair(datasourceName, "state", resourceName, "state"),
-					resource.TestCheckResourceAttrPair(datasourceName, "subnet_ids.#", resourceName, "subnet_ids.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
-					resource.TestCheckResourceAttrPair(datasourceName, "vpc_endpoint_type", resourceName, "vpc_endpoint_type"),
-					resource.TestCheckResourceAttrPair(datasourceName, "vpc_id", resourceName, "vpc_id"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(datasourceName, "cidr_blocks.#", resourceName, "cidr_blocks.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "dns_entry.#", resourceName, "dns_entry.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "dns_options.#", resourceName, "dns_options.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "ip_address_type", resourceName, "ip_address_type"),
+	resource.TestCheckResourceAttrPair(datasourceName, "network_interface_ids.#", resourceName, "network_interface_ids.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "owner_id", resourceName, "owner_id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "policy", resourceName, "policy"),
+	resource.TestCheckResourceAttrPair(datasourceName, "prefix_list_id", resourceName, "prefix_list_id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "private_dns_enabled", resourceName, "private_dns_enabled"),
+	resource.TestCheckResourceAttrPair(datasourceName, "requester_managed", resourceName, "requester_managed"),
+	resource.TestCheckResourceAttrPair(datasourceName, "route_table_ids.#", resourceName, "route_table_ids.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "security_group_ids.#", resourceName, "security_group_ids.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "service_name", resourceName, "service_name"),
+	resource.TestCheckResourceAttrPair(datasourceName, "state", resourceName, "state"),
+	resource.TestCheckResourceAttrPair(datasourceName, "subnet_ids.#", resourceName, "subnet_ids.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
+	resource.TestCheckResourceAttrPair(datasourceName, "vpc_endpoint_type", resourceName, "vpc_endpoint_type"),
+	resource.TestCheckResourceAttrPair(datasourceName, "vpc_id", resourceName, "vpc_id"),
+),
+	},
+},
 	})
 }
 
@@ -236,38 +236,38 @@ func TestAccVPCEndpointDataSource_interface(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCEndpointDataSourceConfig_interface(rName),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCEndpointDataSourceConfig_interface(rName),
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(datasourceName, "cidr_blocks.#", resourceName, "cidr_blocks.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "dns_entry.#", resourceName, "dns_entry.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "dns_options.#", resourceName, "dns_options.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "ip_address_type", resourceName, "ip_address_type"),
-					resource.TestCheckResourceAttrPair(datasourceName, "network_interface_ids.#", resourceName, "network_interface_ids.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "owner_id", resourceName, "owner_id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "policy", resourceName, "policy"),
-					resource.TestCheckNoResourceAttr(resourceName, "prefix_list_id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "private_dns_enabled", resourceName, "private_dns_enabled"),
-					resource.TestCheckResourceAttrPair(datasourceName, "requester_managed", resourceName, "requester_managed"),
-					resource.TestCheckResourceAttrPair(datasourceName, "route_table_ids.#", resourceName, "route_table_ids.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "security_group_ids.#", resourceName, "security_group_ids.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "service_name", resourceName, "service_name"),
-					resource.TestCheckResourceAttrPair(datasourceName, "state", resourceName, "state"),
-					resource.TestCheckResourceAttrPair(datasourceName, "subnet_ids.#", resourceName, "subnet_ids.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
-					resource.TestCheckResourceAttrPair(datasourceName, "vpc_endpoint_type", resourceName, "vpc_endpoint_type"),
-					resource.TestCheckResourceAttrPair(datasourceName, "vpc_id", resourceName, "vpc_id"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(datasourceName, "cidr_blocks.#", resourceName, "cidr_blocks.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "dns_entry.#", resourceName, "dns_entry.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "dns_options.#", resourceName, "dns_options.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "ip_address_type", resourceName, "ip_address_type"),
+	resource.TestCheckResourceAttrPair(datasourceName, "network_interface_ids.#", resourceName, "network_interface_ids.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "owner_id", resourceName, "owner_id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "policy", resourceName, "policy"),
+	resource.TestCheckNoResourceAttr(resourceName, "prefix_list_id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "private_dns_enabled", resourceName, "private_dns_enabled"),
+	resource.TestCheckResourceAttrPair(datasourceName, "requester_managed", resourceName, "requester_managed"),
+	resource.TestCheckResourceAttrPair(datasourceName, "route_table_ids.#", resourceName, "route_table_ids.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "security_group_ids.#", resourceName, "security_group_ids.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "service_name", resourceName, "service_name"),
+	resource.TestCheckResourceAttrPair(datasourceName, "state", resourceName, "state"),
+	resource.TestCheckResourceAttrPair(datasourceName, "subnet_ids.#", resourceName, "subnet_ids.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
+	resource.TestCheckResourceAttrPair(datasourceName, "vpc_endpoint_type", resourceName, "vpc_endpoint_type"),
+	resource.TestCheckResourceAttrPair(datasourceName, "vpc_id", resourceName, "vpc_id"),
+),
+	},
+},
 	})
 }
 
@@ -452,7 +452,7 @@ resource "aws_vpc" "test" {
 }
 
 resource "aws_subnet" "test" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   cidr_block        = aws_vpc.test.cidr_block
   availability_zone = data.aws_availability_zones.available.names[0]
 
@@ -473,7 +473,7 @@ resource "aws_security_group" "test" {
 data "aws_region" "current" {}
 
 resource "aws_vpc_endpoint" "test" {
-  vpc_id              = aws_vpc.test.id
+  vpc_id     = aws_vpc.test.id
   vpc_endpoint_type   = "Interface"
   service_name        = "com.amazonaws.${data.aws_region.current.name}.ec2"
   private_dns_enabled = false

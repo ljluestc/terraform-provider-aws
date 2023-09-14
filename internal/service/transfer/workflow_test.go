@@ -26,8 +26,8 @@ func TestAccTransferWorkflow_basic(t *testing.T) {
 	rName := sdkacctest.RandString(25)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, transfer.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckWorkflowDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -66,8 +66,8 @@ func TestAccTransferWorkflow_onExceptionSteps(t *testing.T) {
 	rName := sdkacctest.RandString(25)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, transfer.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckWorkflowDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -113,8 +113,8 @@ func TestAccTransferWorkflow_description(t *testing.T) {
 	rName := sdkacctest.RandString(25)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, transfer.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckWorkflowDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -141,8 +141,8 @@ func TestAccTransferWorkflow_tags(t *testing.T) {
 	rName := sdkacctest.RandString(25)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, transfer.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckWorkflowDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -187,8 +187,8 @@ func TestAccTransferWorkflow_disappears(t *testing.T) {
 	rName := sdkacctest.RandString(25)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, transfer.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckWorkflowDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -211,8 +211,8 @@ func TestAccTransferWorkflow_allSteps(t *testing.T) {
 	rName := sdkacctest.RandString(25)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, transfer.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckWorkflowDestroy(ctx),
 		Steps: []resource.TestStep{

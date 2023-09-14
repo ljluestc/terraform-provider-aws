@@ -35,7 +35,7 @@ func TestAccEMRContainersVirtualCluster_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckIAMServiceLinkedRole(ctx, t, "/aws-service-role/emr-containers.amazonaws.com")
 		},
-		ErrorCheck:acctest.ErrorCheck(t, emrcontainers.EndpointsID),
+		ErrorCheck:               acctest.ErrorCheck(t, emrcontainers.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		ExternalProviders:        testExternalProviders,
 		CheckDestroy:             testAccCheckVirtualClusterDestroy(ctx),
@@ -91,7 +91,7 @@ func TestAccEMRContainersVirtualCluster_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckIAMServiceLinkedRole(ctx, t, "/aws-service-role/emr-containers.amazonaws.com")
 		},
-		ErrorCheck:acctest.ErrorCheck(t, emrcontainers.EndpointsID),
+		ErrorCheck:               acctest.ErrorCheck(t, emrcontainers.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		ExternalProviders:        testExternalProviders,
 		CheckDestroy:             testAccCheckVirtualClusterDestroy(ctx),
@@ -125,7 +125,7 @@ func TestAccEMRContainersVirtualCluster_tags(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckIAMServiceLinkedRole(ctx, t, "/aws-service-role/emr-containers.amazonaws.com")
 		},
-		ErrorCheck:acctest.ErrorCheck(t, emrcontainers.EndpointsID),
+		ErrorCheck:               acctest.ErrorCheck(t, emrcontainers.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		ExternalProviders:        testExternalProviders,
 		CheckDestroy:             testAccCheckVirtualClusterDestroy(ctx),

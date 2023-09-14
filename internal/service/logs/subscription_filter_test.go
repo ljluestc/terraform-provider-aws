@@ -27,29 +27,29 @@ func TestAccLogsSubscriptionFilter_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSubscriptionFilterDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSubscriptionFilterConfig_destinationARNLambda(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSubscriptionFilterExists(ctx, resourceName, &filter),
-					resource.TestCheckResourceAttrPair(resourceName, "destination_arn", lambdaFunctionResourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "distribution", "ByLogStream"),
-					resource.TestCheckResourceAttr(resourceName, "filter_pattern", "logtype test"),
-					resource.TestCheckResourceAttrPair(resourceName, "log_group_name", logGroupResourceName, "name"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateIdFunc: testAccSubscriptionFilterImportStateIDFunc(resourceName),
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckSubscriptionFilterDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSubscriptionFilterConfig_destinationARNLambda(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckSubscriptionFilterExists(ctx, resourceName, &filter),
+	resource.TestCheckResourceAttrPair(resourceName, "destination_arn", lambdaFunctionResourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "distribution", "ByLogStream"),
+	resource.TestCheckResourceAttr(resourceName, "filter_pattern", "logtype test"),
+	resource.TestCheckResourceAttrPair(resourceName, "log_group_name", logGroupResourceName, "name"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateIdFunc: testAccSubscriptionFilterImportStateIDFunc(resourceName),
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -59,16 +59,16 @@ func TestAccLogsSubscriptionFilter_many(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSubscriptionFilterDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSubscriptionFilterConfig_destinationARNLambdaMany(rName, 2), // This is the default limit of subscription filters on an account
-				Check:  testAccCheckSubscriptionFilterManyExists(ctx, resourceName, 2),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckSubscriptionFilterDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSubscriptionFilterConfig_destinationARNLambdaMany(rName, 2), // This is the default limit of subscription filters on an account
+Check:  testAccCheckSubscriptionFilterManyExists(ctx, resourceName, 2),
+	},
+},
 	})
 }
 
@@ -79,20 +79,20 @@ func TestAccLogsSubscriptionFilter_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSubscriptionFilterDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSubscriptionFilterConfig_destinationARNLambda(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSubscriptionFilterExists(ctx, resourceName, &filter),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tflogs.ResourceSubscriptionFilter(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckSubscriptionFilterDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSubscriptionFilterConfig_destinationARNLambda(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckSubscriptionFilterExists(ctx, resourceName, &filter),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tflogs.ResourceSubscriptionFilter(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -104,20 +104,20 @@ func TestAccLogsSubscriptionFilter_Disappears_logGroup(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSubscriptionFilterDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSubscriptionFilterConfig_destinationARNLambda(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSubscriptionFilterExists(ctx, resourceName, &filter),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tflogs.ResourceGroup(), logGroupResourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckSubscriptionFilterDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSubscriptionFilterConfig_destinationARNLambda(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckSubscriptionFilterExists(ctx, resourceName, &filter),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tflogs.ResourceGroup(), logGroupResourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -129,25 +129,25 @@ func TestAccLogsSubscriptionFilter_DestinationARN_kinesisDataFirehose(t *testing
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSubscriptionFilterDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSubscriptionFilterConfig_destinationARNKinesisDataFirehose(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSubscriptionFilterExists(ctx, resourceName, &filter),
-					resource.TestCheckResourceAttrPair(resourceName, "destination_arn", firehoseResourceName, "arn"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateIdFunc: testAccSubscriptionFilterImportStateIDFunc(resourceName),
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckSubscriptionFilterDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSubscriptionFilterConfig_destinationARNKinesisDataFirehose(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckSubscriptionFilterExists(ctx, resourceName, &filter),
+	resource.TestCheckResourceAttrPair(resourceName, "destination_arn", firehoseResourceName, "arn"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateIdFunc: testAccSubscriptionFilterImportStateIDFunc(resourceName),
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -159,25 +159,25 @@ func TestAccLogsSubscriptionFilter_DestinationARN_kinesisStream(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSubscriptionFilterDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSubscriptionFilterConfig_destinationARNKinesisStream(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSubscriptionFilterExists(ctx, resourceName, &filter),
-					resource.TestCheckResourceAttrPair(resourceName, "destination_arn", kinesisStream, "arn"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateIdFunc: testAccSubscriptionFilterImportStateIDFunc(resourceName),
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckSubscriptionFilterDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSubscriptionFilterConfig_destinationARNKinesisStream(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckSubscriptionFilterExists(ctx, resourceName, &filter),
+	resource.TestCheckResourceAttrPair(resourceName, "destination_arn", kinesisStream, "arn"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateIdFunc: testAccSubscriptionFilterImportStateIDFunc(resourceName),
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -188,32 +188,32 @@ func TestAccLogsSubscriptionFilter_distribution(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSubscriptionFilterDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSubscriptionFilterConfig_distribution(rName, "Random"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSubscriptionFilterExists(ctx, resourceName, &filter),
-					resource.TestCheckResourceAttr(resourceName, "distribution", "Random"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateIdFunc: testAccSubscriptionFilterImportStateIDFunc(resourceName),
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccSubscriptionFilterConfig_distribution(rName, "ByLogStream"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSubscriptionFilterExists(ctx, resourceName, &filter),
-					resource.TestCheckResourceAttr(resourceName, "distribution", "ByLogStream"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckSubscriptionFilterDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSubscriptionFilterConfig_distribution(rName, "Random"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckSubscriptionFilterExists(ctx, resourceName, &filter),
+	resource.TestCheckResourceAttr(resourceName, "distribution", "Random"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateIdFunc: testAccSubscriptionFilterImportStateIDFunc(resourceName),
+ImportStateVerify: true,
+	},
+	{
+Config: testAccSubscriptionFilterConfig_distribution(rName, "ByLogStream"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckSubscriptionFilterExists(ctx, resourceName, &filter),
+	resource.TestCheckResourceAttr(resourceName, "distribution", "ByLogStream"),
+),
+	},
+},
 	})
 }
 
@@ -226,115 +226,115 @@ func TestAccLogsSubscriptionFilter_roleARN(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSubscriptionFilterDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSubscriptionFilterConfig_roleARN1(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSubscriptionFilterExists(ctx, resourceName, &filter),
-					resource.TestCheckResourceAttrPair(resourceName, "role_arn", iamRoleResourceName1, "arn"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateIdFunc: testAccSubscriptionFilterImportStateIDFunc(resourceName),
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccSubscriptionFilterConfig_roleARN2(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSubscriptionFilterExists(ctx, resourceName, &filter),
-					resource.TestCheckResourceAttrPair(resourceName, "role_arn", iamRoleResourceName2, "arn"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckSubscriptionFilterDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSubscriptionFilterConfig_roleARN1(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckSubscriptionFilterExists(ctx, resourceName, &filter),
+	resource.TestCheckResourceAttrPair(resourceName, "role_arn", iamRoleResourceName1, "arn"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateIdFunc: testAccSubscriptionFilterImportStateIDFunc(resourceName),
+ImportStateVerify: true,
+	},
+	{
+Config: testAccSubscriptionFilterConfig_roleARN2(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckSubscriptionFilterExists(ctx, resourceName, &filter),
+	resource.TestCheckResourceAttrPair(resourceName, "role_arn", iamRoleResourceName2, "arn"),
+),
+	},
+},
 	})
 }
 
 func testAccCheckSubscriptionFilterDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).LogsConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).LogsConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_cloudwatch_log_subscription_filter" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_cloudwatch_log_subscription_filter" {
+continue
+	}
 
-			_, err := tflogs.FindSubscriptionFilterByTwoPartKey(ctx, conn, rs.Primary.Attributes["log_group_name"], rs.Primary.Attributes["name"])
+	_, err := tflogs.FindSubscriptionFilterByTwoPartKey(ctx, conn, rs.Primary.Attributes["log_group_name"], rs.Primary.Attributes["name"])
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("CloudWatch Logs Filter Subscription still exists: %s", rs.Primary.ID)
-		}
+	return fmt.Errorf("CloudWatch Logs Filter Subscription still exists: %s", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckSubscriptionFilterExists(ctx context.Context, n string, v *cloudwatchlogs.SubscriptionFilter) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No CloudWatch Logs Filter Subscription ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No CloudWatch Logs Filter Subscription ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).LogsConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).LogsConn(ctx)
 
-		output, err := tflogs.FindSubscriptionFilterByTwoPartKey(ctx, conn, rs.Primary.Attributes["log_group_name"], rs.Primary.Attributes["name"])
+output, err := tflogs.FindSubscriptionFilterByTwoPartKey(ctx, conn, rs.Primary.Attributes["log_group_name"], rs.Primary.Attributes["name"])
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*v = *output
+*v = *output
 
-		return nil
+return nil
 	}
 }
 
 func testAccSubscriptionFilterImportStateIDFunc(resourceName string) resource.ImportStateIdFunc {
 	return func(s *terraform.State) (string, error) {
-		rs, ok := s.RootModule().Resources[resourceName]
-		if !ok {
-			return "", fmt.Errorf("Not found: %s", resourceName)
-		}
+rs, ok := s.RootModule().Resources[resourceName]
+if !ok {
+	return "", fmt.Errorf("Not found: %s", resourceName)
+}
 
-		logGroupName := rs.Primary.Attributes["log_group_name"]
-		filterNamePrefix := rs.Primary.Attributes["name"]
-		stateID := fmt.Sprintf("%s|%s", logGroupName, filterNamePrefix)
+logGroupName := rs.Primary.Attributes["log_group_name"]
+filterNamePrefix := rs.Primary.Attributes["name"]
+stateID := fmt.Sprintf("%s|%s", logGroupName, filterNamePrefix)
 
-		return stateID, nil
+return stateID, nil
 	}
 }
 
 func testAccCheckSubscriptionFilterManyExists(ctx context.Context, basename string, n int) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		for i := 0; i < n; i++ {
-			n := fmt.Sprintf("%s.%d", basename, i)
-			var v cloudwatchlogs.SubscriptionFilter
+for i := 0; i < n; i++ {
+	n := fmt.Sprintf("%s.%d", basename, i)
+	var v cloudwatchlogs.SubscriptionFilter
 
-			err := testAccCheckSubscriptionFilterExists(ctx, n, &v)(s)
+	err := testAccCheckSubscriptionFilterExists(ctx, n, &v)(s)
 
-			if err != nil {
-				return err
-			}
-		}
+	if err != nil {
+return err
+	}
+}
 
-		return nil
+return nil
 	}
 }
 

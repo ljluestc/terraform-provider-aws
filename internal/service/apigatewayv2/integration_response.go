@@ -72,7 +72,7 @@ func resourceIntegrationResponseCreate(ctx context.Context, d *schema.ResourceDa
 	conn := meta.(*conns.AWSClient).APIGatewayV2Conn(ctx)
 
 	req := &apigatewayv2.CreateIntegrationResponseInput{
-		ApiId:   aws.String(d.Get("api_id").(string)),
+		ApiId:                  aws.String(d.Get("api_id").(string)),
 		IntegrationId:          aws.String(d.Get("integration_id").(string)),
 		IntegrationResponseKey: aws.String(d.Get("integration_response_key").(string)),
 	}
@@ -102,7 +102,7 @@ func resourceIntegrationResponseRead(ctx context.Context, d *schema.ResourceData
 	conn := meta.(*conns.AWSClient).APIGatewayV2Conn(ctx)
 
 	resp, err := conn.GetIntegrationResponseWithContext(ctx, &apigatewayv2.GetIntegrationResponseInput{
-		ApiId:  aws.String(d.Get("api_id").(string)),
+		ApiId:                 aws.String(d.Get("api_id").(string)),
 		IntegrationId:         aws.String(d.Get("integration_id").(string)),
 		IntegrationResponseId: aws.String(d.Id()),
 	})
@@ -131,7 +131,7 @@ func resourceIntegrationResponseUpdate(ctx context.Context, d *schema.ResourceDa
 	conn := meta.(*conns.AWSClient).APIGatewayV2Conn(ctx)
 
 	req := &apigatewayv2.UpdateIntegrationResponseInput{
-		ApiId:  aws.String(d.Get("api_id").(string)),
+		ApiId:                 aws.String(d.Get("api_id").(string)),
 		IntegrationId:         aws.String(d.Get("integration_id").(string)),
 		IntegrationResponseId: aws.String(d.Id()),
 	}
@@ -163,7 +163,7 @@ func resourceIntegrationResponseDelete(ctx context.Context, d *schema.ResourceDa
 
 	log.Printf("[DEBUG] Deleting API Gateway v2 integration response (%s)", d.Id())
 	_, err := conn.DeleteIntegrationResponseWithContext(ctx, &apigatewayv2.DeleteIntegrationResponseInput{
-		ApiId:  aws.String(d.Get("api_id").(string)),
+		ApiId:                 aws.String(d.Get("api_id").(string)),
 		IntegrationId:         aws.String(d.Get("integration_id").(string)),
 		IntegrationResponseId: aws.String(d.Id()),
 	})

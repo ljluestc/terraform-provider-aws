@@ -91,7 +91,7 @@ func ResourceRouteTable() *schema.Resource {
 						// Destinations.
 						///
 						"cidr_block": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Validate
 func: verify.ValidIPv4CIDRNetworkAddress,
@@ -101,7 +101,7 @@ func: verify.ValidIPv4CIDRNetworkAddress,
 							Optional: true,
 						},
 						"ipv6_cidr_block": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Validate
 func: verify.ValidIPv6CIDRNetworkAddress,
@@ -172,7 +172,7 @@ func resourceRouteTableCreate(ctx context.Context, d *schema.ResourceData, meta 
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	input := &ec2.CreateRouteTableInput{
-		VpcId:             aws.String(d.Get("vpc_id").(string)),
+		VpcId:    aws.String(d.Get("vpc_id").(string)),
 		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeRouteTable),
 	}
 

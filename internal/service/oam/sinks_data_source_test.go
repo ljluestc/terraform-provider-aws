@@ -16,7 +16,7 @@ import (
 
 func TestAccObservabilityAccessManagerSinksDataSource_basic(t *testing.T) {
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	ctx := acctest.Context(t)
@@ -24,22 +24,22 @@ func TestAccObservabilityAccessManagerSinksDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_oam_sinks.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, names.ObservabilityAccessManagerEndpointID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, names.ObservabilityAccessManagerEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSinksDataSourceConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr(dataSourceName, "arns.#", "1"),
-					acctest.MatchResourceAttrRegionalARN(dataSourceName, "arns.0", "oam", regexache.MustCompile(`sink/+.`)),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, names.ObservabilityAccessManagerEndpointID)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, names.ObservabilityAccessManagerEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccSinksDataSourceConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	resource.TestCheckResourceAttr(dataSourceName, "arns.#", "1"),
+	acctest.MatchResourceAttrRegionalARN(dataSourceName, "arns.0", "oam", regexache.MustCompile(`sink/+.`)),
+),
+	},
+},
 	})
 }
 

@@ -343,10 +343,10 @@ func resourceTargetGroupDelete(ctx context.Context, d *schema.ResourceData, meta
 
 func waitTargetGroupCreated(ctx context.Context, conn *vpclattice.Client, id string, timeout time.Duration) (*vpclattice.CreateTargetGroupOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    enum.Slice(types.TargetGroupStatusCreateInProgress),
-		Target:     enum.Slice(types.TargetGroupStatusActive),
-		Refresh:    statusTargetGroup(ctx, conn, id),
-		Timeout:    timeout,
+		Pending:                   enum.Slice(types.TargetGroupStatusCreateInProgress),
+		Target:                    enum.Slice(types.TargetGroupStatusActive),
+		Refresh:                   statusTargetGroup(ctx, conn, id),
+		Timeout:                   timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}
@@ -361,10 +361,10 @@ func waitTargetGroupCreated(ctx context.Context, conn *vpclattice.Client, id str
 
 func waitTargetGroupUpdated(ctx context.Context, conn *vpclattice.Client, id string, timeout time.Duration) (*vpclattice.UpdateTargetGroupOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    enum.Slice(types.TargetGroupStatusCreateInProgress),
-		Target:     enum.Slice(types.TargetGroupStatusActive),
-		Refresh:    statusTargetGroup(ctx, conn, id),
-		Timeout:    timeout,
+		Pending:                   enum.Slice(types.TargetGroupStatusCreateInProgress),
+		Target:                    enum.Slice(types.TargetGroupStatusActive),
+		Refresh:                   statusTargetGroup(ctx, conn, id),
+		Timeout:                   timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}

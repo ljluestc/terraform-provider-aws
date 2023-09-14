@@ -22,24 +22,24 @@ func TestAccOpsWorksGangliaLayer_basic(t *testing.T) {
 	resourceName := "aws_opsworks_ganglia_layer.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
-		ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGangliaLayerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccGangliaLayerConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckGangliaLayerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccGangliaLayerConfig_basic(rName),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckLayerExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "name", "Ganglia"),
-					resource.TestCheckResourceAttrSet(resourceName, "password"),
-					resource.TestCheckResourceAttr(resourceName, "url", "/ganglia"),
-					resource.TestCheckResourceAttr(resourceName, "username", "opsworks"),
-				),
-			},
-		},
+	testAccCheckLayerExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "name", "Ganglia"),
+	resource.TestCheckResourceAttrSet(resourceName, "password"),
+	resource.TestCheckResourceAttr(resourceName, "url", "/ganglia"),
+	resource.TestCheckResourceAttr(resourceName, "username", "opsworks"),
+),
+	},
+},
 	})
 }
 

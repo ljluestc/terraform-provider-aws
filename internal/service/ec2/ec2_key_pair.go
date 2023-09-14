@@ -56,7 +56,7 @@ func ResourceKeyPair() *schema.Resource {
 				Computed: true,
 			},
 			"key_name": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -65,7 +65,7 @@ func:  validation.StringLenBetween(0, 255),
 				ConflictsWith: []string{"key_name_prefix"},
 			},
 			"key_name_prefix": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -109,7 +109,7 @@ func resourceKeyPairCreate(ctx context.Context, d *schema.ResourceData, meta int
 
 	keyName := create.Name(d.Get("key_name").(string), d.Get("key_name_prefix").(string))
 	input := &ec2.ImportKeyPairInput{
-		KeyName:           aws.String(keyName),
+		KeyName:  aws.String(keyName),
 		PublicKeyMaterial: []byte(d.Get("public_key").(string)),
 		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeKeyPair),
 	}

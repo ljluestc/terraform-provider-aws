@@ -59,7 +59,7 @@ func: validation.Any(
 				//   - If the DefaultNetmaskLength allocation rule is set on the pool,
 				//   you can specify either the NetmaskLength or the CIDR and the
 				//   DefaultNetmaskLength allocation rule will be ignored.
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				Validate
 func: validation.IntBetween(0, 32),

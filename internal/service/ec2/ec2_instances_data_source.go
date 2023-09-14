@@ -40,7 +40,7 @@ func DataSourceInstances() *schema.Resource {
 				Type:     schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Validate
 func: validation.StringInSlice(ec2.InstanceStateName_Values(), false),
 				},

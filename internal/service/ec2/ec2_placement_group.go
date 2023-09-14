@@ -62,7 +62,7 @@ func: validation.IntBetween(0, 7),
 				Computed: true,
 			},
 			"spread_level": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Computed:     true,
 				Optional:     true,
 				ForceNew:     true,
@@ -70,7 +70,7 @@ func: validation.IntBetween(0, 7),
 func: validation.StringInSlice(ec2.SpreadLevel_Values(), false),
 			},
 			"strategy": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
@@ -94,8 +94,8 @@ func resourcePlacementGroupCreate(ctx context.Context, d *schema.ResourceData, m
 
 	name := d.Get("name").(string)
 	input := &ec2.CreatePlacementGroupInput{
-		GroupName:         aws.String(name),
-		Strategy:          aws.String(d.Get("strategy").(string)),
+		GroupName:aws.String(name),
+		Strategy: aws.String(d.Get("strategy").(string)),
 		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypePlacementGroup),
 	}
 

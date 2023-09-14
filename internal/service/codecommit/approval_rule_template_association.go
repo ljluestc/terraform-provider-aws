@@ -34,7 +34,7 @@ func ResourceApprovalRuleTemplateAssociation() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"approval_rule_template_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
@@ -64,7 +64,7 @@ func resourceApprovalRuleTemplateAssociationCreate(ctx context.Context, d *schem
 
 	input := &codecommit.AssociateApprovalRuleTemplateWithRepositoryInput{
 		ApprovalRuleTemplateName: aws.String(approvalRuleTemplateName),
-		RepositoryName:           aws.String(repositoryName),
+		RepositoryName:  aws.String(repositoryName),
 	}
 
 	_, err := conn.AssociateApprovalRuleTemplateWithRepositoryWithContext(ctx, input)
@@ -120,7 +120,7 @@ func resourceApprovalRuleTemplateAssociationDelete(ctx context.Context, d *schem
 
 	input := &codecommit.DisassociateApprovalRuleTemplateFromRepositoryInput{
 		ApprovalRuleTemplateName: aws.String(approvalRuleTemplateName),
-		RepositoryName:           aws.String(repositoryName),
+		RepositoryName:  aws.String(repositoryName),
 	}
 
 	_, err = conn.DisassociateApprovalRuleTemplateFromRepositoryWithContext(ctx, input)

@@ -18,21 +18,21 @@ func testAccDelegatedServicesDataSource_basic(t *testing.T) {
 	servicePrincipal := "config-multiaccountsetup.amazonaws.com"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckAlternateAccount(t)
-			acctest.PreCheckOrganizationManagementAccount(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, organizations.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccDelegatedServicesDataSourceConfig_basic(servicePrincipal),
-				Check: resource.ComposeTestCheckFunc(
-					acctest.CheckResourceAttrGreaterThanOrEqualValue(dataSourceName, "delegated_services.#", 1),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckAlternateAccount(t)
+	acctest.PreCheckOrganizationManagementAccount(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, organizations.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
+Steps: []resource.TestStep{
+	{
+Config: testAccDelegatedServicesDataSourceConfig_basic(servicePrincipal),
+Check: resource.ComposeTestCheckFunc(
+	acctest.CheckResourceAttrGreaterThanOrEqualValue(dataSourceName, "delegated_services.#", 1),
+),
+	},
+},
 	})
 }
 
@@ -43,21 +43,21 @@ func testAccDelegatedServicesDataSource_multiple(t *testing.T) {
 	servicePrincipal2 := "config.amazonaws.com"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckAlternateAccount(t)
-			acctest.PreCheckOrganizationManagementAccount(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, organizations.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccDelegatedServicesDataSourceConfig_multiple(servicePrincipal1, servicePrincipal2),
-				Check: resource.ComposeTestCheckFunc(
-					acctest.CheckResourceAttrGreaterThanOrEqualValue(dataSourceName, "delegated_services.#", 2),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckAlternateAccount(t)
+	acctest.PreCheckOrganizationManagementAccount(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, organizations.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
+Steps: []resource.TestStep{
+	{
+Config: testAccDelegatedServicesDataSourceConfig_multiple(servicePrincipal1, servicePrincipal2),
+Check: resource.ComposeTestCheckFunc(
+	acctest.CheckResourceAttrGreaterThanOrEqualValue(dataSourceName, "delegated_services.#", 2),
+),
+	},
+},
 	})
 }
 

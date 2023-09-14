@@ -23,22 +23,22 @@ func TestAccOpsWorksECSClusterLayer_basic(t *testing.T) {
 	resourceName := "aws_opsworks_ecs_cluster_layer.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
-		ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckECSClusterLayerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccECSClusterLayerConfig_basic(stackName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckECSClusterLayerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccECSClusterLayerConfig_basic(stackName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLayerExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrPair(resourceName, "ecs_cluster_arn", "aws_ecs_cluster.test", "arn"),
-					resource.TestCheckResourceAttr(resourceName, "name", "Ecs Cluster"),
-				),
-			},
-		},
+	testAccCheckLayerExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrPair(resourceName, "ecs_cluster_arn", "aws_ecs_cluster.test", "arn"),
+	resource.TestCheckResourceAttr(resourceName, "name", "Ecs Cluster"),
+),
+	},
+},
 	})
 }
 
@@ -49,7 +49,7 @@ func testAccCheckECSClusterLayerDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
-		return testAccCheckLayerDestroy(ctx, "aws_opsworks_ecs_cluster_layer", s)
+return testAccCheckLayerDestroy(ctx, "aws_opsworks_ecs_cluster_layer", s)
 	}
 }
 

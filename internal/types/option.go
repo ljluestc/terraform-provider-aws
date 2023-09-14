@@ -12,7 +12,7 @@ const (
 // Some returns an Option containing a value.
 func Some[T any](v T) Option[T] {
 	return Option[T]{
-		value: v,
+value: v,
 	}
 }
 
@@ -34,7 +34,7 @@ func (o Option[T]) IsSome() bool {
 // MustUnwrap returns the contained value or panics.
 func (o Option[T]) MustUnwrap() T {
 	if o.IsNone() {
-		panic("missing value")
+panic("missing value")
 	}
 	return o[value]
 }
@@ -42,22 +42,22 @@ func (o Option[T]) MustUnwrap() T {
 // UnwrapOr returns the contained value or the specified default.
 func (o Option[T]) UnwrapOr(v T) T {
 	return o.UnwrapOrElse(func() T {
-		return v
+return v
 	})
 }
 
 // UnwrapOrDefault returns the contained value or the default value for T.
 func (o Option[T]) UnwrapOrDefault() T {
 	return o.UnwrapOrElse(func() T {
-		var v T
-		return v
+var v T
+return v
 	})
 }
 
 // UnwrapOrElse returns the contained value or computes a value from f.
 func (o Option[T]) UnwrapOrElse(f func() T) T {
 	if o.IsNone() {
-		return f()
+return f()
 	}
 	return o[value]
 }

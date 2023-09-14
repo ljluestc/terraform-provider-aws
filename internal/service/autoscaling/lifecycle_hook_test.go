@@ -24,28 +24,28 @@ func TestAccAutoScalingLifecycleHook_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLifecycleHookDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLifecycleHookConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLifecycleHookExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "autoscaling_group_name", rName),
-					resource.TestCheckResourceAttr(resourceName, "default_result", "CONTINUE"),
-					resource.TestCheckResourceAttr(resourceName, "heartbeat_timeout", "2000"),
-					resource.TestCheckResourceAttr(resourceName, "lifecycle_transition", "autoscaling:EC2_INSTANCE_LAUNCHING"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateIdFunc: testAccLifecycleHookImportStateIdFunc(resourceName),
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLifecycleHookDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLifecycleHookConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckLifecycleHookExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "autoscaling_group_name", rName),
+	resource.TestCheckResourceAttr(resourceName, "default_result", "CONTINUE"),
+	resource.TestCheckResourceAttr(resourceName, "heartbeat_timeout", "2000"),
+	resource.TestCheckResourceAttr(resourceName, "lifecycle_transition", "autoscaling:EC2_INSTANCE_LAUNCHING"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateIdFunc: testAccLifecycleHookImportStateIdFunc(resourceName),
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -55,20 +55,20 @@ func TestAccAutoScalingLifecycleHook_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLifecycleHookDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLifecycleHookConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLifecycleHookExists(ctx, resourceName),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfautoscaling.ResourceLifecycleHook(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLifecycleHookDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLifecycleHookConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckLifecycleHookExists(ctx, resourceName),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfautoscaling.ResourceLifecycleHook(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -78,83 +78,83 @@ func TestAccAutoScalingLifecycleHook_omitDefaultResult(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLifecycleHookDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLifecycleHookConfig_omitDefaultResult(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLifecycleHookExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "default_result", "ABANDON"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLifecycleHookDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLifecycleHookConfig_omitDefaultResult(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckLifecycleHookExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "default_result", "ABANDON"),
+),
+	},
+},
 	})
 }
 
 func testAccCheckLifecycleHookExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No Auto Scaling Lifecycle Hook ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No Auto Scaling Lifecycle Hook ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).AutoScalingConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).AutoScalingConn(ctx)
 
-		_, err := tfautoscaling.FindLifecycleHook(ctx, conn, rs.Primary.Attributes["autoscaling_group_name"], rs.Primary.ID)
+_, err := tfautoscaling.FindLifecycleHook(ctx, conn, rs.Primary.Attributes["autoscaling_group_name"], rs.Primary.ID)
 
-		return err
+return err
 	}
 }
 
 func testAccCheckLifecycleHookDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).AutoScalingConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).AutoScalingConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_autoscaling_lifecycle_hook" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_autoscaling_lifecycle_hook" {
+continue
+	}
 
-			_, err := tfautoscaling.FindLifecycleHook(ctx, conn, rs.Primary.Attributes["autoscaling_group_name"], rs.Primary.ID)
+	_, err := tfautoscaling.FindLifecycleHook(ctx, conn, rs.Primary.Attributes["autoscaling_group_name"], rs.Primary.ID)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("Auto Scaling Lifecycle Hook %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("Auto Scaling Lifecycle Hook %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
 func testAccLifecycleHookImportStateIdFunc(resourceName string) resource.ImportStateIdFunc {
 	return func(s *terraform.State) (string, error) {
-		rs, ok := s.RootModule().Resources[resourceName]
-		if !ok {
-			return "", fmt.Errorf("Not found: %s", resourceName)
-		}
+rs, ok := s.RootModule().Resources[resourceName]
+if !ok {
+	return "", fmt.Errorf("Not found: %s", resourceName)
+}
 
-		return fmt.Sprintf("%s/%s", rs.Primary.Attributes["autoscaling_group_name"], rs.Primary.ID), nil
+return fmt.Sprintf("%s/%s", rs.Primary.Attributes["autoscaling_group_name"], rs.Primary.ID), nil
 	}
 }
 
 func testAccLifecycleHookConfig_basic(rName string) string {
 	return acctest.ConfigCompose(
-		acctest.ConfigAvailableAZsNoOptIn(),
-		acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
-		fmt.Sprintf(`
+acctest.ConfigAvailableAZsNoOptIn(),
+acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
+fmt.Sprintf(`
 resource "aws_launch_configuration" "test" {
   name          = %[1]q
   image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
@@ -233,9 +233,9 @@ EOF
 
 func testAccLifecycleHookConfig_omitDefaultResult(rName string) string {
 	return acctest.ConfigCompose(
-		acctest.ConfigAvailableAZsNoOptIn(),
-		acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
-		fmt.Sprintf(`
+acctest.ConfigAvailableAZsNoOptIn(),
+acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
+fmt.Sprintf(`
 resource "aws_launch_configuration" "test" {
   name          = %[1]q
   image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id

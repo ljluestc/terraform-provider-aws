@@ -228,8 +228,8 @@ func resourceDetectorUpdate(ctx context.Context, d *schema.ResourceData, meta in
 
 	if d.HasChangesExcept("tags", "tags_all") {
 		input := guardduty.UpdateDetectorInput{
-			DetectorId:  aws.String(d.Id()),
-			Enable:      aws.Bool(d.Get("enable").(bool)),
+			DetectorId:                 aws.String(d.Id()),
+			Enable:                     aws.Bool(d.Get("enable").(bool)),
 			FindingPublishingFrequency: aws.String(d.Get("finding_publishing_frequency").(string)),
 		}
 

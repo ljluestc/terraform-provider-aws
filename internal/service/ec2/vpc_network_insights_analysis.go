@@ -62,7 +62,7 @@ func ResourceNetworkInsightsAnalysis() *schema.Resource {
 				Optional: true,
 				ForceNew: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Validate
 func: verify.ValidARN,
 				},

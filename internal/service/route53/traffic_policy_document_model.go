@@ -13,10 +13,10 @@ const (
 // TrafficPolicyDocEndpointType_values returns all elements of the endpoints types
 func TrafficPolicyDocEndpointType_values() []string {
 	return []string{
-		trafficPolicyDocEndpointValue,
-		trafficPolicyDocEndpointCloudFront,
-		trafficPolicyDocEndpointElastic,
-		trafficPolicyDocEndpointS3,
+trafficPolicyDocEndpointValue,
+trafficPolicyDocEndpointCloudFront,
+trafficPolicyDocEndpointElastic,
+trafficPolicyDocEndpointS3,
 	}
 }
 

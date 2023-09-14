@@ -146,7 +146,7 @@ func resourceSlotTypeCreate(ctx context.Context, d *schema.ResourceData, meta in
 	input := &lexmodelbuildingservice.PutSlotTypeInput{
 		CreateVersion:          aws.Bool(d.Get("create_version").(bool)),
 		Description:            aws.String(d.Get("description").(string)),
-		Name:    aws.String(name),
+		Name:                   aws.String(name),
 		ValueSelectionStrategy: aws.String(d.Get("value_selection_strategy").(string)),
 	}
 
@@ -218,10 +218,10 @@ func resourceSlotTypeUpdate(ctx context.Context, d *schema.ResourceData, meta in
 	conn := meta.(*conns.AWSClient).LexModelsConn(ctx)
 
 	input := &lexmodelbuildingservice.PutSlotTypeInput{
-		Checksum:aws.String(d.Get("checksum").(string)),
+		Checksum:               aws.String(d.Get("checksum").(string)),
 		CreateVersion:          aws.Bool(d.Get("create_version").(bool)),
 		Description:            aws.String(d.Get("description").(string)),
-		Name:    aws.String(d.Id()),
+		Name:                   aws.String(d.Id()),
 		ValueSelectionStrategy: aws.String(d.Get("value_selection_strategy").(string)),
 	}
 

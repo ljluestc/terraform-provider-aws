@@ -589,7 +589,7 @@ func ParseMultiplexProgramID(id string) (programName string, multiplexId string,
 }
 
 type resourceMultiplexProgramData struct {
-	ID        types.String `tfsdk:"id"`
+	ID                       types.String `tfsdk:"id"`
 	MultiplexID              types.String `tfsdk:"multiplex_id"`
 	MultiplexProgramSettings types.List   `tfsdk:"multiplex_program_settings"`
 	ProgramName              types.String `tfsdk:"program_name"`

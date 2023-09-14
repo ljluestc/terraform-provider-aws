@@ -305,10 +305,10 @@ func statusThesaurus(ctx context.Context, conn *kendra.Client, id, indexId strin
 
 func waitThesaurusCreated(ctx context.Context, conn *kendra.Client, id, indexId string, timeout time.Duration) (*kendra.DescribeThesaurusOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    enum.Slice(types.ThesaurusStatusCreating),
-		Target:     enum.Slice(types.ThesaurusStatusActive),
-		Refresh:    statusThesaurus(ctx, conn, id, indexId),
-		Timeout:    timeout,
+		Pending:                   enum.Slice(types.ThesaurusStatusCreating),
+		Target:                    enum.Slice(types.ThesaurusStatusActive),
+		Refresh:                   statusThesaurus(ctx, conn, id, indexId),
+		Timeout:                   timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}
@@ -326,10 +326,10 @@ func waitThesaurusCreated(ctx context.Context, conn *kendra.Client, id, indexId 
 
 func waitThesaurusUpdated(ctx context.Context, conn *kendra.Client, id, indexId string, timeout time.Duration) (*kendra.DescribeThesaurusOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    enum.Slice(types.QuerySuggestionsBlockListStatusUpdating),
-		Target:     enum.Slice(types.QuerySuggestionsBlockListStatusActive),
-		Refresh:    statusThesaurus(ctx, conn, id, indexId),
-		Timeout:    timeout,
+		Pending:                   enum.Slice(types.QuerySuggestionsBlockListStatusUpdating),
+		Target:                    enum.Slice(types.QuerySuggestionsBlockListStatusActive),
+		Refresh:                   statusThesaurus(ctx, conn, id, indexId),
+		Timeout:                   timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}

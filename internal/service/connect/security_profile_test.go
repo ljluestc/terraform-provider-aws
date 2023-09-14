@@ -28,48 +28,48 @@ func testAccSecurityProfile_basic(t *testing.T) {
 	resourceName := "aws_connect_security_profile.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSecurityProfileDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSecurityProfileConfig_basic(rName, rName2, "Created"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckSecurityProfileDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSecurityProfileConfig_basic(rName, rName2, "Created"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckSecurityProfileExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
-					resource.TestCheckResourceAttrSet(resourceName, "security_profile_id"),
+	testAccCheckSecurityProfileExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
+	resource.TestCheckResourceAttrSet(resourceName, "security_profile_id"),
 
-					resource.TestCheckResourceAttr(resourceName, "name", rName2),
-					resource.TestCheckResourceAttr(resourceName, "description", "Created"),
-					resource.TestCheckResourceAttr(resourceName, "permissions.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccSecurityProfileConfig_basic(rName, rName2, "Updated"),
-				Check: resource.ComposeAggregateTestCheck
+	resource.TestCheckResourceAttr(resourceName, "name", rName2),
+	resource.TestCheckResourceAttr(resourceName, "description", "Created"),
+	resource.TestCheckResourceAttr(resourceName, "permissions.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccSecurityProfileConfig_basic(rName, rName2, "Updated"),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckSecurityProfileExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
-					resource.TestCheckResourceAttrSet(resourceName, "security_profile_id"),
+	testAccCheckSecurityProfileExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
+	resource.TestCheckResourceAttrSet(resourceName, "security_profile_id"),
 
-					resource.TestCheckResourceAttr(resourceName, "name", rName2),
-					resource.TestCheckResourceAttr(resourceName, "description", "Updated"),
-					resource.TestCheckResourceAttr(resourceName, "permissions.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttr(resourceName, "name", rName2),
+	resource.TestCheckResourceAttr(resourceName, "description", "Updated"),
+	resource.TestCheckResourceAttr(resourceName, "permissions.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+),
+	},
+},
 	})
 }
 
@@ -82,49 +82,49 @@ func testAccSecurityProfile_updatePermissions(t *testing.T) {
 	resourceName := "aws_connect_security_profile.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSecurityProfileDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSecurityProfileConfig_basic(rName, rName2, "TestPermissionsUpdate"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckSecurityProfileDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSecurityProfileConfig_basic(rName, rName2, "TestPermissionsUpdate"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckSecurityProfileExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
-					resource.TestCheckResourceAttrSet(resourceName, "security_profile_id"),
+	testAccCheckSecurityProfileExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
+	resource.TestCheckResourceAttrSet(resourceName, "security_profile_id"),
 
-					resource.TestCheckResourceAttr(resourceName, "name", rName2),
-					resource.TestCheckResourceAttr(resourceName, "description", "TestPermissionsUpdate"),
-					resource.TestCheckResourceAttr(resourceName, "permissions.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				// Test updating permissions
-				Config: testAccSecurityProfileConfig_permissions(rName, rName2, "TestPermissionsUpdate"),
-				Check: resource.ComposeAggregateTestCheck
+	resource.TestCheckResourceAttr(resourceName, "name", rName2),
+	resource.TestCheckResourceAttr(resourceName, "description", "TestPermissionsUpdate"),
+	resource.TestCheckResourceAttr(resourceName, "permissions.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+// Test updating permissions
+Config: testAccSecurityProfileConfig_permissions(rName, rName2, "TestPermissionsUpdate"),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckSecurityProfileExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
-					resource.TestCheckResourceAttrSet(resourceName, "security_profile_id"),
+	testAccCheckSecurityProfileExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
+	resource.TestCheckResourceAttrSet(resourceName, "security_profile_id"),
 
-					resource.TestCheckResourceAttr(resourceName, "name", rName2),
-					resource.TestCheckResourceAttr(resourceName, "description", "TestPermissionsUpdate"),
-					resource.TestCheckResourceAttr(resourceName, "permissions.#", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttr(resourceName, "name", rName2),
+	resource.TestCheckResourceAttr(resourceName, "description", "TestPermissionsUpdate"),
+	resource.TestCheckResourceAttr(resourceName, "permissions.#", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+),
+	},
+},
 	})
 }
 
@@ -139,48 +139,48 @@ func testAccSecurityProfile_updateTags(t *testing.T) {
 	resourceName := "aws_connect_security_profile.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSecurityProfileDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSecurityProfileConfig_basic(rName, rName2, description),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckSecurityProfileDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSecurityProfileConfig_basic(rName, rName2, description),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckSecurityProfileExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Name", "Test Security Profile"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccSecurityProfileConfig_tags(rName, rName2, description),
-				Check: resource.ComposeTestCheck
+	testAccCheckSecurityProfileExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Name", "Test Security Profile"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccSecurityProfileConfig_tags(rName, rName2, description),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckSecurityProfileExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Name", "Test Security Profile"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Key2", "Value2a"),
-				),
-			},
-			{
-				Config: testAccSecurityProfileConfig_tagsUpdated(rName, rName2, description),
-				Check: resource.ComposeTestCheck
+	testAccCheckSecurityProfileExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Name", "Test Security Profile"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Key2", "Value2a"),
+),
+	},
+	{
+Config: testAccSecurityProfileConfig_tagsUpdated(rName, rName2, description),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckSecurityProfileExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "3"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Name", "Test Security Profile"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Key2", "Value2b"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Key3", "Value3"),
-				),
-			},
-		},
+	testAccCheckSecurityProfileExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "3"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Name", "Test Security Profile"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Key2", "Value2b"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Key3", "Value3"),
+),
+	},
+},
 	})
 }
 
@@ -193,22 +193,22 @@ func testAccSecurityProfile_disappears(t *testing.T) {
 	resourceName := "aws_connect_security_profile.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSecurityProfileDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSecurityProfileConfig_basic(rName, rName2, "Disappear"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckSecurityProfileDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSecurityProfileConfig_basic(rName, rName2, "Disappear"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckSecurityProfileExists(ctx, resourceName, &v),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfconnect.ResourceSecurityProfile(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckSecurityProfileExists(ctx, resourceName, &v),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfconnect.ResourceSecurityProfile(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -218,38 +218,38 @@ function *connect.DescribeSecurityProfileOutput) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[resourceName]
-		if !ok {
-			return fmt.Errorf("Connect Security Profile not found: %s", resourceName)
-		}
+rs, ok := s.RootModule().Resources[resourceName]
+if !ok {
+	return fmt.Errorf("Connect Security Profile not found: %s", resourceName)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("Connect Security Profile ID not set")
-		}
-		instanceID, securityProfileID, err := tfconnect.SecurityProfileParseID(rs.Primary.ID)
+if rs.Primary.ID == "" {
+	return fmt.Errorf("Connect Security Profile ID not set")
+}
+instanceID, securityProfileID, err := tfconnect.SecurityProfileParseID(rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)
 
-		params := &connect.DescribeSecurityProfileInput{
-			InstanceId:        aws.String(instanceID),
-			SecurityProfileId: aws.String(securityProfileID),
-		}
+params := &connect.DescribeSecurityProfileInput{
+	InstanceId:        aws.String(instanceID),
+	SecurityProfileId: aws.String(securityProfileID),
+}
 
-		get
+get
 function, err := conn.DescribeSecurityProfileWithContext(ctx, params)
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*
+*
 function = *get
 function
 
-		return nil
+return nil
 	}
 }
 
@@ -258,36 +258,36 @@ func testAccCheckSecurityProfileDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_connect_security_profile" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_connect_security_profile" {
+continue
+	}
 
-			conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)
+	conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)
 
-			instanceID, securityProfileID, err := tfconnect.SecurityProfileParseID(rs.Primary.ID)
+	instanceID, securityProfileID, err := tfconnect.SecurityProfileParseID(rs.Primary.ID)
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			params := &connect.DescribeSecurityProfileInput{
-				InstanceId:        aws.String(instanceID),
-				SecurityProfileId: aws.String(securityProfileID),
-			}
+	params := &connect.DescribeSecurityProfileInput{
+InstanceId:        aws.String(instanceID),
+SecurityProfileId: aws.String(securityProfileID),
+	}
 
-			_, err = conn.DescribeSecurityProfileWithContext(ctx, params)
+	_, err = conn.DescribeSecurityProfileWithContext(ctx, params)
 
-			if tfawserr.ErrCodeEquals(err, connect.ErrCodeResourceNotFoundException) {
-				continue
-			}
+	if tfawserr.ErrCodeEquals(err, connect.ErrCodeResourceNotFoundException) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
-		}
+	if err != nil {
+return err
+	}
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -306,8 +306,8 @@ resource "aws_connect_instance" "test" {
 
 func testAccSecurityProfileConfig_basic(rName, rName2, label string) string {
 	return acctest.ConfigCompose(
-		testAccSecurityProfileConfig_base(rName),
-		fmt.Sprintf(`
+testAccSecurityProfileConfig_base(rName),
+fmt.Sprintf(`
 resource "aws_connect_security_profile" "test" {
   instance_id = aws_connect_instance.test.id
   name        = %[1]q
@@ -323,8 +323,8 @@ resource "aws_connect_security_profile" "test" {
 
 func testAccSecurityProfileConfig_permissions(rName, rName2, label string) string {
 	return acctest.ConfigCompose(
-		testAccSecurityProfileConfig_base(rName),
-		fmt.Sprintf(`
+testAccSecurityProfileConfig_base(rName),
+fmt.Sprintf(`
 resource "aws_connect_security_profile" "test" {
   instance_id = aws_connect_instance.test.id
   name        = %[1]q
@@ -345,8 +345,8 @@ resource "aws_connect_security_profile" "test" {
 
 func testAccSecurityProfileConfig_tags(rName, rName2, label string) string {
 	return acctest.ConfigCompose(
-		testAccSecurityProfileConfig_base(rName),
-		fmt.Sprintf(`
+testAccSecurityProfileConfig_base(rName),
+fmt.Sprintf(`
 resource "aws_connect_security_profile" "test" {
   instance_id = aws_connect_instance.test.id
   name        = %[1]q
@@ -363,8 +363,8 @@ resource "aws_connect_security_profile" "test" {
 
 func testAccSecurityProfileConfig_tagsUpdated(rName, rName2, label string) string {
 	return acctest.ConfigCompose(
-		testAccSecurityProfileConfig_base(rName),
-		fmt.Sprintf(`
+testAccSecurityProfileConfig_base(rName),
+fmt.Sprintf(`
 resource "aws_connect_security_profile" "test" {
   instance_id = aws_connect_instance.test.id
   name        = %[1]q

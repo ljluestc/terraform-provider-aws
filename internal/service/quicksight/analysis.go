@@ -65,7 +65,7 @@ func() map[string]*schema.Schema {
 					Computed: true,
 				},
 				"aws_account_id": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Optional:     true,
 					Computed:     true,
 					ForceNew:     true,
@@ -91,7 +91,7 @@ func: verify.ValidAccountID,
 					Computed: true,
 				},
 				"name": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Required:     true,
 					Validate
 func: validation.StringLenBetween(1, 2048),
@@ -112,7 +112,7 @@ func: validation.StringLenBetween(1, 2048),
 								Elem:     &schema.Schema{Type: schema.TypeString},
 							},
 							"principal": {
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								Required:     true,
 								Validate
 func: validation.StringLenBetween(1, 256),
@@ -167,8 +167,8 @@ func resourceAnalysisCreate(ctx context.Context, d *schema.ResourceData, meta in
 	input := &quicksight.CreateAnalysisInput{
 		AwsAccountId: aws.String(awsAccountId),
 		AnalysisId:   aws.String(analysisId),
-		Name:         aws.String(d.Get("name").(string)),
-		Tags:         getTagsIn(ctx),
+		Name:aws.String(d.Get("name").(string)),
+		Tags:getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("source_entity"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
@@ -277,7 +277,7 @@ func resourceAnalysisUpdate(ctx context.Context, d *schema.ResourceData, meta in
 		in := &quicksight.UpdateAnalysisInput{
 			AwsAccountId: aws.String(awsAccountId),
 			AnalysisId:   aws.String(analysisId),
-			Name:         aws.String(d.Get("name").(string)),
+			Name:aws.String(d.Get("name").(string)),
 		}
 
 		_, createdFromEntity := d.GetOk("source_entity")

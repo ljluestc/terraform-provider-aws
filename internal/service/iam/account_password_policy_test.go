@@ -34,8 +34,8 @@ func testAccAccountPasswordPolicy_basic(t *testing.T) {
 	resourceName := "aws_iam_account_password_policy.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAccountPasswordPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -68,8 +68,8 @@ func testAccAccountPasswordPolicy_disappears(t *testing.T) {
 	resourceName := "aws_iam_account_password_policy.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAccountPasswordPolicyDestroy(ctx),
 		Steps: []resource.TestStep{

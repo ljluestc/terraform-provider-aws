@@ -29,36 +29,36 @@ func TestAccCognitoIdentityPoolRolesAttachment_basic(t *testing.T) {
 	updatedName := sdkacctest.RandString(10)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentity.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPoolRolesAttachmentDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccPoolRolesAttachmentConfig_basic(name),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentity.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckPoolRolesAttachmentDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccPoolRolesAttachmentConfig_basic(name),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckPoolRolesAttachmentExists(ctx, resourceName),
-					resource.TestCheckResourceAttrSet(resourceName, "identity_pool_id"),
-					resource.TestCheckResourceAttrSet(resourceName, "roles.authenticated"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccPoolRolesAttachmentConfig_basic(updatedName),
-				Check: resource.ComposeAggregateTestCheck
+	testAccCheckPoolRolesAttachmentExists(ctx, resourceName),
+	resource.TestCheckResourceAttrSet(resourceName, "identity_pool_id"),
+	resource.TestCheckResourceAttrSet(resourceName, "roles.authenticated"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccPoolRolesAttachmentConfig_basic(updatedName),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckPoolRolesAttachmentExists(ctx, resourceName),
-					resource.TestCheckResourceAttrSet(resourceName, "identity_pool_id"),
-					resource.TestCheckResourceAttrSet(resourceName, "roles.authenticated"),
-				),
-			},
-		},
+	testAccCheckPoolRolesAttachmentExists(ctx, resourceName),
+	resource.TestCheckResourceAttrSet(resourceName, "identity_pool_id"),
+	resource.TestCheckResourceAttrSet(resourceName, "roles.authenticated"),
+),
+	},
+},
 	})
 }
 
@@ -69,58 +69,58 @@ func TestAccCognitoIdentityPoolRolesAttachment_roleMappings(t *testing.T) {
 	name := sdkacctest.RandString(10)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentity.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPoolRolesAttachmentDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccPoolRolesAttachmentConfig_basic(name),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentity.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckPoolRolesAttachmentDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccPoolRolesAttachmentConfig_basic(name),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckPoolRolesAttachmentExists(ctx, resourceName),
-					resource.TestCheckResourceAttrSet(resourceName, "identity_pool_id"),
-					resource.TestCheckResourceAttr(resourceName, "role_mapping.#", "0"),
-					resource.TestCheckResourceAttrSet(resourceName, "roles.authenticated"),
-				),
-			},
-			{
-				Config: testAccPoolRolesAttachmentConfig_roleMappings(name),
-				Check: resource.ComposeAggregateTestCheck
+	testAccCheckPoolRolesAttachmentExists(ctx, resourceName),
+	resource.TestCheckResourceAttrSet(resourceName, "identity_pool_id"),
+	resource.TestCheckResourceAttr(resourceName, "role_mapping.#", "0"),
+	resource.TestCheckResourceAttrSet(resourceName, "roles.authenticated"),
+),
+	},
+	{
+Config: testAccPoolRolesAttachmentConfig_roleMappings(name),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckPoolRolesAttachmentExists(ctx, resourceName),
-					resource.TestCheckResourceAttrSet(resourceName, "identity_pool_id"),
-					resource.TestCheckResourceAttr(resourceName, "role_mapping.#", "1"),
-					resource.TestCheckResourceAttrSet(resourceName, "roles.authenticated"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccPoolRolesAttachmentConfig_roleMappingsUpdated(name),
-				Check: resource.ComposeAggregateTestCheck
+	testAccCheckPoolRolesAttachmentExists(ctx, resourceName),
+	resource.TestCheckResourceAttrSet(resourceName, "identity_pool_id"),
+	resource.TestCheckResourceAttr(resourceName, "role_mapping.#", "1"),
+	resource.TestCheckResourceAttrSet(resourceName, "roles.authenticated"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccPoolRolesAttachmentConfig_roleMappingsUpdated(name),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckPoolRolesAttachmentExists(ctx, resourceName),
-					resource.TestCheckResourceAttrSet(resourceName, "identity_pool_id"),
-					resource.TestCheckResourceAttr(resourceName, "role_mapping.#", "1"),
-					resource.TestCheckResourceAttrSet(resourceName, "roles.authenticated"),
-				),
-			},
-			{
-				Config: testAccPoolRolesAttachmentConfig_basic(name),
-				Check: resource.ComposeAggregateTestCheck
+	testAccCheckPoolRolesAttachmentExists(ctx, resourceName),
+	resource.TestCheckResourceAttrSet(resourceName, "identity_pool_id"),
+	resource.TestCheckResourceAttr(resourceName, "role_mapping.#", "1"),
+	resource.TestCheckResourceAttrSet(resourceName, "roles.authenticated"),
+),
+	},
+	{
+Config: testAccPoolRolesAttachmentConfig_basic(name),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckPoolRolesAttachmentExists(ctx, resourceName),
-					resource.TestCheckResourceAttrSet(resourceName, "identity_pool_id"),
-					resource.TestCheckResourceAttr(resourceName, "role_mapping.#", "0"),
-					resource.TestCheckResourceAttrSet(resourceName, "roles.authenticated"),
-				),
-			},
-		},
+	testAccCheckPoolRolesAttachmentExists(ctx, resourceName),
+	resource.TestCheckResourceAttrSet(resourceName, "identity_pool_id"),
+	resource.TestCheckResourceAttr(resourceName, "role_mapping.#", "0"),
+	resource.TestCheckResourceAttrSet(resourceName, "roles.authenticated"),
+),
+	},
+},
 	})
 }
 
@@ -131,22 +131,22 @@ func TestAccCognitoIdentityPoolRolesAttachment_disappears(t *testing.T) {
 	name := sdkacctest.RandString(10)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentity.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPoolRolesAttachmentDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccPoolRolesAttachmentConfig_basic(name),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentity.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckPoolRolesAttachmentDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccPoolRolesAttachmentConfig_basic(name),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckPoolRolesAttachmentExists(ctx, resourceName),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfcognitoidentity.ResourcePoolRolesAttachment(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckPoolRolesAttachmentExists(ctx, resourceName),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfcognitoidentity.ResourcePoolRolesAttachment(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -156,17 +156,17 @@ func TestAccCognitoIdentityPoolRolesAttachment_roleMappingsWithAmbiguousRoleReso
 	name := sdkacctest.RandString(10)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentity.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPoolRolesAttachmentDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config:      testAccPoolRolesAttachmentConfig_roleMappingsWithAmbiguousRoleResolutionError(name),
-				ExpectError: regexache.MustCompile(`validating ambiguous role resolution`),
-			},
-		},
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentity.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckPoolRolesAttachmentDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config:      testAccPoolRolesAttachmentConfig_roleMappingsWithAmbiguousRoleResolutionError(name),
+ExpectError: regexache.MustCompile(`validating ambiguous role resolution`),
+	},
+},
 	})
 }
 
@@ -176,17 +176,17 @@ func TestAccCognitoIdentityPoolRolesAttachment_roleMappingsWithRulesTypeError(t 
 	name := sdkacctest.RandString(10)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentity.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPoolRolesAttachmentDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config:      testAccPoolRolesAttachmentConfig_roleMappingsWithRulesTypeError(name),
-				ExpectError: regexache.MustCompile(`mapping_rule is required for Rules`),
-			},
-		},
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentity.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckPoolRolesAttachmentDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config:      testAccPoolRolesAttachmentConfig_roleMappingsWithRulesTypeError(name),
+ExpectError: regexache.MustCompile(`mapping_rule is required for Rules`),
+	},
+},
 	})
 }
 
@@ -196,17 +196,17 @@ func TestAccCognitoIdentityPoolRolesAttachment_roleMappingsWithTokenTypeError(t 
 	name := sdkacctest.RandString(10)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentity.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPoolRolesAttachmentDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config:      testAccPoolRolesAttachmentConfig_roleMappingsWithTokenTypeError(name),
-				ExpectError: regexache.MustCompile(`mapping_rule must not be set for Token based role mapping`),
-			},
-		},
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentity.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckPoolRolesAttachmentDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config:      testAccPoolRolesAttachmentConfig_roleMappingsWithTokenTypeError(name),
+ExpectError: regexache.MustCompile(`mapping_rule must not be set for Token based role mapping`),
+	},
+},
 	})
 }
 
@@ -215,22 +215,22 @@ func testAccCheckPoolRolesAttachmentExists(ctx context.Context, n string) resour
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return errors.New("No Cognito Identity Pool Roles Attachment ID is set")
-		}
+if rs.Primary.ID == "" {
+	return errors.New("No Cognito Identity Pool Roles Attachment ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).CognitoIdentityConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).CognitoIdentityConn(ctx)
 
-		_, err := conn.GetIdentityPoolRolesWithContext(ctx, &cognitoidentity.GetIdentityPoolRolesInput{
-			IdentityPoolId: aws.String(rs.Primary.Attributes["identity_pool_id"]),
-		})
+_, err := conn.GetIdentityPoolRolesWithContext(ctx, &cognitoidentity.GetIdentityPoolRolesInput{
+	IdentityPoolId: aws.String(rs.Primary.Attributes["identity_pool_id"]),
+})
 
-		return err
+return err
 	}
 }
 
@@ -239,26 +239,26 @@ func testAccCheckPoolRolesAttachmentDestroy(ctx context.Context) resource.TestCh
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).CognitoIdentityConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).CognitoIdentityConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_cognito_identity_pool_roles_attachment" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_cognito_identity_pool_roles_attachment" {
+continue
+	}
 
-			_, err := conn.GetIdentityPoolRolesWithContext(ctx, &cognitoidentity.GetIdentityPoolRolesInput{
-				IdentityPoolId: aws.String(rs.Primary.Attributes["identity_pool_id"]),
-			})
+	_, err := conn.GetIdentityPoolRolesWithContext(ctx, &cognitoidentity.GetIdentityPoolRolesInput{
+IdentityPoolId: aws.String(rs.Primary.Attributes["identity_pool_id"]),
+	})
 
-			if err != nil {
-				if tfawserr.ErrCodeEquals(err, cognitoidentity.ErrCodeResourceNotFoundException) {
-					return nil
-				}
-				return err
-			}
-		}
+	if err != nil {
+if tfawserr.ErrCodeEquals(err, cognitoidentity.ErrCodeResourceNotFoundException) {
+	return nil
+}
+return err
+	}
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -290,10 +290,10 @@ resource "aws_iam_role" "unauthenticated" {
       "Action": "sts:AssumeRoleWithWebIdentity",
       "Condition": {
         "StringEquals": {
-          "cognito-identity.amazonaws.com:aud": "${aws_cognito_identity_pool.main.id}"
+ "cognito-identity.amazonaws.com:aud": "${aws_cognito_identity_pool.main.id}"
         },
         "ForAnyValue:StringLike": {
-          "cognito-identity.amazonaws.com:amr": "unauthenticated"
+ "cognito-identity.amazonaws.com:amr": "unauthenticated"
         }
       }
     }
@@ -341,10 +341,10 @@ resource "aws_iam_role" "authenticated" {
       "Action": "sts:AssumeRoleWithWebIdentity",
       "Condition": {
         "StringEquals": {
-          "cognito-identity.amazonaws.com:aud": "${aws_cognito_identity_pool.main.id}"
+ "cognito-identity.amazonaws.com:aud": "${aws_cognito_identity_pool.main.id}"
         },
         "ForAnyValue:StringLike": {
-          "cognito-identity.amazonaws.com:amr": "authenticated"
+ "cognito-identity.amazonaws.com:amr": "authenticated"
         }
       }
     }
@@ -399,7 +399,7 @@ resource "aws_cognito_identity_pool_roles_attachment" "test" {
   identity_pool_id = aws_cognito_identity_pool.main.id
 
   role_mapping {
-    identity_provider         = "graph.facebook.com"
+    identity_provider= "graph.facebook.com"
     ambiguous_role_resolution = "AuthenticatedRole"
     type       = "Rules"
 
@@ -425,7 +425,7 @@ resource "aws_cognito_identity_pool_roles_attachment" "test" {
   identity_pool_id = aws_cognito_identity_pool.main.id
 
   role_mapping {
-    identity_provider         = "graph.facebook.com"
+    identity_provider= "graph.facebook.com"
     ambiguous_role_resolution = "AuthenticatedRole"
     type       = "Rules"
 
@@ -459,7 +459,7 @@ resource "aws_cognito_identity_pool_roles_attachment" "test" {
 
   role_mapping {
     identity_provider = "graph.facebook.com"
-    type              = "Rules"
+    type     = "Rules"
 
     mapping_rule {
       claim      = "isAdmin"
@@ -483,7 +483,7 @@ resource "aws_cognito_identity_pool_roles_attachment" "test" {
   identity_pool_id = aws_cognito_identity_pool.main.id
 
   role_mapping {
-    identity_provider         = "graph.facebook.com"
+    identity_provider= "graph.facebook.com"
     ambiguous_role_resolution = "AuthenticatedRole"
     type       = "Rules"
   }
@@ -502,7 +502,7 @@ resource "aws_cognito_identity_pool_roles_attachment" "test" {
   identity_pool_id = aws_cognito_identity_pool.main.id
 
   role_mapping {
-    identity_provider         = "graph.facebook.com"
+    identity_provider= "graph.facebook.com"
     ambiguous_role_resolution = "AuthenticatedRole"
     type       = "Token"
 

@@ -25,23 +25,23 @@ func TestAccELBListenerPolicy_basic(t *testing.T) {
 	resourceName := "aws_load_balancer_listener_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckListenerPolicyDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccListenerPolicyConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckListenerPolicyDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccListenerPolicyConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckListenerPolicyExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "load_balancer_port", "80"),
-					resource.TestCheckResourceAttr(resourceName, "policy_names.#", "1"),
-					resource.TestCheckTypeSetElemAttrPair(resourceName, "policy_names.*", "aws_load_balancer_policy.test", "policy_name"),
-				),
-			},
-		},
+	testAccCheckListenerPolicyExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "load_balancer_port", "80"),
+	resource.TestCheckResourceAttr(resourceName, "policy_names.#", "1"),
+	resource.TestCheckTypeSetElemAttrPair(resourceName, "policy_names.*", "aws_load_balancer_policy.test", "policy_name"),
+),
+	},
+},
 	})
 }
 
@@ -54,37 +54,37 @@ func TestAccELBListenerPolicy_update(t *testing.T) {
 	resourceName := "aws_load_balancer_listener_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckListenerPolicyDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccListenerPolicyConfig_update(rName, key, certificate, 0),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckListenerPolicyDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccListenerPolicyConfig_update(rName, key, certificate, 0),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckListenerPolicyExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "load_balancer_port", "443"),
-					resource.TestCheckResourceAttr(resourceName, "policy_names.#", "1"),
-					resource.TestCheckTypeSetElemAttrPair(resourceName, "policy_names.*", "aws_load_balancer_policy.test", "policy_name"),
-				),
-			},
-			{
-				Config: testAccListenerPolicyConfig_update(rName, key, certificate, 1),
-				Check: resource.ComposeTestCheck
+	testAccCheckListenerPolicyExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "load_balancer_port", "443"),
+	resource.TestCheckResourceAttr(resourceName, "policy_names.#", "1"),
+	resource.TestCheckTypeSetElemAttrPair(resourceName, "policy_names.*", "aws_load_balancer_policy.test", "policy_name"),
+),
+	},
+	{
+Config: testAccListenerPolicyConfig_update(rName, key, certificate, 1),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckListenerPolicyExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "load_balancer_port", "443"),
-					resource.TestCheckResourceAttr(resourceName, "policy_names.#", "1"),
-					resource.TestCheckTypeSetElemAttrPair(resourceName, "policy_names.*", "aws_load_balancer_policy.test", "policy_name"),
-				),
-			},
-			{
-				Config:   testAccListenerPolicyConfig_update(rName, key, certificate, 1),
-				PlanOnly: true,
-			},
-		},
+	testAccCheckListenerPolicyExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "load_balancer_port", "443"),
+	resource.TestCheckResourceAttr(resourceName, "policy_names.#", "1"),
+	resource.TestCheckTypeSetElemAttrPair(resourceName, "policy_names.*", "aws_load_balancer_policy.test", "policy_name"),
+),
+	},
+	{
+Config:   testAccListenerPolicyConfig_update(rName, key, certificate, 1),
+PlanOnly: true,
+	},
+},
 	})
 }
 
@@ -95,22 +95,22 @@ func TestAccELBListenerPolicy_disappears(t *testing.T) {
 	resourceName := "aws_load_balancer_listener_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckListenerPolicyDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccListenerPolicyConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckListenerPolicyDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccListenerPolicyConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckListenerPolicyExists(ctx, resourceName),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfelb.ResourceListenerPolicy(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckListenerPolicyExists(ctx, resourceName),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfelb.ResourceListenerPolicy(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -119,33 +119,33 @@ func testAccCheckListenerPolicyDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ELBConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).ELBConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_load_balancer_listener_policy" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_load_balancer_listener_policy" {
+continue
+	}
 
-			lbName, lbPort, err := tfelb.ListenerPolicyParseResourceID(rs.Primary.ID)
+	lbName, lbPort, err := tfelb.ListenerPolicyParseResourceID(rs.Primary.ID)
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			_, err = tfelb.FindLoadBalancerListenerPolicyByTwoPartKey(ctx, conn, lbName, lbPort)
+	_, err = tfelb.FindLoadBalancerListenerPolicyByTwoPartKey(ctx, conn, lbName, lbPort)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("ELB Classic Listener Policy %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("ELB Classic Listener Policy %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -154,26 +154,26 @@ func testAccCheckListenerPolicyExists(ctx context.Context, n string) resource.Te
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No ELB Classic Listener Policy ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No ELB Classic Listener Policy ID is set")
+}
 
-		lbName, lbPort, err := tfelb.ListenerPolicyParseResourceID(rs.Primary.ID)
+lbName, lbPort, err := tfelb.ListenerPolicyParseResourceID(rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ELBConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).ELBConn(ctx)
 
-		_, err = tfelb.FindLoadBalancerListenerPolicyByTwoPartKey(ctx, conn, lbName, lbPort)
+_, err = tfelb.FindLoadBalancerListenerPolicyByTwoPartKey(ctx, conn, lbName, lbPort)
 
-		return err
+return err
 	}
 }
 
@@ -187,7 +187,7 @@ resource "aws_elb" "test" {
   listener {
     instance_port     = 80
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 }
@@ -218,7 +218,7 @@ resource "aws_load_balancer_listener_policy" "test" {
 func testAccListenerPolicyConfig_update(rName, key, certificate string, certToUse int) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_iam_server_certificate" "test" {
-  count            = 2
+  count   = 2
   name_prefix      = %[1]q
   certificate_body = "%[2]s"
   private_key      = "%[3]s"
@@ -231,7 +231,7 @@ resource "aws_elb" "test" {
   listener {
     instance_port      = 443
     instance_protocol  = "http"
-    lb_port            = 443
+    lb_port   = 443
     lb_protocol        = "https"
     ssl_certificate_id = aws_iam_server_certificate.test[%[4]d].arn
   }

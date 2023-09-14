@@ -27,29 +27,29 @@ func TestAccSSMActivation_basic(t *testing.T) {
 	resourceName := "aws_ssm_activation.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckActivationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccActivationConfig_basic(rName, roleName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckActivationExists(ctx, resourceName, &ssmActivation),
-					resource.TestCheckResourceAttrSet(resourceName, "activation_code"),
-					acctest.CheckResourceAttrRFC3339(resourceName, "expiration_date"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-				ImportStateVerifyIgnore: []string{
-					"activation_code",
-				},
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckActivationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccActivationConfig_basic(rName, roleName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckActivationExists(ctx, resourceName, &ssmActivation),
+	resource.TestCheckResourceAttrSet(resourceName, "activation_code"),
+	acctest.CheckResourceAttrRFC3339(resourceName, "expiration_date"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+ImportStateVerifyIgnore: []string{
+	"activation_code",
+},
+	},
+},
 	})
 }
 
@@ -61,30 +61,30 @@ func TestAccSSMActivation_tags(t *testing.T) {
 	resourceName := "aws_ssm_activation.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckActivationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccActivationConfig_tags(rName, roleName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckActivationExists(ctx, resourceName, &ssmActivation),
-					resource.TestCheckResourceAttrSet(resourceName, "activation_code"),
-					acctest.CheckResourceAttrRFC3339(resourceName, "expiration_date"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Name", rName),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-				ImportStateVerifyIgnore: []string{
-					"activation_code",
-				},
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckActivationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccActivationConfig_tags(rName, roleName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckActivationExists(ctx, resourceName, &ssmActivation),
+	resource.TestCheckResourceAttrSet(resourceName, "activation_code"),
+	acctest.CheckResourceAttrRFC3339(resourceName, "expiration_date"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Name", rName),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+ImportStateVerifyIgnore: []string{
+	"activation_code",
+},
+	},
+},
 	})
 }
 
@@ -97,27 +97,27 @@ func TestAccSSMActivation_expirationDate(t *testing.T) {
 	resourceName := "aws_ssm_activation.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckActivationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccActivationConfig_expirationDate(rName, expirationDate, roleName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckActivationExists(ctx, resourceName, &ssmActivation),
-					resource.TestCheckResourceAttr(resourceName, "expiration_date", expirationDate),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-				ImportStateVerifyIgnore: []string{
-					"activation_code",
-				},
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckActivationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccActivationConfig_expirationDate(rName, expirationDate, roleName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckActivationExists(ctx, resourceName, &ssmActivation),
+	resource.TestCheckResourceAttr(resourceName, "expiration_date", expirationDate),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+ImportStateVerifyIgnore: []string{
+	"activation_code",
+},
+	},
+},
 	})
 }
 
@@ -129,71 +129,71 @@ func TestAccSSMActivation_disappears(t *testing.T) {
 	resourceName := "aws_ssm_activation.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckActivationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccActivationConfig_basic(rName, roleName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckActivationExists(ctx, resourceName, &ssmActivation),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfssm.ResourceActivation(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckActivationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccActivationConfig_basic(rName, roleName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckActivationExists(ctx, resourceName, &ssmActivation),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfssm.ResourceActivation(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
 func testAccCheckActivationExists(ctx context.Context, n string, v *ssm.Activation) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No SSM Activation ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No SSM Activation ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).SSMConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).SSMConn(ctx)
 
-		output, err := tfssm.FindActivationByID(ctx, conn, rs.Primary.ID)
+output, err := tfssm.FindActivationByID(ctx, conn, rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*v = *output
+*v = *output
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckActivationDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).SSMConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).SSMConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_ssm_activation" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_ssm_activation" {
+continue
+	}
 
-			_, err := tfssm.FindActivationByID(ctx, conn, rs.Primary.ID)
+	_, err := tfssm.FindActivationByID(ctx, conn, rs.Primary.ID)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("SSM Activation %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("SSM Activation %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 

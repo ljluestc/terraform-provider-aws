@@ -21,36 +21,36 @@ func TestAccVPCDHCPOptionsDataSource_basic(t *testing.T) {
 	datasourceName := "data.aws_vpc_dhcp_options.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config:      testAccVPCDHCPOptionsDataSourceConfig_missing,
-				ExpectError: regexache.MustCompile(`no matching EC2 DHCP Options Set found`),
-			},
-			{
-				Config: testAccVPCDHCPOptionsDataSourceConfig_id,
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config:      testAccVPCDHCPOptionsDataSourceConfig_missing,
+ExpectError: regexache.MustCompile(`no matching EC2 DHCP Options Set found`),
+	},
+	{
+Config: testAccVPCDHCPOptionsDataSourceConfig_id,
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttrPair(datasourceName, "dhcp_options_id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "domain_name", resourceName, "domain_name"),
-					resource.TestCheckResourceAttrPair(datasourceName, "domain_name_servers.#", resourceName, "domain_name_servers.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "domain_name_servers.0", resourceName, "domain_name_servers.0"),
-					resource.TestCheckResourceAttrPair(datasourceName, "domain_name_servers.1", resourceName, "domain_name_servers.1"),
-					resource.TestCheckResourceAttrPair(datasourceName, "netbios_name_servers.#", resourceName, "netbios_name_servers.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "netbios_name_servers.0", resourceName, "netbios_name_servers.0"),
-					resource.TestCheckResourceAttrPair(datasourceName, "netbios_node_type", resourceName, "netbios_node_type"),
-					resource.TestCheckResourceAttrPair(datasourceName, "ntp_servers.#", resourceName, "ntp_servers.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "ntp_servers.0", resourceName, "ntp_servers.0"),
-					resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
-					resource.TestCheckResourceAttrPair(datasourceName, "tags.Name", resourceName, "tags.Name"),
-					resource.TestCheckResourceAttrPair(datasourceName, "owner_id", resourceName, "owner_id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(datasourceName, "dhcp_options_id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "domain_name", resourceName, "domain_name"),
+	resource.TestCheckResourceAttrPair(datasourceName, "domain_name_servers.#", resourceName, "domain_name_servers.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "domain_name_servers.0", resourceName, "domain_name_servers.0"),
+	resource.TestCheckResourceAttrPair(datasourceName, "domain_name_servers.1", resourceName, "domain_name_servers.1"),
+	resource.TestCheckResourceAttrPair(datasourceName, "netbios_name_servers.#", resourceName, "netbios_name_servers.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "netbios_name_servers.0", resourceName, "netbios_name_servers.0"),
+	resource.TestCheckResourceAttrPair(datasourceName, "netbios_node_type", resourceName, "netbios_node_type"),
+	resource.TestCheckResourceAttrPair(datasourceName, "ntp_servers.#", resourceName, "ntp_servers.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "ntp_servers.0", resourceName, "ntp_servers.0"),
+	resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
+	resource.TestCheckResourceAttrPair(datasourceName, "tags.Name", resourceName, "tags.Name"),
+	resource.TestCheckResourceAttrPair(datasourceName, "owner_id", resourceName, "owner_id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
+),
+	},
+},
 	})
 }
 
@@ -62,42 +62,42 @@ func TestAccVPCDHCPOptionsDataSource_filter(t *testing.T) {
 	datasourceName := "data.aws_vpc_dhcp_options.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCDHCPOptionsDataSourceConfig_filter(rInt, 1),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCDHCPOptionsDataSourceConfig_filter(rInt, 1),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttrPair(datasourceName, "dhcp_options_id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "domain_name", resourceName, "domain_name"),
-					resource.TestCheckResourceAttrPair(datasourceName, "domain_name_servers.#", resourceName, "domain_name_servers.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "domain_name_servers.0", resourceName, "domain_name_servers.0"),
-					resource.TestCheckResourceAttrPair(datasourceName, "domain_name_servers.1", resourceName, "domain_name_servers.1"),
-					resource.TestCheckResourceAttrPair(datasourceName, "netbios_name_servers.#", resourceName, "netbios_name_servers.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "netbios_name_servers.0", resourceName, "netbios_name_servers.0"),
-					resource.TestCheckResourceAttrPair(datasourceName, "netbios_node_type", resourceName, "netbios_node_type"),
-					resource.TestCheckResourceAttrPair(datasourceName, "ntp_servers.#", resourceName, "ntp_servers.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "ntp_servers.0", resourceName, "ntp_servers.0"),
-					resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
-					resource.TestCheckResourceAttrPair(datasourceName, "tags.Name", resourceName, "tags.Name"),
-					resource.TestCheckResourceAttrPair(datasourceName, "owner_id", resourceName, "owner_id"),
-				),
-			},
-			{
-				Config:      testAccVPCDHCPOptionsDataSourceConfig_filter(rInt, 2),
-				ExpectError: regexache.MustCompile(`multiple EC2 DHCP Options Sets matched`),
-			},
-			{
-				// We have one last empty step here because otherwise we'll leave the
-				// test case with resources in the state and an erroneous config, and
-				// thus the automatic destroy step will fail. This ensures we end with
-				// both an empty state and a valid config.
-				Config: testAccVPCDHCPOptionsDataSourceConfig_blank(),
-			},
-		},
+	resource.TestCheckResourceAttrPair(datasourceName, "dhcp_options_id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "domain_name", resourceName, "domain_name"),
+	resource.TestCheckResourceAttrPair(datasourceName, "domain_name_servers.#", resourceName, "domain_name_servers.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "domain_name_servers.0", resourceName, "domain_name_servers.0"),
+	resource.TestCheckResourceAttrPair(datasourceName, "domain_name_servers.1", resourceName, "domain_name_servers.1"),
+	resource.TestCheckResourceAttrPair(datasourceName, "netbios_name_servers.#", resourceName, "netbios_name_servers.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "netbios_name_servers.0", resourceName, "netbios_name_servers.0"),
+	resource.TestCheckResourceAttrPair(datasourceName, "netbios_node_type", resourceName, "netbios_node_type"),
+	resource.TestCheckResourceAttrPair(datasourceName, "ntp_servers.#", resourceName, "ntp_servers.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "ntp_servers.0", resourceName, "ntp_servers.0"),
+	resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
+	resource.TestCheckResourceAttrPair(datasourceName, "tags.Name", resourceName, "tags.Name"),
+	resource.TestCheckResourceAttrPair(datasourceName, "owner_id", resourceName, "owner_id"),
+),
+	},
+	{
+Config:      testAccVPCDHCPOptionsDataSourceConfig_filter(rInt, 2),
+ExpectError: regexache.MustCompile(`multiple EC2 DHCP Options Sets matched`),
+	},
+	{
+// We have one last empty step here because otherwise we'll leave the
+// test case with resources in the state and an erroneous config, and
+// thus the automatic destroy step will fail. This ensures we end with
+// both an empty state and a valid config.
+Config: testAccVPCDHCPOptionsDataSourceConfig_blank(),
+	},
+},
 	})
 }
 
@@ -113,11 +113,11 @@ resource "aws_vpc_dhcp_options" "incorrect" {
 }
 
 resource "aws_vpc_dhcp_options" "test" {
-  domain_name          = "service.consul"
+  domain_name = "service.consul"
   domain_name_servers  = ["127.0.0.1", "10.0.0.2"]
   netbios_name_servers = ["127.0.0.1"]
   netbios_node_type    = 2
-  ntp_servers          = ["127.0.0.1"]
+  ntp_servers = ["127.0.0.1"]
 
   tags = {
     Name = "tf-acc-test"
@@ -139,11 +139,11 @@ resource "aws_vpc_dhcp_options" "incorrect" {
 resource "aws_vpc_dhcp_options" "test" {
   count = %[2]d
 
-  domain_name          = "tf-acc-test-%[1]d.example.com"
+  domain_name = "tf-acc-test-%[1]d.example.com"
   domain_name_servers  = ["127.0.0.1", "10.0.0.2"]
   netbios_name_servers = ["127.0.0.1"]
   netbios_node_type    = 2
-  ntp_servers          = ["127.0.0.1"]
+  ntp_servers = ["127.0.0.1"]
 
   tags = {
     Name = "tf-acc-test-%[1]d"

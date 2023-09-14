@@ -334,7 +334,7 @@ func expandCSVClassifierCreate(name string, m map[string]interface{}) *glue.Crea
 		ContainsHeader:       aws.String(m["contains_header"].(string)),
 		Delimiter:            aws.String(m["delimiter"].(string)),
 		DisableValueTrimming: aws.Bool(m["disable_value_trimming"].(bool)),
-		Name:  aws.String(name),
+		Name:                 aws.String(name),
 	}
 
 	if v, ok := m["quote_symbol"].(string); ok && v != "" {
@@ -361,7 +361,7 @@ func expandCSVClassifierUpdate(name string, m map[string]interface{}) *glue.Upda
 		ContainsHeader:       aws.String(m["contains_header"].(string)),
 		Delimiter:            aws.String(m["delimiter"].(string)),
 		DisableValueTrimming: aws.Bool(m["disable_value_trimming"].(bool)),
-		Name:  aws.String(name),
+		Name:                 aws.String(name),
 	}
 
 	if v, ok := m["quote_symbol"].(string); ok && v != "" {
@@ -460,10 +460,10 @@ func flattenCSVClassifier(csvClassifier *glue.CsvClassifier) []map[string]interf
 	m := map[string]interface{}{
 		"allow_single_column":        aws.BoolValue(csvClassifier.AllowSingleColumn),
 		"contains_header":            aws.StringValue(csvClassifier.ContainsHeader),
-		"delimiter":   aws.StringValue(csvClassifier.Delimiter),
+		"delimiter":                  aws.StringValue(csvClassifier.Delimiter),
 		"disable_value_trimming":     aws.BoolValue(csvClassifier.DisableValueTrimming),
-		"header":      aws.StringValueSlice(csvClassifier.Header),
-		"quote_symbol":aws.StringValue(csvClassifier.QuoteSymbol),
+		"header":                     aws.StringValueSlice(csvClassifier.Header),
+		"quote_symbol":               aws.StringValue(csvClassifier.QuoteSymbol),
 		"custom_datatype_configured": aws.BoolValue(csvClassifier.CustomDatatypeConfigured),
 		"custom_datatypes":           aws.StringValueSlice(csvClassifier.CustomDatatypes),
 	}

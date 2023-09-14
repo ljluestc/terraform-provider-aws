@@ -21,30 +21,30 @@ func TestAccAppConfigConfigurationProfilesDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_appconfig_configuration_profiles.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, appconfig.EndpointsID)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, appconfig.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigurationProfileDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccConfigurationProfilesDataSourceConfig_basic(appName, rName1, rName2),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr(dataSourceName, "configuration_profile_ids.#", "2"),
-					resource.TestCheckTypeSetElemAttrPair(dataSourceName, "configuration_profile_ids.*", "aws_appconfig_configuration_profile.test_1", "configuration_profile_id"),
-					resource.TestCheckTypeSetElemAttrPair(dataSourceName, "configuration_profile_ids.*", "aws_appconfig_configuration_profile.test_2", "configuration_profile_id"),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, appconfig.EndpointsID)
+},
+ErrorCheck:acctest.ErrorCheck(t, appconfig.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckConfigurationProfileDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccConfigurationProfilesDataSourceConfig_basic(appName, rName1, rName2),
+Check: resource.ComposeTestCheckFunc(
+	resource.TestCheckResourceAttr(dataSourceName, "configuration_profile_ids.#", "2"),
+	resource.TestCheckTypeSetElemAttrPair(dataSourceName, "configuration_profile_ids.*", "aws_appconfig_configuration_profile.test_1", "configuration_profile_id"),
+	resource.TestCheckTypeSetElemAttrPair(dataSourceName, "configuration_profile_ids.*", "aws_appconfig_configuration_profile.test_2", "configuration_profile_id"),
+),
+	},
+},
 	})
 }
 
 func testAccConfigurationProfilesDataSourceConfig_basic(appName, rName1, rName2 string) string {
 	return acctest.ConfigCompose(
-		testAccApplicationConfig_name(appName),
-		fmt.Sprintf(`
+testAccApplicationConfig_name(appName),
+fmt.Sprintf(`
 resource "aws_appconfig_configuration_profile" "test_1" {
   application_id = aws_appconfig_application.test.id
   name           = %[1]q

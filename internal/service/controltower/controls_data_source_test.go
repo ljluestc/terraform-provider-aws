@@ -21,21 +21,21 @@ func TestAccControlTowerControlsDataSource_basic(t *testing.T) {
 	ouName := "Security"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckOrganizationManagementAccount(ctx, t)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, controltower.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccControlsDataSourceConfig_id(ouName),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet(dataSourceName, "enabled_controls.#"),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckOrganizationManagementAccount(ctx, t)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, controltower.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccControlsDataSourceConfig_id(ouName),
+Check: resource.ComposeTestCheckFunc(
+	resource.TestCheckResourceAttrSet(dataSourceName, "enabled_controls.#"),
+),
+	},
+},
 	})
 }
 
@@ -46,33 +46,33 @@ func testAccPreCheck(ctx context.Context, t *testing.T) {
 
 	input := &cloudtrail.ListTrailsInput{}
 	err := conn.ListTrailsPagesWithContext(ctx, input, func(page *cloudtrail.ListTrailsOutput, lastPage bool) bool {
-		if page == nil {
-			return !lastPage
-		}
+if page == nil {
+	return !lastPage
+}
 
-		for _, trail := range page.Trails {
-			if trail == nil {
-				continue
-			}
-			trails = append(trails, *trail.Name)
-		}
+for _, trail := range page.Trails {
+	if trail == nil {
+continue
+	}
+	trails = append(trails, *trail.Name)
+}
 
-		return !lastPage
+return !lastPage
 	})
 
 	if err != nil {
-		t.Fatalf("unexpected PreCheck error: %s", err)
+t.Fatalf("unexpected PreCheck error: %s", err)
 	}
 
 	// Ensure there is a Control Tower trail
 	ctTrail := false
 	for _, t := range trails {
-		if t == "aws-controltower-BaselineCloudTrail" {
-			ctTrail = true
-		}
+if t == "aws-controltower-BaselineCloudTrail" {
+	ctTrail = true
+}
 	}
 	if !ctTrail {
-		t.Skip("skipping since Control Tower not found")
+t.Skip("skipping since Control Tower not found")
 	}
 }
 

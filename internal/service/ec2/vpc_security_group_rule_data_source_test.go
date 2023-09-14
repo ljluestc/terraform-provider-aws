@@ -21,31 +21,31 @@ func TestAccVPCSecurityGroupRuleDataSource_basic(t *testing.T) {
 	resourceName := "aws_vpc_security_group_ingress_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCSecurityGroupRuleDataSourceConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCSecurityGroupRuleDataSourceConfig_basic(rName),
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "cidr_ipv4", resourceName, "cidr_ipv4"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "cidr_ipv6", resourceName, "cidr_ipv6"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "description", resourceName, "description"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "from_port", resourceName, "from_port"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "ip_protocol", resourceName, "ip_protocol"),
-					resource.TestCheckResourceAttr(dataSourceName, "is_egress", "false"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "prefix_list_id", resourceName, "prefix_list_id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "referenced_security_group_id", resourceName, "referenced_security_group_id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "security_group_id", resourceName, "security_group_id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "security_group_rule_id", resourceName, "security_group_rule_id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "to_port", resourceName, "to_port"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "cidr_ipv4", resourceName, "cidr_ipv4"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "cidr_ipv6", resourceName, "cidr_ipv6"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "description", resourceName, "description"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "from_port", resourceName, "from_port"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "ip_protocol", resourceName, "ip_protocol"),
+	resource.TestCheckResourceAttr(dataSourceName, "is_egress", "false"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "prefix_list_id", resourceName, "prefix_list_id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "referenced_security_group_id", resourceName, "referenced_security_group_id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "security_group_id", resourceName, "security_group_id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "security_group_rule_id", resourceName, "security_group_rule_id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "to_port", resourceName, "to_port"),
+),
+	},
+},
 	})
 }
 
@@ -57,31 +57,31 @@ func TestAccVPCSecurityGroupRuleDataSource_filter(t *testing.T) {
 	resourceName := "aws_vpc_security_group_egress_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCSecurityGroupRuleDataSourceConfig_filter(rName),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCSecurityGroupRuleDataSourceConfig_filter(rName),
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "cidr_ipv4", resourceName, "cidr_ipv4"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "cidr_ipv6", resourceName, "cidr_ipv6"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "description", resourceName, "description"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "from_port", resourceName, "from_port"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "ip_protocol", resourceName, "ip_protocol"),
-					resource.TestCheckResourceAttr(dataSourceName, "is_egress", "true"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "prefix_list_id", resourceName, "prefix_list_id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "referenced_security_group_id", resourceName, "referenced_security_group_id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "security_group_id", resourceName, "security_group_id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "security_group_rule_id", resourceName, "security_group_rule_id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "to_port", resourceName, "to_port"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "cidr_ipv4", resourceName, "cidr_ipv4"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "cidr_ipv6", resourceName, "cidr_ipv6"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "description", resourceName, "description"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "from_port", resourceName, "from_port"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "ip_protocol", resourceName, "ip_protocol"),
+	resource.TestCheckResourceAttr(dataSourceName, "is_egress", "true"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "prefix_list_id", resourceName, "prefix_list_id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "referenced_security_group_id", resourceName, "referenced_security_group_id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "security_group_id", resourceName, "security_group_id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "security_group_rule_id", resourceName, "security_group_rule_id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "to_port", resourceName, "to_port"),
+),
+	},
+},
 	})
 }
 

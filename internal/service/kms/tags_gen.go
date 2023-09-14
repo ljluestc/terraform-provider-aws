@@ -25,33 +25,33 @@ import (
 // it may also be a different identifier depending on the service.
 func listTags(ctx context.Context, conn kmsiface.KMSAPI, identifier string) (tftags.KeyValueTags, error) {
 	input := &kms.ListResourceTagsInput{
-		KeyId: aws.String(identifier),
+KeyId: aws.String(identifier),
 	}
 	var output []*kms.Tag
 
 	err := conn.ListResourceTagsPagesWithContext(ctx, input, func(page *kms.ListResourceTagsOutput, lastPage bool) bool {
-		if page == nil {
-			return !lastPage
-		}
+if page == nil {
+	return !lastPage
+}
 
-		for _, v := range page.Tags {
-			if v != nil {
-				output = append(output, v)
-			}
-		}
+for _, v := range page.Tags {
+	if v != nil {
+output = append(output, v)
+	}
+}
 
-		return !lastPage
+return !lastPage
 	})
 
 	if tfawserr.ErrCodeEquals(err, "NotFoundException") {
-		return nil, &retry.NotFoundError{
-			LastError:   err,
-			LastRequest: input,
-		}
+return nil, &retry.NotFoundError{
+	LastError:   err,
+	LastRequest: input,
+}
 	}
 
 	if err != nil {
-		return tftags.New(ctx, nil), err
+return tftags.New(ctx, nil), err
 	}
 
 	return KeyValueTags(ctx, output), nil
@@ -63,11 +63,11 @@ func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier stri
 	tags, err := listTags(ctx, meta.(*conns.AWSClient).KMSConn(ctx), identifier)
 
 	if err != nil {
-		return err
+return err
 	}
 
 	if inContext, ok := tftags.FromContext(ctx); ok {
-		inContext.TagsOut = types.Some(tags)
+inContext.TagsOut = types.Some(tags)
 	}
 
 	return nil
@@ -80,12 +80,12 @@ func Tags(tags tftags.KeyValueTags) []*kms.Tag {
 	result := make([]*kms.Tag, 0, len(tags))
 
 	for k, v := range tags.Map() {
-		tag := &kms.Tag{
-			TagKey:   aws.String(k),
-			TagValue: aws.String(v),
-		}
+tag := &kms.Tag{
+	TagKey:   aws.String(k),
+	TagValue: aws.String(v),
+}
 
-		result = append(result, tag)
+result = append(result, tag)
 	}
 
 	return result
@@ -96,7 +96,7 @@ func KeyValueTags(ctx context.Context, tags []*kms.Tag) tftags.KeyValueTags {
 	m := make(map[string]*string, len(tags))
 
 	for _, tag := range tags {
-		m[aws.StringValue(tag.TagKey)] = tag.TagValue
+m[aws.StringValue(tag.TagKey)] = tag.TagValue
 	}
 
 	return tftags.New(ctx, m)
@@ -106,9 +106,9 @@ func KeyValueTags(ctx context.Context, tags []*kms.Tag) tftags.KeyValueTags {
 // nil is returned if there are no input tags.
 func getTagsIn(ctx context.Context) []*kms.Tag {
 	if inContext, ok := tftags.FromContext(ctx); ok {
-		if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
-			return tags
-		}
+if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
+	return tags
+}
 	}
 
 	return nil
@@ -117,7 +117,7 @@ func getTagsIn(ctx context.Context) []*kms.Tag {
 // setTagsOut sets kms service tags in Context.
 func setTagsOut(ctx context.Context, tags []*kms.Tag) {
 	if inContext, ok := tftags.FromContext(ctx); ok {
-		inContext.TagsOut = types.Some(KeyValueTags(ctx, tags))
+inContext.TagsOut = types.Some(KeyValueTags(ctx, tags))
 	}
 }
 
@@ -133,37 +133,37 @@ func updateTags(ctx context.Context, conn kmsiface.KMSAPI, identifier string, ol
 	removedTags := oldTags.Removed(newTags)
 	removedTags = removedTags.IgnoreSystem(names.KMS)
 	if len(removedTags) > 0 {
-		input := &kms.UntagResourceInput{
-			KeyId:   aws.String(identifier),
-			TagKeys: aws.StringSlice(removedTags.Keys()),
-		}
+input := &kms.UntagResourceInput{
+	KeyId:   aws.String(identifier),
+	TagKeys: aws.StringSlice(removedTags.Keys()),
+}
 
-		_, err := conn.UntagResourceWithContext(ctx, input)
+_, err := conn.UntagResourceWithContext(ctx, input)
 
-		if err != nil {
-			return fmt.Errorf("untagging resource (%s): %w", identifier, err)
-		}
+if err != nil {
+	return fmt.Errorf("untagging resource (%s): %w", identifier, err)
+}
 	}
 
 	updatedTags := oldTags.Updated(newTags)
 	updatedTags = updatedTags.IgnoreSystem(names.KMS)
 	if len(updatedTags) > 0 {
-		input := &kms.TagResourceInput{
-			KeyId: aws.String(identifier),
-			Tags:  Tags(updatedTags),
-		}
+input := &kms.TagResourceInput{
+	KeyId: aws.String(identifier),
+	Tags:  Tags(updatedTags),
+}
 
-		_, err := conn.TagResourceWithContext(ctx, input)
+_, err := conn.TagResourceWithContext(ctx, input)
 
-		if err != nil {
-			return fmt.Errorf("tagging resource (%s): %w", identifier, err)
-		}
+if err != nil {
+	return fmt.Errorf("tagging resource (%s): %w", identifier, err)
+}
 	}
 
 	if len(removedTags) > 0 || len(updatedTags) > 0 {
-		if err := waitTagsPropagated(ctx, conn, identifier, newTags); err != nil {
-			return fmt.Errorf("waiting for resource (%s) tag propagation: %w", identifier, err)
-		}
+if err := waitTagsPropagated(ctx, conn, identifier, newTags); err != nil {
+	return fmt.Errorf("waiting for resource (%s) tag propagation: %w", identifier, err)
+}
 	}
 
 	return nil
@@ -180,29 +180,29 @@ func (p *servicePackage) UpdateTags(ctx context.Context, meta any, identifier st
 // it may also be a different identifier depending on the service.
 func waitTagsPropagated(ctx context.Context, conn kmsiface.KMSAPI, id string, tags tftags.KeyValueTags) error {
 	tflog.Debug(ctx, "Waiting for tag propagation", map[string]any{
-		"tags": tags,
+"tags": tags,
 	})
 
 	checkFunc := func() (bool, error) {
-		output, err := listTags(ctx, conn, id)
+output, err := listTags(ctx, conn, id)
 
-		if tfresource.NotFound(err) {
-			return false, nil
-		}
+if tfresource.NotFound(err) {
+	return false, nil
+}
 
-		if err != nil {
-			return false, err
-		}
+if err != nil {
+	return false, err
+}
 
-		if inContext, ok := tftags.FromContext(ctx); ok {
-			output = output.IgnoreConfig(inContext.IgnoreConfig)
-		}
+if inContext, ok := tftags.FromContext(ctx); ok {
+	output = output.IgnoreConfig(inContext.IgnoreConfig)
+}
 
-		return output.Equal(tags), nil
+return output.Equal(tags), nil
 	}
 	opts := tfresource.WaitOpts{
-		ContinuousTargetOccurence: 5,
-		MinTimeout: 1 * time.Second,
+ContinuousTargetOccurence: 5,
+MinTimeout: 1 * time.Second,
 	}
 
 	return tfresource.WaitUntil(ctx, 10*time.Minute, checkFunc, opts)

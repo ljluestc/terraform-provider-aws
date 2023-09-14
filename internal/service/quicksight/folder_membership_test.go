@@ -31,28 +31,28 @@ func TestAccQuickSightFolderMembership_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFolderMembershipDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFolderMembershipConfig_basic(rId, rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFolderMembershipDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFolderMembershipConfig_basic(rId, rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFolderMembershipExists(ctx, resourceName, &folderMember),
-					resource.TestCheckResourceAttrPair(resourceName, "folder_id", folderResourceName, "folder_id"),
-					resource.TestCheckResourceAttrPair(resourceName, "member_id", dataSetResourceName, "data_set_id"),
-					resource.TestCheckResourceAttr(resourceName, "member_type", quicksight.MemberTypeDataset),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckFolderMembershipExists(ctx, resourceName, &folderMember),
+	resource.TestCheckResourceAttrPair(resourceName, "folder_id", folderResourceName, "folder_id"),
+	resource.TestCheckResourceAttrPair(resourceName, "member_id", dataSetResourceName, "data_set_id"),
+	resource.TestCheckResourceAttr(resourceName, "member_type", quicksight.MemberTypeDataset),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -65,22 +65,22 @@ func TestAccQuickSightFolderMembership_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFolderMembershipDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFolderMembershipConfig_basic(rId, rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFolderMembershipDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFolderMembershipConfig_basic(rId, rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFolderMembershipExists(ctx, resourceName, &folderMember),
-					acctest.CheckFrameworkResourceDisappears(ctx, acctest.Provider, tfquicksight.ResourceFolderMembership, resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckFolderMembershipExists(ctx, resourceName, &folderMember),
+	acctest.CheckFrameworkResourceDisappears(ctx, acctest.Provider, tfquicksight.ResourceFolderMembership, resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -89,20 +89,20 @@ func testAccCheckFolderMembershipExists(ctx context.Context, resourceName string
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[resourceName]
-		if !ok {
-			return fmt.Errorf("Not found: %s", resourceName)
-		}
+rs, ok := s.RootModule().Resources[resourceName]
+if !ok {
+	return fmt.Errorf("Not found: %s", resourceName)
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
-		output, err := tfquicksight.FindFolderMembershipByID(ctx, conn, rs.Primary.ID)
-		if err != nil {
-			return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameFolderMembership, rs.Primary.ID, err)
-		}
+conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
+output, err := tfquicksight.FindFolderMembershipByID(ctx, conn, rs.Primary.ID)
+if err != nil {
+	return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameFolderMembership, rs.Primary.ID, err)
+}
 
-		*folderMember = *output
+*folderMember = *output
 
-		return nil
+return nil
 	}
 }
 
@@ -111,35 +111,35 @@ func testAccCheckFolderMembershipDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_quicksight_folder_membership" {
-				continue
-			}
+conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_quicksight_folder_membership" {
+continue
+	}
 
-			output, err := tfquicksight.FindFolderMembershipByID(ctx, conn, rs.Primary.ID)
-			if err != nil {
-				if tfawserr.ErrCodeEquals(err, quicksight.ErrCodeResourceNotFoundException) {
-					return nil
-				}
-				return err
-			}
+	output, err := tfquicksight.FindFolderMembershipByID(ctx, conn, rs.Primary.ID)
+	if err != nil {
+if tfawserr.ErrCodeEquals(err, quicksight.ErrCodeResourceNotFoundException) {
+	return nil
+}
+return err
+	}
 
-			if output != nil {
-				return create.Error(names.QuickSight, create.ErrActionCheckingDestroyed, tfquicksight.ResNameFolderMembership, rs.Primary.ID, err)
-			}
-		}
+	if output != nil {
+return create.Error(names.QuickSight, create.ErrActionCheckingDestroyed, tfquicksight.ResNameFolderMembership, rs.Primary.ID, err)
+	}
+}
 
-		return nil
+return nil
 	}
 }
 
 
 func testAccFolderMembershipConfig_basic(rId, rName string) string {
 	return acctest.ConfigCompose(
-		testAccDataSetConfigBasic(rId, rName),
-		testAccFolderConfig_basic(rId, rName),
-		`
+testAccDataSetConfigBasic(rId, rName),
+testAccFolderConfig_basic(rId, rName),
+`
 resource "aws_quicksight_folder_membership" "test" {
   folder_id   = aws_quicksight_folder.test.folder_id
   member_type = "DATASET"

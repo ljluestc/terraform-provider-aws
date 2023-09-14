@@ -26,20 +26,20 @@ func testAccTransitGatewayMulticastGroupSource_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTransitGatewayMulticastGroupSourceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTransitGatewayMulticastGroupSourceConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckTransitGatewayMulticastGroupSourceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTransitGatewayMulticastGroupSourceConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckTransitGatewayMulticastGroupSourceExists(ctx, resourceName, &v),
-				),
-			},
-		},
+	testAccCheckTransitGatewayMulticastGroupSourceExists(ctx, resourceName, &v),
+),
+	},
+},
 	})
 }
 
@@ -51,22 +51,22 @@ func testAccTransitGatewayMulticastGroupSource_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTransitGatewayMulticastGroupSourceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTransitGatewayMulticastGroupSourceConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckTransitGatewayMulticastGroupSourceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTransitGatewayMulticastGroupSourceConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckTransitGatewayMulticastGroupSourceExists(ctx, resourceName, &v),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceTransitGatewayMulticastGroupSource(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckTransitGatewayMulticastGroupSourceExists(ctx, resourceName, &v),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceTransitGatewayMulticastGroupSource(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -79,22 +79,22 @@ func testAccTransitGatewayMulticastGroupSource_Disappears_domain(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTransitGatewayMulticastGroupSourceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTransitGatewayMulticastGroupSourceConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckTransitGatewayMulticastGroupSourceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTransitGatewayMulticastGroupSourceConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckTransitGatewayMulticastGroupSourceExists(ctx, resourceName, &v),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceTransitGatewayMulticastDomain(), domainResourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckTransitGatewayMulticastGroupSourceExists(ctx, resourceName, &v),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceTransitGatewayMulticastDomain(), domainResourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -103,32 +103,32 @@ func testAccCheckTransitGatewayMulticastGroupSourceExists(ctx context.Context, n
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No EC2 Transit Gateway Multicast Group Source ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No EC2 Transit Gateway Multicast Group Source ID is set")
+}
 
-		multicastDomainID, groupIPAddress, eniID, err := tfec2.TransitGatewayMulticastGroupSourceParseResourceID(rs.Primary.ID)
+multicastDomainID, groupIPAddress, eniID, err := tfec2.TransitGatewayMulticastGroupSourceParseResourceID(rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-		output, err := tfec2.FindTransitGatewayMulticastGroupSourceByThreePartKey(ctx, conn, multicastDomainID, groupIPAddress, eniID)
+output, err := tfec2.FindTransitGatewayMulticastGroupSourceByThreePartKey(ctx, conn, multicastDomainID, groupIPAddress, eniID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*v = *output
+*v = *output
 
-		return nil
+return nil
 	}
 }
 
@@ -137,33 +137,33 @@ func testAccCheckTransitGatewayMulticastGroupSourceDestroy(ctx context.Context) 
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_ec2_transit_gateway_multicast_group_source" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_ec2_transit_gateway_multicast_group_source" {
+continue
+	}
 
-			multicastDomainID, groupIPAddress, eniID, err := tfec2.TransitGatewayMulticastGroupSourceParseResourceID(rs.Primary.ID)
+	multicastDomainID, groupIPAddress, eniID, err := tfec2.TransitGatewayMulticastGroupSourceParseResourceID(rs.Primary.ID)
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			_, err = tfec2.FindTransitGatewayMulticastGroupSourceByThreePartKey(ctx, conn, multicastDomainID, groupIPAddress, eniID)
+	_, err = tfec2.FindTransitGatewayMulticastGroupSourceByThreePartKey(ctx, conn, multicastDomainID, groupIPAddress, eniID)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("EC2 Transit Gateway Multicast Group Source %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("EC2 Transit Gateway Multicast Group Source %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -181,7 +181,7 @@ resource "aws_vpc" "test" {
 resource "aws_subnet" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
   cidr_block        = "10.0.0.0/24"
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
 
   tags = {
     Name = %[1]q
@@ -197,9 +197,9 @@ resource "aws_ec2_transit_gateway" "test" {
 }
 
 resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
-  subnet_ids         = [aws_subnet.test.id]
+  subnet_ids= [aws_subnet.test.id]
   transit_gateway_id = aws_ec2_transit_gateway.test.id
-  vpc_id             = aws_vpc.test.id
+  vpc_id    = aws_vpc.test.id
 
   tags = {
     Name = %[1]q
@@ -217,7 +217,7 @@ resource "aws_ec2_transit_gateway_multicast_domain" "test" {
 }
 
 resource "aws_ec2_transit_gateway_multicast_domain_association" "test" {
-  subnet_id            = aws_subnet.test.id
+  subnet_id   = aws_subnet.test.id
   transit_gateway_attachment_id       = aws_ec2_transit_gateway_vpc_attachment.test.id
   transit_gateway_multicast_domain_id = aws_ec2_transit_gateway_multicast_domain.test.id
 }

@@ -40,21 +40,21 @@ func ResourceTransitGatewayVPCAttachment() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"appliance_mode_support": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Default:      ec2.ApplianceModeSupportValueDisable,
 				Validate
 func: validation.StringInSlice(ec2.ApplianceModeSupportValue_Values(), false),
 			},
 			"dns_support": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Default:      ec2.DnsSupportValueEnable,
 				Validate
 func: validation.StringInSlice(ec2.DnsSupportValue_Values(), false),
 			},
 			"ipv6_support": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Default:      ec2.Ipv6SupportValueDisable,
 				Validate
@@ -79,14 +79,14 @@ func: validation.StringInSlice(ec2.Ipv6SupportValue_Values(), false),
 				Computed: true,
 			},
 			"transit_gateway_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
 func: validation.NoZeroValues,
 			},
 			"vpc_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
@@ -109,13 +109,13 @@ func resourceTransitGatewayVPCAttachmentCreate(ctx context.Context, d *schema.Re
 	input := &ec2.CreateTransitGatewayVpcAttachmentInput{
 		Options: &ec2.CreateTransitGatewayVpcAttachmentRequestOptions{
 			ApplianceModeSupport: aws.String(d.Get("appliance_mode_support").(string)),
-			DnsSupport:           aws.String(d.Get("dns_support").(string)),
-			Ipv6Support:          aws.String(d.Get("ipv6_support").(string)),
+			DnsSupport:  aws.String(d.Get("dns_support").(string)),
+			Ipv6Support: aws.String(d.Get("ipv6_support").(string)),
 		},
-		SubnetIds:         flex.ExpandStringSet(d.Get("subnet_ids").(*schema.Set)),
+		SubnetIds:flex.ExpandStringSet(d.Get("subnet_ids").(*schema.Set)),
 		TransitGatewayId:  aws.String(transitGatewayID),
 		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeTransitGatewayAttachment),
-		VpcId:             aws.String(d.Get("vpc_id").(string)),
+		VpcId:    aws.String(d.Get("vpc_id").(string)),
 	}
 
 	log.Printf("[DEBUG] Creating EC2 Transit Gateway VPC Attachment: %s", input)
@@ -240,8 +240,8 @@ func resourceTransitGatewayVPCAttachmentUpdate(ctx context.Context, d *schema.Re
 		input := &ec2.ModifyTransitGatewayVpcAttachmentInput{
 			Options: &ec2.ModifyTransitGatewayVpcAttachmentRequestOptions{
 				ApplianceModeSupport: aws.String(d.Get("appliance_mode_support").(string)),
-				DnsSupport:           aws.String(d.Get("dns_support").(string)),
-				Ipv6Support:          aws.String(d.Get("ipv6_support").(string)),
+				DnsSupport:  aws.String(d.Get("dns_support").(string)),
+				Ipv6Support: aws.String(d.Get("ipv6_support").(string)),
 			},
 			TransitGatewayAttachmentId: aws.String(d.Id()),
 		}

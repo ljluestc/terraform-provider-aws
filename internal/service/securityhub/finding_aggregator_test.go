@@ -23,41 +23,41 @@ func testAccFindingAggregator_basic(t *testing.T) {
 	resourceName := "aws_securityhub_finding_aggregator.test_aggregator"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, securityhub.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFindingAggregatorDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFindingAggregatorConfig_allRegions(),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckFindingAggregatorExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "linking_mode", "ALL_REGIONS"),
-					resource.TestCheckNoResourceAttr(resourceName, "specified_regions"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccFindingAggregatorConfig_specifiedRegions(),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckFindingAggregatorExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "linking_mode", "SPECIFIED_REGIONS"),
-					resource.TestCheckResourceAttr(resourceName, "specified_regions.#", "3"),
-				),
-			},
-			{
-				Config: testAccFindingAggregatorConfig_allRegionsExceptSpecified(),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckFindingAggregatorExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "linking_mode", "ALL_REGIONS_EXCEPT_SPECIFIED"),
-					resource.TestCheckResourceAttr(resourceName, "specified_regions.#", "2"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, securityhub.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckFindingAggregatorDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFindingAggregatorConfig_allRegions(),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckFindingAggregatorExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "linking_mode", "ALL_REGIONS"),
+	resource.TestCheckNoResourceAttr(resourceName, "specified_regions"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccFindingAggregatorConfig_specifiedRegions(),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckFindingAggregatorExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "linking_mode", "SPECIFIED_REGIONS"),
+	resource.TestCheckResourceAttr(resourceName, "specified_regions.#", "3"),
+),
+	},
+	{
+Config: testAccFindingAggregatorConfig_allRegionsExceptSpecified(),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckFindingAggregatorExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "linking_mode", "ALL_REGIONS_EXCEPT_SPECIFIED"),
+	resource.TestCheckResourceAttr(resourceName, "specified_regions.#", "2"),
+),
+	},
+},
 	})
 }
 
@@ -66,73 +66,73 @@ func testAccFindingAggregator_disappears(t *testing.T) {
 	resourceName := "aws_securityhub_finding_aggregator.test_aggregator"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, securityhub.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFindingAggregatorDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFindingAggregatorConfig_allRegions(),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckFindingAggregatorExists(ctx, resourceName),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfsecurityhub.ResourceFindingAggregator(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, securityhub.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckFindingAggregatorDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFindingAggregatorConfig_allRegions(),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckFindingAggregatorExists(ctx, resourceName),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfsecurityhub.ResourceFindingAggregator(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
 func testAccCheckFindingAggregatorExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No Security Hub finding aggregator ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No Security Hub finding aggregator ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).SecurityHubConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).SecurityHubConn(ctx)
 
-		_, err := conn.GetFindingAggregatorWithContext(ctx, &securityhub.GetFindingAggregatorInput{
-			FindingAggregatorArn: &rs.Primary.ID,
-		})
+_, err := conn.GetFindingAggregatorWithContext(ctx, &securityhub.GetFindingAggregatorInput{
+	FindingAggregatorArn: &rs.Primary.ID,
+})
 
-		if err != nil {
-			return fmt.Errorf("Failed to get finding aggregator: %s", err)
-		}
+if err != nil {
+	return fmt.Errorf("Failed to get finding aggregator: %s", err)
+}
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckFindingAggregatorDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).SecurityHubConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).SecurityHubConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_securityhub_finding_aggregator" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_securityhub_finding_aggregator" {
+continue
+	}
 
-			_, err := conn.GetFindingAggregatorWithContext(ctx, &securityhub.GetFindingAggregatorInput{
-				FindingAggregatorArn: &rs.Primary.ID,
-			})
+	_, err := conn.GetFindingAggregatorWithContext(ctx, &securityhub.GetFindingAggregatorInput{
+FindingAggregatorArn: &rs.Primary.ID,
+	})
 
-			if tfawserr.ErrMessageContains(err, securityhub.ErrCodeInvalidAccessException, "not subscribed to AWS Security Hub") {
-				continue
-			}
+	if tfawserr.ErrMessageContains(err, securityhub.ErrCodeInvalidAccessException, "not subscribed to AWS Security Hub") {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("Security Hub Finding Aggregator %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("Security Hub Finding Aggregator %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 

@@ -393,10 +393,10 @@ func resourceKxClusterCreate(ctx context.Context, d *schema.ResourceData, meta i
 		ClusterName:           aws.String(clusterName),
 		ClusterType:           types.KxClusterType(d.Get("type").(string)),
 		ReleaseLabel:          aws.String(d.Get("release_label").(string)),
-		AzMode: types.KxAzMode(d.Get("az_mode").(string)),
+		AzMode:                types.KxAzMode(d.Get("az_mode").(string)),
 		CapacityConfiguration: expandCapacityConfiguration(d.Get("capacity_configuration").([]interface{})),
 		ClientToken:           aws.String(id.UniqueId()),
-		Tags:   getTagsIn(ctx),
+		Tags:                  getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -573,10 +573,10 @@ func resourceKxClusterDelete(ctx context.Context, d *schema.ResourceData, meta i
 
 func waitKxClusterCreated(ctx context.Context, conn *finspace.Client, id string, timeout time.Duration) (*finspace.GetKxClusterOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    enum.Slice(types.KxClusterStatusPending, types.KxClusterStatusCreating),
-		Target:     enum.Slice(types.KxClusterStatusRunning),
-		Refresh:    statusKxCluster(ctx, conn, id),
-		Timeout:    timeout,
+		Pending:                   enum.Slice(types.KxClusterStatusPending, types.KxClusterStatusCreating),
+		Target:                    enum.Slice(types.KxClusterStatusRunning),
+		Refresh:                   statusKxCluster(ctx, conn, id),
+		Timeout:                   timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}

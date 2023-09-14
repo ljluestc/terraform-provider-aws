@@ -269,16 +269,16 @@ func (r *resourceInstanceConnectEndpoint) ModifyPlan(ctx context.Context, reques
 type resourceInstanceConnectEndpointData struct {
 	InstanceConnectEndpointArn types.String   `tfsdk:"arn"`
 	AvailabilityZone           types.String   `tfsdk:"availability_zone"`
-	DnsName     types.String   `tfsdk:"dns_name"`
-	FipsDnsName types.String   `tfsdk:"fips_dns_name"`
+	DnsName                    types.String   `tfsdk:"dns_name"`
+	FipsDnsName                types.String   `tfsdk:"fips_dns_name"`
 	InstanceConnectEndpointId  types.String   `tfsdk:"id"`
 	NetworkInterfaceIds        types.List     `tfsdk:"network_interface_ids"`
-	OwnerId     types.String   `tfsdk:"owner_id"`
+	OwnerId                    types.String   `tfsdk:"owner_id"`
 	PreserveClientIp           types.Bool     `tfsdk:"preserve_client_ip"`
 	SecurityGroupIds           types.Set      `tfsdk:"security_group_ids"`
-	SubnetId    types.String   `tfsdk:"subnet_id"`
-	Tags        types.Map      `tfsdk:"tags"`
-	TagsAll     types.Map      `tfsdk:"tags_all"`
-	Timeouts    timeouts.Value `tfsdk:"timeouts"`
-	VpcId       types.String   `tfsdk:"vpc_id"`
+	SubnetId                   types.String   `tfsdk:"subnet_id"`
+	Tags                       types.Map      `tfsdk:"tags"`
+	TagsAll                    types.Map      `tfsdk:"tags_all"`
+	Timeouts                   timeouts.Value `tfsdk:"timeouts"`
+	VpcId                      types.String   `tfsdk:"vpc_id"`
 }

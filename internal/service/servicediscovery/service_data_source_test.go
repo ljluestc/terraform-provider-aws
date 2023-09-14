@@ -20,28 +20,28 @@ func TestAccServiceDiscoveryServiceDataSource_basic(t *testing.T) {
 	resourceName := "aws_service_discovery_service.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, servicediscovery.EndpointsID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, servicediscovery.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccServiceDataSourceConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "description", resourceName, "description"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "name", resourceName, "name"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "dns_config.#", resourceName, "dns_config.#"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "health_check_config.#", resourceName, "health_check_config.#"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "health_check_custom_config.#", resourceName, "health_check_custom_config.#"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "namespace_id", resourceName, "namespace_id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, servicediscovery.EndpointsID)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, servicediscovery.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccServiceDataSourceConfig_basic(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "description", resourceName, "description"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "name", resourceName, "name"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "dns_config.#", resourceName, "dns_config.#"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "health_check_config.#", resourceName, "health_check_config.#"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "health_check_custom_config.#", resourceName, "health_check_custom_config.#"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "namespace_id", resourceName, "namespace_id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
+),
+	},
+},
 	})
 }
 
@@ -52,28 +52,28 @@ func TestAccServiceDiscoveryServiceDataSource_private(t *testing.T) {
 	resourceName := "aws_service_discovery_service.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, servicediscovery.EndpointsID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, servicediscovery.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccServiceDataSourceConfig_private(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "description", resourceName, "description"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "name", resourceName, "name"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "dns_config.#", resourceName, "dns_config.#"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "health_check_config.#", resourceName, "health_check_config.#"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "health_check_custom_config.#", resourceName, "health_check_custom_config.#"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "namespace_id", resourceName, "namespace_id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, servicediscovery.EndpointsID)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, servicediscovery.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccServiceDataSourceConfig_private(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "description", resourceName, "description"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "name", resourceName, "name"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "dns_config.#", resourceName, "dns_config.#"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "health_check_config.#", resourceName, "health_check_config.#"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "health_check_custom_config.#", resourceName, "health_check_custom_config.#"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "namespace_id", resourceName, "namespace_id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
+),
+	},
+},
 	})
 }
 
@@ -84,28 +84,28 @@ func TestAccServiceDiscoveryServiceDataSource_public(t *testing.T) {
 	resourceName := "aws_service_discovery_service.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, servicediscovery.EndpointsID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, servicediscovery.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccServiceDataSourceConfig_public(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "description", resourceName, "description"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "name", resourceName, "name"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "dns_config.#", resourceName, "dns_config.#"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "health_check_config.#", resourceName, "health_check_config.#"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "health_check_custom_config.#", resourceName, "health_check_custom_config.#"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "namespace_id", resourceName, "namespace_id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, servicediscovery.EndpointsID)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, servicediscovery.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccServiceDataSourceConfig_public(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "description", resourceName, "description"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "name", resourceName, "name"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "dns_config.#", resourceName, "dns_config.#"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "health_check_config.#", resourceName, "health_check_config.#"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "health_check_custom_config.#", resourceName, "health_check_custom_config.#"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "namespace_id", resourceName, "namespace_id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
+),
+	},
+},
 	})
 }
 

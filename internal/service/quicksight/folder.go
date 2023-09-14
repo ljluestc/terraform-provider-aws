@@ -54,7 +54,7 @@ func ResourceFolder() *schema.Resource {
 				Computed: true,
 			},
 			"aws_account_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
@@ -83,7 +83,7 @@ func: validation.All(
 				},
 			},
 			"folder_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Default:      quicksight.FolderTypeShared,
 				Validate
@@ -103,7 +103,7 @@ func: validation.All(
 				),
 			},
 			"parent_folder_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Validate
@@ -124,7 +124,7 @@ func: verify.ValidARN,
 							Elem:     &schema.Schema{Type: schema.TypeString},
 						},
 						"principal": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							Validate
 func: validation.StringLenBetween(1, 256),
@@ -159,8 +159,8 @@ func resourceFolderCreate(ctx context.Context, d *schema.ResourceData, meta inte
 	in := &quicksight.CreateFolderInput{
 		AwsAccountId: aws.String(awsAccountId),
 		FolderId:     aws.String(folderId),
-		Name:         aws.String(d.Get("name").(string)),
-		Tags:         getTagsIn(ctx),
+		Name:aws.String(d.Get("name").(string)),
+		Tags:getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("folder_type"); ok {
@@ -251,7 +251,7 @@ func resourceFolderUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 		in := &quicksight.UpdateFolderInput{
 			AwsAccountId: aws.String(awsAccountId),
 			FolderId:     aws.String(folderId),
-			Name:         aws.String(d.Get("name").(string)),
+			Name:aws.String(d.Get("name").(string)),
 		}
 
 		log.Printf("[DEBUG] Updating QuickSight Folder (%s): %#v", d.Id(), in)

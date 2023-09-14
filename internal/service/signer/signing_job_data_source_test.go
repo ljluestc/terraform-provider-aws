@@ -20,23 +20,23 @@ func TestAccSignerSigningJobDataSource_basic(t *testing.T) {
 	resourceName := "aws_signer_signing_job.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			testAccPreCheckSingerSigningProfile(ctx, t, "AWSLambda-SHA384-ECDSA")
-		},
-		ErrorCheck:acctest.ErrorCheck(t, signer.ServiceID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSigningJobDataSourceConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrPair(dataSourceName, "status", resourceName, "status"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "job_owner", resourceName, "job_owner"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "job_invoker", resourceName, "job_invoker"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "profile_name", resourceName, "profile_name"),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	testAccPreCheckSingerSigningProfile(ctx, t, "AWSLambda-SHA384-ECDSA")
+},
+ErrorCheck:acctest.ErrorCheck(t, signer.ServiceID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccSigningJobDataSourceConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	resource.TestCheckResourceAttrPair(dataSourceName, "status", resourceName, "status"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "job_owner", resourceName, "job_owner"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "job_invoker", resourceName, "job_invoker"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "profile_name", resourceName, "profile_name"),
+),
+	},
+},
 	})
 }
 

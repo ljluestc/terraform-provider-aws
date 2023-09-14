@@ -19,22 +19,22 @@ func TestAccVPCSecurityGroupDataSource_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCSecurityGroupDataSourceConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCSecurityGroupDataSourceConfig_basic(rName),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccSecurityGroupCheckDataSource("data.aws_security_group.by_id"),
-					testAccSecurityGroupCheckDataSource("data.aws_security_group.by_tag"),
-					testAccSecurityGroupCheckDataSource("data.aws_security_group.by_filter"),
-					testAccSecurityGroupCheckDataSource("data.aws_security_group.by_name"),
-				),
-			},
-		},
+	testAccSecurityGroupCheckDataSource("data.aws_security_group.by_id"),
+	testAccSecurityGroupCheckDataSource("data.aws_security_group.by_tag"),
+	testAccSecurityGroupCheckDataSource("data.aws_security_group.by_filter"),
+	testAccSecurityGroupCheckDataSource("data.aws_security_group.by_name"),
+),
+	},
+},
 	})
 }
 
@@ -45,11 +45,11 @@ func {
 
 	return resource.ComposeAggregateTestCheck
 func(
-		resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
-		resource.TestCheckResourceAttrPair(dataSourceName, "description", resourceName, "description"),
-		resource.TestCheckResourceAttrPair(dataSourceName, "name", resourceName, "name"),
-		resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
-		resource.TestCheckResourceAttrPair(dataSourceName, "vpc_id", resourceName, "vpc_id"),
+resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
+resource.TestCheckResourceAttrPair(dataSourceName, "description", resourceName, "description"),
+resource.TestCheckResourceAttrPair(dataSourceName, "name", resourceName, "name"),
+resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
+resource.TestCheckResourceAttrPair(dataSourceName, "vpc_id", resourceName, "vpc_id"),
 	)
 }
 

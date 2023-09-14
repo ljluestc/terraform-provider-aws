@@ -24,41 +24,41 @@ func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.Servic
 
 func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{
-		{
-			Factory:  DataSourceContact,
-			TypeName: "aws_ssmcontacts_contact",
-		},
-		{
-			Factory:  DataSourceContactChannel,
-			TypeName: "aws_ssmcontacts_contact_channel",
-		},
-		{
-			Factory:  DataSourcePlan,
-			TypeName: "aws_ssmcontacts_plan",
-		},
+{
+	Factory:  DataSourceContact,
+	TypeName: "aws_ssmcontacts_contact",
+},
+{
+	Factory:  DataSourceContactChannel,
+	TypeName: "aws_ssmcontacts_contact_channel",
+},
+{
+	Factory:  DataSourcePlan,
+	TypeName: "aws_ssmcontacts_plan",
+},
 	}
 }
 
 func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
-		{
-			Factory:  ResourceContact,
-			TypeName: "aws_ssmcontacts_contact",
-			Name:     "Context",
-			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "id",
-			},
-		},
-		{
-			Factory:  ResourceContactChannel,
-			TypeName: "aws_ssmcontacts_contact_channel",
-			Name:     "Contact Channel",
-		},
-		{
-			Factory:  ResourcePlan,
-			TypeName: "aws_ssmcontacts_plan",
-			Name:     "Plan",
-		},
+{
+	Factory:  ResourceContact,
+	TypeName: "aws_ssmcontacts_contact",
+	Name:     "Context",
+	Tags: &types.ServicePackageResourceTags{
+IdentifierAttribute: "id",
+	},
+},
+{
+	Factory:  ResourceContactChannel,
+	TypeName: "aws_ssmcontacts_contact_channel",
+	Name:     "Contact Channel",
+},
+{
+	Factory:  ResourcePlan,
+	TypeName: "aws_ssmcontacts_plan",
+	Name:     "Plan",
+},
 	}
 }
 
@@ -71,9 +71,9 @@ func (p *servicePackage) NewClient(ctx context.Context, config map[string]any) (
 	cfg := *(config["aws_sdkv2_config"].(*aws_sdkv2.Config))
 
 	return ssmcontacts_sdkv2.NewFromConfig(cfg, func(o *ssmcontacts_sdkv2.Options) {
-		if endpoint := config["endpoint"].(string); endpoint != "" {
-			o.BaseEndpoint = aws_sdkv2.String(endpoint)
-		}
+if endpoint := config["endpoint"].(string); endpoint != "" {
+	o.BaseEndpoint = aws_sdkv2.String(endpoint)
+}
 	}), nil
 }
 

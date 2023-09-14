@@ -25,39 +25,39 @@ func TestAccIPAMScope_basic(t *testing.T) {
 	ipamName := "aws_vpc_ipam.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIPAMScopeDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccIPAMScopeConfig_basic("test"),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckIPAMScopeDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccIPAMScopeConfig_basic("test"),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckIPAMScopeExists(ctx, resourceName, &scope),
-					resource.TestCheckResourceAttr(resourceName, "description", "test"),
-					resource.TestCheckResourceAttrPair(resourceName, "ipam_arn", ipamName, "arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "ipam_id", ipamName, "id"),
-					resource.TestCheckResourceAttr(resourceName, "is_default", "false"),
-					resource.TestCheckResourceAttr(resourceName, "pool_count", "0"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccIPAMScopeConfig_basic("test2"),
-				Check: resource.ComposeTestCheck
+	testAccCheckIPAMScopeExists(ctx, resourceName, &scope),
+	resource.TestCheckResourceAttr(resourceName, "description", "test"),
+	resource.TestCheckResourceAttrPair(resourceName, "ipam_arn", ipamName, "arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "ipam_id", ipamName, "id"),
+	resource.TestCheckResourceAttr(resourceName, "is_default", "false"),
+	resource.TestCheckResourceAttr(resourceName, "pool_count", "0"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccIPAMScopeConfig_basic("test2"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckIPAMScopeExists(ctx, resourceName, &scope),
-					resource.TestCheckResourceAttr(resourceName, "description", "test2"),
-				),
-			},
-		},
+	testAccCheckIPAMScopeExists(ctx, resourceName, &scope),
+	resource.TestCheckResourceAttr(resourceName, "description", "test2"),
+),
+	},
+},
 	})
 }
 
@@ -68,22 +68,22 @@ func TestAccIPAMScope_disappears(t *testing.T) {
 	resourceName := "aws_vpc_ipam_scope.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIPAMScopeDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccIPAMScopeConfig_basic("test"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckIPAMScopeDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccIPAMScopeConfig_basic("test"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckIPAMScopeExists(ctx, resourceName, &scope),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceIPAMScope(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckIPAMScopeExists(ctx, resourceName, &scope),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceIPAMScope(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -94,46 +94,46 @@ func TestAccIPAMScope_tags(t *testing.T) {
 	resourceName := "aws_vpc_ipam_scope.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIPAMScopeDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccIPAMScopeConfig_tags("key1", "value1"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckIPAMScopeDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccIPAMScopeConfig_tags("key1", "value1"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckIPAMScopeExists(ctx, resourceName, &scope),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccIPAMScopeConfig_tags2("key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheck
+	testAccCheckIPAMScopeExists(ctx, resourceName, &scope),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccIPAMScopeConfig_tags2("key1", "value1updated", "key2", "value2"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckIPAMScopeExists(ctx, resourceName, &scope),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-			{
-				Config: testAccIPAMScopeConfig_tags("key2", "value2"),
-				Check: resource.ComposeTestCheck
+	testAccCheckIPAMScopeExists(ctx, resourceName, &scope),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+	{
+Config: testAccIPAMScopeConfig_tags("key2", "value2"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckIPAMScopeExists(ctx, resourceName, &scope),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-		},
+	testAccCheckIPAMScopeExists(ctx, resourceName, &scope),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+},
 	})
 }
 
@@ -142,26 +142,26 @@ func testAccCheckIPAMScopeExists(ctx context.Context, n string, v *ec2.IpamScope
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No IPAM Scope ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No IPAM Scope ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-		output, err := tfec2.FindIPAMScopeByID(ctx, conn, rs.Primary.ID)
+output, err := tfec2.FindIPAMScopeByID(ctx, conn, rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*v = *output
+*v = *output
 
-		return nil
+return nil
 	}
 }
 
@@ -170,27 +170,27 @@ func testAccCheckIPAMScopeDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_vpc_ipam_scope" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_vpc_ipam_scope" {
+continue
+	}
 
-			_, err := tfec2.FindIPAMScopeByID(ctx, conn, rs.Primary.ID)
+	_, err := tfec2.FindIPAMScopeByID(ctx, conn, rs.Primary.ID)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("IPAM Scope still exists: %s", rs.Primary.ID)
-		}
+	return fmt.Errorf("IPAM Scope still exists: %s", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 

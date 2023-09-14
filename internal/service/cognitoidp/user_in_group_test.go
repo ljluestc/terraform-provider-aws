@@ -28,8 +28,8 @@ func TestAccCognitoIDPUserInGroup_basic(t *testing.T) {
 	userResourceName := "aws_cognito_user.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckUserInGroupDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -52,8 +52,8 @@ func TestAccCognitoIDPUserInGroup_disappears(t *testing.T) {
 	resourceName := "aws_cognito_user_in_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckUserInGroupDestroy(ctx),
 		Steps: []resource.TestStep{

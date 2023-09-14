@@ -15,10 +15,10 @@ import (
 
 func waitLoggingConfigurationCreated(ctx context.Context, conn *ivschat.Client, id string, timeout time.Duration) (*ivschat.GetLoggingConfigurationOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    enum.Slice(types.LoggingConfigurationStateCreating),
-		Target:     enum.Slice(types.LoggingConfigurationStateActive),
-		Refresh:    statusLoggingConfiguration(ctx, conn, id),
-		Timeout:    timeout,
+		Pending:                   enum.Slice(types.LoggingConfigurationStateCreating),
+		Target:                    enum.Slice(types.LoggingConfigurationStateActive),
+		Refresh:                   statusLoggingConfiguration(ctx, conn, id),
+		Timeout:                   timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}
@@ -33,10 +33,10 @@ func waitLoggingConfigurationCreated(ctx context.Context, conn *ivschat.Client, 
 
 func waitLoggingConfigurationUpdated(ctx context.Context, conn *ivschat.Client, id string, timeout time.Duration) (*ivschat.GetLoggingConfigurationOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    enum.Slice(types.LoggingConfigurationStateUpdating),
-		Target:     enum.Slice(types.LoggingConfigurationStateActive),
-		Refresh:    statusLoggingConfiguration(ctx, conn, id),
-		Timeout:    timeout,
+		Pending:                   enum.Slice(types.LoggingConfigurationStateUpdating),
+		Target:                    enum.Slice(types.LoggingConfigurationStateActive),
+		Refresh:                   statusLoggingConfiguration(ctx, conn, id),
+		Timeout:                   timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}
@@ -67,10 +67,10 @@ func waitLoggingConfigurationDeleted(ctx context.Context, conn *ivschat.Client, 
 
 func waitRoomUpdated(ctx context.Context, conn *ivschat.Client, id string, timeout time.Duration, updateDetails *ivschat.UpdateRoomInput) (*ivschat.GetRoomOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    []string{statusChangePending},
-		Target:     []string{statusUpdated},
-		Refresh:    statusRoom(ctx, conn, id, updateDetails),
-		Timeout:    timeout,
+		Pending:                   []string{statusChangePending},
+		Target:                    []string{statusUpdated},
+		Refresh:                   statusRoom(ctx, conn, id, updateDetails),
+		Timeout:                   timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}
@@ -101,10 +101,10 @@ func waitRoomDeleted(ctx context.Context, conn *ivschat.Client, id string, timeo
 
 func waitRoomCreated(ctx context.Context, conn *ivschat.Client, id string, timeout time.Duration) (*ivschat.GetRoomOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    []string{},
-		Target:     []string{statusNormal},
-		Refresh:    statusRoom(ctx, conn, id, nil),
-		Timeout:    timeout,
+		Pending:                   []string{},
+		Target:                    []string{statusNormal},
+		Refresh:                   statusRoom(ctx, conn, id, nil),
+		Timeout:                   timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}

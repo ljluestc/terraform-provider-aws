@@ -25,8 +25,8 @@ func TestAccElasticBeanstalkConfigurationTemplate_basic(t *testing.T) {
 	resourceName := "aws_elastic_beanstalk_configuration_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elasticbeanstalk.EndpointsID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckConfigurationTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -47,8 +47,8 @@ func TestAccElasticBeanstalkConfigurationTemplate_disappears(t *testing.T) {
 	resourceName := "aws_elastic_beanstalk_configuration_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elasticbeanstalk.EndpointsID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckConfigurationTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -71,8 +71,8 @@ func TestAccElasticBeanstalkConfigurationTemplate_Disappears_application(t *test
 	resourceName := "aws_elastic_beanstalk_configuration_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elasticbeanstalk.EndpointsID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckConfigurationTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -95,8 +95,8 @@ func TestAccElasticBeanstalkConfigurationTemplate_vpc(t *testing.T) {
 	resourceName := "aws_elastic_beanstalk_configuration_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elasticbeanstalk.EndpointsID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckConfigurationTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -117,8 +117,8 @@ func TestAccElasticBeanstalkConfigurationTemplate_settings(t *testing.T) {
 	resourceName := "aws_elastic_beanstalk_configuration_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elasticbeanstalk.EndpointsID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, elasticbeanstalk.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckConfigurationTemplateDestroy(ctx),
 		Steps: []resource.TestStep{

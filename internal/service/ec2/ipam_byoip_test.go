@@ -23,7 +23,7 @@ import (
 func TestAccIPAM_byoipIPv6(t *testing.T) {
 	ctx := acctest.Context(t)
 	if os.Getenv("IPAM_BYOIP_IPV6_MESSAGE") == "" || os.Getenv("IPAM_BYOIP_IPV6_SIGNATURE") == "" || os.Getenv("IPAM_BYOIP_IPV6_PROVISIONED_CIDR") == "" {
-		t.Skip("Environment variable IPAM_BYOIP_IPV6_MESSAGE, IPAM_BYOIP_IPV6_SIGNATURE, or IPAM_BYOIP_IPV6_PROVISIONED_CIDR is not set")
+t.Skip("Environment variable IPAM_BYOIP_IPV6_MESSAGE, IPAM_BYOIP_IPV6_SIGNATURE, or IPAM_BYOIP_IPV6_PROVISIONED_CIDR is not set")
 	}
 
 	var m string
@@ -34,12 +34,12 @@ func TestAccIPAM_byoipIPv6(t *testing.T) {
 
 	// test passing an explicit CIDR to aws_vpc
 	if os.Getenv("IPAM_BYOIP_IPV6_EXPLICIT_CIDR_VPC") != "" {
-		ipv6CidrVPC = os.Getenv("IPAM_BYOIP_IPV6_EXPLICIT_CIDR_VPC")
+ipv6CidrVPC = os.Getenv("IPAM_BYOIP_IPV6_EXPLICIT_CIDR_VPC")
 	}
 
 	// test passing an explicit CIDR to aws_vpc_ipv6_cidr_block_association
 	if os.Getenv("IPAM_BYOIP_IPV6_EXPLICIT_CIDR_ASSOCIATE") != "" {
-		ipv6CidrAssoc = os.Getenv("IPAM_BYOIP_IPV6_EXPLICIT_CIDR_ASSOCIATE")
+ipv6CidrAssoc = os.Getenv("IPAM_BYOIP_IPV6_EXPLICIT_CIDR_ASSOCIATE")
 	}
 
 	m = os.Getenv("IPAM_BYOIP_IPV6_MESSAGE")
@@ -53,131 +53,131 @@ func TestAccIPAM_byoipIPv6(t *testing.T) {
 	netmaskLength := 56
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPCIPv6CIDRBlockAssociationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccIPAMBYOIPConfig_ipv4IPv6DefaultNetmask(p, m, s),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckVPCIPv6CIDRBlockAssociationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccIPAMBYOIPConfig_ipv4IPv6DefaultNetmask(p, m, s),
+Check: resource.ComposeTestCheck
 func(
-					acctest.CheckVPCExists(ctx, resourceName, &vpc),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "ec2", regexache.MustCompile(`vpc/vpc-.+`)),
-					resource.TestCheckNoResourceAttr(resourceName, "ipv6_netmask_length"),
-					resource.TestMatchResourceAttr(resourceName, "ipv6_association_id", regexache.MustCompile(`^vpc-cidr-assoc-.+`)),
-					resource.TestMatchResourceAttr(resourceName, "ipv6_cidr_block", regexache.MustCompile(`/56$`)),
-				),
-			},
-			// disassociate ipv6
-			{
-				Config: testAccIPAMBYOIPConfig_ipv6CIDRBase(p, m, s),
-				Check: resource.ComposeTestCheck
+	acctest.CheckVPCExists(ctx, resourceName, &vpc),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "ec2", regexache.MustCompile(`vpc/vpc-.+`)),
+	resource.TestCheckNoResourceAttr(resourceName, "ipv6_netmask_length"),
+	resource.TestMatchResourceAttr(resourceName, "ipv6_association_id", regexache.MustCompile(`^vpc-cidr-assoc-.+`)),
+	resource.TestMatchResourceAttr(resourceName, "ipv6_cidr_block", regexache.MustCompile(`/56$`)),
+),
+	},
+	// disassociate ipv6
+	{
+Config: testAccIPAMBYOIPConfig_ipv6CIDRBase(p, m, s),
+Check: resource.ComposeTestCheck
 func(
-					acctest.CheckVPCExists(ctx, resourceName, &vpc),
-					resource.TestCheckResourceAttr(resourceName, "ipv6_association_id", "")),
-			},
-			{
-				Config: testAccIPAMBYOIPConfig_ipv6ExplicitNetmask(p, m, s, netmaskLength),
-				Check: resource.ComposeTestCheck
+	acctest.CheckVPCExists(ctx, resourceName, &vpc),
+	resource.TestCheckResourceAttr(resourceName, "ipv6_association_id", "")),
+	},
+	{
+Config: testAccIPAMBYOIPConfig_ipv6ExplicitNetmask(p, m, s, netmaskLength),
+Check: resource.ComposeTestCheck
 func(
-					acctest.CheckVPCExists(ctx, resourceName, &vpc),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "ec2", regexache.MustCompile(`vpc/vpc-.+`)),
-					resource.TestCheckResourceAttr(resourceName, "ipv6_netmask_length", strconv.Itoa(netmaskLength)),
-					resource.TestMatchResourceAttr(resourceName, "ipv6_association_id", regexache.MustCompile(`^vpc-cidr-assoc-.+`)),
-					resource.TestMatchResourceAttr(resourceName, "ipv6_cidr_block", regexache.MustCompile(`/56$`)),
-				),
-			},
-			// // disassociate ipv6
-			{
-				Config: testAccIPAMBYOIPConfig_ipv6CIDRBase(p, m, s),
-				Check: resource.ComposeTestCheck
+	acctest.CheckVPCExists(ctx, resourceName, &vpc),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "ec2", regexache.MustCompile(`vpc/vpc-.+`)),
+	resource.TestCheckResourceAttr(resourceName, "ipv6_netmask_length", strconv.Itoa(netmaskLength)),
+	resource.TestMatchResourceAttr(resourceName, "ipv6_association_id", regexache.MustCompile(`^vpc-cidr-assoc-.+`)),
+	resource.TestMatchResourceAttr(resourceName, "ipv6_cidr_block", regexache.MustCompile(`/56$`)),
+),
+	},
+	// // disassociate ipv6
+	{
+Config: testAccIPAMBYOIPConfig_ipv6CIDRBase(p, m, s),
+Check: resource.ComposeTestCheck
 func(
-					acctest.CheckVPCExists(ctx, resourceName, &vpc),
-					resource.TestCheckResourceAttr(resourceName, "ipv6_association_id", "")),
-			},
-			{
-				Config:   testAccIPAMBYOIPConfig_ipv6ExplicitCIDR(p, m, s, ipv6CidrVPC),
-				Skip
+	acctest.CheckVPCExists(ctx, resourceName, &vpc),
+	resource.TestCheckResourceAttr(resourceName, "ipv6_association_id", "")),
+	},
+	{
+Config:   testAccIPAMBYOIPConfig_ipv6ExplicitCIDR(p, m, s, ipv6CidrVPC),
+Skip
 func: testAccIPAMConfig_ipv6BYOIPSkipExplicitCIDR(t, ipv6CidrVPC),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					acctest.CheckVPCExists(ctx, resourceName, &vpc),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "ec2", regexache.MustCompile(`vpc/vpc-.+`)),
-					resource.TestMatchResourceAttr(resourceName, "ipv6_association_id", regexache.MustCompile(`^vpc-cidr-assoc-.+`)),
-					resource.TestCheckResourceAttr(resourceName, "ipv6_cidr_block", ipv6CidrVPC),
-				),
-			},
-			// disassociate ipv6
-			{
-				Config:   testAccIPAMBYOIPConfig_ipv6CIDRBase(p, m, s),
-				Skip
+	acctest.CheckVPCExists(ctx, resourceName, &vpc),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "ec2", regexache.MustCompile(`vpc/vpc-.+`)),
+	resource.TestMatchResourceAttr(resourceName, "ipv6_association_id", regexache.MustCompile(`^vpc-cidr-assoc-.+`)),
+	resource.TestCheckResourceAttr(resourceName, "ipv6_cidr_block", ipv6CidrVPC),
+),
+	},
+	// disassociate ipv6
+	{
+Config:   testAccIPAMBYOIPConfig_ipv6CIDRBase(p, m, s),
+Skip
 func: testAccIPAMConfig_ipv6BYOIPSkipExplicitCIDR(t, ipv6CidrVPC),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					acctest.CheckVPCExists(ctx, resourceName, &vpc),
-					resource.TestCheckResourceAttr(resourceName, "ipv6_association_id", "")),
-			},
-			// aws_vpc_ipv6_cidr_block_association
-			{
-				Config: testAccIPAMBYOIPConfig_ipv6CIDRBlockAssociationDefaultNetmask(p, m, s),
-				Check: resource.ComposeTestCheck
+	acctest.CheckVPCExists(ctx, resourceName, &vpc),
+	resource.TestCheckResourceAttr(resourceName, "ipv6_association_id", "")),
+	},
+	// aws_vpc_ipv6_cidr_block_association
+	{
+Config: testAccIPAMBYOIPConfig_ipv6CIDRBlockAssociationDefaultNetmask(p, m, s),
+Check: resource.ComposeTestCheck
 func(
-					acctest.CheckVPCExists(ctx, resourceName, &vpc),
-					testAccCheckVPCIPv6CIDRBlockAssociationExists(ctx, assocName, &associationIPv6),
-					testAccCheckVPCAssociationIPv6CIDRPrefix(&associationIPv6, strconv.Itoa(netmaskLength)),
-				),
-			},
-			// disassociate ipv6
-			{
-				Config: testAccIPAMBYOIPConfig_ipv6CIDRBase(p, m, s),
-				Check: resource.ComposeTestCheck
+	acctest.CheckVPCExists(ctx, resourceName, &vpc),
+	testAccCheckVPCIPv6CIDRBlockAssociationExists(ctx, assocName, &associationIPv6),
+	testAccCheckVPCAssociationIPv6CIDRPrefix(&associationIPv6, strconv.Itoa(netmaskLength)),
+),
+	},
+	// disassociate ipv6
+	{
+Config: testAccIPAMBYOIPConfig_ipv6CIDRBase(p, m, s),
+Check: resource.ComposeTestCheck
 func(
-					acctest.CheckVPCExists(ctx, resourceName, &vpc)),
-				// vpc will still have association id because its based on the aws_vpc_ipv6_cidr_block_association resource
-			},
-			{
-				Config: testAccIPAMBYOIPConfig_ipv6CIDRBase(p, m, s),
-				Check: resource.ComposeTestCheck
+	acctest.CheckVPCExists(ctx, resourceName, &vpc)),
+// vpc will still have association id because its based on the aws_vpc_ipv6_cidr_block_association resource
+	},
+	{
+Config: testAccIPAMBYOIPConfig_ipv6CIDRBase(p, m, s),
+Check: resource.ComposeTestCheck
 func(
-					acctest.CheckVPCExists(ctx, resourceName, &vpc),
-					resource.TestCheckResourceAttr(resourceName, "ipv6_association_id", "")),
-			},
-			{
-				Config: testAccIPAMBYOIPConfig_ipv6CIDRBlockAssociationExplicitNetmask(p, m, s, netmaskLength),
-				Check: resource.ComposeTestCheck
+	acctest.CheckVPCExists(ctx, resourceName, &vpc),
+	resource.TestCheckResourceAttr(resourceName, "ipv6_association_id", "")),
+	},
+	{
+Config: testAccIPAMBYOIPConfig_ipv6CIDRBlockAssociationExplicitNetmask(p, m, s, netmaskLength),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckVPCIPv6CIDRBlockAssociationExists(ctx, assocName, &associationIPv6),
-					testAccCheckVPCAssociationIPv6CIDRPrefix(&associationIPv6, strconv.Itoa(netmaskLength)),
-				),
-			},
-			// disassociate ipv6
-			{
-				Config: testAccIPAMBYOIPConfig_ipv6CIDRBase(p, m, s),
-				Check: resource.ComposeTestCheck
+	testAccCheckVPCIPv6CIDRBlockAssociationExists(ctx, assocName, &associationIPv6),
+	testAccCheckVPCAssociationIPv6CIDRPrefix(&associationIPv6, strconv.Itoa(netmaskLength)),
+),
+	},
+	// disassociate ipv6
+	{
+Config: testAccIPAMBYOIPConfig_ipv6CIDRBase(p, m, s),
+Check: resource.ComposeTestCheck
 func(
-					acctest.CheckVPCExists(ctx, resourceName, &vpc)),
-				// vpc will still have association id because its based on the aws_vpc_ipv6_cidr_block_association resource
-			},
-			{
-				Config: testAccIPAMBYOIPConfig_ipv6CIDRBase(p, m, s),
-				Check: resource.ComposeTestCheck
+	acctest.CheckVPCExists(ctx, resourceName, &vpc)),
+// vpc will still have association id because its based on the aws_vpc_ipv6_cidr_block_association resource
+	},
+	{
+Config: testAccIPAMBYOIPConfig_ipv6CIDRBase(p, m, s),
+Check: resource.ComposeTestCheck
 func(
-					acctest.CheckVPCExists(ctx, resourceName, &vpc),
-					resource.TestCheckResourceAttr(resourceName, "ipv6_association_id", "")),
-			},
-			{
-				Config:   testAccIPAMBYOIPConfig_ipv6CIDRBlockAssociationExplicitCIDR(p, m, s, ipv6CidrAssoc),
-				Skip
+	acctest.CheckVPCExists(ctx, resourceName, &vpc),
+	resource.TestCheckResourceAttr(resourceName, "ipv6_association_id", "")),
+	},
+	{
+Config:   testAccIPAMBYOIPConfig_ipv6CIDRBlockAssociationExplicitCIDR(p, m, s, ipv6CidrAssoc),
+Skip
 func: testAccIPAMConfig_ipv6BYOIPSkipExplicitCIDR(t, ipv6CidrAssoc),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckVPCIPv6CIDRBlockAssociationExists(ctx, assocName, &associationIPv6),
-					resource.TestCheckResourceAttr(assocName, "ipv6_cidr_block", ipv6CidrAssoc),
-				),
-			},
-		},
+	testAccCheckVPCIPv6CIDRBlockAssociationExists(ctx, assocName, &associationIPv6),
+	resource.TestCheckResourceAttr(assocName, "ipv6_cidr_block", ipv6CidrAssoc),
+),
+	},
+},
 	})
 }
 
@@ -186,11 +186,11 @@ func testAccIPAMConfig_ipv6BYOIPSkipExplicitCIDR(t *testing.T, ipv6CidrVPC strin
 func() (bool, error) {
 	return 
 func() (bool, error) {
-		if ipv6CidrVPC != "" {
-			return false, nil
-		}
-		t.Log("Skipping step: Environment variable IPAM_BYOIP_IPV6_EXPLICIT_CIDR_VPC or IPAM_BYOIP_IPV6_EXPLICIT_CIDR_ASSOCIATE must be set.")
-		return true, nil
+if ipv6CidrVPC != "" {
+	return false, nil
+}
+t.Log("Skipping step: Environment variable IPAM_BYOIP_IPV6_EXPLICIT_CIDR_VPC or IPAM_BYOIP_IPV6_EXPLICIT_CIDR_ASSOCIATE must be set.")
+return true, nil
 	}
 }
 
@@ -208,15 +208,15 @@ resource "aws_vpc_ipam" "test" {
 resource "aws_vpc_ipam_pool" "test" {
   address_family     = "ipv6"
   ipam_scope_id      = aws_vpc_ipam.test.public_default_scope_id
-  locale             = data.aws_region.current.name
-  publicly_advertisable             = false
+  locale    = data.aws_region.current.name
+  publicly_advertisable    = false
   aws_service        = "ec2"
   allocation_default_netmask_length = 56
 }
 
 resource "aws_vpc_ipam_pool_cidr" "test" {
   ipam_pool_id = aws_vpc_ipam_pool.test.id
-  cidr         = %[1]q
+  cidr= %[1]q
 
   cidr_authorization_context {
     message   = %[2]q
@@ -244,15 +244,15 @@ resource "aws_vpc_ipam" "test" {
 resource "aws_vpc_ipam_pool" "test" {
   address_family     = "ipv6"
   ipam_scope_id      = aws_vpc_ipam.test.public_default_scope_id
-  locale             = data.aws_region.current.name
-  publicly_advertisable             = false
+  locale    = data.aws_region.current.name
+  publicly_advertisable    = false
   aws_service        = "ec2"
   allocation_default_netmask_length = 56
 }
 
 resource "aws_vpc_ipam_pool_cidr" "test" {
   ipam_pool_id = aws_vpc_ipam_pool.test.id
-  cidr         = %[1]q
+  cidr= %[1]q
 
   cidr_authorization_context {
     message   = %[2]q
@@ -284,15 +284,15 @@ resource "aws_vpc_ipam" "test" {
 resource "aws_vpc_ipam_pool" "test" {
   address_family     = "ipv6"
   ipam_scope_id      = aws_vpc_ipam.test.public_default_scope_id
-  locale             = data.aws_region.current.name
-  publicly_advertisable             = false
+  locale    = data.aws_region.current.name
+  publicly_advertisable    = false
   aws_service        = "ec2"
   allocation_default_netmask_length = 56
 }
 
 resource "aws_vpc_ipam_pool_cidr" "test" {
   ipam_pool_id = aws_vpc_ipam_pool.test.id
-  cidr         = %[1]q
+  cidr= %[1]q
 
   cidr_authorization_context {
     message   = %[2]q
@@ -303,7 +303,7 @@ resource "aws_vpc_ipam_pool_cidr" "test" {
 resource "aws_vpc" "test" {
   ipv6_ipam_pool_id   = aws_vpc_ipam_pool.test.id
   ipv6_netmask_length = %[4]d
-  cidr_block          = "10.0.0.0/16"
+  cidr_block = "10.0.0.0/16"
   depends_on = [
     aws_vpc_ipam_pool_cidr.test
   ]
@@ -325,15 +325,15 @@ resource "aws_vpc_ipam" "test" {
 resource "aws_vpc_ipam_pool" "test" {
   address_family     = "ipv6"
   ipam_scope_id      = aws_vpc_ipam.test.public_default_scope_id
-  locale             = data.aws_region.current.name
-  publicly_advertisable             = false
+  locale    = data.aws_region.current.name
+  publicly_advertisable    = false
   aws_service        = "ec2"
   allocation_default_netmask_length = 56
 }
 
 resource "aws_vpc_ipam_pool_cidr" "test" {
   ipam_pool_id = aws_vpc_ipam_pool.test.id
-  cidr         = %[1]q
+  cidr= %[1]q
 
   cidr_authorization_context {
     message   = %[2]q
@@ -366,15 +366,15 @@ resource "aws_vpc_ipam" "test" {
 resource "aws_vpc_ipam_pool" "test" {
   address_family     = "ipv6"
   ipam_scope_id      = aws_vpc_ipam.test.public_default_scope_id
-  locale             = data.aws_region.current.name
-  publicly_advertisable             = false
+  locale    = data.aws_region.current.name
+  publicly_advertisable    = false
   aws_service        = "ec2"
   allocation_default_netmask_length = 56
 }
 
 resource "aws_vpc_ipam_pool_cidr" "test" {
   ipam_pool_id = aws_vpc_ipam_pool.test.id
-  cidr         = %[1]q
+  cidr= %[1]q
 
   cidr_authorization_context {
     message   = %[2]q
@@ -388,7 +388,7 @@ resource "aws_vpc" "test" {
 
 resource "aws_vpc_ipv6_cidr_block_association" "test" {
   ipv6_ipam_pool_id = aws_vpc_ipam_pool.test.id
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   depends_on = [
     aws_vpc_ipam_pool_cidr.test
   ]
@@ -410,15 +410,15 @@ resource "aws_vpc_ipam" "test" {
 resource "aws_vpc_ipam_pool" "test" {
   address_family     = "ipv6"
   ipam_scope_id      = aws_vpc_ipam.test.public_default_scope_id
-  locale             = data.aws_region.current.name
-  publicly_advertisable             = false
+  locale    = data.aws_region.current.name
+  publicly_advertisable    = false
   aws_service        = "ec2"
   allocation_default_netmask_length = 56
 }
 
 resource "aws_vpc_ipam_pool_cidr" "test" {
   ipam_pool_id = aws_vpc_ipam_pool.test.id
-  cidr         = %[1]q
+  cidr= %[1]q
 
   cidr_authorization_context {
     message   = %[2]q
@@ -433,7 +433,7 @@ resource "aws_vpc" "test" {
 resource "aws_vpc_ipv6_cidr_block_association" "test" {
   ipv6_ipam_pool_id   = aws_vpc_ipam_pool.test.id
   ipv6_netmask_length = %[4]d
-  vpc_id              = aws_vpc.test.id
+  vpc_id     = aws_vpc.test.id
   depends_on = [
     aws_vpc_ipam_pool_cidr.test
   ]
@@ -455,15 +455,15 @@ resource "aws_vpc_ipam" "test" {
 resource "aws_vpc_ipam_pool" "test" {
   address_family     = "ipv6"
   ipam_scope_id      = aws_vpc_ipam.test.public_default_scope_id
-  locale             = data.aws_region.current.name
-  publicly_advertisable             = false
+  locale    = data.aws_region.current.name
+  publicly_advertisable    = false
   aws_service        = "ec2"
   allocation_default_netmask_length = 56
 }
 
 resource "aws_vpc_ipam_pool_cidr" "test" {
   ipam_pool_id = aws_vpc_ipam_pool.test.id
-  cidr         = %[1]q
+  cidr= %[1]q
 
   cidr_authorization_context {
     message   = %[2]q
@@ -478,7 +478,7 @@ resource "aws_vpc" "test" {
 resource "aws_vpc_ipv6_cidr_block_association" "test" {
   ipv6_ipam_pool_id = aws_vpc_ipam_pool.test.id
   ipv6_cidr_block   = %[4]q
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   depends_on = [
     aws_vpc_ipam_pool_cidr.test
   ]

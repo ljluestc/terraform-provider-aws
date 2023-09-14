@@ -21,31 +21,31 @@ func TestAccRoute53ResolverQueryLogConfigDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_route53_resolver_query_log_config.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, route53resolver.EndpointsID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccQueryLogConfigDataSourceConfig_basic(rName, "key1", "value1"),
-				Check: resource.ComposeAggregateTestCheck
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, route53resolver.EndpointsID)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccQueryLogConfigDataSourceConfig_basic(rName, "key1", "value1"),
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "destination_arn", resourceName, "destination_arn"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "name", resourceName, "name"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "owner_id", resourceName, "owner_id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "resolver_query_log_config_id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "share_status", resourceName, "share_status"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "tags.key1", resourceName, "tags.key1"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "destination_arn", resourceName, "destination_arn"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "name", resourceName, "name"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "owner_id", resourceName, "owner_id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "resolver_query_log_config_id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "share_status", resourceName, "share_status"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "tags.key1", resourceName, "tags.key1"),
+),
+	},
+},
 	})
 }
 
@@ -57,31 +57,31 @@ func TestAccRoute53ResolverQueryLogConfigDataSource_filter(t *testing.T) {
 	dataSourceName := "data.aws_route53_resolver_query_log_config.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, route53resolver.EndpointsID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccQueryLogConfigDataSourceConfig_filter(rName, "key1", "value1"),
-				Check: resource.ComposeAggregateTestCheck
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, route53resolver.EndpointsID)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccQueryLogConfigDataSourceConfig_filter(rName, "key1", "value1"),
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "destination_arn", resourceName, "destination_arn"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "name", resourceName, "name"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "owner_id", resourceName, "owner_id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "resolver_query_log_config_id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "share_status", resourceName, "share_status"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "tags.key1", resourceName, "tags.key1"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "destination_arn", resourceName, "destination_arn"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "name", resourceName, "name"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "owner_id", resourceName, "owner_id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "resolver_query_log_config_id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "share_status", resourceName, "share_status"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "tags.key1", resourceName, "tags.key1"),
+),
+	},
+},
 	})
 }
 

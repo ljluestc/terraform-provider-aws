@@ -20,19 +20,19 @@ func testAccTransitGatewayRouteTableRoutesDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_ec2_transit_gateway_route_table_routes.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTransitGatewayRouteTableRoutesDataSourceConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccTransitGatewayRouteTableRoutesDataSourceConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					acctest.CheckResourceAttrGreaterThanValue(dataSourceName, "routes.#", 0),
-				),
-			},
-		},
+	acctest.CheckResourceAttrGreaterThanValue(dataSourceName, "routes.#", 0),
+),
+	},
+},
 	})
 }
 
@@ -46,9 +46,9 @@ resource "aws_ec2_transit_gateway" "test" {
 }
 
 resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
-  subnet_ids         = aws_subnet.test[*].id
+  subnet_ids= aws_subnet.test[*].id
   transit_gateway_id = aws_ec2_transit_gateway.test.id
-  vpc_id             = aws_vpc.test.id
+  vpc_id    = aws_vpc.test.id
 
   transit_gateway_default_route_table_association = false
 

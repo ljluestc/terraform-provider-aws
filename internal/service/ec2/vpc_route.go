@@ -76,7 +76,7 @@ func ResourceRoute() *schema.Resource {
 			// Destinations.
 			///
 			routeDestinationCIDRBlock: {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Validate
@@ -84,9 +84,9 @@ func: verify.ValidIPv4CIDRNetworkAddress,
 				ExactlyOneOf: routeValidDestinations,
 			},
 			routeDestinationIPv6CIDRBlock: {
-				Type:             schema.TypeString,
-				Optional:         true,
-				ForceNew:         true,
+				Type:    schema.TypeString,
+				Optional:true,
+				ForceNew:true,
 				Validate
 func:     verify.ValidIPv6CIDRNetworkAddress,
 				DiffSuppress
@@ -94,7 +94,7 @@ func: suppressEqualCIDRBlockDiffs,
 				ExactlyOneOf:     routeValidDestinations,
 			},
 			routeDestinationPrefixListID: {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ExactlyOneOf: routeValidDestinations,
@@ -104,50 +104,50 @@ func: suppressEqualCIDRBlockDiffs,
 			// Targets.
 			//
 			"carrier_gateway_id": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ExactlyOneOf:  routeValidTargets,
 				ConflictsWith: []string{routeDestinationIPv6CIDRBlock}, // IPv4 destinations only.
 			},
 			"core_network_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ExactlyOneOf: routeValidTargets,
 			},
 			"egress_only_gateway_id": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ExactlyOneOf:  routeValidTargets,
 				ConflictsWith: []string{routeDestinationCIDRBlock}, // IPv6 destinations only.
 			},
 			"gateway_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ExactlyOneOf: routeValidTargets,
 			},
 			"local_gateway_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ExactlyOneOf: routeValidTargets,
 			},
 			"nat_gateway_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ExactlyOneOf: routeValidTargets,
 			},
 			"network_interface_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ExactlyOneOf: routeValidTargets,
 			},
 			"transit_gateway_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ExactlyOneOf: routeValidTargets,
 			},
 			"vpc_endpoint_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ExactlyOneOf: routeValidTargets,
 				ConflictsWith: []string{
@@ -155,7 +155,7 @@ func: suppressEqualCIDRBlockDiffs,
 				},
 			},
 			"vpc_peering_connection_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ExactlyOneOf: routeValidTargets,
 			},

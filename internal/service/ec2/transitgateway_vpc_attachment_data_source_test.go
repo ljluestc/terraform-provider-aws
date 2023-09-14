@@ -25,7 +25,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTransitGatewayDestroy(ctx),
+CheckDestroy:    testAccCheckTransitGatewayDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTransitGatewayVPCAttachmentDataSourceConfig_filter(rName),
@@ -57,7 +57,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTransitGatewayDestroy(ctx),
+CheckDestroy:    testAccCheckTransitGatewayDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTransitGatewayVPCAttachmentDataSourceConfig_id(rName),
@@ -91,7 +91,7 @@ resource "aws_vpc" "test" {
 resource "aws_subnet" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
   cidr_block        = "10.0.0.0/24"
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
 
   tags = {
     Name = %[1]q
@@ -105,9 +105,9 @@ resource "aws_ec2_transit_gateway" "test" {
 }
 
 resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
-  subnet_ids         = [aws_subnet.test.id]
+  subnet_ids= [aws_subnet.test.id]
   transit_gateway_id = aws_ec2_transit_gateway.test.id
-  vpc_id             = aws_vpc.test.id
+  vpc_id    = aws_vpc.test.id
 
   tags = {
     Name = %[1]q
@@ -127,9 +127,9 @@ data "aws_ec2_transit_gateway_vpc_attachment" "test" {
 func testAccTransitGatewayVPCAttachmentDataSourceConfig_id(rName string) string {
 	return acctest.ConfigCompose(testAccTransitGatewayVPCAttachmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
-  subnet_ids         = aws_subnet.test[*].id
+  subnet_ids= aws_subnet.test[*].id
   transit_gateway_id = aws_ec2_transit_gateway.test.id
-  vpc_id             = aws_vpc.test.id
+  vpc_id    = aws_vpc.test.id
 
   tags = {
     Name = %[1]q

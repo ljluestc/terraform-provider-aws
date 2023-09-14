@@ -20,60 +20,60 @@ import (
 
 func ResourceAPNSSandboxChannel() *schema.Resource {
 	return &schema.Resource{
-		CreateWithoutTimeout: resourceAPNSSandboxChannelUpsert,
-		ReadWithoutTimeout:   resourceAPNSSandboxChannelRead,
-		UpdateWithoutTimeout: resourceAPNSSandboxChannelUpsert,
-		DeleteWithoutTimeout: resourceAPNSSandboxChannelDelete,
-		Importer: &schema.ResourceImporter{
-			StateContext: schema.ImportStatePassthroughContext,
-		},
+CreateWithoutTimeout: resourceAPNSSandboxChannelUpsert,
+ReadWithoutTimeout:   resourceAPNSSandboxChannelRead,
+UpdateWithoutTimeout: resourceAPNSSandboxChannelUpsert,
+DeleteWithoutTimeout: resourceAPNSSandboxChannelDelete,
+Importer: &schema.ResourceImporter{
+	StateContext: schema.ImportStatePassthroughContext,
+},
 
-		Schema: map[string]*schema.Schema{
-			"application_id": {
-				Type:     schema.TypeString,
-				Required: true,
-				ForceNew: true,
-			},
-			"bundle_id": {
-				Type:      schema.TypeString,
-				Optional:  true,
-				Sensitive: true,
-			},
-			"certificate": {
-				Type:      schema.TypeString,
-				Optional:  true,
-				Sensitive: true,
-			},
-			"default_authentication_method": {
-				Type:     schema.TypeString,
-				Optional: true,
-			},
-			"enabled": {
-				Type:     schema.TypeBool,
-				Optional: true,
-				Default:  true,
-			},
-			"private_key": {
-				Type:      schema.TypeString,
-				Optional:  true,
-				Sensitive: true,
-			},
-			"team_id": {
-				Type:      schema.TypeString,
-				Optional:  true,
-				Sensitive: true,
-			},
-			"token_key": {
-				Type:      schema.TypeString,
-				Optional:  true,
-				Sensitive: true,
-			},
-			"token_key_id": {
-				Type:      schema.TypeString,
-				Optional:  true,
-				Sensitive: true,
-			},
-		},
+Schema: map[string]*schema.Schema{
+	"application_id": {
+Type:     schema.TypeString,
+Required: true,
+ForceNew: true,
+	},
+	"bundle_id": {
+Type:      schema.TypeString,
+Optional:  true,
+Sensitive: true,
+	},
+	"certificate": {
+Type:      schema.TypeString,
+Optional:  true,
+Sensitive: true,
+	},
+	"default_authentication_method": {
+Type:     schema.TypeString,
+Optional: true,
+	},
+	"enabled": {
+Type:     schema.TypeBool,
+Optional: true,
+Default:  true,
+	},
+	"private_key": {
+Type:      schema.TypeString,
+Optional:  true,
+Sensitive: true,
+	},
+	"team_id": {
+Type:      schema.TypeString,
+Optional:  true,
+Sensitive: true,
+	},
+	"token_key": {
+Type:      schema.TypeString,
+Optional:  true,
+Sensitive: true,
+	},
+	"token_key_id": {
+Type:      schema.TypeString,
+Optional:  true,
+Sensitive: true,
+	},
+},
 	}
 }
 
@@ -88,7 +88,7 @@ func resourceAPNSSandboxChannelUpsert(ctx context.Context, d *schema.ResourceDat
 	tokenKeyId, tokenKeyIdOk := d.GetOk("token_key_id")
 
 	if !(certificateOk && privateKeyOk) && !(bundleIdOk && teamIdOk && tokenKeyOk && tokenKeyIdOk) {
-		return sdkdiag.AppendErrorf(diags, "At least one set of credentials is required; either [certificate, private_key] or [bundle_id, team_id, token_key, token_key_id]")
+return sdkdiag.AppendErrorf(diags, "At least one set of credentials is required; either [certificate, private_key] or [bundle_id, team_id, token_key, token_key_id]")
 	}
 
 	conn := meta.(*conns.AWSClient).PinpointConn(ctx)
@@ -109,13 +109,13 @@ func resourceAPNSSandboxChannelUpsert(ctx context.Context, d *schema.ResourceDat
 	params.TokenKeyId = aws.String(tokenKeyId.(string))
 
 	req := pinpoint.UpdateApnsSandboxChannelInput{
-		ApplicationId:             aws.String(applicationId),
-		APNSSandboxChannelRequest: params,
+ApplicationId:             aws.String(applicationId),
+APNSSandboxChannelRequest: params,
 	}
 
 	_, err := conn.UpdateApnsSandboxChannelWithContext(ctx, &req)
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "updating Pinpoint APNs Sandbox Channel for Application %s: %s", applicationId, err)
+return sdkdiag.AppendErrorf(diags, "updating Pinpoint APNs Sandbox Channel for Application %s: %s", applicationId, err)
 	}
 
 	d.SetId(applicationId)
@@ -130,16 +130,16 @@ func resourceAPNSSandboxChannelRead(ctx context.Context, d *schema.ResourceData,
 	log.Printf("[INFO] Reading Pinpoint APNs Channel for Application %s", d.Id())
 
 	output, err := conn.GetApnsSandboxChannelWithContext(ctx, &pinpoint.GetApnsSandboxChannelInput{
-		ApplicationId: aws.String(d.Id()),
+ApplicationId: aws.String(d.Id()),
 	})
 	if err != nil {
-		if tfawserr.ErrCodeEquals(err, pinpoint.ErrCodeNotFoundException) {
-			log.Printf("[WARN] Pinpoint APNs Sandbox Channel for application %s not found, removing from state", d.Id())
-			d.SetId("")
-			return diags
-		}
+if tfawserr.ErrCodeEquals(err, pinpoint.ErrCodeNotFoundException) {
+	log.Printf("[WARN] Pinpoint APNs Sandbox Channel for application %s not found, removing from state", d.Id())
+	d.SetId("")
+	return diags
+}
 
-		return sdkdiag.AppendErrorf(diags, "getting Pinpoint APNs Sandbox Channel for application %s: %s", d.Id(), err)
+return sdkdiag.AppendErrorf(diags, "getting Pinpoint APNs Sandbox Channel for application %s: %s", d.Id(), err)
 	}
 
 	d.Set("application_id", output.APNSSandboxChannelResponse.ApplicationId)
@@ -156,15 +156,15 @@ func resourceAPNSSandboxChannelDelete(ctx context.Context, d *schema.ResourceDat
 
 	log.Printf("[DEBUG] Deleting Pinpoint APNs Sandbox Channel: %s", d.Id())
 	_, err := conn.DeleteApnsSandboxChannelWithContext(ctx, &pinpoint.DeleteApnsSandboxChannelInput{
-		ApplicationId: aws.String(d.Id()),
+ApplicationId: aws.String(d.Id()),
 	})
 
 	if tfawserr.ErrCodeEquals(err, pinpoint.ErrCodeNotFoundException) {
-		return diags
+return diags
 	}
 
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "deleting Pinpoint APNs Sandbox Channel for Application %s: %s", d.Id(), err)
+return sdkdiag.AppendErrorf(diags, "deleting Pinpoint APNs Sandbox Channel for Application %s: %s", d.Id(), err)
 	}
 	return diags
 }

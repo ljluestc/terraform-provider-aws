@@ -21,22 +21,22 @@ func TestAccLogsGroupsDataSource_basic(t *testing.T) {
 	resource2Name := "aws_cloudwatch_log_group.test.1"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccGroupsDataSourceConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(dataSourceName, "arns.#", "2"),
-					resource.TestCheckTypeSetElemAttrPair(dataSourceName, "arns.*", resource1Name, "arn"),
-					resource.TestCheckTypeSetElemAttrPair(dataSourceName, "arns.*", resource2Name, "arn"),
-					resource.TestCheckResourceAttr(dataSourceName, "log_group_names.#", "2"),
-					resource.TestCheckTypeSetElemAttrPair(dataSourceName, "log_group_names.*", resource1Name, "name"),
-					resource.TestCheckTypeSetElemAttrPair(dataSourceName, "log_group_names.*", resource2Name, "name"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccGroupsDataSourceConfig_basic(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(dataSourceName, "arns.#", "2"),
+	resource.TestCheckTypeSetElemAttrPair(dataSourceName, "arns.*", resource1Name, "arn"),
+	resource.TestCheckTypeSetElemAttrPair(dataSourceName, "arns.*", resource2Name, "arn"),
+	resource.TestCheckResourceAttr(dataSourceName, "log_group_names.#", "2"),
+	resource.TestCheckTypeSetElemAttrPair(dataSourceName, "log_group_names.*", resource1Name, "name"),
+	resource.TestCheckTypeSetElemAttrPair(dataSourceName, "log_group_names.*", resource2Name, "name"),
+),
+	},
+},
 	})
 }
 
@@ -48,22 +48,22 @@ func TestAccLogsGroupsDataSource_noPrefix(t *testing.T) {
 	resource2Name := "aws_cloudwatch_log_group.test.1"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccGroupsDataSourceConfig_noPrefix(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					acctest.CheckResourceAttrGreaterThanValue(dataSourceName, "arns.#", 1),
-					resource.TestCheckTypeSetElemAttrPair(dataSourceName, "arns.*", resource1Name, "arn"),
-					resource.TestCheckTypeSetElemAttrPair(dataSourceName, "arns.*", resource2Name, "arn"),
-					acctest.CheckResourceAttrGreaterThanValue(dataSourceName, "log_group_names.#", 1),
-					resource.TestCheckTypeSetElemAttrPair(dataSourceName, "log_group_names.*", resource1Name, "name"),
-					resource.TestCheckTypeSetElemAttrPair(dataSourceName, "log_group_names.*", resource2Name, "name"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cloudwatchlogs.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccGroupsDataSourceConfig_noPrefix(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	acctest.CheckResourceAttrGreaterThanValue(dataSourceName, "arns.#", 1),
+	resource.TestCheckTypeSetElemAttrPair(dataSourceName, "arns.*", resource1Name, "arn"),
+	resource.TestCheckTypeSetElemAttrPair(dataSourceName, "arns.*", resource2Name, "arn"),
+	acctest.CheckResourceAttrGreaterThanValue(dataSourceName, "log_group_names.#", 1),
+	resource.TestCheckTypeSetElemAttrPair(dataSourceName, "log_group_names.*", resource1Name, "name"),
+	resource.TestCheckTypeSetElemAttrPair(dataSourceName, "log_group_names.*", resource2Name, "name"),
+),
+	},
+},
 	})
 }
 

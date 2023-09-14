@@ -29,42 +29,42 @@ func TestAccAutoScalingLaunchConfiguration_basic(t *testing.T) {
 	resourceName := "aws_launch_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLaunchConfigurationConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "autoscaling", regexache.MustCompile(`launchConfiguration:.+`)),
-					resource.TestCheckResourceAttr(resourceName, "associate_public_ip_address", "false"),
-					resource.TestCheckResourceAttr(resourceName, "ebs_block_device.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "ebs_optimized", "false"),
-					resource.TestCheckResourceAttr(resourceName, "enable_monitoring", "true"),
-					resource.TestCheckResourceAttr(resourceName, "ephemeral_block_device.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "iam_instance_profile", ""),
-					resource.TestCheckResourceAttrSet(resourceName, "image_id"),
-					resource.TestCheckResourceAttr(resourceName, "instance_type", "t2.micro"),
-					resource.TestCheckResourceAttr(resourceName, "key_name", ""),
-					resource.TestCheckResourceAttr(resourceName, "metadata_options.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "name_prefix", ""),
-					resource.TestCheckResourceAttr(resourceName, "placement_tenancy", ""),
-					resource.TestCheckResourceAttr(resourceName, "root_block_device.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "security_groups.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "spot_price", ""),
-					resource.TestCheckNoResourceAttr(resourceName, "user_data"),
-					resource.TestCheckNoResourceAttr(resourceName, "user_data_base64"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLaunchConfigurationConfig_basic(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "autoscaling", regexache.MustCompile(`launchConfiguration:.+`)),
+	resource.TestCheckResourceAttr(resourceName, "associate_public_ip_address", "false"),
+	resource.TestCheckResourceAttr(resourceName, "ebs_block_device.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "ebs_optimized", "false"),
+	resource.TestCheckResourceAttr(resourceName, "enable_monitoring", "true"),
+	resource.TestCheckResourceAttr(resourceName, "ephemeral_block_device.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "iam_instance_profile", ""),
+	resource.TestCheckResourceAttrSet(resourceName, "image_id"),
+	resource.TestCheckResourceAttr(resourceName, "instance_type", "t2.micro"),
+	resource.TestCheckResourceAttr(resourceName, "key_name", ""),
+	resource.TestCheckResourceAttr(resourceName, "metadata_options.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "name_prefix", ""),
+	resource.TestCheckResourceAttr(resourceName, "placement_tenancy", ""),
+	resource.TestCheckResourceAttr(resourceName, "root_block_device.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "security_groups.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "spot_price", ""),
+	resource.TestCheckNoResourceAttr(resourceName, "user_data"),
+	resource.TestCheckNoResourceAttr(resourceName, "user_data_base64"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -75,20 +75,20 @@ func TestAccAutoScalingLaunchConfiguration_disappears(t *testing.T) {
 	resourceName := "aws_launch_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLaunchConfigurationConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfautoscaling.ResourceLaunchConfiguration(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLaunchConfigurationConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfautoscaling.ResourceLaunchConfiguration(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -98,25 +98,25 @@ func TestAccAutoScalingLaunchConfiguration_Name_generated(t *testing.T) {
 	resourceName := "aws_launch_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLaunchConfigurationConfig_nameGenerated(),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
-					acctest.CheckResourceAttrNameGenerated(resourceName, "name"),
-					resource.TestCheckResourceAttr(resourceName, "name_prefix", "terraform-"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLaunchConfigurationConfig_nameGenerated(),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
+	acctest.CheckResourceAttrNameGenerated(resourceName, "name"),
+	resource.TestCheckResourceAttr(resourceName, "name_prefix", "terraform-"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -126,25 +126,25 @@ func TestAccAutoScalingLaunchConfiguration_namePrefix(t *testing.T) {
 	resourceName := "aws_launch_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLaunchConfigurationConfig_namePrefix("tf-acc-test-prefix-"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
-					acctest.CheckResourceAttrNameFromPrefix(resourceName, "name", "tf-acc-test-prefix-"),
-					resource.TestCheckResourceAttr(resourceName, "name_prefix", "tf-acc-test-prefix-"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLaunchConfigurationConfig_namePrefix("tf-acc-test-prefix-"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
+	acctest.CheckResourceAttrNameFromPrefix(resourceName, "name", "tf-acc-test-prefix-"),
+	resource.TestCheckResourceAttr(resourceName, "name_prefix", "tf-acc-test-prefix-"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -155,44 +155,44 @@ func TestAccAutoScalingLaunchConfiguration_withBlockDevices(t *testing.T) {
 	resourceName := "aws_launch_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLaunchConfigurationConfig_blockDevices(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "ebs_block_device.#", "2"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ebs_block_device.*", map[string]string{
-						"device_name": "/dev/sdb",
-						"volume_size": "9",
-					}),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ebs_block_device.*", map[string]string{
-						"device_name": "/dev/sdc",
-						"iops":        "100",
-						"volume_size": "10",
-						"volume_type": "io1",
-					}),
-					resource.TestCheckResourceAttr(resourceName, "ephemeral_block_device.#", "1"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ephemeral_block_device.*", map[string]string{
-						"device_name":  "/dev/sde",
-						"virtual_name": "ephemeral0",
-					}),
-					resource.TestCheckResourceAttr(resourceName, "root_block_device.#", "1"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_block_device.*", map[string]string{
-						"volume_size": "11",
-						"volume_type": "gp2",
-					}),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLaunchConfigurationConfig_blockDevices(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "ebs_block_device.#", "2"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ebs_block_device.*", map[string]string{
+"device_name": "/dev/sdb",
+"volume_size": "9",
+	}),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ebs_block_device.*", map[string]string{
+"device_name": "/dev/sdc",
+"iops":        "100",
+"volume_size": "10",
+"volume_type": "io1",
+	}),
+	resource.TestCheckResourceAttr(resourceName, "ephemeral_block_device.#", "1"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ephemeral_block_device.*", map[string]string{
+"device_name":  "/dev/sde",
+"virtual_name": "ephemeral0",
+	}),
+	resource.TestCheckResourceAttr(resourceName, "root_block_device.#", "1"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_block_device.*", map[string]string{
+"volume_size": "11",
+"volume_type": "gp2",
+	}),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -203,23 +203,23 @@ func TestAccAutoScalingLaunchConfiguration_withInstanceStoreAMI(t *testing.T) {
 	resourceName := "aws_launch_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLaunchConfigurationConfig_instanceStoreAMI(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLaunchConfigurationConfig_instanceStoreAMI(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -232,27 +232,27 @@ func TestAccAutoScalingLaunchConfiguration_RootBlockDevice_amiDisappears(t *test
 	resourceName := "aws_launch_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLaunchConfigurationConfig_cofingRootBlockDeviceCopiedAMI(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
-					testAccCheckAMIExists(ctx, amiCopyResourceName, &ami),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceAMI(), amiCopyResourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-			{
-				Config: testAccLaunchConfigurationConfig_rootBlockDeviceVolumeSize(rName, 10),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLaunchConfigurationConfig_cofingRootBlockDeviceCopiedAMI(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
+	testAccCheckAMIExists(ctx, amiCopyResourceName, &ami),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceAMI(), amiCopyResourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+	{
+Config: testAccLaunchConfigurationConfig_rootBlockDeviceVolumeSize(rName, 10),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
+),
+	},
+},
 	})
 }
 
@@ -263,33 +263,33 @@ func TestAccAutoScalingLaunchConfiguration_RootBlockDevice_volumeSize(t *testing
 	resourceName := "aws_launch_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLaunchConfigurationConfig_rootBlockDeviceVolumeSize(rName, 11),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "root_block_device.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "root_block_device.0.volume_size", "11"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccLaunchConfigurationConfig_rootBlockDeviceVolumeSize(rName, 20),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "root_block_device.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "root_block_device.0.volume_size", "20"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLaunchConfigurationConfig_rootBlockDeviceVolumeSize(rName, 11),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "root_block_device.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "root_block_device.0.volume_size", "11"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccLaunchConfigurationConfig_rootBlockDeviceVolumeSize(rName, 20),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "root_block_device.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "root_block_device.0.volume_size", "20"),
+),
+	},
+},
 	})
 }
 
@@ -300,29 +300,29 @@ func TestAccAutoScalingLaunchConfiguration_encryptedRootBlockDevice(t *testing.T
 	resourceName := "aws_launch_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLaunchConfigurationConfig_encryptedRootBlockDevice(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "root_block_device.#", "1"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_block_device.*", map[string]string{
-						"encrypted":   "true",
-						"volume_size": "11",
-						"volume_type": "gp2",
-					}),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLaunchConfigurationConfig_encryptedRootBlockDevice(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "root_block_device.#", "1"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_block_device.*", map[string]string{
+"encrypted":   "true",
+"volume_size": "11",
+"volume_type": "gp2",
+	}),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -333,24 +333,24 @@ func TestAccAutoScalingLaunchConfiguration_withSpotPrice(t *testing.T) {
 	resourceName := "aws_launch_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLaunchConfigurationConfig_spotPrice(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "spot_price", "0.05"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLaunchConfigurationConfig_spotPrice(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "spot_price", "0.05"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -361,24 +361,24 @@ func TestAccAutoScalingLaunchConfiguration_withIAMProfile(t *testing.T) {
 	resourceName := "aws_launch_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLaunchConfigurationConfig_iamProfile(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrSet(resourceName, "iam_instance_profile"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLaunchConfigurationConfig_iamProfile(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrSet(resourceName, "iam_instance_profile"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -389,36 +389,36 @@ func TestAccAutoScalingLaunchConfiguration_withGP3(t *testing.T) {
 	resourceName := "aws_launch_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLaunchConfigurationConfig_gp3(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "ebs_block_device.#", "1"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ebs_block_device.*", map[string]string{
-						"device_name": "/dev/sdb",
-						"encrypted":   "true",
-						"throughput":  "150",
-						"volume_size": "9",
-						"volume_type": "gp3",
-					}),
-					resource.TestCheckResourceAttr(resourceName, "root_block_device.#", "1"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_block_device.*", map[string]string{
-						"volume_size": "11",
-						"volume_type": "gp3",
-					}),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLaunchConfigurationConfig_gp3(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "ebs_block_device.#", "1"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ebs_block_device.*", map[string]string{
+"device_name": "/dev/sdb",
+"encrypted":   "true",
+"throughput":  "150",
+"volume_size": "9",
+"volume_type": "gp3",
+	}),
+	resource.TestCheckResourceAttr(resourceName, "root_block_device.#", "1"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_block_device.*", map[string]string{
+"volume_size": "11",
+"volume_type": "gp3",
+	}),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -429,51 +429,51 @@ func TestAccAutoScalingLaunchConfiguration_encryptedEBSBlockDevice(t *testing.T)
 	resourceName := "aws_launch_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLaunchConfigurationConfig_encryptedEBSBlockDevice(rName, 9),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "ebs_block_device.#", "1"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ebs_block_device.*", map[string]string{
-						"device_name": "/dev/sdb",
-						"encrypted":   "true",
-						"volume_size": "9",
-					}),
-					resource.TestCheckResourceAttr(resourceName, "root_block_device.#", "1"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_block_device.*", map[string]string{
-						"volume_size": "11",
-						"volume_type": "gp2",
-					}),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccLaunchConfigurationConfig_encryptedEBSBlockDevice(rName, 10),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "ebs_block_device.#", "1"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ebs_block_device.*", map[string]string{
-						"device_name": "/dev/sdb",
-						"encrypted":   "true",
-						"volume_size": "10",
-					}),
-					resource.TestCheckResourceAttr(resourceName, "root_block_device.#", "1"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_block_device.*", map[string]string{
-						"volume_size": "11",
-						"volume_type": "gp2",
-					}),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLaunchConfigurationConfig_encryptedEBSBlockDevice(rName, 9),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "ebs_block_device.#", "1"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ebs_block_device.*", map[string]string{
+"device_name": "/dev/sdb",
+"encrypted":   "true",
+"volume_size": "9",
+	}),
+	resource.TestCheckResourceAttr(resourceName, "root_block_device.#", "1"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_block_device.*", map[string]string{
+"volume_size": "11",
+"volume_type": "gp2",
+	}),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccLaunchConfigurationConfig_encryptedEBSBlockDevice(rName, 10),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "ebs_block_device.#", "1"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ebs_block_device.*", map[string]string{
+"device_name": "/dev/sdb",
+"encrypted":   "true",
+"volume_size": "10",
+	}),
+	resource.TestCheckResourceAttr(resourceName, "root_block_device.#", "1"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_block_device.*", map[string]string{
+"volume_size": "11",
+"volume_type": "gp2",
+	}),
+),
+	},
+},
 	})
 }
 
@@ -484,27 +484,27 @@ func TestAccAutoScalingLaunchConfiguration_metadataOptions(t *testing.T) {
 	resourceName := "aws_launch_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLaunchConfigurationConfig_metadataOptions(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "metadata_options.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "metadata_options.0.http_endpoint", "enabled"),
-					resource.TestCheckResourceAttr(resourceName, "metadata_options.0.http_put_response_hop_limit", "2"),
-					resource.TestCheckResourceAttr(resourceName, "metadata_options.0.http_tokens", "required"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLaunchConfigurationConfig_metadataOptions(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "metadata_options.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "metadata_options.0.http_endpoint", "enabled"),
+	resource.TestCheckResourceAttr(resourceName, "metadata_options.0.http_put_response_hop_limit", "2"),
+	resource.TestCheckResourceAttr(resourceName, "metadata_options.0.http_tokens", "required"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -515,28 +515,28 @@ func TestAccAutoScalingLaunchConfiguration_EBS_noDevice(t *testing.T) {
 	resourceName := "aws_launch_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLaunchConfigurationConfig_ebsNoDevice(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "ebs_block_device.#", "1"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ebs_block_device.*", map[string]string{
-						"device_name": "/dev/sda2",
-						"no_device":   "true",
-					}),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLaunchConfigurationConfig_ebsNoDevice(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "ebs_block_device.#", "1"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "ebs_block_device.*", map[string]string{
+"device_name": "/dev/sda2",
+"no_device":   "true",
+	}),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -547,31 +547,31 @@ func TestAccAutoScalingLaunchConfiguration_userData(t *testing.T) {
 	resourceName := "aws_launch_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLaunchConfigurationConfig_userData(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "user_data", "3dc39dda39be1205215e776bad998da361a5955d"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccLaunchConfigurationConfig_userDataBase64(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "user_data_base64", "aGVsbG8gd29ybGQ="),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLaunchConfigurationConfig_userData(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "user_data", "3dc39dda39be1205215e776bad998da361a5955d"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccLaunchConfigurationConfig_userDataBase64(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "user_data_base64", "aGVsbG8gd29ybGQ="),
+),
+	},
+},
 	})
 }
 
@@ -584,26 +584,26 @@ func TestAccAutoScalingLaunchConfiguration_AssociatePublicIPAddress_subnetFalseC
 	groupResourceName := "aws_autoscaling_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLaunchConfigurationConfig_associatePublicIPAddress(rName, false, ""),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
-					testAccCheckGroupExists(ctx, groupResourceName, &group),
-					testAccCheckGroupHealthyInstanceCount(&group, 1),
-					testAccCheckInstanceHasPublicIPAddress(ctx, &group, 0, false),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLaunchConfigurationConfig_associatePublicIPAddress(rName, false, ""),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
+	testAccCheckGroupExists(ctx, groupResourceName, &group),
+	testAccCheckGroupHealthyInstanceCount(&group, 1),
+	testAccCheckInstanceHasPublicIPAddress(ctx, &group, 0, false),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -616,26 +616,26 @@ func TestAccAutoScalingLaunchConfiguration_AssociatePublicIPAddress_subnetFalseC
 	groupResourceName := "aws_autoscaling_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLaunchConfigurationConfig_associatePublicIPAddress(rName, false, "false"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
-					testAccCheckGroupExists(ctx, groupResourceName, &group),
-					testAccCheckGroupHealthyInstanceCount(&group, 1),
-					testAccCheckInstanceHasPublicIPAddress(ctx, &group, 0, false),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLaunchConfigurationConfig_associatePublicIPAddress(rName, false, "false"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
+	testAccCheckGroupExists(ctx, groupResourceName, &group),
+	testAccCheckGroupHealthyInstanceCount(&group, 1),
+	testAccCheckInstanceHasPublicIPAddress(ctx, &group, 0, false),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -648,26 +648,26 @@ func TestAccAutoScalingLaunchConfiguration_AssociatePublicIPAddress_subnetFalseC
 	groupResourceName := "aws_autoscaling_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLaunchConfigurationConfig_associatePublicIPAddress(rName, false, "true"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
-					testAccCheckGroupExists(ctx, groupResourceName, &group),
-					testAccCheckGroupHealthyInstanceCount(&group, 1),
-					testAccCheckInstanceHasPublicIPAddress(ctx, &group, 0, true),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLaunchConfigurationConfig_associatePublicIPAddress(rName, false, "true"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
+	testAccCheckGroupExists(ctx, groupResourceName, &group),
+	testAccCheckGroupHealthyInstanceCount(&group, 1),
+	testAccCheckInstanceHasPublicIPAddress(ctx, &group, 0, true),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -680,26 +680,26 @@ func TestAccAutoScalingLaunchConfiguration_AssociatePublicIPAddress_subnetTrueCo
 	groupResourceName := "aws_autoscaling_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLaunchConfigurationConfig_associatePublicIPAddress(rName, true, ""),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
-					testAccCheckGroupExists(ctx, groupResourceName, &group),
-					testAccCheckGroupHealthyInstanceCount(&group, 1),
-					testAccCheckInstanceHasPublicIPAddress(ctx, &group, 0, true),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLaunchConfigurationConfig_associatePublicIPAddress(rName, true, ""),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
+	testAccCheckGroupExists(ctx, groupResourceName, &group),
+	testAccCheckGroupHealthyInstanceCount(&group, 1),
+	testAccCheckInstanceHasPublicIPAddress(ctx, &group, 0, true),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -712,26 +712,26 @@ func TestAccAutoScalingLaunchConfiguration_AssociatePublicIPAddress_subnetTrueCo
 	groupResourceName := "aws_autoscaling_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLaunchConfigurationConfig_associatePublicIPAddress(rName, true, "false"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
-					testAccCheckGroupExists(ctx, groupResourceName, &group),
-					testAccCheckGroupHealthyInstanceCount(&group, 1),
-					testAccCheckInstanceHasPublicIPAddress(ctx, &group, 0, false),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLaunchConfigurationConfig_associatePublicIPAddress(rName, true, "false"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
+	testAccCheckGroupExists(ctx, groupResourceName, &group),
+	testAccCheckGroupHealthyInstanceCount(&group, 1),
+	testAccCheckInstanceHasPublicIPAddress(ctx, &group, 0, false),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -744,123 +744,123 @@ func TestAccAutoScalingLaunchConfiguration_AssociatePublicIPAddress_subnetTrueCo
 	groupResourceName := "aws_autoscaling_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLaunchConfigurationConfig_associatePublicIPAddress(rName, true, "true"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
-					testAccCheckGroupExists(ctx, groupResourceName, &group),
-					testAccCheckGroupHealthyInstanceCount(&group, 1),
-					testAccCheckInstanceHasPublicIPAddress(ctx, &group, 0, true),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLaunchConfigurationConfig_associatePublicIPAddress(rName, true, "true"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckLaunchConfigurationExists(ctx, resourceName, &conf),
+	testAccCheckGroupExists(ctx, groupResourceName, &group),
+	testAccCheckGroupHealthyInstanceCount(&group, 1),
+	testAccCheckInstanceHasPublicIPAddress(ctx, &group, 0, true),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
 func testAccCheckLaunchConfigurationDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).AutoScalingConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).AutoScalingConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_launch_configuration" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_launch_configuration" {
+continue
+	}
 
-			_, err := tfautoscaling.FindLaunchConfigurationByName(ctx, conn, rs.Primary.ID)
+	_, err := tfautoscaling.FindLaunchConfigurationByName(ctx, conn, rs.Primary.ID)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("Auto Scaling Launch Configuration %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("Auto Scaling Launch Configuration %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckLaunchConfigurationExists(ctx context.Context, n string, v *autoscaling.LaunchConfiguration) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No Auto Scaling Launch Configuration ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No Auto Scaling Launch Configuration ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).AutoScalingConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).AutoScalingConn(ctx)
 
-		output, err := tfautoscaling.FindLaunchConfigurationByName(ctx, conn, rs.Primary.ID)
+output, err := tfautoscaling.FindLaunchConfigurationByName(ctx, conn, rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*v = *output
+*v = *output
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckAMIExists(ctx context.Context, n string, v *ec2.Image) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No EC2 AMI ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No EC2 AMI ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-		output, err := tfec2.FindImageByID(ctx, conn, rs.Primary.ID)
+output, err := tfec2.FindImageByID(ctx, conn, rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*v = *output
+*v = *output
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckInstanceHasPublicIPAddress(ctx context.Context, group *autoscaling.Group, idx int, expected bool) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-		instanceID := aws.StringValue(group.Instances[idx].InstanceId)
-		instance, err := tfec2.FindInstanceByID(ctx, conn, instanceID)
+instanceID := aws.StringValue(group.Instances[idx].InstanceId)
+instance, err := tfec2.FindInstanceByID(ctx, conn, instanceID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		hasPublicIPAddress := aws.StringValue(instance.PublicIpAddress) != ""
+hasPublicIPAddress := aws.StringValue(instance.PublicIpAddress) != ""
 
-		if hasPublicIPAddress != expected {
-			return fmt.Errorf("%s has public IP address; got %t, expected %t", instanceID, hasPublicIPAddress, expected)
-		}
+if hasPublicIPAddress != expected {
+	return fmt.Errorf("%s has public IP address; got %t, expected %t", instanceID, hasPublicIPAddress, expected)
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -1157,14 +1157,14 @@ resource "aws_launch_configuration" "test" {
 
 func testAccLaunchConfigurationConfig_associatePublicIPAddress(rName string, subnetMapPublicIPOnLaunch bool, associatePublicIPAddress string) string {
 	if associatePublicIPAddress == "" {
-		associatePublicIPAddress = "null"
+associatePublicIPAddress = "null"
 	}
 
 	return acctest.ConfigCompose(
-		acctest.ConfigAvailableAZsNoOptInDefaultExclude(),
-		acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
-		acctest.AvailableEC2InstanceTypeForAvailabilityZone("data.aws_availability_zones.available.names[1]", "t3.micro", "t2.micro"),
-		fmt.Sprintf(`
+acctest.ConfigAvailableAZsNoOptInDefaultExclude(),
+acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
+acctest.AvailableEC2InstanceTypeForAvailabilityZone("data.aws_availability_zones.available.names[1]", "t3.micro", "t2.micro"),
+fmt.Sprintf(`
 resource "aws_vpc" "test" {
   cidr_block = "10.1.0.0/16"
 

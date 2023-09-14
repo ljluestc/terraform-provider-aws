@@ -19,23 +19,23 @@ func TestAccEC2EIPsDataSource_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccEIPsDataSourceConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccEIPsDataSourceConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					acctest.CheckResourceAttrGreaterThanValue("data.aws_eips.all", "allocation_ids.#", 1),
-					resource.TestCheckResourceAttr("data.aws_eips.by_tags", "allocation_ids.#", "1"),
-					resource.TestCheckResourceAttr("data.aws_eips.by_tags", "public_ips.#", "1"),
-					resource.TestCheckResourceAttr("data.aws_eips.none", "allocation_ids.#", "0"),
-					resource.TestCheckResourceAttr("data.aws_eips.none", "public_ips.#", "0"),
-				),
-			},
-		},
+	acctest.CheckResourceAttrGreaterThanValue("data.aws_eips.all", "allocation_ids.#", 1),
+	resource.TestCheckResourceAttr("data.aws_eips.by_tags", "allocation_ids.#", "1"),
+	resource.TestCheckResourceAttr("data.aws_eips.by_tags", "public_ips.#", "1"),
+	resource.TestCheckResourceAttr("data.aws_eips.none", "allocation_ids.#", "0"),
+	resource.TestCheckResourceAttr("data.aws_eips.none", "public_ips.#", "0"),
+),
+	},
+},
 	})
 }
 

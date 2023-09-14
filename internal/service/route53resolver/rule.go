@@ -52,7 +52,7 @@ func ResourceRule() *schema.Resource {
 				Computed: true,
 			},
 			"domain_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
@@ -61,7 +61,7 @@ func: validation.StringLenBetween(1, 256),
 func:    trimTrailingPeriod,
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Validate
 func: validResolverName,
@@ -75,7 +75,7 @@ func: validResolverName,
 				Optional: true,
 			},
 			"rule_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
@@ -93,13 +93,13 @@ func: validation.StringInSlice(route53resolver.RuleTypeOption_Values(), false),
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"ip": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							Validate
 func: validation.IsIPAddress,
 						},
 						"port": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							Default:      53,
 							Validate
@@ -124,8 +124,8 @@ func resourceRuleCreate(ctx context.Context, d *schema.ResourceData, meta interf
 	input := &route53resolver.CreateResolverRuleInput{
 		CreatorRequestId: aws.String(id.PrefixedUniqueId("tf-r53-resolver-rule-")),
 		DomainName:       aws.String(d.Get("domain_name").(string)),
-		RuleType:         aws.String(d.Get("rule_type").(string)),
-		Tags:             getTagsIn(ctx),
+		RuleType:aws.String(d.Get("rule_type").(string)),
+		Tags:    getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("name"); ok {
@@ -194,7 +194,7 @@ func resourceRuleUpdate(ctx context.Context, d *schema.ResourceData, meta interf
 
 	if d.HasChanges("name", "resolver_endpoint_id", "target_ip") {
 		input := &route53resolver.UpdateResolverRuleInput{
-			Config:         &route53resolver.ResolverRuleConfig{},
+			Config:&route53resolver.ResolverRuleConfig{},
 			ResolverRuleId: aws.String(d.Id()),
 		}
 

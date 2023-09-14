@@ -27,56 +27,56 @@ func testAccInstance_basic(t *testing.T) {
 	resourceName := "aws_connect_instance.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckInstanceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccInstanceConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckInstanceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccInstanceConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckInstanceExists(ctx, resourceName, &v),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "connect", regexache.MustCompile(`instance/.+`)),
-					resource.TestCheckResourceAttr(resourceName, "auto_resolve_best_voices_enabled", "true"), //verified default result from ListInstanceAttributes()
-					resource.TestCheckResourceAttr(resourceName, "contact_flow_logs_enabled", "false"),       //verified default result from ListInstanceAttributes()
-					resource.TestCheckResourceAttr(resourceName, "contact_lens_enabled", "true"),             //verified default result from ListInstanceAttributes()
-					resource.TestCheckResourceAttrSet(resourceName, "created_time"),
-					resource.TestCheckResourceAttr(resourceName, "early_media_enabled", "true"), //verified default result from ListInstanceAttributes()
-					resource.TestCheckResourceAttr(resourceName, "identity_management_type", connect.DirectoryTypeConnectManaged),
-					resource.TestCheckResourceAttr(resourceName, "inbound_calls_enabled", "true"),
-					resource.TestMatchResourceAttr(resourceName, "instance_alias", regexache.MustCompile(rName)),
-					resource.TestCheckResourceAttr(resourceName, "multi_party_conference_enabled", "false"),
-					resource.TestCheckResourceAttr(resourceName, "outbound_calls_enabled", "true"),
-					acctest.MatchResourceAttrGlobalARN(resourceName, "service_role", "iam", regexache.MustCompile(`role/aws-service-role/connect.amazonaws.com/.+`)),
-					resource.TestCheckResourceAttr(resourceName, "status", connect.InstanceStatusActive),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccInstanceConfig_basicFlipped(rName),
-				Check: resource.ComposeTestCheck
+	testAccCheckInstanceExists(ctx, resourceName, &v),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "connect", regexache.MustCompile(`instance/.+`)),
+	resource.TestCheckResourceAttr(resourceName, "auto_resolve_best_voices_enabled", "true"), //verified default result from ListInstanceAttributes()
+	resource.TestCheckResourceAttr(resourceName, "contact_flow_logs_enabled", "false"),       //verified default result from ListInstanceAttributes()
+	resource.TestCheckResourceAttr(resourceName, "contact_lens_enabled", "true"),    //verified default result from ListInstanceAttributes()
+	resource.TestCheckResourceAttrSet(resourceName, "created_time"),
+	resource.TestCheckResourceAttr(resourceName, "early_media_enabled", "true"), //verified default result from ListInstanceAttributes()
+	resource.TestCheckResourceAttr(resourceName, "identity_management_type", connect.DirectoryTypeConnectManaged),
+	resource.TestCheckResourceAttr(resourceName, "inbound_calls_enabled", "true"),
+	resource.TestMatchResourceAttr(resourceName, "instance_alias", regexache.MustCompile(rName)),
+	resource.TestCheckResourceAttr(resourceName, "multi_party_conference_enabled", "false"),
+	resource.TestCheckResourceAttr(resourceName, "outbound_calls_enabled", "true"),
+	acctest.MatchResourceAttrGlobalARN(resourceName, "service_role", "iam", regexache.MustCompile(`role/aws-service-role/connect.amazonaws.com/.+`)),
+	resource.TestCheckResourceAttr(resourceName, "status", connect.InstanceStatusActive),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccInstanceConfig_basicFlipped(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckInstanceExists(ctx, resourceName, &v),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "connect", regexache.MustCompile(`instance/.+`)),
-					resource.TestCheckResourceAttr(resourceName, "auto_resolve_best_voices_enabled", "false"),
-					resource.TestCheckResourceAttr(resourceName, "contact_flow_logs_enabled", "true"),
-					resource.TestCheckResourceAttr(resourceName, "contact_lens_enabled", "false"),
-					resource.TestCheckResourceAttrSet(resourceName, "created_time"),
-					resource.TestCheckResourceAttr(resourceName, "early_media_enabled", "false"),
-					resource.TestCheckResourceAttr(resourceName, "inbound_calls_enabled", "false"),
-					resource.TestMatchResourceAttr(resourceName, "instance_alias", regexache.MustCompile(rName)),
-					resource.TestCheckResourceAttr(resourceName, "multi_party_conference_enabled", "false"),
-					resource.TestCheckResourceAttr(resourceName, "outbound_calls_enabled", "false"),
-					resource.TestCheckResourceAttr(resourceName, "status", connect.InstanceStatusActive),
-				),
-			},
-		},
+	testAccCheckInstanceExists(ctx, resourceName, &v),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "connect", regexache.MustCompile(`instance/.+`)),
+	resource.TestCheckResourceAttr(resourceName, "auto_resolve_best_voices_enabled", "false"),
+	resource.TestCheckResourceAttr(resourceName, "contact_flow_logs_enabled", "true"),
+	resource.TestCheckResourceAttr(resourceName, "contact_lens_enabled", "false"),
+	resource.TestCheckResourceAttrSet(resourceName, "created_time"),
+	resource.TestCheckResourceAttr(resourceName, "early_media_enabled", "false"),
+	resource.TestCheckResourceAttr(resourceName, "inbound_calls_enabled", "false"),
+	resource.TestMatchResourceAttr(resourceName, "instance_alias", regexache.MustCompile(rName)),
+	resource.TestCheckResourceAttr(resourceName, "multi_party_conference_enabled", "false"),
+	resource.TestCheckResourceAttr(resourceName, "outbound_calls_enabled", "false"),
+	resource.TestCheckResourceAttr(resourceName, "status", connect.InstanceStatusActive),
+),
+	},
+},
 	})
 }
 
@@ -90,28 +90,28 @@ func testAccInstance_directory(t *testing.T) {
 	domainName := acctest.RandomDomainName()
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckInstanceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccInstanceConfig_directory(rName, domainName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckInstanceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccInstanceConfig_directory(rName, domainName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckInstanceExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "identity_management_type", connect.DirectoryTypeExistingDirectory),
-					resource.TestCheckResourceAttr(resourceName, "status", connect.InstanceStatusActive),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"directory_id"},
-			},
-		},
+	testAccCheckInstanceExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "identity_management_type", connect.DirectoryTypeExistingDirectory),
+	resource.TestCheckResourceAttr(resourceName, "status", connect.InstanceStatusActive),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"directory_id"},
+	},
+},
 	})
 }
 
@@ -123,26 +123,26 @@ func testAccInstance_saml(t *testing.T) {
 	resourceName := "aws_connect_instance.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckInstanceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccInstanceConfig_saml(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckInstanceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccInstanceConfig_saml(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttr(resourceName, "identity_management_type", connect.DirectoryTypeSaml),
-					testAccCheckInstanceExists(ctx, resourceName, &v),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	resource.TestCheckResourceAttr(resourceName, "identity_management_type", connect.DirectoryTypeSaml),
+	testAccCheckInstanceExists(ctx, resourceName, &v),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -151,26 +151,26 @@ func testAccCheckInstanceExists(ctx context.Context, n string, v *connect.Instan
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No Connect Instance ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No Connect Instance ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)
 
-		output, err := tfconnect.FindInstanceByID(ctx, conn, rs.Primary.ID)
+output, err := tfconnect.FindInstanceByID(ctx, conn, rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*v = *output
+*v = *output
 
-		return nil
+return nil
 	}
 }
 
@@ -179,27 +179,27 @@ func testAccCheckInstanceDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_connect_instance" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_connect_instance" {
+continue
+	}
 
-			conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)
+	conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)
 
-			_, err := tfconnect.FindInstanceByID(ctx, conn, rs.Primary.ID)
+	_, err := tfconnect.FindInstanceByID(ctx, conn, rs.Primary.ID)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("Connect Instance %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("Connect Instance %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -209,7 +209,7 @@ func testAccInstanceConfig_basic(rName string) string {
 resource "aws_connect_instance" "test" {
   identity_management_type = "CONNECT_MANAGED"
   inbound_calls_enabled    = true
-  instance_alias           = %[1]q
+  instance_alias  = %[1]q
   outbound_calls_enabled   = true
 }
 `, rName)
@@ -221,13 +221,13 @@ func testAccInstanceConfig_basicFlipped(rName string) string {
 resource "aws_connect_instance" "test" {
   auto_resolve_best_voices_enabled = false
   contact_flow_logs_enabled        = true
-  contact_lens_enabled             = false
-  early_media_enabled              = false
-  identity_management_type         = "CONNECT_MANAGED"
-  inbound_calls_enabled            = false
+  contact_lens_enabled    = false
+  early_media_enabled     = false
+  identity_management_type= "CONNECT_MANAGED"
+  inbound_calls_enabled   = false
   instance_alias    = %[1]q
   multi_party_conference_enabled   = false
-  outbound_calls_enabled           = false
+  outbound_calls_enabled  = false
 }
 `, rName)
 }
@@ -252,7 +252,7 @@ resource "aws_vpc" "test" {
 }
 
 resource "aws_subnet" "test1" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[0]
   cidr_block        = "10.0.1.0/24"
   tags = {
@@ -261,7 +261,7 @@ resource "aws_subnet" "test1" {
 }
 
 resource "aws_subnet" "test2" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[1]
   cidr_block        = "10.0.2.0/24"
   tags = {
@@ -281,9 +281,9 @@ resource "aws_directory_service_directory" "test" {
 }
 
 resource "aws_connect_instance" "test" {
-  directory_id             = aws_directory_service_directory.test.id
+  directory_id    = aws_directory_service_directory.test.id
   identity_management_type = "EXISTING_DIRECTORY"
-  instance_alias           = %[1]q
+  instance_alias  = %[1]q
   inbound_calls_enabled    = true
   outbound_calls_enabled   = true
 }
@@ -295,7 +295,7 @@ func testAccInstanceConfig_saml(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_connect_instance" "test" {
   identity_management_type = "SAML"
-  instance_alias           = %[1]q
+  instance_alias  = %[1]q
   inbound_calls_enabled    = true
   outbound_calls_enabled   = true
 }

@@ -15,14 +15,14 @@ func TestKeyPairMigrateState(t *testing.T) {
 
 	cases := map[string]struct {
 		StateVersion int
-		ID           string
+		ID  string
 		Attributes   map[string]string
 		Expected     string
-		Meta         interface{}
+		Metainterface{}
 	}{
 		"v0_1": {
 			StateVersion: 0,
-			ID:           "tf-testing-file",
+			ID:  "tf-testing-file",
 			Attributes: map[string]string{
 				"fingerprint": "1d:cd:46:31:a9:4a:e0:06:8a:a1:22:cb:3b:bf:8e:42",
 				"key_name":    "tf-testing-file",
@@ -32,7 +32,7 @@ func TestKeyPairMigrateState(t *testing.T) {
 		},
 		"v0_2": {
 			StateVersion: 0,
-			ID:           "tf-testing-file",
+			ID:  "tf-testing-file",
 			Attributes: map[string]string{
 				"fingerprint": "1d:cd:46:31:a9:4a:e0:06:8a:a1:22:cb:3b:bf:8e:42",
 				"key_name":    "tf-testing-file",
@@ -44,7 +44,7 @@ func TestKeyPairMigrateState(t *testing.T) {
 
 	for tn, tc := range cases {
 		is := &terraform.InstanceState{
-			ID:         tc.ID,
+			ID:tc.ID,
 			Attributes: tc.Attributes,
 		}
 		is, err := tfec2.KeyPairMigrateState(

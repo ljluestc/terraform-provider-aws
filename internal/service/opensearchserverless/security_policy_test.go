@@ -29,30 +29,30 @@ func TestAccOpenSearchServerlessSecurityPolicy_basic(t *testing.T) {
 	resourceName := "aws_opensearchserverless_security_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, names.OpenSearchServerlessEndpointID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, names.OpenSearchServerlessEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSecurityPolicyDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSecurityPolicyConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSecurityPolicyExists(ctx, resourceName, &securitypolicy),
-					resource.TestCheckResourceAttr(resourceName, "type", "encryption"),
-					resource.TestCheckResourceAttr(resourceName, "description", rName),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportStateIdFunc: testAccSecurityPolicyImportStateIdFunc(resourceName),
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, names.OpenSearchServerlessEndpointID)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, names.OpenSearchServerlessEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckSecurityPolicyDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSecurityPolicyConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckSecurityPolicyExists(ctx, resourceName, &securitypolicy),
+	resource.TestCheckResourceAttr(resourceName, "type", "encryption"),
+	resource.TestCheckResourceAttr(resourceName, "description", rName),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportStateIdFunc: testAccSecurityPolicyImportStateIdFunc(resourceName),
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -63,32 +63,32 @@ func TestAccOpenSearchServerlessSecurityPolicy_update(t *testing.T) {
 	resourceName := "aws_opensearchserverless_security_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, names.OpenSearchServerlessEndpointID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, names.OpenSearchServerlessEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSecurityPolicyDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSecurityPolicyConfig_update(rName, "description"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSecurityPolicyExists(ctx, resourceName, &securitypolicy),
-					resource.TestCheckResourceAttr(resourceName, "type", "encryption"),
-					resource.TestCheckResourceAttr(resourceName, "description", "description"),
-				),
-			},
-			{
-				Config: testAccSecurityPolicyConfig_update(rName, "description updated"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSecurityPolicyExists(ctx, resourceName, &securitypolicy),
-					resource.TestCheckResourceAttr(resourceName, "type", "encryption"),
-					resource.TestCheckResourceAttr(resourceName, "description", "description updated"),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, names.OpenSearchServerlessEndpointID)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, names.OpenSearchServerlessEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckSecurityPolicyDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSecurityPolicyConfig_update(rName, "description"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckSecurityPolicyExists(ctx, resourceName, &securitypolicy),
+	resource.TestCheckResourceAttr(resourceName, "type", "encryption"),
+	resource.TestCheckResourceAttr(resourceName, "description", "description"),
+),
+	},
+	{
+Config: testAccSecurityPolicyConfig_update(rName, "description updated"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckSecurityPolicyExists(ctx, resourceName, &securitypolicy),
+	resource.TestCheckResourceAttr(resourceName, "type", "encryption"),
+	resource.TestCheckResourceAttr(resourceName, "description", "description updated"),
+),
+	},
+},
 	})
 }
 
@@ -100,85 +100,85 @@ func TestAccOpenSearchServerlessSecurityPolicy_disappears(t *testing.T) {
 	resourceName := "aws_opensearchserverless_security_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, names.OpenSearchServerlessEndpointID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, names.OpenSearchServerlessEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSecurityPolicyDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSecurityPolicyConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSecurityPolicyExists(ctx, resourceName, &securitypolicy),
-					acctest.CheckFrameworkResourceDisappears(ctx, acctest.Provider, tfopensearchserverless.ResourceSecurityPolicy, resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, names.OpenSearchServerlessEndpointID)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, names.OpenSearchServerlessEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckSecurityPolicyDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSecurityPolicyConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckSecurityPolicyExists(ctx, resourceName, &securitypolicy),
+	acctest.CheckFrameworkResourceDisappears(ctx, acctest.Provider, tfopensearchserverless.ResourceSecurityPolicy, resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
 func testAccCheckSecurityPolicyDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).OpenSearchServerlessClient(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).OpenSearchServerlessClient(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_opensearchserverless_security_policy" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_opensearchserverless_security_policy" {
+continue
+	}
 
-			_, err := tfopensearchserverless.FindSecurityPolicyByNameAndType(ctx, conn, rs.Primary.ID, rs.Primary.Attributes["type"])
+	_, err := tfopensearchserverless.FindSecurityPolicyByNameAndType(ctx, conn, rs.Primary.ID, rs.Primary.Attributes["type"])
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return create.Error(names.OpenSearchServerless, create.ErrActionCheckingDestroyed, tfopensearchserverless.ResNameSecurityPolicy, rs.Primary.ID, errors.New("not destroyed"))
-		}
+	return create.Error(names.OpenSearchServerless, create.ErrActionCheckingDestroyed, tfopensearchserverless.ResNameSecurityPolicy, rs.Primary.ID, errors.New("not destroyed"))
+}
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckSecurityPolicyExists(ctx context.Context, name string, securitypolicy *types.SecurityPolicyDetail) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[name]
-		if !ok {
-			return create.Error(names.OpenSearchServerless, create.ErrActionCheckingExistence, tfopensearchserverless.ResNameSecurityPolicy, name, errors.New("not found"))
-		}
+rs, ok := s.RootModule().Resources[name]
+if !ok {
+	return create.Error(names.OpenSearchServerless, create.ErrActionCheckingExistence, tfopensearchserverless.ResNameSecurityPolicy, name, errors.New("not found"))
+}
 
-		if rs.Primary.ID == "" {
-			return create.Error(names.OpenSearchServerless, create.ErrActionCheckingExistence, tfopensearchserverless.ResNameSecurityPolicy, name, errors.New("not set"))
-		}
+if rs.Primary.ID == "" {
+	return create.Error(names.OpenSearchServerless, create.ErrActionCheckingExistence, tfopensearchserverless.ResNameSecurityPolicy, name, errors.New("not set"))
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).OpenSearchServerlessClient(ctx)
-		resp, err := tfopensearchserverless.FindSecurityPolicyByNameAndType(ctx, conn, rs.Primary.ID, rs.Primary.Attributes["type"])
+conn := acctest.Provider.Meta().(*conns.AWSClient).OpenSearchServerlessClient(ctx)
+resp, err := tfopensearchserverless.FindSecurityPolicyByNameAndType(ctx, conn, rs.Primary.ID, rs.Primary.Attributes["type"])
 
-		if err != nil {
-			return create.Error(names.OpenSearchServerless, create.ErrActionCheckingExistence, tfopensearchserverless.ResNameSecurityPolicy, rs.Primary.ID, err)
-		}
+if err != nil {
+	return create.Error(names.OpenSearchServerless, create.ErrActionCheckingExistence, tfopensearchserverless.ResNameSecurityPolicy, rs.Primary.ID, err)
+}
 
-		*securitypolicy = *resp
+*securitypolicy = *resp
 
-		return nil
+return nil
 	}
 }
 
 func testAccSecurityPolicyImportStateIdFunc(resourceName string) resource.ImportStateIdFunc {
 	return func(s *terraform.State) (string, error) {
-		rs, ok := s.RootModule().Resources[resourceName]
-		if !ok {
-			return "", fmt.Errorf("not found: %s", resourceName)
-		}
+rs, ok := s.RootModule().Resources[resourceName]
+if !ok {
+	return "", fmt.Errorf("not found: %s", resourceName)
+}
 
-		return fmt.Sprintf("%s/%s", rs.Primary.Attributes["name"], rs.Primary.Attributes["type"]), nil
+return fmt.Sprintf("%s/%s", rs.Primary.Attributes["name"], rs.Primary.Attributes["type"]), nil
 	}
 }
 
@@ -186,16 +186,16 @@ func testAccPreCheck(ctx context.Context, t *testing.T) {
 	conn := acctest.Provider.Meta().(*conns.AWSClient).OpenSearchServerlessClient(ctx)
 
 	input := &opensearchserverless.ListSecurityPoliciesInput{
-		Type: types.SecurityPolicyTypeEncryption,
+Type: types.SecurityPolicyTypeEncryption,
 	}
 	_, err := conn.ListSecurityPolicies(ctx, input)
 
 	if acctest.PreCheckSkipError(err) {
-		t.Skipf("skipping acceptance testing: %s", err)
+t.Skipf("skipping acceptance testing: %s", err)
 	}
 
 	if err != nil {
-		t.Fatalf("unexpected PreCheck error: %s", err)
+t.Fatalf("unexpected PreCheck error: %s", err)
 	}
 }
 
@@ -210,7 +210,7 @@ resource "aws_opensearchserverless_security_policy" "test" {
     "Rules" = [
       {
         "Resource" = [
-				%[2]q
+%[2]q
         ],
         "ResourceType" = "collection"
       }
@@ -232,7 +232,7 @@ resource "aws_opensearchserverless_security_policy" "test" {
     "Rules" = [
       {
         "Resource" = [
-				%[2]q
+%[2]q
         ],
         "ResourceType" = "collection"
       }

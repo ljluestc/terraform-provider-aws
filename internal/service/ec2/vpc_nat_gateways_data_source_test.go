@@ -19,22 +19,22 @@ func TestAccVPCNATGatewaysDataSource_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCNATGatewaysDataSourceConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCNATGatewaysDataSourceConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttr("data.aws_nat_gateways.by_vpc_id", "ids.#", "2"),
-					resource.TestCheckResourceAttr("data.aws_nat_gateways.by_tags", "ids.#", "1"),
-					resource.TestCheckResourceAttr("data.aws_nat_gateways.by_filter", "ids.#", "3"),
-					resource.TestCheckResourceAttr("data.aws_nat_gateways.empty", "ids.#", "0"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttr("data.aws_nat_gateways.by_vpc_id", "ids.#", "2"),
+	resource.TestCheckResourceAttr("data.aws_nat_gateways.by_tags", "ids.#", "1"),
+	resource.TestCheckResourceAttr("data.aws_nat_gateways.by_filter", "ids.#", "3"),
+	resource.TestCheckResourceAttr("data.aws_nat_gateways.empty", "ids.#", "0"),
+),
+	},
+},
 	})
 }
 
@@ -58,7 +58,7 @@ resource "aws_vpc" "test2" {
 }
 
 resource "aws_subnet" "test1" {
-  vpc_id            = aws_vpc.test1.id
+  vpc_id   = aws_vpc.test1.id
   cidr_block        = "172.5.123.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
 
@@ -68,7 +68,7 @@ resource "aws_subnet" "test1" {
 }
 
 resource "aws_subnet" "test2" {
-  vpc_id            = aws_vpc.test2.id
+  vpc_id   = aws_vpc.test2.id
   cidr_block        = "172.5.123.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
 
@@ -78,7 +78,7 @@ resource "aws_subnet" "test2" {
 }
 
 resource "aws_subnet" "test3" {
-  vpc_id            = aws_vpc.test2.id
+  vpc_id   = aws_vpc.test2.id
   cidr_block        = "172.5.124.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
 

@@ -23,25 +23,25 @@ func testAccTransitGatewayDxGatewayAttachmentDataSource_TransitGatewayIdAndDxGat
 	dxGatewayResourceName := "aws_dx_gateway.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-			testAccPreCheckTransitGateway(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTransitGatewayDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTransitGatewayDxGatewayAttachmentDataSourceConfig_transit(rName, rBgpAsn),
-				Check: resource.ComposeTestCheck
+	acctest.PreCheck(ctx, t)
+	testAccPreCheckTransitGateway(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTransitGatewayDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTransitGatewayDxGatewayAttachmentDataSourceConfig_transit(rName, rBgpAsn),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttrPair(dataSourceName, "dx_gateway_id", dxGatewayResourceName, "id"),
-					resource.TestCheckResourceAttr(dataSourceName, "tags.%", "0"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "transit_gateway_id", transitGatewayResourceName, "id"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(dataSourceName, "dx_gateway_id", dxGatewayResourceName, "id"),
+	resource.TestCheckResourceAttr(dataSourceName, "tags.%", "0"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "transit_gateway_id", transitGatewayResourceName, "id"),
+),
+	},
+},
 	})
 }
 
@@ -55,25 +55,25 @@ func testAccTransitGatewayDxGatewayAttachmentDataSource_filter(t *testing.T) {
 	dxGatewayResourceName := "aws_dx_gateway.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-			testAccPreCheckTransitGateway(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTransitGatewayDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTransitGatewayDxGatewayAttachmentDataSourceConfig_transitFilter(rName, rBgpAsn),
-				Check: resource.ComposeTestCheck
+	acctest.PreCheck(ctx, t)
+	testAccPreCheckTransitGateway(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTransitGatewayDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTransitGatewayDxGatewayAttachmentDataSourceConfig_transitFilter(rName, rBgpAsn),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttrPair(dataSourceName, "dx_gateway_id", dxGatewayResourceName, "id"),
-					resource.TestCheckResourceAttr(dataSourceName, "tags.%", "0"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "transit_gateway_id", transitGatewayResourceName, "id"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(dataSourceName, "dx_gateway_id", dxGatewayResourceName, "id"),
+	resource.TestCheckResourceAttr(dataSourceName, "tags.%", "0"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "transit_gateway_id", transitGatewayResourceName, "id"),
+),
+	},
+},
 	})
 }
 

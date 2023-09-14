@@ -278,9 +278,9 @@ func ResourceTargetGroup() *schema.Resource {
 							Type:     schema.TypeString,
 							Required: true,
 							ValidateFunc: validation.StringInSlice([]string{
-								"lb_cookie",// Only for ALBs
+								"lb_cookie",               // Only for ALBs
 								"app_cookie",              // Only for ALBs
-								"source_ip",// Only for NLBs
+								"source_ip",               // Only for NLBs
 								"source_ip_dest_ip",       // Only for GWLBs
 								"source_ip_dest_ip_proto", // Only for GWLBs
 							}, false),
@@ -1224,7 +1224,7 @@ func flattenLbTargetGroupHealthCheck(targetGroup *elbv2.TargetGroup) []interface
 		"enabled":             aws.BoolValue(targetGroup.HealthCheckEnabled),
 		"healthy_threshold":   int(aws.Int64Value(targetGroup.HealthyThresholdCount)),
 		"interval":            int(aws.Int64Value(targetGroup.HealthCheckIntervalSeconds)),
-		"port": aws.StringValue(targetGroup.HealthCheckPort),
+		"port":                aws.StringValue(targetGroup.HealthCheckPort),
 		"protocol":            aws.StringValue(targetGroup.HealthCheckProtocol),
 		"timeout":             int(aws.Int64Value(targetGroup.HealthCheckTimeoutSeconds)),
 		"unhealthy_threshold": int(aws.Int64Value(targetGroup.UnhealthyThresholdCount)),

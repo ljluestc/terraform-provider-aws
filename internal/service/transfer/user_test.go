@@ -26,28 +26,28 @@ func testAccUser_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckUserExists(ctx, resourceName, &conf),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "transfer", regexache.MustCompile(`user/.+`)),
-					resource.TestCheckResourceAttr(resourceName, "posix_profile.#", "0"),
-					resource.TestCheckResourceAttrPair(resourceName, "role", "aws_iam_role.test", "arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "server_id", "aws_transfer_server.test", "id"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckUserExists(ctx, resourceName, &conf),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "transfer", regexache.MustCompile(`user/.+`)),
+	resource.TestCheckResourceAttr(resourceName, "posix_profile.#", "0"),
+	resource.TestCheckResourceAttrPair(resourceName, "role", "aws_iam_role.test", "arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "server_id", "aws_transfer_server.test", "id"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -58,20 +58,20 @@ func testAccUser_disappears(t *testing.T) {
 	resourceName := "aws_transfer_user.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckUserExists(ctx, resourceName, &userConf),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tftransfer.ResourceUser(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckUserExists(ctx, resourceName, &userConf),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tftransfer.ResourceUser(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -82,42 +82,42 @@ func testAccUser_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckUserExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccUserConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckUserExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-			{
-				Config: testAccUserConfig_tags1(rName, "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckUserExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserConfig_tags1(rName, "key1", "value1"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckUserExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccUserConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckUserExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+	{
+Config: testAccUserConfig_tags1(rName, "key2", "value2"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckUserExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+},
 	})
 }
 
@@ -128,36 +128,36 @@ func testAccUser_posix(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserConfig_posix(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckUserExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "posix_profile.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "posix_profile.0.gid", "1000"),
-					resource.TestCheckResourceAttr(resourceName, "posix_profile.0.uid", "1000"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccUserConfig_posixUpdated(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckUserExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "posix_profile.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "posix_profile.0.gid", "1001"),
-					resource.TestCheckResourceAttr(resourceName, "posix_profile.0.uid", "1001"),
-					resource.TestCheckResourceAttr(resourceName, "posix_profile.0.secondary_gids.#", "2"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserConfig_posix(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckUserExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "posix_profile.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "posix_profile.0.gid", "1000"),
+	resource.TestCheckResourceAttr(resourceName, "posix_profile.0.uid", "1000"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccUserConfig_posixUpdated(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckUserExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "posix_profile.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "posix_profile.0.gid", "1001"),
+	resource.TestCheckResourceAttr(resourceName, "posix_profile.0.uid", "1001"),
+	resource.TestCheckResourceAttr(resourceName, "posix_profile.0.secondary_gids.#", "2"),
+),
+	},
+},
 	})
 }
 
@@ -169,36 +169,36 @@ func testAccUser_modifyWithOptions(t *testing.T) {
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserConfig_options(rName1),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckUserExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "home_directory", "/home/tftestuser"),
-				),
-			},
-			{
-				Config: testAccUserConfig_modify(rName2),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckUserExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "home_directory", "/test"),
-					resource.TestCheckResourceAttrPair(resourceName, "role", "aws_iam_role.test", "arn"),
-				),
-			},
-			{
-				Config: testAccUserConfig_forceNew(rName2),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckUserExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "home_directory", "/home/tftestuser2"),
-					resource.TestCheckResourceAttrPair(resourceName, "role", "aws_iam_role.test", "arn"),
-					resource.TestCheckResourceAttr(resourceName, "user_name", "tftestuser2"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserConfig_options(rName1),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckUserExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "home_directory", "/home/tftestuser"),
+),
+	},
+	{
+Config: testAccUserConfig_modify(rName2),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckUserExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "home_directory", "/test"),
+	resource.TestCheckResourceAttrPair(resourceName, "role", "aws_iam_role.test", "arn"),
+),
+	},
+	{
+Config: testAccUserConfig_forceNew(rName2),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckUserExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "home_directory", "/home/tftestuser2"),
+	resource.TestCheckResourceAttrPair(resourceName, "role", "aws_iam_role.test", "arn"),
+	resource.TestCheckResourceAttr(resourceName, "user_name", "tftestuser2"),
+),
+	},
+},
 	})
 }
 
@@ -207,38 +207,38 @@ func testAccUser_UserName_Validation(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config:      testAccUserConfig_nameValidation(rName, "!@#$%^"),
-				ExpectError: regexache.MustCompile(`Invalid "user_name": `),
-			},
-			{
-				Config:      testAccUserConfig_nameValidation(rName, sdkacctest.RandString(2)),
-				ExpectError: regexache.MustCompile(`Invalid "user_name": `),
-			},
-			{
-				Config:             testAccUserConfig_nameValidation(rName, sdkacctest.RandString(33)),
-				ExpectNonEmptyPlan: true,
-				PlanOnly:           true,
-			},
-			{
-				Config:      testAccUserConfig_nameValidation(rName, sdkacctest.RandString(101)),
-				ExpectError: regexache.MustCompile(`Invalid "user_name": `),
-			},
-			{
-				Config:      testAccUserConfig_nameValidation(rName, "-abcdef"),
-				ExpectError: regexache.MustCompile(`Invalid "user_name": `),
-			},
-			{
-				Config:             testAccUserConfig_nameValidation(rName, "valid_username"),
-				ExpectNonEmptyPlan: true,
-				PlanOnly:           true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config:      testAccUserConfig_nameValidation(rName, "!@#$%^"),
+ExpectError: regexache.MustCompile(`Invalid "user_name": `),
+	},
+	{
+Config:      testAccUserConfig_nameValidation(rName, sdkacctest.RandString(2)),
+ExpectError: regexache.MustCompile(`Invalid "user_name": `),
+	},
+	{
+Config:             testAccUserConfig_nameValidation(rName, sdkacctest.RandString(33)),
+ExpectNonEmptyPlan: true,
+PlanOnly:           true,
+	},
+	{
+Config:      testAccUserConfig_nameValidation(rName, sdkacctest.RandString(101)),
+ExpectError: regexache.MustCompile(`Invalid "user_name": `),
+	},
+	{
+Config:      testAccUserConfig_nameValidation(rName, "-abcdef"),
+ExpectError: regexache.MustCompile(`Invalid "user_name": `),
+	},
+	{
+Config:             testAccUserConfig_nameValidation(rName, "valid_username"),
+ExpectNonEmptyPlan: true,
+PlanOnly:           true,
+	},
+},
 	})
 }
 
@@ -253,108 +253,108 @@ func testAccUser_homeDirectoryMappings(t *testing.T) {
 	target2 := "/bucket3/customized-reports2/tftestuser.pdf"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserConfig_homeDirectoryMappings(rName, entry1, target1),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckUserExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "home_directory_mappings.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "home_directory_mappings.0.entry", entry1),
-					resource.TestCheckResourceAttr(resourceName, "home_directory_mappings.0.target", target1),
-					resource.TestCheckResourceAttr(resourceName, "home_directory_type", "LOGICAL"),
-				),
-			},
-			{
-				Config: testAccUserConfig_homeDirectoryMappingsUpdate(rName, entry1, target1, entry2, target2),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckUserExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "home_directory_mappings.#", "2"),
-					resource.TestCheckResourceAttr(resourceName, "home_directory_mappings.0.entry", entry1),
-					resource.TestCheckResourceAttr(resourceName, "home_directory_mappings.0.target", target1),
-					resource.TestCheckResourceAttr(resourceName, "home_directory_mappings.1.entry", entry2),
-					resource.TestCheckResourceAttr(resourceName, "home_directory_mappings.1.target", target2),
-					resource.TestCheckResourceAttr(resourceName, "home_directory_type", "LOGICAL"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccUserConfig_homeDirectoryMappingsRemove(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckUserExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "home_directory_mappings.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "home_directory_type", "PATH"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserConfig_homeDirectoryMappings(rName, entry1, target1),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckUserExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "home_directory_mappings.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "home_directory_mappings.0.entry", entry1),
+	resource.TestCheckResourceAttr(resourceName, "home_directory_mappings.0.target", target1),
+	resource.TestCheckResourceAttr(resourceName, "home_directory_type", "LOGICAL"),
+),
+	},
+	{
+Config: testAccUserConfig_homeDirectoryMappingsUpdate(rName, entry1, target1, entry2, target2),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckUserExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "home_directory_mappings.#", "2"),
+	resource.TestCheckResourceAttr(resourceName, "home_directory_mappings.0.entry", entry1),
+	resource.TestCheckResourceAttr(resourceName, "home_directory_mappings.0.target", target1),
+	resource.TestCheckResourceAttr(resourceName, "home_directory_mappings.1.entry", entry2),
+	resource.TestCheckResourceAttr(resourceName, "home_directory_mappings.1.target", target2),
+	resource.TestCheckResourceAttr(resourceName, "home_directory_type", "LOGICAL"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccUserConfig_homeDirectoryMappingsRemove(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckUserExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "home_directory_mappings.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "home_directory_type", "PATH"),
+),
+	},
+},
 	})
 }
 
 func testAccCheckUserExists(ctx context.Context, n string, v *transfer.DescribedUser) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No Transfer User ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No Transfer User ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).TransferConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).TransferConn(ctx)
 
-		serverID, userName, err := tftransfer.UserParseResourceID(rs.Primary.ID)
+serverID, userName, err := tftransfer.UserParseResourceID(rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		output, err := tftransfer.FindUserByTwoPartKey(ctx, conn, serverID, userName)
+output, err := tftransfer.FindUserByTwoPartKey(ctx, conn, serverID, userName)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*v = *output
+*v = *output
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckUserDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).TransferConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).TransferConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_transfer_user" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_transfer_user" {
+continue
+	}
 
-			serverID, userName, err := tftransfer.UserParseResourceID(rs.Primary.ID)
+	serverID, userName, err := tftransfer.UserParseResourceID(rs.Primary.ID)
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			_, err = tftransfer.FindUserByTwoPartKey(ctx, conn, serverID, userName)
+	_, err = tftransfer.FindUserByTwoPartKey(ctx, conn, serverID, userName)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
-		}
+	if err != nil {
+return err
+	}
+}
 
-		return nil
+return nil
 	}
 }
 

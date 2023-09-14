@@ -30,29 +30,29 @@ func TestAccVPCLatticeListenerRule_basic(t *testing.T) {
 	resourceName := "aws_vpclattice_listener_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccChecklistenerRuleDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccListenerRuleConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckListenerRuleExists(ctx, resourceName, &listenerRule),
-					resource.TestCheckResourceAttr(resourceName, "priority", "20"),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "vpc-lattice", regexache.MustCompile(`service/svc-.*/listener/listener-.*/rule/rule.+`)),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccChecklistenerRuleDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccListenerRuleConfig_basic(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckListenerRuleExists(ctx, resourceName, &listenerRule),
+	resource.TestCheckResourceAttr(resourceName, "priority", "20"),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "vpc-lattice", regexache.MustCompile(`service/svc-.*/listener/listener-.*/rule/rule.+`)),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -63,30 +63,30 @@ func TestAccVPCLatticeListenerRule_fixedResponse(t *testing.T) {
 	resourceName := "aws_vpclattice_listener_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccChecklistenerRuleDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccListenerRuleConfig_fixedResponse(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckListenerRuleExists(ctx, resourceName, &listenerRule),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "priority", "10"),
-					resource.TestCheckResourceAttr(resourceName, "action.0.fixed_response.0.status_code", "404"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccChecklistenerRuleDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccListenerRuleConfig_fixedResponse(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckListenerRuleExists(ctx, resourceName, &listenerRule),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "priority", "10"),
+	resource.TestCheckResourceAttr(resourceName, "action.0.fixed_response.0.status_code", "404"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -97,25 +97,25 @@ func TestAccVPCLatticeListenerRule_methodMatch(t *testing.T) {
 	resourceName := "aws_vpclattice_listener_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccChecklistenerRuleDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccListenerRuleConfig_methodMatch(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckListenerRuleExists(ctx, resourceName, &listenerRule),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "priority", "40"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccChecklistenerRuleDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccListenerRuleConfig_methodMatch(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckListenerRuleExists(ctx, resourceName, &listenerRule),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "priority", "40"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -126,97 +126,97 @@ func TestAccVPCLatticeListenerRule_tags(t *testing.T) {
 	resourceName := "aws_vpclattice_listener_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccChecklistenerRuleDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccListenerRuleConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckListenerRuleExists(ctx, resourceName, &listenerRule),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccListenerRuleConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckListenerRuleExists(ctx, resourceName, &listenerRule),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccChecklistenerRuleDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccListenerRuleConfig_tags1(rName, "key1", "value1"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckListenerRuleExists(ctx, resourceName, &listenerRule),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccListenerRuleConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckListenerRuleExists(ctx, resourceName, &listenerRule),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+},
 	})
 }
 
 func testAccCheckListenerRuleExists(ctx context.Context, name string, rule *vpclattice.GetRuleOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[name]
-		if !ok {
-			return create.Error(names.VPCLattice, create.ErrActionCheckingExistence, tfvpclattice.ResNameListenerRule, name, errors.New("not found"))
-		}
+rs, ok := s.RootModule().Resources[name]
+if !ok {
+	return create.Error(names.VPCLattice, create.ErrActionCheckingExistence, tfvpclattice.ResNameListenerRule, name, errors.New("not found"))
+}
 
-		if rs.Primary.ID == "" {
-			return create.Error(names.VPCLattice, create.ErrActionCheckingExistence, tfvpclattice.ResNameListenerRule, name, errors.New("not set"))
-		}
+if rs.Primary.ID == "" {
+	return create.Error(names.VPCLattice, create.ErrActionCheckingExistence, tfvpclattice.ResNameListenerRule, name, errors.New("not set"))
+}
 
-		serviceIdentifier := rs.Primary.Attributes["service_identifier"]
-		listenerIdentifier := rs.Primary.Attributes["listener_identifier"]
+serviceIdentifier := rs.Primary.Attributes["service_identifier"]
+listenerIdentifier := rs.Primary.Attributes["listener_identifier"]
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).VPCLatticeClient(ctx)
-		resp, err := conn.GetRule(ctx, &vpclattice.GetRuleInput{
-			RuleIdentifier:     aws.String(rs.Primary.Attributes["arn"]),
-			ListenerIdentifier: aws.String(listenerIdentifier),
-			ServiceIdentifier:  aws.String(serviceIdentifier),
-		})
+conn := acctest.Provider.Meta().(*conns.AWSClient).VPCLatticeClient(ctx)
+resp, err := conn.GetRule(ctx, &vpclattice.GetRuleInput{
+	RuleIdentifier:     aws.String(rs.Primary.Attributes["arn"]),
+	ListenerIdentifier: aws.String(listenerIdentifier),
+	ServiceIdentifier:  aws.String(serviceIdentifier),
+})
 
-		if err != nil {
-			return create.Error(names.VPCLattice, create.ErrActionCheckingExistence, tfvpclattice.ResNameListenerRule, rs.Primary.ID, err)
-		}
+if err != nil {
+	return create.Error(names.VPCLattice, create.ErrActionCheckingExistence, tfvpclattice.ResNameListenerRule, rs.Primary.ID, err)
+}
 
-		*rule = *resp
+*rule = *resp
 
-		return nil
+return nil
 	}
 }
 
 func testAccChecklistenerRuleDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).VPCLatticeClient(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).VPCLatticeClient(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_vpclattice_listener_rule" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_vpclattice_listener_rule" {
+continue
+	}
 
-			listenerIdentifier := rs.Primary.Attributes["listener_identifier"]
-			serviceIdentifier := rs.Primary.Attributes["service_identifier"]
+	listenerIdentifier := rs.Primary.Attributes["listener_identifier"]
+	serviceIdentifier := rs.Primary.Attributes["service_identifier"]
 
-			_, err := conn.GetRule(ctx, &vpclattice.GetRuleInput{
-				RuleIdentifier:     aws.String(rs.Primary.Attributes["arn"]),
-				ListenerIdentifier: aws.String(listenerIdentifier),
-				ServiceIdentifier:  aws.String(serviceIdentifier),
-			})
-			if err != nil {
-				var nfe *types.ResourceNotFoundException
-				if errors.As(err, &nfe) {
-					return nil
-				}
-				return err
-			}
+	_, err := conn.GetRule(ctx, &vpclattice.GetRuleInput{
+RuleIdentifier:     aws.String(rs.Primary.Attributes["arn"]),
+ListenerIdentifier: aws.String(listenerIdentifier),
+ServiceIdentifier:  aws.String(serviceIdentifier),
+	})
+	if err != nil {
+var nfe *types.ResourceNotFoundException
+if errors.As(err, &nfe) {
+	return nil
+}
+return err
+	}
 
-			return create.Error(names.VPCLattice, create.ErrActionCheckingDestroyed, tfvpclattice.ResNameListenerRule, rs.Primary.ID, errors.New("not destroyed"))
-		}
+	return create.Error(names.VPCLattice, create.ErrActionCheckingDestroyed, tfvpclattice.ResNameListenerRule, rs.Primary.ID, errors.New("not destroyed"))
+}
 
-		return nil
+return nil
 	}
 }
 

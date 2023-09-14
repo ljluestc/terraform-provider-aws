@@ -16,20 +16,20 @@ func testAccOrganizationalUnitChildAccountsDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_organizations_organizational_unit_child_accounts.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckOrganizationManagementAccount(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, organizations.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccOrganizationalUnitChildAccountsDataSourceConfig_basic,
-				Check: resource.ComposeTestCheckFunc(
-					acctest.CheckResourceAttrGreaterThanValue(dataSourceName, "accounts.#", 0),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckOrganizationManagementAccount(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, organizations.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccOrganizationalUnitChildAccountsDataSourceConfig_basic,
+Check: resource.ComposeTestCheckFunc(
+	acctest.CheckResourceAttrGreaterThanValue(dataSourceName, "accounts.#", 0),
+),
+	},
+},
 	})
 }
 

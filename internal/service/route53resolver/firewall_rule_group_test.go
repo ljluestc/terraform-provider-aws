@@ -26,30 +26,30 @@ func TestAccRoute53ResolverFirewallRuleGroup_basic(t *testing.T) {
 	resourceName := "aws_route53_resolver_firewall_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFirewallRuleGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFirewallRuleGroupConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckFirewallRuleGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFirewallRuleGroupConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFirewallRuleGroupExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrSet(resourceName, "id"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					acctest.CheckResourceAttrAccountID(resourceName, "owner_id"),
-					resource.TestCheckResourceAttr(resourceName, "share_status", "NOT_SHARED"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckFirewallRuleGroupExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrSet(resourceName, "id"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	acctest.CheckResourceAttrAccountID(resourceName, "owner_id"),
+	resource.TestCheckResourceAttr(resourceName, "share_status", "NOT_SHARED"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -61,22 +61,22 @@ func TestAccRoute53ResolverFirewallRuleGroup_disappears(t *testing.T) {
 	resourceName := "aws_route53_resolver_firewall_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFirewallRuleGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFirewallRuleGroupConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckFirewallRuleGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFirewallRuleGroupConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFirewallRuleGroupExists(ctx, resourceName, &v),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfroute53resolver.ResourceFirewallRuleGroup(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckFirewallRuleGroupExists(ctx, resourceName, &v),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfroute53resolver.ResourceFirewallRuleGroup(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -88,58 +88,58 @@ func TestAccRoute53ResolverFirewallRuleGroup_tags(t *testing.T) {
 	resourceName := "aws_route53_resolver_firewall_rule_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFirewallRuleGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFirewallRuleGroupConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckFirewallRuleGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFirewallRuleGroupConfig_tags1(rName, "key1", "value1"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFirewallRuleGroupExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrSet(resourceName, "id"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					acctest.CheckResourceAttrAccountID(resourceName, "owner_id"),
-					resource.TestCheckResourceAttr(resourceName, "share_status", "NOT_SHARED"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccFirewallRuleGroupConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheck
+	testAccCheckFirewallRuleGroupExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrSet(resourceName, "id"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	acctest.CheckResourceAttrAccountID(resourceName, "owner_id"),
+	resource.TestCheckResourceAttr(resourceName, "share_status", "NOT_SHARED"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccFirewallRuleGroupConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFirewallRuleGroupExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrSet(resourceName, "id"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					acctest.CheckResourceAttrAccountID(resourceName, "owner_id"),
-					resource.TestCheckResourceAttr(resourceName, "share_status", "NOT_SHARED"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-			{
-				Config: testAccFirewallRuleGroupConfig_tags1(rName, "key2", "value2"),
-				Check: resource.ComposeTestCheck
+	testAccCheckFirewallRuleGroupExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrSet(resourceName, "id"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	acctest.CheckResourceAttrAccountID(resourceName, "owner_id"),
+	resource.TestCheckResourceAttr(resourceName, "share_status", "NOT_SHARED"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+	{
+Config: testAccFirewallRuleGroupConfig_tags1(rName, "key2", "value2"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFirewallRuleGroupExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrSet(resourceName, "id"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					acctest.CheckResourceAttrAccountID(resourceName, "owner_id"),
-					resource.TestCheckResourceAttr(resourceName, "share_status", "NOT_SHARED"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-		},
+	testAccCheckFirewallRuleGroupExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrSet(resourceName, "id"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	acctest.CheckResourceAttrAccountID(resourceName, "owner_id"),
+	resource.TestCheckResourceAttr(resourceName, "share_status", "NOT_SHARED"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+},
 	})
 }
 
@@ -148,27 +148,27 @@ func testAccCheckFirewallRuleGroupDestroy(ctx context.Context) resource.TestChec
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).Route53ResolverConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).Route53ResolverConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_route53_resolver_firewall_rule_group" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_route53_resolver_firewall_rule_group" {
+continue
+	}
 
-			_, err := tfroute53resolver.FindFirewallRuleGroupByID(ctx, conn, rs.Primary.ID)
+	_, err := tfroute53resolver.FindFirewallRuleGroupByID(ctx, conn, rs.Primary.ID)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("Route53 Resolver Firewall Rule Group still exists: %s", rs.Primary.ID)
-		}
+	return fmt.Errorf("Route53 Resolver Firewall Rule Group still exists: %s", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -177,26 +177,26 @@ func testAccCheckFirewallRuleGroupExists(ctx context.Context, n string, v *route
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No Route53 Resolver Firewall Rule Group ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No Route53 Resolver Firewall Rule Group ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).Route53ResolverConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).Route53ResolverConn(ctx)
 
-		output, err := tfroute53resolver.FindFirewallRuleGroupByID(ctx, conn, rs.Primary.ID)
+output, err := tfroute53resolver.FindFirewallRuleGroupByID(ctx, conn, rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*v = *output
+*v = *output
 
-		return nil
+return nil
 	}
 }
 

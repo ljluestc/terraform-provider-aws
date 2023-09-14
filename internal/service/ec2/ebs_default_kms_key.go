@@ -28,7 +28,7 @@ func ResourceEBSDefaultKMSKey() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"key_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate

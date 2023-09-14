@@ -74,7 +74,7 @@ func resourceDirectoryConfigCreate(ctx context.Context, d *schema.ResourceData, 
 
 	directoryName := d.Get("directory_name").(string)
 	input := &appstream.CreateDirectoryConfigInput{
-		DirectoryName:         aws.String(directoryName),
+		DirectoryName:                        aws.String(directoryName),
 		OrganizationalUnitDistinguishedNames: flex.ExpandStringSet(d.Get("organizational_unit_distinguished_names").(*schema.Set)),
 		ServiceAccountCredentials:            expandServiceAccountCredentials(d.Get("service_account_credentials").([]interface{})),
 	}

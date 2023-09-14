@@ -46,26 +46,26 @@ func ResourceIPAMPool() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"address_family": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
 func: validation.StringInSlice(ec2.AddressFamily_Values(), false),
 			},
 			"allocation_default_netmask_length": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				Validate
 func: validation.IntBetween(0, 128),
 			},
 			"allocation_max_netmask_length": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				Validate
 func: validation.IntBetween(0, 128),
 			},
 			"allocation_min_netmask_length": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				Validate
 func: validation.IntBetween(0, 128),
@@ -81,7 +81,7 @@ func: validation.IntBetween(0, 128),
 				Default:  false,
 			},
 			"aws_service": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Validate
@@ -116,7 +116,7 @@ func: validation.Any(
 				Computed: true,
 			},
 			"public_ip_source": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Validate

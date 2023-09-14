@@ -31,51 +31,51 @@ func TestAccEC2Fleet_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "ec2", regexache.MustCompile(`fleet/.+`)),
-					resource.TestCheckResourceAttr(resourceName, "context", ""),
-					resource.TestCheckResourceAttr(resourceName, "excess_capacity_termination_policy", "termination"),
-					resource.TestCheckResourceAttr(resourceName, "fleet_state", "active"),
-					resource.TestCheckResourceAttr(resourceName, "fulfilled_capacity", "0"),
-					resource.TestCheckResourceAttr(resourceName, "fulfilled_on_demand_capacity", "0"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.launch_template_specification.#", "1"),
-					resource.TestCheckResourceAttrSet(resourceName, "launch_template_config.0.launch_template_specification.0.launch_template_id"),
-					resource.TestCheckResourceAttrSet(resourceName, "launch_template_config.0.launch_template_specification.0.version"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "on_demand_options.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "on_demand_options.0.allocation_strategy", "lowestPrice"),
-					resource.TestCheckResourceAttr(resourceName, "replace_unhealthy_instances", "false"),
-					resource.TestCheckResourceAttr(resourceName, "spot_options.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "spot_options.0.allocation_strategy", "lowestPrice"),
-					resource.TestCheckResourceAttr(resourceName, "spot_options.0.instance_interruption_behavior", "terminate"),
-					resource.TestCheckResourceAttr(resourceName, "spot_options.0.instance_pools_to_use_count", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-					resource.TestCheckResourceAttr(resourceName, "target_capacity_specification.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "target_capacity_specification.0.default_target_capacity_type", "spot"),
-					resource.TestCheckResourceAttr(resourceName, "target_capacity_specification.0.total_target_capacity", "0"),
-					resource.TestCheckResourceAttr(resourceName, "terminate_instances", "false"),
-					resource.TestCheckResourceAttr(resourceName, "terminate_instances_with_expiration", "false"),
-					resource.TestCheckResourceAttr(resourceName, "type", "maintain"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-		},
+	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "ec2", regexache.MustCompile(`fleet/.+`)),
+	resource.TestCheckResourceAttr(resourceName, "context", ""),
+	resource.TestCheckResourceAttr(resourceName, "excess_capacity_termination_policy", "termination"),
+	resource.TestCheckResourceAttr(resourceName, "fleet_state", "active"),
+	resource.TestCheckResourceAttr(resourceName, "fulfilled_capacity", "0"),
+	resource.TestCheckResourceAttr(resourceName, "fulfilled_on_demand_capacity", "0"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.launch_template_specification.#", "1"),
+	resource.TestCheckResourceAttrSet(resourceName, "launch_template_config.0.launch_template_specification.0.launch_template_id"),
+	resource.TestCheckResourceAttrSet(resourceName, "launch_template_config.0.launch_template_specification.0.version"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "on_demand_options.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "on_demand_options.0.allocation_strategy", "lowestPrice"),
+	resource.TestCheckResourceAttr(resourceName, "replace_unhealthy_instances", "false"),
+	resource.TestCheckResourceAttr(resourceName, "spot_options.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "spot_options.0.allocation_strategy", "lowestPrice"),
+	resource.TestCheckResourceAttr(resourceName, "spot_options.0.instance_interruption_behavior", "terminate"),
+	resource.TestCheckResourceAttr(resourceName, "spot_options.0.instance_pools_to_use_count", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+	resource.TestCheckResourceAttr(resourceName, "target_capacity_specification.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "target_capacity_specification.0.default_target_capacity_type", "spot"),
+	resource.TestCheckResourceAttr(resourceName, "target_capacity_specification.0.total_target_capacity", "0"),
+	resource.TestCheckResourceAttr(resourceName, "terminate_instances", "false"),
+	resource.TestCheckResourceAttr(resourceName, "terminate_instances_with_expiration", "false"),
+	resource.TestCheckResourceAttr(resourceName, "type", "maintain"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+},
 	})
 }
 
@@ -87,22 +87,22 @@ func TestAccEC2Fleet_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceFleet(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceFleet(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -114,47 +114,47 @@ func TestAccEC2Fleet_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_tags1(rName, "key1", "value1"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheck
+	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet2),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-			{
-				Config: testAccFleetConfig_tags1(rName, "key2", "value2"),
-				Check: resource.ComposeTestCheck
+	testAccCheckFleetExists(ctx, resourceName, &fleet2),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+	{
+Config: testAccFleetConfig_tags1(rName, "key2", "value2"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-		},
+	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+},
 	})
 }
 
@@ -166,36 +166,36 @@ func TestAccEC2Fleet_excessCapacityTerminationPolicy(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_excessCapacityTerminationPolicy(rName, "no-termination"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_excessCapacityTerminationPolicy(rName, "no-termination"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-					resource.TestCheckResourceAttr(resourceName, "excess_capacity_termination_policy", "no-termination"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_excessCapacityTerminationPolicy(rName, "termination"),
-				Check: resource.ComposeTestCheck
+	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+	resource.TestCheckResourceAttr(resourceName, "excess_capacity_termination_policy", "no-termination"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_excessCapacityTerminationPolicy(rName, "termination"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet2),
-					testAccCheckFleetNotRecreated(&fleet1, &fleet2),
-					resource.TestCheckResourceAttr(resourceName, "excess_capacity_termination_policy", "termination"),
-				),
-			},
-		},
+	testAccCheckFleetExists(ctx, resourceName, &fleet2),
+	testAccCheckFleetNotRecreated(&fleet1, &fleet2),
+	resource.TestCheckResourceAttr(resourceName, "excess_capacity_termination_policy", "termination"),
+),
+	},
+},
 	})
 }
 
@@ -209,42 +209,42 @@ func TestAccEC2Fleet_LaunchTemplateLaunchTemplateSpecification_launchTemplateID(
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_launchTemplateID(rName, launchTemplateResourceName1),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_launchTemplateID(rName, launchTemplateResourceName1),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.launch_template_specification.#", "1"),
-					resource.TestCheckResourceAttrPair(resourceName, "launch_template_config.0.launch_template_specification.0.launch_template_id", launchTemplateResourceName1, "id"),
-					resource.TestCheckResourceAttrPair(resourceName, "launch_template_config.0.launch_template_specification.0.version", launchTemplateResourceName1, "latest_version"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateID(rName, launchTemplateResourceName2),
-				Check: resource.ComposeTestCheck
+	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.launch_template_specification.#", "1"),
+	resource.TestCheckResourceAttrPair(resourceName, "launch_template_config.0.launch_template_specification.0.launch_template_id", launchTemplateResourceName1, "id"),
+	resource.TestCheckResourceAttrPair(resourceName, "launch_template_config.0.launch_template_specification.0.version", launchTemplateResourceName1, "latest_version"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateID(rName, launchTemplateResourceName2),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet2),
-					testAccCheckFleetNotRecreated(&fleet1, &fleet2),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.launch_template_specification.#", "1"),
-					resource.TestCheckResourceAttrPair(resourceName, "launch_template_config.0.launch_template_specification.0.launch_template_id", launchTemplateResourceName2, "id"),
-					resource.TestCheckResourceAttrPair(resourceName, "launch_template_config.0.launch_template_specification.0.version", launchTemplateResourceName2, "latest_version"),
-				),
-			},
-		},
+	testAccCheckFleetExists(ctx, resourceName, &fleet2),
+	testAccCheckFleetNotRecreated(&fleet1, &fleet2),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.launch_template_specification.#", "1"),
+	resource.TestCheckResourceAttrPair(resourceName, "launch_template_config.0.launch_template_specification.0.launch_template_id", launchTemplateResourceName2, "id"),
+	resource.TestCheckResourceAttrPair(resourceName, "launch_template_config.0.launch_template_specification.0.version", launchTemplateResourceName2, "latest_version"),
+),
+	},
+},
 	})
 }
 
@@ -258,42 +258,42 @@ func TestAccEC2Fleet_LaunchTemplateLaunchTemplateSpecification_launchTemplateNam
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_launchTemplateName(rName, launchTemplateResourceName1),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_launchTemplateName(rName, launchTemplateResourceName1),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.launch_template_specification.#", "1"),
-					resource.TestCheckResourceAttrPair(resourceName, "launch_template_config.0.launch_template_specification.0.launch_template_name", launchTemplateResourceName1, "name"),
-					resource.TestCheckResourceAttrPair(resourceName, "launch_template_config.0.launch_template_specification.0.version", launchTemplateResourceName1, "latest_version"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateName(rName, launchTemplateResourceName2),
-				Check: resource.ComposeTestCheck
+	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.launch_template_specification.#", "1"),
+	resource.TestCheckResourceAttrPair(resourceName, "launch_template_config.0.launch_template_specification.0.launch_template_name", launchTemplateResourceName1, "name"),
+	resource.TestCheckResourceAttrPair(resourceName, "launch_template_config.0.launch_template_specification.0.version", launchTemplateResourceName1, "latest_version"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateName(rName, launchTemplateResourceName2),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet2),
-					testAccCheckFleetNotRecreated(&fleet1, &fleet2),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.launch_template_specification.#", "1"),
-					resource.TestCheckResourceAttrPair(resourceName, "launch_template_config.0.launch_template_specification.0.launch_template_name", launchTemplateResourceName2, "name"),
-					resource.TestCheckResourceAttrPair(resourceName, "launch_template_config.0.launch_template_specification.0.version", launchTemplateResourceName2, "latest_version"),
-				),
-			},
-		},
+	testAccCheckFleetExists(ctx, resourceName, &fleet2),
+	testAccCheckFleetNotRecreated(&fleet1, &fleet2),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.launch_template_specification.#", "1"),
+	resource.TestCheckResourceAttrPair(resourceName, "launch_template_config.0.launch_template_specification.0.launch_template_name", launchTemplateResourceName2, "name"),
+	resource.TestCheckResourceAttrPair(resourceName, "launch_template_config.0.launch_template_specification.0.version", launchTemplateResourceName2, "latest_version"),
+),
+	},
+},
 	})
 }
 
@@ -307,48 +307,48 @@ func TestAccEC2Fleet_LaunchTemplateLaunchTemplateSpecification_version(t *testin
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_launchTemplateVersion(rName, "t3.micro"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_launchTemplateVersion(rName, "t3.micro"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLaunchTemplateExists(ctx, launchTemplateResourceName, &launchTemplate),
-					resource.TestCheckResourceAttr(launchTemplateResourceName, "instance_type", "t3.micro"),
-					resource.TestCheckResourceAttr(launchTemplateResourceName, "latest_version", "1"),
-					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.launch_template_specification.#", "1"),
-					resource.TestCheckResourceAttrPair(resourceName, "launch_template_config.0.launch_template_specification.0.launch_template_id", launchTemplateResourceName, "id"),
-					resource.TestCheckResourceAttrPair(resourceName, "launch_template_config.0.launch_template_specification.0.version", launchTemplateResourceName, "latest_version"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateVersion(rName, "t3.small"),
-				Check: resource.ComposeTestCheck
+	testAccCheckLaunchTemplateExists(ctx, launchTemplateResourceName, &launchTemplate),
+	resource.TestCheckResourceAttr(launchTemplateResourceName, "instance_type", "t3.micro"),
+	resource.TestCheckResourceAttr(launchTemplateResourceName, "latest_version", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.launch_template_specification.#", "1"),
+	resource.TestCheckResourceAttrPair(resourceName, "launch_template_config.0.launch_template_specification.0.launch_template_id", launchTemplateResourceName, "id"),
+	resource.TestCheckResourceAttrPair(resourceName, "launch_template_config.0.launch_template_specification.0.version", launchTemplateResourceName, "latest_version"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateVersion(rName, "t3.small"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLaunchTemplateExists(ctx, launchTemplateResourceName, &launchTemplate),
-					resource.TestCheckResourceAttr(launchTemplateResourceName, "instance_type", "t3.small"),
-					resource.TestCheckResourceAttr(launchTemplateResourceName, "latest_version", "2"),
-					testAccCheckFleetExists(ctx, resourceName, &fleet2),
-					testAccCheckFleetNotRecreated(&fleet1, &fleet2),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.launch_template_specification.#", "1"),
-					resource.TestCheckResourceAttrPair(resourceName, "launch_template_config.0.launch_template_specification.0.launch_template_id", launchTemplateResourceName, "id"),
-					resource.TestCheckResourceAttrPair(resourceName, "launch_template_config.0.launch_template_specification.0.version", launchTemplateResourceName, "latest_version"),
-				),
-			},
-		},
+	testAccCheckLaunchTemplateExists(ctx, launchTemplateResourceName, &launchTemplate),
+	resource.TestCheckResourceAttr(launchTemplateResourceName, "instance_type", "t3.small"),
+	resource.TestCheckResourceAttr(launchTemplateResourceName, "latest_version", "2"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet2),
+	testAccCheckFleetNotRecreated(&fleet1, &fleet2),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.launch_template_specification.#", "1"),
+	resource.TestCheckResourceAttrPair(resourceName, "launch_template_config.0.launch_template_specification.0.launch_template_id", launchTemplateResourceName, "id"),
+	resource.TestCheckResourceAttrPair(resourceName, "launch_template_config.0.launch_template_specification.0.version", launchTemplateResourceName, "latest_version"),
+),
+	},
+},
 	})
 }
 
@@ -361,40 +361,40 @@ func TestAccEC2Fleet_LaunchTemplateOverride_availabilityZone(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideAvailabilityZone(rName, 0),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_launchTemplateOverrideAvailabilityZone(rName, 0),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
-					resource.TestCheckResourceAttrPair(resourceName, "launch_template_config.0.override.0.availability_zone", availabilityZonesDataSourceName, "names.0"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideAvailabilityZone(rName, 1),
-				Check: resource.ComposeTestCheck
+	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	resource.TestCheckResourceAttrPair(resourceName, "launch_template_config.0.override.0.availability_zone", availabilityZonesDataSourceName, "names.0"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateOverrideAvailabilityZone(rName, 1),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet2),
-					testAccCheckFleetNotRecreated(&fleet1, &fleet2),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
-					resource.TestCheckResourceAttrPair(resourceName, "launch_template_config.0.override.0.availability_zone", availabilityZonesDataSourceName, "names.1"),
-				),
-			},
-		},
+	testAccCheckFleetExists(ctx, resourceName, &fleet2),
+	testAccCheckFleetNotRecreated(&fleet1, &fleet2),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	resource.TestCheckResourceAttrPair(resourceName, "launch_template_config.0.override.0.availability_zone", availabilityZonesDataSourceName, "names.1"),
+),
+	},
+},
 	})
 }
 
@@ -408,23 +408,23 @@ func TestAccEC2Fleet_LaunchTemplateOverride_imageId(t *testing.T) {
 // 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 // 	resource.ParallelTest(t, resource.TestCase{
-// 		PreCheck:  
+// PreCheck:  
 func() { acctest.PreCheck(t); testAccPreCheckFleet(ctx, t) },
-// 		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-// 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-// 		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-// 		Steps: []resource.TestStep{
-// 			{
-// 				Config: testAccFleetConfig_launchTemplateOverrideImageId(rName),
-// 				Check: resource.ComposeTestCheck
+// ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+// ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+// CheckDestroy:    testAccCheckFleetDestroy(ctx),
+// Steps: []resource.TestStep{
+// 	{
+// Config: testAccFleetConfig_launchTemplateOverrideImageId(rName),
+// Check: resource.ComposeTestCheck
 func(
-// 					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-// 					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-// 					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
-// 					resource.TestCheckResourceAttrPair(resourceName, "launch_template_config.0.override.0.image_id", awsAmiDataSourceName, "id"),
-// 				),
-// 			},
-// 		},
+// 	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+// 	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+// 	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+// 	resource.TestCheckResourceAttrPair(resourceName, "launch_template_config.0.override.0.image_id", awsAmiDataSourceName, "id"),
+// ),
+// 	},
+// },
 // 	})
 // }
 
@@ -435,42 +435,42 @@ func TestAccEC2Fleet_LaunchTemplateOverride_instanceRequirements_memoryMiBAndVCP
 	resourceName := "aws_ec2_fleet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`memory_mib {
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`memory_mib {
         min = 500
       }
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.memory_mib.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.memory_mib.0.min", "500"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.vcpu_count.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.vcpu_count.0.min", "1"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`memory_mib {
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.memory_mib.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.memory_mib.0.min", "500"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.vcpu_count.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.vcpu_count.0.min", "1"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`memory_mib {
         min = 500
         max = 24000
       }
@@ -478,28 +478,28 @@ func(
         min = 1
         max = 8
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.memory_mib.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.memory_mib.0.min", "500"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.memory_mib.0.max", "24000"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.vcpu_count.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.vcpu_count.0.min", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.vcpu_count.0.max", "8"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-		},
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.memory_mib.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.memory_mib.0.min", "500"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.memory_mib.0.max", "24000"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.vcpu_count.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.vcpu_count.0.min", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.vcpu_count.0.max", "8"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+},
 	})
 }
 
@@ -510,15 +510,15 @@ func TestAccEC2Fleet_LaunchTemplateOverride_instanceRequirements_acceleratorCoun
 	resourceName := "aws_ec2_fleet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`accelerator_count {
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`accelerator_count {
         min = 1
       }
       memory_mib {
@@ -527,26 +527,26 @@ func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
       vcpu_count {
        min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_count.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_count.0.min", "1"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`accelerator_count {
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_count.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_count.0.min", "1"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`accelerator_count {
         min = 1
         max = 4
       }
@@ -556,27 +556,27 @@ func(
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_count.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_count.0.min", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_count.0.max", "4"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`accelerator_count {
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_count.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_count.0.min", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_count.0.max", "4"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`accelerator_count {
         max = 0
       }
       memory_mib {
@@ -585,24 +585,24 @@ func(
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_count.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_count.0.max", "0"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-		},
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_count.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_count.0.max", "0"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+},
 	})
 }
 
@@ -613,68 +613,68 @@ func TestAccEC2Fleet_LaunchTemplateOverride_instanceRequirements_acceleratorManu
 	resourceName := "aws_ec2_fleet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`accelerator_manufacturers = ["amd"]
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`accelerator_manufacturers = ["amd"]
       memory_mib {
         min = 500
       }
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_manufacturers.#", "1"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_manufacturers.*", "amd"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`accelerator_manufacturers = ["amazon-web-services", "amd", "nvidia", "xilinx"]
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_manufacturers.#", "1"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_manufacturers.*", "amd"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`accelerator_manufacturers = ["amazon-web-services", "amd", "nvidia", "xilinx"]
       memory_mib {
         min = 500
       }
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_manufacturers.#", "4"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_manufacturers.*", "amazon-web-services"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_manufacturers.*", "amd"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_manufacturers.*", "nvidia"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_manufacturers.*", "xilinx"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-		},
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_manufacturers.#", "4"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_manufacturers.*", "amazon-web-services"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_manufacturers.*", "amd"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_manufacturers.*", "nvidia"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_manufacturers.*", "xilinx"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+},
 	})
 }
 
@@ -685,71 +685,71 @@ func TestAccEC2Fleet_LaunchTemplateOverride_instanceRequirements_acceleratorName
 	resourceName := "aws_ec2_fleet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`accelerator_names = ["a100"]
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`accelerator_names = ["a100"]
       memory_mib {
         min = 500
       }
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_names.#", "1"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_names.*", "a100"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`accelerator_names = ["a100", "v100", "k80", "t4", "m60", "radeon-pro-v520", "vu9p"]
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_names.#", "1"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_names.*", "a100"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`accelerator_names = ["a100", "v100", "k80", "t4", "m60", "radeon-pro-v520", "vu9p"]
       memory_mib {
         min = 500
       }
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_names.#", "7"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_names.*", "a100"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_names.*", "v100"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_names.*", "k80"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_names.*", "t4"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_names.*", "m60"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_names.*", "radeon-pro-v520"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_names.*", "vu9p"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-		},
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_names.#", "7"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_names.*", "a100"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_names.*", "v100"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_names.*", "k80"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_names.*", "t4"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_names.*", "m60"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_names.*", "radeon-pro-v520"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_names.*", "vu9p"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+},
 	})
 }
 
@@ -760,15 +760,15 @@ func TestAccEC2Fleet_LaunchTemplateOverride_instanceRequirements_acceleratorTota
 	resourceName := "aws_ec2_fleet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`accelerator_total_memory_mib {
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`accelerator_total_memory_mib {
         min = 1000
       }
       memory_mib {
@@ -777,26 +777,26 @@ func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_total_memory_mib.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_total_memory_mib.0.min", "1000"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`accelerator_total_memory_mib {
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_total_memory_mib.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_total_memory_mib.0.min", "1000"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`accelerator_total_memory_mib {
         max = 24000
       }
       memory_mib {
@@ -805,26 +805,26 @@ func(
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_total_memory_mib.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_total_memory_mib.0.max", "24000"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`accelerator_total_memory_mib {
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_total_memory_mib.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_total_memory_mib.0.max", "24000"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`accelerator_total_memory_mib {
         min = 1000
         max = 24000
       }
@@ -834,25 +834,25 @@ func(
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_total_memory_mib.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_total_memory_mib.0.min", "1000"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_total_memory_mib.0.max", "24000"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-		},
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_total_memory_mib.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_total_memory_mib.0.min", "1000"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_total_memory_mib.0.max", "24000"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+},
 	})
 }
 
@@ -863,67 +863,67 @@ func TestAccEC2Fleet_LaunchTemplateOverride_instanceRequirements_acceleratorType
 	resourceName := "aws_ec2_fleet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`accelerator_types = ["fpga"]
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`accelerator_types = ["fpga"]
       memory_mib {
         min = 500
       }
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_types.#", "1"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_types.*", "fpga"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`accelerator_types = ["fpga", "gpu", "inference"]
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_types.#", "1"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_types.*", "fpga"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`accelerator_types = ["fpga", "gpu", "inference"]
       memory_mib {
         min = 500
       }
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_types.#", "3"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_types.*", "fpga"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_types.*", "gpu"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_types.*", "inference"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-		},
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_types.#", "3"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_types.*", "fpga"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_types.*", "gpu"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.accelerator_types.*", "inference"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+},
 	})
 }
 
@@ -934,67 +934,67 @@ func TestAccEC2Fleet_LaunchTemplateOverride_instanceRequirements_allowedInstance
 	resourceName := "aws_ec2_fleet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`allowed_instance_types = ["m4.large"]
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`allowed_instance_types = ["m4.large"]
       memory_mib {
         min = 500
       }
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.allowed_instance_types.#", "1"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.allowed_instance_types.*", "m4.large"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`allowed_instance_types = ["m4.large", "m5.*", "m6*"]
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.allowed_instance_types.#", "1"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.allowed_instance_types.*", "m4.large"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`allowed_instance_types = ["m4.large", "m5.*", "m6*"]
       memory_mib {
         min = 500
       }
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.allowed_instance_types.#", "3"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.allowed_instance_types.*", "m4.large"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.allowed_instance_types.*", "m5.*"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.allowed_instance_types.*", "m6*"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-		},
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.allowed_instance_types.#", "3"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.allowed_instance_types.*", "m4.large"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.allowed_instance_types.*", "m5.*"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.allowed_instance_types.*", "m6*"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+},
 	})
 }
 
@@ -1005,88 +1005,88 @@ func TestAccEC2Fleet_LaunchTemplateOverride_instanceRequirements_bareMetal(t *te
 	resourceName := "aws_ec2_fleet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`bare_metal = "excluded"
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`bare_metal = "excluded"
       memory_mib {
         min = 500
       }
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.bare_metal", "excluded"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`bare_metal = "included"
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.bare_metal", "excluded"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`bare_metal = "included"
       memory_mib {
         min = 500
       }
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.bare_metal", "included"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`bare_metal = "required"
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.bare_metal", "included"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`bare_metal = "required"
       memory_mib {
         min = 500
       }
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.bare_metal", "required"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-		},
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.bare_metal", "required"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+},
 	})
 }
 
@@ -1097,15 +1097,15 @@ func TestAccEC2Fleet_LaunchTemplateOverride_instanceRequirements_baselineEBSBand
 	resourceName := "aws_ec2_fleet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`baseline_ebs_bandwidth_mbps {
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`baseline_ebs_bandwidth_mbps {
         min = 10
       }
       memory_mib {
@@ -1114,26 +1114,26 @@ func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.baseline_ebs_bandwidth_mbps.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.baseline_ebs_bandwidth_mbps.0.min", "10"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`baseline_ebs_bandwidth_mbps {
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.baseline_ebs_bandwidth_mbps.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.baseline_ebs_bandwidth_mbps.0.min", "10"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`baseline_ebs_bandwidth_mbps {
         max = 20000
       }
       memory_mib {
@@ -1142,26 +1142,26 @@ func(
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.baseline_ebs_bandwidth_mbps.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.baseline_ebs_bandwidth_mbps.0.max", "20000"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`baseline_ebs_bandwidth_mbps {
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.baseline_ebs_bandwidth_mbps.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.baseline_ebs_bandwidth_mbps.0.max", "20000"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`baseline_ebs_bandwidth_mbps {
         min = 10
         max = 20000
       }
@@ -1171,25 +1171,25 @@ func(
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.baseline_ebs_bandwidth_mbps.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.baseline_ebs_bandwidth_mbps.0.min", "10"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.baseline_ebs_bandwidth_mbps.0.max", "20000"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-		},
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.baseline_ebs_bandwidth_mbps.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.baseline_ebs_bandwidth_mbps.0.min", "10"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.baseline_ebs_bandwidth_mbps.0.max", "20000"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+},
 	})
 }
 
@@ -1200,88 +1200,88 @@ func TestAccEC2Fleet_LaunchTemplateOverride_instanceRequirements_burstablePerfor
 	resourceName := "aws_ec2_fleet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`burstable_performance = "excluded"
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`burstable_performance = "excluded"
       memory_mib {
         min = 500
       }
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.burstable_performance", "excluded"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`burstable_performance = "included"
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.burstable_performance", "excluded"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`burstable_performance = "included"
       memory_mib {
         min = 1000
       }
       vcpu_count {
         min = 2
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.burstable_performance", "included"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`burstable_performance = "required"
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.burstable_performance", "included"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`burstable_performance = "required"
       memory_mib {
         min = 1000
       }
       vcpu_count {
         min = 2
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.burstable_performance", "required"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-		},
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.burstable_performance", "required"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+},
 	})
 }
 
@@ -1292,67 +1292,67 @@ func TestAccEC2Fleet_LaunchTemplateOverride_instanceRequirements_cpuManufacturer
 	resourceName := "aws_ec2_fleet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`cpu_manufacturers = ["amd"]
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`cpu_manufacturers = ["amd"]
       memory_mib {
         min = 500
       }
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.cpu_manufacturers.#", "1"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.cpu_manufacturers.*", "amd"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`cpu_manufacturers = ["amazon-web-services", "amd", "intel"]
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.cpu_manufacturers.#", "1"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.cpu_manufacturers.*", "amd"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`cpu_manufacturers = ["amazon-web-services", "amd", "intel"]
       memory_mib {
         min = 500
       }
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.cpu_manufacturers.#", "3"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.cpu_manufacturers.*", "amazon-web-services"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.cpu_manufacturers.*", "amd"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.cpu_manufacturers.*", "intel"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-		},
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.cpu_manufacturers.#", "3"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.cpu_manufacturers.*", "amazon-web-services"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.cpu_manufacturers.*", "amd"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.cpu_manufacturers.*", "intel"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+},
 	})
 }
 
@@ -1363,67 +1363,67 @@ func TestAccEC2Fleet_LaunchTemplateOverride_instanceRequirements_excludedInstanc
 	resourceName := "aws_ec2_fleet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`excluded_instance_types = ["t2.nano"]
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`excluded_instance_types = ["t2.nano"]
       memory_mib {
         min = 500
       }
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.excluded_instance_types.#", "1"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.excluded_instance_types.*", "t2.nano"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`excluded_instance_types = ["t2.nano", "t3*", "t4g.*"]
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.excluded_instance_types.#", "1"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.excluded_instance_types.*", "t2.nano"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`excluded_instance_types = ["t2.nano", "t3*", "t4g.*"]
       memory_mib {
         min = 500
       }
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.excluded_instance_types.#", "3"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.excluded_instance_types.*", "t2.nano"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.excluded_instance_types.*", "t3*"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.excluded_instance_types.*", "t4g.*"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-		},
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.excluded_instance_types.#", "3"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.excluded_instance_types.*", "t2.nano"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.excluded_instance_types.*", "t3*"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.excluded_instance_types.*", "t4g.*"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+},
 	})
 }
 
@@ -1434,66 +1434,66 @@ func TestAccEC2Fleet_LaunchTemplateOverride_instanceRequirements_instanceGenerat
 	resourceName := "aws_ec2_fleet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`instance_generations = ["current"]
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`instance_generations = ["current"]
       memory_mib {
         min = 500
       }
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.instance_generations.#", "1"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.instance_generations.*", "current"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`instance_generations = ["current", "previous"]
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.instance_generations.#", "1"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.instance_generations.*", "current"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`instance_generations = ["current", "previous"]
       memory_mib {
         min = 500
       }
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.instance_generations.#", "2"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.instance_generations.*", "current"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.instance_generations.*", "previous"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-		},
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.instance_generations.#", "2"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.instance_generations.*", "current"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.instance_generations.*", "previous"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+},
 	})
 }
 
@@ -1504,88 +1504,88 @@ func TestAccEC2Fleet_LaunchTemplateOverride_instanceRequirements_localStorage(t 
 	resourceName := "aws_ec2_fleet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`local_storage = "excluded"
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`local_storage = "excluded"
       memory_mib {
         min = 500
       }
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.local_storage", "excluded"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`local_storage = "included"
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.local_storage", "excluded"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`local_storage = "included"
       memory_mib {
         min = 500
       }
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.local_storage", "included"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`local_storage = "required"
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.local_storage", "included"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`local_storage = "required"
       memory_mib {
         min = 500
       }
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.local_storage", "required"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-		},
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.local_storage", "required"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+},
 	})
 }
 
@@ -1596,66 +1596,66 @@ func TestAccEC2Fleet_LaunchTemplateOverride_instanceRequirements_localStorageTyp
 	resourceName := "aws_ec2_fleet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`local_storage_types = ["hdd"]
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`local_storage_types = ["hdd"]
       memory_mib {
         min = 500
       }
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.local_storage_types.#", "1"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.local_storage_types.*", "hdd"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`local_storage_types = ["hdd", "ssd"]
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.local_storage_types.#", "1"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.local_storage_types.*", "hdd"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`local_storage_types = ["hdd", "ssd"]
       memory_mib {
         min = 500
       }
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.local_storage_types.#", "2"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.local_storage_types.*", "hdd"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.local_storage_types.*", "ssd"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-		},
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.local_storage_types.#", "2"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.local_storage_types.*", "hdd"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.local_storage_types.*", "ssd"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+},
 	})
 }
 
@@ -1666,15 +1666,15 @@ func TestAccEC2Fleet_LaunchTemplateOverride_instanceRequirements_memoryGiBPerVCP
 	resourceName := "aws_ec2_fleet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`memory_gib_per_vcpu {
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`memory_gib_per_vcpu {
         min = 0.5
       }
       memory_mib {
@@ -1683,26 +1683,26 @@ func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.memory_gib_per_vcpu.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.memory_gib_per_vcpu.0.min", "0.5"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`memory_gib_per_vcpu {
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.memory_gib_per_vcpu.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.memory_gib_per_vcpu.0.min", "0.5"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`memory_gib_per_vcpu {
         max = 9.5
       }
       memory_mib {
@@ -1711,26 +1711,26 @@ func(
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.memory_gib_per_vcpu.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.memory_gib_per_vcpu.0.max", "9.5"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`memory_gib_per_vcpu {
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.memory_gib_per_vcpu.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.memory_gib_per_vcpu.0.max", "9.5"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`memory_gib_per_vcpu {
         min = 0.5
         max = 9.5
       }
@@ -1740,25 +1740,25 @@ func(
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.memory_gib_per_vcpu.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.memory_gib_per_vcpu.0.min", "0.5"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.memory_gib_per_vcpu.0.max", "9.5"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-		},
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.memory_gib_per_vcpu.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.memory_gib_per_vcpu.0.min", "0.5"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.memory_gib_per_vcpu.0.max", "9.5"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+},
 	})
 }
 
@@ -1769,43 +1769,43 @@ func TestAccEC2Fleet_LaunchTemplateOverride_instanceRequirements_networkBandwidt
 	resourceName := "aws_ec2_fleet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`network_bandwidth_gbps {
-					   min = 1.5
-				    }
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`network_bandwidth_gbps {
+	   min = 1.5
+    }
       memory_mib {
         min = 500
       }
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.network_bandwidth_gbps.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.network_bandwidth_gbps.0.min", "1.5"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`network_bandwidth_gbps {
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.network_bandwidth_gbps.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.network_bandwidth_gbps.0.min", "1.5"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`network_bandwidth_gbps {
         max = 200
       }
       memory_mib {
@@ -1814,26 +1814,26 @@ func(
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.network_bandwidth_gbps.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.network_bandwidth_gbps.0.max", "200"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`network_bandwidth_gbps {
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.network_bandwidth_gbps.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.network_bandwidth_gbps.0.max", "200"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`network_bandwidth_gbps {
         min = 2.5
         max = 250
       }
@@ -1843,25 +1843,25 @@ func(
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.network_bandwidth_gbps.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.network_bandwidth_gbps.0.min", "2.5"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.network_bandwidth_gbps.0.max", "250"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-		},
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.network_bandwidth_gbps.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.network_bandwidth_gbps.0.min", "2.5"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.network_bandwidth_gbps.0.max", "250"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+},
 	})
 }
 
@@ -1872,15 +1872,15 @@ func TestAccEC2Fleet_LaunchTemplateOverride_instanceRequirements_networkInterfac
 	resourceName := "aws_ec2_fleet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`network_interface_count {
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`network_interface_count {
         min = 1
       }
       memory_mib {
@@ -1889,26 +1889,26 @@ func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.network_interface_count.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.network_interface_count.0.min", "1"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`network_interface_count {
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.network_interface_count.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.network_interface_count.0.min", "1"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`network_interface_count {
         max = 10
       }
       memory_mib {
@@ -1917,26 +1917,26 @@ func(
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.network_interface_count.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.network_interface_count.0.max", "10"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`network_interface_count {
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.network_interface_count.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.network_interface_count.0.max", "10"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`network_interface_count {
         min = 1
         max = 10
       }
@@ -1946,25 +1946,25 @@ func(
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.network_interface_count.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.network_interface_count.0.min", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.network_interface_count.0.max", "10"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-		},
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.network_interface_count.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.network_interface_count.0.min", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.network_interface_count.0.max", "10"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+},
 	})
 }
 
@@ -1975,38 +1975,38 @@ func TestAccEC2Fleet_LaunchTemplateOverride_instanceRequirements_onDemandMaxPric
 	resourceName := "aws_ec2_fleet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`on_demand_max_price_percentage_over_lowest_price = 50
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`on_demand_max_price_percentage_over_lowest_price = 50
       memory_mib {
         min = 500
       }
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.on_demand_max_price_percentage_over_lowest_price", "50"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-		},
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.on_demand_max_price_percentage_over_lowest_price", "50"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+},
 	})
 }
 
@@ -2017,63 +2017,63 @@ func TestAccEC2Fleet_LaunchTemplateOverride_instanceRequirements_requireHibernat
 	resourceName := "aws_ec2_fleet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`require_hibernate_support = false
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`require_hibernate_support = false
       memory_mib {
         min = 500
       }
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.require_hibernate_support", "false"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`require_hibernate_support = true
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.require_hibernate_support", "false"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`require_hibernate_support = true
       memory_mib {
         min = 500
       }
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.require_hibernate_support", "true"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-		},
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.require_hibernate_support", "true"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+},
 	})
 }
 
@@ -2084,38 +2084,38 @@ func TestAccEC2Fleet_LaunchTemplateOverride_instanceRequirements_spotMaxPricePer
 	resourceName := "aws_ec2_fleet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`spot_max_price_percentage_over_lowest_price = 75
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`spot_max_price_percentage_over_lowest_price = 75
       memory_mib {
         min = 500
       }
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.spot_max_price_percentage_over_lowest_price", "75"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-		},
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.spot_max_price_percentage_over_lowest_price", "75"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+},
 	})
 }
 
@@ -2126,15 +2126,15 @@ func TestAccEC2Fleet_LaunchTemplateOverride_instanceRequirements_totalLocalStora
 	resourceName := "aws_ec2_fleet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`total_local_storage_gb {
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`total_local_storage_gb {
         min = 0.5
       }
       memory_mib {
@@ -2143,26 +2143,26 @@ func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.total_local_storage_gb.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.total_local_storage_gb.0.min", "0.5"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`total_local_storage_gb {
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.total_local_storage_gb.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.total_local_storage_gb.0.min", "0.5"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`total_local_storage_gb {
         max = 20.5
       }
       memory_mib {
@@ -2171,26 +2171,26 @@ func(
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.total_local_storage_gb.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.total_local_storage_gb.0.max", "20.5"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
-					`total_local_storage_gb {
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.total_local_storage_gb.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.total_local_storage_gb.0.max", "20.5"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
+	`total_local_storage_gb {
         min = 0.5
         max = 20.5
       }
@@ -2200,25 +2200,25 @@ func(
       vcpu_count {
         min = 1
       }`),
-				Check: resource.ComposeTestCheck
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	testAccCheckFleetExists(ctx, resourceName, &fleet),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
 
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.total_local_storage_gb.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.total_local_storage_gb.0.min", "0.5"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.total_local_storage_gb.0.max", "20.5"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-		},
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.total_local_storage_gb.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.total_local_storage_gb.0.min", "0.5"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_requirements.0.total_local_storage_gb.0.max", "20.5"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+},
 	})
 }
 
@@ -2230,40 +2230,40 @@ func TestAccEC2Fleet_LaunchTemplateOverride_instanceType(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceType(rName, "t3.small"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceType(rName, "t3.small"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_type", "t3.small"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideInstanceType(rName, "t3.medium"),
-				Check: resource.ComposeTestCheck
+	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_type", "t3.small"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateOverrideInstanceType(rName, "t3.medium"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet2),
-					testAccCheckFleetNotRecreated(&fleet1, &fleet2),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_type", "t3.medium"),
-				),
-			},
-		},
+	testAccCheckFleetExists(ctx, resourceName, &fleet2),
+	testAccCheckFleetNotRecreated(&fleet1, &fleet2),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.instance_type", "t3.medium"),
+),
+	},
+},
 	})
 }
 
@@ -2275,40 +2275,40 @@ func TestAccEC2Fleet_LaunchTemplateOverride_maxPrice(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideMaxPrice(rName, "1.01"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_launchTemplateOverrideMaxPrice(rName, "1.01"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.max_price", "1.01"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideMaxPrice(rName, "1.02"),
-				Check: resource.ComposeTestCheck
+	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.max_price", "1.01"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateOverrideMaxPrice(rName, "1.02"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet2),
-					testAccCheckFleetNotRecreated(&fleet1, &fleet2),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.max_price", "1.02"),
-				),
-			},
-		},
+	testAccCheckFleetExists(ctx, resourceName, &fleet2),
+	testAccCheckFleetNotRecreated(&fleet1, &fleet2),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.max_price", "1.02"),
+),
+	},
+},
 	})
 }
 
@@ -2321,24 +2321,24 @@ func TestAccEC2Fleet_LaunchTemplateOverride_placement(t *testing.T) {
 // 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 // 	resource.ParallelTest(t, resource.TestCase{
-// 		PreCheck:  
+// PreCheck:  
 func() { acctest.PreCheck(t); testAccPreCheckFleet(ctx, t) },
-// 		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-// 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-// 		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-// 		Steps: []resource.TestStep{
-// 			{
-// 				Config: testAccFleetConfig_launchTemplateOverridePlacement(rName),
-// 				Check: resource.ComposeTestCheck
+// ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+// ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+// CheckDestroy:    testAccCheckFleetDestroy(ctx),
+// Steps: []resource.TestStep{
+// 	{
+// Config: testAccFleetConfig_launchTemplateOverridePlacement(rName),
+// Check: resource.ComposeTestCheck
 func(
-// 					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-// 					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-// 					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
-// 					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.placement", "1"),
-// 					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.placement.group_name", rName),
-// 				),
-// 			},
-// 		},
+// 	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+// 	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+// 	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+// 	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.placement", "1"),
+// 	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.placement.group_name", rName),
+// ),
+// 	},
+// },
 // 	})
 // }
 
@@ -2350,40 +2350,40 @@ func TestAccEC2Fleet_LaunchTemplateOverride_priority(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_launchTemplateOverridePriority(rName, 1),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_launchTemplateOverridePriority(rName, 1),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.priority", "1"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateOverridePriority(rName, 2),
-				Check: resource.ComposeTestCheck
+	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.priority", "1"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateOverridePriority(rName, 2),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet2),
-					testAccCheckFleetNotRecreated(&fleet1, &fleet2),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.priority", "2"),
-				),
-			},
-		},
+	testAccCheckFleetExists(ctx, resourceName, &fleet2),
+	testAccCheckFleetNotRecreated(&fleet1, &fleet2),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.priority", "2"),
+),
+	},
+},
 	})
 }
 
@@ -2395,42 +2395,42 @@ func TestAccEC2Fleet_LaunchTemplateOverridePriority_multiple(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_launchTemplateOverridePriorityMultiple(rName, 1, 2),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_launchTemplateOverridePriorityMultiple(rName, 1, 2),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "2"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.priority", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.1.priority", "2"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateOverridePriorityMultiple(rName, 2, 1),
-				Check: resource.ComposeTestCheck
+	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "2"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.priority", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.1.priority", "2"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateOverridePriorityMultiple(rName, 2, 1),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet2),
-					testAccCheckFleetNotRecreated(&fleet1, &fleet2),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "2"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.priority", "2"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.1.priority", "1"),
-				),
-			},
-		},
+	testAccCheckFleetExists(ctx, resourceName, &fleet2),
+	testAccCheckFleetNotRecreated(&fleet1, &fleet2),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "2"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.priority", "2"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.1.priority", "1"),
+),
+	},
+},
 	})
 }
 
@@ -2444,40 +2444,40 @@ func TestAccEC2Fleet_LaunchTemplateOverride_subnetID(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideSubnetID(rName, 0),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_launchTemplateOverrideSubnetID(rName, 0),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
-					resource.TestCheckResourceAttrPair(resourceName, "launch_template_config.0.override.0.subnet_id", subnetResourceName1, "id"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideSubnetID(rName, 1),
-				Check: resource.ComposeTestCheck
+	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	resource.TestCheckResourceAttrPair(resourceName, "launch_template_config.0.override.0.subnet_id", subnetResourceName1, "id"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateOverrideSubnetID(rName, 1),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet2),
-					testAccCheckFleetNotRecreated(&fleet1, &fleet2),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
-					resource.TestCheckResourceAttrPair(resourceName, "launch_template_config.0.override.0.subnet_id", subnetResourceName2, "id"),
-				),
-			},
-		},
+	testAccCheckFleetExists(ctx, resourceName, &fleet2),
+	testAccCheckFleetNotRecreated(&fleet1, &fleet2),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	resource.TestCheckResourceAttrPair(resourceName, "launch_template_config.0.override.0.subnet_id", subnetResourceName2, "id"),
+),
+	},
+},
 	})
 }
 
@@ -2489,40 +2489,40 @@ func TestAccEC2Fleet_LaunchTemplateOverride_weightedCapacity(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideWeightedCapacity(rName, 1),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_launchTemplateOverrideWeightedCapacity(rName, 1),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.weighted_capacity", "1"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideWeightedCapacity(rName, 2),
-				Check: resource.ComposeTestCheck
+	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.weighted_capacity", "1"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateOverrideWeightedCapacity(rName, 2),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet2),
-					testAccCheckFleetNotRecreated(&fleet1, &fleet2),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.weighted_capacity", "2"),
-				),
-			},
-		},
+	testAccCheckFleetExists(ctx, resourceName, &fleet2),
+	testAccCheckFleetNotRecreated(&fleet1, &fleet2),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.weighted_capacity", "2"),
+),
+	},
+},
 	})
 }
 
@@ -2534,42 +2534,42 @@ func TestAccEC2Fleet_LaunchTemplateOverrideWeightedCapacity_multiple(t *testing.
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideWeightedCapacityMultiple(rName, 1, 1),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_launchTemplateOverrideWeightedCapacityMultiple(rName, 1, 1),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "2"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.weighted_capacity", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.1.weighted_capacity", "1"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_launchTemplateOverrideWeightedCapacityMultiple(rName, 1, 2),
-				Check: resource.ComposeTestCheck
+	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "2"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.weighted_capacity", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.1.weighted_capacity", "1"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_launchTemplateOverrideWeightedCapacityMultiple(rName, 1, 2),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet2),
-					testAccCheckFleetNotRecreated(&fleet1, &fleet2),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "2"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.weighted_capacity", "1"),
-					resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.1.weighted_capacity", "2"),
-				),
-			},
-		},
+	testAccCheckFleetExists(ctx, resourceName, &fleet2),
+	testAccCheckFleetNotRecreated(&fleet1, &fleet2),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.#", "2"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.0.weighted_capacity", "1"),
+	resource.TestCheckResourceAttr(resourceName, "launch_template_config.0.override.1.weighted_capacity", "2"),
+),
+	},
+},
 	})
 }
 
@@ -2581,38 +2581,38 @@ func TestAccEC2Fleet_OnDemandOptions_allocationStrategy(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_onDemandOptionsAllocationStrategy(rName, "prioritized"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_onDemandOptionsAllocationStrategy(rName, "prioritized"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-					resource.TestCheckResourceAttr(resourceName, "on_demand_options.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "on_demand_options.0.allocation_strategy", "prioritized"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_onDemandOptionsAllocationStrategy(rName, "lowestPrice"),
-				Check: resource.ComposeTestCheck
+	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+	resource.TestCheckResourceAttr(resourceName, "on_demand_options.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "on_demand_options.0.allocation_strategy", "prioritized"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_onDemandOptionsAllocationStrategy(rName, "lowestPrice"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet2),
-					testAccCheckFleetRecreated(&fleet1, &fleet2),
-					resource.TestCheckResourceAttr(resourceName, "on_demand_options.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "on_demand_options.0.allocation_strategy", "lowestPrice"),
-				),
-			},
-		},
+	testAccCheckFleetExists(ctx, resourceName, &fleet2),
+	testAccCheckFleetRecreated(&fleet1, &fleet2),
+	resource.TestCheckResourceAttr(resourceName, "on_demand_options.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "on_demand_options.0.allocation_strategy", "lowestPrice"),
+),
+	},
+},
 	})
 }
 
@@ -2625,23 +2625,23 @@ func TestAccEC2Fleet_OnDemandOptions_CapacityReservationOptions(t *testing.T) {
 // 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 // 	resource.ParallelTest(t, resource.TestCase{
-// 		PreCheck:  
+// PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-// 		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-// 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-// 		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-// 		Steps: []resource.TestStep{
-// 			{
-// 				Config: testAccFleetConfig_onDemandOptionsCapacityReservationOptions(rName, "use-capacity-reservations-first"),
-// 				Check: resource.ComposeTestCheck
+// ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+// ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+// CheckDestroy:    testAccCheckFleetDestroy(ctx),
+// Steps: []resource.TestStep{
+// 	{
+// Config: testAccFleetConfig_onDemandOptionsCapacityReservationOptions(rName, "use-capacity-reservations-first"),
+// Check: resource.ComposeTestCheck
 func(
-// 					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-// 					resource.TestCheckResourceAttr(resourceName, "on_demand_options.#", "1"),
-// 					resource.TestCheckResourceAttr(resourceName, "on_demand_options.0.capacity_reservation_options.#", "1"),
-// 					resource.TestCheckResourceAttr(resourceName, "on_demand_options.0.capacity_reservation_options.0.usage_strategy", "use-capacity-reservations-first"),
-// 				),
-// 			},
-// 		},
+// 	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+// 	resource.TestCheckResourceAttr(resourceName, "on_demand_options.#", "1"),
+// 	resource.TestCheckResourceAttr(resourceName, "on_demand_options.0.capacity_reservation_options.#", "1"),
+// 	resource.TestCheckResourceAttr(resourceName, "on_demand_options.0.capacity_reservation_options.0.usage_strategy", "use-capacity-reservations-first"),
+// ),
+// 	},
+// },
 // 	})
 // }
 
@@ -2653,22 +2653,22 @@ func TestAccEC2Fleet_OnDemandOptions_MaxTotalPrice(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_onDemandOptionsMaxTotalPrice(rName, "1.0"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_onDemandOptionsMaxTotalPrice(rName, "1.0"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-					resource.TestCheckResourceAttr(resourceName, "on_demand_options.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "on_demand_options.0.max_total_price", "1.0"),
-				),
-			},
-		},
+	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+	resource.TestCheckResourceAttr(resourceName, "on_demand_options.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "on_demand_options.0.max_total_price", "1.0"),
+),
+	},
+},
 	})
 }
 
@@ -2680,22 +2680,22 @@ func TestAccEC2Fleet_OnDemandOptions_MinTargetCapacity(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_onDemandOptionsMinTargetCapacity(rName, "1"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_onDemandOptionsMinTargetCapacity(rName, "1"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-					resource.TestCheckResourceAttr(resourceName, "on_demand_options.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "on_demand_options.0.min_target_capacity", "1"),
-				),
-			},
-		},
+	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+	resource.TestCheckResourceAttr(resourceName, "on_demand_options.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "on_demand_options.0.min_target_capacity", "1"),
+),
+	},
+},
 	})
 }
 
@@ -2707,22 +2707,22 @@ func TestAccEC2Fleet_OnDemandOptions_SingleAvailabilityZone(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_onDemandOptionsSingleAvailabilityZone(rName, true),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_onDemandOptionsSingleAvailabilityZone(rName, true),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-					resource.TestCheckResourceAttr(resourceName, "on_demand_options.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "on_demand_options.0.single_availability_zone", "true"),
-				),
-			},
-		},
+	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+	resource.TestCheckResourceAttr(resourceName, "on_demand_options.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "on_demand_options.0.single_availability_zone", "true"),
+),
+	},
+},
 	})
 }
 
@@ -2734,22 +2734,22 @@ func TestAccEC2Fleet_OnDemandOptions_SingleInstanceType(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_onDemandOptionsSingleInstanceType(rName, true),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_onDemandOptionsSingleInstanceType(rName, true),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-					resource.TestCheckResourceAttr(resourceName, "on_demand_options.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "on_demand_options.0.single_instance_type", "true"),
-				),
-			},
-		},
+	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+	resource.TestCheckResourceAttr(resourceName, "on_demand_options.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "on_demand_options.0.single_instance_type", "true"),
+),
+	},
+},
 	})
 }
 
@@ -2761,36 +2761,36 @@ func TestAccEC2Fleet_replaceUnhealthyInstances(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_replaceUnhealthyInstances(rName, true),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_replaceUnhealthyInstances(rName, true),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-					resource.TestCheckResourceAttr(resourceName, "replace_unhealthy_instances", "true"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_replaceUnhealthyInstances(rName, false),
-				Check: resource.ComposeTestCheck
+	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+	resource.TestCheckResourceAttr(resourceName, "replace_unhealthy_instances", "true"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_replaceUnhealthyInstances(rName, false),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet2),
-					testAccCheckFleetRecreated(&fleet1, &fleet2),
-					resource.TestCheckResourceAttr(resourceName, "replace_unhealthy_instances", "false"),
-				),
-			},
-		},
+	testAccCheckFleetExists(ctx, resourceName, &fleet2),
+	testAccCheckFleetRecreated(&fleet1, &fleet2),
+	resource.TestCheckResourceAttr(resourceName, "replace_unhealthy_instances", "false"),
+),
+	},
+},
 	})
 }
 
@@ -2802,38 +2802,38 @@ func TestAccEC2Fleet_SpotOptions_allocationStrategy(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_spotOptionsAllocationStrategy(rName, "diversified"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_spotOptionsAllocationStrategy(rName, "diversified"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-					resource.TestCheckResourceAttr(resourceName, "spot_options.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "spot_options.0.allocation_strategy", "diversified"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_spotOptionsAllocationStrategy(rName, "lowestPrice"),
-				Check: resource.ComposeTestCheck
+	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+	resource.TestCheckResourceAttr(resourceName, "spot_options.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "spot_options.0.allocation_strategy", "diversified"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_spotOptionsAllocationStrategy(rName, "lowestPrice"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet2),
-					testAccCheckFleetRecreated(&fleet1, &fleet2),
-					resource.TestCheckResourceAttr(resourceName, "spot_options.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "spot_options.0.allocation_strategy", "lowestPrice"),
-				),
-			},
-		},
+	testAccCheckFleetExists(ctx, resourceName, &fleet2),
+	testAccCheckFleetRecreated(&fleet1, &fleet2),
+	resource.TestCheckResourceAttr(resourceName, "spot_options.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "spot_options.0.allocation_strategy", "lowestPrice"),
+),
+	},
+},
 	})
 }
 
@@ -2849,30 +2849,30 @@ func TestAccEC2Fleet_SpotOptions_capacityRebalance(t *testing.T) {
 	terminationDelay := "120"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_spotOptionsCapacityRebalance(rName, allocationStrategy, replacementStrategy, terminationDelay),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_spotOptionsCapacityRebalance(rName, allocationStrategy, replacementStrategy, terminationDelay),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-					resource.TestCheckResourceAttr(resourceName, "spot_options.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "spot_options.0.allocation_strategy", allocationStrategy),
-					resource.TestCheckResourceAttr(resourceName, "spot_options.0.maintenance_strategies.0.capacity_rebalance.0.replacement_strategy", replacementStrategy),
-					resource.TestCheckResourceAttr(resourceName, "spot_options.0.maintenance_strategies.0.capacity_rebalance.0.termination_delay", terminationDelay),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-		},
+	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+	resource.TestCheckResourceAttr(resourceName, "spot_options.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "spot_options.0.allocation_strategy", allocationStrategy),
+	resource.TestCheckResourceAttr(resourceName, "spot_options.0.maintenance_strategies.0.capacity_rebalance.0.replacement_strategy", replacementStrategy),
+	resource.TestCheckResourceAttr(resourceName, "spot_options.0.maintenance_strategies.0.capacity_rebalance.0.termination_delay", terminationDelay),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+},
 	})
 }
 
@@ -2882,17 +2882,17 @@ func TestAccEC2Fleet_capacityRebalanceInvalidType(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config:      testAccFleetConfig_invalidTypeForCapacityRebalance(rName),
-				ExpectError: regexache.MustCompile(`Capacity Rebalance maintenance strategies can only be specified for fleets of type maintain`),
-			},
-		},
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config:      testAccFleetConfig_invalidTypeForCapacityRebalance(rName),
+ExpectError: regexache.MustCompile(`Capacity Rebalance maintenance strategies can only be specified for fleets of type maintain`),
+	},
+},
 	})
 }
 
@@ -2904,38 +2904,38 @@ func TestAccEC2Fleet_SpotOptions_instanceInterruptionBehavior(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_spotOptionsInstanceInterruptionBehavior(rName, "stop"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_spotOptionsInstanceInterruptionBehavior(rName, "stop"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-					resource.TestCheckResourceAttr(resourceName, "spot_options.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "spot_options.0.instance_interruption_behavior", "stop"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_spotOptionsInstanceInterruptionBehavior(rName, "terminate"),
-				Check: resource.ComposeTestCheck
+	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+	resource.TestCheckResourceAttr(resourceName, "spot_options.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "spot_options.0.instance_interruption_behavior", "stop"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_spotOptionsInstanceInterruptionBehavior(rName, "terminate"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet2),
-					testAccCheckFleetRecreated(&fleet1, &fleet2),
-					resource.TestCheckResourceAttr(resourceName, "spot_options.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "spot_options.0.instance_interruption_behavior", "terminate"),
-				),
-			},
-		},
+	testAccCheckFleetExists(ctx, resourceName, &fleet2),
+	testAccCheckFleetRecreated(&fleet1, &fleet2),
+	resource.TestCheckResourceAttr(resourceName, "spot_options.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "spot_options.0.instance_interruption_behavior", "terminate"),
+),
+	},
+},
 	})
 }
 
@@ -2947,38 +2947,38 @@ func TestAccEC2Fleet_SpotOptions_instancePoolsToUseCount(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_spotOptionsInstancePoolsToUseCount(rName, 2),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_spotOptionsInstancePoolsToUseCount(rName, 2),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-					resource.TestCheckResourceAttr(resourceName, "spot_options.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "spot_options.0.instance_pools_to_use_count", "2"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_spotOptionsInstancePoolsToUseCount(rName, 3),
-				Check: resource.ComposeTestCheck
+	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+	resource.TestCheckResourceAttr(resourceName, "spot_options.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "spot_options.0.instance_pools_to_use_count", "2"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_spotOptionsInstancePoolsToUseCount(rName, 3),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet2),
-					testAccCheckFleetRecreated(&fleet1, &fleet2),
-					resource.TestCheckResourceAttr(resourceName, "spot_options.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "spot_options.0.instance_pools_to_use_count", "3"),
-				),
-			},
-		},
+	testAccCheckFleetExists(ctx, resourceName, &fleet2),
+	testAccCheckFleetRecreated(&fleet1, &fleet2),
+	resource.TestCheckResourceAttr(resourceName, "spot_options.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "spot_options.0.instance_pools_to_use_count", "3"),
+),
+	},
+},
 	})
 }
 
@@ -2990,32 +2990,32 @@ func TestAccEC2Fleet_TargetCapacitySpecification_defaultTargetCapacityType(t *te
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_targetCapacitySpecificationDefaultTargetCapacityType(rName, "on-demand"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_targetCapacitySpecificationDefaultTargetCapacityType(rName, "on-demand"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-					resource.TestCheckResourceAttr(resourceName, "target_capacity_specification.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "target_capacity_specification.0.default_target_capacity_type", "on-demand"),
-				),
-			},
-			{
-				Config: testAccFleetConfig_targetCapacitySpecificationDefaultTargetCapacityType(rName, "spot"),
-				Check: resource.ComposeTestCheck
+	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+	resource.TestCheckResourceAttr(resourceName, "target_capacity_specification.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "target_capacity_specification.0.default_target_capacity_type", "on-demand"),
+),
+	},
+	{
+Config: testAccFleetConfig_targetCapacitySpecificationDefaultTargetCapacityType(rName, "spot"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet2),
-					testAccCheckFleetRecreated(&fleet1, &fleet2),
-					resource.TestCheckResourceAttr(resourceName, "target_capacity_specification.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "target_capacity_specification.0.default_target_capacity_type", "spot"),
-				),
-			},
-		},
+	testAccCheckFleetExists(ctx, resourceName, &fleet2),
+	testAccCheckFleetRecreated(&fleet1, &fleet2),
+	resource.TestCheckResourceAttr(resourceName, "target_capacity_specification.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "target_capacity_specification.0.default_target_capacity_type", "spot"),
+),
+	},
+},
 	})
 }
 
@@ -3027,28 +3027,28 @@ func TestAccEC2Fleet_TargetCapacitySpecificationDefaultTargetCapacityType_onDema
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_targetCapacitySpecificationDefaultTargetCapacityType(rName, "on-demand"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_targetCapacitySpecificationDefaultTargetCapacityType(rName, "on-demand"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-					resource.TestCheckResourceAttr(resourceName, "target_capacity_specification.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "target_capacity_specification.0.default_target_capacity_type", "on-demand"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-		},
+	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+	resource.TestCheckResourceAttr(resourceName, "target_capacity_specification.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "target_capacity_specification.0.default_target_capacity_type", "on-demand"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+},
 	})
 }
 
@@ -3060,28 +3060,28 @@ func TestAccEC2Fleet_TargetCapacitySpecificationDefaultTargetCapacityType_spot(t
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_targetCapacitySpecificationDefaultTargetCapacityType(rName, "spot"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_targetCapacitySpecificationDefaultTargetCapacityType(rName, "spot"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-					resource.TestCheckResourceAttr(resourceName, "target_capacity_specification.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "target_capacity_specification.0.default_target_capacity_type", "spot"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-		},
+	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+	resource.TestCheckResourceAttr(resourceName, "target_capacity_specification.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "target_capacity_specification.0.default_target_capacity_type", "spot"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+},
 	})
 }
 
@@ -3093,38 +3093,38 @@ func TestAccEC2Fleet_TargetCapacitySpecification_totalTargetCapacity(t *testing.
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_targetCapacitySpecificationTotalTargetCapacity(rName, 1),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_targetCapacitySpecificationTotalTargetCapacity(rName, 1),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-					resource.TestCheckResourceAttr(resourceName, "target_capacity_specification.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "target_capacity_specification.0.total_target_capacity", "1"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_targetCapacitySpecificationTotalTargetCapacity(rName, 2),
-				Check: resource.ComposeTestCheck
+	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+	resource.TestCheckResourceAttr(resourceName, "target_capacity_specification.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "target_capacity_specification.0.total_target_capacity", "1"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_targetCapacitySpecificationTotalTargetCapacity(rName, 2),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet2),
-					testAccCheckFleetNotRecreated(&fleet1, &fleet2),
-					resource.TestCheckResourceAttr(resourceName, "target_capacity_specification.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "target_capacity_specification.0.total_target_capacity", "2"),
-				),
-			},
-		},
+	testAccCheckFleetExists(ctx, resourceName, &fleet2),
+	testAccCheckFleetNotRecreated(&fleet1, &fleet2),
+	resource.TestCheckResourceAttr(resourceName, "target_capacity_specification.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "target_capacity_specification.0.total_target_capacity", "2"),
+),
+	},
+},
 	})
 }
 
@@ -3137,28 +3137,28 @@ func TestAccEC2Fleet_TargetCapacitySpecification_targetCapacityUnitType(t *testi
 	targetCapacityUnitType := "vcpu"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_targetCapacitySpecificationTargetCapacityUnitType(rName, 1, targetCapacityUnitType),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_targetCapacitySpecificationTargetCapacityUnitType(rName, 1, targetCapacityUnitType),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-					resource.TestCheckResourceAttr(resourceName, "target_capacity_specification.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "target_capacity_specification.0.target_capacity_unit_type", targetCapacityUnitType),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-		},
+	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+	resource.TestCheckResourceAttr(resourceName, "target_capacity_specification.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "target_capacity_specification.0.target_capacity_unit_type", targetCapacityUnitType),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+},
 	})
 }
 
@@ -3170,36 +3170,36 @@ func TestAccEC2Fleet_terminateInstancesWithExpiration(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_terminateInstancesExpiration(rName, true),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_terminateInstancesExpiration(rName, true),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-					resource.TestCheckResourceAttr(resourceName, "terminate_instances_with_expiration", "true"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			{
-				Config: testAccFleetConfig_terminateInstancesExpiration(rName, false),
-				Check: resource.ComposeTestCheck
+	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+	resource.TestCheckResourceAttr(resourceName, "terminate_instances_with_expiration", "true"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	{
+Config: testAccFleetConfig_terminateInstancesExpiration(rName, false),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet2),
-					testAccCheckFleetRecreated(&fleet1, &fleet2),
-					resource.TestCheckResourceAttr(resourceName, "terminate_instances_with_expiration", "false"),
-				),
-			},
-		},
+	testAccCheckFleetExists(ctx, resourceName, &fleet2),
+	testAccCheckFleetRecreated(&fleet1, &fleet2),
+	resource.TestCheckResourceAttr(resourceName, "terminate_instances_with_expiration", "false"),
+),
+	},
+},
 	})
 }
 
@@ -3213,37 +3213,37 @@ func TestAccEC2Fleet_type(t *testing.T) {
 	fleetType := "maintain"
 	terminateInstances := false
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_type(rName, fleetType, excessCapacityTerminationPolicy, terminateInstances),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_type(rName, fleetType, excessCapacityTerminationPolicy, terminateInstances),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-					resource.TestCheckResourceAttr(resourceName, "type", fleetType),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			// This configuration will fulfill immediately, skip until ValidFrom is implemented
-			// {
-			// 	Config: testAccFleetConfig_type(rName, "request"),
-			// 	Check: resource.ComposeTestCheck
+	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+	resource.TestCheckResourceAttr(resourceName, "type", fleetType),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	// This configuration will fulfill immediately, skip until ValidFrom is implemented
+	// {
+	// 	Config: testAccFleetConfig_type(rName, "request"),
+	// 	Check: resource.ComposeTestCheck
 func(
-			// 		testAccCheckFleetExists(resourceName, &fleet2),
-			// 		testAccCheckFleetRecreated(&fleet1, &fleet2),
-			// 		resource.TestCheckResourceAttr(resourceName, "type", "request"),
-			// 	),
-			// },
-		},
+	// testAccCheckFleetExists(resourceName, &fleet2),
+	// testAccCheckFleetRecreated(&fleet1, &fleet2),
+	// resource.TestCheckResourceAttr(resourceName, "type", "request"),
+	// 	),
+	// },
+},
 	})
 }
 
@@ -3257,42 +3257,42 @@ func TestAccEC2Fleet_type_instant(t *testing.T) {
 	totalTargetCapacity := "2"
 	terminateInstances := true
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_type_instant(rName, fleetType, terminateInstances, totalTargetCapacity),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_type_instant(rName, fleetType, terminateInstances, totalTargetCapacity),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-					resource.TestCheckResourceAttr(resourceName, "type", fleetType),
-					resource.TestCheckResourceAttr(resourceName, "fleet_instance_set.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "fleet_instance_set.0.instance_ids.#", totalTargetCapacity),
-					resource.TestCheckResourceAttrSet(resourceName, "fleet_instance_set.0.instance_ids.0"),
-					resource.TestCheckResourceAttrSet(resourceName, "fleet_instance_set.0.instance_type"),
-					resource.TestCheckResourceAttrSet(resourceName, "fleet_instance_set.0.lifecycle"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"terminate_instances"},
-			},
-			// This configuration will fulfill immediately, skip until ValidFrom is implemented
-			// {
-			// 	Config: testAccFleetConfig_type(rName, "request"),
-			// 	Check: resource.ComposeTestCheck
+	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+	resource.TestCheckResourceAttr(resourceName, "type", fleetType),
+	resource.TestCheckResourceAttr(resourceName, "fleet_instance_set.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "fleet_instance_set.0.instance_ids.#", totalTargetCapacity),
+	resource.TestCheckResourceAttrSet(resourceName, "fleet_instance_set.0.instance_ids.0"),
+	resource.TestCheckResourceAttrSet(resourceName, "fleet_instance_set.0.instance_type"),
+	resource.TestCheckResourceAttrSet(resourceName, "fleet_instance_set.0.lifecycle"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"terminate_instances"},
+	},
+	// This configuration will fulfill immediately, skip until ValidFrom is implemented
+	// {
+	// 	Config: testAccFleetConfig_type(rName, "request"),
+	// 	Check: resource.ComposeTestCheck
 func(
-			// 		testAccCheckFleetExists(resourceName, &fleet2),
-			// 		testAccCheckFleetRecreated(&fleet1, &fleet2),
-			// 		resource.TestCheckResourceAttr(resourceName, "type", "request"),
-			// 	),
-			// },
-		},
+	// testAccCheckFleetExists(resourceName, &fleet2),
+	// testAccCheckFleetRecreated(&fleet1, &fleet2),
+	// resource.TestCheckResourceAttr(resourceName, "type", "request"),
+	// 	),
+	// },
+},
 	})
 }
 
@@ -3305,22 +3305,22 @@ func TestAccEC2Fleet_templateMultipleNetworkInterfaces(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_multipleNetworkInterfaces(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_multipleNetworkInterfaces(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-					resource.TestCheckResourceAttr(resourceName, "type", "maintain"),
-					testAccCheckFleetHistory(ctx, resourceName, "The associatePublicIPAddress parameter cannot be specified when launching with multiple network interfaces"),
-				),
-			},
-		},
+	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+	resource.TestCheckResourceAttr(resourceName, "type", "maintain"),
+	testAccCheckFleetHistory(ctx, resourceName, "The associatePublicIPAddress parameter cannot be specified when launching with multiple network interfaces"),
+),
+	},
+},
 	})
 }
 
@@ -3332,21 +3332,21 @@ func TestAccEC2Fleet_validFrom(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	validFrom := "1970-01-01T00:00:00Z"
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_validFrom(rName, validFrom),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_validFrom(rName, validFrom),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-					resource.TestCheckResourceAttr(resourceName, "valid_from", validFrom),
-				),
-			},
-		},
+	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+	resource.TestCheckResourceAttr(resourceName, "valid_from", validFrom),
+),
+	},
+},
 	})
 }
 
@@ -3358,21 +3358,21 @@ func TestAccEC2Fleet_validUntil(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	validUntil := "1970-01-01T00:00:00Z"
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckFleet(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFleetConfig_validUntil(rName, validUntil),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFleetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFleetConfig_validUntil(rName, validUntil),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFleetExists(ctx, resourceName, &fleet1),
-					resource.TestCheckResourceAttr(resourceName, "valid_until", validUntil),
-				),
-			},
-		},
+	testAccCheckFleetExists(ctx, resourceName, &fleet1),
+	resource.TestCheckResourceAttr(resourceName, "valid_until", validUntil),
+),
+	},
+},
 	})
 }
 
@@ -3381,48 +3381,48 @@ func testAccCheckFleetHistory(ctx context.Context, resourceName string, errorMsg
 func {
 	return 
 func(s *terraform.State) error {
-		time.Sleep(time.Minute * 2) // We have to wait a bit for the history to get populated.
+time.Sleep(time.Minute * 2) // We have to wait a bit for the history to get populated.
 
-		rs, ok := s.RootModule().Resources[resourceName]
-		if !ok {
-			return fmt.Errorf("Not found: %s", resourceName)
-		}
+rs, ok := s.RootModule().Resources[resourceName]
+if !ok {
+	return fmt.Errorf("Not found: %s", resourceName)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No EC2 Fleet ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No EC2 Fleet ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-		input := &ec2.DescribeFleetHistoryInput{
-			FleetId:   aws.String(rs.Primary.ID),
-			StartTime: aws.Time(time.Now().Add(time.Hour * -2)),
-		}
+input := &ec2.DescribeFleetHistoryInput{
+	FleetId:   aws.String(rs.Primary.ID),
+	StartTime: aws.Time(time.Now().Add(time.Hour * -2)),
+}
 
-		output, err := conn.DescribeFleetHistoryWithContext(ctx, input)
+output, err := conn.DescribeFleetHistoryWithContext(ctx, input)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		if output == nil {
-			return fmt.Errorf("EC2 Fleet history not found")
-		}
+if output == nil {
+	return fmt.Errorf("EC2 Fleet history not found")
+}
 
-		if output.HistoryRecords == nil {
-			return fmt.Errorf("No fleet history records found for fleet %s", rs.Primary.ID)
-		}
+if output.HistoryRecords == nil {
+	return fmt.Errorf("No fleet history records found for fleet %s", rs.Primary.ID)
+}
 
-		for _, record := range output.HistoryRecords {
-			if record == nil {
-				continue
-			}
-			if strings.Contains(aws.StringValue(record.EventInformation.EventDescription), errorMsg) {
-				return fmt.Errorf("Error %s found in fleet history event", errorMsg)
-			}
-		}
+for _, record := range output.HistoryRecords {
+	if record == nil {
+continue
+	}
+	if strings.Contains(aws.StringValue(record.EventInformation.EventDescription), errorMsg) {
+return fmt.Errorf("Error %s found in fleet history event", errorMsg)
+	}
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -3431,26 +3431,26 @@ func testAccCheckFleetExists(ctx context.Context, n string, v *ec2.FleetData) re
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No EC2 Fleet ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No EC2 Fleet ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-		output, err := tfec2.FindFleetByID(ctx, conn, rs.Primary.ID)
+output, err := tfec2.FindFleetByID(ctx, conn, rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*v = *output
+*v = *output
 
-		return nil
+return nil
 	}
 }
 
@@ -3459,27 +3459,27 @@ func testAccCheckFleetDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_ec2_fleet" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_ec2_fleet" {
+continue
+	}
 
-			_, err := tfec2.FindFleetByID(ctx, conn, rs.Primary.ID)
+	_, err := tfec2.FindFleetByID(ctx, conn, rs.Primary.ID)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("EC2 Fleet %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("EC2 Fleet %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -3488,11 +3488,11 @@ func testAccCheckFleetNotRecreated(i, j *ec2.FleetData) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
-		if !aws.TimeValue(i.CreateTime).Equal(aws.TimeValue(j.CreateTime)) {
-			return errors.New("EC2 Fleet was recreated")
-		}
+if !aws.TimeValue(i.CreateTime).Equal(aws.TimeValue(j.CreateTime)) {
+	return errors.New("EC2 Fleet was recreated")
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -3501,11 +3501,11 @@ func testAccCheckFleetRecreated(i, j *ec2.FleetData) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
-		if aws.TimeValue(i.CreateTime).Equal(aws.TimeValue(j.CreateTime)) {
-			return errors.New("EC2 Fleet was not recreated")
-		}
+if aws.TimeValue(i.CreateTime).Equal(aws.TimeValue(j.CreateTime)) {
+	return errors.New("EC2 Fleet was not recreated")
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -3514,17 +3514,17 @@ func testAccPreCheckFleet(ctx context.Context, t *testing.T) {
 	conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 	input := &ec2.DescribeFleetsInput{
-		MaxResults: aws.Int64(1),
+MaxResults: aws.Int64(1),
 	}
 
 	_, err := conn.DescribeFleetsWithContext(ctx, input)
 
 	if acctest.PreCheckSkipError(err) {
-		t.Skipf("skipping acceptance testing: %s", err)
+t.Skipf("skipping acceptance testing: %s", err)
 	}
 
 	if err != nil {
-		t.Fatalf("unexpected PreCheck error: %s", err)
+t.Fatalf("unexpected PreCheck error: %s", err)
 	}
 }
 
@@ -3534,7 +3534,7 @@ func testAccFleetConfig_BaseLaunchTemplate(rName string) string {
 resource "aws_launch_template" "test" {
   image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t3.micro"
-  name          = %[1]q
+  name = %[1]q
 }
 `, rName))
 }
@@ -3546,7 +3546,7 @@ resource "aws_ec2_fleet" "test" {
   launch_template_config {
     launch_template_specification {
       launch_template_id = aws_launch_template.test.id
-      version            = aws_launch_template.test.latest_version
+      version   = aws_launch_template.test.latest_version
     }
   }
 
@@ -3613,15 +3613,15 @@ resource "aws_launch_template" "test" {
   }
 
   network_interfaces {
-    device_index          = 0
+    device_index = 0
     delete_on_termination = true
     network_interface_id  = aws_network_interface.test.id
   }
 
   network_interfaces {
-    device_index          = 1
+    device_index = 1
     delete_on_termination = true
-    subnet_id             = aws_subnet.test[0].id
+    subnet_id    = aws_subnet.test[0].id
   }
 }
 
@@ -3631,7 +3631,7 @@ resource "aws_ec2_fleet" "test" {
   launch_template_config {
     launch_template_specification {
       launch_template_id = aws_launch_template.test.id
-      version            = aws_launch_template.test.latest_version
+      version   = aws_launch_template.test.latest_version
     }
 
     # allow to choose from several instance types if there is no spot capacity for some type
@@ -3667,7 +3667,7 @@ resource "aws_ec2_fleet" "test" {
   launch_template_config {
     launch_template_specification {
       launch_template_id = aws_launch_template.test.id
-      version            = aws_launch_template.test.latest_version
+      version   = aws_launch_template.test.latest_version
     }
   }
 
@@ -3689,20 +3689,20 @@ func testAccFleetConfig_launchTemplateID(rName, launchTemplateResourceName strin
 resource "aws_launch_template" "test1" {
   image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t3.micro"
-  name          = "%[1]s1"
+  name = "%[1]s1"
 }
 
 resource "aws_launch_template" "test2" {
   image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t3.micro"
-  name          = "%[1]s2"
+  name = "%[1]s2"
 }
 
 resource "aws_ec2_fleet" "test" {
   launch_template_config {
     launch_template_specification {
       launch_template_id = %[2]s.id
-      version            = %[2]s.latest_version
+      version   = %[2]s.latest_version
     }
   }
 
@@ -3724,20 +3724,20 @@ func testAccFleetConfig_launchTemplateName(rName, launchTemplateResourceName str
 resource "aws_launch_template" "test1" {
   image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t3.micro"
-  name          = "%[1]s1"
+  name = "%[1]s1"
 }
 
 resource "aws_launch_template" "test2" {
   image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t3.micro"
-  name          = "%[1]s2"
+  name = "%[1]s2"
 }
 
 resource "aws_ec2_fleet" "test" {
   launch_template_config {
     launch_template_specification {
       launch_template_name = %[2]s.name
-      version              = %[2]s.latest_version
+      version     = %[2]s.latest_version
     }
   }
 
@@ -3759,14 +3759,14 @@ func testAccFleetConfig_launchTemplateVersion(rName, instanceType string) string
 resource "aws_launch_template" "test" {
   image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = %[2]q
-  name          = %[1]q
+  name = %[1]q
 }
 
 resource "aws_ec2_fleet" "test" {
   launch_template_config {
     launch_template_specification {
       launch_template_id = aws_launch_template.test.id
-      version            = aws_launch_template.test.latest_version
+      version   = aws_launch_template.test.latest_version
     }
   }
 
@@ -3785,14 +3785,14 @@ resource "aws_ec2_fleet" "test" {
 
 func testAccFleetConfig_launchTemplateOverrideAvailabilityZone(rName string, availabilityZoneIndex int) string {
 	return acctest.ConfigCompose(
-		testAccFleetConfig_BaseLaunchTemplate(rName),
-		acctest.ConfigAvailableAZsNoOptIn(),
-		fmt.Sprintf(`
+testAccFleetConfig_BaseLaunchTemplate(rName),
+acctest.ConfigAvailableAZsNoOptIn(),
+fmt.Sprintf(`
 resource "aws_ec2_fleet" "test" {
   launch_template_config {
     launch_template_specification {
       launch_template_id = aws_launch_template.test.id
-      version            = aws_launch_template.test.latest_version
+      version   = aws_launch_template.test.latest_version
     }
 
     override {
@@ -3816,14 +3816,14 @@ resource "aws_ec2_fleet" "test" {
 // 
 func testAccFleetConfig_launchTemplateOverrideImageId(rName string) string {
 // 	return acctest.ConfigCompose(
-// 		testAccFleetConfig_BaseLaunchTemplate(rName),
-// 		acctest.ConfigAvailableAZsNoOptIn(),
-// 		fmt.Sprintf(`
+// testAccFleetConfig_BaseLaunchTemplate(rName),
+// acctest.ConfigAvailableAZsNoOptIn(),
+// fmt.Sprintf(`
 // resource "aws_ec2_fleet" "test" {
 //   launch_template_config {
 //     launch_template_specification {
 //       launch_template_id = aws_launch_template.test.id
-//       version            = aws_launch_template.test.latest_version
+//       version   = aws_launch_template.test.latest_version
 //     }
 
 //     override {
@@ -3860,7 +3860,7 @@ resource "aws_ec2_fleet" "test" {
   launch_template_config {
     launch_template_specification {
       launch_template_id = aws_launch_template.test.id
-      version            = aws_launch_template.test.latest_version
+      version   = aws_launch_template.test.latest_version
     }
 
     override {
@@ -3889,7 +3889,7 @@ resource "aws_ec2_fleet" "test" {
   launch_template_config {
     launch_template_specification {
       launch_template_id = aws_launch_template.test.id
-      version            = aws_launch_template.test.latest_version
+      version   = aws_launch_template.test.latest_version
     }
 
     override {
@@ -3916,7 +3916,7 @@ resource "aws_ec2_fleet" "test" {
   launch_template_config {
     launch_template_specification {
       launch_template_id = aws_launch_template.test.id
-      version            = aws_launch_template.test.latest_version
+      version   = aws_launch_template.test.latest_version
     }
 
     override {
@@ -3940,20 +3940,20 @@ resource "aws_ec2_fleet" "test" {
 // 
 func testAccFleetConfig_launchTemplateOverridePlacement(rName string) string {
 // 	return acctest.ConfigCompose(
-// 		testAccFleetConfig_BaseLaunchTemplate(rName),
-// 		acctest.ConfigAvailableAZsNoOptIn(),
-// 		fmt.Sprintf(`
+// testAccFleetConfig_BaseLaunchTemplate(rName),
+// acctest.ConfigAvailableAZsNoOptIn(),
+// fmt.Sprintf(`
 // resource "aws_ec2_fleet" "test" {
 //   launch_template_config {
 //     launch_template_specification {
 //       launch_template_id = aws_launch_template.test.id
-//       version            = aws_launch_template.test.latest_version
+//       version   = aws_launch_template.test.latest_version
 //     }
 
 //     override {
-// 		placement {
-// 			group_name = aws_launch_template.test.name
-// 		}
+// placement {
+// 	group_name = aws_launch_template.test.name
+// }
 //     }
 //   }
 
@@ -3981,7 +3981,7 @@ resource "aws_ec2_fleet" "test" {
   launch_template_config {
     launch_template_specification {
       launch_template_id = aws_launch_template.test.id
-      version            = aws_launch_template.test.latest_version
+      version   = aws_launch_template.test.latest_version
     }
 
     override {
@@ -4008,7 +4008,7 @@ resource "aws_ec2_fleet" "test" {
   launch_template_config {
     launch_template_specification {
       launch_template_id = aws_launch_template.test.id
-      version            = aws_launch_template.test.latest_version
+      version   = aws_launch_template.test.latest_version
     }
 
     override {
@@ -4041,7 +4041,7 @@ resource "aws_ec2_fleet" "test" {
   launch_template_config {
     launch_template_specification {
       launch_template_id = aws_launch_template.test.id
-      version            = aws_launch_template.test.latest_version
+      version   = aws_launch_template.test.latest_version
     }
 
     override {
@@ -4068,7 +4068,7 @@ resource "aws_ec2_fleet" "test" {
   launch_template_config {
     launch_template_specification {
       launch_template_id = aws_launch_template.test.id
-      version            = aws_launch_template.test.latest_version
+      version   = aws_launch_template.test.latest_version
     }
 
     override {
@@ -4095,7 +4095,7 @@ resource "aws_ec2_fleet" "test" {
   launch_template_config {
     launch_template_specification {
       launch_template_id = aws_launch_template.test.id
-      version            = aws_launch_template.test.latest_version
+      version   = aws_launch_template.test.latest_version
     }
 
     override {
@@ -4128,7 +4128,7 @@ resource "aws_ec2_fleet" "test" {
   launch_template_config {
     launch_template_specification {
       launch_template_id = aws_launch_template.test.id
-      version            = aws_launch_template.test.latest_version
+      version   = aws_launch_template.test.latest_version
     }
   }
 
@@ -4156,7 +4156,7 @@ func testAccFleetConfig_onDemandOptionsCapacityReservationOptions(rName, usageSt
 //   launch_template_config {
 //     launch_template_specification {
 //       launch_template_id = aws_launch_template.test.id
-//       version            = aws_launch_template.test.latest_version
+//       version   = aws_launch_template.test.latest_version
 //     }
 //   }
 
@@ -4187,7 +4187,7 @@ resource "aws_ec2_fleet" "test" {
   launch_template_config {
     launch_template_specification {
       launch_template_id = aws_launch_template.test.id
-      version            = aws_launch_template.test.latest_version
+      version   = aws_launch_template.test.latest_version
     }
   }
 
@@ -4214,7 +4214,7 @@ resource "aws_ec2_fleet" "test" {
   launch_template_config {
     launch_template_specification {
       launch_template_id = aws_launch_template.test.id
-      version            = aws_launch_template.test.latest_version
+      version   = aws_launch_template.test.latest_version
     }
   }
 
@@ -4245,7 +4245,7 @@ resource "aws_ec2_fleet" "test" {
   launch_template_config {
     launch_template_specification {
       launch_template_id = aws_launch_template.test.id
-      version            = aws_launch_template.test.latest_version
+      version   = aws_launch_template.test.latest_version
     }
   }
 
@@ -4275,7 +4275,7 @@ resource "aws_ec2_fleet" "test" {
   launch_template_config {
     launch_template_specification {
       launch_template_id = aws_launch_template.test.id
-      version            = aws_launch_template.test.latest_version
+      version   = aws_launch_template.test.latest_version
     }
   }
 
@@ -4307,7 +4307,7 @@ resource "aws_ec2_fleet" "test" {
   launch_template_config {
     launch_template_specification {
       launch_template_id = aws_launch_template.test.id
-      version            = aws_launch_template.test.latest_version
+      version   = aws_launch_template.test.latest_version
     }
   }
 
@@ -4330,7 +4330,7 @@ resource "aws_ec2_fleet" "test" {
   launch_template_config {
     launch_template_specification {
       launch_template_id = aws_launch_template.test.id
-      version            = aws_launch_template.test.latest_version
+      version   = aws_launch_template.test.latest_version
     }
   }
 
@@ -4357,7 +4357,7 @@ resource "aws_ec2_fleet" "test" {
   launch_template_config {
     launch_template_specification {
       launch_template_id = aws_launch_template.test.id
-      version            = aws_launch_template.test.latest_version
+      version   = aws_launch_template.test.latest_version
     }
   }
 
@@ -4392,7 +4392,7 @@ resource "aws_ec2_fleet" "test" {
   launch_template_config {
     launch_template_specification {
       launch_template_id = aws_launch_template.test.id
-      version            = aws_launch_template.test.latest_version
+      version   = aws_launch_template.test.latest_version
     }
   }
 
@@ -4424,7 +4424,7 @@ resource "aws_ec2_fleet" "test" {
   launch_template_config {
     launch_template_specification {
       launch_template_id = aws_launch_template.test.id
-      version            = aws_launch_template.test.latest_version
+      version   = aws_launch_template.test.latest_version
     }
   }
 
@@ -4451,7 +4451,7 @@ resource "aws_ec2_fleet" "test" {
   launch_template_config {
     launch_template_specification {
       launch_template_id = aws_launch_template.test.id
-      version            = aws_launch_template.test.latest_version
+      version   = aws_launch_template.test.latest_version
     }
   }
 
@@ -4478,7 +4478,7 @@ resource "aws_ec2_fleet" "test" {
   launch_template_config {
     launch_template_specification {
       launch_template_id = aws_launch_template.test.id
-      version            = aws_launch_template.test.latest_version
+      version   = aws_launch_template.test.latest_version
     }
   }
 
@@ -4501,7 +4501,7 @@ resource "aws_ec2_fleet" "test" {
   launch_template_config {
     launch_template_specification {
       launch_template_id = aws_launch_template.test.id
-      version            = aws_launch_template.test.latest_version
+      version   = aws_launch_template.test.latest_version
     }
   }
 
@@ -4525,7 +4525,7 @@ resource "aws_ec2_fleet" "test" {
   launch_template_config {
     launch_template_specification {
       launch_template_id = aws_launch_template.test.id
-      version            = aws_launch_template.test.latest_version
+      version   = aws_launch_template.test.latest_version
     }
   }
 
@@ -4550,7 +4550,7 @@ resource "aws_ec2_fleet" "test" {
   launch_template_config {
     launch_template_specification {
       launch_template_id = aws_launch_template.test.id
-      version            = aws_launch_template.test.latest_version
+      version   = aws_launch_template.test.latest_version
     }
   }
 
@@ -4575,17 +4575,17 @@ resource "aws_ec2_fleet" "test" {
   launch_template_config {
     launch_template_specification {
       launch_template_id = aws_launch_template.test.id
-      version            = aws_launch_template.test.latest_version
+      version   = aws_launch_template.test.latest_version
     }
 
     override {
       instance_requirements {
         accelerator_manufacturers = ["amd"]
         memory_mib {
-          min = 500
+ min = 500
         }
         vcpu_count {
-          min = 1
+ min = 1
         }
       }
     }
@@ -4613,7 +4613,7 @@ resource "aws_ec2_fleet" "test" {
   launch_template_config {
     launch_template_specification {
       launch_template_id = aws_launch_template.test.id
-      version            = aws_launch_template.test.latest_version
+      version   = aws_launch_template.test.latest_version
     }
   }
 
@@ -4638,7 +4638,7 @@ resource "aws_ec2_fleet" "test" {
   launch_template_config {
     launch_template_specification {
       launch_template_id = aws_launch_template.test.id
-      version            = aws_launch_template.test.latest_version
+      version   = aws_launch_template.test.latest_version
     }
   }
 
@@ -4666,7 +4666,7 @@ resource "aws_ec2_fleet" "test" {
   launch_template_config {
     launch_template_specification {
       launch_template_id = aws_launch_template.test.id
-      version            = aws_launch_template.test.latest_version
+      version   = aws_launch_template.test.latest_version
     }
   }
 
@@ -4691,7 +4691,7 @@ resource "aws_ec2_fleet" "test" {
   launch_template_config {
     launch_template_specification {
       launch_template_id = aws_launch_template.test.id
-      version            = aws_launch_template.test.latest_version
+      version   = aws_launch_template.test.latest_version
     }
   }
 
@@ -4716,7 +4716,7 @@ resource "aws_ec2_fleet" "test" {
   launch_template_config {
     launch_template_specification {
       launch_template_id = aws_launch_template.test.id
-      version            = aws_launch_template.test.latest_version
+      version   = aws_launch_template.test.latest_version
     }
   }
 

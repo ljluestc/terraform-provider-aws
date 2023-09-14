@@ -20,32 +20,32 @@ func TestAccLambdaFunctionURLDataSource_basic(t *testing.T) {
 	resourceName := "aws_lambda_function_url.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccFunctionURLPreCheck(t) },
-		ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFunctionURLDataSourceConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttrPair(dataSourceName, "authorization_type", resourceName, "authorization_type"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "cors.#", resourceName, "cors.#"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "cors.0.allow_credentials", resourceName, "cors.0.allow_credentials"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "cors.0.allow_headers.#", resourceName, "cors.0.allow_headers.#"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "cors.0.allow_methods.#", resourceName, "cors.0.allow_methods.#"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "cors.0.allow_origins.#", resourceName, "cors.0.allow_origins.#"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "cors.0.expose_headers.#", resourceName, "cors.0.expose_headers.#"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "cors.0.max_age", resourceName, "cors.0.max_age"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "creation_time"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "function_arn", resourceName, "function_arn"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "function_name", resourceName, "function_name"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "function_url", resourceName, "function_url"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "invoke_mode", resourceName, "invoke_mode"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "last_modified_time"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "qualifier", resourceName, "qualifier"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "url_id", resourceName, "url_id"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccFunctionURLPreCheck(t) },
+ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccFunctionURLDataSourceConfig_basic(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttrPair(dataSourceName, "authorization_type", resourceName, "authorization_type"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "cors.#", resourceName, "cors.#"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "cors.0.allow_credentials", resourceName, "cors.0.allow_credentials"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "cors.0.allow_headers.#", resourceName, "cors.0.allow_headers.#"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "cors.0.allow_methods.#", resourceName, "cors.0.allow_methods.#"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "cors.0.allow_origins.#", resourceName, "cors.0.allow_origins.#"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "cors.0.expose_headers.#", resourceName, "cors.0.expose_headers.#"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "cors.0.max_age", resourceName, "cors.0.max_age"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "creation_time"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "function_arn", resourceName, "function_arn"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "function_name", resourceName, "function_name"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "function_url", resourceName, "function_url"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "invoke_mode", resourceName, "invoke_mode"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "last_modified_time"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "qualifier", resourceName, "qualifier"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "url_id", resourceName, "url_id"),
+),
+	},
+},
 	})
 }
 

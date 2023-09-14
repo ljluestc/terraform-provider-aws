@@ -16,19 +16,19 @@ func TestAccEFSAccessPointsDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_efs_access_points.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAccessPointDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAccessPointsDataSourceConfig_basic(),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr(dataSourceName, "arns.#", "1"),
-					resource.TestCheckResourceAttr(dataSourceName, "ids.#", "1"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckAccessPointDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccAccessPointsDataSourceConfig_basic(),
+Check: resource.ComposeTestCheckFunc(
+	resource.TestCheckResourceAttr(dataSourceName, "arns.#", "1"),
+	resource.TestCheckResourceAttr(dataSourceName, "ids.#", "1"),
+),
+	},
+},
 	})
 }
 
@@ -37,19 +37,19 @@ func TestAccEFSAccessPointsDataSource_empty(t *testing.T) {
 	dataSourceName := "data.aws_efs_access_points.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAccessPointDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAccessPointsDataSourceConfig_empty(),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr(dataSourceName, "arns.#", "0"),
-					resource.TestCheckResourceAttr(dataSourceName, "ids.#", "0"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckAccessPointDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccAccessPointsDataSourceConfig_empty(),
+Check: resource.ComposeTestCheckFunc(
+	resource.TestCheckResourceAttr(dataSourceName, "arns.#", "0"),
+	resource.TestCheckResourceAttr(dataSourceName, "ids.#", "0"),
+),
+	},
+},
 	})
 }
 

@@ -42,15 +42,15 @@ func ResourceBlockPublicAccessConfiguration() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"min_range": {
-							Type:             schema.TypeInt,
-							Required:         true,
+							Type:    schema.TypeInt,
+							Required:true,
 							ValidateDiag
 func: validation.ToDiag
 func(validation.IsPortNumber),
 						},
 						"max_range": {
-							Type:             schema.TypeInt,
-							Required:         true,
+							Type:    schema.TypeInt,
+							Required:true,
 							ValidateDiag
 func: validation.ToDiag
 func(validation.IsPortNumber),
@@ -137,7 +137,7 @@ func findDefaultBlockPublicAccessConfiguration() *emr.BlockPublicAccessConfigura
 	portRange := &emr.PortRange{MinRange: defaultPortPointer, MaxRange: defaultPortPointer}
 	permittedPublicSecurityGroupRuleRanges := []*emr.PortRange{portRange}
 	blockPublicAccessConfiguration := &emr.BlockPublicAccessConfiguration{
-		BlockPublicSecurityGroupRules:          aws.Bool(true),
+		BlockPublicSecurityGroupRules: aws.Bool(true),
 		PermittedPublicSecurityGroupRuleRanges: permittedPublicSecurityGroupRuleRanges,
 	}
 	return blockPublicAccessConfiguration

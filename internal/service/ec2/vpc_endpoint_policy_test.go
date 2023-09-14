@@ -23,32 +23,32 @@ func TestAccVPCEndpointPolicy_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPCEndpointDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCEndpointPolicyConfig_basic(rName, policy1),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckVPCEndpointDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCEndpointPolicyConfig_basic(rName, policy1),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckVPCEndpointExists(ctx, resourceName, &endpoint),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccVPCEndpointPolicyConfig_basic(rName, policy2),
-				Check: resource.ComposeTestCheck
+	testAccCheckVPCEndpointExists(ctx, resourceName, &endpoint),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccVPCEndpointPolicyConfig_basic(rName, policy2),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckVPCEndpointExists(ctx, resourceName, &endpoint),
-				),
-			},
-		},
+	testAccCheckVPCEndpointExists(ctx, resourceName, &endpoint),
+),
+	},
+},
 	})
 }
 
@@ -60,22 +60,22 @@ func TestAccVPCEndpointPolicy_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPCEndpointDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCEndpointPolicyConfig_basic(rName, policy1),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckVPCEndpointDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCEndpointPolicyConfig_basic(rName, policy1),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckVPCEndpointExists(ctx, resourceName, &endpoint),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceVPCEndpointPolicy(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckVPCEndpointExists(ctx, resourceName, &endpoint),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceVPCEndpointPolicy(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -87,22 +87,22 @@ func TestAccVPCEndpointPolicy_disappears_endpoint(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPCEndpointDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCEndpointPolicyConfig_basic(rName, policy1),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckVPCEndpointDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCEndpointPolicyConfig_basic(rName, policy1),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckVPCEndpointExists(ctx, resourceName, &endpoint),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceVPCEndpoint(), "aws_vpc_endpoint.test"),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckVPCEndpointExists(ctx, resourceName, &endpoint),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceVPCEndpoint(), "aws_vpc_endpoint.test"),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -167,7 +167,7 @@ resource "aws_vpc_endpoint" "test" {
 
 resource "aws_vpc_endpoint_policy" "test" {
   vpc_endpoint_id = aws_vpc_endpoint.test.id
-  policy          = <<POLICY
+  policy = <<POLICY
 %[2]s
 POLICY
 }

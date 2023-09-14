@@ -29,55 +29,55 @@ func testAccUserHierarchyGroup_basic(t *testing.T) {
 	resourceName := "aws_connect_user_hierarchy_group.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserHierarchyGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserHierarchyGroupConfig_basic(rName, rName2),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckUserHierarchyGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserHierarchyGroupConfig_basic(rName, rName2),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckUserHierarchyGroupExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttrSet(resourceName, "hierarchy_group_id"),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_path.#", "1"),
-					resource.TestCheckResourceAttrPair(resourceName, "hierarchy_path.0.level_one.0.arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "hierarchy_path.0.level_one.0.id", resourceName, "hierarchy_group_id"),
-					resource.TestCheckResourceAttrPair(resourceName, "hierarchy_path.0.level_one.0.name", resourceName, "name"),
-					resource.TestCheckResourceAttrPair(resourceName, "instance_id", "aws_connect_instance.test", "id"),
-					resource.TestCheckResourceAttr(resourceName, "level_id", "1"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName2),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Name", "Test User Hierarchy Group"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				// Update name
-				Config: testAccUserHierarchyGroupConfig_basic(rName, rName3),
-				Check: resource.ComposeAggregateTestCheck
+	testAccCheckUserHierarchyGroupExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttrSet(resourceName, "hierarchy_group_id"),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_path.#", "1"),
+	resource.TestCheckResourceAttrPair(resourceName, "hierarchy_path.0.level_one.0.arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "hierarchy_path.0.level_one.0.id", resourceName, "hierarchy_group_id"),
+	resource.TestCheckResourceAttrPair(resourceName, "hierarchy_path.0.level_one.0.name", resourceName, "name"),
+	resource.TestCheckResourceAttrPair(resourceName, "instance_id", "aws_connect_instance.test", "id"),
+	resource.TestCheckResourceAttr(resourceName, "level_id", "1"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName2),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Name", "Test User Hierarchy Group"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+// Update name
+Config: testAccUserHierarchyGroupConfig_basic(rName, rName3),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckUserHierarchyGroupExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttrSet(resourceName, "hierarchy_group_id"),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_path.#", "1"),
-					resource.TestCheckResourceAttrPair(resourceName, "hierarchy_path.0.level_one.0.arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "hierarchy_path.0.level_one.0.id", resourceName, "hierarchy_group_id"),
-					resource.TestCheckResourceAttrPair(resourceName, "hierarchy_path.0.level_one.0.name", resourceName, "name"),
-					resource.TestCheckResourceAttrPair(resourceName, "instance_id", "aws_connect_instance.test", "id"),
-					resource.TestCheckResourceAttr(resourceName, "level_id", "1"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName3),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Name", "Test User Hierarchy Group"),
-				),
-			},
-		},
+	testAccCheckUserHierarchyGroupExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttrSet(resourceName, "hierarchy_group_id"),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_path.#", "1"),
+	resource.TestCheckResourceAttrPair(resourceName, "hierarchy_path.0.level_one.0.arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "hierarchy_path.0.level_one.0.id", resourceName, "hierarchy_group_id"),
+	resource.TestCheckResourceAttrPair(resourceName, "hierarchy_path.0.level_one.0.name", resourceName, "name"),
+	resource.TestCheckResourceAttrPair(resourceName, "instance_id", "aws_connect_instance.test", "id"),
+	resource.TestCheckResourceAttr(resourceName, "level_id", "1"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName3),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Name", "Test User Hierarchy Group"),
+),
+	},
+},
 	})
 }
 
@@ -91,35 +91,35 @@ func testAccUserHierarchyGroup_parentGroupId(t *testing.T) {
 	resourceName := "aws_connect_user_hierarchy_group.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserHierarchyGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserHierarchyGroupConfig_parentID(rName, rName2, rName3),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckUserHierarchyGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserHierarchyGroupConfig_parentID(rName, rName2, rName3),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckUserHierarchyGroupExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttrSet(resourceName, "hierarchy_group_id"),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_path.#", "1"),
-					resource.TestCheckResourceAttrPair(resourceName, "hierarchy_path.0.level_one.0.arn", "aws_connect_user_hierarchy_group.parent", "arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "hierarchy_path.0.level_one.0.id", "aws_connect_user_hierarchy_group.parent", "hierarchy_group_id"),
-					resource.TestCheckResourceAttrPair(resourceName, "hierarchy_path.0.level_one.0.name", "aws_connect_user_hierarchy_group.parent", "name"),
-					resource.TestCheckResourceAttrPair(resourceName, "hierarchy_path.0.level_two.0.arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "hierarchy_path.0.level_two.0.id", resourceName, "hierarchy_group_id"),
-					resource.TestCheckResourceAttrPair(resourceName, "hierarchy_path.0.level_two.0.name", resourceName, "name"),
-					resource.TestCheckResourceAttrPair(resourceName, "instance_id", "aws_connect_instance.test", "id"),
-					resource.TestCheckResourceAttr(resourceName, "level_id", "2"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName3),
-					resource.TestCheckResourceAttrPair(resourceName, "parent_group_id", "aws_connect_user_hierarchy_group.parent", "hierarchy_group_id"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Name", "Test User Hierarchy Group Child"),
-				),
-			},
-		},
+	testAccCheckUserHierarchyGroupExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttrSet(resourceName, "hierarchy_group_id"),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_path.#", "1"),
+	resource.TestCheckResourceAttrPair(resourceName, "hierarchy_path.0.level_one.0.arn", "aws_connect_user_hierarchy_group.parent", "arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "hierarchy_path.0.level_one.0.id", "aws_connect_user_hierarchy_group.parent", "hierarchy_group_id"),
+	resource.TestCheckResourceAttrPair(resourceName, "hierarchy_path.0.level_one.0.name", "aws_connect_user_hierarchy_group.parent", "name"),
+	resource.TestCheckResourceAttrPair(resourceName, "hierarchy_path.0.level_two.0.arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "hierarchy_path.0.level_two.0.id", resourceName, "hierarchy_group_id"),
+	resource.TestCheckResourceAttrPair(resourceName, "hierarchy_path.0.level_two.0.name", resourceName, "name"),
+	resource.TestCheckResourceAttrPair(resourceName, "instance_id", "aws_connect_instance.test", "id"),
+	resource.TestCheckResourceAttr(resourceName, "level_id", "2"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName3),
+	resource.TestCheckResourceAttrPair(resourceName, "parent_group_id", "aws_connect_user_hierarchy_group.parent", "hierarchy_group_id"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Name", "Test User Hierarchy Group Child"),
+),
+	},
+},
 	})
 }
 
@@ -132,48 +132,48 @@ func testAccUserHierarchyGroup_updateTags(t *testing.T) {
 	resourceName := "aws_connect_user_hierarchy_group.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserHierarchyGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserHierarchyGroupConfig_basic(rName, rName2),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckUserHierarchyGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserHierarchyGroupConfig_basic(rName, rName2),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckUserHierarchyGroupExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Name", "Test User Hierarchy Group"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccUserHierarchyGroupConfig_tags(rName, rName2),
-				Check: resource.ComposeAggregateTestCheck
+	testAccCheckUserHierarchyGroupExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Name", "Test User Hierarchy Group"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccUserHierarchyGroupConfig_tags(rName, rName2),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckUserHierarchyGroupExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Name", "Test User Hierarchy Group"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Key2", "Value2a"),
-				),
-			},
-			{
-				Config: testAccUserHierarchyGroupConfig_tagsUpdated(rName, rName2),
-				Check: resource.ComposeAggregateTestCheck
+	testAccCheckUserHierarchyGroupExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Name", "Test User Hierarchy Group"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Key2", "Value2a"),
+),
+	},
+	{
+Config: testAccUserHierarchyGroupConfig_tagsUpdated(rName, rName2),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckUserHierarchyGroupExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "3"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Name", "Test User Hierarchy Group"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Key2", "Value2b"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Key3", "Value3"),
-				),
-			},
-		},
+	testAccCheckUserHierarchyGroupExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "3"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Name", "Test User Hierarchy Group"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Key2", "Value2b"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Key3", "Value3"),
+),
+	},
+},
 	})
 }
 
@@ -186,22 +186,22 @@ func testAccUserHierarchyGroup_disappears(t *testing.T) {
 	resourceName := "aws_connect_user_hierarchy_group.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserHierarchyGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserHierarchyGroupConfig_basic(rName, rName2),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckUserHierarchyGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserHierarchyGroupConfig_basic(rName, rName2),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckUserHierarchyGroupExists(ctx, resourceName, &v),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfconnect.ResourceUserHierarchyGroup(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckUserHierarchyGroupExists(ctx, resourceName, &v),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfconnect.ResourceUserHierarchyGroup(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -211,38 +211,38 @@ function *connect.DescribeUserHierarchyGroupOutput) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[resourceName]
-		if !ok {
-			return fmt.Errorf("Connect User Hierarchy Group not found: %s", resourceName)
-		}
+rs, ok := s.RootModule().Resources[resourceName]
+if !ok {
+	return fmt.Errorf("Connect User Hierarchy Group not found: %s", resourceName)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("Connect User Hierarchy Group ID not set")
-		}
-		instanceID, userHierarchyGroupID, err := tfconnect.UserHierarchyGroupParseID(rs.Primary.ID)
+if rs.Primary.ID == "" {
+	return fmt.Errorf("Connect User Hierarchy Group ID not set")
+}
+instanceID, userHierarchyGroupID, err := tfconnect.UserHierarchyGroupParseID(rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)
 
-		params := &connect.DescribeUserHierarchyGroupInput{
-			HierarchyGroupId: aws.String(userHierarchyGroupID),
-			InstanceId:       aws.String(instanceID),
-		}
+params := &connect.DescribeUserHierarchyGroupInput{
+	HierarchyGroupId: aws.String(userHierarchyGroupID),
+	InstanceId:       aws.String(instanceID),
+}
 
-		get
+get
 function, err := conn.DescribeUserHierarchyGroupWithContext(ctx, params)
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*
+*
 function = *get
 function
 
-		return nil
+return nil
 	}
 }
 
@@ -251,35 +251,35 @@ func testAccCheckUserHierarchyGroupDestroy(ctx context.Context) resource.TestChe
 func {
 	return 
 func(s *terraform.State) error {
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_connect_user_hierarchy_group" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_connect_user_hierarchy_group" {
+continue
+	}
 
-			conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)
+	conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)
 
-			instanceID, userHierarchyGroupID, err := tfconnect.UserHierarchyGroupParseID(rs.Primary.ID)
+	instanceID, userHierarchyGroupID, err := tfconnect.UserHierarchyGroupParseID(rs.Primary.ID)
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			params := &connect.DescribeUserHierarchyGroupInput{
-				HierarchyGroupId: aws.String(userHierarchyGroupID),
-				InstanceId:       aws.String(instanceID),
-			}
+	params := &connect.DescribeUserHierarchyGroupInput{
+HierarchyGroupId: aws.String(userHierarchyGroupID),
+InstanceId:       aws.String(instanceID),
+	}
 
-			_, err = conn.DescribeUserHierarchyGroupWithContext(ctx, params)
+	_, err = conn.DescribeUserHierarchyGroupWithContext(ctx, params)
 
-			if tfawserr.ErrCodeEquals(err, connect.ErrCodeResourceNotFoundException) {
-				continue
-			}
+	if tfawserr.ErrCodeEquals(err, connect.ErrCodeResourceNotFoundException) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
-		}
-		return nil
+	if err != nil {
+return err
+	}
+}
+return nil
 	}
 }
 
@@ -289,7 +289,7 @@ func testAccUserHierarchyGroupConfig_base(rName string) string {
 resource "aws_connect_instance" "test" {
   identity_management_type = "CONNECT_MANAGED"
   inbound_calls_enabled    = true
-  instance_alias           = %[1]q
+  instance_alias  = %[1]q
   outbound_calls_enabled   = true
 }
 
@@ -324,8 +324,8 @@ resource "aws_connect_user_hierarchy_structure" "test" {
 
 func testAccUserHierarchyGroupConfig_basic(rName, rName2 string) string {
 	return acctest.ConfigCompose(
-		testAccUserHierarchyGroupConfig_base(rName),
-		fmt.Sprintf(`
+testAccUserHierarchyGroupConfig_base(rName),
+fmt.Sprintf(`
 resource "aws_connect_user_hierarchy_group" "test" {
   instance_id = aws_connect_instance.test.id
   name        = %[1]q
@@ -344,8 +344,8 @@ resource "aws_connect_user_hierarchy_group" "test" {
 
 func testAccUserHierarchyGroupConfig_parentID(rName, rName2, rName3 string) string {
 	return acctest.ConfigCompose(
-		testAccUserHierarchyGroupConfig_base(rName),
-		fmt.Sprintf(`
+testAccUserHierarchyGroupConfig_base(rName),
+fmt.Sprintf(`
 resource "aws_connect_user_hierarchy_group" "parent" {
   instance_id = aws_connect_instance.test.id
   name        = %[1]q
@@ -361,7 +361,7 @@ resource "aws_connect_user_hierarchy_group" "parent" {
 
 resource "aws_connect_user_hierarchy_group" "test" {
   instance_id     = aws_connect_instance.test.id
-  name            = %[2]q
+  name   = %[2]q
   parent_group_id = aws_connect_user_hierarchy_group.parent.hierarchy_group_id
 
   tags = {
@@ -374,8 +374,8 @@ resource "aws_connect_user_hierarchy_group" "test" {
 
 func testAccUserHierarchyGroupConfig_tags(rName, rName2 string) string {
 	return acctest.ConfigCompose(
-		testAccUserHierarchyGroupConfig_base(rName),
-		fmt.Sprintf(`
+testAccUserHierarchyGroupConfig_base(rName),
+fmt.Sprintf(`
 resource "aws_connect_user_hierarchy_group" "test" {
   instance_id = aws_connect_instance.test.id
   name        = %[1]q
@@ -395,8 +395,8 @@ resource "aws_connect_user_hierarchy_group" "test" {
 
 func testAccUserHierarchyGroupConfig_tagsUpdated(rName, rName2 string) string {
 	return acctest.ConfigCompose(
-		testAccUserHierarchyGroupConfig_base(rName),
-		fmt.Sprintf(`
+testAccUserHierarchyGroupConfig_base(rName),
+fmt.Sprintf(`
 resource "aws_connect_user_hierarchy_group" "test" {
   instance_id = aws_connect_instance.test.id
   name        = %[1]q

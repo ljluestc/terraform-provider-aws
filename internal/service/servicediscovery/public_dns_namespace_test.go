@@ -26,33 +26,33 @@ func TestAccServiceDiscoveryPublicDNSNamespace_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, servicediscovery.EndpointsID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, servicediscovery.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPublicDNSNamespaceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccPublicDNSNamespaceConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, servicediscovery.EndpointsID)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, servicediscovery.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckPublicDNSNamespaceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccPublicDNSNamespaceConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckPublicDNSNamespaceExists(ctx, resourceName),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "servicediscovery", regexache.MustCompile(`namespace/.+`)),
-					resource.TestCheckResourceAttr(resourceName, "description", ""),
-					resource.TestCheckResourceAttrSet(resourceName, "hosted_zone"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckPublicDNSNamespaceExists(ctx, resourceName),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "servicediscovery", regexache.MustCompile(`namespace/.+`)),
+	resource.TestCheckResourceAttr(resourceName, "description", ""),
+	resource.TestCheckResourceAttrSet(resourceName, "hosted_zone"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -63,26 +63,26 @@ func TestAccServiceDiscoveryPublicDNSNamespace_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, servicediscovery.EndpointsID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, servicediscovery.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPublicDNSNamespaceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccPublicDNSNamespaceConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, servicediscovery.EndpointsID)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, servicediscovery.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckPublicDNSNamespaceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccPublicDNSNamespaceConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckPublicDNSNamespaceExists(ctx, resourceName),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfservicediscovery.ResourcePublicDNSNamespace(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckPublicDNSNamespaceExists(ctx, resourceName),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfservicediscovery.ResourcePublicDNSNamespace(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -93,33 +93,33 @@ func TestAccServiceDiscoveryPublicDNSNamespace_description(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, servicediscovery.EndpointsID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, servicediscovery.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPublicDNSNamespaceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccPublicDNSNamespaceConfig_description(rName, "desc1"),
-				Check: resource.ComposeTestCheck
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, servicediscovery.EndpointsID)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, servicediscovery.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckPublicDNSNamespaceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccPublicDNSNamespaceConfig_description(rName, "desc1"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckPublicDNSNamespaceExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "description", "desc1"),
-				),
-			},
-			{
-				Config: testAccPublicDNSNamespaceConfig_description(rName, "desc2"),
-				Check: resource.ComposeTestCheck
+	testAccCheckPublicDNSNamespaceExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "description", "desc1"),
+),
+	},
+	{
+Config: testAccPublicDNSNamespaceConfig_description(rName, "desc2"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckPublicDNSNamespaceExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "description", "desc2"),
-				),
-			},
-		},
+	testAccCheckPublicDNSNamespaceExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "description", "desc2"),
+),
+	},
+},
 	})
 }
 
@@ -130,50 +130,50 @@ func TestAccServiceDiscoveryPublicDNSNamespace_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, servicediscovery.EndpointsID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, servicediscovery.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPublicDNSNamespaceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccPublicDNSNamespaceConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheck
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, servicediscovery.EndpointsID)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, servicediscovery.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckPublicDNSNamespaceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccPublicDNSNamespaceConfig_tags1(rName, "key1", "value1"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckPublicDNSNamespaceExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccPublicDNSNamespaceConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheck
+	testAccCheckPublicDNSNamespaceExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccPublicDNSNamespaceConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckPublicDNSNamespaceExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-			{
-				Config: testAccPublicDNSNamespaceConfig_tags1(rName, "key2", "value2"),
-				Check: resource.ComposeTestCheck
+	testAccCheckPublicDNSNamespaceExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+	{
+Config: testAccPublicDNSNamespaceConfig_tags1(rName, "key2", "value2"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckPublicDNSNamespaceExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-		},
+	testAccCheckPublicDNSNamespaceExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+},
 	})
 }
 
@@ -182,27 +182,27 @@ func testAccCheckPublicDNSNamespaceDestroy(ctx context.Context) resource.TestChe
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ServiceDiscoveryConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).ServiceDiscoveryConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_service_discovery_public_dns_namespace" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_service_discovery_public_dns_namespace" {
+continue
+	}
 
-			_, err := tfservicediscovery.FindNamespaceByID(ctx, conn, rs.Primary.ID)
+	_, err := tfservicediscovery.FindNamespaceByID(ctx, conn, rs.Primary.ID)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("Service Discovery Public DNS Namespace %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("Service Discovery Public DNS Namespace %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -211,20 +211,20 @@ func testAccCheckPublicDNSNamespaceExists(ctx context.Context, n string) resourc
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No Service Discovery Public DNS Namespace ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No Service Discovery Public DNS Namespace ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ServiceDiscoveryConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).ServiceDiscoveryConn(ctx)
 
-		_, err := tfservicediscovery.FindNamespaceByID(ctx, conn, rs.Primary.ID)
+_, err := tfservicediscovery.FindNamespaceByID(ctx, conn, rs.Primary.ID)
 
-		return err
+return err
 	}
 }
 

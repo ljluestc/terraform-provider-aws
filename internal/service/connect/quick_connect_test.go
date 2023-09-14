@@ -28,79 +28,79 @@ func testAccQuickConnect_phoneNumber(t *testing.T) {
 	resourceName := "aws_connect_quick_connect.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckQuickConnectDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccQuickConnectConfig_phoneNumber(rName, rName2, "Created", "+12345678912"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckQuickConnectDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccQuickConnectConfig_phoneNumber(rName, rName2, "Created", "+12345678912"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckQuickConnectExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
-					resource.TestCheckResourceAttrSet(resourceName, "name"),
-					resource.TestCheckResourceAttrSet(resourceName, "description"),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttrSet(resourceName, "quick_connect_id"),
-					resource.TestCheckResourceAttr(resourceName, "quick_connect_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "quick_connect_config.0.quick_connect_type", "PHONE_NUMBER"),
-					resource.TestCheckResourceAttr(resourceName, "quick_connect_config.0.phone_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "quick_connect_config.0.phone_config.0.phone_number", "+12345678912"),
+	testAccCheckQuickConnectExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
+	resource.TestCheckResourceAttrSet(resourceName, "name"),
+	resource.TestCheckResourceAttrSet(resourceName, "description"),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttrSet(resourceName, "quick_connect_id"),
+	resource.TestCheckResourceAttr(resourceName, "quick_connect_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "quick_connect_config.0.quick_connect_type", "PHONE_NUMBER"),
+	resource.TestCheckResourceAttr(resourceName, "quick_connect_config.0.phone_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "quick_connect_config.0.phone_config.0.phone_number", "+12345678912"),
 
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				// update description
-				Config: testAccQuickConnectConfig_phoneNumber(rName, rName2, "Updated", "+12345678912"),
-				Check: resource.ComposeAggregateTestCheck
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+// update description
+Config: testAccQuickConnectConfig_phoneNumber(rName, rName2, "Updated", "+12345678912"),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckQuickConnectExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
-					resource.TestCheckResourceAttrSet(resourceName, "name"),
-					resource.TestCheckResourceAttr(resourceName, "description", "Updated"),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttrSet(resourceName, "quick_connect_id"),
-					resource.TestCheckResourceAttr(resourceName, "quick_connect_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "quick_connect_config.0.quick_connect_type", "PHONE_NUMBER"),
-					resource.TestCheckResourceAttr(resourceName, "quick_connect_config.0.phone_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "quick_connect_config.0.phone_config.0.phone_number", "+12345678912"),
+	testAccCheckQuickConnectExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
+	resource.TestCheckResourceAttrSet(resourceName, "name"),
+	resource.TestCheckResourceAttr(resourceName, "description", "Updated"),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttrSet(resourceName, "quick_connect_id"),
+	resource.TestCheckResourceAttr(resourceName, "quick_connect_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "quick_connect_config.0.quick_connect_type", "PHONE_NUMBER"),
+	resource.TestCheckResourceAttr(resourceName, "quick_connect_config.0.phone_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "quick_connect_config.0.phone_config.0.phone_number", "+12345678912"),
 
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				// update phone number
-				Config: testAccQuickConnectConfig_phoneNumber(rName, rName2, "Updated", "+12345678913"),
-				Check: resource.ComposeAggregateTestCheck
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+// update phone number
+Config: testAccQuickConnectConfig_phoneNumber(rName, rName2, "Updated", "+12345678913"),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckQuickConnectExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
-					resource.TestCheckResourceAttrSet(resourceName, "name"),
-					resource.TestCheckResourceAttr(resourceName, "description", "Updated"),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttrSet(resourceName, "quick_connect_id"),
-					resource.TestCheckResourceAttr(resourceName, "quick_connect_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "quick_connect_config.0.quick_connect_type", "PHONE_NUMBER"),
-					resource.TestCheckResourceAttr(resourceName, "quick_connect_config.0.phone_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "quick_connect_config.0.phone_config.0.phone_number", "+12345678913"),
+	testAccCheckQuickConnectExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
+	resource.TestCheckResourceAttrSet(resourceName, "name"),
+	resource.TestCheckResourceAttr(resourceName, "description", "Updated"),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttrSet(resourceName, "quick_connect_id"),
+	resource.TestCheckResourceAttr(resourceName, "quick_connect_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "quick_connect_config.0.quick_connect_type", "PHONE_NUMBER"),
+	resource.TestCheckResourceAttr(resourceName, "quick_connect_config.0.phone_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "quick_connect_config.0.phone_config.0.phone_number", "+12345678913"),
 
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+),
+	},
+},
 	})
 }
 
@@ -116,48 +116,48 @@ func testAccQuickConnect_updateTags(t *testing.T) {
 	resourceName := "aws_connect_quick_connect.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckQuickConnectDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccQuickConnectConfig_phoneNumber(rName, rName2, description, phone_number),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckQuickConnectDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccQuickConnectConfig_phoneNumber(rName, rName2, description, phone_number),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckQuickConnectExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Name", "Test Quick Connect"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccQuickConnectConfig_tags(rName, rName2, description, phone_number),
-				Check: resource.ComposeAggregateTestCheck
+	testAccCheckQuickConnectExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Name", "Test Quick Connect"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccQuickConnectConfig_tags(rName, rName2, description, phone_number),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckQuickConnectExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Name", "Test Quick Connect"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Key2", "Value2a"),
-				),
-			},
-			{
-				Config: testAccQuickConnectConfig_tagsUpdated(rName, rName2, description, phone_number),
-				Check: resource.ComposeAggregateTestCheck
+	testAccCheckQuickConnectExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Name", "Test Quick Connect"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Key2", "Value2a"),
+),
+	},
+	{
+Config: testAccQuickConnectConfig_tagsUpdated(rName, rName2, description, phone_number),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckQuickConnectExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "3"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Name", "Test Quick Connect"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Key2", "Value2b"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Key3", "Value3"),
-				),
-			},
-		},
+	testAccCheckQuickConnectExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "3"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Name", "Test Quick Connect"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Key2", "Value2b"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Key3", "Value3"),
+),
+	},
+},
 	})
 }
 
@@ -170,22 +170,22 @@ func testAccQuickConnect_disappears(t *testing.T) {
 	resourceName := "aws_connect_quick_connect.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckQuickConnectDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccQuickConnectConfig_phoneNumber(rName, rName2, "Disappear", "+12345678912"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckQuickConnectDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccQuickConnectConfig_phoneNumber(rName, rName2, "Disappear", "+12345678912"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckQuickConnectExists(ctx, resourceName, &v),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfconnect.ResourceQuickConnect(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckQuickConnectExists(ctx, resourceName, &v),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfconnect.ResourceQuickConnect(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -195,38 +195,38 @@ function *connect.DescribeQuickConnectOutput) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[resourceName]
-		if !ok {
-			return fmt.Errorf("Connect Quick Connect not found: %s", resourceName)
-		}
+rs, ok := s.RootModule().Resources[resourceName]
+if !ok {
+	return fmt.Errorf("Connect Quick Connect not found: %s", resourceName)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("Connect Quick Connect ID not set")
-		}
-		instanceID, quickConnectID, err := tfconnect.QuickConnectParseID(rs.Primary.ID)
+if rs.Primary.ID == "" {
+	return fmt.Errorf("Connect Quick Connect ID not set")
+}
+instanceID, quickConnectID, err := tfconnect.QuickConnectParseID(rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)
 
-		params := &connect.DescribeQuickConnectInput{
-			QuickConnectId: aws.String(quickConnectID),
-			InstanceId:     aws.String(instanceID),
-		}
+params := &connect.DescribeQuickConnectInput{
+	QuickConnectId: aws.String(quickConnectID),
+	InstanceId:     aws.String(instanceID),
+}
 
-		get
+get
 function, err := conn.DescribeQuickConnectWithContext(ctx, params)
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*
+*
 function = *get
 function
 
-		return nil
+return nil
 	}
 }
 
@@ -235,36 +235,36 @@ func testAccCheckQuickConnectDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_connect_quick_connect" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_connect_quick_connect" {
+continue
+	}
 
-			conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)
+	conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)
 
-			instanceID, quickConnectID, err := tfconnect.QuickConnectParseID(rs.Primary.ID)
+	instanceID, quickConnectID, err := tfconnect.QuickConnectParseID(rs.Primary.ID)
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			params := &connect.DescribeQuickConnectInput{
-				QuickConnectId: aws.String(quickConnectID),
-				InstanceId:     aws.String(instanceID),
-			}
+	params := &connect.DescribeQuickConnectInput{
+QuickConnectId: aws.String(quickConnectID),
+InstanceId:     aws.String(instanceID),
+	}
 
-			_, err = conn.DescribeQuickConnectWithContext(ctx, params)
+	_, err = conn.DescribeQuickConnectWithContext(ctx, params)
 
-			if tfawserr.ErrCodeEquals(err, connect.ErrCodeResourceNotFoundException) {
-				continue
-			}
+	if tfawserr.ErrCodeEquals(err, connect.ErrCodeResourceNotFoundException) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
-		}
+	if err != nil {
+return err
+	}
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -283,8 +283,8 @@ resource "aws_connect_instance" "test" {
 
 func testAccQuickConnectConfig_phoneNumber(rName, rName2, label string, phoneNumber string) string {
 	return acctest.ConfigCompose(
-		testAccQuickConnectConfig_base(rName),
-		fmt.Sprintf(`
+testAccQuickConnectConfig_base(rName),
+fmt.Sprintf(`
 resource "aws_connect_quick_connect" "test" {
   instance_id = aws_connect_instance.test.id
   name        = %[1]q
@@ -308,8 +308,8 @@ resource "aws_connect_quick_connect" "test" {
 
 func testAccQuickConnectConfig_tags(rName, rName2, label string, phoneNumber string) string {
 	return acctest.ConfigCompose(
-		testAccQuickConnectConfig_base(rName),
-		fmt.Sprintf(`
+testAccQuickConnectConfig_base(rName),
+fmt.Sprintf(`
 resource "aws_connect_quick_connect" "test" {
   instance_id = aws_connect_instance.test.id
   name        = %[1]q
@@ -334,8 +334,8 @@ resource "aws_connect_quick_connect" "test" {
 
 func testAccQuickConnectConfig_tagsUpdated(rName, rName2, label string, phoneNumber string) string {
 	return acctest.ConfigCompose(
-		testAccQuickConnectConfig_base(rName),
-		fmt.Sprintf(`
+testAccQuickConnectConfig_base(rName),
+fmt.Sprintf(`
 resource "aws_connect_quick_connect" "test" {
   instance_id = aws_connect_instance.test.id
   name        = %[1]q

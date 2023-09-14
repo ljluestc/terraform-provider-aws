@@ -17,33 +17,33 @@ func TestAccIPAMPoolCIDRsDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_vpc_ipam_pool_cidrs.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccIPAMPoolCIDRsDataSourceConfig_basicOneCIDRs,
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccIPAMPoolCIDRsDataSourceConfig_basicOneCIDRs,
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttr(dataSourceName, "ipam_pool_cidrs.#", "1"),
-				),
-			},
-			{
-				Config: testAccIPAMPoolCIDRsDataSourceConfig_basicTwoCIDRs,
-				Check: resource.ComposeAggregateTestCheck
+	resource.TestCheckResourceAttr(dataSourceName, "ipam_pool_cidrs.#", "1"),
+),
+	},
+	{
+Config: testAccIPAMPoolCIDRsDataSourceConfig_basicTwoCIDRs,
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttr(dataSourceName, "ipam_pool_cidrs.#", "2"),
-				),
-			},
-			{
-				Config: testAccIPAMPoolCIDRsDataSourceConfig_basicTwoCIDRsFiltered,
-				Check: resource.ComposeAggregateTestCheck
+	resource.TestCheckResourceAttr(dataSourceName, "ipam_pool_cidrs.#", "2"),
+),
+	},
+	{
+Config: testAccIPAMPoolCIDRsDataSourceConfig_basicTwoCIDRsFiltered,
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttr(dataSourceName, "ipam_pool_cidrs.#", "1"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttr(dataSourceName, "ipam_pool_cidrs.#", "1"),
+),
+	},
+},
 	})
 }
 

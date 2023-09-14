@@ -30,50 +30,50 @@ func TestAccRoute53ResolverRuleDataSource_basic(t *testing.T) {
 	ds3ResourceName := "data.aws_route53_resolver_rule.by_name_and_rule_type"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccRuleDataSourceConfig_basic(rName, domainName),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccRuleDataSourceConfig_basic(rName, domainName),
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "domain_name", resourceName, "domain_name"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "name", resourceName, "name"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "owner_id", resourceName, "owner_id"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "resolver_endpoint_id", resourceName, "resolver_endpoint_id"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "resolver_rule_id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "rule_type", resourceName, "rule_type"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "share_status", resourceName, "share_status"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "tags.%", resourceName, "tags.%"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "domain_name", resourceName, "domain_name"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "name", resourceName, "name"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "owner_id", resourceName, "owner_id"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "resolver_endpoint_id", resourceName, "resolver_endpoint_id"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "resolver_rule_id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "rule_type", resourceName, "rule_type"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "share_status", resourceName, "share_status"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "tags.%", resourceName, "tags.%"),
 
-					resource.TestCheckResourceAttrPair(ds2ResourceName, "id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(ds2ResourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(ds2ResourceName, "domain_name", resourceName, "domain_name"),
-					resource.TestCheckResourceAttrPair(ds2ResourceName, "name", resourceName, "name"),
-					resource.TestCheckResourceAttrPair(ds2ResourceName, "owner_id", resourceName, "owner_id"),
-					resource.TestCheckResourceAttrPair(ds2ResourceName, "resolver_endpoint_id", resourceName, "resolver_endpoint_id"),
-					resource.TestCheckResourceAttrPair(ds2ResourceName, "resolver_rule_id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(ds2ResourceName, "rule_type", resourceName, "rule_type"),
-					resource.TestCheckResourceAttrPair(ds2ResourceName, "share_status", resourceName, "share_status"),
-					resource.TestCheckResourceAttrPair(ds2ResourceName, "tags.%", resourceName, "tags.%"),
+	resource.TestCheckResourceAttrPair(ds2ResourceName, "id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(ds2ResourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(ds2ResourceName, "domain_name", resourceName, "domain_name"),
+	resource.TestCheckResourceAttrPair(ds2ResourceName, "name", resourceName, "name"),
+	resource.TestCheckResourceAttrPair(ds2ResourceName, "owner_id", resourceName, "owner_id"),
+	resource.TestCheckResourceAttrPair(ds2ResourceName, "resolver_endpoint_id", resourceName, "resolver_endpoint_id"),
+	resource.TestCheckResourceAttrPair(ds2ResourceName, "resolver_rule_id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(ds2ResourceName, "rule_type", resourceName, "rule_type"),
+	resource.TestCheckResourceAttrPair(ds2ResourceName, "share_status", resourceName, "share_status"),
+	resource.TestCheckResourceAttrPair(ds2ResourceName, "tags.%", resourceName, "tags.%"),
 
-					resource.TestCheckResourceAttrPair(ds3ResourceName, "id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(ds3ResourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(ds3ResourceName, "domain_name", resourceName, "domain_name"),
-					resource.TestCheckResourceAttrPair(ds3ResourceName, "name", resourceName, "name"),
-					resource.TestCheckResourceAttrPair(ds3ResourceName, "owner_id", resourceName, "owner_id"),
-					resource.TestCheckResourceAttrPair(ds3ResourceName, "resolver_endpoint_id", resourceName, "resolver_endpoint_id"),
-					resource.TestCheckResourceAttrPair(ds3ResourceName, "resolver_rule_id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(ds3ResourceName, "rule_type", resourceName, "rule_type"),
-					resource.TestCheckResourceAttrPair(ds3ResourceName, "share_status", resourceName, "share_status"),
-					resource.TestCheckResourceAttrPair(ds3ResourceName, "tags.%", resourceName, "tags.%"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(ds3ResourceName, "id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(ds3ResourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(ds3ResourceName, "domain_name", resourceName, "domain_name"),
+	resource.TestCheckResourceAttrPair(ds3ResourceName, "name", resourceName, "name"),
+	resource.TestCheckResourceAttrPair(ds3ResourceName, "owner_id", resourceName, "owner_id"),
+	resource.TestCheckResourceAttrPair(ds3ResourceName, "resolver_endpoint_id", resourceName, "resolver_endpoint_id"),
+	resource.TestCheckResourceAttrPair(ds3ResourceName, "resolver_rule_id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(ds3ResourceName, "rule_type", resourceName, "rule_type"),
+	resource.TestCheckResourceAttrPair(ds3ResourceName, "share_status", resourceName, "share_status"),
+	resource.TestCheckResourceAttrPair(ds3ResourceName, "tags.%", resourceName, "tags.%"),
+),
+	},
+},
 	})
 }
 
@@ -86,31 +86,31 @@ func TestAccRoute53ResolverRuleDataSource_resolverEndpointIdWithTags(t *testing.
 	ds1ResourceName := "data.aws_route53_resolver_rule.by_resolver_endpoint_id"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccRuleDataSourceConfig_resolverEndpointIDTags(rName, domainName),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccRuleDataSourceConfig_resolverEndpointIDTags(rName, domainName),
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "domain_name", resourceName, "domain_name"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "name", resourceName, "name"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "owner_id", resourceName, "owner_id"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "resolver_endpoint_id", resourceName, "resolver_endpoint_id"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "resolver_rule_id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "rule_type", resourceName, "rule_type"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "share_status", resourceName, "share_status"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "tags.%", resourceName, "tags.%"),
-					resource.TestCheckResourceAttr(ds1ResourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "tags.Key1", resourceName, "tags.Key1"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "tags.Key2", resourceName, "tags.Key2"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "domain_name", resourceName, "domain_name"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "name", resourceName, "name"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "owner_id", resourceName, "owner_id"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "resolver_endpoint_id", resourceName, "resolver_endpoint_id"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "resolver_rule_id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "rule_type", resourceName, "rule_type"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "share_status", resourceName, "share_status"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "tags.%", resourceName, "tags.%"),
+	resource.TestCheckResourceAttr(ds1ResourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "tags.Key1", resourceName, "tags.Key1"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "tags.Key2", resourceName, "tags.Key2"),
+),
+	},
+},
 	})
 }
 
@@ -123,35 +123,35 @@ func TestAccRoute53ResolverRuleDataSource_sharedByMe(t *testing.T) {
 	ds1ResourceName := "data.aws_route53_resolver_rule.by_resolver_endpoint_id"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckAlternateAccount(t)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccRuleDataSourceConfig_sharedByMe(rName, domainName),
-				Check: resource.ComposeAggregateTestCheck
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckAlternateAccount(t)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
+Steps: []resource.TestStep{
+	{
+Config: testAccRuleDataSourceConfig_sharedByMe(rName, domainName),
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "domain_name", resourceName, "domain_name"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "name", resourceName, "name"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "owner_id", resourceName, "owner_id"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "resolver_endpoint_id", resourceName, "resolver_endpoint_id"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "resolver_rule_id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "rule_type", resourceName, "rule_type"),
-					resource.TestCheckResourceAttr(ds1ResourceName, "share_status", "SHARED_BY_ME"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "tags.%", resourceName, "tags.%"),
-					resource.TestCheckResourceAttr(ds1ResourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "tags.Key1", resourceName, "tags.Key1"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "tags.Key2", resourceName, "tags.Key2"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "domain_name", resourceName, "domain_name"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "name", resourceName, "name"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "owner_id", resourceName, "owner_id"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "resolver_endpoint_id", resourceName, "resolver_endpoint_id"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "resolver_rule_id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "rule_type", resourceName, "rule_type"),
+	resource.TestCheckResourceAttr(ds1ResourceName, "share_status", "SHARED_BY_ME"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "tags.%", resourceName, "tags.%"),
+	resource.TestCheckResourceAttr(ds1ResourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "tags.Key1", resourceName, "tags.Key1"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "tags.Key2", resourceName, "tags.Key2"),
+),
+	},
+},
 	})
 }
 
@@ -164,33 +164,33 @@ func TestAccRoute53ResolverRuleDataSource_sharedWithMe(t *testing.T) {
 	ds1ResourceName := "data.aws_route53_resolver_rule.by_resolver_endpoint_id"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckAlternateAccount(t)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccRuleDataSourceConfig_sharedWithMe(rName, domainName),
-				Check: resource.ComposeAggregateTestCheck
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckAlternateAccount(t)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
+Steps: []resource.TestStep{
+	{
+Config: testAccRuleDataSourceConfig_sharedWithMe(rName, domainName),
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "domain_name", resourceName, "domain_name"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "name", resourceName, "name"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "owner_id", resourceName, "owner_id"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "resolver_endpoint_id", resourceName, "resolver_endpoint_id"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "resolver_rule_id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "rule_type", resourceName, "rule_type"),
-					resource.TestCheckResourceAttr(ds1ResourceName, "share_status", "SHARED_WITH_ME"),
-					// Tags cannot be retrieved for rules shared with us.
-					resource.TestCheckResourceAttr(ds1ResourceName, "tags.%", "0"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "domain_name", resourceName, "domain_name"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "name", resourceName, "name"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "owner_id", resourceName, "owner_id"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "resolver_endpoint_id", resourceName, "resolver_endpoint_id"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "resolver_rule_id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "rule_type", resourceName, "rule_type"),
+	resource.TestCheckResourceAttr(ds1ResourceName, "share_status", "SHARED_WITH_ME"),
+	// Tags cannot be retrieved for rules shared with us.
+	resource.TestCheckResourceAttr(ds1ResourceName, "tags.%", "0"),
+),
+	},
+},
 	})
 }
 
@@ -277,7 +277,7 @@ resource "aws_ram_resource_association" "test" {
 data "aws_organizations_organization" "test" {}
 
 resource "aws_ram_principal_association" "test" {
-  principal          = data.aws_organizations_organization.test.arn
+  principal = data.aws_organizations_organization.test.arn
   resource_share_arn = aws_ram_resource_share.test.arn
 }
 
@@ -322,7 +322,7 @@ resource "aws_ram_resource_association" "test" {
 data "aws_organizations_organization" "test" {}
 
 resource "aws_ram_principal_association" "test" {
-  principal          = data.aws_organizations_organization.test.arn
+  principal = data.aws_organizations_organization.test.arn
   resource_share_arn = aws_ram_resource_share.test.arn
 }
 
@@ -341,8 +341,8 @@ data "aws_route53_resolver_rule" "by_resolver_endpoint_id" {
 func testAccErrorCheckSkipRoute53(t *testing.T) resource.ErrorCheck
 func {
 	return acctest.ErrorCheckSkipMessagesContaining(t,
-		"Operations related to PublicDNS",
-		"Regional control plane current does not support",
-		"NoSuchHostedZone: The specified hosted zone",
+"Operations related to PublicDNS",
+"Regional control plane current does not support",
+"NoSuchHostedZone: The specified hosted zone",
 	)
 }

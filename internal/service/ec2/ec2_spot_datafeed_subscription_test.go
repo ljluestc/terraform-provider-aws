@@ -25,8 +25,8 @@ func TestAccEC2SpotDatafeedSubscription_serial(t *testing.T) {
 
 	testCases := map[string]
 func(t *testing.T){
-		"basic":      testAccSpotDatafeedSubscription_basic,
-		"disappears": testAccSpotDatafeedSubscription_disappears,
+"basic":      testAccSpotDatafeedSubscription_basic,
+"disappears": testAccSpotDatafeedSubscription_disappears,
 	}
 
 	acctest.RunSerialTests1Level(t, testCases, 0)
@@ -40,25 +40,25 @@ func testAccSpotDatafeedSubscription_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotDatafeedSubscription(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSpotDatafeedSubscriptionDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSpotDatafeedSubscriptionConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckSpotDatafeedSubscriptionDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSpotDatafeedSubscriptionConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckSpotDatafeedSubscriptionExists(ctx, resourceName, &subscription),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckSpotDatafeedSubscriptionExists(ctx, resourceName, &subscription),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -70,22 +70,22 @@ func testAccSpotDatafeedSubscription_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotDatafeedSubscription(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSpotDatafeedSubscriptionDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSpotDatafeedSubscriptionConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckSpotDatafeedSubscriptionDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSpotDatafeedSubscriptionConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckSpotDatafeedSubscriptionExists(ctx, resourceName, &subscription),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceSpotDataFeedSubscription(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckSpotDatafeedSubscriptionExists(ctx, resourceName, &subscription),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceSpotDataFeedSubscription(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -94,26 +94,26 @@ func testAccCheckSpotDatafeedSubscriptionExists(ctx context.Context, n string, v
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No EC2 Spot Datafeed Subscription ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No EC2 Spot Datafeed Subscription ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-		output, err := tfec2.FindSpotDatafeedSubscription(ctx, conn)
+output, err := tfec2.FindSpotDatafeedSubscription(ctx, conn)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*v = *output
+*v = *output
 
-		return nil
+return nil
 	}
 }
 
@@ -122,27 +122,27 @@ func testAccCheckSpotDatafeedSubscriptionDestroy(ctx context.Context) resource.T
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_spot_datafeed_subscription" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_spot_datafeed_subscription" {
+continue
+	}
 
-			_, err := tfec2.FindSpotDatafeedSubscription(ctx, conn)
+	_, err := tfec2.FindSpotDatafeedSubscription(ctx, conn)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("EC2 Spot Datafeed Subscription %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("EC2 Spot Datafeed Subscription %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -153,15 +153,15 @@ func testAccPreCheckSpotDatafeedSubscription(ctx context.Context, t *testing.T) 
 	_, err := conn.DescribeSpotDatafeedSubscriptionWithContext(ctx, &ec2.DescribeSpotDatafeedSubscriptionInput{})
 
 	if acctest.PreCheckSkipError(err) {
-		t.Skipf("skipping acceptance testing: %s", err)
+t.Skipf("skipping acceptance testing: %s", err)
 	}
 
 	if tfawserr.ErrCodeEquals(err, tfec2.ErrCodeInvalidSpotDatafeedNotFound) {
-		return
+return
 	}
 
 	if err != nil {
-		t.Fatalf("unexpected PreCheck error: %s", err)
+t.Fatalf("unexpected PreCheck error: %s", err)
 	}
 }
 

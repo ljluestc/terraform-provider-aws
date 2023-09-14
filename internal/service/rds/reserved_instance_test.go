@@ -24,7 +24,7 @@ func TestAccRDSReservedInstance_basic(t *testing.T) {
 	key := "RUN_RDS_RESERVED_INSTANCE_TESTS"
 	vifId := os.Getenv(key)
 	if vifId != "true" {
-		t.Skipf("Environment variable %s is not set to true", key)
+t.Skipf("Environment variable %s is not set to true", key)
 	}
 
 	var reservation rds.ReservedDBInstance
@@ -34,62 +34,62 @@ func TestAccRDSReservedInstance_basic(t *testing.T) {
 	instanceCount := "1"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccReservedInstanceConfig_basic(rName, instanceCount),
-				Check: resource.ComposeTestCheckFunc(
-					testAccReservedInstanceExists(ctx, resourceName, &reservation),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "rds", regexache.MustCompile(`ri:.+`)),
-					resource.TestCheckResourceAttrPair(dataSourceName, "currency_code", resourceName, "currency_code"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "db_instance_class", resourceName, "db_instance_class"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "duration", resourceName, "duration"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "fixed_price", resourceName, "fixed_price"),
-					resource.TestCheckResourceAttr(resourceName, "instance_count", instanceCount),
-					resource.TestCheckResourceAttrSet(resourceName, "lease_id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "multi_az", resourceName, "multi_az"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "offering_id", resourceName, "offering_id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "offering_type", resourceName, "offering_type"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "product_description", resourceName, "product_description"),
-					resource.TestCheckResourceAttrSet(resourceName, "recurring_charges"),
-					resource.TestCheckResourceAttr(resourceName, "reservation_id", rName),
-					resource.TestCheckResourceAttrSet(resourceName, "start_time"),
-					resource.TestCheckResourceAttrSet(resourceName, "state"),
-					resource.TestCheckResourceAttrSet(resourceName, "usage_price"),
-				),
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             nil,
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+Steps: []resource.TestStep{
+	{
+Config: testAccReservedInstanceConfig_basic(rName, instanceCount),
+Check: resource.ComposeTestCheckFunc(
+	testAccReservedInstanceExists(ctx, resourceName, &reservation),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "rds", regexache.MustCompile(`ri:.+`)),
+	resource.TestCheckResourceAttrPair(dataSourceName, "currency_code", resourceName, "currency_code"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "db_instance_class", resourceName, "db_instance_class"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "duration", resourceName, "duration"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "fixed_price", resourceName, "fixed_price"),
+	resource.TestCheckResourceAttr(resourceName, "instance_count", instanceCount),
+	resource.TestCheckResourceAttrSet(resourceName, "lease_id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "multi_az", resourceName, "multi_az"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "offering_id", resourceName, "offering_id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "offering_type", resourceName, "offering_type"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "product_description", resourceName, "product_description"),
+	resource.TestCheckResourceAttrSet(resourceName, "recurring_charges"),
+	resource.TestCheckResourceAttr(resourceName, "reservation_id", rName),
+	resource.TestCheckResourceAttrSet(resourceName, "start_time"),
+	resource.TestCheckResourceAttrSet(resourceName, "state"),
+	resource.TestCheckResourceAttrSet(resourceName, "usage_price"),
+),
+	},
+},
 	})
 }
 
 func testAccReservedInstanceExists(ctx context.Context, n string, reservation *rds.ReservedDBInstance) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
 
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No RDS Reserved Instance reservation id is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No RDS Reserved Instance reservation id is set")
+}
 
-		resp, err := tfrds.FindReservedDBInstanceByID(ctx, conn, rs.Primary.ID)
-		if err != nil {
-			return err
-		}
+resp, err := tfrds.FindReservedDBInstanceByID(ctx, conn, rs.Primary.ID)
+if err != nil {
+	return err
+}
 
-		if resp == nil {
-			return fmt.Errorf("RDS Reserved Instance %q does not exist", rs.Primary.ID)
-		}
+if resp == nil {
+	return fmt.Errorf("RDS Reserved Instance %q does not exist", rs.Primary.ID)
+}
 
-		*reservation = *resp
+*reservation = *resp
 
-		return nil
+return nil
 	}
 }
 

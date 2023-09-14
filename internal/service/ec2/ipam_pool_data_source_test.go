@@ -18,35 +18,35 @@ func TestAccIPAMPoolDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_vpc_ipam_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccIPAMPoolDataSourceConfig_optionsBasic,
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccIPAMPoolDataSourceConfig_optionsBasic,
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttrPair(dataSourceName, "address_family", resourceName, "address_family"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "allocation_default_netmask_length", resourceName, "allocation_default_netmask_length"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "allocation_max_netmask_length", resourceName, "allocation_max_netmask_length"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "allocation_min_netmask_length", resourceName, "allocation_min_netmask_length"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "allocation_resource_tags.%", resourceName, "allocation_resource_tags.%"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "auto_import", resourceName, "auto_import"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "aws_service", resourceName, "aws_service"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "description", resourceName, "description"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "ipam_scope_id", resourceName, "ipam_scope_id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "ipam_scope_type", resourceName, "ipam_scope_type"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "locale", resourceName, "locale"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "pool_depth", resourceName, "pool_depth"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "publicly_advertisable", resourceName, "publicly_advertisable"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "source_ipam_pool_id", resourceName, "source_ipam_pool_id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "state", resourceName, "state"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(dataSourceName, "address_family", resourceName, "address_family"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "allocation_default_netmask_length", resourceName, "allocation_default_netmask_length"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "allocation_max_netmask_length", resourceName, "allocation_max_netmask_length"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "allocation_min_netmask_length", resourceName, "allocation_min_netmask_length"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "allocation_resource_tags.%", resourceName, "allocation_resource_tags.%"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "auto_import", resourceName, "auto_import"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "aws_service", resourceName, "aws_service"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "description", resourceName, "description"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "ipam_scope_id", resourceName, "ipam_scope_id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "ipam_scope_type", resourceName, "ipam_scope_type"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "locale", resourceName, "locale"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "pool_depth", resourceName, "pool_depth"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "publicly_advertisable", resourceName, "publicly_advertisable"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "source_ipam_pool_id", resourceName, "source_ipam_pool_id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "state", resourceName, "state"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
+),
+	},
+},
 	})
 }
 

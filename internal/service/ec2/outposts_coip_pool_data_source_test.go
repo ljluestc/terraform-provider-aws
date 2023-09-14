@@ -18,21 +18,21 @@ func TestAccEC2OutpostsCoIPPoolDataSource_filter(t *testing.T) {
 	dataSourceName := "data.aws_ec2_coip_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccOutpostsCoIPPoolDataSourceConfig_filter(),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccOutpostsCoIPPoolDataSourceConfig_filter(),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestMatchResourceAttr(dataSourceName, "local_gateway_route_table_id", regexache.MustCompile(`^lgw-rtb-`)),
-					resource.TestMatchResourceAttr(dataSourceName, "pool_id", regexache.MustCompile(`^ipv4pool-coip-`)),
-					acctest.CheckResourceAttrGreaterThanValue(dataSourceName, "pool_cidrs.#", 0),
-				),
-			},
-		},
+	resource.TestMatchResourceAttr(dataSourceName, "local_gateway_route_table_id", regexache.MustCompile(`^lgw-rtb-`)),
+	resource.TestMatchResourceAttr(dataSourceName, "pool_id", regexache.MustCompile(`^ipv4pool-coip-`)),
+	acctest.CheckResourceAttrGreaterThanValue(dataSourceName, "pool_cidrs.#", 0),
+),
+	},
+},
 	})
 }
 
@@ -42,22 +42,22 @@ func TestAccEC2OutpostsCoIPPoolDataSource_id(t *testing.T) {
 	dataSourceName := "data.aws_ec2_coip_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccOutpostsCoIPPoolDataSourceConfig_id(),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccOutpostsCoIPPoolDataSourceConfig_id(),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestMatchResourceAttr(dataSourceName, "local_gateway_route_table_id", regexache.MustCompile(`^lgw-rtb-`)),
-					resource.TestMatchResourceAttr(dataSourceName, "pool_id", regexache.MustCompile(`^ipv4pool-coip-`)),
-					acctest.MatchResourceAttrRegionalARN(dataSourceName, "arn", "ec2", regexache.MustCompile(`coip-pool/ipv4pool-coip-.+$`)),
-					acctest.CheckResourceAttrGreaterThanValue(dataSourceName, "pool_cidrs.#", 0),
-				),
-			},
-		},
+	resource.TestMatchResourceAttr(dataSourceName, "local_gateway_route_table_id", regexache.MustCompile(`^lgw-rtb-`)),
+	resource.TestMatchResourceAttr(dataSourceName, "pool_id", regexache.MustCompile(`^ipv4pool-coip-`)),
+	acctest.MatchResourceAttrRegionalARN(dataSourceName, "arn", "ec2", regexache.MustCompile(`coip-pool/ipv4pool-coip-.+$`)),
+	acctest.CheckResourceAttrGreaterThanValue(dataSourceName, "pool_cidrs.#", 0),
+),
+	},
+},
 	})
 }
 

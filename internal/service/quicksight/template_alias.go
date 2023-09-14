@@ -46,33 +46,33 @@ func (r *resourceTemplateAlias) Metadata(_ context.Context, req resource.Metadat
 
 func (r *resourceTemplateAlias) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Attributes: map[string]schema.Attribute{
-			"alias_name": schema.StringAttribute{
-				Required: true,
-				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.RequiresReplace(),
-				},
-			},
-			"arn": framework.ARNAttributeComputedOnly(),
-			"aws_account_id": schema.StringAttribute{
-				Optional: true,
-				Computed: true,
-				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.UseStateForUnknown(),
-					stringplanmodifier.RequiresReplace(),
-				},
-			},
-			"id": framework.IDAttribute(),
-			"template_id": schema.StringAttribute{
-				Required: true,
-				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.RequiresReplace(),
-				},
-			},
-			"template_version_number": schema.Int64Attribute{
-				Required: true,
-			},
-		},
+Attributes: map[string]schema.Attribute{
+	"alias_name": schema.StringAttribute{
+Required: true,
+PlanModifiers: []planmodifier.String{
+	stringplanmodifier.RequiresReplace(),
+},
+	},
+	"arn": framework.ARNAttributeComputedOnly(),
+	"aws_account_id": schema.StringAttribute{
+Optional: true,
+Computed: true,
+PlanModifiers: []planmodifier.String{
+	stringplanmodifier.UseStateForUnknown(),
+	stringplanmodifier.RequiresReplace(),
+},
+	},
+	"id": framework.IDAttribute(),
+	"template_id": schema.StringAttribute{
+Required: true,
+PlanModifiers: []planmodifier.String{
+	stringplanmodifier.RequiresReplace(),
+},
+	},
+	"template_version_number": schema.Int64Attribute{
+Required: true,
+	},
+},
 	}
 }
 
@@ -82,36 +82,36 @@ func (r *resourceTemplateAlias) Create(ctx context.Context, req resource.CreateR
 	var plan resourceTemplateAliasData
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)
 	if resp.Diagnostics.HasError() {
-		return
+return
 	}
 
 	if plan.AWSAccountID.IsUnknown() || plan.AWSAccountID.IsNull() {
-		plan.AWSAccountID = types.StringValue(r.Meta().AccountID)
+plan.AWSAccountID = types.StringValue(r.Meta().AccountID)
 	}
 	plan.ID = types.StringValue(
-		createTemplateAliasID(plan.AWSAccountID.ValueString(), plan.TemplateID.ValueString(), plan.AliasName.ValueString()))
+createTemplateAliasID(plan.AWSAccountID.ValueString(), plan.TemplateID.ValueString(), plan.AliasName.ValueString()))
 
 	in := &quicksight.CreateTemplateAliasInput{
-		AliasName:             aws.String(plan.AliasName.ValueString()),
-		AwsAccountId:          aws.String(plan.AWSAccountID.ValueString()),
-		TemplateId:            aws.String(plan.TemplateID.ValueString()),
-		TemplateVersionNumber: aws.Int64(plan.TemplateVersionNumber.ValueInt64()),
+AliasName:             aws.String(plan.AliasName.ValueString()),
+AwsAccountId:          aws.String(plan.AWSAccountID.ValueString()),
+TemplateId:            aws.String(plan.TemplateID.ValueString()),
+TemplateVersionNumber: aws.Int64(plan.TemplateVersionNumber.ValueInt64()),
 	}
 
 	out, err := conn.CreateTemplateAliasWithContext(ctx, in)
 	if err != nil {
-		resp.Diagnostics.AddError(
-			create.ProblemStandardMessage(names.QuickSight, create.ErrActionCreating, ResNameTemplateAlias, plan.AliasName.String(), err),
-			err.Error(),
-		)
-		return
+resp.Diagnostics.AddError(
+	create.ProblemStandardMessage(names.QuickSight, create.ErrActionCreating, ResNameTemplateAlias, plan.AliasName.String(), err),
+	err.Error(),
+)
+return
 	}
 	if out == nil || out.TemplateAlias == nil {
-		resp.Diagnostics.AddError(
-			create.ProblemStandardMessage(names.QuickSight, create.ErrActionCreating, ResNameTemplateAlias, plan.AliasName.String(), nil),
-			errors.New("empty output").Error(),
-		)
-		return
+resp.Diagnostics.AddError(
+	create.ProblemStandardMessage(names.QuickSight, create.ErrActionCreating, ResNameTemplateAlias, plan.AliasName.String(), nil),
+	errors.New("empty output").Error(),
+)
+return
 	}
 
 	plan.ARN = flex.StringToFramework(ctx, out.TemplateAlias.Arn)
@@ -125,20 +125,20 @@ func (r *resourceTemplateAlias) Read(ctx context.Context, req resource.ReadReque
 	var state resourceTemplateAliasData
 	resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
 	if resp.Diagnostics.HasError() {
-		return
+return
 	}
 
 	out, err := FindTemplateAliasByID(ctx, conn, state.ID.ValueString())
 	if tfresource.NotFound(err) {
-		resp.State.RemoveResource(ctx)
-		return
+resp.State.RemoveResource(ctx)
+return
 	}
 	if err != nil {
-		resp.Diagnostics.AddError(
-			create.ProblemStandardMessage(names.QuickSight, create.ErrActionSetting, ResNameTemplateAlias, state.ID.String(), err),
-			err.Error(),
-		)
-		return
+resp.Diagnostics.AddError(
+	create.ProblemStandardMessage(names.QuickSight, create.ErrActionSetting, ResNameTemplateAlias, state.ID.String(), err),
+	err.Error(),
+)
+return
 	}
 
 	state.ARN = flex.StringToFramework(ctx, out.Arn)
@@ -149,11 +149,11 @@ func (r *resourceTemplateAlias) Read(ctx context.Context, req resource.ReadReque
 	// individual values in state
 	awsAccountID, templateID, _, err := ParseTemplateAliasID(state.ID.ValueString())
 	if err != nil {
-		resp.Diagnostics.AddError(
-			create.ProblemStandardMessage(names.QuickSight, create.ErrActionSetting, ResNameTemplateAlias, state.ID.String(), err),
-			err.Error(),
-		)
-		return
+resp.Diagnostics.AddError(
+	create.ProblemStandardMessage(names.QuickSight, create.ErrActionSetting, ResNameTemplateAlias, state.ID.String(), err),
+	err.Error(),
+)
+return
 	}
 
 	state.AWSAccountID = flex.StringValueToFramework(ctx, awsAccountID)
@@ -169,34 +169,34 @@ func (r *resourceTemplateAlias) Update(ctx context.Context, req resource.UpdateR
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)
 	resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
 	if resp.Diagnostics.HasError() {
-		return
+return
 	}
 
 	if !plan.TemplateVersionNumber.Equal(state.TemplateVersionNumber) {
-		in := &quicksight.UpdateTemplateAliasInput{
-			AliasName:             aws.String(plan.AliasName.ValueString()),
-			AwsAccountId:          aws.String(plan.AWSAccountID.ValueString()),
-			TemplateId:            aws.String(plan.TemplateID.ValueString()),
-			TemplateVersionNumber: aws.Int64(plan.TemplateVersionNumber.ValueInt64()),
-		}
+in := &quicksight.UpdateTemplateAliasInput{
+	AliasName:             aws.String(plan.AliasName.ValueString()),
+	AwsAccountId:          aws.String(plan.AWSAccountID.ValueString()),
+	TemplateId:            aws.String(plan.TemplateID.ValueString()),
+	TemplateVersionNumber: aws.Int64(plan.TemplateVersionNumber.ValueInt64()),
+}
 
-		out, err := conn.UpdateTemplateAliasWithContext(ctx, in)
-		if err != nil {
-			resp.Diagnostics.AddError(
-				create.ProblemStandardMessage(names.QuickSight, create.ErrActionUpdating, ResNameTemplateAlias, plan.ID.String(), err),
-				err.Error(),
-			)
-			return
-		}
-		if out == nil || out.TemplateAlias == nil {
-			resp.Diagnostics.AddError(
-				create.ProblemStandardMessage(names.QuickSight, create.ErrActionUpdating, ResNameTemplateAlias, plan.ID.String(), nil),
-				errors.New("empty output").Error(),
-			)
-			return
-		}
+out, err := conn.UpdateTemplateAliasWithContext(ctx, in)
+if err != nil {
+	resp.Diagnostics.AddError(
+create.ProblemStandardMessage(names.QuickSight, create.ErrActionUpdating, ResNameTemplateAlias, plan.ID.String(), err),
+err.Error(),
+	)
+	return
+}
+if out == nil || out.TemplateAlias == nil {
+	resp.Diagnostics.AddError(
+create.ProblemStandardMessage(names.QuickSight, create.ErrActionUpdating, ResNameTemplateAlias, plan.ID.String(), nil),
+errors.New("empty output").Error(),
+	)
+	return
+}
 
-		plan.ARN = flex.StringToFramework(ctx, out.TemplateAlias.Arn)
+plan.ARN = flex.StringToFramework(ctx, out.TemplateAlias.Arn)
 	}
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &plan)...)
@@ -208,25 +208,25 @@ func (r *resourceTemplateAlias) Delete(ctx context.Context, req resource.DeleteR
 	var state resourceTemplateAliasData
 	resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
 	if resp.Diagnostics.HasError() {
-		return
+return
 	}
 
 	in := &quicksight.DeleteTemplateAliasInput{
-		AliasName:    aws.String(state.AliasName.ValueString()),
-		AwsAccountId: aws.String(state.AWSAccountID.ValueString()),
-		TemplateId:   aws.String(state.TemplateID.ValueString()),
+AliasName:    aws.String(state.AliasName.ValueString()),
+AwsAccountId: aws.String(state.AWSAccountID.ValueString()),
+TemplateId:   aws.String(state.TemplateID.ValueString()),
 	}
 
 	_, err := conn.DeleteTemplateAliasWithContext(ctx, in)
 	if err != nil {
-		if tfawserr.ErrCodeEquals(err, quicksight.ErrCodeResourceNotFoundException) {
-			return
-		}
-		resp.Diagnostics.AddError(
-			create.ProblemStandardMessage(names.QuickSight, create.ErrActionDeleting, ResNameTemplateAlias, state.ID.String(), err),
-			err.Error(),
-		)
-		return
+if tfawserr.ErrCodeEquals(err, quicksight.ErrCodeResourceNotFoundException) {
+	return
+}
+resp.Diagnostics.AddError(
+	create.ProblemStandardMessage(names.QuickSight, create.ErrActionDeleting, ResNameTemplateAlias, state.ID.String(), err),
+	err.Error(),
+)
+return
 	}
 }
 
@@ -237,29 +237,29 @@ func (r *resourceTemplateAlias) ImportState(ctx context.Context, req resource.Im
 func FindTemplateAliasByID(ctx context.Context, conn *quicksight.QuickSight, id string) (*quicksight.TemplateAlias, error) {
 	awsAccountID, templateID, aliasName, err := ParseTemplateAliasID(id)
 	if err != nil {
-		return nil, err
+return nil, err
 	}
 
 	in := &quicksight.DescribeTemplateAliasInput{
-		AliasName:    aws.String(aliasName),
-		AwsAccountId: aws.String(awsAccountID),
-		TemplateId:   aws.String(templateID),
+AliasName:    aws.String(aliasName),
+AwsAccountId: aws.String(awsAccountID),
+TemplateId:   aws.String(templateID),
 	}
 
 	out, err := conn.DescribeTemplateAliasWithContext(ctx, in)
 	if tfawserr.ErrCodeEquals(err, quicksight.ErrCodeResourceNotFoundException) {
-		return nil, &retry.NotFoundError{
-			LastError:   err,
-			LastRequest: in,
-		}
+return nil, &retry.NotFoundError{
+	LastError:   err,
+	LastRequest: in,
+}
 	}
 
 	if err != nil {
-		return nil, err
+return nil, err
 	}
 
 	if out == nil || out.TemplateAlias == nil {
-		return nil, tfresource.NewEmptyResultError(in)
+return nil, tfresource.NewEmptyResultError(in)
 	}
 
 	return out.TemplateAlias, nil
@@ -268,7 +268,7 @@ func FindTemplateAliasByID(ctx context.Context, conn *quicksight.QuickSight, id 
 func ParseTemplateAliasID(id string) (string, string, string, error) {
 	parts := strings.SplitN(id, ",", 3)
 	if len(parts) != 3 || parts[0] == "" || parts[1] == "" || parts[2] == "" {
-		return "", "", "", fmt.Errorf("unexpected format of ID (%s), expected AWS_ACCOUNT_ID,TEMPLATE_ID,ALIAS_NAME", id)
+return "", "", "", fmt.Errorf("unexpected format of ID (%s), expected AWS_ACCOUNT_ID,TEMPLATE_ID,ALIAS_NAME", id)
 	}
 	return parts[0], parts[1], parts[2], nil
 }

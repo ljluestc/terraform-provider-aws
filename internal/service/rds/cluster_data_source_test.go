@@ -20,31 +20,31 @@ func TestAccRDSClusterDataSource_basic(t *testing.T) {
 	resourceName := "aws_rds_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccClusterDataSourceConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "backtrack_window", resourceName, "backtrack_window"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "cluster_identifier", resourceName, "cluster_identifier"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "database_name", resourceName, "database_name"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "db_cluster_parameter_group_name", resourceName, "db_cluster_parameter_group_name"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "db_subnet_group_name", resourceName, "db_subnet_group_name"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "db_system_id", resourceName, "db_system_id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "engine", resourceName, "engine"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "engine_mode", resourceName, "engine_mode"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "engine_version", resourceName, "engine_version"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "hosted_zone_id", resourceName, "hosted_zone_id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "master_username", resourceName, "master_username"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "network_type", resourceName, "network_type"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "tags.Name", resourceName, "tags.Name"),
-				),
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccClusterDataSourceConfig_basic(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "backtrack_window", resourceName, "backtrack_window"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "cluster_identifier", resourceName, "cluster_identifier"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "database_name", resourceName, "database_name"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "db_cluster_parameter_group_name", resourceName, "db_cluster_parameter_group_name"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "db_subnet_group_name", resourceName, "db_subnet_group_name"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "db_system_id", resourceName, "db_system_id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "engine", resourceName, "engine"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "engine_mode", resourceName, "engine_mode"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "engine_version", resourceName, "engine_version"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "hosted_zone_id", resourceName, "hosted_zone_id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "master_username", resourceName, "master_username"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "network_type", resourceName, "network_type"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "tags.Name", resourceName, "tags.Name"),
+),
+	},
+},
 	})
 }
 
@@ -55,33 +55,33 @@ func TestAccRDSClusterDataSource_ManagedMasterPassword_managed(t *testing.T) {
 	resourceName := "aws_rds_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccClusterDataSourceConfig_managedMasterPassword(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "backtrack_window", resourceName, "backtrack_window"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "cluster_identifier", resourceName, "cluster_identifier"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "database_name", resourceName, "database_name"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "db_cluster_parameter_group_name", resourceName, "db_cluster_parameter_group_name"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "db_subnet_group_name", resourceName, "db_subnet_group_name"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "engine", resourceName, "engine"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "engine_mode", resourceName, "engine_mode"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "engine_version", resourceName, "engine_version"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "hosted_zone_id", resourceName, "hosted_zone_id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "master_username", resourceName, "master_username"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "master_user_secret.0.kms_key_id", resourceName, "master_user_secret.0.kms_key_id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "master_user_secret.0.secret_arn", resourceName, "master_user_secret.0.secret_arn"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "master_user_secret.0.secret_status", resourceName, "master_user_secret.0.secret_status"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "network_type", resourceName, "network_type"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "tags.Name", resourceName, "tags.Name"),
-				),
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccClusterDataSourceConfig_managedMasterPassword(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "backtrack_window", resourceName, "backtrack_window"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "cluster_identifier", resourceName, "cluster_identifier"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "database_name", resourceName, "database_name"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "db_cluster_parameter_group_name", resourceName, "db_cluster_parameter_group_name"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "db_subnet_group_name", resourceName, "db_subnet_group_name"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "engine", resourceName, "engine"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "engine_mode", resourceName, "engine_mode"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "engine_version", resourceName, "engine_version"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "hosted_zone_id", resourceName, "hosted_zone_id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "master_username", resourceName, "master_username"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "master_user_secret.0.kms_key_id", resourceName, "master_user_secret.0.kms_key_id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "master_user_secret.0.secret_arn", resourceName, "master_user_secret.0.secret_arn"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "master_user_secret.0.secret_status", resourceName, "master_user_secret.0.secret_status"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "network_type", resourceName, "network_type"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "tags.Name", resourceName, "tags.Name"),
+),
+	},
+},
 	})
 }
 

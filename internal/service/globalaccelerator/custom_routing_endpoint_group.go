@@ -110,7 +110,7 @@ func resourceCustomRoutingEndpointGroupCreate(ctx context.Context, d *schema.Res
 		DestinationConfigurations: expandCustomRoutingDestinationConfigurations(d.Get("destination_configuration").(*schema.Set).List()),
 		EndpointGroupRegion:       aws.String(meta.(*conns.AWSClient).Region),
 		IdempotencyToken:          aws.String(id.UniqueId()),
-		ListenerArn:aws.String(d.Get("listener_arn").(string)),
+		ListenerArn:               aws.String(d.Get("listener_arn").(string)),
 	}
 
 	if v, ok := d.GetOk("endpoint_group_region"); ok {

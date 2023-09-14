@@ -33,14 +33,14 @@ func ResourceVaultNotifications() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"backup_vault_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
 func: validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_.-]{1,50}$`), "must consist of lowercase letters, numbers, and hyphens."),
 			},
 			"sns_topic_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
@@ -51,7 +51,7 @@ func: verify.ValidARN,
 				Required: true,
 				ForceNew: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Validate
 func: validation.StringInSlice(backup.VaultEvent_Values(), false),
 				},

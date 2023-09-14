@@ -30,30 +30,30 @@ func TestAccQuickSightVPCConnection_basic(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPCConnectionDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCConnectionConfig_basic(rId, rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckVPCConnectionDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCConnectionConfig_basic(rId, rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckVPCConnectionExists(ctx, resourceName, &vpcConnection),
-					acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "quicksight", fmt.Sprintf("vpcConnection/%[1]s", rId)),
-					resource.TestCheckResourceAttr(resourceName, "vpc_connection_id", rId),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "subnet_ids.#", "2"),
-					resource.TestCheckResourceAttr(resourceName, "security_group_ids.#", "1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckVPCConnectionExists(ctx, resourceName, &vpcConnection),
+	acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "quicksight", fmt.Sprintf("vpcConnection/%[1]s", rId)),
+	resource.TestCheckResourceAttr(resourceName, "vpc_connection_id", rId),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "subnet_ids.#", "2"),
+	resource.TestCheckResourceAttr(resourceName, "security_group_ids.#", "1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -66,22 +66,22 @@ func TestAccQuickSightVPCConnection_disappears(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPCConnectionDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCConnectionConfig_basic(rId, rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckVPCConnectionDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCConnectionConfig_basic(rId, rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckVPCConnectionExists(ctx, resourceName, &vpcConnection),
-					acctest.CheckFrameworkResourceDisappears(ctx, acctest.Provider, tfquicksight.ResourceVPCConnection, resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckVPCConnectionExists(ctx, resourceName, &vpcConnection),
+	acctest.CheckFrameworkResourceDisappears(ctx, acctest.Provider, tfquicksight.ResourceVPCConnection, resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -94,52 +94,52 @@ func TestAccQuickSightVPCConnection_tags(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPCConnectionDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCConnectionConfig_tags1(rId, rName, "key1", "value1"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckVPCConnectionDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCConnectionConfig_tags1(rId, rName, "key1", "value1"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckVPCConnectionExists(ctx, resourceName, &vpcConnection),
-					resource.TestCheckResourceAttr(resourceName, "vpc_connection_id", rId),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccVPCConnectionConfig_tags2(rId, rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheck
+	testAccCheckVPCConnectionExists(ctx, resourceName, &vpcConnection),
+	resource.TestCheckResourceAttr(resourceName, "vpc_connection_id", rId),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccVPCConnectionConfig_tags2(rId, rName, "key1", "value1updated", "key2", "value2"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckVPCConnectionExists(ctx, resourceName, &vpcConnection),
-					resource.TestCheckResourceAttr(resourceName, "vpc_connection_id", rId),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-			{
-				Config: testAccVPCConnectionConfig_tags1(rId, rName, "key2", "value2"),
-				Check: resource.ComposeTestCheck
+	testAccCheckVPCConnectionExists(ctx, resourceName, &vpcConnection),
+	resource.TestCheckResourceAttr(resourceName, "vpc_connection_id", rId),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+	{
+Config: testAccVPCConnectionConfig_tags1(rId, rName, "key2", "value2"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckVPCConnectionExists(ctx, resourceName, &vpcConnection),
-					resource.TestCheckResourceAttr(resourceName, "vpc_connection_id", rId),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-		},
+	testAccCheckVPCConnectionExists(ctx, resourceName, &vpcConnection),
+	resource.TestCheckResourceAttr(resourceName, "vpc_connection_id", rId),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+},
 	})
 }
 
@@ -148,20 +148,20 @@ func testAccCheckVPCConnectionExists(ctx context.Context, resourceName string, v
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[resourceName]
-		if !ok {
-			return fmt.Errorf("not found: %s", resourceName)
-		}
+rs, ok := s.RootModule().Resources[resourceName]
+if !ok {
+	return fmt.Errorf("not found: %s", resourceName)
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
-		output, err := tfquicksight.FindVPCConnectionByID(ctx, conn, rs.Primary.ID)
-		if err != nil {
-			return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameVPCConnection, rs.Primary.ID, err)
-		}
+conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
+output, err := tfquicksight.FindVPCConnectionByID(ctx, conn, rs.Primary.ID)
+if err != nil {
+	return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameVPCConnection, rs.Primary.ID, err)
+}
 
-		*vpcConnection = *output
+*vpcConnection = *output
 
-		return nil
+return nil
 	}
 }
 
@@ -170,36 +170,36 @@ func testAccCheckVPCConnectionDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_quicksight_vpc_connection" {
-				continue
-			}
+conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_quicksight_vpc_connection" {
+continue
+	}
 
-			output, err := tfquicksight.FindVPCConnectionByID(ctx, conn, rs.Primary.ID)
-			if err != nil {
-				if tfawserr.ErrCodeEquals(err, quicksight.ErrCodeResourceNotFoundException) {
-					return nil
-				}
-				return err
-			}
+	output, err := tfquicksight.FindVPCConnectionByID(ctx, conn, rs.Primary.ID)
+	if err != nil {
+if tfawserr.ErrCodeEquals(err, quicksight.ErrCodeResourceNotFoundException) {
+	return nil
+}
+return err
+	}
 
-			if output != nil && aws.StringValue(output.Status) == quicksight.VPCConnectionResourceStatusDeleted {
-				return nil
-			}
+	if output != nil && aws.StringValue(output.Status) == quicksight.VPCConnectionResourceStatusDeleted {
+return nil
+	}
 
-			return create.Error(names.QuickSight, create.ErrActionCheckingDestroyed, tfquicksight.ResNameVPCConnection, rs.Primary.ID, err)
-		}
+	return create.Error(names.QuickSight, create.ErrActionCheckingDestroyed, tfquicksight.ResNameVPCConnection, rs.Primary.ID, err)
+}
 
-		return nil
+return nil
 	}
 }
 
 
 func testAccBaseVPCConnectionConfig(rName string) string {
 	return acctest.ConfigCompose(
-		acctest.ConfigVPCWithSubnets(rName, 2),
-		`
+acctest.ConfigVPCWithSubnets(rName, 2),
+`
 resource "aws_security_group" "test" {
   vpc_id = aws_vpc.test.id
 }
@@ -243,8 +243,8 @@ resource "aws_iam_role" "test" {
 
 func testAccVPCConnectionConfig_basic(rId string, rName string) string {
 	return acctest.ConfigCompose(
-		testAccBaseVPCConnectionConfig(rName),
-		fmt.Sprintf(`
+testAccBaseVPCConnectionConfig(rName),
+fmt.Sprintf(`
 resource "aws_quicksight_vpc_connection" "test" {
   vpc_connection_id = %[1]q
   name              = %[2]q
@@ -260,8 +260,8 @@ resource "aws_quicksight_vpc_connection" "test" {
 
 func testAccVPCConnectionConfig_tags1(rId, rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(
-		testAccBaseVPCConnectionConfig(rName),
-		fmt.Sprintf(`
+testAccBaseVPCConnectionConfig(rName),
+fmt.Sprintf(`
 resource "aws_quicksight_vpc_connection" "test" {
   vpc_connection_id = %[1]q
   name              = %[2]q
@@ -281,8 +281,8 @@ resource "aws_quicksight_vpc_connection" "test" {
 
 func testAccVPCConnectionConfig_tags2(rId, rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(
-		testAccBaseVPCConnectionConfig(rName),
-		fmt.Sprintf(`
+testAccBaseVPCConnectionConfig(rName),
+fmt.Sprintf(`
 resource "aws_quicksight_vpc_connection" "test" {
   vpc_connection_id = %[1]q
   name              = %[2]q

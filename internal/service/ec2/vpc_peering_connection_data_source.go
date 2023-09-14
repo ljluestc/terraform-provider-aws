@@ -131,7 +131,7 @@ func dataSourceVPCPeeringConnectionRead(ctx context.Context, d *schema.ResourceD
 
 	input.Filters = BuildAttributeFilterList(
 		map[string]string{
-			"status-code":    d.Get("status").(string),
+			"status-code":                   d.Get("status").(string),
 			"requester-vpc-info.vpc-id":     d.Get("vpc_id").(string),
 			"requester-vpc-info.owner-id":   d.Get("owner_id").(string),
 			"requester-vpc-info.cidr-block": d.Get("cidr_block").(string),

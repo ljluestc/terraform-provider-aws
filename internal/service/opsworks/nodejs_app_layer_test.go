@@ -22,22 +22,22 @@ func TestAccOpsWorksNodejsAppLayer_basic(t *testing.T) {
 	resourceName := "aws_opsworks_nodejs_app_layer.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
-		ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckNodejsAppLayerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccNodejsAppLayerConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckNodejsAppLayerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccNodejsAppLayerConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLayerExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "name", "Node.js App Server"),
-					resource.TestCheckResourceAttr(resourceName, "nodejs_version", "0.10.38"),
-				),
-			},
-		},
+	testAccCheckLayerExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "name", "Node.js App Server"),
+	resource.TestCheckResourceAttr(resourceName, "nodejs_version", "0.10.38"),
+),
+	},
+},
 	})
 }
 
@@ -48,7 +48,7 @@ func testAccCheckNodejsAppLayerDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
-		return testAccCheckLayerDestroy(ctx, "aws_opsworks_nodejs_app_layer", s)
+return testAccCheckLayerDestroy(ctx, "aws_opsworks_nodejs_app_layer", s)
 	}
 }
 

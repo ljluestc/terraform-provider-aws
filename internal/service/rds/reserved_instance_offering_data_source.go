@@ -24,46 +24,46 @@ const (
 // @SDKDataSource("aws_rds_reserved_instance_offering")
 func DataSourceReservedOffering() *schema.Resource {
 	return &schema.Resource{
-		ReadWithoutTimeout: dataSourceReservedOfferingRead,
-		Schema: map[string]*schema.Schema{
-			"currency_code": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"db_instance_class": {
-				Type:     schema.TypeString,
-				Required: true,
-			},
-			"duration": {
-				Type:     schema.TypeInt,
-				Required: true,
-			},
-			"fixed_price": {
-				Type:     schema.TypeFloat,
-				Computed: true,
-			},
-			"multi_az": {
-				Type:     schema.TypeBool,
-				Required: true,
-			},
-			"offering_id": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"offering_type": {
-				Type:     schema.TypeString,
-				Required: true,
-				ValidateFunc: validation.StringInSlice([]string{
-					"Partial Upfront",
-					"All Upfront",
-					"No Upfront",
-				}, false),
-			},
-			"product_description": {
-				Type:     schema.TypeString,
-				Required: true,
-			},
-		},
+ReadWithoutTimeout: dataSourceReservedOfferingRead,
+Schema: map[string]*schema.Schema{
+	"currency_code": {
+Type:     schema.TypeString,
+Computed: true,
+	},
+	"db_instance_class": {
+Type:     schema.TypeString,
+Required: true,
+	},
+	"duration": {
+Type:     schema.TypeInt,
+Required: true,
+	},
+	"fixed_price": {
+Type:     schema.TypeFloat,
+Computed: true,
+	},
+	"multi_az": {
+Type:     schema.TypeBool,
+Required: true,
+	},
+	"offering_id": {
+Type:     schema.TypeString,
+Computed: true,
+	},
+	"offering_type": {
+Type:     schema.TypeString,
+Required: true,
+ValidateFunc: validation.StringInSlice([]string{
+	"Partial Upfront",
+	"All Upfront",
+	"No Upfront",
+}, false),
+	},
+	"product_description": {
+Type:     schema.TypeString,
+Required: true,
+	},
+},
 	}
 }
 
@@ -71,24 +71,24 @@ func dataSourceReservedOfferingRead(ctx context.Context, d *schema.ResourceData,
 	conn := meta.(*conns.AWSClient).RDSConn(ctx)
 
 	input := &rds.DescribeReservedDBInstancesOfferingsInput{
-		DBInstanceClass:    aws.String(d.Get("db_instance_class").(string)),
-		Duration:           aws.String(fmt.Sprint(d.Get("duration").(int))),
-		MultiAZ:            aws.Bool(d.Get("multi_az").(bool)),
-		OfferingType:       aws.String(d.Get("offering_type").(string)),
-		ProductDescription: aws.String(d.Get("product_description").(string)),
+DBInstanceClass:    aws.String(d.Get("db_instance_class").(string)),
+Duration:           aws.String(fmt.Sprint(d.Get("duration").(int))),
+MultiAZ:            aws.Bool(d.Get("multi_az").(bool)),
+OfferingType:       aws.String(d.Get("offering_type").(string)),
+ProductDescription: aws.String(d.Get("product_description").(string)),
 	}
 
 	resp, err := conn.DescribeReservedDBInstancesOfferingsWithContext(ctx, input)
 	if err != nil {
-		return create.DiagError(names.RDS, create.ErrActionReading, ResNameReservedInstanceOffering, "unknown", err)
+return create.DiagError(names.RDS, create.ErrActionReading, ResNameReservedInstanceOffering, "unknown", err)
 	}
 
 	if len(resp.ReservedDBInstancesOfferings) == 0 {
-		return diag.Errorf("no %s %s found matching criteria; try different search", names.RDS, ResNameReservedInstanceOffering)
+return diag.Errorf("no %s %s found matching criteria; try different search", names.RDS, ResNameReservedInstanceOffering)
 	}
 
 	if len(resp.ReservedDBInstancesOfferings) > 1 {
-		return diag.Errorf("More than one %s %s found matching criteria; try different search", names.RDS, ResNameReservedInstanceOffering)
+return diag.Errorf("More than one %s %s found matching criteria; try different search", names.RDS, ResNameReservedInstanceOffering)
 	}
 
 	offering := resp.ReservedDBInstancesOfferings[0]

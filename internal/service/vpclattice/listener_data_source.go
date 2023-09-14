@@ -24,99 +24,99 @@ import (
 // @SDKDataSource("aws_vpclattice_listener", name="Listener")
 func DataSourceListener() *schema.Resource {
 	return &schema.Resource{
-		ReadWithoutTimeout: dataSourceListenerRead,
+ReadWithoutTimeout: dataSourceListenerRead,
 
-		Schema: map[string]*schema.Schema{
-			"arn": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"created_at": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"default_action": {
-				Type:     schema.TypeList,
-				Computed: true,
-				Elem: &schema.Resource{
-					Schema: map[string]*schema.Schema{
-						"fixed_response": {
-							Type:     schema.TypeList,
-							Computed: true,
-							Elem: &schema.Resource{
-								Schema: map[string]*schema.Schema{
-									"status_code": {
-										Type:     schema.TypeInt,
-										Computed: true,
-									},
-								},
-							},
-						},
-						"forward": {
-							Type:     schema.TypeList,
-							Computed: true,
-							Elem: &schema.Resource{
-								Schema: map[string]*schema.Schema{
-									"target_groups": {
-										Type:     schema.TypeList,
-										Computed: true,
-										Elem: &schema.Resource{
-											Schema: map[string]*schema.Schema{
-												"target_group_identifier": {
-													Type:     schema.TypeString,
-													Computed: true,
-												},
-												"weight": {
-													Type:     schema.TypeInt,
-													Computed: true,
-												},
-											},
-										},
-									},
-								},
-							},
-						},
-					},
-				},
-			},
-			"last_updated_at": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"listener_id": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"listener_identifier": {
-				Type:     schema.TypeString,
-				Required: true,
-			},
-			"name": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"port": {
-				Type:     schema.TypeInt,
-				Computed: true,
-			},
-			"protocol": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"service_arn": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"service_id": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"service_identifier": {
-				Type:     schema.TypeString,
-				Required: true,
-			},
-			"tags": tftags.TagsSchemaComputed(),
-		},
+Schema: map[string]*schema.Schema{
+	"arn": {
+Type:     schema.TypeString,
+Computed: true,
+	},
+	"created_at": {
+Type:     schema.TypeString,
+Computed: true,
+	},
+	"default_action": {
+Type:     schema.TypeList,
+Computed: true,
+Elem: &schema.Resource{
+	Schema: map[string]*schema.Schema{
+"fixed_response": {
+	Type:     schema.TypeList,
+	Computed: true,
+	Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+	"status_code": {
+Type:     schema.TypeInt,
+Computed: true,
+	},
+},
+	},
+},
+"forward": {
+	Type:     schema.TypeList,
+	Computed: true,
+	Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+	"target_groups": {
+Type:     schema.TypeList,
+Computed: true,
+Elem: &schema.Resource{
+	Schema: map[string]*schema.Schema{
+"target_group_identifier": {
+	Type:     schema.TypeString,
+	Computed: true,
+},
+"weight": {
+	Type:     schema.TypeInt,
+	Computed: true,
+},
+	},
+},
+	},
+},
+	},
+},
+	},
+},
+	},
+	"last_updated_at": {
+Type:     schema.TypeString,
+Computed: true,
+	},
+	"listener_id": {
+Type:     schema.TypeString,
+Computed: true,
+	},
+	"listener_identifier": {
+Type:     schema.TypeString,
+Required: true,
+	},
+	"name": {
+Type:     schema.TypeString,
+Computed: true,
+	},
+	"port": {
+Type:     schema.TypeInt,
+Computed: true,
+	},
+	"protocol": {
+Type:     schema.TypeString,
+Computed: true,
+	},
+	"service_arn": {
+Type:     schema.TypeString,
+Computed: true,
+	},
+	"service_id": {
+Type:     schema.TypeString,
+Computed: true,
+	},
+	"service_identifier": {
+Type:     schema.TypeString,
+Required: true,
+	},
+	"tags": tftags.TagsSchemaComputed(),
+},
 	}
 }
 
@@ -132,7 +132,7 @@ func dataSourceListenerRead(ctx context.Context, d *schema.ResourceData, meta in
 
 	out, err := findListenerByListenerIdAndServiceId(ctx, conn, listenerId, serviceId)
 	if err != nil {
-		return create.DiagError(names.VPCLattice, create.ErrActionReading, DSNameListener, d.Id(), err)
+return create.DiagError(names.VPCLattice, create.ErrActionReading, DSNameListener, d.Id(), err)
 	}
 
 	// Set simple arguments
@@ -149,7 +149,7 @@ func dataSourceListenerRead(ctx context.Context, d *schema.ResourceData, meta in
 
 	// Flatten complex default_action attribute - uses flatteners from listener.go
 	if err := d.Set("default_action", flattenListenerRuleActionsDataSource(out.DefaultAction)); err != nil {
-		return create.DiagError(names.VPCLattice, create.ErrActionSetting, DSNameListener, d.Id(), err)
+return create.DiagError(names.VPCLattice, create.ErrActionSetting, DSNameListener, d.Id(), err)
 	}
 
 	// Set tags
@@ -157,12 +157,12 @@ func dataSourceListenerRead(ctx context.Context, d *schema.ResourceData, meta in
 	tags, err := listTags(ctx, conn, aws.ToString(out.Arn))
 
 	if err != nil {
-		return create.DiagError(names.VPCLattice, create.ErrActionReading, DSNameListener, d.Id(), err)
+return create.DiagError(names.VPCLattice, create.ErrActionReading, DSNameListener, d.Id(), err)
 	}
 
 	//lintignore:AWSR002
 	if err := d.Set("tags", tags.IgnoreAWS().IgnoreConfig(ignoreTagsConfig).Map()); err != nil {
-		return create.DiagError(names.VPCLattice, create.ErrActionSetting, DSNameListener, d.Id(), err)
+return create.DiagError(names.VPCLattice, create.ErrActionSetting, DSNameListener, d.Id(), err)
 	}
 
 	return nil
@@ -170,25 +170,25 @@ func dataSourceListenerRead(ctx context.Context, d *schema.ResourceData, meta in
 
 func findListenerByListenerIdAndServiceId(ctx context.Context, conn *vpclattice.Client, listener_id string, service_id string) (*vpclattice.GetListenerOutput, error) {
 	in := &vpclattice.GetListenerInput{
-		ListenerIdentifier: aws.String(listener_id),
-		ServiceIdentifier:  aws.String(service_id),
+ListenerIdentifier: aws.String(listener_id),
+ServiceIdentifier:  aws.String(service_id),
 	}
 
 	out, err := conn.GetListener(ctx, in)
 	if err != nil {
-		var nfe *types.ResourceNotFoundException
-		if errors.As(err, &nfe) {
-			return nil, &retry.NotFoundError{
-				LastError:   err,
-				LastRequest: in,
-			}
-		}
+var nfe *types.ResourceNotFoundException
+if errors.As(err, &nfe) {
+	return nil, &retry.NotFoundError{
+LastError:   err,
+LastRequest: in,
+	}
+}
 
-		return nil, err
+return nil, err
 	}
 
 	if out == nil || out.Id == nil {
-		return nil, tfresource.NewEmptyResultError(in)
+return nil, tfresource.NewEmptyResultError(in)
 	}
 
 	return out, nil
@@ -198,14 +198,14 @@ func flattenListenerRuleActionsDataSource(config types.RuleAction) []interface{}
 	m := map[string]interface{}{}
 
 	if config == nil {
-		return []interface{}{}
+return []interface{}{}
 	}
 
 	switch v := config.(type) {
 	case *types.RuleActionMemberFixedResponse:
-		m["fixed_response"] = flattenRuleActionMemberFixedResponseDataSource(&v.Value)
+m["fixed_response"] = flattenRuleActionMemberFixedResponseDataSource(&v.Value)
 	case *types.RuleActionMemberForward:
-		m["forward"] = flattenComplexDefaultActionForwardDataSource(&v.Value)
+m["forward"] = flattenComplexDefaultActionForwardDataSource(&v.Value)
 	}
 
 	return []interface{}{m}
@@ -216,7 +216,7 @@ func flattenRuleActionMemberFixedResponseDataSource(response *types.FixedRespons
 	tfMap := map[string]interface{}{}
 
 	if v := response.StatusCode; v != nil {
-		tfMap["status_code"] = aws.ToInt32(v)
+tfMap["status_code"] = aws.ToInt32(v)
 	}
 
 	return []interface{}{tfMap}
@@ -225,11 +225,11 @@ func flattenRuleActionMemberFixedResponseDataSource(response *types.FixedRespons
 // Flatten function for forward action
 func flattenComplexDefaultActionForwardDataSource(forwardAction *types.ForwardAction) []interface{} {
 	if forwardAction == nil {
-		return []interface{}{}
+return []interface{}{}
 	}
 
 	m := map[string]interface{}{
-		"target_groups": flattenDefaultActionForwardTargetGroupsDataSource(forwardAction.TargetGroups),
+"target_groups": flattenDefaultActionForwardTargetGroupsDataSource(forwardAction.TargetGroups),
 	}
 
 	return []interface{}{m}
@@ -238,17 +238,17 @@ func flattenComplexDefaultActionForwardDataSource(forwardAction *types.ForwardAc
 // Flatten function for target_groups
 func flattenDefaultActionForwardTargetGroupsDataSource(groups []types.WeightedTargetGroup) []interface{} {
 	if len(groups) == 0 {
-		return []interface{}{}
+return []interface{}{}
 	}
 
 	var targetGroups []interface{}
 
 	for _, targetGroup := range groups {
-		m := map[string]interface{}{
-			"target_group_identifier": aws.ToString(targetGroup.TargetGroupIdentifier),
-			"weight":   aws.ToInt32(targetGroup.Weight),
-		}
-		targetGroups = append(targetGroups, m)
+m := map[string]interface{}{
+	"target_group_identifier": aws.ToString(targetGroup.TargetGroupIdentifier),
+	"weight":   aws.ToInt32(targetGroup.Weight),
+}
+targetGroups = append(targetGroups, m)
 	}
 
 	return targetGroups

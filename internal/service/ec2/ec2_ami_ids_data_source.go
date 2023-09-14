@@ -49,7 +49,7 @@ func DataSourceAMIIDs() *schema.Resource {
 				Optional: true,
 			},
 			"name_regex": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Validate
 func: validation.StringIsValidRegExp,
@@ -59,7 +59,7 @@ func: validation.StringIsValidRegExp,
 				Required: true,
 				MinItems: 1,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Validate
 func: validation.NoZeroValues,
 				},
@@ -80,7 +80,7 @@ func dataSourceAMIIDsRead(ctx context.Context, d *schema.ResourceData, meta inte
 
 	input := &ec2.DescribeImagesInput{
 		IncludeDeprecated: aws.Bool(d.Get("include_deprecated").(bool)),
-		Owners:            flex.ExpandStringList(d.Get("owners").([]interface{})),
+		Owners:   flex.ExpandStringList(d.Get("owners").([]interface{})),
 	}
 
 	if v, ok := d.GetOk("executable_users"); ok {

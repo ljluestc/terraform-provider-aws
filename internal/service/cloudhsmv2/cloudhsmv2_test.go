@@ -22,7 +22,7 @@ func(t *testing.T){
 		},
 		"Hsm": {
 			"availabilityZone": testAccHSM_AvailabilityZone,
-			"basic":            testAccHSM_basic,
+			"basic":   testAccHSM_basic,
 			"disappears":       testAccHSM_disappears,
 			"ipAddress":        testAccHSM_IPAddress,
 		},

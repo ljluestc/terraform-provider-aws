@@ -64,7 +64,7 @@ func DataSourceVPCEndpointService() *schema.Resource {
 				Computed: true,
 			},
 			"service": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ConflictsWith: []string{"service_name"},
 			},
@@ -73,13 +73,13 @@ func DataSourceVPCEndpointService() *schema.Resource {
 				Computed: true,
 			},
 			"service_name": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ConflictsWith: []string{"service"},
 			},
 			"service_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				Validate

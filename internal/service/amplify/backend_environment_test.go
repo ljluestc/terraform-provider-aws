@@ -28,27 +28,27 @@ func testAccBackendEnvironment_basic(t *testing.T) {
 	environmentName := sdkacctest.RandStringFromCharSet(10, sdkacctest.CharSetAlpha)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBackendEnvironmentDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccBackendEnvironmentConfig_basic(rName, environmentName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckBackendEnvironmentExists(ctx, resourceName, &env),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "amplify", regexache.MustCompile(`apps/[^/]+/backendenvironments/.+`)),
-					resource.TestCheckResourceAttrSet(resourceName, "deployment_artifacts"),
-					resource.TestCheckResourceAttr(resourceName, "environment_name", environmentName),
-					resource.TestCheckResourceAttrSet(resourceName, "stack_name"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckBackendEnvironmentDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccBackendEnvironmentConfig_basic(rName, environmentName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckBackendEnvironmentExists(ctx, resourceName, &env),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "amplify", regexache.MustCompile(`apps/[^/]+/backendenvironments/.+`)),
+	resource.TestCheckResourceAttrSet(resourceName, "deployment_artifacts"),
+	resource.TestCheckResourceAttr(resourceName, "environment_name", environmentName),
+	resource.TestCheckResourceAttrSet(resourceName, "stack_name"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -61,20 +61,20 @@ func testAccBackendEnvironment_disappears(t *testing.T) {
 	environmentName := sdkacctest.RandStringFromCharSet(10, sdkacctest.CharSetAlpha)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBackendEnvironmentDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccBackendEnvironmentConfig_basic(rName, environmentName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckBackendEnvironmentExists(ctx, resourceName, &env),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfamplify.ResourceBackendEnvironment(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckBackendEnvironmentDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccBackendEnvironmentConfig_basic(rName, environmentName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckBackendEnvironmentExists(ctx, resourceName, &env),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfamplify.ResourceBackendEnvironment(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -87,90 +87,90 @@ func testAccBackendEnvironment_DeploymentArtifacts_StackName(t *testing.T) {
 	environmentName := sdkacctest.RandStringFromCharSet(10, sdkacctest.CharSetAlpha)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBackendEnvironmentDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccBackendEnvironmentConfig_deploymentArtifactsAndStackName(rName, environmentName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckBackendEnvironmentExists(ctx, resourceName, &env),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "amplify", regexache.MustCompile(`apps/[^/]+/backendenvironments/.+`)),
-					resource.TestCheckResourceAttr(resourceName, "deployment_artifacts", rName),
-					resource.TestCheckResourceAttr(resourceName, "environment_name", environmentName),
-					resource.TestCheckResourceAttr(resourceName, "stack_name", rName),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckBackendEnvironmentDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccBackendEnvironmentConfig_deploymentArtifactsAndStackName(rName, environmentName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckBackendEnvironmentExists(ctx, resourceName, &env),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "amplify", regexache.MustCompile(`apps/[^/]+/backendenvironments/.+`)),
+	resource.TestCheckResourceAttr(resourceName, "deployment_artifacts", rName),
+	resource.TestCheckResourceAttr(resourceName, "environment_name", environmentName),
+	resource.TestCheckResourceAttr(resourceName, "stack_name", rName),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
 func testAccCheckBackendEnvironmentExists(ctx context.Context, resourceName string, v *amplify.BackendEnvironment) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[resourceName]
-		if !ok {
-			return fmt.Errorf("Not found: %s", resourceName)
-		}
+rs, ok := s.RootModule().Resources[resourceName]
+if !ok {
+	return fmt.Errorf("Not found: %s", resourceName)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No Amplify Backend Environment ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No Amplify Backend Environment ID is set")
+}
 
-		appID, environmentName, err := tfamplify.BackendEnvironmentParseResourceID(rs.Primary.ID)
+appID, environmentName, err := tfamplify.BackendEnvironmentParseResourceID(rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).AmplifyConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).AmplifyConn(ctx)
 
-		backendEnvironment, err := tfamplify.FindBackendEnvironmentByAppIDAndEnvironmentName(ctx, conn, appID, environmentName)
+backendEnvironment, err := tfamplify.FindBackendEnvironmentByAppIDAndEnvironmentName(ctx, conn, appID, environmentName)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*v = *backendEnvironment
+*v = *backendEnvironment
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckBackendEnvironmentDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).AmplifyConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).AmplifyConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_amplify_backend_environment" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_amplify_backend_environment" {
+continue
+	}
 
-			appID, environmentName, err := tfamplify.BackendEnvironmentParseResourceID(rs.Primary.ID)
+	appID, environmentName, err := tfamplify.BackendEnvironmentParseResourceID(rs.Primary.ID)
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			_, err = tfamplify.FindBackendEnvironmentByAppIDAndEnvironmentName(ctx, conn, appID, environmentName)
+	_, err = tfamplify.FindBackendEnvironmentByAppIDAndEnvironmentName(ctx, conn, appID, environmentName)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("Amplify Backend Environment %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("Amplify Backend Environment %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 

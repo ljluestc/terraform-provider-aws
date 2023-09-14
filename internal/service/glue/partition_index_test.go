@@ -24,8 +24,8 @@ func TestAccGluePartitionIndex_basic(t *testing.T) {
 	resourceName := "aws_glue_partition_index.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPartitionIndexDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -56,8 +56,8 @@ func TestAccGluePartitionIndex_disappears(t *testing.T) {
 	resourceName := "aws_glue_partition_index.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPartitionIndexDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -81,8 +81,8 @@ func TestAccGluePartitionIndex_Disappears_table(t *testing.T) {
 	resourceName := "aws_glue_partition_index.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPartitionIndexDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -106,8 +106,8 @@ func TestAccGluePartitionIndex_Disappears_database(t *testing.T) {
 	resourceName := "aws_glue_partition_index.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPartitionIndexDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -234,7 +234,7 @@ func testAccCheckPartitionIndexDestroy(ctx context.Context) resource.TestCheckFu
 			}
 
 			if _, err := tfglue.FindPartitionIndexByName(ctx, conn, rs.Primary.ID); err != nil {
-				//Verify the error is what we want
+				// Verify the error is what we want
 				if tfawserr.ErrCodeEquals(err, glue.ErrCodeEntityNotFoundException) {
 					continue
 				}

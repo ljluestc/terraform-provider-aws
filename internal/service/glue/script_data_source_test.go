@@ -17,17 +17,17 @@ func TestAccGlueScriptDataSource_Language_python(t *testing.T) {
 	dataSourceName := "data.aws_glue_script.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccScriptDataSourceConfig_python(),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestMatchResourceAttr(dataSourceName, "python_script", regexache.MustCompile(`from awsglue\.job import Job`)),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccScriptDataSourceConfig_python(),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestMatchResourceAttr(dataSourceName, "python_script", regexache.MustCompile(`from awsglue\.job import Job`)),
+),
+	},
+},
 	})
 }
 
@@ -36,17 +36,17 @@ func TestAccGlueScriptDataSource_Language_scala(t *testing.T) {
 	dataSourceName := "data.aws_glue_script.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccScriptDataSourceConfig_scala(),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestMatchResourceAttr(dataSourceName, "scala_code", regexache.MustCompile(`import com\.amazonaws\.services\.glue\.util\.Job`)),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccScriptDataSourceConfig_scala(),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestMatchResourceAttr(dataSourceName, "scala_code", regexache.MustCompile(`import com\.amazonaws\.services\.glue\.util\.Job`)),
+),
+	},
+},
 	})
 }
 

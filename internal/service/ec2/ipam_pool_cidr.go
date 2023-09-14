@@ -89,7 +89,7 @@ func: validation.Any(
 				ForceNew: true,
 			},
 			"netmask_length": {
-				Type:          schema.TypeInt,
+				Type: schema.TypeInt,
 				Optional:      true,
 				ForceNew:      true,
 				Validate

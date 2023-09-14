@@ -39,7 +39,7 @@ func ResourceClientVPNAuthorizationRule() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"access_group_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Validate
@@ -47,7 +47,7 @@ func: validation.StringDoesNotContainAny(","),
 				ExactlyOneOf: []string{"access_group_id", "authorize_all_groups"},
 			},
 			"authorize_all_groups": {
-				Type:         schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional:     true,
 				ForceNew:     true,
 				ExactlyOneOf: []string{"access_group_id", "authorize_all_groups"},
@@ -63,7 +63,7 @@ func: validation.StringDoesNotContainAny(","),
 				ForceNew: true,
 			},
 			"target_network_cidr": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate

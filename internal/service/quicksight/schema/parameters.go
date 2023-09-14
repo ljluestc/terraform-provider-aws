@@ -37,7 +37,7 @@ func ParametersSchema() *schema.Schema {
 								MinItems: 1,
 								Required: true,
 								Elem: &schema.Schema{
-									Type:         schema.TypeString,
+									Type:schema.TypeString,
 									Validate
 func: verify.ValidUTCTimestamp,
 								},

@@ -20,21 +20,21 @@ func TestAccRoute53ResolverFirewallConfigDataSource_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFirewallConfigDataSourceConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccFirewallConfigDataSourceConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttrPair(dataSourceName, "firewall_fail_open", resourceName, "firewall_fail_open"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "owner_id", resourceName, "owner_id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "resource_id", resourceName, "resource_id"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(dataSourceName, "firewall_fail_open", resourceName, "firewall_fail_open"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "owner_id", resourceName, "owner_id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "resource_id", resourceName, "resource_id"),
+),
+	},
+},
 	})
 }
 

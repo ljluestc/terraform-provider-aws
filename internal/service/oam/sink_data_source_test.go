@@ -17,7 +17,7 @@ import (
 
 func TestAccObservabilityAccessManagerSinkDataSource_basic(t *testing.T) {
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 	ctx := acctest.Context(t)
 	var sink oam.GetSinkOutput
@@ -25,29 +25,29 @@ func TestAccObservabilityAccessManagerSinkDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_oam_sink.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, names.ObservabilityAccessManagerEndpointID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, names.ObservabilityAccessManagerEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSinkDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSinkDataSourceConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSinkExists(ctx, dataSourceName, &sink),
-					resource.TestCheckResourceAttrSet(dataSourceName, "arn"),
-					resource.TestCheckResourceAttr(dataSourceName, "name", rName),
-					resource.TestCheckResourceAttrSet(dataSourceName, "sink_id"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "sink_identifier"),
-					resource.TestCheckResourceAttr(dataSourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(dataSourceName, "tags.key1", "value1"),
-					acctest.MatchResourceAttrRegionalARN(dataSourceName, "arn", "oam", regexache.MustCompile(`sink/+.`)),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, names.ObservabilityAccessManagerEndpointID)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, names.ObservabilityAccessManagerEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckSinkDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSinkDataSourceConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckSinkExists(ctx, dataSourceName, &sink),
+	resource.TestCheckResourceAttrSet(dataSourceName, "arn"),
+	resource.TestCheckResourceAttr(dataSourceName, "name", rName),
+	resource.TestCheckResourceAttrSet(dataSourceName, "sink_id"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "sink_identifier"),
+	resource.TestCheckResourceAttr(dataSourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(dataSourceName, "tags.key1", "value1"),
+	acctest.MatchResourceAttrRegionalARN(dataSourceName, "arn", "oam", regexache.MustCompile(`sink/+.`)),
+),
+	},
+},
 	})
 }
 

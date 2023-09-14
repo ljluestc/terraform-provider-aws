@@ -25,45 +25,45 @@ import (
 // @SDKResource("aws_acmpca_permission")
 func ResourcePermission() *schema.Resource {
 	return &schema.Resource{
-		CreateWithoutTimeout: resourcePermissionCreate,
-		ReadWithoutTimeout:   resourcePermissionRead,
-		DeleteWithoutTimeout: resourcePermissionDelete,
+CreateWithoutTimeout: resourcePermissionCreate,
+ReadWithoutTimeout:   resourcePermissionRead,
+DeleteWithoutTimeout: resourcePermissionDelete,
 
-		Schema: map[string]*schema.Schema{
-			"actions": {
-				Type:     schema.TypeSet,
-				Required: true,
-				ForceNew: true,
-				Elem: &schema.Schema{
-					Type:         schema.TypeString,
-					ValidateFunc: validation.StringInSlice(acmpca.ActionType_Values(), false),
-				},
-			},
-			"certificate_authority_arn": {
-				Type:         schema.TypeString,
-				ForceNew:     true,
-				Required:     true,
-				ValidateFunc: verify.ValidARN,
-			},
-			"policy": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"principal": {
-				Type:     schema.TypeString,
-				ForceNew: true,
-				Required: true,
-				ValidateFunc: validation.StringInSlice([]string{
-					"acm.amazonaws.com",
-				}, false),
-			},
-			"source_account": {
-				Type:     schema.TypeString,
-				ForceNew: true,
-				Optional: true,
-				Computed: true,
-			},
-		},
+Schema: map[string]*schema.Schema{
+	"actions": {
+Type:     schema.TypeSet,
+Required: true,
+ForceNew: true,
+Elem: &schema.Schema{
+	Type:         schema.TypeString,
+	ValidateFunc: validation.StringInSlice(acmpca.ActionType_Values(), false),
+},
+	},
+	"certificate_authority_arn": {
+Type:         schema.TypeString,
+ForceNew:     true,
+Required:     true,
+ValidateFunc: verify.ValidARN,
+	},
+	"policy": {
+Type:     schema.TypeString,
+Computed: true,
+	},
+	"principal": {
+Type:     schema.TypeString,
+ForceNew: true,
+Required: true,
+ValidateFunc: validation.StringInSlice([]string{
+	"acm.amazonaws.com",
+}, false),
+	},
+	"source_account": {
+Type:     schema.TypeString,
+ForceNew: true,
+Optional: true,
+Computed: true,
+	},
+},
 	}
 }
 
@@ -76,20 +76,20 @@ func resourcePermissionCreate(ctx context.Context, d *schema.ResourceData, meta 
 	sourceAccount := d.Get("source_account").(string)
 	id := PermissionCreateResourceID(caARN, principal, sourceAccount)
 	input := &acmpca.CreatePermissionInput{
-		Actions:  flex.ExpandStringSet(d.Get("actions").(*schema.Set)),
-		CertificateAuthorityArn: aws.String(caARN),
-		Principal:aws.String(principal),
+Actions:  flex.ExpandStringSet(d.Get("actions").(*schema.Set)),
+CertificateAuthorityArn: aws.String(caARN),
+Principal:aws.String(principal),
 	}
 
 	if sourceAccount != "" {
-		input.SourceAccount = aws.String(sourceAccount)
+input.SourceAccount = aws.String(sourceAccount)
 	}
 
 	log.Printf("[DEBUG] Creating ACM PCA Permission: %s", input)
 	_, err := conn.CreatePermissionWithContext(ctx, input)
 
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "creating ACM PCA Permission (%s): %s", id, err)
+return sdkdiag.AppendErrorf(diags, "creating ACM PCA Permission (%s): %s", id, err)
 	}
 
 	d.SetId(id)
@@ -104,19 +104,19 @@ func resourcePermissionRead(ctx context.Context, d *schema.ResourceData, meta in
 	caARN, principal, sourceAccount, err := PermissionParseResourceID(d.Id())
 
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "reading ACM PCA Permission (%s): %s", d.Id(), err)
+return sdkdiag.AppendErrorf(diags, "reading ACM PCA Permission (%s): %s", d.Id(), err)
 	}
 
 	permission, err := FindPermission(ctx, conn, caARN, principal, sourceAccount)
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
-		log.Printf("[WARN] ACM PCA Permission (%s) not found, removing from state", d.Id())
-		d.SetId("")
-		return diags
+log.Printf("[WARN] ACM PCA Permission (%s) not found, removing from state", d.Id())
+d.SetId("")
+return diags
 	}
 
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "reading ACM PCA Permission (%s): %s", d.Id(), err)
+return sdkdiag.AppendErrorf(diags, "reading ACM PCA Permission (%s): %s", d.Id(), err)
 	}
 
 	d.Set("actions", aws.StringValueSlice(permission.Actions))
@@ -135,27 +135,27 @@ func resourcePermissionDelete(ctx context.Context, d *schema.ResourceData, meta 
 	caARN, principal, sourceAccount, err := PermissionParseResourceID(d.Id())
 
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "deleting ACM PCA Permission (%s): %s", d.Id(), err)
+return sdkdiag.AppendErrorf(diags, "deleting ACM PCA Permission (%s): %s", d.Id(), err)
 	}
 
 	input := &acmpca.DeletePermissionInput{
-		CertificateAuthorityArn: aws.String(caARN),
-		Principal:aws.String(principal),
+CertificateAuthorityArn: aws.String(caARN),
+Principal:aws.String(principal),
 	}
 
 	if sourceAccount != "" {
-		input.SourceAccount = aws.String(sourceAccount)
+input.SourceAccount = aws.String(sourceAccount)
 	}
 
 	log.Printf("[DEBUG] Deleting ACM PCA Permission: %s", d.Id())
 	_, err = conn.DeletePermissionWithContext(ctx, input)
 
 	if tfawserr.ErrCodeEquals(err, acmpca.ErrCodeResourceNotFoundException) {
-		return diags
+return diags
 	}
 
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "deleting ACM PCA Permission (%s): %s", d.Id(), err)
+return sdkdiag.AppendErrorf(diags, "deleting ACM PCA Permission (%s): %s", d.Id(), err)
 	}
 
 	return diags
@@ -174,7 +174,7 @@ func PermissionParseResourceID(id string) (string, string, string, error) {
 	parts := strings.Split(id, permissionIDSeparator)
 
 	if len(parts) == 3 && parts[0] != "" && parts[1] != "" {
-		return parts[0], parts[1], parts[2], nil
+return parts[0], parts[1], parts[2], nil
 	}
 
 	return "", "", "", fmt.Errorf("unexpected format for ID (%[1]s), expected CertificateAuthorityARN%[2]sPrincipal%[2]sSourceAccount", id, permissionIDSeparator)

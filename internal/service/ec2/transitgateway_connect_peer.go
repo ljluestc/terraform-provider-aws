@@ -32,89 +32,89 @@ import (
 
 func ResourceTransitGatewayConnectPeer() *schema.Resource {
 	return &schema.Resource{
-		CreateWithoutTimeout: resourceTransitGatewayConnectPeerCreate,
-		ReadWithoutTimeout:   resourceTransitGatewayConnectPeerRead,
-		UpdateWithoutTimeout: resourceTransitGatewayConnectPeerUpdate,
-		DeleteWithoutTimeout: resourceTransitGatewayConnectPeerDelete,
+CreateWithoutTimeout: resourceTransitGatewayConnectPeerCreate,
+ReadWithoutTimeout:   resourceTransitGatewayConnectPeerRead,
+UpdateWithoutTimeout: resourceTransitGatewayConnectPeerUpdate,
+DeleteWithoutTimeout: resourceTransitGatewayConnectPeerDelete,
 
-		Importer: &schema.ResourceImporter{
-			StateContext: schema.ImportStatePassthroughContext,
-		},
+Importer: &schema.ResourceImporter{
+	StateContext: schema.ImportStatePassthroughContext,
+},
 
-		Timeouts: &schema.ResourceTimeout{
-			Create: schema.DefaultTimeout(10 * time.Minute),
-			Delete: schema.DefaultTimeout(10 * time.Minute),
-		},
+Timeouts: &schema.ResourceTimeout{
+	Create: schema.DefaultTimeout(10 * time.Minute),
+	Delete: schema.DefaultTimeout(10 * time.Minute),
+},
 
-		CustomizeDiff: verify.SetTagsDiff,
+CustomizeDiff: verify.SetTagsDiff,
 
-		Schema: map[string]*schema.Schema{
-			"arn": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"bgp_asn": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
-				ForceNew:     true,
-				Validate
+Schema: map[string]*schema.Schema{
+	"arn": {
+Type:     schema.TypeString,
+Computed: true,
+	},
+	"bgp_asn": {
+Type:schema.TypeString,
+Optional:     true,
+Computed:     true,
+ForceNew:     true,
+Validate
 func: verify.Valid4ByteASN,
-			},
-			"bgp_peer_address": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"bgp_transit_gateway_addresses": {
-				Type:     schema.TypeSet,
-				Computed: true,
-				Elem:     &schema.Schema{Type: schema.TypeString},
-			},
-			"inside_cidr_blocks": {
-				Type:     schema.TypeSet,
-				Required: true,
-				ForceNew: true,
-				MinItems: 1,
-				MaxItems: 2,
-				Elem: &schema.Schema{
-					Type: schema.TypeString,
-					Validate
+	},
+	"bgp_peer_address": {
+Type:     schema.TypeString,
+Computed: true,
+	},
+	"bgp_transit_gateway_addresses": {
+Type:     schema.TypeSet,
+Computed: true,
+Elem:     &schema.Schema{Type: schema.TypeString},
+	},
+	"inside_cidr_blocks": {
+Type:     schema.TypeSet,
+Required: true,
+ForceNew: true,
+MinItems: 1,
+MaxItems: 2,
+Elem: &schema.Schema{
+	Type: schema.TypeString,
+	Validate
 func: verify.IsIPv4CIDRBlockOrIPv6CIDRBlock(
-						validation.All(
-							validation.IsCIDRNetwork(29, 29),
-							validation.StringMatch(regexache.MustCompile(`^169\.254\.`), "IPv4 range must be from range 169.254.0.0/16"),
-							validation.StringDoesNotMatch(regexache.MustCompile(`^169\.254\.([0-5]\.0|169\.248)/29`), "IPv4 range must not be 169.254.([0-5].0|169.248)/29"),
-						),
-						validation.All(
-							validation.IsCIDRNetwork(125, 125),
-							validation.StringMatch(regexache.MustCompile(`^[fF][dD]`), "IPv6 range must be from fd00::/8"),
-						),
-					),
-				},
-			},
-			"peer_address": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
-				Validate
+validation.All(
+	validation.IsCIDRNetwork(29, 29),
+	validation.StringMatch(regexache.MustCompile(`^169\.254\.`), "IPv4 range must be from range 169.254.0.0/16"),
+	validation.StringDoesNotMatch(regexache.MustCompile(`^169\.254\.([0-5]\.0|169\.248)/29`), "IPv4 range must not be 169.254.([0-5].0|169.248)/29"),
+),
+validation.All(
+	validation.IsCIDRNetwork(125, 125),
+	validation.StringMatch(regexache.MustCompile(`^[fF][dD]`), "IPv6 range must be from fd00::/8"),
+),
+	),
+},
+	},
+	"peer_address": {
+Type:schema.TypeString,
+Required:     true,
+ForceNew:     true,
+Validate
 func: validation.IsIPAddress,
-			},
-			names.AttrTags:    tftags.TagsSchema(),
-			names.AttrTagsAll: tftags.TagsSchemaComputed(),
-			"transit_gateway_address": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
-				ForceNew:     true,
-				Validate
+	},
+	names.AttrTags:    tftags.TagsSchema(),
+	names.AttrTagsAll: tftags.TagsSchemaComputed(),
+	"transit_gateway_address": {
+Type:schema.TypeString,
+Optional:     true,
+Computed:     true,
+ForceNew:     true,
+Validate
 func: validation.IsIPAddress,
-			},
-			"transit_gateway_attachment_id": {
-				Type:     schema.TypeString,
-				Required: true,
-				ForceNew: true,
-			},
-		},
+	},
+	"transit_gateway_attachment_id": {
+Type:     schema.TypeString,
+Required: true,
+ForceNew: true,
+	},
+},
 	}
 }
 
@@ -123,39 +123,39 @@ func resourceTransitGatewayConnectPeerCreate(ctx context.Context, d *schema.Reso
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	input := &ec2.CreateTransitGatewayConnectPeerInput{
-		InsideCidrBlocks:           flex.ExpandStringSet(d.Get("inside_cidr_blocks").(*schema.Set)),
-		PeerAddress: aws.String(d.Get("peer_address").(string)),
-		TagSpecifications:          getTagSpecificationsIn(ctx, ec2.ResourceTypeTransitGatewayConnectPeer),
-		TransitGatewayAttachmentId: aws.String(d.Get("transit_gateway_attachment_id").(string)),
+InsideCidrBlocks:  flex.ExpandStringSet(d.Get("inside_cidr_blocks").(*schema.Set)),
+PeerAddress: aws.String(d.Get("peer_address").(string)),
+TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeTransitGatewayConnectPeer),
+TransitGatewayAttachmentId: aws.String(d.Get("transit_gateway_attachment_id").(string)),
 	}
 
 	if v, ok := d.GetOk("bgp_asn"); ok {
-		v, err := strconv.ParseInt(v.(string), 10, 64)
+v, err := strconv.ParseInt(v.(string), 10, 64)
 
-		if err != nil {
-			return diag.FromErr(err)
-		}
+if err != nil {
+	return diag.FromErr(err)
+}
 
-		input.BgpOptions = &ec2.TransitGatewayConnectRequestBgpOptions{
-			PeerAsn: aws.Int64(v),
-		}
+input.BgpOptions = &ec2.TransitGatewayConnectRequestBgpOptions{
+	PeerAsn: aws.Int64(v),
+}
 	}
 
 	if v, ok := d.GetOk("transit_gateway_address"); ok {
-		input.TransitGatewayAddress = aws.String(v.(string))
+input.TransitGatewayAddress = aws.String(v.(string))
 	}
 
 	log.Printf("[DEBUG] Creating EC2 Transit Gateway Connect Peer: %s", input)
 	output, err := conn.CreateTransitGatewayConnectPeerWithContext(ctx, input)
 
 	if err != nil {
-		return diag.Errorf("creating EC2 Transit Gateway Connect Peer: %s", err)
+return diag.Errorf("creating EC2 Transit Gateway Connect Peer: %s", err)
 	}
 
 	d.SetId(aws.StringValue(output.TransitGatewayConnectPeer.TransitGatewayConnectPeerId))
 
 	if _, err := WaitTransitGatewayConnectPeerCreated(ctx, conn, d.Id(), d.Timeout(schema.TimeoutCreate)); err != nil {
-		return diag.Errorf("waiting for EC2 Transit Gateway Connect Peer (%s) create: %s", d.Id(), err)
+return diag.Errorf("waiting for EC2 Transit Gateway Connect Peer (%s) create: %s", d.Id(), err)
 	}
 
 	return resourceTransitGatewayConnectPeerRead(ctx, d, meta)
@@ -168,21 +168,21 @@ func resourceTransitGatewayConnectPeerRead(ctx context.Context, d *schema.Resour
 	transitGatewayConnectPeer, err := FindTransitGatewayConnectPeerByID(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
-		log.Printf("[WARN] EC2 Transit Gateway Connect Peer %s not found, removing from state", d.Id())
-		d.SetId("")
-		return nil
+log.Printf("[WARN] EC2 Transit Gateway Connect Peer %s not found, removing from state", d.Id())
+d.SetId("")
+return nil
 	}
 
 	if err != nil {
-		return diag.Errorf("reading EC2 Transit Gateway Connect Peer (%s): %s", d.Id(), err)
+return diag.Errorf("reading EC2 Transit Gateway Connect Peer (%s): %s", d.Id(), err)
 	}
 
 	arn := arn.ARN{
-		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   ec2.ServiceName,
-		Region:    meta.(*conns.AWSClient).Region,
-		AccountID: meta.(*conns.AWSClient).AccountID,
-		Resource:  fmt.Sprintf("transit-gateway-connect-peer/%s", d.Id()),
+Partition: meta.(*conns.AWSClient).Partition,
+Service:   ec2.ServiceName,
+Region:    meta.(*conns.AWSClient).Region,
+AccountID: meta.(*conns.AWSClient).AccountID,
+Resource:  fmt.Sprintf("transit-gateway-connect-peer/%s", d.Id()),
 	}.String()
 	bgpConfigurations := transitGatewayConnectPeer.ConnectPeerConfiguration.BgpConfigurations
 	d.Set("arn", arn)
@@ -190,7 +190,7 @@ func resourceTransitGatewayConnectPeerRead(ctx context.Context, d *schema.Resour
 	d.Set("bgp_peer_address", bgpConfigurations[0].PeerAddress)
 	d.Set("bgp_transit_gateway_addresses", slices.ApplyToAll(bgpConfigurations, 
 func(v *ec2.TransitGatewayAttachmentBgpConfiguration) string {
-		return aws.StringValue(v.TransitGatewayAddress)
+return aws.StringValue(v.TransitGatewayAddress)
 	}))
 	d.Set("inside_cidr_blocks", aws.StringValueSlice(transitGatewayConnectPeer.ConnectPeerConfiguration.InsideCidrBlocks))
 	d.Set("peer_address", transitGatewayConnectPeer.ConnectPeerConfiguration.PeerAddress)
@@ -214,19 +214,19 @@ func resourceTransitGatewayConnectPeerDelete(ctx context.Context, d *schema.Reso
 
 	log.Printf("[DEBUG] Deleting EC2 Transit Gateway Connect Peer: %s", d.Id())
 	_, err := conn.DeleteTransitGatewayConnectPeerWithContext(ctx, &ec2.DeleteTransitGatewayConnectPeerInput{
-		TransitGatewayConnectPeerId: aws.String(d.Id()),
+TransitGatewayConnectPeerId: aws.String(d.Id()),
 	})
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidTransitGatewayConnectPeerIDNotFound) {
-		return nil
+return nil
 	}
 
 	if err != nil {
-		return diag.Errorf("deleting EC2 Transit Gateway Connect Peer: %s", err)
+return diag.Errorf("deleting EC2 Transit Gateway Connect Peer: %s", err)
 	}
 
 	if _, err := WaitTransitGatewayConnectPeerDeleted(ctx, conn, d.Id(), d.Timeout(schema.TimeoutDelete)); err != nil {
-		return diag.Errorf("waiting for EC2 Transit Gateway Connect Peer (%s) delete: %s", d.Id(), err)
+return diag.Errorf("waiting for EC2 Transit Gateway Connect Peer (%s) delete: %s", d.Id(), err)
 	}
 
 	return nil

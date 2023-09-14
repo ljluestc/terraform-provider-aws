@@ -23,34 +23,34 @@ func TestAccELBProxyProtocolPolicy_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	lbName := fmt.Sprintf("tf-test-lb-%s", sdkacctest.RandString(5))
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckProxyProtocolPolicyDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccProxyProtocolPolicyConfig_basic(lbName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckProxyProtocolPolicyDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccProxyProtocolPolicyConfig_basic(lbName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttr(
-						"aws_proxy_protocol_policy.smtp", "load_balancer", lbName),
-					resource.TestCheckResourceAttr(
-						"aws_proxy_protocol_policy.smtp", "instance_ports.#", "1"),
-					resource.TestCheckTypeSetElemAttr("aws_proxy_protocol_policy.smtp", "instance_ports.*", "25"),
-				),
-			},
-			{
-				Config: testAccProxyProtocolPolicyConfig_update(lbName),
-				Check: resource.ComposeTestCheck
+	resource.TestCheckResourceAttr(
+"aws_proxy_protocol_policy.smtp", "load_balancer", lbName),
+	resource.TestCheckResourceAttr(
+"aws_proxy_protocol_policy.smtp", "instance_ports.#", "1"),
+	resource.TestCheckTypeSetElemAttr("aws_proxy_protocol_policy.smtp", "instance_ports.*", "25"),
+),
+	},
+	{
+Config: testAccProxyProtocolPolicyConfig_update(lbName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttr("aws_proxy_protocol_policy.smtp", "load_balancer", lbName),
-					resource.TestCheckResourceAttr("aws_proxy_protocol_policy.smtp", "instance_ports.#", "2"),
-					resource.TestCheckTypeSetElemAttr("aws_proxy_protocol_policy.smtp", "instance_ports.*", "25"),
-					resource.TestCheckTypeSetElemAttr("aws_proxy_protocol_policy.smtp", "instance_ports.*", "587"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttr("aws_proxy_protocol_policy.smtp", "load_balancer", lbName),
+	resource.TestCheckResourceAttr("aws_proxy_protocol_policy.smtp", "instance_ports.#", "2"),
+	resource.TestCheckTypeSetElemAttr("aws_proxy_protocol_policy.smtp", "instance_ports.*", "25"),
+	resource.TestCheckTypeSetElemAttr("aws_proxy_protocol_policy.smtp", "instance_ports.*", "587"),
+),
+	},
+},
 	})
 }
 
@@ -59,29 +59,29 @@ func testAccCheckProxyProtocolPolicyDestroy(ctx context.Context) resource.TestCh
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ELBConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).ELBConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_placement_group" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_placement_group" {
+continue
+	}
 
-			req := &elb.DescribeLoadBalancersInput{
-				LoadBalancerNames: []*string{
-					aws.String(rs.Primary.Attributes["load_balancer"])},
-			}
-			_, err := conn.DescribeLoadBalancersWithContext(ctx, req)
-			if err != nil {
-				// Verify the error is what we want
-				if tfawserr.ErrCodeEquals(err, elb.ErrCodeAccessPointNotFoundException) {
-					continue
-				}
-				return err
-			}
+	req := &elb.DescribeLoadBalancersInput{
+LoadBalancerNames: []*string{
+	aws.String(rs.Primary.Attributes["load_balancer"])},
+	}
+	_, err := conn.DescribeLoadBalancersWithContext(ctx, req)
+	if err != nil {
+// Verify the error is what we want
+if tfawserr.ErrCodeEquals(err, elb.ErrCodeAccessPointNotFoundException) {
+	continue
+}
+return err
+	}
 
-			return fmt.Errorf("still exists")
-		}
-		return nil
+	return fmt.Errorf("still exists")
+}
+return nil
 	}
 }
 
@@ -95,14 +95,14 @@ resource "aws_elb" "lb" {
   listener {
     instance_port     = 25
     instance_protocol = "tcp"
-    lb_port           = 25
+    lb_port  = 25
     lb_protocol       = "tcp"
   }
 
   listener {
     instance_port     = 587
     instance_protocol = "tcp"
-    lb_port           = 587
+    lb_port  = 587
     lb_protocol       = "tcp"
   }
 }
@@ -124,14 +124,14 @@ resource "aws_elb" "lb" {
   listener {
     instance_port     = 25
     instance_protocol = "tcp"
-    lb_port           = 25
+    lb_port  = 25
     lb_protocol       = "tcp"
   }
 
   listener {
     instance_port     = 587
     instance_protocol = "tcp"
-    lb_port           = 587
+    lb_port  = 587
     lb_protocol       = "tcp"
   }
 }

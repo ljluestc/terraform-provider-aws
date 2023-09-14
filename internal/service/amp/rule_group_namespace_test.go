@@ -26,7 +26,7 @@ func TestAccAMPRuleGroupNamespace_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, prometheusservice.EndpointsID)
 		},
-		ErrorCheck:acctest.ErrorCheck(t, prometheusservice.EndpointsID),
+		ErrorCheck:               acctest.ErrorCheck(t, prometheusservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckRuleGroupNamespaceDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -68,7 +68,7 @@ func TestAccAMPRuleGroupNamespace_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, prometheusservice.EndpointsID)
 		},
-		ErrorCheck:acctest.ErrorCheck(t, prometheusservice.EndpointsID),
+		ErrorCheck:               acctest.ErrorCheck(t, prometheusservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckRuleGroupNamespaceDestroy(ctx),
 		Steps: []resource.TestStep{

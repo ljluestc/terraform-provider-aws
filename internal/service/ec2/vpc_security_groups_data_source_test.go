@@ -20,21 +20,21 @@ func TestAccVPCSecurityGroupsDataSource_tag(t *testing.T) {
 	dataSourceName := "data.aws_security_groups.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCSecurityGroupsDataSourceConfig_tag(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCSecurityGroupsDataSourceConfig_tag(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttr(dataSourceName, "arns.#", "3"),
-					resource.TestCheckResourceAttr(dataSourceName, "ids.#", "3"),
-					resource.TestCheckResourceAttr(dataSourceName, "vpc_ids.#", "3"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttr(dataSourceName, "arns.#", "3"),
+	resource.TestCheckResourceAttr(dataSourceName, "ids.#", "3"),
+	resource.TestCheckResourceAttr(dataSourceName, "vpc_ids.#", "3"),
+),
+	},
+},
 	})
 }
 
@@ -45,21 +45,21 @@ func TestAccVPCSecurityGroupsDataSource_filter(t *testing.T) {
 	dataSourceName := "data.aws_security_groups.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCSecurityGroupsDataSourceConfig_filter(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCSecurityGroupsDataSourceConfig_filter(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttr(dataSourceName, "arns.#", "1"),
-					resource.TestCheckResourceAttr(dataSourceName, "ids.#", "1"),
-					resource.TestCheckResourceAttr(dataSourceName, "vpc_ids.#", "1"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttr(dataSourceName, "arns.#", "1"),
+	resource.TestCheckResourceAttr(dataSourceName, "ids.#", "1"),
+	resource.TestCheckResourceAttr(dataSourceName, "vpc_ids.#", "1"),
+),
+	},
+},
 	})
 }
 
@@ -70,21 +70,21 @@ func TestAccVPCSecurityGroupsDataSource_empty(t *testing.T) {
 	dataSourceName := "data.aws_security_groups.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCSecurityGroupsDataSourceConfig_empty(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCSecurityGroupsDataSourceConfig_empty(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttr(dataSourceName, "arns.#", "0"),
-					resource.TestCheckResourceAttr(dataSourceName, "ids.#", "0"),
-					resource.TestCheckResourceAttr(dataSourceName, "vpc_ids.#", "0"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttr(dataSourceName, "arns.#", "0"),
+	resource.TestCheckResourceAttr(dataSourceName, "ids.#", "0"),
+	resource.TestCheckResourceAttr(dataSourceName, "vpc_ids.#", "0"),
+),
+	},
+},
 	})
 }
 

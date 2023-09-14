@@ -22,31 +22,31 @@ func TestAccGlueCatalogTableDataSource_basic(t *testing.T) {
 	tName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccCatalogTableDataSourceConfig_basic(dbName, tName),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(datasourceName, "catalog_id", resourceName, "catalog_id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "database_name", resourceName, "database_name"),
-					resource.TestCheckResourceAttrPair(datasourceName, "description", resourceName, "description"),
-					resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
-					resource.TestCheckResourceAttrPair(datasourceName, "owner", resourceName, "owner"),
-					resource.TestCheckResourceAttrPair(datasourceName, "parameters", resourceName, "parameters"),
-					resource.TestCheckResourceAttrPair(datasourceName, "partition_keys", resourceName, "partition_keys"),
-					resource.TestCheckResourceAttrPair(datasourceName, "retention", resourceName, "retention"),
-					resource.TestCheckResourceAttrPair(datasourceName, "storage_descriptor", resourceName, "storage_descriptor"),
-					resource.TestCheckResourceAttrPair(datasourceName, "table_type", resourceName, "table_type"),
-					resource.TestCheckResourceAttrPair(datasourceName, "target_table", resourceName, "target_table"),
-					resource.TestCheckResourceAttrPair(datasourceName, "view_original_text", resourceName, "view_original_text"),
-					resource.TestCheckResourceAttrPair(datasourceName, "view_expanded_text", resourceName, "view_expanded_text"),
-					resource.TestCheckResourceAttrPair(datasourceName, "partition_index", resourceName, "partition_index"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccCatalogTableDataSourceConfig_basic(dbName, tName),
+Check: resource.ComposeTestCheckFunc(
+	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(datasourceName, "catalog_id", resourceName, "catalog_id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "database_name", resourceName, "database_name"),
+	resource.TestCheckResourceAttrPair(datasourceName, "description", resourceName, "description"),
+	resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
+	resource.TestCheckResourceAttrPair(datasourceName, "owner", resourceName, "owner"),
+	resource.TestCheckResourceAttrPair(datasourceName, "parameters", resourceName, "parameters"),
+	resource.TestCheckResourceAttrPair(datasourceName, "partition_keys", resourceName, "partition_keys"),
+	resource.TestCheckResourceAttrPair(datasourceName, "retention", resourceName, "retention"),
+	resource.TestCheckResourceAttrPair(datasourceName, "storage_descriptor", resourceName, "storage_descriptor"),
+	resource.TestCheckResourceAttrPair(datasourceName, "table_type", resourceName, "table_type"),
+	resource.TestCheckResourceAttrPair(datasourceName, "target_table", resourceName, "target_table"),
+	resource.TestCheckResourceAttrPair(datasourceName, "view_original_text", resourceName, "view_original_text"),
+	resource.TestCheckResourceAttrPair(datasourceName, "view_expanded_text", resourceName, "view_expanded_text"),
+	resource.TestCheckResourceAttrPair(datasourceName, "partition_index", resourceName, "partition_index"),
+),
+	},
+},
 	})
 }
 

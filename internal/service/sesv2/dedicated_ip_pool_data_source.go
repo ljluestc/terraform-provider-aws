@@ -109,7 +109,7 @@ func flattenDedicatedIPs(apiObjects []types.DedicatedIp) []interface{} {
 	var dedicatedIps []interface{}
 	for _, apiObject := range apiObjects {
 		ip := map[string]interface{}{
-			"ip": aws.ToString(apiObject.Ip),
+			"ip":                aws.ToString(apiObject.Ip),
 			"warmup_percentage": apiObject.WarmupPercentage,
 			"warmup_status":     string(apiObject.WarmupStatus),
 		}

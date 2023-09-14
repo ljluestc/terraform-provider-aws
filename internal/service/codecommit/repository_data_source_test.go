@@ -21,22 +21,22 @@ func TestAccCodeCommitRepositoryDataSource_basic(t *testing.T) {
 	datasourceName := "data.aws_codecommit_repository.default"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, codecommit.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccRepositoryDataSourceConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, codecommit.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccRepositoryDataSourceConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(datasourceName, "clone_url_http", resourceName, "clone_url_http"),
-					resource.TestCheckResourceAttrPair(datasourceName, "clone_url_ssh", resourceName, "clone_url_ssh"),
-					resource.TestCheckResourceAttrPair(datasourceName, "repository_name", resourceName, "repository_name"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(datasourceName, "clone_url_http", resourceName, "clone_url_http"),
+	resource.TestCheckResourceAttrPair(datasourceName, "clone_url_ssh", resourceName, "clone_url_ssh"),
+	resource.TestCheckResourceAttrPair(datasourceName, "repository_name", resourceName, "repository_name"),
+),
+	},
+},
 	})
 }
 

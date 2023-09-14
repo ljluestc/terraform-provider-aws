@@ -21,24 +21,24 @@ func TestAccACMPCACertificateDataSource_basic(t *testing.T) {
 	domain := acctest.RandomDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, acmpca.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config:      testAccCertificateDataSourceConfig_nonExistent,
-				ExpectError: regexache.MustCompile(`ResourceNotFoundException`),
-			},
-			{
-				Config: testAccCertificateDataSourceConfig_arn(domain),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "certificate", resourceName, "certificate"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "certificate_chain", resourceName, "certificate_chain"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "certificate_authority_arn", resourceName, "certificate_authority_arn"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, acmpca.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config:      testAccCertificateDataSourceConfig_nonExistent,
+ExpectError: regexache.MustCompile(`ResourceNotFoundException`),
+	},
+	{
+Config: testAccCertificateDataSourceConfig_arn(domain),
+Check: resource.ComposeTestCheckFunc(
+	resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "certificate", resourceName, "certificate"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "certificate_chain", resourceName, "certificate_chain"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "certificate_authority_arn", resourceName, "certificate_authority_arn"),
+),
+	},
+},
 	})
 }
 

@@ -23,27 +23,27 @@ func TestAccQuickSightThemeDataSource_basic(t *testing.T) {
 	themeId := "MIDNIGHT"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccThemeDataSourceConfig_basic(rId, rName, themeId),
-				Check: resource.ComposeTestCheck
+	acctest.PreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccThemeDataSourceConfig_basic(rId, rName, themeId),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttr(dataSourceName, "configuration.0.data_color_palette.0.colors.0", "#FFFFFF"),
-					resource.TestCheckResourceAttr(dataSourceName, "configuration.0.data_color_palette.0.empty_fill_color", "#FFFFFF"),
-					resource.TestCheckResourceAttr(dataSourceName, "configuration.0.data_color_palette.0.min_max_gradient.0", "#FFFFFF"),
-					resource.TestCheckNoResourceAttr(dataSourceName, "configuration.0.sheet.0"),
-					resource.TestCheckNoResourceAttr(dataSourceName, "configuration.0.typography.0"),
-					resource.TestCheckNoResourceAttr(dataSourceName, "configuration.0.ui_color_palette.0"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttr(dataSourceName, "configuration.0.data_color_palette.0.colors.0", "#FFFFFF"),
+	resource.TestCheckResourceAttr(dataSourceName, "configuration.0.data_color_palette.0.empty_fill_color", "#FFFFFF"),
+	resource.TestCheckResourceAttr(dataSourceName, "configuration.0.data_color_palette.0.min_max_gradient.0", "#FFFFFF"),
+	resource.TestCheckNoResourceAttr(dataSourceName, "configuration.0.sheet.0"),
+	resource.TestCheckNoResourceAttr(dataSourceName, "configuration.0.typography.0"),
+	resource.TestCheckNoResourceAttr(dataSourceName, "configuration.0.ui_color_palette.0"),
+),
+	},
+},
 	})
 }
 
@@ -57,38 +57,38 @@ func TestAccQuickSightThemeDataSource_fullConfig(t *testing.T) {
 	themeId := "MIDNIGHT"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccThemeDataSourceConfig_fullConfig(rId, rName, themeId),
-				Check: resource.ComposeTestCheck
+	acctest.PreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccThemeDataSourceConfig_fullConfig(rId, rName, themeId),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttr(dataSourceName, "configuration.0.data_color_palette.0.colors.0", "#FFFFFF"),
-					resource.TestCheckResourceAttr(dataSourceName, "configuration.0.data_color_palette.0.empty_fill_color", "#FFFFFF"),
-					resource.TestCheckResourceAttr(dataSourceName, "configuration.0.data_color_palette.0.min_max_gradient.0", "#FFFFFF"),
-					resource.TestCheckResourceAttr(dataSourceName, "configuration.0.sheet.0.tile.0.border.0.show", "false"),
-					resource.TestCheckResourceAttr(dataSourceName, "configuration.0.sheet.0.tile_layout.0.gutter.0.show", "false"),
-					resource.TestCheckResourceAttr(dataSourceName, "configuration.0.sheet.0.tile_layout.0.margin.0.show", "false"),
-					resource.TestCheckResourceAttr(dataSourceName, "configuration.0.typography.0.font_families.0.font_family", "monospace"),
-					resource.TestCheckResourceAttr(dataSourceName, "configuration.0.typography.0.font_families.1.font_family", "Roboto"),
-					resource.TestCheckResourceAttr(dataSourceName, "configuration.0.ui_color_palette.0.accent", "#202020"),
-					resource.TestCheckResourceAttr(dataSourceName, "configuration.0.ui_color_palette.0.accent_foreground", "#FFFFFF"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttr(dataSourceName, "configuration.0.data_color_palette.0.colors.0", "#FFFFFF"),
+	resource.TestCheckResourceAttr(dataSourceName, "configuration.0.data_color_palette.0.empty_fill_color", "#FFFFFF"),
+	resource.TestCheckResourceAttr(dataSourceName, "configuration.0.data_color_palette.0.min_max_gradient.0", "#FFFFFF"),
+	resource.TestCheckResourceAttr(dataSourceName, "configuration.0.sheet.0.tile.0.border.0.show", "false"),
+	resource.TestCheckResourceAttr(dataSourceName, "configuration.0.sheet.0.tile_layout.0.gutter.0.show", "false"),
+	resource.TestCheckResourceAttr(dataSourceName, "configuration.0.sheet.0.tile_layout.0.margin.0.show", "false"),
+	resource.TestCheckResourceAttr(dataSourceName, "configuration.0.typography.0.font_families.0.font_family", "monospace"),
+	resource.TestCheckResourceAttr(dataSourceName, "configuration.0.typography.0.font_families.1.font_family", "Roboto"),
+	resource.TestCheckResourceAttr(dataSourceName, "configuration.0.ui_color_palette.0.accent", "#202020"),
+	resource.TestCheckResourceAttr(dataSourceName, "configuration.0.ui_color_palette.0.accent_foreground", "#FFFFFF"),
+),
+	},
+},
 	})
 }
 
 
 func testAccThemeDataSourceConfig_basic(rId, rName, baseThemId string) string {
 	return acctest.ConfigCompose(
-		fmt.Sprintf(`
+fmt.Sprintf(`
 resource "aws_quicksight_theme" "test" {
   theme_id = %[1]q
   name     = %[2]q
@@ -127,7 +127,7 @@ data "aws_quicksight_theme" "test" {
 
 func testAccThemeDataSourceConfig_fullConfig(rId, rName, baseThemId string) string {
 	return acctest.ConfigCompose(
-		fmt.Sprintf(`
+fmt.Sprintf(`
 resource "aws_quicksight_theme" "test" {
   theme_id = %[1]q
   name     = %[2]q
@@ -157,15 +157,15 @@ resource "aws_quicksight_theme" "test" {
     sheet {
       tile {
         border {
-          show = false
+ show = false
         }
       }
       tile_layout {
         gutter {
-          show = false
+ show = false
         }
         margin {
-          show = false
+ show = false
         }
       }
     }
@@ -182,17 +182,17 @@ resource "aws_quicksight_theme" "test" {
       accent_foreground    = "#FFFFFF"
       danger= "#202020"
       danger_foreground    = "#FFFFFF"
-      dimension            = "#202020"
+      dimension   = "#202020"
       dimension_foreground = "#FFFFFF"
-      measure              = "#202020"
+      measure     = "#202020"
       measure_foreground   = "#FFFFFF"
       primary_background   = "#202020"
       primary_foreground   = "#FFFFFF"
       secondary_background = "#202020"
       secondary_foreground = "#FFFFFF"
-      success              = "#202020"
+      success     = "#202020"
       success_foreground   = "#FFFFFF"
-      warning              = "#202020"
+      warning     = "#202020"
       warning_foreground   = "#FFFFFF"
     }
   }

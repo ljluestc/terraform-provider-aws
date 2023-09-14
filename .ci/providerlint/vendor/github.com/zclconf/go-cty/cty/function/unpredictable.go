@@ -21,11 +21,11 @@ import (
 // if it is not yet able to predict its return value based on current argument
 // information.
 func Unpredictable(f Function) Function {
-	newSpec := *f.spec // shallow copy
-	newSpec.Impl = unpredictableImpl
-	return New(&newSpec)
+newSpec := *f.spec // shallow copy
+newSpec.Impl = unpredictableImpl
+return New(&newSpec)
 }
 
 func unpredictableImpl(args []cty.Value, retType cty.Type) (cty.Value, error) {
-	return cty.UnknownVal(retType), nil
+return cty.UnknownVal(retType), nil
 }

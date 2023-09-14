@@ -15,7 +15,7 @@ import (
 
 func testContactChannelDataSource_basic(t *testing.T) {
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	ctx := acctest.Context(t)
@@ -24,26 +24,26 @@ func testContactChannelDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_ssmcontacts_contact_channel.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			testAccContactPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, names.SSMContactsEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccContactChannelDataSourceConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrPair(dataSourceName, "activation_status", contactChannelResourceName, "activation_status"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "delivery_address.#", contactChannelResourceName, "delivery_address.#"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "delivery_address.0.simple_address", contactChannelResourceName, "delivery_address.0.simple_address"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "name", contactChannelResourceName, "name"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "type", contactChannelResourceName, "type"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "contact_id", contactChannelResourceName, "contact_id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "arn", contactChannelResourceName, "arn"),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	testAccContactPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, names.SSMContactsEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccContactChannelDataSourceConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	resource.TestCheckResourceAttrPair(dataSourceName, "activation_status", contactChannelResourceName, "activation_status"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "delivery_address.#", contactChannelResourceName, "delivery_address.#"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "delivery_address.0.simple_address", contactChannelResourceName, "delivery_address.0.simple_address"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "name", contactChannelResourceName, "name"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "type", contactChannelResourceName, "type"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "contact_id", contactChannelResourceName, "contact_id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "arn", contactChannelResourceName, "arn"),
+),
+	},
+},
 	})
 }
 

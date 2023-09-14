@@ -38,7 +38,7 @@ func ResourceTransitGatewayPeeringAttachment() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"peer_account_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Computed:     true,
@@ -77,7 +77,7 @@ func resourceTransitGatewayPeeringAttachmentCreate(ctx context.Context, d *schem
 	}
 	input := &ec2.CreateTransitGatewayPeeringAttachmentInput{
 		PeerAccountId:        aws.String(peerAccountID),
-		PeerRegion:           aws.String(d.Get("peer_region").(string)),
+		PeerRegion:  aws.String(d.Get("peer_region").(string)),
 		PeerTransitGatewayId: aws.String(d.Get("peer_transit_gateway_id").(string)),
 		TagSpecifications:    getTagSpecificationsIn(ctx, ec2.ResourceTypeTransitGatewayAttachment),
 		TransitGatewayId:     aws.String(d.Get("transit_gateway_id").(string)),

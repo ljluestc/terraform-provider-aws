@@ -42,25 +42,25 @@ func geospatialWindowOptionsSchema() *schema.Schema {
 					Elem: &schema.Resource{
 						Schema: map[string]*schema.Schema{
 							"east": {
-								Type:         schema.TypeFloat,
+								Type:schema.TypeFloat,
 								Required:     true,
 								Validate
 func: validation.IntBetween(-1800, 1800),
 							},
 							"north": {
-								Type:         schema.TypeFloat,
+								Type:schema.TypeFloat,
 								Required:     true,
 								Validate
 func: validation.IntBetween(-90, 90),
 							},
 							"south": {
-								Type:         schema.TypeFloat,
+								Type:schema.TypeFloat,
 								Required:     true,
 								Validate
 func: validation.IntBetween(-90, 90),
 							},
 							"west": {
-								Type:         schema.TypeFloat,
+								Type:schema.TypeFloat,
 								Required:     true,
 								Validate
 func: validation.IntBetween(-1800, 1800),

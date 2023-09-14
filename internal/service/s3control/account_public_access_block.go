@@ -23,44 +23,44 @@ import (
 // @SDKResource("aws_s3_account_public_access_block")
 func resourceAccountPublicAccessBlock() *schema.Resource {
 	return &schema.Resource{
-		CreateWithoutTimeout: resourceAccountPublicAccessBlockCreate,
-		ReadWithoutTimeout:   resourceAccountPublicAccessBlockRead,
-		UpdateWithoutTimeout: resourceAccountPublicAccessBlockUpdate,
-		DeleteWithoutTimeout: resourceAccountPublicAccessBlockDelete,
+CreateWithoutTimeout: resourceAccountPublicAccessBlockCreate,
+ReadWithoutTimeout:   resourceAccountPublicAccessBlockRead,
+UpdateWithoutTimeout: resourceAccountPublicAccessBlockUpdate,
+DeleteWithoutTimeout: resourceAccountPublicAccessBlockDelete,
 
-		Importer: &schema.ResourceImporter{
-			StateContext: schema.ImportStatePassthroughContext,
-		},
+Importer: &schema.ResourceImporter{
+	StateContext: schema.ImportStatePassthroughContext,
+},
 
-		Schema: map[string]*schema.Schema{
-			"account_id": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
-				ForceNew:     true,
-				ValidateFunc: verify.ValidAccountID,
-			},
-			"block_public_acls": {
-				Type:     schema.TypeBool,
-				Optional: true,
-				Default:  false,
-			},
-			"block_public_policy": {
-				Type:     schema.TypeBool,
-				Optional: true,
-				Default:  false,
-			},
-			"ignore_public_acls": {
-				Type:     schema.TypeBool,
-				Optional: true,
-				Default:  false,
-			},
-			"restrict_public_buckets": {
-				Type:     schema.TypeBool,
-				Optional: true,
-				Default:  false,
-			},
-		},
+Schema: map[string]*schema.Schema{
+	"account_id": {
+Type:         schema.TypeString,
+Optional:     true,
+Computed:     true,
+ForceNew:     true,
+ValidateFunc: verify.ValidAccountID,
+	},
+	"block_public_acls": {
+Type:     schema.TypeBool,
+Optional: true,
+Default:  false,
+	},
+	"block_public_policy": {
+Type:     schema.TypeBool,
+Optional: true,
+Default:  false,
+	},
+	"ignore_public_acls": {
+Type:     schema.TypeBool,
+Optional: true,
+Default:  false,
+	},
+	"restrict_public_buckets": {
+Type:     schema.TypeBool,
+Optional: true,
+Default:  false,
+	},
+},
 	}
 }
 
@@ -69,33 +69,33 @@ func resourceAccountPublicAccessBlockCreate(ctx context.Context, d *schema.Resou
 
 	accountID := meta.(*conns.AWSClient).AccountID
 	if v, ok := d.GetOk("account_id"); ok {
-		accountID = v.(string)
+accountID = v.(string)
 	}
 
 	input := &s3control.PutPublicAccessBlockInput{
-		AccountId: aws.String(accountID),
-		PublicAccessBlockConfiguration: &s3control.PublicAccessBlockConfiguration{
-			BlockPublicAcls:       aws.Bool(d.Get("block_public_acls").(bool)),
-			BlockPublicPolicy:     aws.Bool(d.Get("block_public_policy").(bool)),
-			IgnorePublicAcls:      aws.Bool(d.Get("ignore_public_acls").(bool)),
-			RestrictPublicBuckets: aws.Bool(d.Get("restrict_public_buckets").(bool)),
-		},
+AccountId: aws.String(accountID),
+PublicAccessBlockConfiguration: &s3control.PublicAccessBlockConfiguration{
+	BlockPublicAcls:       aws.Bool(d.Get("block_public_acls").(bool)),
+	BlockPublicPolicy:     aws.Bool(d.Get("block_public_policy").(bool)),
+	IgnorePublicAcls:      aws.Bool(d.Get("ignore_public_acls").(bool)),
+	RestrictPublicBuckets: aws.Bool(d.Get("restrict_public_buckets").(bool)),
+},
 	}
 
 	_, err := conn.PutPublicAccessBlockWithContext(ctx, input)
 
 	if err != nil {
-		return diag.Errorf("creating S3 Account Public Access Block (%s): %s", accountID, err)
+return diag.Errorf("creating S3 Account Public Access Block (%s): %s", accountID, err)
 	}
 
 	d.SetId(accountID)
 
 	_, err = tfresource.RetryWhenNotFound(ctx, propagationTimeout, func() (interface{}, error) {
-		return FindPublicAccessBlockByAccountID(ctx, conn, d.Id())
+return FindPublicAccessBlockByAccountID(ctx, conn, d.Id())
 	})
 
 	if err != nil {
-		return diag.Errorf("waiting for S3 Account Public Access Block (%s) create: %s", d.Id(), err)
+return diag.Errorf("waiting for S3 Account Public Access Block (%s) create: %s", d.Id(), err)
 	}
 
 	return resourceAccountPublicAccessBlockRead(ctx, d, meta)
@@ -107,13 +107,13 @@ func resourceAccountPublicAccessBlockRead(ctx context.Context, d *schema.Resourc
 	output, err := FindPublicAccessBlockByAccountID(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
-		log.Printf("[WARN] S3 Account Public Access Block (%s) not found, removing from state", d.Id())
-		d.SetId("")
-		return nil
+log.Printf("[WARN] S3 Account Public Access Block (%s) not found, removing from state", d.Id())
+d.SetId("")
+return nil
 	}
 
 	if err != nil {
-		return diag.Errorf("reading S3 Account Public Access Block (%s): %s", d.Id(), err)
+return diag.Errorf("reading S3 Account Public Access Block (%s): %s", d.Id(), err)
 	}
 
 	d.Set("account_id", d.Id())
@@ -129,24 +129,24 @@ func resourceAccountPublicAccessBlockUpdate(ctx context.Context, d *schema.Resou
 	conn := meta.(*conns.AWSClient).S3ControlConn(ctx)
 
 	publicAccessBlockConfiguration := &s3control.PublicAccessBlockConfiguration{
-		BlockPublicAcls:       aws.Bool(d.Get("block_public_acls").(bool)),
-		BlockPublicPolicy:     aws.Bool(d.Get("block_public_policy").(bool)),
-		IgnorePublicAcls:      aws.Bool(d.Get("ignore_public_acls").(bool)),
-		RestrictPublicBuckets: aws.Bool(d.Get("restrict_public_buckets").(bool)),
+BlockPublicAcls:       aws.Bool(d.Get("block_public_acls").(bool)),
+BlockPublicPolicy:     aws.Bool(d.Get("block_public_policy").(bool)),
+IgnorePublicAcls:      aws.Bool(d.Get("ignore_public_acls").(bool)),
+RestrictPublicBuckets: aws.Bool(d.Get("restrict_public_buckets").(bool)),
 	}
 	input := &s3control.PutPublicAccessBlockInput{
-		AccountId:       aws.String(d.Id()),
-		PublicAccessBlockConfiguration: publicAccessBlockConfiguration,
+AccountId:       aws.String(d.Id()),
+PublicAccessBlockConfiguration: publicAccessBlockConfiguration,
 	}
 
 	_, err := conn.PutPublicAccessBlockWithContext(ctx, input)
 
 	if err != nil {
-		return diag.Errorf("updating S3 Account Public Access Block (%s): %s", d.Id(), err)
+return diag.Errorf("updating S3 Account Public Access Block (%s): %s", d.Id(), err)
 	}
 
 	if _, err := waitPublicAccessBlockEqual(ctx, conn, d.Id(), publicAccessBlockConfiguration); err != nil {
-		return diag.Errorf("waiting for S3 Account Public Access Block (%s) update: %s", d.Id(), err)
+return diag.Errorf("waiting for S3 Account Public Access Block (%s) update: %s", d.Id(), err)
 	}
 
 	return resourceAccountPublicAccessBlockRead(ctx, d, meta)
@@ -157,15 +157,15 @@ func resourceAccountPublicAccessBlockDelete(ctx context.Context, d *schema.Resou
 
 	log.Printf("[DEBUG] Deleting S3 Account Public Access Block: %s", d.Id())
 	_, err := conn.DeletePublicAccessBlockWithContext(ctx, &s3control.DeletePublicAccessBlockInput{
-		AccountId: aws.String(d.Id()),
+AccountId: aws.String(d.Id()),
 	})
 
 	if tfawserr.ErrCodeEquals(err, s3control.ErrCodeNoSuchPublicAccessBlockConfiguration) {
-		return nil
+return nil
 	}
 
 	if err != nil {
-		return diag.Errorf("deleting S3 Account Public Access Block (%s): %s", d.Id(), err)
+return diag.Errorf("deleting S3 Account Public Access Block (%s): %s", d.Id(), err)
 	}
 
 	return nil
@@ -173,24 +173,24 @@ func resourceAccountPublicAccessBlockDelete(ctx context.Context, d *schema.Resou
 
 func FindPublicAccessBlockByAccountID(ctx context.Context, conn *s3control.S3Control, accountID string) (*s3control.PublicAccessBlockConfiguration, error) {
 	input := &s3control.GetPublicAccessBlockInput{
-		AccountId: aws.String(accountID),
+AccountId: aws.String(accountID),
 	}
 
 	output, err := conn.GetPublicAccessBlockWithContext(ctx, input)
 
 	if tfawserr.ErrCodeEquals(err, s3control.ErrCodeNoSuchPublicAccessBlockConfiguration) {
-		return nil, &retry.NotFoundError{
-			LastError:   err,
-			LastRequest: input,
-		}
+return nil, &retry.NotFoundError{
+	LastError:   err,
+	LastRequest: input,
+}
 	}
 
 	if err != nil {
-		return nil, err
+return nil, err
 	}
 
 	if output == nil || output.PublicAccessBlockConfiguration == nil {
-		return nil, tfresource.NewEmptyResultError(input)
+return nil, tfresource.NewEmptyResultError(input)
 	}
 
 	return output.PublicAccessBlockConfiguration, nil
@@ -198,34 +198,34 @@ func FindPublicAccessBlockByAccountID(ctx context.Context, conn *s3control.S3Con
 
 func statusPublicAccessBlockEqual(ctx context.Context, conn *s3control.S3Control, accountID string, target *s3control.PublicAccessBlockConfiguration) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
-		output, err := FindPublicAccessBlockByAccountID(ctx, conn, accountID)
+output, err := FindPublicAccessBlockByAccountID(ctx, conn, accountID)
 
-		if tfresource.NotFound(err) {
-			return nil, "", nil
-		}
+if tfresource.NotFound(err) {
+	return nil, "", nil
+}
 
-		if err != nil {
-			return nil, "", err
-		}
+if err != nil {
+	return nil, "", err
+}
 
-		return output, strconv.FormatBool(reflect.DeepEqual(output, target)), nil
+return output, strconv.FormatBool(reflect.DeepEqual(output, target)), nil
 	}
 }
 
 func waitPublicAccessBlockEqual(ctx context.Context, conn *s3control.S3Control, accountID string, target *s3control.PublicAccessBlockConfiguration) (*s3control.PublicAccessBlockConfiguration, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    []string{strconv.FormatBool(false)},
-		Target:     []string{strconv.FormatBool(true)},
-		Refresh:    statusPublicAccessBlockEqual(ctx, conn, accountID, target),
-		Timeout:    propagationTimeout,
-		MinTimeout: propagationMinTimeout,
-		ContinuousTargetOccurence: propagationContinuousTargetOccurence,
+Pending:    []string{strconv.FormatBool(false)},
+Target:     []string{strconv.FormatBool(true)},
+Refresh:    statusPublicAccessBlockEqual(ctx, conn, accountID, target),
+Timeout:    propagationTimeout,
+MinTimeout: propagationMinTimeout,
+ContinuousTargetOccurence: propagationContinuousTargetOccurence,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
 
 	if output, ok := outputRaw.(*s3control.PublicAccessBlockConfiguration); ok {
-		return output, err
+return output, err
 	}
 
 	return nil, err

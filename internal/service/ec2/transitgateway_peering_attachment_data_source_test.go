@@ -20,28 +20,28 @@ func testAccTransitGatewayPeeringAttachmentDataSource_Filter_sameAccount(t *test
 	resourceName := "aws_ec2_transit_gateway_peering_attachment.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-			testAccPreCheckTransitGateway(ctx, t)
-			acctest.PreCheckMultipleRegion(t, 2)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckTransitGatewayDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTransitGatewayPeeringAttachmentDataSourceConfig_filterSameAccount(rName),
-				Check: resource.ComposeTestCheck
+	acctest.PreCheck(ctx, t)
+	testAccPreCheckTransitGateway(ctx, t)
+	acctest.PreCheckMultipleRegion(t, 2)
+},
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
+CheckDestroy:    testAccCheckTransitGatewayDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTransitGatewayPeeringAttachmentDataSourceConfig_filterSameAccount(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttrPair(resourceName, "peer_account_id", dataSourceName, "peer_account_id"),
-					resource.TestCheckResourceAttrPair(resourceName, "peer_region", dataSourceName, "peer_region"),
-					resource.TestCheckResourceAttrPair(resourceName, "peer_transit_gateway_id", dataSourceName, "peer_transit_gateway_id"),
-					resource.TestCheckResourceAttrPair(resourceName, "tags.%", dataSourceName, "tags.%"),
-					resource.TestCheckResourceAttrPair(resourceName, "transit_gateway_id", dataSourceName, "transit_gateway_id"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(resourceName, "peer_account_id", dataSourceName, "peer_account_id"),
+	resource.TestCheckResourceAttrPair(resourceName, "peer_region", dataSourceName, "peer_region"),
+	resource.TestCheckResourceAttrPair(resourceName, "peer_transit_gateway_id", dataSourceName, "peer_transit_gateway_id"),
+	resource.TestCheckResourceAttrPair(resourceName, "tags.%", dataSourceName, "tags.%"),
+	resource.TestCheckResourceAttrPair(resourceName, "transit_gateway_id", dataSourceName, "transit_gateway_id"),
+),
+	},
+},
 	})
 }
 
@@ -54,28 +54,28 @@ func testAccTransitGatewayPeeringAttachmentDataSource_Filter_differentAccount(t 
 	transitGatewayResourceName := "aws_ec2_transit_gateway.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-			testAccPreCheckTransitGateway(ctx, t)
-			acctest.PreCheckMultipleRegion(t, 2)
-			acctest.PreCheckAlternateAccount(t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckTransitGatewayDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTransitGatewayPeeringAttachmentDataSourceConfig_filterDifferentAccount(rName),
-				Check: resource.ComposeTestCheck
+	acctest.PreCheck(ctx, t)
+	testAccPreCheckTransitGateway(ctx, t)
+	acctest.PreCheckMultipleRegion(t, 2)
+	acctest.PreCheckAlternateAccount(t)
+},
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
+CheckDestroy:    testAccCheckTransitGatewayDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTransitGatewayPeeringAttachmentDataSourceConfig_filterDifferentAccount(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttr(dataSourceName, "peer_region", acctest.Region()),
-					resource.TestCheckResourceAttrPair(transitGatewayResourceName, "owner_id", dataSourceName, "peer_account_id"),
-					resource.TestCheckResourceAttrPair(resourceName, "transit_gateway_id", dataSourceName, "peer_transit_gateway_id"),
-					resource.TestCheckResourceAttrPair(resourceName, "peer_transit_gateway_id", dataSourceName, "transit_gateway_id"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttr(dataSourceName, "peer_region", acctest.Region()),
+	resource.TestCheckResourceAttrPair(transitGatewayResourceName, "owner_id", dataSourceName, "peer_account_id"),
+	resource.TestCheckResourceAttrPair(resourceName, "transit_gateway_id", dataSourceName, "peer_transit_gateway_id"),
+	resource.TestCheckResourceAttrPair(resourceName, "peer_transit_gateway_id", dataSourceName, "transit_gateway_id"),
+),
+	},
+},
 	})
 }
 
@@ -87,28 +87,28 @@ func testAccTransitGatewayPeeringAttachmentDataSource_ID_sameAccount(t *testing.
 	resourceName := "aws_ec2_transit_gateway_peering_attachment.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-			testAccPreCheckTransitGateway(ctx, t)
-			acctest.PreCheckMultipleRegion(t, 2)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckTransitGatewayDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTransitGatewayPeeringAttachmentDataSourceConfig_idSameAccount(rName),
-				Check: resource.ComposeTestCheck
+	acctest.PreCheck(ctx, t)
+	testAccPreCheckTransitGateway(ctx, t)
+	acctest.PreCheckMultipleRegion(t, 2)
+},
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
+CheckDestroy:    testAccCheckTransitGatewayDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTransitGatewayPeeringAttachmentDataSourceConfig_idSameAccount(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttrPair(resourceName, "peer_account_id", dataSourceName, "peer_account_id"),
-					resource.TestCheckResourceAttrPair(resourceName, "peer_region", dataSourceName, "peer_region"),
-					resource.TestCheckResourceAttrPair(resourceName, "peer_transit_gateway_id", dataSourceName, "peer_transit_gateway_id"),
-					resource.TestCheckResourceAttrPair(resourceName, "tags.%", dataSourceName, "tags.%"),
-					resource.TestCheckResourceAttrPair(resourceName, "transit_gateway_id", dataSourceName, "transit_gateway_id"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(resourceName, "peer_account_id", dataSourceName, "peer_account_id"),
+	resource.TestCheckResourceAttrPair(resourceName, "peer_region", dataSourceName, "peer_region"),
+	resource.TestCheckResourceAttrPair(resourceName, "peer_transit_gateway_id", dataSourceName, "peer_transit_gateway_id"),
+	resource.TestCheckResourceAttrPair(resourceName, "tags.%", dataSourceName, "tags.%"),
+	resource.TestCheckResourceAttrPair(resourceName, "transit_gateway_id", dataSourceName, "transit_gateway_id"),
+),
+	},
+},
 	})
 }
 
@@ -121,28 +121,28 @@ func testAccTransitGatewayPeeringAttachmentDataSource_ID_differentAccount(t *tes
 	transitGatewayResourceName := "aws_ec2_transit_gateway.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-			testAccPreCheckTransitGateway(ctx, t)
-			acctest.PreCheckMultipleRegion(t, 2)
-			acctest.PreCheckAlternateAccount(t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckTransitGatewayDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTransitGatewayPeeringAttachmentDataSourceConfig_iDDifferentAccount(rName),
-				Check: resource.ComposeTestCheck
+	acctest.PreCheck(ctx, t)
+	testAccPreCheckTransitGateway(ctx, t)
+	acctest.PreCheckMultipleRegion(t, 2)
+	acctest.PreCheckAlternateAccount(t)
+},
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
+CheckDestroy:    testAccCheckTransitGatewayDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTransitGatewayPeeringAttachmentDataSourceConfig_iDDifferentAccount(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttr(dataSourceName, "peer_region", acctest.Region()),
-					resource.TestCheckResourceAttrPair(transitGatewayResourceName, "owner_id", dataSourceName, "peer_account_id"),
-					resource.TestCheckResourceAttrPair(resourceName, "transit_gateway_id", dataSourceName, "peer_transit_gateway_id"),
-					resource.TestCheckResourceAttrPair(resourceName, "peer_transit_gateway_id", dataSourceName, "transit_gateway_id"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttr(dataSourceName, "peer_region", acctest.Region()),
+	resource.TestCheckResourceAttrPair(transitGatewayResourceName, "owner_id", dataSourceName, "peer_account_id"),
+	resource.TestCheckResourceAttrPair(resourceName, "transit_gateway_id", dataSourceName, "peer_transit_gateway_id"),
+	resource.TestCheckResourceAttrPair(resourceName, "peer_transit_gateway_id", dataSourceName, "transit_gateway_id"),
+),
+	},
+},
 	})
 }
 
@@ -154,28 +154,28 @@ func testAccTransitGatewayPeeringAttachmentDataSource_Tags(t *testing.T) {
 	resourceName := "aws_ec2_transit_gateway_peering_attachment.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-			testAccPreCheckTransitGateway(ctx, t)
-			acctest.PreCheckMultipleRegion(t, 2)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckTransitGatewayDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTransitGatewayPeeringAttachmentDataSourceConfig_tagsSameAccount(rName),
-				Check: resource.ComposeTestCheck
+	acctest.PreCheck(ctx, t)
+	testAccPreCheckTransitGateway(ctx, t)
+	acctest.PreCheckMultipleRegion(t, 2)
+},
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
+CheckDestroy:    testAccCheckTransitGatewayDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTransitGatewayPeeringAttachmentDataSourceConfig_tagsSameAccount(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttrPair(resourceName, "peer_account_id", dataSourceName, "peer_account_id"),
-					resource.TestCheckResourceAttrPair(resourceName, "peer_region", dataSourceName, "peer_region"),
-					resource.TestCheckResourceAttrPair(resourceName, "peer_transit_gateway_id", dataSourceName, "peer_transit_gateway_id"),
-					resource.TestCheckResourceAttrPair(resourceName, "tags.%", dataSourceName, "tags.%"),
-					resource.TestCheckResourceAttrPair(resourceName, "transit_gateway_id", dataSourceName, "transit_gateway_id"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(resourceName, "peer_account_id", dataSourceName, "peer_account_id"),
+	resource.TestCheckResourceAttrPair(resourceName, "peer_region", dataSourceName, "peer_region"),
+	resource.TestCheckResourceAttrPair(resourceName, "peer_transit_gateway_id", dataSourceName, "peer_transit_gateway_id"),
+	resource.TestCheckResourceAttrPair(resourceName, "tags.%", dataSourceName, "tags.%"),
+	resource.TestCheckResourceAttrPair(resourceName, "transit_gateway_id", dataSourceName, "transit_gateway_id"),
+),
+	},
+},
 	})
 }
 

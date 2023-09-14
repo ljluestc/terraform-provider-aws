@@ -34,7 +34,7 @@ import (
 
 const (
 	provisionedThroughputMinValue = 1
-	ResNameTable   = "Table"
+	ResNameTable                  = "Table"
 )
 
 // @SDKResource("aws_dynamodb_table", name="Table")
@@ -774,7 +774,7 @@ func resourceTableUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 		idxName := aws.StringValue(gsiUpdate.Delete.IndexName)
 		input := &dynamodb.UpdateTableInput{
 			GlobalSecondaryIndexUpdates: []*dynamodb.GlobalSecondaryIndexUpdate{gsiUpdate},
-			TableName:    aws.String(d.Id()),
+			TableName:                   aws.String(d.Id()),
 		}
 
 		if _, err := conn.UpdateTableWithContext(ctx, input); err != nil {
@@ -898,7 +898,7 @@ func resourceTableUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 		input := &dynamodb.UpdateTableInput{
 			AttributeDefinitions:        expandAttributes(d.Get("attribute").(*schema.Set).List()),
 			GlobalSecondaryIndexUpdates: []*dynamodb.GlobalSecondaryIndexUpdate{gsiUpdate},
-			TableName:    aws.String(d.Id()),
+			TableName:                   aws.String(d.Id()),
 		}
 
 		if _, err := conn.UpdateTableWithContext(ctx, input); err != nil {
@@ -1119,10 +1119,12 @@ func createReplicas(ctx context.Context, conn *dynamodb.DynamoDB, tableName stri
 		}
 
 		// currently this would not be needed because (replica has these arguments):
-		//   region_name can't be updated - new replica
-		//   kms_key_arn can't be updated - remove/add replica
-		//   propagate_tags - handled elsewhere
-		//   point_in_time_recovery - handled elsewhere
+		//
+		//	region_name can't be updated - new replica
+		//	kms_key_arn can't be updated - remove/add replica
+		//	propagate_tags - handled elsewhere
+		//	point_in_time_recovery - handled elsewhere
+		//
 		// if provisioned_throughput_override or table_class_override were added, they could be updated here
 		if !create {
 			var replicaInput = &dynamodb.UpdateReplicationGroupMemberAction{}
@@ -1529,10 +1531,10 @@ func deleteTable(ctx context.Context, conn *dynamodb.DynamoDB, tableName string)
 			return true, err
 		}
 		// This handles multiple scenarios in the DynamoDB API:
-		// 1. Updating a table immediately before deletion may return:
-		//    ResourceInUseException: Attempt to change a resource which is still in use: Table is being updated:
-		// 2. Removing a table from a DynamoDB global table may return:
-		//    ResourceInUseException: Attempt to change a resource which is still in use: Table is being deleted:
+		//  1. Updating a table immediately before deletion may return:
+		//     ResourceInUseException: Attempt to change a resource which is still in use: Table is being updated:
+		//  2. Removing a table from a DynamoDB global table may return:
+		//     ResourceInUseException: Attempt to change a resource which is still in use: Table is being deleted:
 		if tfawserr.ErrCodeEquals(err, dynamodb.ErrCodeResourceInUseException) {
 			return true, err
 		}

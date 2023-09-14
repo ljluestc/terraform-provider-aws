@@ -27,8 +27,8 @@ func TestAccMemoryDBParameterGroup_basic(t *testing.T) {
 	resourceName := "aws_memorydb_parameter_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -69,8 +69,8 @@ func TestAccMemoryDBParameterGroup_disappears(t *testing.T) {
 	resourceName := "aws_memorydb_parameter_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -92,8 +92,8 @@ func TestAccMemoryDBParameterGroup_update_parameters(t *testing.T) {
 	resourceName := "aws_memorydb_parameter_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckParameterGroupDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -202,8 +202,8 @@ func TestAccMemoryDBParameterGroup_update_tags(t *testing.T) {
 	resourceName := "aws_memorydb_parameter_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckSubnetGroupDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -420,16 +420,16 @@ func TestParameterChanges(t *testing.T) {
 	t.Parallel()
 
 	cases := []struct {
-		Name string
-		Old  *schema.Set
-		New  *schema.Set
+		Name                string
+		Old                 *schema.Set
+		New                 *schema.Set
 		ExpectedRemove      []*memorydb.ParameterNameValue
 		ExpectedAddOrUpdate []*memorydb.ParameterNameValue
 	}{
 		{
-			Name: "Empty",
-			Old:  new(schema.Set),
-			New:  new(schema.Set),
+			Name:                "Empty",
+			Old:                 new(schema.Set),
+			New:                 new(schema.Set),
 			ExpectedRemove:      []*memorydb.ParameterNameValue{},
 			ExpectedAddOrUpdate: []*memorydb.ParameterNameValue{},
 		},

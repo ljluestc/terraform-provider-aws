@@ -21,25 +21,25 @@ func TestAccCodeCommitApprovalRuleTemplateDataSource_basic(t *testing.T) {
 	datasourceName := "data.aws_codecommit_approval_rule_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, codecommit.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccApprovalRuleTemplateDataSourceConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, codecommit.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccApprovalRuleTemplateDataSourceConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttrPair(datasourceName, "description", resourceName, "description"),
-					resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
-					resource.TestCheckResourceAttrPair(datasourceName, "content", resourceName, "content"),
-					resource.TestCheckResourceAttrPair(datasourceName, "creation_date", resourceName, "creation_date"),
-					resource.TestCheckResourceAttrPair(datasourceName, "last_modified_date", resourceName, "last_modified_date"),
-					resource.TestCheckResourceAttrPair(datasourceName, "last_modified_user", resourceName, "last_modified_user"),
-					resource.TestCheckResourceAttrPair(datasourceName, "rule_content_sha256", resourceName, "rule_content_sha256"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(datasourceName, "description", resourceName, "description"),
+	resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
+	resource.TestCheckResourceAttrPair(datasourceName, "content", resourceName, "content"),
+	resource.TestCheckResourceAttrPair(datasourceName, "creation_date", resourceName, "creation_date"),
+	resource.TestCheckResourceAttrPair(datasourceName, "last_modified_date", resourceName, "last_modified_date"),
+	resource.TestCheckResourceAttrPair(datasourceName, "last_modified_user", resourceName, "last_modified_user"),
+	resource.TestCheckResourceAttrPair(datasourceName, "rule_content_sha256", resourceName, "rule_content_sha256"),
+),
+	},
+},
 	})
 }
 
@@ -58,9 +58,9 @@ resource "aws_codecommit_approval_rule_template" "test" {
 	"Version": "2018-11-08",
 	"DestinationReferences": ["refs/heads/master"],
 	"Statements": [{
-			"Type": "Approvers",
-			"NumberOfApprovalsNeeded": 2,
-			"ApprovalPoolMembers": ["arn:${data.aws_partition.current.partition}:sts::${data.aws_caller_identity.current.account_id}:assumed-role/CodeCommitReview/*"]
+	"Type": "Approvers",
+	"NumberOfApprovalsNeeded": 2,
+	"ApprovalPoolMembers": ["arn:${data.aws_partition.current.partition}:sts::${data.aws_caller_identity.current.account_id}:assumed-role/CodeCommitReview/*"]
 	}]
 }
 EOF

@@ -51,13 +51,13 @@ func filledMapVisualSchema() *schema.Schema {
 									},
 								},
 							},
-							"legend":            legendOptionsSchema(),             // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_LegendOptions.html
+							"legend":   legendOptionsSchema(),    // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_LegendOptions.html
 							"map_style_options": geospatialMapStyleOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_GeospatialMapStyleOptions.html
 							"sort_configuration": { // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FilledMapSortConfiguration.html
-								Type:             schema.TypeList,
-								Optional:         true,
-								MinItems:         1,
-								MaxItems:         1,
+								Type:    schema.TypeList,
+								Optional:true,
+								MinItems:1,
+								MaxItems:1,
 								DiffSuppress
 func: verify.SuppressMissingOptionalConfigurationBlock,
 								Elem: &schema.Resource{
@@ -66,7 +66,7 @@ func: verify.SuppressMissingOptionalConfigurationBlock,
 									},
 								},
 							},
-							"tooltip":        tooltipOptionsSchema(),          // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TooltipOptions.html
+							"tooltip":        tooltipOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TooltipOptions.html
 							"window_options": geospatialWindowOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_GeospatialWindowOptions.html
 						},
 					},

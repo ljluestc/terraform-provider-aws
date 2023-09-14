@@ -22,27 +22,27 @@ func TestAccQuickSightUserDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_quicksight_user.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserDataSourceConfig(rName),
-				Check: resource.ComposeTestCheck
+	acctest.PreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccUserDataSourceConfig(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttrPair(dataSourceName, "user_name", resourceName, "user_name"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttr(dataSourceName, "email", acctest.DefaultEmailAddress),
-					resource.TestCheckResourceAttr(dataSourceName, "namespace", tfquicksight.DefaultUserNamespace),
-					resource.TestCheckResourceAttr(dataSourceName, "identity_type", quicksight.IdentityTypeQuicksight),
-					resource.TestCheckResourceAttrSet(dataSourceName, "principal_id"),
-					resource.TestCheckResourceAttr(dataSourceName, "user_role", quicksight.UserRoleReader),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(dataSourceName, "user_name", resourceName, "user_name"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttr(dataSourceName, "email", acctest.DefaultEmailAddress),
+	resource.TestCheckResourceAttr(dataSourceName, "namespace", tfquicksight.DefaultUserNamespace),
+	resource.TestCheckResourceAttr(dataSourceName, "identity_type", quicksight.IdentityTypeQuicksight),
+	resource.TestCheckResourceAttrSet(dataSourceName, "principal_id"),
+	resource.TestCheckResourceAttr(dataSourceName, "user_role", quicksight.UserRoleReader),
+),
+	},
+},
 	})
 }
 
@@ -51,7 +51,7 @@ func testAccUserDataSourceConfig(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_quicksight_user" "test" {
   user_name     = %[1]q
-  email         = %[2]q
+  email= %[2]q
   identity_type = "QUICKSIGHT"
   user_role     = "READER"
 }

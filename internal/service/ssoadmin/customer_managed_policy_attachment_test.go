@@ -28,28 +28,28 @@ func TestAccSSOAdminCustomerManagedPolicyAttachment_basic(t *testing.T) {
 	rNamePolicy2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckInstances(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ssoadmin.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCustomerManagedPolicyAttachmentDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccCustomerManagedPolicyAttachmentConfig_basic(rName, rNamePolicy1, rNamePolicy2),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ssoadmin.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckCustomerManagedPolicyAttachmentDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccCustomerManagedPolicyAttachmentConfig_basic(rName, rNamePolicy1, rNamePolicy2),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckCustomerManagedPolicyAttachmentExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "customer_managed_policy_reference.0.name", rNamePolicy1),
-					resource.TestCheckResourceAttrPair(resourceName, "instance_arn", permissionSetResourceName, "instance_arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "permission_set_arn", permissionSetResourceName, "arn"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckCustomerManagedPolicyAttachmentExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "customer_managed_policy_reference.0.name", rNamePolicy1),
+	resource.TestCheckResourceAttrPair(resourceName, "instance_arn", permissionSetResourceName, "instance_arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "permission_set_arn", permissionSetResourceName, "arn"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -63,35 +63,35 @@ func TestAccSSOAdminCustomerManagedPolicyAttachment_forceNew(t *testing.T) {
 	rNamePolicy2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckInstances(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ssoadmin.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCustomerManagedPolicyAttachmentDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccCustomerManagedPolicyAttachmentConfig_basic(rName, rNamePolicy1, rNamePolicy2),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ssoadmin.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckCustomerManagedPolicyAttachmentDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccCustomerManagedPolicyAttachmentConfig_basic(rName, rNamePolicy1, rNamePolicy2),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckCustomerManagedPolicyAttachmentExists(ctx, resourceName),
-				),
-			},
-			{
-				Config: testAccCustomerManagedPolicyAttachmentConfig_forceNew(rName, rNamePolicy1, rNamePolicy2),
-				Check: resource.ComposeTestCheck
+	testAccCheckCustomerManagedPolicyAttachmentExists(ctx, resourceName),
+),
+	},
+	{
+Config: testAccCustomerManagedPolicyAttachmentConfig_forceNew(rName, rNamePolicy1, rNamePolicy2),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckCustomerManagedPolicyAttachmentExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "customer_managed_policy_reference.0.name", rNamePolicy2),
-					resource.TestCheckResourceAttrPair(resourceName, "instance_arn", permissionSetResourceName, "instance_arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "permission_set_arn", permissionSetResourceName, "arn"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckCustomerManagedPolicyAttachmentExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "customer_managed_policy_reference.0.name", rNamePolicy2),
+	resource.TestCheckResourceAttrPair(resourceName, "instance_arn", permissionSetResourceName, "instance_arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "permission_set_arn", permissionSetResourceName, "arn"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -104,22 +104,22 @@ func TestAccSSOAdminCustomerManagedPolicyAttachment_disappears(t *testing.T) {
 	rNamePolicy2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckInstances(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ssoadmin.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCustomerManagedPolicyAttachmentDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccCustomerManagedPolicyAttachmentConfig_basic(rName, rNamePolicy1, rNamePolicy2),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ssoadmin.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckCustomerManagedPolicyAttachmentDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccCustomerManagedPolicyAttachmentConfig_basic(rName, rNamePolicy1, rNamePolicy2),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckCustomerManagedPolicyAttachmentExists(ctx, resourceName),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfssoadmin.ResourceCustomerManagedPolicyAttachment(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckCustomerManagedPolicyAttachmentExists(ctx, resourceName),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfssoadmin.ResourceCustomerManagedPolicyAttachment(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -133,22 +133,22 @@ func TestAccSSOAdminCustomerManagedPolicyAttachment_Disappears_permissionSet(t *
 	rNamePolicy2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckInstances(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ssoadmin.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCustomerManagedPolicyAttachmentDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccCustomerManagedPolicyAttachmentConfig_basic(rName, rNamePolicy1, rNamePolicy2),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ssoadmin.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckCustomerManagedPolicyAttachmentDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccCustomerManagedPolicyAttachmentConfig_basic(rName, rNamePolicy1, rNamePolicy2),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckCustomerManagedPolicyAttachmentExists(ctx, resourceName),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfssoadmin.ResourcePermissionSet(), permissionSetResourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckCustomerManagedPolicyAttachmentExists(ctx, resourceName),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfssoadmin.ResourcePermissionSet(), permissionSetResourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -164,36 +164,36 @@ func TestAccSSOAdminCustomerManagedPolicyAttachment_multipleManagedPolicies(t *t
 	rNamePolicy3 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckInstances(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ssoadmin.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCustomerManagedPolicyAttachmentDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccCustomerManagedPolicyAttachmentConfig_basic(rName, rNamePolicy1, rNamePolicy2),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ssoadmin.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckCustomerManagedPolicyAttachmentDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccCustomerManagedPolicyAttachmentConfig_basic(rName, rNamePolicy1, rNamePolicy2),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckCustomerManagedPolicyAttachmentExists(ctx, resource1Name),
-				),
-			},
-			{
-				Config: testAccCustomerManagedPolicyAttachmentConfig_multiple(rName, rNamePolicy1, rNamePolicy2, rNamePolicy3),
-				Check: resource.ComposeTestCheck
+	testAccCheckCustomerManagedPolicyAttachmentExists(ctx, resource1Name),
+),
+	},
+	{
+Config: testAccCustomerManagedPolicyAttachmentConfig_multiple(rName, rNamePolicy1, rNamePolicy2, rNamePolicy3),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckCustomerManagedPolicyAttachmentExists(ctx, resource1Name),
-					testAccCheckCustomerManagedPolicyAttachmentExists(ctx, resource2Name),
-					resource.TestCheckResourceAttr(resource2Name, "customer_managed_policy_reference.0.name", rNamePolicy3),
-					resource.TestCheckResourceAttrPair(resource2Name, "instance_arn", permissionSetResourceName, "instance_arn"),
-					resource.TestCheckResourceAttrPair(resource2Name, "permission_set_arn", permissionSetResourceName, "arn"),
-				),
-			},
-			{
-				ResourceName:      resource2Name,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckCustomerManagedPolicyAttachmentExists(ctx, resource1Name),
+	testAccCheckCustomerManagedPolicyAttachmentExists(ctx, resource2Name),
+	resource.TestCheckResourceAttr(resource2Name, "customer_managed_policy_reference.0.name", rNamePolicy3),
+	resource.TestCheckResourceAttrPair(resource2Name, "instance_arn", permissionSetResourceName, "instance_arn"),
+	resource.TestCheckResourceAttrPair(resource2Name, "permission_set_arn", permissionSetResourceName, "arn"),
+),
+	},
+	{
+ResourceName:      resource2Name,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -202,32 +202,32 @@ func testAccCheckCustomerManagedPolicyAttachmentDestroy(ctx context.Context) res
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).SSOAdminConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).SSOAdminConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_ssoadmin_customer_managed_policy_attachment" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_ssoadmin_customer_managed_policy_attachment" {
+continue
+	}
 
-			policyName, policyPath, permissionSetARN, instanceARN, err := tfssoadmin.CustomerManagedPolicyAttachmentParseResourceID(rs.Primary.ID)
-			if err != nil {
-				return err
-			}
+	policyName, policyPath, permissionSetARN, instanceARN, err := tfssoadmin.CustomerManagedPolicyAttachmentParseResourceID(rs.Primary.ID)
+	if err != nil {
+return err
+	}
 
-			_, err = tfssoadmin.FindCustomerManagedPolicy(ctx, conn, policyName, policyPath, permissionSetARN, instanceARN)
+	_, err = tfssoadmin.FindCustomerManagedPolicy(ctx, conn, policyName, policyPath, permissionSetARN, instanceARN)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("SSO Customer Managed Policy Attachment %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("SSO Customer Managed Policy Attachment %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -236,25 +236,25 @@ func testAccCheckCustomerManagedPolicyAttachmentExists(ctx context.Context, n st
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No SSO Customer Managed Policy Attachment ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No SSO Customer Managed Policy Attachment ID is set")
+}
 
-		policyName, policyPath, permissionSetARN, instanceARN, err := tfssoadmin.CustomerManagedPolicyAttachmentParseResourceID(rs.Primary.ID)
-		if err != nil {
-			return err
-		}
+policyName, policyPath, permissionSetARN, instanceARN, err := tfssoadmin.CustomerManagedPolicyAttachmentParseResourceID(rs.Primary.ID)
+if err != nil {
+	return err
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).SSOAdminConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).SSOAdminConn(ctx)
 
-		_, err = tfssoadmin.FindCustomerManagedPolicy(ctx, conn, policyName, policyPath, permissionSetARN, instanceARN)
+_, err = tfssoadmin.FindCustomerManagedPolicy(ctx, conn, policyName, policyPath, permissionSetARN, instanceARN)
 
-		return err
+return err
 	}
 }
 
@@ -266,7 +266,7 @@ data "aws_partition" "current" {}
 data "aws_ssoadmin_instances" "test" {}
 
 resource "aws_ssoadmin_permission_set" "test" {
-  name         = %[1]q
+  name= %[1]q
   instance_arn = tolist(data.aws_ssoadmin_instances.test.arns)[0]
 }
 
@@ -279,7 +279,7 @@ resource "aws_iam_policy" "test1" {
     Statement = [
       {
         Action = [
-          "ec2:Describe*",
+ "ec2:Describe*",
         ]
         Effect   = "Allow"
         Resource = "*"
@@ -297,7 +297,7 @@ resource "aws_iam_policy" "test2" {
     Statement = [
       {
         Action = [
-          "ec2:Describe*",
+ "ec2:Describe*",
         ]
         Effect   = "Allow"
         Resource = "*"
@@ -359,7 +359,7 @@ resource "aws_iam_policy" "test3" {
     Statement = [
       {
         Action = [
-          "ec2:Describe*",
+ "ec2:Describe*",
         ]
         Effect   = "Allow"
         Resource = "*"

@@ -33,7 +33,7 @@ func ResourceConfig() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"autodefined_reverse_flag": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				Validate
 func: validation.StringInSlice(autodefinedReverseFlag_Values(), false),
@@ -58,7 +58,7 @@ func resourceConfigCreate(ctx context.Context, d *schema.ResourceData, meta inte
 	autodefinedReverseFlag := d.Get("autodefined_reverse_flag").(string)
 	input := &route53resolver.UpdateResolverConfigInput{
 		AutodefinedReverseFlag: aws.String(autodefinedReverseFlag),
-		ResourceId:             aws.String(d.Get("resource_id").(string)),
+		ResourceId:    aws.String(d.Get("resource_id").(string)),
 	}
 
 	output, err := conn.UpdateResolverConfigWithContext(ctx, input)
@@ -112,7 +112,7 @@ func resourceConfigUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 	autodefinedReverseFlag := d.Get("autodefined_reverse_flag").(string)
 	input := &route53resolver.UpdateResolverConfigInput{
 		AutodefinedReverseFlag: aws.String(autodefinedReverseFlag),
-		ResourceId:             aws.String(d.Get("resource_id").(string)),
+		ResourceId:    aws.String(d.Get("resource_id").(string)),
 	}
 
 	_, err := conn.UpdateResolverConfigWithContext(ctx, input)

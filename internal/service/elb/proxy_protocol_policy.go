@@ -23,24 +23,24 @@ import (
 
 func ResourceProxyProtocolPolicy() *schema.Resource {
 	return &schema.Resource{
-		CreateWithoutTimeout: resourceProxyProtocolPolicyCreate,
-		ReadWithoutTimeout:   resourceProxyProtocolPolicyRead,
-		UpdateWithoutTimeout: resourceProxyProtocolPolicyUpdate,
-		DeleteWithoutTimeout: resourceProxyProtocolPolicyDelete,
+CreateWithoutTimeout: resourceProxyProtocolPolicyCreate,
+ReadWithoutTimeout:   resourceProxyProtocolPolicyRead,
+UpdateWithoutTimeout: resourceProxyProtocolPolicyUpdate,
+DeleteWithoutTimeout: resourceProxyProtocolPolicyDelete,
 
-		Schema: map[string]*schema.Schema{
-			"load_balancer": {
-				Type:     schema.TypeString,
-				Required: true,
-			},
+Schema: map[string]*schema.Schema{
+	"load_balancer": {
+Type:     schema.TypeString,
+Required: true,
+	},
 
-			"instance_ports": {
-				Type:     schema.TypeSet,
-				Elem:     &schema.Schema{Type: schema.TypeString},
-				Required: true,
-				Set:      schema.HashString,
-			},
-		},
+	"instance_ports": {
+Type:     schema.TypeSet,
+Elem:     &schema.Schema{Type: schema.TypeString},
+Required: true,
+Set:      schema.HashString,
+	},
+},
 	}
 }
 
@@ -50,23 +50,23 @@ func resourceProxyProtocolPolicyCreate(ctx context.Context, d *schema.ResourceDa
 	elbname := aws.String(d.Get("load_balancer").(string))
 
 	input := &elb.CreateLoadBalancerPolicyInput{
-		LoadBalancerName: elbname,
-		PolicyAttributes: []*elb.PolicyAttribute{
-			{
-				AttributeName:  aws.String("ProxyProtocol"),
-				AttributeValue: aws.String("True"),
-			},
-		},
-		PolicyName:     aws.String("TFEnableProxyProtocol"),
-		PolicyTypeName: aws.String("ProxyProtocolPolicyType"),
+LoadBalancerName: elbname,
+PolicyAttributes: []*elb.PolicyAttribute{
+	{
+AttributeName:  aws.String("ProxyProtocol"),
+AttributeValue: aws.String("True"),
+	},
+},
+PolicyName:     aws.String("TFEnableProxyProtocol"),
+PolicyTypeName: aws.String("ProxyProtocolPolicyType"),
 	}
 
 	// Create a policy
 	log.Printf("[DEBUG] ELB create a policy %s from policy type %s",
-		*input.PolicyName, *input.PolicyTypeName)
+*input.PolicyName, *input.PolicyTypeName)
 
 	if _, err := conn.CreateLoadBalancerPolicyWithContext(ctx, input); err != nil {
-		return sdkdiag.AppendErrorf(diags, "creating a policy %s: %s", aws.StringValue(input.PolicyName), err)
+return sdkdiag.AppendErrorf(diags, "creating a policy %s: %s", aws.StringValue(input.PolicyName), err)
 	}
 
 	d.SetId(fmt.Sprintf("%s:%s", *elbname, *input.PolicyName))
@@ -81,24 +81,24 @@ func resourceProxyProtocolPolicyRead(ctx context.Context, d *schema.ResourceData
 
 	// Retrieve the current ELB policies for updating the state
 	req := &elb.DescribeLoadBalancersInput{
-		LoadBalancerNames: []*string{aws.String(elbname)},
+LoadBalancerNames: []*string{aws.String(elbname)},
 	}
 	resp, err := conn.DescribeLoadBalancersWithContext(ctx, req)
 	if err != nil {
-		if !d.IsNewResource() && tfawserr.ErrCodeEquals(err, elb.ErrCodeAccessPointNotFoundException) {
-			log.Printf("[WARN] ELB Classic Proxy Protocol Policy (%s) not found, removing from state", d.Id())
-			d.SetId("")
-			return diags
-		}
-		return sdkdiag.AppendErrorf(diags, "retrieving ELB attributes: %s", err)
+if !d.IsNewResource() && tfawserr.ErrCodeEquals(err, elb.ErrCodeAccessPointNotFoundException) {
+	log.Printf("[WARN] ELB Classic Proxy Protocol Policy (%s) not found, removing from state", d.Id())
+	d.SetId("")
+	return diags
+}
+return sdkdiag.AppendErrorf(diags, "retrieving ELB attributes: %s", err)
 	}
 
 	backends := flattenBackendPolicies(resp.LoadBalancerDescriptions[0].BackendServerDescriptions)
 
 	ports := []*string{}
 	for ip := range backends {
-		ipstr := strconv.Itoa(int(ip))
-		ports = append(ports, &ipstr)
+ipstr := strconv.Itoa(int(ip))
+ports = append(ports, &ipstr)
 	}
 	d.Set("instance_ports", ports)
 	d.Set("load_balancer", elbname)
@@ -112,43 +112,43 @@ func resourceProxyProtocolPolicyUpdate(ctx context.Context, d *schema.ResourceDa
 
 	// Retrieve the current ELB policies for updating the state
 	req := &elb.DescribeLoadBalancersInput{
-		LoadBalancerNames: []*string{elbname},
+LoadBalancerNames: []*string{elbname},
 	}
 	resp, err := conn.DescribeLoadBalancersWithContext(ctx, req)
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "retrieving ELB attributes: %s", err)
+return sdkdiag.AppendErrorf(diags, "retrieving ELB attributes: %s", err)
 	}
 
 	backends := flattenBackendPolicies(resp.LoadBalancerDescriptions[0].BackendServerDescriptions)
 	policyName := resourceProxyProtocolPolicyParseID(d.Id())
 
 	if d.HasChange("instance_ports") {
-		o, n := d.GetChange("instance_ports")
-		os := o.(*schema.Set)
-		ns := n.(*schema.Set)
-		remove := os.Difference(ns).List()
-		add := ns.Difference(os).List()
+o, n := d.GetChange("instance_ports")
+os := o.(*schema.Set)
+ns := n.(*schema.Set)
+remove := os.Difference(ns).List()
+add := ns.Difference(os).List()
 
-		inputs := []*elb.SetLoadBalancerPoliciesForBackendServerInput{}
+inputs := []*elb.SetLoadBalancerPoliciesForBackendServerInput{}
 
-		i, err := resourceProxyProtocolPolicyRemove(policyName, remove, backends)
-		if err != nil {
-			return sdkdiag.AppendErrorf(diags, "updating ELB Classic Proxy Protocol Policy (%s): %s", d.Id(), err)
-		}
-		inputs = append(inputs, i...)
+i, err := resourceProxyProtocolPolicyRemove(policyName, remove, backends)
+if err != nil {
+	return sdkdiag.AppendErrorf(diags, "updating ELB Classic Proxy Protocol Policy (%s): %s", d.Id(), err)
+}
+inputs = append(inputs, i...)
 
-		i, err = resourceProxyProtocolPolicyAdd(policyName, add, backends)
-		if err != nil {
-			return sdkdiag.AppendErrorf(diags, "updating ELB Classic Proxy Protocol Policy (%s): %s", d.Id(), err)
-		}
-		inputs = append(inputs, i...)
+i, err = resourceProxyProtocolPolicyAdd(policyName, add, backends)
+if err != nil {
+	return sdkdiag.AppendErrorf(diags, "updating ELB Classic Proxy Protocol Policy (%s): %s", d.Id(), err)
+}
+inputs = append(inputs, i...)
 
-		for _, input := range inputs {
-			input.LoadBalancerName = elbname
-			if _, err := conn.SetLoadBalancerPoliciesForBackendServerWithContext(ctx, input); err != nil {
-				return sdkdiag.AppendErrorf(diags, "setting policy for backend: %s", err)
-			}
-		}
+for _, input := range inputs {
+	input.LoadBalancerName = elbname
+	if _, err := conn.SetLoadBalancerPoliciesForBackendServerWithContext(ctx, input); err != nil {
+return sdkdiag.AppendErrorf(diags, "setting policy for backend: %s", err)
+	}
+}
 	}
 
 	return append(diags, resourceProxyProtocolPolicyRead(ctx, d, meta)...)
@@ -161,14 +161,14 @@ func resourceProxyProtocolPolicyDelete(ctx context.Context, d *schema.ResourceDa
 
 	// Retrieve the current ELB policies for updating the state
 	req := &elb.DescribeLoadBalancersInput{
-		LoadBalancerNames: []*string{elbname},
+LoadBalancerNames: []*string{elbname},
 	}
 	resp, err := conn.DescribeLoadBalancersWithContext(ctx, req)
 	if err != nil {
-		if tfawserr.ErrCodeEquals(err, elb.ErrCodeAccessPointNotFoundException) {
-			return diags
-		}
-		return sdkdiag.AppendErrorf(diags, "retrieving ELB attributes: %s", err)
+if tfawserr.ErrCodeEquals(err, elb.ErrCodeAccessPointNotFoundException) {
+	return diags
+}
+return sdkdiag.AppendErrorf(diags, "retrieving ELB attributes: %s", err)
 	}
 
 	backends := flattenBackendPolicies(resp.LoadBalancerDescriptions[0].BackendServerDescriptions)
@@ -177,21 +177,21 @@ func resourceProxyProtocolPolicyDelete(ctx context.Context, d *schema.ResourceDa
 
 	inputs, err := resourceProxyProtocolPolicyRemove(policyName, ports, backends)
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "deleting ELB Classic Proxy Protocol Policy (%s): %s", d.Id(), err)
+return sdkdiag.AppendErrorf(diags, "deleting ELB Classic Proxy Protocol Policy (%s): %s", d.Id(), err)
 	}
 	for _, input := range inputs {
-		input.LoadBalancerName = elbname
-		if _, err := conn.SetLoadBalancerPoliciesForBackendServerWithContext(ctx, input); err != nil {
-			return sdkdiag.AppendErrorf(diags, "setting policy for backend: %s", err)
-		}
+input.LoadBalancerName = elbname
+if _, err := conn.SetLoadBalancerPoliciesForBackendServerWithContext(ctx, input); err != nil {
+	return sdkdiag.AppendErrorf(diags, "setting policy for backend: %s", err)
+}
 	}
 
 	pOpt := &elb.DeleteLoadBalancerPolicyInput{
-		LoadBalancerName: elbname,
-		PolicyName:       aws.String(policyName),
+LoadBalancerName: elbname,
+PolicyName:       aws.String(policyName),
 	}
 	if _, err := conn.DeleteLoadBalancerPolicyWithContext(ctx, pOpt); err != nil {
-		return sdkdiag.AppendErrorf(diags, "removing a policy from load balancer: %s", err)
+return sdkdiag.AppendErrorf(diags, "removing a policy from load balancer: %s", err)
 	}
 
 	return diags
@@ -200,30 +200,30 @@ func resourceProxyProtocolPolicyDelete(ctx context.Context, d *schema.ResourceDa
 func resourceProxyProtocolPolicyRemove(policyName string, ports []interface{}, backends map[int64][]string) ([]*elb.SetLoadBalancerPoliciesForBackendServerInput, error) {
 	inputs := make([]*elb.SetLoadBalancerPoliciesForBackendServerInput, 0, len(ports))
 	for _, p := range ports {
-		ip, err := strconv.ParseInt(p.(string), 10, 64)
-		if err != nil {
-			return nil, fmt.Errorf("detaching the policy: %s", err)
-		}
+ip, err := strconv.ParseInt(p.(string), 10, 64)
+if err != nil {
+	return nil, fmt.Errorf("detaching the policy: %s", err)
+}
 
-		newPolicies := []*string{}
-		curPolicies, found := backends[ip]
-		if !found {
-			// No policy for this instance port found, just skip it.
-			continue
-		}
+newPolicies := []*string{}
+curPolicies, found := backends[ip]
+if !found {
+	// No policy for this instance port found, just skip it.
+	continue
+}
 
-		for _, p := range curPolicies {
-			if p == policyName {
-				// remove the policy
-				continue
-			}
-			newPolicies = append(newPolicies, aws.String(p))
-		}
+for _, p := range curPolicies {
+	if p == policyName {
+// remove the policy
+continue
+	}
+	newPolicies = append(newPolicies, aws.String(p))
+}
 
-		inputs = append(inputs, &elb.SetLoadBalancerPoliciesForBackendServerInput{
-			InstancePort: &ip,
-			PolicyNames:  newPolicies,
-		})
+inputs = append(inputs, &elb.SetLoadBalancerPoliciesForBackendServerInput{
+	InstancePort: &ip,
+	PolicyNames:  newPolicies,
+})
 	}
 	return inputs, nil
 }
@@ -231,26 +231,26 @@ func resourceProxyProtocolPolicyRemove(policyName string, ports []interface{}, b
 func resourceProxyProtocolPolicyAdd(policyName string, ports []interface{}, backends map[int64][]string) ([]*elb.SetLoadBalancerPoliciesForBackendServerInput, error) {
 	inputs := make([]*elb.SetLoadBalancerPoliciesForBackendServerInput, 0, len(ports))
 	for _, p := range ports {
-		ip, err := strconv.ParseInt(p.(string), 10, 64)
-		if err != nil {
-			return nil, fmt.Errorf("attaching the policy: %s", err)
-		}
+ip, err := strconv.ParseInt(p.(string), 10, 64)
+if err != nil {
+	return nil, fmt.Errorf("attaching the policy: %s", err)
+}
 
-		newPolicies := []*string{}
-		curPolicies := backends[ip]
-		for _, p := range curPolicies {
-			if p == policyName {
-				// Just remove it for now. It will be back later.
-				continue
-			}
-			newPolicies = append(newPolicies, aws.String(p))
-		}
-		newPolicies = append(newPolicies, aws.String(policyName))
+newPolicies := []*string{}
+curPolicies := backends[ip]
+for _, p := range curPolicies {
+	if p == policyName {
+// Just remove it for now. It will be back later.
+continue
+	}
+	newPolicies = append(newPolicies, aws.String(p))
+}
+newPolicies = append(newPolicies, aws.String(policyName))
 
-		inputs = append(inputs, &elb.SetLoadBalancerPoliciesForBackendServerInput{
-			InstancePort: &ip,
-			PolicyNames:  newPolicies,
-		})
+inputs = append(inputs, &elb.SetLoadBalancerPoliciesForBackendServerInput{
+	InstancePort: &ip,
+	PolicyNames:  newPolicies,
+})
 	}
 	return inputs, nil
 }

@@ -266,7 +266,7 @@ func expandConnectionInput(d *schema.ResourceData) *glue.ConnectionInput {
 	connectionInput := &glue.ConnectionInput{
 		ConnectionProperties: aws.StringMap(connectionProperties),
 		ConnectionType:       aws.String(d.Get("connection_type").(string)),
-		Name:  aws.String(d.Get("name").(string)),
+		Name:                 aws.String(d.Get("name").(string)),
 	}
 
 	if v, ok := d.GetOk("description"); ok {

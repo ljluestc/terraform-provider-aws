@@ -25,30 +25,30 @@ func TestAccEMRInstanceFleet_basic(t *testing.T) {
 	resourceName := "aws_emr_instance_fleet.task"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccInstanceFleetConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    acctest.CheckDestroyNoop,
+Steps: []resource.TestStep{
+	{
+Config: testAccInstanceFleetConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(testAccCheckInstanceFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "instance_type_configs.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "target_on_demand_capacity", "1"),
-					resource.TestCheckResourceAttr(resourceName, "target_spot_capacity", "0"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateId
+	resource.TestCheckResourceAttr(resourceName, "instance_type_configs.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "target_on_demand_capacity", "1"),
+	resource.TestCheckResourceAttr(resourceName, "target_spot_capacity", "0"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateId
 func: testAccInstanceFleetResourceImportStateId
 func(resourceName),
-				ImportStateVerify: true,
-			},
-		},
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -60,39 +60,39 @@ func TestAccEMRInstanceFleet_Zero_count(t *testing.T) {
 	resourceName := "aws_emr_instance_fleet.task"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccInstanceFleetConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    acctest.CheckDestroyNoop,
+Steps: []resource.TestStep{
+	{
+Config: testAccInstanceFleetConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(testAccCheckInstanceFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "instance_type_configs.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "target_on_demand_capacity", "1"),
-					resource.TestCheckResourceAttr(resourceName, "target_spot_capacity", "0"),
-				),
-			},
-			{
-				Config: testAccInstanceFleetConfig_zeroCount(rName),
-				Check: resource.ComposeTestCheck
+	resource.TestCheckResourceAttr(resourceName, "instance_type_configs.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "target_on_demand_capacity", "1"),
+	resource.TestCheckResourceAttr(resourceName, "target_spot_capacity", "0"),
+),
+	},
+	{
+Config: testAccInstanceFleetConfig_zeroCount(rName),
+Check: resource.ComposeTestCheck
 func(testAccCheckInstanceFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "instance_type_configs.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "target_on_demand_capacity", "0"),
-					resource.TestCheckResourceAttr(resourceName, "target_spot_capacity", "0"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateId
+	resource.TestCheckResourceAttr(resourceName, "instance_type_configs.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "target_on_demand_capacity", "0"),
+	resource.TestCheckResourceAttr(resourceName, "target_spot_capacity", "0"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateId
 func: testAccInstanceFleetResourceImportStateId
 func(resourceName),
-				ImportStateVerify: true,
-			},
-		},
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -104,30 +104,30 @@ func TestAccEMRInstanceFleet_ebsBasic(t *testing.T) {
 	resourceName := "aws_emr_instance_fleet.task"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccInstanceFleetConfig_ebsBasic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    acctest.CheckDestroyNoop,
+Steps: []resource.TestStep{
+	{
+Config: testAccInstanceFleetConfig_ebsBasic(rName),
+Check: resource.ComposeTestCheck
 func(testAccCheckInstanceFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "instance_type_configs.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "target_on_demand_capacity", "0"),
-					resource.TestCheckResourceAttr(resourceName, "target_spot_capacity", "1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateId
+	resource.TestCheckResourceAttr(resourceName, "instance_type_configs.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "target_on_demand_capacity", "0"),
+	resource.TestCheckResourceAttr(resourceName, "target_spot_capacity", "1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateId
 func: testAccInstanceFleetResourceImportStateId
 func(resourceName),
-				ImportStateVerify: true,
-			},
-		},
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -139,30 +139,30 @@ func TestAccEMRInstanceFleet_full(t *testing.T) {
 	resourceName := "aws_emr_instance_fleet.task"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccInstanceFleetConfig_full(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    acctest.CheckDestroyNoop,
+Steps: []resource.TestStep{
+	{
+Config: testAccInstanceFleetConfig_full(rName),
+Check: resource.ComposeTestCheck
 func(testAccCheckInstanceFleetExists(ctx, resourceName, &fleet),
-					resource.TestCheckResourceAttr(resourceName, "instance_type_configs.#", "2"),
-					resource.TestCheckResourceAttr(resourceName, "target_on_demand_capacity", "2"),
-					resource.TestCheckResourceAttr(resourceName, "target_spot_capacity", "2"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateId
+	resource.TestCheckResourceAttr(resourceName, "instance_type_configs.#", "2"),
+	resource.TestCheckResourceAttr(resourceName, "target_on_demand_capacity", "2"),
+	resource.TestCheckResourceAttr(resourceName, "target_spot_capacity", "2"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateId
 func: testAccInstanceFleetResourceImportStateId
 func(resourceName),
-				ImportStateVerify: true,
-			},
-		},
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -171,26 +171,26 @@ func testAccCheckInstanceFleetExists(ctx context.Context, n string, v *emr.Insta
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No EMR Instance Fleet ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No EMR Instance Fleet ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EMRConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EMRConn(ctx)
 
-		output, err := tfemr.FindInstanceFleetByTwoPartKey(ctx, conn, rs.Primary.Attributes["cluster_id"], rs.Primary.ID)
+output, err := tfemr.FindInstanceFleetByTwoPartKey(ctx, conn, rs.Primary.Attributes["cluster_id"], rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*v = *output
+*v = *output
 
-		return nil
+return nil
 	}
 }
 
@@ -200,12 +200,12 @@ func(resourceName string) resource.ImportStateId
 func {
 	return 
 func(s *terraform.State) (string, error) {
-		rs, ok := s.RootModule().Resources[resourceName]
-		if !ok {
-			return "", fmt.Errorf("Not found: %s", resourceName)
-		}
+rs, ok := s.RootModule().Resources[resourceName]
+if !ok {
+	return "", fmt.Errorf("Not found: %s", resourceName)
+}
 
-		return fmt.Sprintf("%s/%s", rs.Primary.Attributes["cluster_id"], rs.Primary.ID), nil
+return fmt.Sprintf("%s/%s", rs.Primary.Attributes["cluster_id"], rs.Primary.ID), nil
 	}
 }
 
@@ -213,7 +213,7 @@ func(s *terraform.State) (string, error) {
 func testAccInstanceFleetConfig_base(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInDefaultExclude(), fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block           = "10.0.0.0/16"
+  cidr_block  = "10.0.0.0/16"
   enable_dns_hostnames = true
 
   tags = {
@@ -259,7 +259,7 @@ resource "aws_security_group" "test" {
 
 resource "aws_subnet" "test" {
   availability_zone       = data.aws_availability_zones.available.names[0]
-  cidr_block              = "10.0.0.0/24"
+  cidr_block     = "10.0.0.0/24"
   map_public_ip_on_launch = false
   vpc_id   = aws_vpc.test.id
 
@@ -350,28 +350,28 @@ resource "aws_iam_policy" "emr_instance_profile" {
         "Effect": "Allow",
         "Resource": "*",
         "Action": [
-            "cloudwatch:*",
-            "dynamodb:*",
-            "ec2:Describe*",
-            "elasticmapreduce:Describe*",
-            "elasticmapreduce:ListBootstrapActions",
-            "elasticmapreduce:ListClusters",
-            "elasticmapreduce:ListInstanceGroups",
-            "elasticmapreduce:ListInstances",
-            "elasticmapreduce:ListSteps",
-            "kinesis:CreateStream",
-            "kinesis:DeleteStream",
-            "kinesis:DescribeStream",
-            "kinesis:GetRecords",
-            "kinesis:GetShardIterator",
-            "kinesis:MergeShards",
-            "kinesis:PutRecord",
-            "kinesis:SplitShard",
-            "rds:Describe*",
-            "s3:*",
-            "sdb:*",
-            "sns:*",
-            "sqs:*"
+   "cloudwatch:*",
+   "dynamodb:*",
+   "ec2:Describe*",
+   "elasticmapreduce:Describe*",
+   "elasticmapreduce:ListBootstrapActions",
+   "elasticmapreduce:ListClusters",
+   "elasticmapreduce:ListInstanceGroups",
+   "elasticmapreduce:ListInstances",
+   "elasticmapreduce:ListSteps",
+   "kinesis:CreateStream",
+   "kinesis:DeleteStream",
+   "kinesis:DescribeStream",
+   "kinesis:GetRecords",
+   "kinesis:GetShardIterator",
+   "kinesis:MergeShards",
+   "kinesis:PutRecord",
+   "kinesis:SplitShard",
+   "rds:Describe*",
+   "s3:*",
+   "sdb:*",
+   "sns:*",
+   "sqs:*"
         ]
     }]
 }
@@ -379,7 +379,7 @@ EOT
 }
 
 resource "aws_emr_cluster" "test" {
-  name          = "%[1]s"
+  name = "%[1]s"
   release_label = "emr-5.30.1"
   applications  = ["Hadoop", "Hive"]
   log_uri       = "s3n://terraform/testlog/"
@@ -418,7 +418,7 @@ resource "aws_emr_cluster" "test" {
   ]
 
   ec2_attributes {
-    subnet_id          = aws_subnet.test.id
+    subnet_id = aws_subnet.test.id
     emr_managed_master_security_group = aws_security_group.test.id
     emr_managed_slave_security_group  = aws_security_group.test.id
     instance_profile   = aws_iam_instance_profile.emr_instance_profile.arn
@@ -496,7 +496,7 @@ resource "aws_emr_instance_fleet" "task" {
     spot_specification {
       allocation_strategy      = "capacity-optimized"
       block_duration_minutes   = 0
-      timeout_action           = "SWITCH_TO_ON_DEMAND"
+      timeout_action  = "SWITCH_TO_ON_DEMAND"
       timeout_duration_minutes = 10
     }
   }
@@ -549,7 +549,7 @@ resource "aws_emr_instance_fleet" "task" {
     spot_specification {
       allocation_strategy      = "capacity-optimized"
       block_duration_minutes   = 0
-      timeout_action           = "SWITCH_TO_ON_DEMAND"
+      timeout_action  = "SWITCH_TO_ON_DEMAND"
       timeout_duration_minutes = 10
     }
   }

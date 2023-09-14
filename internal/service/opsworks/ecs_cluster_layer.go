@@ -14,13 +14,13 @@ import (
 
 func ResourceECSClusterLayer() *schema.Resource {
 	layerType := &opsworksLayerType{
-		TypeName:         opsworks.LayerTypeEcsCluster,
+		TypeName:opsworks.LayerTypeEcsCluster,
 		DefaultLayerName: "Ecs Cluster",
 
 		Attributes: map[string]*opsworksLayerTypeAttribute{
 			"ecs_cluster_arn": {
 				AttrName:     opsworks.LayerAttributesKeysEcsClusterArn,
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate

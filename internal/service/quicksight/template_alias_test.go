@@ -32,32 +32,32 @@ func TestAccQuickSightTemplateAlias_basic(t *testing.T) {
 	resourceTemplateName := "aws_quicksight_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, quicksight.EndpointsID)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTemplateAliasDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTemplateAliasConfig_basic(rId, rName, aliasName),
-				Check: resource.ComposeTestCheck
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, quicksight.EndpointsID)
+},
+ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckTemplateAliasDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTemplateAliasConfig_basic(rId, rName, aliasName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckTemplateAliasExists(ctx, resourceName, &templateAlias),
-					resource.TestCheckResourceAttr(resourceName, "alias_name", aliasName),
-					resource.TestCheckResourceAttrPair(resourceName, "template_id", resourceTemplateName, "template_id"),
-					resource.TestCheckResourceAttrPair(resourceName, "template_version_number", resourceTemplateName, "version_number"),
-					acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "quicksight", fmt.Sprintf("template/%[1]s/alias/%[2]s", rId, aliasName)),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckTemplateAliasExists(ctx, resourceName, &templateAlias),
+	resource.TestCheckResourceAttr(resourceName, "alias_name", aliasName),
+	resource.TestCheckResourceAttrPair(resourceName, "template_id", resourceTemplateName, "template_id"),
+	resource.TestCheckResourceAttrPair(resourceName, "template_version_number", resourceTemplateName, "version_number"),
+	acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "quicksight", fmt.Sprintf("template/%[1]s/alias/%[2]s", rId, aliasName)),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -71,25 +71,25 @@ func TestAccQuickSightTemplateAlias_disappears(t *testing.T) {
 	resourceName := "aws_quicksight_template_alias.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, quicksight.EndpointsID)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTemplateAliasDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTemplateAliasConfig_basic(rId, rName, aliasName),
-				Check: resource.ComposeTestCheck
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, quicksight.EndpointsID)
+},
+ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckTemplateAliasDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTemplateAliasConfig_basic(rId, rName, aliasName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckTemplateAliasExists(ctx, resourceName, &templateAlias),
-					acctest.CheckFrameworkResourceDisappears(ctx, acctest.Provider, tfquicksight.ResourceTemplateAlias, resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckTemplateAliasExists(ctx, resourceName, &templateAlias),
+	acctest.CheckFrameworkResourceDisappears(ctx, acctest.Provider, tfquicksight.ResourceTemplateAlias, resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -98,25 +98,25 @@ func testAccCheckTemplateAliasDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_quicksight_template_alias" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_quicksight_template_alias" {
+continue
+	}
 
-			_, err := tfquicksight.FindTemplateAliasByID(ctx, conn, rs.Primary.ID)
-			if err != nil {
-				if tfawserr.ErrCodeEquals(err, quicksight.ErrCodeResourceNotFoundException) {
-					return nil
-				}
-				return err
-			}
+	_, err := tfquicksight.FindTemplateAliasByID(ctx, conn, rs.Primary.ID)
+	if err != nil {
+if tfawserr.ErrCodeEquals(err, quicksight.ErrCodeResourceNotFoundException) {
+	return nil
+}
+return err
+	}
 
-			return create.Error(names.QuickSight, create.ErrActionCheckingDestroyed, tfquicksight.ResNameTemplateAlias, rs.Primary.ID, errors.New("not destroyed"))
-		}
+	return create.Error(names.QuickSight, create.ErrActionCheckingDestroyed, tfquicksight.ResNameTemplateAlias, rs.Primary.ID, errors.New("not destroyed"))
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -125,35 +125,35 @@ func testAccCheckTemplateAliasExists(ctx context.Context, name string, templateA
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[name]
-		if !ok {
-			return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameTemplateAlias, name, errors.New("not found"))
-		}
+rs, ok := s.RootModule().Resources[name]
+if !ok {
+	return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameTemplateAlias, name, errors.New("not found"))
+}
 
-		if rs.Primary.ID == "" {
-			return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameTemplateAlias, name, errors.New("not set"))
-		}
+if rs.Primary.ID == "" {
+	return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameTemplateAlias, name, errors.New("not set"))
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
-		resp, err := tfquicksight.FindTemplateAliasByID(ctx, conn, rs.Primary.ID)
-		if err != nil {
-			return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameTemplateAlias, rs.Primary.ID, err)
-		}
+conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
+resp, err := tfquicksight.FindTemplateAliasByID(ctx, conn, rs.Primary.ID)
+if err != nil {
+	return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameTemplateAlias, rs.Primary.ID, err)
+}
 
-		*templateAlias = *resp
+*templateAlias = *resp
 
-		return nil
+return nil
 	}
 }
 
 
 func testAccTemplateAliasConfig_basic(rId, rName, aliasName string) string {
 	return acctest.ConfigCompose(
-		testAccTemplateConfig_basic(rId, rName),
-		fmt.Sprintf(`
+testAccTemplateConfig_basic(rId, rName),
+fmt.Sprintf(`
 resource "aws_quicksight_template_alias" "test" {
-  alias_name              = %[1]q
-  template_id             = aws_quicksight_template.test.template_id
+  alias_name     = %[1]q
+  template_id    = aws_quicksight_template.test.template_id
   template_version_number = aws_quicksight_template.test.version_number
 }
 `, aliasName))

@@ -25,28 +25,28 @@ func TestAccVPCDHCPOptionsAssociation_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPCDHCPOptionsAssociationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCDHCPOptionsAssociationConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckVPCDHCPOptionsAssociationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCDHCPOptionsAssociationConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckVPCDHCPOptionsAssociationExist(ctx, resourceName),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportStateId
+	testAccCheckVPCDHCPOptionsAssociationExist(ctx, resourceName),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportStateId
 func: testAccVPCDHCPOptionsAssociationVPCImportId
 func(resourceName),
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -57,22 +57,22 @@ func TestAccVPCDHCPOptionsAssociation_Disappears_vpc(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPCDHCPOptionsAssociationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCDHCPOptionsAssociationConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckVPCDHCPOptionsAssociationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCDHCPOptionsAssociationConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckVPCDHCPOptionsAssociationExist(ctx, resourceName),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceVPC(), "aws_vpc.test"),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckVPCDHCPOptionsAssociationExist(ctx, resourceName),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceVPC(), "aws_vpc.test"),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -83,22 +83,22 @@ func TestAccVPCDHCPOptionsAssociation_Disappears_dhcp(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPCDHCPOptionsAssociationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCDHCPOptionsAssociationConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckVPCDHCPOptionsAssociationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCDHCPOptionsAssociationConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckVPCDHCPOptionsAssociationExist(ctx, resourceName),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceVPCDHCPOptions(), "aws_vpc_dhcp_options.test"),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckVPCDHCPOptionsAssociationExist(ctx, resourceName),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceVPCDHCPOptions(), "aws_vpc_dhcp_options.test"),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -109,22 +109,22 @@ func TestAccVPCDHCPOptionsAssociation_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPCDHCPOptionsAssociationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCDHCPOptionsAssociationConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckVPCDHCPOptionsAssociationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCDHCPOptionsAssociationConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckVPCDHCPOptionsAssociationExist(ctx, resourceName),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceVPCDHCPOptionsAssociation(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckVPCDHCPOptionsAssociationExist(ctx, resourceName),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceVPCDHCPOptionsAssociation(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -135,28 +135,28 @@ func TestAccVPCDHCPOptionsAssociation_default(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPCDHCPOptionsAssociationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCDHCPOptionsAssociationConfig_default(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckVPCDHCPOptionsAssociationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCDHCPOptionsAssociationConfig_default(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckVPCDHCPOptionsAssociationExist(ctx, resourceName),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportStateId
+	testAccCheckVPCDHCPOptionsAssociationExist(ctx, resourceName),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportStateId
 func: testAccVPCDHCPOptionsAssociationVPCImportId
 func(resourceName),
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -166,12 +166,12 @@ func(resourceName string) resource.ImportStateId
 func {
 	return 
 func(s *terraform.State) (string, error) {
-		rs, ok := s.RootModule().Resources[resourceName]
-		if !ok {
-			return "", fmt.Errorf("Not found: %s", resourceName)
-		}
+rs, ok := s.RootModule().Resources[resourceName]
+if !ok {
+	return "", fmt.Errorf("Not found: %s", resourceName)
+}
 
-		return rs.Primary.Attributes["vpc_id"], nil
+return rs.Primary.Attributes["vpc_id"], nil
 	}
 }
 
@@ -180,33 +180,33 @@ func testAccCheckVPCDHCPOptionsAssociationDestroy(ctx context.Context) resource.
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_vpc_dhcp_options_association" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_vpc_dhcp_options_association" {
+continue
+	}
 
-			dhcpOptionsID, vpcID, err := tfec2.VPCDHCPOptionsAssociationParseResourceID(rs.Primary.ID)
+	dhcpOptionsID, vpcID, err := tfec2.VPCDHCPOptionsAssociationParseResourceID(rs.Primary.ID)
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			err = tfec2.FindVPCDHCPOptionsAssociation(ctx, conn, vpcID, dhcpOptionsID)
+	err = tfec2.FindVPCDHCPOptionsAssociation(ctx, conn, vpcID, dhcpOptionsID)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("EC2 VPC DHCP Options Set Association %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("EC2 VPC DHCP Options Set Association %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -215,24 +215,24 @@ func testAccCheckVPCDHCPOptionsAssociationExist(ctx context.Context, n string) r
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No EC2 VPC DHCP Options Set Association ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No EC2 VPC DHCP Options Set Association ID is set")
+}
 
-		dhcpOptionsID, vpcID, err := tfec2.VPCDHCPOptionsAssociationParseResourceID(rs.Primary.ID)
+dhcpOptionsID, vpcID, err := tfec2.VPCDHCPOptionsAssociationParseResourceID(rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-		return tfec2.FindVPCDHCPOptionsAssociation(ctx, conn, vpcID, dhcpOptionsID)
+return tfec2.FindVPCDHCPOptionsAssociation(ctx, conn, vpcID, dhcpOptionsID)
 	}
 }
 

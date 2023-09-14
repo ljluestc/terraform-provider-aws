@@ -26,61 +26,61 @@ func TestAccDSSharedDirectoryAccepter_basic(t *testing.T) {
 	domainName := acctest.RandomDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckAlternateAccount(t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, directoryservice.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             acctest.CheckDestroyNoop,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSharedDirectoryAccepterConfig_basic(rName, domainName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSharedDirectoryAccepterExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "method", directoryservice.ShareMethodHandshake),
-					resource.TestCheckResourceAttr(resourceName, "notes", "There were hints and allegations"),
-					resource.TestCheckResourceAttrPair(resourceName, "owner_account_id", "data.aws_caller_identity.current", "account_id"),
-					resource.TestCheckResourceAttrSet(resourceName, "owner_directory_id"),
-					resource.TestCheckResourceAttrSet(resourceName, "shared_directory_id"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-				ImportStateVerifyIgnore: []string{
-					"notes",
-				},
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckAlternateAccount(t)
+},
+ErrorCheck:acctest.ErrorCheck(t, directoryservice.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
+CheckDestroy:             acctest.CheckDestroyNoop,
+Steps: []resource.TestStep{
+	{
+Config: testAccSharedDirectoryAccepterConfig_basic(rName, domainName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckSharedDirectoryAccepterExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "method", directoryservice.ShareMethodHandshake),
+	resource.TestCheckResourceAttr(resourceName, "notes", "There were hints and allegations"),
+	resource.TestCheckResourceAttrPair(resourceName, "owner_account_id", "data.aws_caller_identity.current", "account_id"),
+	resource.TestCheckResourceAttrSet(resourceName, "owner_directory_id"),
+	resource.TestCheckResourceAttrSet(resourceName, "shared_directory_id"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+ImportStateVerifyIgnore: []string{
+	"notes",
+},
+	},
+},
 	})
 }
 
 func testAccCheckSharedDirectoryAccepterExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return create.Error(names.DS, create.ErrActionCheckingExistence, tfds.ResNameSharedDirectoryAccepter, n, errors.New("not found"))
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return create.Error(names.DS, create.ErrActionCheckingExistence, tfds.ResNameSharedDirectoryAccepter, n, errors.New("not found"))
+}
 
-		if rs.Primary.ID == "" {
-			return create.Error(names.DS, create.ErrActionCheckingExistence, tfds.ResNameSharedDirectoryAccepter, n, errors.New("no ID is set"))
-		}
+if rs.Primary.ID == "" {
+	return create.Error(names.DS, create.ErrActionCheckingExistence, tfds.ResNameSharedDirectoryAccepter, n, errors.New("no ID is set"))
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).DSConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).DSConn(ctx)
 
-		_, err := tfds.FindSharedDirectory(ctx, conn, rs.Primary.Attributes["owner_directory_id"], rs.Primary.Attributes["shared_directory_id"])
+_, err := tfds.FindSharedDirectory(ctx, conn, rs.Primary.Attributes["owner_directory_id"], rs.Primary.Attributes["shared_directory_id"])
 
-		return err
+return err
 	}
 }
 
 func testAccSharedDirectoryAccepterConfig_basic(rName, domain string) string {
 	return acctest.ConfigCompose(
-		acctest.ConfigAlternateAccountProvider(),
-		testAccDirectoryConfig_microsoftStandard(rName, domain),
-		`
+acctest.ConfigAlternateAccountProvider(),
+testAccDirectoryConfig_microsoftStandard(rName, domain),
+`
 data "aws_caller_identity" "current" {}
 
 resource "aws_directory_service_shared_directory" "test" {

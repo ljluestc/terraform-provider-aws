@@ -22,26 +22,26 @@ func testAccSecurityProfileDataSource_securityProfileID(t *testing.T) {
 	datasourceName := "data.aws_connect_security_profile.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSecurityProfileDataSourceConfig_id(rName, rName2),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccSecurityProfileDataSourceConfig_id(rName, rName2),
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(datasourceName, "description", resourceName, "description"),
-					resource.TestCheckResourceAttrPair(datasourceName, "instance_id", resourceName, "instance_id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
-					resource.TestCheckResourceAttrPair(datasourceName, "permissions.#", resourceName, "permissions.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "security_profile_id", resourceName, "security_profile_id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
-					resource.TestCheckResourceAttrPair(datasourceName, "tags.Name", resourceName, "tags.Name"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(datasourceName, "description", resourceName, "description"),
+	resource.TestCheckResourceAttrPair(datasourceName, "instance_id", resourceName, "instance_id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
+	resource.TestCheckResourceAttrPair(datasourceName, "permissions.#", resourceName, "permissions.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "security_profile_id", resourceName, "security_profile_id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
+	resource.TestCheckResourceAttrPair(datasourceName, "tags.Name", resourceName, "tags.Name"),
+),
+	},
+},
 	})
 }
 
@@ -54,26 +54,26 @@ func testAccSecurityProfileDataSource_name(t *testing.T) {
 	datasourceName := "data.aws_connect_security_profile.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSecurityProfileDataSourceConfig_name(rName, rName2),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccSecurityProfileDataSourceConfig_name(rName, rName2),
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(datasourceName, "description", resourceName, "description"),
-					resource.TestCheckResourceAttrPair(datasourceName, "instance_id", resourceName, "instance_id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
-					resource.TestCheckResourceAttrPair(datasourceName, "permissions.#", resourceName, "permissions.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "security_profile_id", resourceName, "security_profile_id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
-					resource.TestCheckResourceAttrPair(datasourceName, "tags.Name", resourceName, "tags.Name"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(datasourceName, "description", resourceName, "description"),
+	resource.TestCheckResourceAttrPair(datasourceName, "instance_id", resourceName, "instance_id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
+	resource.TestCheckResourceAttrPair(datasourceName, "permissions.#", resourceName, "permissions.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "security_profile_id", resourceName, "security_profile_id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
+	resource.TestCheckResourceAttrPair(datasourceName, "tags.Name", resourceName, "tags.Name"),
+),
+	},
+},
 	})
 }
 
@@ -83,7 +83,7 @@ func testAccSecurityProfileBaseDataSourceConfig(rName, rName2 string) string {
 resource "aws_connect_instance" "test" {
   identity_management_type = "CONNECT_MANAGED"
   inbound_calls_enabled    = true
-  instance_alias           = %[1]q
+  instance_alias  = %[1]q
   outbound_calls_enabled   = true
 }
 
@@ -107,10 +107,10 @@ resource "aws_connect_security_profile" "test" {
 
 func testAccSecurityProfileDataSourceConfig_id(rName, rName2 string) string {
 	return acctest.ConfigCompose(
-		testAccSecurityProfileBaseDataSourceConfig(rName, rName2),
-		`
+testAccSecurityProfileBaseDataSourceConfig(rName, rName2),
+`
 data "aws_connect_security_profile" "test" {
-  instance_id         = aws_connect_instance.test.id
+  instance_id= aws_connect_instance.test.id
   security_profile_id = aws_connect_security_profile.test.security_profile_id
 }
 `)
@@ -119,8 +119,8 @@ data "aws_connect_security_profile" "test" {
 
 func testAccSecurityProfileDataSourceConfig_name(rName, rName2 string) string {
 	return acctest.ConfigCompose(
-		testAccSecurityProfileBaseDataSourceConfig(rName, rName2),
-		`
+testAccSecurityProfileBaseDataSourceConfig(rName, rName2),
+`
 data "aws_connect_security_profile" "test" {
   instance_id = aws_connect_instance.test.id
   name        = aws_connect_security_profile.test.name

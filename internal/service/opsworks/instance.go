@@ -56,7 +56,7 @@ func ResourceInstance() *schema.Resource {
 			},
 
 			"architecture": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Default:      "x86_64",
 				Validate
@@ -64,7 +64,7 @@ func: validation.StringInSlice(opsworks.Architecture_Values(), false),
 			},
 
 			"auto_scaling_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Validate
 func: validation.StringInSlice(opsworks.AutoScalingType_Values(), false),
@@ -218,7 +218,7 @@ func: validation.StringInSlice(opsworks.AutoScalingType_Values(), false),
 			},
 
 			"root_device_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Computed:     true,
@@ -297,7 +297,7 @@ func: validation.StringInSlice([]string{
 			},
 
 			"virtualization_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
@@ -591,13 +591,13 @@ func resourceInstanceCreate(ctx context.Context, d *schema.ResourceData, meta in
 	}
 
 	req := &opsworks.CreateInstanceInput{
-		AgentVersion:         aws.String(d.Get("agent_version").(string)),
-		Architecture:         aws.String(d.Get("architecture").(string)),
-		EbsOptimized:         aws.Bool(d.Get("ebs_optimized").(bool)),
+		AgentVersion:aws.String(d.Get("agent_version").(string)),
+		Architecture:aws.String(d.Get("architecture").(string)),
+		EbsOptimized:aws.Bool(d.Get("ebs_optimized").(bool)),
 		InstallUpdatesOnBoot: aws.Bool(d.Get("install_updates_on_boot").(bool)),
-		InstanceType:         aws.String(d.Get("instance_type").(string)),
-		LayerIds:             flex.ExpandStringList(d.Get("layer_ids").([]interface{})),
-		StackId:              aws.String(d.Get("stack_id").(string)),
+		InstanceType:aws.String(d.Get("instance_type").(string)),
+		LayerIds:    flex.ExpandStringList(d.Get("layer_ids").([]interface{})),
+		StackId:     aws.String(d.Get("stack_id").(string)),
 	}
 
 	if v, ok := d.GetOk("ami_id"); ok {
@@ -756,9 +756,9 @@ func resourceInstanceUpdate(ctx context.Context, d *schema.ResourceData, meta in
 	}
 
 	req := &opsworks.UpdateInstanceInput{
-		InstanceId:           aws.String(d.Id()),
-		AgentVersion:         aws.String(d.Get("agent_version").(string)),
-		Architecture:         aws.String(d.Get("architecture").(string)),
+		InstanceId:  aws.String(d.Id()),
+		AgentVersion:aws.String(d.Get("agent_version").(string)),
+		Architecture:aws.String(d.Get("architecture").(string)),
 		InstallUpdatesOnBoot: aws.Bool(d.Get("install_updates_on_boot").(bool)),
 	}
 

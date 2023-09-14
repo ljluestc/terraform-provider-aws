@@ -90,7 +90,7 @@ func(_ context.Context, o, n, meta interface{}) bool {
 							Default:  true,
 						},
 						"interval": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							Default:      60,
 							Validate
@@ -147,31 +147,31 @@ func: validation.StringInSlice([]string{
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"healthy_threshold": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Required:     true,
 							Validate
 func: validation.IntBetween(2, 10),
 						},
 						"interval": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Required:     true,
 							Validate
 func: validation.IntBetween(5, 300),
 						},
 						"target": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							Validate
 func: ValidHeathCheckTarget,
 						},
 						"timeout": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Required:     true,
 							Validate
 func: validation.IntBetween(2, 60),
 						},
 						"unhealthy_threshold": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Required:     true,
 							Validate
 func: validation.IntBetween(2, 10),
@@ -180,7 +180,7 @@ func: validation.IntBetween(2, 10),
 				},
 			},
 			"idle_timeout": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				Default:      60,
 				Validate
@@ -204,31 +204,31 @@ func: validation.IntBetween(1, 4000),
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"instance_port": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Required:     true,
 							Validate
 func: validation.IntBetween(1, 65535),
 						},
 						"instance_protocol": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							Validate
 func: validateListenerProtocol(),
 						},
 						"lb_port": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Required:     true,
 							Validate
 func: validation.IntBetween(1, 65535),
 						},
 						"lb_protocol": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							Validate
 func: validateListenerProtocol(),
 						},
 						"ssl_certificate_id": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Validate
 func: verify.ValidARN,
@@ -238,7 +238,7 @@ func: verify.ValidARN,
 				Set: ListenerHash,
 			},
 			"name": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -247,7 +247,7 @@ func: verify.ValidARN,
 func:  ValidName,
 			},
 			"name_prefix": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ForceNew:      true,
 				ConflictsWith: []string{"name"},
@@ -310,7 +310,7 @@ func resourceLoadBalancerCreate(ctx context.Context, d *schema.ResourceData, met
 	input := &elb.CreateLoadBalancerInput{
 		LoadBalancerName: aws.String(elbName),
 		Listeners:        listeners,
-		Tags:             getTagsIn(ctx),
+		Tags:    getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("availability_zones"); ok && v.(*schema.Set).Len() > 0 {
@@ -649,9 +649,9 @@ func(err error) (bool, error) {
 			input := &elb.ConfigureHealthCheckInput{
 				HealthCheck: &elb.HealthCheck{
 					HealthyThreshold:   aws.Int64(int64(check["healthy_threshold"].(int))),
-					Interval:           aws.Int64(int64(check["interval"].(int))),
-					Target:             aws.String(check["target"].(string)),
-					Timeout:            aws.Int64(int64(check["timeout"].(int))),
+					Interval:  aws.Int64(int64(check["interval"].(int))),
+					Target:    aws.String(check["target"].(string)),
+					Timeout:   aws.Int64(int64(check["timeout"].(int))),
 					UnhealthyThreshold: aws.Int64(int64(check["unhealthy_threshold"].(int))),
 				},
 				LoadBalancerName: aws.String(d.Id()),
@@ -723,7 +723,7 @@ func(err error) (bool, error) {
 		if len(removed) > 0 {
 			input := &elb.DetachLoadBalancerFromSubnetsInput{
 				LoadBalancerName: aws.String(d.Id()),
-				Subnets:          removed,
+				Subnets: removed,
 			}
 
 			_, err := conn.DetachLoadBalancerFromSubnetsWithContext(ctx, input)
@@ -736,7 +736,7 @@ func(err error) (bool, error) {
 		if len(added) > 0 {
 			input := &elb.AttachLoadBalancerToSubnetsInput{
 				LoadBalancerName: aws.String(d.Id()),
-				Subnets:          added,
+				Subnets: added,
 			}
 
 			_, err := tfresource.RetryWhenAWSErrMessageContains(ctx, d.Timeout(schema.TimeoutUpdate), 

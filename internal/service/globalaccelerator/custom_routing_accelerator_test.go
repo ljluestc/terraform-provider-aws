@@ -27,38 +27,38 @@ func TestAccGlobalAcceleratorCustomRoutingAccelerator_basic(t *testing.T) {
 	dnsNameRegex := regexache.MustCompile(`^a[0-9a-f]{16}\.awsglobalaccelerator\.com$`)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCustomRoutingAcceleratorDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccCustomRoutingAcceleratorConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckCustomRoutingAcceleratorExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "attributes.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "attributes.0.flow_logs_enabled", "false"),
-					resource.TestCheckResourceAttr(resourceName, "attributes.0.flow_logs_s3_bucket", ""),
-					resource.TestCheckResourceAttr(resourceName, "attributes.0.flow_logs_s3_prefix", ""),
-					resource.TestMatchResourceAttr(resourceName, "dns_name", dnsNameRegex),
-					resource.TestCheckResourceAttr(resourceName, "enabled", "true"),
-					resource.TestCheckResourceAttr(resourceName, "hosted_zone_id", "Z2BJ6XQ5FK7U4H"),
-					resource.TestCheckResourceAttr(resourceName, "ip_address_type", "IPV4"),
-					resource.TestCheckResourceAttr(resourceName, "ip_addresses.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "ip_sets.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "ip_sets.0.ip_addresses.#", "2"),
-					resource.TestMatchResourceAttr(resourceName, "ip_sets.0.ip_addresses.0", ipRegex),
-					resource.TestMatchResourceAttr(resourceName, "ip_sets.0.ip_addresses.1", ipRegex),
-					resource.TestCheckResourceAttr(resourceName, "ip_sets.0.ip_family", "IPv4"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckCustomRoutingAcceleratorDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccCustomRoutingAcceleratorConfig_basic(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckCustomRoutingAcceleratorExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "attributes.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "attributes.0.flow_logs_enabled", "false"),
+	resource.TestCheckResourceAttr(resourceName, "attributes.0.flow_logs_s3_bucket", ""),
+	resource.TestCheckResourceAttr(resourceName, "attributes.0.flow_logs_s3_prefix", ""),
+	resource.TestMatchResourceAttr(resourceName, "dns_name", dnsNameRegex),
+	resource.TestCheckResourceAttr(resourceName, "enabled", "true"),
+	resource.TestCheckResourceAttr(resourceName, "hosted_zone_id", "Z2BJ6XQ5FK7U4H"),
+	resource.TestCheckResourceAttr(resourceName, "ip_address_type", "IPV4"),
+	resource.TestCheckResourceAttr(resourceName, "ip_addresses.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "ip_sets.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "ip_sets.0.ip_addresses.#", "2"),
+	resource.TestMatchResourceAttr(resourceName, "ip_sets.0.ip_addresses.0", ipRegex),
+	resource.TestMatchResourceAttr(resourceName, "ip_sets.0.ip_addresses.1", ipRegex),
+	resource.TestCheckResourceAttr(resourceName, "ip_sets.0.ip_family", "IPv4"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -68,20 +68,20 @@ func TestAccGlobalAcceleratorCustomRoutingAccelerator_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCustomRoutingAcceleratorDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccCustomRoutingAcceleratorConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckCustomRoutingAcceleratorExists(ctx, resourceName),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfglobalaccelerator.ResourceCustomRoutingAccelerator(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckCustomRoutingAcceleratorDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccCustomRoutingAcceleratorConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckCustomRoutingAcceleratorExists(ctx, resourceName),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfglobalaccelerator.ResourceCustomRoutingAccelerator(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -91,43 +91,43 @@ func TestAccGlobalAcceleratorCustomRoutingAccelerator_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCustomRoutingAcceleratorDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccCustomRoutingAcceleratorConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckCustomRoutingAcceleratorExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccCustomRoutingAcceleratorConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckCustomRoutingAcceleratorExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-			{
-				Config: testAccCustomRoutingAcceleratorConfig_tags1(rName, "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckCustomRoutingAcceleratorExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckCustomRoutingAcceleratorDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccCustomRoutingAcceleratorConfig_tags1(rName, "key1", "value1"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckCustomRoutingAcceleratorExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccCustomRoutingAcceleratorConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckCustomRoutingAcceleratorExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+	{
+Config: testAccCustomRoutingAcceleratorConfig_tags1(rName, "key2", "value2"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckCustomRoutingAcceleratorExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+},
 	})
 }
 
@@ -138,75 +138,75 @@ func TestAccGlobalAcceleratorCustomRoutingAccelerator_update(t *testing.T) {
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCustomRoutingAcceleratorDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccCustomRoutingAcceleratorConfig_basic(rName1),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckCustomRoutingAcceleratorExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "name", rName1),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccCustomRoutingAcceleratorConfig_basic(rName2),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckCustomRoutingAcceleratorExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "name", rName2),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckCustomRoutingAcceleratorDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccCustomRoutingAcceleratorConfig_basic(rName1),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckCustomRoutingAcceleratorExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "name", rName1),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccCustomRoutingAcceleratorConfig_basic(rName2),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckCustomRoutingAcceleratorExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "name", rName2),
+),
+	},
+},
 	})
 }
 
 func testAccCheckCustomRoutingAcceleratorExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).GlobalAcceleratorConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).GlobalAcceleratorConn(ctx)
 
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No Global Accelerator Custom Routing Accelerator ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No Global Accelerator Custom Routing Accelerator ID is set")
+}
 
-		_, err := tfglobalaccelerator.FindCustomRoutingAcceleratorByARN(ctx, conn, rs.Primary.ID)
+_, err := tfglobalaccelerator.FindCustomRoutingAcceleratorByARN(ctx, conn, rs.Primary.ID)
 
-		return err
+return err
 	}
 }
 
 func testAccCheckCustomRoutingAcceleratorDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).GlobalAcceleratorConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).GlobalAcceleratorConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_globalaccelerator_custom_routing_accelerator" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_globalaccelerator_custom_routing_accelerator" {
+continue
+	}
 
-			_, err := tfglobalaccelerator.FindCustomRoutingAcceleratorByARN(ctx, conn, rs.Primary.ID)
+	_, err := tfglobalaccelerator.FindCustomRoutingAcceleratorByARN(ctx, conn, rs.Primary.ID)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("Global Accelerator Custom Routing Accelerator %s still exists", rs.Primary.ID)
-		}
-		return nil
+	return fmt.Errorf("Global Accelerator Custom Routing Accelerator %s still exists", rs.Primary.ID)
+}
+return nil
 	}
 }
 

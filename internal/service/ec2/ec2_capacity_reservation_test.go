@@ -29,40 +29,40 @@ func TestAccEC2CapacityReservation_basic(t *testing.T) {
 	resourceName := "aws_ec2_capacity_reservation.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckCapacityReservation(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCapacityReservationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccCapacityReservationConfig_basic,
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckCapacityReservationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccCapacityReservationConfig_basic,
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckCapacityReservationExists(ctx, resourceName, &cr),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "ec2", regexache.MustCompile(`capacity-reservation/cr-.+`)),
-					resource.TestCheckResourceAttrPair(resourceName, "availability_zone", availabilityZonesDataSourceName, "names.0"),
-					resource.TestCheckResourceAttr(resourceName, "ebs_optimized", "false"),
-					resource.TestCheckResourceAttr(resourceName, "end_date", ""),
-					resource.TestCheckResourceAttr(resourceName, "end_date_type", "unlimited"),
-					resource.TestCheckResourceAttr(resourceName, "ephemeral_storage", "false"),
-					resource.TestCheckResourceAttr(resourceName, "instance_count", "1"),
-					resource.TestCheckResourceAttr(resourceName, "instance_match_criteria", "open"),
-					resource.TestCheckResourceAttr(resourceName, "instance_platform", "Linux/UNIX"),
-					resource.TestCheckResourceAttr(resourceName, "instance_type", "t2.micro"),
-					resource.TestCheckResourceAttr(resourceName, "outpost_arn", ""),
-					acctest.CheckResourceAttrAccountID(resourceName, "owner_id"),
-					resource.TestCheckResourceAttr(resourceName, "placement_group_arn", ""),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-					resource.TestCheckResourceAttr(resourceName, "tenancy", "default"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckCapacityReservationExists(ctx, resourceName, &cr),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "ec2", regexache.MustCompile(`capacity-reservation/cr-.+`)),
+	resource.TestCheckResourceAttrPair(resourceName, "availability_zone", availabilityZonesDataSourceName, "names.0"),
+	resource.TestCheckResourceAttr(resourceName, "ebs_optimized", "false"),
+	resource.TestCheckResourceAttr(resourceName, "end_date", ""),
+	resource.TestCheckResourceAttr(resourceName, "end_date_type", "unlimited"),
+	resource.TestCheckResourceAttr(resourceName, "ephemeral_storage", "false"),
+	resource.TestCheckResourceAttr(resourceName, "instance_count", "1"),
+	resource.TestCheckResourceAttr(resourceName, "instance_match_criteria", "open"),
+	resource.TestCheckResourceAttr(resourceName, "instance_platform", "Linux/UNIX"),
+	resource.TestCheckResourceAttr(resourceName, "instance_type", "t2.micro"),
+	resource.TestCheckResourceAttr(resourceName, "outpost_arn", ""),
+	acctest.CheckResourceAttrAccountID(resourceName, "owner_id"),
+	resource.TestCheckResourceAttr(resourceName, "placement_group_arn", ""),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+	resource.TestCheckResourceAttr(resourceName, "tenancy", "default"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -73,22 +73,22 @@ func TestAccEC2CapacityReservation_disappears(t *testing.T) {
 	resourceName := "aws_ec2_capacity_reservation.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckCapacityReservation(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCapacityReservationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccCapacityReservationConfig_basic,
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckCapacityReservationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccCapacityReservationConfig_basic,
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckCapacityReservationExists(ctx, resourceName, &cr),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceCapacityReservation(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckCapacityReservationExists(ctx, resourceName, &cr),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceCapacityReservation(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -100,26 +100,26 @@ func TestAccEC2CapacityReservation_ebsOptimized(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckCapacityReservation(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCapacityReservationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccCapacityReservationConfig_ebsOptimized(rName, true),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckCapacityReservationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccCapacityReservationConfig_ebsOptimized(rName, true),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckCapacityReservationExists(ctx, resourceName, &cr),
-					resource.TestCheckResourceAttr(resourceName, "ebs_optimized", "true"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckCapacityReservationExists(ctx, resourceName, &cr),
+	resource.TestCheckResourceAttr(resourceName, "ebs_optimized", "true"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -133,36 +133,36 @@ func TestAccEC2CapacityReservation_endDate(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckCapacityReservation(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCapacityReservationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccCapacityReservationConfig_endDate(rName, endDate1),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckCapacityReservationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccCapacityReservationConfig_endDate(rName, endDate1),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckCapacityReservationExists(ctx, resourceName, &cr),
-					resource.TestCheckResourceAttr(resourceName, "end_date", endDate1),
-					resource.TestCheckResourceAttr(resourceName, "end_date_type", "limited"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccCapacityReservationConfig_endDate(rName, endDate2),
-				Check: resource.ComposeTestCheck
+	testAccCheckCapacityReservationExists(ctx, resourceName, &cr),
+	resource.TestCheckResourceAttr(resourceName, "end_date", endDate1),
+	resource.TestCheckResourceAttr(resourceName, "end_date_type", "limited"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccCapacityReservationConfig_endDate(rName, endDate2),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckCapacityReservationExists(ctx, resourceName, &cr),
-					resource.TestCheckResourceAttr(resourceName, "end_date", endDate2),
-					resource.TestCheckResourceAttr(resourceName, "end_date_type", "limited"),
-				),
-			},
-		},
+	testAccCheckCapacityReservationExists(ctx, resourceName, &cr),
+	resource.TestCheckResourceAttr(resourceName, "end_date", endDate2),
+	resource.TestCheckResourceAttr(resourceName, "end_date_type", "limited"),
+),
+	},
+},
 	})
 }
 
@@ -175,43 +175,43 @@ func TestAccEC2CapacityReservation_endDateType(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckCapacityReservation(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCapacityReservationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccCapacityReservationConfig_endDateType(rName, "unlimited"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckCapacityReservationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccCapacityReservationConfig_endDateType(rName, "unlimited"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckCapacityReservationExists(ctx, resourceName, &cr),
-					resource.TestCheckResourceAttr(resourceName, "end_date_type", "unlimited"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccCapacityReservationConfig_endDate(rName, endDate),
-				Check: resource.ComposeTestCheck
+	testAccCheckCapacityReservationExists(ctx, resourceName, &cr),
+	resource.TestCheckResourceAttr(resourceName, "end_date_type", "unlimited"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccCapacityReservationConfig_endDate(rName, endDate),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckCapacityReservationExists(ctx, resourceName, &cr),
-					resource.TestCheckResourceAttr(resourceName, "end_date", endDate),
-					resource.TestCheckResourceAttr(resourceName, "end_date_type", "limited"),
-				),
-			},
-			{
-				Config: testAccCapacityReservationConfig_endDateType(rName, "unlimited"),
-				Check: resource.ComposeTestCheck
+	testAccCheckCapacityReservationExists(ctx, resourceName, &cr),
+	resource.TestCheckResourceAttr(resourceName, "end_date", endDate),
+	resource.TestCheckResourceAttr(resourceName, "end_date_type", "limited"),
+),
+	},
+	{
+Config: testAccCapacityReservationConfig_endDateType(rName, "unlimited"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckCapacityReservationExists(ctx, resourceName, &cr),
-					resource.TestCheckResourceAttr(resourceName, "end_date_type", "unlimited"),
-				),
-			},
-		},
+	testAccCheckCapacityReservationExists(ctx, resourceName, &cr),
+	resource.TestCheckResourceAttr(resourceName, "end_date_type", "unlimited"),
+),
+	},
+},
 	})
 }
 
@@ -223,26 +223,26 @@ func TestAccEC2CapacityReservation_ephemeralStorage(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckCapacityReservation(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCapacityReservationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccCapacityReservationConfig_ephemeralStorage(rName, true),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckCapacityReservationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccCapacityReservationConfig_ephemeralStorage(rName, true),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckCapacityReservationExists(ctx, resourceName, &cr),
-					resource.TestCheckResourceAttr(resourceName, "ephemeral_storage", "true"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckCapacityReservationExists(ctx, resourceName, &cr),
+	resource.TestCheckResourceAttr(resourceName, "ephemeral_storage", "true"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -254,34 +254,34 @@ func TestAccEC2CapacityReservation_instanceCount(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckCapacityReservation(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCapacityReservationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccCapacityReservationConfig_instanceCount(rName, 1),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckCapacityReservationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccCapacityReservationConfig_instanceCount(rName, 1),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckCapacityReservationExists(ctx, resourceName, &cr),
-					resource.TestCheckResourceAttr(resourceName, "instance_count", "1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccCapacityReservationConfig_instanceCount(rName, 2),
-				Check: resource.ComposeTestCheck
+	testAccCheckCapacityReservationExists(ctx, resourceName, &cr),
+	resource.TestCheckResourceAttr(resourceName, "instance_count", "1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccCapacityReservationConfig_instanceCount(rName, 2),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckCapacityReservationExists(ctx, resourceName, &cr),
-					resource.TestCheckResourceAttr(resourceName, "instance_count", "2"),
-				),
-			},
-		},
+	testAccCheckCapacityReservationExists(ctx, resourceName, &cr),
+	resource.TestCheckResourceAttr(resourceName, "instance_count", "2"),
+),
+	},
+},
 	})
 }
 
@@ -293,26 +293,26 @@ func TestAccEC2CapacityReservation_instanceMatchCriteria(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckCapacityReservation(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCapacityReservationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccCapacityReservationConfig_instanceMatchCriteria(rName, "targeted"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckCapacityReservationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccCapacityReservationConfig_instanceMatchCriteria(rName, "targeted"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckCapacityReservationExists(ctx, resourceName, &cr),
-					resource.TestCheckResourceAttr(resourceName, "instance_match_criteria", "targeted"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckCapacityReservationExists(ctx, resourceName, &cr),
+	resource.TestCheckResourceAttr(resourceName, "instance_match_criteria", "targeted"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -324,34 +324,34 @@ func TestAccEC2CapacityReservation_instanceType(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckCapacityReservation(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCapacityReservationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccCapacityReservationConfig_instanceType(rName, "t2.micro"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckCapacityReservationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccCapacityReservationConfig_instanceType(rName, "t2.micro"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckCapacityReservationExists(ctx, resourceName, &cr),
-					resource.TestCheckResourceAttr(resourceName, "instance_type", "t2.micro"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccCapacityReservationConfig_instanceType(rName, "t2.small"),
-				Check: resource.ComposeTestCheck
+	testAccCheckCapacityReservationExists(ctx, resourceName, &cr),
+	resource.TestCheckResourceAttr(resourceName, "instance_type", "t2.micro"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccCapacityReservationConfig_instanceType(rName, "t2.small"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckCapacityReservationExists(ctx, resourceName, &cr),
-					resource.TestCheckResourceAttr(resourceName, "instance_type", "t2.small"),
-				),
-			},
-		},
+	testAccCheckCapacityReservationExists(ctx, resourceName, &cr),
+	resource.TestCheckResourceAttr(resourceName, "instance_type", "t2.small"),
+),
+	},
+},
 	})
 }
 
@@ -362,46 +362,46 @@ func TestAccEC2CapacityReservation_tags(t *testing.T) {
 	resourceName := "aws_ec2_capacity_reservation.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckCapacityReservation(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCapacityReservationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccCapacityReservationConfig_tags1("key1", "value1"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckCapacityReservationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccCapacityReservationConfig_tags1("key1", "value1"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckCapacityReservationExists(ctx, resourceName, &cr),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccCapacityReservationConfig_tags2("key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheck
+	testAccCheckCapacityReservationExists(ctx, resourceName, &cr),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccCapacityReservationConfig_tags2("key1", "value1updated", "key2", "value2"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckCapacityReservationExists(ctx, resourceName, &cr),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-			{
-				Config: testAccCapacityReservationConfig_tags1("key2", "value2"),
-				Check: resource.ComposeTestCheck
+	testAccCheckCapacityReservationExists(ctx, resourceName, &cr),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+	{
+Config: testAccCapacityReservationConfig_tags1("key2", "value2"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckCapacityReservationExists(ctx, resourceName, &cr),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-		},
+	testAccCheckCapacityReservationExists(ctx, resourceName, &cr),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+},
 	})
 }
 
@@ -413,26 +413,26 @@ func TestAccEC2CapacityReservation_tenancy(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckCapacityReservation(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCapacityReservationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccCapacityReservationConfig_tenancy(rName, "dedicated"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckCapacityReservationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccCapacityReservationConfig_tenancy(rName, "dedicated"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckCapacityReservationExists(ctx, resourceName, &cr),
-					resource.TestCheckResourceAttr(resourceName, "tenancy", "dedicated"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckCapacityReservationExists(ctx, resourceName, &cr),
+	resource.TestCheckResourceAttr(resourceName, "tenancy", "dedicated"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -441,26 +441,26 @@ func testAccCheckCapacityReservationExists(ctx context.Context, n string, v *ec2
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No EC2 Capacity Reservation ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No EC2 Capacity Reservation ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-		output, err := tfec2.FindCapacityReservationByID(ctx, conn, rs.Primary.ID)
+output, err := tfec2.FindCapacityReservationByID(ctx, conn, rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*v = *output
+*v = *output
 
-		return nil
+return nil
 	}
 }
 
@@ -469,27 +469,27 @@ func testAccCheckCapacityReservationDestroy(ctx context.Context) resource.TestCh
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_ec2_capacity_reservation" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_ec2_capacity_reservation" {
+continue
+	}
 
-			_, err := tfec2.FindCapacityReservationByID(ctx, conn, rs.Primary.ID)
+	_, err := tfec2.FindCapacityReservationByID(ctx, conn, rs.Primary.ID)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("EC2 Capacity Reservation %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("EC2 Capacity Reservation %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -498,17 +498,17 @@ func testAccPreCheckCapacityReservation(ctx context.Context, t *testing.T) {
 	conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 	input := &ec2.DescribeCapacityReservationsInput{
-		MaxResults: aws.Int64(1),
+MaxResults: aws.Int64(1),
 	}
 
 	_, err := conn.DescribeCapacityReservationsWithContext(ctx, input)
 
 	if acctest.PreCheckSkipError(err) {
-		t.Skipf("skipping acceptance testing: %s", err)
+t.Skipf("skipping acceptance testing: %s", err)
 	}
 
 	if err != nil {
-		t.Fatalf("unexpected PreCheck error: %s", err)
+t.Fatalf("unexpected PreCheck error: %s", err)
 	}
 }
 
@@ -543,7 +543,7 @@ func testAccCapacityReservationConfig_endDate(rName, endDate string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_ec2_capacity_reservation" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
-  end_date          = %[2]q
+  end_date = %[2]q
   end_date_type     = "limited"
   instance_count    = 1
   instance_platform = "Linux/UNIX"
@@ -611,10 +611,10 @@ func testAccCapacityReservationConfig_instanceMatchCriteria(rName, instanceMatch
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_ec2_capacity_reservation" "test" {
   availability_zone       = data.aws_availability_zones.available.names[0]
-  instance_count          = 1
+  instance_count = 1
   instance_platform       = "Linux/UNIX"
   instance_match_criteria = %[2]q
-  instance_type           = "t2.micro"
+  instance_type  = "t2.micro"
 
   tags = {
     Name = %[1]q
@@ -680,7 +680,7 @@ resource "aws_ec2_capacity_reservation" "test" {
   instance_count    = 1
   instance_platform = "Linux/UNIX"
   instance_type     = "a1.4xlarge"
-  tenancy           = %[2]q
+  tenancy  = %[2]q
 
   tags = {
     Name = %[1]q

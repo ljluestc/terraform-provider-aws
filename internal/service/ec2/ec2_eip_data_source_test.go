@@ -21,21 +21,21 @@ func TestAccEC2EIPDataSource_filter(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccEIPDataSourceConfig_filter(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccEIPDataSourceConfig_filter(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttrPair(dataSourceName, "id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "public_dns", resourceName, "public_dns"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "public_ip", resourceName, "public_ip"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(dataSourceName, "id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "public_dns", resourceName, "public_dns"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "public_ip", resourceName, "public_ip"),
+),
+	},
+},
 	})
 }
 
@@ -47,21 +47,21 @@ func TestAccEC2EIPDataSource_id(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccEIPDataSourceConfig_id(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccEIPDataSourceConfig_id(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttrPair(dataSourceName, "id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "public_dns", resourceName, "public_dns"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "public_ip", resourceName, "public_ip"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(dataSourceName, "id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "public_dns", resourceName, "public_dns"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "public_ip", resourceName, "public_ip"),
+),
+	},
+},
 	})
 }
 
@@ -73,22 +73,22 @@ func TestAccEC2EIPDataSource_publicIP(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccEIPDataSourceConfig_publicIP(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccEIPDataSourceConfig_publicIP(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttrPair(dataSourceName, "id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "public_dns", resourceName, "public_dns"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "public_ip", resourceName, "public_ip"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "domain", resourceName, "domain"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(dataSourceName, "id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "public_dns", resourceName, "public_dns"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "public_ip", resourceName, "public_ip"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "domain", resourceName, "domain"),
+),
+	},
+},
 	})
 }
 
@@ -100,21 +100,21 @@ func TestAccEC2EIPDataSource_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccEIPDataSourceConfig_tags(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccEIPDataSourceConfig_tags(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttrPair(dataSourceName, "id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "public_dns", resourceName, "public_dns"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "public_ip", resourceName, "public_ip"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(dataSourceName, "id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "public_dns", resourceName, "public_dns"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "public_ip", resourceName, "public_ip"),
+),
+	},
+},
 	})
 }
 
@@ -126,23 +126,23 @@ func TestAccEC2EIPDataSource_networkInterface(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccEIPDataSourceConfig_networkInterface(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccEIPDataSourceConfig_networkInterface(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttrPair(dataSourceName, "id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "network_interface_id", resourceName, "network_interface"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "private_dns", resourceName, "private_dns"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "private_ip", resourceName, "private_ip"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "domain", resourceName, "domain"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(dataSourceName, "id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "network_interface_id", resourceName, "network_interface"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "private_dns", resourceName, "private_dns"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "private_ip", resourceName, "private_ip"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "domain", resourceName, "domain"),
+),
+	},
+},
 	})
 }
 
@@ -154,21 +154,21 @@ func TestAccEC2EIPDataSource_instance(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccEIPDataSourceConfig_instance(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccEIPDataSourceConfig_instance(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttrPair(dataSourceName, "id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "instance_id", resourceName, "instance"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "association_id", resourceName, "association_id"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(dataSourceName, "id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "instance_id", resourceName, "instance"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "association_id", resourceName, "association_id"),
+),
+	},
+},
 	})
 }
 
@@ -180,20 +180,20 @@ func TestAccEC2EIPDataSource_carrierIP(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckWavelengthZoneAvailable(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccEIPDataSourceConfig_carrierIP(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccEIPDataSourceConfig_carrierIP(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttrPair(dataSourceName, "carrier_ip", resourceName, "carrier_ip"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "public_ip", resourceName, "public_ip"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(dataSourceName, "carrier_ip", resourceName, "carrier_ip"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "public_ip", resourceName, "public_ip"),
+),
+	},
+},
 	})
 }
 
@@ -205,20 +205,20 @@ func TestAccEC2EIPDataSource_customerOwnedIPv4Pool(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccEIPDataSourceConfig_customerOwnedIPv4Pool(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccEIPDataSourceConfig_customerOwnedIPv4Pool(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttrPair(resourceName, "customer_owned_ipv4_pool", dataSourceName, "customer_owned_ipv4_pool"),
-					resource.TestCheckResourceAttrPair(resourceName, "customer_owned_ip", dataSourceName, "customer_owned_ip"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(resourceName, "customer_owned_ipv4_pool", dataSourceName, "customer_owned_ipv4_pool"),
+	resource.TestCheckResourceAttrPair(resourceName, "customer_owned_ip", dataSourceName, "customer_owned_ip"),
+),
+	},
+},
 	})
 }
 

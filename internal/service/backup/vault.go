@@ -54,7 +54,7 @@ func ResourceVault() *schema.Resource {
 				Default:  false,
 			},
 			"kms_key_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,

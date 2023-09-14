@@ -36,7 +36,7 @@ func dataSetReferencesSchema() *schema.Schema {
 		Elem: &schema.Resource{
 			Schema: map[string]*schema.Schema{
 				"data_set_arn": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Required:     true,
 					Validate
 func: verify.ValidARN,

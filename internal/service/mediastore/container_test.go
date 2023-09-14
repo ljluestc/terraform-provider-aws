@@ -23,23 +23,23 @@ func TestAccMediaStoreContainer_basic(t *testing.T) {
 	resourceName := "aws_media_store_container.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, mediastore.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckContainerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccContainerConfig_basic(sdkacctest.RandString(5)),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckContainerExists(ctx, resourceName),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, mediastore.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckContainerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccContainerConfig_basic(sdkacctest.RandString(5)),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckContainerExists(ctx, resourceName),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -49,92 +49,92 @@ func TestAccMediaStoreContainer_tags(t *testing.T) {
 	resourceName := "aws_media_store_container.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, mediastore.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckContainerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccContainerConfig_tags(rName, "foo", "bar", "fizz", "buzz"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckContainerExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "3"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Name", fmt.Sprintf("tf_mediastore_%s", rName)),
-					resource.TestCheckResourceAttr(resourceName, "tags.foo", "bar"),
-					resource.TestCheckResourceAttr(resourceName, "tags.fizz", "buzz"),
-				),
-			},
-			{
-				Config: testAccContainerConfig_tags(rName, "foo", "bar2", "fizz2", "buzz2"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckContainerExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "3"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Name", fmt.Sprintf("tf_mediastore_%s", rName)),
-					resource.TestCheckResourceAttr(resourceName, "tags.foo", "bar2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.fizz2", "buzz2"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccContainerConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckContainerExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, mediastore.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckContainerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccContainerConfig_tags(rName, "foo", "bar", "fizz", "buzz"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckContainerExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "3"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Name", fmt.Sprintf("tf_mediastore_%s", rName)),
+	resource.TestCheckResourceAttr(resourceName, "tags.foo", "bar"),
+	resource.TestCheckResourceAttr(resourceName, "tags.fizz", "buzz"),
+),
+	},
+	{
+Config: testAccContainerConfig_tags(rName, "foo", "bar2", "fizz2", "buzz2"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckContainerExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "3"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Name", fmt.Sprintf("tf_mediastore_%s", rName)),
+	resource.TestCheckResourceAttr(resourceName, "tags.foo", "bar2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.fizz2", "buzz2"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccContainerConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckContainerExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+),
+	},
+},
 	})
 }
 
 func testAccCheckContainerDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).MediaStoreConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).MediaStoreConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_media_store_container" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_media_store_container" {
+continue
+	}
 
-			input := &mediastore.DescribeContainerInput{
-				ContainerName: aws.String(rs.Primary.ID),
-			}
+	input := &mediastore.DescribeContainerInput{
+ContainerName: aws.String(rs.Primary.ID),
+	}
 
-			resp, err := conn.DescribeContainerWithContext(ctx, input)
-			if err != nil {
-				if tfawserr.ErrCodeEquals(err, mediastore.ErrCodeContainerNotFoundException) {
-					return nil
-				}
-				return err
-			}
+	resp, err := conn.DescribeContainerWithContext(ctx, input)
+	if err != nil {
+if tfawserr.ErrCodeEquals(err, mediastore.ErrCodeContainerNotFoundException) {
+	return nil
+}
+return err
+	}
 
-			if *resp.Container.Status != mediastore.ContainerStatusDeleting {
-				return fmt.Errorf("MediaStore Container (%s) not deleted", rs.Primary.ID)
-			}
-		}
-		return nil
+	if *resp.Container.Status != mediastore.ContainerStatusDeleting {
+return fmt.Errorf("MediaStore Container (%s) not deleted", rs.Primary.ID)
+	}
+}
+return nil
 	}
 }
 
 func testAccCheckContainerExists(ctx context.Context, name string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[name]
-		if !ok {
-			return fmt.Errorf("Not found: %s", name)
-		}
+rs, ok := s.RootModule().Resources[name]
+if !ok {
+	return fmt.Errorf("Not found: %s", name)
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).MediaStoreConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).MediaStoreConn(ctx)
 
-		input := &mediastore.DescribeContainerInput{
-			ContainerName: aws.String(rs.Primary.ID),
-		}
+input := &mediastore.DescribeContainerInput{
+	ContainerName: aws.String(rs.Primary.ID),
+}
 
-		_, err := conn.DescribeContainerWithContext(ctx, input)
+_, err := conn.DescribeContainerWithContext(ctx, input)
 
-		return err
+return err
 	}
 }
 
@@ -146,11 +146,11 @@ func testAccPreCheck(ctx context.Context, t *testing.T) {
 	_, err := conn.ListContainersWithContext(ctx, input)
 
 	if acctest.PreCheckSkipError(err) {
-		t.Skipf("skipping acceptance testing: %s", err)
+t.Skipf("skipping acceptance testing: %s", err)
 	}
 
 	if err != nil {
-		t.Fatalf("unexpected PreCheck error: %s", err)
+t.Fatalf("unexpected PreCheck error: %s", err)
 	}
 }
 

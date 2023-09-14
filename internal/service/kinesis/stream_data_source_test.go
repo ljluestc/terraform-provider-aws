@@ -53,7 +53,7 @@ func TestAccKinesisStreamDataSource_basic(t *testing.T) {
 func testAccStreamDataSourceConfig_basic(rName string, shardCount int) string {
 	return fmt.Sprintf(`
 resource "aws_kinesis_stream" "test" {
-  name             = %[1]q
+  name    = %[1]q
   shard_count      = %[2]d
   retention_period = 72
 

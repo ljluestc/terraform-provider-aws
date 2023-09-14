@@ -62,7 +62,7 @@ func ResourceAccessControlAttributes() *schema.Resource {
 				},
 			},
 			"instance_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate

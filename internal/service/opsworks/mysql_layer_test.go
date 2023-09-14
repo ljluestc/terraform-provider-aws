@@ -22,23 +22,23 @@ func TestAccOpsWorksMySQLLayer_basic(t *testing.T) {
 	resourceName := "aws_opsworks_mysql_layer.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
-		ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMySQLLayerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccMySQLLayerConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckMySQLLayerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccMySQLLayerConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLayerExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "name", "MySQL"),
-					resource.TestCheckNoResourceAttr(resourceName, "root_password"),
-					resource.TestCheckResourceAttr(resourceName, "root_password_on_all_instances", "true"),
-				),
-			},
-		},
+	testAccCheckLayerExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "name", "MySQL"),
+	resource.TestCheckNoResourceAttr(resourceName, "root_password"),
+	resource.TestCheckResourceAttr(resourceName, "root_password_on_all_instances", "true"),
+),
+	},
+},
 	})
 }
 

@@ -73,7 +73,7 @@ func: validation.StringInSlice([]string{
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"log_destination": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							Validate
 func: verify.ValidARN,
@@ -94,7 +94,7 @@ func: verify.ValidARN,
 													Optional: true,
 												},
 												"type": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													Validate
 func: validation.StringInSlice(wafregional.MatchFieldType_Values(), false),
@@ -198,8 +198,8 @@ func(token *string) (interface{}, error) {
 			ChangeToken:   token,
 			DefaultAction: tfwaf.ExpandAction(d.Get("default_action").([]interface{})),
 			MetricName:    aws.String(d.Get("metric_name").(string)),
-			Name:          aws.String(d.Get("name").(string)),
-			Tags:          getTagsIn(ctx),
+			Name: aws.String(d.Get("name").(string)),
+			Tags: getTagsIn(ctx),
 		}
 
 		return conn.CreateWebACLWithContext(ctx, input)

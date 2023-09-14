@@ -20,25 +20,25 @@ func TestAccRoute53ResolverEndpointDataSource_basic(t *testing.T) {
 	datasourceName := "data.aws_route53_resolver_endpoint.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccEndpointDataSourceConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccEndpointDataSourceConfig_basic(rName),
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(datasourceName, "direction", resourceName, "direction"),
-					resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "ip_addresses.#", resourceName, "ip_address.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
-					resource.TestCheckResourceAttrPair(datasourceName, "resolver_endpoint_id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "vpc_id", resourceName, "host_vpc_id"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(datasourceName, "direction", resourceName, "direction"),
+	resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "ip_addresses.#", resourceName, "ip_address.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
+	resource.TestCheckResourceAttrPair(datasourceName, "resolver_endpoint_id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "vpc_id", resourceName, "host_vpc_id"),
+),
+	},
+},
 	})
 }
 
@@ -50,26 +50,26 @@ func TestAccRoute53ResolverEndpointDataSource_filter(t *testing.T) {
 	datasourceName := "data.aws_route53_resolver_endpoint.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
+ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
 
-			{
-				Config: testAccEndpointDataSourceConfig_filter(rName),
-				Check: resource.ComposeAggregateTestCheck
+	{
+Config: testAccEndpointDataSourceConfig_filter(rName),
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(datasourceName, "direction", resourceName, "direction"),
-					resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "ip_addresses.#", resourceName, "ip_address.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
-					resource.TestCheckResourceAttrPair(datasourceName, "resolver_endpoint_id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "vpc_id", resourceName, "host_vpc_id"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(datasourceName, "direction", resourceName, "direction"),
+	resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "ip_addresses.#", resourceName, "ip_address.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
+	resource.TestCheckResourceAttrPair(datasourceName, "resolver_endpoint_id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "vpc_id", resourceName, "host_vpc_id"),
+),
+	},
+},
 	})
 }
 

@@ -17,19 +17,19 @@ func TestAccEC2OutpostsCoIPPoolsDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_ec2_coip_pools.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccOutpostsCoIPPoolsDataSourceConfig_basic(),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccOutpostsCoIPPoolsDataSourceConfig_basic(),
+Check: resource.ComposeTestCheck
 func(
-					acctest.CheckResourceAttrGreaterThanValue(dataSourceName, "pool_ids.#", 0),
-				),
-			},
-		},
+	acctest.CheckResourceAttrGreaterThanValue(dataSourceName, "pool_ids.#", 0),
+),
+	},
+},
 	})
 }
 
@@ -39,19 +39,19 @@ func TestAccEC2OutpostsCoIPPoolsDataSource_filter(t *testing.T) {
 	dataSourceName := "data.aws_ec2_coip_pools.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccOutpostsCoIPPoolsDataSourceConfig_filter(),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccOutpostsCoIPPoolsDataSourceConfig_filter(),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttr(dataSourceName, "pool_ids.#", "1"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttr(dataSourceName, "pool_ids.#", "1"),
+),
+	},
+},
 	})
 }
 

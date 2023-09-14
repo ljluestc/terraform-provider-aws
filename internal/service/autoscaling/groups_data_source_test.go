@@ -22,33 +22,33 @@ func TestAccAutoScalingGroupsDataSource_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccGroupsDataSourceConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(datasource1Name, "names.#", "3"),
-					resource.TestCheckResourceAttr(datasource1Name, "arns.#", "3"),
-					resource.TestCheckResourceAttr(datasource2Name, "names.#", "3"),
-					resource.TestCheckResourceAttr(datasource2Name, "arns.#", "3"),
-					resource.TestCheckResourceAttr(datasource3Name, "names.#", "1"),
-					resource.TestCheckResourceAttr(datasource3Name, "arns.#", "1"),
-					resource.TestCheckResourceAttr(datasource4Name, "names.#", "2"),
-					resource.TestCheckResourceAttr(datasource4Name, "arns.#", "2"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccGroupsDataSourceConfig_basic(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(datasource1Name, "names.#", "3"),
+	resource.TestCheckResourceAttr(datasource1Name, "arns.#", "3"),
+	resource.TestCheckResourceAttr(datasource2Name, "names.#", "3"),
+	resource.TestCheckResourceAttr(datasource2Name, "arns.#", "3"),
+	resource.TestCheckResourceAttr(datasource3Name, "names.#", "1"),
+	resource.TestCheckResourceAttr(datasource3Name, "arns.#", "1"),
+	resource.TestCheckResourceAttr(datasource4Name, "names.#", "2"),
+	resource.TestCheckResourceAttr(datasource4Name, "arns.#", "2"),
+),
+	},
+},
 	})
 }
 
 func testAccGroupsDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(
-		acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
-		acctest.ConfigAvailableAZsNoOptIn(),
-		acctest.AvailableEC2InstanceTypeForAvailabilityZone("data.aws_availability_zones.available.names[0]", "t3.micro", "t2.micro"),
-		fmt.Sprintf(`
+acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
+acctest.ConfigAvailableAZsNoOptIn(),
+acctest.AvailableEC2InstanceTypeForAvailabilityZone("data.aws_availability_zones.available.names[0]", "t3.micro", "t2.micro"),
+fmt.Sprintf(`
 resource "aws_launch_configuration" "test" {
   name          = %[1]q
   image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id

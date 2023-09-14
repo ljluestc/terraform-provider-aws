@@ -48,7 +48,7 @@ func TestAccFinSpaceKxCluster_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 			testAccPreCheckManagedKxLicenseEnabled(t)
 		},
-		ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckKxClusterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -85,7 +85,7 @@ func TestAccFinSpaceKxCluster_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 			testAccPreCheckManagedKxLicenseEnabled(t)
 		},
-		ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckKxClusterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -117,7 +117,7 @@ func TestAccFinSpaceKxCluster_description(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 			testAccPreCheckManagedKxLicenseEnabled(t)
 		},
-		ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckKxClusterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -148,7 +148,7 @@ func TestAccFinSpaceKxCluster_database(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 			testAccPreCheckManagedKxLicenseEnabled(t)
 		},
-		ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckKxClusterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -179,7 +179,7 @@ func TestAccFinSpaceKxCluster_cacheConfigurations(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 			testAccPreCheckManagedKxLicenseEnabled(t)
 		},
-		ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckKxClusterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -211,7 +211,7 @@ func TestAccFinSpaceKxCluster_code(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 			testAccPreCheckManagedKxLicenseEnabled(t)
 		},
-		ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckKxClusterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -241,7 +241,7 @@ func TestAccFinSpaceKxCluster_multiAZ(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 			testAccPreCheckManagedKxLicenseEnabled(t)
 		},
-		ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckKxClusterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -272,7 +272,7 @@ func TestAccFinSpaceKxCluster_rdb(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 			testAccPreCheckManagedKxLicenseEnabled(t)
 		},
-		ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckKxClusterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -303,7 +303,7 @@ func TestAccFinSpaceKxCluster_executionRole(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 			testAccPreCheckManagedKxLicenseEnabled(t)
 		},
-		ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckKxClusterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -334,7 +334,7 @@ func TestAccFinSpaceKxCluster_autoScaling(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 			testAccPreCheckManagedKxLicenseEnabled(t)
 		},
-		ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckKxClusterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -368,7 +368,7 @@ func TestAccFinSpaceKxCluster_initializationScript(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 			testAccPreCheckManagedKxLicenseEnabled(t)
 		},
-		ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckKxClusterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -398,7 +398,7 @@ func TestAccFinSpaceKxCluster_commandLineArgs(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 			testAccPreCheckManagedKxLicenseEnabled(t)
 		},
-		ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckKxClusterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -430,7 +430,7 @@ func TestAccFinSpaceKxCluster_tags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 			testAccPreCheckManagedKxLicenseEnabled(t)
 		},
-		ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckKxClusterDestroy(ctx),
 		Steps: []resource.TestStep{

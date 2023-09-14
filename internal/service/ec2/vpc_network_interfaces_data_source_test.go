@@ -23,7 +23,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckVPCDestroy(ctx),
+CheckDestroy:    testAccCheckVPCDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCNetworkInterfacesDataSourceConfig_filter(rName),
@@ -46,7 +46,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckVPCDestroy(ctx),
+CheckDestroy:    testAccCheckVPCDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCNetworkInterfacesDataSourceConfig_tags(rName),
@@ -69,7 +69,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckVPCDestroy(ctx),
+CheckDestroy:    testAccCheckVPCDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVPCNetworkInterfacesDataSourceConfig_empty(rName),

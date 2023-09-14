@@ -41,13 +41,13 @@ func filterControlsSchema() *schema.Schema {
 					MaxItems: 1,
 					Elem: &schema.Resource{
 						Schema: map[string]*schema.Schema{
-							"filter_control_id":idSchema(),
-							"source_filter_id": idSchema(),
-							"title":            stringSchema(true, validation.StringLenBetween(1, 2048)),
+							"filter_control_id":               idSchema(),
+							"source_filter_id":                idSchema(),
+							"title":                           stringSchema(true, validation.StringLenBetween(1, 2048)),
 							"cascading_control_configuration": cascadingControlConfigurationSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_CascadingControlConfiguration.html
-							"display_options":  dropDownControlDisplayOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DropDownControlDisplayOptions.html
-							"selectable_values":filterSelectableValuesSchema(),        // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FilterSelectableValues.html
-							"type":             stringSchema(false, validation.StringInSlice(quicksight.SheetControlListType_Values(), false)),
+							"display_options":                 dropDownControlDisplayOptionsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DropDownControlDisplayOptions.html
+							"selectable_values":               filterSelectableValuesSchema(),        // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FilterSelectableValues.html
+							"type":                            stringSchema(false, validation.StringInSlice(quicksight.SheetControlListType_Values(), false)),
 						},
 					},
 				},
@@ -58,13 +58,13 @@ func filterControlsSchema() *schema.Schema {
 					MaxItems: 1,
 					Elem: &schema.Resource{
 						Schema: map[string]*schema.Schema{
-							"filter_control_id":idSchema(),
-							"source_filter_id": idSchema(),
-							"title":            stringSchema(true, validation.StringLenBetween(1, 2048)),
+							"filter_control_id":               idSchema(),
+							"source_filter_id":                idSchema(),
+							"title":                           stringSchema(true, validation.StringLenBetween(1, 2048)),
 							"cascading_control_configuration": cascadingControlConfigurationSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_CascadingControlConfiguration.html
-							"display_options":  listControlDisplayOptionsSchema(),     // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ListControlDisplayOptions.html
-							"selectable_values":filterSelectableValuesSchema(),        // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FilterSelectableValues.html
-							"type":             stringSchema(false, validation.StringInSlice(quicksight.SheetControlListType_Values(), false)),
+							"display_options":                 listControlDisplayOptionsSchema(),     // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ListControlDisplayOptions.html
+							"selectable_values":               filterSelectableValuesSchema(),        // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FilterSelectableValues.html
+							"type":                            stringSchema(false, validation.StringInSlice(quicksight.SheetControlListType_Values(), false)),
 						},
 					},
 				},

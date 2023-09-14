@@ -25,25 +25,25 @@ func TestAccCodeCommitRepository_basic(t *testing.T) {
 	resourceName := "aws_codecommit_repository.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, codecommit.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRepositoryDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccRepositoryConfig_basic(rInt),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, codecommit.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckRepositoryDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccRepositoryConfig_basic(rInt),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckRepositoryExists(ctx, "aws_codecommit_repository.test"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckRepositoryExists(ctx, "aws_codecommit_repository.test"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -54,36 +54,36 @@ func TestAccCodeCommitRepository_withChanges(t *testing.T) {
 	resourceName := "aws_codecommit_repository.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, codecommit.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRepositoryDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccRepositoryConfig_basic(rInt),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, codecommit.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckRepositoryDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccRepositoryConfig_basic(rInt),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckRepositoryExists(ctx, "aws_codecommit_repository.test"),
-					resource.TestCheckResourceAttr(
-						"aws_codecommit_repository.test", "description", "This is a test description"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccRepositoryConfig_changes(rInt),
-				Check: resource.ComposeTestCheck
+	testAccCheckRepositoryExists(ctx, "aws_codecommit_repository.test"),
+	resource.TestCheckResourceAttr(
+"aws_codecommit_repository.test", "description", "This is a test description"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccRepositoryConfig_changes(rInt),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckRepositoryExists(ctx, "aws_codecommit_repository.test"),
-					resource.TestCheckResourceAttr(
-						"aws_codecommit_repository.test", "description", "This is a test description - with changes"),
-				),
-			},
-		},
+	testAccCheckRepositoryExists(ctx, "aws_codecommit_repository.test"),
+	resource.TestCheckResourceAttr(
+"aws_codecommit_repository.test", "description", "This is a test description - with changes"),
+),
+	},
+},
 	})
 }
 
@@ -94,28 +94,28 @@ func TestAccCodeCommitRepository_CreateDefault_branch(t *testing.T) {
 	resourceName := "aws_codecommit_repository.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, codecommit.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRepositoryDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccRepositoryConfig_defaultBranch(rInt),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, codecommit.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckRepositoryDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccRepositoryConfig_defaultBranch(rInt),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckRepositoryExists(ctx, "aws_codecommit_repository.test"),
-					resource.TestCheckResourceAttr(
-						"aws_codecommit_repository.test", "default_branch", "master"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"default_branch"},
-			},
-		},
+	testAccCheckRepositoryExists(ctx, "aws_codecommit_repository.test"),
+	resource.TestCheckResourceAttr(
+"aws_codecommit_repository.test", "default_branch", "master"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"default_branch"},
+	},
+},
 	})
 }
 
@@ -126,36 +126,36 @@ func TestAccCodeCommitRepository_CreateAndUpdateDefault_branch(t *testing.T) {
 	resourceName := "aws_codecommit_repository.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, codecommit.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRepositoryDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccRepositoryConfig_basic(rInt),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, codecommit.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckRepositoryDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccRepositoryConfig_basic(rInt),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckRepositoryExists(ctx, "aws_codecommit_repository.test"),
-					resource.TestCheckNoResourceAttr(
-						"aws_codecommit_repository.test", "default_branch"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccRepositoryConfig_defaultBranch(rInt),
-				Check: resource.ComposeTestCheck
+	testAccCheckRepositoryExists(ctx, "aws_codecommit_repository.test"),
+	resource.TestCheckNoResourceAttr(
+"aws_codecommit_repository.test", "default_branch"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccRepositoryConfig_defaultBranch(rInt),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckRepositoryExists(ctx, "aws_codecommit_repository.test"),
-					resource.TestCheckResourceAttr(
-						"aws_codecommit_repository.test", "default_branch", "master"),
-				),
-			},
-		},
+	testAccCheckRepositoryExists(ctx, "aws_codecommit_repository.test"),
+	resource.TestCheckResourceAttr(
+"aws_codecommit_repository.test", "default_branch", "master"),
+),
+	},
+},
 	})
 }
 
@@ -166,46 +166,46 @@ func TestAccCodeCommitRepository_tags(t *testing.T) {
 	resourceName := "aws_codecommit_repository.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, codecommit.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRepositoryDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccRepositoryConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, codecommit.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckRepositoryDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccRepositoryConfig_tags1(rName, "key1", "value1"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckRepositoryExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccRepositoryConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheck
+	testAccCheckRepositoryExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccRepositoryConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckRepositoryExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-			{
-				Config: testAccRepositoryConfig_tags1(rName, "key2", "value2"),
-				Check: resource.ComposeTestCheck
+	testAccCheckRepositoryExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+	{
+Config: testAccRepositoryConfig_tags1(rName, "key2", "value2"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckRepositoryExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-		},
+	testAccCheckRepositoryExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+},
 	})
 }
 
@@ -214,34 +214,34 @@ func testAccCheckRepositoryExists(ctx context.Context, name string) resource.Tes
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[name]
-		if !ok {
-			return fmt.Errorf("Not found: %s", name)
-		}
+rs, ok := s.RootModule().Resources[name]
+if !ok {
+	return fmt.Errorf("Not found: %s", name)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).CodeCommitConn(ctx)
-		out, err := conn.GetRepositoryWithContext(ctx, &codecommit.GetRepositoryInput{
-			RepositoryName: aws.String(rs.Primary.ID),
-		})
+conn := acctest.Provider.Meta().(*conns.AWSClient).CodeCommitConn(ctx)
+out, err := conn.GetRepositoryWithContext(ctx, &codecommit.GetRepositoryInput{
+	RepositoryName: aws.String(rs.Primary.ID),
+})
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		if out.RepositoryMetadata.Arn == nil {
-			return fmt.Errorf("No CodeCommit Repository Vault Found")
-		}
+if out.RepositoryMetadata.Arn == nil {
+	return fmt.Errorf("No CodeCommit Repository Vault Found")
+}
 
-		if *out.RepositoryMetadata.RepositoryName != rs.Primary.ID {
-			return fmt.Errorf("CodeCommit Repository Mismatch - existing: %q, state: %q",
-				*out.RepositoryMetadata.RepositoryName, rs.Primary.ID)
-		}
+if *out.RepositoryMetadata.RepositoryName != rs.Primary.ID {
+	return fmt.Errorf("CodeCommit Repository Mismatch - existing: %q, state: %q",
+*out.RepositoryMetadata.RepositoryName, rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -250,28 +250,28 @@ func testAccCheckRepositoryDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).CodeCommitConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).CodeCommitConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_codecommit_repository" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_codecommit_repository" {
+continue
+	}
 
-			_, err := conn.GetRepositoryWithContext(ctx, &codecommit.GetRepositoryInput{
-				RepositoryName: aws.String(rs.Primary.ID),
-			})
+	_, err := conn.GetRepositoryWithContext(ctx, &codecommit.GetRepositoryInput{
+RepositoryName: aws.String(rs.Primary.ID),
+	})
 
-			if tfawserr.ErrCodeEquals(err, codecommit.ErrCodeRepositoryDoesNotExistException) {
-				continue
-			}
+	if tfawserr.ErrCodeEquals(err, codecommit.ErrCodeRepositoryDoesNotExistException) {
+continue
+	}
 
-			if err == nil {
-				return fmt.Errorf("Repository still exists: %s", rs.Primary.ID)
-			}
-			return err
-		}
+	if err == nil {
+return fmt.Errorf("Repository still exists: %s", rs.Primary.ID)
+	}
+	return err
+}
 
-		return nil
+return nil
 	}
 }
 

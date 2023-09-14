@@ -300,10 +300,10 @@ func resourceRuleDelete(ctx context.Context, d *schema.ResourceData, meta interf
 
 func waitRuleCreated(ctx context.Context, conn *rbin.Client, id string, timeout time.Duration) (*rbin.GetRuleOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    enum.Slice(types.RuleStatusPending),
-		Target:     enum.Slice(types.RuleStatusAvailable),
-		Refresh:    statusRule(ctx, conn, id),
-		Timeout:    timeout,
+		Pending:                   enum.Slice(types.RuleStatusPending),
+		Target:                    enum.Slice(types.RuleStatusAvailable),
+		Refresh:                   statusRule(ctx, conn, id),
+		Timeout:                   timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}
@@ -318,10 +318,10 @@ func waitRuleCreated(ctx context.Context, conn *rbin.Client, id string, timeout 
 
 func waitRuleUpdated(ctx context.Context, conn *rbin.Client, id string, timeout time.Duration) (*rbin.GetRuleOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    enum.Slice(types.RuleStatusPending),
-		Target:     enum.Slice(types.RuleStatusAvailable),
-		Refresh:    statusRule(ctx, conn, id),
-		Timeout:    timeout,
+		Pending:                   enum.Slice(types.RuleStatusPending),
+		Target:                    enum.Slice(types.RuleStatusAvailable),
+		Refresh:                   statusRule(ctx, conn, id),
+		Timeout:                   timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}

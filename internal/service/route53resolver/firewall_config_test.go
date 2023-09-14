@@ -27,27 +27,27 @@ func TestAccRoute53ResolverFirewallConfig_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFirewallConfigDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFirewallConfigConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFirewallConfigDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFirewallConfigConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFirewallConfigExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "firewall_fail_open", "ENABLED"),
-					acctest.CheckResourceAttrAccountID(resourceName, "owner_id"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckFirewallConfigExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "firewall_fail_open", "ENABLED"),
+	acctest.CheckResourceAttrAccountID(resourceName, "owner_id"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -59,22 +59,22 @@ func TestAccRoute53ResolverFirewallConfig_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFirewallConfigDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFirewallConfigConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckFirewallConfigDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccFirewallConfigConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckFirewallConfigExists(ctx, resourceName, &v),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfroute53resolver.ResourceFirewallConfig(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckFirewallConfigExists(ctx, resourceName, &v),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfroute53resolver.ResourceFirewallConfig(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -83,31 +83,31 @@ func testAccCheckFirewallConfigDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).Route53ResolverConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).Route53ResolverConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_route53_resolver_firewall_config" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_route53_resolver_firewall_config" {
+continue
+	}
 
-			config, err := tfroute53resolver.FindFirewallConfigByID(ctx, conn, rs.Primary.ID)
+	config, err := tfroute53resolver.FindFirewallConfigByID(ctx, conn, rs.Primary.ID)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			if aws.StringValue(config.FirewallFailOpen) == route53resolver.FirewallFailOpenStatusDisabled {
-				return nil
-			}
+	if aws.StringValue(config.FirewallFailOpen) == route53resolver.FirewallFailOpenStatusDisabled {
+return nil
+	}
 
-			return fmt.Errorf("Route53 Resolver Firewall Config still exists: %s", rs.Primary.ID)
-		}
+	return fmt.Errorf("Route53 Resolver Firewall Config still exists: %s", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -116,26 +116,26 @@ func testAccCheckFirewallConfigExists(ctx context.Context, n string, v *route53r
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No Route53 Resolver Firewall Config ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No Route53 Resolver Firewall Config ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).Route53ResolverConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).Route53ResolverConn(ctx)
 
-		output, err := tfroute53resolver.FindFirewallConfigByID(ctx, conn, rs.Primary.ID)
+output, err := tfroute53resolver.FindFirewallConfigByID(ctx, conn, rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*v = *output
+*v = *output
 
-		return nil
+return nil
 	}
 }
 

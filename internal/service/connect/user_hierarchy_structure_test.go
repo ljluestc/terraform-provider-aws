@@ -32,163 +32,163 @@ func testAccUserHierarchyStructure_basic(t *testing.T) {
 	resourceName := "aws_connect_user_hierarchy_structure.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserHierarchyStructureDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserHierarchyStructureConfig_basic(rName, levelOneName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckUserHierarchyStructureDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserHierarchyStructureConfig_basic(rName, levelOneName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckUserHierarchyStructureExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_one.#", "1"),
-					resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_one.0.arn"),
-					resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_one.0.id"),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_one.0.name", levelOneName),
-					resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
-					// resource.TestCheckResourceAttrPair(resourceName, "instance_id", "aws_connect_instance.test", "id"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccUserHierarchyStructureConfig_twoLevels(rName, levelOneName, levelTwoName),
-				Check: resource.ComposeAggregateTestCheck
+	testAccCheckUserHierarchyStructureExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_one.#", "1"),
+	resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_one.0.arn"),
+	resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_one.0.id"),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_one.0.name", levelOneName),
+	resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
+	// resource.TestCheckResourceAttrPair(resourceName, "instance_id", "aws_connect_instance.test", "id"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccUserHierarchyStructureConfig_twoLevels(rName, levelOneName, levelTwoName),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckUserHierarchyStructureExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_one.#", "1"),
-					resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_one.0.arn"),
-					resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_one.0.id"),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_one.0.name", levelOneName),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_two.#", "1"),
-					resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_two.0.arn"),
-					resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_two.0.id"),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_two.0.name", levelTwoName),
-					resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
-					resource.TestCheckResourceAttrPair(resourceName, "instance_id", "aws_connect_instance.test", "id"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccUserHierarchyStructureConfig_threeLevels(rName, levelOneName, levelTwoName, levelThreeName),
-				Check: resource.ComposeAggregateTestCheck
+	testAccCheckUserHierarchyStructureExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_one.#", "1"),
+	resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_one.0.arn"),
+	resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_one.0.id"),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_one.0.name", levelOneName),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_two.#", "1"),
+	resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_two.0.arn"),
+	resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_two.0.id"),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_two.0.name", levelTwoName),
+	resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
+	resource.TestCheckResourceAttrPair(resourceName, "instance_id", "aws_connect_instance.test", "id"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccUserHierarchyStructureConfig_threeLevels(rName, levelOneName, levelTwoName, levelThreeName),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckUserHierarchyStructureExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_one.#", "1"),
-					resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_one.0.arn"),
-					resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_one.0.id"),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_one.0.name", levelOneName),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_two.#", "1"),
-					resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_two.0.arn"),
-					resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_two.0.id"),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_two.0.name", levelTwoName),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_three.#", "1"),
-					resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_three.0.arn"),
-					resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_three.0.id"),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_three.0.name", levelThreeName),
-					resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
-					resource.TestCheckResourceAttrPair(resourceName, "instance_id", "aws_connect_instance.test", "id"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccUserHierarchyStructureConfig_fourLevels(rName, levelOneName, levelTwoName, levelThreeName, levelFourName),
-				Check: resource.ComposeAggregateTestCheck
+	testAccCheckUserHierarchyStructureExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_one.#", "1"),
+	resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_one.0.arn"),
+	resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_one.0.id"),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_one.0.name", levelOneName),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_two.#", "1"),
+	resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_two.0.arn"),
+	resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_two.0.id"),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_two.0.name", levelTwoName),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_three.#", "1"),
+	resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_three.0.arn"),
+	resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_three.0.id"),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_three.0.name", levelThreeName),
+	resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
+	resource.TestCheckResourceAttrPair(resourceName, "instance_id", "aws_connect_instance.test", "id"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccUserHierarchyStructureConfig_fourLevels(rName, levelOneName, levelTwoName, levelThreeName, levelFourName),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckUserHierarchyStructureExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_one.#", "1"),
-					resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_one.0.arn"),
-					resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_one.0.id"),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_one.0.name", levelOneName),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_two.#", "1"),
-					resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_two.0.arn"),
-					resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_two.0.id"),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_two.0.name", levelTwoName),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_three.#", "1"),
-					resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_three.0.arn"),
-					resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_three.0.id"),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_three.0.name", levelThreeName),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_four.#", "1"),
-					resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_four.0.arn"),
-					resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_four.0.id"),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_four.0.name", levelFourName),
-					resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
-					resource.TestCheckResourceAttrPair(resourceName, "instance_id", "aws_connect_instance.test", "id"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccUserHierarchyStructureConfig_fiveLevels(rName, levelOneName, levelTwoName, levelThreeName, levelFourName, levelFiveName),
-				Check: resource.ComposeAggregateTestCheck
+	testAccCheckUserHierarchyStructureExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_one.#", "1"),
+	resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_one.0.arn"),
+	resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_one.0.id"),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_one.0.name", levelOneName),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_two.#", "1"),
+	resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_two.0.arn"),
+	resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_two.0.id"),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_two.0.name", levelTwoName),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_three.#", "1"),
+	resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_three.0.arn"),
+	resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_three.0.id"),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_three.0.name", levelThreeName),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_four.#", "1"),
+	resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_four.0.arn"),
+	resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_four.0.id"),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_four.0.name", levelFourName),
+	resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
+	resource.TestCheckResourceAttrPair(resourceName, "instance_id", "aws_connect_instance.test", "id"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccUserHierarchyStructureConfig_fiveLevels(rName, levelOneName, levelTwoName, levelThreeName, levelFourName, levelFiveName),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckUserHierarchyStructureExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_one.#", "1"),
-					resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_one.0.arn"),
-					resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_one.0.id"),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_one.0.name", levelOneName),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_two.#", "1"),
-					resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_two.0.arn"),
-					resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_two.0.id"),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_two.0.name", levelTwoName),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_three.#", "1"),
-					resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_three.0.arn"),
-					resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_three.0.id"),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_three.0.name", levelThreeName),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_four.#", "1"),
-					resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_four.0.arn"),
-					resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_four.0.id"),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_four.0.name", levelFourName),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_five.#", "1"),
-					resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_five.0.arn"),
-					resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_five.0.id"),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_five.0.name", levelFiveName),
-					resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
-					resource.TestCheckResourceAttrPair(resourceName, "instance_id", "aws_connect_instance.test", "id"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				// test removing 4 levels
-				Config: testAccUserHierarchyStructureConfig_basic(rName, levelOneName),
-				Check: resource.ComposeTestCheck
+	testAccCheckUserHierarchyStructureExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_one.#", "1"),
+	resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_one.0.arn"),
+	resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_one.0.id"),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_one.0.name", levelOneName),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_two.#", "1"),
+	resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_two.0.arn"),
+	resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_two.0.id"),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_two.0.name", levelTwoName),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_three.#", "1"),
+	resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_three.0.arn"),
+	resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_three.0.id"),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_three.0.name", levelThreeName),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_four.#", "1"),
+	resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_four.0.arn"),
+	resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_four.0.id"),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_four.0.name", levelFourName),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_five.#", "1"),
+	resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_five.0.arn"),
+	resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_five.0.id"),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_five.0.name", levelFiveName),
+	resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
+	resource.TestCheckResourceAttrPair(resourceName, "instance_id", "aws_connect_instance.test", "id"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+// test removing 4 levels
+Config: testAccUserHierarchyStructureConfig_basic(rName, levelOneName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckUserHierarchyStructureExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_one.#", "1"),
-					resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_one.0.arn"),
-					resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_one.0.id"),
-					resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_one.0.name", levelOneName),
-					resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
-					resource.TestCheckResourceAttrPair(resourceName, "instance_id", "aws_connect_instance.test", "id"),
-				),
-			},
-		},
+	testAccCheckUserHierarchyStructureExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_one.#", "1"),
+	resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_one.0.arn"),
+	resource.TestCheckResourceAttrSet(resourceName, "hierarchy_structure.0.level_one.0.id"),
+	resource.TestCheckResourceAttr(resourceName, "hierarchy_structure.0.level_one.0.name", levelOneName),
+	resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
+	resource.TestCheckResourceAttrPair(resourceName, "instance_id", "aws_connect_instance.test", "id"),
+),
+	},
+},
 	})
 }
 
@@ -201,22 +201,22 @@ func testAccUserHierarchyStructure_disappears(t *testing.T) {
 	levelOneName := sdkacctest.RandomWithPrefix("resource-test-terraform")
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserHierarchyStructureDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserHierarchyStructureConfig_basic(rName, levelOneName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckUserHierarchyStructureDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserHierarchyStructureConfig_basic(rName, levelOneName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckUserHierarchyStructureExists(ctx, resourceName, &v),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfconnect.ResourceUserHierarchyStructure(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckUserHierarchyStructureExists(ctx, resourceName, &v),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfconnect.ResourceUserHierarchyStructure(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -226,33 +226,33 @@ function *connect.DescribeUserHierarchyStructureOutput) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[resourceName]
-		if !ok {
-			return fmt.Errorf("Connect User Hierarchy Structure not found: %s", resourceName)
-		}
+rs, ok := s.RootModule().Resources[resourceName]
+if !ok {
+	return fmt.Errorf("Connect User Hierarchy Structure not found: %s", resourceName)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("Connect User Hierarchy Structure ID not set")
-		}
-		instanceID := rs.Primary.ID
+if rs.Primary.ID == "" {
+	return fmt.Errorf("Connect User Hierarchy Structure ID not set")
+}
+instanceID := rs.Primary.ID
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)
 
-		params := &connect.DescribeUserHierarchyStructureInput{
-			InstanceId: aws.String(instanceID),
-		}
+params := &connect.DescribeUserHierarchyStructureInput{
+	InstanceId: aws.String(instanceID),
+}
 
-		get
+get
 function, err := conn.DescribeUserHierarchyStructureWithContext(ctx, params)
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*
+*
 function = *get
 function
 
-		return nil
+return nil
 	}
 }
 
@@ -261,36 +261,36 @@ func testAccCheckUserHierarchyStructureDestroy(ctx context.Context) resource.Tes
 func {
 	return 
 func(s *terraform.State) error {
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_connect_user_hierarchy_structure" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_connect_user_hierarchy_structure" {
+continue
+	}
 
-			conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)
+	conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)
 
-			instanceID := rs.Primary.ID
+	instanceID := rs.Primary.ID
 
-			params := &connect.DescribeUserHierarchyStructureInput{
-				InstanceId: aws.String(instanceID),
-			}
+	params := &connect.DescribeUserHierarchyStructureInput{
+InstanceId: aws.String(instanceID),
+	}
 
-			resp, err := conn.DescribeUserHierarchyStructureWithContext(ctx, params)
+	resp, err := conn.DescribeUserHierarchyStructureWithContext(ctx, params)
 
-			if tfawserr.ErrCodeEquals(err, connect.ErrCodeResourceNotFoundException) {
-				continue
-			}
+	if tfawserr.ErrCodeEquals(err, connect.ErrCodeResourceNotFoundException) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			// API returns an empty list for HierarchyStructure if there are none
-			if resp.HierarchyStructure == nil {
-				continue
-			}
-		}
+	// API returns an empty list for HierarchyStructure if there are none
+	if resp.HierarchyStructure == nil {
+continue
+	}
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -300,7 +300,7 @@ func testAccUserHierarchyStructureConfig_base(rName string) string {
 resource "aws_connect_instance" "test" {
   identity_management_type = "CONNECT_MANAGED"
   inbound_calls_enabled    = true
-  instance_alias           = %[1]q
+  instance_alias  = %[1]q
   outbound_calls_enabled   = true
 }
 `, rName)
@@ -309,8 +309,8 @@ resource "aws_connect_instance" "test" {
 
 func testAccUserHierarchyStructureConfig_basic(rName, levelOneName string) string {
 	return acctest.ConfigCompose(
-		testAccUserHierarchyStructureConfig_base(rName),
-		fmt.Sprintf(`
+testAccUserHierarchyStructureConfig_base(rName),
+fmt.Sprintf(`
 resource "aws_connect_user_hierarchy_structure" "test" {
   instance_id = aws_connect_instance.test.id
 
@@ -326,8 +326,8 @@ resource "aws_connect_user_hierarchy_structure" "test" {
 
 func testAccUserHierarchyStructureConfig_twoLevels(rName, levelOneName, levelTwoName string) string {
 	return acctest.ConfigCompose(
-		testAccUserHierarchyStructureConfig_base(rName),
-		fmt.Sprintf(`
+testAccUserHierarchyStructureConfig_base(rName),
+fmt.Sprintf(`
 resource "aws_connect_user_hierarchy_structure" "test" {
   instance_id = aws_connect_instance.test.id
 
@@ -347,8 +347,8 @@ resource "aws_connect_user_hierarchy_structure" "test" {
 
 func testAccUserHierarchyStructureConfig_threeLevels(rName, levelOneName, levelTwoName, levelThreeName string) string {
 	return acctest.ConfigCompose(
-		testAccUserHierarchyStructureConfig_base(rName),
-		fmt.Sprintf(`
+testAccUserHierarchyStructureConfig_base(rName),
+fmt.Sprintf(`
 resource "aws_connect_user_hierarchy_structure" "test" {
   instance_id = aws_connect_instance.test.id
 
@@ -372,8 +372,8 @@ resource "aws_connect_user_hierarchy_structure" "test" {
 
 func testAccUserHierarchyStructureConfig_fourLevels(rName, levelOneName, levelTwoName, levelThreeName, levelFourName string) string {
 	return acctest.ConfigCompose(
-		testAccUserHierarchyStructureConfig_base(rName),
-		fmt.Sprintf(`
+testAccUserHierarchyStructureConfig_base(rName),
+fmt.Sprintf(`
 resource "aws_connect_user_hierarchy_structure" "test" {
   instance_id = aws_connect_instance.test.id
 
@@ -401,8 +401,8 @@ resource "aws_connect_user_hierarchy_structure" "test" {
 
 func testAccUserHierarchyStructureConfig_fiveLevels(rName, levelOneName, levelTwoName, levelThreeName, levelFourName, levelFiveName string) string {
 	return acctest.ConfigCompose(
-		testAccUserHierarchyStructureConfig_base(rName),
-		fmt.Sprintf(`
+testAccUserHierarchyStructureConfig_base(rName),
+fmt.Sprintf(`
 resource "aws_connect_user_hierarchy_structure" "test" {
   instance_id = aws_connect_instance.test.id
 

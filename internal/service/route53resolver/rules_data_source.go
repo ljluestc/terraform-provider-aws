@@ -24,7 +24,7 @@ func DataSourceRules() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"name_regex": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Validate
 func: validation.StringIsValidRegExp,
@@ -49,13 +49,13 @@ func: validation.Any(
 				Elem:     &schema.Schema{Type: schema.TypeString},
 			},
 			"rule_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Validate
 func: validation.StringInSlice(route53resolver.RuleTypeOption_Values(), false),
 			},
 			"share_status": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Validate
 func: validation.StringInSlice(route53resolver.ShareStatus_Values(), false),

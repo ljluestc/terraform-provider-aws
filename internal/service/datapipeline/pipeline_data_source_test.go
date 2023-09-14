@@ -20,20 +20,20 @@ func TestAccDataPipelinePipelineDataSource_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix("tf-acc-test")
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPipelineDefinitionDestroy(ctx),
-		ErrorCheck:acctest.ErrorCheck(t, datapipeline.EndpointsID),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccPipelineDataSourceConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrPair(dataSourceName, "pipeline_id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "name", resourceName, "name"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "description", resourceName, "description"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckPipelineDefinitionDestroy(ctx),
+ErrorCheck:acctest.ErrorCheck(t, datapipeline.EndpointsID),
+Steps: []resource.TestStep{
+	{
+Config: testAccPipelineDataSourceConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	resource.TestCheckResourceAttrPair(dataSourceName, "pipeline_id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "name", resourceName, "name"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "description", resourceName, "description"),
+),
+	},
+},
 	})
 }
 

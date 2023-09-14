@@ -57,28 +57,28 @@ func ResourceClientVPNEndpoint() *schema.Resource {
 							ForceNew: true,
 						},
 						"root_certificate_chain_arn": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ForceNew:     true,
 							Validate
 func: verify.ValidARN,
 						},
 						"saml_provider_arn": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ForceNew:     true,
 							Validate
 func: verify.ValidARN,
 						},
 						"self_service_saml_provider_arn": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ForceNew:     true,
 							Validate
 func: verify.ValidARN,
 						},
 						"type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
 							Validate
@@ -88,7 +88,7 @@ func: validation.StringInSlice(ec2.ClientVpnAuthenticationType_Values(), false),
 				},
 			},
 			"client_cidr_block": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
@@ -108,7 +108,7 @@ func: validation.IsCIDR,
 						},
 						"lambda_
 function_arn": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Computed:     true,
 							Validate
@@ -125,7 +125,7 @@ func: verify.ValidARN,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"banner_text": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Computed:     true,
 							Validate
@@ -183,20 +183,20 @@ func: validation.StringLenBetween(0, 1400),
 				Elem:     &schema.Schema{Type: schema.TypeString},
 			},
 			"self_service_portal": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Default:      ec2.SelfServicePortalDisabled,
 				Validate
 func: validation.StringInSlice(ec2.SelfServicePortal_Values(), false),
 			},
 			"server_certificate_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				Validate
 func: verify.ValidARN,
 			},
 			"session_timeout_hours": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				Default:      24,
 				Validate
@@ -210,7 +210,7 @@ func: validation.IntInSlice([]int{8, 10, 12, 24}),
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"transport_protocol": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Default:      ec2.TransportProtocolUdp,
@@ -244,10 +244,10 @@ func resourceClientVPNEndpointCreate(ctx context.Context, d *schema.ResourceData
 	input := &ec2.CreateClientVpnEndpointInput{
 		ClientCidrBlock:      aws.String(d.Get("client_cidr_block").(string)),
 		ServerCertificateArn: aws.String(d.Get("server_certificate_arn").(string)),
-		SplitTunnel:          aws.Bool(d.Get("split_tunnel").(bool)),
+		SplitTunnel: aws.Bool(d.Get("split_tunnel").(bool)),
 		TagSpecifications:    getTagSpecificationsIn(ctx, ec2.ResourceTypeClientVpnEndpoint),
 		TransportProtocol:    aws.String(d.Get("transport_protocol").(string)),
-		VpnPort:              aws.Int64(int64(d.Get("vpn_port").(int))),
+		VpnPort:     aws.Int64(int64(d.Get("vpn_port").(int))),
 	}
 
 	if v, ok := d.GetOk("authentication_options"); ok && v.(*schema.Set).Len() > 0 {

@@ -43,28 +43,28 @@ func ResourceCustomerGateway() *schema.Resource {
 				Computed: true,
 			},
 			"bgp_asn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
 func: verify.Valid4ByteASN,
 			},
 			"certificate_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Validate
 func: verify.ValidARN,
 			},
 			"device_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Validate
 func: validation.StringLenBetween(1, 255),
 			},
 			"ip_address": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Validate
@@ -73,7 +73,7 @@ func: validation.IsIPv4Address,
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
@@ -91,7 +91,7 @@ func resourceCustomerGatewayCreate(ctx context.Context, d *schema.ResourceData, 
 
 	input := &ec2.CreateCustomerGatewayInput{
 		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeCustomerGateway),
-		Type:              aws.String(d.Get("type").(string)),
+		Type:     aws.String(d.Get("type").(string)),
 	}
 
 	if v, ok := d.GetOk("bgp_asn"); ok {

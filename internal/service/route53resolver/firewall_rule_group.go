@@ -41,7 +41,7 @@ func ResourceFirewallRuleGroup() *schema.Resource {
 				Computed: true,
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
@@ -70,8 +70,8 @@ func resourceFirewallRuleGroupCreate(ctx context.Context, d *schema.ResourceData
 	name := d.Get("name").(string)
 	input := &route53resolver.CreateFirewallRuleGroupInput{
 		CreatorRequestId: aws.String(id.PrefixedUniqueId("tf-r53-resolver-firewall-rule-group-")),
-		Name:             aws.String(name),
-		Tags:             getTagsIn(ctx),
+		Name:    aws.String(name),
+		Tags:    getTagsIn(ctx),
 	}
 
 	output, err := conn.CreateFirewallRuleGroupWithContext(ctx, input)

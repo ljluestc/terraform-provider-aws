@@ -340,10 +340,10 @@ func statusPipe(ctx context.Context, conn *pipes.Client, name string) retry.Stat
 
 func waitPipeCreated(ctx context.Context, conn *pipes.Client, id string, timeout time.Duration) (*pipes.DescribePipeOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    enum.Slice(awstypes.PipeStateCreating),
-		Target:     enum.Slice(awstypes.PipeStateRunning, awstypes.PipeStateStopped),
-		Refresh:    statusPipe(ctx, conn, id),
-		Timeout:    timeout,
+		Pending:                   enum.Slice(awstypes.PipeStateCreating),
+		Target:                    enum.Slice(awstypes.PipeStateRunning, awstypes.PipeStateStopped),
+		Refresh:                   statusPipe(ctx, conn, id),
+		Timeout:                   timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 1,
 	}
@@ -360,10 +360,10 @@ func waitPipeCreated(ctx context.Context, conn *pipes.Client, id string, timeout
 
 func waitPipeUpdated(ctx context.Context, conn *pipes.Client, id string, timeout time.Duration) (*pipes.DescribePipeOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    enum.Slice(awstypes.PipeStateUpdating),
-		Target:     enum.Slice(awstypes.PipeStateRunning, awstypes.PipeStateStopped),
-		Refresh:    statusPipe(ctx, conn, id),
-		Timeout:    timeout,
+		Pending:                   enum.Slice(awstypes.PipeStateUpdating),
+		Target:                    enum.Slice(awstypes.PipeStateRunning, awstypes.PipeStateStopped),
+		Refresh:                   statusPipe(ctx, conn, id),
+		Timeout:                   timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 1,
 	}

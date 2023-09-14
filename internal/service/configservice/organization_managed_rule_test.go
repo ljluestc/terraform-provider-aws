@@ -509,7 +509,7 @@ resource "aws_iam_role_policy_attachment" "test" {
 
 resource "aws_organizations_organization" "test" {
   aws_service_access_principals = ["config-multiaccountsetup.amazonaws.com"]
-  feature_set                   = "ALL"
+  feature_set = "ALL"
 }
 `, rName)
 }
@@ -520,7 +520,7 @@ resource "aws_config_organization_managed_rule" "test" {
   depends_on = [aws_config_configuration_recorder.test, aws_organizations_organization.test]
 
   description     = %[2]q
-  name            = %[1]q
+  name   = %[1]q
   rule_identifier = "IAM_PASSWORD_POLICY"
 }
 `, rName, description)
@@ -530,13 +530,13 @@ func testAccOrganizationManagedRuleConfig_errorHandling(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_organizations_organization" "test" {
   aws_service_access_principals = ["config-multiaccountsetup.amazonaws.com"]
-  feature_set                   = "ALL"
+  feature_set = "ALL"
 }
 
 resource "aws_config_organization_managed_rule" "test" {
   depends_on = [aws_organizations_organization.test]
 
-  name            = %[1]q
+  name   = %[1]q
   rule_identifier = "IAM_PASSWORD_POLICY"
 }
 `, rName)
@@ -548,7 +548,7 @@ resource "aws_config_organization_managed_rule" "test" {
   depends_on = [aws_config_configuration_recorder.test, aws_organizations_organization.test]
 
   excluded_accounts = ["111111111111"]
-  name              = %[1]q
+  name     = %[1]q
   rule_identifier   = "IAM_PASSWORD_POLICY"
 }
 `, rName)
@@ -560,7 +560,7 @@ resource "aws_config_organization_managed_rule" "test" {
   depends_on = [aws_config_configuration_recorder.test, aws_organizations_organization.test]
 
   excluded_accounts = ["111111111111", "222222222222"]
-  name              = %[1]q
+  name     = %[1]q
   rule_identifier   = "IAM_PASSWORD_POLICY"
 }
 `, rName)
@@ -575,7 +575,7 @@ resource "aws_config_organization_managed_rule" "test" {
 %[2]s
 PARAMS
 
-  name            = %[1]q
+  name   = %[1]q
   rule_identifier = "REQUIRED_TAGS"
 }
 `, rName, inputParameters)
@@ -587,8 +587,8 @@ resource "aws_config_organization_managed_rule" "test" {
   depends_on = [aws_config_configuration_recorder.test, aws_organizations_organization.test]
 
   maximum_execution_frequency = %[2]q
-  name                        = %[1]q
-  rule_identifier             = "IAM_PASSWORD_POLICY"
+  name      = %[1]q
+  rule_identifier    = "IAM_PASSWORD_POLICY"
 }
 `, rName, maximumExecutionFrequency)
 }
@@ -598,7 +598,7 @@ func testAccOrganizationManagedRuleConfig_resourceIdScope(rName, resourceIdScope
 resource "aws_config_organization_managed_rule" "test" {
   depends_on = [aws_config_configuration_recorder.test, aws_organizations_organization.test]
 
-  name                 = %[1]q
+  name        = %[1]q
   resource_id_scope    = %[2]q
   resource_types_scope = ["AWS::EC2::Instance"]
   rule_identifier      = "EC2_INSTANCE_DETAILED_MONITORING_ENABLED"
@@ -618,7 +618,7 @@ resource "aws_config_organization_managed_rule" "test" {
 }
 EOF
 
-  name                 = %[1]q
+  name        = %[1]q
   resource_types_scope = ["AWS::EC2::Instance"]
   rule_identifier      = "REQUIRED_TAGS"
 }
@@ -637,7 +637,7 @@ resource "aws_config_organization_managed_rule" "test" {
 }
 EOF
 
-  name                 = %[1]q
+  name        = %[1]q
   resource_types_scope = ["AWS::EC2::Instance", "AWS::EC2::VPC"]
   rule_identifier      = "REQUIRED_TAGS"
 }
@@ -649,7 +649,7 @@ func testAccOrganizationManagedRuleConfig_identifier(rName, ruleIdentifier strin
 resource "aws_config_organization_managed_rule" "test" {
   depends_on = [aws_config_configuration_recorder.test, aws_organizations_organization.test]
 
-  name            = %[1]q
+  name   = %[1]q
   rule_identifier = %[2]q
 }
 `, rName, ruleIdentifier)
@@ -660,7 +660,7 @@ func testAccOrganizationManagedRuleConfig_tagKeyScope(rName, tagKeyScope string)
 resource "aws_config_organization_managed_rule" "test" {
   depends_on = [aws_config_configuration_recorder.test, aws_organizations_organization.test]
 
-  name            = %[1]q
+  name   = %[1]q
   rule_identifier = "EC2_INSTANCE_DETAILED_MONITORING_ENABLED"
   tag_key_scope   = %[2]q
 }
@@ -672,7 +672,7 @@ func testAccOrganizationManagedRuleConfig_tagValueScope(rName, tagValueScope str
 resource "aws_config_organization_managed_rule" "test" {
   depends_on = [aws_config_configuration_recorder.test, aws_organizations_organization.test]
 
-  name            = %[1]q
+  name   = %[1]q
   rule_identifier = "EC2_INSTANCE_DETAILED_MONITORING_ENABLED"
   tag_key_scope   = "key1"
   tag_value_scope = %[2]q

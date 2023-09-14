@@ -26,88 +26,88 @@ func TestAccDSSharedDirectory_basic(t *testing.T) {
 	domainName := acctest.RandomDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckAlternateAccount(t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, directoryservice.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckSharedDirectoryDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSharedDirectoryConfig_basic(rName, domainName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSharedDirectoryExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "method", "HANDSHAKE"),
-					resource.TestCheckResourceAttr(resourceName, "notes", "test"),
-					resource.TestCheckResourceAttrSet(resourceName, "shared_directory_id"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckAlternateAccount(t)
+},
+ErrorCheck:acctest.ErrorCheck(t, directoryservice.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
+CheckDestroy:             testAccCheckSharedDirectoryDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSharedDirectoryConfig_basic(rName, domainName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckSharedDirectoryExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "method", "HANDSHAKE"),
+	resource.TestCheckResourceAttr(resourceName, "notes", "test"),
+	resource.TestCheckResourceAttrSet(resourceName, "shared_directory_id"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
 func testAccCheckSharedDirectoryExists(ctx context.Context, n string, v *directoryservice.SharedDirectory) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No Directory Service Shared Directory ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No Directory Service Shared Directory ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).DSConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).DSConn(ctx)
 
-		output, err := tfds.FindSharedDirectory(ctx, conn, rs.Primary.Attributes["directory_id"], rs.Primary.Attributes["shared_directory_id"])
+output, err := tfds.FindSharedDirectory(ctx, conn, rs.Primary.Attributes["directory_id"], rs.Primary.Attributes["shared_directory_id"])
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*v = *output
+*v = *output
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckSharedDirectoryDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).DSConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).DSConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_directory_service_shared_directory" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_directory_service_shared_directory" {
+continue
+	}
 
-			_, err := tfds.FindSharedDirectory(ctx, conn, rs.Primary.Attributes["directory_id"], rs.Primary.Attributes["shared_directory_id"])
+	_, err := tfds.FindSharedDirectory(ctx, conn, rs.Primary.Attributes["directory_id"], rs.Primary.Attributes["shared_directory_id"])
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("Directory Service Shared Directory %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("Directory Service Shared Directory %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
 func testAccSharedDirectoryConfig_basic(rName, domain string) string {
 	return acctest.ConfigCompose(
-		acctest.ConfigAlternateAccountProvider(),
-		testAccDirectoryConfig_microsoftStandard(rName, domain),
-		`
+acctest.ConfigAlternateAccountProvider(),
+testAccDirectoryConfig_microsoftStandard(rName, domain),
+`
 resource "aws_directory_service_shared_directory" "test" {
   directory_id = aws_directory_service_directory.test.id
   notes        = "test"

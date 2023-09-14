@@ -46,7 +46,7 @@ func(_ context.Context, diff *schema.ResourceDiff, v interface{}) error {
 
 		Schema: map[string]*schema.Schema{
 			"cidr_block": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
@@ -59,7 +59,7 @@ func: validation.IsCIDRNetwork(VPCCIDRMinIPv4, VPCCIDRMaxIPv4),
 				ForceNew: true,
 			},
 			"ipv4_netmask_length": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				ForceNew:     true,
 				Validate

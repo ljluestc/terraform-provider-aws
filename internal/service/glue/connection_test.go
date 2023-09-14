@@ -28,31 +28,31 @@ func TestAccGlueConnection_basic(t *testing.T) {
 	jdbcConnectionUrl := fmt.Sprintf("jdbc:mysql://%s/testdatabase", acctest.RandomDomainName())
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectionDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccConnectionConfig_required(rName, jdbcConnectionUrl),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckConnectionExists(ctx, resourceName, &connection),
-					acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "glue", fmt.Sprintf("connection/%s", rName)),
-					resource.TestCheckResourceAttr(resourceName, "connection_properties.%", "3"),
-					resource.TestCheckResourceAttr(resourceName, "connection_properties.JDBC_CONNECTION_URL", jdbcConnectionUrl),
-					resource.TestCheckResourceAttr(resourceName, "connection_properties.PASSWORD", "testpassword"),
-					resource.TestCheckResourceAttr(resourceName, "connection_properties.USERNAME", "testusername"),
-					resource.TestCheckResourceAttr(resourceName, "match_criteria.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "physical_connection_requirements.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckConnectionDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccConnectionConfig_required(rName, jdbcConnectionUrl),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckConnectionExists(ctx, resourceName, &connection),
+	acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "glue", fmt.Sprintf("connection/%s", rName)),
+	resource.TestCheckResourceAttr(resourceName, "connection_properties.%", "3"),
+	resource.TestCheckResourceAttr(resourceName, "connection_properties.JDBC_CONNECTION_URL", jdbcConnectionUrl),
+	resource.TestCheckResourceAttr(resourceName, "connection_properties.PASSWORD", "testpassword"),
+	resource.TestCheckResourceAttr(resourceName, "connection_properties.USERNAME", "testusername"),
+	resource.TestCheckResourceAttr(resourceName, "match_criteria.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "physical_connection_requirements.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -66,42 +66,42 @@ func TestAccGlueConnection_tags(t *testing.T) {
 	jdbcConnectionUrl := fmt.Sprintf("jdbc:mysql://%s/testdatabase", acctest.RandomDomainName())
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectionDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccConnectionConfig_tags1(rName, jdbcConnectionUrl, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckConnectionExists(ctx, resourceName, &connection),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccConnectionConfig_tags2(rName, jdbcConnectionUrl, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckConnectionExists(ctx, resourceName, &connection),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-			{
-				Config: testAccConnectionConfig_tags1(rName, jdbcConnectionUrl, "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckConnectionExists(ctx, resourceName, &connection),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckConnectionDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccConnectionConfig_tags1(rName, jdbcConnectionUrl, "key1", "value1"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckConnectionExists(ctx, resourceName, &connection),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccConnectionConfig_tags2(rName, jdbcConnectionUrl, "key1", "value1updated", "key2", "value2"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckConnectionExists(ctx, resourceName, &connection),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+	{
+Config: testAccConnectionConfig_tags1(rName, jdbcConnectionUrl, "key2", "value2"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckConnectionExists(ctx, resourceName, &connection),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+},
 	})
 }
 
@@ -115,30 +115,30 @@ func TestAccGlueConnection_mongoDB(t *testing.T) {
 	connectionUrl := fmt.Sprintf("mongodb://%s:27017/testdatabase", acctest.RandomDomainName())
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectionDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccConnectionConfig_mongoDB(rName, connectionUrl),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckConnectionExists(ctx, resourceName, &connection),
-					resource.TestCheckResourceAttr(resourceName, "connection_properties.%", "3"),
-					resource.TestCheckResourceAttr(resourceName, "connection_properties.CONNECTION_URL", connectionUrl),
-					resource.TestCheckResourceAttr(resourceName, "connection_properties.USERNAME", "testusername"),
-					resource.TestCheckResourceAttr(resourceName, "connection_properties.PASSWORD", "testpassword"),
-					resource.TestCheckResourceAttr(resourceName, "connection_type", "MONGODB"),
-					resource.TestCheckResourceAttr(resourceName, "match_criteria.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "physical_connection_requirements.#", "0"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckConnectionDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccConnectionConfig_mongoDB(rName, connectionUrl),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckConnectionExists(ctx, resourceName, &connection),
+	resource.TestCheckResourceAttr(resourceName, "connection_properties.%", "3"),
+	resource.TestCheckResourceAttr(resourceName, "connection_properties.CONNECTION_URL", connectionUrl),
+	resource.TestCheckResourceAttr(resourceName, "connection_properties.USERNAME", "testusername"),
+	resource.TestCheckResourceAttr(resourceName, "connection_properties.PASSWORD", "testpassword"),
+	resource.TestCheckResourceAttr(resourceName, "connection_type", "MONGODB"),
+	resource.TestCheckResourceAttr(resourceName, "match_criteria.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "physical_connection_requirements.#", "0"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -152,28 +152,28 @@ func TestAccGlueConnection_kafka(t *testing.T) {
 	bootstrapServers := fmt.Sprintf("%s:9094,%s:9094", acctest.RandomDomainName(), acctest.RandomDomainName())
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectionDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccConnectionConfig_kafka(rName, bootstrapServers),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckConnectionExists(ctx, resourceName, &connection),
-					resource.TestCheckResourceAttr(resourceName, "connection_properties.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "connection_properties.KAFKA_BOOTSTRAP_SERVERS", bootstrapServers),
-					resource.TestCheckResourceAttr(resourceName, "connection_type", "KAFKA"),
-					resource.TestCheckResourceAttr(resourceName, "match_criteria.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "physical_connection_requirements.#", "0"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckConnectionDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccConnectionConfig_kafka(rName, bootstrapServers),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckConnectionExists(ctx, resourceName, &connection),
+	resource.TestCheckResourceAttr(resourceName, "connection_properties.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "connection_properties.KAFKA_BOOTSTRAP_SERVERS", bootstrapServers),
+	resource.TestCheckResourceAttr(resourceName, "connection_type", "KAFKA"),
+	resource.TestCheckResourceAttr(resourceName, "match_criteria.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "physical_connection_requirements.#", "0"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -185,30 +185,30 @@ func TestAccGlueConnection_network(t *testing.T) {
 	resourceName := "aws_glue_connection.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectionDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccConnectionConfig_network(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckConnectionExists(ctx, resourceName, &connection),
-					resource.TestCheckResourceAttr(resourceName, "connection_properties.%", "0"),
-					resource.TestCheckResourceAttr(resourceName, "connection_type", "NETWORK"),
-					resource.TestCheckResourceAttr(resourceName, "match_criteria.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "physical_connection_requirements.#", "1"),
-					resource.TestCheckResourceAttrSet(resourceName, "physical_connection_requirements.0.availability_zone"),
-					resource.TestCheckResourceAttr(resourceName, "physical_connection_requirements.0.security_group_id_list.#", "1"),
-					resource.TestCheckResourceAttrSet(resourceName, "physical_connection_requirements.0.subnet_id"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckConnectionDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccConnectionConfig_network(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckConnectionExists(ctx, resourceName, &connection),
+	resource.TestCheckResourceAttr(resourceName, "connection_properties.%", "0"),
+	resource.TestCheckResourceAttr(resourceName, "connection_type", "NETWORK"),
+	resource.TestCheckResourceAttr(resourceName, "match_criteria.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "physical_connection_requirements.#", "1"),
+	resource.TestCheckResourceAttrSet(resourceName, "physical_connection_requirements.0.availability_zone"),
+	resource.TestCheckResourceAttr(resourceName, "physical_connection_requirements.0.security_group_id_list.#", "1"),
+	resource.TestCheckResourceAttrSet(resourceName, "physical_connection_requirements.0.subnet_id"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -222,31 +222,31 @@ func TestAccGlueConnection_description(t *testing.T) {
 	jdbcConnectionUrl := fmt.Sprintf("jdbc:mysql://%s/testdatabase", acctest.RandomDomainName())
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectionDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccConnectionConfig_description(rName, jdbcConnectionUrl, "First Description"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckConnectionExists(ctx, resourceName, &connection),
-					resource.TestCheckResourceAttr(resourceName, "description", "First Description"),
-				),
-			},
-			{
-				Config: testAccConnectionConfig_description(rName, jdbcConnectionUrl, "Second Description"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckConnectionExists(ctx, resourceName, &connection),
-					resource.TestCheckResourceAttr(resourceName, "description", "Second Description"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckConnectionDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccConnectionConfig_description(rName, jdbcConnectionUrl, "First Description"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckConnectionExists(ctx, resourceName, &connection),
+	resource.TestCheckResourceAttr(resourceName, "description", "First Description"),
+),
+	},
+	{
+Config: testAccConnectionConfig_description(rName, jdbcConnectionUrl, "Second Description"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckConnectionExists(ctx, resourceName, &connection),
+	resource.TestCheckResourceAttr(resourceName, "description", "Second Description"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -260,46 +260,46 @@ func TestAccGlueConnection_matchCriteria(t *testing.T) {
 	jdbcConnectionUrl := fmt.Sprintf("jdbc:mysql://%s/testdatabase", acctest.RandomDomainName())
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectionDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccConnectionConfig_matchCriteriaFirst(rName, jdbcConnectionUrl),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckConnectionExists(ctx, resourceName, &connection),
-					resource.TestCheckResourceAttr(resourceName, "match_criteria.#", "4"),
-					resource.TestCheckResourceAttr(resourceName, "match_criteria.0", "criteria1"),
-					resource.TestCheckResourceAttr(resourceName, "match_criteria.1", "criteria2"),
-					resource.TestCheckResourceAttr(resourceName, "match_criteria.2", "criteria3"),
-					resource.TestCheckResourceAttr(resourceName, "match_criteria.3", "criteria4"),
-				),
-			},
-			{
-				Config: testAccConnectionConfig_matchCriteriaSecond(rName, jdbcConnectionUrl),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckConnectionExists(ctx, resourceName, &connection),
-					resource.TestCheckResourceAttr(resourceName, "match_criteria.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "match_criteria.0", "criteria1"),
-				),
-			},
-			{
-				Config: testAccConnectionConfig_matchCriteriaThird(rName, jdbcConnectionUrl),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckConnectionExists(ctx, resourceName, &connection),
-					resource.TestCheckResourceAttr(resourceName, "match_criteria.#", "3"),
-					resource.TestCheckResourceAttr(resourceName, "match_criteria.0", "criteria2"),
-					resource.TestCheckResourceAttr(resourceName, "match_criteria.1", "criteria3"),
-					resource.TestCheckResourceAttr(resourceName, "match_criteria.2", "criteria4"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckConnectionDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccConnectionConfig_matchCriteriaFirst(rName, jdbcConnectionUrl),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckConnectionExists(ctx, resourceName, &connection),
+	resource.TestCheckResourceAttr(resourceName, "match_criteria.#", "4"),
+	resource.TestCheckResourceAttr(resourceName, "match_criteria.0", "criteria1"),
+	resource.TestCheckResourceAttr(resourceName, "match_criteria.1", "criteria2"),
+	resource.TestCheckResourceAttr(resourceName, "match_criteria.2", "criteria3"),
+	resource.TestCheckResourceAttr(resourceName, "match_criteria.3", "criteria4"),
+),
+	},
+	{
+Config: testAccConnectionConfig_matchCriteriaSecond(rName, jdbcConnectionUrl),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckConnectionExists(ctx, resourceName, &connection),
+	resource.TestCheckResourceAttr(resourceName, "match_criteria.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "match_criteria.0", "criteria1"),
+),
+	},
+	{
+Config: testAccConnectionConfig_matchCriteriaThird(rName, jdbcConnectionUrl),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckConnectionExists(ctx, resourceName, &connection),
+	resource.TestCheckResourceAttr(resourceName, "match_criteria.#", "3"),
+	resource.TestCheckResourceAttr(resourceName, "match_criteria.0", "criteria2"),
+	resource.TestCheckResourceAttr(resourceName, "match_criteria.1", "criteria3"),
+	resource.TestCheckResourceAttr(resourceName, "match_criteria.2", "criteria4"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -311,33 +311,33 @@ func TestAccGlueConnection_physicalConnectionRequirements(t *testing.T) {
 	resourceName := "aws_glue_connection.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectionDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccConnectionConfig_physicalRequirements(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckConnectionExists(ctx, resourceName, &connection),
-					resource.TestCheckResourceAttr(resourceName, "connection_properties.%", "3"),
-					resource.TestCheckResourceAttrSet(resourceName, "connection_properties.JDBC_CONNECTION_URL"),
-					resource.TestCheckResourceAttrSet(resourceName, "connection_properties.PASSWORD"),
-					resource.TestCheckResourceAttrSet(resourceName, "connection_properties.USERNAME"),
-					resource.TestCheckResourceAttr(resourceName, "match_criteria.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "physical_connection_requirements.#", "1"),
-					resource.TestCheckResourceAttrSet(resourceName, "physical_connection_requirements.0.availability_zone"),
-					resource.TestCheckResourceAttr(resourceName, "physical_connection_requirements.0.security_group_id_list.#", "1"),
-					resource.TestCheckResourceAttrSet(resourceName, "physical_connection_requirements.0.subnet_id"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckConnectionDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccConnectionConfig_physicalRequirements(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckConnectionExists(ctx, resourceName, &connection),
+	resource.TestCheckResourceAttr(resourceName, "connection_properties.%", "3"),
+	resource.TestCheckResourceAttrSet(resourceName, "connection_properties.JDBC_CONNECTION_URL"),
+	resource.TestCheckResourceAttrSet(resourceName, "connection_properties.PASSWORD"),
+	resource.TestCheckResourceAttrSet(resourceName, "connection_properties.USERNAME"),
+	resource.TestCheckResourceAttr(resourceName, "match_criteria.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "physical_connection_requirements.#", "1"),
+	resource.TestCheckResourceAttrSet(resourceName, "physical_connection_requirements.0.availability_zone"),
+	resource.TestCheckResourceAttr(resourceName, "physical_connection_requirements.0.security_group_id_list.#", "1"),
+	resource.TestCheckResourceAttrSet(resourceName, "physical_connection_requirements.0.subnet_id"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -351,80 +351,80 @@ func TestAccGlueConnection_disappears(t *testing.T) {
 	jdbcConnectionUrl := fmt.Sprintf("jdbc:mysql://%s/testdatabase", acctest.RandomDomainName())
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectionDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccConnectionConfig_required(rName, jdbcConnectionUrl),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckConnectionExists(ctx, resourceName, &connection),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfglue.ResourceConnection(), resourceName),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfglue.ResourceConnection(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckConnectionDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccConnectionConfig_required(rName, jdbcConnectionUrl),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckConnectionExists(ctx, resourceName, &connection),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfglue.ResourceConnection(), resourceName),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfglue.ResourceConnection(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
 func testAccCheckConnectionExists(ctx context.Context, resourceName string, connection *glue.Connection) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[resourceName]
-		if !ok {
-			return fmt.Errorf("Not found: %s", resourceName)
-		}
+rs, ok := s.RootModule().Resources[resourceName]
+if !ok {
+	return fmt.Errorf("Not found: %s", resourceName)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No Glue Connection ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No Glue Connection ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).GlueConn(ctx)
-		catalogID, connectionName, err := tfglue.DecodeConnectionID(rs.Primary.ID)
-		if err != nil {
-			return err
-		}
+conn := acctest.Provider.Meta().(*conns.AWSClient).GlueConn(ctx)
+catalogID, connectionName, err := tfglue.DecodeConnectionID(rs.Primary.ID)
+if err != nil {
+	return err
+}
 
-		output, err := tfglue.FindConnectionByName(ctx, conn, connectionName, catalogID)
+output, err := tfglue.FindConnectionByName(ctx, conn, connectionName, catalogID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*connection = *output
+*connection = *output
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckConnectionDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_glue_connection" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_glue_connection" {
+continue
+	}
 
-			conn := acctest.Provider.Meta().(*conns.AWSClient).GlueConn(ctx)
-			catalogID, connectionName, err := tfglue.DecodeConnectionID(rs.Primary.ID)
-			if err != nil {
-				return err
-			}
+	conn := acctest.Provider.Meta().(*conns.AWSClient).GlueConn(ctx)
+	catalogID, connectionName, err := tfglue.DecodeConnectionID(rs.Primary.ID)
+	if err != nil {
+return err
+	}
 
-			_, err = tfglue.FindConnectionByName(ctx, conn, connectionName, catalogID)
+	_, err = tfglue.FindConnectionByName(ctx, conn, connectionName, catalogID)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("Glue Connection %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("Glue Connection %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 

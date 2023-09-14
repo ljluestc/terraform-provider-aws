@@ -21,25 +21,25 @@ func TestAccSSMMaintenanceWindowsDataSource_filter(t *testing.T) {
 	rName3 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMaintenanceWindowDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccMaintenanceWindowsDataSourceConfig_filterName(rName1, rName2, rName3),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(dataSourceName, "ids.#", "1"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "ids.0", "aws_ssm_maintenance_window.test2", "id"),
-				),
-			},
-			{
-				Config: testAccMaintenanceWindowsDataSourceConfig_filterEnabled(rName1, rName2, rName3),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					acctest.CheckResourceAttrGreaterThanValue(dataSourceName, "ids.#", 1),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckMaintenanceWindowDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccMaintenanceWindowsDataSourceConfig_filterName(rName1, rName2, rName3),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(dataSourceName, "ids.#", "1"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "ids.0", "aws_ssm_maintenance_window.test2", "id"),
+),
+	},
+	{
+Config: testAccMaintenanceWindowsDataSourceConfig_filterEnabled(rName1, rName2, rName3),
+Check: resource.ComposeAggregateTestCheckFunc(
+	acctest.CheckResourceAttrGreaterThanValue(dataSourceName, "ids.#", 1),
+),
+	},
+},
 	})
 }
 
@@ -72,8 +72,8 @@ resource "aws_ssm_maintenance_window" "test3" {
 
 func testAccMaintenanceWindowsDataSourceConfig_filterName(rName1, rName2, rName3 string) string {
 	return acctest.ConfigCompose(
-		testAccCheckMaintenanceWindowsDataSourceConfig(rName1, rName2, rName3),
-		fmt.Sprintf(`
+testAccCheckMaintenanceWindowsDataSourceConfig(rName1, rName2, rName3),
+fmt.Sprintf(`
 data "aws_ssm_maintenance_windows" "test" {
   filter {
     name   = "Name"
@@ -91,8 +91,8 @@ data "aws_ssm_maintenance_windows" "test" {
 
 func testAccMaintenanceWindowsDataSourceConfig_filterEnabled(rName1, rName2, rName3 string) string {
 	return acctest.ConfigCompose(
-		testAccCheckMaintenanceWindowsDataSourceConfig(rName1, rName2, rName3),
-		`
+testAccCheckMaintenanceWindowsDataSourceConfig(rName1, rName2, rName3),
+`
 data "aws_ssm_maintenance_windows" "test" {
   filter {
     name   = "Enabled"

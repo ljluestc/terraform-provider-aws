@@ -30,7 +30,7 @@ func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, backup.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             nil,
+CheckDestroy:    nil,
 Steps: []resource.TestStep{
 	{
 Config: testAccGlobalSettingsConfig_basic("true"),

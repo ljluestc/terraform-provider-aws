@@ -25,34 +25,34 @@ import (
 
 func ResourceLocalGatewayRouteTableVPCAssociation() *schema.Resource {
 	return &schema.Resource{
-		CreateWithoutTimeout: resourceLocalGatewayRouteTableVPCAssociationCreate,
-		ReadWithoutTimeout:   resourceLocalGatewayRouteTableVPCAssociationRead,
-		UpdateWithoutTimeout: resourceLocalGatewayRouteTableVPCAssociationUpdate,
-		DeleteWithoutTimeout: resourceLocalGatewayRouteTableVPCAssociationDelete,
-		Importer: &schema.ResourceImporter{
-			StateContext: schema.ImportStatePassthroughContext,
-		},
+CreateWithoutTimeout: resourceLocalGatewayRouteTableVPCAssociationCreate,
+ReadWithoutTimeout:   resourceLocalGatewayRouteTableVPCAssociationRead,
+UpdateWithoutTimeout: resourceLocalGatewayRouteTableVPCAssociationUpdate,
+DeleteWithoutTimeout: resourceLocalGatewayRouteTableVPCAssociationDelete,
+Importer: &schema.ResourceImporter{
+	StateContext: schema.ImportStatePassthroughContext,
+},
 
-		CustomizeDiff: verify.SetTagsDiff,
+CustomizeDiff: verify.SetTagsDiff,
 
-		Schema: map[string]*schema.Schema{
-			"local_gateway_id": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"local_gateway_route_table_id": {
-				Type:     schema.TypeString,
-				Required: true,
-				ForceNew: true,
-			},
-			names.AttrTags:    tftags.TagsSchema(),
-			names.AttrTagsAll: tftags.TagsSchemaComputed(),
-			"vpc_id": {
-				Type:     schema.TypeString,
-				Required: true,
-				ForceNew: true,
-			},
-		},
+Schema: map[string]*schema.Schema{
+	"local_gateway_id": {
+Type:     schema.TypeString,
+Computed: true,
+	},
+	"local_gateway_route_table_id": {
+Type:     schema.TypeString,
+Required: true,
+ForceNew: true,
+	},
+	names.AttrTags:    tftags.TagsSchema(),
+	names.AttrTagsAll: tftags.TagsSchemaComputed(),
+	"vpc_id": {
+Type:     schema.TypeString,
+Required: true,
+ForceNew: true,
+	},
+},
 	}
 }
 
@@ -61,21 +61,21 @@ func resourceLocalGatewayRouteTableVPCAssociationCreate(ctx context.Context, d *
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	req := &ec2.CreateLocalGatewayRouteTableVpcAssociationInput{
-		LocalGatewayRouteTableId: aws.String(d.Get("local_gateway_route_table_id").(string)),
-		TagSpecifications:        getTagSpecificationsIn(ctx, ec2.ResourceTypeLocalGatewayRouteTableVpcAssociation),
-		VpcId:     aws.String(d.Get("vpc_id").(string)),
+LocalGatewayRouteTableId: aws.String(d.Get("local_gateway_route_table_id").(string)),
+TagSpecifications:        getTagSpecificationsIn(ctx, ec2.ResourceTypeLocalGatewayRouteTableVpcAssociation),
+VpcId:     aws.String(d.Get("vpc_id").(string)),
 	}
 
 	output, err := conn.CreateLocalGatewayRouteTableVpcAssociationWithContext(ctx, req)
 
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "creating EC2 Local Gateway Route Table VPC Association: %s", err)
+return sdkdiag.AppendErrorf(diags, "creating EC2 Local Gateway Route Table VPC Association: %s", err)
 	}
 
 	d.SetId(aws.StringValue(output.LocalGatewayRouteTableVpcAssociation.LocalGatewayRouteTableVpcAssociationId))
 
 	if _, err := WaitLocalGatewayRouteTableVPCAssociationAssociated(ctx, conn, d.Id()); err != nil {
-		return sdkdiag.AppendErrorf(diags, "waiting for EC2 Local Gateway Route Table VPC Association (%s) to associate: %s", d.Id(), err)
+return sdkdiag.AppendErrorf(diags, "waiting for EC2 Local Gateway Route Table VPC Association (%s) to associate: %s", d.Id(), err)
 	}
 
 	return append(diags, resourceLocalGatewayRouteTableVPCAssociationRead(ctx, d, meta)...)
@@ -88,19 +88,19 @@ func resourceLocalGatewayRouteTableVPCAssociationRead(ctx context.Context, d *sc
 	association, err := GetLocalGatewayRouteTableVPCAssociation(ctx, conn, d.Id())
 
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "reading EC2 Local Gateway Route Table VPC Association (%s): %s", d.Id(), err)
+return sdkdiag.AppendErrorf(diags, "reading EC2 Local Gateway Route Table VPC Association (%s): %s", d.Id(), err)
 	}
 
 	if association == nil {
-		log.Printf("[WARN] EC2 Local Gateway Route Table VPC Association (%s) not found, removing from state", d.Id())
-		d.SetId("")
-		return diags
+log.Printf("[WARN] EC2 Local Gateway Route Table VPC Association (%s) not found, removing from state", d.Id())
+d.SetId("")
+return diags
 	}
 
 	if aws.StringValue(association.State) != ec2.RouteTableAssociationStateCodeAssociated {
-		log.Printf("[WARN] EC2 Local Gateway Route Table VPC Association (%s) status (%s), removing from state", d.Id(), aws.StringValue(association.State))
-		d.SetId("")
-		return diags
+log.Printf("[WARN] EC2 Local Gateway Route Table VPC Association (%s) status (%s), removing from state", d.Id(), aws.StringValue(association.State))
+d.SetId("")
+return diags
 	}
 
 	d.Set("local_gateway_id", association.LocalGatewayId)
@@ -126,21 +126,21 @@ func resourceLocalGatewayRouteTableVPCAssociationDelete(ctx context.Context, d *
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	input := &ec2.DeleteLocalGatewayRouteTableVpcAssociationInput{
-		LocalGatewayRouteTableVpcAssociationId: aws.String(d.Id()),
+LocalGatewayRouteTableVpcAssociationId: aws.String(d.Id()),
 	}
 
 	_, err := conn.DeleteLocalGatewayRouteTableVpcAssociationWithContext(ctx, input)
 
 	if tfawserr.ErrCodeEquals(err, "InvalidLocalGatewayRouteTableVpcAssociationID.NotFound") {
-		return diags
+return diags
 	}
 
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "deleting EC2 Local Gateway Route Table VPC Association (%s): %s", d.Id(), err)
+return sdkdiag.AppendErrorf(diags, "deleting EC2 Local Gateway Route Table VPC Association (%s): %s", d.Id(), err)
 	}
 
 	if _, err := WaitLocalGatewayRouteTableVPCAssociationDisassociated(ctx, conn, d.Id()); err != nil {
-		return sdkdiag.AppendErrorf(diags, "waiting for EC2 Local Gateway Route Table VPC Association (%s) to disassociate: %s", d.Id(), err)
+return sdkdiag.AppendErrorf(diags, "waiting for EC2 Local Gateway Route Table VPC Association (%s) to disassociate: %s", d.Id(), err)
 	}
 
 	return diags
@@ -148,30 +148,30 @@ func resourceLocalGatewayRouteTableVPCAssociationDelete(ctx context.Context, d *
 
 func GetLocalGatewayRouteTableVPCAssociation(ctx context.Context, conn *ec2.EC2, localGatewayRouteTableVpcAssociationID string) (*ec2.LocalGatewayRouteTableVpcAssociation, error) {
 	input := &ec2.DescribeLocalGatewayRouteTableVpcAssociationsInput{
-		LocalGatewayRouteTableVpcAssociationIds: aws.StringSlice([]string{localGatewayRouteTableVpcAssociationID}),
+LocalGatewayRouteTableVpcAssociationIds: aws.StringSlice([]string{localGatewayRouteTableVpcAssociationID}),
 	}
 
 	output, err := conn.DescribeLocalGatewayRouteTableVpcAssociationsWithContext(ctx, input)
 
 	if err != nil {
-		return nil, err
+return nil, err
 	}
 
 	if output == nil {
-		return nil, fmt.Errorf("empty response")
+return nil, fmt.Errorf("empty response")
 	}
 
 	var association *ec2.LocalGatewayRouteTableVpcAssociation
 
 	for _, outputAssociation := range output.LocalGatewayRouteTableVpcAssociations {
-		if outputAssociation == nil {
-			continue
-		}
+if outputAssociation == nil {
+	continue
+}
 
-		if aws.StringValue(outputAssociation.LocalGatewayRouteTableVpcAssociationId) == localGatewayRouteTableVpcAssociationID {
-			association = outputAssociation
-			break
-		}
+if aws.StringValue(outputAssociation.LocalGatewayRouteTableVpcAssociationId) == localGatewayRouteTableVpcAssociationID {
+	association = outputAssociation
+	break
+}
 	}
 
 	return association, nil

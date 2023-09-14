@@ -49,7 +49,7 @@ func ResourceFirewallDomainList() *schema.Resource {
 				Elem:     &schema.Schema{Type: schema.TypeString},
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
@@ -70,8 +70,8 @@ func resourceFirewallDomainListCreate(ctx context.Context, d *schema.ResourceDat
 	name := d.Get("name").(string)
 	input := &route53resolver.CreateFirewallDomainListInput{
 		CreatorRequestId: aws.String(id.PrefixedUniqueId("tf-r53-resolver-firewall-domain-list-")),
-		Name:             aws.String(name),
-		Tags:             getTagsIn(ctx),
+		Name:    aws.String(name),
+		Tags:    getTagsIn(ctx),
 	}
 
 	output, err := conn.CreateFirewallDomainListWithContext(ctx, input)
@@ -85,8 +85,8 @@ func resourceFirewallDomainListCreate(ctx context.Context, d *schema.ResourceDat
 	if v, ok := d.GetOk("domains"); ok && v.(*schema.Set).Len() > 0 {
 		_, err := conn.UpdateFirewallDomainsWithContext(ctx, &route53resolver.UpdateFirewallDomainsInput{
 			FirewallDomainListId: aws.String(d.Id()),
-			Domains:              flex.ExpandStringSet(v.(*schema.Set)),
-			Operation:            aws.String(route53resolver.FirewallDomainUpdateOperationAdd),
+			Domains:     flex.ExpandStringSet(v.(*schema.Set)),
+			Operation:   aws.String(route53resolver.FirewallDomainUpdateOperationAdd),
 		})
 
 		if err != nil {
@@ -171,8 +171,8 @@ func resourceFirewallDomainListUpdate(ctx context.Context, d *schema.ResourceDat
 
 		_, err := conn.UpdateFirewallDomainsWithContext(ctx, &route53resolver.UpdateFirewallDomainsInput{
 			FirewallDomainListId: aws.String(d.Id()),
-			Domains:              flex.ExpandStringSet(domains),
-			Operation:            aws.String(operation),
+			Domains:     flex.ExpandStringSet(domains),
+			Operation:   aws.String(operation),
 		})
 
 		if err != nil {

@@ -20,20 +20,20 @@ func TestAccCloudControlResourceDataSource_basic(t *testing.T) {
 	resourceName := "aws_cloudcontrolapi_resource.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccResourceDataSourceConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttrPair(dataSourceName, "id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "properties", resourceName, "properties"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "type_name", resourceName, "type_name"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cloudcontrolapi.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckResourceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccResourceDataSourceConfig_basic(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttrPair(dataSourceName, "id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "properties", resourceName, "properties"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "type_name", resourceName, "type_name"),
+),
+	},
+},
 	})
 }
 

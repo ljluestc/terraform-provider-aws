@@ -396,10 +396,11 @@ func ResourceFunction() *schema.Resource {
 
 				// Suppress diffs if the VPC configuration is provided, but empty
 				// which is a valid Lambda function configuration. e.g.
-				//   vpc_config {
-				//     security_group_ids = []
-				//     subnet_ids         = []
-				//   }
+				//
+				//	vpc_config {
+				//	  security_group_ids = []
+				//	  subnet_ids         = []
+				//	}
 				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
 					if d.Id() == "" || old == "1" || new == "0" {
 						return false
@@ -562,7 +563,7 @@ func resourceFunctionCreate(ctx context.Context, d *schema.ResourceData, meta in
 
 	if v, ok := d.Get("reserved_concurrent_executions").(int); ok && v >= 0 {
 		_, err := conn.PutFunctionConcurrency(ctx, &lambda.PutFunctionConcurrencyInput{
-			FunctionName:  aws.String(d.Id()),
+			FunctionName:                 aws.String(d.Id()),
 			ReservedConcurrentExecutions: aws.Int32(int32(v)),
 		})
 
@@ -939,7 +940,7 @@ func resourceFunctionUpdate(ctx context.Context, d *schema.ResourceData, meta in
 	if d.HasChange("reserved_concurrent_executions") {
 		if v, ok := d.Get("reserved_concurrent_executions").(int); ok && v >= 0 {
 			_, err := conn.PutFunctionConcurrency(ctx, &lambda.PutFunctionConcurrencyInput{
-				FunctionName:  aws.String(d.Id()),
+				FunctionName:                 aws.String(d.Id()),
 				ReservedConcurrentExecutions: aws.Int32(int32(v)),
 			})
 

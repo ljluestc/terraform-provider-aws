@@ -58,13 +58,13 @@ func ResourceRule() *schema.Resource {
 							Required: true,
 						},
 						"data_id": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							Validate
 func: validation.StringLenBetween(1, 128),
 						},
 						"type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							Validate
 func: validation.StringInSlice(wafregional.PredicateType_Values(), false),

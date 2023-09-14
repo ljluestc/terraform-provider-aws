@@ -34,28 +34,28 @@ func ResourceStudioSessionMapping() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"identity_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Computed:     true,
 				ExactlyOneOf: []string{"identity_id", "identity_name"},
 			},
 			"identity_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Computed:     true,
 				ExactlyOneOf: []string{"identity_id", "identity_name"},
 			},
 			"identity_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
 func: validation.StringInSlice(emr.IdentityType_Values(), false),
 			},
 			"session_policy_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				Validate
 func: verify.ValidARN,
@@ -80,7 +80,7 @@ func resourceStudioSessionMappingCreate(ctx context.Context, d *schema.ResourceD
 	input := &emr.CreateStudioSessionMappingInput{
 		IdentityType:     aws.String(identityType),
 		SessionPolicyArn: aws.String(d.Get("session_policy_arn").(string)),
-		StudioId:         aws.String(studioId),
+		StudioId:aws.String(studioId),
 	}
 
 	if v, ok := d.GetOk("identity_id"); ok {
@@ -116,7 +116,7 @@ func resourceStudioSessionMappingUpdate(ctx context.Context, d *schema.ResourceD
 	input := &emr.UpdateStudioSessionMappingInput{
 		SessionPolicyArn: aws.String(d.Get("session_policy_arn").(string)),
 		IdentityType:     aws.String(identityType),
-		StudioId:         aws.String(studioId),
+		StudioId:aws.String(studioId),
 	}
 
 	if isIdentityId(identityIdOrName) {

@@ -32,7 +32,7 @@ func() map[string]*schema.Schema {
 					Computed: true,
 				},
 				"aws_account_id": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Optional:     true,
 					Computed:     true,
 					Validate

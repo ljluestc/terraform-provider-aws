@@ -28,29 +28,29 @@ func testAccTransitGatewayRoute_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTransitGatewayRouteDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTransitGatewayRouteConfig_destinationCIDRBlock(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckTransitGatewayRouteDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTransitGatewayRouteConfig_destinationCIDRBlock(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckTransitGatewayRouteExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "destination_cidr_block", "0.0.0.0/0"),
-					resource.TestCheckResourceAttr(resourceName, "blackhole", "false"),
-					resource.TestCheckResourceAttrPair(resourceName, "transit_gateway_attachment_id", transitGatewayVpcAttachmentResourceName, "id"),
-					resource.TestCheckResourceAttrPair(resourceName, "transit_gateway_route_table_id", transitGatewayResourceName, "association_default_route_table_id"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckTransitGatewayRouteExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "destination_cidr_block", "0.0.0.0/0"),
+	resource.TestCheckResourceAttr(resourceName, "blackhole", "false"),
+	resource.TestCheckResourceAttrPair(resourceName, "transit_gateway_attachment_id", transitGatewayVpcAttachmentResourceName, "id"),
+	resource.TestCheckResourceAttrPair(resourceName, "transit_gateway_route_table_id", transitGatewayResourceName, "association_default_route_table_id"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -64,29 +64,29 @@ func testAccTransitGatewayRoute_basic_ipv6(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTransitGatewayRouteDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTransitGatewayRouteConfig_destinationCIDRBlock(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckTransitGatewayRouteDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTransitGatewayRouteConfig_destinationCIDRBlock(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckTransitGatewayRouteExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "destination_cidr_block", "2001:db8::/56"),
-					resource.TestCheckResourceAttr(resourceName, "blackhole", "false"),
-					resource.TestCheckResourceAttrPair(resourceName, "transit_gateway_attachment_id", transitGatewayVpcAttachmentResourceName, "id"),
-					resource.TestCheckResourceAttrPair(resourceName, "transit_gateway_route_table_id", transitGatewayResourceName, "association_default_route_table_id"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckTransitGatewayRouteExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "destination_cidr_block", "2001:db8::/56"),
+	resource.TestCheckResourceAttr(resourceName, "blackhole", "false"),
+	resource.TestCheckResourceAttrPair(resourceName, "transit_gateway_attachment_id", transitGatewayVpcAttachmentResourceName, "id"),
+	resource.TestCheckResourceAttrPair(resourceName, "transit_gateway_route_table_id", transitGatewayResourceName, "association_default_route_table_id"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -99,29 +99,29 @@ func testAccTransitGatewayRoute_blackhole(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTransitGatewayRouteDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTransitGatewayRouteConfig_destinationCIDRBlock(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckTransitGatewayRouteDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTransitGatewayRouteConfig_destinationCIDRBlock(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckTransitGatewayRouteExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "destination_cidr_block", "10.1.0.0/16"),
-					resource.TestCheckResourceAttr(resourceName, "blackhole", "true"),
-					resource.TestCheckResourceAttr(resourceName, "transit_gateway_attachment_id", ""),
-					resource.TestCheckResourceAttrPair(resourceName, "transit_gateway_route_table_id", transitGatewayResourceName, "association_default_route_table_id"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckTransitGatewayRouteExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "destination_cidr_block", "10.1.0.0/16"),
+	resource.TestCheckResourceAttr(resourceName, "blackhole", "true"),
+	resource.TestCheckResourceAttr(resourceName, "transit_gateway_attachment_id", ""),
+	resource.TestCheckResourceAttrPair(resourceName, "transit_gateway_route_table_id", transitGatewayResourceName, "association_default_route_table_id"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -133,22 +133,22 @@ func testAccTransitGatewayRoute_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTransitGatewayRouteDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTransitGatewayRouteConfig_destinationCIDRBlock(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckTransitGatewayRouteDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTransitGatewayRouteConfig_destinationCIDRBlock(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckTransitGatewayRouteExists(ctx, resourceName, &v),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceTransitGatewayRoute(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckTransitGatewayRouteExists(ctx, resourceName, &v),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceTransitGatewayRoute(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -161,22 +161,22 @@ func testAccTransitGatewayRoute_disappears_TransitGatewayAttachment(t *testing.T
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTransitGatewayRouteDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTransitGatewayRouteConfig_destinationCIDRBlock(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckTransitGatewayRouteDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTransitGatewayRouteConfig_destinationCIDRBlock(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckTransitGatewayRouteExists(ctx, resourceName, &v),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceTransitGatewayVPCAttachment(), transitGatewayVpcAttachmentResourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckTransitGatewayRouteExists(ctx, resourceName, &v),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceTransitGatewayVPCAttachment(), transitGatewayVpcAttachmentResourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -185,32 +185,32 @@ func testAccCheckTransitGatewayRouteExists(ctx context.Context, n string, v *ec2
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No EC2 Transit Gateway Route ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No EC2 Transit Gateway Route ID is set")
+}
 
-		transitGatewayRouteTableID, destination, err := tfec2.TransitGatewayRouteParseResourceID(rs.Primary.ID)
+transitGatewayRouteTableID, destination, err := tfec2.TransitGatewayRouteParseResourceID(rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-		output, err := tfec2.FindTransitGatewayStaticRoute(ctx, conn, transitGatewayRouteTableID, destination)
+output, err := tfec2.FindTransitGatewayStaticRoute(ctx, conn, transitGatewayRouteTableID, destination)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*v = *output
+*v = *output
 
-		return nil
+return nil
 	}
 }
 
@@ -219,33 +219,33 @@ func testAccCheckTransitGatewayRouteDestroy(ctx context.Context) resource.TestCh
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_ec2_transit_gateway_route" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_ec2_transit_gateway_route" {
+continue
+	}
 
-			transitGatewayRouteTableID, destination, err := tfec2.TransitGatewayRouteParseResourceID(rs.Primary.ID)
+	transitGatewayRouteTableID, destination, err := tfec2.TransitGatewayRouteParseResourceID(rs.Primary.ID)
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			_, err = tfec2.FindTransitGatewayStaticRoute(ctx, conn, transitGatewayRouteTableID, destination)
+	_, err = tfec2.FindTransitGatewayStaticRoute(ctx, conn, transitGatewayRouteTableID, destination)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("EC2 Transit Gateway Route %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("EC2 Transit Gateway Route %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -263,7 +263,7 @@ resource "aws_vpc" "test" {
 resource "aws_subnet" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
   cidr_block        = "10.0.0.0/24"
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
 
   tags = {
     Name = %[1]q
@@ -277,9 +277,9 @@ resource "aws_ec2_transit_gateway" "test" {
 }
 
 resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
-  subnet_ids         = [aws_subnet.test.id]
+  subnet_ids= [aws_subnet.test.id]
   transit_gateway_id = aws_ec2_transit_gateway.test.id
-  vpc_id             = aws_vpc.test.id
+  vpc_id    = aws_vpc.test.id
 
   tags = {
     Name = %[1]q
@@ -287,19 +287,19 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
 }
 
 resource "aws_ec2_transit_gateway_route" "test" {
-  destination_cidr_block         = "0.0.0.0/0"
+  destination_cidr_block= "0.0.0.0/0"
   transit_gateway_attachment_id  = aws_ec2_transit_gateway_vpc_attachment.test.id
   transit_gateway_route_table_id = aws_ec2_transit_gateway.test.association_default_route_table_id
 }
 
 resource "aws_ec2_transit_gateway_route" "test_ipv6" {
-  destination_cidr_block         = "2001:db8::/56"
+  destination_cidr_block= "2001:db8::/56"
   transit_gateway_attachment_id  = aws_ec2_transit_gateway_vpc_attachment.test.id
   transit_gateway_route_table_id = aws_ec2_transit_gateway.test.association_default_route_table_id
 }
 
 resource "aws_ec2_transit_gateway_route" "test_blackhole" {
-  destination_cidr_block         = "10.1.0.0/16"
+  destination_cidr_block= "10.1.0.0/16"
   blackhole       = true
   transit_gateway_route_table_id = aws_ec2_transit_gateway.test.association_default_route_table_id
 }

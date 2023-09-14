@@ -21,14 +21,14 @@ func TestAccRoute53Domains_serial(t *testing.T) {
 	t.Parallel()
 
 	testCases := map[string]map[string]func(t *testing.T){
-		"RegisteredDomain": {
-			"tags":           testAccRegisteredDomain_tags,
-			"autoRenew":      testAccRegisteredDomain_autoRenew,
-			"contacts":       testAccRegisteredDomain_contacts,
-			"contactPrivacy": testAccRegisteredDomain_contactPrivacy,
-			"nameservers":    testAccRegisteredDomain_nameservers,
-			"transferLock":   testAccRegisteredDomain_transferLock,
-		},
+"RegisteredDomain": {
+	"tags":           testAccRegisteredDomain_tags,
+	"autoRenew":      testAccRegisteredDomain_autoRenew,
+	"contacts":       testAccRegisteredDomain_contacts,
+	"contactPrivacy": testAccRegisteredDomain_contactPrivacy,
+	"nameservers":    testAccRegisteredDomain_nameservers,
+	"transferLock":   testAccRegisteredDomain_transferLock,
+},
 	}
 
 	acctest.RunSerialTests2Levels(t, testCases, 0)
@@ -44,11 +44,11 @@ func testAccPreCheck(ctx context.Context, t *testing.T) {
 	_, err := conn.ListDomains(ctx, input)
 
 	if acctest.PreCheckSkipError(err) {
-		t.Skipf("skipping acceptance testing: %s", err)
+t.Skipf("skipping acceptance testing: %s", err)
 	}
 
 	if err != nil {
-		t.Fatalf("unexpected PreCheck error: %s", err)
+t.Fatalf("unexpected PreCheck error: %s", err)
 	}
 }
 
@@ -57,40 +57,40 @@ func testAccRegisteredDomain_tags(t *testing.T) {
 	key := "ROUTE53DOMAINS_DOMAIN_NAME"
 	domainName := os.Getenv(key)
 	if domainName == "" {
-		t.Skipf("Environment variable %s is not set", key)
+t.Skipf("Environment variable %s is not set", key)
 	}
 
 	resourceName := "aws_route53domains_registered_domain.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, names.Route53DomainsEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRegisteredDomainDestroy,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccRegisteredDomainConfig_tags1(domainName, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-				),
-			},
-			{
-				Config: testAccRegisteredDomainConfig_tags2(domainName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-			{
-				Config: testAccRegisteredDomainConfig_tags1(domainName, "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, names.Route53DomainsEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckRegisteredDomainDestroy,
+Steps: []resource.TestStep{
+	{
+Config: testAccRegisteredDomainConfig_tags1(domainName, "key1", "value1"),
+Check: resource.ComposeTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+),
+	},
+	{
+Config: testAccRegisteredDomainConfig_tags2(domainName, "key1", "value1updated", "key2", "value2"),
+Check: resource.ComposeTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+	{
+Config: testAccRegisteredDomainConfig_tags1(domainName, "key2", "value2"),
+Check: resource.ComposeTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+},
 	})
 }
 
@@ -99,30 +99,30 @@ func testAccRegisteredDomain_autoRenew(t *testing.T) {
 	key := "ROUTE53DOMAINS_DOMAIN_NAME"
 	domainName := os.Getenv(key)
 	if domainName == "" {
-		t.Skipf("Environment variable %s is not set", key)
+t.Skipf("Environment variable %s is not set", key)
 	}
 
 	resourceName := "aws_route53domains_registered_domain.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, names.Route53DomainsEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRegisteredDomainDestroy,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccRegisteredDomainConfig_autoRenew(domainName, false),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "auto_renew", "false"),
-				),
-			},
-			{
-				Config: testAccRegisteredDomainConfig_autoRenew(domainName, true),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "auto_renew", "true"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, names.Route53DomainsEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckRegisteredDomainDestroy,
+Steps: []resource.TestStep{
+	{
+Config: testAccRegisteredDomainConfig_autoRenew(domainName, false),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "auto_renew", "false"),
+),
+	},
+	{
+Config: testAccRegisteredDomainConfig_autoRenew(domainName, true),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "auto_renew", "true"),
+),
+	},
+},
 	})
 }
 
@@ -131,102 +131,102 @@ func testAccRegisteredDomain_contacts(t *testing.T) {
 	key := "ROUTE53DOMAINS_DOMAIN_NAME"
 	domainName := os.Getenv(key)
 	if domainName == "" {
-		t.Skipf("Environment variable %s is not set", key)
+t.Skipf("Environment variable %s is not set", key)
 	}
 
 	resourceName := "aws_route53domains_registered_domain.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, names.Route53DomainsEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRegisteredDomainDestroy,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccRegisteredDomainConfig_contacts(domainName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "admin_contact.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "admin_contact.0.address_line_1", "99 High Street"),
-					resource.TestCheckResourceAttr(resourceName, "admin_contact.0.address_line_2", "Flat 1a"),
-					resource.TestCheckResourceAttr(resourceName, "admin_contact.0.city", "Little Nowhere"),
-					resource.TestCheckResourceAttr(resourceName, "admin_contact.0.contact_type", "ASSOCIATION"),
-					resource.TestCheckResourceAttr(resourceName, "admin_contact.0.country_code", "GB"),
-					resource.TestCheckResourceAttr(resourceName, "admin_contact.0.email", "test1@example.com"),
-					resource.TestCheckResourceAttr(resourceName, "admin_contact.0.fax", "+44.123456788"),
-					resource.TestCheckResourceAttr(resourceName, "admin_contact.0.first_name", "Sys"),
-					resource.TestCheckResourceAttr(resourceName, "admin_contact.0.last_name", "Admin"),
-					resource.TestCheckResourceAttr(resourceName, "admin_contact.0.organization_name", "Support"),
-					resource.TestCheckResourceAttr(resourceName, "admin_contact.0.phone_number", "+44.123456789"),
-					resource.TestCheckResourceAttr(resourceName, "admin_contact.0.zip_code", "ST1 1AB"),
-					resource.TestCheckResourceAttr(resourceName, "registrant_contact.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.address_line_1", "100 Main Street"),
-					resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.city", "New York City"),
-					resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.contact_type", "COMPANY"),
-					resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.country_code", "US"),
-					resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.email", "test2@example.com"),
-					resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.first_name", "Terraform"),
-					resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.last_name", "Team"),
-					resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.organization_name", "HashiCorp"),
-					resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.phone_number", "+1.2025551234"),
-					resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.state", "NY"),
-					resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.zip_code", "10001"),
-					resource.TestCheckResourceAttr(resourceName, "tech_contact.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tech_contact.0.address_line_1", "The Castle"),
-					resource.TestCheckResourceAttr(resourceName, "tech_contact.0.city", "Prague"),
-					resource.TestCheckResourceAttr(resourceName, "tech_contact.0.contact_type", "PERSON"),
-					resource.TestCheckResourceAttr(resourceName, "tech_contact.0.country_code", "CZ"),
-					resource.TestCheckResourceAttr(resourceName, "tech_contact.0.email", "test3@example.com"),
-					resource.TestCheckResourceAttr(resourceName, "tech_contact.0.first_name", "Franz"),
-					resource.TestCheckResourceAttr(resourceName, "tech_contact.0.last_name", "Kafka"),
-					resource.TestCheckResourceAttr(resourceName, "tech_contact.0.phone_number", "+420.224372434"),
-					resource.TestCheckResourceAttr(resourceName, "tech_contact.0.zip_code", "119 01"),
-				),
-			},
-			{
-				Config: testAccRegisteredDomainConfig_contactsUpdated(domainName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "admin_contact.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "admin_contact.0.address_line_1", "101 2nd St #700"),
-					resource.TestCheckResourceAttr(resourceName, "admin_contact.0.city", "San Francisco"),
-					resource.TestCheckResourceAttr(resourceName, "admin_contact.0.contact_type", "COMPANY"),
-					resource.TestCheckResourceAttr(resourceName, "admin_contact.0.country_code", "US"),
-					resource.TestCheckResourceAttr(resourceName, "admin_contact.0.email", "terraform-acctest+aws@hashicorp.com"),
-					resource.TestCheckResourceAttr(resourceName, "admin_contact.0.fax", "+1.4155551234"),
-					resource.TestCheckResourceAttr(resourceName, "admin_contact.0.first_name", "Terraform"),
-					resource.TestCheckResourceAttr(resourceName, "admin_contact.0.last_name", "Team"),
-					resource.TestCheckResourceAttr(resourceName, "admin_contact.0.organization_name", "HashiCorp"),
-					resource.TestCheckResourceAttr(resourceName, "admin_contact.0.phone_number", "+1.4155551234"),
-					resource.TestCheckResourceAttr(resourceName, "admin_contact.0.state", "CA"),
-					resource.TestCheckResourceAttr(resourceName, "admin_contact.0.zip_code", "94105"),
-					resource.TestCheckResourceAttr(resourceName, "registrant_contact.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.address_line_1", "101 2nd St #700"),
-					resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.city", "San Francisco"),
-					resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.contact_type", "COMPANY"),
-					resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.country_code", "US"),
-					resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.email", "terraform-acctest+aws@hashicorp.com"),
-					resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.fax", "+1.4155551234"),
-					resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.first_name", "Terraform"),
-					resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.last_name", "Team"),
-					resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.organization_name", "HashiCorp"),
-					resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.phone_number", "+1.4155551234"),
-					resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.state", "CA"),
-					resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.zip_code", "94105"),
-					resource.TestCheckResourceAttr(resourceName, "tech_contact.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tech_contact.0.address_line_1", "101 2nd St #700"),
-					resource.TestCheckResourceAttr(resourceName, "tech_contact.0.city", "San Francisco"),
-					resource.TestCheckResourceAttr(resourceName, "tech_contact.0.contact_type", "COMPANY"),
-					resource.TestCheckResourceAttr(resourceName, "tech_contact.0.country_code", "US"),
-					resource.TestCheckResourceAttr(resourceName, "tech_contact.0.email", "terraform-acctest+aws@hashicorp.com"),
-					resource.TestCheckResourceAttr(resourceName, "tech_contact.0.fax", "+1.4155551234"),
-					resource.TestCheckResourceAttr(resourceName, "tech_contact.0.first_name", "Terraform"),
-					resource.TestCheckResourceAttr(resourceName, "tech_contact.0.last_name", "Team"),
-					resource.TestCheckResourceAttr(resourceName, "tech_contact.0.organization_name", "HashiCorp"),
-					resource.TestCheckResourceAttr(resourceName, "tech_contact.0.phone_number", "+1.4155551234"),
-					resource.TestCheckResourceAttr(resourceName, "tech_contact.0.state", "CA"),
-					resource.TestCheckResourceAttr(resourceName, "tech_contact.0.zip_code", "94105"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, names.Route53DomainsEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckRegisteredDomainDestroy,
+Steps: []resource.TestStep{
+	{
+Config: testAccRegisteredDomainConfig_contacts(domainName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "admin_contact.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "admin_contact.0.address_line_1", "99 High Street"),
+	resource.TestCheckResourceAttr(resourceName, "admin_contact.0.address_line_2", "Flat 1a"),
+	resource.TestCheckResourceAttr(resourceName, "admin_contact.0.city", "Little Nowhere"),
+	resource.TestCheckResourceAttr(resourceName, "admin_contact.0.contact_type", "ASSOCIATION"),
+	resource.TestCheckResourceAttr(resourceName, "admin_contact.0.country_code", "GB"),
+	resource.TestCheckResourceAttr(resourceName, "admin_contact.0.email", "test1@example.com"),
+	resource.TestCheckResourceAttr(resourceName, "admin_contact.0.fax", "+44.123456788"),
+	resource.TestCheckResourceAttr(resourceName, "admin_contact.0.first_name", "Sys"),
+	resource.TestCheckResourceAttr(resourceName, "admin_contact.0.last_name", "Admin"),
+	resource.TestCheckResourceAttr(resourceName, "admin_contact.0.organization_name", "Support"),
+	resource.TestCheckResourceAttr(resourceName, "admin_contact.0.phone_number", "+44.123456789"),
+	resource.TestCheckResourceAttr(resourceName, "admin_contact.0.zip_code", "ST1 1AB"),
+	resource.TestCheckResourceAttr(resourceName, "registrant_contact.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.address_line_1", "100 Main Street"),
+	resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.city", "New York City"),
+	resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.contact_type", "COMPANY"),
+	resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.country_code", "US"),
+	resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.email", "test2@example.com"),
+	resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.first_name", "Terraform"),
+	resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.last_name", "Team"),
+	resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.organization_name", "HashiCorp"),
+	resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.phone_number", "+1.2025551234"),
+	resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.state", "NY"),
+	resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.zip_code", "10001"),
+	resource.TestCheckResourceAttr(resourceName, "tech_contact.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tech_contact.0.address_line_1", "The Castle"),
+	resource.TestCheckResourceAttr(resourceName, "tech_contact.0.city", "Prague"),
+	resource.TestCheckResourceAttr(resourceName, "tech_contact.0.contact_type", "PERSON"),
+	resource.TestCheckResourceAttr(resourceName, "tech_contact.0.country_code", "CZ"),
+	resource.TestCheckResourceAttr(resourceName, "tech_contact.0.email", "test3@example.com"),
+	resource.TestCheckResourceAttr(resourceName, "tech_contact.0.first_name", "Franz"),
+	resource.TestCheckResourceAttr(resourceName, "tech_contact.0.last_name", "Kafka"),
+	resource.TestCheckResourceAttr(resourceName, "tech_contact.0.phone_number", "+420.224372434"),
+	resource.TestCheckResourceAttr(resourceName, "tech_contact.0.zip_code", "119 01"),
+),
+	},
+	{
+Config: testAccRegisteredDomainConfig_contactsUpdated(domainName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "admin_contact.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "admin_contact.0.address_line_1", "101 2nd St #700"),
+	resource.TestCheckResourceAttr(resourceName, "admin_contact.0.city", "San Francisco"),
+	resource.TestCheckResourceAttr(resourceName, "admin_contact.0.contact_type", "COMPANY"),
+	resource.TestCheckResourceAttr(resourceName, "admin_contact.0.country_code", "US"),
+	resource.TestCheckResourceAttr(resourceName, "admin_contact.0.email", "terraform-acctest+aws@hashicorp.com"),
+	resource.TestCheckResourceAttr(resourceName, "admin_contact.0.fax", "+1.4155551234"),
+	resource.TestCheckResourceAttr(resourceName, "admin_contact.0.first_name", "Terraform"),
+	resource.TestCheckResourceAttr(resourceName, "admin_contact.0.last_name", "Team"),
+	resource.TestCheckResourceAttr(resourceName, "admin_contact.0.organization_name", "HashiCorp"),
+	resource.TestCheckResourceAttr(resourceName, "admin_contact.0.phone_number", "+1.4155551234"),
+	resource.TestCheckResourceAttr(resourceName, "admin_contact.0.state", "CA"),
+	resource.TestCheckResourceAttr(resourceName, "admin_contact.0.zip_code", "94105"),
+	resource.TestCheckResourceAttr(resourceName, "registrant_contact.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.address_line_1", "101 2nd St #700"),
+	resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.city", "San Francisco"),
+	resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.contact_type", "COMPANY"),
+	resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.country_code", "US"),
+	resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.email", "terraform-acctest+aws@hashicorp.com"),
+	resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.fax", "+1.4155551234"),
+	resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.first_name", "Terraform"),
+	resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.last_name", "Team"),
+	resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.organization_name", "HashiCorp"),
+	resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.phone_number", "+1.4155551234"),
+	resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.state", "CA"),
+	resource.TestCheckResourceAttr(resourceName, "registrant_contact.0.zip_code", "94105"),
+	resource.TestCheckResourceAttr(resourceName, "tech_contact.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tech_contact.0.address_line_1", "101 2nd St #700"),
+	resource.TestCheckResourceAttr(resourceName, "tech_contact.0.city", "San Francisco"),
+	resource.TestCheckResourceAttr(resourceName, "tech_contact.0.contact_type", "COMPANY"),
+	resource.TestCheckResourceAttr(resourceName, "tech_contact.0.country_code", "US"),
+	resource.TestCheckResourceAttr(resourceName, "tech_contact.0.email", "terraform-acctest+aws@hashicorp.com"),
+	resource.TestCheckResourceAttr(resourceName, "tech_contact.0.fax", "+1.4155551234"),
+	resource.TestCheckResourceAttr(resourceName, "tech_contact.0.first_name", "Terraform"),
+	resource.TestCheckResourceAttr(resourceName, "tech_contact.0.last_name", "Team"),
+	resource.TestCheckResourceAttr(resourceName, "tech_contact.0.organization_name", "HashiCorp"),
+	resource.TestCheckResourceAttr(resourceName, "tech_contact.0.phone_number", "+1.4155551234"),
+	resource.TestCheckResourceAttr(resourceName, "tech_contact.0.state", "CA"),
+	resource.TestCheckResourceAttr(resourceName, "tech_contact.0.zip_code", "94105"),
+),
+	},
+},
 	})
 }
 
@@ -235,34 +235,34 @@ func testAccRegisteredDomain_contactPrivacy(t *testing.T) {
 	key := "ROUTE53DOMAINS_DOMAIN_NAME"
 	domainName := os.Getenv(key)
 	if domainName == "" {
-		t.Skipf("Environment variable %s is not set", key)
+t.Skipf("Environment variable %s is not set", key)
 	}
 
 	resourceName := "aws_route53domains_registered_domain.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, names.Route53DomainsEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRegisteredDomainDestroy,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccRegisteredDomainConfig_contactPrivacy(domainName, true, true, true),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "admin_privacy", "true"),
-					resource.TestCheckResourceAttr(resourceName, "registrant_privacy", "true"),
-					resource.TestCheckResourceAttr(resourceName, "tech_privacy", "true"),
-				),
-			},
-			{
-				Config: testAccRegisteredDomainConfig_contactPrivacy(domainName, false, false, false),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "admin_privacy", "false"),
-					resource.TestCheckResourceAttr(resourceName, "registrant_privacy", "false"),
-					resource.TestCheckResourceAttr(resourceName, "tech_privacy", "false"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, names.Route53DomainsEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckRegisteredDomainDestroy,
+Steps: []resource.TestStep{
+	{
+Config: testAccRegisteredDomainConfig_contactPrivacy(domainName, true, true, true),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "admin_privacy", "true"),
+	resource.TestCheckResourceAttr(resourceName, "registrant_privacy", "true"),
+	resource.TestCheckResourceAttr(resourceName, "tech_privacy", "true"),
+),
+	},
+	{
+Config: testAccRegisteredDomainConfig_contactPrivacy(domainName, false, false, false),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "admin_privacy", "false"),
+	resource.TestCheckResourceAttr(resourceName, "registrant_privacy", "false"),
+	resource.TestCheckResourceAttr(resourceName, "tech_privacy", "false"),
+),
+	},
+},
 	})
 }
 
@@ -271,43 +271,43 @@ func testAccRegisteredDomain_nameservers(t *testing.T) {
 	key := "ROUTE53DOMAINS_DOMAIN_NAME"
 	domainName := os.Getenv(key)
 	if domainName == "" {
-		t.Skipf("Environment variable %s is not set", key)
+t.Skipf("Environment variable %s is not set", key)
 	}
 
 	resourceName := "aws_route53domains_registered_domain.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, names.Route53DomainsEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRegisteredDomainDestroy,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccRegisteredDomainConfig_nameservers(domainName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "name_server.#", "2"),
-					resource.TestCheckResourceAttr(resourceName, "name_server.0.name", fmt.Sprintf("ns1.%s", domainName)),
-					resource.TestCheckResourceAttr(resourceName, "name_server.0.glue_ips.#", "1"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "name_server.0.glue_ips.*", "1.1.1.1"),
-					resource.TestCheckResourceAttr(resourceName, "name_server.1.name", "ns2.worldnic.com"),
-					resource.TestCheckResourceAttr(resourceName, "name_server.1.glue_ips.#", "0"),
-				),
-			},
-			{
-				Config: testAccRegisteredDomainConfig_nameserversUpdated(domainName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "name_server.#", "4"),
-					resource.TestCheckResourceAttr(resourceName, "name_server.0.name", "ns-195.awsdns-24.com"),
-					resource.TestCheckResourceAttr(resourceName, "name_server.0.glue_ips.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "name_server.1.name", "ns-1632.awsdns-12.co.uk"),
-					resource.TestCheckResourceAttr(resourceName, "name_server.1.glue_ips.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "name_server.2.name", "ns-874.awsdns-45.net"),
-					resource.TestCheckResourceAttr(resourceName, "name_server.2.glue_ips.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "name_server.3.name", "ns-1118.awsdns-11.org"),
-					resource.TestCheckResourceAttr(resourceName, "name_server.3.glue_ips.#", "0"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, names.Route53DomainsEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckRegisteredDomainDestroy,
+Steps: []resource.TestStep{
+	{
+Config: testAccRegisteredDomainConfig_nameservers(domainName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "name_server.#", "2"),
+	resource.TestCheckResourceAttr(resourceName, "name_server.0.name", fmt.Sprintf("ns1.%s", domainName)),
+	resource.TestCheckResourceAttr(resourceName, "name_server.0.glue_ips.#", "1"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "name_server.0.glue_ips.*", "1.1.1.1"),
+	resource.TestCheckResourceAttr(resourceName, "name_server.1.name", "ns2.worldnic.com"),
+	resource.TestCheckResourceAttr(resourceName, "name_server.1.glue_ips.#", "0"),
+),
+	},
+	{
+Config: testAccRegisteredDomainConfig_nameserversUpdated(domainName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "name_server.#", "4"),
+	resource.TestCheckResourceAttr(resourceName, "name_server.0.name", "ns-195.awsdns-24.com"),
+	resource.TestCheckResourceAttr(resourceName, "name_server.0.glue_ips.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "name_server.1.name", "ns-1632.awsdns-12.co.uk"),
+	resource.TestCheckResourceAttr(resourceName, "name_server.1.glue_ips.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "name_server.2.name", "ns-874.awsdns-45.net"),
+	resource.TestCheckResourceAttr(resourceName, "name_server.2.glue_ips.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "name_server.3.name", "ns-1118.awsdns-11.org"),
+	resource.TestCheckResourceAttr(resourceName, "name_server.3.glue_ips.#", "0"),
+),
+	},
+},
 	})
 }
 
@@ -316,30 +316,30 @@ func testAccRegisteredDomain_transferLock(t *testing.T) {
 	key := "ROUTE53DOMAINS_DOMAIN_NAME"
 	domainName := os.Getenv(key)
 	if domainName == "" {
-		t.Skipf("Environment variable %s is not set", key)
+t.Skipf("Environment variable %s is not set", key)
 	}
 
 	resourceName := "aws_route53domains_registered_domain.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, names.Route53DomainsEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRegisteredDomainDestroy,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccRegisteredDomainConfig_transferLock(domainName, false),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "transfer_lock", "false"),
-				),
-			},
-			{
-				Config: testAccRegisteredDomainConfig_transferLock(domainName, true),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "transfer_lock", "true"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, names.Route53DomainsEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckRegisteredDomainDestroy,
+Steps: []resource.TestStep{
+	{
+Config: testAccRegisteredDomainConfig_transferLock(domainName, false),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "transfer_lock", "false"),
+),
+	},
+	{
+Config: testAccRegisteredDomainConfig_transferLock(domainName, true),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "transfer_lock", "true"),
+),
+	},
+},
 	})
 }
 

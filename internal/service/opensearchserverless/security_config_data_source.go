@@ -117,7 +117,7 @@ type dataSourceSecurityConfigData struct {
 	ConfigVersion    types.String `tfsdk:"config_version"`
 	CreatedDate      types.String `tfsdk:"created_date"`
 	Description      types.String `tfsdk:"description"`
-	IDtypes.String `tfsdk:"id"`
+	IDtypes.String   `tfsdk:"id"`
 	LastModifiedDate types.String `tfsdk:"last_modified_date"`
 	SamlOptions      types.Object `tfsdk:"saml_options"`
 	Type             types.String `tfsdk:"type"`

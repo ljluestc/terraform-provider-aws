@@ -23,21 +23,21 @@ func TestAccServiceCatalogLaunchPathsDataSource_basic(t *testing.T) {
 	domain := fmt.Sprintf("http://%s", acctest.RandomDomainName())
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLaunchPathsDataSourceConfig_basic(rName, domain, acctest.DefaultEmailAddress),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr(dataSourceName, "accept_language", "en"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "product_id", resourceNameProduct, "id"),
-					resource.TestCheckResourceAttr(dataSourceName, "summaries.#", "1"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "summaries.0.name", resourceNamePortfolio, "name"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "summaries.0.path_id"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccLaunchPathsDataSourceConfig_basic(rName, domain, acctest.DefaultEmailAddress),
+Check: resource.ComposeTestCheckFunc(
+	resource.TestCheckResourceAttr(dataSourceName, "accept_language", "en"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "product_id", resourceNameProduct, "id"),
+	resource.TestCheckResourceAttr(dataSourceName, "summaries.#", "1"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "summaries.0.name", resourceNamePortfolio, "name"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "summaries.0.path_id"),
+),
+	},
+},
 	})
 }
 

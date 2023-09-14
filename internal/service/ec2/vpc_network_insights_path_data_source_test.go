@@ -21,29 +21,29 @@ func TestAccVPCNetworkInsightsPathDataSource_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCNetworkInsightsPathDataSourceConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCNetworkInsightsPathDataSourceConfig_basic(rName),
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(datasourceName, "destination", resourceName, "destination"),
-					resource.TestCheckResourceAttrPair(datasourceName, "destination_arn", resourceName, "destination_arn"),
-					resource.TestCheckResourceAttrPair(datasourceName, "destination_ip", resourceName, "destination_ip"),
-					resource.TestCheckResourceAttrPair(datasourceName, "destination_port", resourceName, "destination_port"),
-					resource.TestCheckResourceAttrPair(datasourceName, "network_insights_path_id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "protocol", resourceName, "protocol"),
-					resource.TestCheckResourceAttrPair(datasourceName, "source", resourceName, "source"),
-					resource.TestCheckResourceAttrPair(datasourceName, "source_arn", resourceName, "source_arn"),
-					resource.TestCheckResourceAttrPair(datasourceName, "source_ip", resourceName, "source_ip"),
-					resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(datasourceName, "destination", resourceName, "destination"),
+	resource.TestCheckResourceAttrPair(datasourceName, "destination_arn", resourceName, "destination_arn"),
+	resource.TestCheckResourceAttrPair(datasourceName, "destination_ip", resourceName, "destination_ip"),
+	resource.TestCheckResourceAttrPair(datasourceName, "destination_port", resourceName, "destination_port"),
+	resource.TestCheckResourceAttrPair(datasourceName, "network_insights_path_id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "protocol", resourceName, "protocol"),
+	resource.TestCheckResourceAttrPair(datasourceName, "source", resourceName, "source"),
+	resource.TestCheckResourceAttrPair(datasourceName, "source_arn", resourceName, "source_arn"),
+	resource.TestCheckResourceAttrPair(datasourceName, "source_ip", resourceName, "source_ip"),
+	resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
+),
+	},
+},
 	})
 }
 
@@ -61,10 +61,10 @@ resource "aws_network_interface" "test" {
 }
 
 resource "aws_ec2_network_insights_path" "test" {
-  source           = aws_network_interface.test[0].id
+  source  = aws_network_interface.test[0].id
   destination      = aws_network_interface.test[1].id
   destination_port = 443
-  protocol         = "tcp"
+  protocol= "tcp"
 
   tags = {
     Name = %[1]q

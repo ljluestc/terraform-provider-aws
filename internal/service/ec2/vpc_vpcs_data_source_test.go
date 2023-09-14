@@ -19,19 +19,19 @@ func TestAccVPCsDataSource_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCVPCsDataSourceConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCVPCsDataSourceConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					acctest.CheckResourceAttrGreaterThanValue("data.aws_vpcs.test", "ids.#", 0),
-				),
-			},
-		},
+	acctest.CheckResourceAttrGreaterThanValue("data.aws_vpcs.test", "ids.#", 0),
+),
+	},
+},
 	})
 }
 
@@ -41,19 +41,19 @@ func TestAccVPCsDataSource_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCVPCsDataSourceConfig_tags(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCVPCsDataSourceConfig_tags(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttr("data.aws_vpcs.test", "ids.#", "1"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttr("data.aws_vpcs.test", "ids.#", "1"),
+),
+	},
+},
 	})
 }
 
@@ -63,19 +63,19 @@ func TestAccVPCsDataSource_filters(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCVPCsDataSourceConfig_filters(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCVPCsDataSourceConfig_filters(rName),
+Check: resource.ComposeTestCheck
 func(
-					acctest.CheckResourceAttrGreaterThanValue("data.aws_vpcs.test", "ids.#", 0),
-				),
-			},
-		},
+	acctest.CheckResourceAttrGreaterThanValue("data.aws_vpcs.test", "ids.#", 0),
+),
+	},
+},
 	})
 }
 
@@ -85,19 +85,19 @@ func TestAccVPCsDataSource_empty(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCVPCsDataSourceConfig_empty(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCVPCsDataSourceConfig_empty(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttr("data.aws_vpcs.test", "ids.#", "0"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttr("data.aws_vpcs.test", "ids.#", "0"),
+),
+	},
+},
 	})
 }
 

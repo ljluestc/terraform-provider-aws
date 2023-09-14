@@ -25,36 +25,36 @@ import (
 // @SDKResource("aws_msk_cluster_policy", name="Cluster Policy")
 func ResourceClusterPolicy() *schema.Resource {
 	return &schema.Resource{
-		CreateWithoutTimeout: resourceClusterPolicyPut,
-		ReadWithoutTimeout:   resourceClusterPolicyRead,
-		UpdateWithoutTimeout: resourceClusterPolicyPut,
-		DeleteWithoutTimeout: resourceClusterPolicyDelete,
+CreateWithoutTimeout: resourceClusterPolicyPut,
+ReadWithoutTimeout:   resourceClusterPolicyRead,
+UpdateWithoutTimeout: resourceClusterPolicyPut,
+DeleteWithoutTimeout: resourceClusterPolicyDelete,
 
-		Importer: &schema.ResourceImporter{
-			StateContext: schema.ImportStatePassthroughContext,
-		},
+Importer: &schema.ResourceImporter{
+	StateContext: schema.ImportStatePassthroughContext,
+},
 
-		Schema: map[string]*schema.Schema{
-			"cluster_arn": {
-				Type:     schema.TypeString,
-				Required: true,
-			},
-			"current_version": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"policy": {
-				Type:   schema.TypeString,
-				Required:              true,
-				ValidateFunc:          validation.StringIsJSON,
-				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
-				DiffSuppressOnRefresh: true,
-				StateFunc: func(v interface{}) string {
-					json, _ := structure.NormalizeJsonString(v)
-					return json
-				},
-			},
-		},
+Schema: map[string]*schema.Schema{
+	"cluster_arn": {
+Type:     schema.TypeString,
+Required: true,
+	},
+	"current_version": {
+Type:     schema.TypeString,
+Computed: true,
+	},
+	"policy": {
+Type:   schema.TypeString,
+Required:              true,
+ValidateFunc:          validation.StringIsJSON,
+DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
+DiffSuppressOnRefresh: true,
+StateFunc: func(v interface{}) string {
+	json, _ := structure.NormalizeJsonString(v)
+	return json
+},
+	},
+},
 	}
 }
 
@@ -64,27 +64,27 @@ func resourceClusterPolicyPut(ctx context.Context, d *schema.ResourceData, meta 
 
 	policy, err := structure.NormalizeJsonString(d.Get("policy").(string))
 	if err != nil {
-		return sdkdiag.AppendFromErr(diags, err)
+return sdkdiag.AppendFromErr(diags, err)
 	}
 
 	clusterARN := d.Get("cluster_arn").(string)
 	input := &kafka.PutClusterPolicyInput{
-		ClusterArn: aws.String(clusterARN),
-		Policy:     aws.String(policy),
+ClusterArn: aws.String(clusterARN),
+Policy:     aws.String(policy),
 	}
 
 	if !d.IsNewResource() {
-		input.CurrentVersion = aws.String(d.Get("current_version").(string))
+input.CurrentVersion = aws.String(d.Get("current_version").(string))
 	}
 
 	_, err = conn.PutClusterPolicy(ctx, input)
 
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "setting MSK Cluster Policy (%s): %s", clusterARN, err)
+return sdkdiag.AppendErrorf(diags, "setting MSK Cluster Policy (%s): %s", clusterARN, err)
 	}
 
 	if d.IsNewResource() {
-		d.SetId(clusterARN)
+d.SetId(clusterARN)
 	}
 
 	return append(diags, resourceClusterPolicyRead(ctx, d, meta)...)
@@ -97,26 +97,26 @@ func resourceClusterPolicyRead(ctx context.Context, d *schema.ResourceData, meta
 	output, err := FindClusterPolicyByARN(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
-		log.Printf("[WARN] MSK Cluster Policy (%s) not found, removing from state", d.Id())
-		d.SetId("")
-		return diags
+log.Printf("[WARN] MSK Cluster Policy (%s) not found, removing from state", d.Id())
+d.SetId("")
+return diags
 	}
 
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "reading MSK Cluster Policy (%s): %s", d.Id(), err)
+return sdkdiag.AppendErrorf(diags, "reading MSK Cluster Policy (%s): %s", d.Id(), err)
 	}
 
 	d.Set("cluster_arn", d.Id())
 	d.Set("current_version", output.CurrentVersion)
 	if output.Policy != nil {
-		policyToSet, err := verify.PolicyToSet(d.Get("policy").(string), aws.ToString(output.Policy))
-		if err != nil {
-			return sdkdiag.AppendFromErr(diags, err)
-		}
+policyToSet, err := verify.PolicyToSet(d.Get("policy").(string), aws.ToString(output.Policy))
+if err != nil {
+	return sdkdiag.AppendFromErr(diags, err)
+}
 
-		d.Set("policy", policyToSet)
+d.Set("policy", policyToSet)
 	} else {
-		d.Set("policy", nil)
+d.Set("policy", nil)
 	}
 
 	return diags
@@ -128,15 +128,15 @@ func resourceClusterPolicyDelete(ctx context.Context, d *schema.ResourceData, me
 
 	log.Printf("[INFO] Deleting MSK Cluster Policy: %s", d.Id())
 	_, err := conn.DeleteClusterPolicy(ctx, &kafka.DeleteClusterPolicyInput{
-		ClusterArn: aws.String(d.Id()),
+ClusterArn: aws.String(d.Id()),
 	})
 
 	if errs.IsA[*types.NotFoundException](err) {
-		return diags
+return diags
 	}
 
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "deleting MSK Cluster Policy (%s): %s", d.Id(), err)
+return sdkdiag.AppendErrorf(diags, "deleting MSK Cluster Policy (%s): %s", d.Id(), err)
 	}
 
 	return diags
@@ -144,24 +144,24 @@ func resourceClusterPolicyDelete(ctx context.Context, d *schema.ResourceData, me
 
 func FindClusterPolicyByARN(ctx context.Context, conn *kafka.Client, id string) (*kafka.GetClusterPolicyOutput, error) {
 	in := &kafka.GetClusterPolicyInput{
-		ClusterArn: aws.String(id),
+ClusterArn: aws.String(id),
 	}
 
 	out, err := conn.GetClusterPolicy(ctx, in)
 
 	if errs.IsA[*types.NotFoundException](err) {
-		return nil, &retry.NotFoundError{
-			LastError:   err,
-			LastRequest: in,
-		}
+return nil, &retry.NotFoundError{
+	LastError:   err,
+	LastRequest: in,
+}
 	}
 
 	if err != nil {
-		return nil, err
+return nil, err
 	}
 
 	if out == nil {
-		return nil, tfresource.NewEmptyResultError(in)
+return nil, tfresource.NewEmptyResultError(in)
 	}
 
 	return out, nil

@@ -49,8 +49,8 @@ func resourceNotificationRule() *schema.Resource {
 				Computed: true,
 			},
 			"detail_type": {
-				Type:             schema.TypeString,
-				Required:         true,
+				Type:    schema.TypeString,
+				Required:true,
 				ValidateDiag
 func: enum.Validate[types.DetailType](),
 			},
@@ -71,16 +71,16 @@ func: validation.All(
 				),
 			},
 			"resource": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
 func: verify.ValidARN,
 			},
 			"status": {
-				Type:             schema.TypeString,
-				Optional:         true,
-				Default:          types.NotificationRuleStatusEnabled,
+				Type:    schema.TypeString,
+				Optional:true,
+				Default: types.NotificationRuleStatusEnabled,
 				ValidateDiag
 func: enum.Validate[types.NotificationRuleStatus](),
 			},
@@ -93,7 +93,7 @@ func: enum.Validate[types.NotificationRuleStatus](),
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"address": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							Validate
 func: verify.ValidARN,
@@ -125,10 +125,10 @@ func resourceNotificationRuleCreate(ctx context.Context, d *schema.ResourceData,
 	input := &codestarnotifications.CreateNotificationRuleInput{
 		DetailType:   types.DetailType(d.Get("detail_type").(string)),
 		EventTypeIds: flex.ExpandStringValueSet(d.Get("event_type_ids").(*schema.Set)),
-		Name:         aws.String(name),
+		Name:aws.String(name),
 		Resource:     aws.String(d.Get("resource").(string)),
 		Status:       types.NotificationRuleStatus(d.Get("status").(string)),
-		Tags:         getTagsIn(ctx),
+		Tags:getTagsIn(ctx),
 		Targets:      expandNotificationRuleTargets(d.Get("target").(*schema.Set).List()),
 	}
 
@@ -194,10 +194,10 @@ func resourceNotificationRuleUpdate(ctx context.Context, d *schema.ResourceData,
 	conn := meta.(*conns.AWSClient).CodeStarNotificationsClient(ctx)
 
 	input := &codestarnotifications.UpdateNotificationRuleInput{
-		Arn:          aws.String(d.Id()),
+		Arn: aws.String(d.Id()),
 		DetailType:   types.DetailType(d.Get("detail_type").(string)),
 		EventTypeIds: flex.ExpandStringValueSet(d.Get("event_type_ids").(*schema.Set)),
-		Name:         aws.String(d.Get("name").(string)),
+		Name:aws.String(d.Get("name").(string)),
 		Status:       types.NotificationRuleStatus(d.Get("status").(string)),
 		Targets:      expandNotificationRuleTargets(d.Get("target").(*schema.Set).List()),
 	}

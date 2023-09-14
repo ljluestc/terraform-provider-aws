@@ -45,9 +45,9 @@ func ResourceNetworkInsightsPath() *schema.Resource {
 				Computed: true,
 			},
 			"destination": {
-				Type:             schema.TypeString,
-				Required:         true,
-				ForceNew:         true,
+				Type:    schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				DiffSuppress
 func: suppressEquivalentIDOrARN,
 			},
@@ -62,16 +62,16 @@ func: suppressEquivalentIDOrARN,
 				ForceNew: true,
 			},
 			"protocol": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
 func: validation.StringInSlice(ec2.Protocol_Values(), false),
 			},
 			"source": {
-				Type:             schema.TypeString,
-				Required:         true,
-				ForceNew:         true,
+				Type:    schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				DiffSuppress
 func: suppressEquivalentIDOrARN,
 			},
@@ -98,8 +98,8 @@ func resourceNetworkInsightsPathCreate(ctx context.Context, d *schema.ResourceDa
 
 	input := &ec2.CreateNetworkInsightsPathInput{
 		Destination:       aws.String(d.Get("destination").(string)),
-		Protocol:          aws.String(d.Get("protocol").(string)),
-		Source:            aws.String(d.Get("source").(string)),
+		Protocol: aws.String(d.Get("protocol").(string)),
+		Source:   aws.String(d.Get("source").(string)),
 		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeNetworkInsightsPath),
 	}
 

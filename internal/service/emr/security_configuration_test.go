@@ -23,26 +23,26 @@ func TestAccEMRSecurityConfiguration_basic(t *testing.T) {
 	resourceName := "aws_emr_security_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSecurityConfigurationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSecurityConfigurationConfig_basic,
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckSecurityConfigurationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSecurityConfigurationConfig_basic,
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckSecurityConfigurationExists(ctx, resourceName),
-					acctest.CheckResourceAttrRFC3339(resourceName, "creation_date"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckSecurityConfigurationExists(ctx, resourceName),
+	acctest.CheckResourceAttrRFC3339(resourceName, "creation_date"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -51,33 +51,33 @@ func testAccCheckSecurityConfigurationDestroy(ctx context.Context) resource.Test
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EMRConn(ctx)
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_emr_security_configuration" {
-				continue
-			}
+conn := acctest.Provider.Meta().(*conns.AWSClient).EMRConn(ctx)
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_emr_security_configuration" {
+continue
+	}
 
-			// Try to find the Security Configuration
-			resp, err := conn.DescribeSecurityConfigurationWithContext(ctx, &emr.DescribeSecurityConfigurationInput{
-				Name: aws.String(rs.Primary.ID),
-			})
+	// Try to find the Security Configuration
+	resp, err := conn.DescribeSecurityConfigurationWithContext(ctx, &emr.DescribeSecurityConfigurationInput{
+Name: aws.String(rs.Primary.ID),
+	})
 
-			if tfawserr.ErrMessageContains(err, "InvalidRequestException", "does not exist") {
-				return nil
-			}
+	if tfawserr.ErrMessageContains(err, "InvalidRequestException", "does not exist") {
+return nil
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			if resp != nil && aws.StringValue(resp.Name) == rs.Primary.ID {
-				return fmt.Errorf("Error: EMR Security Configuration still exists: %s", aws.StringValue(resp.Name))
-			}
+	if resp != nil && aws.StringValue(resp.Name) == rs.Primary.ID {
+return fmt.Errorf("Error: EMR Security Configuration still exists: %s", aws.StringValue(resp.Name))
+	}
 
-			return nil
-		}
+	return nil
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -86,32 +86,32 @@ func testAccCheckSecurityConfigurationExists(ctx context.Context, n string) reso
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No EMR Security Configuration ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No EMR Security Configuration ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EMRConn(ctx)
-		resp, err := conn.DescribeSecurityConfigurationWithContext(ctx, &emr.DescribeSecurityConfigurationInput{
-			Name: aws.String(rs.Primary.ID),
-		})
-		if err != nil {
-			return err
-		}
+conn := acctest.Provider.Meta().(*conns.AWSClient).EMRConn(ctx)
+resp, err := conn.DescribeSecurityConfigurationWithContext(ctx, &emr.DescribeSecurityConfigurationInput{
+	Name: aws.String(rs.Primary.ID),
+})
+if err != nil {
+	return err
+}
 
-		if resp.Name == nil {
-			return fmt.Errorf("EMR Security Configuration had nil name which shouldn't happen")
-		}
+if resp.Name == nil {
+	return fmt.Errorf("EMR Security Configuration had nil name which shouldn't happen")
+}
 
-		if *resp.Name != rs.Primary.ID {
-			return fmt.Errorf("EMR Security Configuration name mismatch, got (%s), expected (%s)", *resp.Name, rs.Primary.ID)
-		}
+if *resp.Name != rs.Primary.ID {
+	return fmt.Errorf("EMR Security Configuration name mismatch, got (%s), expected (%s)", *resp.Name, rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 

@@ -123,7 +123,7 @@ func resourceRepositoryCreate(ctx context.Context, d *schema.ResourceData, meta 
 		EncryptionConfiguration: expandRepositoryEncryptionConfiguration(d.Get("encryption_configuration").([]interface{})),
 		ImageTagMutability:      aws.String(d.Get("image_tag_mutability").(string)),
 		RepositoryName:          aws.String(name),
-		Tags:     getTagsIn(ctx),
+		Tags:                    getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("image_scanning_configuration"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
@@ -221,7 +221,7 @@ func resourceRepositoryUpdate(ctx context.Context, d *schema.ResourceData, meta 
 	if d.HasChange("image_scanning_configuration") {
 		input := &ecr.PutImageScanningConfigurationInput{
 			ImageScanningConfiguration: &ecr.ImageScanningConfiguration{},
-			RegistryId:  aws.String(d.Get("registry_id").(string)),
+			RegistryId:                 aws.String(d.Get("registry_id").(string)),
 			RepositoryName:             aws.String(d.Id()),
 		}
 

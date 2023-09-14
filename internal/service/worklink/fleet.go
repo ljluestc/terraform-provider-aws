@@ -139,7 +139,7 @@ func resourceFleetCreate(ctx context.Context, d *schema.ResourceData, meta inter
 	conn := meta.(*conns.AWSClient).WorkLinkConn(ctx)
 
 	input := &worklink.CreateFleetInput{
-		FleetName:   aws.String(d.Get("name").(string)),
+		FleetName:                  aws.String(d.Get("name").(string)),
 		OptimizeForEndUserLocation: aws.Bool(d.Get("optimize_for_end_user_location").(bool)),
 	}
 
@@ -242,7 +242,7 @@ func resourceFleetUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 	conn := meta.(*conns.AWSClient).WorkLinkConn(ctx)
 
 	input := &worklink.UpdateFleetMetadataInput{
-		FleetArn:    aws.String(d.Id()),
+		FleetArn:                   aws.String(d.Id()),
 		OptimizeForEndUserLocation: aws.Bool(d.Get("optimize_for_end_user_location").(bool)),
 	}
 
@@ -399,7 +399,7 @@ func updateIdentityProviderConfiguration(ctx context.Context, conn *worklink.Wor
 	if v, ok := d.GetOk("identity_provider"); ok && len(v.([]interface{})) > 0 {
 		config := v.([]interface{})[0].(map[string]interface{})
 		input := &worklink.UpdateIdentityProviderConfigurationInput{
-			FleetArn:      aws.String(d.Id()),
+			FleetArn:                     aws.String(d.Id()),
 			IdentityProviderType:         aws.String(config["type"].(string)),
 			IdentityProviderSamlMetadata: aws.String(config["saml_metadata"].(string)),
 		}

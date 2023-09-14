@@ -17,7 +17,7 @@ func TestSecurityGroupMigrateState(t *testing.T) {
 		StateVersion int
 		Attributes   map[string]string
 		Expected     map[string]string
-		Meta         interface{}
+		Metainterface{}
 	}{
 		"v0": {
 			StateVersion: 0,
@@ -25,7 +25,7 @@ func TestSecurityGroupMigrateState(t *testing.T) {
 				"name": "test",
 			},
 			Expected: map[string]string{
-				"name":    "test",
+				"name": "test",
 				"revoke_rules_on_delete": "false",
 			},
 		},
@@ -33,7 +33,7 @@ func TestSecurityGroupMigrateState(t *testing.T) {
 
 	for tn, tc := range cases {
 		is := &terraform.InstanceState{
-			ID:         "i-abc123",
+			ID:"i-abc123",
 			Attributes: tc.Attributes,
 		}
 		is, err := tfec2.SecurityGroupMigrateState(

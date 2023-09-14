@@ -26,20 +26,20 @@ func TestAccSiteVPNGatewayAttachment_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPNGatewayAttachmentDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSiteVPNGatewayAttachmentConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckVPNGatewayAttachmentDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSiteVPNGatewayAttachmentConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckVPNGatewayAttachmentExists(ctx, resourceName, &v),
-				),
-			},
-		},
+	testAccCheckVPNGatewayAttachmentExists(ctx, resourceName, &v),
+),
+	},
+},
 	})
 }
 
@@ -51,22 +51,22 @@ func TestAccSiteVPNGatewayAttachment_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPNGatewayAttachmentDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSiteVPNGatewayAttachmentConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckVPNGatewayAttachmentDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSiteVPNGatewayAttachmentConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckVPNGatewayAttachmentExists(ctx, resourceName, &v),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceVPNGatewayAttachment(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckVPNGatewayAttachmentExists(ctx, resourceName, &v),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceVPNGatewayAttachment(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -75,26 +75,26 @@ func testAccCheckVPNGatewayAttachmentExists(ctx context.Context, n string, v *ec
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No EC2 VPN Gateway Attachment ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No EC2 VPN Gateway Attachment ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-		output, err := tfec2.FindVPNGatewayVPCAttachment(ctx, conn, rs.Primary.Attributes["vpn_gateway_id"], rs.Primary.Attributes["vpc_id"])
+output, err := tfec2.FindVPNGatewayVPCAttachment(ctx, conn, rs.Primary.Attributes["vpn_gateway_id"], rs.Primary.Attributes["vpc_id"])
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*v = *output
+*v = *output
 
-		return nil
+return nil
 	}
 }
 
@@ -103,27 +103,27 @@ func testAccCheckVPNGatewayAttachmentDestroy(ctx context.Context) resource.TestC
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_vpn_gateway_attachment" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_vpn_gateway_attachment" {
+continue
+	}
 
-			_, err := tfec2.FindVPNGatewayVPCAttachment(ctx, conn, rs.Primary.Attributes["vpn_gateway_id"], rs.Primary.Attributes["vpc_id"])
+	_, err := tfec2.FindVPNGatewayVPCAttachment(ctx, conn, rs.Primary.Attributes["vpn_gateway_id"], rs.Primary.Attributes["vpc_id"])
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("EC2 VPN Gateway Attachment %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("EC2 VPN Gateway Attachment %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -145,7 +145,7 @@ resource "aws_vpn_gateway" "test" {
 }
 
 resource "aws_vpn_gateway_attachment" "test" {
-  vpc_id         = aws_vpc.test.id
+  vpc_id= aws_vpc.test.id
   vpn_gateway_id = aws_vpn_gateway.test.id
 }
 `, rName)

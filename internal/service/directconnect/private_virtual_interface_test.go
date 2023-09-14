@@ -24,7 +24,7 @@ func TestAccDirectConnectPrivateVirtualInterface_basic(t *testing.T) {
 	key := "DX_CONNECTION_ID"
 	connectionId := os.Getenv(key)
 	if connectionId == "" {
-		t.Skipf("Environment variable %s is not set", key)
+t.Skipf("Environment variable %s is not set", key)
 	}
 
 	var vif directconnect.VirtualInterface
@@ -35,60 +35,60 @@ func TestAccDirectConnectPrivateVirtualInterface_basic(t *testing.T) {
 	vlan := sdkacctest.RandIntRange(2049, 4094)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, directconnect.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPrivateVirtualInterfaceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccPrivateVirtualInterfaceConfig_basic(connectionId, rName, bgpAsn, vlan),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPrivateVirtualInterfaceExists(ctx, resourceName, &vif),
-					resource.TestCheckResourceAttr(resourceName, "address_family", "ipv4"),
-					resource.TestCheckResourceAttrSet(resourceName, "amazon_address"),
-					resource.TestCheckResourceAttrSet(resourceName, "amazon_side_asn"),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "directconnect", regexache.MustCompile(fmt.Sprintf("dxvif/%s", aws.StringValue(vif.VirtualInterfaceId)))),
-					resource.TestCheckResourceAttrSet(resourceName, "aws_device"),
-					resource.TestCheckResourceAttr(resourceName, "bgp_asn", strconv.Itoa(bgpAsn)),
-					resource.TestCheckResourceAttrSet(resourceName, "bgp_auth_key"),
-					resource.TestCheckResourceAttr(resourceName, "connection_id", connectionId),
-					resource.TestCheckResourceAttrSet(resourceName, "customer_address"),
-					resource.TestCheckResourceAttr(resourceName, "jumbo_frame_capable", "true"),
-					resource.TestCheckResourceAttr(resourceName, "mtu", "1500"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-					resource.TestCheckResourceAttr(resourceName, "vlan", strconv.Itoa(vlan)),
-					resource.TestCheckResourceAttrPair(resourceName, "vpn_gateway_id", vpnGatewayResourceName, "id"),
-				),
-			},
-			{
-				Config: testAccPrivateVirtualInterfaceConfig_updated(connectionId, rName, bgpAsn, vlan),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPrivateVirtualInterfaceExists(ctx, resourceName, &vif),
-					resource.TestCheckResourceAttr(resourceName, "address_family", "ipv4"),
-					resource.TestCheckResourceAttrSet(resourceName, "amazon_address"),
-					resource.TestCheckResourceAttrSet(resourceName, "amazon_side_asn"),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "directconnect", regexache.MustCompile(fmt.Sprintf("dxvif/%s", aws.StringValue(vif.VirtualInterfaceId)))),
-					resource.TestCheckResourceAttrSet(resourceName, "aws_device"),
-					resource.TestCheckResourceAttr(resourceName, "bgp_asn", strconv.Itoa(bgpAsn)),
-					resource.TestCheckResourceAttrSet(resourceName, "bgp_auth_key"),
-					resource.TestCheckResourceAttr(resourceName, "connection_id", connectionId),
-					resource.TestCheckResourceAttrSet(resourceName, "customer_address"),
-					resource.TestCheckResourceAttr(resourceName, "jumbo_frame_capable", "true"),
-					resource.TestCheckResourceAttr(resourceName, "mtu", "9001"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-					resource.TestCheckResourceAttr(resourceName, "vlan", strconv.Itoa(vlan)),
-					resource.TestCheckResourceAttrPair(resourceName, "vpn_gateway_id", vpnGatewayResourceName, "id"),
-				),
-			},
-			// Test import.
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, directconnect.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckPrivateVirtualInterfaceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccPrivateVirtualInterfaceConfig_basic(connectionId, rName, bgpAsn, vlan),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckPrivateVirtualInterfaceExists(ctx, resourceName, &vif),
+	resource.TestCheckResourceAttr(resourceName, "address_family", "ipv4"),
+	resource.TestCheckResourceAttrSet(resourceName, "amazon_address"),
+	resource.TestCheckResourceAttrSet(resourceName, "amazon_side_asn"),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "directconnect", regexache.MustCompile(fmt.Sprintf("dxvif/%s", aws.StringValue(vif.VirtualInterfaceId)))),
+	resource.TestCheckResourceAttrSet(resourceName, "aws_device"),
+	resource.TestCheckResourceAttr(resourceName, "bgp_asn", strconv.Itoa(bgpAsn)),
+	resource.TestCheckResourceAttrSet(resourceName, "bgp_auth_key"),
+	resource.TestCheckResourceAttr(resourceName, "connection_id", connectionId),
+	resource.TestCheckResourceAttrSet(resourceName, "customer_address"),
+	resource.TestCheckResourceAttr(resourceName, "jumbo_frame_capable", "true"),
+	resource.TestCheckResourceAttr(resourceName, "mtu", "1500"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+	resource.TestCheckResourceAttr(resourceName, "vlan", strconv.Itoa(vlan)),
+	resource.TestCheckResourceAttrPair(resourceName, "vpn_gateway_id", vpnGatewayResourceName, "id"),
+),
+	},
+	{
+Config: testAccPrivateVirtualInterfaceConfig_updated(connectionId, rName, bgpAsn, vlan),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckPrivateVirtualInterfaceExists(ctx, resourceName, &vif),
+	resource.TestCheckResourceAttr(resourceName, "address_family", "ipv4"),
+	resource.TestCheckResourceAttrSet(resourceName, "amazon_address"),
+	resource.TestCheckResourceAttrSet(resourceName, "amazon_side_asn"),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "directconnect", regexache.MustCompile(fmt.Sprintf("dxvif/%s", aws.StringValue(vif.VirtualInterfaceId)))),
+	resource.TestCheckResourceAttrSet(resourceName, "aws_device"),
+	resource.TestCheckResourceAttr(resourceName, "bgp_asn", strconv.Itoa(bgpAsn)),
+	resource.TestCheckResourceAttrSet(resourceName, "bgp_auth_key"),
+	resource.TestCheckResourceAttr(resourceName, "connection_id", connectionId),
+	resource.TestCheckResourceAttrSet(resourceName, "customer_address"),
+	resource.TestCheckResourceAttr(resourceName, "jumbo_frame_capable", "true"),
+	resource.TestCheckResourceAttr(resourceName, "mtu", "9001"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+	resource.TestCheckResourceAttr(resourceName, "vlan", strconv.Itoa(vlan)),
+	resource.TestCheckResourceAttrPair(resourceName, "vpn_gateway_id", vpnGatewayResourceName, "id"),
+),
+	},
+	// Test import.
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -97,7 +97,7 @@ func TestAccDirectConnectPrivateVirtualInterface_tags(t *testing.T) {
 	key := "DX_CONNECTION_ID"
 	connectionId := os.Getenv(key)
 	if connectionId == "" {
-		t.Skipf("Environment variable %s is not set", key)
+t.Skipf("Environment variable %s is not set", key)
 	}
 
 	var vif directconnect.VirtualInterface
@@ -108,66 +108,66 @@ func TestAccDirectConnectPrivateVirtualInterface_tags(t *testing.T) {
 	vlan := sdkacctest.RandIntRange(2049, 4094)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, directconnect.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPrivateVirtualInterfaceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccPrivateVirtualInterfaceConfig_tags(connectionId, rName, bgpAsn, vlan),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPrivateVirtualInterfaceExists(ctx, resourceName, &vif),
-					resource.TestCheckResourceAttr(resourceName, "address_family", "ipv4"),
-					resource.TestCheckResourceAttrSet(resourceName, "amazon_address"),
-					resource.TestCheckResourceAttrSet(resourceName, "amazon_side_asn"),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "directconnect", regexache.MustCompile(fmt.Sprintf("dxvif/%s", aws.StringValue(vif.VirtualInterfaceId)))),
-					resource.TestCheckResourceAttrSet(resourceName, "aws_device"),
-					resource.TestCheckResourceAttr(resourceName, "bgp_asn", strconv.Itoa(bgpAsn)),
-					resource.TestCheckResourceAttrSet(resourceName, "bgp_auth_key"),
-					resource.TestCheckResourceAttr(resourceName, "connection_id", connectionId),
-					resource.TestCheckResourceAttrSet(resourceName, "customer_address"),
-					resource.TestCheckResourceAttr(resourceName, "jumbo_frame_capable", "true"),
-					resource.TestCheckResourceAttr(resourceName, "mtu", "1500"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "3"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Name", rName),
-					resource.TestCheckResourceAttr(resourceName, "tags.Key1", "Value1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Key2", "Value2a"),
-					resource.TestCheckResourceAttr(resourceName, "vlan", strconv.Itoa(vlan)),
-					resource.TestCheckResourceAttrPair(resourceName, "vpn_gateway_id", vpnGatewayResourceName, "id"),
-				),
-			},
-			{
-				Config: testAccPrivateVirtualInterfaceConfig_tagsUpdated(connectionId, rName, bgpAsn, vlan),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPrivateVirtualInterfaceExists(ctx, resourceName, &vif),
-					resource.TestCheckResourceAttr(resourceName, "address_family", "ipv4"),
-					resource.TestCheckResourceAttrSet(resourceName, "amazon_address"),
-					resource.TestCheckResourceAttrSet(resourceName, "amazon_side_asn"),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "directconnect", regexache.MustCompile(fmt.Sprintf("dxvif/%s", aws.StringValue(vif.VirtualInterfaceId)))),
-					resource.TestCheckResourceAttrSet(resourceName, "aws_device"),
-					resource.TestCheckResourceAttr(resourceName, "bgp_asn", strconv.Itoa(bgpAsn)),
-					resource.TestCheckResourceAttrSet(resourceName, "bgp_auth_key"),
-					resource.TestCheckResourceAttr(resourceName, "connection_id", connectionId),
-					resource.TestCheckResourceAttrSet(resourceName, "customer_address"),
-					resource.TestCheckResourceAttr(resourceName, "jumbo_frame_capable", "true"),
-					resource.TestCheckResourceAttr(resourceName, "mtu", "1500"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "3"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Name", rName),
-					resource.TestCheckResourceAttr(resourceName, "tags.Key2", "Value2b"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Key3", "Value3"),
-					resource.TestCheckResourceAttr(resourceName, "vlan", strconv.Itoa(vlan)),
-					resource.TestCheckResourceAttrPair(resourceName, "vpn_gateway_id", vpnGatewayResourceName, "id"),
-				),
-			},
-			// Test import.
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, directconnect.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckPrivateVirtualInterfaceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccPrivateVirtualInterfaceConfig_tags(connectionId, rName, bgpAsn, vlan),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckPrivateVirtualInterfaceExists(ctx, resourceName, &vif),
+	resource.TestCheckResourceAttr(resourceName, "address_family", "ipv4"),
+	resource.TestCheckResourceAttrSet(resourceName, "amazon_address"),
+	resource.TestCheckResourceAttrSet(resourceName, "amazon_side_asn"),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "directconnect", regexache.MustCompile(fmt.Sprintf("dxvif/%s", aws.StringValue(vif.VirtualInterfaceId)))),
+	resource.TestCheckResourceAttrSet(resourceName, "aws_device"),
+	resource.TestCheckResourceAttr(resourceName, "bgp_asn", strconv.Itoa(bgpAsn)),
+	resource.TestCheckResourceAttrSet(resourceName, "bgp_auth_key"),
+	resource.TestCheckResourceAttr(resourceName, "connection_id", connectionId),
+	resource.TestCheckResourceAttrSet(resourceName, "customer_address"),
+	resource.TestCheckResourceAttr(resourceName, "jumbo_frame_capable", "true"),
+	resource.TestCheckResourceAttr(resourceName, "mtu", "1500"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "3"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Name", rName),
+	resource.TestCheckResourceAttr(resourceName, "tags.Key1", "Value1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Key2", "Value2a"),
+	resource.TestCheckResourceAttr(resourceName, "vlan", strconv.Itoa(vlan)),
+	resource.TestCheckResourceAttrPair(resourceName, "vpn_gateway_id", vpnGatewayResourceName, "id"),
+),
+	},
+	{
+Config: testAccPrivateVirtualInterfaceConfig_tagsUpdated(connectionId, rName, bgpAsn, vlan),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckPrivateVirtualInterfaceExists(ctx, resourceName, &vif),
+	resource.TestCheckResourceAttr(resourceName, "address_family", "ipv4"),
+	resource.TestCheckResourceAttrSet(resourceName, "amazon_address"),
+	resource.TestCheckResourceAttrSet(resourceName, "amazon_side_asn"),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "directconnect", regexache.MustCompile(fmt.Sprintf("dxvif/%s", aws.StringValue(vif.VirtualInterfaceId)))),
+	resource.TestCheckResourceAttrSet(resourceName, "aws_device"),
+	resource.TestCheckResourceAttr(resourceName, "bgp_asn", strconv.Itoa(bgpAsn)),
+	resource.TestCheckResourceAttrSet(resourceName, "bgp_auth_key"),
+	resource.TestCheckResourceAttr(resourceName, "connection_id", connectionId),
+	resource.TestCheckResourceAttrSet(resourceName, "customer_address"),
+	resource.TestCheckResourceAttr(resourceName, "jumbo_frame_capable", "true"),
+	resource.TestCheckResourceAttr(resourceName, "mtu", "1500"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "3"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Name", rName),
+	resource.TestCheckResourceAttr(resourceName, "tags.Key2", "Value2b"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Key3", "Value3"),
+	resource.TestCheckResourceAttr(resourceName, "vlan", strconv.Itoa(vlan)),
+	resource.TestCheckResourceAttrPair(resourceName, "vpn_gateway_id", vpnGatewayResourceName, "id"),
+),
+	},
+	// Test import.
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -176,7 +176,7 @@ func TestAccDirectConnectPrivateVirtualInterface_dxGateway(t *testing.T) {
 	key := "DX_CONNECTION_ID"
 	connectionId := os.Getenv(key)
 	if connectionId == "" {
-		t.Skipf("Environment variable %s is not set", key)
+t.Skipf("Environment variable %s is not set", key)
 	}
 
 	var vif directconnect.VirtualInterface
@@ -188,39 +188,39 @@ func TestAccDirectConnectPrivateVirtualInterface_dxGateway(t *testing.T) {
 	vlan := sdkacctest.RandIntRange(2049, 4094)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, directconnect.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPrivateVirtualInterfaceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccPrivateVirtualInterfaceConfig_gateway(connectionId, rName, amzAsn, bgpAsn, vlan),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPrivateVirtualInterfaceExists(ctx, resourceName, &vif),
-					resource.TestCheckResourceAttr(resourceName, "address_family", "ipv4"),
-					resource.TestCheckResourceAttrSet(resourceName, "amazon_address"),
-					resource.TestCheckResourceAttrSet(resourceName, "amazon_side_asn"),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "directconnect", regexache.MustCompile(fmt.Sprintf("dxvif/%s", aws.StringValue(vif.VirtualInterfaceId)))),
-					resource.TestCheckResourceAttrSet(resourceName, "aws_device"),
-					resource.TestCheckResourceAttr(resourceName, "bgp_asn", strconv.Itoa(bgpAsn)),
-					resource.TestCheckResourceAttrSet(resourceName, "bgp_auth_key"),
-					resource.TestCheckResourceAttr(resourceName, "connection_id", connectionId),
-					resource.TestCheckResourceAttrSet(resourceName, "customer_address"),
-					resource.TestCheckResourceAttrPair(resourceName, "dx_gateway_id", dxGatewayResourceName, "id"),
-					resource.TestCheckResourceAttr(resourceName, "jumbo_frame_capable", "true"),
-					resource.TestCheckResourceAttr(resourceName, "mtu", "1500"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-					resource.TestCheckResourceAttr(resourceName, "vlan", strconv.Itoa(vlan)),
-				),
-			},
-			// Test import.
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, directconnect.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckPrivateVirtualInterfaceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccPrivateVirtualInterfaceConfig_gateway(connectionId, rName, amzAsn, bgpAsn, vlan),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckPrivateVirtualInterfaceExists(ctx, resourceName, &vif),
+	resource.TestCheckResourceAttr(resourceName, "address_family", "ipv4"),
+	resource.TestCheckResourceAttrSet(resourceName, "amazon_address"),
+	resource.TestCheckResourceAttrSet(resourceName, "amazon_side_asn"),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "directconnect", regexache.MustCompile(fmt.Sprintf("dxvif/%s", aws.StringValue(vif.VirtualInterfaceId)))),
+	resource.TestCheckResourceAttrSet(resourceName, "aws_device"),
+	resource.TestCheckResourceAttr(resourceName, "bgp_asn", strconv.Itoa(bgpAsn)),
+	resource.TestCheckResourceAttrSet(resourceName, "bgp_auth_key"),
+	resource.TestCheckResourceAttr(resourceName, "connection_id", connectionId),
+	resource.TestCheckResourceAttrSet(resourceName, "customer_address"),
+	resource.TestCheckResourceAttrPair(resourceName, "dx_gateway_id", dxGatewayResourceName, "id"),
+	resource.TestCheckResourceAttr(resourceName, "jumbo_frame_capable", "true"),
+	resource.TestCheckResourceAttr(resourceName, "mtu", "1500"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+	resource.TestCheckResourceAttr(resourceName, "vlan", strconv.Itoa(vlan)),
+),
+	},
+	// Test import.
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -229,7 +229,7 @@ func TestAccDirectConnectPrivateVirtualInterface_siteLink(t *testing.T) {
 	key := "DX_CONNECTION_ID"
 	connectionId := os.Getenv(key)
 	if connectionId == "" {
-		t.Skipf("Environment variable %s is not set", key)
+t.Skipf("Environment variable %s is not set", key)
 	}
 
 	var vif directconnect.VirtualInterface
@@ -241,68 +241,68 @@ func TestAccDirectConnectPrivateVirtualInterface_siteLink(t *testing.T) {
 	vlan := sdkacctest.RandIntRange(2049, 4094)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, directconnect.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPrivateVirtualInterfaceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccPrivateVirtualInterfaceConfig_siteLinkBasic(connectionId, rName, amzAsn, bgpAsn, vlan, true),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPrivateVirtualInterfaceExists(ctx, resourceName, &vif),
-					resource.TestCheckResourceAttr(resourceName, "address_family", "ipv4"),
-					resource.TestCheckResourceAttrSet(resourceName, "amazon_address"),
-					resource.TestCheckResourceAttrSet(resourceName, "amazon_side_asn"),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "directconnect", regexache.MustCompile(fmt.Sprintf("dxvif/%s", aws.StringValue(vif.VirtualInterfaceId)))),
-					resource.TestCheckResourceAttrSet(resourceName, "aws_device"),
-					resource.TestCheckResourceAttr(resourceName, "bgp_asn", strconv.Itoa(bgpAsn)),
-					resource.TestCheckResourceAttrSet(resourceName, "bgp_auth_key"),
-					resource.TestCheckResourceAttr(resourceName, "connection_id", connectionId),
-					resource.TestCheckResourceAttrSet(resourceName, "customer_address"),
-					resource.TestCheckResourceAttrPair(resourceName, "dx_gateway_id", dxGatewayResourceName, "id"),
-					resource.TestCheckResourceAttr(resourceName, "jumbo_frame_capable", "true"),
-					resource.TestCheckResourceAttr(resourceName, "mtu", "1500"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-					resource.TestCheckResourceAttr(resourceName, "vlan", strconv.Itoa(vlan)),
-					resource.TestCheckResourceAttr(resourceName, "sitelink_enabled", "true"),
-				),
-			},
-			{
-				Config: testAccPrivateVirtualInterfaceConfig_siteLinkUpdated(connectionId, rName, amzAsn, bgpAsn, vlan, false),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckPrivateVirtualInterfaceExists(ctx, resourceName, &vif),
-					resource.TestCheckResourceAttr(resourceName, "address_family", "ipv4"),
-					resource.TestCheckResourceAttrSet(resourceName, "amazon_address"),
-					resource.TestCheckResourceAttrSet(resourceName, "amazon_side_asn"),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "directconnect", regexache.MustCompile(fmt.Sprintf("dxvif/%s", aws.StringValue(vif.VirtualInterfaceId)))),
-					resource.TestCheckResourceAttrSet(resourceName, "aws_device"),
-					resource.TestCheckResourceAttr(resourceName, "bgp_asn", strconv.Itoa(bgpAsn)),
-					resource.TestCheckResourceAttrSet(resourceName, "bgp_auth_key"),
-					resource.TestCheckResourceAttr(resourceName, "connection_id", connectionId),
-					resource.TestCheckResourceAttrSet(resourceName, "customer_address"),
-					resource.TestCheckResourceAttrPair(resourceName, "dx_gateway_id", dxGatewayResourceName, "id"),
-					resource.TestCheckResourceAttr(resourceName, "jumbo_frame_capable", "true"),
-					resource.TestCheckResourceAttr(resourceName, "mtu", "1500"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-					resource.TestCheckResourceAttr(resourceName, "vlan", strconv.Itoa(vlan)),
-					resource.TestCheckResourceAttr(resourceName, "sitelink_enabled", "false"),
-				),
-			},
-			// Test import.
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, directconnect.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckPrivateVirtualInterfaceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccPrivateVirtualInterfaceConfig_siteLinkBasic(connectionId, rName, amzAsn, bgpAsn, vlan, true),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckPrivateVirtualInterfaceExists(ctx, resourceName, &vif),
+	resource.TestCheckResourceAttr(resourceName, "address_family", "ipv4"),
+	resource.TestCheckResourceAttrSet(resourceName, "amazon_address"),
+	resource.TestCheckResourceAttrSet(resourceName, "amazon_side_asn"),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "directconnect", regexache.MustCompile(fmt.Sprintf("dxvif/%s", aws.StringValue(vif.VirtualInterfaceId)))),
+	resource.TestCheckResourceAttrSet(resourceName, "aws_device"),
+	resource.TestCheckResourceAttr(resourceName, "bgp_asn", strconv.Itoa(bgpAsn)),
+	resource.TestCheckResourceAttrSet(resourceName, "bgp_auth_key"),
+	resource.TestCheckResourceAttr(resourceName, "connection_id", connectionId),
+	resource.TestCheckResourceAttrSet(resourceName, "customer_address"),
+	resource.TestCheckResourceAttrPair(resourceName, "dx_gateway_id", dxGatewayResourceName, "id"),
+	resource.TestCheckResourceAttr(resourceName, "jumbo_frame_capable", "true"),
+	resource.TestCheckResourceAttr(resourceName, "mtu", "1500"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+	resource.TestCheckResourceAttr(resourceName, "vlan", strconv.Itoa(vlan)),
+	resource.TestCheckResourceAttr(resourceName, "sitelink_enabled", "true"),
+),
+	},
+	{
+Config: testAccPrivateVirtualInterfaceConfig_siteLinkUpdated(connectionId, rName, amzAsn, bgpAsn, vlan, false),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckPrivateVirtualInterfaceExists(ctx, resourceName, &vif),
+	resource.TestCheckResourceAttr(resourceName, "address_family", "ipv4"),
+	resource.TestCheckResourceAttrSet(resourceName, "amazon_address"),
+	resource.TestCheckResourceAttrSet(resourceName, "amazon_side_asn"),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "directconnect", regexache.MustCompile(fmt.Sprintf("dxvif/%s", aws.StringValue(vif.VirtualInterfaceId)))),
+	resource.TestCheckResourceAttrSet(resourceName, "aws_device"),
+	resource.TestCheckResourceAttr(resourceName, "bgp_asn", strconv.Itoa(bgpAsn)),
+	resource.TestCheckResourceAttrSet(resourceName, "bgp_auth_key"),
+	resource.TestCheckResourceAttr(resourceName, "connection_id", connectionId),
+	resource.TestCheckResourceAttrSet(resourceName, "customer_address"),
+	resource.TestCheckResourceAttrPair(resourceName, "dx_gateway_id", dxGatewayResourceName, "id"),
+	resource.TestCheckResourceAttr(resourceName, "jumbo_frame_capable", "true"),
+	resource.TestCheckResourceAttr(resourceName, "mtu", "1500"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+	resource.TestCheckResourceAttr(resourceName, "vlan", strconv.Itoa(vlan)),
+	resource.TestCheckResourceAttr(resourceName, "sitelink_enabled", "false"),
+),
+	},
+	// Test import.
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
 func testAccCheckPrivateVirtualInterfaceDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		return testAccCheckVirtualInterfaceDestroy(ctx, s, "aws_dx_private_virtual_interface")
+return testAccCheckVirtualInterfaceDestroy(ctx, s, "aws_dx_private_virtual_interface")
 	}
 }
 

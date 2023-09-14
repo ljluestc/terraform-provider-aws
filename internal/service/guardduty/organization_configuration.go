@@ -174,7 +174,7 @@ func resourceOrganizationConfigurationUpdate(ctx context.Context, d *schema.Reso
 
 	input := &guardduty.UpdateOrganizationConfigurationInput{
 		AutoEnableOrganizationMembers: aws.String(d.Get("auto_enable_organization_members").(string)),
-		DetectorId:     aws.String(detectorID),
+		DetectorId:                    aws.String(detectorID),
 	}
 
 	if v, ok := d.GetOk("datasources"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {

@@ -272,7 +272,7 @@ func createFolderMembershipID(awsAccountID, folderID, memberType, memberID strin
 type resourceFolderMembershipData struct {
 	AWSAccountID types.String `tfsdk:"aws_account_id"`
 	FolderID     types.String `tfsdk:"folder_id"`
-	ID           types.String `tfsdk:"id"`
+	ID  types.String `tfsdk:"id"`
 	MemberID     types.String `tfsdk:"member_id"`
 	MemberType   types.String `tfsdk:"member_type"`
 }

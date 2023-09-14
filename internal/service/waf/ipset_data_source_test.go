@@ -21,22 +21,22 @@ func TestAccWAFIPSetDataSource_basic(t *testing.T) {
 	datasourceName := "data.aws_waf_ipset.ipset"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, waf.EndpointsID) },
-		ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config:      testAccIPSetDataSourceConfig_nonExistent,
-				ExpectError: regexache.MustCompile(`WAF IP Set not found`),
-			},
-			{
-				Config: testAccIPSetDataSourceConfig_name(name),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, waf.EndpointsID) },
+ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config:      testAccIPSetDataSourceConfig_nonExistent,
+ExpectError: regexache.MustCompile(`WAF IP Set not found`),
+	},
+	{
+Config: testAccIPSetDataSourceConfig_name(name),
+Check: resource.ComposeTestCheckFunc(
+	resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
+),
+	},
+},
 	})
 }
 

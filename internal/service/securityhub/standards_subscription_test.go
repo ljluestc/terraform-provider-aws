@@ -24,23 +24,23 @@ func testAccStandardsSubscription_basic(t *testing.T) {
 	resourceName := "aws_securityhub_standards_subscription.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, securityhub.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckStandardsSubscriptionDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccStandardsSubscriptionConfig_basic,
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckStandardsSubscriptionExists(ctx, resourceName, &standardsSubscription),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, securityhub.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckStandardsSubscriptionDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccStandardsSubscriptionConfig_basic,
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckStandardsSubscriptionExists(ctx, resourceName, &standardsSubscription),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -50,76 +50,76 @@ func testAccStandardsSubscription_disappears(t *testing.T) {
 	resourceName := "aws_securityhub_standards_subscription.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, securityhub.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckStandardsSubscriptionDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccStandardsSubscriptionConfig_basic,
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckStandardsSubscriptionExists(ctx, resourceName, &standardsSubscription),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfsecurityhub.ResourceStandardsSubscription(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, securityhub.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckStandardsSubscriptionDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccStandardsSubscriptionConfig_basic,
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckStandardsSubscriptionExists(ctx, resourceName, &standardsSubscription),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfsecurityhub.ResourceStandardsSubscription(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
 func testAccCheckStandardsSubscriptionExists(ctx context.Context, n string, standardsSubscription *securityhub.StandardsSubscription) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No Security Hub Standards Subscription ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No Security Hub Standards Subscription ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).SecurityHubConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).SecurityHubConn(ctx)
 
-		output, err := tfsecurityhub.FindStandardsSubscriptionByARN(ctx, conn, rs.Primary.ID)
+output, err := tfsecurityhub.FindStandardsSubscriptionByARN(ctx, conn, rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*standardsSubscription = *output
+*standardsSubscription = *output
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckStandardsSubscriptionDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).SecurityHubConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).SecurityHubConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_securityhub_standards_subscription" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_securityhub_standards_subscription" {
+continue
+	}
 
-			output, err := tfsecurityhub.FindStandardsSubscriptionByARN(ctx, conn, rs.Primary.ID)
+	output, err := tfsecurityhub.FindStandardsSubscriptionByARN(ctx, conn, rs.Primary.ID)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			// INCOMPLETE subscription status => deleted.
-			if aws.StringValue(output.StandardsStatus) == securityhub.StandardsStatusIncomplete {
-				continue
-			}
+	// INCOMPLETE subscription status => deleted.
+	if aws.StringValue(output.StandardsStatus) == securityhub.StandardsStatusIncomplete {
+continue
+	}
 
-			return fmt.Errorf("Security Hub Standards Subscription %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("Security Hub Standards Subscription %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 

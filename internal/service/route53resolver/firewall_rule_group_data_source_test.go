@@ -20,29 +20,29 @@ func TestAccRoute53ResolverFirewallRuleGroupDataSource_basic(t *testing.T) {
 	resourceName := "aws_route53_resolver_firewall_rule_group.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFirewallRuleGroupDataSourceConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccFirewallRuleGroupDataSourceConfig_basic(rName),
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "creation_time"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "creator_request_id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "firewall_rule_group_id", resourceName, "id"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "modification_time"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "name", resourceName, "name"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "owner_id", resourceName, "owner_id"),
-					resource.TestCheckResourceAttr(dataSourceName, "rule_count", "0"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "share_status", resourceName, "share_status"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "status"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "status_message"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "creation_time"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "creator_request_id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "firewall_rule_group_id", resourceName, "id"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "modification_time"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "name", resourceName, "name"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "owner_id", resourceName, "owner_id"),
+	resource.TestCheckResourceAttr(dataSourceName, "rule_count", "0"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "share_status", resourceName, "share_status"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "status"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "status_message"),
+),
+	},
+},
 	})
 }
 

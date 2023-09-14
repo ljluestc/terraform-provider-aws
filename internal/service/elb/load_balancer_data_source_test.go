@@ -21,31 +21,31 @@ func TestAccELBLoadBalancerDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_elb.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLoadBalancerDataSourceConfig_basic(rName, t.Name()),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccLoadBalancerDataSourceConfig_basic(rName, t.Name()),
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttr(dataSourceName, "name", rName),
-					resource.TestCheckResourceAttr(dataSourceName, "cross_zone_load_balancing", "true"),
-					resource.TestCheckResourceAttr(dataSourceName, "idle_timeout", "30"),
-					resource.TestCheckResourceAttr(dataSourceName, "internal", "true"),
-					resource.TestCheckResourceAttr(dataSourceName, "subnets.#", "2"),
-					resource.TestCheckResourceAttr(dataSourceName, "security_groups.#", "1"),
-					resource.TestCheckResourceAttr(dataSourceName, "desync_mitigation_mode", "defensive"),
-					resource.TestCheckResourceAttr(dataSourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(dataSourceName, "tags.Name", rName),
-					resource.TestCheckResourceAttr(dataSourceName, "tags.TestName", t.Name()),
-					resource.TestCheckResourceAttrSet(dataSourceName, "dns_name"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "zone_id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "arn", "aws_elb.test", "arn"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttr(dataSourceName, "name", rName),
+	resource.TestCheckResourceAttr(dataSourceName, "cross_zone_load_balancing", "true"),
+	resource.TestCheckResourceAttr(dataSourceName, "idle_timeout", "30"),
+	resource.TestCheckResourceAttr(dataSourceName, "internal", "true"),
+	resource.TestCheckResourceAttr(dataSourceName, "subnets.#", "2"),
+	resource.TestCheckResourceAttr(dataSourceName, "security_groups.#", "1"),
+	resource.TestCheckResourceAttr(dataSourceName, "desync_mitigation_mode", "defensive"),
+	resource.TestCheckResourceAttr(dataSourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(dataSourceName, "tags.Name", rName),
+	resource.TestCheckResourceAttr(dataSourceName, "tags.TestName", t.Name()),
+	resource.TestCheckResourceAttrSet(dataSourceName, "dns_name"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "zone_id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "arn", "aws_elb.test", "arn"),
+),
+	},
+},
 	})
 }
 
@@ -53,17 +53,17 @@ func(
 func testAccLoadBalancerDataSourceConfig_basic(rName, testName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_elb" "test" {
-  name            = %[1]q
+  name   = %[1]q
   internal        = true
   security_groups = [aws_security_group.test.id]
-  subnets         = aws_subnet.test[*].id
+  subnets= aws_subnet.test[*].id
 
   idle_timeout = 30
 
   listener {
     instance_port     = 80
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 
@@ -86,7 +86,7 @@ resource "aws_subnet" "test" {
 
   availability_zone = data.aws_availability_zones.available.names[count.index]
   cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 8, count.index)
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
 
   map_public_ip_on_launch = true
 

@@ -34,7 +34,7 @@ func DataSourceTransitGatewayRouteTableAssociations() *schema.Resource {
 				Elem:     &schema.Schema{Type: schema.TypeString},
 			},
 			"transit_gateway_route_table_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				Validate
 func: validation.NoZeroValues,

@@ -21,19 +21,19 @@ func TestAccAPIGatewayV2APIsDataSource_name(t *testing.T) {
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAPIsDataSourceConfig_name(rName1, rName2),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr(dataSource1Name, "ids.#", "1"),
-					resource.TestCheckResourceAttr(dataSource2Name, "ids.#", "2"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             nil,
+Steps: []resource.TestStep{
+	{
+Config: testAccAPIsDataSourceConfig_name(rName1, rName2),
+Check: resource.ComposeTestCheckFunc(
+	resource.TestCheckResourceAttr(dataSource1Name, "ids.#", "1"),
+	resource.TestCheckResourceAttr(dataSource2Name, "ids.#", "2"),
+),
+	},
+},
 	})
 }
 
@@ -45,19 +45,19 @@ func TestAccAPIGatewayV2APIsDataSource_protocolType(t *testing.T) {
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAPIsDataSourceConfig_protocolType(rName1, rName2),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr(dataSource1Name, "ids.#", "1"),
-					resource.TestCheckResourceAttr(dataSource2Name, "ids.#", "1"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             nil,
+Steps: []resource.TestStep{
+	{
+Config: testAccAPIsDataSourceConfig_protocolType(rName1, rName2),
+Check: resource.ComposeTestCheckFunc(
+	resource.TestCheckResourceAttr(dataSource1Name, "ids.#", "1"),
+	resource.TestCheckResourceAttr(dataSource2Name, "ids.#", "1"),
+),
+	},
+},
 	})
 }
 
@@ -70,20 +70,20 @@ func TestAccAPIGatewayV2APIsDataSource_tags(t *testing.T) {
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAPIsDataSourceConfig_tags(rName1, rName2),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr(dataSource1Name, "ids.#", "1"),
-					resource.TestCheckResourceAttr(dataSource2Name, "ids.#", "2"),
-					resource.TestCheckResourceAttr(dataSource3Name, "ids.#", "0"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             nil,
+Steps: []resource.TestStep{
+	{
+Config: testAccAPIsDataSourceConfig_tags(rName1, rName2),
+Check: resource.ComposeTestCheckFunc(
+	resource.TestCheckResourceAttr(dataSource1Name, "ids.#", "1"),
+	resource.TestCheckResourceAttr(dataSource2Name, "ids.#", "2"),
+	resource.TestCheckResourceAttr(dataSource3Name, "ids.#", "0"),
+),
+	},
+},
 	})
 }
 
@@ -121,8 +121,8 @@ resource "aws_apigatewayv2_api" "test3" {
 
 func testAccAPIsDataSourceConfig_name(rName1, rName2 string) string {
 	return acctest.ConfigCompose(
-		testAccAPIsBaseDataSourceConfig(rName1, rName2),
-		`
+testAccAPIsBaseDataSourceConfig(rName1, rName2),
+`
 data "aws_apigatewayv2_apis" "test1" {
   # Force dependency on resources.
   name = element([aws_apigatewayv2_api.test1.name, aws_apigatewayv2_api.test2.name, aws_apigatewayv2_api.test3.name], 0)
@@ -137,8 +137,8 @@ data "aws_apigatewayv2_apis" "test2" {
 
 func testAccAPIsDataSourceConfig_protocolType(rName1, rName2 string) string {
 	return acctest.ConfigCompose(
-		testAccAPIsBaseDataSourceConfig(rName1, rName2),
-		fmt.Sprintf(`
+testAccAPIsBaseDataSourceConfig(rName1, rName2),
+fmt.Sprintf(`
 data "aws_apigatewayv2_apis" "test1" {
   name = %[1]q
 
@@ -155,8 +155,8 @@ data "aws_apigatewayv2_apis" "test2" {
 
 func testAccAPIsDataSourceConfig_tags(rName1, rName2 string) string {
 	return acctest.ConfigCompose(
-		testAccAPIsBaseDataSourceConfig(rName1, rName2),
-		`
+testAccAPIsBaseDataSourceConfig(rName1, rName2),
+`
 data "aws_apigatewayv2_apis" "test1" {
   # Force dependency on resources.
   tags = {

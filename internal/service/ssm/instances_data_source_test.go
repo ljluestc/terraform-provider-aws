@@ -23,38 +23,38 @@ func TestAccSSMInstancesDataSource_filter(t *testing.T) {
 	resourceName := "aws_instance.test"
 
 	registrationSleep := func() resource.TestCheckFunc {
-		return func(s *terraform.State) error {
-			log.Print("[DEBUG] Test: Sleep to allow SSM Agent to register EC2 instance as a managed node.")
-			time.Sleep(1 * time.Minute)
-			return nil
-		}
+return func(s *terraform.State) error {
+	log.Print("[DEBUG] Test: Sleep to allow SSM Agent to register EC2 instance as a managed node.")
+	time.Sleep(1 * time.Minute)
+	return nil
+}
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccInstancesDataSourceConfig_filterInstance(rName),
-			},
-			{
-				Config: testAccInstancesDataSourceConfig_filter(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					registrationSleep(),
-					resource.TestCheckResourceAttr(dataSourceName, "ids.#", "1"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "ids.0", resourceName, "id"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccInstancesDataSourceConfig_filterInstance(rName),
+	},
+	{
+Config: testAccInstancesDataSourceConfig_filter(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	registrationSleep(),
+	resource.TestCheckResourceAttr(dataSourceName, "ids.#", "1"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "ids.0", resourceName, "id"),
+),
+	},
+},
 	})
 }
 
 func testAccInstancesDataSourceConfig_filterInstance(rName string) string {
 	return acctest.ConfigCompose(
-		acctest.ConfigAvailableAZsNoOptInDefaultExclude(),
-		acctest.AvailableEC2InstanceTypeForRegion("t2.micro", "t3.micro"),
-		fmt.Sprintf(`
+acctest.ConfigAvailableAZsNoOptInDefaultExclude(),
+acctest.AvailableEC2InstanceTypeForRegion("t2.micro", "t3.micro"),
+fmt.Sprintf(`
 data "aws_partition" "current" {}
 
 data "aws_iam_policy" "test" {
@@ -165,8 +165,8 @@ resource "aws_instance" "test" {
 
 func testAccInstancesDataSourceConfig_filter(rName string) string {
 	return acctest.ConfigCompose(
-		testAccInstancesDataSourceConfig_filterInstance(rName),
-		`
+testAccInstancesDataSourceConfig_filterInstance(rName),
+`
 data "aws_ssm_instances" "test" {
   filter {
     name   = "InstanceIds"

@@ -17,22 +17,22 @@ func TestAccGuardDutyFindingIdsDataSource_basic(t *testing.T) {
 	detectorDataSourceName := "data.aws_guardduty_detector.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			testAccPreCheckDetectorExists(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, guardduty.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFindingIdsDataSourceConfig_basic(),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrPair(dataSourceName, "detector_id", detectorDataSourceName, "id"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "has_findings"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "finding_ids.#"),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	testAccPreCheckDetectorExists(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, guardduty.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccFindingIdsDataSourceConfig_basic(),
+Check: resource.ComposeTestCheckFunc(
+	resource.TestCheckResourceAttrPair(dataSourceName, "detector_id", detectorDataSourceName, "id"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "has_findings"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "finding_ids.#"),
+),
+	},
+},
 	})
 }
 

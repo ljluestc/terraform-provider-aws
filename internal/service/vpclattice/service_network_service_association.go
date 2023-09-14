@@ -30,71 +30,71 @@ import (
 // @Tags(identifierAttribute="arn")
 func resourceServiceNetworkServiceAssociation() *schema.Resource {
 	return &schema.Resource{
-		CreateWithoutTimeout: resourceServiceNetworkServiceAssociationCreate,
-		ReadWithoutTimeout:   resourceServiceNetworkServiceAssociationRead,
-		UpdateWithoutTimeout: resourceServiceNetworkServiceAssociationUpdate,
-		DeleteWithoutTimeout: resourceServiceNetworkServiceAssociationDelete,
+CreateWithoutTimeout: resourceServiceNetworkServiceAssociationCreate,
+ReadWithoutTimeout:   resourceServiceNetworkServiceAssociationRead,
+UpdateWithoutTimeout: resourceServiceNetworkServiceAssociationUpdate,
+DeleteWithoutTimeout: resourceServiceNetworkServiceAssociationDelete,
 
-		Importer: &schema.ResourceImporter{
-			StateContext: schema.ImportStatePassthroughContext,
-		},
+Importer: &schema.ResourceImporter{
+	StateContext: schema.ImportStatePassthroughContext,
+},
 
-		Timeouts: &schema.ResourceTimeout{
-			Create: schema.DefaultTimeout(5 * time.Minute),
-			Update: schema.DefaultTimeout(5 * time.Minute),
-			Delete: schema.DefaultTimeout(5 * time.Minute),
-		},
+Timeouts: &schema.ResourceTimeout{
+	Create: schema.DefaultTimeout(5 * time.Minute),
+	Update: schema.DefaultTimeout(5 * time.Minute),
+	Delete: schema.DefaultTimeout(5 * time.Minute),
+},
 
-		Schema: map[string]*schema.Schema{
-			"arn": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"created_by": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"custom_domain_name": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"dns_entry": {
-				Type:     schema.TypeList,
-				Computed: true,
-				Elem: &schema.Resource{
-					Schema: map[string]*schema.Schema{
-						"domain_name": {
-							Type:     schema.TypeString,
-							Computed: true,
-						},
-						"hosted_zone_id": {
-							Type:     schema.TypeString,
-							Computed: true,
-						},
-					},
-				},
-			},
-			"service_identifier": {
-				Type:             schema.TypeString,
-				Required:         true,
-				ForceNew:         true,
-				DiffSuppressFunc: suppressEquivalentIDOrARN,
-			},
-			"service_network_identifier": {
-				Type:             schema.TypeString,
-				Required:         true,
-				ForceNew:         true,
-				DiffSuppressFunc: suppressEquivalentIDOrARN,
-			},
-			"status": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			names.AttrTags:    tftags.TagsSchema(),
-			names.AttrTagsAll: tftags.TagsSchemaComputed(),
-		},
+Schema: map[string]*schema.Schema{
+	"arn": {
+Type:     schema.TypeString,
+Computed: true,
+	},
+	"created_by": {
+Type:     schema.TypeString,
+Computed: true,
+	},
+	"custom_domain_name": {
+Type:     schema.TypeString,
+Computed: true,
+	},
+	"dns_entry": {
+Type:     schema.TypeList,
+Computed: true,
+Elem: &schema.Resource{
+	Schema: map[string]*schema.Schema{
+"domain_name": {
+	Type:     schema.TypeString,
+	Computed: true,
+},
+"hosted_zone_id": {
+	Type:     schema.TypeString,
+	Computed: true,
+},
+	},
+},
+	},
+	"service_identifier": {
+Type:             schema.TypeString,
+Required:         true,
+ForceNew:         true,
+DiffSuppressFunc: suppressEquivalentIDOrARN,
+	},
+	"service_network_identifier": {
+Type:             schema.TypeString,
+Required:         true,
+ForceNew:         true,
+DiffSuppressFunc: suppressEquivalentIDOrARN,
+	},
+	"status": {
+Type:     schema.TypeString,
+Computed: true,
+	},
+	names.AttrTags:    tftags.TagsSchema(),
+	names.AttrTagsAll: tftags.TagsSchemaComputed(),
+},
 
-		CustomizeDiff: verify.SetTagsDiff,
+CustomizeDiff: verify.SetTagsDiff,
 	}
 }
 
@@ -106,25 +106,25 @@ func resourceServiceNetworkServiceAssociationCreate(ctx context.Context, d *sche
 	conn := meta.(*conns.AWSClient).VPCLatticeClient(ctx)
 
 	in := &vpclattice.CreateServiceNetworkServiceAssociationInput{
-		ClientToken:              aws.String(id.UniqueId()),
-		ServiceIdentifier:        aws.String(d.Get("service_identifier").(string)),
-		ServiceNetworkIdentifier: aws.String(d.Get("service_network_identifier").(string)),
-		Tags:      getTagsIn(ctx),
+ClientToken:              aws.String(id.UniqueId()),
+ServiceIdentifier:        aws.String(d.Get("service_identifier").(string)),
+ServiceNetworkIdentifier: aws.String(d.Get("service_network_identifier").(string)),
+Tags:      getTagsIn(ctx),
 	}
 
 	out, err := conn.CreateServiceNetworkServiceAssociation(ctx, in)
 	if err != nil {
-		return create.DiagError(names.VPCLattice, create.ErrActionCreating, ResNameServiceNetworkAssociation, "", err)
+return create.DiagError(names.VPCLattice, create.ErrActionCreating, ResNameServiceNetworkAssociation, "", err)
 	}
 
 	if out == nil {
-		return create.DiagError(names.VPCLattice, create.ErrActionCreating, ResNameServiceNetworkAssociation, "", errors.New("empty output"))
+return create.DiagError(names.VPCLattice, create.ErrActionCreating, ResNameServiceNetworkAssociation, "", errors.New("empty output"))
 	}
 
 	d.SetId(aws.ToString(out.Id))
 
 	if _, err := waitServiceNetworkServiceAssociationCreated(ctx, conn, d.Id(), d.Timeout(schema.TimeoutCreate)); err != nil {
-		return create.DiagError(names.VPCLattice, create.ErrActionWaitingForCreation, ResNameServiceNetworkAssociation, d.Id(), err)
+return create.DiagError(names.VPCLattice, create.ErrActionWaitingForCreation, ResNameServiceNetworkAssociation, d.Id(), err)
 	}
 
 	return resourceServiceNetworkServiceAssociationRead(ctx, d, meta)
@@ -136,24 +136,24 @@ func resourceServiceNetworkServiceAssociationRead(ctx context.Context, d *schema
 	out, err := findServiceNetworkServiceAssociationByID(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
-		log.Printf("[WARN] VPCLattice Service Network Association (%s) not found, removing from state", d.Id())
-		d.SetId("")
-		return nil
+log.Printf("[WARN] VPCLattice Service Network Association (%s) not found, removing from state", d.Id())
+d.SetId("")
+return nil
 	}
 
 	if err != nil {
-		return create.DiagError(names.VPCLattice, create.ErrActionReading, ResNameServiceNetworkAssociation, d.Id(), err)
+return create.DiagError(names.VPCLattice, create.ErrActionReading, ResNameServiceNetworkAssociation, d.Id(), err)
 	}
 
 	d.Set("arn", out.Arn)
 	d.Set("created_by", out.CreatedBy)
 	d.Set("custom_domain_name", out.CustomDomainName)
 	if out.DnsEntry != nil {
-		if err := d.Set("dns_entry", []interface{}{flattenDNSEntry(out.DnsEntry)}); err != nil {
-			return diag.Errorf("setting dns_entry: %s", err)
-		}
+if err := d.Set("dns_entry", []interface{}{flattenDNSEntry(out.DnsEntry)}); err != nil {
+	return diag.Errorf("setting dns_entry: %s", err)
+}
 	} else {
-		d.Set("dns_entry", nil)
+d.Set("dns_entry", nil)
 	}
 	d.Set("service_identifier", out.ServiceId)
 	d.Set("service_network_identifier", out.ServiceNetworkId)
@@ -173,19 +173,19 @@ func resourceServiceNetworkServiceAssociationDelete(ctx context.Context, d *sche
 	log.Printf("[INFO] Deleting VPCLattice Service Network Association %s", d.Id())
 
 	_, err := conn.DeleteServiceNetworkServiceAssociation(ctx, &vpclattice.DeleteServiceNetworkServiceAssociationInput{
-		ServiceNetworkServiceAssociationIdentifier: aws.String(d.Id()),
+ServiceNetworkServiceAssociationIdentifier: aws.String(d.Id()),
 	})
 
 	if errs.IsA[*types.ResourceNotFoundException](err) {
-		return nil
+return nil
 	}
 
 	if err != nil {
-		return create.DiagError(names.VPCLattice, create.ErrActionDeleting, ResNameServiceNetworkAssociation, d.Id(), err)
+return create.DiagError(names.VPCLattice, create.ErrActionDeleting, ResNameServiceNetworkAssociation, d.Id(), err)
 	}
 
 	if _, err := waitServiceNetworkServiceAssociationDeleted(ctx, conn, d.Id(), d.Timeout(schema.TimeoutDelete)); err != nil {
-		return create.DiagError(names.VPCLattice, create.ErrActionWaitingForDeletion, ResNameServiceNetworkAssociation, d.Id(), err)
+return create.DiagError(names.VPCLattice, create.ErrActionWaitingForDeletion, ResNameServiceNetworkAssociation, d.Id(), err)
 	}
 
 	return nil
@@ -193,23 +193,23 @@ func resourceServiceNetworkServiceAssociationDelete(ctx context.Context, d *sche
 
 func findServiceNetworkServiceAssociationByID(ctx context.Context, conn *vpclattice.Client, id string) (*vpclattice.GetServiceNetworkServiceAssociationOutput, error) {
 	in := &vpclattice.GetServiceNetworkServiceAssociationInput{
-		ServiceNetworkServiceAssociationIdentifier: aws.String(id),
+ServiceNetworkServiceAssociationIdentifier: aws.String(id),
 	}
 	out, err := conn.GetServiceNetworkServiceAssociation(ctx, in)
 
 	if errs.IsA[*types.ResourceNotFoundException](err) {
-		return nil, &retry.NotFoundError{
-			LastError:   err,
-			LastRequest: in,
-		}
+return nil, &retry.NotFoundError{
+	LastError:   err,
+	LastRequest: in,
+}
 	}
 
 	if err != nil {
-		return nil, err
+return nil, err
 	}
 
 	if out == nil {
-		return nil, tfresource.NewEmptyResultError(in)
+return nil, tfresource.NewEmptyResultError(in)
 	}
 
 	return out, nil
@@ -217,17 +217,17 @@ func findServiceNetworkServiceAssociationByID(ctx context.Context, conn *vpclatt
 
 func waitServiceNetworkServiceAssociationCreated(ctx context.Context, conn *vpclattice.Client, id string, timeout time.Duration) (*vpclattice.GetServiceNetworkServiceAssociationOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    enum.Slice(types.ServiceNetworkVpcAssociationStatusCreateInProgress),
-		Target:     enum.Slice(types.ServiceNetworkVpcAssociationStatusActive),
-		Refresh:    statusServiceNetworkServiceAssociation(ctx, conn, id),
-		Timeout:    timeout,
-		NotFoundChecks:            20,
-		ContinuousTargetOccurence: 2,
+Pending:    enum.Slice(types.ServiceNetworkVpcAssociationStatusCreateInProgress),
+Target:     enum.Slice(types.ServiceNetworkVpcAssociationStatusActive),
+Refresh:    statusServiceNetworkServiceAssociation(ctx, conn, id),
+Timeout:    timeout,
+NotFoundChecks:            20,
+ContinuousTargetOccurence: 2,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
 	if out, ok := outputRaw.(*vpclattice.GetServiceNetworkServiceAssociationOutput); ok {
-		return out, err
+return out, err
 	}
 
 	return nil, err
@@ -235,15 +235,15 @@ func waitServiceNetworkServiceAssociationCreated(ctx context.Context, conn *vpcl
 
 func waitServiceNetworkServiceAssociationDeleted(ctx context.Context, conn *vpclattice.Client, id string, timeout time.Duration) (*vpclattice.GetServiceNetworkServiceAssociationOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending: enum.Slice(types.ServiceNetworkVpcAssociationStatusDeleteInProgress, types.ServiceNetworkVpcAssociationStatusActive),
-		Target:  []string{},
-		Refresh: statusServiceNetworkServiceAssociation(ctx, conn, id),
-		Timeout: timeout,
+Pending: enum.Slice(types.ServiceNetworkVpcAssociationStatusDeleteInProgress, types.ServiceNetworkVpcAssociationStatusActive),
+Target:  []string{},
+Refresh: statusServiceNetworkServiceAssociation(ctx, conn, id),
+Timeout: timeout,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
 	if out, ok := outputRaw.(*vpclattice.GetServiceNetworkServiceAssociationOutput); ok {
-		return out, err
+return out, err
 	}
 
 	return nil, err
@@ -251,15 +251,15 @@ func waitServiceNetworkServiceAssociationDeleted(ctx context.Context, conn *vpcl
 
 func statusServiceNetworkServiceAssociation(ctx context.Context, conn *vpclattice.Client, id string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
-		out, err := findServiceNetworkServiceAssociationByID(ctx, conn, id)
-		if tfresource.NotFound(err) {
-			return nil, "", nil
-		}
+out, err := findServiceNetworkServiceAssociationByID(ctx, conn, id)
+if tfresource.NotFound(err) {
+	return nil, "", nil
+}
 
-		if err != nil {
-			return nil, "", err
-		}
+if err != nil {
+	return nil, "", err
+}
 
-		return out, string(out.Status), nil
+return out, string(out.Status), nil
 	}
 }

@@ -15,14 +15,14 @@ func TestVPCMigrateState(t *testing.T) {
 
 	cases := map[string]struct {
 		StateVersion int
-		ID           string
+		ID  string
 		Attributes   map[string]string
 		Expected     string
-		Meta         interface{}
+		Metainterface{}
 	}{
 		"v0_1": {
 			StateVersion: 0,
-			ID:           "some_id",
+			ID:  "some_id",
 			Attributes: map[string]string{
 				"assign_generated_ipv6_cidr_block": "true",
 			},
@@ -30,7 +30,7 @@ func TestVPCMigrateState(t *testing.T) {
 		},
 		"v0_1_without_value": {
 			StateVersion: 0,
-			ID:           "some_id",
+			ID:  "some_id",
 			Attributes:   map[string]string{},
 			Expected:     "false",
 		},
@@ -38,7 +38,7 @@ func TestVPCMigrateState(t *testing.T) {
 
 	for tn, tc := range cases {
 		is := &terraform.InstanceState{
-			ID:         tc.ID,
+			ID:tc.ID,
 			Attributes: tc.Attributes,
 		}
 		is, err := tfec2.VPCMigrateState(

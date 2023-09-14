@@ -16,23 +16,23 @@ import (
 
 func findContactByID(ctx context.Context, conn *ssmcontacts.Client, id string) (*ssmcontacts.GetContactOutput, error) {
 	in := &ssmcontacts.GetContactInput{
-		ContactId: aws.String(id),
+ContactId: aws.String(id),
 	}
 	out, err := conn.GetContact(ctx, in)
 	if err != nil {
-		var nfe *types.ResourceNotFoundException
-		if errors.As(err, &nfe) {
-			return nil, &retry.NotFoundError{
-				LastError:   err,
-				LastRequest: in,
-			}
-		}
+var nfe *types.ResourceNotFoundException
+if errors.As(err, &nfe) {
+	return nil, &retry.NotFoundError{
+LastError:   err,
+LastRequest: in,
+	}
+}
 
-		return nil, err
+return nil, err
 	}
 
 	if out == nil {
-		return nil, tfresource.NewEmptyResultError(in)
+return nil, tfresource.NewEmptyResultError(in)
 	}
 
 	return out, nil
@@ -40,23 +40,23 @@ func findContactByID(ctx context.Context, conn *ssmcontacts.Client, id string) (
 
 func findContactChannelByID(ctx context.Context, conn *ssmcontacts.Client, id string) (*ssmcontacts.GetContactChannelOutput, error) {
 	in := &ssmcontacts.GetContactChannelInput{
-		ContactChannelId: aws.String(id),
+ContactChannelId: aws.String(id),
 	}
 	out, err := conn.GetContactChannel(ctx, in)
 	if err != nil {
-		var nfe *types.ResourceNotFoundException
-		if errors.As(err, &nfe) {
-			return nil, &retry.NotFoundError{
-				LastError:   err,
-				LastRequest: in,
-			}
-		}
+var nfe *types.ResourceNotFoundException
+if errors.As(err, &nfe) {
+	return nil, &retry.NotFoundError{
+LastError:   err,
+LastRequest: in,
+	}
+}
 
-		return nil, err
+return nil, err
 	}
 
 	if out == nil {
-		return nil, tfresource.NewEmptyResultError(in)
+return nil, tfresource.NewEmptyResultError(in)
 	}
 
 	return out, nil

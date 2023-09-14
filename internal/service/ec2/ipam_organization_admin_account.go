@@ -36,7 +36,7 @@ func ResourceIPAMOrganizationAdminAccount() *schema.Resource {
 				Computed: true,
 			},
 			"delegated_admin_account_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate

@@ -35,8 +35,8 @@ func TestAccDynamoDBTableItem_basic(t *testing.T) {
 }`
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTableItemDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -71,8 +71,8 @@ func TestAccDynamoDBTableItem_rangeKey(t *testing.T) {
 }`
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTableItemDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -116,8 +116,8 @@ func TestAccDynamoDBTableItem_withMultipleItems(t *testing.T) {
 }`
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTableItemDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -157,8 +157,8 @@ func TestAccDynamoDBTableItem_withDuplicateItemsSameRangeKey(t *testing.T) {
 }`
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTableItemDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -194,8 +194,8 @@ func TestAccDynamoDBTableItem_withDuplicateItemsDifferentRangeKey(t *testing.T) 
 }`
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTableItemDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -238,8 +238,8 @@ func TestAccDynamoDBTableItem_wonkyItems(t *testing.T) {
 }`
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTableItemDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -281,8 +281,8 @@ func TestAccDynamoDBTableItem_update(t *testing.T) {
 }`
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTableItemDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -330,8 +330,8 @@ func TestAccDynamoDBTableItem_updateWithRangeKey(t *testing.T) {
 }`
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTableItemDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -377,8 +377,8 @@ func TestAccDynamoDBTableItem_disappears(t *testing.T) {
 }`
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTableItemDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -404,14 +404,14 @@ func TestAccDynamoDBTableItem_mapOutOfBandUpdate(t *testing.T) {
 	tmpl := `{
 	"key": {"S": "something"},
 	"value": {
-		"M": {
-			"valid_after": {
-				"N": %[1]q
-			}
-		}
+"M": {
+	"valid_after": {
+"N": %[1]q
+	}
+}
 	},
 	"other": {
-		"N": %[1]q
+"N": %[1]q
 	}
 }`
 
@@ -422,8 +422,8 @@ func TestAccDynamoDBTableItem_mapOutOfBandUpdate(t *testing.T) {
 	newItem := fmt.Sprintf(tmpl, newValue)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTableItemDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -562,7 +562,7 @@ func testAccCheckTableItemCount(ctx context.Context, tableName string, count int
 func testAccTableItemConfig_basic(tableName, hashKey, item string) string {
 	return fmt.Sprintf(`
 resource "aws_dynamodb_table" "test" {
-  name           = "%s"
+  name  = "%s"
   read_capacity  = 10
   write_capacity = 10
   hash_key       = "%s"
@@ -587,7 +587,7 @@ ITEM
 func testAccTableItemConfig_rangeKey(tableName, hashKey, rangeKey, item string) string {
 	return fmt.Sprintf(`
 resource "aws_dynamodb_table" "test" {
-  name           = "%s"
+  name  = "%s"
   read_capacity  = 10
   write_capacity = 10
   hash_key       = "%s"
@@ -619,7 +619,7 @@ ITEM
 func testAccTableItemConfig_multiple(tableName, hashKey, rangeKey, firstItem, secondItem string) string {
 	return fmt.Sprintf(`
 resource "aws_dynamodb_table" "test" {
-  name           = "%s"
+  name  = "%s"
   read_capacity  = 10
   write_capacity = 10
   hash_key       = "%s"
@@ -661,7 +661,7 @@ ITEM
 func testAccTableItemConfig_wonky(tableName, hashKey, rangeKey, item string) string {
 	return fmt.Sprintf(`
 resource "aws_dynamodb_table" "test" {
-  name           = %[1]q
+  name  = %[1]q
   read_capacity  = 10
   write_capacity = 10
   hash_key       = %[2]q
@@ -693,7 +693,7 @@ ITEM
 func testAccTableItemConfig_map(tableName, hashKey, content string) string {
 	return fmt.Sprintf(`
 resource "aws_dynamodb_table" "test" {
-  name           = %[1]q
+  name  = %[1]q
   read_capacity  = 10
   write_capacity = 10
   hash_key       = %[2]q

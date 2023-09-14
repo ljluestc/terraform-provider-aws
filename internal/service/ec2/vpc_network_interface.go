@@ -74,7 +74,7 @@ func ResourceNetworkInterface() *schema.Resource {
 				Optional: true,
 			},
 			"interface_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
@@ -86,29 +86,29 @@ func: validation.StringInSlice(ec2.NetworkInterfaceCreationType_Values(), false)
 				Optional: true,
 				Computed: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Validate
 func: verify.ValidIPv4CIDRNetworkAddress,
 				},
 				ConflictsWith: []string{"ipv4_prefix_count"},
 			},
 			"ipv4_prefix_count": {
-				Type:          schema.TypeInt,
+				Type: schema.TypeInt,
 				Optional:      true,
 				Computed:      true,
 				ConflictsWith: []string{"ipv4_prefixes"},
 			},
 			"ipv6_address_count": {
-				Type:          schema.TypeInt,
+				Type: schema.TypeInt,
 				Optional:      true,
 				Computed:      true,
 				ConflictsWith: []string{"ipv6_addresses", "ipv6_address_list"},
 			},
 			"ipv6_address_list": {
-				Type:          schema.TypeList,
+				Type: schema.TypeList,
 				Optional:      true,
 				Computed:      true,
-				Elem:          &schema.Schema{Type: schema.TypeString},
+				Elem: &schema.Schema{Type: schema.TypeString},
 				ConflictsWith: []string{"ipv6_addresses", "ipv6_address_count"},
 			},
 			"ipv6_address_list_enabled": {
@@ -121,7 +121,7 @@ func: verify.ValidIPv4CIDRNetworkAddress,
 				Optional: true,
 				Computed: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Validate
 func: validation.IsIPv6Address,
 				},
@@ -132,14 +132,14 @@ func: validation.IsIPv6Address,
 				Optional: true,
 				Computed: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Validate
 func: verify.ValidIPv6CIDRNetworkAddress,
 				},
 				ConflictsWith: []string{"ipv6_prefix_count"},
 			},
 			"ipv6_prefix_count": {
-				Type:          schema.TypeInt,
+				Type: schema.TypeInt,
 				Optional:      true,
 				Computed:      true,
 				ConflictsWith: []string{"ipv6_prefixes"},
@@ -166,23 +166,23 @@ func: verify.ValidIPv6CIDRNetworkAddress,
 				Computed: true,
 			},
 			"private_ips": {
-				Type:          schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional:      true,
 				Computed:      true,
-				Elem:          &schema.Schema{Type: schema.TypeString},
+				Elem: &schema.Schema{Type: schema.TypeString},
 				ConflictsWith: []string{"private_ip_list"},
 			},
 			"private_ips_count": {
-				Type:          schema.TypeInt,
+				Type: schema.TypeInt,
 				Optional:      true,
 				Computed:      true,
 				ConflictsWith: []string{"private_ip_list"},
 			},
 			"private_ip_list": {
-				Type:          schema.TypeList,
+				Type: schema.TypeList,
 				Optional:      true,
 				Computed:      true,
-				Elem:          &schema.Schema{Type: schema.TypeString},
+				Elem: &schema.Schema{Type: schema.TypeString},
 				ConflictsWith: []string{"private_ips", "private_ips_count"},
 			},
 			"private_ip_list_enabled": {
@@ -452,7 +452,7 @@ func resourceNetworkInterfaceCreate(ctx context.Context, d *schema.ResourceData,
 			if privateIPsCount, ok := d.GetOk("private_ips_count"); ok {
 				if privateIPsCount.(int)+1 > totalPrivateIPs {
 					input := &ec2.AssignPrivateIpAddressesInput{
-						NetworkInterfaceId:             aws.String(d.Id()),
+						NetworkInterfaceId:    aws.String(d.Id()),
 						SecondaryPrivateIpAddressCount: aws.Int64(int64(privateIPsCount.(int) + 1 - totalPrivateIPs)),
 					}
 
@@ -722,7 +722,7 @@ func resourceNetworkInterfaceUpdate(ctx context.Context, d *schema.ResourceData,
 		if o != nil && n != nil && n != len(privateIPsFiltered) {
 			if diff := n.(int) - o.(int) - privateIPsNetChange; diff > 0 {
 				input := &ec2.AssignPrivateIpAddressesInput{
-					NetworkInterfaceId:             aws.String(d.Id()),
+					NetworkInterfaceId:    aws.String(d.Id()),
 					SecondaryPrivateIpAddressCount: aws.Int64(int64(diff)),
 				}
 
@@ -1027,7 +1027,7 @@ func resourceNetworkInterfaceUpdate(ctx context.Context, d *schema.ResourceData,
 	if d.HasChange("security_groups") {
 		input := &ec2.ModifyNetworkInterfaceAttributeInput{
 			NetworkInterfaceId: aws.String(d.Id()),
-			Groups:             flex.ExpandStringSet(d.Get("security_groups").(*schema.Set)),
+			Groups:    flex.ExpandStringSet(d.Get("security_groups").(*schema.Set)),
 		}
 
 		_, err := conn.ModifyNetworkInterfaceAttributeWithContext(ctx, input)
@@ -1076,7 +1076,7 @@ func resourceNetworkInterfaceDelete(ctx context.Context, d *schema.ResourceData,
 func attachNetworkInterface(ctx context.Context, conn *ec2.EC2, networkInterfaceID, instanceID string, deviceIndex int, timeout time.Duration) (string, error) {
 	input := &ec2.AttachNetworkInterfaceInput{
 		DeviceIndex:        aws.Int64(int64(deviceIndex)),
-		InstanceId:         aws.String(instanceID),
+		InstanceId:aws.String(instanceID),
 		NetworkInterfaceId: aws.String(networkInterfaceID),
 	}
 

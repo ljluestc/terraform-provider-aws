@@ -15,5 +15,5 @@ import (
 func runtime_getAuxv() []uintptr
 
 func init() {
-	getAuxvFn = runtime_getAuxv
+getAuxvFn = runtime_getAuxv
 }

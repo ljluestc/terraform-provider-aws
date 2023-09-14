@@ -22,31 +22,31 @@ func TestAccServiceCatalogProductDataSource_basic(t *testing.T) {
 	domain := fmt.Sprintf("http://%s", acctest.RandomDomainName())
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckProductDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccProductDataSourceConfig_basic(rName, "beskrivning", "supportbeskrivning", domain, acctest.DefaultEmailAddress),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrPair(resourceName, "arn", dataSourceName, "arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "created_time", dataSourceName, "created_time"),
-					resource.TestCheckResourceAttrPair(resourceName, "description", dataSourceName, "description"),
-					resource.TestCheckResourceAttrPair(resourceName, "distributor", dataSourceName, "distributor"),
-					resource.TestCheckResourceAttrPair(resourceName, "has_default_path", dataSourceName, "has_default_path"),
-					resource.TestCheckResourceAttrPair(resourceName, "name", dataSourceName, "name"),
-					resource.TestCheckResourceAttrPair(resourceName, "owner", dataSourceName, "owner"),
-					resource.TestCheckResourceAttrPair(resourceName, "status", dataSourceName, "status"),
-					resource.TestCheckResourceAttrPair(resourceName, "support_description", dataSourceName, "support_description"),
-					resource.TestCheckResourceAttrPair(resourceName, "support_email", dataSourceName, "support_email"),
-					resource.TestCheckResourceAttrPair(resourceName, "support_url", dataSourceName, "support_url"),
-					resource.TestCheckResourceAttrPair(resourceName, "type", dataSourceName, "type"),
-					resource.TestCheckResourceAttrPair(resourceName, "tags.%", dataSourceName, "tags.%"),
-					resource.TestCheckResourceAttrPair(resourceName, "tags.Name", dataSourceName, "tags.Name"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckProductDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccProductDataSourceConfig_basic(rName, "beskrivning", "supportbeskrivning", domain, acctest.DefaultEmailAddress),
+Check: resource.ComposeTestCheckFunc(
+	resource.TestCheckResourceAttrPair(resourceName, "arn", dataSourceName, "arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "created_time", dataSourceName, "created_time"),
+	resource.TestCheckResourceAttrPair(resourceName, "description", dataSourceName, "description"),
+	resource.TestCheckResourceAttrPair(resourceName, "distributor", dataSourceName, "distributor"),
+	resource.TestCheckResourceAttrPair(resourceName, "has_default_path", dataSourceName, "has_default_path"),
+	resource.TestCheckResourceAttrPair(resourceName, "name", dataSourceName, "name"),
+	resource.TestCheckResourceAttrPair(resourceName, "owner", dataSourceName, "owner"),
+	resource.TestCheckResourceAttrPair(resourceName, "status", dataSourceName, "status"),
+	resource.TestCheckResourceAttrPair(resourceName, "support_description", dataSourceName, "support_description"),
+	resource.TestCheckResourceAttrPair(resourceName, "support_email", dataSourceName, "support_email"),
+	resource.TestCheckResourceAttrPair(resourceName, "support_url", dataSourceName, "support_url"),
+	resource.TestCheckResourceAttrPair(resourceName, "type", dataSourceName, "type"),
+	resource.TestCheckResourceAttrPair(resourceName, "tags.%", dataSourceName, "tags.%"),
+	resource.TestCheckResourceAttrPair(resourceName, "tags.Name", dataSourceName, "tags.Name"),
+),
+	},
+},
 	})
 }
 
@@ -59,31 +59,31 @@ func TestAccServiceCatalogProductDataSource_physicalID(t *testing.T) {
 	domain := fmt.Sprintf("http://%s", acctest.RandomDomainName())
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckProductDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccProductDataSourceConfig_physicalID(rName, domain, acctest.DefaultEmailAddress),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrPair(resourceName, "arn", dataSourceName, "arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "created_time", dataSourceName, "created_time"),
-					resource.TestCheckResourceAttrPair(resourceName, "description", dataSourceName, "description"),
-					resource.TestCheckResourceAttrPair(resourceName, "distributor", dataSourceName, "distributor"),
-					resource.TestCheckResourceAttrPair(resourceName, "has_default_path", dataSourceName, "has_default_path"),
-					resource.TestCheckResourceAttrPair(resourceName, "name", dataSourceName, "name"),
-					resource.TestCheckResourceAttrPair(resourceName, "owner", dataSourceName, "owner"),
-					resource.TestCheckResourceAttrPair(resourceName, "status", dataSourceName, "status"),
-					resource.TestCheckResourceAttrPair(resourceName, "support_description", dataSourceName, "support_description"),
-					resource.TestCheckResourceAttrPair(resourceName, "support_email", dataSourceName, "support_email"),
-					resource.TestCheckResourceAttrPair(resourceName, "support_url", dataSourceName, "support_url"),
-					resource.TestCheckResourceAttrPair(resourceName, "type", dataSourceName, "type"),
-					resource.TestCheckResourceAttrPair(resourceName, "tags.%", dataSourceName, "tags.%"),
-					resource.TestCheckResourceAttrPair(resourceName, "tags.Name", dataSourceName, "tags.Name"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckProductDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccProductDataSourceConfig_physicalID(rName, domain, acctest.DefaultEmailAddress),
+Check: resource.ComposeTestCheckFunc(
+	resource.TestCheckResourceAttrPair(resourceName, "arn", dataSourceName, "arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "created_time", dataSourceName, "created_time"),
+	resource.TestCheckResourceAttrPair(resourceName, "description", dataSourceName, "description"),
+	resource.TestCheckResourceAttrPair(resourceName, "distributor", dataSourceName, "distributor"),
+	resource.TestCheckResourceAttrPair(resourceName, "has_default_path", dataSourceName, "has_default_path"),
+	resource.TestCheckResourceAttrPair(resourceName, "name", dataSourceName, "name"),
+	resource.TestCheckResourceAttrPair(resourceName, "owner", dataSourceName, "owner"),
+	resource.TestCheckResourceAttrPair(resourceName, "status", dataSourceName, "status"),
+	resource.TestCheckResourceAttrPair(resourceName, "support_description", dataSourceName, "support_description"),
+	resource.TestCheckResourceAttrPair(resourceName, "support_email", dataSourceName, "support_email"),
+	resource.TestCheckResourceAttrPair(resourceName, "support_url", dataSourceName, "support_url"),
+	resource.TestCheckResourceAttrPair(resourceName, "type", dataSourceName, "type"),
+	resource.TestCheckResourceAttrPair(resourceName, "tags.%", dataSourceName, "tags.%"),
+	resource.TestCheckResourceAttrPair(resourceName, "tags.Name", dataSourceName, "tags.Name"),
+),
+	},
+},
 	})
 }
 

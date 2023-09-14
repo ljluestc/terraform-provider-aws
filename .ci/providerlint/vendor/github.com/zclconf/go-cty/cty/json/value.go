@@ -29,27 +29,27 @@ import (
 // the encapsulated type itself is serializable with the Marshal function
 // in encoding/json.
 func Marshal(val cty.Value, t cty.Type) ([]byte, error) {
-	errs := val.Type().TestConformance(t)
-	if errs != nil {
-		// Attempt a conversion
-		var err error
-		val, err = convert.Convert(val, t)
-		if err != nil {
-			return nil, err
-		}
-	}
+errs := val.Type().TestConformance(t)
+if errs != nil {
+// Attempt a conversion
+var err error
+val, err = convert.Convert(val, t)
+if err != nil {
+return nil, err
+}
+}
 
-	// From this point onward, val can be assumed to be conforming to t.
+// From this point onward, val can be assumed to be conforming to t.
 
-	buf := &bytes.Buffer{}
-	var path cty.Path
-	err := marshal(val, t, path, buf)
+buf := &bytes.Buffer{}
+var path cty.Path
+err := marshal(val, t, path, buf)
 
-	if err != nil {
-		return nil, err
-	}
+if err != nil {
+return nil, err
+}
 
-	return buf.Bytes(), nil
+return buf.Bytes(), nil
 }
 
 // Unmarshal decodes a JSON representation of the given value into a cty Value
@@ -60,6 +60,6 @@ func Marshal(val cty.Value, t cty.Type) ([]byte, error) {
 // correct. If conversion isn't possible then an error is returned, which
 // may be a cty.PathError.
 func Unmarshal(buf []byte, t cty.Type) (cty.Value, error) {
-	var path cty.Path
-	return unmarshal(buf, t, path)
+var path cty.Path
+return unmarshal(buf, t, path)
 }

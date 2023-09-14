@@ -24,39 +24,39 @@ import (
 
 func ResourceResourcePolicy() *schema.Resource {
 	return &schema.Resource{
-		CreateWithoutTimeout: resourceResourcePolicyPut,
-		ReadWithoutTimeout:   resourceResourcePolicyRead,
-		UpdateWithoutTimeout: resourceResourcePolicyPut,
-		DeleteWithoutTimeout: resourceResourcePolicyDelete,
+CreateWithoutTimeout: resourceResourcePolicyPut,
+ReadWithoutTimeout:   resourceResourcePolicyRead,
+UpdateWithoutTimeout: resourceResourcePolicyPut,
+DeleteWithoutTimeout: resourceResourcePolicyDelete,
 
-		Importer: &schema.ResourceImporter{
-			StateContext: schema.ImportStatePassthroughContext,
-		},
+Importer: &schema.ResourceImporter{
+	StateContext: schema.ImportStatePassthroughContext,
+},
 
-		Schema: map[string]*schema.Schema{
-			"policy": {
-				Type:   schema.TypeString,
-				Required:              true,
-				DiffSuppress
+Schema: map[string]*schema.Schema{
+	"policy": {
+Type:   schema.TypeString,
+Required:              true,
+DiffSuppress
 func:      verify.SuppressEquivalentPolicyDiffs,
-				DiffSuppressOnRefresh: true,
-				Validate
+DiffSuppressOnRefresh: true,
+Validate
 func:          validation.StringIsJSON,
-				State
+State
 func: 
 func(v interface{}) string {
-					json, _ := structure.NormalizeJsonString(v)
-					return json
-				},
-			},
-			"resource_arn": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
-				Validate
+	json, _ := structure.NormalizeJsonString(v)
+	return json
+},
+	},
+	"resource_arn": {
+Type:         schema.TypeString,
+Required:     true,
+ForceNew:     true,
+Validate
 func: verify.ValidARN,
-			},
-		},
+	},
+},
 	}
 }
 
@@ -68,17 +68,17 @@ func resourceResourcePolicyPut(ctx context.Context, d *schema.ResourceData, meta
 	policy, err := structure.NormalizeJsonString(d.Get("policy").(string))
 
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "policy (%s) is invalid JSON: %s", d.Get("policy").(string), err)
+return sdkdiag.AppendErrorf(diags, "policy (%s) is invalid JSON: %s", d.Get("policy").(string), err)
 	}
 
 	input := &codebuild.PutResourcePolicyInput{
-		Policy:      aws.String(policy),
-		ResourceArn: aws.String(d.Get("resource_arn").(string)),
+Policy:      aws.String(policy),
+ResourceArn: aws.String(d.Get("resource_arn").(string)),
 	}
 
 	resp, err := conn.PutResourcePolicyWithContext(ctx, input)
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "creating CodeBuild Resource Policy: %s", err)
+return sdkdiag.AppendErrorf(diags, "creating CodeBuild Resource Policy: %s", err)
 	}
 
 	d.SetId(aws.StringValue(resp.ResourceArn))
@@ -94,25 +94,25 @@ func resourceResourcePolicyRead(ctx context.Context, d *schema.ResourceData, met
 	output, err := FindResourcePolicyByARN(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
-		log.Printf("[WARN] CodeBuild Resource Policy (%s) not found, removing from state", d.Id())
-		d.SetId("")
-		return diags
+log.Printf("[WARN] CodeBuild Resource Policy (%s) not found, removing from state", d.Id())
+d.SetId("")
+return diags
 	}
 
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "Listing CodeBuild Resource Policies: %s", err)
+return sdkdiag.AppendErrorf(diags, "Listing CodeBuild Resource Policies: %s", err)
 	}
 
 	policyToSet, err := verify.SecondJSONUnlessEquivalent(d.Get("policy").(string), aws.StringValue(output.Policy))
 
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "while setting policy (%s), encountered: %s", policyToSet, err)
+return sdkdiag.AppendErrorf(diags, "while setting policy (%s), encountered: %s", policyToSet, err)
 	}
 
 	policyToSet, err = structure.NormalizeJsonString(policyToSet)
 
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "policy (%s) is an invalid JSON: %s", policyToSet, err)
+return sdkdiag.AppendErrorf(diags, "policy (%s) is an invalid JSON: %s", policyToSet, err)
 	}
 
 	d.Set("resource_arn", d.Id())
@@ -127,14 +127,14 @@ func resourceResourcePolicyDelete(ctx context.Context, d *schema.ResourceData, m
 	conn := meta.(*conns.AWSClient).CodeBuildConn(ctx)
 
 	deleteOpts := &codebuild.DeleteResourcePolicyInput{
-		ResourceArn: aws.String(d.Id()),
+ResourceArn: aws.String(d.Id()),
 	}
 
 	if _, err := conn.DeleteResourcePolicyWithContext(ctx, deleteOpts); err != nil {
-		if tfawserr.ErrMessageContains(err, codebuild.ErrCodeResourceNotFoundException, "Resource ARN does not exist") {
-			return diags
-		}
-		return sdkdiag.AppendErrorf(diags, "deleting CodeBuild Resource Policy (%s): %s", d.Id(), err)
+if tfawserr.ErrMessageContains(err, codebuild.ErrCodeResourceNotFoundException, "Resource ARN does not exist") {
+	return diags
+}
+return sdkdiag.AppendErrorf(diags, "deleting CodeBuild Resource Policy (%s): %s", d.Id(), err)
 	}
 
 	return diags

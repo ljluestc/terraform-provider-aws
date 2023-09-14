@@ -436,7 +436,7 @@ func testAccResolverConfig_base(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_appsync_graphql_api" "test" {
   authentication_type = "API_KEY"
-  name                = %[1]q
+  name       = %[1]q
 
   schema = <<EOF
 type Mutation {
@@ -545,7 +545,7 @@ func testAccResolverConfig_dataSourceLambda(rName string) string {
 	return testAccDatasourceConfig_baseLambda(rName) + fmt.Sprintf(`
 resource "aws_appsync_graphql_api" "test" {
   authentication_type = "API_KEY"
-  name                = %q
+  name       = %q
 
   schema = <<EOF
 type Mutation {
@@ -569,10 +569,10 @@ EOF
 }
 
 resource "aws_appsync_datasource" "test" {
-  api_id           = aws_appsync_graphql_api.test.id
-  name             = %q
+  api_id  = aws_appsync_graphql_api.test.id
+  name    = %q
   service_role_arn = aws_iam_role.test.arn
-  type             = "AWS_LAMBDA"
+  type    = "AWS_LAMBDA"
 
   lambda_config {
     function_arn = aws_lambda_function.test.arn
@@ -688,7 +688,7 @@ EOF
 	return fmt.Sprintf(`
 resource "aws_appsync_graphql_api" "test" {
   authentication_type = "API_KEY"
-  name                = %q
+  name       = %q
 
   schema = <<EOF
 type Mutation {
@@ -729,9 +729,9 @@ resource "aws_appsync_datasource" "test" {
 func testAccResolverConfig_pipeline(rName string) string {
 	return testAccResolverConfig_base(rName) + fmt.Sprintf(`
 resource "aws_appsync_function" "test" {
-  api_id                   = aws_appsync_graphql_api.test.id
-  data_source              = aws_appsync_datasource.test.name
-  name                     = %[1]q
+  api_id = aws_appsync_graphql_api.test.id
+  data_source     = aws_appsync_datasource.test.name
+  name   = %[1]q
   request_mapping_template = <<EOF
 {
 		"version": "2018-05-29",
@@ -753,10 +753,10 @@ EOF
 }
 
 resource "aws_appsync_resolver" "test" {
-  api_id           = aws_appsync_graphql_api.test.id
-  field            = "singlePost"
-  type             = "Query"
-  kind             = "PIPELINE"
+  api_id  = aws_appsync_graphql_api.test.id
+  field   = "singlePost"
+  type    = "Query"
+  kind    = "PIPELINE"
   request_template = <<EOF
 {
 		"version": "2018-05-29",
@@ -787,10 +787,10 @@ EOF
 func testAccResolverConfig_caching(rName string) string {
 	return testAccResolverConfig_base(rName) + `
 resource "aws_appsync_resolver" "test" {
-  api_id           = aws_appsync_graphql_api.test.id
-  field            = "singlePost"
-  type             = "Query"
-  kind             = "UNIT"
+  api_id  = aws_appsync_graphql_api.test.id
+  field   = "singlePost"
+  type    = "Query"
+  kind    = "UNIT"
   data_source      = aws_appsync_datasource.test.name
   request_template = <<EOF
 {
@@ -826,7 +826,7 @@ func testAccResolverConfig_sync(rName string) string {
 	return testAccDatasourceConfig_baseDynamoDB(rName) + fmt.Sprintf(`
 resource "aws_appsync_graphql_api" "test" {
   authentication_type = "API_KEY"
-  name                = %[1]q
+  name       = %[1]q
 
   schema = <<EOF
 type Mutation {
@@ -850,10 +850,10 @@ EOF
 }
 
 resource "aws_appsync_datasource" "test" {
-  api_id           = aws_appsync_graphql_api.test.id
-  name             = %[1]q
+  api_id  = aws_appsync_graphql_api.test.id
+  name    = %[1]q
   service_role_arn = aws_iam_role.test.arn
-  type             = "AMAZON_DYNAMODB"
+  type    = "AMAZON_DYNAMODB"
 
   dynamodb_config {
     table_name = aws_dynamodb_table.test.name
@@ -910,7 +910,7 @@ resource "aws_appsync_function" "test" {
   code        = file("%[2]s")
 
   runtime {
-    name            = "APPSYNC_JS"
+    name   = "APPSYNC_JS"
     runtime_version = "1.0.0"
   }
 }
@@ -927,7 +927,7 @@ resource "aws_appsync_resolver" "test" {
   }
 
   runtime {
-    name            = "APPSYNC_JS"
+    name   = "APPSYNC_JS"
     runtime_version = "1.0.0"
   }
 }

@@ -68,7 +68,7 @@ func ResourceEBSSnapshot() *schema.Resource {
 				Computed: true,
 			},
 			"outpost_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Validate
@@ -87,7 +87,7 @@ func: verify.ValidARN,
 				Optional: true,
 			},
 			"storage_tier": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				Validate
@@ -120,7 +120,7 @@ func resourceEBSSnapshotCreate(ctx context.Context, d *schema.ResourceData, meta
 	volumeID := d.Get("volume_id").(string)
 	input := &ec2.CreateSnapshotInput{
 		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeSnapshot),
-		VolumeId:          aws.String(volumeID),
+		VolumeId: aws.String(volumeID),
 	}
 
 	if v, ok := d.GetOk("description"); ok {

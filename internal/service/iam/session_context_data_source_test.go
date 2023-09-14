@@ -18,85 +18,85 @@ func TestAssumedRoleRoleSessionName(t *testing.T) {
 	t.Parallel()
 
 	testCases := []struct {
-		Name string
-		ARN  string
-		ExpectedRoleName    string
-		ExpectedSessionName string
-		ExpectedError       bool
+Name string
+ARN  string
+ExpectedRoleName    string
+ExpectedSessionName string
+ExpectedError       bool
 	}{
-		{
-			Name: "not an ARN",
-			ARN:  "abcd",
-			ExpectedRoleName:    "",
-			ExpectedSessionName: "",
-		},
-		{
-			Name: "regular role ARN",
-			ARN:  "arn:aws:iam::111122223333:role/role_name", //lintignore:AWSAT005
-			ExpectedRoleName:    "",
-			ExpectedSessionName: "",
-		},
-		{
-			Name: "assumed role ARN",
-			ARN:  "arn:aws:sts::444433332222:assumed-role/something_something-admin/sessionIDNotPartOfRoleARN", //lintignore:AWSAT005
-			ExpectedRoleName:    "something_something-admin",
-			ExpectedSessionName: "sessionIDNotPartOfRoleARN",
-		},
-		{
-			Name: "'assumed-role' part of ARN resource",
-			ARN:  "arn:aws:iam::444433332222:user/assumed-role-but-not-really", //lintignore:AWSAT005
-			ExpectedRoleName:    "",
-			ExpectedSessionName: "",
-		},
-		{
-			Name: "user ARN",
-			ARN:  "arn:aws:iam::123456789012:user/Bob", //lintignore:AWSAT005
-			ExpectedRoleName:    "",
-			ExpectedSessionName: "",
-		},
-		{
-			Name: "assumed role from AWS example",
-			ARN:  "arn:aws:sts::123456789012:assumed-role/example-role/AWSCLI-Session", //lintignore:AWSAT005
-			ExpectedRoleName:    "example-role",
-			ExpectedSessionName: "AWSCLI-Session",
-		},
-		{
-			Name: "multiple slashes in resource",           // not sure this is even valid
-			ARN:  "arn:aws:sts::123456789012:assumed-role/path/role-name/AWSCLI-Session", //lintignore:AWSAT005
-			ExpectedRoleName:    "role-name",
-			ExpectedSessionName: "AWSCLI-Session",
-		},
-		{
-			Name: "not an sts ARN",
-			ARN:  "arn:aws:iam::123456789012:assumed-role/example-role/AWSCLI-Session", //lintignore:AWSAT005
-			ExpectedRoleName:    "",
-			ExpectedSessionName: "",
-		},
-		{
-			Name: "role with path",
-			ARN:  "arn:aws:iam::123456789012:role/this/is/the/path/role-name", //lintignore:AWSAT005
-			ExpectedRoleName:    "",
-			ExpectedSessionName: "",
-		},
-		{
-			Name: "wrong service",
-			ARN:  "arn:aws:ec2::123456789012:role/role-name", //lintignore:AWSAT005
-			ExpectedRoleName:    "",
-			ExpectedSessionName: "",
-		},
+{
+	Name: "not an ARN",
+	ARN:  "abcd",
+	ExpectedRoleName:    "",
+	ExpectedSessionName: "",
+},
+{
+	Name: "regular role ARN",
+	ARN:  "arn:aws:iam::111122223333:role/role_name", //lintignore:AWSAT005
+	ExpectedRoleName:    "",
+	ExpectedSessionName: "",
+},
+{
+	Name: "assumed role ARN",
+	ARN:  "arn:aws:sts::444433332222:assumed-role/something_something-admin/sessionIDNotPartOfRoleARN", //lintignore:AWSAT005
+	ExpectedRoleName:    "something_something-admin",
+	ExpectedSessionName: "sessionIDNotPartOfRoleARN",
+},
+{
+	Name: "'assumed-role' part of ARN resource",
+	ARN:  "arn:aws:iam::444433332222:user/assumed-role-but-not-really", //lintignore:AWSAT005
+	ExpectedRoleName:    "",
+	ExpectedSessionName: "",
+},
+{
+	Name: "user ARN",
+	ARN:  "arn:aws:iam::123456789012:user/Bob", //lintignore:AWSAT005
+	ExpectedRoleName:    "",
+	ExpectedSessionName: "",
+},
+{
+	Name: "assumed role from AWS example",
+	ARN:  "arn:aws:sts::123456789012:assumed-role/example-role/AWSCLI-Session", //lintignore:AWSAT005
+	ExpectedRoleName:    "example-role",
+	ExpectedSessionName: "AWSCLI-Session",
+},
+{
+	Name: "multiple slashes in resource",           // not sure this is even valid
+	ARN:  "arn:aws:sts::123456789012:assumed-role/path/role-name/AWSCLI-Session", //lintignore:AWSAT005
+	ExpectedRoleName:    "role-name",
+	ExpectedSessionName: "AWSCLI-Session",
+},
+{
+	Name: "not an sts ARN",
+	ARN:  "arn:aws:iam::123456789012:assumed-role/example-role/AWSCLI-Session", //lintignore:AWSAT005
+	ExpectedRoleName:    "",
+	ExpectedSessionName: "",
+},
+{
+	Name: "role with path",
+	ARN:  "arn:aws:iam::123456789012:role/this/is/the/path/role-name", //lintignore:AWSAT005
+	ExpectedRoleName:    "",
+	ExpectedSessionName: "",
+},
+{
+	Name: "wrong service",
+	ARN:  "arn:aws:ec2::123456789012:role/role-name", //lintignore:AWSAT005
+	ExpectedRoleName:    "",
+	ExpectedSessionName: "",
+},
 	}
 
 	for _, testCase := range testCases {
-		testCase := testCase
-		t.Run(testCase.Name, func(t *testing.T) {
-			t.Parallel()
+testCase := testCase
+t.Run(testCase.Name, func(t *testing.T) {
+	t.Parallel()
 
-			role, session := tfiam.RoleNameSessionFromARN(testCase.ARN)
+	role, session := tfiam.RoleNameSessionFromARN(testCase.ARN)
 
-			if testCase.ExpectedRoleName != role || testCase.ExpectedSessionName != session {
-				t.Errorf("for %s: got role %s, session %s; expected role %s, session %s", testCase.ARN, role, session, testCase.ExpectedRoleName, testCase.ExpectedSessionName)
-			}
-		})
+	if testCase.ExpectedRoleName != role || testCase.ExpectedSessionName != session {
+t.Errorf("for %s: got role %s, session %s; expected role %s, session %s", testCase.ARN, role, session, testCase.ExpectedRoleName, testCase.ExpectedSessionName)
+	}
+})
 	}
 }
 
@@ -107,20 +107,20 @@ func TestAccIAMSessionContextDataSource_basic(t *testing.T) {
 	resourceName := "aws_iam_role.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSessionContextDataSourceConfig_basic(rName, "/", "session-id"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttrPair(dataSourceName, "issuer_arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "issuer_id", resourceName, "unique_id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "issuer_name", resourceName, "name"),
-					resource.TestCheckResourceAttr(dataSourceName, "session_name", "session-id"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccSessionContextDataSourceConfig_basic(rName, "/", "session-id"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttrPair(dataSourceName, "issuer_arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "issuer_id", resourceName, "unique_id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "issuer_name", resourceName, "name"),
+	resource.TestCheckResourceAttr(dataSourceName, "session_name", "session-id"),
+),
+	},
+},
 	})
 }
 
@@ -131,19 +131,19 @@ func TestAccIAMSessionContextDataSource_withPath(t *testing.T) {
 	resourceName := "aws_iam_role.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSessionContextDataSourceConfig_basic(rName, "/this/is/a/long/path/", "session-id"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttrPair(dataSourceName, "issuer_arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "issuer_name", resourceName, "name"),
-					resource.TestCheckResourceAttr(dataSourceName, "session_name", "session-id"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccSessionContextDataSourceConfig_basic(rName, "/this/is/a/long/path/", "session-id"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttrPair(dataSourceName, "issuer_arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "issuer_name", resourceName, "name"),
+	resource.TestCheckResourceAttr(dataSourceName, "session_name", "session-id"),
+),
+	},
+},
 	})
 }
 
@@ -154,19 +154,19 @@ func TestAccIAMSessionContextDataSource_notAssumedRole(t *testing.T) {
 	resourceName := "aws_iam_role.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSessionContextDataSourceConfig_notAssumed(rName, "/"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttrPair(dataSourceName, "issuer_arn", resourceName, "arn"),
-					resource.TestCheckResourceAttr(dataSourceName, "issuer_name", ""),
-					resource.TestCheckResourceAttr(dataSourceName, "session_name", ""),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccSessionContextDataSourceConfig_notAssumed(rName, "/"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttrPair(dataSourceName, "issuer_arn", resourceName, "arn"),
+	resource.TestCheckResourceAttr(dataSourceName, "issuer_name", ""),
+	resource.TestCheckResourceAttr(dataSourceName, "session_name", ""),
+),
+	},
+},
 	})
 }
 
@@ -177,19 +177,19 @@ func TestAccIAMSessionContextDataSource_notAssumedRoleWithPath(t *testing.T) {
 	resourceName := "aws_iam_role.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSessionContextDataSourceConfig_notAssumed(rName, "/this/is/a/long/path/"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttrPair(dataSourceName, "issuer_arn", resourceName, "arn"),
-					resource.TestCheckResourceAttr(dataSourceName, "issuer_name", ""),
-					resource.TestCheckResourceAttr(dataSourceName, "session_name", ""),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccSessionContextDataSourceConfig_notAssumed(rName, "/this/is/a/long/path/"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttrPair(dataSourceName, "issuer_arn", resourceName, "arn"),
+	resource.TestCheckResourceAttr(dataSourceName, "issuer_name", ""),
+	resource.TestCheckResourceAttr(dataSourceName, "session_name", ""),
+),
+	},
+},
 	})
 }
 
@@ -199,19 +199,19 @@ func TestAccIAMSessionContextDataSource_notAssumedRoleUser(t *testing.T) {
 	dataSourceName := "data.aws_iam_session_context.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSessionContextDataSourceConfig_user(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					acctest.CheckResourceAttrGlobalARN(dataSourceName, "arn", "iam", fmt.Sprintf("user/division/extra-division/not-assumed-role/%[1]s", rName)),
-					resource.TestCheckResourceAttr(dataSourceName, "issuer_name", ""),
-					resource.TestCheckResourceAttr(dataSourceName, "session_name", ""),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccSessionContextDataSourceConfig_user(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	acctest.CheckResourceAttrGlobalARN(dataSourceName, "arn", "iam", fmt.Sprintf("user/division/extra-division/not-assumed-role/%[1]s", rName)),
+	resource.TestCheckResourceAttr(dataSourceName, "issuer_name", ""),
+	resource.TestCheckResourceAttr(dataSourceName, "session_name", ""),
+),
+	},
+},
 	})
 }
 

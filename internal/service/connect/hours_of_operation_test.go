@@ -31,68 +31,68 @@ func testAccHoursOfOperation_basic(t *testing.T) {
 	resourceName := "aws_connect_hours_of_operation.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckHoursOfOperationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccHoursOfOperationConfig_basic(rName, rName2, originalDescription),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckHoursOfOperationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccHoursOfOperationConfig_basic(rName, rName2, originalDescription),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckHoursOfOperationExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "config.#", "1"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "config.*", map[string]string{
-						"day":   "MONDAY",
-						"end_time.#":           "1",
-						"end_time.0.hours":     "23",
-						"end_time.0.minutes":   "8",
-						"start_time.#":         "1",
-						"start_time.0.hours":   "8",
-						"start_time.0.minutes": "0",
-					}),
-					resource.TestCheckResourceAttr(resourceName, "description", originalDescription),
-					resource.TestCheckResourceAttrSet(resourceName, "hours_of_operation_id"),
-					resource.TestCheckResourceAttrPair(resourceName, "instance_id", "aws_connect_instance.test", "id"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName2),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Name", "Test Hours of Operation"),
-					resource.TestCheckResourceAttr(resourceName, "time_zone", "EST"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccHoursOfOperationConfig_basic(rName, rName2, updatedDescription),
-				Check: resource.ComposeAggregateTestCheck
+	testAccCheckHoursOfOperationExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "config.#", "1"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "config.*", map[string]string{
+"day":   "MONDAY",
+"end_time.#":           "1",
+"end_time.0.hours":     "23",
+"end_time.0.minutes":   "8",
+"start_time.#":         "1",
+"start_time.0.hours":   "8",
+"start_time.0.minutes": "0",
+	}),
+	resource.TestCheckResourceAttr(resourceName, "description", originalDescription),
+	resource.TestCheckResourceAttrSet(resourceName, "hours_of_operation_id"),
+	resource.TestCheckResourceAttrPair(resourceName, "instance_id", "aws_connect_instance.test", "id"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName2),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Name", "Test Hours of Operation"),
+	resource.TestCheckResourceAttr(resourceName, "time_zone", "EST"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccHoursOfOperationConfig_basic(rName, rName2, updatedDescription),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckHoursOfOperationExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "config.#", "1"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "config.*", map[string]string{
-						"day":   "MONDAY",
-						"end_time.#":           "1",
-						"end_time.0.hours":     "23",
-						"end_time.0.minutes":   "8",
-						"start_time.#":         "1",
-						"start_time.0.hours":   "8",
-						"start_time.0.minutes": "0",
-					}),
-					resource.TestCheckResourceAttr(resourceName, "description", updatedDescription),
-					resource.TestCheckResourceAttrSet(resourceName, "hours_of_operation_id"),
-					resource.TestCheckResourceAttrPair(resourceName, "instance_id", "aws_connect_instance.test", "id"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName2),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Name", "Test Hours of Operation"),
-					resource.TestCheckResourceAttr(resourceName, "time_zone", "EST"),
-				),
-			},
-		},
+	testAccCheckHoursOfOperationExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "config.#", "1"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "config.*", map[string]string{
+"day":   "MONDAY",
+"end_time.#":           "1",
+"end_time.0.hours":     "23",
+"end_time.0.minutes":   "8",
+"start_time.#":         "1",
+"start_time.0.hours":   "8",
+"start_time.0.minutes": "0",
+	}),
+	resource.TestCheckResourceAttr(resourceName, "description", updatedDescription),
+	resource.TestCheckResourceAttrSet(resourceName, "hours_of_operation_id"),
+	resource.TestCheckResourceAttrPair(resourceName, "instance_id", "aws_connect_instance.test", "id"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName2),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Name", "Test Hours of Operation"),
+	resource.TestCheckResourceAttr(resourceName, "time_zone", "EST"),
+),
+	},
+},
 	})
 }
 
@@ -107,61 +107,61 @@ func testAccHoursOfOperation_updateConfig(t *testing.T) {
 	resourceName := "aws_connect_hours_of_operation.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckHoursOfOperationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccHoursOfOperationConfig_basic(rName, rName2, description),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckHoursOfOperationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccHoursOfOperationConfig_basic(rName, rName2, description),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckHoursOfOperationExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "config.#", "1"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "config.*", map[string]string{
-						"day":   "MONDAY",
-						"end_time.#":           "1",
-						"end_time.0.hours":     "23",
-						"end_time.0.minutes":   "8",
-						"start_time.#":         "1",
-						"start_time.0.hours":   "8",
-						"start_time.0.minutes": "0",
-					}),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccHoursOfOperationConfig_multipleConfig(rName, rName2, description),
-				Check: resource.ComposeAggregateTestCheck
+	testAccCheckHoursOfOperationExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "config.#", "1"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "config.*", map[string]string{
+"day":   "MONDAY",
+"end_time.#":           "1",
+"end_time.0.hours":     "23",
+"end_time.0.minutes":   "8",
+"start_time.#":         "1",
+"start_time.0.hours":   "8",
+"start_time.0.minutes": "0",
+	}),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccHoursOfOperationConfig_multipleConfig(rName, rName2, description),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckHoursOfOperationExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "config.#", "2"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "config.*", map[string]string{
-						"day":   "MONDAY",
-						"end_time.#":           "1",
-						"end_time.0.hours":     "23",
-						"end_time.0.minutes":   "8",
-						"start_time.#":         "1",
-						"start_time.0.hours":   "8",
-						"start_time.0.minutes": "0",
-					}),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "config.*", map[string]string{
-						"day":   "TUESDAY",
-						"end_time.#":           "1",
-						"end_time.0.hours":     "21",
-						"end_time.0.minutes":   "0",
-						"start_time.#":         "1",
-						"start_time.0.hours":   "9",
-						"start_time.0.minutes": "0",
-					}),
-				),
-			},
-		},
+	testAccCheckHoursOfOperationExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "config.#", "2"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "config.*", map[string]string{
+"day":   "MONDAY",
+"end_time.#":           "1",
+"end_time.0.hours":     "23",
+"end_time.0.minutes":   "8",
+"start_time.#":         "1",
+"start_time.0.hours":   "8",
+"start_time.0.minutes": "0",
+	}),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "config.*", map[string]string{
+"day":   "TUESDAY",
+"end_time.#":           "1",
+"end_time.0.hours":     "21",
+"end_time.0.minutes":   "0",
+"start_time.#":         "1",
+"start_time.0.hours":   "9",
+"start_time.0.minutes": "0",
+	}),
+),
+	},
+},
 	})
 }
 
@@ -176,48 +176,48 @@ func testAccHoursOfOperation_updateTags(t *testing.T) {
 	resourceName := "aws_connect_hours_of_operation.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckHoursOfOperationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccHoursOfOperationConfig_basic(rName, rName2, description),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckHoursOfOperationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccHoursOfOperationConfig_basic(rName, rName2, description),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckHoursOfOperationExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Name", "Test Hours of Operation"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccHoursOfOperationConfig_tags(rName, rName2, description),
-				Check: resource.ComposeAggregateTestCheck
+	testAccCheckHoursOfOperationExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Name", "Test Hours of Operation"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccHoursOfOperationConfig_tags(rName, rName2, description),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckHoursOfOperationExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Name", "Test Hours of Operation"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Key2", "Value2a"),
-				),
-			},
-			{
-				Config: testAccHoursOfOperationConfig_tagsUpdated(rName, rName2, description),
-				Check: resource.ComposeAggregateTestCheck
+	testAccCheckHoursOfOperationExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Name", "Test Hours of Operation"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Key2", "Value2a"),
+),
+	},
+	{
+Config: testAccHoursOfOperationConfig_tagsUpdated(rName, rName2, description),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckHoursOfOperationExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "3"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Name", "Test Hours of Operation"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Key2", "Value2b"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Key3", "Value3"),
-				),
-			},
-		},
+	testAccCheckHoursOfOperationExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "3"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Name", "Test Hours of Operation"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Key2", "Value2b"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Key3", "Value3"),
+),
+	},
+},
 	})
 }
 
@@ -230,22 +230,22 @@ func testAccHoursOfOperation_disappears(t *testing.T) {
 	resourceName := "aws_connect_hours_of_operation.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckHoursOfOperationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccHoursOfOperationConfig_basic(rName, rName2, "Disappear"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckHoursOfOperationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccHoursOfOperationConfig_basic(rName, rName2, "Disappear"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckHoursOfOperationExists(ctx, resourceName, &v),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfconnect.ResourceHoursOfOperation(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckHoursOfOperationExists(ctx, resourceName, &v),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfconnect.ResourceHoursOfOperation(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -255,38 +255,38 @@ function *connect.DescribeHoursOfOperationOutput) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[resourceName]
-		if !ok {
-			return fmt.Errorf("Connect Hours of Operation not found: %s", resourceName)
-		}
+rs, ok := s.RootModule().Resources[resourceName]
+if !ok {
+	return fmt.Errorf("Connect Hours of Operation not found: %s", resourceName)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("Connect Hours of Operation ID not set")
-		}
-		instanceID, hoursOfOperationID, err := tfconnect.HoursOfOperationParseID(rs.Primary.ID)
+if rs.Primary.ID == "" {
+	return fmt.Errorf("Connect Hours of Operation ID not set")
+}
+instanceID, hoursOfOperationID, err := tfconnect.HoursOfOperationParseID(rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)
 
-		params := &connect.DescribeHoursOfOperationInput{
-			HoursOfOperationId: aws.String(hoursOfOperationID),
-			InstanceId:         aws.String(instanceID),
-		}
+params := &connect.DescribeHoursOfOperationInput{
+	HoursOfOperationId: aws.String(hoursOfOperationID),
+	InstanceId:         aws.String(instanceID),
+}
 
-		get
+get
 function, err := conn.DescribeHoursOfOperationWithContext(ctx, params)
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*
+*
 function = *get
 function
 
-		return nil
+return nil
 	}
 }
 
@@ -295,36 +295,36 @@ func testAccCheckHoursOfOperationDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_connect_hours_of_operation" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_connect_hours_of_operation" {
+continue
+	}
 
-			conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)
+	conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)
 
-			instanceID, hoursOfOperationID, err := tfconnect.HoursOfOperationParseID(rs.Primary.ID)
+	instanceID, hoursOfOperationID, err := tfconnect.HoursOfOperationParseID(rs.Primary.ID)
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			params := &connect.DescribeHoursOfOperationInput{
-				HoursOfOperationId: aws.String(hoursOfOperationID),
-				InstanceId:         aws.String(instanceID),
-			}
+	params := &connect.DescribeHoursOfOperationInput{
+HoursOfOperationId: aws.String(hoursOfOperationID),
+InstanceId:         aws.String(instanceID),
+	}
 
-			_, err = conn.DescribeHoursOfOperationWithContext(ctx, params)
+	_, err = conn.DescribeHoursOfOperationWithContext(ctx, params)
 
-			if tfawserr.ErrCodeEquals(err, connect.ErrCodeResourceNotFoundException) {
-				continue
-			}
+	if tfawserr.ErrCodeEquals(err, connect.ErrCodeResourceNotFoundException) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
-		}
+	if err != nil {
+return err
+	}
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -343,8 +343,8 @@ resource "aws_connect_instance" "test" {
 
 func testAccHoursOfOperationConfig_basic(rName, rName2, label string) string {
 	return acctest.ConfigCompose(
-		testAccHoursOfOperationConfig_base(rName),
-		fmt.Sprintf(`
+testAccHoursOfOperationConfig_base(rName),
+fmt.Sprintf(`
 resource "aws_connect_hours_of_operation" "test" {
   instance_id = aws_connect_instance.test.id
   name        = %[1]q
@@ -375,8 +375,8 @@ resource "aws_connect_hours_of_operation" "test" {
 
 func testAccHoursOfOperationConfig_multipleConfig(rName, rName2, label string) string {
 	return acctest.ConfigCompose(
-		testAccHoursOfOperationConfig_base(rName),
-		fmt.Sprintf(`
+testAccHoursOfOperationConfig_base(rName),
+fmt.Sprintf(`
 resource "aws_connect_hours_of_operation" "test" {
   instance_id = aws_connect_instance.test.id
   name        = %[1]q
@@ -421,8 +421,8 @@ resource "aws_connect_hours_of_operation" "test" {
 
 func testAccHoursOfOperationConfig_tags(rName, rName2, label string) string {
 	return acctest.ConfigCompose(
-		testAccHoursOfOperationConfig_base(rName),
-		fmt.Sprintf(`
+testAccHoursOfOperationConfig_base(rName),
+fmt.Sprintf(`
 resource "aws_connect_hours_of_operation" "test" {
   instance_id = aws_connect_instance.test.id
   name        = %[1]q
@@ -454,8 +454,8 @@ resource "aws_connect_hours_of_operation" "test" {
 
 func testAccHoursOfOperationConfig_tagsUpdated(rName, rName2, label string) string {
 	return acctest.ConfigCompose(
-		testAccHoursOfOperationConfig_base(rName),
-		fmt.Sprintf(`
+testAccHoursOfOperationConfig_base(rName),
+fmt.Sprintf(`
 resource "aws_connect_hours_of_operation" "test" {
   instance_id = aws_connect_instance.test.id
   name        = %[1]q

@@ -21,30 +21,30 @@ func testAccUserHierarchyStructureDataSource_instanceID(t *testing.T) {
 	datasourceName := "data.aws_connect_user_hierarchy_structure.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserHierarchyStructureDataSourceConfig_instanceID(rName),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccUserHierarchyStructureDataSourceConfig_instanceID(rName),
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttrPair(datasourceName, "instance_id", resourceName, "instance_id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_structure.#", resourceName, "hierarchy_structure.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_structure.0.level_one.#", resourceName, "hierarchy_structure.0.level_one.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_structure.0.level_one.0.name", resourceName, "hierarchy_structure.0.level_one.0.name"),
-					resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_structure.0.level_two.#", resourceName, "hierarchy_structure.0.level_two.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_structure.0.level_two.0.name", resourceName, "hierarchy_structure.0.level_two.0.name"),
-					resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_structure.0.level_three.#", resourceName, "hierarchy_structure.0.level_three.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_structure.0.level_three.0.name", resourceName, "hierarchy_structure.0.level_three.0.name"),
-					resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_structure.0.level_four.#", resourceName, "hierarchy_structure.0.level_four.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_structure.0.level_four.0.name", resourceName, "hierarchy_structure.0.level_four.0.name"),
-					resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_structure.0.level_five.#", resourceName, "hierarchy_structure.0.level_five.#"),
-					resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_structure.0.level_five.0.name", resourceName, "hierarchy_structure.0.level_five.0.name"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(datasourceName, "instance_id", resourceName, "instance_id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_structure.#", resourceName, "hierarchy_structure.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_structure.0.level_one.#", resourceName, "hierarchy_structure.0.level_one.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_structure.0.level_one.0.name", resourceName, "hierarchy_structure.0.level_one.0.name"),
+	resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_structure.0.level_two.#", resourceName, "hierarchy_structure.0.level_two.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_structure.0.level_two.0.name", resourceName, "hierarchy_structure.0.level_two.0.name"),
+	resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_structure.0.level_three.#", resourceName, "hierarchy_structure.0.level_three.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_structure.0.level_three.0.name", resourceName, "hierarchy_structure.0.level_three.0.name"),
+	resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_structure.0.level_four.#", resourceName, "hierarchy_structure.0.level_four.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_structure.0.level_four.0.name", resourceName, "hierarchy_structure.0.level_four.0.name"),
+	resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_structure.0.level_five.#", resourceName, "hierarchy_structure.0.level_five.#"),
+	resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_structure.0.level_five.0.name", resourceName, "hierarchy_structure.0.level_five.0.name"),
+),
+	},
+},
 	})
 }
 
@@ -89,8 +89,8 @@ resource "aws_connect_user_hierarchy_structure" "test" {
 
 func testAccUserHierarchyStructureDataSourceConfig_instanceID(rName string) string {
 	return acctest.ConfigCompose(
-		testAccUserHierarchyStructureBaseDataSourceConfig(rName),
-		`
+testAccUserHierarchyStructureBaseDataSourceConfig(rName),
+`
 data "aws_connect_user_hierarchy_structure" "test" {
   instance_id = aws_connect_instance.test.id
 

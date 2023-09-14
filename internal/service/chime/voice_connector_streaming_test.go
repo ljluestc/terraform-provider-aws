@@ -27,29 +27,29 @@ func TestAccChimeVoiceConnectorStreaming_basic(t *testing.T) {
 	resourceName := "aws_chime_voice_connector_streaming.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, chime.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVoiceConnectorStreamingDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVoiceConnectorStreamingConfig_basic(name),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckVoiceConnectorStreamingExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "data_retention", "5"),
-					resource.TestCheckResourceAttr(resourceName, "disabled", "false"),
-					resource.TestCheckResourceAttr(resourceName, "streaming_notification_targets.#", "1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, chime.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckVoiceConnectorStreamingDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccVoiceConnectorStreamingConfig_basic(name),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckVoiceConnectorStreamingExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "data_retention", "5"),
+	resource.TestCheckResourceAttr(resourceName, "disabled", "false"),
+	resource.TestCheckResourceAttr(resourceName, "streaming_notification_targets.#", "1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -59,23 +59,23 @@ func TestAccChimeVoiceConnectorStreaming_disappears(t *testing.T) {
 	resourceName := "aws_chime_voice_connector_streaming.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, chime.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVoiceConnectorStreamingDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVoiceConnectorStreamingConfig_basic(name),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckVoiceConnectorStreamingExists(ctx, resourceName),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfchime.ResourceVoiceConnectorStreaming(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, chime.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckVoiceConnectorStreamingDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccVoiceConnectorStreamingConfig_basic(name),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckVoiceConnectorStreamingExists(ctx, resourceName),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfchime.ResourceVoiceConnectorStreaming(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -85,41 +85,41 @@ func TestAccChimeVoiceConnectorStreaming_update(t *testing.T) {
 	resourceName := "aws_chime_voice_connector_streaming.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, chime.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVoiceConnectorStreamingDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVoiceConnectorStreamingConfig_basic(name),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckVoiceConnectorStreamingExists(ctx, resourceName),
-				),
-			},
-			{
-				Config: testAccVoiceConnectorStreamingConfig_updated(name),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckVoiceConnectorStreamingExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "data_retention", "2"),
-					resource.TestCheckResourceAttr(resourceName, "disabled", "false"),
-					resource.TestCheckResourceAttr(resourceName, "streaming_notification_targets.#", "2"),
-					resource.TestCheckResourceAttr(resourceName, "media_insights_configuration.0.disabled", "false"),
-					acctest.MatchResourceAttrRegionalARN(resourceName,
-						"media_insights_configuration.0.configuration_arn",
-						"chime",
-						regexache.MustCompile(fmt.Sprintf(`media-insights-pipeline-configuration/test-config-%s`, name)),
-					),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, chime.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckVoiceConnectorStreamingDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccVoiceConnectorStreamingConfig_basic(name),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckVoiceConnectorStreamingExists(ctx, resourceName),
+),
+	},
+	{
+Config: testAccVoiceConnectorStreamingConfig_updated(name),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckVoiceConnectorStreamingExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "data_retention", "2"),
+	resource.TestCheckResourceAttr(resourceName, "disabled", "false"),
+	resource.TestCheckResourceAttr(resourceName, "streaming_notification_targets.#", "2"),
+	resource.TestCheckResourceAttr(resourceName, "media_insights_configuration.0.disabled", "false"),
+	acctest.MatchResourceAttrRegionalARN(resourceName,
+"media_insights_configuration.0.configuration_arn",
+"chime",
+regexache.MustCompile(fmt.Sprintf(`media-insights-pipeline-configuration/test-config-%s`, name)),
+	),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -204,58 +204,58 @@ resource "aws_kinesis_stream" "test" {
 
 func testAccCheckVoiceConnectorStreamingExists(ctx context.Context, name string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[name]
-		if !ok {
-			return fmt.Errorf("not found: %s", name)
-		}
+rs, ok := s.RootModule().Resources[name]
+if !ok {
+	return fmt.Errorf("not found: %s", name)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("no Chime Voice Connector streaming configuration ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("no Chime Voice Connector streaming configuration ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ChimeSDKVoiceConn(ctx)
-		input := &chimesdkvoice.GetVoiceConnectorStreamingConfigurationInput{
-			VoiceConnectorId: aws.String(rs.Primary.ID),
-		}
+conn := acctest.Provider.Meta().(*conns.AWSClient).ChimeSDKVoiceConn(ctx)
+input := &chimesdkvoice.GetVoiceConnectorStreamingConfigurationInput{
+	VoiceConnectorId: aws.String(rs.Primary.ID),
+}
 
-		resp, err := conn.GetVoiceConnectorStreamingConfigurationWithContext(ctx, input)
-		if err != nil {
-			return err
-		}
+resp, err := conn.GetVoiceConnectorStreamingConfigurationWithContext(ctx, input)
+if err != nil {
+	return err
+}
 
-		if resp == nil || resp.StreamingConfiguration == nil {
-			return fmt.Errorf("no Chime Voice Connector Streaming configuration (%s) found", rs.Primary.ID)
-		}
+if resp == nil || resp.StreamingConfiguration == nil {
+	return fmt.Errorf("no Chime Voice Connector Streaming configuration (%s) found", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckVoiceConnectorStreamingDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_chime_voice_connector_termination" {
-				continue
-			}
-			conn := acctest.Provider.Meta().(*conns.AWSClient).ChimeSDKVoiceConn(ctx)
-			input := &chimesdkvoice.GetVoiceConnectorStreamingConfigurationInput{
-				VoiceConnectorId: aws.String(rs.Primary.ID),
-			}
-			resp, err := conn.GetVoiceConnectorStreamingConfigurationWithContext(ctx, input)
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_chime_voice_connector_termination" {
+continue
+	}
+	conn := acctest.Provider.Meta().(*conns.AWSClient).ChimeSDKVoiceConn(ctx)
+	input := &chimesdkvoice.GetVoiceConnectorStreamingConfigurationInput{
+VoiceConnectorId: aws.String(rs.Primary.ID),
+	}
+	resp, err := conn.GetVoiceConnectorStreamingConfigurationWithContext(ctx, input)
 
-			if tfawserr.ErrCodeEquals(err, chimesdkvoice.ErrCodeNotFoundException) {
-				continue
-			}
+	if tfawserr.ErrCodeEquals(err, chimesdkvoice.ErrCodeNotFoundException) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			if resp != nil && resp.StreamingConfiguration != nil {
-				return fmt.Errorf("error Chime Voice Connector streaming configuration still exists")
-			}
-		}
+	if resp != nil && resp.StreamingConfiguration != nil {
+return fmt.Errorf("error Chime Voice Connector streaming configuration still exists")
+	}
+}
 
-		return nil
+return nil
 	}
 }

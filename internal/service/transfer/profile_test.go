@@ -25,33 +25,33 @@ func TestAccTransferProfile_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, transfer.EndpointsID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckProfileDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccProfileConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckProfileExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "as2_id", rName),
-					resource.TestCheckResourceAttr(resourceName, "certificate_ids.#", "0"),
-					resource.TestCheckResourceAttrSet(resourceName, "profile_id"),
-					resource.TestCheckResourceAttr(resourceName, "profile_type", "LOCAL"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, transfer.EndpointsID)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckProfileDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccProfileConfig_basic(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckProfileExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "as2_id", rName),
+	resource.TestCheckResourceAttr(resourceName, "certificate_ids.#", "0"),
+	resource.TestCheckResourceAttrSet(resourceName, "profile_id"),
+	resource.TestCheckResourceAttr(resourceName, "profile_type", "LOCAL"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -64,28 +64,28 @@ func TestAccTransferProfile_certificateIDs(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, transfer.EndpointsID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckProfileDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccProfileConfig_certificateIDs(rName, certificate, key),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckProfileExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "certificate_ids.#", "1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, transfer.EndpointsID)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckProfileDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccProfileConfig_certificateIDs(rName, certificate, key),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckProfileExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "certificate_ids.#", "1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -96,24 +96,24 @@ func TestAccTransferProfile_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, transfer.EndpointsID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckProfileDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccProfileConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckProfileExists(ctx, resourceName, &conf),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tftransfer.ResourceProfile(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, transfer.EndpointsID)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckProfileDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccProfileConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckProfileExists(ctx, resourceName, &conf),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tftransfer.ResourceProfile(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -124,97 +124,97 @@ func TestAccTransferProfile_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, transfer.EndpointsID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckProfileDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccProfileConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckProfileExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccProfileConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckProfileExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-			{
-				Config: testAccProfileConfig_tags1(rName, "key2", "value2"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckProfileExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, transfer.EndpointsID)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckProfileDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccProfileConfig_tags1(rName, "key1", "value1"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckProfileExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccProfileConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckProfileExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+	{
+Config: testAccProfileConfig_tags1(rName, "key2", "value2"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckProfileExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+},
 	})
 }
 
 func testAccCheckProfileExists(ctx context.Context, n string, v *transfer.DescribedProfile) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No Transfer Profile ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No Transfer Profile ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).TransferConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).TransferConn(ctx)
 
-		output, err := tftransfer.FindProfileByID(ctx, conn, rs.Primary.ID)
+output, err := tftransfer.FindProfileByID(ctx, conn, rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*v = *output
+*v = *output
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckProfileDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).TransferConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).TransferConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_transfer_profile" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_transfer_profile" {
+continue
+	}
 
-			_, err := tftransfer.FindProfileByID(ctx, conn, rs.Primary.ID)
+	_, err := tftransfer.FindProfileByID(ctx, conn, rs.Primary.ID)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("Transfer Profile %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("Transfer Profile %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 

@@ -33,35 +33,35 @@ func testAccGrantAccepter_basic(t *testing.T) {
 	providers := make(map[string]*schema.Provider)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, licensemanager.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesNamedAlternate(ctx, t, providers),
-		CheckDestroy:             acctest.CheckWithNamedProviders(testAccCheckGrantAccepterDestroyWithProvider(ctx), providers),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccGrantAccepterConfig_basic(licenseARN, rName, principal, homeRegion),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckGrantAccepterExists(ctx, resourceName, acctest.NamedProviderFunc(acctest.ProviderName, providers)),
-					resource.TestCheckResourceAttrPair(resourceName, "grant_arn", resourceGrantName, "arn"),
-					resource.TestCheckResourceAttrSet(resourceName, "allowed_operations.0"),
-					resource.TestCheckResourceAttrPair(resourceName, "home_region", resourceGrantName, "home_region"),
-					resource.TestCheckResourceAttr(resourceName, "license_arn", licenseARN),
-					resource.TestCheckResourceAttrPair(resourceName, "name", resourceGrantName, "name"),
-					resource.TestCheckResourceAttrPair(resourceName, "parent_arn", resourceGrantName, "parent_arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "principal", resourceGrantName, "principal"),
-					resource.TestCheckResourceAttrSet(resourceName, "status"),
-					resource.TestCheckResourceAttrSet(resourceName, "version"),
-				),
-			},
-			{
-				Config:            testAccGrantAccepterConfig_basic(licenseARN, rName, principal, homeRegion),
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, licensemanager.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5FactoriesNamedAlternate(ctx, t, providers),
+CheckDestroy:             acctest.CheckWithNamedProviders(testAccCheckGrantAccepterDestroyWithProvider(ctx), providers),
+Steps: []resource.TestStep{
+	{
+Config: testAccGrantAccepterConfig_basic(licenseARN, rName, principal, homeRegion),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckGrantAccepterExists(ctx, resourceName, acctest.NamedProviderFunc(acctest.ProviderName, providers)),
+	resource.TestCheckResourceAttrPair(resourceName, "grant_arn", resourceGrantName, "arn"),
+	resource.TestCheckResourceAttrSet(resourceName, "allowed_operations.0"),
+	resource.TestCheckResourceAttrPair(resourceName, "home_region", resourceGrantName, "home_region"),
+	resource.TestCheckResourceAttr(resourceName, "license_arn", licenseARN),
+	resource.TestCheckResourceAttrPair(resourceName, "name", resourceGrantName, "name"),
+	resource.TestCheckResourceAttrPair(resourceName, "parent_arn", resourceGrantName, "parent_arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "principal", resourceGrantName, "principal"),
+	resource.TestCheckResourceAttrSet(resourceName, "status"),
+	resource.TestCheckResourceAttrSet(resourceName, "version"),
+),
+	},
+	{
+Config:            testAccGrantAccepterConfig_basic(licenseARN, rName, principal, homeRegion),
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -76,95 +76,95 @@ func testAccGrantAccepter_disappears(t *testing.T) {
 	providers := make(map[string]*schema.Provider)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, licensemanager.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesNamedAlternate(ctx, t, providers),
-		CheckDestroy:             acctest.CheckWithNamedProviders(testAccCheckGrantAccepterDestroyWithProvider(ctx), providers),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccGrantAccepterConfig_basic(licenseARN, rName, principal, homeRegion),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckGrantAccepterExists(ctx, resourceName, acctest.NamedProviderFunc(acctest.ProviderName, providers)),
-					acctest.CheckResourceDisappears(ctx, acctest.NamedProvider(acctest.ProviderName, providers), tflicensemanager.ResourceGrantAccepter(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, licensemanager.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5FactoriesNamedAlternate(ctx, t, providers),
+CheckDestroy:             acctest.CheckWithNamedProviders(testAccCheckGrantAccepterDestroyWithProvider(ctx), providers),
+Steps: []resource.TestStep{
+	{
+Config: testAccGrantAccepterConfig_basic(licenseARN, rName, principal, homeRegion),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckGrantAccepterExists(ctx, resourceName, acctest.NamedProviderFunc(acctest.ProviderName, providers)),
+	acctest.CheckResourceDisappears(ctx, acctest.NamedProvider(acctest.ProviderName, providers), tflicensemanager.ResourceGrantAccepter(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
 func testAccCheckGrantAccepterExists(ctx context.Context, n string, providerF func() *schema.Provider) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No License Manager License Configuration ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No License Manager License Configuration ID is set")
+}
 
-		conn := providerF().Meta().(*conns.AWSClient).LicenseManagerConn(ctx)
+conn := providerF().Meta().(*conns.AWSClient).LicenseManagerConn(ctx)
 
-		out, err := tflicensemanager.FindGrantAccepterByGrantARN(ctx, conn, rs.Primary.ID)
+out, err := tflicensemanager.FindGrantAccepterByGrantARN(ctx, conn, rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		if out == nil {
-			return fmt.Errorf("GrantAccepter %q does not exist", rs.Primary.ID)
-		}
+if out == nil {
+	return fmt.Errorf("GrantAccepter %q does not exist", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckGrantAccepterDestroyWithProvider(ctx context.Context) acctest.TestCheckWithProviderFunc {
 	return func(s *terraform.State, provider *schema.Provider) error {
-		conn := provider.Meta().(*conns.AWSClient).LicenseManagerConn(ctx)
+conn := provider.Meta().(*conns.AWSClient).LicenseManagerConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_licensemanager_grant_accepter" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_licensemanager_grant_accepter" {
+continue
+	}
 
-			_, err := tflicensemanager.FindGrantAccepterByGrantARN(ctx, conn, rs.Primary.ID)
+	_, err := tflicensemanager.FindGrantAccepterByGrantARN(ctx, conn, rs.Primary.ID)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("License Manager GrantAccepter %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("License Manager GrantAccepter %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
 func testAccGrantAccepterConfig_basic(licenseARN, rName, principal, homeRegion string) string {
 	principalArn, _ := arn.Parse(principal)
 	roleARN := arn.ARN{
-		Partition: principalArn.Partition,
-		Service:   "iam",
-		AccountID: principalArn.AccountID,
-		Resource:  "role/OrganizationAccountAccessRole",
+Partition: principalArn.Partition,
+Service:   "iam",
+AccountID: principalArn.AccountID,
+Resource:  "role/OrganizationAccountAccessRole",
 	}
 	return acctest.ConfigCompose(
-		acctest.ConfigNamedRegionalProvider(acctest.ProviderNameAlternate, homeRegion),
-		fmt.Sprintf(`
+acctest.ConfigNamedRegionalProvider(acctest.ProviderNameAlternate, homeRegion),
+fmt.Sprintf(`
 provider %[1]q {
 	assume_role {
-		role_arn = %[2]q
+role_arn = %[2]q
 	}
 }`, acctest.ProviderName, roleARN),
-		fmt.Sprintf(`
+fmt.Sprintf(`
 resource "aws_licensemanager_grant_accepter" "test" {
   grant_arn = aws_licensemanager_grant.test.arn
 }

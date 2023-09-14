@@ -22,27 +22,27 @@ func TestAccOpsWorksHAProxyLayer_basic(t *testing.T) {
 	resourceName := "aws_opsworks_haproxy_layer.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
-		ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckHAProxyLayerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccHAProxyLayerConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckHAProxyLayerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccHAProxyLayerConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLayerExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "healthcheck_method", "OPTIONS"),
-					resource.TestCheckResourceAttr(resourceName, "healthcheck_url", "/"),
-					resource.TestCheckResourceAttr(resourceName, "name", "HAProxy"),
-					resource.TestCheckResourceAttr(resourceName, "stats_enabled", "true"),
-					resource.TestCheckResourceAttrSet(resourceName, "stats_password"),
-					resource.TestCheckResourceAttr(resourceName, "stats_url", "/haproxy?stats"),
-					resource.TestCheckResourceAttr(resourceName, "stats_user", "opsworks"),
-				),
-			},
-		},
+	testAccCheckLayerExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "healthcheck_method", "OPTIONS"),
+	resource.TestCheckResourceAttr(resourceName, "healthcheck_url", "/"),
+	resource.TestCheckResourceAttr(resourceName, "name", "HAProxy"),
+	resource.TestCheckResourceAttr(resourceName, "stats_enabled", "true"),
+	resource.TestCheckResourceAttrSet(resourceName, "stats_password"),
+	resource.TestCheckResourceAttr(resourceName, "stats_url", "/haproxy?stats"),
+	resource.TestCheckResourceAttr(resourceName, "stats_user", "opsworks"),
+),
+	},
+},
 	})
 }
 

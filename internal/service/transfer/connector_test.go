@@ -30,7 +30,7 @@ func TestAccTransferConnector_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, transfer.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
+		ErrorCheck:               acctest.ErrorCheck(t, transfer.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckConnectorDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -72,7 +72,7 @@ func TestAccTransferConnector_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, transfer.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
+		ErrorCheck:               acctest.ErrorCheck(t, transfer.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckConnectorDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -100,7 +100,7 @@ func TestAccTransferConnector_tags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, transfer.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
+		ErrorCheck:               acctest.ErrorCheck(t, transfer.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckConnectorDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -199,7 +199,7 @@ resource "aws_iam_role" "test" {
 	"Statement": [{
 	  "Effect": "Allow",
 	  "Principal": {
-		"Service": "transfer.amazonaws.com"
+"Service": "transfer.amazonaws.com"
 	  },
 	  "Action": "sts:AssumeRole"
 	}]
@@ -215,14 +215,14 @@ resource "aws_iam_role_policy" "test" {
 {
 	 "Version":"2012-10-17",
 	 "Statement":[
-		{
-		   "Sid":"AllowFullAccesstoS3",
-		   "Effect":"Allow",
-		   "Action":[
-			  "s3:*"
-		   ],
-		   "Resource":"*"
-		}
+{
+   "Sid":"AllowFullAccesstoS3",
+   "Effect":"Allow",
+   "Action":[
+	  "s3:*"
+   ],
+   "Resource":"*"
+}
 	 ]
 }
 POLICY

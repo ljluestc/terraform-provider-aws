@@ -22,62 +22,62 @@ import (
 // @SDKResource("aws_glue_resource_policy")
 func ResourceResourcePolicy() *schema.Resource {
 	return &schema.Resource{
-		CreateWithoutTimeout: resourceResourcePolicyPut(glue.ExistConditionNotExist),
-		ReadWithoutTimeout:   resourceResourcePolicyRead,
-		UpdateWithoutTimeout: resourceResourcePolicyPut(glue.ExistConditionMustExist),
-		DeleteWithoutTimeout: resourceResourcePolicyDelete,
-		Importer: &schema.ResourceImporter{
-			StateContext: schema.ImportStatePassthroughContext,
-		},
+CreateWithoutTimeout: resourceResourcePolicyPut(glue.ExistConditionNotExist),
+ReadWithoutTimeout:   resourceResourcePolicyRead,
+UpdateWithoutTimeout: resourceResourcePolicyPut(glue.ExistConditionMustExist),
+DeleteWithoutTimeout: resourceResourcePolicyDelete,
+Importer: &schema.ResourceImporter{
+	StateContext: schema.ImportStatePassthroughContext,
+},
 
-		Schema: map[string]*schema.Schema{
-			"policy": {
-				Type:   schema.TypeString,
-				Required:              true,
-				ValidateFunc:          validation.StringIsJSON,
-				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
-				DiffSuppressOnRefresh: true,
-				StateFunc: func(v interface{}) string {
-					json, _ := structure.NormalizeJsonString(v)
-					return json
-				},
-			},
-			"enable_hybrid": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				ValidateFunc: validation.StringInSlice(glue.EnableHybridValues_Values(), false),
-			},
-		},
+Schema: map[string]*schema.Schema{
+	"policy": {
+Type:   schema.TypeString,
+Required:              true,
+ValidateFunc:          validation.StringIsJSON,
+DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
+DiffSuppressOnRefresh: true,
+StateFunc: func(v interface{}) string {
+	json, _ := structure.NormalizeJsonString(v)
+	return json
+},
+	},
+	"enable_hybrid": {
+Type:         schema.TypeString,
+Optional:     true,
+ValidateFunc: validation.StringInSlice(glue.EnableHybridValues_Values(), false),
+	},
+},
 	}
 }
 
 func resourceResourcePolicyPut(condition string) func(context.Context, *schema.ResourceData, interface{}) diag.Diagnostics {
 	return func(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-		var diags diag.Diagnostics
-		conn := meta.(*conns.AWSClient).GlueConn(ctx)
+var diags diag.Diagnostics
+conn := meta.(*conns.AWSClient).GlueConn(ctx)
 
-		policy, err := structure.NormalizeJsonString(d.Get("policy").(string))
+policy, err := structure.NormalizeJsonString(d.Get("policy").(string))
 
-		if err != nil {
-			return sdkdiag.AppendErrorf(diags, "policy is invalid JSON: %s", err)
-		}
+if err != nil {
+	return sdkdiag.AppendErrorf(diags, "policy is invalid JSON: %s", err)
+}
 
-		input := &glue.PutResourcePolicyInput{
-			PolicyInJson:          aws.String(policy),
-			PolicyExistsCondition: aws.String(condition),
-		}
+input := &glue.PutResourcePolicyInput{
+	PolicyInJson:          aws.String(policy),
+	PolicyExistsCondition: aws.String(condition),
+}
 
-		if v, ok := d.GetOk("enable_hybrid"); ok {
-			input.EnableHybrid = aws.String(v.(string))
-		}
+if v, ok := d.GetOk("enable_hybrid"); ok {
+	input.EnableHybrid = aws.String(v.(string))
+}
 
-		_, err = conn.PutResourcePolicyWithContext(ctx, input)
-		if err != nil {
-			return sdkdiag.AppendErrorf(diags, "putting policy request: %s", err)
-		}
-		d.SetId(meta.(*conns.AWSClient).Region)
+_, err = conn.PutResourcePolicyWithContext(ctx, input)
+if err != nil {
+	return sdkdiag.AppendErrorf(diags, "putting policy request: %s", err)
+}
+d.SetId(meta.(*conns.AWSClient).Region)
 
-		return append(diags, resourceResourcePolicyRead(ctx, d, meta)...)
+return append(diags, resourceResourcePolicyRead(ctx, d, meta)...)
 	}
 }
 
@@ -87,25 +87,25 @@ func resourceResourcePolicyRead(ctx context.Context, d *schema.ResourceData, met
 
 	resourcePolicy, err := conn.GetResourcePolicyWithContext(ctx, &glue.GetResourcePolicyInput{})
 	if tfawserr.ErrCodeEquals(err, glue.ErrCodeEntityNotFoundException) {
-		log.Printf("[WARN] Glue Resource (%s) not found, removing from state", d.Id())
-		d.SetId("")
-		return diags
+log.Printf("[WARN] Glue Resource (%s) not found, removing from state", d.Id())
+d.SetId("")
+return diags
 	}
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "reading Glue Resource Policy (%s): %s", d.Id(), err)
+return sdkdiag.AppendErrorf(diags, "reading Glue Resource Policy (%s): %s", d.Id(), err)
 	}
 
 	if aws.StringValue(resourcePolicy.PolicyInJson) == "" {
-		//Since the glue resource policy is global we expect it to be deleted when the policy is empty
-		d.SetId("")
+//Since the glue resource policy is global we expect it to be deleted when the policy is empty
+d.SetId("")
 	} else {
-		policyToSet, err := verify.PolicyToSet(d.Get("policy").(string), aws.StringValue(resourcePolicy.PolicyInJson))
+policyToSet, err := verify.PolicyToSet(d.Get("policy").(string), aws.StringValue(resourcePolicy.PolicyInJson))
 
-		if err != nil {
-			return sdkdiag.AppendErrorf(diags, "reading Glue Resource Policy (%s): %s", d.Id(), err)
-		}
+if err != nil {
+	return sdkdiag.AppendErrorf(diags, "reading Glue Resource Policy (%s): %s", d.Id(), err)
+}
 
-		d.Set("policy", policyToSet)
+d.Set("policy", policyToSet)
 	}
 	return diags
 }
@@ -116,10 +116,10 @@ func resourceResourcePolicyDelete(ctx context.Context, d *schema.ResourceData, m
 
 	_, err := conn.DeleteResourcePolicyWithContext(ctx, &glue.DeleteResourcePolicyInput{})
 	if err != nil {
-		if tfawserr.ErrCodeEquals(err, glue.ErrCodeEntityNotFoundException) {
-			return diags
-		}
-		return sdkdiag.AppendErrorf(diags, "deleting policy request: %s", err)
+if tfawserr.ErrCodeEquals(err, glue.ErrCodeEntityNotFoundException) {
+	return diags
+}
+return sdkdiag.AppendErrorf(diags, "deleting policy request: %s", err)
 	}
 
 	return diags

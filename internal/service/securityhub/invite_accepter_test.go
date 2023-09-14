@@ -22,88 +22,88 @@ func testAccInviteAccepter_basic(t *testing.T) {
 	resourceName := "aws_securityhub_invite_accepter.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckAlternateAccount(t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, securityhub.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckInviteAccepterDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccInviteAccepterConfig_basic(acctest.DefaultEmailAddress),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckInviteAccepterExists(ctx, resourceName),
-				),
-			},
-			{
-				Config:            testAccInviteAccepterConfig_basic(acctest.DefaultEmailAddress),
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckAlternateAccount(t)
+},
+ErrorCheck:acctest.ErrorCheck(t, securityhub.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
+CheckDestroy:             testAccCheckInviteAccepterDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccInviteAccepterConfig_basic(acctest.DefaultEmailAddress),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckInviteAccepterExists(ctx, resourceName),
+),
+	},
+	{
+Config:            testAccInviteAccepterConfig_basic(acctest.DefaultEmailAddress),
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
 func testAccCheckInviteAccepterExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		_, ok := s.RootModule().Resources[resourceName]
-		if !ok {
-			return fmt.Errorf("Not found: %s", resourceName)
-		}
+_, ok := s.RootModule().Resources[resourceName]
+if !ok {
+	return fmt.Errorf("Not found: %s", resourceName)
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).SecurityHubConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).SecurityHubConn(ctx)
 
-		resp, err := conn.GetMasterAccountWithContext(ctx, &securityhub.GetMasterAccountInput{})
+resp, err := conn.GetMasterAccountWithContext(ctx, &securityhub.GetMasterAccountInput{})
 
-		if err != nil {
-			return fmt.Errorf("error retrieving Security Hub master account: %w", err)
-		}
+if err != nil {
+	return fmt.Errorf("error retrieving Security Hub master account: %w", err)
+}
 
-		if resp == nil || resp.Master == nil || aws.StringValue(resp.Master.AccountId) == "" {
-			return fmt.Errorf("Security Hub master account not found for: %s", resourceName)
-		}
+if resp == nil || resp.Master == nil || aws.StringValue(resp.Master.AccountId) == "" {
+	return fmt.Errorf("Security Hub master account not found for: %s", resourceName)
+}
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckInviteAccepterDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).SecurityHubConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).SecurityHubConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_securityhub_invite_accepter" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_securityhub_invite_accepter" {
+continue
+	}
 
-			resp, err := conn.GetMasterAccountWithContext(ctx, &securityhub.GetMasterAccountInput{})
-			if tfawserr.ErrCodeEquals(err, securityhub.ErrCodeResourceNotFoundException) {
-				continue
-			}
-			// If Security Hub is not enabled, the API returns "BadRequestException"
-			if tfawserr.ErrCodeEquals(err, "BadRequestException") {
-				continue
-			}
-			if err != nil {
-				return fmt.Errorf("error retrieving Security Hub master account: %w", err)
-			}
+	resp, err := conn.GetMasterAccountWithContext(ctx, &securityhub.GetMasterAccountInput{})
+	if tfawserr.ErrCodeEquals(err, securityhub.ErrCodeResourceNotFoundException) {
+continue
+	}
+	// If Security Hub is not enabled, the API returns "BadRequestException"
+	if tfawserr.ErrCodeEquals(err, "BadRequestException") {
+continue
+	}
+	if err != nil {
+return fmt.Errorf("error retrieving Security Hub master account: %w", err)
+	}
 
-			if resp == nil || resp.Master == nil || aws.StringValue(resp.Master.AccountId) == "" {
-				continue
-			}
+	if resp == nil || resp.Master == nil || aws.StringValue(resp.Master.AccountId) == "" {
+continue
+	}
 
-			return fmt.Errorf("Security Hub master account still configured: %s", aws.StringValue(resp.Master.AccountId))
-		}
-		return nil
+	return fmt.Errorf("Security Hub master account still configured: %s", aws.StringValue(resp.Master.AccountId))
+}
+return nil
 	}
 }
 
 func testAccInviteAccepterConfig_basic(email string) string {
 	return acctest.ConfigCompose(
-		acctest.ConfigAlternateAccountProvider(),
-		fmt.Sprintf(`
+acctest.ConfigAlternateAccountProvider(),
+fmt.Sprintf(`
 resource "aws_securityhub_invite_accepter" "test" {
   master_id = aws_securityhub_member.source.master_id
 

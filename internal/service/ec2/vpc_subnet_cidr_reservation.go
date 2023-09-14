@@ -46,9 +46,9 @@ func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.R
 
 		Schema: map[string]*schema.Schema{
 			"cidr_block": {
-				Type:             schema.TypeString,
-				Required:         true,
-				ForceNew:         true,
+				Type:    schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				Validate
 func:     verify.ValidCIDRNetworkAddress,
 				DiffSuppress
@@ -64,7 +64,7 @@ func: suppressEqualCIDRBlockDiffs,
 				Computed: true,
 			},
 			"reservation_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
@@ -85,7 +85,7 @@ func resourceSubnetCIDRReservationCreate(ctx context.Context, d *schema.Resource
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	input := &ec2.CreateSubnetCidrReservationInput{
-		Cidr:            aws.String(d.Get("cidr_block").(string)),
+		Cidr:   aws.String(d.Get("cidr_block").(string)),
 		ReservationType: aws.String(d.Get("reservation_type").(string)),
 		SubnetId:        aws.String(d.Get("subnet_id").(string)),
 	}

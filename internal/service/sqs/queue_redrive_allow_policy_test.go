@@ -22,31 +22,31 @@ func TestAccSQSQueueRedriveAllowPolicy_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckQueueDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccQueueRedriveAllowPolicyConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckQueueExists(ctx, queueResourceName, &queueAttributes),
-					resource.TestCheckResourceAttrSet(resourceName, "redrive_allow_policy"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config:   testAccQueueRedriveAllowPolicyConfig_basic(rName),
-				PlanOnly: true,
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrPair(resourceName, "redrive_allow_policy", queueResourceName, "redrive_allow_policy"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckQueueDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccQueueRedriveAllowPolicyConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckQueueExists(ctx, queueResourceName, &queueAttributes),
+	resource.TestCheckResourceAttrSet(resourceName, "redrive_allow_policy"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config:   testAccQueueRedriveAllowPolicyConfig_basic(rName),
+PlanOnly: true,
+Check: resource.ComposeTestCheckFunc(
+	resource.TestCheckResourceAttrPair(resourceName, "redrive_allow_policy", queueResourceName, "redrive_allow_policy"),
+),
+	},
+},
 	})
 }
 
@@ -58,20 +58,20 @@ func TestAccSQSQueueRedriveAllowPolicy_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckQueueDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccQueueRedriveAllowPolicyConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckQueueExists(ctx, queueResourceName, &queueAttributes),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfsqs.ResourceQueueRedriveAllowPolicy(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckQueueDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccQueueRedriveAllowPolicyConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckQueueExists(ctx, queueResourceName, &queueAttributes),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfsqs.ResourceQueueRedriveAllowPolicy(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -82,20 +82,20 @@ func TestAccSQSQueueRedriveAllowPolicy_Disappears_queue(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckQueueDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccQueueRedriveAllowPolicyConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckQueueExists(ctx, queueResourceName, &queueAttributes),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfsqs.ResourceQueue(), queueResourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckQueueDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccQueueRedriveAllowPolicyConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckQueueExists(ctx, queueResourceName, &queueAttributes),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfsqs.ResourceQueue(), queueResourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -107,30 +107,30 @@ func TestAccSQSQueueRedriveAllowPolicy_update(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckQueueDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccQueueRedriveAllowPolicyConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckQueueExists(ctx, queueResourceName, &queueAttributes),
-					resource.TestCheckResourceAttrSet(resourceName, "redrive_allow_policy"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccQueueRedriveAllowPolicyConfig_updated(rName),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet(resourceName, "redrive_allow_policy"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckQueueDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccQueueRedriveAllowPolicyConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckQueueExists(ctx, queueResourceName, &queueAttributes),
+	resource.TestCheckResourceAttrSet(resourceName, "redrive_allow_policy"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccQueueRedriveAllowPolicyConfig_updated(rName),
+Check: resource.ComposeTestCheckFunc(
+	resource.TestCheckResourceAttrSet(resourceName, "redrive_allow_policy"),
+),
+	},
+},
 	})
 }
 

@@ -45,7 +45,7 @@ func ResourceTrafficMirrorFilterRule() *schema.Resource {
 				Optional: true,
 			},
 			"destination_cidr_block": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				Validate
 func: verify.ValidCIDRNetworkAddress,
@@ -57,13 +57,13 @@ func: verify.ValidCIDRNetworkAddress,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"from_port": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							Validate
 func: validation.IsPortNumberOrZero,
 						},
 						"to_port": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							Validate
 func: validation.IsPortNumberOrZero,
@@ -76,7 +76,7 @@ func: validation.IsPortNumberOrZero,
 				Optional: true,
 			},
 			"rule_action": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				Validate
 func: validation.StringInSlice(ec2.TrafficMirrorRuleAction_Values(), false),
@@ -86,7 +86,7 @@ func: validation.StringInSlice(ec2.TrafficMirrorRuleAction_Values(), false),
 				Required: true,
 			},
 			"source_cidr_block": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				Validate
 func: verify.ValidCIDRNetworkAddress,
@@ -98,13 +98,13 @@ func: verify.ValidCIDRNetworkAddress,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"from_port": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							Validate
 func: validation.IsPortNumberOrZero,
 						},
 						"to_port": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							Validate
 func: validation.IsPortNumberOrZero,
@@ -113,7 +113,7 @@ func: validation.IsPortNumberOrZero,
 				},
 			},
 			"traffic_direction": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				Validate
 func: validation.StringInSlice(ec2.TrafficDirection_Values(), false),
@@ -134,8 +134,8 @@ func resourceTrafficMirrorFilterRuleCreate(ctx context.Context, d *schema.Resour
 
 	input := &ec2.CreateTrafficMirrorFilterRuleInput{
 		DestinationCidrBlock:  aws.String(d.Get("destination_cidr_block").(string)),
-		RuleAction:            aws.String(d.Get("rule_action").(string)),
-		RuleNumber:            aws.Int64(int64(d.Get("rule_number").(int))),
+		RuleAction:   aws.String(d.Get("rule_action").(string)),
+		RuleNumber:   aws.Int64(int64(d.Get("rule_number").(int))),
 		SourceCidrBlock:       aws.String(d.Get("source_cidr_block").(string)),
 		TrafficDirection:      aws.String(d.Get("traffic_direction").(string)),
 		TrafficMirrorFilterId: aws.String(d.Get("traffic_mirror_filter_id").(string)),

@@ -19,22 +19,22 @@ func TestAccVPCPrefixListDataSource_basic(t *testing.T) {
 	ds2Name := "data.aws_prefix_list.s3_by_name"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCPrefixListDataSourceConfig_basic,
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCPrefixListDataSourceConfig_basic,
+Check: resource.ComposeTestCheck
 func(
-					acctest.CheckResourceAttrGreaterThanValue(ds1Name, "cidr_blocks.#", 0),
-					resource.TestCheckResourceAttrSet(ds1Name, "name"),
-					acctest.CheckResourceAttrGreaterThanValue(ds2Name, "cidr_blocks.#", 0),
-					resource.TestCheckResourceAttrSet(ds2Name, "name"),
-				),
-			},
-		},
+	acctest.CheckResourceAttrGreaterThanValue(ds1Name, "cidr_blocks.#", 0),
+	resource.TestCheckResourceAttrSet(ds1Name, "name"),
+	acctest.CheckResourceAttrGreaterThanValue(ds2Name, "cidr_blocks.#", 0),
+	resource.TestCheckResourceAttrSet(ds2Name, "name"),
+),
+	},
+},
 	})
 }
 
@@ -45,22 +45,22 @@ func TestAccVPCPrefixListDataSource_filter(t *testing.T) {
 	ds2Name := "data.aws_prefix_list.s3_by_name"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCPrefixListDataSourceConfig_filter,
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCPrefixListDataSourceConfig_filter,
+Check: resource.ComposeTestCheck
 func(
-					acctest.CheckResourceAttrGreaterThanValue(ds1Name, "cidr_blocks.#", 0),
-					resource.TestCheckResourceAttrSet(ds1Name, "name"),
-					acctest.CheckResourceAttrGreaterThanValue(ds2Name, "cidr_blocks.#", 0),
-					resource.TestCheckResourceAttrSet(ds2Name, "name"),
-				),
-			},
-		},
+	acctest.CheckResourceAttrGreaterThanValue(ds1Name, "cidr_blocks.#", 0),
+	resource.TestCheckResourceAttrSet(ds1Name, "name"),
+	acctest.CheckResourceAttrGreaterThanValue(ds2Name, "cidr_blocks.#", 0),
+	resource.TestCheckResourceAttrSet(ds2Name, "name"),
+),
+	},
+},
 	})
 }
 
@@ -68,16 +68,16 @@ func(
 func TestAccVPCPrefixListDataSource_nameDoesNotOverrideFilter(t *testing.T) {
 	ctx := acctest.Context(t)
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config:      testAccVPCPrefixListDataSourceConfig_nameDoesNotOverrideFilter,
-				ExpectError: regexache.MustCompile(`no matching EC2 Prefix List found`),
-			},
-		},
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config:      testAccVPCPrefixListDataSourceConfig_nameDoesNotOverrideFilter,
+ExpectError: regexache.MustCompile(`no matching EC2 Prefix List found`),
+	},
+},
 	})
 }
 

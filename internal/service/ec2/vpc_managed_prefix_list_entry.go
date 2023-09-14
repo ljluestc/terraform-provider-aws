@@ -33,14 +33,14 @@ func ResourceManagedPrefixListEntry() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"cidr": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
 func: validation.IsCIDR,
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Validate

@@ -24,18 +24,18 @@ func TestAccAutoScalingTrafficSourceAttachment_elb(t *testing.T) {
 	resourceName := "aws_autoscaling_traffic_source_attachment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTrafficSourceAttachmentDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTrafficSourceAttachmentConfig_elb(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckTrafficSourceAttachmentExists(ctx, resourceName),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTrafficSourceAttachmentDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTrafficSourceAttachmentConfig_elb(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckTrafficSourceAttachmentExists(ctx, resourceName),
+),
+	},
+},
 	})
 }
 
@@ -45,18 +45,18 @@ func TestAccAutoScalingTrafficSourceAttachment_albTargetGroup(t *testing.T) {
 	resourceName := "aws_autoscaling_traffic_source_attachment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTrafficSourceAttachmentDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTrafficSourceAttachmentConfig_targetGroup(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckTrafficSourceAttachmentExists(ctx, resourceName),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTrafficSourceAttachmentDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTrafficSourceAttachmentConfig_targetGroup(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckTrafficSourceAttachmentExists(ctx, resourceName),
+),
+	},
+},
 	})
 }
 
@@ -66,18 +66,18 @@ func TestAccAutoScalingTrafficSourceAttachment_vpcLatticeTargetGroup(t *testing.
 	resourceName := "aws_autoscaling_traffic_source_attachment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTrafficSourceAttachmentDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTrafficSourceAttachmentConfig_vpcLatticeTargetGrpoup(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckTrafficSourceAttachmentExists(ctx, resourceName),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTrafficSourceAttachmentDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTrafficSourceAttachmentConfig_vpcLatticeTargetGrpoup(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckTrafficSourceAttachmentExists(ctx, resourceName),
+),
+	},
+},
 	})
 }
 
@@ -88,26 +88,26 @@ func TestAccAutoScalingTrafficSourceAttachment_multipleELBs(t *testing.T) {
 	resource5Name := "aws_autoscaling_traffic_source_attachment.test.4"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTrafficSourceAttachmentDestroy(ctx),
-		Steps: []resource.TestStep{
-			// Create all the ELBs first.
-			{
-				Config: testAccTrafficSourceAttachmentConfig_elbBase(rName, 5),
-			},
-			{
-				Config: testAccTrafficSourceAttachmentConfig_multipleELBs(rName, 5),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckTrafficSourceAttachmentExists(ctx, resource1Name),
-					testAccCheckTrafficSourceAttachmentExists(ctx, resource5Name),
-				),
-			},
-			{
-				Config: testAccTrafficSourceAttachmentConfig_elbBase(rName, 5),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTrafficSourceAttachmentDestroy(ctx),
+Steps: []resource.TestStep{
+	// Create all the ELBs first.
+	{
+Config: testAccTrafficSourceAttachmentConfig_elbBase(rName, 5),
+	},
+	{
+Config: testAccTrafficSourceAttachmentConfig_multipleELBs(rName, 5),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckTrafficSourceAttachmentExists(ctx, resource1Name),
+	testAccCheckTrafficSourceAttachmentExists(ctx, resource5Name),
+),
+	},
+	{
+Config: testAccTrafficSourceAttachmentConfig_elbBase(rName, 5),
+	},
+},
 	})
 }
 
@@ -118,25 +118,25 @@ func TestAccAutoScalingTrafficSourceAttachment_multipleVPCLatticeTargetGroups(t 
 	resource4Name := "aws_autoscaling_traffic_source_attachment.test.4"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTrafficSourceAttachmentDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTrafficSourceAttachmentConfig_vpcLatticeBase(rName, 5),
-			},
-			{
-				Config: testAccTrafficSourceAttachmentConfig_multipleVPCLatticeTargetGroups(rName, 5),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckTrafficSourceAttachmentExists(ctx, resource1Name),
-					testAccCheckTrafficSourceAttachmentExists(ctx, resource4Name),
-				),
-			},
-			{
-				Config: testAccTrafficSourceAttachmentConfig_vpcLatticeBase(rName, 5),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTrafficSourceAttachmentDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccTrafficSourceAttachmentConfig_vpcLatticeBase(rName, 5),
+	},
+	{
+Config: testAccTrafficSourceAttachmentConfig_multipleVPCLatticeTargetGroups(rName, 5),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckTrafficSourceAttachmentExists(ctx, resource1Name),
+	testAccCheckTrafficSourceAttachmentExists(ctx, resource4Name),
+),
+	},
+	{
+Config: testAccTrafficSourceAttachmentConfig_vpcLatticeBase(rName, 5),
+	},
+},
 	})
 }
 
@@ -147,79 +147,79 @@ func TestAccAutoScalingTrafficSourceAttachment_multipleALBTargetGroups(t *testin
 	resource5Name := "aws_autoscaling_traffic_source_attachment.test.4"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTrafficSourceAttachmentDestroy(ctx),
-		Steps: []resource.TestStep{
-			// Create all the target groups first.
-			{
-				Config: testAccTrafficSourceAttachmentConfig_targetGroupBase(rName, 5),
-			},
-			{
-				Config: testAccTrafficSourceAttachmentConfig_multipleTargetGroups(rName, 5),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckTrafficSourceAttachmentExists(ctx, resource1Name),
-					testAccCheckTrafficSourceAttachmentExists(ctx, resource5Name),
-				),
-			},
-			{
-				Config: testAccTrafficSourceAttachmentConfig_targetGroupBase(rName, 5),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckTrafficSourceAttachmentDestroy(ctx),
+Steps: []resource.TestStep{
+	// Create all the target groups first.
+	{
+Config: testAccTrafficSourceAttachmentConfig_targetGroupBase(rName, 5),
+	},
+	{
+Config: testAccTrafficSourceAttachmentConfig_multipleTargetGroups(rName, 5),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckTrafficSourceAttachmentExists(ctx, resource1Name),
+	testAccCheckTrafficSourceAttachmentExists(ctx, resource5Name),
+),
+	},
+	{
+Config: testAccTrafficSourceAttachmentConfig_targetGroupBase(rName, 5),
+	},
+},
 	})
 }
 
 func testAccCheckTrafficSourceAttachmentExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		asgName, trafficSourceType, trafficSourceID, err := tfautoscaling.TrafficSourceAttachmentParseResourceID(rs.Primary.ID)
+asgName, trafficSourceType, trafficSourceID, err := tfautoscaling.TrafficSourceAttachmentParseResourceID(rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).AutoScalingConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).AutoScalingConn(ctx)
 
-		_, err = tfautoscaling.FindTrafficSourceAttachmentByThreePartKey(ctx, conn, asgName, trafficSourceType, trafficSourceID)
+_, err = tfautoscaling.FindTrafficSourceAttachmentByThreePartKey(ctx, conn, asgName, trafficSourceType, trafficSourceID)
 
-		return err
+return err
 	}
 }
 
 func testAccCheckTrafficSourceAttachmentDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).AutoScalingConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).AutoScalingConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_autoscaling_traffic_source_attachment" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_autoscaling_traffic_source_attachment" {
+continue
+	}
 
-			asgName, trafficSourceType, trafficSourceID, err := tfautoscaling.TrafficSourceAttachmentParseResourceID(rs.Primary.ID)
+	asgName, trafficSourceType, trafficSourceID, err := tfautoscaling.TrafficSourceAttachmentParseResourceID(rs.Primary.ID)
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			_, err = tfautoscaling.FindTrafficSourceAttachmentByThreePartKey(ctx, conn, asgName, trafficSourceType, trafficSourceID)
+	_, err = tfautoscaling.FindTrafficSourceAttachmentByThreePartKey(ctx, conn, asgName, trafficSourceType, trafficSourceID)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("Auto Scaling Group Traffic Source Attachment %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("Auto Scaling Group Traffic Source Attachment %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -261,9 +261,9 @@ resource "aws_autoscaling_group" "test" {
 
 func testAccTrafficSourceAttachmentConfig_targetGroupBase(rName string, targetGroupCount int) string {
 	return acctest.ConfigCompose(
-		acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
-		acctest.ConfigVPCWithSubnets(rName, 1),
-		fmt.Sprintf(`
+acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
+acctest.ConfigVPCWithSubnets(rName, 1),
+fmt.Sprintf(`
 resource "aws_lb_target_group" "test" {
   count = %[2]d
 
@@ -301,9 +301,9 @@ resource "aws_autoscaling_group" "test" {
 
 func testAccTrafficSourceAttachmentConfig_vpcLatticeBase(rName string, targetGroupCount int) string {
 	return acctest.ConfigCompose(
-		acctest.ConfigVPCWithSubnets(rName, 1),
-		acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
-		fmt.Sprintf(`
+acctest.ConfigVPCWithSubnets(rName, 1),
+acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
+fmt.Sprintf(`
 resource "aws_vpclattice_target_group" "test" {
   count = %[2]d
 

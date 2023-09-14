@@ -199,7 +199,7 @@ func resourceOpenzfsVolumeCreate(ctx context.Context, d *schema.ResourceData, me
 
 	input := &fsx.CreateVolumeInput{
 		ClientRequestToken: aws.String(id.UniqueId()),
-		Name:aws.String(d.Get("name").(string)),
+		Name:               aws.String(d.Get("name").(string)),
 		VolumeType:         aws.String(d.Get("volume_type").(string)),
 		OpenZFSConfiguration: &fsx.CreateOpenZFSVolumeConfiguration{
 			ParentVolumeId: aws.String(d.Get("parent_volume_id").(string)),

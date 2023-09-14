@@ -34,14 +34,14 @@ func ResourceApprovalRuleTemplate() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				Validate
 func: validation.StringLenBetween(1, 100),
 			},
 			"content": {
-				Type:             schema.TypeString,
-				Required:         true,
+				Type:    schema.TypeString,
+				Required:true,
 				DiffSuppress
 func: verify.SuppressEquivalentJSONDiffs,
 				State
@@ -57,7 +57,7 @@ func: validation.All(
 				),
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Validate
 func: validation.StringLenBetween(0, 1000),
@@ -173,7 +173,7 @@ func resourceApprovalRuleTemplateUpdate(ctx context.Context, d *schema.ResourceD
 		input := &codecommit.UpdateApprovalRuleTemplateContentInput{
 			ApprovalRuleTemplateName:  aws.String(d.Id()),
 			ExistingRuleContentSha256: aws.String(d.Get("rule_content_sha256").(string)),
-			NewRuleContent:            aws.String(d.Get("content").(string)),
+			NewRuleContent:   aws.String(d.Get("content").(string)),
 		}
 
 		_, err := conn.UpdateApprovalRuleTemplateContentWithContext(ctx, input)

@@ -24,30 +24,30 @@ func testAccResourcePolicy_basic(t *testing.T) {
 	resourceName := "aws_organizations_resource_policy.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckAlternateAccount(t)
-			acctest.PreCheckOrganizationManagementAccount(ctx, t)
-		},
-		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckResourcePolicyDestroy(ctx),
-		ErrorCheck:acctest.ErrorCheck(t, organizations.EndpointsID),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccResourcePolicyConfig_basic(),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckResourcePolicyExists(ctx, resourceName, &policy),
-					acctest.MatchResourceAttrGlobalARN(resourceName, "arn", "organizations", regexache.MustCompile("resourcepolicy/o-.+/rp-.+$")),
-					resource.TestCheckResourceAttrSet(resourceName, "content"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckAlternateAccount(t)
+	acctest.PreCheckOrganizationManagementAccount(ctx, t)
+},
+ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
+CheckDestroy:             testAccCheckResourcePolicyDestroy(ctx),
+ErrorCheck:acctest.ErrorCheck(t, organizations.EndpointsID),
+Steps: []resource.TestStep{
+	{
+Config: testAccResourcePolicyConfig_basic(),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckResourcePolicyExists(ctx, resourceName, &policy),
+	acctest.MatchResourceAttrGlobalARN(resourceName, "arn", "organizations", regexache.MustCompile("resourcepolicy/o-.+/rp-.+$")),
+	resource.TestCheckResourceAttrSet(resourceName, "content"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -57,24 +57,24 @@ func testAccResourcePolicy_disappears(t *testing.T) {
 	resourceName := "aws_organizations_resource_policy.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckAlternateAccount(t)
-			acctest.PreCheckOrganizationManagementAccount(ctx, t)
-		},
-		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckResourcePolicyDestroy(ctx),
-		ErrorCheck:acctest.ErrorCheck(t, organizations.EndpointsID),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccResourcePolicyConfig_basic(),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckResourcePolicyExists(ctx, resourceName, &policy),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tforganizations.ResourceResourcePolicy(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckAlternateAccount(t)
+	acctest.PreCheckOrganizationManagementAccount(ctx, t)
+},
+ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
+CheckDestroy:             testAccCheckResourcePolicyDestroy(ctx),
+ErrorCheck:acctest.ErrorCheck(t, organizations.EndpointsID),
+Steps: []resource.TestStep{
+	{
+Config: testAccResourcePolicyConfig_basic(),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckResourcePolicyExists(ctx, resourceName, &policy),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tforganizations.ResourceResourcePolicy(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -84,93 +84,93 @@ func testAccResourcePolicy_tags(t *testing.T) {
 	resourceName := "aws_organizations_resource_policy.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckAlternateAccount(t)
-			acctest.PreCheckOrganizationManagementAccount(ctx, t)
-		},
-		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckResourcePolicyDestroy(ctx),
-		ErrorCheck:acctest.ErrorCheck(t, organizations.EndpointsID),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccResourcePolicyConfig_tags1("key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckResourcePolicyExists(ctx, resourceName, &policy),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccResourcePolicyConfig_tags2("key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckResourcePolicyExists(ctx, resourceName, &policy),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-			{
-				Config: testAccResourcePolicyConfig_tags1("key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckResourcePolicyExists(ctx, resourceName, &policy),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckAlternateAccount(t)
+	acctest.PreCheckOrganizationManagementAccount(ctx, t)
+},
+ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
+CheckDestroy:             testAccCheckResourcePolicyDestroy(ctx),
+ErrorCheck:acctest.ErrorCheck(t, organizations.EndpointsID),
+Steps: []resource.TestStep{
+	{
+Config: testAccResourcePolicyConfig_tags1("key1", "value1"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckResourcePolicyExists(ctx, resourceName, &policy),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccResourcePolicyConfig_tags2("key1", "value1updated", "key2", "value2"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckResourcePolicyExists(ctx, resourceName, &policy),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+	{
+Config: testAccResourcePolicyConfig_tags1("key2", "value2"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckResourcePolicyExists(ctx, resourceName, &policy),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+},
 	})
 }
 
 func testAccCheckResourcePolicyDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).OrganizationsConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).OrganizationsConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_organizations_resource_policy" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_organizations_resource_policy" {
+continue
+	}
 
-			_, err := tforganizations.FindResourcePolicy(ctx, conn)
+	_, err := tforganizations.FindResourcePolicy(ctx, conn)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("Organizations Resource Policy %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("Organizations Resource Policy %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckResourcePolicyExists(ctx context.Context, n string, v *organizations.ResourcePolicy) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		_, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+_, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).OrganizationsConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).OrganizationsConn(ctx)
 
-		output, err := tforganizations.FindResourcePolicy(ctx, conn)
+output, err := tforganizations.FindResourcePolicy(ctx, conn)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*v = *output
+*v = *output
 
-		return nil
+return nil
 	}
 }
 

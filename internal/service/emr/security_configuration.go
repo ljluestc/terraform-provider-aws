@@ -23,45 +23,45 @@ import (
 
 func ResourceSecurityConfiguration() *schema.Resource {
 	return &schema.Resource{
-		CreateWithoutTimeout: resourceSecurityConfigurationCreate,
-		ReadWithoutTimeout:   resourceSecurityConfigurationRead,
-		DeleteWithoutTimeout: resourceSecurityConfigurationDelete,
-		Importer: &schema.ResourceImporter{
-			StateContext: schema.ImportStatePassthroughContext,
-		},
+CreateWithoutTimeout: resourceSecurityConfigurationCreate,
+ReadWithoutTimeout:   resourceSecurityConfigurationRead,
+DeleteWithoutTimeout: resourceSecurityConfigurationDelete,
+Importer: &schema.ResourceImporter{
+	StateContext: schema.ImportStatePassthroughContext,
+},
 
-		Schema: map[string]*schema.Schema{
-			"name": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				Computed:      true,
-				ForceNew:      true,
-				ConflictsWith: []string{"name_prefix"},
-				Validate
+Schema: map[string]*schema.Schema{
+	"name": {
+Type: schema.TypeString,
+Optional:      true,
+Computed:      true,
+ForceNew:      true,
+ConflictsWith: []string{"name_prefix"},
+Validate
 func:  validation.StringLenBetween(0, 10280),
-			},
-			"name_prefix": {
-				Type:          schema.TypeString,
-				Optional:      true,
-				ForceNew:      true,
-				ConflictsWith: []string{"name"},
-				Validate
+	},
+	"name_prefix": {
+Type: schema.TypeString,
+Optional:      true,
+ForceNew:      true,
+ConflictsWith: []string{"name"},
+Validate
 func:  validation.StringLenBetween(0, 10280-id.UniqueIDSuffixLength),
-			},
+	},
 
-			"configuration": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
-				Validate
+	"configuration": {
+Type:schema.TypeString,
+Required:     true,
+ForceNew:     true,
+Validate
 func: validation.StringIsJSON,
-			},
+	},
 
-			"creation_date": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-		},
+	"creation_date": {
+Type:     schema.TypeString,
+Computed: true,
+	},
+},
 	}
 }
 
@@ -72,22 +72,22 @@ func resourceSecurityConfigurationCreate(ctx context.Context, d *schema.Resource
 
 	var emrSCName string
 	if v, ok := d.GetOk("name"); ok {
-		emrSCName = v.(string)
+emrSCName = v.(string)
 	} else {
-		if v, ok := d.GetOk("name_prefix"); ok {
-			emrSCName = id.PrefixedUniqueId(v.(string))
-		} else {
-			emrSCName = id.PrefixedUniqueId("tf-emr-sc-")
-		}
+if v, ok := d.GetOk("name_prefix"); ok {
+	emrSCName = id.PrefixedUniqueId(v.(string))
+} else {
+	emrSCName = id.PrefixedUniqueId("tf-emr-sc-")
+}
 	}
 
 	resp, err := conn.CreateSecurityConfigurationWithContext(ctx, &emr.CreateSecurityConfigurationInput{
-		Name:   aws.String(emrSCName),
-		SecurityConfiguration: aws.String(d.Get("configuration").(string)),
+Name:   aws.String(emrSCName),
+SecurityConfiguration: aws.String(d.Get("configuration").(string)),
 	})
 
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "creating EMR Security Configuration (%s): %s", emrSCName, err)
+return sdkdiag.AppendErrorf(diags, "creating EMR Security Configuration (%s): %s", emrSCName, err)
 	}
 
 	d.SetId(aws.StringValue(resp.Name))
@@ -100,15 +100,15 @@ func resourceSecurityConfigurationRead(ctx context.Context, d *schema.ResourceDa
 	conn := meta.(*conns.AWSClient).EMRConn(ctx)
 
 	resp, err := conn.DescribeSecurityConfigurationWithContext(ctx, &emr.DescribeSecurityConfigurationInput{
-		Name: aws.String(d.Id()),
+Name: aws.String(d.Id()),
 	})
 	if err != nil {
-		if tfawserr.ErrMessageContains(err, "InvalidRequestException", "does not exist") {
-			log.Printf("[WARN] EMR Security Configuration (%s) not found, removing from state", d.Id())
-			d.SetId("")
-			return diags
-		}
-		return sdkdiag.AppendErrorf(diags, "reading EMR Security Configuration (%s): %s", d.Id(), err)
+if tfawserr.ErrMessageContains(err, "InvalidRequestException", "does not exist") {
+	log.Printf("[WARN] EMR Security Configuration (%s) not found, removing from state", d.Id())
+	d.SetId("")
+	return diags
+}
+return sdkdiag.AppendErrorf(diags, "reading EMR Security Configuration (%s): %s", d.Id(), err)
 	}
 
 	d.Set("creation_date", aws.TimeValue(resp.CreationDateTime).Format(time.RFC3339))
@@ -124,13 +124,13 @@ func resourceSecurityConfigurationDelete(ctx context.Context, d *schema.Resource
 	conn := meta.(*conns.AWSClient).EMRConn(ctx)
 
 	_, err := conn.DeleteSecurityConfigurationWithContext(ctx, &emr.DeleteSecurityConfigurationInput{
-		Name: aws.String(d.Id()),
+Name: aws.String(d.Id()),
 	})
 	if err != nil {
-		if tfawserr.ErrMessageContains(err, "InvalidRequestException", "does not exist") {
-			return diags
-		}
-		return sdkdiag.AppendErrorf(diags, "deleting EMR Security Configuration (%s): %s", d.Id(), err)
+if tfawserr.ErrMessageContains(err, "InvalidRequestException", "does not exist") {
+	return diags
+}
+return sdkdiag.AppendErrorf(diags, "deleting EMR Security Configuration (%s): %s", d.Id(), err)
 	}
 
 	return diags

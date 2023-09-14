@@ -25,36 +25,36 @@ func TestAccELBAppCookieStickinessPolicy_basic(t *testing.T) {
 	resourceName := "aws_app_cookie_stickiness_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAppCookieStickinessPolicyDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAppCookieStickinessPolicyConfig_basic(rName, "bourbon"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckAppCookieStickinessPolicyDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccAppCookieStickinessPolicyConfig_basic(rName, "bourbon"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckAppCookieStickinessPolicyExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "cookie_name", "bourbon"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccAppCookieStickinessPolicyConfig_basic(rName, "custard-cream"),
-				Check: resource.ComposeTestCheck
+	testAccCheckAppCookieStickinessPolicyExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "cookie_name", "bourbon"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccAppCookieStickinessPolicyConfig_basic(rName, "custard-cream"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckAppCookieStickinessPolicyExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "cookie_name", "custard-cream"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-				),
-			},
-		},
+	testAccCheckAppCookieStickinessPolicyExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "cookie_name", "custard-cream"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+),
+	},
+},
 	})
 }
 
@@ -65,22 +65,22 @@ func TestAccELBAppCookieStickinessPolicy_disappears(t *testing.T) {
 	resourceName := "aws_app_cookie_stickiness_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAppCookieStickinessPolicyDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAppCookieStickinessPolicyConfig_basic(rName, "bourbon"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckAppCookieStickinessPolicyDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccAppCookieStickinessPolicyConfig_basic(rName, "bourbon"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckAppCookieStickinessPolicyExists(ctx, resourceName),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfelb.ResourceAppCookieStickinessPolicy(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckAppCookieStickinessPolicyExists(ctx, resourceName),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfelb.ResourceAppCookieStickinessPolicy(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -92,22 +92,22 @@ func TestAccELBAppCookieStickinessPolicy_Disappears_elb(t *testing.T) {
 	elbResourceName := "aws_elb.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAppCookieStickinessPolicyDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAppCookieStickinessPolicyConfig_basic(rName, "bourbon"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckAppCookieStickinessPolicyDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccAppCookieStickinessPolicyConfig_basic(rName, "bourbon"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckAppCookieStickinessPolicyExists(ctx, resourceName),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfelb.ResourceLoadBalancer(), elbResourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckAppCookieStickinessPolicyExists(ctx, resourceName),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfelb.ResourceLoadBalancer(), elbResourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -116,33 +116,33 @@ func testAccCheckAppCookieStickinessPolicyDestroy(ctx context.Context) resource.
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ELBConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).ELBConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_app_cookie_stickiness_policy" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_app_cookie_stickiness_policy" {
+continue
+	}
 
-			lbName, lbPort, policyName, err := tfelb.AppCookieStickinessPolicyParseResourceID(rs.Primary.ID)
+	lbName, lbPort, policyName, err := tfelb.AppCookieStickinessPolicyParseResourceID(rs.Primary.ID)
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			_, err = tfelb.FindLoadBalancerListenerPolicyByThreePartKey(ctx, conn, lbName, lbPort, policyName)
+	_, err = tfelb.FindLoadBalancerListenerPolicyByThreePartKey(ctx, conn, lbName, lbPort, policyName)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("ELB Classic App Cookie Stickiness Policy %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("ELB Classic App Cookie Stickiness Policy %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -151,26 +151,26 @@ func testAccCheckAppCookieStickinessPolicyExists(ctx context.Context, n string) 
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No ELB Classic App Cookie Stickiness Policy ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No ELB Classic App Cookie Stickiness Policy ID is set")
+}
 
-		lbName, lbPort, policyName, err := tfelb.AppCookieStickinessPolicyParseResourceID(rs.Primary.ID)
+lbName, lbPort, policyName, err := tfelb.AppCookieStickinessPolicyParseResourceID(rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ELBConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).ELBConn(ctx)
 
-		_, err = tfelb.FindLoadBalancerListenerPolicyByThreePartKey(ctx, conn, lbName, lbPort, policyName)
+_, err = tfelb.FindLoadBalancerListenerPolicyByThreePartKey(ctx, conn, lbName, lbPort, policyName)
 
-		return err
+return err
 	}
 }
 
@@ -184,13 +184,13 @@ resource "aws_elb" "test" {
   listener {
     instance_port     = 8000
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 }
 
 resource "aws_app_cookie_stickiness_policy" "test" {
-  name          = %[1]q
+  name = %[1]q
   load_balancer = aws_elb.test.id
   lb_port       = 80
   cookie_name   = %[2]q

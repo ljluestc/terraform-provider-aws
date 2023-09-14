@@ -39,7 +39,7 @@ func ResourceVPNGateway() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"amazon_side_asn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Computed:     true,
@@ -76,7 +76,7 @@ func resourceVPNGatewayCreate(ctx context.Context, d *schema.ResourceData, meta 
 	input := &ec2.CreateVpnGatewayInput{
 		AvailabilityZone:  aws.String(d.Get("availability_zone").(string)),
 		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeVpnGateway),
-		Type:              aws.String(ec2.GatewayTypeIpsec1),
+		Type:     aws.String(ec2.GatewayTypeIpsec1),
 	}
 
 	if v, ok := d.GetOk("amazon_side_asn"); ok {

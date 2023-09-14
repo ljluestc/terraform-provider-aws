@@ -40,7 +40,7 @@ func ResourceVPCEndpointConnectionNotification() *schema.Resource {
 				Elem:     &schema.Schema{Type: schema.TypeString},
 			},
 			"connection_notification_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				Validate
 func: verify.ValidARN,
@@ -54,13 +54,13 @@ func: verify.ValidARN,
 				Computed: true,
 			},
 			"vpc_endpoint_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ExactlyOneOf: []string{"vpc_endpoint_id", "vpc_endpoint_service_id"},
 			},
 			"vpc_endpoint_service_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ExactlyOneOf: []string{"vpc_endpoint_id", "vpc_endpoint_service_id"},
@@ -75,7 +75,7 @@ func resourceVPCEndpointConnectionNotificationCreate(ctx context.Context, d *sch
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	input := &ec2.CreateVpcEndpointConnectionNotificationInput{
-		ConnectionEvents:          flex.ExpandStringSet(d.Get("connection_events").(*schema.Set)),
+		ConnectionEvents: flex.ExpandStringSet(d.Get("connection_events").(*schema.Set)),
 		ConnectionNotificationArn: aws.String(d.Get("connection_notification_arn").(string)),
 	}
 

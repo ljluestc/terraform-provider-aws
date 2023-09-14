@@ -32,7 +32,7 @@ func ResourceVaultLockConfiguration() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"backup_vault_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
@@ -43,7 +43,7 @@ func: validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_.-]{1,50}$`), "m
 				Computed: true,
 			},
 			"changeable_for_days": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				ForceNew:     true,
 				Validate

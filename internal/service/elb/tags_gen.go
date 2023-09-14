@@ -134,7 +134,7 @@ func updateTags(ctx context.Context, conn elbiface.ELBAPI, identifier string, ol
 	if len(removedTags) > 0 {
 		input := &elb.RemoveTagsInput{
 			LoadBalancerNames: aws.StringSlice([]string{identifier}),
-			Tags:              TagKeys(removedTags),
+			Tags:     TagKeys(removedTags),
 		}
 
 		_, err := conn.RemoveTagsWithContext(ctx, input)
@@ -149,7 +149,7 @@ func updateTags(ctx context.Context, conn elbiface.ELBAPI, identifier string, ol
 	if len(updatedTags) > 0 {
 		input := &elb.AddTagsInput{
 			LoadBalancerNames: aws.StringSlice([]string{identifier}),
-			Tags:              Tags(updatedTags),
+			Tags:     Tags(updatedTags),
 		}
 
 		_, err := conn.AddTagsWithContext(ctx, input)

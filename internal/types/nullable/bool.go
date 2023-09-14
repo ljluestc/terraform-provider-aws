@@ -22,12 +22,12 @@ func (b Bool) IsNull() bool {
 
 func (b Bool) Value() (bool, bool, error) {
 	if b.IsNull() {
-		return false, true, nil
+return false, true, nil
 	}
 
 	value, err := strconv.ParseBool(string(b))
 	if err != nil {
-		return false, false, err
+return false, false, err
 	}
 	return value, false, nil
 }
@@ -41,21 +41,21 @@ func NewBool(v bool) Bool {
 func ValidateTypeStringNullableBool(v interface{}, k string) (ws []string, es []error) {
 	value, ok := v.(string)
 	if !ok {
-		es = append(es, fmt.Errorf("expected type of %s to be string", k))
-		return
+es = append(es, fmt.Errorf("expected type of %s to be string", k))
+return
 	}
 
 	if value == "" {
-		return
+return
 	}
 
 	if _, err := strconv.ParseBool(value); err != nil {
-		es = append(es, fmt.Errorf("%s: cannot parse '%s' as boolean: %w", k, value, err))
-		return
+es = append(es, fmt.Errorf("%s: cannot parse '%s' as boolean: %w", k, value, err))
+return
 	}
 
 	if value != "true" && value != "false" {
-		ws = append(ws, fmt.Sprintf(`%s: the use of values other than "true" and "false" is deprecated and will be removed in a future version of the provider`, k))
+ws = append(ws, fmt.Sprintf(`%s: the use of values other than "true" and "false" is deprecated and will be removed in a future version of the provider`, k))
 	}
 
 	return
@@ -65,10 +65,10 @@ func DiffSuppressNullableBool(k, o, n string, d *schema.ResourceData) bool {
 	ov, onull, _ := Bool(o).Value()
 	nv, nnull, _ := Bool(n).Value()
 	if onull && nnull {
-		return true
+return true
 	}
 	if !onull && !nnull {
-		return ov == nv
+return ov == nv
 	}
 	return false
 }
@@ -82,7 +82,7 @@ func DiffSuppressNullableBoolFalseAsNull(k, o, n string, d *schema.ResourceData)
 	ov, onull, _ := Bool(o).Value()
 	nv, nnull, _ := Bool(n).Value()
 	if !ov && nnull || onull && !nv {
-		return true
+return true
 	}
 	return false
 }

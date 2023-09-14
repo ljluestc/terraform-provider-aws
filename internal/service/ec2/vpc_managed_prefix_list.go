@@ -46,7 +46,7 @@ func(ctx context.Context, diff *schema.ResourceDiff, meta interface{}) bool {
 
 		Schema: map[string]*schema.Schema{
 			"address_family": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
@@ -63,13 +63,13 @@ func: validation.StringInSlice(managedPrefixListAddressFamily_Values(), false),
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"cidr": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							Validate
 func: validation.IsCIDR,
 						},
 						"description": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Validate
 func: validation.StringLenBetween(0, 255),
@@ -78,13 +78,13 @@ func: validation.StringLenBetween(0, 255),
 				},
 			},
 			"max_entries": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Required:     true,
 				Validate
 func: validation.IntAtLeast(1),
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				Validate
 func: validation.StringLenBetween(1, 255),

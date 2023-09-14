@@ -30,29 +30,29 @@ func TestAccWAFRegionalRule_basic(t *testing.T) {
 	resourceName := "aws_wafregional_rule.wafrule"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
-		ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccRuleConfig_basic(wafRuleName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckRuleDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccRuleConfig_basic(wafRuleName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckRuleExists(ctx, resourceName, &v),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "waf-regional", regexache.MustCompile(`rule/.+`)),
-					resource.TestCheckResourceAttr(resourceName, "name", wafRuleName),
-					resource.TestCheckResourceAttr(resourceName, "predicate.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "metric_name", wafRuleName),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckRuleExists(ctx, resourceName, &v),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "waf-regional", regexache.MustCompile(`rule/.+`)),
+	resource.TestCheckResourceAttr(resourceName, "name", wafRuleName),
+	resource.TestCheckResourceAttr(resourceName, "predicate.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "metric_name", wafRuleName),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -64,46 +64,46 @@ func TestAccWAFRegionalRule_tags(t *testing.T) {
 	resourceName := "aws_wafregional_rule.wafrule"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
-		ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccRuleConfig_tags1(wafRuleName, "key1", "value1"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckRuleDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccRuleConfig_tags1(wafRuleName, "key1", "value1"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckRuleExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccRuleConfig_tags2(wafRuleName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheck
+	testAccCheckRuleExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccRuleConfig_tags2(wafRuleName, "key1", "value1updated", "key2", "value2"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckRuleExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-			{
-				Config: testAccRuleConfig_tags1(wafRuleName, "key2", "value2"),
-				Check: resource.ComposeTestCheck
+	testAccCheckRuleExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+	{
+Config: testAccRuleConfig_tags1(wafRuleName, "key2", "value2"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckRuleExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-		},
+	testAccCheckRuleExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+},
 	})
 }
 
@@ -116,38 +116,38 @@ func TestAccWAFRegionalRule_changeNameForceNew(t *testing.T) {
 	resourceName := "aws_wafregional_rule.wafrule"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
-		ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIPSetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccRuleConfig_basic(wafRuleName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckIPSetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccRuleConfig_basic(wafRuleName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckRuleExists(ctx, resourceName, &before),
-					resource.TestCheckResourceAttr(resourceName, "name", wafRuleName),
-					resource.TestCheckResourceAttr(resourceName, "predicate.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "metric_name", wafRuleName),
-				),
-			},
-			{
-				Config: testAccRuleConfig_changeName(wafRuleNewName),
-				Check: resource.ComposeTestCheck
+	testAccCheckRuleExists(ctx, resourceName, &before),
+	resource.TestCheckResourceAttr(resourceName, "name", wafRuleName),
+	resource.TestCheckResourceAttr(resourceName, "predicate.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "metric_name", wafRuleName),
+),
+	},
+	{
+Config: testAccRuleConfig_changeName(wafRuleNewName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckRuleExists(ctx, resourceName, &after),
-					resource.TestCheckResourceAttr(resourceName, "name", wafRuleNewName),
-					resource.TestCheckResourceAttr(resourceName, "predicate.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "metric_name", wafRuleNewName),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckRuleExists(ctx, resourceName, &after),
+	resource.TestCheckResourceAttr(resourceName, "name", wafRuleNewName),
+	resource.TestCheckResourceAttr(resourceName, "predicate.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "metric_name", wafRuleNewName),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -159,22 +159,22 @@ func TestAccWAFRegionalRule_disappears(t *testing.T) {
 	resourceName := "aws_wafregional_rule.wafrule"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
-		ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccRuleConfig_basic(wafRuleName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckRuleDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccRuleConfig_basic(wafRuleName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckRuleExists(ctx, resourceName, &v),
-					testAccCheckRuleDisappears(ctx, &v),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckRuleExists(ctx, resourceName, &v),
+	testAccCheckRuleDisappears(ctx, &v),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -186,27 +186,27 @@ func TestAccWAFRegionalRule_noPredicates(t *testing.T) {
 	resourceName := "aws_wafregional_rule.wafrule"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
-		ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccRuleConfig_noPredicates(wafRuleName),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckRuleDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccRuleConfig_noPredicates(wafRuleName),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckRuleExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "name", wafRuleName),
-					resource.TestCheckResourceAttr(resourceName, "predicate.#", "0"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckRuleExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "name", wafRuleName),
+	resource.TestCheckResourceAttr(resourceName, "predicate.#", "0"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -222,53 +222,53 @@ func TestAccWAFRegionalRule_changePredicates(t *testing.T) {
 	resourceName := "aws_wafregional_rule.wafrule"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
-		ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccRuleConfig_basic(ruleName),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckRuleDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccRuleConfig_basic(ruleName),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckIPSetExists(ctx, "aws_wafregional_ipset.ipset", &ipset),
-					testAccCheckRuleExists(ctx, resourceName, &before),
-					resource.TestCheckResourceAttr(resourceName, "name", ruleName),
-					resource.TestCheckResourceAttr(resourceName, "predicate.#", "1"),
-					computeRulePredicate(&ipset.IPSetId, false, "IPMatch", &idx),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "predicate.*", map[string]string{
-						"negated": "false",
-						"type":    "IPMatch",
-					}),
-				),
-			},
-			{
-				Config: testAccRuleConfig_changePredicates(ruleName),
-				Check: resource.ComposeAggregateTestCheck
+	testAccCheckIPSetExists(ctx, "aws_wafregional_ipset.ipset", &ipset),
+	testAccCheckRuleExists(ctx, resourceName, &before),
+	resource.TestCheckResourceAttr(resourceName, "name", ruleName),
+	resource.TestCheckResourceAttr(resourceName, "predicate.#", "1"),
+	computeRulePredicate(&ipset.IPSetId, false, "IPMatch", &idx),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "predicate.*", map[string]string{
+"negated": "false",
+"type":    "IPMatch",
+	}),
+),
+	},
+	{
+Config: testAccRuleConfig_changePredicates(ruleName),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckXSSMatchSetExists(ctx, "aws_wafregional_xss_match_set.xss_match_set", &xssMatchSet),
-					testAccCheckRuleExists(ctx, resourceName, &after),
-					resource.TestCheckResourceAttr(resourceName, "name", ruleName),
-					resource.TestCheckResourceAttr(resourceName, "predicate.#", "2"),
-					computeRulePredicate(&xssMatchSet.XssMatchSetId, true, "XssMatch", &idx),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "predicate.*", map[string]string{
-						"negated": "true",
-						"type":    "XssMatch",
-					}),
-					computeRulePredicate(&ipset.IPSetId, true, "IPMatch", &idx),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "predicate.*", map[string]string{
-						"negated": "true",
-						"type":    "IPMatch",
-					}),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckXSSMatchSetExists(ctx, "aws_wafregional_xss_match_set.xss_match_set", &xssMatchSet),
+	testAccCheckRuleExists(ctx, resourceName, &after),
+	resource.TestCheckResourceAttr(resourceName, "name", ruleName),
+	resource.TestCheckResourceAttr(resourceName, "predicate.#", "2"),
+	computeRulePredicate(&xssMatchSet.XssMatchSetId, true, "XssMatch", &idx),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "predicate.*", map[string]string{
+"negated": "true",
+"type":    "XssMatch",
+	}),
+	computeRulePredicate(&ipset.IPSetId, true, "IPMatch", &idx),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "predicate.*", map[string]string{
+"negated": "true",
+"type":    "IPMatch",
+	}),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -278,17 +278,17 @@ func computeRulePredicate(dataId **string, negated bool, pType string, idx *int)
 func {
 	return 
 func(s *terraform.State) error {
-		predicateResource := tfwafregional.ResourceRule().SchemaMap()["predicate"].Elem.(*schema.Resource)
-		m := map[string]interface{}{
-			"data_id": **dataId,
-			"negated": negated,
-			"type":    pType,
-		}
+predicateResource := tfwafregional.ResourceRule().SchemaMap()["predicate"].Elem.(*schema.Resource)
+m := map[string]interface{}{
+	"data_id": **dataId,
+	"negated": negated,
+	"type":    pType,
+}
 
-		f := schema.HashResource(predicateResource)
-		*idx = f(m)
+f := schema.HashResource(predicateResource)
+*idx = f(m)
 
-		return nil
+return nil
 	}
 }
 
@@ -297,47 +297,47 @@ func testAccCheckRuleDisappears(ctx context.Context, v *waf.Rule) resource.TestC
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).WAFRegionalConn(ctx)
-		region := acctest.Provider.Meta().(*conns.AWSClient).Region
+conn := acctest.Provider.Meta().(*conns.AWSClient).WAFRegionalConn(ctx)
+region := acctest.Provider.Meta().(*conns.AWSClient).Region
 
-		wr := tfwafregional.NewRetryer(conn, region)
-		_, err := wr.RetryWithToken(ctx, 
+wr := tfwafregional.NewRetryer(conn, region)
+_, err := wr.RetryWithToken(ctx, 
 func(token *string) (interface{}, error) {
-			req := &waf.UpdateRuleInput{
-				ChangeToken: token,
-				RuleId:      v.RuleId,
-			}
+	req := &waf.UpdateRuleInput{
+ChangeToken: token,
+RuleId:      v.RuleId,
+	}
 
-			for _, predicate := range v.Predicates {
-				predicate := &waf.RuleUpdate{
-					Action: aws.String("DELETE"),
-					Predicate: &waf.Predicate{
-						Negated: predicate.Negated,
-						Type:    predicate.Type,
-						DataId:  predicate.DataId,
-					},
-				}
-				req.Updates = append(req.Updates, predicate)
-			}
+	for _, predicate := range v.Predicates {
+predicate := &waf.RuleUpdate{
+	Action: aws.String("DELETE"),
+	Predicate: &waf.Predicate{
+Negated: predicate.Negated,
+Type:    predicate.Type,
+DataId:  predicate.DataId,
+	},
+}
+req.Updates = append(req.Updates, predicate)
+	}
 
-			return conn.UpdateRuleWithContext(ctx, req)
-		})
-		if err != nil {
-			return fmt.Errorf("Error Updating WAF Rule: %s", err)
-		}
+	return conn.UpdateRuleWithContext(ctx, req)
+})
+if err != nil {
+	return fmt.Errorf("Error Updating WAF Rule: %s", err)
+}
 
-		_, err = wr.RetryWithToken(ctx, 
+_, err = wr.RetryWithToken(ctx, 
 func(token *string) (interface{}, error) {
-			opts := &waf.DeleteRuleInput{
-				ChangeToken: token,
-				RuleId:      v.RuleId,
-			}
-			return conn.DeleteRuleWithContext(ctx, opts)
-		})
-		if err != nil {
-			return fmt.Errorf("Error Deleting WAF Rule: %s", err)
-		}
-		return nil
+	opts := &waf.DeleteRuleInput{
+ChangeToken: token,
+RuleId:      v.RuleId,
+	}
+	return conn.DeleteRuleWithContext(ctx, opts)
+})
+if err != nil {
+	return fmt.Errorf("Error Deleting WAF Rule: %s", err)
+}
+return nil
 	}
 }
 
@@ -346,31 +346,31 @@ func testAccCheckRuleDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_wafregional_rule" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_wafregional_rule" {
+continue
+	}
 
-			conn := acctest.Provider.Meta().(*conns.AWSClient).WAFRegionalConn(ctx)
-			resp, err := conn.GetRuleWithContext(ctx, &waf.GetRuleInput{
-				RuleId: aws.String(rs.Primary.ID),
-			})
+	conn := acctest.Provider.Meta().(*conns.AWSClient).WAFRegionalConn(ctx)
+	resp, err := conn.GetRuleWithContext(ctx, &waf.GetRuleInput{
+RuleId: aws.String(rs.Primary.ID),
+	})
 
-			if err == nil {
-				if *resp.Rule.RuleId == rs.Primary.ID {
-					return fmt.Errorf("WAF Rule %s still exists", rs.Primary.ID)
-				}
-			}
+	if err == nil {
+if *resp.Rule.RuleId == rs.Primary.ID {
+	return fmt.Errorf("WAF Rule %s still exists", rs.Primary.ID)
+}
+	}
 
-			// Return nil if the Rule is already destroyed
-			if tfawserr.ErrCodeEquals(err, wafregional.ErrCodeWAFNonexistentItemException) {
-				return nil
-			}
+	// Return nil if the Rule is already destroyed
+	if tfawserr.ErrCodeEquals(err, wafregional.ErrCodeWAFNonexistentItemException) {
+return nil
+	}
 
-			return err
-		}
+	return err
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -379,30 +379,30 @@ func testAccCheckRuleExists(ctx context.Context, n string, v *waf.Rule) resource
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No WAF Rule ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No WAF Rule ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).WAFRegionalConn(ctx)
-		resp, err := conn.GetRuleWithContext(ctx, &waf.GetRuleInput{
-			RuleId: aws.String(rs.Primary.ID),
-		})
+conn := acctest.Provider.Meta().(*conns.AWSClient).WAFRegionalConn(ctx)
+resp, err := conn.GetRuleWithContext(ctx, &waf.GetRuleInput{
+	RuleId: aws.String(rs.Primary.ID),
+})
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		if *resp.Rule.RuleId == rs.Primary.ID {
-			*v = *resp.Rule
-			return nil
-		}
+if *resp.Rule.RuleId == rs.Primary.ID {
+	*v = *resp.Rule
+	return nil
+}
 
-		return fmt.Errorf("WAF Rule (%s) not found", rs.Primary.ID)
+return fmt.Errorf("WAF Rule (%s) not found", rs.Primary.ID)
 	}
 }
 

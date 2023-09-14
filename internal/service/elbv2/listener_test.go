@@ -29,34 +29,34 @@ func TestAccELBV2Listener_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckListenerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccListenerConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckListenerExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrPair(resourceName, "load_balancer_arn", "aws_lb.test", "arn"),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "elasticloadbalancing", regexache.MustCompile("listener/.+$")),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "HTTP"),
-					resource.TestCheckResourceAttr(resourceName, "port", "80"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.order", "1"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.type", "forward"),
-					resource.TestCheckResourceAttrPair(resourceName, "default_action.0.target_group_arn", "aws_lb_target_group.test", "arn"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.redirect.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.fixed_response.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "tags.#", "0"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckListenerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccListenerConfig_basic(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckListenerExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrPair(resourceName, "load_balancer_arn", "aws_lb.test", "arn"),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "elasticloadbalancing", regexache.MustCompile("listener/.+$")),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "HTTP"),
+	resource.TestCheckResourceAttr(resourceName, "port", "80"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.order", "1"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.type", "forward"),
+	resource.TestCheckResourceAttrPair(resourceName, "default_action.0.target_group_arn", "aws_lb_target_group.test", "arn"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.redirect.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.fixed_response.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "tags.#", "0"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -67,42 +67,42 @@ func TestAccELBV2Listener_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckListenerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccListenerConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckListenerExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccListenerConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckListenerExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-			{
-				Config: testAccListenerConfig_tags1(rName, "key2", "value2"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckListenerExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckListenerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccListenerConfig_tags1(rName, "key1", "value1"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckListenerExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccListenerConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckListenerExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+	{
+Config: testAccListenerConfig_tags1(rName, "key2", "value2"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckListenerExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+},
 	})
 }
 
@@ -114,76 +114,76 @@ func TestAccELBV2Listener_forwardWeighted(t *testing.T) {
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckListenerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccListenerConfig_forwardWeighted(rName, rName2),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckListenerExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrPair(resourceName, "load_balancer_arn", "aws_lb.test", "arn"),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "elasticloadbalancing", regexache.MustCompile("listener/.+$")),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "HTTP"),
-					resource.TestCheckResourceAttr(resourceName, "port", "80"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.order", "1"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.type", "forward"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.forward.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.forward.0.target_group.#", "2"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.forward.0.stickiness.0.enabled", "false"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.forward.0.stickiness.0.duration", "0"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.redirect.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.fixed_response.#", "0"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccListenerConfig_changeForwardWeightedStickiness(rName, rName2),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckListenerExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrPair(resourceName, "load_balancer_arn", "aws_lb.test", "arn"),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "elasticloadbalancing", regexache.MustCompile("listener/.+$")),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "HTTP"),
-					resource.TestCheckResourceAttr(resourceName, "port", "80"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.order", "1"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.type", "forward"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.forward.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.forward.0.target_group.#", "2"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.forward.0.stickiness.0.enabled", "true"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.forward.0.stickiness.0.duration", "3600"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.redirect.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.fixed_response.#", "0"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccListenerConfig_changeForwardWeightedToBasic(rName, rName2),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckListenerExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrPair(resourceName, "load_balancer_arn", "aws_lb.test", "arn"),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "elasticloadbalancing", regexache.MustCompile("listener/.+$")),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "HTTP"),
-					resource.TestCheckResourceAttr(resourceName, "port", "80"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.order", "1"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.type", "forward"),
-					resource.TestCheckResourceAttrPair(resourceName, "default_action.0.target_group_arn", "aws_lb_target_group.test1", "arn"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.redirect.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.fixed_response.#", "0"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckListenerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccListenerConfig_forwardWeighted(rName, rName2),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckListenerExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrPair(resourceName, "load_balancer_arn", "aws_lb.test", "arn"),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "elasticloadbalancing", regexache.MustCompile("listener/.+$")),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "HTTP"),
+	resource.TestCheckResourceAttr(resourceName, "port", "80"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.order", "1"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.type", "forward"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.forward.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.forward.0.target_group.#", "2"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.forward.0.stickiness.0.enabled", "false"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.forward.0.stickiness.0.duration", "0"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.redirect.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.fixed_response.#", "0"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccListenerConfig_changeForwardWeightedStickiness(rName, rName2),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckListenerExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrPair(resourceName, "load_balancer_arn", "aws_lb.test", "arn"),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "elasticloadbalancing", regexache.MustCompile("listener/.+$")),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "HTTP"),
+	resource.TestCheckResourceAttr(resourceName, "port", "80"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.order", "1"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.type", "forward"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.forward.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.forward.0.target_group.#", "2"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.forward.0.stickiness.0.enabled", "true"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.forward.0.stickiness.0.duration", "3600"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.redirect.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.fixed_response.#", "0"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccListenerConfig_changeForwardWeightedToBasic(rName, rName2),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckListenerExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrPair(resourceName, "load_balancer_arn", "aws_lb.test", "arn"),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "elasticloadbalancing", regexache.MustCompile("listener/.+$")),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "HTTP"),
+	resource.TestCheckResourceAttr(resourceName, "port", "80"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.order", "1"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.type", "forward"),
+	resource.TestCheckResourceAttrPair(resourceName, "default_action.0.target_group_arn", "aws_lb_target_group.test1", "arn"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.redirect.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.fixed_response.#", "0"),
+),
+	},
+},
 	})
 }
 
@@ -194,33 +194,33 @@ func TestAccELBV2Listener_Protocol_upd(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckListenerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccListenerConfig_basicUdp(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckListenerExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrPair(resourceName, "load_balancer_arn", "aws_lb.test", "arn"),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "elasticloadbalancing", regexache.MustCompile("listener/.+$")),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "UDP"),
-					resource.TestCheckResourceAttr(resourceName, "port", "514"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.order", "1"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.type", "forward"),
-					resource.TestCheckResourceAttrPair(resourceName, "default_action.0.target_group_arn", "aws_lb_target_group.test", "arn"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.redirect.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.fixed_response.#", "0"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckListenerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccListenerConfig_basicUdp(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckListenerExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrPair(resourceName, "load_balancer_arn", "aws_lb.test", "arn"),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "elasticloadbalancing", regexache.MustCompile("listener/.+$")),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "UDP"),
+	resource.TestCheckResourceAttr(resourceName, "port", "514"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.order", "1"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.type", "forward"),
+	resource.TestCheckResourceAttrPair(resourceName, "default_action.0.target_group_arn", "aws_lb_target_group.test", "arn"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.redirect.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.fixed_response.#", "0"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -231,33 +231,33 @@ func TestAccELBV2Listener_backwardsCompatibility(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckListenerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccListenerConfig_backwardsCompatibility(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckListenerExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrPair(resourceName, "load_balancer_arn", "aws_alb.test", "arn"),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "elasticloadbalancing", regexache.MustCompile("listener/.+$")),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "HTTP"),
-					resource.TestCheckResourceAttr(resourceName, "port", "80"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.order", "1"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.type", "forward"),
-					resource.TestCheckResourceAttrPair(resourceName, "default_action.0.target_group_arn", "aws_alb_target_group.test", "arn"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.redirect.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.fixed_response.#", "0"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckListenerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccListenerConfig_backwardsCompatibility(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckListenerExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrPair(resourceName, "load_balancer_arn", "aws_alb.test", "arn"),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "elasticloadbalancing", regexache.MustCompile("listener/.+$")),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "HTTP"),
+	resource.TestCheckResourceAttr(resourceName, "port", "80"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.order", "1"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.type", "forward"),
+	resource.TestCheckResourceAttrPair(resourceName, "default_action.0.target_group_arn", "aws_alb_target_group.test", "arn"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.redirect.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.fixed_response.#", "0"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -270,35 +270,35 @@ func TestAccELBV2Listener_Protocol_https(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckListenerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccListenerConfig_https(rName, key, certificate),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckListenerExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrPair(resourceName, "load_balancer_arn", "aws_lb.test", "arn"),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "elasticloadbalancing", regexache.MustCompile("listener/.+$")),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
-					resource.TestCheckResourceAttr(resourceName, "port", "443"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.order", "1"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.type", "forward"),
-					resource.TestCheckResourceAttrPair(resourceName, "default_action.0.target_group_arn", "aws_lb_target_group.test", "arn"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.redirect.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.fixed_response.#", "0"),
-					resource.TestCheckResourceAttrPair(resourceName, "certificate_arn", "aws_iam_server_certificate.test", "arn"),
-					resource.TestCheckResourceAttr(resourceName, "ssl_policy", "ELBSecurityPolicy-2016-08"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckListenerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccListenerConfig_https(rName, key, certificate),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckListenerExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrPair(resourceName, "load_balancer_arn", "aws_lb.test", "arn"),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "elasticloadbalancing", regexache.MustCompile("listener/.+$")),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
+	resource.TestCheckResourceAttr(resourceName, "port", "443"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.order", "1"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.type", "forward"),
+	resource.TestCheckResourceAttrPair(resourceName, "default_action.0.target_group_arn", "aws_lb_target_group.test", "arn"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.redirect.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.fixed_response.#", "0"),
+	resource.TestCheckResourceAttrPair(resourceName, "certificate_arn", "aws_iam_server_certificate.test", "arn"),
+	resource.TestCheckResourceAttr(resourceName, "ssl_policy", "ELBSecurityPolicy-2016-08"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -310,26 +310,26 @@ func TestAccELBV2Listener_LoadBalancerARN_gatewayLoadBalancer(t *testing.T) {
 	resourceName := "aws_lb_listener.test"
 
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckListenerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccListenerConfig_arnGateway(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckListenerExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrPair(resourceName, "load_balancer_arn", lbResourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "protocol", ""),
-					resource.TestCheckResourceAttr(resourceName, "port", "0"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Name", rName),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckListenerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccListenerConfig_arnGateway(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckListenerExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrPair(resourceName, "load_balancer_arn", lbResourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "protocol", ""),
+	resource.TestCheckResourceAttr(resourceName, "port", "0"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Name", rName),
+),
+	},
+},
 	})
 }
 
@@ -342,29 +342,29 @@ func TestAccELBV2Listener_Protocol_tls(t *testing.T) {
 	resourceName := "aws_lb_listener.test"
 
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckListenerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccListenerConfig_protocolTLS(rName, key, certificate),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckListenerExists(ctx, resourceName, &listener1),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "TLS"),
-					resource.TestCheckResourceAttrPair(resourceName, "certificate_arn", "aws_acm_certificate.test", "arn"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckListenerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccListenerConfig_protocolTLS(rName, key, certificate),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckListenerExists(ctx, resourceName, &listener1),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "TLS"),
+	resource.TestCheckResourceAttrPair(resourceName, "certificate_arn", "aws_acm_certificate.test", "arn"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -375,39 +375,39 @@ func TestAccELBV2Listener_redirect(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckListenerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccListenerConfig_redirect(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckListenerExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrPair(resourceName, "load_balancer_arn", "aws_lb.test", "arn"),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "elasticloadbalancing", regexache.MustCompile("listener/.+$")),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "HTTP"),
-					resource.TestCheckResourceAttr(resourceName, "port", "80"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.order", "1"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.type", "redirect"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.target_group_arn", ""),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.redirect.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.redirect.0.host", "#{host}"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.redirect.0.path", "/#{path}"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.redirect.0.port", "443"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.redirect.0.protocol", "HTTPS"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.redirect.0.query", "#{query}"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.redirect.0.status_code", "HTTP_301"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.fixed_response.#", "0"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckListenerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccListenerConfig_redirect(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckListenerExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrPair(resourceName, "load_balancer_arn", "aws_lb.test", "arn"),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "elasticloadbalancing", regexache.MustCompile("listener/.+$")),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "HTTP"),
+	resource.TestCheckResourceAttr(resourceName, "port", "80"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.order", "1"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.type", "redirect"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.target_group_arn", ""),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.redirect.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.redirect.0.host", "#{host}"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.redirect.0.path", "/#{path}"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.redirect.0.port", "443"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.redirect.0.protocol", "HTTPS"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.redirect.0.query", "#{query}"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.redirect.0.status_code", "HTTP_301"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.fixed_response.#", "0"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -418,36 +418,36 @@ func TestAccELBV2Listener_fixedResponse(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckListenerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccListenerConfig_fixedResponse(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckListenerExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrPair(resourceName, "load_balancer_arn", "aws_lb.test", "arn"),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "elasticloadbalancing", regexache.MustCompile("listener/.+$")),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "HTTP"),
-					resource.TestCheckResourceAttr(resourceName, "port", "80"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.order", "1"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.type", "fixed-response"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.target_group_arn", ""),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.redirect.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.fixed_response.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.fixed_response.0.content_type", "text/plain"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.fixed_response.0.message_body", "Fixed response content"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.fixed_response.0.status_code", "200"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckListenerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccListenerConfig_fixedResponse(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckListenerExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrPair(resourceName, "load_balancer_arn", "aws_lb.test", "arn"),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "elasticloadbalancing", regexache.MustCompile("listener/.+$")),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "HTTP"),
+	resource.TestCheckResourceAttr(resourceName, "port", "80"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.order", "1"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.type", "fixed-response"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.target_group_arn", ""),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.redirect.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.fixed_response.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.fixed_response.0.content_type", "text/plain"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.fixed_response.0.message_body", "Fixed response content"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.fixed_response.0.status_code", "200"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -460,39 +460,39 @@ func TestAccELBV2Listener_cognito(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckListenerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccListenerConfig_cognito(rName, key, certificate),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckListenerExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrPair(resourceName, "load_balancer_arn", "aws_lb.test", "arn"),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "elasticloadbalancing", regexache.MustCompile("listener/.+$")),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
-					resource.TestCheckResourceAttr(resourceName, "port", "443"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.#", "2"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.order", "1"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.type", "authenticate-cognito"),
-					resource.TestCheckResourceAttrSet(resourceName, "default_action.0.authenticate_cognito.0.user_pool_arn"),
-					resource.TestCheckResourceAttrSet(resourceName, "default_action.0.authenticate_cognito.0.user_pool_client_id"),
-					resource.TestCheckResourceAttrSet(resourceName, "default_action.0.authenticate_cognito.0.user_pool_domain"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.authenticate_cognito.0.authentication_request_extra_params.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.authenticate_cognito.0.authentication_request_extra_params.param", "test"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.1.type", "forward"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.1.order", "2"),
-					resource.TestCheckResourceAttrPair(resourceName, "default_action.1.target_group_arn", "aws_lb_target_group.test", "arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "certificate_arn", "aws_iam_server_certificate.test", "arn"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckListenerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccListenerConfig_cognito(rName, key, certificate),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckListenerExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrPair(resourceName, "load_balancer_arn", "aws_lb.test", "arn"),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "elasticloadbalancing", regexache.MustCompile("listener/.+$")),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
+	resource.TestCheckResourceAttr(resourceName, "port", "443"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.#", "2"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.order", "1"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.type", "authenticate-cognito"),
+	resource.TestCheckResourceAttrSet(resourceName, "default_action.0.authenticate_cognito.0.user_pool_arn"),
+	resource.TestCheckResourceAttrSet(resourceName, "default_action.0.authenticate_cognito.0.user_pool_client_id"),
+	resource.TestCheckResourceAttrSet(resourceName, "default_action.0.authenticate_cognito.0.user_pool_domain"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.authenticate_cognito.0.authentication_request_extra_params.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.authenticate_cognito.0.authentication_request_extra_params.param", "test"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.1.type", "forward"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.1.order", "2"),
+	resource.TestCheckResourceAttrPair(resourceName, "default_action.1.target_group_arn", "aws_lb_target_group.test", "arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "certificate_arn", "aws_iam_server_certificate.test", "arn"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -505,43 +505,43 @@ func TestAccELBV2Listener_oidc(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckListenerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccListenerConfig_oidc(rName, key, certificate),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckListenerExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttrPair(resourceName, "load_balancer_arn", "aws_lb.test", "arn"),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "elasticloadbalancing", regexache.MustCompile("listener/.+$")),
-					resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
-					resource.TestCheckResourceAttr(resourceName, "port", "443"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.#", "2"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.order", "1"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.type", "authenticate-oidc"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.authenticate_oidc.0.authorization_endpoint", "https://example.com/authorization_endpoint"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.authenticate_oidc.0.client_id", "s6BhdRkqt3"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.authenticate_oidc.0.client_secret", "7Fjfp0ZBr1KtDRbnfVdmIw"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.authenticate_oidc.0.issuer", "https://example.com"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.authenticate_oidc.0.token_endpoint", "https://example.com/token_endpoint"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.authenticate_oidc.0.user_info_endpoint", "https://example.com/user_info_endpoint"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.authenticate_oidc.0.authentication_request_extra_params.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.authenticate_oidc.0.authentication_request_extra_params.param", "test"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.1.order", "2"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.1.type", "forward"),
-					resource.TestCheckResourceAttrPair(resourceName, "default_action.1.target_group_arn", "aws_lb_target_group.test", "arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "certificate_arn", "aws_iam_server_certificate.test", "arn"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"default_action.0.authenticate_oidc.0.client_secret"},
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckListenerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccListenerConfig_oidc(rName, key, certificate),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckListenerExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttrPair(resourceName, "load_balancer_arn", "aws_lb.test", "arn"),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "elasticloadbalancing", regexache.MustCompile("listener/.+$")),
+	resource.TestCheckResourceAttr(resourceName, "protocol", "HTTPS"),
+	resource.TestCheckResourceAttr(resourceName, "port", "443"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.#", "2"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.order", "1"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.type", "authenticate-oidc"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.authenticate_oidc.0.authorization_endpoint", "https://example.com/authorization_endpoint"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.authenticate_oidc.0.client_id", "s6BhdRkqt3"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.authenticate_oidc.0.client_secret", "7Fjfp0ZBr1KtDRbnfVdmIw"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.authenticate_oidc.0.issuer", "https://example.com"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.authenticate_oidc.0.token_endpoint", "https://example.com/token_endpoint"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.authenticate_oidc.0.user_info_endpoint", "https://example.com/user_info_endpoint"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.authenticate_oidc.0.authentication_request_extra_params.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.authenticate_oidc.0.authentication_request_extra_params.param", "test"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.1.order", "2"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.1.type", "forward"),
+	resource.TestCheckResourceAttrPair(resourceName, "default_action.1.target_group_arn", "aws_lb_target_group.test", "arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "certificate_arn", "aws_iam_server_certificate.test", "arn"),
+),
+	},
+	{
+ResourceName:            resourceName,
+ImportState:             true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"default_action.0.authenticate_oidc.0.client_secret"},
+	},
+},
 	})
 }
 
@@ -554,27 +554,27 @@ func TestAccELBV2Listener_DefaultAction_order(t *testing.T) {
 	resourceName := "aws_lb_listener.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckListenerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccListenerConfig_defaultActionOrder(rName, key, certificate),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckListenerExists(ctx, resourceName, &listener),
-					resource.TestCheckResourceAttr(resourceName, "default_action.#", "2"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.order", "1"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.1.order", "2"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"default_action.0.authenticate_oidc.0.client_secret"},
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckListenerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccListenerConfig_defaultActionOrder(rName, key, certificate),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckListenerExists(ctx, resourceName, &listener),
+	resource.TestCheckResourceAttr(resourceName, "default_action.#", "2"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.order", "1"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.1.order", "2"),
+),
+	},
+	{
+ResourceName:            resourceName,
+ImportState:             true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"default_action.0.authenticate_oidc.0.client_secret"},
+	},
+},
 	})
 }
 
@@ -588,109 +588,109 @@ func TestAccELBV2Listener_DefaultAction_orderRecreates(t *testing.T) {
 	resourceName := "aws_lb_listener.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckListenerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccListenerConfig_defaultActionOrder(rName, key, certificate),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckListenerExists(ctx, resourceName, &listener),
-					resource.TestCheckResourceAttr(resourceName, "default_action.#", "2"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.0.order", "1"),
-					resource.TestCheckResourceAttr(resourceName, "default_action.1.order", "2"),
-					testAccCheckListenerDefaultActionOrderDisappears(ctx, &listener, 1),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckListenerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccListenerConfig_defaultActionOrder(rName, key, certificate),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckListenerExists(ctx, resourceName, &listener),
+	resource.TestCheckResourceAttr(resourceName, "default_action.#", "2"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.0.order", "1"),
+	resource.TestCheckResourceAttr(resourceName, "default_action.1.order", "2"),
+	testAccCheckListenerDefaultActionOrderDisappears(ctx, &listener, 1),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
 func testAccCheckListenerDefaultActionOrderDisappears(ctx context.Context, listener *elbv2.Listener, actionOrderToDelete int) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		var newDefaultActions []*elbv2.Action
+var newDefaultActions []*elbv2.Action
 
-		for i, action := range listener.DefaultActions {
-			if int(aws.Int64Value(action.Order)) == actionOrderToDelete {
-				newDefaultActions = slices.Delete(listener.DefaultActions, i, i+1)
-				break
-			}
-		}
+for i, action := range listener.DefaultActions {
+	if int(aws.Int64Value(action.Order)) == actionOrderToDelete {
+newDefaultActions = slices.Delete(listener.DefaultActions, i, i+1)
+break
+	}
+}
 
-		if len(newDefaultActions) == 0 {
-			return fmt.Errorf("Unable to find default action order %d from default actions: %#v", actionOrderToDelete, listener.DefaultActions)
-		}
+if len(newDefaultActions) == 0 {
+	return fmt.Errorf("Unable to find default action order %d from default actions: %#v", actionOrderToDelete, listener.DefaultActions)
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ELBV2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).ELBV2Conn(ctx)
 
-		input := &elbv2.ModifyListenerInput{
-			DefaultActions: newDefaultActions,
-			ListenerArn:    listener.ListenerArn,
-		}
+input := &elbv2.ModifyListenerInput{
+	DefaultActions: newDefaultActions,
+	ListenerArn:    listener.ListenerArn,
+}
 
-		_, err := conn.ModifyListenerWithContext(ctx, input)
+_, err := conn.ModifyListenerWithContext(ctx, input)
 
-		return err
+return err
 	}
 }
 
 func testAccCheckListenerExists(ctx context.Context, n string, res *elbv2.Listener) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return errors.New("No Listener ID is set")
-		}
+if rs.Primary.ID == "" {
+	return errors.New("No Listener ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ELBV2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).ELBV2Conn(ctx)
 
-		listener, err := tfelbv2.FindListenerByARN(ctx, conn, rs.Primary.ID)
+listener, err := tfelbv2.FindListenerByARN(ctx, conn, rs.Primary.ID)
 
-		if err != nil {
-			return fmt.Errorf("reading ELBv2 Listener (%s): %w", rs.Primary.ID, err)
-		}
+if err != nil {
+	return fmt.Errorf("reading ELBv2 Listener (%s): %w", rs.Primary.ID, err)
+}
 
-		if listener == nil {
-			return fmt.Errorf("ELBv2 Listener (%s) not found", rs.Primary.ID)
-		}
+if listener == nil {
+	return fmt.Errorf("ELBv2 Listener (%s) not found", rs.Primary.ID)
+}
 
-		*res = *listener
-		return nil
+*res = *listener
+return nil
 	}
 }
 
 func testAccCheckListenerDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ELBV2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).ELBV2Conn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_lb_listener" && rs.Type != "aws_alb_listener" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_lb_listener" && rs.Type != "aws_alb_listener" {
+continue
+	}
 
-			listener, err := tfelbv2.FindListenerByARN(ctx, conn, rs.Primary.ID)
+	listener, err := tfelbv2.FindListenerByARN(ctx, conn, rs.Primary.ID)
 
-			if tfawserr.ErrCodeEquals(err, elbv2.ErrCodeListenerNotFoundException) {
-				continue
-			}
+	if tfawserr.ErrCodeEquals(err, elbv2.ErrCodeListenerNotFoundException) {
+continue
+	}
 
-			if err != nil {
-				return fmt.Errorf("reading ELBv2 Listener (%s): %w", rs.Primary.ID, err)
-			}
+	if err != nil {
+return fmt.Errorf("reading ELBv2 Listener (%s): %w", rs.Primary.ID, err)
+	}
 
-			if listener == nil {
-				continue
-			}
+	if listener == nil {
+continue
+	}
 
-			return fmt.Errorf("ELBv2 Listener %q still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("ELBv2 Listener %q still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -1212,8 +1212,8 @@ resource "aws_internet_gateway" "test" {
 
 func testAccListenerConfig_arnGateway(rName string) string {
 	return acctest.ConfigCompose(
-		acctest.ConfigAvailableAZsNoOptIn(),
-		fmt.Sprintf(`
+acctest.ConfigAvailableAZsNoOptIn(),
+fmt.Sprintf(`
 resource "aws_vpc" "test" {
   cidr_block = "10.10.10.0/25"
 

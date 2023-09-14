@@ -212,7 +212,7 @@ func resourceRouteUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 			if v, ok := tfMap["request_parameter_key"].(string); ok && v != "" {
 				log.Printf("[DEBUG] Deleting API Gateway v2 route (%s) request parameter (%s)", d.Id(), v)
 				_, err := conn.DeleteRouteRequestParameterWithContext(ctx, &apigatewayv2.DeleteRouteRequestParameterInput{
-					ApiId:aws.String(d.Get("api_id").(string)),
+					ApiId:               aws.String(d.Get("api_id").(string)),
 					RequestParameterKey: aws.String(v),
 					RouteId:             aws.String(d.Id()),
 				})

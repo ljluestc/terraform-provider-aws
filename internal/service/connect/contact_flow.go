@@ -49,9 +49,9 @@ func ResourceContactFlow() *schema.Resource {
 				Computed: true,
 			},
 			"content": {
-				Type:             schema.TypeString,
-				Optional:         true,
-				Computed:         true,
+				Type:    schema.TypeString,
+				Optional:true,
+				Computed:true,
 				Validate
 func:     validation.StringIsJSON,
 				ConflictsWith:    []string{"filename"},
@@ -73,7 +73,7 @@ func(v interface{}) string {
 				Optional: true,
 			},
 			"filename": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ConflictsWith: []string{"content"},
 			},
@@ -88,7 +88,7 @@ func(v interface{}) string {
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Default:      connect.ContactFlowTypeContactFlow,
@@ -204,7 +204,7 @@ func resourceContactFlowUpdate(ctx context.Context, d *schema.ResourceData, meta
 		updateMetadataInput := &connect.UpdateContactFlowNameInput{
 			ContactFlowId: aws.String(contactFlowID),
 			InstanceId:    aws.String(instanceID),
-			Name:          aws.String(d.Get("name").(string)),
+			Name: aws.String(d.Get("name").(string)),
 			Description:   aws.String(d.Get("description").(string)),
 		}
 

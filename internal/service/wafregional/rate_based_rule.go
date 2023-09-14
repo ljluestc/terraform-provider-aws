@@ -44,7 +44,7 @@ func ResourceRateBasedRule() *schema.Resource {
 				ForceNew: true,
 			},
 			"metric_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
@@ -60,13 +60,13 @@ func: validMetricName,
 							Required: true,
 						},
 						"data_id": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							Validate
 func: validation.StringLenBetween(0, 128),
 						},
 						"type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							Validate
 func: validation.StringInSlice(wafregional.PredicateType_Values(), false),
@@ -79,7 +79,7 @@ func: validation.StringInSlice(wafregional.PredicateType_Values(), false),
 				Required: true,
 			},
 			"rate_limit": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Required:     true,
 				Validate
 func: validation.IntAtLeast(100),

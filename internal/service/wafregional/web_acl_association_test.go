@@ -25,25 +25,25 @@ func TestAccWAFRegionalWebACLAssociation_basic(t *testing.T) {
 	resourceName := "aws_wafregional_web_acl_association.foo"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
-		ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWebACLAssociationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccWebACLAssociationConfig_basic,
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckWebACLAssociationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccWebACLAssociationConfig_basic,
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckWebACLAssociationExists(ctx, resourceName),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckWebACLAssociationExists(ctx, resourceName),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -51,22 +51,22 @@ func(
 func TestAccWAFRegionalWebACLAssociation_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
-		ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWebACLAssociationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccWebACLAssociationConfig_basic,
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckWebACLAssociationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccWebACLAssociationConfig_basic,
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckWebACLAssociationExists(ctx, "aws_wafregional_web_acl_association.foo"),
-					testAccCheckWebACLAssociationDisappears(ctx, "aws_wafregional_web_acl_association.foo"),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckWebACLAssociationExists(ctx, "aws_wafregional_web_acl_association.foo"),
+	testAccCheckWebACLAssociationDisappears(ctx, "aws_wafregional_web_acl_association.foo"),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -76,26 +76,26 @@ func TestAccWAFRegionalWebACLAssociation_multipleAssociations(t *testing.T) {
 	resourceName := "aws_wafregional_web_acl_association.foo"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
-		ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWebACLAssociationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccWebACLAssociationConfig_multiples,
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckWebACLAssociationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccWebACLAssociationConfig_multiples,
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckWebACLAssociationExists(ctx, resourceName),
-					testAccCheckWebACLAssociationExists(ctx, "aws_wafregional_web_acl_association.bar"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckWebACLAssociationExists(ctx, resourceName),
+	testAccCheckWebACLAssociationExists(ctx, "aws_wafregional_web_acl_association.bar"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -106,29 +106,29 @@ func TestAccWAFRegionalWebACLAssociation_ResourceARN_apiGatewayStage(t *testing.
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID)
-			acctest.PreCheckAPIGatewayTypeEDGE(t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWebACLAssociationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccWebACLAssociationConfig_checkResourceARNAPIGatewayStage(rName),
-				Check: resource.ComposeTestCheck
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID)
+	acctest.PreCheckAPIGatewayTypeEDGE(t)
+},
+ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckWebACLAssociationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccWebACLAssociationConfig_checkResourceARNAPIGatewayStage(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckWebACLAssociationExists(ctx, resourceName),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckWebACLAssociationExists(ctx, resourceName),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -137,33 +137,33 @@ func testAccCheckWebACLAssociationDestroy(ctx context.Context) resource.TestChec
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).WAFRegionalConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).WAFRegionalConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_wafregional_web_acl_association" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_wafregional_web_acl_association" {
+continue
+	}
 
-			resourceArn := tfwafregional.WebACLAssociationParseID(rs.Primary.ID)
+	resourceArn := tfwafregional.WebACLAssociationParseID(rs.Primary.ID)
 
-			input := &wafregional.GetWebACLForResourceInput{
-				ResourceArn: aws.String(resourceArn),
-			}
+	input := &wafregional.GetWebACLForResourceInput{
+ResourceArn: aws.String(resourceArn),
+	}
 
-			_, err := conn.GetWebACLForResourceWithContext(ctx, input)
+	_, err := conn.GetWebACLForResourceWithContext(ctx, input)
 
-			if tfawserr.ErrCodeEquals(err, wafregional.ErrCodeWAFNonexistentItemException) {
-				continue
-			}
+	if tfawserr.ErrCodeEquals(err, wafregional.ErrCodeWAFNonexistentItemException) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("Resource (%s) still associated to WAF Regional Web ACL", resourceArn)
-		}
+	return fmt.Errorf("Resource (%s) still associated to WAF Regional Web ACL", resourceArn)
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -172,26 +172,26 @@ func testAccCheckWebACLAssociationExists(ctx context.Context, n string) resource
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No WebACL association ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No WebACL association ID is set")
+}
 
-		resourceArn := tfwafregional.WebACLAssociationParseID(rs.Primary.ID)
+resourceArn := tfwafregional.WebACLAssociationParseID(rs.Primary.ID)
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).WAFRegionalConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).WAFRegionalConn(ctx)
 
-		input := &wafregional.GetWebACLForResourceInput{
-			ResourceArn: aws.String(resourceArn),
-		}
+input := &wafregional.GetWebACLForResourceInput{
+	ResourceArn: aws.String(resourceArn),
+}
 
-		_, err := conn.GetWebACLForResourceWithContext(ctx, input)
+_, err := conn.GetWebACLForResourceWithContext(ctx, input)
 
-		return err
+return err
 	}
 }
 
@@ -200,28 +200,28 @@ func testAccCheckWebACLAssociationDisappears(ctx context.Context, resourceName s
 func {
 	return 
 func(s *terraform.State) error {
-		// waf.WebACLSummary does not contain the information so we instead just use the state information
+// waf.WebACLSummary does not contain the information so we instead just use the state information
 
-		rs, ok := s.RootModule().Resources[resourceName]
-		if !ok {
-			return fmt.Errorf("Not found: %s", resourceName)
-		}
+rs, ok := s.RootModule().Resources[resourceName]
+if !ok {
+	return fmt.Errorf("Not found: %s", resourceName)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No WebACL association ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No WebACL association ID is set")
+}
 
-		resourceArn := tfwafregional.WebACLAssociationParseID(rs.Primary.ID)
+resourceArn := tfwafregional.WebACLAssociationParseID(rs.Primary.ID)
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).WAFRegionalConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).WAFRegionalConn(ctx)
 
-		input := &wafregional.DisassociateWebACLInput{
-			ResourceArn: aws.String(resourceArn),
-		}
+input := &wafregional.DisassociateWebACLInput{
+	ResourceArn: aws.String(resourceArn),
+}
 
-		_, err := conn.DisassociateWebACLWithContext(ctx, input)
+_, err := conn.DisassociateWebACLWithContext(ctx, input)
 
-		return err
+return err
 	}
 }
 
@@ -263,13 +263,13 @@ data "aws_availability_zones" "available" {
 }
 
 resource "aws_subnet" "foo" {
-  vpc_id            = aws_vpc.foo.id
+  vpc_id   = aws_vpc.foo.id
   cidr_block        = "10.1.1.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
 }
 
 resource "aws_subnet" "bar" {
-  vpc_id            = aws_vpc.foo.id
+  vpc_id   = aws_vpc.foo.id
   cidr_block        = "10.1.2.0/24"
   availability_zone = data.aws_availability_zones.available.names[1]
 }
@@ -325,10 +325,10 @@ resource "aws_api_gateway_method_response" "test" {
 }
 
 resource "aws_api_gateway_integration" "test" {
-  http_method             = aws_api_gateway_method.test.http_method
+  http_method    = aws_api_gateway_method.test.http_method
   integration_http_method = "GET"
-  resource_id             = aws_api_gateway_resource.test.id
-  rest_api_id             = aws_api_gateway_rest_api.test.id
+  resource_id    = aws_api_gateway_resource.test.id
+  rest_api_id    = aws_api_gateway_rest_api.test.id
   type     = "HTTP"
   uri      = "http://www.example.com"
 }

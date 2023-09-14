@@ -26,8 +26,8 @@ func TestAccServiceCatalogBudgetResourceAssociation_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, "budgets") },
-		ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID, "budgets"),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, "budgets") },
+		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID, "budgets"),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckBudgetResourceAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -54,8 +54,8 @@ func TestAccServiceCatalogBudgetResourceAssociation_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, "budgets") },
-		ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID, "budgets"),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, "budgets") },
+		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID, "budgets"),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckBudgetResourceAssociationDestroy(ctx),
 		Steps: []resource.TestStep{

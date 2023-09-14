@@ -265,13 +265,13 @@ func resourceMultiplexDelete(ctx context.Context, d *schema.ResourceData, meta i
 
 func waitMultiplexCreated(ctx context.Context, conn *medialive.Client, id string, timeout time.Duration) (*medialive.DescribeMultiplexOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    enum.Slice(types.MultiplexStateCreating),
-		Target:     enum.Slice(types.MultiplexStateIdle),
-		Refresh:    statusMultiplex(ctx, conn, id),
-		Timeout:    timeout,
+		Pending:                   enum.Slice(types.MultiplexStateCreating),
+		Target:                    enum.Slice(types.MultiplexStateIdle),
+		Refresh:                   statusMultiplex(ctx, conn, id),
+		Timeout:                   timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
-		Delay:      30 * time.Second,
+		Delay:                     30 * time.Second,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
@@ -284,13 +284,13 @@ func waitMultiplexCreated(ctx context.Context, conn *medialive.Client, id string
 
 func waitMultiplexUpdated(ctx context.Context, conn *medialive.Client, id string, timeout time.Duration) (*medialive.DescribeMultiplexOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    []string{},
-		Target:     enum.Slice(types.MultiplexStateIdle),
-		Refresh:    statusMultiplex(ctx, conn, id),
-		Timeout:    timeout,
+		Pending:                   []string{},
+		Target:                    enum.Slice(types.MultiplexStateIdle),
+		Refresh:                   statusMultiplex(ctx, conn, id),
+		Timeout:                   timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
-		Delay:      30 * time.Second,
+		Delay:                     30 * time.Second,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
@@ -394,8 +394,8 @@ func flattenMultiplexSettings(apiObject *types.MultiplexSettings) []interface{} 
 	}
 
 	m := map[string]interface{}{
-		"transport_stream_bitrate": apiObject.TransportStreamBitrate,
-		"transport_stream_id":      apiObject.TransportStreamId,
+		"transport_stream_bitrate":                apiObject.TransportStreamBitrate,
+		"transport_stream_id":                     apiObject.TransportStreamId,
 		"maximum_video_buffer_delay_milliseconds": apiObject.MaximumVideoBufferDelayMilliseconds,
 		"transport_stream_reserved_bitrate":       apiObject.TransportStreamReservedBitrate,
 	}

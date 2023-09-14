@@ -19,45 +19,45 @@ import (
 
 func DataSourceTransitGatewayRouteTableRoutes() *schema.Resource {
 	return &schema.Resource{
-		ReadWithoutTimeout: dataSourceTransitGatewayRouteTableRoutesRead,
+ReadWithoutTimeout: dataSourceTransitGatewayRouteTableRoutesRead,
 
-		Schema: map[string]*schema.Schema{
-			"filter": CustomRequiredFiltersSchema(),
-			"routes": {
-				Type:     schema.TypeList,
-				Computed: true,
-				Elem: &schema.Resource{
-					Schema: map[string]*schema.Schema{
-						"destination_cidr_block": {
-							Type:     schema.TypeString,
-							Computed: true,
-						},
-						"prefix_list_id": {
-							Type:     schema.TypeString,
-							Computed: true,
-						},
-						"state": {
-							Type:     schema.TypeString,
-							Computed: true,
-						},
-						"transit_gateway_route_table_announcement_id": {
-							Type:     schema.TypeString,
-							Computed: true,
-						},
-						"type": {
-							Type:     schema.TypeString,
-							Computed: true,
-						},
-					},
-				},
-			},
-			"transit_gateway_route_table_id": {
-				Type:         schema.TypeString,
-				Required:     true,
-				Validate
+Schema: map[string]*schema.Schema{
+	"filter": CustomRequiredFiltersSchema(),
+	"routes": {
+Type:     schema.TypeList,
+Computed: true,
+Elem: &schema.Resource{
+	Schema: map[string]*schema.Schema{
+"destination_cidr_block": {
+	Type:     schema.TypeString,
+	Computed: true,
+},
+"prefix_list_id": {
+	Type:     schema.TypeString,
+	Computed: true,
+},
+"state": {
+	Type:     schema.TypeString,
+	Computed: true,
+},
+"transit_gateway_route_table_announcement_id": {
+	Type:     schema.TypeString,
+	Computed: true,
+},
+"type": {
+	Type:     schema.TypeString,
+	Computed: true,
+},
+	},
+},
+	},
+	"transit_gateway_route_table_id": {
+Type:schema.TypeString,
+Required:     true,
+Validate
 func: validation.NoZeroValues,
-			},
-		},
+	},
+},
 	}
 }
 
@@ -68,31 +68,31 @@ func dataSourceTransitGatewayRouteTableRoutesRead(ctx context.Context, d *schema
 
 	tgwRouteTableID := d.Get("transit_gateway_route_table_id").(string)
 	input := &ec2.SearchTransitGatewayRoutesInput{
-		Filters:     BuildCustomFilterList(d.Get("filter").(*schema.Set)),
-		TransitGatewayRouteTableId: aws.String(tgwRouteTableID),
+Filters:     BuildCustomFilterList(d.Get("filter").(*schema.Set)),
+TransitGatewayRouteTableId: aws.String(tgwRouteTableID),
 	}
 
 	output, err := FindTransitGatewayRoutes(ctx, conn, input)
 
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "reading EC2 Transit Gateway Route Table (%s) Routes: %s", tgwRouteTableID, err)
+return sdkdiag.AppendErrorf(diags, "reading EC2 Transit Gateway Route Table (%s) Routes: %s", tgwRouteTableID, err)
 	}
 
 	d.SetId(tgwRouteTableID)
 
 	routes := []interface{}{}
 	for _, route := range output {
-		routes = append(routes, map[string]interface{}{
-			"destination_cidr_block": aws.StringValue(route.DestinationCidrBlock),
-			"prefix_list_id":         aws.StringValue(route.PrefixListId),
-			"state":   aws.StringValue(route.State),
-			"transit_gateway_route_table_announcement_id": aws.StringValue(route.TransitGatewayRouteTableAnnouncementId),
-			"type": aws.StringValue(route.Type),
-		})
+routes = append(routes, map[string]interface{}{
+	"destination_cidr_block": aws.StringValue(route.DestinationCidrBlock),
+	"prefix_list_id":aws.StringValue(route.PrefixListId),
+	"state":   aws.StringValue(route.State),
+	"transit_gateway_route_table_announcement_id": aws.StringValue(route.TransitGatewayRouteTableAnnouncementId),
+	"type": aws.StringValue(route.Type),
+})
 	}
 
 	if err := d.Set("routes", routes); err != nil {
-		return sdkdiag.AppendErrorf(diags, "setting routes: %s", err)
+return sdkdiag.AppendErrorf(diags, "setting routes: %s", err)
 	}
 
 	return diags

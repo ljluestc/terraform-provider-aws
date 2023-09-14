@@ -20,33 +20,33 @@ func TestAccMemoryDBParameterGroupDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_memorydb_parameter_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccParameterGroupDataSourceConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "description", resourceName, "description"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "name", resourceName, "name"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "family", resourceName, "family"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "id", resourceName, "id"),
-					resource.TestCheckResourceAttr(dataSourceName, "parameter.#", "2"),
-					resource.TestCheckTypeSetElemNestedAttrs(dataSourceName, "parameter.*", map[string]string{
-						"name":  "active-defrag-cycle-max",
-						"value": "70",
-					}),
-					resource.TestCheckTypeSetElemNestedAttrs(dataSourceName, "parameter.*", map[string]string{
-						"name":  "active-defrag-cycle-min",
-						"value": "10",
-					}),
-					resource.TestCheckResourceAttr(dataSourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "tags.Test", resourceName, "tags.Test"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "vpc_id", resourceName, "vpc_id"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccParameterGroupDataSourceConfig_basic(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "description", resourceName, "description"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "name", resourceName, "name"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "family", resourceName, "family"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "id", resourceName, "id"),
+	resource.TestCheckResourceAttr(dataSourceName, "parameter.#", "2"),
+	resource.TestCheckTypeSetElemNestedAttrs(dataSourceName, "parameter.*", map[string]string{
+"name":  "active-defrag-cycle-max",
+"value": "70",
+	}),
+	resource.TestCheckTypeSetElemNestedAttrs(dataSourceName, "parameter.*", map[string]string{
+"name":  "active-defrag-cycle-min",
+"value": "10",
+	}),
+	resource.TestCheckResourceAttr(dataSourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "tags.Test", resourceName, "tags.Test"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "vpc_id", resourceName, "vpc_id"),
+),
+	},
+},
 	})
 }
 

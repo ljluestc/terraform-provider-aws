@@ -27,7 +27,7 @@ func DataSourceUserHierarchyGroup() *schema.Resource {
 				Computed: true,
 			},
 			"hierarchy_group_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ExactlyOneOf: []string{"hierarchy_group_id", "name"},
@@ -66,7 +66,7 @@ func() *schema.Schema {
 				},
 			},
 			"instance_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				Validate
 func: validation.StringLenBetween(1, 100),
@@ -76,7 +76,7 @@ func: validation.StringLenBetween(1, 100),
 				Computed: true,
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ExactlyOneOf: []string{"name", "hierarchy_group_id"},

@@ -88,7 +88,7 @@ func ResourceEBSSnapshotCopy() *schema.Resource {
 				ForceNew: true,
 			},
 			"storage_tier": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				Validate

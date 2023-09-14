@@ -34,7 +34,7 @@ func DataSourceHTTPNamespace() *schema.Resource {
 				Computed: true,
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				Validate
 func: validNamespaceName,

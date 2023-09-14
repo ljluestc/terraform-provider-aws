@@ -27,8 +27,8 @@ func TestAccQLDBLedger_basic(t *testing.T) {
 	resourceName := "aws_qldb_ledger.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
-		ErrorCheck:acctest.ErrorCheck(t, names.QLDBEndpointID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
+		ErrorCheck:               acctest.ErrorCheck(t, names.QLDBEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLedgerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -60,8 +60,8 @@ func TestAccQLDBLedger_disappears(t *testing.T) {
 	resourceName := "aws_qldb_ledger.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
-		ErrorCheck:acctest.ErrorCheck(t, names.QLDBEndpointID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
+		ErrorCheck:               acctest.ErrorCheck(t, names.QLDBEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLedgerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -83,8 +83,8 @@ func TestAccQLDBLedger_nameGenerated(t *testing.T) {
 	resourceName := "aws_qldb_ledger.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
-		ErrorCheck:acctest.ErrorCheck(t, names.QLDBEndpointID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
+		ErrorCheck:               acctest.ErrorCheck(t, names.QLDBEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLedgerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -111,8 +111,8 @@ func TestAccQLDBLedger_update(t *testing.T) {
 	resourceName := "aws_qldb_ledger.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
-		ErrorCheck:acctest.ErrorCheck(t, names.QLDBEndpointID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
+		ErrorCheck:               acctest.ErrorCheck(t, names.QLDBEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLedgerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -157,8 +157,8 @@ func TestAccQLDBLedger_kmsKey(t *testing.T) {
 	kmsKeyResourceName := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
-		ErrorCheck:acctest.ErrorCheck(t, names.QLDBEndpointID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
+		ErrorCheck:               acctest.ErrorCheck(t, names.QLDBEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLedgerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -192,8 +192,8 @@ func TestAccQLDBLedger_tags(t *testing.T) {
 	resourceName := "aws_qldb_ledger.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
-		ErrorCheck:acctest.ErrorCheck(t, names.QLDBEndpointID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
+		ErrorCheck:               acctest.ErrorCheck(t, names.QLDBEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLedgerDestroy(ctx),
 		Steps: []resource.TestStep{

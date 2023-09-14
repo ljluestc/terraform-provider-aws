@@ -53,61 +53,61 @@ func (r *resourceView) Metadata(_ context.Context, request resource.MetadataRequ
 
 func (r *resourceView) Schema(ctx context.Context, request resource.SchemaRequest, response *resource.SchemaResponse) {
 	response.Schema = schema.Schema{
-		Attributes: map[string]schema.Attribute{
-			"arn": schema.StringAttribute{
-				Computed: true,
-				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.UseStateForUnknown(),
-				},
-			},
-			"default_view": schema.BoolAttribute{
-				Optional: true,
-				Computed: true,
-				Default:  booldefault.StaticBool(false),
-			},
-			"id": framework.IDAttribute(),
-			"name": schema.StringAttribute{
-				Required: true,
-				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.RequiresReplace(),
-				},
-				Validators: []validator.String{
-					stringvalidator.LengthAtMost(64),
-					stringvalidator.RegexMatches(regexache.MustCompile(`^[0-9A-Za-z-]+$`), `can include letters, digits, and the dash (-) character`),
-				},
-			},
-			names.AttrTags:    tftags.TagsAttribute(),
-			names.AttrTagsAll: tftags.TagsAttributeComputedOnly(),
-		},
-		Blocks: map[string]schema.Block{
-			"filters": schema.ListNestedBlock{
-				NestedObject: schema.NestedBlockObject{
-					Attributes: map[string]schema.Attribute{
-						"filter_string": schema.StringAttribute{
-							Required: true,
-							Validators: []validator.String{
-								stringvalidator.LengthAtMost(2048),
-							},
-						},
-					},
-				},
-				Validators: []validator.List{
-					listvalidator.SizeAtMost(1),
-				},
-			},
-			"included_property": schema.ListNestedBlock{
-				NestedObject: schema.NestedBlockObject{
-					Attributes: map[string]schema.Attribute{
-						"name": schema.StringAttribute{
-							Required: true,
-							Validators: []validator.String{
-								enum.FrameworkValidate[propertyName](),
-							},
-						},
-					},
-				},
-			},
-		},
+Attributes: map[string]schema.Attribute{
+	"arn": schema.StringAttribute{
+Computed: true,
+PlanModifiers: []planmodifier.String{
+	stringplanmodifier.UseStateForUnknown(),
+},
+	},
+	"default_view": schema.BoolAttribute{
+Optional: true,
+Computed: true,
+Default:  booldefault.StaticBool(false),
+	},
+	"id": framework.IDAttribute(),
+	"name": schema.StringAttribute{
+Required: true,
+PlanModifiers: []planmodifier.String{
+	stringplanmodifier.RequiresReplace(),
+},
+Validators: []validator.String{
+	stringvalidator.LengthAtMost(64),
+	stringvalidator.RegexMatches(regexache.MustCompile(`^[0-9A-Za-z-]+$`), `can include letters, digits, and the dash (-) character`),
+},
+	},
+	names.AttrTags:    tftags.TagsAttribute(),
+	names.AttrTagsAll: tftags.TagsAttributeComputedOnly(),
+},
+Blocks: map[string]schema.Block{
+	"filters": schema.ListNestedBlock{
+NestedObject: schema.NestedBlockObject{
+	Attributes: map[string]schema.Attribute{
+"filter_string": schema.StringAttribute{
+	Required: true,
+	Validators: []validator.String{
+stringvalidator.LengthAtMost(2048),
+	},
+},
+	},
+},
+Validators: []validator.List{
+	listvalidator.SizeAtMost(1),
+},
+	},
+	"included_property": schema.ListNestedBlock{
+NestedObject: schema.NestedBlockObject{
+	Attributes: map[string]schema.Attribute{
+"name": schema.StringAttribute{
+	Required: true,
+	Validators: []validator.String{
+enum.FrameworkValidate[propertyName](),
+	},
+},
+	},
+},
+	},
+},
 	}
 }
 
@@ -117,41 +117,41 @@ func (r *resourceView) Create(ctx context.Context, request resource.CreateReques
 	response.Diagnostics.Append(request.Plan.Get(ctx, &data)...)
 
 	if response.Diagnostics.HasError() {
-		return
+return
 	}
 
 	conn := r.Meta().ResourceExplorer2Client(ctx)
 
 	input := &resourceexplorer2.CreateViewInput{
-		ClientToken:        aws.String(id.UniqueId()),
-		Filters:            flex.ExpandFrameworkListNestedBlockPtr(ctx, data.Filters, r.expandSearchFilter),
-		IncludedProperties: flex.ExpandFrameworkListNestedBlock(ctx, data.IncludedProperties, r.expandIncludedProperty),
-		Tags:getTagsIn(ctx),
-		ViewName:           aws.String(data.ViewName.ValueString()),
+ClientToken:        aws.String(id.UniqueId()),
+Filters:            flex.ExpandFrameworkListNestedBlockPtr(ctx, data.Filters, r.expandSearchFilter),
+IncludedProperties: flex.ExpandFrameworkListNestedBlock(ctx, data.IncludedProperties, r.expandIncludedProperty),
+Tags:getTagsIn(ctx),
+ViewName:           aws.String(data.ViewName.ValueString()),
 	}
 
 	output, err := conn.CreateView(ctx, input)
 
 	if err != nil {
-		response.Diagnostics.AddError("creating Resource Explorer View", err.Error())
+response.Diagnostics.AddError("creating Resource Explorer View", err.Error())
 
-		return
+return
 	}
 
 	arn := aws.ToString(output.View.ViewArn)
 
 	if data.DefaultView.ValueBool() {
-		input := &resourceexplorer2.AssociateDefaultViewInput{
-			ViewArn: aws.String(arn),
-		}
+input := &resourceexplorer2.AssociateDefaultViewInput{
+	ViewArn: aws.String(arn),
+}
 
-		_, err := conn.AssociateDefaultView(ctx, input)
+_, err := conn.AssociateDefaultView(ctx, input)
 
-		if err != nil {
-			response.Diagnostics.AddError(fmt.Sprintf("setting Resource Explorer View (%s) as the default", arn), err.Error())
+if err != nil {
+	response.Diagnostics.AddError(fmt.Sprintf("setting Resource Explorer View (%s) as the default", arn), err.Error())
 
-			return
-		}
+	return
+}
 	}
 
 	// Set values for unknowns.
@@ -167,7 +167,7 @@ func (r *resourceView) Read(ctx context.Context, request resource.ReadRequest, r
 	response.Diagnostics.Append(request.State.Get(ctx, &data)...)
 
 	if response.Diagnostics.HasError() {
-		return
+return
 	}
 
 	conn := r.Meta().ResourceExplorer2Client(ctx)
@@ -175,24 +175,24 @@ func (r *resourceView) Read(ctx context.Context, request resource.ReadRequest, r
 	output, err := findViewByARN(ctx, conn, data.ID.ValueString())
 
 	if tfresource.NotFound(err) {
-		response.Diagnostics.Append(fwdiag.NewResourceNotFoundWarningDiagnostic(err))
-		response.State.RemoveResource(ctx)
+response.Diagnostics.Append(fwdiag.NewResourceNotFoundWarningDiagnostic(err))
+response.State.RemoveResource(ctx)
 
-		return
+return
 	}
 
 	if err != nil {
-		response.Diagnostics.AddError(fmt.Sprintf("reading Resource Explorer View (%s)", data.ID.ValueString()), err.Error())
+response.Diagnostics.AddError(fmt.Sprintf("reading Resource Explorer View (%s)", data.ID.ValueString()), err.Error())
 
-		return
+return
 	}
 
 	defaultViewARN, err := findDefaultViewARN(ctx, conn)
 
 	if err != nil {
-		response.Diagnostics.AddError("reading Resource Explorer Default View", err.Error())
+response.Diagnostics.AddError("reading Resource Explorer Default View", err.Error())
 
-		return
+return
 	}
 
 	view := output.View
@@ -204,18 +204,18 @@ func (r *resourceView) Read(ctx context.Context, request resource.ReadRequest, r
 	arn, err := arn.Parse(data.ViewArn.ValueString())
 
 	if err != nil {
-		response.Diagnostics.AddError("parsing Resource Explorer View ARN", err.Error())
+response.Diagnostics.AddError("parsing Resource Explorer View ARN", err.Error())
 
-		return
+return
 	}
 
 	// view/${ViewName}/${ViewUuid}
 	parts := strings.Split(arn.Resource, "/")
 
 	if n := len(parts); n != 3 {
-		response.Diagnostics.AddError("incorrect Resource Explorer View ARN format", fmt.Sprintf("%d parts", n))
+response.Diagnostics.AddError("incorrect Resource Explorer View ARN format", fmt.Sprintf("%d parts", n))
 
-		return
+return
 	}
 
 	name := parts[1]
@@ -232,57 +232,57 @@ func (r *resourceView) Update(ctx context.Context, request resource.UpdateReques
 	response.Diagnostics.Append(request.State.Get(ctx, &old)...)
 
 	if response.Diagnostics.HasError() {
-		return
+return
 	}
 
 	response.Diagnostics.Append(request.Plan.Get(ctx, &new)...)
 
 	if response.Diagnostics.HasError() {
-		return
+return
 	}
 
 	conn := r.Meta().ResourceExplorer2Client(ctx)
 
 	if !new.Filters.Equal(old.Filters) || !new.IncludedProperties.Equal(old.IncludedProperties) {
-		input := &resourceexplorer2.UpdateViewInput{
-			Filters:            flex.ExpandFrameworkListNestedBlockPtr(ctx, new.Filters, r.expandSearchFilter),
-			IncludedProperties: flex.ExpandFrameworkListNestedBlock(ctx, new.IncludedProperties, r.expandIncludedProperty),
-			ViewArn:            flex.StringFromFramework(ctx, new.ID),
-		}
+input := &resourceexplorer2.UpdateViewInput{
+	Filters:            flex.ExpandFrameworkListNestedBlockPtr(ctx, new.Filters, r.expandSearchFilter),
+	IncludedProperties: flex.ExpandFrameworkListNestedBlock(ctx, new.IncludedProperties, r.expandIncludedProperty),
+	ViewArn:            flex.StringFromFramework(ctx, new.ID),
+}
 
-		_, err := conn.UpdateView(ctx, input)
+_, err := conn.UpdateView(ctx, input)
 
-		if err != nil {
-			response.Diagnostics.AddError(fmt.Sprintf("updating Resource Explorer View (%s)", new.ID.ValueString()), err.Error())
+if err != nil {
+	response.Diagnostics.AddError(fmt.Sprintf("updating Resource Explorer View (%s)", new.ID.ValueString()), err.Error())
 
-			return
-		}
+	return
+}
 	}
 
 	if !new.DefaultView.Equal(old.DefaultView) {
-		if new.DefaultView.ValueBool() {
-			input := &resourceexplorer2.AssociateDefaultViewInput{
-				ViewArn: flex.StringFromFramework(ctx, new.ID),
-			}
+if new.DefaultView.ValueBool() {
+	input := &resourceexplorer2.AssociateDefaultViewInput{
+ViewArn: flex.StringFromFramework(ctx, new.ID),
+	}
 
-			_, err := conn.AssociateDefaultView(ctx, input)
+	_, err := conn.AssociateDefaultView(ctx, input)
 
-			if err != nil {
-				response.Diagnostics.AddError(fmt.Sprintf("setting Resource Explorer View (%s) as the default", new.ID.ValueString()), err.Error())
+	if err != nil {
+response.Diagnostics.AddError(fmt.Sprintf("setting Resource Explorer View (%s) as the default", new.ID.ValueString()), err.Error())
 
-				return
-			}
-		} else {
-			input := &resourceexplorer2.DisassociateDefaultViewInput{}
+return
+	}
+} else {
+	input := &resourceexplorer2.DisassociateDefaultViewInput{}
 
-			_, err := conn.DisassociateDefaultView(ctx, input)
+	_, err := conn.DisassociateDefaultView(ctx, input)
 
-			if err != nil {
-				response.Diagnostics.AddError(fmt.Sprintf("unsetting Resource Explorer View (%s) as the default", new.ID.ValueString()), err.Error())
+	if err != nil {
+response.Diagnostics.AddError(fmt.Sprintf("unsetting Resource Explorer View (%s) as the default", new.ID.ValueString()), err.Error())
 
-				return
-			}
-		}
+return
+	}
+}
 	}
 
 	response.Diagnostics.Append(response.State.Set(ctx, &new)...)
@@ -294,22 +294,22 @@ func (r *resourceView) Delete(ctx context.Context, request resource.DeleteReques
 	response.Diagnostics.Append(request.State.Get(ctx, &data)...)
 
 	if response.Diagnostics.HasError() {
-		return
+return
 	}
 
 	conn := r.Meta().ResourceExplorer2Client(ctx)
 
 	tflog.Debug(ctx, "deleting Resource Explorer View", map[string]interface{}{
-		"id": data.ID.ValueString(),
+"id": data.ID.ValueString(),
 	})
 	_, err := conn.DeleteView(ctx, &resourceexplorer2.DeleteViewInput{
-		ViewArn: flex.StringFromFramework(ctx, data.ID),
+ViewArn: flex.StringFromFramework(ctx, data.ID),
 	})
 
 	if err != nil {
-		response.Diagnostics.AddError(fmt.Sprintf("deleting Resource Explorer View (%s)", data.ID.ValueString()), err.Error())
+response.Diagnostics.AddError(fmt.Sprintf("deleting Resource Explorer View (%s)", data.ID.ValueString()), err.Error())
 
-		return
+return
 	}
 }
 
@@ -323,7 +323,7 @@ func (r *resourceView) ModifyPlan(ctx context.Context, request resource.ModifyPl
 
 func (r *resourceView) expandSearchFilter(ctx context.Context, data viewSearchFilterData) *awstypes.SearchFilter {
 	return &awstypes.SearchFilter{
-		FilterString: flex.StringFromFramework(ctx, data.FilterString),
+FilterString: flex.StringFromFramework(ctx, data.FilterString),
 	}
 }
 
@@ -340,25 +340,25 @@ func (r *resourceView) flattenSearchFilter(ctx context.Context, apiObject *awsty
 	// a view that performs no filtering.
 	// See https://docs.aws.amazon.com/resource-explorer/latest/apireference/API_CreateView.html#API_CreateView_Example_1.
 	if apiObject == nil || len(aws.ToString(apiObject.FilterString)) == 0 {
-		return types.ListNull(elementType)
+return types.ListNull(elementType)
 	}
 
 	return types.ListValueMust(elementType, []attr.Value{
-		types.ObjectValueMust(attributeTypes, map[string]attr.Value{
-			"filter_string": flex.StringToFramework(ctx, apiObject.FilterString),
-		}),
+types.ObjectValueMust(attributeTypes, map[string]attr.Value{
+	"filter_string": flex.StringToFramework(ctx, apiObject.FilterString),
+}),
 	})
 }
 
 func (r *resourceView) expandIncludedProperty(ctx context.Context, data viewIncludedPropertyData) awstypes.IncludedProperty {
 	return awstypes.IncludedProperty{
-		Name: flex.StringFromFramework(ctx, data.Name),
+Name: flex.StringFromFramework(ctx, data.Name),
 	}
 }
 
 func (r *resourceView) flattenIncludedProperty(ctx context.Context, apiObject awstypes.IncludedProperty) viewIncludedPropertyData {
 	return viewIncludedPropertyData{
-		Name: flex.StringToFramework(ctx, apiObject.Name),
+Name: flex.StringToFramework(ctx, apiObject.Name),
 	}
 }
 
@@ -388,11 +388,11 @@ func findDefaultViewARN(ctx context.Context, conn *resourceexplorer2.Client) (st
 	output, err := conn.GetDefaultView(ctx, input)
 
 	if err != nil {
-		return "", err
+return "", err
 	}
 
 	if output == nil {
-		return "", nil
+return "", nil
 	}
 
 	return aws.ToString(output.ViewArn), nil
@@ -400,24 +400,24 @@ func findDefaultViewARN(ctx context.Context, conn *resourceexplorer2.Client) (st
 
 func findViewByARN(ctx context.Context, conn *resourceexplorer2.Client, arn string) (*resourceexplorer2.GetViewOutput, error) {
 	input := &resourceexplorer2.GetViewInput{
-		ViewArn: aws.String(arn),
+ViewArn: aws.String(arn),
 	}
 
 	output, err := conn.GetView(ctx, input)
 
 	if errs.IsA[*awstypes.ResourceNotFoundException](err) || errs.IsA[*awstypes.UnauthorizedException](err) {
-		return nil, &retry.NotFoundError{
-			LastError:   err,
-			LastRequest: input,
-		}
+return nil, &retry.NotFoundError{
+	LastError:   err,
+	LastRequest: input,
+}
 	}
 
 	if err != nil {
-		return nil, err
+return nil, err
 	}
 
 	if output == nil || output.View == nil {
-		return nil, tfresource.NewEmptyResultError(input)
+return nil, tfresource.NewEmptyResultError(input)
 	}
 
 	return output, nil
@@ -432,6 +432,6 @@ const (
 
 func (propertyName) Values() []propertyName {
 	return []propertyName{
-		propertyNameTags,
+propertyNameTags,
 	}
 }

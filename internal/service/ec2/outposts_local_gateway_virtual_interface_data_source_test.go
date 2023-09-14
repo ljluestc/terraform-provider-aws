@@ -20,25 +20,25 @@ func TestAccEC2OutpostsLocalGatewayVirtualInterfaceDataSource_filter(t *testing.
 	dataSourceName := "data.aws_ec2_local_gateway_virtual_interface.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccOutpostsLocalGatewayVirtualInterfaceDataSourceConfig_filter(),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccOutpostsLocalGatewayVirtualInterfaceDataSourceConfig_filter(),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestMatchResourceAttr(dataSourceName, "id", regexache.MustCompile(`^lgw-vif-`)),
-					resource.TestMatchResourceAttr(dataSourceName, "local_address", regexache.MustCompile(`^\d+\.\d+\.\d+\.\d+/\d+$`)),
-					resource.TestMatchResourceAttr(dataSourceName, "local_bgp_asn", regexache.MustCompile(`^\d+$`)),
-					resource.TestMatchResourceAttr(dataSourceName, "local_gateway_id", regexache.MustCompile(`^lgw-`)),
-					resource.TestMatchResourceAttr(dataSourceName, "peer_address", regexache.MustCompile(`^\d+\.\d+\.\d+\.\d+/\d+$`)),
-					resource.TestMatchResourceAttr(dataSourceName, "peer_bgp_asn", regexache.MustCompile(`^\d+$`)),
-					resource.TestMatchResourceAttr(dataSourceName, "vlan", regexache.MustCompile(`^\d+$`)),
-				),
-			},
-		},
+	resource.TestMatchResourceAttr(dataSourceName, "id", regexache.MustCompile(`^lgw-vif-`)),
+	resource.TestMatchResourceAttr(dataSourceName, "local_address", regexache.MustCompile(`^\d+\.\d+\.\d+\.\d+/\d+$`)),
+	resource.TestMatchResourceAttr(dataSourceName, "local_bgp_asn", regexache.MustCompile(`^\d+$`)),
+	resource.TestMatchResourceAttr(dataSourceName, "local_gateway_id", regexache.MustCompile(`^lgw-`)),
+	resource.TestMatchResourceAttr(dataSourceName, "peer_address", regexache.MustCompile(`^\d+\.\d+\.\d+\.\d+/\d+$`)),
+	resource.TestMatchResourceAttr(dataSourceName, "peer_bgp_asn", regexache.MustCompile(`^\d+$`)),
+	resource.TestMatchResourceAttr(dataSourceName, "vlan", regexache.MustCompile(`^\d+$`)),
+),
+	},
+},
 	})
 }
 
@@ -48,25 +48,25 @@ func TestAccEC2OutpostsLocalGatewayVirtualInterfaceDataSource_id(t *testing.T) {
 	dataSourceName := "data.aws_ec2_local_gateway_virtual_interface.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccOutpostsLocalGatewayVirtualInterfaceDataSourceConfig_id(),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccOutpostsLocalGatewayVirtualInterfaceDataSourceConfig_id(),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestMatchResourceAttr(dataSourceName, "id", regexache.MustCompile(`^lgw-vif-`)),
-					resource.TestMatchResourceAttr(dataSourceName, "local_address", regexache.MustCompile(`^\d+\.\d+\.\d+\.\d+/\d+$`)),
-					resource.TestMatchResourceAttr(dataSourceName, "local_bgp_asn", regexache.MustCompile(`^\d+$`)),
-					resource.TestMatchResourceAttr(dataSourceName, "local_gateway_id", regexache.MustCompile(`^lgw-`)),
-					resource.TestMatchResourceAttr(dataSourceName, "peer_address", regexache.MustCompile(`^\d+\.\d+\.\d+\.\d+/\d+$`)),
-					resource.TestMatchResourceAttr(dataSourceName, "peer_bgp_asn", regexache.MustCompile(`^\d+$`)),
-					resource.TestMatchResourceAttr(dataSourceName, "vlan", regexache.MustCompile(`^\d+$`)),
-				),
-			},
-		},
+	resource.TestMatchResourceAttr(dataSourceName, "id", regexache.MustCompile(`^lgw-vif-`)),
+	resource.TestMatchResourceAttr(dataSourceName, "local_address", regexache.MustCompile(`^\d+\.\d+\.\d+\.\d+/\d+$`)),
+	resource.TestMatchResourceAttr(dataSourceName, "local_bgp_asn", regexache.MustCompile(`^\d+$`)),
+	resource.TestMatchResourceAttr(dataSourceName, "local_gateway_id", regexache.MustCompile(`^lgw-`)),
+	resource.TestMatchResourceAttr(dataSourceName, "peer_address", regexache.MustCompile(`^\d+\.\d+\.\d+\.\d+/\d+$`)),
+	resource.TestMatchResourceAttr(dataSourceName, "peer_bgp_asn", regexache.MustCompile(`^\d+$`)),
+	resource.TestMatchResourceAttr(dataSourceName, "vlan", regexache.MustCompile(`^\d+$`)),
+),
+	},
+},
 	})
 }
 
@@ -78,25 +78,25 @@ func TestAccEC2OutpostsLocalGatewayVirtualInterfaceDataSource_tags(t *testing.T)
 	dataSourceName := "data.aws_ec2_local_gateway_virtual_interface.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccOutpostsLocalGatewayVirtualInterfaceDataSourceConfig_tags(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccOutpostsLocalGatewayVirtualInterfaceDataSourceConfig_tags(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttrPair(dataSourceName, "id", sourceDataSourceName, "id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "local_address", sourceDataSourceName, "local_address"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "local_bgp_asn", sourceDataSourceName, "local_bgp_asn"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "local_gateway_id", sourceDataSourceName, "local_gateway_id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "peer_address", sourceDataSourceName, "peer_address"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "peer_bgp_asn", sourceDataSourceName, "peer_bgp_asn"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "vlan", sourceDataSourceName, "vlan"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(dataSourceName, "id", sourceDataSourceName, "id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "local_address", sourceDataSourceName, "local_address"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "local_bgp_asn", sourceDataSourceName, "local_bgp_asn"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "local_gateway_id", sourceDataSourceName, "local_gateway_id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "peer_address", sourceDataSourceName, "peer_address"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "peer_bgp_asn", sourceDataSourceName, "peer_bgp_asn"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "vlan", sourceDataSourceName, "vlan"),
+),
+	},
+},
 	})
 }
 
@@ -147,7 +147,7 @@ data "aws_ec2_local_gateway_virtual_interface" "source" {
 }
 
 resource "aws_ec2_tag" "test" {
-  key         = "TerraformAccTest-aws_ec2_local_gateway_virtual_interface"
+  key= "TerraformAccTest-aws_ec2_local_gateway_virtual_interface"
   resource_id = data.aws_ec2_local_gateway_virtual_interface.source.id
   value       = %[1]q
 }

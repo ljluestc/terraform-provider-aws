@@ -43,7 +43,7 @@ func ResourceRuleGroup() *schema.Resource {
 				ForceNew: true,
 			},
 			"metric_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate

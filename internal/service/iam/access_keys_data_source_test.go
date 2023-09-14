@@ -24,7 +24,7 @@ func TestAccIAMAccessKeysDataSource_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, iam.EndpointsID)
 		},
-		ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
+		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAccessKeyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -53,7 +53,7 @@ func TestAccIAMAccessKeysDataSource_twoKeys(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, iam.EndpointsID)
 		},
-		ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
+		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAccessKeyDestroy(ctx),
 		Steps: []resource.TestStep{

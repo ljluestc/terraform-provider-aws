@@ -53,7 +53,7 @@ func ResourceSecurityGroupRule() *schema.Resource {
 				Optional: true,
 				ForceNew: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Validate
 func: verify.ValidIPv4CIDRNetworkAddress,
 				},
@@ -61,7 +61,7 @@ func: verify.ValidIPv4CIDRNetworkAddress,
 				AtLeastOneOf:  []string{"cidr_blocks", "ipv6_cidr_blocks", "prefix_list_ids", "self", "source_security_group_id"},
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Validate
 func: validSecurityGroupRuleDescription,
@@ -86,7 +86,7 @@ func(k, old, new string, d *schema.ResourceData) bool {
 				Optional: true,
 				ForceNew: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Validate
 func: verify.ValidIPv6CIDRNetworkAddress,
 				},
@@ -98,7 +98,7 @@ func: verify.ValidIPv6CIDRNetworkAddress,
 				Optional: true,
 				ForceNew: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Validate
 func: validation.NoZeroValues,
 				},
@@ -122,7 +122,7 @@ func,
 				Computed: true,
 			},
 			"self": {
-				Type:          schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional:      true,
 				Default:       false,
 				ForceNew:      true,
@@ -130,7 +130,7 @@ func,
 				AtLeastOneOf:  []string{"cidr_blocks", "ipv6_cidr_blocks", "prefix_list_ids", "self", "source_security_group_id"},
 			},
 			"source_security_group_id": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ForceNew:      true,
 				Computed:      true,
@@ -153,7 +153,7 @@ func(k, old, new string, d *schema.ResourceData) bool {
 				},
 			},
 			"type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate

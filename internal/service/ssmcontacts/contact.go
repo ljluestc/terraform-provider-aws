@@ -25,39 +25,39 @@ import (
 // @Tags(identifierAttribute="id")
 func ResourceContact() *schema.Resource {
 	return &schema.Resource{
-		CreateWithoutTimeout: resourceContactCreate,
-		ReadWithoutTimeout:   resourceContactRead,
-		UpdateWithoutTimeout: resourceContactUpdate,
-		DeleteWithoutTimeout: resourceContactDelete,
+CreateWithoutTimeout: resourceContactCreate,
+ReadWithoutTimeout:   resourceContactRead,
+UpdateWithoutTimeout: resourceContactUpdate,
+DeleteWithoutTimeout: resourceContactDelete,
 
-		Importer: &schema.ResourceImporter{
-			StateContext: schema.ImportStatePassthroughContext,
-		},
+Importer: &schema.ResourceImporter{
+	StateContext: schema.ImportStatePassthroughContext,
+},
 
-		Schema: map[string]*schema.Schema{
-			"arn": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"alias": {
-				Type:     schema.TypeString,
-				Required: true,
-				ForceNew: true,
-			},
-			"display_name": {
-				Type:     schema.TypeString,
-				Optional: true,
-			},
-			"type": {
-				Type:     schema.TypeString,
-				Required: true,
-				ForceNew: true,
-			},
-			names.AttrTags:    tftags.TagsSchema(),
-			names.AttrTagsAll: tftags.TagsSchemaComputed(),
-		},
+Schema: map[string]*schema.Schema{
+	"arn": {
+Type:     schema.TypeString,
+Computed: true,
+	},
+	"alias": {
+Type:     schema.TypeString,
+Required: true,
+ForceNew: true,
+	},
+	"display_name": {
+Type:     schema.TypeString,
+Optional: true,
+	},
+	"type": {
+Type:     schema.TypeString,
+Required: true,
+ForceNew: true,
+	},
+	names.AttrTags:    tftags.TagsSchema(),
+	names.AttrTagsAll: tftags.TagsSchemaComputed(),
+},
 
-		CustomizeDiff: verify.SetTagsDiff,
+CustomizeDiff: verify.SetTagsDiff,
 	}
 }
 
@@ -69,20 +69,20 @@ func resourceContactCreate(ctx context.Context, d *schema.ResourceData, meta int
 	client := meta.(*conns.AWSClient).SSMContactsClient(ctx)
 
 	input := &ssmcontacts.CreateContactInput{
-		Alias:       aws.String(d.Get("alias").(string)),
-		DisplayName: aws.String(d.Get("display_name").(string)),
-		Plan:        &types.Plan{Stages: []types.Stage{}},
-		Tags:        getTagsIn(ctx),
-		Type:        types.ContactType(d.Get("type").(string)),
+Alias:       aws.String(d.Get("alias").(string)),
+DisplayName: aws.String(d.Get("display_name").(string)),
+Plan:        &types.Plan{Stages: []types.Stage{}},
+Tags:        getTagsIn(ctx),
+Type:        types.ContactType(d.Get("type").(string)),
 	}
 
 	output, err := client.CreateContact(ctx, input)
 	if err != nil {
-		return create.DiagError(names.SSMContacts, create.ErrActionCreating, ResNameContact, d.Get("alias").(string), err)
+return create.DiagError(names.SSMContacts, create.ErrActionCreating, ResNameContact, d.Get("alias").(string), err)
 	}
 
 	if output == nil {
-		return create.DiagError(names.SSMContacts, create.ErrActionCreating, ResNameContact, d.Get("alias").(string), errors.New("empty output"))
+return create.DiagError(names.SSMContacts, create.ErrActionCreating, ResNameContact, d.Get("alias").(string), errors.New("empty output"))
 	}
 
 	d.SetId(aws.ToString(output.ContactArn))
@@ -96,17 +96,17 @@ func resourceContactRead(ctx context.Context, d *schema.ResourceData, meta inter
 	out, err := findContactByID(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
-		log.Printf("[WARN] SSMContacts Contact (%s) not found, removing from state", d.Id())
-		d.SetId("")
-		return nil
+log.Printf("[WARN] SSMContacts Contact (%s) not found, removing from state", d.Id())
+d.SetId("")
+return nil
 	}
 
 	if err != nil {
-		return create.DiagError(names.SSMContacts, create.ErrActionReading, ResNameContact, d.Id(), err)
+return create.DiagError(names.SSMContacts, create.ErrActionReading, ResNameContact, d.Id(), err)
 	}
 
 	if err := setContactResourceData(d, out); err != nil {
-		return create.DiagError(names.SSMContacts, create.ErrActionSetting, ResNameContact, d.Id(), err)
+return create.DiagError(names.SSMContacts, create.ErrActionSetting, ResNameContact, d.Id(), err)
 	}
 
 	return nil
@@ -116,15 +116,15 @@ func resourceContactUpdate(ctx context.Context, d *schema.ResourceData, meta int
 	conn := meta.(*conns.AWSClient).SSMContactsClient(ctx)
 
 	if d.HasChanges("display_name") {
-		in := &ssmcontacts.UpdateContactInput{
-			ContactId:   aws.String(d.Id()),
-			DisplayName: aws.String(d.Get("display_name").(string)),
-		}
+in := &ssmcontacts.UpdateContactInput{
+	ContactId:   aws.String(d.Id()),
+	DisplayName: aws.String(d.Get("display_name").(string)),
+}
 
-		_, err := conn.UpdateContact(ctx, in)
-		if err != nil {
-			return create.DiagError(names.SSMContacts, create.ErrActionUpdating, ResNameContact, d.Id(), err)
-		}
+_, err := conn.UpdateContact(ctx, in)
+if err != nil {
+	return create.DiagError(names.SSMContacts, create.ErrActionUpdating, ResNameContact, d.Id(), err)
+}
 	}
 
 	return resourceContactRead(ctx, d, meta)
@@ -136,16 +136,16 @@ func resourceContactDelete(ctx context.Context, d *schema.ResourceData, meta int
 	log.Printf("[INFO] Deleting SSMContacts Contact %s", d.Id())
 
 	_, err := conn.DeleteContact(ctx, &ssmcontacts.DeleteContactInput{
-		ContactId: aws.String(d.Id()),
+ContactId: aws.String(d.Id()),
 	})
 
 	if err != nil {
-		var nfe *types.ResourceNotFoundException
-		if errors.As(err, &nfe) {
-			return nil
-		}
+var nfe *types.ResourceNotFoundException
+if errors.As(err, &nfe) {
+	return nil
+}
 
-		return create.DiagError(names.SSMContacts, create.ErrActionDeleting, ResNameContact, d.Id(), err)
+return create.DiagError(names.SSMContacts, create.ErrActionDeleting, ResNameContact, d.Id(), err)
 	}
 	return nil
 }

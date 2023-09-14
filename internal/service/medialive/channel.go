@@ -1013,10 +1013,10 @@ func stopChannel(ctx context.Context, conn *medialive.Client, timeout time.Durat
 
 func waitChannelCreated(ctx context.Context, conn *medialive.Client, id string, timeout time.Duration) (*medialive.DescribeChannelOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    enum.Slice(types.ChannelStateCreating),
-		Target:     enum.Slice(types.ChannelStateIdle),
-		Refresh:    statusChannel(ctx, conn, id),
-		Timeout:    timeout,
+		Pending:                   enum.Slice(types.ChannelStateCreating),
+		Target:                    enum.Slice(types.ChannelStateIdle),
+		Refresh:                   statusChannel(ctx, conn, id),
+		Timeout:                   timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}
@@ -1031,10 +1031,10 @@ func waitChannelCreated(ctx context.Context, conn *medialive.Client, id string, 
 
 func waitChannelUpdated(ctx context.Context, conn *medialive.Client, id string, timeout time.Duration) (*medialive.DescribeChannelOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    enum.Slice(types.ChannelStateUpdating),
-		Target:     enum.Slice(types.ChannelStateIdle),
-		Refresh:    statusChannel(ctx, conn, id),
-		Timeout:    timeout,
+		Pending:                   enum.Slice(types.ChannelStateUpdating),
+		Target:                    enum.Slice(types.ChannelStateIdle),
+		Refresh:                   statusChannel(ctx, conn, id),
+		Timeout:                   timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}
@@ -1733,9 +1733,9 @@ func flattenChannelInputAttachments(tfList []types.InputAttachment) []interface{
 
 	for _, item := range tfList {
 		m := map[string]interface{}{
-			"input_id":           aws.ToString(item.InputId),
+			"input_id":                          aws.ToString(item.InputId),
 			"input_attachment_name":             aws.ToString(item.InputAttachmentName),
-			"input_settings":     flattenInputAttachmentsInputSettings(item.InputSettings),
+			"input_settings":                    flattenInputAttachmentsInputSettings(item.InputSettings),
 			"automatic_input_failover_settings": flattenInputAttachmentAutomaticInputFailoverSettings(item.AutomaticInputFailoverSettings),
 		}
 
@@ -1758,7 +1758,7 @@ func flattenInputAttachmentsInputSettings(in *types.InputSettings) []interface{}
 		"filter_strength":           int(in.FilterStrength),
 		"input_filter":              string(in.InputFilter),
 		"network_input_settings":    flattenInputAttachmentsInputSettingsNetworkInputSettings(in.NetworkInputSettings),
-		"scte35_pid": int(in.Scte35Pid),
+		"scte35_pid":                int(in.Scte35Pid),
 		"smpte2038_data_preference": string(in.Smpte2038DataPreference),
 		"source_end_behavior":       string(in.SourceEndBehavior),
 	}
@@ -2263,10 +2263,10 @@ func flattenChannelDestinations(apiObject []types.OutputDestination) []interface
 	var tfList []interface{}
 	for _, v := range apiObject {
 		m := map[string]interface{}{
-			"id":      aws.ToString(v.Id),
+			"id":                     aws.ToString(v.Id),
 			"media_package_settings": flattenChannelDestinationsMediaPackageSettings(v.MediaPackageSettings),
 			"multiplex_settings":     flattenChannelDestinationsMultiplexSettings(v.MultiplexSettings),
-			"settings":flattenChannelDestinationsSettings(v.Settings),
+			"settings":               flattenChannelDestinationsSettings(v.Settings),
 		}
 
 		tfList = append(tfList, m)

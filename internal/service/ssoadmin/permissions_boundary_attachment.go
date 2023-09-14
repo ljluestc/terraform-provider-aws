@@ -42,14 +42,14 @@ func ResourcePermissionsBoundaryAttachment() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"instance_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
 func: verify.ValidARN,
 			},
 			"permission_set_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
@@ -70,14 +70,14 @@ func: verify.ValidARN,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"name": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ForceNew:     true,
 										Validate
 func: validation.StringLenBetween(0, 128),
 									},
 									"path": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										Default:      "/",
 										ForceNew:     true,
@@ -88,7 +88,7 @@ func: validation.StringLenBetween(0, 512),
 							},
 						},
 						"managed_policy_arn": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Default:      "",
 							ForceNew:     true,
@@ -112,7 +112,7 @@ func resourcePermissionsBoundaryAttachmentCreate(ctx context.Context, d *schema.
 	permissionSetARN := d.Get("permission_set_arn").(string)
 	id := PermissionsBoundaryAttachmentCreateResourceID(permissionSetARN, instanceARN)
 	input := &ssoadmin.PutPermissionsBoundaryToPermissionSetInput{
-		InstanceArn:         aws.String(instanceARN),
+		InstanceArn:aws.String(instanceARN),
 		PermissionSetArn:    aws.String(permissionSetARN),
 		PermissionsBoundary: expandPermissionsBoundary(tfMap),
 	}

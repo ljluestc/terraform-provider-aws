@@ -95,7 +95,7 @@ func resourceServiceNetworkVPCAssociationCreate(ctx context.Context, d *schema.R
 		ClientToken:              aws.String(id.UniqueId()),
 		ServiceNetworkIdentifier: aws.String(d.Get("service_network_identifier").(string)),
 		VpcIdentifier:            aws.String(d.Get("vpc_identifier").(string)),
-		Tags:      getTagsIn(ctx),
+		Tags:                     getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("security_group_ids"); ok {
@@ -216,10 +216,10 @@ func findServiceNetworkVPCAssociationByID(ctx context.Context, conn *vpclattice.
 
 func waitServiceNetworkVPCAssociationCreated(ctx context.Context, conn *vpclattice.Client, id string, timeout time.Duration) (*vpclattice.GetServiceNetworkVpcAssociationOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    enum.Slice(types.ServiceNetworkVpcAssociationStatusCreateInProgress),
-		Target:     enum.Slice(types.ServiceNetworkVpcAssociationStatusActive),
-		Refresh:    statusServiceNetworkVPCAssociation(ctx, conn, id),
-		Timeout:    timeout,
+		Pending:                   enum.Slice(types.ServiceNetworkVpcAssociationStatusCreateInProgress),
+		Target:                    enum.Slice(types.ServiceNetworkVpcAssociationStatusActive),
+		Refresh:                   statusServiceNetworkVPCAssociation(ctx, conn, id),
+		Timeout:                   timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}

@@ -25,27 +25,27 @@ func TestAccRoute53CIDRLocation_basic(t *testing.T) {
 	locationName := sdkacctest.RandString(16)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, route53.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCIDRLocationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccCIDRLocation_basic(rName, locationName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckCIDRLocationExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "cidr_blocks.#", "2"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "cidr_blocks.*", "200.5.3.0/24"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "cidr_blocks.*", "200.6.3.0/24"),
-					resource.TestCheckResourceAttr(resourceName, "name", locationName),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, route53.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckCIDRLocationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccCIDRLocation_basic(rName, locationName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckCIDRLocationExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "cidr_blocks.#", "2"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "cidr_blocks.*", "200.5.3.0/24"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "cidr_blocks.*", "200.6.3.0/24"),
+	resource.TestCheckResourceAttr(resourceName, "name", locationName),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -66,20 +66,20 @@ func TestAccRoute53CIDRLocation_disappears(t *testing.T) {
 	locationName := sdkacctest.RandString(16)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, route53.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCIDRLocationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccCIDRLocation_basic(rName, locationName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckCIDRLocationExists(ctx, resourceName),
-					acctest.CheckFrameworkResourceDisappears(acctest.Provider, tfroute53.ResourceCIDRLocation, resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, route53.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckCIDRLocationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccCIDRLocation_basic(rName, locationName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckCIDRLocationExists(ctx, resourceName),
+	acctest.CheckFrameworkResourceDisappears(acctest.Provider, tfroute53.ResourceCIDRLocation, resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 */
@@ -91,95 +91,95 @@ func TestAccRoute53CIDRLocation_update(t *testing.T) {
 	locationName := sdkacctest.RandString(16)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, route53.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCIDRLocationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccCIDRLocation_basic(rName, locationName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckCIDRLocationExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "cidr_blocks.#", "2"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "cidr_blocks.*", "200.5.3.0/24"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "cidr_blocks.*", "200.6.3.0/24"),
-					resource.TestCheckResourceAttr(resourceName, "name", locationName),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccCIDRLocation_updated(rName, locationName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckCIDRLocationExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "cidr_blocks.#", "3"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "cidr_blocks.*", "200.5.2.0/24"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "cidr_blocks.*", "200.6.3.0/24"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "cidr_blocks.*", "200.6.5.0/24"),
-					resource.TestCheckResourceAttr(resourceName, "name", locationName),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, route53.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckCIDRLocationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccCIDRLocation_basic(rName, locationName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckCIDRLocationExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "cidr_blocks.#", "2"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "cidr_blocks.*", "200.5.3.0/24"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "cidr_blocks.*", "200.6.3.0/24"),
+	resource.TestCheckResourceAttr(resourceName, "name", locationName),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccCIDRLocation_updated(rName, locationName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckCIDRLocationExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "cidr_blocks.#", "3"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "cidr_blocks.*", "200.5.2.0/24"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "cidr_blocks.*", "200.6.3.0/24"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "cidr_blocks.*", "200.6.5.0/24"),
+	resource.TestCheckResourceAttr(resourceName, "name", locationName),
+),
+	},
+},
 	})
 }
 
 func testAccCheckCIDRLocationDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).Route53Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).Route53Conn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_route53_cidr_location" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_route53_cidr_location" {
+continue
+	}
 
-			collectionID, name, err := tfroute53.CIDRLocationParseResourceID(rs.Primary.ID)
+	collectionID, name, err := tfroute53.CIDRLocationParseResourceID(rs.Primary.ID)
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			_, err = tfroute53.FindCIDRLocationByTwoPartKey(ctx, conn, collectionID, name)
+	_, err = tfroute53.FindCIDRLocationByTwoPartKey(ctx, conn, collectionID, name)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("Route 53 CIDR Location %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("Route 53 CIDR Location %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckCIDRLocationExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No Route 53 CIDR Collection ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No Route 53 CIDR Collection ID is set")
+}
 
-		collectionID, name, err := tfroute53.CIDRLocationParseResourceID(rs.Primary.ID)
+collectionID, name, err := tfroute53.CIDRLocationParseResourceID(rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).Route53Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).Route53Conn(ctx)
 
-		_, err = tfroute53.FindCIDRLocationByTwoPartKey(ctx, conn, collectionID, name)
+_, err = tfroute53.FindCIDRLocationByTwoPartKey(ctx, conn, collectionID, name)
 
-		return err
+return err
 	}
 }
 

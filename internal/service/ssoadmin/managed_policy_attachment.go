@@ -42,14 +42,14 @@ func ResourceManagedPolicyAttachment() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"instance_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
 func: verify.ValidARN,
 			},
 			"managed_policy_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
@@ -60,7 +60,7 @@ func: verify.ValidARN,
 				Computed: true,
 			},
 			"permission_set_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate

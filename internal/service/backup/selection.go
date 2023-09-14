@@ -140,7 +140,7 @@ func: validation.All(
 				},
 			},
 			"iam_role_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate

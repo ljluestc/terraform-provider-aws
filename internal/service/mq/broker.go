@@ -374,8 +374,8 @@ func resourceBrokerCreate(ctx context.Context, d *schema.ResourceData, meta inte
 		EngineVersion:           aws.String(d.Get("engine_version").(string)),
 		HostInstanceType:        aws.String(d.Get("host_instance_type").(string)),
 		PubliclyAccessible:      aws.Bool(d.Get("publicly_accessible").(bool)),
-		Tags:     getTagsIn(ctx),
-		Users:    expandUsers(d.Get("user").(*schema.Set).List()),
+		Tags:                    getTagsIn(ctx),
+		Users:                   expandUsers(d.Get("user").(*schema.Set).List()),
 	}
 
 	if v, ok := d.GetOk("authentication_strategy"); ok {
@@ -557,7 +557,7 @@ func resourceBrokerUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	if d.HasChange("auto_minor_version_upgrade") {
 		_, err := conn.UpdateBrokerWithContext(ctx, &mq.UpdateBrokerRequest{
-			BrokerId: aws.String(d.Id()),
+			BrokerId:                aws.String(d.Id()),
 			AutoMinorVersionUpgrade: aws.Bool(d.Get("auto_minor_version_upgrade").(bool)),
 		})
 
@@ -570,7 +570,7 @@ func resourceBrokerUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	if d.HasChange("maintenance_window_start_time") {
 		_, err := conn.UpdateBrokerWithContext(ctx, &mq.UpdateBrokerRequest{
-			BrokerId:    aws.String(d.Id()),
+			BrokerId:                   aws.String(d.Id()),
 			MaintenanceWindowStartTime: expandWeeklyStartTime(d.Get("maintenance_window_start_time").([]interface{})),
 		})
 

@@ -15,14 +15,14 @@ func TestSpotFleetRequestMigrateState(t *testing.T) {
 
 	cases := map[string]struct {
 		StateVersion int
-		ID           string
+		ID  string
 		Attributes   map[string]string
 		Expected     string
-		Meta         interface{}
+		Metainterface{}
 	}{
 		"v0_1": {
 			StateVersion: 0,
-			ID:           "some_id",
+			ID:  "some_id",
 			Attributes: map[string]string{
 				"associate_public_ip_address": "true",
 			},
@@ -32,7 +32,7 @@ func TestSpotFleetRequestMigrateState(t *testing.T) {
 
 	for tn, tc := range cases {
 		is := &terraform.InstanceState{
-			ID:         tc.ID,
+			ID:tc.ID,
 			Attributes: tc.Attributes,
 		}
 		is, err := tfec2.SpotFleetRequestMigrateState(

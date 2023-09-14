@@ -31,50 +31,50 @@ func TestAccSiteVPNGateway_basic(t *testing.T) {
 
 	testNotEqual := 
 func(*terraform.State) error {
-		if len(v1.VpcAttachments) == 0 {
-			return fmt.Errorf("VPN Gateway A is not attached")
-		}
-		if len(v2.VpcAttachments) == 0 {
-			return fmt.Errorf("VPN Gateway B is not attached")
-		}
+if len(v1.VpcAttachments) == 0 {
+	return fmt.Errorf("VPN Gateway A is not attached")
+}
+if len(v2.VpcAttachments) == 0 {
+	return fmt.Errorf("VPN Gateway B is not attached")
+}
 
-		if aws.StringValue(v1.VpcAttachments[0].VpcId) == aws.StringValue(v2.VpcAttachments[0].VpcId) {
-			return fmt.Errorf("Attachment IDs are equal")
-		}
+if aws.StringValue(v1.VpcAttachments[0].VpcId) == aws.StringValue(v2.VpcAttachments[0].VpcId) {
+	return fmt.Errorf("Attachment IDs are equal")
+}
 
-		return nil
+return nil
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPNGatewayDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSiteVPNGatewayConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckVPNGatewayDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSiteVPNGatewayConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckVPNGatewayExists(ctx, resourceName, &v1),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "ec2", regexache.MustCompile(`vpn-gateway/vgw-.+`)),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccSiteVPNGatewayConfig_changeVPC(rName),
-				Check: resource.ComposeTestCheck
+	testAccCheckVPNGatewayExists(ctx, resourceName, &v1),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "ec2", regexache.MustCompile(`vpn-gateway/vgw-.+`)),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccSiteVPNGatewayConfig_changeVPC(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckVPNGatewayExists(ctx, resourceName, &v2),
-					testNotEqual,
-				),
-			},
-		},
+	testAccCheckVPNGatewayExists(ctx, resourceName, &v2),
+	testNotEqual,
+),
+	},
+},
 	})
 }
 
@@ -87,27 +87,27 @@ func TestAccSiteVPNGateway_withAvailabilityZoneSetToState(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPNGatewayDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSiteVPNGatewayConfig_az(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckVPNGatewayDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSiteVPNGatewayConfig_az(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckVPNGatewayExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrPair(resourceName, "availability_zone", azDataSourceName, "names.0"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"availability_zone"},
-			},
-		},
+	testAccCheckVPNGatewayExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrPair(resourceName, "availability_zone", azDataSourceName, "names.0"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"availability_zone"},
+	},
+},
 	})
 }
 
@@ -119,27 +119,27 @@ func TestAccSiteVPNGateway_amazonSideASN(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPNGatewayDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSiteVPNGatewayConfig_asn(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckVPNGatewayDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSiteVPNGatewayConfig_asn(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckVPNGatewayExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(
-						resourceName, "amazon_side_asn", "4294967294"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckVPNGatewayExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(
+resourceName, "amazon_side_asn", "4294967294"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -151,22 +151,22 @@ func TestAccSiteVPNGateway_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPNGatewayDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSiteVPNGatewayConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckVPNGatewayDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSiteVPNGatewayConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckVPNGatewayExists(ctx, resourceName, &v),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceVPNGateway(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckVPNGatewayExists(ctx, resourceName, &v),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceVPNGateway(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -185,94 +185,94 @@ func TestAccSiteVPNGateway_reattach(t *testing.T) {
 func := 
 func(vgw *ec2.VpnGateway, vpc *ec2.Vpc) 
 func(*terraform.State) error {
-		return 
+return 
 func(*terraform.State) error {
-			if len(vgw.VpcAttachments) == 0 {
-				return fmt.Errorf("VPN Gateway %q has no VPC attachments.", aws.StringValue(vgw.VpnGatewayId))
-			}
+	if len(vgw.VpcAttachments) == 0 {
+return fmt.Errorf("VPN Gateway %q has no VPC attachments.", aws.StringValue(vgw.VpnGatewayId))
+	}
 
-			if len(vgw.VpcAttachments) > 1 {
-				count := 0
-				for _, v := range vgw.VpcAttachments {
-					if aws.StringValue(v.State) == ec2.AttachmentStatusAttached {
-						count += 1
-					}
-				}
-				if count > 1 {
-					return fmt.Errorf(
-						"VPN Gateway %q has an unexpected number of VPC attachments (more than 1): %#v",
-						aws.StringValue(vgw.VpnGatewayId), vgw.VpcAttachments)
-				}
-			}
+	if len(vgw.VpcAttachments) > 1 {
+count := 0
+for _, v := range vgw.VpcAttachments {
+	if aws.StringValue(v.State) == ec2.AttachmentStatusAttached {
+count += 1
+	}
+}
+if count > 1 {
+	return fmt.Errorf(
+"VPN Gateway %q has an unexpected number of VPC attachments (more than 1): %#v",
+aws.StringValue(vgw.VpnGatewayId), vgw.VpcAttachments)
+}
+	}
 
-			if aws.StringValue(vgw.VpcAttachments[0].State) != ec2.AttachmentStatusAttached {
-				return fmt.Errorf("Expected VPN Gateway %q to be attached.", aws.StringValue(vgw.VpnGatewayId))
-			}
+	if aws.StringValue(vgw.VpcAttachments[0].State) != ec2.AttachmentStatusAttached {
+return fmt.Errorf("Expected VPN Gateway %q to be attached.", aws.StringValue(vgw.VpnGatewayId))
+	}
 
-			if *vgw.VpcAttachments[0].VpcId != *vpc.VpcId {
-				return fmt.Errorf("Expected VPN Gateway %q to be attached to VPC %q, but got: %q",
-					aws.StringValue(vgw.VpnGatewayId), aws.StringValue(vpc.VpcId), aws.StringValue(vgw.VpcAttachments[0].VpcId))
-			}
-			return nil
-		}
+	if *vgw.VpcAttachments[0].VpcId != *vpc.VpcId {
+return fmt.Errorf("Expected VPN Gateway %q to be attached to VPC %q, but got: %q",
+	aws.StringValue(vgw.VpnGatewayId), aws.StringValue(vpc.VpcId), aws.StringValue(vgw.VpcAttachments[0].VpcId))
+	}
+	return nil
+}
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPNGatewayDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSiteVPNGatewayConfig_reattach(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckVPNGatewayDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSiteVPNGatewayConfig_reattach(rName),
+Check: resource.ComposeTestCheck
 func(
-					acctest.CheckVPCExists(ctx, vpcResourceName1, &vpc1),
-					acctest.CheckVPCExists(ctx, vpcResourceName2, &vpc2),
-					testAccCheckVPNGatewayExists(ctx, resourceName1, &vgw1),
-					testAccCheckVPNGatewayExists(ctx, resourceName2, &vgw2),
-					testAttachment
+	acctest.CheckVPCExists(ctx, vpcResourceName1, &vpc1),
+	acctest.CheckVPCExists(ctx, vpcResourceName2, &vpc2),
+	testAccCheckVPNGatewayExists(ctx, resourceName1, &vgw1),
+	testAccCheckVPNGatewayExists(ctx, resourceName2, &vgw2),
+	testAttachment
 func(&vgw1, &vpc1),
-					testAttachment
+	testAttachment
 func(&vgw2, &vpc2),
-				),
-			},
-			{
-				ResourceName:      resourceName1,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				ResourceName:      resourceName2,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccSiteVPNGatewayConfig_reattachChange(rName),
-				Check: resource.ComposeTestCheck
+),
+	},
+	{
+ResourceName:      resourceName1,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+ResourceName:      resourceName2,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccSiteVPNGatewayConfig_reattachChange(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckVPNGatewayExists(ctx, resourceName1, &vgw1),
-					testAccCheckVPNGatewayExists(ctx, resourceName2, &vgw2),
-					testAttachment
+	testAccCheckVPNGatewayExists(ctx, resourceName1, &vgw1),
+	testAccCheckVPNGatewayExists(ctx, resourceName2, &vgw2),
+	testAttachment
 func(&vgw2, &vpc1),
-					testAttachment
+	testAttachment
 func(&vgw1, &vpc2),
-				),
-			},
-			{
-				Config: testAccSiteVPNGatewayConfig_reattach(rName),
-				Check: resource.ComposeTestCheck
+),
+	},
+	{
+Config: testAccSiteVPNGatewayConfig_reattach(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckVPNGatewayExists(ctx, resourceName1, &vgw1),
-					testAccCheckVPNGatewayExists(ctx, resourceName2, &vgw2),
-					testAttachment
+	testAccCheckVPNGatewayExists(ctx, resourceName1, &vgw1),
+	testAccCheckVPNGatewayExists(ctx, resourceName2, &vgw2),
+	testAttachment
 func(&vgw1, &vpc1),
-					testAttachment
+	testAttachment
 func(&vgw2, &vpc2),
-				),
-			},
-		},
+),
+	},
+},
 	})
 }
 
@@ -284,46 +284,46 @@ func TestAccSiteVPNGateway_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPNGatewayDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSiteVPNGatewayConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckVPNGatewayDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSiteVPNGatewayConfig_tags1(rName, "key1", "value1"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckVPNGatewayExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccSiteVPNGatewayConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheck
+	testAccCheckVPNGatewayExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccSiteVPNGatewayConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckVPNGatewayExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-			{
-				Config: testAccSiteVPNGatewayConfig_tags1(rName, "key2", "value2"),
-				Check: resource.ComposeTestCheck
+	testAccCheckVPNGatewayExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+	{
+Config: testAccSiteVPNGatewayConfig_tags1(rName, "key2", "value2"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckVPNGatewayExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-		},
+	testAccCheckVPNGatewayExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+},
 	})
 }
 
@@ -332,27 +332,27 @@ func testAccCheckVPNGatewayDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_vpn_gateway" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_vpn_gateway" {
+continue
+	}
 
-			_, err := tfec2.FindVPNGatewayByID(ctx, conn, rs.Primary.ID)
+	_, err := tfec2.FindVPNGatewayByID(ctx, conn, rs.Primary.ID)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("EC2 VPN Gateway %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("EC2 VPN Gateway %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -361,26 +361,26 @@ func testAccCheckVPNGatewayExists(ctx context.Context, n string, v *ec2.VpnGatew
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No EC2 VPN Gateway ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No EC2 VPN Gateway ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-		output, err := tfec2.FindVPNGatewayByID(ctx, conn, rs.Primary.ID)
+output, err := tfec2.FindVPNGatewayByID(ctx, conn, rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*v = *output
+*v = *output
 
-		return nil
+return nil
 	}
 }
 
@@ -555,7 +555,7 @@ resource "aws_vpc" "test" {
 }
 
 resource "aws_vpn_gateway" "test" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[0]
 
   tags = {
@@ -577,7 +577,7 @@ resource "aws_vpc" "test" {
 }
 
 resource "aws_vpn_gateway" "test" {
-  vpc_id          = aws_vpc.test.id
+  vpc_id = aws_vpc.test.id
   amazon_side_asn = 4294967294
 
   tags = {

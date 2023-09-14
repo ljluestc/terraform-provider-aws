@@ -19,8 +19,8 @@ import (
 
 func init() {
 	resource.AddTestSweepers("aws_signer_signing_profile", &resource.Sweeper{
-		Name: "aws_signer_signing_profile",
-		F:    sweepSigningProfiles,
+Name: "aws_signer_signing_profile",
+F:    sweepSigningProfiles,
 	})
 }
 
@@ -29,7 +29,7 @@ func sweepSigningProfiles(region string) error {
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
 
 	if err != nil {
-		return fmt.Errorf("error getting client: %w", err)
+return fmt.Errorf("error getting client: %w", err)
 	}
 
 	conn := client.SignerClient(ctx)
@@ -39,29 +39,29 @@ func sweepSigningProfiles(region string) error {
 	pages := signer.NewListSigningProfilesPaginator(conn, input)
 
 	for pages.HasMorePages() {
-		page, err := pages.NextPage(ctx)
-		if awsv2.SkipSweepError(err) {
-			log.Printf("[WARN] Skipping Signer Signing Profiles sweep for %s: %s", region, err)
-			return nil
-		}
-		if err != nil {
-			return fmt.Errorf("error retrieving Signer Signing Profiles: %w", err)
-		}
+page, err := pages.NextPage(ctx)
+if awsv2.SkipSweepError(err) {
+	log.Printf("[WARN] Skipping Signer Signing Profiles sweep for %s: %s", region, err)
+	return nil
+}
+if err != nil {
+	return fmt.Errorf("error retrieving Signer Signing Profiles: %w", err)
+}
 
-		for _, profile := range page.Profiles {
-			name := aws.ToString(profile.ProfileName)
+for _, profile := range page.Profiles {
+	name := aws.ToString(profile.ProfileName)
 
-			r := ResourceSigningProfile()
-			d := r.Data(nil)
-			d.SetId(name)
+	r := ResourceSigningProfile()
+	d := r.Data(nil)
+	d.SetId(name)
 
-			log.Printf("[INFO] Deleting Signer Signing Profile: %s", name)
-			sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
-		}
+	log.Printf("[INFO] Deleting Signer Signing Profile: %s", name)
+	sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
+}
 	}
 
 	if err := sweep.SweepOrchestrator(ctx, sweepResources); err != nil {
-		return fmt.Errorf("error sweeping Signer Signing Profiles for %s: %w", region, err)
+return fmt.Errorf("error sweeping Signer Signing Profiles for %s: %w", region, err)
 	}
 
 	return nil

@@ -25,23 +25,23 @@ func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.Servic
 
 func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{
-		{
-			Factory:  DataSourceService,
-			TypeName: "aws_servicequotas_service",
-		},
-		{
-			Factory:  DataSourceServiceQuota,
-			TypeName: "aws_servicequotas_service_quota",
-		},
+{
+	Factory:  DataSourceService,
+	TypeName: "aws_servicequotas_service",
+},
+{
+	Factory:  DataSourceServiceQuota,
+	TypeName: "aws_servicequotas_service_quota",
+},
 	}
 }
 
 func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
-		{
-			Factory:  ResourceServiceQuota,
-			TypeName: "aws_servicequotas_service_quota",
-		},
+{
+	Factory:  ResourceServiceQuota,
+	TypeName: "aws_servicequotas_service_quota",
+},
 	}
 }
 

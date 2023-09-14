@@ -22,29 +22,29 @@ func TestAccQuickSightDataSetDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_quicksight_data_set.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccDataSetDataSourceConfig_basic(rId, rName),
-				Check: resource.ComposeTestCheck
+	acctest.PreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccDataSetDataSourceConfig_basic(rId, rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
+),
+	},
+},
 	})
 }
 
 
 func testAccDataSetDataSourceConfig_basic(rId, rName string) string {
 	return acctest.ConfigCompose(
-		testAccDataSetConfigBase(rId, rName),
-		fmt.Sprintf(`
+testAccDataSetConfigBase(rId, rName),
+fmt.Sprintf(`
 resource "aws_quicksight_data_set" "test" {
   data_set_id = %[1]q
   name        = %[2]q

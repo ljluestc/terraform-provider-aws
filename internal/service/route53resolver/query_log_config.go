@@ -42,14 +42,14 @@ func ResourceQueryLogConfig() *schema.Resource {
 				Computed: true,
 			},
 			"destination_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
 func: verify.ValidARN,
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
@@ -79,8 +79,8 @@ func resourceQueryLogConfigCreate(ctx context.Context, d *schema.ResourceData, m
 	input := &route53resolver.CreateResolverQueryLogConfigInput{
 		CreatorRequestId: aws.String(id.PrefixedUniqueId("tf-r53-resolver-query-log-config-")),
 		DestinationArn:   aws.String(d.Get("destination_arn").(string)),
-		Name:             aws.String(name),
-		Tags:             getTagsIn(ctx),
+		Name:    aws.String(name),
+		Tags:    getTagsIn(ctx),
 	}
 
 	output, err := conn.CreateResolverQueryLogConfigWithContext(ctx, input)

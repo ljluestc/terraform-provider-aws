@@ -31,133 +31,133 @@ import (
 // @Tags(identifierAttribute="arn")
 func ResourceListener() *schema.Resource {
 	return &schema.Resource{
-		CreateWithoutTimeout: resourceListenerCreate,
-		ReadWithoutTimeout:   resourceListenerRead,
-		UpdateWithoutTimeout: resourceListenerUpdate,
-		DeleteWithoutTimeout: resourceListenerDelete,
+CreateWithoutTimeout: resourceListenerCreate,
+ReadWithoutTimeout:   resourceListenerRead,
+UpdateWithoutTimeout: resourceListenerUpdate,
+DeleteWithoutTimeout: resourceListenerDelete,
 
-		// Id returned by GetListener does not contain required service name, use a custom import function
-		Importer: &schema.ResourceImporter{
-			StateContext: func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
-				idParts := strings.Split(d.Id(), "/")
-				if len(idParts) != 2 || idParts[0] == "" || idParts[1] == "" {
-					return nil, fmt.Errorf("unexpected format of ID (%q), expected SERVICE-ID/LISTENER-ID", d.Id())
-				}
-				d.Set("service_identifier", idParts[0])
-				d.Set("listener_id", idParts[1])
+// Id returned by GetListener does not contain required service name, use a custom import function
+Importer: &schema.ResourceImporter{
+	StateContext: func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+idParts := strings.Split(d.Id(), "/")
+if len(idParts) != 2 || idParts[0] == "" || idParts[1] == "" {
+	return nil, fmt.Errorf("unexpected format of ID (%q), expected SERVICE-ID/LISTENER-ID", d.Id())
+}
+d.Set("service_identifier", idParts[0])
+d.Set("listener_id", idParts[1])
 
-				return []*schema.ResourceData{d}, nil
-			},
-		},
+return []*schema.ResourceData{d}, nil
+	},
+},
 
-		Timeouts: &schema.ResourceTimeout{
-			Create: schema.DefaultTimeout(30 * time.Minute),
-			Update: schema.DefaultTimeout(30 * time.Minute),
-			Delete: schema.DefaultTimeout(30 * time.Minute),
-		},
+Timeouts: &schema.ResourceTimeout{
+	Create: schema.DefaultTimeout(30 * time.Minute),
+	Update: schema.DefaultTimeout(30 * time.Minute),
+	Delete: schema.DefaultTimeout(30 * time.Minute),
+},
 
-		Schema: map[string]*schema.Schema{
-			"arn": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"created_at": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"default_action": {
-				Type:     schema.TypeList,
-				MaxItems: 1,
-				MinItems: 1,
-				Required: true,
-				Elem: &schema.Resource{
-					Schema: map[string]*schema.Schema{
-						"fixed_response": {
-							Type:     schema.TypeList,
-							Optional: true,
-							MaxItems: 1,
-							Elem: &schema.Resource{
-								Schema: map[string]*schema.Schema{
-									"status_code": {
-										Type:     schema.TypeInt,
-										Required: true,
-									},
-								},
-							},
-						},
-						"forward": {
-							Type:     schema.TypeList,
-							Optional: true,
-							MinItems: 1,
-							Elem: &schema.Resource{
-								Schema: map[string]*schema.Schema{
-									"target_groups": {
-										Type:     schema.TypeList,
-										Optional: true,
-										MinItems: 1,
-										Elem: &schema.Resource{
-											Schema: map[string]*schema.Schema{
-												"target_group_identifier": {
-													Type:     schema.TypeString,
-													Optional: true,
-												},
-												"weight": {
-													Type:     schema.TypeInt,
-													Default:  100,
-													Optional: true,
-												},
-											},
-										},
-									},
-								},
-							},
-						},
-					},
-				},
-			},
-			"last_updated_at": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"listener_id": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"name": {
-				Type:     schema.TypeString,
-				ForceNew: true,
-				Required: true,
-			},
-			"port": {
-				Type:         schema.TypeInt,
-				Computed:     true,
-				Optional:     true,
-				ForceNew:     true,
-				ValidateFunc: validation.IsPortNumber,
-			},
-			"protocol": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
-				ValidateFunc: validation.StringInSlice([]string{"HTTP", "HTTPS"}, true),
-			},
-			"service_arn": {
-				Type:         schema.TypeString,
-				Computed:     true,
-				Optional:     true,
-				AtLeastOneOf: []string{"service_arn", "service_identifier"},
-			},
-			"service_identifier": {
-				Type:         schema.TypeString,
-				Computed:     true,
-				Optional:     true,
-				AtLeastOneOf: []string{"service_arn", "service_identifier"},
-			},
-			names.AttrTags:    tftags.TagsSchema(),
-			names.AttrTagsAll: tftags.TagsSchemaComputed(),
-		},
+Schema: map[string]*schema.Schema{
+	"arn": {
+Type:     schema.TypeString,
+Computed: true,
+	},
+	"created_at": {
+Type:     schema.TypeString,
+Computed: true,
+	},
+	"default_action": {
+Type:     schema.TypeList,
+MaxItems: 1,
+MinItems: 1,
+Required: true,
+Elem: &schema.Resource{
+	Schema: map[string]*schema.Schema{
+"fixed_response": {
+	Type:     schema.TypeList,
+	Optional: true,
+	MaxItems: 1,
+	Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+	"status_code": {
+Type:     schema.TypeInt,
+Required: true,
+	},
+},
+	},
+},
+"forward": {
+	Type:     schema.TypeList,
+	Optional: true,
+	MinItems: 1,
+	Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+	"target_groups": {
+Type:     schema.TypeList,
+Optional: true,
+MinItems: 1,
+Elem: &schema.Resource{
+	Schema: map[string]*schema.Schema{
+"target_group_identifier": {
+	Type:     schema.TypeString,
+	Optional: true,
+},
+"weight": {
+	Type:     schema.TypeInt,
+	Default:  100,
+	Optional: true,
+},
+	},
+},
+	},
+},
+	},
+},
+	},
+},
+	},
+	"last_updated_at": {
+Type:     schema.TypeString,
+Computed: true,
+	},
+	"listener_id": {
+Type:     schema.TypeString,
+Computed: true,
+	},
+	"name": {
+Type:     schema.TypeString,
+ForceNew: true,
+Required: true,
+	},
+	"port": {
+Type:         schema.TypeInt,
+Computed:     true,
+Optional:     true,
+ForceNew:     true,
+ValidateFunc: validation.IsPortNumber,
+	},
+	"protocol": {
+Type:         schema.TypeString,
+Required:     true,
+ForceNew:     true,
+ValidateFunc: validation.StringInSlice([]string{"HTTP", "HTTPS"}, true),
+	},
+	"service_arn": {
+Type:         schema.TypeString,
+Computed:     true,
+Optional:     true,
+AtLeastOneOf: []string{"service_arn", "service_identifier"},
+	},
+	"service_identifier": {
+Type:         schema.TypeString,
+Computed:     true,
+Optional:     true,
+AtLeastOneOf: []string{"service_arn", "service_identifier"},
+	},
+	names.AttrTags:    tftags.TagsSchema(),
+	names.AttrTagsAll: tftags.TagsSchemaComputed(),
+},
 
-		CustomizeDiff: verify.SetTagsDiff,
+CustomizeDiff: verify.SetTagsDiff,
 	}
 }
 
@@ -169,35 +169,35 @@ func resourceListenerCreate(ctx context.Context, d *schema.ResourceData, meta in
 	conn := meta.(*conns.AWSClient).VPCLatticeClient(ctx)
 
 	in := &vpclattice.CreateListenerInput{
-		Name:          aws.String(d.Get("name").(string)),
-		DefaultAction: expandDefaultAction(d.Get("default_action").([]interface{})),
-		Protocol:      types.ListenerProtocol(d.Get("protocol").(string)),
-		Tags:          getTagsIn(ctx),
+Name:          aws.String(d.Get("name").(string)),
+DefaultAction: expandDefaultAction(d.Get("default_action").([]interface{})),
+Protocol:      types.ListenerProtocol(d.Get("protocol").(string)),
+Tags:          getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("port"); ok && v != nil {
-		in.Port = aws.Int32(int32(v.(int)))
+in.Port = aws.Int32(int32(v.(int)))
 	}
 
 	if v, ok := d.GetOk("service_identifier"); ok {
-		in.ServiceIdentifier = aws.String(v.(string))
+in.ServiceIdentifier = aws.String(v.(string))
 	}
 
 	if v, ok := d.GetOk("service_arn"); ok {
-		in.ServiceIdentifier = aws.String(v.(string))
+in.ServiceIdentifier = aws.String(v.(string))
 	}
 
 	if in.ServiceIdentifier == nil {
-		return diag.Errorf("must specify either service_arn or service_identifier")
+return diag.Errorf("must specify either service_arn or service_identifier")
 	}
 
 	out, err := conn.CreateListener(ctx, in)
 	if err != nil {
-		return create.DiagError(names.VPCLattice, create.ErrActionCreating, ResNameListener, d.Get("name").(string), err)
+return create.DiagError(names.VPCLattice, create.ErrActionCreating, ResNameListener, d.Get("name").(string), err)
 	}
 
 	if out == nil || out.Arn == nil {
-		return create.DiagError(names.VPCLattice, create.ErrActionCreating, ResNameListener, d.Get("name").(string), errors.New("empty output"))
+return create.DiagError(names.VPCLattice, create.ErrActionCreating, ResNameListener, d.Get("name").(string), errors.New("empty output"))
 	}
 
 	// Id returned by GetListener does not contain required service name
@@ -206,8 +206,8 @@ func resourceListenerCreate(ctx context.Context, d *schema.ResourceData, meta in
 	d.Set("service_identifier", out.ServiceId)
 
 	parts := []string{
-		d.Get("service_identifier").(string),
-		d.Get("listener_id").(string),
+d.Get("service_identifier").(string),
+d.Get("listener_id").(string),
 	}
 
 	d.SetId(strings.Join(parts, "/"))
@@ -225,13 +225,13 @@ func resourceListenerRead(ctx context.Context, d *schema.ResourceData, meta inte
 	out, err := findListenerByIdAndServiceId(ctx, conn, listenerId, serviceId)
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
-		log.Printf("[WARN] VPCLattice Listener (%s) not found, removing from state", d.Id())
-		d.SetId("")
-		return nil
+log.Printf("[WARN] VPCLattice Listener (%s) not found, removing from state", d.Id())
+d.SetId("")
+return nil
 	}
 
 	if err != nil {
-		return create.DiagError(names.VPCLattice, create.ErrActionReading, ResNameListener, d.Id(), err)
+return create.DiagError(names.VPCLattice, create.ErrActionReading, ResNameListener, d.Id(), err)
 	}
 
 	d.Set("arn", out.Arn)
@@ -245,7 +245,7 @@ func resourceListenerRead(ctx context.Context, d *schema.ResourceData, meta inte
 	d.Set("service_identifier", out.ServiceId)
 
 	if err := d.Set("default_action", flattenListenerRuleActions(out.DefaultAction)); err != nil {
-		return create.DiagError(names.VPCLattice, create.ErrActionSetting, ResNameListener, d.Id(), err)
+return create.DiagError(names.VPCLattice, create.ErrActionSetting, ResNameListener, d.Id(), err)
 	}
 
 	return nil
@@ -258,21 +258,21 @@ func resourceListenerUpdate(ctx context.Context, d *schema.ResourceData, meta in
 	listenerId := d.Get("listener_id").(string)
 
 	if d.HasChangesExcept("tags", "tags_all") {
-		in := &vpclattice.UpdateListenerInput{
-			ListenerIdentifier: aws.String(listenerId),
-			ServiceIdentifier:  aws.String(serviceId),
-		}
+in := &vpclattice.UpdateListenerInput{
+	ListenerIdentifier: aws.String(listenerId),
+	ServiceIdentifier:  aws.String(serviceId),
+}
 
-		// Cannot edit listener name, protocol, or port after creation
-		if d.HasChanges("default_action") {
-			in.DefaultAction = expandDefaultAction(d.Get("default_action").([]interface{}))
-		}
+// Cannot edit listener name, protocol, or port after creation
+if d.HasChanges("default_action") {
+	in.DefaultAction = expandDefaultAction(d.Get("default_action").([]interface{}))
+}
 
-		log.Printf("[DEBUG] Updating VPC Lattice Listener (%s): %#v", d.Id(), in)
-		_, err := conn.UpdateListener(ctx, in)
-		if err != nil {
-			return create.DiagError(names.VPCLattice, create.ErrActionUpdating, ResNameListener, d.Id(), err)
-		}
+log.Printf("[DEBUG] Updating VPC Lattice Listener (%s): %#v", d.Id(), in)
+_, err := conn.UpdateListener(ctx, in)
+if err != nil {
+	return create.DiagError(names.VPCLattice, create.ErrActionUpdating, ResNameListener, d.Id(), err)
+}
 	}
 
 	return resourceListenerRead(ctx, d, meta)
@@ -287,17 +287,17 @@ func resourceListenerDelete(ctx context.Context, d *schema.ResourceData, meta in
 	listenerId := d.Get("listener_id").(string)
 
 	_, err := conn.DeleteListener(ctx, &vpclattice.DeleteListenerInput{
-		ListenerIdentifier: aws.String(listenerId),
-		ServiceIdentifier:  aws.String(serviceId),
+ListenerIdentifier: aws.String(listenerId),
+ServiceIdentifier:  aws.String(serviceId),
 	})
 
 	if err != nil {
-		var nfe *types.ResourceNotFoundException
-		if errors.As(err, &nfe) {
-			return nil
-		}
+var nfe *types.ResourceNotFoundException
+if errors.As(err, &nfe) {
+	return nil
+}
 
-		return create.DiagError(names.VPCLattice, create.ErrActionDeleting, ResNameListener, d.Id(), err)
+return create.DiagError(names.VPCLattice, create.ErrActionDeleting, ResNameListener, d.Id(), err)
 	}
 
 	return nil
@@ -305,24 +305,24 @@ func resourceListenerDelete(ctx context.Context, d *schema.ResourceData, meta in
 
 func findListenerByIdAndServiceId(ctx context.Context, conn *vpclattice.Client, id string, serviceId string) (*vpclattice.GetListenerOutput, error) {
 	in := &vpclattice.GetListenerInput{
-		ListenerIdentifier: aws.String(id),
-		ServiceIdentifier:  aws.String(serviceId),
+ListenerIdentifier: aws.String(id),
+ServiceIdentifier:  aws.String(serviceId),
 	}
 	out, err := conn.GetListener(ctx, in)
 	if err != nil {
-		var nfe *types.ResourceNotFoundException
-		if errors.As(err, &nfe) {
-			return nil, &retry.NotFoundError{
-				LastError:   err,
-				LastRequest: in,
-			}
-		}
+var nfe *types.ResourceNotFoundException
+if errors.As(err, &nfe) {
+	return nil, &retry.NotFoundError{
+LastError:   err,
+LastRequest: in,
+	}
+}
 
-		return nil, err
+return nil, err
 	}
 
 	if out == nil || out.Id == nil {
-		return nil, tfresource.NewEmptyResultError(in)
+return nil, tfresource.NewEmptyResultError(in)
 	}
 
 	return out, nil
@@ -333,14 +333,14 @@ func flattenListenerRuleActions(config types.RuleAction) []interface{} {
 	m := map[string]interface{}{}
 
 	if config == nil {
-		return []interface{}{}
+return []interface{}{}
 	}
 
 	switch v := config.(type) {
 	case *types.RuleActionMemberFixedResponse:
-		m["fixed_response"] = flattenFixedResponseAction(&v.Value)
+m["fixed_response"] = flattenFixedResponseAction(&v.Value)
 	case *types.RuleActionMemberForward:
-		m["forward"] = flattenComplexDefaultActionForward(&v.Value)
+m["forward"] = flattenComplexDefaultActionForward(&v.Value)
 	}
 
 	return []interface{}{m}
@@ -351,7 +351,7 @@ func flattenFixedResponseAction(response *types.FixedResponseAction) []interface
 	tfMap := map[string]interface{}{}
 
 	if v := response.StatusCode; v != nil {
-		tfMap["status_code"] = aws.ToInt32(v)
+tfMap["status_code"] = aws.ToInt32(v)
 	}
 
 	return []interface{}{tfMap}
@@ -360,11 +360,11 @@ func flattenFixedResponseAction(response *types.FixedResponseAction) []interface
 // Flatten function for forward action
 func flattenComplexDefaultActionForward(forwardAction *types.ForwardAction) []interface{} {
 	if forwardAction == nil {
-		return []interface{}{}
+return []interface{}{}
 	}
 
 	m := map[string]interface{}{
-		"target_groups": flattenDefaultActionForwardTargetGroups(forwardAction.TargetGroups),
+"target_groups": flattenDefaultActionForwardTargetGroups(forwardAction.TargetGroups),
 	}
 
 	return []interface{}{m}
@@ -373,17 +373,17 @@ func flattenComplexDefaultActionForward(forwardAction *types.ForwardAction) []in
 // Flatten function for target_groups
 func flattenDefaultActionForwardTargetGroups(groups []types.WeightedTargetGroup) []interface{} {
 	if len(groups) == 0 {
-		return []interface{}{}
+return []interface{}{}
 	}
 
 	var targetGroups []interface{}
 
 	for _, targetGroup := range groups {
-		m := map[string]interface{}{
-			"target_group_identifier": aws.ToString(targetGroup.TargetGroupIdentifier),
-			"weight":   aws.ToInt32(targetGroup.Weight),
-		}
-		targetGroups = append(targetGroups, m)
+m := map[string]interface{}{
+	"target_group_identifier": aws.ToString(targetGroup.TargetGroupIdentifier),
+	"weight":   aws.ToInt32(targetGroup.Weight),
+}
+targetGroups = append(targetGroups, m)
 	}
 
 	return targetGroups
@@ -392,20 +392,20 @@ func flattenDefaultActionForwardTargetGroups(groups []types.WeightedTargetGroup)
 // Expand function for default_action
 func expandDefaultAction(l []interface{}) types.RuleAction {
 	if len(l) == 0 || l[0] == nil {
-		return nil
+return nil
 	}
 	lRaw := l[0].(map[string]interface{})
 
 	if v, ok := lRaw["forward"].([]interface{}); ok && len(v) > 0 {
-		return &types.RuleActionMemberForward{
-			Value: *expandDefaultActionForwardAction(v),
-		}
+return &types.RuleActionMemberForward{
+	Value: *expandDefaultActionForwardAction(v),
+}
 	} else if v, ok := lRaw["fixed_response"].([]interface{}); ok && len(v) > 0 {
-		return &types.RuleActionMemberFixedResponse{
-			Value: *expandDefaultActionFixedResponseStatus(v),
-		}
+return &types.RuleActionMemberFixedResponse{
+	Value: *expandDefaultActionFixedResponseStatus(v),
+}
 	} else {
-		return nil
+return nil
 	}
 }
 
@@ -416,7 +416,7 @@ func expandDefaultActionForwardAction(l []interface{}) *types.ForwardAction {
 	forwardAction := &types.ForwardAction{}
 
 	if v, ok := lRaw["target_groups"].([]interface{}); ok && len(v) > 0 {
-		forwardAction.TargetGroups = expandForwardTargetGroupList(v)
+forwardAction.TargetGroups = expandForwardTargetGroupList(v)
 	}
 
 	return forwardAction
@@ -427,17 +427,17 @@ func expandForwardTargetGroupList(tfList []interface{}) []types.WeightedTargetGr
 	var targetGroups []types.WeightedTargetGroup
 
 	for _, tfMapRaw := range tfList {
-		tfMap, ok := tfMapRaw.(map[string]interface{})
-		if !ok {
-			continue
-		}
+tfMap, ok := tfMapRaw.(map[string]interface{})
+if !ok {
+	continue
+}
 
-		targetGroup := &types.WeightedTargetGroup{
-			TargetGroupIdentifier: aws.String((tfMap["target_group_identifier"].(string))),
-			Weight: aws.Int32(int32(tfMap["weight"].(int))),
-		}
+targetGroup := &types.WeightedTargetGroup{
+	TargetGroupIdentifier: aws.String((tfMap["target_group_identifier"].(string))),
+	Weight: aws.Int32(int32(tfMap["weight"].(int))),
+}
 
-		targetGroups = append(targetGroups, *targetGroup)
+targetGroups = append(targetGroups, *targetGroup)
 	}
 
 	return targetGroups
@@ -450,7 +450,7 @@ func expandDefaultActionFixedResponseStatus(l []interface{}) *types.FixedRespons
 	fixedResponseAction := &types.FixedResponseAction{}
 
 	if v, ok := lRaw["status_code"].(int); ok {
-		fixedResponseAction.StatusCode = aws.Int32(int32(v))
+fixedResponseAction.StatusCode = aws.Int32(int32(v))
 	}
 
 	return fixedResponseAction

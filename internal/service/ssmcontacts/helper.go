@@ -24,7 +24,7 @@ func setContactChannelResourceData(d *schema.ResourceData, out *ssmcontacts.GetC
 	d.Set("arn", out.ContactChannelArn)
 	d.Set("contact_id", out.ContactArn)
 	if err := d.Set("delivery_address", flattenContactChannelAddress(out.DeliveryAddress)); err != nil {
-		return fmt.Errorf("setting delivery_address: %w", err)
+return fmt.Errorf("setting delivery_address: %w", err)
 	}
 	d.Set("name", out.Name)
 	d.Set("type", out.Type)
@@ -35,7 +35,7 @@ func setContactChannelResourceData(d *schema.ResourceData, out *ssmcontacts.GetC
 func setPlanResourceData(d *schema.ResourceData, getContactOutput *ssmcontacts.GetContactOutput) error {
 	d.Set("contact_id", getContactOutput.ContactArn)
 	if err := d.Set("stage", flattenStages(getContactOutput.Plan.Stages)); err != nil {
-		return fmt.Errorf("setting stage: %w", err)
+return fmt.Errorf("setting stage: %w", err)
 	}
 
 	return nil

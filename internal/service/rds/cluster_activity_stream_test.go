@@ -26,29 +26,29 @@ func TestAccRDSClusterActivityStream_basic(t *testing.T) {
 	resourceName := "aws_rds_cluster_activity_stream.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartition(t, endpoints.AwsPartitionID)
-		},
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterActivityStreamDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccClusterActivityStreamConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterActivityStreamExists(ctx, resourceName, &dbCluster),
-					resource.TestCheckResourceAttr(resourceName, "engine_native_audit_fields_included", "false"),
-					resource.TestCheckResourceAttrSet(resourceName, "kinesis_stream_name"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"engine_native_audit_fields_included"},
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartition(t, endpoints.AwsPartitionID)
+},
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckClusterActivityStreamDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccClusterActivityStreamConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckClusterActivityStreamExists(ctx, resourceName, &dbCluster),
+	resource.TestCheckResourceAttr(resourceName, "engine_native_audit_fields_included", "false"),
+	resource.TestCheckResourceAttrSet(resourceName, "kinesis_stream_name"),
+),
+	},
+	{
+ResourceName:            resourceName,
+ImportState:             true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"engine_native_audit_fields_included"},
+	},
+},
 	})
 }
 
@@ -59,73 +59,73 @@ func TestAccRDSClusterActivityStream_disappears(t *testing.T) {
 	resourceName := "aws_rds_cluster_activity_stream.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartition(t, endpoints.AwsPartitionID)
-		},
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterActivityStreamDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccClusterActivityStreamConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterActivityStreamExists(ctx, resourceName, &dbCluster),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfrds.ResourceClusterActivityStream(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartition(t, endpoints.AwsPartitionID)
+},
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckClusterActivityStreamDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccClusterActivityStreamConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckClusterActivityStreamExists(ctx, resourceName, &dbCluster),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfrds.ResourceClusterActivityStream(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
 func testAccCheckClusterActivityStreamExists(ctx context.Context, n string, v *rds.DBCluster) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("RDS Cluster Activity Stream ID is not set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("RDS Cluster Activity Stream ID is not set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
 
-		output, err := tfrds.FindDBClusterWithActivityStream(ctx, conn, rs.Primary.ID)
-		if err != nil {
-			return err
-		}
+output, err := tfrds.FindDBClusterWithActivityStream(ctx, conn, rs.Primary.ID)
+if err != nil {
+	return err
+}
 
-		*v = *output
+*v = *output
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckClusterActivityStreamDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_rds_cluster_activity_stream" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_rds_cluster_activity_stream" {
+continue
+	}
 
-			_, err := tfrds.FindDBClusterWithActivityStream(ctx, conn, rs.Primary.ID)
+	_, err := tfrds.FindDBClusterWithActivityStream(ctx, conn, rs.Primary.ID)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("RDS Cluster Activity Stream %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("RDS Cluster Activity Stream %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 

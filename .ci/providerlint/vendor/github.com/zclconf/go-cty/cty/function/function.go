@@ -8,58 +8,58 @@ import (
 
 // Function represents a function. This is the main type in this package.
 type Function struct {
-	spec *Spec
+spec *Spec
 }
 
 // Spec is the specification of a function, used to instantiate
 // a new Function.
 type Spec struct {
-	// Description is an optional description for the function specification.
-	Description string
+// Description is an optional description for the function specification.
+Description string
 
-	// Params is a description of the positional parameters for the function.
-	// The standard checking logic rejects any calls that do not provide
-	// arguments conforming to this definition, freeing the function
-	// implementer from dealing with such inconsistencies.
-	Params []Parameter
+// Params is a description of the positional parameters for the function.
+// The standard checking logic rejects any calls that do not provide
+// arguments conforming to this definition, freeing the function
+// implementer from dealing with such inconsistencies.
+Params []Parameter
 
-	// VarParam is an optional specification of additional "varargs" the
-	// function accepts. If this is non-nil then callers may provide an
-	// arbitrary number of additional arguments (after those matching with
-	// the fixed parameters in Params) that conform to the given specification,
-	// which will appear as additional values in the slices of values
-	// provided to the type and implementation functions.
-	VarParam *Parameter
+// VarParam is an optional specification of additional "varargs" the
+// function accepts. If this is non-nil then callers may provide an
+// arbitrary number of additional arguments (after those matching with
+// the fixed parameters in Params) that conform to the given specification,
+// which will appear as additional values in the slices of values
+// provided to the type and implementation functions.
+VarParam *Parameter
 
-	// Type is the TypeFunc that decides the return type of the function
-	// given its arguments, which may be Unknown. See the documentation
-	// of TypeFunc for more information.
-	//
-	// Use StaticReturnType if the function's return type does not vary
-	// depending on its arguments.
-	Type TypeFunc
+// Type is the TypeFunc that decides the return type of the function
+// given its arguments, which may be Unknown. See the documentation
+// of TypeFunc for more information.
+//
+// Use StaticReturnType if the function's return type does not vary
+// depending on its arguments.
+Type TypeFunc
 
-	// RefineResult is an optional callback for describing additional
-	// refinements for the result value beyond what can be described using
-	// a type constraint.
-	//
-	// A refinement callback should always return the same builder it was
-	// given, typically after modifying it using the methods of
-	// [cty.RefinementBuilder].
-	//
-	// Any refinements described by this callback must hold for the entire
-	// range of results from the function. For refinements that only apply
-	// to certain results, use direct refinement within [Impl] instead.
-	RefineResult func(*cty.RefinementBuilder) *cty.RefinementBuilder
+// RefineResult is an optional callback for describing additional
+// refinements for the result value beyond what can be described using
+// a type constraint.
+//
+// A refinement callback should always return the same builder it was
+// given, typically after modifying it using the methods of
+// [cty.RefinementBuilder].
+//
+// Any refinements described by this callback must hold for the entire
+// range of results from the function. For refinements that only apply
+// to certain results, use direct refinement within [Impl] instead.
+RefineResult func(*cty.RefinementBuilder) *cty.RefinementBuilder
 
-	// Impl is the ImplFunc that implements the function's behavior.
-	//
-	// Functions are expected to behave as pure functions, and not create
-	// any visible side-effects.
-	//
-	// If a TypeFunc is also provided, the value returned from Impl *must*
-	// conform to the type it returns, or a call to the function will panic.
-	Impl ImplFunc
+// Impl is the ImplFunc that implements the function's behavior.
+//
+// Functions are expected to behave as pure functions, and not create
+// any visible side-effects.
+//
+// If a TypeFunc is also provided, the value returned from Impl *must*
+// conform to the type it returns, or a call to the function will panic.
+Impl ImplFunc
 }
 
 // New creates a new function with the given specification.
@@ -67,10 +67,10 @@ type Spec struct {
 // After passing a Spec to this function, the caller must no longer read from
 // or mutate it.
 func New(spec *Spec) Function {
-	f := Function{
-		spec: spec,
-	}
-	return f
+f := Function{
+spec: spec,
+}
+return f
 }
 
 // TypeFunc is a callback type for determining the return type of a function
@@ -102,9 +102,9 @@ type ImplFunc func(args []cty.Value, retType cty.Type) (cty.Value, error)
 // This is provided as a convenience for defining a function whose return
 // type does not depend on the argument types.
 func StaticReturnType(ty cty.Type) TypeFunc {
-	return func([]cty.Value) (cty.Type, error) {
-		return ty, nil
-	}
+return func([]cty.Value) (cty.Type, error) {
+return ty, nil
+}
 }
 
 // ReturnType returns the return type of a function given a set of candidate
@@ -115,120 +115,120 @@ func StaticReturnType(ty cty.Type) TypeFunc {
 // determine their return types from their values and return DynamicVal if
 // the values are unknown.
 func (f Function) ReturnType(argTypes []cty.Type) (cty.Type, error) {
-	vals := make([]cty.Value, len(argTypes))
-	for i, ty := range argTypes {
-		vals[i] = cty.UnknownVal(ty)
-	}
-	return f.ReturnTypeForValues(vals)
+vals := make([]cty.Value, len(argTypes))
+for i, ty := range argTypes {
+vals[i] = cty.UnknownVal(ty)
+}
+return f.ReturnTypeForValues(vals)
 }
 
 func (f Function) returnTypeForValues(args []cty.Value) (ty cty.Type, dynTypedArgs bool, err error) {
-	var posArgs []cty.Value
-	var varArgs []cty.Value
+var posArgs []cty.Value
+var varArgs []cty.Value
 
-	if f.spec.VarParam == nil {
-		if len(args) != len(f.spec.Params) {
-			return cty.Type{}, false, fmt.Errorf(
-				"wrong number of arguments (%d required; %d given)",
-				len(f.spec.Params), len(args),
-			)
-		}
+if f.spec.VarParam == nil {
+if len(args) != len(f.spec.Params) {
+return cty.Type{}, false, fmt.Errorf(
+"wrong number of arguments (%d required; %d given)",
+len(f.spec.Params), len(args),
+)
+}
 
-		posArgs = args
-		varArgs = nil
-	} else {
-		if len(args) < len(f.spec.Params) {
-			return cty.Type{}, false, fmt.Errorf(
-				"wrong number of arguments (at least %d required; %d given)",
-				len(f.spec.Params), len(args),
-			)
-		}
+posArgs = args
+varArgs = nil
+} else {
+if len(args) < len(f.spec.Params) {
+return cty.Type{}, false, fmt.Errorf(
+"wrong number of arguments (at least %d required; %d given)",
+len(f.spec.Params), len(args),
+)
+}
 
-		posArgs = args[0:len(f.spec.Params)]
-		varArgs = args[len(f.spec.Params):]
-	}
+posArgs = args[0:len(f.spec.Params)]
+varArgs = args[len(f.spec.Params):]
+}
 
-	for i, spec := range f.spec.Params {
-		val := posArgs[i]
+for i, spec := range f.spec.Params {
+val := posArgs[i]
 
-		if val.ContainsMarked() && !spec.AllowMarked {
-			// During type checking we just unmark values and discard their
-			// marks, under the assumption that during actual execution of
-			// the function we'll do similarly and then re-apply the marks
-			// afterwards. Note that this does mean that a function that
-			// inspects values (rather than just types) in its Type
-			// implementation can potentially fail to take into account marks,
-			// unless it specifically opts in to seeing them.
-			unmarked, _ := val.UnmarkDeep()
-			newArgs := make([]cty.Value, len(args))
-			copy(newArgs, args)
-			newArgs[i] = unmarked
-			args = newArgs
-		}
+if val.ContainsMarked() && !spec.AllowMarked {
+// During type checking we just unmark values and discard their
+// marks, under the assumption that during actual execution of
+// the function we'll do similarly and then re-apply the marks
+// afterwards. Note that this does mean that a function that
+// inspects values (rather than just types) in its Type
+// implementation can potentially fail to take into account marks,
+// unless it specifically opts in to seeing them.
+unmarked, _ := val.UnmarkDeep()
+newArgs := make([]cty.Value, len(args))
+copy(newArgs, args)
+newArgs[i] = unmarked
+args = newArgs
+}
 
-		if val.IsNull() && !spec.AllowNull {
-			return cty.Type{}, false, NewArgErrorf(i, "argument must not be null")
-		}
+if val.IsNull() && !spec.AllowNull {
+return cty.Type{}, false, NewArgErrorf(i, "argument must not be null")
+}
 
-		// AllowUnknown is ignored for type-checking, since we expect to be
-		// able to type check with unknown values. We *do* still need to deal
-		// with DynamicPseudoType here though, since the Type function might
-		// not be ready to deal with that.
+// AllowUnknown is ignored for type-checking, since we expect to be
+// able to type check with unknown values. We *do* still need to deal
+// with DynamicPseudoType here though, since the Type function might
+// not be ready to deal with that.
 
-		if val.Type() == cty.DynamicPseudoType {
-			if !spec.AllowDynamicType {
-				return cty.DynamicPseudoType, true, nil
-			}
-		} else if errs := val.Type().TestConformance(spec.Type); errs != nil {
-			// For now we'll just return the first error in the set, since
-			// we don't have a good way to return the whole list here.
-			// Would be good to do something better at some point...
-			return cty.Type{}, false, NewArgError(i, errs[0])
-		}
-	}
+if val.Type() == cty.DynamicPseudoType {
+if !spec.AllowDynamicType {
+return cty.DynamicPseudoType, true, nil
+}
+} else if errs := val.Type().TestConformance(spec.Type); errs != nil {
+// For now we'll just return the first error in the set, since
+// we don't have a good way to return the whole list here.
+// Would be good to do something better at some point...
+return cty.Type{}, false, NewArgError(i, errs[0])
+}
+}
 
-	if varArgs != nil {
-		spec := f.spec.VarParam
-		for i, val := range varArgs {
-			realI := i + len(posArgs)
+if varArgs != nil {
+spec := f.spec.VarParam
+for i, val := range varArgs {
+realI := i + len(posArgs)
 
-			if val.ContainsMarked() && !spec.AllowMarked {
-				// See the similar block in the loop above for what's going on here.
-				unmarked, _ := val.UnmarkDeep()
-				newArgs := make([]cty.Value, len(args))
-				copy(newArgs, args)
-				newArgs[realI] = unmarked
-				args = newArgs
-			}
+if val.ContainsMarked() && !spec.AllowMarked {
+// See the similar block in the loop above for what's going on here.
+unmarked, _ := val.UnmarkDeep()
+newArgs := make([]cty.Value, len(args))
+copy(newArgs, args)
+newArgs[realI] = unmarked
+args = newArgs
+}
 
-			if val.IsNull() && !spec.AllowNull {
-				return cty.Type{}, false, NewArgErrorf(realI, "argument must not be null")
-			}
+if val.IsNull() && !spec.AllowNull {
+return cty.Type{}, false, NewArgErrorf(realI, "argument must not be null")
+}
 
-			if val.Type() == cty.DynamicPseudoType {
-				if !spec.AllowDynamicType {
-					return cty.DynamicPseudoType, true, nil
-				}
-			} else if errs := val.Type().TestConformance(spec.Type); errs != nil {
-				// For now we'll just return the first error in the set, since
-				// we don't have a good way to return the whole list here.
-				// Would be good to do something better at some point...
-				return cty.Type{}, false, NewArgError(i, errs[0])
-			}
-		}
-	}
+if val.Type() == cty.DynamicPseudoType {
+if !spec.AllowDynamicType {
+return cty.DynamicPseudoType, true, nil
+}
+} else if errs := val.Type().TestConformance(spec.Type); errs != nil {
+// For now we'll just return the first error in the set, since
+// we don't have a good way to return the whole list here.
+// Would be good to do something better at some point...
+return cty.Type{}, false, NewArgError(i, errs[0])
+}
+}
+}
 
-	// Intercept any panics from the function and return them as normal errors,
-	// so a calling language runtime doesn't need to deal with panics.
-	defer func() {
-		if r := recover(); r != nil {
-			ty = cty.NilType
-			err = errorForPanic(r)
-		}
-	}()
+// Intercept any panics from the function and return them as normal errors,
+// so a calling language runtime doesn't need to deal with panics.
+defer func() {
+if r := recover(); r != nil {
+ty = cty.NilType
+err = errorForPanic(r)
+}
+}()
 
-	ty, err = f.spec.Type(args)
-	return ty, false, err
+ty, err = f.spec.Type(args)
+return ty, false, err
 }
 
 // ReturnTypeForValues is similar to ReturnType but can be used if the caller
@@ -239,123 +239,123 @@ func (f Function) returnTypeForValues(args []cty.Value) (ty cty.Type, dynTypedAr
 // For any arguments whose values are not known, pass an Unknown value of
 // the appropriate type.
 func (f Function) ReturnTypeForValues(args []cty.Value) (ty cty.Type, err error) {
-	ty, _, err = f.returnTypeForValues(args)
-	return ty, err
+ty, _, err = f.returnTypeForValues(args)
+return ty, err
 }
 
 // Call actually calls the function with the given arguments, which must
 // conform to the function's parameter specification or an error will be
 // returned.
 func (f Function) Call(args []cty.Value) (val cty.Value, err error) {
-	expectedType, dynTypeArgs, err := f.returnTypeForValues(args)
-	if err != nil {
-		return cty.NilVal, err
-	}
-	if dynTypeArgs {
-		// returnTypeForValues sets this if any argument was inexactly typed
-		// and the corresponding parameter did not indicate it could deal with
-		// that. In that case we also avoid calling the implementation function
-		// because it will also typically not be ready to deal with that case.
-		return cty.UnknownVal(expectedType), nil
-	}
+expectedType, dynTypeArgs, err := f.returnTypeForValues(args)
+if err != nil {
+return cty.NilVal, err
+}
+if dynTypeArgs {
+// returnTypeForValues sets this if any argument was inexactly typed
+// and the corresponding parameter did not indicate it could deal with
+// that. In that case we also avoid calling the implementation function
+// because it will also typically not be ready to deal with that case.
+return cty.UnknownVal(expectedType), nil
+}
 
-	if refineResult := f.spec.RefineResult; refineResult != nil {
-		// If this function has a refinement callback then we'll refine
-		// our result value in the same way regardless of how we return.
-		// It's the function author's responsibility to ensure that the
-		// refinements they specify are valid for the full range of possible
-		// return values from the function. If not, this will panic when
-		// detecting an inconsistency.
-		defer func() {
-			if val != cty.NilVal {
-				if val.IsKnown() || val.Type() != cty.DynamicPseudoType {
-					val = val.RefineWith(refineResult)
-				}
-			}
-		}()
-	}
+if refineResult := f.spec.RefineResult; refineResult != nil {
+// If this function has a refinement callback then we'll refine
+// our result value in the same way regardless of how we return.
+// It's the function author's responsibility to ensure that the
+// refinements they specify are valid for the full range of possible
+// return values from the function. If not, this will panic when
+// detecting an inconsistency.
+defer func() {
+if val != cty.NilVal {
+if val.IsKnown() || val.Type() != cty.DynamicPseudoType {
+val = val.RefineWith(refineResult)
+}
+}
+}()
+}
 
-	// Type checking already dealt with most situations relating to our
-	// parameter specification, but we still need to deal with unknown
-	// values and marked values.
-	posArgs := args[:len(f.spec.Params)]
-	varArgs := args[len(f.spec.Params):]
-	var resultMarks []cty.ValueMarks
+// Type checking already dealt with most situations relating to our
+// parameter specification, but we still need to deal with unknown
+// values and marked values.
+posArgs := args[:len(f.spec.Params)]
+varArgs := args[len(f.spec.Params):]
+var resultMarks []cty.ValueMarks
 
-	for i, spec := range f.spec.Params {
-		val := posArgs[i]
+for i, spec := range f.spec.Params {
+val := posArgs[i]
 
-		if !val.IsKnown() && !spec.AllowUnknown {
-			return cty.UnknownVal(expectedType), nil
-		}
+if !val.IsKnown() && !spec.AllowUnknown {
+return cty.UnknownVal(expectedType), nil
+}
 
-		if !spec.AllowMarked {
-			unwrappedVal, marks := val.UnmarkDeep()
-			if len(marks) > 0 {
-				// In order to avoid additional overhead on applications that
-				// are not using marked values, we copy the given args only
-				// if we encounter a marked value we need to unmark. However,
-				// as a consequence we end up doing redundant copying if multiple
-				// marked values need to be unwrapped. That seems okay because
-				// argument lists are generally small.
-				newArgs := make([]cty.Value, len(args))
-				copy(newArgs, args)
-				newArgs[i] = unwrappedVal
-				resultMarks = append(resultMarks, marks)
-				args = newArgs
-			}
-		}
-	}
+if !spec.AllowMarked {
+unwrappedVal, marks := val.UnmarkDeep()
+if len(marks) > 0 {
+// In order to avoid additional overhead on applications that
+// are not using marked values, we copy the given args only
+// if we encounter a marked value we need to unmark. However,
+// as a consequence we end up doing redundant copying if multiple
+// marked values need to be unwrapped. That seems okay because
+// argument lists are generally small.
+newArgs := make([]cty.Value, len(args))
+copy(newArgs, args)
+newArgs[i] = unwrappedVal
+resultMarks = append(resultMarks, marks)
+args = newArgs
+}
+}
+}
 
-	if f.spec.VarParam != nil {
-		spec := f.spec.VarParam
-		for i, val := range varArgs {
-			if !val.IsKnown() && !spec.AllowUnknown {
-				return cty.UnknownVal(expectedType), nil
-			}
-			if !spec.AllowMarked {
-				unwrappedVal, marks := val.UnmarkDeep()
-				if len(marks) > 0 {
-					newArgs := make([]cty.Value, len(args))
-					copy(newArgs, args)
-					newArgs[len(posArgs)+i] = unwrappedVal
-					resultMarks = append(resultMarks, marks)
-					args = newArgs
-				}
-			}
-		}
-	}
+if f.spec.VarParam != nil {
+spec := f.spec.VarParam
+for i, val := range varArgs {
+if !val.IsKnown() && !spec.AllowUnknown {
+return cty.UnknownVal(expectedType), nil
+}
+if !spec.AllowMarked {
+unwrappedVal, marks := val.UnmarkDeep()
+if len(marks) > 0 {
+newArgs := make([]cty.Value, len(args))
+copy(newArgs, args)
+newArgs[len(posArgs)+i] = unwrappedVal
+resultMarks = append(resultMarks, marks)
+args = newArgs
+}
+}
+}
+}
 
-	var retVal cty.Value
-	{
-		// Intercept any panics from the function and return them as normal errors,
-		// so a calling language runtime doesn't need to deal with panics.
-		defer func() {
-			if r := recover(); r != nil {
-				val = cty.NilVal
-				err = errorForPanic(r)
-			}
-		}()
+var retVal cty.Value
+{
+// Intercept any panics from the function and return them as normal errors,
+// so a calling language runtime doesn't need to deal with panics.
+defer func() {
+if r := recover(); r != nil {
+val = cty.NilVal
+err = errorForPanic(r)
+}
+}()
 
-		retVal, err = f.spec.Impl(args, expectedType)
-		if err != nil {
-			return cty.NilVal, err
-		}
-		if len(resultMarks) > 0 {
-			retVal = retVal.WithMarks(resultMarks...)
-		}
-	}
+retVal, err = f.spec.Impl(args, expectedType)
+if err != nil {
+return cty.NilVal, err
+}
+if len(resultMarks) > 0 {
+retVal = retVal.WithMarks(resultMarks...)
+}
+}
 
-	// Returned value must conform to what the Type function expected, to
-	// protect callers from having to deal with inconsistencies.
-	if errs := retVal.Type().TestConformance(expectedType); errs != nil {
-		panic(fmt.Errorf(
-			"returned value %#v does not conform to expected return type %#v: %s",
-			retVal, expectedType, errs[0],
-		))
-	}
+// Returned value must conform to what the Type function expected, to
+// protect callers from having to deal with inconsistencies.
+if errs := retVal.Type().TestConformance(expectedType); errs != nil {
+panic(fmt.Errorf(
+"returned value %#v does not conform to expected return type %#v: %s",
+retVal, expectedType, errs[0],
+))
+}
 
-	return retVal, nil
+return retVal, nil
 }
 
 // ProxyFunc the type returned by the method Function.Proxy.
@@ -365,34 +365,34 @@ type ProxyFunc func(args ...cty.Value) (cty.Value, error)
 // to run the function. This is provided as a convenience for when using
 // a function directly within Go code.
 func (f Function) Proxy() ProxyFunc {
-	return func(args ...cty.Value) (cty.Value, error) {
-		return f.Call(args)
-	}
+return func(args ...cty.Value) (cty.Value, error) {
+return f.Call(args)
+}
 }
 
 // Params returns information about the function's fixed positional parameters.
 // This does not include information about any variadic arguments accepted;
 // for that, call VarParam.
 func (f Function) Params() []Parameter {
-	new := make([]Parameter, len(f.spec.Params))
-	copy(new, f.spec.Params)
-	return new
+new := make([]Parameter, len(f.spec.Params))
+copy(new, f.spec.Params)
+return new
 }
 
 // VarParam returns information about the variadic arguments the function
 // expects, or nil if the function is not variadic.
 func (f Function) VarParam() *Parameter {
-	if f.spec.VarParam == nil {
-		return nil
-	}
+if f.spec.VarParam == nil {
+return nil
+}
 
-	ret := *f.spec.VarParam
-	return &ret
+ret := *f.spec.VarParam
+return &ret
 }
 
 // Description returns a human-readable description of the function.
 func (f Function) Description() string {
-	return f.spec.Description
+return f.spec.Description
 }
 
 // WithNewDescriptions returns a new function that has the same signature
@@ -416,35 +416,35 @@ func (f Function) Description() string {
 // WithNewDescriptions against that function. In this case the base description
 // of the variadic parameter will be preserved.
 func (f Function) WithNewDescriptions(funcDesc string, paramDescs []string) Function {
-	retSpec := *f.spec // shallow copy of the reciever
-	retSpec.Description = funcDesc
+retSpec := *f.spec // shallow copy of the reciever
+retSpec.Description = funcDesc
 
-	retSpec.Params = make([]Parameter, len(f.spec.Params))
-	copy(retSpec.Params, f.spec.Params) // shallow copy of positional parameters
-	if f.spec.VarParam != nil {
-		retVarParam := *f.spec.VarParam // shallow copy of variadic parameter
-		retSpec.VarParam = &retVarParam
-	}
+retSpec.Params = make([]Parameter, len(f.spec.Params))
+copy(retSpec.Params, f.spec.Params) // shallow copy of positional parameters
+if f.spec.VarParam != nil {
+retVarParam := *f.spec.VarParam // shallow copy of variadic parameter
+retSpec.VarParam = &retVarParam
+}
 
-	if retSpec.VarParam != nil {
-		if with, without := len(retSpec.Params)+1, len(retSpec.Params); len(paramDescs) != with && len(paramDescs) != without {
-			panic(fmt.Sprintf("paramDescs must have length of either %d or %d", with, without))
-		}
-	} else {
-		if want := len(retSpec.Params); len(paramDescs) != want {
-			panic(fmt.Sprintf("paramDescs must have length %d", want))
-		}
-	}
+if retSpec.VarParam != nil {
+if with, without := len(retSpec.Params)+1, len(retSpec.Params); len(paramDescs) != with && len(paramDescs) != without {
+panic(fmt.Sprintf("paramDescs must have length of either %d or %d", with, without))
+}
+} else {
+if want := len(retSpec.Params); len(paramDescs) != want {
+panic(fmt.Sprintf("paramDescs must have length %d", want))
+}
+}
 
-	posParamDescs := paramDescs[:len(retSpec.Params)]
-	varParamDescs := paramDescs[len(retSpec.Params):] // guaranteed to be zero or one elements because of the rules above
+posParamDescs := paramDescs[:len(retSpec.Params)]
+varParamDescs := paramDescs[len(retSpec.Params):] // guaranteed to be zero or one elements because of the rules above
 
-	for i, desc := range posParamDescs {
-		retSpec.Params[i].Description = desc
-	}
-	for _, desc := range varParamDescs {
-		retSpec.VarParam.Description = desc
-	}
+for i, desc := range posParamDescs {
+retSpec.Params[i].Description = desc
+}
+for _, desc := range varParamDescs {
+retSpec.VarParam.Description = desc
+}
 
-	return New(&retSpec)
+return New(&retSpec)
 }

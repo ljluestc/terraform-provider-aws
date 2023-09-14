@@ -21,21 +21,21 @@ func TestAccBackupSelectionDataSource_basic(t *testing.T) {
 	rInt := sdkacctest.RandInt()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, backup.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSelectionDataSourceConfig_basic(rInt),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, backup.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccSelectionDataSourceConfig_basic(rInt),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
-					resource.TestCheckResourceAttrPair(datasourceName, "iam_role_arn", resourceName, "iam_role_arn"),
-					resource.TestCheckResourceAttrPair(datasourceName, "resources.#", resourceName, "resources.#"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
+	resource.TestCheckResourceAttrPair(datasourceName, "iam_role_arn", resourceName, "iam_role_arn"),
+	resource.TestCheckResourceAttrPair(datasourceName, "resources.#", resourceName, "resources.#"),
+),
+	},
+},
 	})
 }
 
@@ -56,15 +56,15 @@ resource "aws_backup_plan" "test" {
   name = "tf_acc_test_backup_plan_%[1]d"
 
   rule {
-    rule_name         = "tf_acc_test_backup_rule_%[1]d"
+    rule_name= "tf_acc_test_backup_rule_%[1]d"
     target_vault_name = aws_backup_vault.test.name
-    schedule          = "cron(0 12 * * ? *)"
+    schedule = "cron(0 12 * * ? *)"
   }
 }
 
 resource "aws_backup_selection" "test" {
   plan_id      = aws_backup_plan.test.id
-  name         = "tf_acc_test_backup_selection_%[1]d"
+  name= "tf_acc_test_backup_selection_%[1]d"
   iam_role_arn = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:role/service-role/AWSBackupDefaultServiceRole"
 
   selection_tag {

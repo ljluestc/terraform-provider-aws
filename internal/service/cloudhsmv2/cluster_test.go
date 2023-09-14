@@ -30,7 +30,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudhsmv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckClusterDestroy(ctx),
+CheckDestroy:    testAccCheckClusterDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccClusterConfig_basic(rName),
@@ -50,8 +50,8 @@ func(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"cluster_certificates"},
 	},
@@ -70,7 +70,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudhsmv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckClusterDestroy(ctx),
+CheckDestroy:    testAccCheckClusterDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccClusterConfig_basic(rName),
@@ -96,7 +96,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cloudhsmv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckClusterDestroy(ctx),
+CheckDestroy:    testAccCheckClusterDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccClusterConfig_tags1(rName, "key1", "value1"),
@@ -108,8 +108,8 @@ func(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"cluster_certificates"},
 	},

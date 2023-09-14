@@ -27,38 +27,38 @@ func TestAccRoute53ResolverConfig_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccConfigConfig_basic(rName, "DISABLE"),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    acctest.CheckDestroyNoop,
+Steps: []resource.TestStep{
+	{
+Config: testAccConfigConfig_basic(rName, "DISABLE"),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckConfigExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "autodefined_reverse_flag", "DISABLE"),
-					acctest.CheckResourceAttrAccountID(resourceName, "owner_id"),
-					resource.TestCheckResourceAttrPair(resourceName, "resource_id", vpcResourceName, "id"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccConfigConfig_basic(rName, "ENABLE"),
-				Check: resource.ComposeAggregateTestCheck
+	testAccCheckConfigExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "autodefined_reverse_flag", "DISABLE"),
+	acctest.CheckResourceAttrAccountID(resourceName, "owner_id"),
+	resource.TestCheckResourceAttrPair(resourceName, "resource_id", vpcResourceName, "id"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccConfigConfig_basic(rName, "ENABLE"),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckConfigExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "autodefined_reverse_flag", "ENABLE"),
-					acctest.CheckResourceAttrAccountID(resourceName, "owner_id"),
-					resource.TestCheckResourceAttrPair(resourceName, "resource_id", vpcResourceName, "id"),
-				),
-			},
-		},
+	testAccCheckConfigExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "autodefined_reverse_flag", "ENABLE"),
+	acctest.CheckResourceAttrAccountID(resourceName, "owner_id"),
+	resource.TestCheckResourceAttrPair(resourceName, "resource_id", vpcResourceName, "id"),
+),
+	},
+},
 	})
 }
 
@@ -71,22 +71,22 @@ func TestAccRoute53ResolverConfig_Disappears_vpc(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccConfigConfig_basic(rName, "ENABLE"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    acctest.CheckDestroyNoop,
+Steps: []resource.TestStep{
+	{
+Config: testAccConfigConfig_basic(rName, "ENABLE"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckConfigExists(ctx, resourceName, &v),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceVPC(), vpcResourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckConfigExists(ctx, resourceName, &v),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceVPC(), vpcResourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -95,26 +95,26 @@ func testAccCheckConfigExists(ctx context.Context, n string, v *route53resolver.
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No Route53 Resolver Config ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No Route53 Resolver Config ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).Route53ResolverConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).Route53ResolverConn(ctx)
 
-		output, err := tfroute53resolver.FindResolverConfigByID(ctx, conn, rs.Primary.ID)
+output, err := tfroute53resolver.FindResolverConfigByID(ctx, conn, rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*v = *output
+*v = *output
 
-		return nil
+return nil
 	}
 }
 
@@ -123,7 +123,7 @@ func testAccConfigConfig_basic(rName, autodefinedReverseFlag string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 0), fmt.Sprintf(`
 resource "aws_route53_resolver_config" "test" {
   autodefined_reverse_flag = %[1]q
-  resource_id              = aws_vpc.test.id
+  resource_id     = aws_vpc.test.id
 }
 `, autodefinedReverseFlag))
 }

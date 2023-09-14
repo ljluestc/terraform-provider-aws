@@ -25,12 +25,12 @@ func TestAccRoute53ResolverFirewallRulesDataSource_basic(t *testing.T) {
 	propagationSleep := 
 func() resource.TestCheck
 func {
-		return 
+return 
 func(s *terraform.State) error {
-			log.Print("[DEBUG] Test: Sleep to allow firewall rule to be visible in the list.")
-			time.Sleep(5 * time.Second)
-			return nil
-		}
+	log.Print("[DEBUG] Test: Sleep to allow firewall rule to be visible in the list.")
+	time.Sleep(5 * time.Second)
+	return nil
+}
 	}
 
 	fqdn := acctest.RandomFQDomainName()
@@ -39,84 +39,84 @@ func(s *terraform.State) error {
 	priority := "100"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFirewallRulesDataSourceConfig_base(rName, fqdn, action, priority),
-				Check:  propagationSleep(),
-			},
-			{
-				Config: testAccFirewallRulesDataSourceConfig_basic(rName, fqdn, action, priority),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccFirewallRulesDataSourceConfig_base(rName, fqdn, action, priority),
+Check:  propagationSleep(),
+	},
+	{
+Config: testAccFirewallRulesDataSourceConfig_basic(rName, fqdn, action, priority),
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttrPair(dataSourceName, "firewall_rule_group_id", resourceName, "firewall_rule_group_id"),
-					resource.TestCheckResourceAttr(dataSourceName, "firewall_rules.#", "1"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.action"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.block_override_ttl"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.creation_time"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.creator_request_id"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.firewall_domain_list_id"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.firewall_rule_group_id"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.modification_time"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.priority"),
-					resource.TestCheckResourceAttr(dataSourceName, "firewall_rules.0.name", rName),
-				),
-			},
-			{
-				Config: testAccFirewallRulesDataSourceConfig_filter(rName, fqdn, action, priority),
-				Check: resource.ComposeAggregateTestCheck
+	resource.TestCheckResourceAttrPair(dataSourceName, "firewall_rule_group_id", resourceName, "firewall_rule_group_id"),
+	resource.TestCheckResourceAttr(dataSourceName, "firewall_rules.#", "1"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.action"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.block_override_ttl"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.creation_time"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.creator_request_id"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.firewall_domain_list_id"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.firewall_rule_group_id"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.modification_time"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.priority"),
+	resource.TestCheckResourceAttr(dataSourceName, "firewall_rules.0.name", rName),
+),
+	},
+	{
+Config: testAccFirewallRulesDataSourceConfig_filter(rName, fqdn, action, priority),
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttrPair(dataSourceName, "firewall_rule_group_id", resourceName, "firewall_rule_group_id"),
-					resource.TestCheckResourceAttr(dataSourceName, "firewall_rules.#", "1"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.action"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.block_override_ttl"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.creation_time"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.creator_request_id"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.firewall_domain_list_id"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.firewall_rule_group_id"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.modification_time"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.priority"),
-					resource.TestCheckResourceAttr(dataSourceName, "firewall_rules.0.name", rName),
-				),
-			},
-			{
-				Config: testAccFirewallRulesDataSourceConfig_filter_action(rName, fqdn, action, priority),
-				Check: resource.ComposeAggregateTestCheck
+	resource.TestCheckResourceAttrPair(dataSourceName, "firewall_rule_group_id", resourceName, "firewall_rule_group_id"),
+	resource.TestCheckResourceAttr(dataSourceName, "firewall_rules.#", "1"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.action"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.block_override_ttl"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.creation_time"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.creator_request_id"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.firewall_domain_list_id"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.firewall_rule_group_id"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.modification_time"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.priority"),
+	resource.TestCheckResourceAttr(dataSourceName, "firewall_rules.0.name", rName),
+),
+	},
+	{
+Config: testAccFirewallRulesDataSourceConfig_filter_action(rName, fqdn, action, priority),
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttrPair(dataSourceName, "firewall_rule_group_id", resourceName, "firewall_rule_group_id"),
-					resource.TestCheckResourceAttr(dataSourceName, "firewall_rules.#", "1"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.action"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.block_override_ttl"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.creation_time"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.creator_request_id"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.firewall_domain_list_id"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.firewall_rule_group_id"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.modification_time"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.priority"),
-					resource.TestCheckResourceAttr(dataSourceName, "firewall_rules.0.name", rName),
-				),
-			},
-			{
-				Config: testAccFirewallRulesDataSourceConfig_filter_priority(rName, fqdn, action, priority),
-				Check: resource.ComposeAggregateTestCheck
+	resource.TestCheckResourceAttrPair(dataSourceName, "firewall_rule_group_id", resourceName, "firewall_rule_group_id"),
+	resource.TestCheckResourceAttr(dataSourceName, "firewall_rules.#", "1"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.action"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.block_override_ttl"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.creation_time"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.creator_request_id"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.firewall_domain_list_id"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.firewall_rule_group_id"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.modification_time"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.priority"),
+	resource.TestCheckResourceAttr(dataSourceName, "firewall_rules.0.name", rName),
+),
+	},
+	{
+Config: testAccFirewallRulesDataSourceConfig_filter_priority(rName, fqdn, action, priority),
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttrPair(dataSourceName, "firewall_rule_group_id", resourceName, "firewall_rule_group_id"),
-					resource.TestCheckResourceAttr(dataSourceName, "firewall_rules.#", "1"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.action"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.block_override_ttl"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.creation_time"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.creator_request_id"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.firewall_domain_list_id"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.firewall_rule_group_id"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.modification_time"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.priority"),
-					resource.TestCheckResourceAttr(dataSourceName, "firewall_rules.0.name", rName),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(dataSourceName, "firewall_rule_group_id", resourceName, "firewall_rule_group_id"),
+	resource.TestCheckResourceAttr(dataSourceName, "firewall_rules.#", "1"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.action"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.block_override_ttl"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.creation_time"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.creator_request_id"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.firewall_domain_list_id"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.firewall_rule_group_id"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.modification_time"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "firewall_rules.0.priority"),
+	resource.TestCheckResourceAttr(dataSourceName, "firewall_rules.0.name", rName),
+),
+	},
+},
 	})
 }
 

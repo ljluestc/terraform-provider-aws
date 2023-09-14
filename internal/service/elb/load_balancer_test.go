@@ -27,33 +27,33 @@ func TestLoadBalancerListenerHash(t *testing.T) {
 	t.Parallel()
 
 	cases := map[string]struct {
-		Left  map[string]interface{}
-		Right map[string]interface{}
-		Match bool
+Left  map[string]interface{}
+Right map[string]interface{}
+Match bool
 	}{
-		"protocols are case insensitive": {
-			map[string]interface{}{
-				"instance_port":     80,
-				"instance_protocol": "TCP",
-				"lb_port":           80,
-				"lb_protocol":       "TCP",
-			},
-			map[string]interface{}{
-				"instance_port":     80,
-				"instance_protocol": "Tcp",
-				"lb_port":           80,
-				"lb_protocol":       "tcP",
-			},
-			true,
-		},
+"protocols are case insensitive": {
+	map[string]interface{}{
+"instance_port":     80,
+"instance_protocol": "TCP",
+"lb_port":           80,
+"lb_protocol":       "TCP",
+	},
+	map[string]interface{}{
+"instance_port":     80,
+"instance_protocol": "Tcp",
+"lb_port":           80,
+"lb_protocol":       "tcP",
+	},
+	true,
+},
 	}
 
 	for tn, tc := range cases {
-		leftHash := tfelb.ListenerHash(tc.Left)
-		rightHash := tfelb.ListenerHash(tc.Right)
-		if leftHash == rightHash != tc.Match {
-			t.Fatalf("%s: expected match: %t, but did not get it", tn, tc.Match)
-		}
+leftHash := tfelb.ListenerHash(tc.Left)
+rightHash := tfelb.ListenerHash(tc.Right)
+if leftHash == rightHash != tc.Match {
+	t.Fatalf("%s: expected match: %t, but did not get it", tn, tc.Match)
+}
 	}
 }
 
@@ -65,7 +65,7 @@ func TestValidLoadBalancerNameCannotBeginWithHyphen(t *testing.T) {
 	_, errors := tfelb.ValidName(n, "SampleKey")
 
 	if len(errors) != 1 {
-		t.Fatalf("Expected the ELB Name to trigger a validation error")
+t.Fatalf("Expected the ELB Name to trigger a validation error")
 	}
 }
 
@@ -77,7 +77,7 @@ func TestValidLoadBalancerNameCanBeAnEmptyString(t *testing.T) {
 	_, errors := tfelb.ValidName(n, "SampleKey")
 
 	if len(errors) != 0 {
-		t.Fatalf("Expected the ELB Name to pass validation")
+t.Fatalf("Expected the ELB Name to pass validation")
 	}
 }
 
@@ -89,7 +89,7 @@ func TestValidLoadBalancerNameCannotBeLongerThan32Characters(t *testing.T) {
 	_, errors := tfelb.ValidName(n, "SampleKey")
 
 	if len(errors) != 1 {
-		t.Fatalf("Expected the ELB Name to trigger a validation error")
+t.Fatalf("Expected the ELB Name to trigger a validation error")
 	}
 }
 
@@ -101,7 +101,7 @@ func TestValidLoadBalancerNameCannotHaveSpecialCharacters(t *testing.T) {
 	_, errors := tfelb.ValidName(n, "SampleKey")
 
 	if len(errors) != 1 {
-		t.Fatalf("Expected the ELB Name to trigger a validation error")
+t.Fatalf("Expected the ELB Name to trigger a validation error")
 	}
 }
 
@@ -113,7 +113,7 @@ func TestValidLoadBalancerNameCannotEndWithHyphen(t *testing.T) {
 	_, errors := tfelb.ValidName(n, "SampleKey")
 
 	if len(errors) != 1 {
-		t.Fatalf("Expected the ELB Name to trigger a validation error")
+t.Fatalf("Expected the ELB Name to trigger a validation error")
 	}
 }
 
@@ -122,30 +122,30 @@ func TestValidLoadBalancerAccessLogsInterval(t *testing.T) {
 	t.Parallel()
 
 	type testCases struct {
-		Value    int
-		ErrCount int
+Value    int
+ErrCount int
 	}
 
 	invalidCases := []testCases{
-		{
-			Value:    0,
-			ErrCount: 1,
-		},
-		{
-			Value:    10,
-			ErrCount: 1,
-		},
-		{
-			Value:    -1,
-			ErrCount: 1,
-		},
+{
+	Value:    0,
+	ErrCount: 1,
+},
+{
+	Value:    10,
+	ErrCount: 1,
+},
+{
+	Value:    -1,
+	ErrCount: 1,
+},
 	}
 
 	for _, tc := range invalidCases {
-		_, errors := tfelb.ValidAccessLogsInterval(tc.Value, "interval")
-		if len(errors) != tc.ErrCount {
-			t.Fatalf("Expected %q to trigger a validation error.", tc.Value)
-		}
+_, errors := tfelb.ValidAccessLogsInterval(tc.Value, "interval")
+if len(errors) != tc.ErrCount {
+	t.Fatalf("Expected %q to trigger a validation error.", tc.Value)
+}
 	}
 }
 
@@ -154,97 +154,97 @@ func TestValidLoadBalancerHealthCheckTarget(t *testing.T) {
 	t.Parallel()
 
 	type testCase struct {
-		Value    string
-		ErrCount int
+Value    string
+ErrCount int
 	}
 
 	randomRunes := 
 func(n int) string {
-		// A complete set of modern Katakana characters.
-		runes := []rune("アイウエオ" +
-			"カキクケコガギグゲゴサシスセソザジズゼゾ" +
-			"タチツテトダヂヅデドナニヌネノハヒフヘホ" +
-			"バビブベボパピプペポマミムメモヤユヨラリ" +
-			"ルレロワヰヱヲン")
+// A complete set of modern Katakana characters.
+runes := []rune("アイウエオ" +
+	"カキクケコガギグゲゴサシスセソザジズゼゾ" +
+	"タチツテトダヂヅデドナニヌネノハヒフヘホ" +
+	"バビブベボパピプペポマミムメモヤユヨラリ" +
+	"ルレロワヰヱヲン")
 
-		s := make([]rune, n)
-		for i := range s {
-			s[i] = runes[rand.Intn(len(runes))]
-		}
-		return string(s)
+s := make([]rune, n)
+for i := range s {
+	s[i] = runes[rand.Intn(len(runes))]
+}
+return string(s)
 	}
 
 	validCases := []testCase{
-		{
-			Value:    "TCP:1234",
-			ErrCount: 0,
-		},
-		{
-			Value:    "http:80/test",
-			ErrCount: 0,
-		},
-		{
-			Value:    fmt.Sprintf("HTTP:8080/%s", randomRunes(5)),
-			ErrCount: 0,
-		},
-		{
-			Value:    "SSL:8080",
-			ErrCount: 0,
-		},
+{
+	Value:    "TCP:1234",
+	ErrCount: 0,
+},
+{
+	Value:    "http:80/test",
+	ErrCount: 0,
+},
+{
+	Value:    fmt.Sprintf("HTTP:8080/%s", randomRunes(5)),
+	ErrCount: 0,
+},
+{
+	Value:    "SSL:8080",
+	ErrCount: 0,
+},
 	}
 
 	for _, tc := range validCases {
-		_, errors := tfelb.ValidHeathCheckTarget(tc.Value, "target")
-		if len(errors) != tc.ErrCount {
-			t.Fatalf("Expected %q not to trigger a validation error.", tc.Value)
-		}
+_, errors := tfelb.ValidHeathCheckTarget(tc.Value, "target")
+if len(errors) != tc.ErrCount {
+	t.Fatalf("Expected %q not to trigger a validation error.", tc.Value)
+}
 	}
 
 	invalidCases := []testCase{
-		{
-			Value:    "",
-			ErrCount: 1,
-		},
-		{
-			Value:    "TCP:",
-			ErrCount: 1,
-		},
-		{
-			Value:    "TCP:1234/",
-			ErrCount: 1,
-		},
-		{
-			Value:    "SSL:8080/",
-			ErrCount: 1,
-		},
-		{
-			Value:    "HTTP:8080",
-			ErrCount: 1,
-		},
-		{
-			Value:    "incorrect-value",
-			ErrCount: 1,
-		},
-		{
-			Value:    "TCP:123456",
-			ErrCount: 1,
-		},
-		{
-			Value:    "incorrect:80/",
-			ErrCount: 1,
-		},
-		{
-			Value: fmt.Sprintf("HTTP:8080/%s%s",
-				sdkacctest.RandStringFromCharSet(512, sdkacctest.CharSetAlpha), randomRunes(512)),
-			ErrCount: 1,
-		},
+{
+	Value:    "",
+	ErrCount: 1,
+},
+{
+	Value:    "TCP:",
+	ErrCount: 1,
+},
+{
+	Value:    "TCP:1234/",
+	ErrCount: 1,
+},
+{
+	Value:    "SSL:8080/",
+	ErrCount: 1,
+},
+{
+	Value:    "HTTP:8080",
+	ErrCount: 1,
+},
+{
+	Value:    "incorrect-value",
+	ErrCount: 1,
+},
+{
+	Value:    "TCP:123456",
+	ErrCount: 1,
+},
+{
+	Value:    "incorrect:80/",
+	ErrCount: 1,
+},
+{
+	Value: fmt.Sprintf("HTTP:8080/%s%s",
+sdkacctest.RandStringFromCharSet(512, sdkacctest.CharSetAlpha), randomRunes(512)),
+	ErrCount: 1,
+},
 	}
 
 	for _, tc := range invalidCases {
-		_, errors := tfelb.ValidHeathCheckTarget(tc.Value, "target")
-		if len(errors) != tc.ErrCount {
-			t.Fatalf("Expected %q to trigger a validation error.", tc.Value)
-		}
+_, errors := tfelb.ValidHeathCheckTarget(tc.Value, "target")
+if len(errors) != tc.ErrCount {
+	t.Fatalf("Expected %q to trigger a validation error.", tc.Value)
+}
 	}
 }
 
@@ -256,39 +256,39 @@ func TestAccELBLoadBalancer_basic(t *testing.T) {
 	resourceName := "aws_elb.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLoadBalancerConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLoadBalancerConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
-					testAccCheckLoadBalancerAttributes(&conf),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "availability_zones.#", "3"),
-					resource.TestCheckResourceAttr(resourceName, "cross_zone_load_balancing", "true"),
-					resource.TestCheckResourceAttr(resourceName, "desync_mitigation_mode", "defensive"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "listener.*", map[string]string{
-						"instance_port":     "8000",
-						"instance_protocol": "http",
-						"lb_port":           "80",
-						"lb_protocol":       "http",
-					}),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "subnets.#", "3"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
+	testAccCheckLoadBalancerAttributes(&conf),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "availability_zones.#", "3"),
+	resource.TestCheckResourceAttr(resourceName, "cross_zone_load_balancing", "true"),
+	resource.TestCheckResourceAttr(resourceName, "desync_mitigation_mode", "defensive"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "listener.*", map[string]string{
+"instance_port":     "8000",
+"instance_protocol": "http",
+"lb_port":           "80",
+"lb_protocol":       "http",
+	}),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "subnets.#", "3"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -300,22 +300,22 @@ func TestAccELBLoadBalancer_disappears(t *testing.T) {
 	resourceName := "aws_elb.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLoadBalancerConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLoadBalancerConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLoadBalancerExists(ctx, resourceName, &loadBalancer),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfelb.ResourceLoadBalancer(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckLoadBalancerExists(ctx, resourceName, &loadBalancer),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfelb.ResourceLoadBalancer(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -327,21 +327,21 @@ func TestAccELBLoadBalancer_namePrefix(t *testing.T) {
 	resourceName := "aws_elb.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLoadBalancerConfig_namePrefix,
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLoadBalancerConfig_namePrefix,
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
-					resource.TestMatchResourceAttr(resourceName, "name", nameRegex),
-				),
-			},
-		},
+	testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
+	resource.TestMatchResourceAttr(resourceName, "name", nameRegex),
+),
+	},
+},
 	})
 }
 
@@ -353,21 +353,21 @@ func TestAccELBLoadBalancer_nameGenerated(t *testing.T) {
 	resourceName := "aws_elb.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLoadBalancerConfig_nameGenerated,
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLoadBalancerConfig_nameGenerated,
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
-					resource.TestMatchResourceAttr(resourceName, "name", generatedNameRegexp),
-				),
-			},
-		},
+	testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
+	resource.TestMatchResourceAttr(resourceName, "name", generatedNameRegexp),
+),
+	},
+},
 	})
 }
 
@@ -379,49 +379,49 @@ func TestAccELBLoadBalancer_tags(t *testing.T) {
 	resourceName := "aws_elb.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLoadBalancerConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLoadBalancerConfig_tags1(rName, "key1", "value1"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
-					testAccCheckLoadBalancerAttributes(&conf),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccLoadBalancerConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheck
+	testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
+	testAccCheckLoadBalancerAttributes(&conf),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccLoadBalancerConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
-					testAccCheckLoadBalancerAttributes(&conf),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-			{
-				Config: testAccLoadBalancerConfig_tags1(rName, "key2", "value2"),
-				Check: resource.ComposeTestCheck
+	testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
+	testAccCheckLoadBalancerAttributes(&conf),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+	{
+Config: testAccLoadBalancerConfig_tags1(rName, "key2", "value2"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
-					testAccCheckLoadBalancerAttributes(&conf),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-		},
+	testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
+	testAccCheckLoadBalancerAttributes(&conf),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+},
 	})
 }
 
@@ -433,21 +433,21 @@ func TestAccELBLoadBalancer_fullCharacterRange(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLoadBalancerConfig_fullRangeOfCharacters(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLoadBalancerConfig_fullRangeOfCharacters(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-				),
-			},
-		},
+	testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+),
+	},
+},
 	})
 }
 
@@ -459,41 +459,41 @@ func TestAccELBLoadBalancer_AccessLogs_enabled(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLoadBalancerConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLoadBalancerConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
-				),
-			},
+	testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
+),
+	},
 
-			{
-				Config: testAccLoadBalancerConfig_accessLogsOn(rName),
-				Check: resource.ComposeTestCheck
+	{
+Config: testAccLoadBalancerConfig_accessLogsOn(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "access_logs.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "access_logs.0.bucket", rName),
-					resource.TestCheckResourceAttr(resourceName, "access_logs.0.interval", "5"),
-					resource.TestCheckResourceAttr(resourceName, "access_logs.0.enabled", "true"),
-				),
-			},
+	testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "access_logs.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "access_logs.0.bucket", rName),
+	resource.TestCheckResourceAttr(resourceName, "access_logs.0.interval", "5"),
+	resource.TestCheckResourceAttr(resourceName, "access_logs.0.enabled", "true"),
+),
+	},
 
-			{
-				Config: testAccLoadBalancerConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+	{
+Config: testAccLoadBalancerConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "access_logs.#", "0"),
-				),
-			},
-		},
+	testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "access_logs.#", "0"),
+),
+	},
+},
 	})
 }
 
@@ -505,39 +505,39 @@ func TestAccELBLoadBalancer_AccessLogs_disabled(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLoadBalancerConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLoadBalancerConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
-				),
-			},
-			{
-				Config: testAccLoadBalancerConfig_accessLogsDisabled(rName),
-				Check: resource.ComposeTestCheck
+	testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
+),
+	},
+	{
+Config: testAccLoadBalancerConfig_accessLogsDisabled(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "access_logs.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "access_logs.0.bucket", rName),
-					resource.TestCheckResourceAttr(resourceName, "access_logs.0.interval", "5"),
-					resource.TestCheckResourceAttr(resourceName, "access_logs.0.enabled", "false"),
-				),
-			},
-			{
-				Config: testAccLoadBalancerConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+	testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "access_logs.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "access_logs.0.bucket", rName),
+	resource.TestCheckResourceAttr(resourceName, "access_logs.0.interval", "5"),
+	resource.TestCheckResourceAttr(resourceName, "access_logs.0.enabled", "false"),
+),
+	},
+	{
+Config: testAccLoadBalancerConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "access_logs.#", "0"),
-				),
-			},
-		},
+	testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "access_logs.#", "0"),
+),
+	},
+},
 	})
 }
 
@@ -549,21 +549,21 @@ func TestAccELBLoadBalancer_generatesNameForZeroValue(t *testing.T) {
 	resourceName := "aws_elb.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLoadBalancerConfig_zeroValueName,
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLoadBalancerConfig_zeroValueName,
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
-					resource.TestMatchResourceAttr(resourceName, "name", generatedNameRegexp),
-				),
-			},
-		},
+	testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
+	resource.TestMatchResourceAttr(resourceName, "name", generatedNameRegexp),
+),
+	},
+},
 	})
 }
 
@@ -575,30 +575,30 @@ func TestAccELBLoadBalancer_availabilityZones(t *testing.T) {
 	resourceName := "aws_elb.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLoadBalancerConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLoadBalancerConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "availability_zones.#", "3"),
-				),
-			},
+	testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "availability_zones.#", "3"),
+),
+	},
 
-			{
-				Config: testAccLoadBalancerConfig_availabilityZonesUpdate(rName),
-				Check: resource.ComposeTestCheck
+	{
+Config: testAccLoadBalancerConfig_availabilityZonesUpdate(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "availability_zones.#", "2"),
-				),
-			},
-		},
+	testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "availability_zones.#", "2"),
+),
+	},
+},
 	})
 }
 
@@ -613,38 +613,38 @@ func TestAccELBLoadBalancer_ListenerSSLCertificateID_iamServerCertificate(t *tes
 
 	testCheck := 
 func(*terraform.State) error {
-		if len(conf.ListenerDescriptions) != 1 {
-			return fmt.Errorf(
-				"TestAccELBLoadBalancer_ListenerSSLCertificateID_iamServerCertificate expected 1 listener, got %d",
-				len(conf.ListenerDescriptions))
-		}
-		return nil
+if len(conf.ListenerDescriptions) != 1 {
+	return fmt.Errorf(
+"TestAccELBLoadBalancer_ListenerSSLCertificateID_iamServerCertificate expected 1 listener, got %d",
+len(conf.ListenerDescriptions))
+}
+return nil
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config:      testAccLoadBalancerConfig_listenerIAMServerCertificate(rName, certificate, key, "tcp"),
-				ExpectError: regexache.MustCompile(`"ssl_certificate_id" may be set only when "protocol" is "https" or "ssl"`),
-			},
-			{
-				Config: testAccLoadBalancerConfig_listenerIAMServerCertificate(rName, certificate, key, "https"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config:      testAccLoadBalancerConfig_listenerIAMServerCertificate(rName, certificate, key, "tcp"),
+ExpectError: regexache.MustCompile(`"ssl_certificate_id" may be set only when "protocol" is "https" or "ssl"`),
+	},
+	{
+Config: testAccLoadBalancerConfig_listenerIAMServerCertificate(rName, certificate, key, "https"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
-					testCheck,
-				),
-			},
-			{
-				Config:      testAccLoadBalancerConfig_listenerIAMServerCertificateAddInvalidListener(rName, certificate, key),
-				ExpectError: regexache.MustCompile(`"ssl_certificate_id" may be set only when "protocol" is "https" or "ssl"`),
-			},
-		},
+	testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
+	testCheck,
+),
+	},
+	{
+Config:      testAccLoadBalancerConfig_listenerIAMServerCertificateAddInvalidListener(rName, certificate, key),
+ExpectError: regexache.MustCompile(`"ssl_certificate_id" may be set only when "protocol" is "https" or "ssl"`),
+	},
+},
 	})
 }
 
@@ -656,37 +656,37 @@ func TestAccELBLoadBalancer_Swap_subnets(t *testing.T) {
 	resourceName := "aws_elb.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLoadBalancerConfig_subnets(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLoadBalancerConfig_subnets(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "subnets.#", "2"),
-				),
-			},
-			{
-				Config: testAccLoadBalancerConfig_subnetSwap(rName),
-				Check: resource.ComposeTestCheck
+	testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "subnets.#", "2"),
+),
+	},
+	{
+Config: testAccLoadBalancerConfig_subnetSwap(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLoadBalancerExists(ctx, "aws_elb.test", &conf),
-					resource.TestCheckResourceAttr("aws_elb.test", "subnets.#", "2"),
-				),
-			},
-			{
-				Config: testAccLoadBalancerConfig_subnetCompleteSwap(rName),
-				Check: resource.ComposeTestCheck
+	testAccCheckLoadBalancerExists(ctx, "aws_elb.test", &conf),
+	resource.TestCheckResourceAttr("aws_elb.test", "subnets.#", "2"),
+),
+	},
+	{
+Config: testAccLoadBalancerConfig_subnetCompleteSwap(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLoadBalancerExists(ctx, "aws_elb.test", &conf),
-					resource.TestCheckResourceAttr("aws_elb.test", "subnets.#", "2"),
-				),
-			},
-		},
+	testAccCheckLoadBalancerExists(ctx, "aws_elb.test", &conf),
+	resource.TestCheckResourceAttr("aws_elb.test", "subnets.#", "2"),
+),
+	},
+},
 	})
 }
 
@@ -700,40 +700,40 @@ func TestAccELBLoadBalancer_instanceAttaching(t *testing.T) {
 	testCheckInstanceAttached := 
 func(count int) resource.TestCheck
 func {
-		return 
+return 
 func(*terraform.State) error {
-			if len(conf.Instances) != count {
-				return fmt.Errorf("instance count does not match")
-			}
-			return nil
-		}
+	if len(conf.Instances) != count {
+return fmt.Errorf("instance count does not match")
+	}
+	return nil
+}
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLoadBalancerConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLoadBalancerConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
-					testAccCheckLoadBalancerAttributes(&conf),
-				),
-			},
+	testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
+	testAccCheckLoadBalancerAttributes(&conf),
+),
+	},
 
-			{
-				Config: testAccLoadBalancerConfig_newInstance(rName),
-				Check: resource.ComposeTestCheck
+	{
+Config: testAccLoadBalancerConfig_newInstance(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
-					testCheckInstanceAttached(1),
-				),
-			},
-		},
+	testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
+	testCheckInstanceAttached(1),
+),
+	},
+},
 	})
 }
 
@@ -745,134 +745,134 @@ func TestAccELBLoadBalancer_listener(t *testing.T) {
 	resourceName := "aws_elb.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLoadBalancerConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLoadBalancerConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "listener.#", "1"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "listener.*", map[string]string{
-						"instance_port":     "8000",
-						"instance_protocol": "http",
-						"lb_port":           "80",
-						"lb_protocol":       "http",
-					}),
-				),
-			},
-			{
-				Config: testAccLoadBalancerConfig_listenerMultipleListeners(rName),
-				Check: resource.ComposeTestCheck
+	testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "listener.#", "1"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "listener.*", map[string]string{
+"instance_port":     "8000",
+"instance_protocol": "http",
+"lb_port":           "80",
+"lb_protocol":       "http",
+	}),
+),
+	},
+	{
+Config: testAccLoadBalancerConfig_listenerMultipleListeners(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "listener.#", "2"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "listener.*", map[string]string{
-						"instance_port":     "8000",
-						"instance_protocol": "http",
-						"lb_port":           "80",
-						"lb_protocol":       "http",
-					}),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "listener.*", map[string]string{
-						"instance_port":     "22",
-						"instance_protocol": "tcp",
-						"lb_port":           "22",
-						"lb_protocol":       "tcp",
-					}),
-				),
-			},
-			{
-				Config: testAccLoadBalancerConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+	testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "listener.#", "2"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "listener.*", map[string]string{
+"instance_port":     "8000",
+"instance_protocol": "http",
+"lb_port":           "80",
+"lb_protocol":       "http",
+	}),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "listener.*", map[string]string{
+"instance_port":     "22",
+"instance_protocol": "tcp",
+"lb_port":           "22",
+"lb_protocol":       "tcp",
+	}),
+),
+	},
+	{
+Config: testAccLoadBalancerConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "listener.#", "1"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "listener.*", map[string]string{
-						"instance_port":     "8000",
-						"instance_protocol": "http",
-						"lb_port":           "80",
-						"lb_protocol":       "http",
-					}),
-				),
-			},
-			{
-				Config: testAccLoadBalancerConfig_listenerUpdate(rName),
-				Check: resource.ComposeTestCheck
+	testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "listener.#", "1"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "listener.*", map[string]string{
+"instance_port":     "8000",
+"instance_protocol": "http",
+"lb_port":           "80",
+"lb_protocol":       "http",
+	}),
+),
+	},
+	{
+Config: testAccLoadBalancerConfig_listenerUpdate(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "listener.#", "1"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "listener.*", map[string]string{
-						"instance_port":     "8080",
-						"instance_protocol": "http",
-						"lb_port":           "80",
-						"lb_protocol":       "http",
-					}),
-				),
-			},
-			{
-				PreConfig: 
+	testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "listener.#", "1"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "listener.*", map[string]string{
+"instance_port":     "8080",
+"instance_protocol": "http",
+"lb_port":           "80",
+"lb_protocol":       "http",
+	}),
+),
+	},
+	{
+PreConfig: 
 func() {
-					// Simulate out of band listener removal
-					conn := acctest.Provider.Meta().(*conns.AWSClient).ELBConn(ctx)
-					input := &elb.DeleteLoadBalancerListenersInput{
-						LoadBalancerName:  conf.LoadBalancerName,
-						LoadBalancerPorts: []*int64{aws.Int64(80)},
-					}
-					if _, err := conn.DeleteLoadBalancerListenersWithContext(ctx, input); err != nil {
-						t.Fatalf("Error deleting listener: %s", err)
-					}
-				},
-				Config: testAccLoadBalancerConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+	// Simulate out of band listener removal
+	conn := acctest.Provider.Meta().(*conns.AWSClient).ELBConn(ctx)
+	input := &elb.DeleteLoadBalancerListenersInput{
+LoadBalancerName:  conf.LoadBalancerName,
+LoadBalancerPorts: []*int64{aws.Int64(80)},
+	}
+	if _, err := conn.DeleteLoadBalancerListenersWithContext(ctx, input); err != nil {
+t.Fatalf("Error deleting listener: %s", err)
+	}
+},
+Config: testAccLoadBalancerConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "listener.#", "1"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "listener.*", map[string]string{
-						"instance_port":     "8000",
-						"instance_protocol": "http",
-						"lb_port":           "80",
-						"lb_protocol":       "http",
-					}),
-				),
-			},
-			{
-				PreConfig: 
+	testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "listener.#", "1"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "listener.*", map[string]string{
+"instance_port":     "8000",
+"instance_protocol": "http",
+"lb_port":           "80",
+"lb_protocol":       "http",
+	}),
+),
+	},
+	{
+PreConfig: 
 func() {
-					// Simulate out of band listener addition
-					conn := acctest.Provider.Meta().(*conns.AWSClient).ELBConn(ctx)
-					input := &elb.CreateLoadBalancerListenersInput{
-						LoadBalancerName: conf.LoadBalancerName,
-						Listeners: []*elb.Listener{
-							{
-								InstancePort:     aws.Int64(22),
-								InstanceProtocol: aws.String("tcp"),
-								LoadBalancerPort: aws.Int64(22),
-								Protocol:         aws.String("tcp"),
-							},
-						},
-					}
-					if _, err := conn.CreateLoadBalancerListenersWithContext(ctx, input); err != nil {
-						t.Fatalf("Error creating listener: %s", err)
-					}
-				},
-				Config: testAccLoadBalancerConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+	// Simulate out of band listener addition
+	conn := acctest.Provider.Meta().(*conns.AWSClient).ELBConn(ctx)
+	input := &elb.CreateLoadBalancerListenersInput{
+LoadBalancerName: conf.LoadBalancerName,
+Listeners: []*elb.Listener{
+	{
+InstancePort:     aws.Int64(22),
+InstanceProtocol: aws.String("tcp"),
+LoadBalancerPort: aws.Int64(22),
+Protocol:         aws.String("tcp"),
+	},
+},
+	}
+	if _, err := conn.CreateLoadBalancerListenersWithContext(ctx, input); err != nil {
+t.Fatalf("Error creating listener: %s", err)
+	}
+},
+Config: testAccLoadBalancerConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "listener.#", "1"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "listener.*", map[string]string{
-						"instance_port":     "8000",
-						"instance_protocol": "http",
-						"lb_port":           "80",
-						"lb_protocol":       "http",
-					}),
-				),
-			},
-		},
+	testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "listener.#", "1"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "listener.*", map[string]string{
+"instance_port":     "8000",
+"instance_protocol": "http",
+"lb_port":           "80",
+"lb_protocol":       "http",
+	}),
+),
+	},
+},
 	})
 }
 
@@ -884,29 +884,29 @@ func TestAccELBLoadBalancer_healthCheck(t *testing.T) {
 	resourceName := "aws_elb.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLoadBalancerConfig_healthCheck(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLoadBalancerConfig_healthCheck(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "5"),
-				),
-			},
-			{
-				Config: testAccLoadBalancerConfig_healthCheckUpdate(rName),
-				Check: resource.ComposeTestCheck
+	testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "5"),
+),
+	},
+	{
+Config: testAccLoadBalancerConfig_healthCheckUpdate(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
-					resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "10"),
-				),
-			},
-		},
+	testAccCheckLoadBalancerExists(ctx, resourceName, &conf),
+	resource.TestCheckResourceAttr(resourceName, "health_check.0.healthy_threshold", "10"),
+),
+	},
+},
 	})
 }
 
@@ -917,27 +917,27 @@ func TestAccELBLoadBalancer_timeout(t *testing.T) {
 	resourceName := "aws_elb.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLoadBalancerConfig_idleTimeout(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLoadBalancerConfig_idleTimeout(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttr(resourceName, "idle_timeout", "200"),
-				),
-			},
-			{
-				Config: testAccLoadBalancerConfig_idleTimeoutUpdate(rName),
-				Check: resource.ComposeTestCheck
+	resource.TestCheckResourceAttr(resourceName, "idle_timeout", "200"),
+),
+	},
+	{
+Config: testAccLoadBalancerConfig_idleTimeoutUpdate(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttr(resourceName, "idle_timeout", "400"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttr(resourceName, "idle_timeout", "400"),
+),
+	},
+},
 	})
 }
 
@@ -948,36 +948,36 @@ func TestAccELBLoadBalancer_connectionDraining(t *testing.T) {
 	resourceName := "aws_elb.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLoadBalancerConfig_connectionDraining(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLoadBalancerConfig_connectionDraining(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttr(resourceName, "connection_draining", "true"),
-					resource.TestCheckResourceAttr(resourceName, "connection_draining_timeout", "400"),
-				),
-			},
-			{
-				Config: testAccLoadBalancerConfig_connectionDrainingUpdateTimeout(rName),
-				Check: resource.ComposeTestCheck
+	resource.TestCheckResourceAttr(resourceName, "connection_draining", "true"),
+	resource.TestCheckResourceAttr(resourceName, "connection_draining_timeout", "400"),
+),
+	},
+	{
+Config: testAccLoadBalancerConfig_connectionDrainingUpdateTimeout(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttr(resourceName, "connection_draining", "true"),
-					resource.TestCheckResourceAttr(resourceName, "connection_draining_timeout", "600"),
-				),
-			},
-			{
-				Config: testAccLoadBalancerConfig_connectionDrainingUpdateDisable(rName),
-				Check: resource.ComposeTestCheck
+	resource.TestCheckResourceAttr(resourceName, "connection_draining", "true"),
+	resource.TestCheckResourceAttr(resourceName, "connection_draining_timeout", "600"),
+),
+	},
+	{
+Config: testAccLoadBalancerConfig_connectionDrainingUpdateDisable(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttr(resourceName, "connection_draining", "false"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttr(resourceName, "connection_draining", "false"),
+),
+	},
+},
 	})
 }
 
@@ -988,29 +988,29 @@ func TestAccELBLoadBalancer_securityGroups(t *testing.T) {
 	resourceName := "aws_elb.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLoadBalancerConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLoadBalancerConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					// ELBs get a default security group
-					resource.TestCheckResourceAttr(resourceName, "security_groups.#", "1"),
-				),
-			},
-			{
-				Config: testAccLoadBalancerConfig_securityGroups(rName),
-				Check: resource.ComposeTestCheck
+	// ELBs get a default security group
+	resource.TestCheckResourceAttr(resourceName, "security_groups.#", "1"),
+),
+	},
+	{
+Config: testAccLoadBalancerConfig_securityGroups(rName),
+Check: resource.ComposeTestCheck
 func(
-					// Count should still be one as we swap in a custom security group
-					resource.TestCheckResourceAttr(resourceName, "security_groups.#", "1"),
-				),
-			},
-		},
+	// Count should still be one as we swap in a custom security group
+	resource.TestCheckResourceAttr(resourceName, "security_groups.#", "1"),
+),
+	},
+},
 	})
 }
 
@@ -1021,25 +1021,25 @@ func TestAccELBLoadBalancer_desyncMitigationMode(t *testing.T) {
 	resourceName := "aws_elb.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLoadBalancerConfig_desyncMitigationMode(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLoadBalancerConfig_desyncMitigationMode(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttr(resourceName, "desync_mitigation_mode", "strictest"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	resource.TestCheckResourceAttr(resourceName, "desync_mitigation_mode", "strictest"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -1050,44 +1050,44 @@ func TestAccELBLoadBalancer_desyncMitigationMode_update(t *testing.T) {
 	resourceName := "aws_elb.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLoadBalancerConfig_desyncMitigationModeUpdateDefault(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLoadBalancerConfig_desyncMitigationModeUpdateDefault(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttr(resourceName, "desync_mitigation_mode", "defensive"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccLoadBalancerConfig_desyncMitigationModeUpdateMonitor(rName),
-				Check: resource.ComposeTestCheck
+	resource.TestCheckResourceAttr(resourceName, "desync_mitigation_mode", "defensive"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccLoadBalancerConfig_desyncMitigationModeUpdateMonitor(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttr(resourceName, "desync_mitigation_mode", "monitor"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccLoadBalancerConfig_desyncMitigationModeUpdateDefault(rName),
-				Check: resource.ComposeTestCheck
+	resource.TestCheckResourceAttr(resourceName, "desync_mitigation_mode", "monitor"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccLoadBalancerConfig_desyncMitigationModeUpdateDefault(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttr(resourceName, "desync_mitigation_mode", "defensive"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttr(resourceName, "desync_mitigation_mode", "defensive"),
+),
+	},
+},
 	})
 }
 
@@ -1096,27 +1096,27 @@ func testAccCheckLoadBalancerDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ELBConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).ELBConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_elb" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_elb" {
+continue
+	}
 
-			_, err := tfelb.FindLoadBalancerByName(ctx, conn, rs.Primary.ID)
+	_, err := tfelb.FindLoadBalancerByName(ctx, conn, rs.Primary.ID)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("ELB Classic Load Balancer %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("ELB Classic Load Balancer %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -1125,26 +1125,26 @@ func testAccCheckLoadBalancerExists(ctx context.Context, n string, v *elb.LoadBa
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No ELB Classic Load Balancer ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No ELB Classic Load Balancer ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ELBConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).ELBConn(ctx)
 
-		output, err := tfelb.FindLoadBalancerByName(ctx, conn, rs.Primary.ID)
+output, err := tfelb.FindLoadBalancerByName(ctx, conn, rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*v = *output
+*v = *output
 
-		return nil
+return nil
 	}
 }
 
@@ -1153,25 +1153,25 @@ func testAccCheckLoadBalancerAttributes(conf *elb.LoadBalancerDescription) resou
 func {
 	return 
 func(s *terraform.State) error {
-		l := elb.Listener{
-			InstancePort:     aws.Int64(8000),
-			InstanceProtocol: aws.String("HTTP"),
-			LoadBalancerPort: aws.Int64(80),
-			Protocol:         aws.String("HTTP"),
-		}
+l := elb.Listener{
+	InstancePort:     aws.Int64(8000),
+	InstanceProtocol: aws.String("HTTP"),
+	LoadBalancerPort: aws.Int64(80),
+	Protocol:         aws.String("HTTP"),
+}
 
-		if !reflect.DeepEqual(conf.ListenerDescriptions[0].Listener, &l) {
-			return fmt.Errorf(
-				"Got:\n\n%#v\n\nExpected:\n\n%#v\n",
-				conf.ListenerDescriptions[0].Listener,
-				l)
-		}
+if !reflect.DeepEqual(conf.ListenerDescriptions[0].Listener, &l) {
+	return fmt.Errorf(
+"Got:\n\n%#v\n\nExpected:\n\n%#v\n",
+conf.ListenerDescriptions[0].Listener,
+l)
+}
 
-		if *conf.DNSName == "" {
-			return fmt.Errorf("empty dns_name")
-		}
+if *conf.DNSName == "" {
+	return fmt.Errorf("empty dns_name")
+}
 
-		return nil
+return nil
 	}
 }
 

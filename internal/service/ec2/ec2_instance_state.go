@@ -50,7 +50,7 @@ func ResourceInstanceState() *schema.Resource {
 				Required: true,
 			},
 			"state": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				Validate
 func: validation.StringInSlice([]string{ec2.InstanceStateNameRunning, ec2.InstanceStateNameStopped}, false),

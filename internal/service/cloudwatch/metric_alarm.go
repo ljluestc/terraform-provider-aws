@@ -488,7 +488,7 @@ func expandPutMetricAlarmInput(ctx context.Context, d *schema.ResourceData) *clo
 		AlarmName:          aws.String(d.Get("alarm_name").(string)),
 		ComparisonOperator: aws.String(d.Get("comparison_operator").(string)),
 		EvaluationPeriods:  aws.Int64(int64(d.Get("evaluation_periods").(int))),
-		Tags:getTagsIn(ctx),
+		Tags:               getTagsIn(ctx),
 		TreatMissingData:   aws.String(d.Get("treat_missing_data").(string)),
 	}
 

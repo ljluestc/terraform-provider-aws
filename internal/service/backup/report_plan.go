@@ -53,13 +53,13 @@ func ResourceReportPlan() *schema.Resource {
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Validate
 func: validation.StringLenBetween(0, 1024),
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
@@ -75,7 +75,7 @@ func: validReportPlanName,
 							Type:     schema.TypeSet,
 							Optional: true,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								Validate
 func: validation.StringInSlice(reportDeliveryChannelFormat_Values(), false),
 							},
@@ -131,7 +131,7 @@ func: validation.StringInSlice(reportDeliveryChannelFormat_Values(), false),
 						},
 						// A report plan template cannot be updated
 						"report_template": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
 							Validate
@@ -159,7 +159,7 @@ func resourceReportPlanCreate(ctx context.Context, d *schema.ResourceData, meta 
 		ReportDeliveryChannel: expandReportDeliveryChannel(d.Get("report_delivery_channel").([]interface{})),
 		ReportPlanName:        aws.String(name),
 		ReportPlanTags:        getTagsIn(ctx),
-		ReportSetting:         expandReportSetting(d.Get("report_setting").([]interface{})),
+		ReportSetting:expandReportSetting(d.Get("report_setting").([]interface{})),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -227,7 +227,7 @@ func resourceReportPlanUpdate(ctx context.Context, d *schema.ResourceData, meta 
 			ReportDeliveryChannel: expandReportDeliveryChannel(d.Get("report_delivery_channel").([]interface{})),
 			ReportPlanDescription: aws.String(d.Get("description").(string)),
 			ReportPlanName:        aws.String(d.Id()),
-			ReportSetting:         expandReportSetting(d.Get("report_setting").([]interface{})),
+			ReportSetting:expandReportSetting(d.Get("report_setting").([]interface{})),
 		}
 
 		log.Printf("[DEBUG] Updating Backup Report Plan: %s", input)

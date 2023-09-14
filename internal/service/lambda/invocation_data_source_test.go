@@ -17,26 +17,26 @@ import (
 
 func testAccCheckInvocationResult(name, expectedResult string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[name]
-		if !ok {
-			return fmt.Errorf("Not found: %s", name)
-		}
+rs, ok := s.RootModule().Resources[name]
+if !ok {
+	return fmt.Errorf("Not found: %s", name)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No ID is set")
+}
 
-		result, ok := rs.Primary.Attributes["result"]
+result, ok := rs.Primary.Attributes["result"]
 
-		if !ok {
-			return fmt.Errorf("No result is set")
-		}
+if !ok {
+	return fmt.Errorf("No result is set")
+}
 
-		if !verify.SuppressEquivalentJSONDiffs("", result, expectedResult, nil) {
-			return fmt.Errorf("%s: Attribute 'result' expected %s, got %s", name, expectedResult, result)
-		}
+if !verify.SuppressEquivalentJSONDiffs("", result, expectedResult, nil) {
+	return fmt.Errorf("%s: Attribute 'result' expected %s, got %s", name, expectedResult, result)
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -46,17 +46,17 @@ func TestAccLambdaInvocationDataSource_basic(t *testing.T) {
 	testData := "value3"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccInvocationDataSourceConfig_basic(rName, testData),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckInvocationResult("data.aws_lambda_invocation.invocation_test", `{"key1":"value1","key2":"value2","key3":"`+testData+`"}`),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccInvocationDataSourceConfig_basic(rName, testData),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckInvocationResult("data.aws_lambda_invocation.invocation_test", `{"key1":"value1","key2":"value2","key3":"`+testData+`"}`),
+),
+	},
+},
 	})
 }
 
@@ -66,17 +66,17 @@ func TestAccLambdaInvocationDataSource_qualifier(t *testing.T) {
 	testData := "value3"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccInvocationDataSourceConfig_qualifier(rName, testData),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckInvocationResult("data.aws_lambda_invocation.invocation_test", `{"key1":"value1","key2":"value2","key3":"`+testData+`"}`),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccInvocationDataSourceConfig_qualifier(rName, testData),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckInvocationResult("data.aws_lambda_invocation.invocation_test", `{"key1":"value1","key2":"value2","key3":"`+testData+`"}`),
+),
+	},
+},
 	})
 }
 
@@ -86,17 +86,17 @@ func TestAccLambdaInvocationDataSource_complex(t *testing.T) {
 	testData := "value3"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccInvocationDataSourceConfig_complex(rName, testData),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckInvocationResult("data.aws_lambda_invocation.invocation_test", `{"key1":{"subkey1":"subvalue1"},"key2":{"subkey2":"subvalue2","subkey3":{"a": "b"}},"key3":"`+testData+`"}`),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccInvocationDataSourceConfig_complex(rName, testData),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckInvocationResult("data.aws_lambda_invocation.invocation_test", `{"key1":{"subkey1":"subvalue1"},"key2":{"subkey2":"subvalue2","subkey3":{"a": "b"}},"key3":"`+testData+`"}`),
+),
+	},
+},
 	})
 }
 

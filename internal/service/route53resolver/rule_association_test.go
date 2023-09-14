@@ -30,28 +30,28 @@ func TestAccRoute53ResolverRuleAssociation_basic(t *testing.T) {
 	domainName := acctest.RandomDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleAssociationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccRuleAssociationConfig_basic(rName, domainName),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckRuleAssociationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccRuleAssociationConfig_basic(rName, domainName),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckRuleAssociationExists(ctx, resourceName, &assn),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttrPair(resourceName, "resolver_rule_id", ruleResourceName, "id"),
-					resource.TestCheckResourceAttrPair(resourceName, "vpc_id", vpcResourceName, "id"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckRuleAssociationExists(ctx, resourceName, &assn),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttrPair(resourceName, "resolver_rule_id", ruleResourceName, "id"),
+	resource.TestCheckResourceAttrPair(resourceName, "vpc_id", vpcResourceName, "id"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -64,22 +64,22 @@ func TestAccRoute53ResolverRuleAssociation_disappears(t *testing.T) {
 	domainName := acctest.RandomDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleAssociationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccRuleAssociationConfig_basic(rName, domainName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckRuleAssociationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccRuleAssociationConfig_basic(rName, domainName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckRuleAssociationExists(ctx, resourceName, &assn),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfroute53resolver.ResourceRuleAssociation(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckRuleAssociationExists(ctx, resourceName, &assn),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfroute53resolver.ResourceRuleAssociation(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -93,22 +93,22 @@ func TestAccRoute53ResolverRuleAssociation_Disappears_vpc(t *testing.T) {
 	domainName := acctest.RandomDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRuleAssociationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccRuleAssociationConfig_basic(rName, domainName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckRuleAssociationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccRuleAssociationConfig_basic(rName, domainName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckRuleAssociationExists(ctx, resourceName, &assn),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceVPC(), vpcResourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckRuleAssociationExists(ctx, resourceName, &assn),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceVPC(), vpcResourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -117,27 +117,27 @@ func testAccCheckRuleAssociationDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).Route53ResolverConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).Route53ResolverConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_route53_resolver_rule_association" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_route53_resolver_rule_association" {
+continue
+	}
 
-			_, err := tfroute53resolver.FindResolverRuleAssociationByID(ctx, conn, rs.Primary.ID)
+	_, err := tfroute53resolver.FindResolverRuleAssociationByID(ctx, conn, rs.Primary.ID)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("Route53 Resolver Rule Association still exists: %s", rs.Primary.ID)
-		}
+	return fmt.Errorf("Route53 Resolver Rule Association still exists: %s", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -146,26 +146,26 @@ func testAccCheckRuleAssociationExists(ctx context.Context, n string, v *route53
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No Route53 Resolver Rule Association ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No Route53 Resolver Rule Association ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).Route53ResolverConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).Route53ResolverConn(ctx)
 
-		output, err := tfroute53resolver.FindResolverRuleAssociationByID(ctx, conn, rs.Primary.ID)
+output, err := tfroute53resolver.FindResolverRuleAssociationByID(ctx, conn, rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*v = *output
+*v = *output
 
-		return nil
+return nil
 	}
 }
 
@@ -173,7 +173,7 @@ func(s *terraform.State) error {
 func testAccRuleAssociationConfig_basic(rName, domainName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block           = "10.6.0.0/16"
+  cidr_block  = "10.6.0.0/16"
   enable_dns_hostnames = true
   enable_dns_support   = true
 
@@ -189,9 +189,9 @@ resource "aws_route53_resolver_rule" "test" {
 }
 
 resource "aws_route53_resolver_rule_association" "test" {
-  name             = %[1]q
+  name    = %[1]q
   resolver_rule_id = aws_route53_resolver_rule.test.id
-  vpc_id           = aws_vpc.test.id
+  vpc_id  = aws_vpc.test.id
 }
 `, rName, domainName)
 }

@@ -31,29 +31,29 @@ func TestAccVPCLatticeResourcePolicy_basic(t *testing.T) {
 	resourceName := "aws_vpclattice_resource_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourcePolicyDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccResourcePolicyConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckResourcePolicyExists(ctx, resourceName, &resourcepolicy),
-					resource.TestMatchResourceAttr(resourceName, "policy", regexache.MustCompile(`"vpc-lattice:CreateServiceNetworkVpcAssociation","vpc-lattice:CreateServiceNetworkServiceAssociation","vpc-lattice:GetServiceNetwork"`)),
-					resource.TestCheckResourceAttrPair(resourceName, "resource_arn", "aws_vpclattice_service_network.test", "arn"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckResourcePolicyDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccResourcePolicyConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckResourcePolicyExists(ctx, resourceName, &resourcepolicy),
+	resource.TestMatchResourceAttr(resourceName, "policy", regexache.MustCompile(`"vpc-lattice:CreateServiceNetworkVpcAssociation","vpc-lattice:CreateServiceNetworkServiceAssociation","vpc-lattice:GetServiceNetwork"`)),
+	resource.TestCheckResourceAttrPair(resourceName, "resource_arn", "aws_vpclattice_service_network.test", "arn"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -65,79 +65,79 @@ func TestAccVPCLatticeResourcePolicy_disappears(t *testing.T) {
 	resourceName := "aws_vpclattice_resource_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourcePolicyDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccResourcePolicyConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckResourcePolicyExists(ctx, resourceName, &resourcepolicy),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfvpclattice.ResourceResourcePolicy(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckResourcePolicyDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccResourcePolicyConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckResourcePolicyExists(ctx, resourceName, &resourcepolicy),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfvpclattice.ResourceResourcePolicy(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
 func testAccCheckResourcePolicyDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).VPCLatticeClient(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).VPCLatticeClient(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_vpclattice_resource_policy" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_vpclattice_resource_policy" {
+continue
+	}
 
-			policy, err := conn.GetResourcePolicy(ctx, &vpclattice.GetResourcePolicyInput{
-				ResourceArn: aws.String(rs.Primary.ID),
-			})
-			if err != nil {
-				var nfe *types.ResourceNotFoundException
-				if errors.As(err, &nfe) {
-					return nil
-				}
-				return err
-			}
+	policy, err := conn.GetResourcePolicy(ctx, &vpclattice.GetResourcePolicyInput{
+ResourceArn: aws.String(rs.Primary.ID),
+	})
+	if err != nil {
+var nfe *types.ResourceNotFoundException
+if errors.As(err, &nfe) {
+	return nil
+}
+return err
+	}
 
-			if policy != nil {
-				return create.Error(names.VPCLattice, create.ErrActionCheckingDestroyed, tfvpclattice.ResNameResourcePolicy, rs.Primary.ID, errors.New("Resource Policy not destroyed"))
-			}
-		}
+	if policy != nil {
+return create.Error(names.VPCLattice, create.ErrActionCheckingDestroyed, tfvpclattice.ResNameResourcePolicy, rs.Primary.ID, errors.New("Resource Policy not destroyed"))
+	}
+}
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckResourcePolicyExists(ctx context.Context, name string, resourcepolicy *vpclattice.GetResourcePolicyOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[name]
-		if !ok {
-			return create.Error(names.VPCLattice, create.ErrActionCheckingExistence, tfvpclattice.ResNameResourcePolicy, name, errors.New("not found"))
-		}
+rs, ok := s.RootModule().Resources[name]
+if !ok {
+	return create.Error(names.VPCLattice, create.ErrActionCheckingExistence, tfvpclattice.ResNameResourcePolicy, name, errors.New("not found"))
+}
 
-		if rs.Primary.ID == "" {
-			return create.Error(names.VPCLattice, create.ErrActionCheckingExistence, tfvpclattice.ResNameResourcePolicy, name, errors.New("not set"))
-		}
+if rs.Primary.ID == "" {
+	return create.Error(names.VPCLattice, create.ErrActionCheckingExistence, tfvpclattice.ResNameResourcePolicy, name, errors.New("not set"))
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).VPCLatticeClient(ctx)
-		resp, err := conn.GetResourcePolicy(ctx, &vpclattice.GetResourcePolicyInput{
-			ResourceArn: aws.String(rs.Primary.ID),
-		})
+conn := acctest.Provider.Meta().(*conns.AWSClient).VPCLatticeClient(ctx)
+resp, err := conn.GetResourcePolicy(ctx, &vpclattice.GetResourcePolicyInput{
+	ResourceArn: aws.String(rs.Primary.ID),
+})
 
-		if err != nil {
-			return create.Error(names.VPCLattice, create.ErrActionCheckingExistence, tfvpclattice.ResNameResourcePolicy, rs.Primary.ID, err)
-		}
+if err != nil {
+	return create.Error(names.VPCLattice, create.ErrActionCheckingExistence, tfvpclattice.ResNameResourcePolicy, rs.Primary.ID, err)
+}
 
-		*resourcepolicy = *resp
+*resourcepolicy = *resp
 
-		return nil
+return nil
 	}
 }
 

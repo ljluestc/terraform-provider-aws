@@ -12,7 +12,7 @@ var datasourceCmd = &cobra.Command{
 	Use:   "datasource",
 	Short: "Create scaffolding for a data source",
 	RunE: func(cmd *cobra.Command, args []string) error {
-		return datasource.Create(name, snakeName, !clearComments, force, !v1, pluginFramework, includeTags)
+return datasource.Create(name, snakeName, !clearComments, force, !v1, pluginFramework, includeTags)
 	},
 }
 

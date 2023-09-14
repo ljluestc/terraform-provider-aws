@@ -20,32 +20,32 @@ func testAccBotAliasDataSource_basic(t *testing.T) {
 
 	// If this test runs in parallel with other Lex Bot tests, it loses its description
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, lexmodelbuildingservice.EndpointsID)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, lexmodelbuildingservice.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: acctest.ConfigCompose(
-					testAccBotConfig_intent(rName),
-					testAccBotConfig_createVersion(rName),
-					testAccBotAliasConfig_basic(rName),
-					testAccBotAliasDataSourceConfig_basic(),
-				),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "bot_name", resourceName, "bot_name"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "bot_version", resourceName, "bot_version"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "checksum", resourceName, "checksum"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "created_date", resourceName, "created_date"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "description", resourceName, "description"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "last_updated_date", resourceName, "last_updated_date"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "name", resourceName, "name"),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, lexmodelbuildingservice.EndpointsID)
+},
+ErrorCheck:acctest.ErrorCheck(t, lexmodelbuildingservice.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: acctest.ConfigCompose(
+	testAccBotConfig_intent(rName),
+	testAccBotConfig_createVersion(rName),
+	testAccBotAliasConfig_basic(rName),
+	testAccBotAliasDataSourceConfig_basic(),
+),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "bot_name", resourceName, "bot_name"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "bot_version", resourceName, "bot_version"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "checksum", resourceName, "checksum"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "created_date", resourceName, "created_date"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "description", resourceName, "description"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "last_updated_date", resourceName, "last_updated_date"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "name", resourceName, "name"),
+),
+	},
+},
 	})
 }
 

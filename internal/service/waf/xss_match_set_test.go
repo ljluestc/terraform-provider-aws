@@ -27,38 +27,38 @@ func TestAccWAFXSSMatchSet_basic(t *testing.T) {
 	resourceName := "aws_waf_xss_match_set.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckXSSMatchSetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccXSSMatchSetConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckXSSMatchSetExists(ctx, resourceName, &v),
-					acctest.MatchResourceAttrGlobalARN(resourceName, "arn", "waf", regexache.MustCompile(`xssmatchset/.+`)),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "xss_match_tuples.#", "2"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "xss_match_tuples.*", map[string]string{
-						"field_to_match.#":      "1",
-						"field_to_match.0.data": "",
-						"field_to_match.0.type": "URI",
-						"text_transformation":   "NONE",
-					}),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "xss_match_tuples.*", map[string]string{
-						"field_to_match.#":      "1",
-						"field_to_match.0.data": "",
-						"field_to_match.0.type": "QUERY_STRING",
-						"text_transformation":   "NONE",
-					}),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckXSSMatchSetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccXSSMatchSetConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckXSSMatchSetExists(ctx, resourceName, &v),
+	acctest.MatchResourceAttrGlobalARN(resourceName, "arn", "waf", regexache.MustCompile(`xssmatchset/.+`)),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "xss_match_tuples.#", "2"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "xss_match_tuples.*", map[string]string{
+"field_to_match.#":      "1",
+"field_to_match.0.data": "",
+"field_to_match.0.type": "URI",
+"text_transformation":   "NONE",
+	}),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "xss_match_tuples.*", map[string]string{
+"field_to_match.#":      "1",
+"field_to_match.0.data": "",
+"field_to_match.0.type": "QUERY_STRING",
+"text_transformation":   "NONE",
+	}),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -70,33 +70,33 @@ func TestAccWAFXSSMatchSet_changeNameForceNew(t *testing.T) {
 	resourceName := "aws_waf_xss_match_set.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckXSSMatchSetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccXSSMatchSetConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckXSSMatchSetExists(ctx, resourceName, &before),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "xss_match_tuples.#", "2"),
-				),
-			},
-			{
-				Config: testAccXSSMatchSetConfig_changeName(xssMatchSetNewName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckXSSMatchSetExists(ctx, resourceName, &after),
-					resource.TestCheckResourceAttr(resourceName, "name", xssMatchSetNewName),
-					resource.TestCheckResourceAttr(resourceName, "xss_match_tuples.#", "2"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckXSSMatchSetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccXSSMatchSetConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckXSSMatchSetExists(ctx, resourceName, &before),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "xss_match_tuples.#", "2"),
+),
+	},
+	{
+Config: testAccXSSMatchSetConfig_changeName(xssMatchSetNewName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckXSSMatchSetExists(ctx, resourceName, &after),
+	resource.TestCheckResourceAttr(resourceName, "name", xssMatchSetNewName),
+	resource.TestCheckResourceAttr(resourceName, "xss_match_tuples.#", "2"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -107,20 +107,20 @@ func TestAccWAFXSSMatchSet_disappears(t *testing.T) {
 	resourceName := "aws_waf_xss_match_set.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckXSSMatchSetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccXSSMatchSetConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckXSSMatchSetExists(ctx, resourceName, &v),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfwaf.ResourceXSSMatchSet(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckXSSMatchSetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccXSSMatchSetConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckXSSMatchSetExists(ctx, resourceName, &v),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfwaf.ResourceXSSMatchSet(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -131,57 +131,57 @@ func TestAccWAFXSSMatchSet_changeTuples(t *testing.T) {
 	resourceName := "aws_waf_xss_match_set.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckXSSMatchSetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccXSSMatchSetConfig_basic(setName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckXSSMatchSetExists(ctx, resourceName, &before),
-					resource.TestCheckResourceAttr(resourceName, "name", setName),
-					resource.TestCheckResourceAttr(resourceName, "xss_match_tuples.#", "2"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "xss_match_tuples.*", map[string]string{
-						"field_to_match.#":      "1",
-						"field_to_match.0.data": "",
-						"field_to_match.0.type": "QUERY_STRING",
-						"text_transformation":   "NONE",
-					}),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "xss_match_tuples.*", map[string]string{
-						"field_to_match.#":      "1",
-						"field_to_match.0.data": "",
-						"field_to_match.0.type": "URI",
-						"text_transformation":   "NONE",
-					}),
-				),
-			},
-			{
-				Config: testAccXSSMatchSetConfig_changeTuples(setName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckXSSMatchSetExists(ctx, resourceName, &after),
-					resource.TestCheckResourceAttr(resourceName, "name", setName),
-					resource.TestCheckResourceAttr(resourceName, "xss_match_tuples.#", "2"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "xss_match_tuples.*", map[string]string{
-						"field_to_match.#":      "1",
-						"field_to_match.0.data": "",
-						"field_to_match.0.type": "METHOD",
-						"text_transformation":   "HTML_ENTITY_DECODE",
-					}),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "xss_match_tuples.*", map[string]string{
-						"field_to_match.#":      "1",
-						"field_to_match.0.data": "",
-						"field_to_match.0.type": "BODY",
-						"text_transformation":   "CMD_LINE",
-					}),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckXSSMatchSetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccXSSMatchSetConfig_basic(setName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckXSSMatchSetExists(ctx, resourceName, &before),
+	resource.TestCheckResourceAttr(resourceName, "name", setName),
+	resource.TestCheckResourceAttr(resourceName, "xss_match_tuples.#", "2"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "xss_match_tuples.*", map[string]string{
+"field_to_match.#":      "1",
+"field_to_match.0.data": "",
+"field_to_match.0.type": "QUERY_STRING",
+"text_transformation":   "NONE",
+	}),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "xss_match_tuples.*", map[string]string{
+"field_to_match.#":      "1",
+"field_to_match.0.data": "",
+"field_to_match.0.type": "URI",
+"text_transformation":   "NONE",
+	}),
+),
+	},
+	{
+Config: testAccXSSMatchSetConfig_changeTuples(setName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckXSSMatchSetExists(ctx, resourceName, &after),
+	resource.TestCheckResourceAttr(resourceName, "name", setName),
+	resource.TestCheckResourceAttr(resourceName, "xss_match_tuples.#", "2"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "xss_match_tuples.*", map[string]string{
+"field_to_match.#":      "1",
+"field_to_match.0.data": "",
+"field_to_match.0.type": "METHOD",
+"text_transformation":   "HTML_ENTITY_DECODE",
+	}),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "xss_match_tuples.*", map[string]string{
+"field_to_match.#":      "1",
+"field_to_match.0.data": "",
+"field_to_match.0.type": "BODY",
+"text_transformation":   "CMD_LINE",
+	}),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -192,84 +192,84 @@ func TestAccWAFXSSMatchSet_noTuples(t *testing.T) {
 	resourceName := "aws_waf_xss_match_set.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckXSSMatchSetDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccXSSMatchSetConfig_noTuples(setName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckXSSMatchSetExists(ctx, resourceName, &ipset),
-					resource.TestCheckResourceAttr(resourceName, "name", setName),
-					resource.TestCheckResourceAttr(resourceName, "xss_match_tuples.#", "0"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckXSSMatchSetDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccXSSMatchSetConfig_noTuples(setName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckXSSMatchSetExists(ctx, resourceName, &ipset),
+	resource.TestCheckResourceAttr(resourceName, "name", setName),
+	resource.TestCheckResourceAttr(resourceName, "xss_match_tuples.#", "0"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
 func testAccCheckXSSMatchSetExists(ctx context.Context, n string, v *waf.XssMatchSet) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No WAF XSS Match Set ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No WAF XSS Match Set ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).WAFConn(ctx)
-		resp, err := conn.GetXssMatchSetWithContext(ctx, &waf.GetXssMatchSetInput{
-			XssMatchSetId: aws.String(rs.Primary.ID),
-		})
+conn := acctest.Provider.Meta().(*conns.AWSClient).WAFConn(ctx)
+resp, err := conn.GetXssMatchSetWithContext(ctx, &waf.GetXssMatchSetInput{
+	XssMatchSetId: aws.String(rs.Primary.ID),
+})
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		if *resp.XssMatchSet.XssMatchSetId == rs.Primary.ID {
-			*v = *resp.XssMatchSet
-			return nil
-		}
+if *resp.XssMatchSet.XssMatchSetId == rs.Primary.ID {
+	*v = *resp.XssMatchSet
+	return nil
+}
 
-		return fmt.Errorf("WAF XssMatchSet (%s) not found", rs.Primary.ID)
+return fmt.Errorf("WAF XssMatchSet (%s) not found", rs.Primary.ID)
 	}
 }
 
 func testAccCheckXSSMatchSetDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_waf_xss_match_set" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_waf_xss_match_set" {
+continue
+	}
 
-			conn := acctest.Provider.Meta().(*conns.AWSClient).WAFConn(ctx)
-			resp, err := conn.GetXssMatchSetWithContext(ctx, &waf.GetXssMatchSetInput{
-				XssMatchSetId: aws.String(rs.Primary.ID),
-			})
+	conn := acctest.Provider.Meta().(*conns.AWSClient).WAFConn(ctx)
+	resp, err := conn.GetXssMatchSetWithContext(ctx, &waf.GetXssMatchSetInput{
+XssMatchSetId: aws.String(rs.Primary.ID),
+	})
 
-			if err == nil {
-				if *resp.XssMatchSet.XssMatchSetId == rs.Primary.ID {
-					return fmt.Errorf("WAF XssMatchSet %s still exists", rs.Primary.ID)
-				}
-			}
+	if err == nil {
+if *resp.XssMatchSet.XssMatchSetId == rs.Primary.ID {
+	return fmt.Errorf("WAF XssMatchSet %s still exists", rs.Primary.ID)
+}
+	}
 
-			// Return nil if the XssMatchSet is already destroyed
-			if tfawserr.ErrCodeEquals(err, waf.ErrCodeNonexistentItemException) {
-				return nil
-			}
+	// Return nil if the XssMatchSet is already destroyed
+	if tfawserr.ErrCodeEquals(err, waf.ErrCodeNonexistentItemException) {
+return nil
+	}
 
-			return err
-		}
+	return err
+}
 
-		return nil
+return nil
 	}
 }
 

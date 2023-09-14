@@ -13,18 +13,18 @@ import (
 
 func waitEventSubscriptionCreated(ctx context.Context, conn *rds.RDS, id string, timeout time.Duration) (*rds.EventSubscription, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    []string{EventSubscriptionStatusCreating},
-		Target:     []string{EventSubscriptionStatusActive},
-		Refresh:    statusEventSubscription(ctx, conn, id),
-		Timeout:    timeout,
-		MinTimeout: 10 * time.Second,
-		Delay:      30 * time.Second,
+Pending:    []string{EventSubscriptionStatusCreating},
+Target:     []string{EventSubscriptionStatusActive},
+Refresh:    statusEventSubscription(ctx, conn, id),
+Timeout:    timeout,
+MinTimeout: 10 * time.Second,
+Delay:      30 * time.Second,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
 
 	if output, ok := outputRaw.(*rds.EventSubscription); ok {
-		return output, err
+return output, err
 	}
 
 	return nil, err
@@ -32,18 +32,18 @@ func waitEventSubscriptionCreated(ctx context.Context, conn *rds.RDS, id string,
 
 func waitEventSubscriptionDeleted(ctx context.Context, conn *rds.RDS, id string, timeout time.Duration) (*rds.EventSubscription, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    []string{EventSubscriptionStatusDeleting},
-		Target:     []string{},
-		Refresh:    statusEventSubscription(ctx, conn, id),
-		Timeout:    timeout,
-		MinTimeout: 10 * time.Second,
-		Delay:      30 * time.Second,
+Pending:    []string{EventSubscriptionStatusDeleting},
+Target:     []string{},
+Refresh:    statusEventSubscription(ctx, conn, id),
+Timeout:    timeout,
+MinTimeout: 10 * time.Second,
+Delay:      30 * time.Second,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
 
 	if output, ok := outputRaw.(*rds.EventSubscription); ok {
-		return output, err
+return output, err
 	}
 
 	return nil, err
@@ -51,19 +51,19 @@ func waitEventSubscriptionDeleted(ctx context.Context, conn *rds.RDS, id string,
 
 func waitEventSubscriptionUpdated(ctx context.Context, conn *rds.RDS, id string, timeout time.Duration) (*rds.EventSubscription, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   []string{EventSubscriptionStatusModifying},
-		Target:                    []string{EventSubscriptionStatusActive},
-		Refresh:                   statusEventSubscription(ctx, conn, id),
-		Timeout:                   timeout,
-		MinTimeout:                10 * time.Second,
-		Delay:                     30 * time.Second,
-		ContinuousTargetOccurence: 2,
+Pending:                   []string{EventSubscriptionStatusModifying},
+Target:                    []string{EventSubscriptionStatusActive},
+Refresh:                   statusEventSubscription(ctx, conn, id),
+Timeout:                   timeout,
+MinTimeout:                10 * time.Second,
+Delay:                     30 * time.Second,
+ContinuousTargetOccurence: 2,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
 
 	if output, ok := outputRaw.(*rds.EventSubscription); ok {
-		return output, err
+return output, err
 	}
 
 	return nil, err
@@ -72,19 +72,19 @@ func waitEventSubscriptionUpdated(ctx context.Context, conn *rds.RDS, id string,
 // waitDBProxyEndpointAvailable waits for a DBProxyEndpoint to return Available
 func waitDBProxyEndpointAvailable(ctx context.Context, conn *rds.RDS, id string, timeout time.Duration) (*rds.DBProxyEndpoint, error) { //nolint:unparam
 	stateConf := &retry.StateChangeConf{
-		Pending: []string{
-			rds.DBProxyEndpointStatusCreating,
-			rds.DBProxyEndpointStatusModifying,
-		},
-		Target:  []string{rds.DBProxyEndpointStatusAvailable},
-		Refresh: statusDBProxyEndpoint(ctx, conn, id),
-		Timeout: timeout,
+Pending: []string{
+	rds.DBProxyEndpointStatusCreating,
+	rds.DBProxyEndpointStatusModifying,
+},
+Target:  []string{rds.DBProxyEndpointStatusAvailable},
+Refresh: statusDBProxyEndpoint(ctx, conn, id),
+Timeout: timeout,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
 
 	if output, ok := outputRaw.(*rds.DBProxyEndpoint); ok {
-		return output, err
+return output, err
 	}
 
 	return nil, err
@@ -93,16 +93,16 @@ func waitDBProxyEndpointAvailable(ctx context.Context, conn *rds.RDS, id string,
 // waitDBProxyEndpointDeleted waits for a DBProxyEndpoint to return Deleted
 func waitDBProxyEndpointDeleted(ctx context.Context, conn *rds.RDS, id string, timeout time.Duration) (*rds.DBProxyEndpoint, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending: []string{rds.DBProxyEndpointStatusDeleting},
-		Target:  []string{},
-		Refresh: statusDBProxyEndpoint(ctx, conn, id),
-		Timeout: timeout,
+Pending: []string{rds.DBProxyEndpointStatusDeleting},
+Target:  []string{},
+Refresh: statusDBProxyEndpoint(ctx, conn, id),
+Timeout: timeout,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
 
 	if output, ok := outputRaw.(*rds.DBProxyEndpoint); ok {
-		return output, err
+return output, err
 	}
 
 	return nil, err
@@ -110,18 +110,18 @@ func waitDBProxyEndpointDeleted(ctx context.Context, conn *rds.RDS, id string, t
 
 func waitDBClusterRoleAssociationCreated(ctx context.Context, conn *rds.RDS, dbClusterID, roleARN string, timeout time.Duration) (*rds.DBClusterRole, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    []string{ClusterRoleStatusPending},
-		Target:     []string{ClusterRoleStatusActive},
-		Refresh:    statusDBClusterRole(ctx, conn, dbClusterID, roleARN),
-		Timeout:    timeout,
-		MinTimeout: 10 * time.Second,
-		Delay:      30 * time.Second,
+Pending:    []string{ClusterRoleStatusPending},
+Target:     []string{ClusterRoleStatusActive},
+Refresh:    statusDBClusterRole(ctx, conn, dbClusterID, roleARN),
+Timeout:    timeout,
+MinTimeout: 10 * time.Second,
+Delay:      30 * time.Second,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
 
 	if output, ok := outputRaw.(*rds.DBClusterRole); ok {
-		return output, err
+return output, err
 	}
 
 	return nil, err
@@ -129,18 +129,18 @@ func waitDBClusterRoleAssociationCreated(ctx context.Context, conn *rds.RDS, dbC
 
 func waitDBClusterRoleAssociationDeleted(ctx context.Context, conn *rds.RDS, dbClusterID, roleARN string, timeout time.Duration) (*rds.DBClusterRole, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    []string{ClusterRoleStatusActive, ClusterRoleStatusPending},
-		Target:     []string{},
-		Refresh:    statusDBClusterRole(ctx, conn, dbClusterID, roleARN),
-		Timeout:    timeout,
-		MinTimeout: 10 * time.Second,
-		Delay:      30 * time.Second,
+Pending:    []string{ClusterRoleStatusActive, ClusterRoleStatusPending},
+Target:     []string{},
+Refresh:    statusDBClusterRole(ctx, conn, dbClusterID, roleARN),
+Timeout:    timeout,
+MinTimeout: 10 * time.Second,
+Delay:      30 * time.Second,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
 
 	if output, ok := outputRaw.(*rds.DBClusterRole); ok {
-		return output, err
+return output, err
 	}
 
 	return nil, err
@@ -148,32 +148,32 @@ func waitDBClusterRoleAssociationDeleted(ctx context.Context, conn *rds.RDS, dbC
 
 func waitDBClusterInstanceCreated(ctx context.Context, conn *rds.RDS, id string, timeout time.Duration) (*rds.DBInstance, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending: []string{
-			InstanceStatusBackingUp,
-			InstanceStatusConfiguringEnhancedMonitoring,
-			InstanceStatusConfiguringIAMDatabaseAuth,
-			InstanceStatusConfiguringLogExports,
-			InstanceStatusCreating,
-			InstanceStatusMaintenance,
-			InstanceStatusModifying,
-			InstanceStatusRebooting,
-			InstanceStatusRenaming,
-			InstanceStatusResettingMasterCredentials,
-			InstanceStatusStarting,
-			InstanceStatusStorageOptimization,
-			InstanceStatusUpgrading,
-		},
-		Target:     []string{InstanceStatusAvailable},
-		Refresh:    statusDBInstanceSDKv1(ctx, conn, id),
-		Timeout:    timeout,
-		MinTimeout: 10 * time.Second,
-		Delay:      30 * time.Second,
+Pending: []string{
+	InstanceStatusBackingUp,
+	InstanceStatusConfiguringEnhancedMonitoring,
+	InstanceStatusConfiguringIAMDatabaseAuth,
+	InstanceStatusConfiguringLogExports,
+	InstanceStatusCreating,
+	InstanceStatusMaintenance,
+	InstanceStatusModifying,
+	InstanceStatusRebooting,
+	InstanceStatusRenaming,
+	InstanceStatusResettingMasterCredentials,
+	InstanceStatusStarting,
+	InstanceStatusStorageOptimization,
+	InstanceStatusUpgrading,
+},
+Target:     []string{InstanceStatusAvailable},
+Refresh:    statusDBInstanceSDKv1(ctx, conn, id),
+Timeout:    timeout,
+MinTimeout: 10 * time.Second,
+Delay:      30 * time.Second,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
 
 	if output, ok := outputRaw.(*rds.DBInstance); ok {
-		return output, err
+return output, err
 	}
 
 	return nil, err
@@ -181,32 +181,32 @@ func waitDBClusterInstanceCreated(ctx context.Context, conn *rds.RDS, id string,
 
 func waitDBClusterInstanceUpdated(ctx context.Context, conn *rds.RDS, id string, timeout time.Duration) (*rds.DBInstance, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending: []string{
-			InstanceStatusBackingUp,
-			InstanceStatusConfiguringEnhancedMonitoring,
-			InstanceStatusConfiguringIAMDatabaseAuth,
-			InstanceStatusConfiguringLogExports,
-			InstanceStatusCreating,
-			InstanceStatusMaintenance,
-			InstanceStatusModifying,
-			InstanceStatusRebooting,
-			InstanceStatusRenaming,
-			InstanceStatusResettingMasterCredentials,
-			InstanceStatusStarting,
-			InstanceStatusStorageOptimization,
-			InstanceStatusUpgrading,
-		},
-		Target:     []string{InstanceStatusAvailable},
-		Refresh:    statusDBInstanceSDKv1(ctx, conn, id),
-		Timeout:    timeout,
-		MinTimeout: 10 * time.Second,
-		Delay:      30 * time.Second,
+Pending: []string{
+	InstanceStatusBackingUp,
+	InstanceStatusConfiguringEnhancedMonitoring,
+	InstanceStatusConfiguringIAMDatabaseAuth,
+	InstanceStatusConfiguringLogExports,
+	InstanceStatusCreating,
+	InstanceStatusMaintenance,
+	InstanceStatusModifying,
+	InstanceStatusRebooting,
+	InstanceStatusRenaming,
+	InstanceStatusResettingMasterCredentials,
+	InstanceStatusStarting,
+	InstanceStatusStorageOptimization,
+	InstanceStatusUpgrading,
+},
+Target:     []string{InstanceStatusAvailable},
+Refresh:    statusDBInstanceSDKv1(ctx, conn, id),
+Timeout:    timeout,
+MinTimeout: 10 * time.Second,
+Delay:      30 * time.Second,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
 
 	if output, ok := outputRaw.(*rds.DBInstance); ok {
-		return output, err
+return output, err
 	}
 
 	return nil, err
@@ -214,23 +214,23 @@ func waitDBClusterInstanceUpdated(ctx context.Context, conn *rds.RDS, id string,
 
 func waitDBClusterInstanceDeleted(ctx context.Context, conn *rds.RDS, id string, timeout time.Duration) (*rds.DBInstance, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending: []string{
-			InstanceStatusConfiguringLogExports,
-			InstanceStatusDeletePreCheck,
-			InstanceStatusDeleting,
-			InstanceStatusModifying,
-		},
-		Target:     []string{},
-		Refresh:    statusDBInstanceSDKv1(ctx, conn, id),
-		Timeout:    timeout,
-		MinTimeout: 10 * time.Second,
-		Delay:      30 * time.Second,
+Pending: []string{
+	InstanceStatusConfiguringLogExports,
+	InstanceStatusDeletePreCheck,
+	InstanceStatusDeleting,
+	InstanceStatusModifying,
+},
+Target:     []string{},
+Refresh:    statusDBInstanceSDKv1(ctx, conn, id),
+Timeout:    timeout,
+MinTimeout: 10 * time.Second,
+Delay:      30 * time.Second,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
 
 	if output, ok := outputRaw.(*rds.DBInstance); ok {
-		return output, err
+return output, err
 	}
 
 	return nil, err
@@ -238,16 +238,16 @@ func waitDBClusterInstanceDeleted(ctx context.Context, conn *rds.RDS, id string,
 
 func waitDBProxyCreated(ctx context.Context, conn *rds.RDS, name string, timeout time.Duration) (*rds.DBProxy, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending: []string{rds.DBProxyStatusCreating},
-		Target:  []string{rds.DBProxyStatusAvailable},
-		Refresh: statusDBProxy(ctx, conn, name),
-		Timeout: timeout,
+Pending: []string{rds.DBProxyStatusCreating},
+Target:  []string{rds.DBProxyStatusAvailable},
+Refresh: statusDBProxy(ctx, conn, name),
+Timeout: timeout,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
 
 	if output, ok := outputRaw.(*rds.DBProxy); ok {
-		return output, err
+return output, err
 	}
 
 	return nil, err
@@ -255,16 +255,16 @@ func waitDBProxyCreated(ctx context.Context, conn *rds.RDS, name string, timeout
 
 func waitDBProxyDeleted(ctx context.Context, conn *rds.RDS, name string, timeout time.Duration) (*rds.DBProxy, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending: []string{rds.DBProxyStatusDeleting},
-		Target:  []string{},
-		Refresh: statusDBProxy(ctx, conn, name),
-		Timeout: timeout,
+Pending: []string{rds.DBProxyStatusDeleting},
+Target:  []string{},
+Refresh: statusDBProxy(ctx, conn, name),
+Timeout: timeout,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
 
 	if output, ok := outputRaw.(*rds.DBProxy); ok {
-		return output, err
+return output, err
 	}
 
 	return nil, err
@@ -272,16 +272,16 @@ func waitDBProxyDeleted(ctx context.Context, conn *rds.RDS, name string, timeout
 
 func waitDBProxyUpdated(ctx context.Context, conn *rds.RDS, name string, timeout time.Duration) (*rds.DBProxy, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending: []string{rds.DBProxyStatusModifying},
-		Target:  []string{rds.DBProxyStatusAvailable},
-		Refresh: statusDBProxy(ctx, conn, name),
-		Timeout: timeout,
+Pending: []string{rds.DBProxyStatusModifying},
+Target:  []string{rds.DBProxyStatusAvailable},
+Refresh: statusDBProxy(ctx, conn, name),
+Timeout: timeout,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
 
 	if output, ok := outputRaw.(*rds.DBProxy); ok {
-		return output, err
+return output, err
 	}
 
 	return nil, err
@@ -289,15 +289,15 @@ func waitDBProxyUpdated(ctx context.Context, conn *rds.RDS, name string, timeout
 
 func waitReservedInstanceCreated(ctx context.Context, conn *rds.RDS, id string, timeout time.Duration) error {
 	stateConf := &retry.StateChangeConf{
-		Pending: []string{
-			ReservedInstanceStatePaymentPending,
-		},
-		Target:         []string{ReservedInstanceStateActive},
-		Refresh:        statusReservedInstance(ctx, conn, id),
-		NotFoundChecks: 5,
-		Timeout:        timeout,
-		MinTimeout:     10 * time.Second,
-		Delay:          30 * time.Second,
+Pending: []string{
+	ReservedInstanceStatePaymentPending,
+},
+Target:         []string{ReservedInstanceStateActive},
+Refresh:        statusReservedInstance(ctx, conn, id),
+NotFoundChecks: 5,
+Timeout:        timeout,
+MinTimeout:     10 * time.Second,
+Delay:          30 * time.Second,
 	}
 
 	_, err := stateConf.WaitForStateContext(ctx)
@@ -307,12 +307,12 @@ func waitReservedInstanceCreated(ctx context.Context, conn *rds.RDS, id string, 
 
 func waitDBSnapshotCreated(ctx context.Context, conn *rds.RDS, id string, timeout time.Duration) error {
 	stateConf := &retry.StateChangeConf{
-		Pending:    []string{DBSnapshotCreating},
-		Target:     []string{DBSnapshotAvailable},
-		Refresh:    statusDBSnapshot(ctx, conn, id),
-		Timeout:    timeout,
-		MinTimeout: 10 * time.Second,
-		Delay:      30 * time.Second,
+Pending:    []string{DBSnapshotCreating},
+Target:     []string{DBSnapshotAvailable},
+Refresh:    statusDBSnapshot(ctx, conn, id),
+Timeout:    timeout,
+MinTimeout: 10 * time.Second,
+Delay:      30 * time.Second,
 	}
 
 	_, err := stateConf.WaitForStateContext(ctx)

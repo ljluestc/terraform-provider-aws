@@ -69,7 +69,7 @@ func ResourceFramework() *schema.Resource {
 							},
 						},
 						"name": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							Validate
 func: validation.StringLenBetween(1, 256),
@@ -118,13 +118,13 @@ func: validation.StringLenBetween(1, 256),
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Validate
 func: validation.StringLenBetween(0, 1024),
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate

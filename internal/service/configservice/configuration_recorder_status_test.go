@@ -238,7 +238,7 @@ resource "aws_s3_bucket" "b" {
 }
 
 resource "aws_config_delivery_channel" "foo" {
-  name           = "tf-acc-test-awsconfig-%d"
+  name  = "tf-acc-test-awsconfig-%d"
   s3_bucket_name = aws_s3_bucket.b.bucket
 }
 

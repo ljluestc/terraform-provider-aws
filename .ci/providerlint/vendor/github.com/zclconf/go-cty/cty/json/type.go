@@ -9,7 +9,7 @@ import (
 // This is just a thin wrapper around t.MarshalJSON, for symmetry with
 // UnmarshalType.
 func MarshalType(t cty.Type) ([]byte, error) {
-	return t.MarshalJSON()
+return t.MarshalJSON()
 }
 
 // UnmarshalType decodes a JSON serialization of the given type as produced
@@ -17,7 +17,7 @@ func MarshalType(t cty.Type) ([]byte, error) {
 //
 // This is a convenience wrapper around Type.UnmarshalJSON.
 func UnmarshalType(buf []byte) (cty.Type, error) {
-	var t cty.Type
-	err := t.UnmarshalJSON(buf)
-	return t, err
+var t cty.Type
+err := t.UnmarshalJSON(buf)
+return t, err
 }

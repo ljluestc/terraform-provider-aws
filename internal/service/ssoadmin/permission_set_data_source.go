@@ -27,7 +27,7 @@ func DataSourcePermissionSet() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				Validate
@@ -46,7 +46,7 @@ func: verify.ValidARN,
 			},
 
 			"instance_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				Validate
 func: verify.ValidARN,

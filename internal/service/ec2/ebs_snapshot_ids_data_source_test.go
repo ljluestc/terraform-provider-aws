@@ -20,20 +20,20 @@ func TestAccEC2EBSSnapshotIDsDataSource_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccEBSSnapshotIdsDataSourceConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccEBSSnapshotIdsDataSourceConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					acctest.CheckResourceAttrGreaterThanValue(dataSourceName, "ids.#", 0),
-					resource.TestCheckTypeSetElemAttrPair(dataSourceName, "ids.*", "aws_ebs_snapshot.test", "id"),
-				),
-			},
-		},
+	acctest.CheckResourceAttrGreaterThanValue(dataSourceName, "ids.#", 0),
+	resource.TestCheckTypeSetElemAttrPair(dataSourceName, "ids.*", "aws_ebs_snapshot.test", "id"),
+),
+	},
+},
 	})
 }
 
@@ -46,21 +46,21 @@ func TestAccEC2EBSSnapshotIDsDataSource_sorted(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccEBSSnapshotIdsDataSourceConfig_sorted(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccEBSSnapshotIdsDataSourceConfig_sorted(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttr(dataSourceName, "ids.#", "2"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "ids.0", resource2Name, "id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "ids.1", resource1Name, "id"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttr(dataSourceName, "ids.#", "2"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "ids.0", resource2Name, "id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "ids.1", resource1Name, "id"),
+),
+	},
+},
 	})
 }
 
@@ -68,19 +68,19 @@ func(
 func TestAccEC2EBSSnapshotIDsDataSource_empty(t *testing.T) {
 	ctx := acctest.Context(t)
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccEBSSnapshotIdsDataSourceConfig_empty,
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccEBSSnapshotIdsDataSourceConfig_empty,
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttr("data.aws_ebs_snapshot_ids.empty", "ids.#", "0"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttr("data.aws_ebs_snapshot_ids.empty", "ids.#", "0"),
+),
+	},
+},
 	})
 }
 
@@ -89,7 +89,7 @@ func testAccEBSSnapshotIdsDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_ebs_volume" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
-  size              = 1
+  size     = 1
 
   tags = {
     Name = %[1]q
@@ -117,7 +117,7 @@ func testAccEBSSnapshotIdsDataSourceConfig_sorted(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_ebs_volume" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
-  size              = 1
+  size     = 1
 
   count = 2
 

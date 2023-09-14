@@ -22,25 +22,25 @@ func TestAccOpenSearchOutboundConnection_basic(t *testing.T) {
 	resourceName := "aws_opensearch_outbound_connection.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, opensearchservice.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDomainDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccOutboundConnectionConfig(name),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckDomainExists(ctx, "aws_opensearch_domain.domain_1", &domain),
-					testAccCheckDomainExists(ctx, "aws_opensearch_domain.domain_2", &domain),
-					resource.TestCheckResourceAttr(resourceName, "connection_status", "PENDING_ACCEPTANCE"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, opensearchservice.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckDomainDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccOutboundConnectionConfig(name),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckDomainExists(ctx, "aws_opensearch_domain.domain_1", &domain),
+	testAccCheckDomainExists(ctx, "aws_opensearch_domain.domain_2", &domain),
+	resource.TestCheckResourceAttr(resourceName, "connection_status", "PENDING_ACCEPTANCE"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -52,21 +52,21 @@ func TestAccOpenSearchOutboundConnection_disappears(t *testing.T) {
 	resourceName := "aws_opensearch_outbound_connection.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, opensearchservice.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDomainDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccOutboundConnectionConfig(name),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckDomainExists(ctx, "aws_opensearch_domain.domain_1", &domain),
-					testAccCheckDomainExists(ctx, "aws_opensearch_domain.domain_2", &domain),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfopensearch.ResourceOutboundConnection(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, opensearchservice.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckDomainDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccOutboundConnectionConfig(name),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckDomainExists(ctx, "aws_opensearch_domain.domain_1", &domain),
+	testAccCheckDomainExists(ctx, "aws_opensearch_domain.domain_2", &domain),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfopensearch.ResourceOutboundConnection(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 

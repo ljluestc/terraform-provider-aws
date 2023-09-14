@@ -35,7 +35,7 @@ func DataSourceRoutingProfile() *schema.Resource {
 				Computed: true,
 			},
 			"instance_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				Validate
 func: validation.StringLenBetween(1, 100),
@@ -57,7 +57,7 @@ func: validation.StringLenBetween(1, 100),
 				},
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ExactlyOneOf: []string{"name", "routing_profile_id"},
@@ -95,7 +95,7 @@ func: validation.StringLenBetween(1, 100),
 				},
 			},
 			"routing_profile_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ExactlyOneOf: []string{"routing_profile_id", "name"},

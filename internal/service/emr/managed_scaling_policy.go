@@ -41,7 +41,7 @@ func ResourceManagedScalingPolicy() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"unit_type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
 							Validate
@@ -82,7 +82,7 @@ func resourceManagedScalingPolicyCreate(ctx context.Context, d *schema.ResourceD
 	if l := d.Get("compute_limits").(*schema.Set).List(); len(l) > 0 && l[0] != nil {
 		cl := l[0].(map[string]interface{})
 		computeLimits := &emr.ComputeLimits{
-			UnitType:             aws.String(cl["unit_type"].(string)),
+			UnitType:    aws.String(cl["unit_type"].(string)),
 			MinimumCapacityUnits: aws.Int64(int64(cl["minimum_capacity_units"].(int))),
 			MaximumCapacityUnits: aws.Int64(int64(cl["maximum_capacity_units"].(int))),
 		}
@@ -100,7 +100,7 @@ func resourceManagedScalingPolicyCreate(ctx context.Context, d *schema.ResourceD
 		}
 
 		_, err := conn.PutManagedScalingPolicyWithContext(ctx, &emr.PutManagedScalingPolicyInput{
-			ClusterId:            aws.String(d.Get("cluster_id").(string)),
+			ClusterId:   aws.String(d.Get("cluster_id").(string)),
 			ManagedScalingPolicy: managedScalingPolicy,
 		})
 

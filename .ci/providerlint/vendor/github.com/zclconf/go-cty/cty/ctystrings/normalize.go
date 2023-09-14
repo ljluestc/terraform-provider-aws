@@ -10,5 +10,5 @@ import (
 // This function achieves the same effect as wrapping a string in a value
 // using [cty.StringVal] and then unwrapping it again using [Value.AsString].
 func Normalize(str string) string {
-	return norm.NFC.String(str)
+return norm.NFC.String(str)
 }

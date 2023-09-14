@@ -22,98 +22,98 @@ import (
 func TestAccKendraQuerySuggestionsBlockList_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_kendra_query_suggestions_block_list.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, names.KendraEndpointID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, names.KendraEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckQuerySuggestionsBlockListDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccQuerySuggestionsBlockListConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckQuerySuggestionsBlockListExists(ctx, resourceName),
-					resource.TestCheckResourceAttrPair(resourceName, "index_id", "aws_kendra_index.test", "id"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttrPair(resourceName, "role_arn", "aws_iam_role.test", "arn"),
-					resource.TestCheckResourceAttr(resourceName, "source_s3_path.#", "1"),
-					resource.TestCheckResourceAttrPair(resourceName, "source_s3_path.0.bucket", "aws_s3_bucket.test", "id"),
-					resource.TestCheckResourceAttrPair(resourceName, "source_s3_path.0.key", "aws_s3_object.test", "key"),
-					resource.TestCheckResourceAttrSet(resourceName, "status"),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "kendra", regexache.MustCompile(`index/.+/query-suggestions-block-list/.+$`)),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, names.KendraEndpointID)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, names.KendraEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckQuerySuggestionsBlockListDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccQuerySuggestionsBlockListConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckQuerySuggestionsBlockListExists(ctx, resourceName),
+	resource.TestCheckResourceAttrPair(resourceName, "index_id", "aws_kendra_index.test", "id"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttrPair(resourceName, "role_arn", "aws_iam_role.test", "arn"),
+	resource.TestCheckResourceAttr(resourceName, "source_s3_path.#", "1"),
+	resource.TestCheckResourceAttrPair(resourceName, "source_s3_path.0.bucket", "aws_s3_bucket.test", "id"),
+	resource.TestCheckResourceAttrPair(resourceName, "source_s3_path.0.key", "aws_s3_object.test", "key"),
+	resource.TestCheckResourceAttrSet(resourceName, "status"),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "kendra", regexache.MustCompile(`index/.+/query-suggestions-block-list/.+$`)),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
 func TestAccKendraQuerySuggestionsBlockList_Description(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_kendra_query_suggestions_block_list.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, names.KendraEndpointID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, names.KendraEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckQuerySuggestionsBlockListDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccQuerySuggestionsBlockListConfig_description(rName, "description1"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckQuerySuggestionsBlockListExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "description", "description1"),
-				),
-			},
-			{
-				Config: testAccQuerySuggestionsBlockListConfig_description(rName, "description2"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckQuerySuggestionsBlockListExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "description", "description2"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccQuerySuggestionsBlockListConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckQuerySuggestionsBlockListExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "description", ""),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, names.KendraEndpointID)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, names.KendraEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckQuerySuggestionsBlockListDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccQuerySuggestionsBlockListConfig_description(rName, "description1"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckQuerySuggestionsBlockListExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "description", "description1"),
+),
+	},
+	{
+Config: testAccQuerySuggestionsBlockListConfig_description(rName, "description2"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckQuerySuggestionsBlockListExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "description", "description2"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccQuerySuggestionsBlockListConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckQuerySuggestionsBlockListExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "description", ""),
+),
+	},
+},
 	})
 }
 
 func TestAccKendraQuerySuggestionsBlockList_Name(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	rName1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -121,264 +121,264 @@ func TestAccKendraQuerySuggestionsBlockList_Name(t *testing.T) {
 	resourceName := "aws_kendra_query_suggestions_block_list.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, names.KendraEndpointID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, names.KendraEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckQuerySuggestionsBlockListDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccQuerySuggestionsBlockListConfig_basic(rName1),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckQuerySuggestionsBlockListExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "name", rName1),
-				),
-			},
-			{
-				Config: testAccQuerySuggestionsBlockListConfig_name(rName1, rName2),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckQuerySuggestionsBlockListExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "name", rName2),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, names.KendraEndpointID)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, names.KendraEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckQuerySuggestionsBlockListDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccQuerySuggestionsBlockListConfig_basic(rName1),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckQuerySuggestionsBlockListExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "name", rName1),
+),
+	},
+	{
+Config: testAccQuerySuggestionsBlockListConfig_name(rName1, rName2),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckQuerySuggestionsBlockListExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "name", rName2),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
 func TestAccKendraQuerySuggestionsBlockList_RoleARN(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_kendra_query_suggestions_block_list.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, names.KendraEndpointID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, names.KendraEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckQuerySuggestionsBlockListDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccQuerySuggestionsBlockListConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckQuerySuggestionsBlockListExists(ctx, resourceName),
-					resource.TestCheckResourceAttrPair(resourceName, "role_arn", "aws_iam_role.test", "arn"),
-				),
-			},
-			{
-				Config: testAccQuerySuggestionsBlockListConfig_roleARN(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckQuerySuggestionsBlockListExists(ctx, resourceName),
-					resource.TestCheckResourceAttrPair(resourceName, "role_arn", "aws_iam_role.test2", "arn"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, names.KendraEndpointID)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, names.KendraEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckQuerySuggestionsBlockListDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccQuerySuggestionsBlockListConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckQuerySuggestionsBlockListExists(ctx, resourceName),
+	resource.TestCheckResourceAttrPair(resourceName, "role_arn", "aws_iam_role.test", "arn"),
+),
+	},
+	{
+Config: testAccQuerySuggestionsBlockListConfig_roleARN(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckQuerySuggestionsBlockListExists(ctx, resourceName),
+	resource.TestCheckResourceAttrPair(resourceName, "role_arn", "aws_iam_role.test2", "arn"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
 func TestAccKendraQuerySuggestionsBlockList_SourceS3Path(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_kendra_query_suggestions_block_list.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, names.KendraEndpointID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, names.KendraEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckQuerySuggestionsBlockListDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccQuerySuggestionsBlockListConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckQuerySuggestionsBlockListExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "source_s3_path.#", "1"),
-					resource.TestCheckResourceAttrPair(resourceName, "source_s3_path.0.bucket", "aws_s3_bucket.test", "id"),
-					resource.TestCheckResourceAttrPair(resourceName, "source_s3_path.0.key", "aws_s3_object.test", "key")),
-			},
-			{
-				Config: testAccQuerySuggestionsBlockListConfig_sourceS3Path(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckQuerySuggestionsBlockListExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "source_s3_path.#", "1"),
-					resource.TestCheckResourceAttrPair(resourceName, "source_s3_path.0.bucket", "aws_s3_bucket.test", "id"),
-					resource.TestCheckResourceAttrPair(resourceName, "source_s3_path.0.key", "aws_s3_object.test2", "key")),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, names.KendraEndpointID)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, names.KendraEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckQuerySuggestionsBlockListDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccQuerySuggestionsBlockListConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckQuerySuggestionsBlockListExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "source_s3_path.#", "1"),
+	resource.TestCheckResourceAttrPair(resourceName, "source_s3_path.0.bucket", "aws_s3_bucket.test", "id"),
+	resource.TestCheckResourceAttrPair(resourceName, "source_s3_path.0.key", "aws_s3_object.test", "key")),
+	},
+	{
+Config: testAccQuerySuggestionsBlockListConfig_sourceS3Path(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckQuerySuggestionsBlockListExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "source_s3_path.#", "1"),
+	resource.TestCheckResourceAttrPair(resourceName, "source_s3_path.0.bucket", "aws_s3_bucket.test", "id"),
+	resource.TestCheckResourceAttrPair(resourceName, "source_s3_path.0.key", "aws_s3_object.test2", "key")),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
 func TestAccKendraQuerySuggestionsBlockList_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_kendra_query_suggestions_block_list.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, names.KendraEndpointID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, names.KendraEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckQuerySuggestionsBlockListDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccQuerySuggestionsBlockListConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckQuerySuggestionsBlockListExists(ctx, resourceName),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfkendra.ResourceQuerySuggestionsBlockList(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, names.KendraEndpointID)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, names.KendraEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckQuerySuggestionsBlockListDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccQuerySuggestionsBlockListConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckQuerySuggestionsBlockListExists(ctx, resourceName),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfkendra.ResourceQuerySuggestionsBlockList(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
 func TestAccKendraQuerySuggestionsBlockList_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_kendra_query_suggestions_block_list.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, names.KendraEndpointID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, names.KendraEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckQuerySuggestionsBlockListDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccQuerySuggestionsBlockListConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckQuerySuggestionsBlockListExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccQuerySuggestionsBlockListConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckQuerySuggestionsBlockListExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-			{
-				Config: testAccQuerySuggestionsBlockListConfig_tags1(rName, "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckQuerySuggestionsBlockListExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, names.KendraEndpointID)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, names.KendraEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckQuerySuggestionsBlockListDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccQuerySuggestionsBlockListConfig_tags1(rName, "key1", "value1"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckQuerySuggestionsBlockListExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccQuerySuggestionsBlockListConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckQuerySuggestionsBlockListExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+	{
+Config: testAccQuerySuggestionsBlockListConfig_tags1(rName, "key2", "value2"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckQuerySuggestionsBlockListExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+},
 	})
 }
 
 func testAccCheckQuerySuggestionsBlockListDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).KendraClient(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).KendraClient(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_kendra_query_suggestions_block_list" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_kendra_query_suggestions_block_list" {
+continue
+	}
 
-			id, indexId, err := tfkendra.QuerySuggestionsBlockListParseResourceID(rs.Primary.ID)
-			if err != nil {
-				return err
-			}
+	id, indexId, err := tfkendra.QuerySuggestionsBlockListParseResourceID(rs.Primary.ID)
+	if err != nil {
+return err
+	}
 
-			_, err = tfkendra.FindQuerySuggestionsBlockListByID(ctx, conn, id, indexId)
+	_, err = tfkendra.FindQuerySuggestionsBlockListByID(ctx, conn, id, indexId)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("Expected Kendra QuerySuggestionsBlockList to be destroyed, %s found", rs.Primary.ID)
-		}
+	return fmt.Errorf("Expected Kendra QuerySuggestionsBlockList to be destroyed, %s found", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckQuerySuggestionsBlockListExists(ctx context.Context, name string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[name]
-		if !ok {
-			return fmt.Errorf("Not found: %s", name)
-		}
+rs, ok := s.RootModule().Resources[name]
+if !ok {
+	return fmt.Errorf("Not found: %s", name)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No Kendra QuerySuggestionsBlockList is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No Kendra QuerySuggestionsBlockList is set")
+}
 
-		id, indexId, err := tfkendra.QuerySuggestionsBlockListParseResourceID(rs.Primary.ID)
-		if err != nil {
-			return err
-		}
+id, indexId, err := tfkendra.QuerySuggestionsBlockListParseResourceID(rs.Primary.ID)
+if err != nil {
+	return err
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).KendraClient(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).KendraClient(ctx)
 
-		_, err = tfkendra.FindQuerySuggestionsBlockListByID(ctx, conn, id, indexId)
+_, err = tfkendra.FindQuerySuggestionsBlockListByID(ctx, conn, id, indexId)
 
-		if err != nil {
-			return fmt.Errorf("Error describing Kendra QuerySuggestionsBlockList: %s", err.Error())
-		}
+if err != nil {
+	return fmt.Errorf("Error describing Kendra QuerySuggestionsBlockList: %s", err.Error())
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -452,8 +452,8 @@ resource "aws_kendra_index" "test" {
 
 func testAccQuerySuggestionsBlockListConfig_basic(rName string) string {
 	return acctest.ConfigCompose(
-		testAccQuerySuggestionsBlockListBaseConfig(rName),
-		fmt.Sprintf(`
+testAccQuerySuggestionsBlockListBaseConfig(rName),
+fmt.Sprintf(`
 resource "aws_kendra_query_suggestions_block_list" "test" {
   index_id = aws_kendra_index.test.id
   name     = %[1]q
@@ -469,8 +469,8 @@ resource "aws_kendra_query_suggestions_block_list" "test" {
 
 func testAccQuerySuggestionsBlockListConfig_description(rName, description string) string {
 	return acctest.ConfigCompose(
-		testAccQuerySuggestionsBlockListBaseConfig(rName),
-		fmt.Sprintf(`
+testAccQuerySuggestionsBlockListBaseConfig(rName),
+fmt.Sprintf(`
 resource "aws_kendra_query_suggestions_block_list" "test" {
   description = %[1]q
   index_id    = aws_kendra_index.test.id
@@ -487,8 +487,8 @@ resource "aws_kendra_query_suggestions_block_list" "test" {
 
 func testAccQuerySuggestionsBlockListConfig_name(rName, name string) string {
 	return acctest.ConfigCompose(
-		testAccQuerySuggestionsBlockListBaseConfig(rName),
-		fmt.Sprintf(`
+testAccQuerySuggestionsBlockListBaseConfig(rName),
+fmt.Sprintf(`
 resource "aws_kendra_query_suggestions_block_list" "test" {
   index_id = aws_kendra_index.test.id
   name     = %[1]q
@@ -504,8 +504,8 @@ resource "aws_kendra_query_suggestions_block_list" "test" {
 
 func testAccQuerySuggestionsBlockListConfig_roleARN(rName string) string {
 	return acctest.ConfigCompose(
-		testAccQuerySuggestionsBlockListBaseConfig(rName),
-		fmt.Sprintf(`
+testAccQuerySuggestionsBlockListBaseConfig(rName),
+fmt.Sprintf(`
 resource "aws_iam_role" "test2" {
   name= "%[1]s-2"
   path= "/"
@@ -538,8 +538,8 @@ resource "aws_kendra_query_suggestions_block_list" "test" {
 
 func testAccQuerySuggestionsBlockListConfig_sourceS3Path(rName string) string {
 	return acctest.ConfigCompose(
-		testAccQuerySuggestionsBlockListBaseConfig(rName),
-		fmt.Sprintf(`
+testAccQuerySuggestionsBlockListBaseConfig(rName),
+fmt.Sprintf(`
 resource "aws_s3_object" "test2" {
   bucket  = aws_s3_bucket.test.bucket
   content = "test2"
@@ -561,8 +561,8 @@ resource "aws_kendra_query_suggestions_block_list" "test" {
 
 func testAccQuerySuggestionsBlockListConfig_tags1(rName, tag, value string) string {
 	return acctest.ConfigCompose(
-		testAccQuerySuggestionsBlockListBaseConfig(rName),
-		fmt.Sprintf(`
+testAccQuerySuggestionsBlockListBaseConfig(rName),
+fmt.Sprintf(`
 resource "aws_kendra_query_suggestions_block_list" "test" {
   index_id = aws_kendra_index.test.id
   name     = %[1]q
@@ -582,8 +582,8 @@ resource "aws_kendra_query_suggestions_block_list" "test" {
 
 func testAccQuerySuggestionsBlockListConfig_tags2(rName, tag1, value1, tag2, value2 string) string {
 	return acctest.ConfigCompose(
-		testAccQuerySuggestionsBlockListBaseConfig(rName),
-		fmt.Sprintf(`
+testAccQuerySuggestionsBlockListBaseConfig(rName),
+fmt.Sprintf(`
 resource "aws_kendra_query_suggestions_block_list" "test" {
   index_id = aws_kendra_index.test.id
   name     = %[1]q

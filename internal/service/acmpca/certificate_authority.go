@@ -358,9 +358,9 @@ func resourceCertificateAuthorityCreate(ctx context.Context, d *schema.ResourceD
 	input := &acmpca.CreateCertificateAuthorityInput{
 		CertificateAuthorityConfiguration: expandCertificateAuthorityConfiguration(d.Get("certificate_authority_configuration").([]interface{})),
 		CertificateAuthorityType:          aws.String(d.Get("type").(string)),
-		IdempotencyToken:   aws.String(id.UniqueId()),
+		IdempotencyToken:                  aws.String(id.UniqueId()),
 		RevocationConfiguration:           expandRevocationConfiguration(d.Get("revocation_configuration").([]interface{})),
-		Tags:getTagsIn(ctx),
+		Tags:                              getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("key_storage_security_standard"); ok {
@@ -510,7 +510,7 @@ func resourceCertificateAuthorityDelete(ctx context.Context, d *schema.ResourceD
 	// The Certificate Authority must be in PENDING_CERTIFICATE or DISABLED state before deleting.
 	updateInput := &acmpca.UpdateCertificateAuthorityInput{
 		CertificateAuthorityArn: aws.String(d.Id()),
-		Status:   aws.String(acmpca.CertificateAuthorityStatusDisabled),
+		Status:                  aws.String(acmpca.CertificateAuthorityStatusDisabled),
 	}
 	_, err := conn.UpdateCertificateAuthorityWithContext(ctx, updateInput)
 	if tfawserr.ErrCodeEquals(err, acmpca.ErrCodeResourceNotFoundException) {
@@ -757,19 +757,19 @@ func flattenASN1Subject(subject *acmpca.ASN1Subject) []interface{} {
 	}
 
 	m := map[string]interface{}{
-		"common_name":   aws.StringValue(subject.CommonName),
-		"country":       aws.StringValue(subject.Country),
+		"common_name":                  aws.StringValue(subject.CommonName),
+		"country":                      aws.StringValue(subject.Country),
 		"distinguished_name_qualifier": aws.StringValue(subject.DistinguishedNameQualifier),
 		"generation_qualifier":         aws.StringValue(subject.GenerationQualifier),
-		"given_name":    aws.StringValue(subject.GivenName),
-		"initials":      aws.StringValue(subject.Initials),
-		"locality":      aws.StringValue(subject.Locality),
-		"organization":  aws.StringValue(subject.Organization),
+		"given_name":                   aws.StringValue(subject.GivenName),
+		"initials":                     aws.StringValue(subject.Initials),
+		"locality":                     aws.StringValue(subject.Locality),
+		"organization":                 aws.StringValue(subject.Organization),
 		"organizational_unit":          aws.StringValue(subject.OrganizationalUnit),
-		"pseudonym":     aws.StringValue(subject.Pseudonym),
-		"state":         aws.StringValue(subject.State),
-		"surname":       aws.StringValue(subject.Surname),
-		"title":         aws.StringValue(subject.Title),
+		"pseudonym":                    aws.StringValue(subject.Pseudonym),
+		"state":                        aws.StringValue(subject.State),
+		"surname":                      aws.StringValue(subject.Surname),
+		"title":                        aws.StringValue(subject.Title),
 	}
 
 	return []interface{}{m}

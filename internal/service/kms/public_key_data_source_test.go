@@ -21,23 +21,23 @@ func TestAccKMSPublicKeyDataSource_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, kms.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccPublicKeyDataSourceConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccPublicKeyCheckDataSource(datasourceName),
-					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(datasourceName, "customer_master_key_spec", resourceName, "customer_master_key_spec"),
-					resource.TestCheckResourceAttrPair(datasourceName, "key_id", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(datasourceName, "key_usage", resourceName, "key_usage"),
-					resource.TestCheckResourceAttrSet(datasourceName, "public_key"),
-					resource.TestCheckResourceAttrSet(datasourceName, "public_key_pem"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, kms.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccPublicKeyDataSourceConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccPublicKeyCheckDataSource(datasourceName),
+	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(datasourceName, "customer_master_key_spec", resourceName, "customer_master_key_spec"),
+	resource.TestCheckResourceAttrPair(datasourceName, "key_id", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(datasourceName, "key_usage", resourceName, "key_usage"),
+	resource.TestCheckResourceAttrSet(datasourceName, "public_key"),
+	resource.TestCheckResourceAttrSet(datasourceName, "public_key_pem"),
+),
+	},
+},
 	})
 }
 
@@ -48,34 +48,34 @@ func TestAccKMSPublicKeyDataSource_encrypt(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, kms.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccPublicKeyDataSourceConfig_encrypt(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccPublicKeyCheckDataSource(datasourceName),
-					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(datasourceName, "key_id", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(datasourceName, "customer_master_key_spec", resourceName, "customer_master_key_spec"),
-					resource.TestCheckResourceAttrPair(datasourceName, "key_usage", resourceName, "key_usage"),
-					resource.TestCheckResourceAttrSet(datasourceName, "public_key"),
-					resource.TestCheckResourceAttrSet(datasourceName, "public_key_pem"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, kms.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccPublicKeyDataSourceConfig_encrypt(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccPublicKeyCheckDataSource(datasourceName),
+	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(datasourceName, "key_id", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(datasourceName, "customer_master_key_spec", resourceName, "customer_master_key_spec"),
+	resource.TestCheckResourceAttrPair(datasourceName, "key_usage", resourceName, "key_usage"),
+	resource.TestCheckResourceAttrSet(datasourceName, "public_key"),
+	resource.TestCheckResourceAttrSet(datasourceName, "public_key_pem"),
+),
+	},
+},
 	})
 }
 
 func testAccPublicKeyCheckDataSource(name string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		_, ok := s.RootModule().Resources[name]
-		if !ok {
-			return fmt.Errorf("root module has no resource called %s", name)
-		}
+_, ok := s.RootModule().Resources[name]
+if !ok {
+	return fmt.Errorf("root module has no resource called %s", name)
+}
 
-		return nil
+return nil
 	}
 }
 

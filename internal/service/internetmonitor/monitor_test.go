@@ -25,8 +25,8 @@ func TestAccInternetMonitorMonitor_basic(t *testing.T) {
 	resourceName := "aws_internetmonitor_monitor.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, names.InternetMonitorEndpointID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, names.InternetMonitorEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckMonitorDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -67,8 +67,8 @@ func TestAccInternetMonitorMonitor_disappears(t *testing.T) {
 	resourceName := "aws_internetmonitor_monitor.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, names.InternetMonitorEndpointID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, names.InternetMonitorEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckMonitorDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -90,8 +90,8 @@ func TestAccInternetMonitorMonitor_tags(t *testing.T) {
 	resourceName := "aws_internetmonitor_monitor.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, names.InternetMonitorEndpointID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, names.InternetMonitorEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckMonitorDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -135,8 +135,8 @@ func TestAccInternetMonitorMonitor_healthEventsConfig(t *testing.T) {
 	resourceName := "aws_internetmonitor_monitor.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, names.InternetMonitorEndpointID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, names.InternetMonitorEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckMonitorDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -173,8 +173,8 @@ func TestAccInternetMonitorMonitor_log(t *testing.T) {
 	resourceName := "aws_internetmonitor_monitor.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, names.InternetMonitorEndpointID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, names.InternetMonitorEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckMonitorDestroy(ctx),
 		Steps: []resource.TestStep{

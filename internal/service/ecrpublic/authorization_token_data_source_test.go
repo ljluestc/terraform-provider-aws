@@ -18,21 +18,21 @@ func TestAccECRPublicAuthorizationTokenDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_ecrpublic_authorization_token.repo"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
-		ErrorCheck:               acctest.ErrorCheck(t, ecr.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAuthorizationTokenDataSourceConfig_basic(),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrSet(dataSourceName, "authorization_token"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "expires_at"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "user_name"),
-					resource.TestMatchResourceAttr(dataSourceName, "user_name", regexache.MustCompile(`AWS`)),
-					resource.TestCheckResourceAttrSet(dataSourceName, "password"),
-				),
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
+ErrorCheck:               acctest.ErrorCheck(t, ecr.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccAuthorizationTokenDataSourceConfig_basic(),
+Check: resource.ComposeTestCheckFunc(
+	resource.TestCheckResourceAttrSet(dataSourceName, "authorization_token"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "expires_at"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "user_name"),
+	resource.TestMatchResourceAttr(dataSourceName, "user_name", regexache.MustCompile(`AWS`)),
+	resource.TestCheckResourceAttrSet(dataSourceName, "password"),
+),
+	},
+},
 	})
 }
 

@@ -40,56 +40,56 @@ func (d *dataSourceAccelerator) Metadata(_ context.Context, request datasource.M
 // Schema returns the schema for this data source.
 func (d *dataSourceAccelerator) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Attributes: map[string]schema.Attribute{
-			"arn": schema.StringAttribute{
-				CustomType: fwtypes.ARNType,
-				Optional:   true,
-				Computed:   true,
-			},
-			"attributes": schema.ListAttribute{
-				ElementType: types.ObjectType{
-					AttrTypes: map[string]attr.Type{
-						"flow_logs_enabled":   types.BoolType,
-						"flow_logs_s3_bucket": types.StringType,
-						"flow_logs_s3_prefix": types.StringType,
-					},
-				},
-				Computed: true,
-			},
-			"dns_name": schema.StringAttribute{
-				Computed: true,
-			},
-			"dual_stack_dns_name": schema.StringAttribute{
-				Computed: true,
-			},
-			"enabled": schema.BoolAttribute{
-				Computed: true,
-			},
-			"hosted_zone_id": schema.StringAttribute{
-				Computed: true,
-			},
-			"id": schema.StringAttribute{
-				Optional: true,
-				Computed: true,
-			},
-			"ip_address_type": schema.StringAttribute{
-				Computed: true,
-			},
-			"ip_sets": schema.ListAttribute{
-				ElementType: types.ObjectType{
-					AttrTypes: map[string]attr.Type{
-						"ip_addresses": types.ListType{ElemType: types.StringType},
-						"ip_family":    types.StringType,
-					},
-				},
-				Computed: true,
-			},
-			"name": schema.StringAttribute{
-				Optional: true,
-				Computed: true,
-			},
-			"tags": tftags.TagsAttributeComputedOnly(),
-		},
+Attributes: map[string]schema.Attribute{
+	"arn": schema.StringAttribute{
+CustomType: fwtypes.ARNType,
+Optional:   true,
+Computed:   true,
+	},
+	"attributes": schema.ListAttribute{
+ElementType: types.ObjectType{
+	AttrTypes: map[string]attr.Type{
+"flow_logs_enabled":   types.BoolType,
+"flow_logs_s3_bucket": types.StringType,
+"flow_logs_s3_prefix": types.StringType,
+	},
+},
+Computed: true,
+	},
+	"dns_name": schema.StringAttribute{
+Computed: true,
+	},
+	"dual_stack_dns_name": schema.StringAttribute{
+Computed: true,
+	},
+	"enabled": schema.BoolAttribute{
+Computed: true,
+	},
+	"hosted_zone_id": schema.StringAttribute{
+Computed: true,
+	},
+	"id": schema.StringAttribute{
+Optional: true,
+Computed: true,
+	},
+	"ip_address_type": schema.StringAttribute{
+Computed: true,
+	},
+	"ip_sets": schema.ListAttribute{
+ElementType: types.ObjectType{
+	AttrTypes: map[string]attr.Type{
+"ip_addresses": types.ListType{ElemType: types.StringType},
+"ip_family":    types.StringType,
+	},
+},
+Computed: true,
+	},
+	"name": schema.StringAttribute{
+Optional: true,
+Computed: true,
+	},
+	"tags": tftags.TagsAttributeComputedOnly(),
+},
 	}
 }
 
@@ -101,7 +101,7 @@ func (d *dataSourceAccelerator) Read(ctx context.Context, request datasource.Rea
 	response.Diagnostics.Append(request.Config.Get(ctx, &data)...)
 
 	if response.Diagnostics.HasError() {
-		return
+return
 	}
 
 	conn := d.Meta().GlobalAcceleratorConn(ctx)
@@ -109,51 +109,51 @@ func (d *dataSourceAccelerator) Read(ctx context.Context, request datasource.Rea
 
 	var results []*globalaccelerator.Accelerator
 	err := conn.ListAcceleratorsPagesWithContext(ctx, &globalaccelerator.ListAcceleratorsInput{}, func(page *globalaccelerator.ListAcceleratorsOutput, lastPage bool) bool {
-		if page == nil {
-			return !lastPage
-		}
+if page == nil {
+	return !lastPage
+}
 
-		for _, accelerator := range page.Accelerators {
-			if accelerator == nil {
-				continue
-			}
+for _, accelerator := range page.Accelerators {
+	if accelerator == nil {
+continue
+	}
 
-			if !data.ARN.IsNull() && data.ARN.ValueARN().String() != aws.StringValue(accelerator.AcceleratorArn) {
-				continue
-			}
+	if !data.ARN.IsNull() && data.ARN.ValueARN().String() != aws.StringValue(accelerator.AcceleratorArn) {
+continue
+	}
 
-			if !data.Name.IsNull() && data.Name.ValueString() != aws.StringValue(accelerator.Name) {
-				continue
-			}
+	if !data.Name.IsNull() && data.Name.ValueString() != aws.StringValue(accelerator.Name) {
+continue
+	}
 
-			results = append(results, accelerator)
-		}
+	results = append(results, accelerator)
+}
 
-		return !lastPage
+return !lastPage
 	})
 
 	if err != nil {
-		response.Diagnostics.AddError("listing Global Accelerator Accelerators", err.Error())
+response.Diagnostics.AddError("listing Global Accelerator Accelerators", err.Error())
 
-		return
+return
 	}
 
 	if n := len(results); n == 0 {
-		response.Diagnostics.AddError("no matching Global Accelerator Accelerator found", "")
+response.Diagnostics.AddError("no matching Global Accelerator Accelerator found", "")
 
-		return
+return
 	} else if n > 1 {
-		response.Diagnostics.AddError("multiple Global Accelerator Accelerators matched; use additional constraints to reduce matches to a single Global Accelerator Accelerator", "")
+response.Diagnostics.AddError("multiple Global Accelerator Accelerators matched; use additional constraints to reduce matches to a single Global Accelerator Accelerator", "")
 
-		return
+return
 	}
 
 	accelerator := results[0]
 	acceleratorARN := aws.StringValue(accelerator.AcceleratorArn)
 	if v, err := arn.Parse(acceleratorARN); err != nil {
-		response.Diagnostics.AddError("parsing ARN", err.Error())
+response.Diagnostics.AddError("parsing ARN", err.Error())
 	} else {
-		data.ARN = fwtypes.ARNValue(v)
+data.ARN = fwtypes.ARNValue(v)
 	}
 	data.DnsName = flex.StringToFrameworkLegacy(ctx, accelerator.DnsName)
 	data.DualStackDNSName = flex.StringToFrameworkLegacy(ctx, accelerator.DualStackDnsName)
@@ -167,9 +167,9 @@ func (d *dataSourceAccelerator) Read(ctx context.Context, request datasource.Rea
 	attributes, err := FindAcceleratorAttributesByARN(ctx, conn, acceleratorARN)
 
 	if err != nil {
-		response.Diagnostics.AddError("reading Global Accelerator Accelerator attributes", err.Error())
+response.Diagnostics.AddError("reading Global Accelerator Accelerator attributes", err.Error())
 
-		return
+return
 	}
 
 	data.Attributes = d.flattenAcceleratorAttributesFramework(ctx, attributes)
@@ -177,9 +177,9 @@ func (d *dataSourceAccelerator) Read(ctx context.Context, request datasource.Rea
 	tags, err := listTags(ctx, conn, acceleratorARN)
 
 	if err != nil {
-		response.Diagnostics.AddError("listing tags for Global Accelerator Accelerator", err.Error())
+response.Diagnostics.AddError("listing tags for Global Accelerator Accelerator", err.Error())
 
-		return
+return
 	}
 
 	data.Tags = flex.FlattenFrameworkStringValueMapLegacy(ctx, tags.IgnoreAWS().IgnoreConfig(ignoreTagsConfig).Map())
@@ -189,17 +189,17 @@ func (d *dataSourceAccelerator) Read(ctx context.Context, request datasource.Rea
 
 func (d *dataSourceAccelerator) flattenIPSetFramework(ctx context.Context, apiObject *globalaccelerator.IpSet) types.Object {
 	attributeTypes := map[string]attr.Type{
-		"ip_addresses": types.ListType{ElemType: types.StringType},
-		"ip_family":    types.StringType,
+"ip_addresses": types.ListType{ElemType: types.StringType},
+"ip_family":    types.StringType,
 	}
 
 	if apiObject == nil {
-		return types.ObjectNull(attributeTypes)
+return types.ObjectNull(attributeTypes)
 	}
 
 	attributes := map[string]attr.Value{
-		"ip_addresses": flex.FlattenFrameworkStringListLegacy(ctx, apiObject.IpAddresses),
-		"ip_family":    flex.StringToFrameworkLegacy(ctx, apiObject.IpFamily),
+"ip_addresses": flex.FlattenFrameworkStringListLegacy(ctx, apiObject.IpAddresses),
+"ip_family":    flex.StringToFrameworkLegacy(ctx, apiObject.IpFamily),
 	}
 
 	return types.ObjectValueMust(attributeTypes, attributes)
@@ -207,17 +207,17 @@ func (d *dataSourceAccelerator) flattenIPSetFramework(ctx context.Context, apiOb
 
 func (d *dataSourceAccelerator) flattenIPSetsFramework(ctx context.Context, apiObjects []*globalaccelerator.IpSet) types.List {
 	elementType := types.ObjectType{AttrTypes: map[string]attr.Type{
-		"ip_addresses": types.ListType{ElemType: types.StringType},
-		"ip_family":    types.StringType,
+"ip_addresses": types.ListType{ElemType: types.StringType},
+"ip_family":    types.StringType,
 	}}
 	var elements []attr.Value
 
 	for _, apiObject := range apiObjects {
-		if apiObject == nil {
-			continue
-		}
+if apiObject == nil {
+	continue
+}
 
-		elements = append(elements, d.flattenIPSetFramework(ctx, apiObject))
+elements = append(elements, d.flattenIPSetFramework(ctx, apiObject))
 	}
 
 	return types.ListValueMust(elementType, elements)
@@ -225,22 +225,22 @@ func (d *dataSourceAccelerator) flattenIPSetsFramework(ctx context.Context, apiO
 
 func (d *dataSourceAccelerator) flattenAcceleratorAttributesFramework(ctx context.Context, apiObject *globalaccelerator.AcceleratorAttributes) types.List {
 	attributeTypes := map[string]attr.Type{
-		"flow_logs_enabled":   types.BoolType,
-		"flow_logs_s3_bucket": types.StringType,
-		"flow_logs_s3_prefix": types.StringType,
+"flow_logs_enabled":   types.BoolType,
+"flow_logs_s3_bucket": types.StringType,
+"flow_logs_s3_prefix": types.StringType,
 	}
 	elementType := types.ObjectType{
-		AttrTypes: attributeTypes,
+AttrTypes: attributeTypes,
 	}
 
 	if apiObject == nil {
-		return types.ListNull(elementType)
+return types.ListNull(elementType)
 	}
 
 	attributes := map[string]attr.Value{
-		"flow_logs_enabled":   flex.BoolToFrameworkLegacy(ctx, apiObject.FlowLogsEnabled),
-		"flow_logs_s3_bucket": flex.StringToFrameworkLegacy(ctx, apiObject.FlowLogsS3Bucket),
-		"flow_logs_s3_prefix": flex.StringToFrameworkLegacy(ctx, apiObject.FlowLogsS3Prefix),
+"flow_logs_enabled":   flex.BoolToFrameworkLegacy(ctx, apiObject.FlowLogsEnabled),
+"flow_logs_s3_bucket": flex.StringToFrameworkLegacy(ctx, apiObject.FlowLogsS3Bucket),
+"flow_logs_s3_prefix": flex.StringToFrameworkLegacy(ctx, apiObject.FlowLogsS3Prefix),
 	}
 
 	return types.ListValueMust(elementType, []attr.Value{types.ObjectValueMust(attributeTypes, attributes)})

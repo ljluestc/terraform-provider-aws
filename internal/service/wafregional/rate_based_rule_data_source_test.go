@@ -22,24 +22,24 @@ func TestAccWAFRegionalRateBasedRuleDataSource_basic(t *testing.T) {
 	datasourceName := "data.aws_wafregional_rate_based_rule.wafrule"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
-		ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config:      testAccRateBasedRuleDataSourceConfig_nonExistent,
-				ExpectError: regexache.MustCompile(`WAF Rate Based Rules not found`),
-			},
-			{
-				Config: testAccRateBasedRuleDataSourceConfig_name(name),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config:      testAccRateBasedRuleDataSourceConfig_nonExistent,
+ExpectError: regexache.MustCompile(`WAF Rate Based Rules not found`),
+	},
+	{
+Config: testAccRateBasedRuleDataSourceConfig_name(name),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
+),
+	},
+},
 	})
 }
 

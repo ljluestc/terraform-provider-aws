@@ -21,30 +21,30 @@ func TestAccAppConfigEnvironmentsDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_appconfig_environments.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, appconfig.EndpointsID)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, appconfig.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckEnvironmentDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccEnvironmentsDataSourceConfig_basic(appName, rName1, rName2),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr(dataSourceName, "environment_ids.#", "2"),
-					resource.TestCheckTypeSetElemAttrPair(dataSourceName, "environment_ids.*", "aws_appconfig_environment.test_1", "environment_id"),
-					resource.TestCheckTypeSetElemAttrPair(dataSourceName, "environment_ids.*", "aws_appconfig_environment.test_2", "environment_id"),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, appconfig.EndpointsID)
+},
+ErrorCheck:acctest.ErrorCheck(t, appconfig.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckEnvironmentDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccEnvironmentsDataSourceConfig_basic(appName, rName1, rName2),
+Check: resource.ComposeTestCheckFunc(
+	resource.TestCheckResourceAttr(dataSourceName, "environment_ids.#", "2"),
+	resource.TestCheckTypeSetElemAttrPair(dataSourceName, "environment_ids.*", "aws_appconfig_environment.test_1", "environment_id"),
+	resource.TestCheckTypeSetElemAttrPair(dataSourceName, "environment_ids.*", "aws_appconfig_environment.test_2", "environment_id"),
+),
+	},
+},
 	})
 }
 
 func testAccEnvironmentsDataSourceConfig_basic(appName, rName1, rName2 string) string {
 	return acctest.ConfigCompose(
-		testAccApplicationConfig_name(appName),
-		fmt.Sprintf(`
+testAccApplicationConfig_name(appName),
+fmt.Sprintf(`
 resource "aws_appconfig_environment" "test_1" {
   application_id = aws_appconfig_application.test.id
   name           = %[1]q

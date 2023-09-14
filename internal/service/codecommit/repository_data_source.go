@@ -25,7 +25,7 @@ func DataSourceRepository() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"repository_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				Validate
 func: validation.StringLenBetween(0, 100),

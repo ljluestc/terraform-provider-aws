@@ -7,12 +7,12 @@ import (
 // anyUnknown is a helper to easily check if a set of values contains any
 // unknowns, for operations that short-circuit to return unknown in that case.
 func anyUnknown(values ...Value) bool {
-	for _, val := range values {
-		if _, unknown := val.v.(*unknownType); unknown {
-			return true
-		}
-	}
-	return false
+for _, val := range values {
+if _, unknown := val.v.(*unknownType); unknown {
+return true
+}
+}
+return false
 }
 
 // typeCheck tests whether all of the given values belong to the given type.
@@ -22,48 +22,48 @@ func anyUnknown(values ...Value) bool {
 // a short-circuit unknown value is returned. If any other types appear then
 // an error is returned. Otherwise (finally!) the result is nil, nil.
 func typeCheck(required Type, ret Type, values ...Value) (shortCircuit *Value, err error) {
-	hasDynamic := false
-	hasUnknown := false
+hasDynamic := false
+hasUnknown := false
 
-	for i, val := range values {
-		if val.ty == DynamicPseudoType {
-			hasDynamic = true
-			continue
-		}
+for i, val := range values {
+if val.ty == DynamicPseudoType {
+hasDynamic = true
+continue
+}
 
-		if !val.Type().Equals(required) {
-			return nil, fmt.Errorf(
-				"type mismatch: want %s but value %d is %s",
-				required.FriendlyName(),
-				i, val.ty.FriendlyName(),
-			)
-		}
+if !val.Type().Equals(required) {
+return nil, fmt.Errorf(
+"type mismatch: want %s but value %d is %s",
+required.FriendlyName(),
+i, val.ty.FriendlyName(),
+)
+}
 
-		if _, unknown := val.v.(*unknownType); unknown {
-			hasUnknown = true
-		}
-	}
+if _, unknown := val.v.(*unknownType); unknown {
+hasUnknown = true
+}
+}
 
-	if hasDynamic {
-		return &DynamicVal, nil
-	}
+if hasDynamic {
+return &DynamicVal, nil
+}
 
-	if hasUnknown {
-		ret := UnknownVal(ret)
-		return &ret, nil
-	}
+if hasUnknown {
+ret := UnknownVal(ret)
+return &ret, nil
+}
 
-	return nil, nil
+return nil, nil
 }
 
 // mustTypeCheck is a wrapper around typeCheck that immediately panics if
 // any error is returned.
 func mustTypeCheck(required Type, ret Type, values ...Value) *Value {
-	shortCircuit, err := typeCheck(required, ret, values...)
-	if err != nil {
-		panic(err)
-	}
-	return shortCircuit
+shortCircuit, err := typeCheck(required, ret, values...)
+if err != nil {
+panic(err)
+}
+return shortCircuit
 }
 
 // shortCircuitForceType takes the return value from mustTypeCheck and
@@ -82,18 +82,18 @@ func mustTypeCheck(required Type, ret Type, values ...Value) *Value {
 // If the given short-circuit value is *not* DynamicVal then it must be
 // of the given type, or this function will panic.
 func forceShortCircuitType(shortCircuit *Value, ty Type) *Value {
-	if shortCircuit == nil {
-		return nil
-	}
+if shortCircuit == nil {
+return nil
+}
 
-	if shortCircuit.ty == DynamicPseudoType {
-		ret := UnknownVal(ty)
-		return &ret
-	}
+if shortCircuit.ty == DynamicPseudoType {
+ret := UnknownVal(ty)
+return &ret
+}
 
-	if !shortCircuit.ty.Equals(ty) {
-		panic("forceShortCircuitType got value of wrong type")
-	}
+if !shortCircuit.ty.Equals(ty) {
+panic("forceShortCircuitType got value of wrong type")
+}
 
-	return shortCircuit
+return shortCircuit
 }

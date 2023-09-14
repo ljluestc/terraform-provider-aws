@@ -20,26 +20,26 @@ func TestAccAMPWorkspacesDataSource_basic(t *testing.T) { // nosemgrep:ci.caps0-
 	dataSourceName := "data.aws_prometheus_workspaces.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, prometheusservice.EndpointsID)
-		},
-		ErrorCheck: acctest.ErrorCheck(t, prometheusservice.EndpointsID),
-		PreventPostDestroyRefresh: true,
-		ProtoV5ProviderFactories:  acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccWorkspacesDataSourceConfig_base(rName, rCount),
-			},
-			{
-				Config: testAccWorkspacesDataSourceConfig_basic(rName, rCount),
-				Check: resource.ComposeTestCheckFunc(
-					acctest.CheckResourceAttrGreaterThanOrEqualValue(dataSourceName, "aliases.#", rCount),
-					acctest.CheckResourceAttrGreaterThanOrEqualValue(dataSourceName, "arns.#", rCount),
-					acctest.CheckResourceAttrGreaterThanOrEqualValue(dataSourceName, "workspace_ids.#", rCount),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, prometheusservice.EndpointsID)
+},
+ErrorCheck: acctest.ErrorCheck(t, prometheusservice.EndpointsID),
+PreventPostDestroyRefresh: true,
+ProtoV5ProviderFactories:  acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccWorkspacesDataSourceConfig_base(rName, rCount),
+	},
+	{
+Config: testAccWorkspacesDataSourceConfig_basic(rName, rCount),
+Check: resource.ComposeTestCheckFunc(
+	acctest.CheckResourceAttrGreaterThanOrEqualValue(dataSourceName, "aliases.#", rCount),
+	acctest.CheckResourceAttrGreaterThanOrEqualValue(dataSourceName, "arns.#", rCount),
+	acctest.CheckResourceAttrGreaterThanOrEqualValue(dataSourceName, "workspace_ids.#", rCount),
+),
+	},
+},
 	})
 }
 
@@ -50,23 +50,23 @@ func TestAccAMPWorkspacesDataSource_aliasPrefix(t *testing.T) { // nosemgrep:ci.
 	dataSourceName := "data.aws_prometheus_workspaces.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, prometheusservice.EndpointsID)
-		},
-		ErrorCheck: acctest.ErrorCheck(t, prometheusservice.EndpointsID),
-		PreventPostDestroyRefresh: true,
-		ProtoV5ProviderFactories:  acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccWorkspacesDataSourceConfig_aliasPrefix(rName, rCount),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr(dataSourceName, "aliases.#", "1"),
-					resource.TestCheckResourceAttr(dataSourceName, "arns.#", "1"),
-					resource.TestCheckResourceAttr(dataSourceName, "workspace_ids.#", "1"),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, prometheusservice.EndpointsID)
+},
+ErrorCheck: acctest.ErrorCheck(t, prometheusservice.EndpointsID),
+PreventPostDestroyRefresh: true,
+ProtoV5ProviderFactories:  acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccWorkspacesDataSourceConfig_aliasPrefix(rName, rCount),
+Check: resource.ComposeTestCheckFunc(
+	resource.TestCheckResourceAttr(dataSourceName, "aliases.#", "1"),
+	resource.TestCheckResourceAttr(dataSourceName, "arns.#", "1"),
+	resource.TestCheckResourceAttr(dataSourceName, "workspace_ids.#", "1"),
+),
+	},
+},
 	})
 }
 

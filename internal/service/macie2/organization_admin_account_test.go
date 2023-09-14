@@ -141,7 +141,7 @@ data "aws_partition" "current" {}
 
 resource "aws_organizations_organization" "test" {
   aws_service_access_principals = ["macie.${data.aws_partition.current.dns_suffix}"]
-  feature_set                   = "ALL"
+  feature_set = "ALL"
 }
 
 resource "aws_macie2_organization_admin_account" "test" {

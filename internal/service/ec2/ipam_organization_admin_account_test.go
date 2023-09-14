@@ -26,31 +26,31 @@ func TestAccIPAMOrganizationAdminAccount_basic(t *testing.T) {
 	dataSourceIdentity := "data.aws_caller_identity.delegated"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckAlternateAccount(t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, organizations.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckIPAMOrganizationAdminAccountDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccIPAMOrganizationAdminAccountConfig_basic(),
-				Check: resource.ComposeTestCheck
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckAlternateAccount(t)
+},
+ErrorCheck:acctest.ErrorCheck(t, organizations.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
+CheckDestroy:    testAccCheckIPAMOrganizationAdminAccountDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccIPAMOrganizationAdminAccountConfig_basic(),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckIPAMOrganizationAdminAccountExists(ctx, resourceName, &organization),
-					resource.TestCheckResourceAttrPair(resourceName, "id", dataSourceIdentity, "account_id"),
-					resource.TestCheckResourceAttr(resourceName, "service_principal", tfec2.IPAMServicePrincipal),
-					acctest.MatchResourceAttrGlobalARN(resourceName, "arn", "organizations", regexache.MustCompile("account/.+")),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckIPAMOrganizationAdminAccountExists(ctx, resourceName, &organization),
+	resource.TestCheckResourceAttrPair(resourceName, "id", dataSourceIdentity, "account_id"),
+	resource.TestCheckResourceAttr(resourceName, "service_principal", tfec2.IPAMServicePrincipal),
+	acctest.MatchResourceAttrGlobalARN(resourceName, "arn", "organizations", regexache.MustCompile("account/.+")),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -59,30 +59,30 @@ func testAccCheckIPAMOrganizationAdminAccountDestroy(ctx context.Context) resour
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).OrganizationsConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).OrganizationsConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_vpc_ipam_organization_admin_account" {
-				continue
-			}
-			id := rs.Primary.ID
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_vpc_ipam_organization_admin_account" {
+continue
+	}
+	id := rs.Primary.ID
 
-			input := &organizations.ListDelegatedAdministratorsInput{
-				ServicePrincipal: aws.String(tfec2.IPAMServicePrincipal),
-			}
+	input := &organizations.ListDelegatedAdministratorsInput{
+ServicePrincipal: aws.String(tfec2.IPAMServicePrincipal),
+	}
 
-			output, err := conn.ListDelegatedAdministratorsWithContext(ctx, input)
+	output, err := conn.ListDelegatedAdministratorsWithContext(ctx, input)
 
-			if err != nil {
-				return fmt.Errorf("error finding IPAM organization delegated account: (%s): %w", id, err)
-			}
+	if err != nil {
+return fmt.Errorf("error finding IPAM organization delegated account: (%s): %w", id, err)
+	}
 
-			if output == nil || len(output.DelegatedAdministrators) == 0 || output.DelegatedAdministrators[0] == nil {
-				return nil
-			}
-			return fmt.Errorf("organization DelegatedAdministrator still exists: %q", id)
-		}
-		return nil
+	if output == nil || len(output.DelegatedAdministrators) == 0 || output.DelegatedAdministrators[0] == nil {
+return nil
+	}
+	return fmt.Errorf("organization DelegatedAdministrator still exists: %q", id)
+}
+return nil
 	}
 }
 
@@ -91,39 +91,39 @@ func testAccCheckIPAMOrganizationAdminAccountExists(ctx context.Context, n strin
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("Organization ID not set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("Organization ID not set")
+}
 
-		accountID := rs.Primary.ID
+accountID := rs.Primary.ID
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).OrganizationsConn(ctx)
-		input := &organizations.ListDelegatedAdministratorsInput{
-			ServicePrincipal: aws.String(tfec2.IPAMServicePrincipal),
-		}
+conn := acctest.Provider.Meta().(*conns.AWSClient).OrganizationsConn(ctx)
+input := &organizations.ListDelegatedAdministratorsInput{
+	ServicePrincipal: aws.String(tfec2.IPAMServicePrincipal),
+}
 
-		output, err := conn.ListDelegatedAdministratorsWithContext(ctx, input)
+output, err := conn.ListDelegatedAdministratorsWithContext(ctx, input)
 
-		if err != nil {
-			return fmt.Errorf("error finding IPAM organization delegated account: (%s): %w", accountID, err)
-		}
+if err != nil {
+	return fmt.Errorf("error finding IPAM organization delegated account: (%s): %w", accountID, err)
+}
 
-		if output == nil || len(output.DelegatedAdministrators) == 0 || output.DelegatedAdministrators[0] == nil {
-			return fmt.Errorf("organization DelegatedAdministrator %q does not exist", rs.Primary.ID)
-		}
+if output == nil || len(output.DelegatedAdministrators) == 0 || output.DelegatedAdministrators[0] == nil {
+	return fmt.Errorf("organization DelegatedAdministrator %q does not exist", rs.Primary.ID)
+}
 
-		output_account := output.DelegatedAdministrators[0]
+output_account := output.DelegatedAdministrators[0]
 
-		if aws.StringValue(output_account.Id) != accountID {
-			return fmt.Errorf("organization DelegatedAdministrator %q does not match expected %s", accountID, aws.StringValue(output_account.Id))
-		}
-		*org = *output_account
-		return nil
+if aws.StringValue(output_account.Id) != accountID {
+	return fmt.Errorf("organization DelegatedAdministrator %q does not match expected %s", accountID, aws.StringValue(output_account.Id))
+}
+*org = *output_account
+return nil
 	}
 }
 

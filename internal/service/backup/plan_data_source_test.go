@@ -21,22 +21,22 @@ func TestAccBackupPlanDataSource_basic(t *testing.T) {
 	rInt := sdkacctest.RandInt()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, backup.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccPlanDataSourceConfig_basic(rInt),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, backup.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccPlanDataSourceConfig_basic(rInt),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
-					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(datasourceName, "version", resourceName, "version"),
-					resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
+	resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(datasourceName, "version", resourceName, "version"),
+	resource.TestCheckResourceAttrPair(datasourceName, "tags.%", resourceName, "tags.%"),
+),
+	},
+},
 	})
 }
 
@@ -51,9 +51,9 @@ resource "aws_backup_plan" "test" {
   name = "tf_acc_test_backup_plan_%[1]d"
 
   rule {
-    rule_name         = "tf_acc_test_backup_rule_%[1]d"
+    rule_name= "tf_acc_test_backup_rule_%[1]d"
     target_vault_name = aws_backup_vault.test.name
-    schedule          = "cron(0 12 * * ? *)"
+    schedule = "cron(0 12 * * ? *)"
   }
 
   tags = {

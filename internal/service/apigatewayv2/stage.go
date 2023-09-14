@@ -573,7 +573,7 @@ func flattenRouteSettings(settings map[string]*apigatewayv2.RouteSettings) []int
 			"data_trace_enabled":       aws.BoolValue(routeSetting.DataTraceEnabled),
 			"detailed_metrics_enabled": aws.BoolValue(routeSetting.DetailedMetricsEnabled),
 			"logging_level":            aws.StringValue(routeSetting.LoggingLevel),
-			"route_key": k,
+			"route_key":                k,
 			"throttling_burst_limit":   int(aws.Int64Value(routeSetting.ThrottlingBurstLimit)),
 			"throttling_rate_limit":    aws.Float64Value(routeSetting.ThrottlingRateLimit),
 		})

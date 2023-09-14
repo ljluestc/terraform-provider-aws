@@ -43,8 +43,8 @@ func testAccSESV2DedicatedIPAssignment_basic(t *testing.T) { // nosemgrep:ci.ses
 	resourceName := "aws_sesv2_dedicated_ip_assignment.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, names.SESV2EndpointID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, names.SESV2EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDedicatedIPAssignmentDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -76,8 +76,8 @@ func testAccSESV2DedicatedIPAssignment_disappears(t *testing.T) { // nosemgrep:c
 	resourceName := "aws_sesv2_dedicated_ip_assignment.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, names.SESV2EndpointID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, names.SESV2EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDedicatedIPAssignmentDestroy(ctx),
 		Steps: []resource.TestStep{

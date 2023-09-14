@@ -54,7 +54,7 @@ func ResourceXSSMatchSet() *schema.Resource {
 										Optional: true,
 									},
 									"type": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										Validate
 func: validation.StringInSlice(wafregional.MatchFieldType_Values(), false),
@@ -63,7 +63,7 @@ func: validation.StringInSlice(wafregional.MatchFieldType_Values(), false),
 							},
 						},
 						"text_transformation": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							Validate
 func: validation.StringInSlice(wafregional.TextTransformation_Values(), false),

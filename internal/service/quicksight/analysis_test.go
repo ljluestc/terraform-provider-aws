@@ -32,30 +32,30 @@ func TestAccQuickSightAnalysis_basic(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAnalysisDestroy(ctx, false),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAnalysisConfig_basic(rId, rName),
-				Check: resource.ComposeTestCheck
+	acctest.PreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckAnalysisDestroy(ctx, false),
+Steps: []resource.TestStep{
+	{
+Config: testAccAnalysisConfig_basic(rId, rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckAnalysisExists(ctx, resourceName, &analysis),
-					resource.TestCheckResourceAttr(resourceName, "analysis_id", rId),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "status", quicksight.ResourceStatusCreationSuccessful),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckAnalysisExists(ctx, resourceName, &analysis),
+	resource.TestCheckResourceAttr(resourceName, "analysis_id", rId),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "status", quicksight.ResourceStatusCreationSuccessful),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -69,24 +69,24 @@ func TestAccQuickSightAnalysis_disappears(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAnalysisDestroy(ctx, false),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAnalysisConfig_basic(rId, rName),
-				Check: resource.ComposeTestCheck
+	acctest.PreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckAnalysisDestroy(ctx, false),
+Steps: []resource.TestStep{
+	{
+Config: testAccAnalysisConfig_basic(rId, rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckAnalysisExists(ctx, resourceName, &analysis),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfquicksight.ResourceAnalysis(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckAnalysisExists(ctx, resourceName, &analysis),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfquicksight.ResourceAnalysis(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -102,32 +102,32 @@ func TestAccQuickSightAnalysis_sourceEntity(t *testing.T) {
 	sourceId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAnalysisDestroy(ctx, false),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAnalysisConfig_TemplateSourceEntity(rId, rName, sourceId, sourceName),
-				Check: resource.ComposeTestCheck
+	acctest.PreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckAnalysisDestroy(ctx, false),
+Steps: []resource.TestStep{
+	{
+Config: testAccAnalysisConfig_TemplateSourceEntity(rId, rName, sourceId, sourceName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckAnalysisExists(ctx, resourceName, &analysis),
-					resource.TestCheckResourceAttr(resourceName, "analysis_id", rId),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "status", quicksight.ResourceStatusCreationSuccessful),
-					acctest.CheckResourceAttrRegionalARN(resourceName, "source_entity.0.source_template.0.arn", "quicksight", fmt.Sprintf("template/%s", sourceId)),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"source_entity"},
-			},
-		},
+	testAccCheckAnalysisExists(ctx, resourceName, &analysis),
+	resource.TestCheckResourceAttr(resourceName, "analysis_id", rId),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "status", quicksight.ResourceStatusCreationSuccessful),
+	acctest.CheckResourceAttrRegionalARN(resourceName, "source_entity.0.source_template.0.arn", "quicksight", fmt.Sprintf("template/%s", sourceId)),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"source_entity"},
+	},
+},
 	})
 }
 
@@ -142,35 +142,35 @@ func TestAccQuickSightAnalysis_update(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAnalysisDestroy(ctx, false),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAnalysisConfig_basic(rId, rName),
-				Check: resource.ComposeTestCheck
+	acctest.PreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckAnalysisDestroy(ctx, false),
+Steps: []resource.TestStep{
+	{
+Config: testAccAnalysisConfig_basic(rId, rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckAnalysisExists(ctx, resourceName, &analysis),
-					resource.TestCheckResourceAttr(resourceName, "analysis_id", rId),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "status", quicksight.ResourceStatusCreationSuccessful),
-				),
-			},
-			{
-				Config: testAccAnalysisConfig_basic(rId, rNameUpdated),
-				Check: resource.ComposeTestCheck
+	testAccCheckAnalysisExists(ctx, resourceName, &analysis),
+	resource.TestCheckResourceAttr(resourceName, "analysis_id", rId),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "status", quicksight.ResourceStatusCreationSuccessful),
+),
+	},
+	{
+Config: testAccAnalysisConfig_basic(rId, rNameUpdated),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckAnalysisExists(ctx, resourceName, &analysis),
-					resource.TestCheckResourceAttr(resourceName, "analysis_id", rId),
-					resource.TestCheckResourceAttr(resourceName, "name", rNameUpdated),
-					resource.TestCheckResourceAttr(resourceName, "status", quicksight.ResourceStatusUpdateSuccessful),
-				),
-			},
-		},
+	testAccCheckAnalysisExists(ctx, resourceName, &analysis),
+	resource.TestCheckResourceAttr(resourceName, "analysis_id", rId),
+	resource.TestCheckResourceAttr(resourceName, "name", rNameUpdated),
+	resource.TestCheckResourceAttr(resourceName, "status", quicksight.ResourceStatusUpdateSuccessful),
+),
+	},
+},
 	})
 }
 
@@ -184,31 +184,31 @@ func TestAccQuickSightAnalysis_parametersConfig(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAnalysisDestroy(ctx, false),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAnalysisConfig_ParametersConfig(rId, rName),
-				Check: resource.ComposeTestCheck
+	acctest.PreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckAnalysisDestroy(ctx, false),
+Steps: []resource.TestStep{
+	{
+Config: testAccAnalysisConfig_ParametersConfig(rId, rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckAnalysisExists(ctx, resourceName, &analysis),
-					resource.TestCheckResourceAttr(resourceName, "analysis_id", rId),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "status", quicksight.ResourceStatusCreationSuccessful),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"parameters"},
-			},
-		},
+	testAccCheckAnalysisExists(ctx, resourceName, &analysis),
+	resource.TestCheckResourceAttr(resourceName, "analysis_id", rId),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "status", quicksight.ResourceStatusCreationSuccessful),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"parameters"},
+	},
+},
 	})
 }
 
@@ -222,25 +222,25 @@ func TestAccQuickSightAnalysis_forceDelete(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAnalysisDestroy(ctx, true),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAnalysisConfig_ForceDelete(rId, rName),
-				Check: resource.ComposeTestCheck
+	acctest.PreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckAnalysisDestroy(ctx, true),
+Steps: []resource.TestStep{
+	{
+Config: testAccAnalysisConfig_ForceDelete(rId, rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckAnalysisExists(ctx, resourceName, &analysis),
-					resource.TestCheckResourceAttr(resourceName, "analysis_id", rId),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "status", quicksight.ResourceStatusCreationSuccessful),
-				),
-			},
-		},
+	testAccCheckAnalysisExists(ctx, resourceName, &analysis),
+	resource.TestCheckResourceAttr(resourceName, "analysis_id", rId),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "status", quicksight.ResourceStatusCreationSuccessful),
+),
+	},
+},
 	})
 }
 
@@ -254,42 +254,42 @@ func TestAccQuickSightAnalysis_Definition_calculatedFields(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAnalysisDestroy(ctx, false),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAnalysisConfig_Definition_calculatedFields(rId, rName),
-				Check: resource.ComposeTestCheck
+	acctest.PreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckAnalysisDestroy(ctx, false),
+Steps: []resource.TestStep{
+	{
+Config: testAccAnalysisConfig_Definition_calculatedFields(rId, rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckAnalysisExists(ctx, resourceName, &analysis),
-					resource.TestCheckResourceAttr(resourceName, "analysis_id", rId),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "status", quicksight.ResourceStatusCreationSuccessful),
-					resource.TestCheckResourceAttr(resourceName, "definition.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "definition.0.calculated_fields.#", "2"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "definition.0.calculated_fields.*", map[string]string{
-						"data_set_identifier": "1",
-						"expression":          "1",
-						"name": "test1",
-					}),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "definition.0.calculated_fields.*", map[string]string{
-						"data_set_identifier": "1",
-						"expression":          "2",
-						"name": "test2",
-					}),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckAnalysisExists(ctx, resourceName, &analysis),
+	resource.TestCheckResourceAttr(resourceName, "analysis_id", rId),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "status", quicksight.ResourceStatusCreationSuccessful),
+	resource.TestCheckResourceAttr(resourceName, "definition.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "definition.0.calculated_fields.#", "2"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "definition.0.calculated_fields.*", map[string]string{
+"data_set_identifier": "1",
+"expression": "1",
+"name": "test1",
+	}),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "definition.0.calculated_fields.*", map[string]string{
+"data_set_identifier": "1",
+"expression": "2",
+"name": "test2",
+	}),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -298,27 +298,27 @@ func testAccCheckAnalysisDestroy(ctx context.Context, forceDelete bool) resource
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_quicksight_analysis" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_quicksight_analysis" {
+continue
+	}
 
-			output, err := tfquicksight.FindAnalysisByID(ctx, conn, rs.Primary.ID)
-			if err != nil {
-				if tfawserr.ErrCodeEquals(err, quicksight.ErrCodeResourceNotFoundException) {
-					return nil
-				}
-				return err
-			}
+	output, err := tfquicksight.FindAnalysisByID(ctx, conn, rs.Primary.ID)
+	if err != nil {
+if tfawserr.ErrCodeEquals(err, quicksight.ErrCodeResourceNotFoundException) {
+	return nil
+}
+return err
+	}
 
-			if output != nil && (forceDelete || aws.StringValue(output.Status) != quicksight.ResourceStatusDeleted) {
-				return fmt.Errorf("QuickSight Analysis (%s) still exists", rs.Primary.ID)
-			}
-		}
+	if output != nil && (forceDelete || aws.StringValue(output.Status) != quicksight.ResourceStatusDeleted) {
+return fmt.Errorf("QuickSight Analysis (%s) still exists", rs.Primary.ID)
+	}
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -327,33 +327,33 @@ func testAccCheckAnalysisExists(ctx context.Context, name string, analysis *quic
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[name]
-		if !ok {
-			return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameAnalysis, name, errors.New("not found"))
-		}
+rs, ok := s.RootModule().Resources[name]
+if !ok {
+	return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameAnalysis, name, errors.New("not found"))
+}
 
-		if rs.Primary.ID == "" {
-			return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameAnalysis, name, errors.New("not set"))
-		}
+if rs.Primary.ID == "" {
+	return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameAnalysis, name, errors.New("not set"))
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
-		output, err := tfquicksight.FindAnalysisByID(ctx, conn, rs.Primary.ID)
+conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
+output, err := tfquicksight.FindAnalysisByID(ctx, conn, rs.Primary.ID)
 
-		if err != nil {
-			return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameAnalysis, rs.Primary.ID, err)
-		}
+if err != nil {
+	return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameAnalysis, rs.Primary.ID, err)
+}
 
-		*analysis = *output
+*analysis = *output
 
-		return nil
+return nil
 	}
 }
 
 
 func testAccAnalysisConfigBase(rId string, rName string) string {
 	return acctest.ConfigCompose(
-		testAccDataSetConfigBase(rId, rName),
-		fmt.Sprintf(`
+testAccDataSetConfigBase(rId, rName),
+fmt.Sprintf(`
 resource "aws_quicksight_data_set" "test" {
   data_set_id = %[1]q
   name        = %[2]q
@@ -400,8 +400,8 @@ resource "aws_quicksight_data_set" "test" {
 
 func testAccAnalysisConfig_basic(rId, rName string) string {
 	return acctest.ConfigCompose(
-		testAccAnalysisConfigBase(rId, rName),
-		fmt.Sprintf(`
+testAccAnalysisConfigBase(rId, rName),
+fmt.Sprintf(`
 resource "aws_quicksight_analysis" "test" {
   analysis_id = %[1]q
   name        = %[2]q
@@ -415,32 +415,32 @@ resource "aws_quicksight_analysis" "test" {
       sheet_id = "Test1"
       visuals {
         custom_content_visual {
-          data_set_identifier = "1"
-          title {
-            format_text {
-              plain_text = "Test"
-            }
-          }
-          visual_id = "Test1"
+ data_set_identifier = "1"
+ title {
+   format_text {
+     plain_text = "Test"
+   }
+ }
+ visual_id = "Test1"
         }
       }
       visuals {
         line_chart_visual {
-          visual_id = "LineChart"
-          title {
-            format_text {
-              plain_text = "Line Chart Test"
-            }
-          }
-          chart_configuration {
-            field_wells {
-              line_chart_aggregated_field_wells {
+ visual_id = "LineChart"
+ title {
+   format_text {
+     plain_text = "Line Chart Test"
+   }
+ }
+ chart_configuration {
+   field_wells {
+     line_chart_aggregated_field_wells {
  category {
    categorical_dimension_field {
      field_id = "1"
      column {
        data_set_identifier = "1"
-       column_name         = "Column1"
+       column_name= "Column1"
      }
    }
  }
@@ -449,15 +449,15 @@ resource "aws_quicksight_analysis" "test" {
      field_id = "2"
      column {
        data_set_identifier = "1"
-       column_name         = "Column1"
+       column_name= "Column1"
      }
      aggregation_
 function = "COUNT"
    }
  }
-              }
-            }
-          }
+     }
+   }
+ }
         }
       }
     }
@@ -469,22 +469,22 @@ function = "COUNT"
 
 func testAccAnalysisConfig_TemplateSourceEntity(rId, rName, sourceId, sourceName string) string {
 	return acctest.ConfigCompose(
-		testAccAnalysisConfigBase(rId, rName),
-		fmt.Sprintf(`
+testAccAnalysisConfigBase(rId, rName),
+fmt.Sprintf(`
 resource "aws_quicksight_template" "test" {
-  template_id         = %[3]q
+  template_id= %[3]q
   name = %[4]q
   version_description = "test"
   definition {
     data_set_configuration {
       data_set_schema {
         column_schema_list {
-          name      = "Column1"
-          data_type = "STRING"
+ name      = "Column1"
+ data_type = "STRING"
         }
         column_schema_list {
-          name      = "Column2"
-          data_type = "INTEGER"
+ name      = "Column2"
+ data_type = "INTEGER"
         }
       }
       placeholder = "1"
@@ -494,32 +494,32 @@ resource "aws_quicksight_template" "test" {
       sheet_id = "Test1"
       visuals {
         custom_content_visual {
-          data_set_identifier = "1"
-          title {
-            format_text {
-              plain_text = "Test"
-            }
-          }
-          visual_id = "Test1"
+ data_set_identifier = "1"
+ title {
+   format_text {
+     plain_text = "Test"
+   }
+ }
+ visual_id = "Test1"
         }
       }
       visuals {
         line_chart_visual {
-          visual_id = "LineChart"
-          title {
-            format_text {
-              plain_text = "Line Chart Test"
-            }
-          }
-          chart_configuration {
-            field_wells {
-              line_chart_aggregated_field_wells {
+ visual_id = "LineChart"
+ title {
+   format_text {
+     plain_text = "Line Chart Test"
+   }
+ }
+ chart_configuration {
+   field_wells {
+     line_chart_aggregated_field_wells {
  category {
    categorical_dimension_field {
      field_id = "1"
      column {
        data_set_identifier = "1"
-       column_name         = "Column1"
+       column_name= "Column1"
      }
    }
  }
@@ -528,15 +528,15 @@ resource "aws_quicksight_template" "test" {
      field_id = "2"
      column {
        data_set_identifier = "1"
-       column_name         = "Column1"
+       column_name= "Column1"
      }
      aggregation_
 function = "COUNT"
    }
  }
-              }
-            }
-          }
+     }
+   }
+ }
         }
       }
     }
@@ -550,7 +550,7 @@ resource "aws_quicksight_analysis" "test" {
     source_template {
       arn = aws_quicksight_template.test.arn
       data_set_references {
-        data_set_arn         = aws_quicksight_data_set.test.arn
+        data_set_arn= aws_quicksight_data_set.test.arn
         data_set_placeholder = "1"
       }
     }
@@ -562,8 +562,8 @@ resource "aws_quicksight_analysis" "test" {
 
 func testAccAnalysisConfig_ParametersConfig(rId, rName string) string {
 	return acctest.ConfigCompose(
-		testAccAnalysisConfigBase(rId, rName),
-		fmt.Sprintf(`
+testAccAnalysisConfigBase(rId, rName),
+fmt.Sprintf(`
 resource "aws_quicksight_analysis" "test" {
   analysis_id = %[1]q
   name        = %[2]q
@@ -583,10 +583,10 @@ resource "aws_quicksight_analysis" "test" {
         name  = "test"
         parameter_value_type = "SINGLE_VALUED"
         default_values {
-          static_values = ["value"]
+ static_values = ["value"]
         }
         values_when_unset {
-          value_when_unset_option = "NULL"
+ value_when_unset_option = "NULL"
         }
       }
     }
@@ -595,21 +595,21 @@ resource "aws_quicksight_analysis" "test" {
       sheet_id = "Example1"
       visuals {
         line_chart_visual {
-          visual_id = "LineChart"
-          title {
-            format_text {
-              plain_text = "Line Chart Example"
-            }
-          }
-          chart_configuration {
-            field_wells {
-              line_chart_aggregated_field_wells {
+ visual_id = "LineChart"
+ title {
+   format_text {
+     plain_text = "Line Chart Example"
+   }
+ }
+ chart_configuration {
+   field_wells {
+     line_chart_aggregated_field_wells {
  category {
    categorical_dimension_field {
      field_id = "1"
      column {
        data_set_identifier = "1"
-       column_name         = "Column1"
+       column_name= "Column1"
      }
    }
  }
@@ -618,15 +618,15 @@ resource "aws_quicksight_analysis" "test" {
      field_id = "2"
      column {
        data_set_identifier = "1"
-       column_name         = "Column1"
+       column_name= "Column1"
      }
      aggregation_
 function = "COUNT"
    }
  }
-              }
-            }
-          }
+     }
+   }
+ }
         }
       }
     }
@@ -638,8 +638,8 @@ function = "COUNT"
 
 func testAccAnalysisConfig_ForceDelete(rId, rName string) string {
 	return acctest.ConfigCompose(
-		testAccAnalysisConfigBase(rId, rName),
-		fmt.Sprintf(`
+testAccAnalysisConfigBase(rId, rName),
+fmt.Sprintf(`
 resource "aws_quicksight_analysis" "test" {
   analysis_id = %[1]q
   name        = %[2]q
@@ -656,21 +656,21 @@ resource "aws_quicksight_analysis" "test" {
       sheet_id = "Example1"
       visuals {
         line_chart_visual {
-          visual_id = "LineChart"
-          title {
-            format_text {
-              plain_text = "Line Chart Example"
-            }
-          }
-          chart_configuration {
-            field_wells {
-              line_chart_aggregated_field_wells {
+ visual_id = "LineChart"
+ title {
+   format_text {
+     plain_text = "Line Chart Example"
+   }
+ }
+ chart_configuration {
+   field_wells {
+     line_chart_aggregated_field_wells {
  category {
    categorical_dimension_field {
      field_id = "1"
      column {
        data_set_identifier = "1"
-       column_name         = "Column1"
+       column_name= "Column1"
      }
    }
  }
@@ -679,15 +679,15 @@ resource "aws_quicksight_analysis" "test" {
      field_id = "2"
      column {
        data_set_identifier = "1"
-       column_name         = "Column1"
+       column_name= "Column1"
      }
      aggregation_
 function = "COUNT"
    }
  }
-              }
-            }
-          }
+     }
+   }
+ }
         }
       }
     }
@@ -699,8 +699,8 @@ function = "COUNT"
 
 func testAccAnalysisConfig_Definition_calculatedFields(rId, rName string) string {
 	return acctest.ConfigCompose(
-		testAccAnalysisConfigBase(rId, rName),
-		fmt.Sprintf(`
+testAccAnalysisConfigBase(rId, rName),
+fmt.Sprintf(`
 resource "aws_quicksight_analysis" "test" {
   analysis_id = %[1]q
   name        = %[2]q
@@ -711,12 +711,12 @@ resource "aws_quicksight_analysis" "test" {
     }
     calculated_fields {
       data_set_identifier = "1"
-      expression          = "1"
+      expression = "1"
       name = "test1"
     }
     calculated_fields {
       data_set_identifier = "1"
-      expression          = "2"
+      expression = "2"
       name = "test2"
     }
     sheets {
@@ -724,32 +724,32 @@ resource "aws_quicksight_analysis" "test" {
       sheet_id = "Test1"
       visuals {
         custom_content_visual {
-          data_set_identifier = "1"
-          title {
-            format_text {
-              plain_text = "Test"
-            }
-          }
-          visual_id = "Test1"
+ data_set_identifier = "1"
+ title {
+   format_text {
+     plain_text = "Test"
+   }
+ }
+ visual_id = "Test1"
         }
       }
       visuals {
         line_chart_visual {
-          visual_id = "LineChart"
-          title {
-            format_text {
-              plain_text = "Line Chart Test"
-            }
-          }
-          chart_configuration {
-            field_wells {
-              line_chart_aggregated_field_wells {
+ visual_id = "LineChart"
+ title {
+   format_text {
+     plain_text = "Line Chart Test"
+   }
+ }
+ chart_configuration {
+   field_wells {
+     line_chart_aggregated_field_wells {
  category {
    categorical_dimension_field {
      field_id = "1"
      column {
        data_set_identifier = "1"
-       column_name         = "Column1"
+       column_name= "Column1"
      }
    }
  }
@@ -758,15 +758,15 @@ resource "aws_quicksight_analysis" "test" {
      field_id = "2"
      column {
        data_set_identifier = "1"
-       column_name         = "Column1"
+       column_name= "Column1"
      }
      aggregation_
 function = "COUNT"
    }
  }
-              }
-            }
-          }
+     }
+   }
+ }
         }
       }
     }

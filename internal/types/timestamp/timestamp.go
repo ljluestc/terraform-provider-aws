@@ -29,7 +29,7 @@ func (t Timestamp) ValidateOnceADayWindowFormat() error {
 	validTimeFormatConsolidated := "^(" + validTimeFormat + "-" + validTimeFormat + "|)$"
 
 	if !regexache.MustCompile(validTimeFormatConsolidated).MatchString(t.String()) {
-		return fmt.Errorf("(%s) must satisfy the format of \"hh24:mi-hh24:mi\"", t.String())
+return fmt.Errorf("(%s) must satisfy the format of \"hh24:mi-hh24:mi\"", t.String())
 	}
 
 	return nil
@@ -43,7 +43,7 @@ func (t Timestamp) ValidateOnceAWeekWindowFormat() error {
 
 	val := strings.ToLower(t.String())
 	if !regexache.MustCompile(validTimeFormatConsolidated).MatchString(val) {
-		return fmt.Errorf("(%s) must satisfy the format of \"ddd:hh24:mi-ddd:hh24:mi\"", val)
+return fmt.Errorf("(%s) must satisfy the format of \"ddd:hh24:mi-ddd:hh24:mi\"", val)
 	}
 
 	return nil
@@ -53,7 +53,7 @@ func (t Timestamp) ValidateOnceAWeekWindowFormat() error {
 func (t Timestamp) ValidateUTCFormat() error {
 	_, err := time.Parse(time.RFC3339, t.String())
 	if err != nil {
-		return fmt.Errorf("must be in RFC3339 time format %q. Example: %s", time.RFC3339, err)
+return fmt.Errorf("must be in RFC3339 time format %q. Example: %s", time.RFC3339, err)
 	}
 
 	return nil

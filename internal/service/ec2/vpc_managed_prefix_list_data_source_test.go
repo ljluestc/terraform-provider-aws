@@ -22,24 +22,24 @@ func testAccManagedPrefixListGetIdByNameDataSource(ctx context.Context, name str
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-		output, err := conn.DescribeManagedPrefixListsWithContext(ctx, &ec2.DescribeManagedPrefixListsInput{
-			Filters: []*ec2.Filter{
-				{
-					Name:   aws.String("prefix-list-name"),
-					Values: aws.StringSlice([]string{name}),
-				},
-			},
-		})
+output, err := conn.DescribeManagedPrefixListsWithContext(ctx, &ec2.DescribeManagedPrefixListsInput{
+	Filters: []*ec2.Filter{
+{
+	Name:   aws.String("prefix-list-name"),
+	Values: aws.StringSlice([]string{name}),
+},
+	},
+})
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*id = *output.PrefixLists[0].PrefixListId
-		*arn = *output.PrefixLists[0].PrefixListArn
-		return nil
+*id = *output.PrefixLists[0].PrefixListId
+*arn = *output.PrefixLists[0].PrefixListArn
+return nil
 	}
 }
 
@@ -55,35 +55,35 @@ func TestAccVPCManagedPrefixListDataSource_basic(t *testing.T) {
 	prefixListResourceName := "data.aws_prefix_list.s3_by_id"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckManagedPrefixList(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCManagedPrefixListDataSourceConfig_basic,
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCManagedPrefixListDataSourceConfig_basic,
+Check: resource.ComposeTestCheck
 func(
-					testAccManagedPrefixListGetIdByNameDataSource(ctx, prefixListName, &prefixListId, &prefixListArn),
+	testAccManagedPrefixListGetIdByNameDataSource(ctx, prefixListName, &prefixListId, &prefixListArn),
 
-					resource.TestCheckResourceAttrPtr(resourceByName, "id", &prefixListId),
-					resource.TestCheckResourceAttr(resourceByName, "name", prefixListName),
-					resource.TestCheckResourceAttr(resourceByName, "owner_id", "AWS"),
-					resource.TestCheckResourceAttr(resourceByName, "address_family", "IPv4"),
-					resource.TestCheckResourceAttrPtr(resourceByName, "arn", &prefixListArn),
-					resource.TestCheckResourceAttr(resourceByName, "max_entries", "0"),
-					resource.TestCheckResourceAttr(resourceByName, "version", "0"),
-					resource.TestCheckResourceAttr(resourceByName, "tags.%", "0"),
+	resource.TestCheckResourceAttrPtr(resourceByName, "id", &prefixListId),
+	resource.TestCheckResourceAttr(resourceByName, "name", prefixListName),
+	resource.TestCheckResourceAttr(resourceByName, "owner_id", "AWS"),
+	resource.TestCheckResourceAttr(resourceByName, "address_family", "IPv4"),
+	resource.TestCheckResourceAttrPtr(resourceByName, "arn", &prefixListArn),
+	resource.TestCheckResourceAttr(resourceByName, "max_entries", "0"),
+	resource.TestCheckResourceAttr(resourceByName, "version", "0"),
+	resource.TestCheckResourceAttr(resourceByName, "tags.%", "0"),
 
-					resource.TestCheckResourceAttrPtr(resourceById, "id", &prefixListId),
-					resource.TestCheckResourceAttr(resourceById, "name", prefixListName),
+	resource.TestCheckResourceAttrPtr(resourceById, "id", &prefixListId),
+	resource.TestCheckResourceAttr(resourceById, "name", prefixListName),
 
-					resource.TestCheckResourceAttrPair(resourceByName, "id", prefixListResourceName, "id"),
-					resource.TestCheckResourceAttrPair(resourceByName, "name", prefixListResourceName, "name"),
-					resource.TestCheckResourceAttrPair(resourceByName, "entries.#", prefixListResourceName, "cidr_blocks.#"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(resourceByName, "id", prefixListResourceName, "id"),
+	resource.TestCheckResourceAttrPair(resourceByName, "name", prefixListResourceName, "name"),
+	resource.TestCheckResourceAttrPair(resourceByName, "entries.#", prefixListResourceName, "cidr_blocks.#"),
+),
+	},
+},
 	})
 }
 
@@ -114,37 +114,37 @@ func TestAccVPCManagedPrefixListDataSource_filter(t *testing.T) {
 	resourceById := "data.aws_ec2_managed_prefix_list.s3_by_id"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckManagedPrefixList(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCManagedPrefixListDataSourceConfig_filter,
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCManagedPrefixListDataSourceConfig_filter,
+Check: resource.ComposeTestCheck
 func(
-					testAccManagedPrefixListGetIdByNameDataSource(ctx, prefixListName, &prefixListId, &prefixListArn),
-					resource.TestCheckResourceAttrPtr(resourceByName, "id", &prefixListId),
-					resource.TestCheckResourceAttr(resourceByName, "name", prefixListName),
-					resource.TestCheckResourceAttr(resourceByName, "owner_id", "AWS"),
-					resource.TestCheckResourceAttr(resourceByName, "address_family", "IPv4"),
-					resource.TestCheckResourceAttrPtr(resourceByName, "arn", &prefixListArn),
-					resource.TestCheckResourceAttr(resourceByName, "max_entries", "0"),
-					resource.TestCheckResourceAttr(resourceByName, "version", "0"),
-					resource.TestCheckResourceAttr(resourceByName, "tags.%", "0"),
+	testAccManagedPrefixListGetIdByNameDataSource(ctx, prefixListName, &prefixListId, &prefixListArn),
+	resource.TestCheckResourceAttrPtr(resourceByName, "id", &prefixListId),
+	resource.TestCheckResourceAttr(resourceByName, "name", prefixListName),
+	resource.TestCheckResourceAttr(resourceByName, "owner_id", "AWS"),
+	resource.TestCheckResourceAttr(resourceByName, "address_family", "IPv4"),
+	resource.TestCheckResourceAttrPtr(resourceByName, "arn", &prefixListArn),
+	resource.TestCheckResourceAttr(resourceByName, "max_entries", "0"),
+	resource.TestCheckResourceAttr(resourceByName, "version", "0"),
+	resource.TestCheckResourceAttr(resourceByName, "tags.%", "0"),
 
-					resource.TestCheckResourceAttrPair(resourceByName, "id", resourceById, "id"),
-					resource.TestCheckResourceAttrPair(resourceByName, "name", resourceById, "name"),
-					resource.TestCheckResourceAttrPair(resourceByName, "entries", resourceById, "entries"),
-					resource.TestCheckResourceAttrPair(resourceByName, "owner_id", resourceById, "owner_id"),
-					resource.TestCheckResourceAttrPair(resourceByName, "address_family", resourceById, "address_family"),
-					resource.TestCheckResourceAttrPair(resourceByName, "arn", resourceById, "arn"),
-					resource.TestCheckResourceAttrPair(resourceByName, "max_entries", resourceById, "max_entries"),
-					resource.TestCheckResourceAttrPair(resourceByName, "tags", resourceById, "tags"),
-					resource.TestCheckResourceAttrPair(resourceByName, "version", resourceById, "version"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(resourceByName, "id", resourceById, "id"),
+	resource.TestCheckResourceAttrPair(resourceByName, "name", resourceById, "name"),
+	resource.TestCheckResourceAttrPair(resourceByName, "entries", resourceById, "entries"),
+	resource.TestCheckResourceAttrPair(resourceByName, "owner_id", resourceById, "owner_id"),
+	resource.TestCheckResourceAttrPair(resourceByName, "address_family", resourceById, "address_family"),
+	resource.TestCheckResourceAttrPair(resourceByName, "arn", resourceById, "arn"),
+	resource.TestCheckResourceAttrPair(resourceByName, "max_entries", resourceById, "max_entries"),
+	resource.TestCheckResourceAttrPair(resourceByName, "tags", resourceById, "tags"),
+	resource.TestCheckResourceAttrPair(resourceByName, "version", resourceById, "version"),
+),
+	},
+},
 	})
 }
 
@@ -170,16 +170,16 @@ data "aws_ec2_managed_prefix_list" "s3_by_id" {
 func TestAccVPCManagedPrefixListDataSource_matchesTooMany(t *testing.T) {
 	ctx := acctest.Context(t)
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckManagedPrefixList(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config:      testAccVPCManagedPrefixListDataSourceConfig_matchesTooMany,
-				ExpectError: regexache.MustCompile(`multiple EC2 Managed Prefix Lists matched`),
-			},
-		},
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config:      testAccVPCManagedPrefixListDataSourceConfig_matchesTooMany,
+ExpectError: regexache.MustCompile(`multiple EC2 Managed Prefix Lists matched`),
+	},
+},
 	})
 }
 

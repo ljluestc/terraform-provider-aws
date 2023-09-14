@@ -36,50 +36,50 @@ func (d *dataSourceSecurityGroupRule) Metadata(_ context.Context, request dataso
 
 func (d *dataSourceSecurityGroupRule) Schema(ctx context.Context, req datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Attributes: map[string]schema.Attribute{
-			"arn": schema.StringAttribute{
-				Computed: true,
-			},
-			"cidr_ipv4": schema.StringAttribute{
-				Computed: true,
-			},
-			"cidr_ipv6": schema.StringAttribute{
-				Computed: true,
-			},
-			"description": schema.StringAttribute{
-				Computed: true,
-			},
-			"from_port": schema.Int64Attribute{
-				Computed: true,
-			},
-			"id": framework.IDAttribute(),
-			"ip_protocol": schema.StringAttribute{
-				Computed: true,
-			},
-			"is_egress": schema.BoolAttribute{
-				Computed: true,
-			},
-			"prefix_list_id": schema.StringAttribute{
-				Computed: true,
-			},
-			"referenced_security_group_id": schema.StringAttribute{
-				Computed: true,
-			},
-			"security_group_id": schema.StringAttribute{
-				Computed: true,
-			},
-			"security_group_rule_id": schema.StringAttribute{
-				Optional: true,
-				Computed: true,
-			},
-			"tags": tftags.TagsAttributeComputedOnly(),
-			"to_port": schema.Int64Attribute{
-				Computed: true,
-			},
-		},
-		Blocks: map[string]schema.Block{
-			"filter": CustomFiltersBlock(),
-		},
+Attributes: map[string]schema.Attribute{
+	"arn": schema.StringAttribute{
+Computed: true,
+	},
+	"cidr_ipv4": schema.StringAttribute{
+Computed: true,
+	},
+	"cidr_ipv6": schema.StringAttribute{
+Computed: true,
+	},
+	"description": schema.StringAttribute{
+Computed: true,
+	},
+	"from_port": schema.Int64Attribute{
+Computed: true,
+	},
+	"id": framework.IDAttribute(),
+	"ip_protocol": schema.StringAttribute{
+Computed: true,
+	},
+	"is_egress": schema.BoolAttribute{
+Computed: true,
+	},
+	"prefix_list_id": schema.StringAttribute{
+Computed: true,
+	},
+	"referenced_security_group_id": schema.StringAttribute{
+Computed: true,
+	},
+	"security_group_id": schema.StringAttribute{
+Computed: true,
+	},
+	"security_group_rule_id": schema.StringAttribute{
+Optional: true,
+Computed: true,
+	},
+	"tags": tftags.TagsAttributeComputedOnly(),
+	"to_port": schema.Int64Attribute{
+Computed: true,
+	},
+},
+Blocks: map[string]schema.Block{
+	"filter": CustomFiltersBlock(),
+},
 	}
 }
 
@@ -89,31 +89,31 @@ func (d *dataSourceSecurityGroupRule) Read(ctx context.Context, request datasour
 	response.Diagnostics.Append(request.Config.Get(ctx, &data)...)
 
 	if response.Diagnostics.HasError() {
-		return
+return
 	}
 
 	conn := d.Meta().EC2Conn(ctx)
 	ignoreTagsConfig := d.Meta().IgnoreTagsConfig
 
 	input := &ec2.DescribeSecurityGroupRulesInput{
-		Filters: BuildCustomFilters(ctx, data.Filters),
+Filters: BuildCustomFilters(ctx, data.Filters),
 	}
 
 	if !data.SecurityGroupRuleID.IsNull() {
-		input.SecurityGroupRuleIds = []*string{flex.StringFromFramework(ctx, data.SecurityGroupRuleID)}
+input.SecurityGroupRuleIds = []*string{flex.StringFromFramework(ctx, data.SecurityGroupRuleID)}
 	}
 
 	if len(input.Filters) == 0 {
-		// Don't send an empty filters list; the EC2 API won't accept it.
-		input.Filters = nil
+// Don't send an empty filters list; the EC2 API won't accept it.
+input.Filters = nil
 	}
 
 	output, err := FindSecurityGroupRule(ctx, conn, input)
 
 	if err != nil {
-		response.Diagnostics.AddError("reading Security Group Rules", tfresource.SingularDataSourceFindError("Security Group Rule", err).Error())
+response.Diagnostics.AddError("reading Security Group Rules", tfresource.SingularDataSourceFindError("Security Group Rule", err).Error())
 
-		return
+return
 	}
 
 	data.ID = flex.StringToFramework(ctx, output.SecurityGroupRuleId)
@@ -137,11 +137,11 @@ func (d *dataSourceSecurityGroupRule) Read(ctx context.Context, request datasour
 func (d *dataSourceSecurityGroupRule) arn(_ context.Context, id string) types.String {
 	// TODO Consider reusing resourceSecurityGroupRule.arn().
 	arn := arn.ARN{
-		Partition: d.Meta().Partition,
-		Service:   ec2.ServiceName,
-		Region:    d.Meta().Region,
-		AccountID: d.Meta().AccountID,
-		Resource:  fmt.Sprintf("security-group-rule/%s", id),
+Partition: d.Meta().Partition,
+Service:   ec2.ServiceName,
+Region:    d.Meta().Region,
+AccountID: d.Meta().AccountID,
+Resource:  fmt.Sprintf("security-group-rule/%s", id),
 	}.String()
 	return types.StringValue(arn)
 }
@@ -149,11 +149,11 @@ func (d *dataSourceSecurityGroupRule) arn(_ context.Context, id string) types.St
 func (d *dataSourceSecurityGroupRule) flattenReferencedSecurityGroup(ctx context.Context, apiObject *ec2.ReferencedSecurityGroup) types.String {
 	// TODO Consider reusing resourceSecurityGroupRule.flattenReferencedSecurityGroup().
 	if apiObject == nil {
-		return types.StringNull()
+return types.StringNull()
 	}
 
 	if apiObject.UserId == nil || aws.StringValue(apiObject.UserId) == d.Meta().AccountID {
-		return flex.StringToFramework(ctx, apiObject.GroupId)
+return flex.StringToFramework(ctx, apiObject.GroupId)
 	}
 
 	// [UserID/]GroupID.

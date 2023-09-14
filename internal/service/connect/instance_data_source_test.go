@@ -20,50 +20,50 @@ func testAccInstanceDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_connect_instance.test"
 	resourceName := "aws_connect_instance.test"
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccInstanceDataSourceConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccInstanceDataSourceConfig_basic(rName),
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttrPair(resourceName, "arn", dataSourceName, "arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "created_time", dataSourceName, "created_time"),
-					resource.TestCheckResourceAttrPair(resourceName, "identity_management_type", dataSourceName, "identity_management_type"),
-					resource.TestCheckResourceAttrPair(resourceName, "instance_alias", dataSourceName, "instance_alias"),
-					resource.TestCheckResourceAttrPair(resourceName, "inbound_calls_enabled", dataSourceName, "inbound_calls_enabled"),
-					resource.TestCheckResourceAttrPair(resourceName, "outbound_calls_enabled", dataSourceName, "outbound_calls_enabled"),
-					resource.TestCheckResourceAttrPair(resourceName, "contact_flow_logs_enabled", dataSourceName, "contact_flow_logs_enabled"),
-					resource.TestCheckResourceAttrPair(resourceName, "contact_lens_enabled", dataSourceName, "contact_lens_enabled"),
-					resource.TestCheckResourceAttrPair(resourceName, "auto_resolve_best_voices_enabled", dataSourceName, "auto_resolve_best_voices_enabled"),
-					resource.TestCheckResourceAttrPair(resourceName, "early_media_enabled", dataSourceName, "early_media_enabled"),
-					resource.TestCheckResourceAttrPair(resourceName, "multi_party_conference_enabled", dataSourceName, "multi_party_conference_enabled"),
-					resource.TestCheckResourceAttrPair(resourceName, "status", dataSourceName, "status"),
-					resource.TestCheckResourceAttrPair(resourceName, "service_role", dataSourceName, "service_role"),
-				),
-			},
-			{
-				Config: testAccInstanceDataSourceConfig_alias(rName),
-				Check: resource.ComposeAggregateTestCheck
+	resource.TestCheckResourceAttrPair(resourceName, "arn", dataSourceName, "arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "created_time", dataSourceName, "created_time"),
+	resource.TestCheckResourceAttrPair(resourceName, "identity_management_type", dataSourceName, "identity_management_type"),
+	resource.TestCheckResourceAttrPair(resourceName, "instance_alias", dataSourceName, "instance_alias"),
+	resource.TestCheckResourceAttrPair(resourceName, "inbound_calls_enabled", dataSourceName, "inbound_calls_enabled"),
+	resource.TestCheckResourceAttrPair(resourceName, "outbound_calls_enabled", dataSourceName, "outbound_calls_enabled"),
+	resource.TestCheckResourceAttrPair(resourceName, "contact_flow_logs_enabled", dataSourceName, "contact_flow_logs_enabled"),
+	resource.TestCheckResourceAttrPair(resourceName, "contact_lens_enabled", dataSourceName, "contact_lens_enabled"),
+	resource.TestCheckResourceAttrPair(resourceName, "auto_resolve_best_voices_enabled", dataSourceName, "auto_resolve_best_voices_enabled"),
+	resource.TestCheckResourceAttrPair(resourceName, "early_media_enabled", dataSourceName, "early_media_enabled"),
+	resource.TestCheckResourceAttrPair(resourceName, "multi_party_conference_enabled", dataSourceName, "multi_party_conference_enabled"),
+	resource.TestCheckResourceAttrPair(resourceName, "status", dataSourceName, "status"),
+	resource.TestCheckResourceAttrPair(resourceName, "service_role", dataSourceName, "service_role"),
+),
+	},
+	{
+Config: testAccInstanceDataSourceConfig_alias(rName),
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttrPair(resourceName, "arn", dataSourceName, "arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "created_time", dataSourceName, "created_time"),
-					resource.TestCheckResourceAttrPair(resourceName, "identity_management_type", dataSourceName, "identity_management_type"),
-					resource.TestCheckResourceAttrPair(resourceName, "instance_alias", dataSourceName, "instance_alias"),
-					resource.TestCheckResourceAttrPair(resourceName, "inbound_calls_enabled", dataSourceName, "inbound_calls_enabled"),
-					resource.TestCheckResourceAttrPair(resourceName, "outbound_calls_enabled", dataSourceName, "outbound_calls_enabled"),
-					resource.TestCheckResourceAttrPair(resourceName, "contact_flow_logs_enabled", dataSourceName, "contact_flow_logs_enabled"),
-					resource.TestCheckResourceAttrPair(resourceName, "contact_lens_enabled", dataSourceName, "contact_lens_enabled"),
-					resource.TestCheckResourceAttrPair(resourceName, "auto_resolve_best_voices_enabled", dataSourceName, "auto_resolve_best_voices_enabled"),
-					resource.TestCheckResourceAttrPair(resourceName, "early_media_enabled", dataSourceName, "early_media_enabled"),
-					resource.TestCheckResourceAttrPair(resourceName, "multi_party_conference_enabled", dataSourceName, "multi_party_conference_enabled"),
-					resource.TestCheckResourceAttrPair(resourceName, "status", dataSourceName, "status"),
-					resource.TestCheckResourceAttrPair(resourceName, "service_role", dataSourceName, "service_role"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(resourceName, "arn", dataSourceName, "arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "created_time", dataSourceName, "created_time"),
+	resource.TestCheckResourceAttrPair(resourceName, "identity_management_type", dataSourceName, "identity_management_type"),
+	resource.TestCheckResourceAttrPair(resourceName, "instance_alias", dataSourceName, "instance_alias"),
+	resource.TestCheckResourceAttrPair(resourceName, "inbound_calls_enabled", dataSourceName, "inbound_calls_enabled"),
+	resource.TestCheckResourceAttrPair(resourceName, "outbound_calls_enabled", dataSourceName, "outbound_calls_enabled"),
+	resource.TestCheckResourceAttrPair(resourceName, "contact_flow_logs_enabled", dataSourceName, "contact_flow_logs_enabled"),
+	resource.TestCheckResourceAttrPair(resourceName, "contact_lens_enabled", dataSourceName, "contact_lens_enabled"),
+	resource.TestCheckResourceAttrPair(resourceName, "auto_resolve_best_voices_enabled", dataSourceName, "auto_resolve_best_voices_enabled"),
+	resource.TestCheckResourceAttrPair(resourceName, "early_media_enabled", dataSourceName, "early_media_enabled"),
+	resource.TestCheckResourceAttrPair(resourceName, "multi_party_conference_enabled", dataSourceName, "multi_party_conference_enabled"),
+	resource.TestCheckResourceAttrPair(resourceName, "status", dataSourceName, "status"),
+	resource.TestCheckResourceAttrPair(resourceName, "service_role", dataSourceName, "service_role"),
+),
+	},
+},
 	})
 }
 

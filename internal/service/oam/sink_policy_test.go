@@ -39,7 +39,7 @@ func TestAccObservabilityAccessManagerSinkPolicy_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.ObservabilityAccessManagerEndpointID)
 		},
-		ErrorCheck:acctest.ErrorCheck(t, names.ObservabilityAccessManagerEndpointID),
+		ErrorCheck:               acctest.ErrorCheck(t, names.ObservabilityAccessManagerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckSinkPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -53,21 +53,21 @@ func TestAccObservabilityAccessManagerSinkPolicy_basic(t *testing.T) {
 {
 	"Version": "2012-10-17",
 	"Statement": [{
-		"Action": ["oam:CreateLink", "oam:UpdateLink"],
-		"Effect": "Allow",
-		"Resource": "*",
-		"Principal": { "AWS": "arn:%s:iam::%s:root" },
-		"Condition": {
-			"ForAllValues:StringEquals": {
-				"oam:ResourceTypes": [
-					"AWS::CloudWatch::Metric",
-					"AWS::Logs::LogGroup"
-				]
-			}
-		}
+"Action": ["oam:CreateLink", "oam:UpdateLink"],
+"Effect": "Allow",
+"Resource": "*",
+"Principal": { "AWS": "arn:%s:iam::%s:root" },
+"Condition": {
+	"ForAllValues:StringEquals": {
+"oam:ResourceTypes": [
+	"AWS::CloudWatch::Metric",
+	"AWS::Logs::LogGroup"
+]
+	}
+}
     }]
 }
-					`, acctest.Partition(), acctest.AccountID()))
+	`, acctest.Partition(), acctest.AccountID()))
 						return err
 					}),
 					resource.TestCheckResourceAttrSet(resourceName, "sink_id"),
@@ -98,7 +98,7 @@ func TestAccObservabilityAccessManagerSinkPolicy_update(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.ObservabilityAccessManagerEndpointID)
 		},
-		ErrorCheck:acctest.ErrorCheck(t, names.ObservabilityAccessManagerEndpointID),
+		ErrorCheck:               acctest.ErrorCheck(t, names.ObservabilityAccessManagerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckSinkPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -112,21 +112,21 @@ func TestAccObservabilityAccessManagerSinkPolicy_update(t *testing.T) {
 {
 	"Version": "2012-10-17",
 	"Statement": [{
-		"Action": ["oam:CreateLink", "oam:UpdateLink"],
-		"Effect": "Allow",
-		"Resource": "*",
-		"Principal": { "AWS": "arn:%s:iam::%s:root" },
-		"Condition": {
-			"ForAllValues:StringEquals": {
-				"oam:ResourceTypes": [
-					"AWS::CloudWatch::Metric",
-					"AWS::Logs::LogGroup"
-				]
-			}
-		}
+"Action": ["oam:CreateLink", "oam:UpdateLink"],
+"Effect": "Allow",
+"Resource": "*",
+"Principal": { "AWS": "arn:%s:iam::%s:root" },
+"Condition": {
+	"ForAllValues:StringEquals": {
+"oam:ResourceTypes": [
+	"AWS::CloudWatch::Metric",
+	"AWS::Logs::LogGroup"
+]
+	}
+}
     }]
 }
-					`, acctest.Partition(), acctest.AccountID()))
+	`, acctest.Partition(), acctest.AccountID()))
 						return err
 					}),
 					resource.TestCheckResourceAttrSet(resourceName, "sink_id"),
@@ -143,18 +143,18 @@ func TestAccObservabilityAccessManagerSinkPolicy_update(t *testing.T) {
 {
 	"Version": "2012-10-17",
 	"Statement": [{
-		"Action": ["oam:CreateLink", "oam:UpdateLink"],
-		"Effect": "Allow",
-		"Resource": "*",
-		"Principal": { "AWS": "arn:%s:iam::%s:root" },
-		"Condition": {
-			"ForAllValues:StringEquals": {
-				"oam:ResourceTypes": "AWS::CloudWatch::Metric"
-			}
-		}
+"Action": ["oam:CreateLink", "oam:UpdateLink"],
+"Effect": "Allow",
+"Resource": "*",
+"Principal": { "AWS": "arn:%s:iam::%s:root" },
+"Condition": {
+	"ForAllValues:StringEquals": {
+"oam:ResourceTypes": "AWS::CloudWatch::Metric"
+	}
+}
     }]
 }
-					`, acctest.Partition(), acctest.AccountID()))
+	`, acctest.Partition(), acctest.AccountID()))
 						return err
 					}),
 				),

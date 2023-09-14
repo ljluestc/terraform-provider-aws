@@ -30,24 +30,24 @@ func TestAccAutoScalingSchedule_basic(t *testing.T) {
 	resourceName := "aws_autoscaling_schedule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduleDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccScheduleConfig_basic(rName1, rName2, startTime, endTime),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckScalingScheduleExists(ctx, resourceName, &v),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportStateId:     fmt.Sprintf("%s/%s", rName1, rName2),
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckScheduleDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccScheduleConfig_basic(rName1, rName2, startTime, endTime),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckScalingScheduleExists(ctx, resourceName, &v),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportStateId:     fmt.Sprintf("%s/%s", rName1, rName2),
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -61,20 +61,20 @@ func TestAccAutoScalingSchedule_disappears(t *testing.T) {
 	resourceName := "aws_autoscaling_schedule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduleDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccScheduleConfig_basic(rName1, rName2, startTime, endTime),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckScalingScheduleExists(ctx, resourceName, &v),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfautoscaling.ResourceSchedule(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckScheduleDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccScheduleConfig_basic(rName1, rName2, startTime, endTime),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckScalingScheduleExists(ctx, resourceName, &v),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfautoscaling.ResourceSchedule(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -85,25 +85,25 @@ func TestAccAutoScalingSchedule_recurrence(t *testing.T) {
 	resourceName := "aws_autoscaling_schedule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduleDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccScheduleConfig_recurrence(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckScalingScheduleExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "recurrence", "0 8 * * *"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportStateId:     fmt.Sprintf("%s/%s", rName, rName),
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckScheduleDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccScheduleConfig_recurrence(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckScalingScheduleExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "recurrence", "0 8 * * *"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportStateId:     fmt.Sprintf("%s/%s", rName, rName),
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -116,24 +116,24 @@ func TestAccAutoScalingSchedule_zeroValues(t *testing.T) {
 	resourceName := "aws_autoscaling_schedule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduleDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccScheduleConfig_zeroValues(rName, startTime, endTime),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckScalingScheduleExists(ctx, resourceName, &v),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportStateId:     fmt.Sprintf("%s/%s", rName, rName),
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckScheduleDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccScheduleConfig_zeroValues(rName, startTime, endTime),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckScalingScheduleExists(ctx, resourceName, &v),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportStateId:     fmt.Sprintf("%s/%s", rName, rName),
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -146,26 +146,26 @@ func TestAccAutoScalingSchedule_negativeOne(t *testing.T) {
 	resourceName := "aws_autoscaling_schedule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckScheduleDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccScheduleConfig_negativeOne(rName, startTime, endTime),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckScalingScheduleExists(ctx, resourceName, &v),
-					testAccCheckScalingScheduleHasNoDesiredCapacity(&v),
-					resource.TestCheckResourceAttr(resourceName, "desired_capacity", "-1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportStateId:     fmt.Sprintf("%s/%s", rName, rName),
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckScheduleDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccScheduleConfig_negativeOne(rName, startTime, endTime),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckScalingScheduleExists(ctx, resourceName, &v),
+	testAccCheckScalingScheduleHasNoDesiredCapacity(&v),
+	resource.TestCheckResourceAttr(resourceName, "desired_capacity", "-1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportStateId:     fmt.Sprintf("%s/%s", rName, rName),
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -181,69 +181,69 @@ func testAccScheduleTime(t *testing.T, duration string) string {
 	n := time.Now().UTC()
 	d, err := time.ParseDuration(duration)
 	if err != nil {
-		t.Fatal(err)
+t.Fatal(err)
 	}
 	return n.Add(d).Format(tfautoscaling.ScheduleTimeLayout)
 }
 
 func testAccCheckScalingScheduleExists(ctx context.Context, n string, v *autoscaling.ScheduledUpdateGroupAction) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No Auto Scaling Scheduled Action ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No Auto Scaling Scheduled Action ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).AutoScalingConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).AutoScalingConn(ctx)
 
-		output, err := tfautoscaling.FindScheduledUpdateGroupAction(ctx, conn, rs.Primary.Attributes["autoscaling_group_name"], rs.Primary.ID)
+output, err := tfautoscaling.FindScheduledUpdateGroupAction(ctx, conn, rs.Primary.Attributes["autoscaling_group_name"], rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*v = *output
+*v = *output
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckScheduleDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).AutoScalingConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).AutoScalingConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_autoscaling_schedule" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_autoscaling_schedule" {
+continue
+	}
 
-			_, err := tfautoscaling.FindScheduledUpdateGroupAction(ctx, conn, rs.Primary.Attributes["autoscaling_group_name"], rs.Primary.ID)
+	_, err := tfautoscaling.FindScheduledUpdateGroupAction(ctx, conn, rs.Primary.Attributes["autoscaling_group_name"], rs.Primary.ID)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("Auto Scaling Scheduled Action %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("Auto Scaling Scheduled Action %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckScalingScheduleHasNoDesiredCapacity(v *autoscaling.ScheduledUpdateGroupAction) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		if v.DesiredCapacity == nil {
-			return nil
-		}
+if v.DesiredCapacity == nil {
+	return nil
+}
 
-		return fmt.Errorf("Expected not to set desired capacity, got %v", aws.Int64Value(v.DesiredCapacity))
+return fmt.Errorf("Expected not to set desired capacity, got %v", aws.Int64Value(v.DesiredCapacity))
 	}
 }
 

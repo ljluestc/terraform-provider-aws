@@ -26,25 +26,25 @@ func TestAccEC2EBSSnapshotCreateVolumePermission_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckAlternateAccount(t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckSnapshotCreateVolumePermissionDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccEBSSnapshotCreateVolumePermissionConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckAlternateAccount(t)
+},
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
+CheckDestroy:    testAccCheckSnapshotCreateVolumePermissionDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccEBSSnapshotCreateVolumePermissionConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccSnapshotCreateVolumePermissionExists(ctx, resourceName),
-					resource.TestCheckResourceAttrSet(resourceName, "account_id"),
-					resource.TestCheckResourceAttrSet(resourceName, "snapshot_id"),
-				),
-			},
-		},
+	testAccSnapshotCreateVolumePermissionExists(ctx, resourceName),
+	resource.TestCheckResourceAttrSet(resourceName, "account_id"),
+	resource.TestCheckResourceAttrSet(resourceName, "snapshot_id"),
+),
+	},
+},
 	})
 }
 
@@ -55,25 +55,25 @@ func TestAccEC2EBSSnapshotCreateVolumePermission_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckAlternateAccount(t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckSnapshotCreateVolumePermissionDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccEBSSnapshotCreateVolumePermissionConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckAlternateAccount(t)
+},
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
+CheckDestroy:    testAccCheckSnapshotCreateVolumePermissionDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccEBSSnapshotCreateVolumePermissionConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccSnapshotCreateVolumePermissionExists(ctx, resourceName),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceSnapshotCreateVolumePermission(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccSnapshotCreateVolumePermissionExists(ctx, resourceName),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceSnapshotCreateVolumePermission(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -83,17 +83,17 @@ func TestAccEC2EBSSnapshotCreateVolumePermission_snapshotOwnerExpectError(t *tes
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSnapshotCreateVolumePermissionDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config:      testAccEBSSnapshotCreateVolumePermissionConfig_snapshotOwner(rName),
-				ExpectError: regexache.MustCompile(`owns EBS Snapshot`),
-			},
-		},
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckSnapshotCreateVolumePermissionDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config:      testAccEBSSnapshotCreateVolumePermissionConfig_snapshotOwner(rName),
+ExpectError: regexache.MustCompile(`owns EBS Snapshot`),
+	},
+},
 	})
 }
 
@@ -102,33 +102,33 @@ func testAccCheckSnapshotCreateVolumePermissionDestroy(ctx context.Context) reso
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_snapshot_create_volume_permission" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_snapshot_create_volume_permission" {
+continue
+	}
 
-			snapshotID, accountID, err := tfec2.EBSSnapshotCreateVolumePermissionParseResourceID(rs.Primary.ID)
+	snapshotID, accountID, err := tfec2.EBSSnapshotCreateVolumePermissionParseResourceID(rs.Primary.ID)
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			_, err = tfec2.FindCreateSnapshotCreateVolumePermissionByTwoPartKey(ctx, conn, snapshotID, accountID)
+	_, err = tfec2.FindCreateSnapshotCreateVolumePermissionByTwoPartKey(ctx, conn, snapshotID, accountID)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("EBS Snapshot CreateVolumePermission %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("EBS Snapshot CreateVolumePermission %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -137,38 +137,38 @@ func testAccSnapshotCreateVolumePermissionExists(ctx context.Context, n string) 
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No EBS Snapshot CreateVolumePermission ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No EBS Snapshot CreateVolumePermission ID is set")
+}
 
-		snapshotID, accountID, err := tfec2.EBSSnapshotCreateVolumePermissionParseResourceID(rs.Primary.ID)
+snapshotID, accountID, err := tfec2.EBSSnapshotCreateVolumePermissionParseResourceID(rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-		_, err = tfec2.FindCreateSnapshotCreateVolumePermissionByTwoPartKey(ctx, conn, snapshotID, accountID)
+_, err = tfec2.FindCreateSnapshotCreateVolumePermissionByTwoPartKey(ctx, conn, snapshotID, accountID)
 
-		return err
+return err
 	}
 }
 
 
 func testAccEBSSnapshotCreateVolumePermissionConfig_basic(rName string) string {
 	return acctest.ConfigCompose(
-		acctest.ConfigAlternateAccountProvider(),
-		acctest.ConfigAvailableAZsNoOptIn(),
-		fmt.Sprintf(`
+acctest.ConfigAlternateAccountProvider(),
+acctest.ConfigAvailableAZsNoOptIn(),
+fmt.Sprintf(`
 resource "aws_ebs_volume" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
-  size              = 1
+  size     = 1
 
   tags = {
     Name = %[1]q
@@ -197,10 +197,10 @@ resource "aws_snapshot_create_volume_permission" "test" {
 
 func testAccEBSSnapshotCreateVolumePermissionConfig_snapshotOwner(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(),
-		fmt.Sprintf(`
+fmt.Sprintf(`
 resource "aws_ebs_volume" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
-  size              = 1
+  size     = 1
 
   tags = {
     Name = %[1]q

@@ -21,19 +21,19 @@ import (
 func TestAccEC2EBSEncryptionByDefaultDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccEBSEncryptionByDefaultDataSourceConfig_basic,
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccEBSEncryptionByDefaultDataSourceConfig_basic,
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckEBSEncryptionByDefaultDataSource(ctx, "data.aws_ebs_encryption_by_default.current"),
-				),
-			},
-		},
+	testAccCheckEBSEncryptionByDefaultDataSource(ctx, "data.aws_ebs_encryption_by_default.current"),
+),
+	},
+},
 	})
 }
 
@@ -42,29 +42,29 @@ func testAccCheckEBSEncryptionByDefaultDataSource(ctx context.Context, n string)
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No ID is set")
+}
 
-		actual, err := conn.GetEbsEncryptionByDefaultWithContext(ctx, &ec2.GetEbsEncryptionByDefaultInput{})
-		if err != nil {
-			return fmt.Errorf("Error reading default EBS encryption toggle: %q", err)
-		}
+actual, err := conn.GetEbsEncryptionByDefaultWithContext(ctx, &ec2.GetEbsEncryptionByDefaultInput{})
+if err != nil {
+	return fmt.Errorf("Error reading default EBS encryption toggle: %q", err)
+}
 
-		attr, _ := strconv.ParseBool(rs.Primary.Attributes["enabled"])
+attr, _ := strconv.ParseBool(rs.Primary.Attributes["enabled"])
 
-		if attr != aws.BoolValue(actual.EbsEncryptionByDefault) {
-			return fmt.Errorf("EBS encryption by default is not in expected state (%t)", aws.BoolValue(actual.EbsEncryptionByDefault))
-		}
+if attr != aws.BoolValue(actual.EbsEncryptionByDefault) {
+	return fmt.Errorf("EBS encryption by default is not in expected state (%t)", aws.BoolValue(actual.EbsEncryptionByDefault))
+}
 
-		return nil
+return nil
 	}
 }
 

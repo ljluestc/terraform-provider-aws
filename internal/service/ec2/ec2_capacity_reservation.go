@@ -54,13 +54,13 @@ func ResourceCapacityReservation() *schema.Resource {
 				Default:  false,
 			},
 			"end_date": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Validate
 func: validation.IsRFC3339Time,
 			},
 			"end_date_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Default:      ec2.EndDateTypeUnlimited,
 				Validate
@@ -77,7 +77,7 @@ func: validation.StringInSlice(ec2.EndDateType_Values(), false),
 				Required: true,
 			},
 			"instance_match_criteria": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Default:      ec2.InstanceMatchCriteriaOpen,
@@ -85,7 +85,7 @@ func: validation.StringInSlice(ec2.EndDateType_Values(), false),
 func: validation.StringInSlice(ec2.InstanceMatchCriteria_Values(), false),
 			},
 			"instance_platform": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
@@ -97,7 +97,7 @@ func: validation.StringInSlice(ec2.CapacityReservationInstancePlatform_Values(),
 				ForceNew: true,
 			},
 			"outpost_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Validate
 func: verify.ValidARN,
@@ -107,7 +107,7 @@ func: verify.ValidARN,
 				Computed: true,
 			},
 			"placement_group_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Validate
 func: verify.ValidARN,
@@ -115,7 +115,7 @@ func: verify.ValidARN,
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"tenancy": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Default:      ec2.CapacityReservationTenancyDefault,
@@ -235,8 +235,8 @@ func resourceCapacityReservationUpdate(ctx context.Context, d *schema.ResourceDa
 	if d.HasChangesExcept("tags", "tags_all") {
 		input := &ec2.ModifyCapacityReservationInput{
 			CapacityReservationId: aws.String(d.Id()),
-			EndDateType:           aws.String(d.Get("end_date_type").(string)),
-			InstanceCount:         aws.Int64(int64(d.Get("instance_count").(int))),
+			EndDateType:  aws.String(d.Get("end_date_type").(string)),
+			InstanceCount:aws.Int64(int64(d.Get("instance_count").(int))),
 		}
 
 		if v, ok := d.GetOk("end_date"); ok {

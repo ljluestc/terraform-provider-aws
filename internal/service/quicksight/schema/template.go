@@ -15,101 +15,101 @@ import (
 
 func TemplateDefinitionSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TemplateVersionDefinition.html
-		Type:     schema.TypeList,
-		MaxItems: 1,
-		Optional: true,
-		Computed: true,
-		ExactlyOneOf: []string{
-			"definition",
-			"source_entity",
-		},
-		Elem: &schema.Resource{
-			Schema: map[string]*schema.Schema{
-				"data_set_configuration": dataSetConfigurationSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DataSetConfiguration.html
-				"analysis_defaults":      analysisDefaultSchema(),      // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_AnalysisDefaults.html
-				"calculated_fields":      calculatedFieldsSchema(),     // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_CalculatedField.html
-				"column_configurations": { // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnConfiguration.html
-					Type:     schema.TypeList,
-					MinItems: 1,
-					MaxItems: 200,
-					Optional: true,
-					Elem: &schema.Resource{
-						Schema: map[string]*schema.Schema{
-							"column":columnSchema(),              // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnIdentifier.html
-							"format_configuration": formatConfigurationSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FormatConfiguration.html
-							"role":  stringSchema(false, validation.StringInSlice(quicksight.ColumnRole_Values(), false)),
-						},
-					},
-				},
-				"filter_groups": { // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FilterGroup.html
-					Type:     schema.TypeList,
-					MinItems: 1,
-					MaxItems: 2000,
-					Optional: true,
-					Elem: &schema.Resource{
-						Schema: map[string]*schema.Schema{
-							"cross_dataset":       stringSchema(true, validation.StringInSlice(quicksight.CrossDatasetTypes_Values(), false)),
-							"filter_group_id":     idSchema(),
-							"filters":             filtersSchema(),   // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_Filter.html
-							"scope_configuration": filterScopeConfigurationSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FilterScopeConfiguration.html
-							"status":              stringSchema(false, validation.StringInSlice(quicksight.Status_Values(), false)),
-						},
-					},
-				},
-				"parameters_declarations": { // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ParameterDeclaration.html
-					Type:     schema.TypeList,
-					MinItems: 1,
-					MaxItems: 200,
-					Optional: true,
-					Elem: &schema.Resource{
-						Schema: map[string]*schema.Schema{
-							"date_time_parameter_declaration": dateTimeParameterDeclarationSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DateTimeParameterDeclaration.html
-							"decimal_parameter_declaration":   decimalParameterDeclarationSchema(),  // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DecimalParameterDeclaration.html
-							"integer_parameter_declaration":   integerParameterDeclarationSchema(),  // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_IntegerParameterDeclaration.html
-							"string_parameter_declaration":    stringParameterDeclarationSchema(),   // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_StringParameterDeclaration.html
-						},
-					},
-				},
-				"sheets": { // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_SheetDefinition.html
-					Type:     schema.TypeList,
-					MinItems: 1,
-					MaxItems: 20,
-					Optional: true,
-					Elem: &schema.Resource{
-						Schema: map[string]*schema.Schema{
-							"sheet_id": idSchema(),
-							"content_type": {
-								Type:         schema.TypeString,
-								Optional:     true,
-								Computed:     true,
-								Validate
+Type:     schema.TypeList,
+MaxItems: 1,
+Optional: true,
+Computed: true,
+ExactlyOneOf: []string{
+	"definition",
+	"source_entity",
+},
+Elem: &schema.Resource{
+	Schema: map[string]*schema.Schema{
+"data_set_configuration": dataSetConfigurationSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DataSetConfiguration.html
+"analysis_defaults":      analysisDefaultSchema(),      // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_AnalysisDefaults.html
+"calculated_fields":      calculatedFieldsSchema(),     // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_CalculatedField.html
+"column_configurations": { // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnConfiguration.html
+	Type:     schema.TypeList,
+	MinItems: 1,
+	MaxItems: 200,
+	Optional: true,
+	Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+	"column":columnSchema(),              // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnIdentifier.html
+	"format_configuration": formatConfigurationSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FormatConfiguration.html
+	"role":  stringSchema(false, validation.StringInSlice(quicksight.ColumnRole_Values(), false)),
+},
+	},
+},
+"filter_groups": { // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FilterGroup.html
+	Type:     schema.TypeList,
+	MinItems: 1,
+	MaxItems: 2000,
+	Optional: true,
+	Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+	"cross_dataset":       stringSchema(true, validation.StringInSlice(quicksight.CrossDatasetTypes_Values(), false)),
+	"filter_group_id":     idSchema(),
+	"filters":             filtersSchema(),   // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_Filter.html
+	"scope_configuration": filterScopeConfigurationSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FilterScopeConfiguration.html
+	"status":              stringSchema(false, validation.StringInSlice(quicksight.Status_Values(), false)),
+},
+	},
+},
+"parameters_declarations": { // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ParameterDeclaration.html
+	Type:     schema.TypeList,
+	MinItems: 1,
+	MaxItems: 200,
+	Optional: true,
+	Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+	"date_time_parameter_declaration": dateTimeParameterDeclarationSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DateTimeParameterDeclaration.html
+	"decimal_parameter_declaration":   decimalParameterDeclarationSchema(),  // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DecimalParameterDeclaration.html
+	"integer_parameter_declaration":   integerParameterDeclarationSchema(),  // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_IntegerParameterDeclaration.html
+	"string_parameter_declaration":    stringParameterDeclarationSchema(),   // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_StringParameterDeclaration.html
+},
+	},
+},
+"sheets": { // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_SheetDefinition.html
+	Type:     schema.TypeList,
+	MinItems: 1,
+	MaxItems: 20,
+	Optional: true,
+	Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+	"sheet_id": idSchema(),
+	"content_type": {
+Type:         schema.TypeString,
+Optional:     true,
+Computed:     true,
+Validate
 func: validation.StringInSlice(quicksight.SheetContentType_Values(), false),
-							},
-							"description":           stringSchema(false, validation.StringLenBetween(1, 1024)),
-							"filter_controls":       filterControlsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FilterControl.html
-							"layouts":layoutSchema(),         // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_Layout.html
-							"name":   stringSchema(false, validation.StringLenBetween(1, 2048)),
-							"parameter_controls":    parameterControlsSchema(),   // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ParameterControl.html
-							"sheet_control_layouts": sheetControlLayoutsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_SheetControlLayout.html
-							"text_boxes": { // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_SheetTextBox.html
-								Type:     schema.TypeList,
-								MinItems: 1,
-								MaxItems: 100,
-								Optional: true,
-								Elem: &schema.Resource{
-									Schema: map[string]*schema.Schema{
-										"sheet_text_box_id": idSchema(),
-										"content":           stringSchema(false, validation.StringLenBetween(1, 150000)),
-									},
-								},
-							},
-							"title":   stringSchema(false, validation.StringLenBetween(1, 1024)),
-							"visuals": visualsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_Visual.html
-						},
-					},
-				},
-			},
-		},
+	},
+	"description":           stringSchema(false, validation.StringLenBetween(1, 1024)),
+	"filter_controls":       filterControlsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FilterControl.html
+	"layouts":layoutSchema(),         // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_Layout.html
+	"name":   stringSchema(false, validation.StringLenBetween(1, 2048)),
+	"parameter_controls":    parameterControlsSchema(),   // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ParameterControl.html
+	"sheet_control_layouts": sheetControlLayoutsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_SheetControlLayout.html
+	"text_boxes": { // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_SheetTextBox.html
+Type:     schema.TypeList,
+MinItems: 1,
+MaxItems: 100,
+Optional: true,
+Elem: &schema.Resource{
+	Schema: map[string]*schema.Schema{
+"sheet_text_box_id": idSchema(),
+"content":           stringSchema(false, validation.StringLenBetween(1, 150000)),
+	},
+},
+	},
+	"title":   stringSchema(false, validation.StringLenBetween(1, 1024)),
+	"visuals": visualsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_Visual.html
+},
+	},
+},
+	},
+},
 	}
 }
 
@@ -118,10 +118,10 @@ func stringOptionalComputedSchema(validate
 func schema.SchemaValidate
 func) *schema.Schema {
 	return &schema.Schema{
-		Type:         schema.TypeString,
-		Optional:     true,
-		Computed:     true,
-		Validate
+Type:         schema.TypeString,
+Optional:     true,
+Computed:     true,
+Validate
 func: validate
 func,
 	}
@@ -132,10 +132,10 @@ func stringSchema(required bool, validate
 func schema.SchemaValidate
 func) *schema.Schema {
 	return &schema.Schema{
-		Type:         schema.TypeString,
-		Required:     required,
-		Optional:     !required,
-		Validate
+Type:         schema.TypeString,
+Required:     required,
+Optional:     !required,
+Validate
 func: validate
 func,
 	}
@@ -146,10 +146,10 @@ func intSchema(required bool, validate
 func schema.SchemaValidate
 func) *schema.Schema {
 	return &schema.Schema{
-		Type:         schema.TypeInt,
-		Required:     required,
-		Optional:     !required,
-		Validate
+Type:         schema.TypeInt,
+Required:     required,
+Optional:     !required,
+Validate
 func: validate
 func,
 	}
@@ -160,10 +160,10 @@ func floatSchema(required bool, validate
 func schema.SchemaValidate
 func) *schema.Schema {
 	return &schema.Schema{
-		Type:         schema.TypeFloat,
-		Required:     required,
-		Optional:     !required,
-		Validate
+Type:         schema.TypeFloat,
+Required:     required,
+Optional:     !required,
+Validate
 func: validate
 func,
 	}
@@ -174,42 +174,42 @@ func aggregation
 functionSchema(required bool) *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_Aggregation
 function.html
-		Type:     schema.TypeList,
-		Required: required,
-		Optional: !required,
-		MinItems: 1,
-		MaxItems: 1,
-		Elem: &schema.Resource{
-			Schema: map[string]*schema.Schema{
-				"categorical_aggregation_
+Type:     schema.TypeList,
+Required: required,
+Optional: !required,
+MinItems: 1,
+MaxItems: 1,
+Elem: &schema.Resource{
+	Schema: map[string]*schema.Schema{
+"categorical_aggregation_
 function": stringSchema(false, validation.StringInSlice(quicksight.CategoricalAggregation
 function_Values(), false)),
-				"date_aggregation_
+"date_aggregation_
 function":        stringSchema(false, validation.StringInSlice(quicksight.DateAggregation
 function_Values(), false)),
-				"numerical_aggregation_
+"numerical_aggregation_
 function":   numericalAggregation
 functionSchema(false), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_NumericalAggregation
 function.html
-			},
-		},
+	},
+},
 	}
 }
 
 
 func calculatedFieldsSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_CalculatedField.html
-		Type:     schema.TypeSet,
-		MinItems: 1,
-		MaxItems: 500,
-		Optional: true,
-		Elem: &schema.Resource{
-			Schema: map[string]*schema.Schema{
-				"data_set_identifier": stringSchema(true, validation.StringLenBetween(1, 2048)),
-				"expression":          stringSchema(true, validation.StringLenBetween(1, 32000)),
-				"name": stringSchema(true, validation.StringLenBetween(1, 128)),
-			},
-		},
+Type:     schema.TypeSet,
+MinItems: 1,
+MaxItems: 500,
+Optional: true,
+Elem: &schema.Resource{
+	Schema: map[string]*schema.Schema{
+"data_set_identifier": stringSchema(true, validation.StringLenBetween(1, 2048)),
+"expression":          stringSchema(true, validation.StringLenBetween(1, 32000)),
+"name": stringSchema(true, validation.StringLenBetween(1, 128)),
+	},
+},
 	}
 }
 
@@ -218,225 +218,225 @@ func numericalAggregation
 functionSchema(required bool) *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_NumericalAggregation
 function.html
-		Type:     schema.TypeList,
-		Required: required,
-		Optional: !required,
-		MinItems: 1,
-		MaxItems: 1,
-		Elem: &schema.Resource{
-			Schema: map[string]*schema.Schema{
-				"percentile_aggregation": { // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_PercentileAggregation.html
-					Type:     schema.TypeList,
-					Optional: true,
-					MinItems: 1,
-					MaxItems: 1,
-					Elem: &schema.Resource{
-						Schema: map[string]*schema.Schema{
-							"percentile_value": {
-								Type:         schema.TypeFloat,
-								Optional:     true,
-								Validate
+Type:     schema.TypeList,
+Required: required,
+Optional: !required,
+MinItems: 1,
+MaxItems: 1,
+Elem: &schema.Resource{
+	Schema: map[string]*schema.Schema{
+"percentile_aggregation": { // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_PercentileAggregation.html
+	Type:     schema.TypeList,
+	Optional: true,
+	MinItems: 1,
+	MaxItems: 1,
+	Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+	"percentile_value": {
+Type:         schema.TypeFloat,
+Optional:     true,
+Validate
 func: validation.IntBetween(0, 100),
-							},
-						},
-					},
-				},
-				"simple_numerical_aggregation": stringSchema(false, validation.StringInSlice(quicksight.SimpleNumericalAggregation
+	},
+},
+	},
+},
+"simple_numerical_aggregation": stringSchema(false, validation.StringInSlice(quicksight.SimpleNumericalAggregation
 function_Values(), false)),
-			},
-		},
+	},
+},
 	}
 }
 
 
 func idSchema() *schema.Schema {
 	return &schema.Schema{
-		Type:     schema.TypeString,
-		Required: true,
-		Validate
+Type:     schema.TypeString,
+Required: true,
+Validate
 func: validation.All(
-			validation.StringLenBetween(1, 512),
-			validation.StringMatch(regexache.MustCompile(`[\w\-]+`), "must contain only alphanumeric, hyphen, and underscore characters"),
-		),
+	validation.StringLenBetween(1, 512),
+	validation.StringMatch(regexache.MustCompile(`[\w\-]+`), "must contain only alphanumeric, hyphen, and underscore characters"),
+),
 	}
 }
 
 
 func columnSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnIdentifier.html
-		Type:     schema.TypeList,
-		MinItems: 1,
-		MaxItems: 1,
-		Required: true,
-		Elem: &schema.Resource{
-			Schema: map[string]*schema.Schema{
-				"column_name":         stringSchema(true, validation.StringLenBetween(1, 128)),
-				"data_set_identifier": stringSchema(true, validation.StringLenBetween(1, 2048)),
-			},
-		},
+Type:     schema.TypeList,
+MinItems: 1,
+MaxItems: 1,
+Required: true,
+Elem: &schema.Resource{
+	Schema: map[string]*schema.Schema{
+"column_name":         stringSchema(true, validation.StringLenBetween(1, 128)),
+"data_set_identifier": stringSchema(true, validation.StringLenBetween(1, 2048)),
+	},
+},
 	}
 }
 
 
 func dataSetConfigurationSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DataSetConfiguration.html
-		Type:     schema.TypeList,
-		MaxItems: 30,
-		Required: true,
-		Elem: &schema.Resource{
-			Schema: map[string]*schema.Schema{
-				"column_group_schema_list": { // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnGroupSchema.html
-					Type:     schema.TypeList,
-					MinItems: 1,
-					MaxItems: 500,
-					Optional: true,
-					Elem: &schema.Resource{
-						Schema: map[string]*schema.Schema{
-							"column_group_column_schema_list": { // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnGroupColumnSchema.html
-								Type:     schema.TypeList,
-								MinItems: 1,
-								MaxItems: 500,
-								Optional: true,
-								Elem: &schema.Resource{
-									Schema: map[string]*schema.Schema{
-										"name": {
-											Type:     schema.TypeString,
-											Optional: true,
-										},
-									},
-								},
-							},
-							"name": {
-								Type:     schema.TypeString,
-								Optional: true,
-							},
-						},
-					},
-				},
-				"data_set_schema": { // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DataSetSchema.html
-					Type:     schema.TypeList,
-					MinItems: 1,
-					MaxItems: 1,
-					Optional: true,
-					Elem: &schema.Resource{
-						Schema: map[string]*schema.Schema{
-							"column_schema_list": { // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnSchema.html
-								Type:     schema.TypeList,
-								MinItems: 1,
-								MaxItems: 500,
-								Optional: true,
-								Elem: &schema.Resource{
-									Schema: map[string]*schema.Schema{
-										"data_type": {
-											Type:     schema.TypeString,
-											Optional: true,
-										},
-										"geographic_role": {
-											Type:     schema.TypeString,
-											Optional: true,
-										},
-										"name": {
-											Type:     schema.TypeString,
-											Optional: true,
-										},
-									},
-								},
-							},
-						},
-					},
-				},
-				"placeholder": {
-					Type:     schema.TypeString,
-					Optional: true,
-				},
-			},
-		},
+Type:     schema.TypeList,
+MaxItems: 30,
+Required: true,
+Elem: &schema.Resource{
+	Schema: map[string]*schema.Schema{
+"column_group_schema_list": { // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnGroupSchema.html
+	Type:     schema.TypeList,
+	MinItems: 1,
+	MaxItems: 500,
+	Optional: true,
+	Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+	"column_group_column_schema_list": { // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnGroupColumnSchema.html
+Type:     schema.TypeList,
+MinItems: 1,
+MaxItems: 500,
+Optional: true,
+Elem: &schema.Resource{
+	Schema: map[string]*schema.Schema{
+"name": {
+	Type:     schema.TypeString,
+	Optional: true,
+},
+	},
+},
+	},
+	"name": {
+Type:     schema.TypeString,
+Optional: true,
+	},
+},
+	},
+},
+"data_set_schema": { // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DataSetSchema.html
+	Type:     schema.TypeList,
+	MinItems: 1,
+	MaxItems: 1,
+	Optional: true,
+	Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+	"column_schema_list": { // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnSchema.html
+Type:     schema.TypeList,
+MinItems: 1,
+MaxItems: 500,
+Optional: true,
+Elem: &schema.Resource{
+	Schema: map[string]*schema.Schema{
+"data_type": {
+	Type:     schema.TypeString,
+	Optional: true,
+},
+"geographic_role": {
+	Type:     schema.TypeString,
+	Optional: true,
+},
+"name": {
+	Type:     schema.TypeString,
+	Optional: true,
+},
+	},
+},
+	},
+},
+	},
+},
+"placeholder": {
+	Type:     schema.TypeString,
+	Optional: true,
+},
+	},
+},
 	}
 }
 
 
 func rollingDateConfigurationSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_RollingDateConfiguration.html
-		Type:     schema.TypeList,
-		MinItems: 1,
-		MaxItems: 1,
-		Optional: true,
-		Elem: &schema.Resource{
-			Schema: map[string]*schema.Schema{
-				"data_set_identifier": stringSchema(false, validation.StringLenBetween(1, 2048)),
-				"expression":          stringSchema(true, validation.StringLenBetween(1, 4096)),
-			},
-		},
+Type:     schema.TypeList,
+MinItems: 1,
+MaxItems: 1,
+Optional: true,
+Elem: &schema.Resource{
+	Schema: map[string]*schema.Schema{
+"data_set_identifier": stringSchema(false, validation.StringLenBetween(1, 2048)),
+"expression":          stringSchema(true, validation.StringLenBetween(1, 4096)),
+	},
+},
 	}
 }
 
 
 func TemplateSourceEntitySchema() *schema.Schema {
 	return &schema.Schema{
-		Type:     schema.TypeList,
-		MaxItems: 1,
-		Optional: true,
-		ExactlyOneOf: []string{
-			"definition",
-			"source_entity",
-		},
-		Elem: &schema.Resource{
-			Schema: map[string]*schema.Schema{
-				"source_analysis": {
-					Type:         schema.TypeList,
-					MaxItems:     1,
-					Optional:     true,
-					ExactlyOneOf: []string{"source_entity.0.source_analysis", "source_entity.0.source_template"},
-					Elem: &schema.Resource{
-						Schema: map[string]*schema.Schema{
-							"arn": {
-								Type:         schema.TypeString,
-								Required:     true,
-								Validate
+Type:     schema.TypeList,
+MaxItems: 1,
+Optional: true,
+ExactlyOneOf: []string{
+	"definition",
+	"source_entity",
+},
+Elem: &schema.Resource{
+	Schema: map[string]*schema.Schema{
+"source_analysis": {
+	Type:         schema.TypeList,
+	MaxItems:     1,
+	Optional:     true,
+	ExactlyOneOf: []string{"source_entity.0.source_analysis", "source_entity.0.source_template"},
+	Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+	"arn": {
+Type:         schema.TypeString,
+Required:     true,
+Validate
 func: verify.ValidARN,
-							},
-							"data_set_references": dataSetReferencesSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DataSetReference.html
-						},
-					},
-				},
-				"source_template": {
-					Type:         schema.TypeList,
-					MaxItems:     1,
-					Optional:     true,
-					ExactlyOneOf: []string{"source_entity.0.source_analysis", "source_entity.0.source_template"},
-					Elem: &schema.Resource{
-						Schema: map[string]*schema.Schema{
-							"arn": {
-								Type:         schema.TypeString,
-								Required:     true,
-								Validate
+	},
+	"data_set_references": dataSetReferencesSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DataSetReference.html
+},
+	},
+},
+"source_template": {
+	Type:         schema.TypeList,
+	MaxItems:     1,
+	Optional:     true,
+	ExactlyOneOf: []string{"source_entity.0.source_analysis", "source_entity.0.source_template"},
+	Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+	"arn": {
+Type:         schema.TypeString,
+Required:     true,
+Validate
 func: verify.ValidARN,
-							},
-						},
-					},
-				},
-			},
-		},
+	},
+},
+	},
+},
+	},
+},
 	}
 }
 
 
 func ExpandTemplateSourceEntity(tfList []interface{}) *quicksight.TemplateSourceEntity {
 	if len(tfList) == 0 || tfList[0] == nil {
-		return nil
+return nil
 	}
 
 	tfMap, ok := tfList[0].(map[string]interface{})
 	if !ok {
-		return nil
+return nil
 	}
 
 	sourceEntity := &quicksight.TemplateSourceEntity{}
 
 	if v, ok := tfMap["source_analysis"].([]interface{}); ok && len(v) > 0 {
-		sourceEntity.SourceAnalysis = expandSourceAnalysis(v[0].(map[string]interface{}))
+sourceEntity.SourceAnalysis = expandSourceAnalysis(v[0].(map[string]interface{}))
 	} else if v, ok := tfMap["source_template"].([]interface{}); ok && len(v) > 0 {
-		sourceEntity.SourceTemplate = expandTemplateSourceTemplate(v[0].(map[string]interface{}))
+sourceEntity.SourceTemplate = expandTemplateSourceTemplate(v[0].(map[string]interface{}))
 	}
 
 	return sourceEntity
@@ -445,15 +445,15 @@ func ExpandTemplateSourceEntity(tfList []interface{}) *quicksight.TemplateSource
 
 func expandSourceAnalysis(tfMap map[string]interface{}) *quicksight.TemplateSourceAnalysis {
 	if tfMap == nil {
-		return nil
+return nil
 	}
 
 	sourceAnalysis := &quicksight.TemplateSourceAnalysis{}
 	if v, ok := tfMap["arn"].(string); ok && v != "" {
-		sourceAnalysis.Arn = aws.String(v)
+sourceAnalysis.Arn = aws.String(v)
 	}
 	if v, ok := tfMap["data_set_references"].([]interface{}); ok && len(v) > 0 {
-		sourceAnalysis.DataSetReferences = expandDataSetReferences(v)
+sourceAnalysis.DataSetReferences = expandDataSetReferences(v)
 	}
 
 	return sourceAnalysis
@@ -462,22 +462,22 @@ func expandSourceAnalysis(tfMap map[string]interface{}) *quicksight.TemplateSour
 
 func expandDataSetReferences(tfList []interface{}) []*quicksight.DataSetReference {
 	if len(tfList) == 0 {
-		return nil
+return nil
 	}
 
 	var dataSetReferences []*quicksight.DataSetReference
 	for _, tfMapRaw := range tfList {
-		tfMap, ok := tfMapRaw.(map[string]interface{})
-		if !ok {
-			continue
-		}
+tfMap, ok := tfMapRaw.(map[string]interface{})
+if !ok {
+	continue
+}
 
-		dataSetReference := expandDataSetReference(tfMap)
-		if dataSetReference == nil {
-			continue
-		}
+dataSetReference := expandDataSetReference(tfMap)
+if dataSetReference == nil {
+	continue
+}
 
-		dataSetReferences = append(dataSetReferences, dataSetReference)
+dataSetReferences = append(dataSetReferences, dataSetReference)
 	}
 
 	return dataSetReferences
@@ -486,15 +486,15 @@ func expandDataSetReferences(tfList []interface{}) []*quicksight.DataSetReferenc
 
 func expandDataSetReference(tfMap map[string]interface{}) *quicksight.DataSetReference {
 	if tfMap == nil {
-		return nil
+return nil
 	}
 
 	dataSetReference := &quicksight.DataSetReference{}
 	if v, ok := tfMap["data_set_arn"].(string); ok {
-		dataSetReference.DataSetArn = aws.String(v)
+dataSetReference.DataSetArn = aws.String(v)
 	}
 	if v, ok := tfMap["data_set_placeholder"].(string); ok {
-		dataSetReference.DataSetPlaceholder = aws.String(v)
+dataSetReference.DataSetPlaceholder = aws.String(v)
 	}
 
 	return dataSetReference
@@ -503,12 +503,12 @@ func expandDataSetReference(tfMap map[string]interface{}) *quicksight.DataSetRef
 
 func expandTemplateSourceTemplate(tfMap map[string]interface{}) *quicksight.TemplateSourceTemplate {
 	if tfMap == nil {
-		return nil
+return nil
 	}
 
 	sourceTemplate := &quicksight.TemplateSourceTemplate{}
 	if v, ok := tfMap["arn"].(string); ok && v != "" {
-		sourceTemplate.Arn = aws.String(v)
+sourceTemplate.Arn = aws.String(v)
 	}
 
 	return sourceTemplate
@@ -517,36 +517,36 @@ func expandTemplateSourceTemplate(tfMap map[string]interface{}) *quicksight.Temp
 
 func ExpandTemplateDefinition(tfList []interface{}) *quicksight.TemplateVersionDefinition {
 	if len(tfList) == 0 || tfList[0] == nil {
-		return nil
+return nil
 	}
 
 	tfMap, ok := tfList[0].(map[string]interface{})
 	if !ok {
-		return nil
+return nil
 	}
 
 	definition := &quicksight.TemplateVersionDefinition{}
 
 	if v, ok := tfMap["analysis_defaults"].([]interface{}); ok && len(v) > 0 {
-		definition.AnalysisDefaults = expandAnalysisDefaults(v)
+definition.AnalysisDefaults = expandAnalysisDefaults(v)
 	}
 	if v, ok := tfMap["calculated_fields"].(*schema.Set); ok && v.Len() > 0 {
-		definition.CalculatedFields = expandCalculatedFields(v.List())
+definition.CalculatedFields = expandCalculatedFields(v.List())
 	}
 	if v, ok := tfMap["column_configurations"].([]interface{}); ok && len(v) > 0 {
-		definition.ColumnConfigurations = expandColumnConfigurations(v)
+definition.ColumnConfigurations = expandColumnConfigurations(v)
 	}
 	if v, ok := tfMap["data_set_configuration"].([]interface{}); ok && len(v) > 0 {
-		definition.DataSetConfigurations = expandDataSetConfigurations(v)
+definition.DataSetConfigurations = expandDataSetConfigurations(v)
 	}
 	if v, ok := tfMap["filter_groups"].([]interface{}); ok && len(v) > 0 {
-		definition.FilterGroups = expandFilterGroups(v)
+definition.FilterGroups = expandFilterGroups(v)
 	}
 	if v, ok := tfMap["parameters_declarations"].(*schema.Set); ok && v.Len() > 0 {
-		definition.ParameterDeclarations = expandParameterDeclarations(v.List())
+definition.ParameterDeclarations = expandParameterDeclarations(v.List())
 	}
 	if v, ok := tfMap["sheets"].([]interface{}); ok && len(v) > 0 {
-		definition.Sheets = expandSheetDefinitions(v)
+definition.Sheets = expandSheetDefinitions(v)
 	}
 
 	return definition
@@ -555,22 +555,22 @@ func ExpandTemplateDefinition(tfList []interface{}) *quicksight.TemplateVersionD
 
 func expandCalculatedFields(tfList []interface{}) []*quicksight.CalculatedField {
 	if len(tfList) == 0 {
-		return nil
+return nil
 	}
 
 	var fields []*quicksight.CalculatedField
 	for _, tfMapRaw := range tfList {
-		tfMap, ok := tfMapRaw.(map[string]interface{})
-		if !ok {
-			continue
-		}
+tfMap, ok := tfMapRaw.(map[string]interface{})
+if !ok {
+	continue
+}
 
-		field := expandCalculatedField(tfMap)
-		if field == nil {
-			continue
-		}
+field := expandCalculatedField(tfMap)
+if field == nil {
+	continue
+}
 
-		fields = append(fields, field)
+fields = append(fields, field)
 	}
 
 	return fields
@@ -579,19 +579,19 @@ func expandCalculatedFields(tfList []interface{}) []*quicksight.CalculatedField 
 
 func expandCalculatedField(tfMap map[string]interface{}) *quicksight.CalculatedField {
 	if tfMap == nil {
-		return nil
+return nil
 	}
 
 	field := &quicksight.CalculatedField{}
 
 	if v, ok := tfMap["data_set_identifier"].(string); ok && v != "" {
-		field.DataSetIdentifier = aws.String(v)
+field.DataSetIdentifier = aws.String(v)
 	}
 	if v, ok := tfMap["expression"].(string); ok && v != "" {
-		field.Expression = aws.String(v)
+field.Expression = aws.String(v)
 	}
 	if v, ok := tfMap["name"].(string); ok && v != "" {
-		field.Name = aws.String(v)
+field.Name = aws.String(v)
 	}
 
 	return field
@@ -600,22 +600,22 @@ func expandCalculatedField(tfMap map[string]interface{}) *quicksight.CalculatedF
 
 func expandColumnConfigurations(tfList []interface{}) []*quicksight.ColumnConfiguration {
 	if len(tfList) == 0 {
-		return nil
+return nil
 	}
 
 	var configs []*quicksight.ColumnConfiguration
 	for _, tfMapRaw := range tfList {
-		tfMap, ok := tfMapRaw.(map[string]interface{})
-		if !ok {
-			continue
-		}
+tfMap, ok := tfMapRaw.(map[string]interface{})
+if !ok {
+	continue
+}
 
-		column := expandColumnConfiguration(tfMap)
-		if column == nil {
-			continue
-		}
+column := expandColumnConfiguration(tfMap)
+if column == nil {
+	continue
+}
 
-		configs = append(configs, column)
+configs = append(configs, column)
 	}
 
 	return configs
@@ -624,21 +624,21 @@ func expandColumnConfigurations(tfList []interface{}) []*quicksight.ColumnConfig
 
 func expandColumnConfiguration(tfMap map[string]interface{}) *quicksight.ColumnConfiguration {
 	if tfMap == nil {
-		return nil
+return nil
 	}
 
 	column := &quicksight.ColumnConfiguration{}
 
 	if v, ok := tfMap["column"].([]interface{}); ok && len(v) > 0 {
-		column.Column = expandColumnIdentifier(v)
+column.Column = expandColumnIdentifier(v)
 	}
 
 	if v, ok := tfMap["format_configuration"].([]interface{}); ok && len(v) > 0 {
-		column.FormatConfiguration = expandFormatConfiguration(v)
+column.FormatConfiguration = expandFormatConfiguration(v)
 	}
 
 	if v, ok := tfMap["role"].(string); ok && v != "" {
-		column.Role = aws.String(v)
+column.Role = aws.String(v)
 	}
 
 	return column
@@ -647,12 +647,12 @@ func expandColumnConfiguration(tfMap map[string]interface{}) *quicksight.ColumnC
 
 func expandColumnIdentifier(tfList []interface{}) *quicksight.ColumnIdentifier {
 	if len(tfList) == 0 || tfList[0] == nil {
-		return nil
+return nil
 	}
 
 	tfMap, ok := tfList[0].(map[string]interface{})
 	if !ok {
-		return nil
+return nil
 	}
 
 	return expandColumnIdentifierInternal(tfMap)
@@ -663,10 +663,10 @@ func expandColumnIdentifierInternal(tfMap map[string]interface{}) *quicksight.Co
 	column := &quicksight.ColumnIdentifier{}
 
 	if v, ok := tfMap["data_set_identifier"].(string); ok && v != "" {
-		column.DataSetIdentifier = aws.String(v)
+column.DataSetIdentifier = aws.String(v)
 	}
 	if v, ok := tfMap["column_name"].(string); ok && v != "" {
-		column.ColumnName = aws.String(v)
+column.ColumnName = aws.String(v)
 	}
 
 	return column
@@ -675,22 +675,22 @@ func expandColumnIdentifierInternal(tfMap map[string]interface{}) *quicksight.Co
 
 func expandColumnIdentifiers(tfList []interface{}) []*quicksight.ColumnIdentifier {
 	if len(tfList) == 0 {
-		return nil
+return nil
 	}
 
 	var columns []*quicksight.ColumnIdentifier
 	for _, tfMapRaw := range tfList {
-		tfMap, ok := tfMapRaw.(map[string]interface{})
-		if !ok {
-			continue
-		}
+tfMap, ok := tfMapRaw.(map[string]interface{})
+if !ok {
+	continue
+}
 
-		col := expandColumnIdentifierInternal(tfMap)
-		if col == nil {
-			continue
-		}
+col := expandColumnIdentifierInternal(tfMap)
+if col == nil {
+	continue
+}
 
-		columns = append(columns, col)
+columns = append(columns, col)
 	}
 
 	return columns
@@ -699,22 +699,22 @@ func expandColumnIdentifiers(tfList []interface{}) []*quicksight.ColumnIdentifie
 
 func expandDataSetConfigurations(tfList []interface{}) []*quicksight.DataSetConfiguration {
 	if len(tfList) == 0 {
-		return nil
+return nil
 	}
 
 	var configs []*quicksight.DataSetConfiguration
 	for _, tfMapRaw := range tfList {
-		tfMap, ok := tfMapRaw.(map[string]interface{})
-		if !ok {
-			continue
-		}
+tfMap, ok := tfMapRaw.(map[string]interface{})
+if !ok {
+	continue
+}
 
-		config := expandDataSetConfiguration(tfMap)
-		if config == nil {
-			continue
-		}
+config := expandDataSetConfiguration(tfMap)
+if config == nil {
+	continue
+}
 
-		configs = append(configs, config)
+configs = append(configs, config)
 	}
 
 	return configs
@@ -723,19 +723,19 @@ func expandDataSetConfigurations(tfList []interface{}) []*quicksight.DataSetConf
 
 func expandDataSetConfiguration(tfMap map[string]interface{}) *quicksight.DataSetConfiguration {
 	if tfMap == nil {
-		return nil
+return nil
 	}
 
 	config := &quicksight.DataSetConfiguration{}
 
 	if v, ok := tfMap["column_group_schema_list"].([]interface{}); ok && len(v) > 0 {
-		config.ColumnGroupSchemaList = expandColumnGroupSchemas(v)
+config.ColumnGroupSchemaList = expandColumnGroupSchemas(v)
 	}
 	if v, ok := tfMap["data_set_schema"].([]interface{}); ok && len(v) > 0 {
-		config.DataSetSchema = expandDataSetSchema(v)
+config.DataSetSchema = expandDataSetSchema(v)
 	}
 	if v, ok := tfMap["placeholder"].(string); ok && v != "" {
-		config.Placeholder = aws.String(v)
+config.Placeholder = aws.String(v)
 	}
 
 	return config
@@ -744,22 +744,22 @@ func expandDataSetConfiguration(tfMap map[string]interface{}) *quicksight.DataSe
 
 func expandColumnGroupSchemas(tfList []interface{}) []*quicksight.ColumnGroupSchema {
 	if len(tfList) == 0 {
-		return nil
+return nil
 	}
 
 	var groups []*quicksight.ColumnGroupSchema
 	for _, tfMapRaw := range tfList {
-		tfMap, ok := tfMapRaw.(map[string]interface{})
-		if !ok {
-			continue
-		}
+tfMap, ok := tfMapRaw.(map[string]interface{})
+if !ok {
+	continue
+}
 
-		group := expandColumnGroupSchema(tfMap)
-		if group == nil {
-			continue
-		}
+group := expandColumnGroupSchema(tfMap)
+if group == nil {
+	continue
+}
 
-		groups = append(groups, group)
+groups = append(groups, group)
 	}
 
 	return groups
@@ -768,16 +768,16 @@ func expandColumnGroupSchemas(tfList []interface{}) []*quicksight.ColumnGroupSch
 
 func expandColumnGroupSchema(tfMap map[string]interface{}) *quicksight.ColumnGroupSchema {
 	if tfMap == nil {
-		return nil
+return nil
 	}
 
 	group := &quicksight.ColumnGroupSchema{}
 
 	if v, ok := tfMap["column_group_schema_list"].([]interface{}); ok && len(v) > 0 {
-		group.ColumnGroupColumnSchemaList = expandColumnGroupColumnSchemas(v)
+group.ColumnGroupColumnSchemaList = expandColumnGroupColumnSchemas(v)
 	}
 	if v, ok := tfMap["name"].(string); ok && v != "" {
-		group.Name = aws.String(v)
+group.Name = aws.String(v)
 	}
 
 	return group
@@ -786,22 +786,22 @@ func expandColumnGroupSchema(tfMap map[string]interface{}) *quicksight.ColumnGro
 
 func expandColumnGroupColumnSchemas(tfList []interface{}) []*quicksight.ColumnGroupColumnSchema {
 	if len(tfList) == 0 {
-		return nil
+return nil
 	}
 
 	var columns []*quicksight.ColumnGroupColumnSchema
 	for _, tfMapRaw := range tfList {
-		tfMap, ok := tfMapRaw.(map[string]interface{})
-		if !ok {
-			continue
-		}
+tfMap, ok := tfMapRaw.(map[string]interface{})
+if !ok {
+	continue
+}
 
-		column := expandColumnGroupColumnSchema(tfMap)
-		if column == nil {
-			continue
-		}
+column := expandColumnGroupColumnSchema(tfMap)
+if column == nil {
+	continue
+}
 
-		columns = append(columns, column)
+columns = append(columns, column)
 	}
 
 	return columns
@@ -810,13 +810,13 @@ func expandColumnGroupColumnSchemas(tfList []interface{}) []*quicksight.ColumnGr
 
 func expandColumnGroupColumnSchema(tfMap map[string]interface{}) *quicksight.ColumnGroupColumnSchema {
 	if tfMap == nil {
-		return nil
+return nil
 	}
 
 	column := &quicksight.ColumnGroupColumnSchema{}
 
 	if v, ok := tfMap["name"].(string); ok && v != "" {
-		column.Name = aws.String(v)
+column.Name = aws.String(v)
 	}
 
 	return column
@@ -825,17 +825,17 @@ func expandColumnGroupColumnSchema(tfMap map[string]interface{}) *quicksight.Col
 
 func expandDataSetSchema(tfList []interface{}) *quicksight.DataSetSchema {
 	if len(tfList) == 0 || tfList[0] == nil {
-		return nil
+return nil
 	}
 
 	tfMap, ok := tfList[0].(map[string]interface{})
 	if !ok {
-		return nil
+return nil
 	}
 	schema := &quicksight.DataSetSchema{}
 
 	if v, ok := tfMap["column_schema_list"].([]interface{}); ok && len(v) > 0 {
-		schema.ColumnSchemaList = expandColumnSchemas(v)
+schema.ColumnSchemaList = expandColumnSchemas(v)
 	}
 
 	return schema
@@ -844,22 +844,22 @@ func expandDataSetSchema(tfList []interface{}) *quicksight.DataSetSchema {
 
 func expandColumnSchemas(tfList []interface{}) []*quicksight.ColumnSchema {
 	if len(tfList) == 0 {
-		return nil
+return nil
 	}
 
 	var columns []*quicksight.ColumnSchema
 	for _, tfMapRaw := range tfList {
-		tfMap, ok := tfMapRaw.(map[string]interface{})
-		if !ok {
-			continue
-		}
+tfMap, ok := tfMapRaw.(map[string]interface{})
+if !ok {
+	continue
+}
 
-		column := expandColumnSchema(tfMap)
-		if column == nil {
-			continue
-		}
+column := expandColumnSchema(tfMap)
+if column == nil {
+	continue
+}
 
-		columns = append(columns, column)
+columns = append(columns, column)
 	}
 
 	return columns
@@ -868,19 +868,19 @@ func expandColumnSchemas(tfList []interface{}) []*quicksight.ColumnSchema {
 
 func expandColumnSchema(tfMap map[string]interface{}) *quicksight.ColumnSchema {
 	if tfMap == nil {
-		return nil
+return nil
 	}
 
 	column := &quicksight.ColumnSchema{}
 
 	if v, ok := tfMap["data_type"].(string); ok && v != "" {
-		column.DataType = aws.String(v)
+column.DataType = aws.String(v)
 	}
 	if v, ok := tfMap["geographic_role"].(string); ok && v != "" {
-		column.GeographicRole = aws.String(v)
+column.GeographicRole = aws.String(v)
 	}
 	if v, ok := tfMap["name"].(string); ok && v != "" {
-		column.Name = aws.String(v)
+column.Name = aws.String(v)
 	}
 
 	return column
@@ -889,22 +889,22 @@ func expandColumnSchema(tfMap map[string]interface{}) *quicksight.ColumnSchema {
 
 func expandFilterGroups(tfList []interface{}) []*quicksight.FilterGroup {
 	if len(tfList) == 0 {
-		return nil
+return nil
 	}
 
 	var groups []*quicksight.FilterGroup
 	for _, tfMapRaw := range tfList {
-		tfMap, ok := tfMapRaw.(map[string]interface{})
-		if !ok {
-			continue
-		}
+tfMap, ok := tfMapRaw.(map[string]interface{})
+if !ok {
+	continue
+}
 
-		group := expandFilterGroup(tfMap)
-		if group == nil {
-			continue
-		}
+group := expandFilterGroup(tfMap)
+if group == nil {
+	continue
+}
 
-		groups = append(groups, group)
+groups = append(groups, group)
 	}
 
 	return groups
@@ -913,25 +913,25 @@ func expandFilterGroups(tfList []interface{}) []*quicksight.FilterGroup {
 
 func expandFilterGroup(tfMap map[string]interface{}) *quicksight.FilterGroup {
 	if tfMap == nil {
-		return nil
+return nil
 	}
 
 	group := &quicksight.FilterGroup{}
 
 	if v, ok := tfMap["cross_dataset"].(string); ok && v != "" {
-		group.CrossDataset = aws.String(v)
+group.CrossDataset = aws.String(v)
 	}
 	if v, ok := tfMap["filter_group_id"].(string); ok && v != "" {
-		group.FilterGroupId = aws.String(v)
+group.FilterGroupId = aws.String(v)
 	}
 	if v, ok := tfMap["status"].(string); ok && v != "" {
-		group.Status = aws.String(v)
+group.Status = aws.String(v)
 	}
 	if v, ok := tfMap["filters"].([]interface{}); ok && len(v) > 0 {
-		group.Filters = expandFilters(v)
+group.Filters = expandFilters(v)
 	}
 	if v, ok := tfMap["scope_configuration"].([]interface{}); ok && len(v) > 0 {
-		group.ScopeConfiguration = expandFilterScopeConfiguration(v)
+group.ScopeConfiguration = expandFilterScopeConfiguration(v)
 	}
 
 	return group
@@ -942,12 +942,12 @@ func expandAggregation
 function(tfList []interface{}) *quicksight.Aggregation
 function {
 	if len(tfList) == 0 || tfList[0] == nil {
-		return nil
+return nil
 	}
 
 	tfMap, ok := tfList[0].(map[string]interface{})
 	if !ok {
-		return nil
+return nil
 	}
 
 	
@@ -956,19 +956,19 @@ function{}
 
 	if v, ok := tfMap["categorical_aggregation_
 function"].(string); ok && v != "" {
-		
+
 function.CategoricalAggregation
 function = aws.String(v)
 	}
 	if v, ok := tfMap["date_aggregation_
 function"].(string); ok && v != "" {
-		
+
 function.DateAggregation
 function = aws.String(v)
 	}
 	if v, ok := tfMap["numerical_aggregation_
 function"].([]interface{}); ok && len(v) > 0 {
-		
+
 function.NumericalAggregation
 function = expandNumericalAggregation
 function(v)
@@ -983,12 +983,12 @@ func expandNumericalAggregation
 function(tfList []interface{}) *quicksight.NumericalAggregation
 function {
 	if len(tfList) == 0 || tfList[0] == nil {
-		return nil
+return nil
 	}
 
 	tfMap, ok := tfList[0].(map[string]interface{})
 	if !ok {
-		return nil
+return nil
 	}
 
 	
@@ -996,11 +996,11 @@ function := &quicksight.NumericalAggregation
 function{}
 
 	if v, ok := tfMap["simple_numerical_aggregation"].(string); ok && v != "" {
-		
+
 function.SimpleNumericalAggregation = aws.String(v)
 	}
 	if v, ok := tfMap["percentile_aggregation"].([]interface{}); ok && len(v) > 0 {
-		
+
 function.PercentileAggregation = expandPercentileAggregation(v)
 	}
 
@@ -1011,18 +1011,18 @@ function
 
 func expandPercentileAggregation(tfList []interface{}) *quicksight.PercentileAggregation {
 	if len(tfList) == 0 || tfList[0] == nil {
-		return nil
+return nil
 	}
 
 	tfMap, ok := tfList[0].(map[string]interface{})
 	if !ok {
-		return nil
+return nil
 	}
 
 	agg := &quicksight.PercentileAggregation{}
 
 	if v, ok := tfMap["simple_numerical_aggregation"].(float64); ok {
-		agg.PercentileValue = aws.Float64(v)
+agg.PercentileValue = aws.Float64(v)
 	}
 
 	return agg
@@ -1031,21 +1031,21 @@ func expandPercentileAggregation(tfList []interface{}) *quicksight.PercentileAgg
 
 func expandRollingDateConfiguration(tfList []interface{}) *quicksight.RollingDateConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
-		return nil
+return nil
 	}
 
 	tfMap, ok := tfList[0].(map[string]interface{})
 	if !ok {
-		return nil
+return nil
 	}
 
 	config := &quicksight.RollingDateConfiguration{}
 
 	if v, ok := tfMap["data_set_identifier"].(string); ok {
-		config.DataSetIdentifier = aws.String(v)
+config.DataSetIdentifier = aws.String(v)
 	}
 	if v, ok := tfMap["expression"].(string); ok {
-		config.Expression = aws.String(v)
+config.Expression = aws.String(v)
 	}
 
 	return config
@@ -1054,22 +1054,22 @@ func expandRollingDateConfiguration(tfList []interface{}) *quicksight.RollingDat
 
 func expandParameterDeclarations(tfList []interface{}) []*quicksight.ParameterDeclaration {
 	if len(tfList) == 0 {
-		return nil
+return nil
 	}
 
 	var params []*quicksight.ParameterDeclaration
 	for _, tfMapRaw := range tfList {
-		tfMap, ok := tfMapRaw.(map[string]interface{})
-		if !ok {
-			continue
-		}
+tfMap, ok := tfMapRaw.(map[string]interface{})
+if !ok {
+	continue
+}
 
-		param := expandParameterDeclaration(tfMap)
-		if param == nil {
-			continue
-		}
+param := expandParameterDeclaration(tfMap)
+if param == nil {
+	continue
+}
 
-		params = append(params, param)
+params = append(params, param)
 	}
 
 	return params
@@ -1078,22 +1078,22 @@ func expandParameterDeclarations(tfList []interface{}) []*quicksight.ParameterDe
 
 func expandParameterDeclaration(tfMap map[string]interface{}) *quicksight.ParameterDeclaration {
 	if tfMap == nil {
-		return nil
+return nil
 	}
 
 	param := &quicksight.ParameterDeclaration{}
 
 	if v, ok := tfMap["date_time_parameter_declaration"].([]interface{}); ok && len(v) > 0 {
-		param.DateTimeParameterDeclaration = expandDateTimeParameterDeclaration(v)
+param.DateTimeParameterDeclaration = expandDateTimeParameterDeclaration(v)
 	}
 	if v, ok := tfMap["decimal_parameter_declaration"].([]interface{}); ok && len(v) > 0 {
-		param.DecimalParameterDeclaration = expandDecimalParameterDeclaration(v)
+param.DecimalParameterDeclaration = expandDecimalParameterDeclaration(v)
 	}
 	if v, ok := tfMap["integer_parameter_declaration"].([]interface{}); ok && len(v) > 0 {
-		param.IntegerParameterDeclaration = expandIntegerParameterDeclaration(v)
+param.IntegerParameterDeclaration = expandIntegerParameterDeclaration(v)
 	}
 	if v, ok := tfMap["string_parameter_declaration"].([]interface{}); ok && len(v) > 0 {
-		param.StringParameterDeclaration = expandStringParameterDeclaration(v)
+param.StringParameterDeclaration = expandStringParameterDeclaration(v)
 	}
 
 	return param
@@ -1102,22 +1102,22 @@ func expandParameterDeclaration(tfMap map[string]interface{}) *quicksight.Parame
 
 func expandSheetDefinitions(tfList []interface{}) []*quicksight.SheetDefinition {
 	if len(tfList) == 0 {
-		return nil
+return nil
 	}
 
 	var sheets []*quicksight.SheetDefinition
 	for _, tfMapRaw := range tfList {
-		tfMap, ok := tfMapRaw.(map[string]interface{})
-		if !ok {
-			continue
-		}
+tfMap, ok := tfMapRaw.(map[string]interface{})
+if !ok {
+	continue
+}
 
-		sheet := expandSheetDefinition(tfMap)
-		if sheet == nil {
-			continue
-		}
+sheet := expandSheetDefinition(tfMap)
+if sheet == nil {
+	continue
+}
 
-		sheets = append(sheets, sheet)
+sheets = append(sheets, sheet)
 	}
 
 	return sheets
@@ -1126,30 +1126,30 @@ func expandSheetDefinitions(tfList []interface{}) []*quicksight.SheetDefinition 
 
 func FlattenTemplateDefinition(apiObject *quicksight.TemplateVersionDefinition) []interface{} {
 	if apiObject == nil {
-		return nil
+return nil
 	}
 
 	tfMap := map[string]interface{}{}
 	if apiObject.AnalysisDefaults != nil {
-		tfMap["analysis_defaults"] = flattenAnalysisDefaults(apiObject.AnalysisDefaults)
+tfMap["analysis_defaults"] = flattenAnalysisDefaults(apiObject.AnalysisDefaults)
 	}
 	if apiObject.CalculatedFields != nil {
-		tfMap["calculated_fields"] = flattenCalculatedFields(apiObject.CalculatedFields)
+tfMap["calculated_fields"] = flattenCalculatedFields(apiObject.CalculatedFields)
 	}
 	if apiObject.ColumnConfigurations != nil {
-		tfMap["column_configurations"] = flattenColumnConfigurations(apiObject.ColumnConfigurations)
+tfMap["column_configurations"] = flattenColumnConfigurations(apiObject.ColumnConfigurations)
 	}
 	if apiObject.DataSetConfigurations != nil {
-		tfMap["data_set_configuration"] = flattenDataSetConfigurations(apiObject.DataSetConfigurations)
+tfMap["data_set_configuration"] = flattenDataSetConfigurations(apiObject.DataSetConfigurations)
 	}
 	if apiObject.FilterGroups != nil {
-		tfMap["filter_groups"] = flattenFilterGroups(apiObject.FilterGroups)
+tfMap["filter_groups"] = flattenFilterGroups(apiObject.FilterGroups)
 	}
 	if apiObject.ParameterDeclarations != nil {
-		tfMap["parameters_declarations"] = flattenParameterDeclarations(apiObject.ParameterDeclarations)
+tfMap["parameters_declarations"] = flattenParameterDeclarations(apiObject.ParameterDeclarations)
 	}
 	if apiObject.Sheets != nil {
-		tfMap["sheets"] = flattenSheetDefinitions(apiObject.Sheets)
+tfMap["sheets"] = flattenSheetDefinitions(apiObject.Sheets)
 	}
 
 	return []interface{}{tfMap}
@@ -1158,26 +1158,26 @@ func FlattenTemplateDefinition(apiObject *quicksight.TemplateVersionDefinition) 
 
 func flattenCalculatedFields(apiObject []*quicksight.CalculatedField) []interface{} {
 	if len(apiObject) == 0 {
-		return nil
+return nil
 	}
 
 	var tfList []interface{}
 	for _, field := range apiObject {
-		if field == nil {
-			continue
-		}
+if field == nil {
+	continue
+}
 
-		tfMap := map[string]interface{}{}
-		if field.DataSetIdentifier != nil {
-			tfMap["data_set_identifier"] = aws.StringValue(field.DataSetIdentifier)
-		}
-		if field.Expression != nil {
-			tfMap["expression"] = aws.StringValue(field.Expression)
-		}
-		if field.Name != nil {
-			tfMap["name"] = aws.StringValue(field.Name)
-		}
-		tfList = append(tfList, tfMap)
+tfMap := map[string]interface{}{}
+if field.DataSetIdentifier != nil {
+	tfMap["data_set_identifier"] = aws.StringValue(field.DataSetIdentifier)
+}
+if field.Expression != nil {
+	tfMap["expression"] = aws.StringValue(field.Expression)
+}
+if field.Name != nil {
+	tfMap["name"] = aws.StringValue(field.Name)
+}
+tfList = append(tfList, tfMap)
 	}
 
 	return tfList
@@ -1186,26 +1186,26 @@ func flattenCalculatedFields(apiObject []*quicksight.CalculatedField) []interfac
 
 func flattenColumnConfigurations(apiObject []*quicksight.ColumnConfiguration) []interface{} {
 	if len(apiObject) == 0 {
-		return nil
+return nil
 	}
 
 	var tfList []interface{}
 	for _, column := range apiObject {
-		if column == nil {
-			continue
-		}
+if column == nil {
+	continue
+}
 
-		tfMap := map[string]interface{}{}
-		if column.Column != nil {
-			tfMap["column"] = flattenColumnIdentifier(column.Column)
-		}
-		if column.FormatConfiguration != nil {
-			tfMap["format_configuration"] = flattenFormatConfiguration(column.FormatConfiguration)
-		}
-		if column.Role != nil {
-			tfMap["role"] = aws.StringValue(column.Role)
-		}
-		tfList = append(tfList, tfMap)
+tfMap := map[string]interface{}{}
+if column.Column != nil {
+	tfMap["column"] = flattenColumnIdentifier(column.Column)
+}
+if column.FormatConfiguration != nil {
+	tfMap["format_configuration"] = flattenFormatConfiguration(column.FormatConfiguration)
+}
+if column.Role != nil {
+	tfMap["role"] = aws.StringValue(column.Role)
+}
+tfList = append(tfList, tfMap)
 	}
 
 	return tfList
@@ -1214,15 +1214,15 @@ func flattenColumnConfigurations(apiObject []*quicksight.ColumnConfiguration) []
 
 func flattenColumnIdentifier(apiObject *quicksight.ColumnIdentifier) []interface{} {
 	if apiObject == nil {
-		return nil
+return nil
 	}
 
 	tfMap := map[string]interface{}{}
 	if apiObject.ColumnName != nil {
-		tfMap["column_name"] = aws.StringValue(apiObject.ColumnName)
+tfMap["column_name"] = aws.StringValue(apiObject.ColumnName)
 	}
 	if apiObject.DataSetIdentifier != nil {
-		tfMap["data_set_identifier"] = aws.StringValue(apiObject.DataSetIdentifier)
+tfMap["data_set_identifier"] = aws.StringValue(apiObject.DataSetIdentifier)
 	}
 
 	return []interface{}{tfMap}
@@ -1231,26 +1231,26 @@ func flattenColumnIdentifier(apiObject *quicksight.ColumnIdentifier) []interface
 
 func flattenDataSetConfigurations(apiObject []*quicksight.DataSetConfiguration) []interface{} {
 	if len(apiObject) == 0 {
-		return nil
+return nil
 	}
 
 	var tfList []interface{}
 	for _, config := range apiObject {
-		if config == nil {
-			continue
-		}
+if config == nil {
+	continue
+}
 
-		tfMap := map[string]interface{}{}
-		if config.ColumnGroupSchemaList != nil {
-			tfMap["column_group_schema_list"] = flattenColumnGroupSchemas(config.ColumnGroupSchemaList)
-		}
-		if config.DataSetSchema != nil {
-			tfMap["data_set_schema"] = flattenDataSetSchema(config.DataSetSchema)
-		}
-		if config.Placeholder != nil {
-			tfMap["placeholder"] = aws.StringValue(config.Placeholder)
-		}
-		tfList = append(tfList, tfMap)
+tfMap := map[string]interface{}{}
+if config.ColumnGroupSchemaList != nil {
+	tfMap["column_group_schema_list"] = flattenColumnGroupSchemas(config.ColumnGroupSchemaList)
+}
+if config.DataSetSchema != nil {
+	tfMap["data_set_schema"] = flattenDataSetSchema(config.DataSetSchema)
+}
+if config.Placeholder != nil {
+	tfMap["placeholder"] = aws.StringValue(config.Placeholder)
+}
+tfList = append(tfList, tfMap)
 	}
 
 	return tfList
@@ -1259,23 +1259,23 @@ func flattenDataSetConfigurations(apiObject []*quicksight.DataSetConfiguration) 
 
 func flattenColumnGroupSchemas(apiObject []*quicksight.ColumnGroupSchema) []interface{} {
 	if len(apiObject) == 0 {
-		return nil
+return nil
 	}
 
 	var tfList []interface{}
 	for _, schema := range apiObject {
-		if schema == nil {
-			continue
-		}
+if schema == nil {
+	continue
+}
 
-		tfMap := map[string]interface{}{}
-		if schema.ColumnGroupColumnSchemaList != nil {
-			tfMap["column_group_column_schema_list"] = flattenColumnGroupColumnSchemas(schema.ColumnGroupColumnSchemaList)
-		}
-		if schema.Name != nil {
-			tfMap["name"] = aws.StringValue(schema.Name)
-		}
-		tfList = append(tfList, tfMap)
+tfMap := map[string]interface{}{}
+if schema.ColumnGroupColumnSchemaList != nil {
+	tfMap["column_group_column_schema_list"] = flattenColumnGroupColumnSchemas(schema.ColumnGroupColumnSchemaList)
+}
+if schema.Name != nil {
+	tfMap["name"] = aws.StringValue(schema.Name)
+}
+tfList = append(tfList, tfMap)
 	}
 
 	return tfList
@@ -1284,20 +1284,20 @@ func flattenColumnGroupSchemas(apiObject []*quicksight.ColumnGroupSchema) []inte
 
 func flattenColumnGroupColumnSchemas(apiObject []*quicksight.ColumnGroupColumnSchema) []interface{} {
 	if len(apiObject) == 0 {
-		return nil
+return nil
 	}
 
 	var tfList []interface{}
 	for _, schema := range apiObject {
-		if schema == nil {
-			continue
-		}
+if schema == nil {
+	continue
+}
 
-		tfMap := map[string]interface{}{}
-		if schema.Name != nil {
-			tfMap["name"] = aws.StringValue(schema.Name)
-		}
-		tfList = append(tfList, tfMap)
+tfMap := map[string]interface{}{}
+if schema.Name != nil {
+	tfMap["name"] = aws.StringValue(schema.Name)
+}
+tfList = append(tfList, tfMap)
 	}
 
 	return tfList
@@ -1306,12 +1306,12 @@ func flattenColumnGroupColumnSchemas(apiObject []*quicksight.ColumnGroupColumnSc
 
 func flattenDataSetSchema(apiObject *quicksight.DataSetSchema) []interface{} {
 	if apiObject == nil {
-		return nil
+return nil
 	}
 
 	tfMap := map[string]interface{}{}
 	if apiObject.ColumnSchemaList != nil {
-		tfMap["column_schema_list"] = flattenColumnSchemas(apiObject.ColumnSchemaList)
+tfMap["column_schema_list"] = flattenColumnSchemas(apiObject.ColumnSchemaList)
 	}
 
 	return []interface{}{tfMap}
@@ -1320,26 +1320,26 @@ func flattenDataSetSchema(apiObject *quicksight.DataSetSchema) []interface{} {
 
 func flattenColumnSchemas(apiObject []*quicksight.ColumnSchema) []interface{} {
 	if len(apiObject) == 0 {
-		return nil
+return nil
 	}
 
 	var tfList []interface{}
 	for _, column := range apiObject {
-		if column == nil {
-			continue
-		}
+if column == nil {
+	continue
+}
 
-		tfMap := map[string]interface{}{}
-		if column.DataType != nil {
-			tfMap["data_type"] = aws.StringValue(column.DataType)
-		}
-		if column.GeographicRole != nil {
-			tfMap["geographic_role"] = aws.StringValue(column.GeographicRole)
-		}
-		if column.Name != nil {
-			tfMap["name"] = aws.StringValue(column.Name)
-		}
-		tfList = append(tfList, tfMap)
+tfMap := map[string]interface{}{}
+if column.DataType != nil {
+	tfMap["data_type"] = aws.StringValue(column.DataType)
+}
+if column.GeographicRole != nil {
+	tfMap["geographic_role"] = aws.StringValue(column.GeographicRole)
+}
+if column.Name != nil {
+	tfMap["name"] = aws.StringValue(column.Name)
+}
+tfList = append(tfList, tfMap)
 	}
 
 	return tfList
@@ -1348,32 +1348,32 @@ func flattenColumnSchemas(apiObject []*quicksight.ColumnSchema) []interface{} {
 
 func flattenFilterGroups(apiObject []*quicksight.FilterGroup) []interface{} {
 	if len(apiObject) == 0 {
-		return nil
+return nil
 	}
 
 	var tfList []interface{}
 	for _, group := range apiObject {
-		if group == nil {
-			continue
-		}
+if group == nil {
+	continue
+}
 
-		tfMap := map[string]interface{}{}
-		if group.CrossDataset != nil {
-			tfMap["cross_dataset"] = aws.StringValue(group.CrossDataset)
-		}
-		if group.FilterGroupId != nil {
-			tfMap["filter_group_id"] = aws.StringValue(group.FilterGroupId)
-		}
-		if group.Filters != nil {
-			tfMap["filters"] = flattenFilters(group.Filters)
-		}
-		if group.ScopeConfiguration != nil {
-			tfMap["scope_configuration"] = flattenFilterScopeConfiguration(group.ScopeConfiguration)
-		}
-		if group.Status != nil {
-			tfMap["status"] = aws.StringValue(group.Status)
-		}
-		tfList = append(tfList, tfMap)
+tfMap := map[string]interface{}{}
+if group.CrossDataset != nil {
+	tfMap["cross_dataset"] = aws.StringValue(group.CrossDataset)
+}
+if group.FilterGroupId != nil {
+	tfMap["filter_group_id"] = aws.StringValue(group.FilterGroupId)
+}
+if group.Filters != nil {
+	tfMap["filters"] = flattenFilters(group.Filters)
+}
+if group.ScopeConfiguration != nil {
+	tfMap["scope_configuration"] = flattenFilterScopeConfiguration(group.ScopeConfiguration)
+}
+if group.Status != nil {
+	tfMap["status"] = aws.StringValue(group.Status)
+}
+tfList = append(tfList, tfMap)
 	}
 
 	return tfList
@@ -1384,25 +1384,25 @@ func flattenAggregation
 function(apiObject *quicksight.Aggregation
 function) []interface{} {
 	if apiObject == nil {
-		return nil
+return nil
 	}
 
 	tfMap := map[string]interface{}{}
 	if apiObject.CategoricalAggregation
 function != nil {
-		tfMap["categorical_aggregation_
+tfMap["categorical_aggregation_
 function"] = aws.StringValue(apiObject.CategoricalAggregation
 function)
 	}
 	if apiObject.DateAggregation
 function != nil {
-		tfMap["date_aggregation_
+tfMap["date_aggregation_
 function"] = aws.StringValue(apiObject.DateAggregation
 function)
 	}
 	if apiObject.NumericalAggregation
 function != nil {
-		tfMap["numerical_aggregation_
+tfMap["numerical_aggregation_
 function"] = flattenNumericalAggregation
 function(apiObject.NumericalAggregation
 function)
@@ -1416,15 +1416,15 @@ func flattenNumericalAggregation
 function(apiObject *quicksight.NumericalAggregation
 function) []interface{} {
 	if apiObject == nil {
-		return nil
+return nil
 	}
 
 	tfMap := map[string]interface{}{}
 	if apiObject.PercentileAggregation != nil {
-		tfMap["percentile_aggregation"] = flattenPercentileAggregation(apiObject.PercentileAggregation)
+tfMap["percentile_aggregation"] = flattenPercentileAggregation(apiObject.PercentileAggregation)
 	}
 	if apiObject.SimpleNumericalAggregation != nil {
-		tfMap["simple_numerical_aggregation"] = aws.StringValue(apiObject.SimpleNumericalAggregation)
+tfMap["simple_numerical_aggregation"] = aws.StringValue(apiObject.SimpleNumericalAggregation)
 	}
 
 	return []interface{}{tfMap}
@@ -1433,12 +1433,12 @@ function) []interface{} {
 
 func flattenPercentileAggregation(apiObject *quicksight.PercentileAggregation) []interface{} {
 	if apiObject == nil {
-		return nil
+return nil
 	}
 
 	tfMap := map[string]interface{}{}
 	if apiObject.PercentileValue != nil {
-		tfMap["percentile_value"] = aws.Float64Value(apiObject.PercentileValue)
+tfMap["percentile_value"] = aws.Float64Value(apiObject.PercentileValue)
 	}
 
 	return []interface{}{tfMap}
@@ -1447,15 +1447,15 @@ func flattenPercentileAggregation(apiObject *quicksight.PercentileAggregation) [
 
 func flattenRollingDateConfiguration(apiObject *quicksight.RollingDateConfiguration) []interface{} {
 	if apiObject == nil {
-		return nil
+return nil
 	}
 
 	tfMap := map[string]interface{}{}
 	if apiObject.DataSetIdentifier != nil {
-		tfMap["data_set_identifier"] = aws.StringValue(apiObject.DataSetIdentifier)
+tfMap["data_set_identifier"] = aws.StringValue(apiObject.DataSetIdentifier)
 	}
 	if apiObject.Expression != nil {
-		tfMap["expression"] = aws.StringValue(apiObject.Expression)
+tfMap["expression"] = aws.StringValue(apiObject.Expression)
 	}
 
 	return []interface{}{tfMap}
@@ -1464,29 +1464,29 @@ func flattenRollingDateConfiguration(apiObject *quicksight.RollingDateConfigurat
 
 func flattenParameterDeclarations(apiObject []*quicksight.ParameterDeclaration) []interface{} {
 	if len(apiObject) == 0 {
-		return nil
+return nil
 	}
 
 	var tfList []interface{}
 	for _, config := range apiObject {
-		if config == nil {
-			continue
-		}
+if config == nil {
+	continue
+}
 
-		tfMap := map[string]interface{}{}
-		if config.DateTimeParameterDeclaration != nil {
-			tfMap["date_time_parameter_declaration"] = flattenDateTimeParameterDeclaration(config.DateTimeParameterDeclaration)
-		}
-		if config.DecimalParameterDeclaration != nil {
-			tfMap["decimal_parameter_declaration"] = flattenDecimalParameterDeclaration(config.DecimalParameterDeclaration)
-		}
-		if config.IntegerParameterDeclaration != nil {
-			tfMap["integer_parameter_declaration"] = flattenIntegerParameterDeclaration(config.IntegerParameterDeclaration)
-		}
-		if config.StringParameterDeclaration != nil {
-			tfMap["string_parameter_declaration"] = flattenStringParameterDeclaration(config.StringParameterDeclaration)
-		}
-		tfList = append(tfList, tfMap)
+tfMap := map[string]interface{}{}
+if config.DateTimeParameterDeclaration != nil {
+	tfMap["date_time_parameter_declaration"] = flattenDateTimeParameterDeclaration(config.DateTimeParameterDeclaration)
+}
+if config.DecimalParameterDeclaration != nil {
+	tfMap["decimal_parameter_declaration"] = flattenDecimalParameterDeclaration(config.DecimalParameterDeclaration)
+}
+if config.IntegerParameterDeclaration != nil {
+	tfMap["integer_parameter_declaration"] = flattenIntegerParameterDeclaration(config.IntegerParameterDeclaration)
+}
+if config.StringParameterDeclaration != nil {
+	tfMap["string_parameter_declaration"] = flattenStringParameterDeclaration(config.StringParameterDeclaration)
+}
+tfList = append(tfList, tfMap)
 	}
 
 	return tfList
@@ -1495,49 +1495,49 @@ func flattenParameterDeclarations(apiObject []*quicksight.ParameterDeclaration) 
 
 func flattenSheetDefinitions(apiObject []*quicksight.SheetDefinition) []interface{} {
 	if len(apiObject) == 0 {
-		return nil
+return nil
 	}
 
 	var tfList []interface{}
 	for _, config := range apiObject {
-		if config == nil {
-			continue
-		}
+if config == nil {
+	continue
+}
 
-		tfMap := map[string]interface{}{
-			"sheet_id": aws.StringValue(config.SheetId),
-		}
-		if config.ContentType != nil {
-			tfMap["content_type"] = aws.StringValue(config.ContentType)
-		}
-		if config.Description != nil {
-			tfMap["description"] = aws.StringValue(config.Description)
-		}
-		if config.FilterControls != nil {
-			tfMap["filter_controls"] = flattenFilterControls(config.FilterControls)
-		}
-		if config.Layouts != nil {
-			tfMap["layouts"] = flattenLayouts(config.Layouts)
-		}
-		if config.Name != nil {
-			tfMap["name"] = aws.StringValue(config.Name)
-		}
-		if config.ParameterControls != nil {
-			tfMap["parameter_controls"] = flattenParameterControls(config.ParameterControls)
-		}
-		if config.SheetControlLayouts != nil {
-			tfMap["sheet_control_layouts"] = flattenSheetControlLayouts(config.SheetControlLayouts)
-		}
-		if config.TextBoxes != nil {
-			tfMap["text_boxes"] = flattenTextBoxes(config.TextBoxes)
-		}
-		if config.Title != nil {
-			tfMap["title"] = aws.StringValue(config.Title)
-		}
-		if config.Visuals != nil {
-			tfMap["visuals"] = flattenVisuals(config.Visuals)
-		}
-		tfList = append(tfList, tfMap)
+tfMap := map[string]interface{}{
+	"sheet_id": aws.StringValue(config.SheetId),
+}
+if config.ContentType != nil {
+	tfMap["content_type"] = aws.StringValue(config.ContentType)
+}
+if config.Description != nil {
+	tfMap["description"] = aws.StringValue(config.Description)
+}
+if config.FilterControls != nil {
+	tfMap["filter_controls"] = flattenFilterControls(config.FilterControls)
+}
+if config.Layouts != nil {
+	tfMap["layouts"] = flattenLayouts(config.Layouts)
+}
+if config.Name != nil {
+	tfMap["name"] = aws.StringValue(config.Name)
+}
+if config.ParameterControls != nil {
+	tfMap["parameter_controls"] = flattenParameterControls(config.ParameterControls)
+}
+if config.SheetControlLayouts != nil {
+	tfMap["sheet_control_layouts"] = flattenSheetControlLayouts(config.SheetControlLayouts)
+}
+if config.TextBoxes != nil {
+	tfMap["text_boxes"] = flattenTextBoxes(config.TextBoxes)
+}
+if config.Title != nil {
+	tfMap["title"] = aws.StringValue(config.Title)
+}
+if config.Visuals != nil {
+	tfMap["visuals"] = flattenVisuals(config.Visuals)
+}
+tfList = append(tfList, tfMap)
 	}
 
 	return tfList
@@ -1546,22 +1546,22 @@ func flattenSheetDefinitions(apiObject []*quicksight.SheetDefinition) []interfac
 
 func flattenTextBoxes(apiObject []*quicksight.SheetTextBox) []interface{} {
 	if len(apiObject) == 0 {
-		return nil
+return nil
 	}
 
 	var tfList []interface{}
 	for _, config := range apiObject {
-		if config == nil {
-			continue
-		}
+if config == nil {
+	continue
+}
 
-		tfMap := map[string]interface{}{
-			"sheet_text_box_id": aws.StringValue(config.SheetTextBoxId),
-		}
-		if config.Content != nil {
-			tfMap["content"] = aws.StringValue(config.Content)
-		}
-		tfList = append(tfList, tfMap)
+tfMap := map[string]interface{}{
+	"sheet_text_box_id": aws.StringValue(config.SheetTextBoxId),
+}
+if config.Content != nil {
+	tfMap["content"] = aws.StringValue(config.Content)
+}
+tfList = append(tfList, tfMap)
 	}
 
 	return tfList

@@ -54,8 +54,8 @@ func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.R
 		},
 		Schema: map[string]*schema.Schema{
 			"autoscaling_policy": {
-				Type:             schema.TypeString,
-				Optional:         true,
+				Type:    schema.TypeString,
+				Optional:true,
 				DiffSuppress
 func: verify.SuppressEquivalentJSONDiffs,
 				Validate
@@ -72,8 +72,8 @@ func:     validation.StringIsJSON,
 				ForceNew: true,
 			},
 			"configurations_json": {
-				Type:             schema.TypeString,
-				Optional:         true,
+				Type:    schema.TypeString,
+				Optional:true,
 				Validate
 func:     validation.StringIsJSON,
 				DiffSuppress
@@ -103,7 +103,7 @@ func(v interface{}) string {
 							ForceNew: true,
 						},
 						"type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
 							Validate
@@ -161,7 +161,7 @@ func resourceInstanceGroupCreate(ctx context.Context, d *schema.ResourceData, me
 		EbsConfiguration: readEBSConfig(d),
 		InstanceRole:     aws.String(instanceRole),
 		InstanceType:     aws.String(d.Get("instance_type").(string)),
-		Name:             aws.String(d.Get("name").(string)),
+		Name:    aws.String(d.Get("name").(string)),
 	}
 
 	if v, ok := d.GetOk("autoscaling_policy"); ok {
@@ -340,7 +340,7 @@ func resourceInstanceGroupUpdate(ctx context.Context, d *schema.ResourceData, me
 		}
 
 		putAutoScalingPolicy := &emr.PutAutoScalingPolicyInput{
-			ClusterId:         aws.String(d.Get("cluster_id").(string)),
+			ClusterId:aws.String(d.Get("cluster_id").(string)),
 			AutoScalingPolicy: autoScalingPolicy,
 			InstanceGroupId:   aws.String(d.Id()),
 		}

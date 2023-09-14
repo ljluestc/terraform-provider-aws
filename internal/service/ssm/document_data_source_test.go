@@ -20,33 +20,33 @@ func TestAccSSMDocumentDataSource_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccDocumentDataSourceConfig_basic(rName, "JSON"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "name", resourceName, "name"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "document_format", resourceName, "document_format"),
-					resource.TestCheckResourceAttr(dataSourceName, "document_version", "1"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "document_type", resourceName, "document_type"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "content", resourceName, "content"),
-				),
-			},
-			{
-				Config: testAccDocumentDataSourceConfig_basic(rName, "YAML"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "name", resourceName, "name"),
-					resource.TestCheckResourceAttr(dataSourceName, "document_format", "YAML"),
-					resource.TestCheckResourceAttr(dataSourceName, "document_version", "1"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "document_type", resourceName, "document_type"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "content"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccDocumentDataSourceConfig_basic(rName, "JSON"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "name", resourceName, "name"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "document_format", resourceName, "document_format"),
+	resource.TestCheckResourceAttr(dataSourceName, "document_version", "1"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "document_type", resourceName, "document_type"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "content", resourceName, "content"),
+),
+	},
+	{
+Config: testAccDocumentDataSourceConfig_basic(rName, "YAML"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "name", resourceName, "name"),
+	resource.TestCheckResourceAttr(dataSourceName, "document_format", "YAML"),
+	resource.TestCheckResourceAttr(dataSourceName, "document_version", "1"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "document_type", resourceName, "document_type"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "content"),
+),
+	},
+},
 	})
 }
 
@@ -55,18 +55,18 @@ func TestAccSSMDocumentDataSource_managed(t *testing.T) {
 	dataSourceName := "data.aws_ssm_document.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccDocumentDataSourceConfig_managed(),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(dataSourceName, "name", "AWS-StartEC2Instance"),
-					resource.TestCheckResourceAttr(dataSourceName, "arn", "AWS-StartEC2Instance"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccDocumentDataSourceConfig_managed(),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(dataSourceName, "name", "AWS-StartEC2Instance"),
+	resource.TestCheckResourceAttr(dataSourceName, "arn", "AWS-StartEC2Instance"),
+),
+	},
+},
 	})
 }
 

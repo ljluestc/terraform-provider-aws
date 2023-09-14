@@ -179,7 +179,7 @@ func resourcePoolProviderPrincipalTagDelete(ctx context.Context, d *schema.Resou
 	params := &cognitoidentity.SetPrincipalTagAttributeMapInput{
 		IdentityPoolId:       aws.String(poolId),
 		IdentityProviderName: aws.String(providerName),
-		UseDefaults:          aws.Bool(true),
+		UseDefaults: aws.Bool(true),
 		PrincipalTags:        aws.StringMap(emptyList),
 	}
 

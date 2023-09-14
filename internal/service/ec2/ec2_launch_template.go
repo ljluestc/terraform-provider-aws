@@ -65,16 +65,16 @@ func ResourceLaunchTemplate() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"delete_on_termination": {
-										Type:             nullable.TypeNullableBool,
-										Optional:         true,
+										Type:    nullable.TypeNullableBool,
+										Optional:true,
 										DiffSuppress
 func: nullable.DiffSuppressNullableBool,
 										Validate
 func:     nullable.ValidateTypeStringNullableBool,
 									},
 									"encrypted": {
-										Type:             nullable.TypeNullableBool,
-										Optional:         true,
+										Type:    nullable.TypeNullableBool,
+										Optional:true,
 										DiffSuppress
 func: nullable.DiffSuppressNullableBool,
 										Validate
@@ -86,7 +86,7 @@ func:     nullable.ValidateTypeStringNullableBool,
 										Optional: true,
 									},
 									"kms_key_id": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										Validate
 func: verify.ValidARN,
@@ -96,7 +96,7 @@ func: verify.ValidARN,
 										Optional: true,
 									},
 									"throughput": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Computed:     true,
 										Optional:     true,
 										Validate
@@ -108,7 +108,7 @@ func: validation.IntBetween(125, 1000),
 										Computed: true,
 									},
 									"volume_type": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										Computed:     true,
 										Validate
@@ -135,7 +135,7 @@ func: validation.StringInSlice(ec2.VolumeType_Values(), false),
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"capacity_reservation_preference": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Validate
 func: validation.StringInSlice(ec2.CapacityReservationPreference_Values(), false),
@@ -147,12 +147,12 @@ func: validation.StringInSlice(ec2.CapacityReservationPreference_Values(), false
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"capacity_reservation_id": {
-										Type:          schema.TypeString,
+										Type: schema.TypeString,
 										Optional:      true,
 										ConflictsWith: []string{"capacity_reservation_specification.0.capacity_reservation_target.0.capacity_reservation_resource_group_arn"},
 									},
 									"capacity_reservation_resource_group_arn": {
-										Type:          schema.TypeString,
+										Type: schema.TypeString,
 										Optional:      true,
 										Validate
 func:  verify.ValidARN,
@@ -171,7 +171,7 @@ func:  verify.ValidARN,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"amd_sev_snp": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Validate
 func: validation.StringInSlice(ec2.AmdSevSnpSpecification_Values(), false),
@@ -194,7 +194,7 @@ func: validation.StringInSlice(ec2.AmdSevSnpSpecification_Values(), false),
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"cpu_credits": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Validate
 func: validation.StringInSlice(CPUCredits_Values(), false),
@@ -203,7 +203,7 @@ func: validation.StringInSlice(CPUCredits_Values(), false),
 				},
 			},
 			"default_version": {
-				Type:          schema.TypeInt,
+				Type: schema.TypeInt,
 				Optional:      true,
 				Computed:      true,
 				ConflictsWith: []string{"update_default_version"},
@@ -211,7 +211,7 @@ func: validation.StringInSlice(CPUCredits_Values(), false),
 func:  validation.IntAtLeast(1),
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Validate
 func: validation.StringLenBetween(0, 255),
@@ -225,8 +225,8 @@ func: validation.StringLenBetween(0, 255),
 				Optional: true,
 			},
 			"ebs_optimized": {
-				Type:             nullable.TypeNullableBool,
-				Optional:         true,
+				Type:    nullable.TypeNullableBool,
+				Optional:true,
 				DiffSuppress
 func: nullable.DiffSuppressNullableBool,
 				Validate
@@ -290,7 +290,7 @@ func:     nullable.ValidateTypeStringNullableBool,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:          schema.TypeString,
+							Type: schema.TypeString,
 							Optional:      true,
 							ConflictsWith: []string{"iam_instance_profile.0.name"},
 							Validate
@@ -308,7 +308,7 @@ func:  verify.ValidARN,
 				Optional: true,
 			},
 			"instance_initiated_shutdown_behavior": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Validate
 func: validation.StringInSlice(ec2.ShutdownBehavior_Values(), false),
@@ -320,7 +320,7 @@ func: validation.StringInSlice(ec2.ShutdownBehavior_Values(), false),
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"market_type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Validate
 func: validation.StringInSlice(ec2.MarketType_Values(), false),
@@ -332,13 +332,13 @@ func: validation.StringInSlice(ec2.MarketType_Values(), false),
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"block_duration_minutes": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										Validate
 func: validation.IntDivisibleBy(60),
 									},
 									"instance_interruption_behavior": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										Validate
 func: validation.StringInSlice(ec2.InstanceInterruptionBehavior_Values(), false),
@@ -348,13 +348,13 @@ func: validation.StringInSlice(ec2.InstanceInterruptionBehavior_Values(), false)
 										Optional: true,
 									},
 									"spot_instance_type": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										Validate
 func: validation.StringInSlice(ec2.SpotInstanceType_Values(), false),
 									},
 									"valid_until": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										Computed:     true,
 										Validate
@@ -379,13 +379,13 @@ func: validation.IsRFC3339Time,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"max": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										Validate
 func: validation.IntAtLeast(0),
 									},
 									"min": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										Validate
 func: validation.IntAtLeast(1),
@@ -397,7 +397,7 @@ func: validation.IntAtLeast(1),
 							Type:     schema.TypeSet,
 							Optional: true,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								Validate
 func: validation.StringInSlice(ec2.AcceleratorManufacturer_Values(), false),
 							},
@@ -406,7 +406,7 @@ func: validation.StringInSlice(ec2.AcceleratorManufacturer_Values(), false),
 							Type:     schema.TypeSet,
 							Optional: true,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								Validate
 func: validation.StringInSlice(ec2.AcceleratorName_Values(), false),
 							},
@@ -418,13 +418,13 @@ func: validation.StringInSlice(ec2.AcceleratorName_Values(), false),
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"max": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										Validate
 func: validation.IntAtLeast(1),
 									},
 									"min": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										Validate
 func: validation.IntAtLeast(1),
@@ -436,20 +436,20 @@ func: validation.IntAtLeast(1),
 							Type:     schema.TypeSet,
 							Optional: true,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								Validate
 func: validation.StringInSlice(ec2.AcceleratorType_Values(), false),
 							},
 						},
 						"allowed_instance_types": {
-							Type:          schema.TypeSet,
+							Type: schema.TypeSet,
 							Optional:      true,
 							MaxItems:      400,
-							Elem:          &schema.Schema{Type: schema.TypeString},
+							Elem: &schema.Schema{Type: schema.TypeString},
 							ConflictsWith: []string{"instance_requirements.0.excluded_instance_types"},
 						},
 						"bare_metal": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Validate
 func: validation.StringInSlice(ec2.BareMetal_Values(), false),
@@ -461,13 +461,13 @@ func: validation.StringInSlice(ec2.BareMetal_Values(), false),
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"max": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										Validate
 func: validation.IntAtLeast(1),
 									},
 									"min": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										Validate
 func: validation.IntAtLeast(1),
@@ -476,7 +476,7 @@ func: validation.IntAtLeast(1),
 							},
 						},
 						"burstable_performance": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Validate
 func: validation.StringInSlice(ec2.BurstablePerformance_Values(), false),
@@ -485,29 +485,29 @@ func: validation.StringInSlice(ec2.BurstablePerformance_Values(), false),
 							Type:     schema.TypeSet,
 							Optional: true,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								Validate
 func: validation.StringInSlice(ec2.CpuManufacturer_Values(), false),
 							},
 						},
 						"excluded_instance_types": {
-							Type:          schema.TypeSet,
+							Type: schema.TypeSet,
 							Optional:      true,
 							MaxItems:      400,
-							Elem:          &schema.Schema{Type: schema.TypeString},
+							Elem: &schema.Schema{Type: schema.TypeString},
 							ConflictsWith: []string{"instance_requirements.0.allowed_instance_types"},
 						},
 						"instance_generations": {
 							Type:     schema.TypeSet,
 							Optional: true,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								Validate
 func: validation.StringInSlice(ec2.InstanceGeneration_Values(), false),
 							},
 						},
 						"local_storage": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Validate
 func: validation.StringInSlice(ec2.LocalStorage_Values(), false),
@@ -516,7 +516,7 @@ func: validation.StringInSlice(ec2.LocalStorage_Values(), false),
 							Type:     schema.TypeSet,
 							Optional: true,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								Validate
 func: validation.StringInSlice(ec2.LocalStorageType_Values(), false),
 							},
@@ -528,13 +528,13 @@ func: validation.StringInSlice(ec2.LocalStorageType_Values(), false),
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"max": {
-										Type:         schema.TypeFloat,
+										Type:schema.TypeFloat,
 										Optional:     true,
 										Validate
 func: verify.FloatGreaterThan(0.0),
 									},
 									"min": {
-										Type:         schema.TypeFloat,
+										Type:schema.TypeFloat,
 										Optional:     true,
 										Validate
 func: verify.FloatGreaterThan(0.0),
@@ -549,13 +549,13 @@ func: verify.FloatGreaterThan(0.0),
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"max": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										Validate
 func: validation.IntAtLeast(1),
 									},
 									"min": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Required:     true,
 										Validate
 func: validation.IntAtLeast(1),
@@ -570,13 +570,13 @@ func: validation.IntAtLeast(1),
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"max": {
-										Type:         schema.TypeFloat,
+										Type:schema.TypeFloat,
 										Optional:     true,
 										Validate
 func: verify.FloatGreaterThan(0.0),
 									},
 									"min": {
-										Type:         schema.TypeFloat,
+										Type:schema.TypeFloat,
 										Optional:     true,
 										Validate
 func: verify.FloatGreaterThan(0.0),
@@ -591,13 +591,13 @@ func: verify.FloatGreaterThan(0.0),
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"max": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										Validate
 func: validation.IntAtLeast(1),
 									},
 									"min": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										Validate
 func: validation.IntAtLeast(1),
@@ -606,7 +606,7 @@ func: validation.IntAtLeast(1),
 							},
 						},
 						"on_demand_max_price_percentage_over_lowest_price": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							Validate
 func: validation.IntAtLeast(1),
@@ -616,7 +616,7 @@ func: validation.IntAtLeast(1),
 							Optional: true,
 						},
 						"spot_max_price_percentage_over_lowest_price": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							Validate
 func: validation.IntAtLeast(1),
@@ -628,13 +628,13 @@ func: validation.IntAtLeast(1),
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"max": {
-										Type:         schema.TypeFloat,
+										Type:schema.TypeFloat,
 										Optional:     true,
 										Validate
 func: verify.FloatGreaterThan(0.0),
 									},
 									"min": {
-										Type:         schema.TypeFloat,
+										Type:schema.TypeFloat,
 										Optional:     true,
 										Validate
 func: verify.FloatGreaterThan(0.0),
@@ -649,13 +649,13 @@ func: verify.FloatGreaterThan(0.0),
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"max": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										Validate
 func: validation.IntAtLeast(1),
 									},
 									"min": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Required:     true,
 										Validate
 func: validation.IntAtLeast(1),
@@ -668,7 +668,7 @@ func: validation.IntAtLeast(1),
 				ConflictsWith: []string{"instance_type"},
 			},
 			"instance_type": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ConflictsWith: []string{"instance_requirements"},
 			},
@@ -690,7 +690,7 @@ func: validation.IntAtLeast(1),
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"license_configuration_arn": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							Validate
 func: verify.ValidARN,
@@ -705,7 +705,7 @@ func: verify.ValidARN,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"auto_recovery": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Validate
 func: validation.StringInSlice(ec2.LaunchTemplateAutoRecoveryState_Values(), false),
@@ -721,35 +721,35 @@ func: validation.StringInSlice(ec2.LaunchTemplateAutoRecoveryState_Values(), fal
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"http_endpoint": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Computed:     true,
 							Validate
 func: validation.StringInSlice(ec2.LaunchTemplateInstanceMetadataEndpointState_Values(), false),
 						},
 						"http_protocol_ipv6": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Computed:     true,
 							Validate
 func: validation.StringInSlice(ec2.LaunchTemplateInstanceMetadataProtocolIpv6_Values(), false),
 						},
 						"http_put_response_hop_limit": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							Computed:     true,
 							Validate
 func: validation.IntBetween(1, 64),
 						},
 						"http_tokens": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Computed:     true,
 							Validate
 func: validation.StringInSlice(ec2.LaunchTemplateHttpTokensState_Values(), false),
 						},
 						"instance_metadata_tags": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Computed:     true,
 							Validate
@@ -772,7 +772,7 @@ func: validation.StringInSlice(ec2.LaunchTemplateInstanceMetadataTagsState_Value
 				},
 			},
 			"name": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -781,7 +781,7 @@ func: validation.StringInSlice(ec2.LaunchTemplateInstanceMetadataTagsState_Value
 func:  verify.ValidLaunchTemplateName,
 			},
 			"name_prefix": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -795,24 +795,24 @@ func:  verify.ValidLaunchTemplateName,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"associate_carrier_ip_address": {
-							Type:             nullable.TypeNullableBool,
-							Optional:         true,
+							Type:    nullable.TypeNullableBool,
+							Optional:true,
 							DiffSuppress
 func: nullable.DiffSuppressNullableBool,
 							Validate
 func:     nullable.ValidateTypeStringNullableBool,
 						},
 						"associate_public_ip_address": {
-							Type:             nullable.TypeNullableBool,
-							Optional:         true,
+							Type:    nullable.TypeNullableBool,
+							Optional:true,
 							DiffSuppress
 func: nullable.DiffSuppressNullableBool,
 							Validate
 func:     nullable.ValidateTypeStringNullableBool,
 						},
 						"delete_on_termination": {
-							Type:             nullable.TypeNullableBool,
-							Optional:         true,
+							Type:    nullable.TypeNullableBool,
+							Optional:true,
 							DiffSuppress
 func: nullable.DiffSuppressNullableBool,
 							Validate
@@ -827,7 +827,7 @@ func:     nullable.ValidateTypeStringNullableBool,
 							Optional: true,
 						},
 						"interface_type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Validate
 func: validation.StringInSlice([]string{"efa", "interface"}, false),
@@ -840,7 +840,7 @@ func: validation.StringInSlice([]string{"efa", "interface"}, false),
 							Type:     schema.TypeSet,
 							Optional: true,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								Validate
 func: validation.IsIPv4Address,
 							},
@@ -853,7 +853,7 @@ func: validation.IsIPv4Address,
 							Type:     schema.TypeSet,
 							Optional: true,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								Validate
 func: verify.ValidIPv4CIDRNetworkAddress,
 							},
@@ -866,7 +866,7 @@ func: verify.ValidIPv4CIDRNetworkAddress,
 							Type:     schema.TypeSet,
 							Optional: true,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								Validate
 func: validation.IsIPv6Address,
 							},
@@ -879,7 +879,7 @@ func: validation.IsIPv6Address,
 							Type:     schema.TypeSet,
 							Optional: true,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								Validate
 func: verify.ValidIPv6CIDRNetworkAddress,
 							},
@@ -893,7 +893,7 @@ func: verify.ValidIPv6CIDRNetworkAddress,
 							Optional: true,
 						},
 						"private_ip_address": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Validate
 func: validation.IsIPv4Address,
@@ -933,7 +933,7 @@ func: validation.IsIPv4Address,
 							Optional: true,
 						},
 						"host_resource_group_arn": {
-							Type:          schema.TypeString,
+							Type: schema.TypeString,
 							Optional:      true,
 							ConflictsWith: []string{"placement.0.host_id"},
 							Validate
@@ -948,7 +948,7 @@ func:  verify.ValidARN,
 							Optional: true,
 						},
 						"tenancy": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Validate
 func: validation.StringInSlice(ec2.Tenancy_Values(), false),
@@ -971,7 +971,7 @@ func: validation.StringInSlice(ec2.Tenancy_Values(), false),
 							Optional: true,
 						},
 						"hostname_type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Validate
 func: validation.StringInSlice(ec2.HostnameType_Values(), false),
@@ -984,9 +984,9 @@ func: validation.StringInSlice(ec2.HostnameType_Values(), false),
 				Optional: true,
 			},
 			"security_group_names": {
-				Type:          schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional:      true,
-				Elem:          &schema.Schema{Type: schema.TypeString},
+				Elem: &schema.Schema{Type: schema.TypeString},
 				ConflictsWith: []string{"vpc_security_group_ids"},
 			},
 			"tag_specifications": {
@@ -995,7 +995,7 @@ func: validation.StringInSlice(ec2.HostnameType_Values(), false),
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"resource_type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Validate
 func: validation.StringInSlice(ec2.ResourceType_Values(), false),
@@ -1007,7 +1007,7 @@ func: validation.StringInSlice(ec2.ResourceType_Values(), false),
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"update_default_version": {
-				Type:          schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional:      true,
 				ConflictsWith: []string{"default_version"},
 			},
@@ -1016,9 +1016,9 @@ func: validation.StringInSlice(ec2.ResourceType_Values(), false),
 				Optional: true,
 			},
 			"vpc_security_group_ids": {
-				Type:          schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional:      true,
-				Elem:          &schema.Schema{Type: schema.TypeString},
+				Elem: &schema.Schema{Type: schema.TypeString},
 				ConflictsWith: []string{"security_group_names"},
 			},
 		},
@@ -2118,7 +2118,7 @@ func expandLaunchTemplateInstanceNetworkInterfaceSpecificationRequest(tfMap map[
 			v := v.(string)
 
 			apiObject.PrivateIpAddresses = append(apiObject.PrivateIpAddresses, &ec2.PrivateIpAddressSpecification{
-				Primary:          aws.Bool(v == privateIPAddress),
+				Primary: aws.Bool(v == privateIPAddress),
 				PrivateIpAddress: aws.String(v),
 			})
 		}

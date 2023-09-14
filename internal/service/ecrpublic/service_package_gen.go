@@ -25,27 +25,27 @@ func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.Servic
 
 func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{
-		{
-			Factory:  DataSourceAuthorizationToken,
-			TypeName: "aws_ecrpublic_authorization_token",
-		},
+{
+	Factory:  DataSourceAuthorizationToken,
+	TypeName: "aws_ecrpublic_authorization_token",
+},
 	}
 }
 
 func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
-		{
-			Factory:  ResourceRepository,
-			TypeName: "aws_ecrpublic_repository",
-			Name:     "Repository",
-			Tags: &types.ServicePackageResourceTags{
-				IdentifierAttribute: "arn",
-			},
-		},
-		{
-			Factory:  ResourceRepositoryPolicy,
-			TypeName: "aws_ecrpublic_repository_policy",
-		},
+{
+	Factory:  ResourceRepository,
+	TypeName: "aws_ecrpublic_repository",
+	Name:     "Repository",
+	Tags: &types.ServicePackageResourceTags{
+IdentifierAttribute: "arn",
+	},
+},
+{
+	Factory:  ResourceRepositoryPolicy,
+	TypeName: "aws_ecrpublic_repository_policy",
+},
 	}
 }
 

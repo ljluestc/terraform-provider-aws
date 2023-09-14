@@ -19,22 +19,22 @@ func TestAccEC2EBSVolumesDataSource_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVolumeDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccEBSVolumesDataSourceConfig_volumeIDs(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckVolumeDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccEBSVolumesDataSourceConfig_volumeIDs(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttr("data.aws_ebs_volumes.by_tags", "ids.#", "2"),
-					resource.TestCheckResourceAttr("data.aws_ebs_volumes.by_filter", "ids.#", "1"),
-					resource.TestCheckResourceAttr("data.aws_ebs_volumes.empty", "ids.#", "0"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttr("data.aws_ebs_volumes.by_tags", "ids.#", "2"),
+	resource.TestCheckResourceAttr("data.aws_ebs_volumes.by_filter", "ids.#", "1"),
+	resource.TestCheckResourceAttr("data.aws_ebs_volumes.empty", "ids.#", "0"),
+),
+	},
+},
 	})
 }
 
@@ -47,7 +47,7 @@ resource "aws_ebs_volume" "test" {
   count = 2
 
   availability_zone = data.aws_availability_zones.available.names[0]
-  size              = 1
+  size     = 1
 
   tags = {
     Name = %[1]q

@@ -27,35 +27,35 @@ func TestAccAPIGatewayV2API_basicWebSocket(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAPIDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAPIConfig_basicWebSocket(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAPIExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrSet(resourceName, "api_endpoint"),
-					resource.TestCheckResourceAttr(resourceName, "api_key_selection_expression", "$request.header.x-api-key"),
-					acctest.MatchResourceAttrRegionalARNNoAccount(resourceName, "arn", "apigateway", regexache.MustCompile(`/apis/.+`)),
-					resource.TestCheckResourceAttr(resourceName, "cors_configuration.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "description", ""),
-					resource.TestCheckResourceAttr(resourceName, "disable_execute_api_endpoint", "false"),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "execution_arn", "execute-api", regexache.MustCompile(`.+`)),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeWebsocket),
-					resource.TestCheckResourceAttr(resourceName, "route_selection_expression", "$request.body.action"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-					resource.TestCheckResourceAttr(resourceName, "version", ""),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckAPIDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccAPIConfig_basicWebSocket(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAPIExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrSet(resourceName, "api_endpoint"),
+	resource.TestCheckResourceAttr(resourceName, "api_key_selection_expression", "$request.header.x-api-key"),
+	acctest.MatchResourceAttrRegionalARNNoAccount(resourceName, "arn", "apigateway", regexache.MustCompile(`/apis/.+`)),
+	resource.TestCheckResourceAttr(resourceName, "cors_configuration.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "description", ""),
+	resource.TestCheckResourceAttr(resourceName, "disable_execute_api_endpoint", "false"),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "execution_arn", "execute-api", regexache.MustCompile(`.+`)),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeWebsocket),
+	resource.TestCheckResourceAttr(resourceName, "route_selection_expression", "$request.body.action"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+	resource.TestCheckResourceAttr(resourceName, "version", ""),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -66,35 +66,35 @@ func TestAccAPIGatewayV2API_basicHTTP(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAPIDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAPIConfig_basicHTTP(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAPIExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrSet(resourceName, "api_endpoint"),
-					resource.TestCheckResourceAttr(resourceName, "api_key_selection_expression", "$request.header.x-api-key"),
-					acctest.MatchResourceAttrRegionalARNNoAccount(resourceName, "arn", "apigateway", regexache.MustCompile(`/apis/.+`)),
-					resource.TestCheckResourceAttr(resourceName, "cors_configuration.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "description", ""),
-					resource.TestCheckResourceAttr(resourceName, "disable_execute_api_endpoint", "false"),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "execution_arn", "execute-api", regexache.MustCompile(`.+`)),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeHttp),
-					resource.TestCheckResourceAttr(resourceName, "route_selection_expression", "$request.method $request.path"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-					resource.TestCheckResourceAttr(resourceName, "version", ""),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckAPIDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccAPIConfig_basicHTTP(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAPIExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrSet(resourceName, "api_endpoint"),
+	resource.TestCheckResourceAttr(resourceName, "api_key_selection_expression", "$request.header.x-api-key"),
+	acctest.MatchResourceAttrRegionalARNNoAccount(resourceName, "arn", "apigateway", regexache.MustCompile(`/apis/.+`)),
+	resource.TestCheckResourceAttr(resourceName, "cors_configuration.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "description", ""),
+	resource.TestCheckResourceAttr(resourceName, "disable_execute_api_endpoint", "false"),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "execution_arn", "execute-api", regexache.MustCompile(`.+`)),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeHttp),
+	resource.TestCheckResourceAttr(resourceName, "route_selection_expression", "$request.method $request.path"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+	resource.TestCheckResourceAttr(resourceName, "version", ""),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -105,20 +105,20 @@ func TestAccAPIGatewayV2API_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAPIDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAPIConfig_basicWebSocket(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAPIExists(ctx, resourceName, &v),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfapigatewayv2.ResourceAPI(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckAPIDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccAPIConfig_basicWebSocket(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAPIExists(ctx, resourceName, &v),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfapigatewayv2.ResourceAPI(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -130,78 +130,78 @@ func TestAccAPIGatewayV2API_allAttributesWebSocket(t *testing.T) {
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAPIDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAPIConfig_allAttributesWebSocket(rName1),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAPIExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrSet(resourceName, "api_endpoint"),
-					resource.TestCheckResourceAttr(resourceName, "api_key_selection_expression", "$context.authorizer.usageIdentifierKey"),
-					acctest.MatchResourceAttrRegionalARNNoAccount(resourceName, "arn", "apigateway", regexache.MustCompile(`/apis/.+`)),
-					resource.TestCheckResourceAttr(resourceName, "cors_configuration.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "description", "test description"),
-					resource.TestCheckResourceAttr(resourceName, "disable_execute_api_endpoint", "true"),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "execution_arn", "execute-api", regexache.MustCompile(`.+`)),
-					resource.TestCheckResourceAttr(resourceName, "name", rName1),
-					resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeWebsocket),
-					resource.TestCheckResourceAttr(resourceName, "route_selection_expression", "$request.body.service"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-					resource.TestCheckResourceAttr(resourceName, "version", "v1"),
-				),
-			},
-			{
-				Config: testAccAPIConfig_basicWebSocket(rName1),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAPIExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "api_key_selection_expression", "$request.header.x-api-key"),
-					resource.TestCheckResourceAttr(resourceName, "cors_configuration.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "description", ""),
-					resource.TestCheckResourceAttr(resourceName, "disable_execute_api_endpoint", "false"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName1),
-					resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeWebsocket),
-					resource.TestCheckResourceAttr(resourceName, "route_selection_expression", "$request.body.action"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-					resource.TestCheckResourceAttr(resourceName, "version", ""),
-				),
-			},
-			{
-				Config: testAccAPIConfig_allAttributesWebSocket(rName2),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAPIExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "api_key_selection_expression", "$context.authorizer.usageIdentifierKey"),
-					resource.TestCheckResourceAttr(resourceName, "cors_configuration.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "description", "test description"),
-					resource.TestCheckResourceAttr(resourceName, "disable_execute_api_endpoint", "true"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName2),
-					resource.TestCheckResourceAttr(resourceName, "route_selection_expression", "$request.body.service"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-					resource.TestCheckResourceAttr(resourceName, "version", "v1"),
-				),
-			},
-			{
-				Config: testAccAPIConfig_allAttributesWebSocket(rName1),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAPIExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "api_key_selection_expression", "$context.authorizer.usageIdentifierKey"),
-					resource.TestCheckResourceAttr(resourceName, "cors_configuration.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "description", "test description"),
-					resource.TestCheckResourceAttr(resourceName, "disable_execute_api_endpoint", "true"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName1),
-					resource.TestCheckResourceAttr(resourceName, "route_selection_expression", "$request.body.service"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-					resource.TestCheckResourceAttr(resourceName, "version", "v1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckAPIDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccAPIConfig_allAttributesWebSocket(rName1),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAPIExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrSet(resourceName, "api_endpoint"),
+	resource.TestCheckResourceAttr(resourceName, "api_key_selection_expression", "$context.authorizer.usageIdentifierKey"),
+	acctest.MatchResourceAttrRegionalARNNoAccount(resourceName, "arn", "apigateway", regexache.MustCompile(`/apis/.+`)),
+	resource.TestCheckResourceAttr(resourceName, "cors_configuration.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "description", "test description"),
+	resource.TestCheckResourceAttr(resourceName, "disable_execute_api_endpoint", "true"),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "execution_arn", "execute-api", regexache.MustCompile(`.+`)),
+	resource.TestCheckResourceAttr(resourceName, "name", rName1),
+	resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeWebsocket),
+	resource.TestCheckResourceAttr(resourceName, "route_selection_expression", "$request.body.service"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+	resource.TestCheckResourceAttr(resourceName, "version", "v1"),
+),
+	},
+	{
+Config: testAccAPIConfig_basicWebSocket(rName1),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAPIExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "api_key_selection_expression", "$request.header.x-api-key"),
+	resource.TestCheckResourceAttr(resourceName, "cors_configuration.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "description", ""),
+	resource.TestCheckResourceAttr(resourceName, "disable_execute_api_endpoint", "false"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName1),
+	resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeWebsocket),
+	resource.TestCheckResourceAttr(resourceName, "route_selection_expression", "$request.body.action"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+	resource.TestCheckResourceAttr(resourceName, "version", ""),
+),
+	},
+	{
+Config: testAccAPIConfig_allAttributesWebSocket(rName2),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAPIExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "api_key_selection_expression", "$context.authorizer.usageIdentifierKey"),
+	resource.TestCheckResourceAttr(resourceName, "cors_configuration.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "description", "test description"),
+	resource.TestCheckResourceAttr(resourceName, "disable_execute_api_endpoint", "true"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName2),
+	resource.TestCheckResourceAttr(resourceName, "route_selection_expression", "$request.body.service"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+	resource.TestCheckResourceAttr(resourceName, "version", "v1"),
+),
+	},
+	{
+Config: testAccAPIConfig_allAttributesWebSocket(rName1),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAPIExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "api_key_selection_expression", "$context.authorizer.usageIdentifierKey"),
+	resource.TestCheckResourceAttr(resourceName, "cors_configuration.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "description", "test description"),
+	resource.TestCheckResourceAttr(resourceName, "disable_execute_api_endpoint", "true"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName1),
+	resource.TestCheckResourceAttr(resourceName, "route_selection_expression", "$request.body.service"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+	resource.TestCheckResourceAttr(resourceName, "version", "v1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -213,78 +213,78 @@ func TestAccAPIGatewayV2API_allAttributesHTTP(t *testing.T) {
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAPIDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAPIConfig_allAttributesHTTP(rName1),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAPIExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrSet(resourceName, "api_endpoint"),
-					resource.TestCheckResourceAttr(resourceName, "api_key_selection_expression", "$request.header.x-api-key"),
-					acctest.MatchResourceAttrRegionalARNNoAccount(resourceName, "arn", "apigateway", regexache.MustCompile(`/apis/.+`)),
-					resource.TestCheckResourceAttr(resourceName, "cors_configuration.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "description", "test description"),
-					resource.TestCheckResourceAttr(resourceName, "disable_execute_api_endpoint", "true"),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "execution_arn", "execute-api", regexache.MustCompile(`.+`)),
-					resource.TestCheckResourceAttr(resourceName, "name", rName1),
-					resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeHttp),
-					resource.TestCheckResourceAttr(resourceName, "route_selection_expression", "$request.method $request.path"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-					resource.TestCheckResourceAttr(resourceName, "version", "v1"),
-				),
-			},
-			{
-				Config: testAccAPIConfig_basicHTTP(rName1),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAPIExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "api_key_selection_expression", "$request.header.x-api-key"),
-					resource.TestCheckResourceAttr(resourceName, "cors_configuration.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "description", ""),
-					resource.TestCheckResourceAttr(resourceName, "disable_execute_api_endpoint", "false"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName1),
-					resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeHttp),
-					resource.TestCheckResourceAttr(resourceName, "route_selection_expression", "$request.method $request.path"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-					resource.TestCheckResourceAttr(resourceName, "version", ""),
-				),
-			},
-			{
-				Config: testAccAPIConfig_allAttributesHTTP(rName2),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAPIExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "api_key_selection_expression", "$request.header.x-api-key"),
-					resource.TestCheckResourceAttr(resourceName, "cors_configuration.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "description", "test description"),
-					resource.TestCheckResourceAttr(resourceName, "disable_execute_api_endpoint", "true"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName2),
-					resource.TestCheckResourceAttr(resourceName, "route_selection_expression", "$request.method $request.path"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-					resource.TestCheckResourceAttr(resourceName, "version", "v1"),
-				),
-			},
-			{
-				Config: testAccAPIConfig_allAttributesHTTP(rName1),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAPIExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "api_key_selection_expression", "$request.header.x-api-key"),
-					resource.TestCheckResourceAttr(resourceName, "cors_configuration.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "description", "test description"),
-					resource.TestCheckResourceAttr(resourceName, "disable_execute_api_endpoint", "true"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName1),
-					resource.TestCheckResourceAttr(resourceName, "route_selection_expression", "$request.method $request.path"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-					resource.TestCheckResourceAttr(resourceName, "version", "v1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckAPIDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccAPIConfig_allAttributesHTTP(rName1),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAPIExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrSet(resourceName, "api_endpoint"),
+	resource.TestCheckResourceAttr(resourceName, "api_key_selection_expression", "$request.header.x-api-key"),
+	acctest.MatchResourceAttrRegionalARNNoAccount(resourceName, "arn", "apigateway", regexache.MustCompile(`/apis/.+`)),
+	resource.TestCheckResourceAttr(resourceName, "cors_configuration.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "description", "test description"),
+	resource.TestCheckResourceAttr(resourceName, "disable_execute_api_endpoint", "true"),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "execution_arn", "execute-api", regexache.MustCompile(`.+`)),
+	resource.TestCheckResourceAttr(resourceName, "name", rName1),
+	resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeHttp),
+	resource.TestCheckResourceAttr(resourceName, "route_selection_expression", "$request.method $request.path"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+	resource.TestCheckResourceAttr(resourceName, "version", "v1"),
+),
+	},
+	{
+Config: testAccAPIConfig_basicHTTP(rName1),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAPIExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "api_key_selection_expression", "$request.header.x-api-key"),
+	resource.TestCheckResourceAttr(resourceName, "cors_configuration.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "description", ""),
+	resource.TestCheckResourceAttr(resourceName, "disable_execute_api_endpoint", "false"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName1),
+	resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeHttp),
+	resource.TestCheckResourceAttr(resourceName, "route_selection_expression", "$request.method $request.path"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+	resource.TestCheckResourceAttr(resourceName, "version", ""),
+),
+	},
+	{
+Config: testAccAPIConfig_allAttributesHTTP(rName2),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAPIExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "api_key_selection_expression", "$request.header.x-api-key"),
+	resource.TestCheckResourceAttr(resourceName, "cors_configuration.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "description", "test description"),
+	resource.TestCheckResourceAttr(resourceName, "disable_execute_api_endpoint", "true"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName2),
+	resource.TestCheckResourceAttr(resourceName, "route_selection_expression", "$request.method $request.path"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+	resource.TestCheckResourceAttr(resourceName, "version", "v1"),
+),
+	},
+	{
+Config: testAccAPIConfig_allAttributesHTTP(rName1),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAPIExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "api_key_selection_expression", "$request.header.x-api-key"),
+	resource.TestCheckResourceAttr(resourceName, "cors_configuration.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "description", "test description"),
+	resource.TestCheckResourceAttr(resourceName, "disable_execute_api_endpoint", "true"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName1),
+	resource.TestCheckResourceAttr(resourceName, "route_selection_expression", "$request.method $request.path"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+	resource.TestCheckResourceAttr(resourceName, "version", "v1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -295,46 +295,46 @@ func TestAccAPIGatewayV2API_openAPI(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAPIDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAPIConfig_open(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckAPIExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrSet(resourceName, "api_endpoint"),
-					resource.TestCheckResourceAttr(resourceName, "description", ""),
-					resource.TestCheckResourceAttr(resourceName, "disable_execute_api_endpoint", "false"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName+"_DIFFERENT"),
-					resource.TestCheckResourceAttr(resourceName, "version", "1.0"),
-					acctest.MatchResourceAttrRegionalARNNoAccount(resourceName, "arn", "apigateway", regexache.MustCompile(`/apis/.+`)),
-					resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeHttp),
-					testAccCheckAPIRoutes(ctx, &v, []string{"GET /test"}),
-				),
-				ExpectNonEmptyPlan: true, // OpenAPI definition overrides HCL configuration.
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"body"},
-			},
-			{
-				Config: testAccAPIConfig_updatedOpenYAML(rName),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "description", ""),
-					resource.TestCheckResourceAttr(resourceName, "disable_execute_api_endpoint", "false"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName+"_DIFFERENT"),
-					resource.TestCheckResourceAttr(resourceName, "version", "2.0"),
-					testAccCheckAPIExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeHttp),
-					testAccCheckAPIRoutes(ctx, &v, []string{"GET /update"}),
-				),
-				ExpectNonEmptyPlan: true, // OpenAPI definition overrides HCL configuration.
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckAPIDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccAPIConfig_open(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckAPIExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrSet(resourceName, "api_endpoint"),
+	resource.TestCheckResourceAttr(resourceName, "description", ""),
+	resource.TestCheckResourceAttr(resourceName, "disable_execute_api_endpoint", "false"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName+"_DIFFERENT"),
+	resource.TestCheckResourceAttr(resourceName, "version", "1.0"),
+	acctest.MatchResourceAttrRegionalARNNoAccount(resourceName, "arn", "apigateway", regexache.MustCompile(`/apis/.+`)),
+	resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeHttp),
+	testAccCheckAPIRoutes(ctx, &v, []string{"GET /test"}),
+),
+ExpectNonEmptyPlan: true, // OpenAPI definition overrides HCL configuration.
+	},
+	{
+ResourceName:            resourceName,
+ImportState:             true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"body"},
+	},
+	{
+Config: testAccAPIConfig_updatedOpenYAML(rName),
+Check: resource.ComposeTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "description", ""),
+	resource.TestCheckResourceAttr(resourceName, "disable_execute_api_endpoint", "false"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName+"_DIFFERENT"),
+	resource.TestCheckResourceAttr(resourceName, "version", "2.0"),
+	testAccCheckAPIExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeHttp),
+	testAccCheckAPIRoutes(ctx, &v, []string{"GET /update"}),
+),
+ExpectNonEmptyPlan: true, // OpenAPI definition overrides HCL configuration.
+	},
+},
 	})
 }
 
@@ -345,37 +345,37 @@ func TestAccAPIGatewayV2API_OpenAPI_withTags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAPIDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAPIConfig_openYAMLTags(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAPIExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Key1", "Value3"),
-				),
-				ExpectNonEmptyPlan: true, // OpenAPI definition overrides HCL configuration.
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"body"},
-			},
-			{
-				Config: testAccAPIConfig_openYAMLTagsUpdated(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAPIExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Key3", "Value3"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Key4", "Value4"),
-				),
-				ExpectNonEmptyPlan: true, // OpenAPI definition overrides HCL configuration.
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckAPIDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccAPIConfig_openYAMLTags(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAPIExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Key1", "Value3"),
+),
+ExpectNonEmptyPlan: true, // OpenAPI definition overrides HCL configuration.
+	},
+	{
+ResourceName:            resourceName,
+ImportState:             true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"body"},
+	},
+	{
+Config: testAccAPIConfig_openYAMLTagsUpdated(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAPIExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Key3", "Value3"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Key4", "Value4"),
+),
+ExpectNonEmptyPlan: true, // OpenAPI definition overrides HCL configuration.
+	},
+},
 	})
 }
 
@@ -386,56 +386,56 @@ func TestAccAPIGatewayV2API_OpenAPI_withCors(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAPIDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAPIConfig_openYAMLCorsConfiguration(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckAPIExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrSet(resourceName, "api_endpoint"),
-					acctest.MatchResourceAttrRegionalARNNoAccount(resourceName, "arn", "apigateway", regexache.MustCompile(`/apis/.+`)),
-					resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeHttp),
-					resource.TestCheckResourceAttr(resourceName, "cors_configuration.0.allow_methods.#", "1"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "cors_configuration.0.allow_methods.*", "delete"),
-					resource.TestCheckResourceAttr(resourceName, "cors_configuration.0.allow_origins.#", "1"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "cors_configuration.0.allow_origins.*", "https://www.google.de"),
-				),
-				ExpectNonEmptyPlan: true, // OpenAPI definition overrides HCL configuration.
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"body"},
-			},
-			{
-				Config: testAccAPIConfig_openYAMLCorsConfigurationUpdated(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckAPIExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeHttp),
-					testAccCheckAPIRoutes(ctx, &v, []string{"GET /update"}),
-					resource.TestCheckResourceAttr(resourceName, "cors_configuration.#", "0"),
-				),
-				ExpectNonEmptyPlan: true, // OpenAPI definition overrides HCL configuration.
-			},
-			{
-				Config: testAccAPIConfig_openYAMLCorsConfigurationUpdated2(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckAPIExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeHttp),
-					testAccCheckAPIRoutes(ctx, &v, []string{"GET /update"}),
-					resource.TestCheckResourceAttr(resourceName, "cors_configuration.0.allow_methods.#", "2"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "cors_configuration.0.allow_methods.*", "get"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "cors_configuration.0.allow_methods.*", "put"),
-					resource.TestCheckResourceAttr(resourceName, "cors_configuration.0.allow_origins.#", "2"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "cors_configuration.0.allow_origins.*", "https://www.example.com"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "cors_configuration.0.allow_origins.*", "https://www.google.de"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckAPIDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccAPIConfig_openYAMLCorsConfiguration(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckAPIExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrSet(resourceName, "api_endpoint"),
+	acctest.MatchResourceAttrRegionalARNNoAccount(resourceName, "arn", "apigateway", regexache.MustCompile(`/apis/.+`)),
+	resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeHttp),
+	resource.TestCheckResourceAttr(resourceName, "cors_configuration.0.allow_methods.#", "1"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "cors_configuration.0.allow_methods.*", "delete"),
+	resource.TestCheckResourceAttr(resourceName, "cors_configuration.0.allow_origins.#", "1"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "cors_configuration.0.allow_origins.*", "https://www.google.de"),
+),
+ExpectNonEmptyPlan: true, // OpenAPI definition overrides HCL configuration.
+	},
+	{
+ResourceName:            resourceName,
+ImportState:             true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"body"},
+	},
+	{
+Config: testAccAPIConfig_openYAMLCorsConfigurationUpdated(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckAPIExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeHttp),
+	testAccCheckAPIRoutes(ctx, &v, []string{"GET /update"}),
+	resource.TestCheckResourceAttr(resourceName, "cors_configuration.#", "0"),
+),
+ExpectNonEmptyPlan: true, // OpenAPI definition overrides HCL configuration.
+	},
+	{
+Config: testAccAPIConfig_openYAMLCorsConfigurationUpdated2(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckAPIExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeHttp),
+	testAccCheckAPIRoutes(ctx, &v, []string{"GET /update"}),
+	resource.TestCheckResourceAttr(resourceName, "cors_configuration.0.allow_methods.#", "2"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "cors_configuration.0.allow_methods.*", "get"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "cors_configuration.0.allow_methods.*", "put"),
+	resource.TestCheckResourceAttr(resourceName, "cors_configuration.0.allow_origins.#", "2"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "cors_configuration.0.allow_origins.*", "https://www.example.com"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "cors_configuration.0.allow_origins.*", "https://www.google.de"),
+),
+	},
+},
 	})
 }
 
@@ -446,54 +446,54 @@ func TestAccAPIGatewayV2API_OpenAPI_withMoreFields(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAPIDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAPIConfig_openYAML(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckAPIExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrSet(resourceName, "api_endpoint"),
-					resource.TestCheckResourceAttr(resourceName, "description", ""),
-					resource.TestCheckResourceAttr(resourceName, "disable_execute_api_endpoint", "false"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName+"_DIFFERENT"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-					resource.TestCheckResourceAttr(resourceName, "version", "1.0"),
-					acctest.MatchResourceAttrRegionalARNNoAccount(resourceName, "arn", "apigateway", regexache.MustCompile(`/apis/.+`)),
-					resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeHttp),
-					testAccCheckAPIRoutes(ctx, &v, []string{"GET /test"}),
-				),
-				ExpectNonEmptyPlan: true, // OpenAPI definition overrides HCL configuration.
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"body"},
-			},
-			{
-				Config: testAccAPIConfig_updatedOpen2(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "description", "description different"),
-					resource.TestCheckResourceAttr(resourceName, "disable_execute_api_endpoint", "false"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName+"_DIFFERENT"),
-					resource.TestCheckResourceAttr(resourceName, "version", "2.0"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-					testAccCheckAPIExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeHttp),
-					testAccCheckAPIRoutes(ctx, &v, []string{"GET /update"}),
-				),
-				ExpectNonEmptyPlan: true, // OpenAPI definition overrides HCL configuration.
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"body"},
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckAPIDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccAPIConfig_openYAML(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckAPIExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrSet(resourceName, "api_endpoint"),
+	resource.TestCheckResourceAttr(resourceName, "description", ""),
+	resource.TestCheckResourceAttr(resourceName, "disable_execute_api_endpoint", "false"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName+"_DIFFERENT"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+	resource.TestCheckResourceAttr(resourceName, "version", "1.0"),
+	acctest.MatchResourceAttrRegionalARNNoAccount(resourceName, "arn", "apigateway", regexache.MustCompile(`/apis/.+`)),
+	resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeHttp),
+	testAccCheckAPIRoutes(ctx, &v, []string{"GET /test"}),
+),
+ExpectNonEmptyPlan: true, // OpenAPI definition overrides HCL configuration.
+	},
+	{
+ResourceName:            resourceName,
+ImportState:             true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"body"},
+	},
+	{
+Config: testAccAPIConfig_updatedOpen2(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "description", "description different"),
+	resource.TestCheckResourceAttr(resourceName, "disable_execute_api_endpoint", "false"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName+"_DIFFERENT"),
+	resource.TestCheckResourceAttr(resourceName, "version", "2.0"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+	testAccCheckAPIExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeHttp),
+	testAccCheckAPIRoutes(ctx, &v, []string{"GET /update"}),
+),
+ExpectNonEmptyPlan: true, // OpenAPI definition overrides HCL configuration.
+	},
+	{
+ResourceName:            resourceName,
+ImportState:             true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"body"},
+	},
+},
 	})
 }
 
@@ -504,82 +504,82 @@ func TestAccAPIGatewayV2API_OpenAPI_failOnWarnings(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAPIDestroy(ctx),
-		Steps: []resource.TestStep{
-			// Invalid body should not be accepted when fail_on_warnings is enabled
-			{
-				Config:      testAccAPIConfig_failOnWarnings(rName, "fail_on_warnings = true"),
-				ExpectError: regexache.MustCompile(`BadRequestException: Warnings found during import`),
-			},
-			// Warnings do not break the deployment when fail_on_warnings is disabled
-			{
-				Config: testAccAPIConfig_failOnWarnings(rName, "fail_on_warnings = false"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "name", "Title test"),
-					testAccCheckAPIExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeHttp),
-					resource.TestCheckResourceAttr(resourceName, "fail_on_warnings", "false"),
-					testAccCheckAPIRoutes(ctx, &v, []string{"GET /update"}),
-				),
-				ExpectNonEmptyPlan: true, // OpenAPI definition overrides HCL configuration.
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"body", "fail_on_warnings"},
-			},
-			// fail_on_warnings should be optional and false by default
-			{
-				Config: testAccAPIConfig_failOnWarnings(rName, ""),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					testAccCheckAPIExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeHttp),
-					testAccCheckAPIRoutes(ctx, &v, []string{"GET /update"}),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"body", "fail_on_warnings"},
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckAPIDestroy(ctx),
+Steps: []resource.TestStep{
+	// Invalid body should not be accepted when fail_on_warnings is enabled
+	{
+Config:      testAccAPIConfig_failOnWarnings(rName, "fail_on_warnings = true"),
+ExpectError: regexache.MustCompile(`BadRequestException: Warnings found during import`),
+	},
+	// Warnings do not break the deployment when fail_on_warnings is disabled
+	{
+Config: testAccAPIConfig_failOnWarnings(rName, "fail_on_warnings = false"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "name", "Title test"),
+	testAccCheckAPIExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeHttp),
+	resource.TestCheckResourceAttr(resourceName, "fail_on_warnings", "false"),
+	testAccCheckAPIRoutes(ctx, &v, []string{"GET /update"}),
+),
+ExpectNonEmptyPlan: true, // OpenAPI definition overrides HCL configuration.
+	},
+	{
+ResourceName:            resourceName,
+ImportState:             true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"body", "fail_on_warnings"},
+	},
+	// fail_on_warnings should be optional and false by default
+	{
+Config: testAccAPIConfig_failOnWarnings(rName, ""),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	testAccCheckAPIExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeHttp),
+	testAccCheckAPIRoutes(ctx, &v, []string{"GET /update"}),
+),
+	},
+	{
+ResourceName:            resourceName,
+ImportState:             true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"body", "fail_on_warnings"},
+	},
+},
 	})
 }
 
 func testAccCheckAPIRoutes(ctx context.Context, v *apigatewayv2.GetApiOutput, routes []string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).APIGatewayV2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).APIGatewayV2Conn(ctx)
 
-		resp, err := conn.GetRoutesWithContext(ctx, &apigatewayv2.GetRoutesInput{
-			ApiId: v.ApiId,
-		})
-		if err != nil {
-			return err
-		}
+resp, err := conn.GetRoutesWithContext(ctx, &apigatewayv2.GetRoutesInput{
+	ApiId: v.ApiId,
+})
+if err != nil {
+	return err
+}
 
-		actualRoutePaths := map[string]bool{}
-		for _, route := range resp.Items {
-			actualRoutePaths[*route.RouteKey] = true
-		}
+actualRoutePaths := map[string]bool{}
+for _, route := range resp.Items {
+	actualRoutePaths[*route.RouteKey] = true
+}
 
-		for _, route := range routes {
-			if _, ok := actualRoutePaths[route]; !ok {
-				return fmt.Errorf("Expected path %v but did not find it in %v", route, actualRoutePaths)
-			}
-			delete(actualRoutePaths, route)
-		}
+for _, route := range routes {
+	if _, ok := actualRoutePaths[route]; !ok {
+return fmt.Errorf("Expected path %v but did not find it in %v", route, actualRoutePaths)
+	}
+	delete(actualRoutePaths, route)
+}
 
-		if len(actualRoutePaths) > 0 {
-			return fmt.Errorf("Found unexpected paths %v", actualRoutePaths)
-		}
+if len(actualRoutePaths) > 0 {
+	return fmt.Errorf("Found unexpected paths %v", actualRoutePaths)
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -590,50 +590,50 @@ func TestAccAPIGatewayV2API_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAPIDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAPIConfig_tags(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAPIExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrSet(resourceName, "api_endpoint"),
-					resource.TestCheckResourceAttr(resourceName, "api_key_selection_expression", "$request.header.x-api-key"),
-					acctest.MatchResourceAttrRegionalARNNoAccount(resourceName, "arn", "apigateway", regexache.MustCompile(`/apis/.+`)),
-					resource.TestCheckResourceAttr(resourceName, "cors_configuration.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "description", ""),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "execution_arn", "execute-api", regexache.MustCompile(`.+`)),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeWebsocket),
-					resource.TestCheckResourceAttr(resourceName, "route_selection_expression", "$request.body.action"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Key1", "Value1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Key2", "Value2"),
-					resource.TestCheckResourceAttr(resourceName, "version", ""),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccAPIConfig_basicWebSocket(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAPIExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "api_key_selection_expression", "$request.header.x-api-key"),
-					resource.TestCheckResourceAttr(resourceName, "cors_configuration.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "description", ""),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeWebsocket),
-					resource.TestCheckResourceAttr(resourceName, "route_selection_expression", "$request.body.action"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-					resource.TestCheckResourceAttr(resourceName, "version", ""),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckAPIDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccAPIConfig_tags(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAPIExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrSet(resourceName, "api_endpoint"),
+	resource.TestCheckResourceAttr(resourceName, "api_key_selection_expression", "$request.header.x-api-key"),
+	acctest.MatchResourceAttrRegionalARNNoAccount(resourceName, "arn", "apigateway", regexache.MustCompile(`/apis/.+`)),
+	resource.TestCheckResourceAttr(resourceName, "cors_configuration.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "description", ""),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "execution_arn", "execute-api", regexache.MustCompile(`.+`)),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeWebsocket),
+	resource.TestCheckResourceAttr(resourceName, "route_selection_expression", "$request.body.action"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Key1", "Value1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Key2", "Value2"),
+	resource.TestCheckResourceAttr(resourceName, "version", ""),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccAPIConfig_basicWebSocket(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAPIExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "api_key_selection_expression", "$request.header.x-api-key"),
+	resource.TestCheckResourceAttr(resourceName, "cors_configuration.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "description", ""),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeWebsocket),
+	resource.TestCheckResourceAttr(resourceName, "route_selection_expression", "$request.body.action"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+	resource.TestCheckResourceAttr(resourceName, "version", ""),
+),
+	},
+},
 	})
 }
 
@@ -644,88 +644,88 @@ func TestAccAPIGatewayV2API_cors(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAPIDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAPIConfig_corsConfiguration(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAPIExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrSet(resourceName, "api_endpoint"),
-					resource.TestCheckResourceAttr(resourceName, "api_key_selection_expression", "$request.header.x-api-key"),
-					acctest.MatchResourceAttrRegionalARNNoAccount(resourceName, "arn", "apigateway", regexache.MustCompile(`/apis/.+`)),
-					resource.TestCheckResourceAttr(resourceName, "cors_configuration.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "cors_configuration.0.allow_credentials", "false"),
-					resource.TestCheckResourceAttr(resourceName, "cors_configuration.0.allow_headers.#", "1"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "cors_configuration.0.allow_headers.*", "Authorization"),
-					resource.TestCheckResourceAttr(resourceName, "cors_configuration.0.allow_methods.#", "2"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "cors_configuration.0.allow_methods.*", "GET"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "cors_configuration.0.allow_methods.*", "put"),
-					resource.TestCheckResourceAttr(resourceName, "cors_configuration.0.allow_origins.#", "1"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "cors_configuration.0.allow_origins.*", "https://www.example.com"),
-					resource.TestCheckResourceAttr(resourceName, "cors_configuration.0.expose_headers.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "cors_configuration.0.max_age", "0"),
-					resource.TestCheckResourceAttr(resourceName, "description", ""),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "execution_arn", "execute-api", regexache.MustCompile(`.+`)),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeHttp),
-					resource.TestCheckResourceAttr(resourceName, "route_selection_expression", "$request.method $request.path"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-					resource.TestCheckResourceAttr(resourceName, "version", ""),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccAPIConfig_corsConfigurationUpdated(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAPIExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrSet(resourceName, "api_endpoint"),
-					resource.TestCheckResourceAttr(resourceName, "api_key_selection_expression", "$request.header.x-api-key"),
-					acctest.MatchResourceAttrRegionalARNNoAccount(resourceName, "arn", "apigateway", regexache.MustCompile(`/apis/.+`)),
-					resource.TestCheckResourceAttr(resourceName, "cors_configuration.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "cors_configuration.0.allow_credentials", "true"),
-					resource.TestCheckResourceAttr(resourceName, "cors_configuration.0.allow_headers.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "cors_configuration.0.allow_methods.#", "1"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "cors_configuration.0.allow_methods.*", "*"),
-					resource.TestCheckResourceAttr(resourceName, "cors_configuration.0.allow_origins.#", "2"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "cors_configuration.0.allow_origins.*", "HTTP://WWW.EXAMPLE.ORG"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "cors_configuration.0.allow_origins.*", "https://example.io"),
-					resource.TestCheckResourceAttr(resourceName, "cors_configuration.0.expose_headers.#", "1"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "cors_configuration.0.expose_headers.*", "X-Api-Id"),
-					resource.TestCheckResourceAttr(resourceName, "cors_configuration.0.max_age", "500"),
-					resource.TestCheckResourceAttr(resourceName, "description", ""),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "execution_arn", "execute-api", regexache.MustCompile(`.+`)),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeHttp),
-					resource.TestCheckResourceAttr(resourceName, "route_selection_expression", "$request.method $request.path"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-					resource.TestCheckResourceAttr(resourceName, "version", ""),
-				),
-			},
-			{
-				Config: testAccAPIConfig_basicHTTP(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAPIExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrSet(resourceName, "api_endpoint"),
-					resource.TestCheckResourceAttr(resourceName, "api_key_selection_expression", "$request.header.x-api-key"),
-					acctest.MatchResourceAttrRegionalARNNoAccount(resourceName, "arn", "apigateway", regexache.MustCompile(`/apis/.+`)),
-					resource.TestCheckResourceAttr(resourceName, "cors_configuration.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "description", ""),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "execution_arn", "execute-api", regexache.MustCompile(`.+`)),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeHttp),
-					resource.TestCheckResourceAttr(resourceName, "route_selection_expression", "$request.method $request.path"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-					resource.TestCheckResourceAttr(resourceName, "version", ""),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckAPIDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccAPIConfig_corsConfiguration(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAPIExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrSet(resourceName, "api_endpoint"),
+	resource.TestCheckResourceAttr(resourceName, "api_key_selection_expression", "$request.header.x-api-key"),
+	acctest.MatchResourceAttrRegionalARNNoAccount(resourceName, "arn", "apigateway", regexache.MustCompile(`/apis/.+`)),
+	resource.TestCheckResourceAttr(resourceName, "cors_configuration.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "cors_configuration.0.allow_credentials", "false"),
+	resource.TestCheckResourceAttr(resourceName, "cors_configuration.0.allow_headers.#", "1"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "cors_configuration.0.allow_headers.*", "Authorization"),
+	resource.TestCheckResourceAttr(resourceName, "cors_configuration.0.allow_methods.#", "2"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "cors_configuration.0.allow_methods.*", "GET"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "cors_configuration.0.allow_methods.*", "put"),
+	resource.TestCheckResourceAttr(resourceName, "cors_configuration.0.allow_origins.#", "1"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "cors_configuration.0.allow_origins.*", "https://www.example.com"),
+	resource.TestCheckResourceAttr(resourceName, "cors_configuration.0.expose_headers.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "cors_configuration.0.max_age", "0"),
+	resource.TestCheckResourceAttr(resourceName, "description", ""),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "execution_arn", "execute-api", regexache.MustCompile(`.+`)),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeHttp),
+	resource.TestCheckResourceAttr(resourceName, "route_selection_expression", "$request.method $request.path"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+	resource.TestCheckResourceAttr(resourceName, "version", ""),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccAPIConfig_corsConfigurationUpdated(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAPIExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrSet(resourceName, "api_endpoint"),
+	resource.TestCheckResourceAttr(resourceName, "api_key_selection_expression", "$request.header.x-api-key"),
+	acctest.MatchResourceAttrRegionalARNNoAccount(resourceName, "arn", "apigateway", regexache.MustCompile(`/apis/.+`)),
+	resource.TestCheckResourceAttr(resourceName, "cors_configuration.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "cors_configuration.0.allow_credentials", "true"),
+	resource.TestCheckResourceAttr(resourceName, "cors_configuration.0.allow_headers.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "cors_configuration.0.allow_methods.#", "1"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "cors_configuration.0.allow_methods.*", "*"),
+	resource.TestCheckResourceAttr(resourceName, "cors_configuration.0.allow_origins.#", "2"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "cors_configuration.0.allow_origins.*", "HTTP://WWW.EXAMPLE.ORG"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "cors_configuration.0.allow_origins.*", "https://example.io"),
+	resource.TestCheckResourceAttr(resourceName, "cors_configuration.0.expose_headers.#", "1"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "cors_configuration.0.expose_headers.*", "X-Api-Id"),
+	resource.TestCheckResourceAttr(resourceName, "cors_configuration.0.max_age", "500"),
+	resource.TestCheckResourceAttr(resourceName, "description", ""),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "execution_arn", "execute-api", regexache.MustCompile(`.+`)),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeHttp),
+	resource.TestCheckResourceAttr(resourceName, "route_selection_expression", "$request.method $request.path"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+	resource.TestCheckResourceAttr(resourceName, "version", ""),
+),
+	},
+	{
+Config: testAccAPIConfig_basicHTTP(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAPIExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrSet(resourceName, "api_endpoint"),
+	resource.TestCheckResourceAttr(resourceName, "api_key_selection_expression", "$request.header.x-api-key"),
+	acctest.MatchResourceAttrRegionalARNNoAccount(resourceName, "arn", "apigateway", regexache.MustCompile(`/apis/.+`)),
+	resource.TestCheckResourceAttr(resourceName, "cors_configuration.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "description", ""),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "execution_arn", "execute-api", regexache.MustCompile(`.+`)),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeHttp),
+	resource.TestCheckResourceAttr(resourceName, "route_selection_expression", "$request.method $request.path"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+	resource.TestCheckResourceAttr(resourceName, "version", ""),
+),
+	},
+},
 	})
 }
 
@@ -736,193 +736,193 @@ func TestAccAPIGatewayV2API_quickCreate(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAPIDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAPIConfig_quickCreate(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAPIExists(ctx, resourceName, &v),
-					testAccCheckAPIQuickCreateIntegration(ctx, resourceName, "HTTP_PROXY", "http://www.example.com/"),
-					testAccCheckAPIQuickCreateRoute(ctx, resourceName, "GET /pets"),
-					testAccCheckAPIQuickCreateStage(ctx, resourceName, "$default"),
-					resource.TestCheckResourceAttrSet(resourceName, "api_endpoint"),
-					resource.TestCheckResourceAttr(resourceName, "api_key_selection_expression", "$request.header.x-api-key"),
-					acctest.MatchResourceAttrRegionalARNNoAccount(resourceName, "arn", "apigateway", regexache.MustCompile(`/apis/.+`)),
-					resource.TestCheckResourceAttr(resourceName, "cors_configuration.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "description", ""),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "execution_arn", "execute-api", regexache.MustCompile(`.+`)),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeHttp),
-					resource.TestCheckResourceAttr(resourceName, "route_key", "GET /pets"),
-					resource.TestCheckResourceAttr(resourceName, "route_selection_expression", "$request.method $request.path"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-					resource.TestCheckResourceAttr(resourceName, "target", "http://www.example.com/"),
-					resource.TestCheckResourceAttr(resourceName, "version", ""),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-				ImportStateVerifyIgnore: []string{
-					"route_key",
-					"target",
-				},
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckAPIDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccAPIConfig_quickCreate(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAPIExists(ctx, resourceName, &v),
+	testAccCheckAPIQuickCreateIntegration(ctx, resourceName, "HTTP_PROXY", "http://www.example.com/"),
+	testAccCheckAPIQuickCreateRoute(ctx, resourceName, "GET /pets"),
+	testAccCheckAPIQuickCreateStage(ctx, resourceName, "$default"),
+	resource.TestCheckResourceAttrSet(resourceName, "api_endpoint"),
+	resource.TestCheckResourceAttr(resourceName, "api_key_selection_expression", "$request.header.x-api-key"),
+	acctest.MatchResourceAttrRegionalARNNoAccount(resourceName, "arn", "apigateway", regexache.MustCompile(`/apis/.+`)),
+	resource.TestCheckResourceAttr(resourceName, "cors_configuration.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "description", ""),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "execution_arn", "execute-api", regexache.MustCompile(`.+`)),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "protocol_type", apigatewayv2.ProtocolTypeHttp),
+	resource.TestCheckResourceAttr(resourceName, "route_key", "GET /pets"),
+	resource.TestCheckResourceAttr(resourceName, "route_selection_expression", "$request.method $request.path"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+	resource.TestCheckResourceAttr(resourceName, "target", "http://www.example.com/"),
+	resource.TestCheckResourceAttr(resourceName, "version", ""),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+ImportStateVerifyIgnore: []string{
+	"route_key",
+	"target",
+},
+	},
+},
 	})
 }
 
 func testAccCheckAPIDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).APIGatewayV2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).APIGatewayV2Conn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_apigatewayv2_api" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_apigatewayv2_api" {
+continue
+	}
 
-			_, err := tfapigatewayv2.FindAPIByID(ctx, conn, rs.Primary.ID)
+	_, err := tfapigatewayv2.FindAPIByID(ctx, conn, rs.Primary.ID)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("API Gateway v2 API %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("API Gateway v2 API %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckAPIExists(ctx context.Context, n string, v *apigatewayv2.GetApiOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No API Gateway v2 API ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No API Gateway v2 API ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).APIGatewayV2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).APIGatewayV2Conn(ctx)
 
-		output, err := tfapigatewayv2.FindAPIByID(ctx, conn, rs.Primary.ID)
+output, err := tfapigatewayv2.FindAPIByID(ctx, conn, rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*v = *output
+*v = *output
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckAPIQuickCreateIntegration(ctx context.Context, n, expectedType, expectedUri string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No API Gateway v2 API ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No API Gateway v2 API ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).APIGatewayV2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).APIGatewayV2Conn(ctx)
 
-		resp, err := conn.GetIntegrationsWithContext(ctx, &apigatewayv2.GetIntegrationsInput{
-			ApiId: aws.String(rs.Primary.ID),
-		})
-		if err != nil {
-			return err
-		}
+resp, err := conn.GetIntegrationsWithContext(ctx, &apigatewayv2.GetIntegrationsInput{
+	ApiId: aws.String(rs.Primary.ID),
+})
+if err != nil {
+	return err
+}
 
-		if got := len(resp.Items); got != 1 {
-			return fmt.Errorf("Incorrect number of integrations: %d", got)
-		}
+if got := len(resp.Items); got != 1 {
+	return fmt.Errorf("Incorrect number of integrations: %d", got)
+}
 
-		if got := aws.StringValue(resp.Items[0].IntegrationType); got != expectedType {
-			return fmt.Errorf("Incorrect integration type. Expected: %s, got: %s", expectedType, got)
-		}
-		if got := aws.StringValue(resp.Items[0].IntegrationUri); got != expectedUri {
-			return fmt.Errorf("Incorrect integration URI. Expected: %s, got: %s", expectedUri, got)
-		}
+if got := aws.StringValue(resp.Items[0].IntegrationType); got != expectedType {
+	return fmt.Errorf("Incorrect integration type. Expected: %s, got: %s", expectedType, got)
+}
+if got := aws.StringValue(resp.Items[0].IntegrationUri); got != expectedUri {
+	return fmt.Errorf("Incorrect integration URI. Expected: %s, got: %s", expectedUri, got)
+}
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckAPIQuickCreateRoute(ctx context.Context, n, expectedRouteKey string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No API Gateway v2 API ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No API Gateway v2 API ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).APIGatewayV2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).APIGatewayV2Conn(ctx)
 
-		resp, err := conn.GetRoutesWithContext(ctx, &apigatewayv2.GetRoutesInput{
-			ApiId: aws.String(rs.Primary.ID),
-		})
-		if err != nil {
-			return err
-		}
+resp, err := conn.GetRoutesWithContext(ctx, &apigatewayv2.GetRoutesInput{
+	ApiId: aws.String(rs.Primary.ID),
+})
+if err != nil {
+	return err
+}
 
-		if got := len(resp.Items); got != 1 {
-			return fmt.Errorf("Incorrect number of routes: %d", got)
-		}
+if got := len(resp.Items); got != 1 {
+	return fmt.Errorf("Incorrect number of routes: %d", got)
+}
 
-		if got := aws.StringValue(resp.Items[0].RouteKey); got != expectedRouteKey {
-			return fmt.Errorf("Incorrect route key. Expected: %s, got: %s", expectedRouteKey, got)
-		}
+if got := aws.StringValue(resp.Items[0].RouteKey); got != expectedRouteKey {
+	return fmt.Errorf("Incorrect route key. Expected: %s, got: %s", expectedRouteKey, got)
+}
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckAPIQuickCreateStage(ctx context.Context, n, expectedName string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No API Gateway v2 API ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No API Gateway v2 API ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).APIGatewayV2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).APIGatewayV2Conn(ctx)
 
-		resp, err := conn.GetStagesWithContext(ctx, &apigatewayv2.GetStagesInput{
-			ApiId: aws.String(rs.Primary.ID),
-		})
-		if err != nil {
-			return err
-		}
+resp, err := conn.GetStagesWithContext(ctx, &apigatewayv2.GetStagesInput{
+	ApiId: aws.String(rs.Primary.ID),
+})
+if err != nil {
+	return err
+}
 
-		if got := len(resp.Items); got != 1 {
-			return fmt.Errorf("Incorrect number of stages: %d", got)
-		}
+if got := len(resp.Items); got != 1 {
+	return fmt.Errorf("Incorrect number of stages: %d", got)
+}
 
-		if got := aws.StringValue(resp.Items[0].StageName); got != expectedName {
-			return fmt.Errorf("Incorrect stage name. Expected: %s, got: %s", expectedName, got)
-		}
+if got := aws.StringValue(resp.Items[0].StageName); got != expectedName {
+	return fmt.Errorf("Incorrect stage name. Expected: %s, got: %s", expectedName, got)
+}
 
-		return nil
+return nil
 	}
 }
 

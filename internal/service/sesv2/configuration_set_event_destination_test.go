@@ -26,8 +26,8 @@ func TestAccSESV2ConfigurationSetEventDestination_basic(t *testing.T) {
 	resourceName := "aws_sesv2_configuration_set_event_destination.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, names.SESV2EndpointID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, names.SESV2EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckConfigurationSetEventDestinationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -70,8 +70,8 @@ func TestAccSESV2ConfigurationSetEventDestination_cloudWatchDestination(t *testi
 	resourceName := "aws_sesv2_configuration_set_event_destination.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, names.SESV2EndpointID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, names.SESV2EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckConfigurationSetEventDestinationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -114,8 +114,8 @@ func TestAccSESV2ConfigurationSetEventDestination_kinesisFirehoseDestination(t *
 	resourceName := "aws_sesv2_configuration_set_event_destination.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, names.SESV2EndpointID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, names.SESV2EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckConfigurationSetEventDestinationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -154,8 +154,8 @@ func TestAccSESV2ConfigurationSetEventDestination_pinpointDestination(t *testing
 	resourceName := "aws_sesv2_configuration_set_event_destination.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, names.SESV2EndpointID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, names.SESV2EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckConfigurationSetEventDestinationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -192,8 +192,8 @@ func TestAccSESV2ConfigurationSetEventDestination_snsDestination(t *testing.T) {
 	resourceName := "aws_sesv2_configuration_set_event_destination.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, names.SESV2EndpointID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, names.SESV2EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckConfigurationSetEventDestinationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -230,8 +230,8 @@ func TestAccSESV2ConfigurationSetEventDestination_disappears(t *testing.T) {
 	resourceName := "aws_sesv2_configuration_set_event_destination.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, names.SESV2EndpointID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, names.SESV2EndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckConfigurationSetEventDestinationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -309,7 +309,7 @@ resource "aws_sesv2_configuration_set_event_destination" "test" {
     cloud_watch_destination {
       dimension_configuration {
         default_dimension_value = %[1]q
-        dimension_name          = %[1]q
+        dimension_name = %[1]q
         dimension_value_source  = "MESSAGE_TAG"
       }
     }
@@ -334,7 +334,7 @@ resource "aws_sesv2_configuration_set_event_destination" "test" {
     cloud_watch_destination {
       dimension_configuration {
         default_dimension_value = %[2]q
-        dimension_name          = %[2]q
+        dimension_name = %[2]q
         dimension_value_source  = "MESSAGE_TAG"
       }
     }
@@ -359,11 +359,11 @@ resource "aws_iam_role" "bucket" {
 	"Version": "2012-10-17",
 	"Statement": [
 	  {
-		"Action": "sts:AssumeRole",
-		"Principal": {
-		  "Service": "firehose.amazonaws.com"
-		},
-		"Effect": "Allow"
+"Action": "sts:AssumeRole",
+"Principal": {
+  "Service": "firehose.amazonaws.com"
+},
+"Effect": "Allow"
 	  }
 	]
   }
@@ -380,7 +380,7 @@ resource "aws_iam_role" "delivery_stream" {
     {
 	  "Action": "sts:AssumeRole",
 	  "Principal": {
-		"Service": "ses.amazonaws.com"
+"Service": "ses.amazonaws.com"
 	  },
 	  "Effect": "Allow"
 	}

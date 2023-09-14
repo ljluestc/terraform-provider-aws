@@ -28,46 +28,46 @@ func TestAccDeviceFarmUpload_basic(t *testing.T) {
 	resourceName := "aws_devicefarm_upload.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
-			// Currently, DeviceFarm is only supported in us-west-2
-			// https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
-			acctest.PreCheckRegion(t, endpoints.UsWest2RegionID)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, devicefarm.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUploadDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUploadConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckUploadExists(ctx, resourceName, &proj),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "devicefarm", regexache.MustCompile(`upload:.+`)),
-					resource.TestCheckResourceAttr(resourceName, "type", "APPIUM_JAVA_TESTNG_TEST_SPEC"),
-					resource.TestCheckResourceAttr(resourceName, "category", "PRIVATE"),
-					resource.TestCheckResourceAttrSet(resourceName, "url"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"url"},
-			},
-			{
-				Config: testAccUploadConfig_basic(rNameUpdated),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckUploadExists(ctx, resourceName, &proj),
-					resource.TestCheckResourceAttr(resourceName, "name", rNameUpdated),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "devicefarm", regexache.MustCompile(`upload:.+`)),
-					resource.TestCheckResourceAttr(resourceName, "type", "APPIUM_JAVA_TESTNG_TEST_SPEC"),
-					resource.TestCheckResourceAttr(resourceName, "category", "PRIVATE"),
-					resource.TestCheckResourceAttrSet(resourceName, "url"),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
+	// Currently, DeviceFarm is only supported in us-west-2
+	// https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
+	acctest.PreCheckRegion(t, endpoints.UsWest2RegionID)
+},
+ErrorCheck:acctest.ErrorCheck(t, devicefarm.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUploadDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUploadConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckUploadExists(ctx, resourceName, &proj),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "devicefarm", regexache.MustCompile(`upload:.+`)),
+	resource.TestCheckResourceAttr(resourceName, "type", "APPIUM_JAVA_TESTNG_TEST_SPEC"),
+	resource.TestCheckResourceAttr(resourceName, "category", "PRIVATE"),
+	resource.TestCheckResourceAttrSet(resourceName, "url"),
+),
+	},
+	{
+ResourceName:            resourceName,
+ImportState:             true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"url"},
+	},
+	{
+Config: testAccUploadConfig_basic(rNameUpdated),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckUploadExists(ctx, resourceName, &proj),
+	resource.TestCheckResourceAttr(resourceName, "name", rNameUpdated),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "devicefarm", regexache.MustCompile(`upload:.+`)),
+	resource.TestCheckResourceAttr(resourceName, "type", "APPIUM_JAVA_TESTNG_TEST_SPEC"),
+	resource.TestCheckResourceAttr(resourceName, "category", "PRIVATE"),
+	resource.TestCheckResourceAttrSet(resourceName, "url"),
+),
+	},
+},
 	})
 }
 
@@ -78,27 +78,27 @@ func TestAccDeviceFarmUpload_disappears(t *testing.T) {
 	resourceName := "aws_devicefarm_upload.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
-			// Currently, DeviceFarm is only supported in us-west-2
-			// https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
-			acctest.PreCheckRegion(t, endpoints.UsWest2RegionID)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, devicefarm.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUploadDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUploadConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckUploadExists(ctx, resourceName, &proj),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfdevicefarm.ResourceUpload(), resourceName),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfdevicefarm.ResourceUpload(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
+	// Currently, DeviceFarm is only supported in us-west-2
+	// https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
+	acctest.PreCheckRegion(t, endpoints.UsWest2RegionID)
+},
+ErrorCheck:acctest.ErrorCheck(t, devicefarm.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUploadDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUploadConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckUploadExists(ctx, resourceName, &proj),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfdevicefarm.ResourceUpload(), resourceName),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfdevicefarm.ResourceUpload(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -109,79 +109,79 @@ func TestAccDeviceFarmUpload_disappears_project(t *testing.T) {
 	resourceName := "aws_devicefarm_upload.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
-			// Currently, DeviceFarm is only supported in us-west-2
-			// https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
-			acctest.PreCheckRegion(t, endpoints.UsWest2RegionID)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, devicefarm.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUploadDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUploadConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckUploadExists(ctx, resourceName, &proj),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfdevicefarm.ResourceProject(), "aws_devicefarm_project.test"),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfdevicefarm.ResourceUpload(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, devicefarm.EndpointsID)
+	// Currently, DeviceFarm is only supported in us-west-2
+	// https://docs.aws.amazon.com/general/latest/gr/devicefarm.html
+	acctest.PreCheckRegion(t, endpoints.UsWest2RegionID)
+},
+ErrorCheck:acctest.ErrorCheck(t, devicefarm.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUploadDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUploadConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckUploadExists(ctx, resourceName, &proj),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfdevicefarm.ResourceProject(), "aws_devicefarm_project.test"),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfdevicefarm.ResourceUpload(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
 func testAccCheckUploadExists(ctx context.Context, n string, v *devicefarm.Upload) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).DeviceFarmConn(ctx)
-		resp, err := tfdevicefarm.FindUploadByARN(ctx, conn, rs.Primary.ID)
-		if err != nil {
-			return err
-		}
-		if resp == nil {
-			return fmt.Errorf("DeviceFarm Upload not found")
-		}
+conn := acctest.Provider.Meta().(*conns.AWSClient).DeviceFarmConn(ctx)
+resp, err := tfdevicefarm.FindUploadByARN(ctx, conn, rs.Primary.ID)
+if err != nil {
+	return err
+}
+if resp == nil {
+	return fmt.Errorf("DeviceFarm Upload not found")
+}
 
-		*v = *resp
+*v = *resp
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckUploadDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).DeviceFarmConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).DeviceFarmConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_devicefarm_upload" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_devicefarm_upload" {
+continue
+	}
 
-			// Try to find the resource
-			_, err := tfdevicefarm.FindUploadByARN(ctx, conn, rs.Primary.ID)
-			if tfresource.NotFound(err) {
-				continue
-			}
+	// Try to find the resource
+	_, err := tfdevicefarm.FindUploadByARN(ctx, conn, rs.Primary.ID)
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("DeviceFarm Upload %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("DeviceFarm Upload %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 

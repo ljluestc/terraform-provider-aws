@@ -190,7 +190,7 @@ func clearRegexMatchTuples(ctx context.Context, conn *wafregional.WAFRegional, r
 		}
 		for _, tuple := range tuples {
 			input.Updates = append(input.Updates, &waf.RegexMatchSetUpdate{
-				Action:          aws.String(waf.ChangeActionDelete),
+				Action: aws.String(waf.ChangeActionDelete),
 				RegexMatchTuple: tuple,
 			})
 		}
@@ -245,7 +245,7 @@ func(token *string) (interface{}, error) {
 		req := &waf.UpdateRegexMatchSetInput{
 			ChangeToken:     token,
 			RegexMatchSetId: aws.String(id),
-			Updates:         tfwaf.DiffRegexMatchSetTuples(oldT, newT),
+			Updates:tfwaf.DiffRegexMatchSetTuples(oldT, newT),
 		}
 
 		return conn.UpdateRegexMatchSetWithContext(ctx, req)

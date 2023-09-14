@@ -22,24 +22,24 @@ func TestAccSSOAdminPermissionSetDataSource_arn(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckInstances(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ssoadmin.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccPermissionSetDataSourceConfig_ssoByARN(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ssoadmin.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccPermissionSetDataSourceConfig_ssoByARN(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttrPair(resourceName, "arn", dataSourceName, "arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "name", dataSourceName, "name"),
-					resource.TestCheckResourceAttrPair(resourceName, "description", dataSourceName, "description"),
-					resource.TestCheckResourceAttrPair(resourceName, "relay_state", dataSourceName, "relay_state"),
-					resource.TestCheckResourceAttrPair(resourceName, "session_duration", dataSourceName, "session_duration"),
-					resource.TestCheckResourceAttrPair(resourceName, "tags", dataSourceName, "tags"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(resourceName, "arn", dataSourceName, "arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "name", dataSourceName, "name"),
+	resource.TestCheckResourceAttrPair(resourceName, "description", dataSourceName, "description"),
+	resource.TestCheckResourceAttrPair(resourceName, "relay_state", dataSourceName, "relay_state"),
+	resource.TestCheckResourceAttrPair(resourceName, "session_duration", dataSourceName, "session_duration"),
+	resource.TestCheckResourceAttrPair(resourceName, "tags", dataSourceName, "tags"),
+),
+	},
+},
 	})
 }
 
@@ -51,24 +51,24 @@ func TestAccSSOAdminPermissionSetDataSource_name(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckInstances(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ssoadmin.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccPermissionSetDataSourceConfig_ssoByName(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ssoadmin.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccPermissionSetDataSourceConfig_ssoByName(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttrPair(resourceName, "arn", dataSourceName, "arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "name", dataSourceName, "name"),
-					resource.TestCheckResourceAttrPair(resourceName, "description", dataSourceName, "description"),
-					resource.TestCheckResourceAttrPair(resourceName, "relay_state", dataSourceName, "relay_state"),
-					resource.TestCheckResourceAttrPair(resourceName, "session_duration", dataSourceName, "session_duration"),
-					resource.TestCheckResourceAttrPair(resourceName, "tags", dataSourceName, "tags"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(resourceName, "arn", dataSourceName, "arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "name", dataSourceName, "name"),
+	resource.TestCheckResourceAttrPair(resourceName, "description", dataSourceName, "description"),
+	resource.TestCheckResourceAttrPair(resourceName, "relay_state", dataSourceName, "relay_state"),
+	resource.TestCheckResourceAttrPair(resourceName, "session_duration", dataSourceName, "session_duration"),
+	resource.TestCheckResourceAttrPair(resourceName, "tags", dataSourceName, "tags"),
+),
+	},
+},
 	})
 }
 
@@ -76,16 +76,16 @@ func(
 func TestAccSSOAdminPermissionSetDataSource_nonExistent(t *testing.T) {
 	ctx := acctest.Context(t)
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckInstances(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ssoadmin.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config:      testAccPermissionSetDataSourceConfig_ssoByNameNonExistent,
-				ExpectError: regexache.MustCompile(`not found`),
-			},
-		},
+ErrorCheck:acctest.ErrorCheck(t, ssoadmin.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config:      testAccPermissionSetDataSourceConfig_ssoByNameNonExistent,
+ExpectError: regexache.MustCompile(`not found`),
+	},
+},
 	})
 }
 
@@ -95,7 +95,7 @@ func testAccSSOPermissionSetBaseDataSourceConfig(rName string) string {
 data "aws_ssoadmin_instances" "test" {}
 
 resource "aws_ssoadmin_permission_set" "test" {
-  name         = %[1]q
+  name= %[1]q
   description  = %[1]q
   instance_arn = tolist(data.aws_ssoadmin_instances.test.arns)[0]
   relay_state  = "https://example.com"
@@ -112,11 +112,11 @@ resource "aws_ssoadmin_permission_set" "test" {
 
 func testAccPermissionSetDataSourceConfig_ssoByARN(rName string) string {
 	return acctest.ConfigCompose(
-		testAccSSOPermissionSetBaseDataSourceConfig(rName),
-		`
+testAccSSOPermissionSetBaseDataSourceConfig(rName),
+`
 data "aws_ssoadmin_permission_set" "test" {
   instance_arn = tolist(data.aws_ssoadmin_instances.test.arns)[0]
-  arn          = aws_ssoadmin_permission_set.test.arn
+  arn = aws_ssoadmin_permission_set.test.arn
 }
 `)
 }
@@ -124,11 +124,11 @@ data "aws_ssoadmin_permission_set" "test" {
 
 func testAccPermissionSetDataSourceConfig_ssoByName(rName string) string {
 	return acctest.ConfigCompose(
-		testAccSSOPermissionSetBaseDataSourceConfig(rName),
-		`
+testAccSSOPermissionSetBaseDataSourceConfig(rName),
+`
 data "aws_ssoadmin_permission_set" "test" {
   instance_arn = tolist(data.aws_ssoadmin_instances.test.arns)[0]
-  name         = aws_ssoadmin_permission_set.test.name
+  name= aws_ssoadmin_permission_set.test.name
 }
 `)
 }
@@ -138,6 +138,6 @@ data "aws_ssoadmin_instances" "test" {}
 
 data "aws_ssoadmin_permission_set" "test" {
   instance_arn = tolist(data.aws_ssoadmin_instances.test.arns)[0]
-  name         = "does-not-exist"
+  name= "does-not-exist"
 }
 `

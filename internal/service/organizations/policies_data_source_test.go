@@ -21,20 +21,20 @@ func TestAccOrganizationsPoliciesDataSource_basic(t *testing.T) {
 	datasourceName := "data.aws_organizations_policies.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckOrganizationManagementAccount(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, organizations.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccPoliciesDataSourceConfig_ServiceControlPolicy(rName, organizations.PolicyTypeServiceControlPolicy, serviceControlPolicyContent),
-				Check: resource.ComposeTestCheckFunc(
-					acctest.CheckResourceAttrGreaterThanOrEqualValue(datasourceName, "ids.#", 1),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckOrganizationManagementAccount(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, organizations.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccPoliciesDataSourceConfig_ServiceControlPolicy(rName, organizations.PolicyTypeServiceControlPolicy, serviceControlPolicyContent),
+Check: resource.ComposeTestCheckFunc(
+	acctest.CheckResourceAttrGreaterThanOrEqualValue(datasourceName, "ids.#", 1),
+),
+	},
+},
 	})
 }
 

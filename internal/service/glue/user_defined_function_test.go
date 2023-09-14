@@ -26,8 +26,8 @@ func TestAccGlueUserDefinedFunction_basic(t *testing.T) {
 	resourceName := "aws_glue_user_defined_function.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckUDFDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -67,8 +67,8 @@ func TestAccGlueUserDefinedFunction_Resource_uri(t *testing.T) {
 	resourceName := "aws_glue_user_defined_function.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckUDFDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -108,8 +108,8 @@ func TestAccGlueUserDefinedFunction_disappears(t *testing.T) {
 	resourceName := "aws_glue_user_defined_function.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckUDFDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -145,7 +145,7 @@ func testAccCheckUDFDestroy(ctx context.Context) resource.TestCheckFunc {
 				FunctionName: aws.String(funcName),
 			}
 			if _, err := conn.GetUserDefinedFunctionWithContext(ctx, input); err != nil {
-				//Verify the error is what we want
+				// Verify the error is what we want
 				if tfawserr.ErrCodeEquals(err, glue.ErrCodeEntityNotFoundException) {
 					continue
 				}

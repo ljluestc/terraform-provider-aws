@@ -18,13 +18,13 @@ import (
 func TestAccWAFRegionalSubscribedRuleGroupDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if os.Getenv("WAF_SUBSCRIBED_RULE_GROUP_NAME") == "" {
-		t.Skip("Environment variable WAF_SUBSCRIBED_RULE_GROUP_NAME is not set")
+t.Skip("Environment variable WAF_SUBSCRIBED_RULE_GROUP_NAME is not set")
 	}
 
 	ruleGroupName := os.Getenv("WAF_SUBSCRIBED_RULE_GROUP_NAME")
 
 	if os.Getenv("WAF_SUBSCRIBED_RULE_GROUP_METRIC_NAME") == "" {
-		t.Skip("Environment variable WAF_SUBSCRIBED_RULE_GROUP_METRIC_NAME is not set")
+t.Skip("Environment variable WAF_SUBSCRIBED_RULE_GROUP_METRIC_NAME is not set")
 	}
 
 	metricName := os.Getenv("WAF_SUBSCRIBED_RULE_GROUP_METRIC_NAME")
@@ -32,45 +32,45 @@ func TestAccWAFRegionalSubscribedRuleGroupDataSource_basic(t *testing.T) {
 	datasourceName := "data.aws_wafregional_subscribed_rule_group.rulegroup"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
-		CheckDestroy:             nil,
-		Steps: []resource.TestStep{
-			{
-				Config:      testAccSubscribedRuleGroupDataSourceConfig_nonexistent,
-				ExpectError: regexache.MustCompile(`no matches found`),
-			},
-			{
-				Config: testAccSubscribedRuleGroupDataSourceConfig_name(ruleGroupName),
-				Check: resource.ComposeTestCheck
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
+CheckDestroy:    nil,
+Steps: []resource.TestStep{
+	{
+Config:      testAccSubscribedRuleGroupDataSourceConfig_nonexistent,
+ExpectError: regexache.MustCompile(`no matches found`),
+	},
+	{
+Config: testAccSubscribedRuleGroupDataSourceConfig_name(ruleGroupName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttr(datasourceName, "name", ruleGroupName),
-					resource.TestCheckResourceAttr(datasourceName, "metric_name", metricName),
-				),
-			},
-			{
-				Config: testAccSubscribedRuleGroupDataSourceConfig_metricName(metricName),
-				Check: resource.ComposeTestCheck
+	resource.TestCheckResourceAttr(datasourceName, "name", ruleGroupName),
+	resource.TestCheckResourceAttr(datasourceName, "metric_name", metricName),
+),
+	},
+	{
+Config: testAccSubscribedRuleGroupDataSourceConfig_metricName(metricName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttr(datasourceName, "name", ruleGroupName),
-					resource.TestCheckResourceAttr(datasourceName, "metric_name", metricName),
-				),
-			},
-			{
-				Config: testAccSubscribedRuleGroupDataSourceConfig_nameAndMetricName(ruleGroupName, metricName),
-				Check: resource.ComposeTestCheck
+	resource.TestCheckResourceAttr(datasourceName, "name", ruleGroupName),
+	resource.TestCheckResourceAttr(datasourceName, "metric_name", metricName),
+),
+	},
+	{
+Config: testAccSubscribedRuleGroupDataSourceConfig_nameAndMetricName(ruleGroupName, metricName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttr(datasourceName, "name", ruleGroupName),
-					resource.TestCheckResourceAttr(datasourceName, "metric_name", metricName),
-				),
-			},
-			{
-				Config:      testAccDataSourceSubscribedRuleGroupDataSourceConfig_nameAndMismatchingMetricName(ruleGroupName),
-				ExpectError: regexache.MustCompile(`no matches found`),
-			},
-		},
+	resource.TestCheckResourceAttr(datasourceName, "name", ruleGroupName),
+	resource.TestCheckResourceAttr(datasourceName, "metric_name", metricName),
+),
+	},
+	{
+Config:      testAccDataSourceSubscribedRuleGroupDataSourceConfig_nameAndMismatchingMetricName(ruleGroupName),
+ExpectError: regexache.MustCompile(`no matches found`),
+	},
+},
 	})
 }
 

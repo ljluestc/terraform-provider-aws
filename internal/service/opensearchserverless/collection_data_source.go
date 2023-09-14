@@ -41,52 +41,52 @@ func (d *dataSourceCollection) Metadata(_ context.Context, _ datasource.Metadata
 
 func (d *dataSourceCollection) Schema(_ context.Context, _ datasource.SchemaRequest, resp *datasource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Attributes: map[string]schema.Attribute{
-			"arn": framework.ARNAttributeComputedOnly(),
-			"collection_endpoint": schema.StringAttribute{
-				Computed: true,
-			},
-			"created_date": schema.StringAttribute{
-				Computed: true,
-			},
-			"dashboard_endpoint": schema.StringAttribute{
-				Computed: true,
-			},
-			"description": schema.StringAttribute{
-				Computed: true,
-			},
-			"id": schema.StringAttribute{
-				Optional: true,
-				Computed: true,
-				Validators: []validator.String{
-					stringvalidator.ConflictsWith(
-						path.MatchRelative().AtParent().AtName("name"),
-					),
-					stringvalidator.ExactlyOneOf(
-						path.MatchRelative().AtParent().AtName("name"),
-					),
-				},
-			},
-			"kms_key_arn": schema.StringAttribute{
-				Computed: true,
-			},
-			"last_modified_date": schema.StringAttribute{
-				Computed: true,
-			},
-			"name": schema.StringAttribute{
-				Optional: true,
-				Computed: true,
-				Validators: []validator.String{
-					stringvalidator.ConflictsWith(
-						path.MatchRelative().AtParent().AtName("id"),
-					),
-				},
-			},
-			names.AttrTags: tftags.TagsAttributeComputedOnly(),
-			"type": schema.StringAttribute{
-				Computed: true,
-			},
-		},
+Attributes: map[string]schema.Attribute{
+	"arn": framework.ARNAttributeComputedOnly(),
+	"collection_endpoint": schema.StringAttribute{
+Computed: true,
+	},
+	"created_date": schema.StringAttribute{
+Computed: true,
+	},
+	"dashboard_endpoint": schema.StringAttribute{
+Computed: true,
+	},
+	"description": schema.StringAttribute{
+Computed: true,
+	},
+	"id": schema.StringAttribute{
+Optional: true,
+Computed: true,
+Validators: []validator.String{
+	stringvalidator.ConflictsWith(
+path.MatchRelative().AtParent().AtName("name"),
+	),
+	stringvalidator.ExactlyOneOf(
+path.MatchRelative().AtParent().AtName("name"),
+	),
+},
+	},
+	"kms_key_arn": schema.StringAttribute{
+Computed: true,
+	},
+	"last_modified_date": schema.StringAttribute{
+Computed: true,
+	},
+	"name": schema.StringAttribute{
+Optional: true,
+Computed: true,
+Validators: []validator.String{
+	stringvalidator.ConflictsWith(
+path.MatchRelative().AtParent().AtName("id"),
+	),
+},
+	},
+	names.AttrTags: tftags.TagsAttributeComputedOnly(),
+	"type": schema.StringAttribute{
+Computed: true,
+	},
+},
 	}
 }
 func (d *dataSourceCollection) Read(ctx context.Context, req datasource.ReadRequest, resp *datasource.ReadResponse) {
@@ -95,35 +95,35 @@ func (d *dataSourceCollection) Read(ctx context.Context, req datasource.ReadRequ
 	var data dataSourceCollectionData
 	resp.Diagnostics.Append(req.Config.Get(ctx, &data)...)
 	if resp.Diagnostics.HasError() {
-		return
+return
 	}
 
 	var out *awstypes.CollectionDetail
 
 	if !data.ID.IsNull() && !data.ID.IsUnknown() {
-		output, err := findCollectionByID(ctx, conn, data.ID.ValueString())
-		if err != nil {
-			resp.Diagnostics.AddError(
-				create.ProblemStandardMessage(names.OpenSearchServerless, create.ErrActionReading, DSNameCollection, data.ID.String(), err),
-				err.Error(),
-			)
-			return
-		}
+output, err := findCollectionByID(ctx, conn, data.ID.ValueString())
+if err != nil {
+	resp.Diagnostics.AddError(
+create.ProblemStandardMessage(names.OpenSearchServerless, create.ErrActionReading, DSNameCollection, data.ID.String(), err),
+err.Error(),
+	)
+	return
+}
 
-		out = output
+out = output
 	}
 
 	if !data.Name.IsNull() && !data.Name.IsUnknown() {
-		output, err := findCollectionByName(ctx, conn, data.Name.ValueString())
-		if err != nil {
-			resp.Diagnostics.AddError(
-				create.ProblemStandardMessage(names.OpenSearchServerless, create.ErrActionReading, DSNameCollection, data.ID.String(), err),
-				err.Error(),
-			)
-			return
-		}
+output, err := findCollectionByName(ctx, conn, data.Name.ValueString())
+if err != nil {
+	resp.Diagnostics.AddError(
+create.ProblemStandardMessage(names.OpenSearchServerless, create.ErrActionReading, DSNameCollection, data.ID.String(), err),
+err.Error(),
+	)
+	return
+}
 
-		out = output
+out = output
 	}
 
 	data.ARN = flex.StringToFramework(ctx, out.Arn)
@@ -145,11 +145,11 @@ func (d *dataSourceCollection) Read(ctx context.Context, req datasource.ReadRequ
 	tags, err := listTags(ctx, conn, aws.ToString(out.Arn))
 
 	if err != nil {
-		resp.Diagnostics.AddError(
-			create.ProblemStandardMessage(names.OpenSearchServerless, create.ErrActionReading, DSNameCollection, data.ID.String(), err),
-			err.Error(),
-		)
-		return
+resp.Diagnostics.AddError(
+	create.ProblemStandardMessage(names.OpenSearchServerless, create.ErrActionReading, DSNameCollection, data.ID.String(), err),
+	err.Error(),
+)
+return
 	}
 
 	tags = tags.IgnoreConfig(ignoreTagsConfig)

@@ -26,7 +26,7 @@ import (
 func TestAccObservabilityAccessManagerSink_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	var sink oam.GetSinkOutput
@@ -34,38 +34,38 @@ func TestAccObservabilityAccessManagerSink_basic(t *testing.T) {
 	resourceName := "aws_oam_sink.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, names.ObservabilityAccessManagerEndpointID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, names.ObservabilityAccessManagerEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSinkDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSinkConfigBasic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSinkExists(ctx, resourceName, &sink),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "oam", regexache.MustCompile(`sink/+.`)),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttrSet(resourceName, "sink_id"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, names.ObservabilityAccessManagerEndpointID)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, names.ObservabilityAccessManagerEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckSinkDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSinkConfigBasic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckSinkExists(ctx, resourceName, &sink),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "oam", regexache.MustCompile(`sink/+.`)),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttrSet(resourceName, "sink_id"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
 func TestAccObservabilityAccessManagerSink_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	var sink oam.GetSinkOutput
@@ -73,31 +73,31 @@ func TestAccObservabilityAccessManagerSink_disappears(t *testing.T) {
 	resourceName := "aws_oam_sink.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, names.ObservabilityAccessManagerEndpointID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, names.ObservabilityAccessManagerEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSinkDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSinkConfigBasic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSinkExists(ctx, resourceName, &sink),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfoam.ResourceSink(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, names.ObservabilityAccessManagerEndpointID)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, names.ObservabilityAccessManagerEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckSinkDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSinkConfigBasic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckSinkExists(ctx, resourceName, &sink),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfoam.ResourceSink(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
 func TestAccObservabilityAccessManagerSink_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	var sink oam.GetSinkOutput
@@ -105,101 +105,101 @@ func TestAccObservabilityAccessManagerSink_tags(t *testing.T) {
 	resourceName := "aws_oam_sink.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, names.ObservabilityAccessManagerEndpointID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, names.ObservabilityAccessManagerEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSinkDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSinkConfigTags1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSinkExists(ctx, resourceName, &sink),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccSinkConfigTags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSinkExists(ctx, resourceName, &sink),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-			{
-				Config: testAccSinkConfigTags1(rName, "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckSinkExists(ctx, resourceName, &sink),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, names.ObservabilityAccessManagerEndpointID)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, names.ObservabilityAccessManagerEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckSinkDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSinkConfigTags1(rName, "key1", "value1"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckSinkExists(ctx, resourceName, &sink),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccSinkConfigTags2(rName, "key1", "value1updated", "key2", "value2"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckSinkExists(ctx, resourceName, &sink),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+	{
+Config: testAccSinkConfigTags1(rName, "key2", "value2"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckSinkExists(ctx, resourceName, &sink),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+},
 	})
 }
 
 func testAccCheckSinkDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ObservabilityAccessManagerClient(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).ObservabilityAccessManagerClient(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_oam_sink" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_oam_sink" {
+continue
+	}
 
-			input := &oam.GetSinkInput{
-				Identifier: aws.String(rs.Primary.ID),
-			}
-			_, err := conn.GetSink(ctx, input)
-			if err != nil {
-				var nfe *types.ResourceNotFoundException
-				if errors.As(err, &nfe) {
-					return nil
-				}
-				return err
-			}
+	input := &oam.GetSinkInput{
+Identifier: aws.String(rs.Primary.ID),
+	}
+	_, err := conn.GetSink(ctx, input)
+	if err != nil {
+var nfe *types.ResourceNotFoundException
+if errors.As(err, &nfe) {
+	return nil
+}
+return err
+	}
 
-			return create.Error(names.ObservabilityAccessManager, create.ErrActionCheckingDestroyed, tfoam.ResNameSink, rs.Primary.ID, errors.New("not destroyed"))
-		}
+	return create.Error(names.ObservabilityAccessManager, create.ErrActionCheckingDestroyed, tfoam.ResNameSink, rs.Primary.ID, errors.New("not destroyed"))
+}
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckSinkExists(ctx context.Context, name string, sink *oam.GetSinkOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[name]
-		if !ok {
-			return create.Error(names.ObservabilityAccessManager, create.ErrActionCheckingExistence, tfoam.ResNameSink, name, errors.New("not found"))
-		}
+rs, ok := s.RootModule().Resources[name]
+if !ok {
+	return create.Error(names.ObservabilityAccessManager, create.ErrActionCheckingExistence, tfoam.ResNameSink, name, errors.New("not found"))
+}
 
-		if rs.Primary.ID == "" {
-			return create.Error(names.ObservabilityAccessManager, create.ErrActionCheckingExistence, tfoam.ResNameSink, name, errors.New("not set"))
-		}
+if rs.Primary.ID == "" {
+	return create.Error(names.ObservabilityAccessManager, create.ErrActionCheckingExistence, tfoam.ResNameSink, name, errors.New("not set"))
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ObservabilityAccessManagerClient(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).ObservabilityAccessManagerClient(ctx)
 
-		resp, err := conn.GetSink(ctx, &oam.GetSinkInput{
-			Identifier: aws.String(rs.Primary.ID),
-		})
+resp, err := conn.GetSink(ctx, &oam.GetSinkInput{
+	Identifier: aws.String(rs.Primary.ID),
+})
 
-		if err != nil {
-			return create.Error(names.ObservabilityAccessManager, create.ErrActionCheckingExistence, tfoam.ResNameSink, rs.Primary.ID, err)
-		}
+if err != nil {
+	return create.Error(names.ObservabilityAccessManager, create.ErrActionCheckingExistence, tfoam.ResNameSink, rs.Primary.ID, err)
+}
 
-		*sink = *resp
+*sink = *resp
 
-		return nil
+return nil
 	}
 }
 
@@ -210,11 +210,11 @@ func testAccPreCheck(ctx context.Context, t *testing.T) {
 	_, err := conn.ListSinks(ctx, input)
 
 	if acctest.PreCheckSkipError(err) {
-		t.Skipf("skipping acceptance testing: %s", err)
+t.Skipf("skipping acceptance testing: %s", err)
 	}
 
 	if err != nil {
-		t.Fatalf("unexpected PreCheck error: %s", err)
+t.Fatalf("unexpected PreCheck error: %s", err)
 	}
 }
 

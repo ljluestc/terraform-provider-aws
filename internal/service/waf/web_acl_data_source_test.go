@@ -21,22 +21,22 @@ func TestAccWAFWebACLDataSource_basic(t *testing.T) {
 	datasourceName := "data.aws_waf_web_acl.web_acl"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, waf.EndpointsID) },
-		ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config:      testAccWebACLDataSourceConfig_nonExistent,
-				ExpectError: regexache.MustCompile(`web ACLs not found`),
-			},
-			{
-				Config: testAccWebACLDataSourceConfig_name(name),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, waf.EndpointsID) },
+ErrorCheck:acctest.ErrorCheck(t, waf.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config:      testAccWebACLDataSourceConfig_nonExistent,
+ExpectError: regexache.MustCompile(`web ACLs not found`),
+	},
+	{
+Config: testAccWebACLDataSourceConfig_name(name),
+Check: resource.ComposeTestCheckFunc(
+	resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
+),
+	},
+},
 	})
 }
 

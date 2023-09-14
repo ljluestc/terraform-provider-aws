@@ -51,7 +51,7 @@ func ResourceVocabulary() *schema.Resource {
 				Computed: true,
 			},
 			"content": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
@@ -62,14 +62,14 @@ func: validation.StringLenBetween(1, 60000),
 				Computed: true,
 			},
 			"instance_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
 func: validation.StringLenBetween(1, 100),
 			},
 			"language_code": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
@@ -114,7 +114,7 @@ func resourceVocabularyCreate(ctx context.Context, d *schema.ResourceData, meta 
 		InstanceId:     aws.String(instanceID),
 		Content:        aws.String(d.Get("content").(string)),
 		LanguageCode:   aws.String(d.Get("language_code").(string)),
-		Tags:           getTagsIn(ctx),
+		Tags:  getTagsIn(ctx),
 		VocabularyName: aws.String(vocabularyName),
 	}
 

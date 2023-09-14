@@ -20,26 +20,26 @@ func TestAccAMPWorkspaceDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_prometheus_workspace.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, prometheusservice.EndpointsID)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, prometheusservice.EndpointsID),
-		CheckDestroy:             nil,
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccWorkspaceDataSourceConfig_alias(rName),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrPair(resourceName, "alias", dataSourceName, "alias"),
-					resource.TestCheckResourceAttrPair(resourceName, "arn", dataSourceName, "arn"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "created_date"),
-					resource.TestCheckResourceAttrPair(resourceName, "prometheus_endpoint", dataSourceName, "prometheus_endpoint"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "status"),
-					resource.TestCheckResourceAttrPair(resourceName, "tags.%", dataSourceName, "tags.%"),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, prometheusservice.EndpointsID)
+},
+ErrorCheck:acctest.ErrorCheck(t, prometheusservice.EndpointsID),
+CheckDestroy:             nil,
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccWorkspaceDataSourceConfig_alias(rName),
+Check: resource.ComposeTestCheckFunc(
+	resource.TestCheckResourceAttrPair(resourceName, "alias", dataSourceName, "alias"),
+	resource.TestCheckResourceAttrPair(resourceName, "arn", dataSourceName, "arn"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "created_date"),
+	resource.TestCheckResourceAttrPair(resourceName, "prometheus_endpoint", dataSourceName, "prometheus_endpoint"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "status"),
+	resource.TestCheckResourceAttrPair(resourceName, "tags.%", dataSourceName, "tags.%"),
+),
+	},
+},
 	})
 }
 

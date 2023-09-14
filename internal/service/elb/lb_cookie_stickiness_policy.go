@@ -30,7 +30,7 @@ func ResourceCookieStickinessPolicy() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"cookie_expiration_period": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				ForceNew:     true,
 				Validate

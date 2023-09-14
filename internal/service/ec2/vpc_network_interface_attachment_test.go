@@ -21,40 +21,40 @@ func TestAccVPCNetworkInterfaceAttachment_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckENIDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCNetworkInterfaceAttachmentConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckENIDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCNetworkInterfaceAttachmentConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckENIExists(ctx, "aws_network_interface.test", &conf),
-					resource.TestCheckResourceAttrSet(resourceName, "attachment_id"),
-					resource.TestCheckResourceAttr(resourceName, "device_index", "1"),
-					resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
-					resource.TestCheckResourceAttrSet(resourceName, "network_interface_id"),
-					resource.TestCheckResourceAttrSet(resourceName, "status"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckENIExists(ctx, "aws_network_interface.test", &conf),
+	resource.TestCheckResourceAttrSet(resourceName, "attachment_id"),
+	resource.TestCheckResourceAttr(resourceName, "device_index", "1"),
+	resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
+	resource.TestCheckResourceAttrSet(resourceName, "network_interface_id"),
+	resource.TestCheckResourceAttrSet(resourceName, "status"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
 
 func testAccVPCNetworkInterfaceAttachmentConfig_basic(rName string) string {
 	return acctest.ConfigCompose(
-		acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
-		acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
-		acctest.ConfigAvailableAZsNoOptIn(),
-		fmt.Sprintf(`
+acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
+acctest.AvailableEC2InstanceTypeForRegion("t3.micro", "t2.micro"),
+acctest.ConfigAvailableAZsNoOptIn(),
+fmt.Sprintf(`
 resource "aws_vpc" "test" {
   cidr_block = "172.16.0.0/16"
 
@@ -64,7 +64,7 @@ resource "aws_vpc" "test" {
 }
 
 resource "aws_subnet" "test" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   cidr_block        = "172.16.10.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
 
@@ -96,7 +96,7 @@ resource "aws_network_interface" "test" {
 }
 
 resource "aws_instance" "test" {
-  ami           = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+  ami  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = data.aws_ec2_instance_type_offering.available.instance_type
   subnet_id     = aws_subnet.test.id
 
@@ -106,8 +106,8 @@ resource "aws_instance" "test" {
 }
 
 resource "aws_network_interface_attachment" "test" {
-  device_index         = 1
-  instance_id          = aws_instance.test.id
+  device_index= 1
+  instance_id = aws_instance.test.id
   network_interface_id = aws_network_interface.test.id
 }
 `, rName))

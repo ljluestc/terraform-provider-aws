@@ -31,30 +31,30 @@ func TestAccQuickSightDashboard_basic(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDashboardDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccDashboardConfig_basic(rId, rName),
-				Check: resource.ComposeTestCheck
+	acctest.PreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckDashboardDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccDashboardConfig_basic(rId, rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckDashboardExists(ctx, resourceName, &dashboard),
-					resource.TestCheckResourceAttr(resourceName, "dashboard_id", rId),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "status", quicksight.ResourceStatusCreationSuccessful),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckDashboardExists(ctx, resourceName, &dashboard),
+	resource.TestCheckResourceAttr(resourceName, "dashboard_id", rId),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "status", quicksight.ResourceStatusCreationSuccessful),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -68,24 +68,24 @@ func TestAccQuickSightDashboard_disappears(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDashboardDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccDashboardConfig_basic(rId, rName),
-				Check: resource.ComposeTestCheck
+	acctest.PreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckDashboardDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccDashboardConfig_basic(rId, rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckDashboardExists(ctx, resourceName, &dashboard),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfquicksight.ResourceDashboard(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckDashboardExists(ctx, resourceName, &dashboard),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfquicksight.ResourceDashboard(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -101,32 +101,32 @@ func TestAccQuickSightDashboard_sourceEntity(t *testing.T) {
 	sourceId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDashboardDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccDashboardConfig_TemplateSourceEntity(rId, rName, sourceId, sourceName),
-				Check: resource.ComposeTestCheck
+	acctest.PreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckDashboardDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccDashboardConfig_TemplateSourceEntity(rId, rName, sourceId, sourceName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckDashboardExists(ctx, resourceName, &dashboard),
-					resource.TestCheckResourceAttr(resourceName, "dashboard_id", rId),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "status", quicksight.ResourceStatusCreationSuccessful),
-					acctest.CheckResourceAttrRegionalARN(resourceName, "source_entity.0.source_template.0.arn", "quicksight", fmt.Sprintf("template/%s", sourceId)),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"source_entity"},
-			},
-		},
+	testAccCheckDashboardExists(ctx, resourceName, &dashboard),
+	resource.TestCheckResourceAttr(resourceName, "dashboard_id", rId),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "status", quicksight.ResourceStatusCreationSuccessful),
+	acctest.CheckResourceAttrRegionalARN(resourceName, "source_entity.0.source_template.0.arn", "quicksight", fmt.Sprintf("template/%s", sourceId)),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"source_entity"},
+	},
+},
 	})
 }
 
@@ -141,37 +141,37 @@ func TestAccQuickSightDashboard_updateVersionNumber(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDashboardDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccDashboardConfig_basic(rId, rName),
-				Check: resource.ComposeTestCheck
+	acctest.PreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckDashboardDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccDashboardConfig_basic(rId, rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckDashboardExists(ctx, resourceName, &dashboard),
-					resource.TestCheckResourceAttr(resourceName, "dashboard_id", rId),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "status", quicksight.ResourceStatusCreationSuccessful),
-					resource.TestCheckResourceAttr(resourceName, "version_number", "1"),
-				),
-			},
-			{
-				Config: testAccDashboardConfig_basic(rId, rNameUpdated),
-				Check: resource.ComposeTestCheck
+	testAccCheckDashboardExists(ctx, resourceName, &dashboard),
+	resource.TestCheckResourceAttr(resourceName, "dashboard_id", rId),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "status", quicksight.ResourceStatusCreationSuccessful),
+	resource.TestCheckResourceAttr(resourceName, "version_number", "1"),
+),
+	},
+	{
+Config: testAccDashboardConfig_basic(rId, rNameUpdated),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckDashboardExists(ctx, resourceName, &dashboard),
-					resource.TestCheckResourceAttr(resourceName, "dashboard_id", rId),
-					resource.TestCheckResourceAttr(resourceName, "name", rNameUpdated),
-					resource.TestCheckResourceAttr(resourceName, "status", quicksight.ResourceStatusCreationSuccessful),
-					resource.TestCheckResourceAttr(resourceName, "version_number", "2"),
-				),
-			},
-		},
+	testAccCheckDashboardExists(ctx, resourceName, &dashboard),
+	resource.TestCheckResourceAttr(resourceName, "dashboard_id", rId),
+	resource.TestCheckResourceAttr(resourceName, "name", rNameUpdated),
+	resource.TestCheckResourceAttr(resourceName, "status", quicksight.ResourceStatusCreationSuccessful),
+	resource.TestCheckResourceAttr(resourceName, "version_number", "2"),
+),
+	},
+},
 	})
 }
 
@@ -185,31 +185,31 @@ func TestAccQuickSightDashboard_dashboardSpecificConfig(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDashboardDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccDashboardConfig_DashboardSpecificConfig(rId, rName),
-				Check: resource.ComposeTestCheck
+	acctest.PreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckDashboardDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccDashboardConfig_DashboardSpecificConfig(rId, rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckDashboardExists(ctx, resourceName, &dashboard),
-					resource.TestCheckResourceAttr(resourceName, "dashboard_id", rId),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "dashboard_publish_options.0.ad_hoc_filtering_option.0.availability_status", quicksight.StatusDisabled),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"parameters"},
-			},
-		},
+	testAccCheckDashboardExists(ctx, resourceName, &dashboard),
+	resource.TestCheckResourceAttr(resourceName, "dashboard_id", rId),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "dashboard_publish_options.0.ad_hoc_filtering_option.0.availability_status", quicksight.StatusDisabled),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"parameters"},
+	},
+},
 	})
 }
 
@@ -218,27 +218,27 @@ func testAccCheckDashboardDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_quicksight_dashboard" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_quicksight_dashboard" {
+continue
+	}
 
-			output, err := tfquicksight.FindDashboardByID(ctx, conn, rs.Primary.ID)
-			if err != nil {
-				if tfawserr.ErrCodeEquals(err, quicksight.ErrCodeResourceNotFoundException) {
-					return nil
-				}
-				return err
-			}
+	output, err := tfquicksight.FindDashboardByID(ctx, conn, rs.Primary.ID)
+	if err != nil {
+if tfawserr.ErrCodeEquals(err, quicksight.ErrCodeResourceNotFoundException) {
+	return nil
+}
+return err
+	}
 
-			if output != nil {
-				return fmt.Errorf("QuickSight Dashboard (%s) still exists", rs.Primary.ID)
-			}
-		}
+	if output != nil {
+return fmt.Errorf("QuickSight Dashboard (%s) still exists", rs.Primary.ID)
+	}
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -247,33 +247,33 @@ func testAccCheckDashboardExists(ctx context.Context, name string, dashboard *qu
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[name]
-		if !ok {
-			return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameDashboard, name, errors.New("not found"))
-		}
+rs, ok := s.RootModule().Resources[name]
+if !ok {
+	return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameDashboard, name, errors.New("not found"))
+}
 
-		if rs.Primary.ID == "" {
-			return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameDashboard, name, errors.New("not set"))
-		}
+if rs.Primary.ID == "" {
+	return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameDashboard, name, errors.New("not set"))
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
-		output, err := tfquicksight.FindDashboardByID(ctx, conn, rs.Primary.ID)
+conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
+output, err := tfquicksight.FindDashboardByID(ctx, conn, rs.Primary.ID)
 
-		if err != nil {
-			return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameDashboard, rs.Primary.ID, err)
-		}
+if err != nil {
+	return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameDashboard, rs.Primary.ID, err)
+}
 
-		*dashboard = *output
+*dashboard = *output
 
-		return nil
+return nil
 	}
 }
 
 
 func testAccDashboardConfigBase(rId string, rName string) string {
 	return acctest.ConfigCompose(
-		testAccDataSetConfigBase(rId, rName),
-		fmt.Sprintf(`
+testAccDataSetConfigBase(rId, rName),
+fmt.Sprintf(`
 resource "aws_quicksight_data_set" "test" {
   data_set_id = %[1]q
   name        = %[2]q
@@ -320,8 +320,8 @@ resource "aws_quicksight_data_set" "test" {
 
 func testAccDashboardConfig_basic(rId, rName string) string {
 	return acctest.ConfigCompose(
-		testAccDashboardConfigBase(rId, rName),
-		fmt.Sprintf(`
+testAccDashboardConfigBase(rId, rName),
+fmt.Sprintf(`
 resource "aws_quicksight_dashboard" "test" {
   dashboard_id        = %[1]q
   name = %[2]q
@@ -336,32 +336,32 @@ resource "aws_quicksight_dashboard" "test" {
       sheet_id = "Test1"
       visuals {
         custom_content_visual {
-          data_set_identifier = "1"
-          title {
-            format_text {
-              plain_text = "Test"
-            }
-          }
-          visual_id = "Test1"
+ data_set_identifier = "1"
+ title {
+   format_text {
+     plain_text = "Test"
+   }
+ }
+ visual_id = "Test1"
         }
       }
       visuals {
         line_chart_visual {
-          visual_id = "LineChart"
-          title {
-            format_text {
-              plain_text = "Line Chart Test"
-            }
-          }
-          chart_configuration {
-            field_wells {
-              line_chart_aggregated_field_wells {
+ visual_id = "LineChart"
+ title {
+   format_text {
+     plain_text = "Line Chart Test"
+   }
+ }
+ chart_configuration {
+   field_wells {
+     line_chart_aggregated_field_wells {
  category {
    categorical_dimension_field {
      field_id = "1"
      column {
        data_set_identifier = "1"
-       column_name         = "Column1"
+       column_name= "Column1"
      }
    }
  }
@@ -370,15 +370,15 @@ resource "aws_quicksight_dashboard" "test" {
      field_id = "2"
      column {
        data_set_identifier = "1"
-       column_name         = "Column1"
+       column_name= "Column1"
      }
      aggregation_
 function = "COUNT"
    }
  }
-              }
-            }
-          }
+     }
+   }
+ }
         }
       }
     }
@@ -390,22 +390,22 @@ function = "COUNT"
 
 func testAccDashboardConfig_TemplateSourceEntity(rId, rName, sourceId, sourceName string) string {
 	return acctest.ConfigCompose(
-		testAccDashboardConfigBase(rId, rName),
-		fmt.Sprintf(`
+testAccDashboardConfigBase(rId, rName),
+fmt.Sprintf(`
 resource "aws_quicksight_template" "test" {
-  template_id         = %[3]q
+  template_id= %[3]q
   name = %[4]q
   version_description = "test"
   definition {
     data_set_configuration {
       data_set_schema {
         column_schema_list {
-          name      = "Column1"
-          data_type = "STRING"
+ name      = "Column1"
+ data_type = "STRING"
         }
         column_schema_list {
-          name      = "Column2"
-          data_type = "INTEGER"
+ name      = "Column2"
+ data_type = "INTEGER"
         }
       }
       placeholder = "1"
@@ -415,32 +415,32 @@ resource "aws_quicksight_template" "test" {
       sheet_id = "Test1"
       visuals {
         custom_content_visual {
-          data_set_identifier = "1"
-          title {
-            format_text {
-              plain_text = "Test"
-            }
-          }
-          visual_id = "Test1"
+ data_set_identifier = "1"
+ title {
+   format_text {
+     plain_text = "Test"
+   }
+ }
+ visual_id = "Test1"
         }
       }
       visuals {
         line_chart_visual {
-          visual_id = "LineChart"
-          title {
-            format_text {
-              plain_text = "Line Chart Test"
-            }
-          }
-          chart_configuration {
-            field_wells {
-              line_chart_aggregated_field_wells {
+ visual_id = "LineChart"
+ title {
+   format_text {
+     plain_text = "Line Chart Test"
+   }
+ }
+ chart_configuration {
+   field_wells {
+     line_chart_aggregated_field_wells {
  category {
    categorical_dimension_field {
      field_id = "1"
      column {
        data_set_identifier = "1"
-       column_name         = "Column1"
+       column_name= "Column1"
      }
    }
  }
@@ -449,15 +449,15 @@ resource "aws_quicksight_template" "test" {
      field_id = "2"
      column {
        data_set_identifier = "1"
-       column_name         = "Column1"
+       column_name= "Column1"
      }
      aggregation_
 function = "COUNT"
    }
  }
-              }
-            }
-          }
+     }
+   }
+ }
         }
       }
     }
@@ -472,7 +472,7 @@ resource "aws_quicksight_dashboard" "test" {
     source_template {
       arn = aws_quicksight_template.test.arn
       data_set_references {
-        data_set_arn         = aws_quicksight_data_set.test.arn
+        data_set_arn= aws_quicksight_data_set.test.arn
         data_set_placeholder = "1"
       }
     }
@@ -484,8 +484,8 @@ resource "aws_quicksight_dashboard" "test" {
 
 func testAccDashboardConfig_DashboardSpecificConfig(rId, rName string) string {
 	return acctest.ConfigCompose(
-		testAccDashboardConfigBase(rId, rName),
-		fmt.Sprintf(`
+testAccDashboardConfigBase(rId, rName),
+fmt.Sprintf(`
 resource "aws_quicksight_dashboard" "test" {
   dashboard_id        = %[1]q
   name = %[2]q
@@ -538,10 +538,10 @@ resource "aws_quicksight_dashboard" "test" {
         name  = "test"
         parameter_value_type = "SINGLE_VALUED"
         default_values {
-          static_values = ["value"]
+ static_values = ["value"]
         }
         values_when_unset {
-          value_when_unset_option = "NULL"
+ value_when_unset_option = "NULL"
         }
       }
     }
@@ -550,21 +550,21 @@ resource "aws_quicksight_dashboard" "test" {
       sheet_id = "Example1"
       visuals {
         line_chart_visual {
-          visual_id = "LineChart"
-          title {
-            format_text {
-              plain_text = "Line Chart Example"
-            }
-          }
-          chart_configuration {
-            field_wells {
-              line_chart_aggregated_field_wells {
+ visual_id = "LineChart"
+ title {
+   format_text {
+     plain_text = "Line Chart Example"
+   }
+ }
+ chart_configuration {
+   field_wells {
+     line_chart_aggregated_field_wells {
  category {
    categorical_dimension_field {
      field_id = "1"
      column {
        data_set_identifier = "1"
-       column_name         = "Column1"
+       column_name= "Column1"
      }
    }
  }
@@ -573,15 +573,15 @@ resource "aws_quicksight_dashboard" "test" {
      field_id = "2"
      column {
        data_set_identifier = "1"
-       column_name         = "Column1"
+       column_name= "Column1"
      }
      aggregation_
 function = "COUNT"
    }
  }
-              }
-            }
-          }
+     }
+   }
+ }
         }
       }
     }

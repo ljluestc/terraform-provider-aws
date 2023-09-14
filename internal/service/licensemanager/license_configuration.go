@@ -27,61 +27,61 @@ import (
 // @Tags(identifierAttribute="id")
 func ResourceLicenseConfiguration() *schema.Resource {
 	return &schema.Resource{
-		CreateWithoutTimeout: resourceLicenseConfigurationCreate,
-		ReadWithoutTimeout:   resourceLicenseConfigurationRead,
-		UpdateWithoutTimeout: resourceLicenseConfigurationUpdate,
-		DeleteWithoutTimeout: resourceLicenseConfigurationDelete,
+CreateWithoutTimeout: resourceLicenseConfigurationCreate,
+ReadWithoutTimeout:   resourceLicenseConfigurationRead,
+UpdateWithoutTimeout: resourceLicenseConfigurationUpdate,
+DeleteWithoutTimeout: resourceLicenseConfigurationDelete,
 
-		Importer: &schema.ResourceImporter{
-			StateContext: schema.ImportStatePassthroughContext,
-		},
+Importer: &schema.ResourceImporter{
+	StateContext: schema.ImportStatePassthroughContext,
+},
 
-		Schema: map[string]*schema.Schema{
-			"arn": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"description": {
-				Type:     schema.TypeString,
-				Optional: true,
-			},
-			"license_count": {
-				Type:     schema.TypeInt,
-				Optional: true,
-			},
-			"license_count_hard_limit": {
-				Type:     schema.TypeBool,
-				Optional: true,
-				Default:  false,
-			},
-			"license_counting_type": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
-				ValidateFunc: validation.StringInSlice(licensemanager.LicenseCountingType_Values(), false),
-			},
-			"license_rules": {
-				Type:     schema.TypeList,
-				Optional: true,
-				ForceNew: true,
-				Elem: &schema.Schema{
-					Type:         schema.TypeString,
-					ValidateFunc: validation.StringMatch(regexache.MustCompile("^#([^=]+)=(.+)$"), "Expected format is #RuleType=RuleValue"),
-				},
-			},
-			"name": {
-				Type:     schema.TypeString,
-				Required: true,
-			},
-			"owner_account_id": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			names.AttrTags:    tftags.TagsSchema(),
-			names.AttrTagsAll: tftags.TagsSchemaComputed(),
-		},
+Schema: map[string]*schema.Schema{
+	"arn": {
+Type:     schema.TypeString,
+Computed: true,
+	},
+	"description": {
+Type:     schema.TypeString,
+Optional: true,
+	},
+	"license_count": {
+Type:     schema.TypeInt,
+Optional: true,
+	},
+	"license_count_hard_limit": {
+Type:     schema.TypeBool,
+Optional: true,
+Default:  false,
+	},
+	"license_counting_type": {
+Type:         schema.TypeString,
+Required:     true,
+ForceNew:     true,
+ValidateFunc: validation.StringInSlice(licensemanager.LicenseCountingType_Values(), false),
+	},
+	"license_rules": {
+Type:     schema.TypeList,
+Optional: true,
+ForceNew: true,
+Elem: &schema.Schema{
+	Type:         schema.TypeString,
+	ValidateFunc: validation.StringMatch(regexache.MustCompile("^#([^=]+)=(.+)$"), "Expected format is #RuleType=RuleValue"),
+},
+	},
+	"name": {
+Type:     schema.TypeString,
+Required: true,
+	},
+	"owner_account_id": {
+Type:     schema.TypeString,
+Computed: true,
+	},
+	names.AttrTags:    tftags.TagsSchema(),
+	names.AttrTagsAll: tftags.TagsSchemaComputed(),
+},
 
-		CustomizeDiff: verify.SetTagsDiff,
+CustomizeDiff: verify.SetTagsDiff,
 	}
 }
 
@@ -90,31 +90,31 @@ func resourceLicenseConfigurationCreate(ctx context.Context, d *schema.ResourceD
 
 	name := d.Get("name").(string)
 	input := &licensemanager.CreateLicenseConfigurationInput{
-		LicenseCountingType: aws.String(d.Get("license_counting_type").(string)),
-		Name: aws.String(name),
-		Tags: getTagsIn(ctx),
+LicenseCountingType: aws.String(d.Get("license_counting_type").(string)),
+Name: aws.String(name),
+Tags: getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
-		input.Description = aws.String(v.(string))
+input.Description = aws.String(v.(string))
 	}
 
 	if v, ok := d.GetOk("license_count"); ok {
-		input.LicenseCount = aws.Int64(int64(v.(int)))
+input.LicenseCount = aws.Int64(int64(v.(int)))
 	}
 
 	if v, ok := d.GetOk("license_count_hard_limit"); ok {
-		input.LicenseCountHardLimit = aws.Bool(v.(bool))
+input.LicenseCountHardLimit = aws.Bool(v.(bool))
 	}
 
 	if v, ok := d.GetOk("license_rules"); ok && len(v.([]interface{})) > 0 {
-		input.LicenseRules = flex.ExpandStringList(v.([]interface{}))
+input.LicenseRules = flex.ExpandStringList(v.([]interface{}))
 	}
 
 	output, err := conn.CreateLicenseConfigurationWithContext(ctx, input)
 
 	if err != nil {
-		return diag.Errorf("creating License Manager License Configuration (%s): %s", name, err)
+return diag.Errorf("creating License Manager License Configuration (%s): %s", name, err)
 	}
 
 	d.SetId(aws.StringValue(output.LicenseConfigurationArn))
@@ -128,13 +128,13 @@ func resourceLicenseConfigurationRead(ctx context.Context, d *schema.ResourceDat
 	output, err := FindLicenseConfigurationByARN(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
-		log.Printf("[WARN] License Manager License Configuration %s not found, removing from state", d.Id())
-		d.SetId("")
-		return nil
+log.Printf("[WARN] License Manager License Configuration %s not found, removing from state", d.Id())
+d.SetId("")
+return nil
 	}
 
 	if err != nil {
-		return diag.Errorf("reading License Manager License Configuration (%s): %s", d.Id(), err)
+return diag.Errorf("reading License Manager License Configuration (%s): %s", d.Id(), err)
 	}
 
 	d.Set("arn", output.LicenseConfigurationArn)
@@ -155,22 +155,22 @@ func resourceLicenseConfigurationUpdate(ctx context.Context, d *schema.ResourceD
 	conn := meta.(*conns.AWSClient).LicenseManagerConn(ctx)
 
 	if d.HasChangesExcept("tags", "tags_all") {
-		input := &licensemanager.UpdateLicenseConfigurationInput{
-			Description:             aws.String(d.Get("description").(string)),
-			LicenseConfigurationArn: aws.String(d.Id()),
-			LicenseCountHardLimit:   aws.Bool(d.Get("license_count_hard_limit").(bool)),
-			Name:     aws.String(d.Get("name").(string)),
-		}
+input := &licensemanager.UpdateLicenseConfigurationInput{
+	Description:             aws.String(d.Get("description").(string)),
+	LicenseConfigurationArn: aws.String(d.Id()),
+	LicenseCountHardLimit:   aws.Bool(d.Get("license_count_hard_limit").(bool)),
+	Name:     aws.String(d.Get("name").(string)),
+}
 
-		if v, ok := d.GetOk("license_count"); ok {
-			input.LicenseCount = aws.Int64(int64(v.(int)))
-		}
+if v, ok := d.GetOk("license_count"); ok {
+	input.LicenseCount = aws.Int64(int64(v.(int)))
+}
 
-		_, err := conn.UpdateLicenseConfigurationWithContext(ctx, input)
+_, err := conn.UpdateLicenseConfigurationWithContext(ctx, input)
 
-		if err != nil {
-			return diag.Errorf("updating License Manager License Configuration (%s): %s", d.Id(), err)
-		}
+if err != nil {
+	return diag.Errorf("updating License Manager License Configuration (%s): %s", d.Id(), err)
+}
 	}
 
 	return resourceLicenseConfigurationRead(ctx, d, meta)
@@ -181,15 +181,15 @@ func resourceLicenseConfigurationDelete(ctx context.Context, d *schema.ResourceD
 
 	log.Printf("[DEBUG] Deleting License Manager License Configuration: %s", d.Id())
 	_, err := conn.DeleteLicenseConfigurationWithContext(ctx, &licensemanager.DeleteLicenseConfigurationInput{
-		LicenseConfigurationArn: aws.String(d.Id()),
+LicenseConfigurationArn: aws.String(d.Id()),
 	})
 
 	if tfawserr.ErrMessageContains(err, licensemanager.ErrCodeInvalidParameterValueException, "Invalid license configuration ARN") {
-		return nil
+return nil
 	}
 
 	if err != nil {
-		return diag.Errorf("deleting License Manager License Configuration (%s): %s", d.Id(), err)
+return diag.Errorf("deleting License Manager License Configuration (%s): %s", d.Id(), err)
 	}
 
 	return nil
@@ -197,24 +197,24 @@ func resourceLicenseConfigurationDelete(ctx context.Context, d *schema.ResourceD
 
 func FindLicenseConfigurationByARN(ctx context.Context, conn *licensemanager.LicenseManager, arn string) (*licensemanager.GetLicenseConfigurationOutput, error) {
 	input := &licensemanager.GetLicenseConfigurationInput{
-		LicenseConfigurationArn: aws.String(arn),
+LicenseConfigurationArn: aws.String(arn),
 	}
 
 	output, err := conn.GetLicenseConfigurationWithContext(ctx, input)
 
 	if tfawserr.ErrMessageContains(err, licensemanager.ErrCodeInvalidParameterValueException, "Invalid license configuration ARN") {
-		return nil, &retry.NotFoundError{
-			LastError:   err,
-			LastRequest: input,
-		}
+return nil, &retry.NotFoundError{
+	LastError:   err,
+	LastRequest: input,
+}
 	}
 
 	if err != nil {
-		return nil, err
+return nil, err
 	}
 
 	if output == nil {
-		return nil, tfresource.NewEmptyResultError(input)
+return nil, tfresource.NewEmptyResultError(input)
 	}
 
 	return output, nil

@@ -25,11 +25,11 @@ const (
 // See https://docs.aws.amazon.com/storagegateway/latest/userguide/AWSStorageGatewayAPI.html#APIErrorResponses for details.
 func operationErrorCode(err error) string {
 	if inner := (*storagegateway.InternalServerError)(nil); errors.As(err, &inner) && inner.Error_ != nil {
-		return aws.StringValue(inner.Error_.ErrorCode)
+return aws.StringValue(inner.Error_.ErrorCode)
 	}
 
 	if inner := (*storagegateway.InvalidGatewayRequestException)(nil); errors.As(err, &inner) && inner.Error_ != nil {
-		return aws.StringValue(inner.Error_.ErrorCode)
+return aws.StringValue(inner.Error_.ErrorCode)
 	}
 
 	return ""

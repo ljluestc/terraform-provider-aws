@@ -21,22 +21,22 @@ func TestAccRDSInstancesDataSource_filter(t *testing.T) {
 	resourceName := "aws_db_instance.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckInstanceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccInstancesDataSourceConfig_filter(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckInstanceExists(ctx, resourceName, &dbInstance),
-					resource.TestCheckResourceAttr(dataSourceName, "instance_arns.#", "1"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "instance_arns.0", resourceName, "arn"),
-					resource.TestCheckResourceAttr(dataSourceName, "instance_identifiers.#", "1"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "instance_identifiers.0", resourceName, "identifier"),
-				),
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckInstanceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccInstancesDataSourceConfig_filter(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckInstanceExists(ctx, resourceName, &dbInstance),
+	resource.TestCheckResourceAttr(dataSourceName, "instance_arns.#", "1"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "instance_arns.0", resourceName, "arn"),
+	resource.TestCheckResourceAttr(dataSourceName, "instance_identifiers.#", "1"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "instance_identifiers.0", resourceName, "identifier"),
+),
+	},
+},
 	})
 }
 
@@ -48,22 +48,22 @@ func TestAccRDSInstancesDataSource_tags(t *testing.T) {
 	resourceName := "aws_db_instance.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckInstanceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccInstancesDataSourceConfig_tags(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckInstanceExists(ctx, resourceName, &dbInstance),
-					resource.TestCheckResourceAttr(dataSourceName, "instance_arns.#", "1"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "instance_arns.0", resourceName, "arn"),
-					resource.TestCheckResourceAttr(dataSourceName, "instance_identifiers.#", "1"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "instance_identifiers.0", resourceName, "identifier"),
-				),
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckInstanceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccInstancesDataSourceConfig_tags(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckInstanceExists(ctx, resourceName, &dbInstance),
+	resource.TestCheckResourceAttr(dataSourceName, "instance_arns.#", "1"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "instance_arns.0", resourceName, "arn"),
+	resource.TestCheckResourceAttr(dataSourceName, "instance_identifiers.#", "1"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "instance_identifiers.0", resourceName, "identifier"),
+),
+	},
+},
 	})
 }
 

@@ -23,8 +23,8 @@ const (
 
 func DeduplicationScope_Values() []string {
 	return []string{
-		DeduplicationScopeMessageGroup,
-		DeduplicationScopeQueue,
+DeduplicationScopeMessageGroup,
+DeduplicationScopeQueue,
 	}
 }
 
@@ -35,7 +35,7 @@ const (
 
 func FIFOThroughputLimit_Values() []string {
 	return []string{
-		FIFOThroughputLimitPerMessageGroupID,
-		FIFOThroughputLimitPerQueue,
+FIFOThroughputLimitPerMessageGroupID,
+FIFOThroughputLimitPerQueue,
 	}
 }

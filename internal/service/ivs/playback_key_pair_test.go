@@ -42,7 +42,7 @@ func testAccPlaybackKeyPair_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, ivs.EndpointsID)
 			testAccPlaybackKeyPairPreCheck(ctx, t)
 		},
-		ErrorCheck:acctest.ErrorCheck(t, ivs.EndpointsID),
+		ErrorCheck:               acctest.ErrorCheck(t, ivs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPlaybackKeyPairDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -83,7 +83,7 @@ func testAccPlaybackKeyPair_update(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, ivs.EndpointsID)
 			testAccPlaybackKeyPairPreCheck(ctx, t)
 		},
-		ErrorCheck:acctest.ErrorCheck(t, ivs.EndpointsID),
+		ErrorCheck:               acctest.ErrorCheck(t, ivs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPlaybackKeyPairDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -122,7 +122,7 @@ func testAccPlaybackKeyPair_tags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, ivs.EndpointsID)
 			testAccPlaybackKeyPairPreCheck(ctx, t)
 		},
-		ErrorCheck:acctest.ErrorCheck(t, ivs.EndpointsID),
+		ErrorCheck:               acctest.ErrorCheck(t, ivs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPlaybackKeyPairDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -174,7 +174,7 @@ func testAccPlaybackKeyPair_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, ivs.EndpointsID)
 			testAccPlaybackKeyPairPreCheck(ctx, t)
 		},
-		ErrorCheck:acctest.ErrorCheck(t, ivs.EndpointsID),
+		ErrorCheck:               acctest.ErrorCheck(t, ivs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPlaybackKeyPairDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -292,7 +292,7 @@ resource aws_ivs_playback_key_pair "test" {
 	name = %[1]q
 	public_key = %[2]q
 	tags = {
-		%[3]q = %[4]q
+%[3]q = %[4]q
 	}
 }
 `, rName, publicKey, tagKey1, tagValue1)
@@ -305,8 +305,8 @@ resource aws_ivs_playback_key_pair "test" {
 	name = %[1]q
 	public_key = %[2]q
 	tags = {
-		%[3]q = %[4]q
-		%[5]q = %[6]q
+%[3]q = %[4]q
+%[5]q = %[6]q
 	}
 }
 `, rName, publicKey, tagKey1, tagValue1, tagKey2, tagValue2)

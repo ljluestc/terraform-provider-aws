@@ -29,7 +29,7 @@ func init() {
 
 func testAccErrorCheckSkip(t *testing.T) resource.ErrorCheckFunc {
 	return acctest.ErrorCheckSkipMessagesContaining(t,
-		"not supported in this region",
+"not supported in this region",
 	)
 }
 
@@ -39,49 +39,49 @@ func TestAccCognitoIDPUserPool_basic(t *testing.T) {
 	resourceName := "aws_cognito_user_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserPoolConfig_name(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserPoolExists(ctx, resourceName, nil),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "cognito-idp", regexache.MustCompile(`userpool/.+`)),
-					resource.TestMatchResourceAttr(resourceName, "endpoint", regexache.MustCompile(`^cognito-idp\.[^.]+\.amazonaws.com/[\w-]+_[0-9A-Za-z]+$`)),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttrSet(resourceName, "creation_date"),
-					resource.TestCheckResourceAttrSet(resourceName, "last_modified_date"),
-					resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "OFF"),
-					resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "account_recovery_setting.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.allow_admin_create_user_only", "false"),
-					resource.TestCheckResourceAttr(resourceName, "email_configuration.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "email_configuration.0.email_sending_account", "COGNITO_DEFAULT"),
-					resource.TestCheckResourceAttr(resourceName, "password_policy.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "password_policy.0.minimum_length", "8"),
-					resource.TestCheckResourceAttr(resourceName, "password_policy.0.require_lowercase", "true"),
-					resource.TestCheckResourceAttr(resourceName, "password_policy.0.require_numbers", "true"),
-					resource.TestCheckResourceAttr(resourceName, "password_policy.0.require_symbols", "true"),
-					resource.TestCheckResourceAttr(resourceName, "password_policy.0.require_uppercase", "true"),
-					resource.TestCheckResourceAttr(resourceName, "password_policy.0.temporary_password_validity_days", "7"),
-					resource.TestCheckResourceAttr(resourceName, "verification_message_template.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "verification_message_template.0.default_email_option", "CONFIRM_WITH_CODE"),
-					resource.TestCheckResourceAttr(resourceName, "lambda_config.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-					resource.TestCheckResourceAttr(resourceName, "estimated_number_of_users", "0"),
-					resource.TestCheckResourceAttr(resourceName, "deletion_protection", "INACTIVE"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserPoolConfig_name(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserPoolExists(ctx, resourceName, nil),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "cognito-idp", regexache.MustCompile(`userpool/.+`)),
+	resource.TestMatchResourceAttr(resourceName, "endpoint", regexache.MustCompile(`^cognito-idp\.[^.]+\.amazonaws.com/[\w-]+_[0-9A-Za-z]+$`)),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttrSet(resourceName, "creation_date"),
+	resource.TestCheckResourceAttrSet(resourceName, "last_modified_date"),
+	resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "OFF"),
+	resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "account_recovery_setting.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.allow_admin_create_user_only", "false"),
+	resource.TestCheckResourceAttr(resourceName, "email_configuration.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "email_configuration.0.email_sending_account", "COGNITO_DEFAULT"),
+	resource.TestCheckResourceAttr(resourceName, "password_policy.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "password_policy.0.minimum_length", "8"),
+	resource.TestCheckResourceAttr(resourceName, "password_policy.0.require_lowercase", "true"),
+	resource.TestCheckResourceAttr(resourceName, "password_policy.0.require_numbers", "true"),
+	resource.TestCheckResourceAttr(resourceName, "password_policy.0.require_symbols", "true"),
+	resource.TestCheckResourceAttr(resourceName, "password_policy.0.require_uppercase", "true"),
+	resource.TestCheckResourceAttr(resourceName, "password_policy.0.temporary_password_validity_days", "7"),
+	resource.TestCheckResourceAttr(resourceName, "verification_message_template.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "verification_message_template.0.default_email_option", "CONFIRM_WITH_CODE"),
+	resource.TestCheckResourceAttr(resourceName, "lambda_config.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+	resource.TestCheckResourceAttr(resourceName, "estimated_number_of_users", "0"),
+	resource.TestCheckResourceAttr(resourceName, "deletion_protection", "INACTIVE"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -91,31 +91,31 @@ func TestAccCognitoIDPUserPool_deletionProtection(t *testing.T) {
 	resourceName := "aws_cognito_user_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserPoolConfig_deletionProtection(rName, "ACTIVE"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "deletion_protection", "ACTIVE"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccUserPoolConfig_deletionProtection(rName, "INACTIVE"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "deletion_protection", "INACTIVE"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserPoolConfig_deletionProtection(rName, "ACTIVE"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "deletion_protection", "ACTIVE"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccUserPoolConfig_deletionProtection(rName, "INACTIVE"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "deletion_protection", "INACTIVE"),
+),
+	},
+},
 	})
 }
 
@@ -125,60 +125,60 @@ func TestAccCognitoIDPUserPool_recovery(t *testing.T) {
 	resourceName := "aws_cognito_user_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserPoolConfig_accountRecoverySingle(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserPoolExists(ctx, resourceName, nil),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "account_recovery_setting.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "account_recovery_setting.0.recovery_mechanism.#", "1"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "account_recovery_setting.0.recovery_mechanism.*", map[string]string{
-						"name":     "verified_email",
-						"priority": "1",
-					}),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccUserPoolConfig_accountRecoveryMulti(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserPoolExists(ctx, resourceName, nil),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "account_recovery_setting.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "account_recovery_setting.0.recovery_mechanism.#", "2"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "account_recovery_setting.0.recovery_mechanism.*", map[string]string{
-						"name":     "verified_email",
-						"priority": "1",
-					}),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "account_recovery_setting.0.recovery_mechanism.*", map[string]string{
-						"name":     "verified_phone_number",
-						"priority": "2",
-					}),
-				),
-			},
-			{
-				Config: testAccUserPoolConfig_accountRecoveryUpdate(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserPoolExists(ctx, resourceName, nil),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "account_recovery_setting.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "account_recovery_setting.0.recovery_mechanism.#", "1"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "account_recovery_setting.0.recovery_mechanism.*", map[string]string{
-						"name":     "verified_phone_number",
-						"priority": "1",
-					}),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserPoolConfig_accountRecoverySingle(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserPoolExists(ctx, resourceName, nil),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "account_recovery_setting.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "account_recovery_setting.0.recovery_mechanism.#", "1"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "account_recovery_setting.0.recovery_mechanism.*", map[string]string{
+"name":     "verified_email",
+"priority": "1",
+	}),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccUserPoolConfig_accountRecoveryMulti(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserPoolExists(ctx, resourceName, nil),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "account_recovery_setting.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "account_recovery_setting.0.recovery_mechanism.#", "2"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "account_recovery_setting.0.recovery_mechanism.*", map[string]string{
+"name":     "verified_email",
+"priority": "1",
+	}),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "account_recovery_setting.0.recovery_mechanism.*", map[string]string{
+"name":     "verified_phone_number",
+"priority": "2",
+	}),
+),
+	},
+	{
+Config: testAccUserPoolConfig_accountRecoveryUpdate(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserPoolExists(ctx, resourceName, nil),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "account_recovery_setting.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "account_recovery_setting.0.recovery_mechanism.#", "1"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "account_recovery_setting.0.recovery_mechanism.*", map[string]string{
+"name":     "verified_phone_number",
+"priority": "1",
+	}),
+),
+	},
+},
 	})
 }
 
@@ -188,36 +188,36 @@ func TestAccCognitoIDPUserPool_withAdminCreateUser(t *testing.T) {
 	resourceName := "aws_cognito_user_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserPoolConfig_adminCreateConfiguration(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserPoolExists(ctx, resourceName, nil),
-					resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.allow_admin_create_user_only", "true"),
-					resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.invite_message_template.0.email_message", "Your username is {username} and temporary password is {####}. "),
-					resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.invite_message_template.0.email_subject", "FooBar {####}"),
-					resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.invite_message_template.0.sms_message", "Your username is {username} and temporary password is {####}."),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccUserPoolConfig_adminCreateConfigurationUpdated(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.allow_admin_create_user_only", "false"),
-					resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.invite_message_template.0.email_message", "Your username is {username} and constant password is {####}. "),
-					resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.invite_message_template.0.email_subject", "Foo{####}BaBaz"),
-					resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.invite_message_template.0.sms_message", "Your username is {username} and constant password is {####}."),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserPoolConfig_adminCreateConfiguration(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserPoolExists(ctx, resourceName, nil),
+	resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.allow_admin_create_user_only", "true"),
+	resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.invite_message_template.0.email_message", "Your username is {username} and temporary password is {####}. "),
+	resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.invite_message_template.0.email_subject", "FooBar {####}"),
+	resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.invite_message_template.0.sms_message", "Your username is {username} and temporary password is {####}."),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccUserPoolConfig_adminCreateConfigurationUpdated(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.allow_admin_create_user_only", "false"),
+	resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.invite_message_template.0.email_message", "Your username is {username} and constant password is {####}. "),
+	resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.invite_message_template.0.email_subject", "Foo{####}BaBaz"),
+	resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.invite_message_template.0.sms_message", "Your username is {username} and constant password is {####}."),
+),
+	},
+},
 	})
 }
 
@@ -228,25 +228,25 @@ func TestAccCognitoIDPUserPool_withAdminCreateUserAndPasswordPolicy(t *testing.T
 	resourceName := "aws_cognito_user_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserPoolConfig_adminCreateAndPasswordPolicy(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserPoolExists(ctx, resourceName, nil),
-					resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.allow_admin_create_user_only", "true"),
-					resource.TestCheckResourceAttr(resourceName, "password_policy.0.temporary_password_validity_days", "7"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserPoolConfig_adminCreateAndPasswordPolicy(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserPoolExists(ctx, resourceName, nil),
+	resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.allow_admin_create_user_only", "true"),
+	resource.TestCheckResourceAttr(resourceName, "password_policy.0.temporary_password_validity_days", "7"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -256,36 +256,36 @@ func TestAccCognitoIDPUserPool_withAdvancedSecurityMode(t *testing.T) {
 	resourceName := "aws_cognito_user_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserPoolConfig_advancedSecurityMode(rName, "OFF"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserPoolExists(ctx, resourceName, nil),
-					resource.TestCheckResourceAttr(resourceName, "user_pool_add_ons.0.advanced_security_mode", "OFF"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccUserPoolConfig_advancedSecurityMode(rName, "ENFORCED"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "user_pool_add_ons.0.advanced_security_mode", "ENFORCED"),
-				),
-			},
-			{
-				Config: testAccUserPoolConfig_name(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "user_pool_add_ons.#", "0"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserPoolConfig_advancedSecurityMode(rName, "OFF"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserPoolExists(ctx, resourceName, nil),
+	resource.TestCheckResourceAttr(resourceName, "user_pool_add_ons.0.advanced_security_mode", "OFF"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccUserPoolConfig_advancedSecurityMode(rName, "ENFORCED"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "user_pool_add_ons.0.advanced_security_mode", "ENFORCED"),
+),
+	},
+	{
+Config: testAccUserPoolConfig_name(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "user_pool_add_ons.#", "0"),
+),
+	},
+},
 	})
 }
 
@@ -295,32 +295,32 @@ func TestAccCognitoIDPUserPool_withDevice(t *testing.T) {
 	resourceName := "aws_cognito_user_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserPoolConfig_deviceConfiguration(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserPoolExists(ctx, resourceName, nil),
-					resource.TestCheckResourceAttr(resourceName, "device_configuration.0.challenge_required_on_new_device", "true"),
-					resource.TestCheckResourceAttr(resourceName, "device_configuration.0.device_only_remembered_on_user_prompt", "false"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccUserPoolConfig_deviceConfigurationUpdated(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "device_configuration.0.challenge_required_on_new_device", "false"),
-					resource.TestCheckResourceAttr(resourceName, "device_configuration.0.device_only_remembered_on_user_prompt", "true"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserPoolConfig_deviceConfiguration(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserPoolExists(ctx, resourceName, nil),
+	resource.TestCheckResourceAttr(resourceName, "device_configuration.0.challenge_required_on_new_device", "true"),
+	resource.TestCheckResourceAttr(resourceName, "device_configuration.0.device_only_remembered_on_user_prompt", "false"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccUserPoolConfig_deviceConfigurationUpdated(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "device_configuration.0.challenge_required_on_new_device", "false"),
+	resource.TestCheckResourceAttr(resourceName, "device_configuration.0.device_only_remembered_on_user_prompt", "true"),
+),
+	},
+},
 	})
 }
 
@@ -334,32 +334,32 @@ func TestAccCognitoIDPUserPool_withEmailVerificationMessage(t *testing.T) {
 	resourceName := "aws_cognito_user_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserPoolConfig_emailVerificationMessage(rName, subject, message),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserPoolExists(ctx, resourceName, nil),
-					resource.TestCheckResourceAttr(resourceName, "email_verification_subject", subject),
-					resource.TestCheckResourceAttr(resourceName, "email_verification_message", message),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccUserPoolConfig_emailVerificationMessage(rName, updatedSubject, upatedMessage),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "email_verification_subject", updatedSubject),
-					resource.TestCheckResourceAttr(resourceName, "email_verification_message", upatedMessage),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserPoolConfig_emailVerificationMessage(rName, subject, message),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserPoolExists(ctx, resourceName, nil),
+	resource.TestCheckResourceAttr(resourceName, "email_verification_subject", subject),
+	resource.TestCheckResourceAttr(resourceName, "email_verification_message", message),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccUserPoolConfig_emailVerificationMessage(rName, updatedSubject, upatedMessage),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "email_verification_subject", updatedSubject),
+	resource.TestCheckResourceAttr(resourceName, "email_verification_message", upatedMessage),
+),
+	},
+},
 	})
 }
 
@@ -370,45 +370,45 @@ func TestAccCognitoIDPUserPool_MFA_sms(t *testing.T) {
 	resourceName := "aws_cognito_user_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserPoolConfig_mfaConfigurationSMSConfiguration(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "ON"),
-					resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "sms_configuration.0.external_id", "test"),
-					resource.TestCheckResourceAttrPair(resourceName, "sms_configuration.0.sns_caller_arn", iamRoleResourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.#", "0"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccUserPoolConfig_mfaConfiguration(rName, cognitoidentityprovider.UserPoolMfaTypeOff),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "OFF"),
-					resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.#", "0"),
-				),
-			},
-			{
-				Config: testAccUserPoolConfig_mfaConfigurationSMSConfiguration(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "ON"),
-					resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "sms_configuration.0.external_id", "test"),
-					resource.TestCheckResourceAttrPair(resourceName, "sms_configuration.0.sns_caller_arn", iamRoleResourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.#", "0"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserPoolConfig_mfaConfigurationSMSConfiguration(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "ON"),
+	resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "sms_configuration.0.external_id", "test"),
+	resource.TestCheckResourceAttrPair(resourceName, "sms_configuration.0.sns_caller_arn", iamRoleResourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.#", "0"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccUserPoolConfig_mfaConfiguration(rName, cognitoidentityprovider.UserPoolMfaTypeOff),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "OFF"),
+	resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.#", "0"),
+),
+	},
+	{
+Config: testAccUserPoolConfig_mfaConfigurationSMSConfiguration(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "ON"),
+	resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "sms_configuration.0.external_id", "test"),
+	resource.TestCheckResourceAttrPair(resourceName, "sms_configuration.0.sns_caller_arn", iamRoleResourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.#", "0"),
+),
+	},
+},
 	})
 }
 
@@ -419,47 +419,47 @@ func TestAccCognitoIDPUserPool_MFA_smsAndSoftwareTokenMFA(t *testing.T) {
 	resourceName := "aws_cognito_user_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserPoolConfig_mfaConfigurationSMSConfigurationAndSoftwareTokenMFAConfigurationEnabled(rName, false),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "ON"),
-					resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "sms_configuration.0.external_id", "test"),
-					resource.TestCheckResourceAttrPair(resourceName, "sms_configuration.0.sns_caller_arn", iamRoleResourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.0.enabled", "false"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccUserPoolConfig_mfaConfigurationSMSConfigurationAndSoftwareTokenMFAConfigurationEnabled(rName, true),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "ON"),
-					resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "sms_configuration.0.external_id", "test"),
-					resource.TestCheckResourceAttrPair(resourceName, "sms_configuration.0.sns_caller_arn", iamRoleResourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.0.enabled", "true"),
-				),
-			},
-			{
-				Config: testAccUserPoolConfig_mfaConfiguration(rName, cognitoidentityprovider.UserPoolMfaTypeOff),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "OFF"),
-					resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.#", "0"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserPoolConfig_mfaConfigurationSMSConfigurationAndSoftwareTokenMFAConfigurationEnabled(rName, false),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "ON"),
+	resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "sms_configuration.0.external_id", "test"),
+	resource.TestCheckResourceAttrPair(resourceName, "sms_configuration.0.sns_caller_arn", iamRoleResourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.0.enabled", "false"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccUserPoolConfig_mfaConfigurationSMSConfigurationAndSoftwareTokenMFAConfigurationEnabled(rName, true),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "ON"),
+	resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "sms_configuration.0.external_id", "test"),
+	resource.TestCheckResourceAttrPair(resourceName, "sms_configuration.0.sns_caller_arn", iamRoleResourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.0.enabled", "true"),
+),
+	},
+	{
+Config: testAccUserPoolConfig_mfaConfiguration(rName, cognitoidentityprovider.UserPoolMfaTypeOff),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "OFF"),
+	resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.#", "0"),
+),
+	},
+},
 	})
 }
 
@@ -470,36 +470,36 @@ func TestAccCognitoIDPUserPool_MFA_smsToSoftwareTokenMFA(t *testing.T) {
 	resourceName := "aws_cognito_user_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserPoolConfig_mfaConfigurationSMSConfiguration(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "ON"),
-					resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "sms_configuration.0.external_id", "test"),
-					resource.TestCheckResourceAttrPair(resourceName, "sms_configuration.0.sns_caller_arn", iamRoleResourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.#", "0"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccUserPoolConfig_mfaConfigurationSoftwareTokenMFAConfigurationEnabled(rName, true),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "ON"),
-					resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.0.enabled", "true"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserPoolConfig_mfaConfigurationSMSConfiguration(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "ON"),
+	resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "sms_configuration.0.external_id", "test"),
+	resource.TestCheckResourceAttrPair(resourceName, "sms_configuration.0.sns_caller_arn", iamRoleResourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.#", "0"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccUserPoolConfig_mfaConfigurationSoftwareTokenMFAConfigurationEnabled(rName, true),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "ON"),
+	resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.0.enabled", "true"),
+),
+	},
+},
 	})
 }
 
@@ -509,43 +509,43 @@ func TestAccCognitoIDPUserPool_MFA_softwareTokenMFA(t *testing.T) {
 	resourceName := "aws_cognito_user_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserPoolConfig_mfaConfigurationSoftwareTokenMFAConfigurationEnabled(rName, true),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "ON"),
-					resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.0.enabled", "true"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccUserPoolConfig_mfaConfiguration(rName, cognitoidentityprovider.UserPoolMfaTypeOff),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "OFF"),
-					resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.#", "0"),
-				),
-			},
-			{
-				Config: testAccUserPoolConfig_mfaConfigurationSoftwareTokenMFAConfigurationEnabled(rName, true),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "ON"),
-					resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.0.enabled", "true"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserPoolConfig_mfaConfigurationSoftwareTokenMFAConfigurationEnabled(rName, true),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "ON"),
+	resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.0.enabled", "true"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccUserPoolConfig_mfaConfiguration(rName, cognitoidentityprovider.UserPoolMfaTypeOff),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "OFF"),
+	resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.#", "0"),
+),
+	},
+	{
+Config: testAccUserPoolConfig_mfaConfigurationSoftwareTokenMFAConfigurationEnabled(rName, true),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "ON"),
+	resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.0.enabled", "true"),
+),
+	},
+},
 	})
 }
 
@@ -556,36 +556,36 @@ func TestAccCognitoIDPUserPool_MFA_softwareTokenMFAToSMS(t *testing.T) {
 	resourceName := "aws_cognito_user_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserPoolConfig_mfaConfigurationSoftwareTokenMFAConfigurationEnabled(rName, true),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "ON"),
-					resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.0.enabled", "true"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccUserPoolConfig_mfaConfigurationSMSConfiguration(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "ON"),
-					resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "sms_configuration.0.external_id", "test"),
-					resource.TestCheckResourceAttrPair(resourceName, "sms_configuration.0.sns_caller_arn", iamRoleResourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.#", "0"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserPoolConfig_mfaConfigurationSoftwareTokenMFAConfigurationEnabled(rName, true),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "ON"),
+	resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.0.enabled", "true"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccUserPoolConfig_mfaConfigurationSMSConfiguration(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "ON"),
+	resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "sms_configuration.0.external_id", "test"),
+	resource.TestCheckResourceAttrPair(resourceName, "sms_configuration.0.sns_caller_arn", iamRoleResourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "software_token_mfa_configuration.#", "0"),
+),
+	},
+},
 	})
 }
 
@@ -597,31 +597,31 @@ func TestAccCognitoIDPUserPool_smsAuthenticationMessage(t *testing.T) {
 	resourceName := "aws_cognito_user_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserPoolConfig_smsAuthenticationMessage(rName, smsAuthenticationMessage1),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserPoolExists(ctx, resourceName, nil),
-					resource.TestCheckResourceAttr(resourceName, "sms_authentication_message", smsAuthenticationMessage1),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccUserPoolConfig_smsAuthenticationMessage(rName, smsAuthenticationMessage2),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserPoolExists(ctx, resourceName, nil),
-					resource.TestCheckResourceAttr(resourceName, "sms_authentication_message", smsAuthenticationMessage2),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserPoolConfig_smsAuthenticationMessage(rName, smsAuthenticationMessage1),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserPoolExists(ctx, resourceName, nil),
+	resource.TestCheckResourceAttr(resourceName, "sms_authentication_message", smsAuthenticationMessage1),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccUserPoolConfig_smsAuthenticationMessage(rName, smsAuthenticationMessage2),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserPoolExists(ctx, resourceName, nil),
+	resource.TestCheckResourceAttr(resourceName, "sms_authentication_message", smsAuthenticationMessage2),
+),
+	},
+},
 	})
 }
 
@@ -632,42 +632,42 @@ func TestAccCognitoIDPUserPool_sms(t *testing.T) {
 	resourceName := "aws_cognito_user_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserPoolConfig_smsConfigurationExternalID(rName, "test"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "OFF"),
-					resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "sms_configuration.0.external_id", "test"),
-					resource.TestCheckResourceAttrPair(resourceName, "sms_configuration.0.sns_caller_arn", iamRoleResourceName, "arn"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccUserPoolConfig_name(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "OFF"),
-					resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
-				),
-			},
-			{
-				Config: testAccUserPoolConfig_smsConfigurationExternalID(rName, "test"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "OFF"),
-					resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "sms_configuration.0.external_id", "test"),
-					resource.TestCheckResourceAttrPair(resourceName, "sms_configuration.0.sns_caller_arn", iamRoleResourceName, "arn"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserPoolConfig_smsConfigurationExternalID(rName, "test"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "OFF"),
+	resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "sms_configuration.0.external_id", "test"),
+	resource.TestCheckResourceAttrPair(resourceName, "sms_configuration.0.sns_caller_arn", iamRoleResourceName, "arn"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccUserPoolConfig_name(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "OFF"),
+	resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
+),
+	},
+	{
+Config: testAccUserPoolConfig_smsConfigurationExternalID(rName, "test"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "OFF"),
+	resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "sms_configuration.0.external_id", "test"),
+	resource.TestCheckResourceAttrPair(resourceName, "sms_configuration.0.sns_caller_arn", iamRoleResourceName, "arn"),
+),
+	},
+},
 	})
 }
 
@@ -678,26 +678,26 @@ func TestAccCognitoIDPUserPool_SMS_snsRegion(t *testing.T) {
 	resourceName := "aws_cognito_user_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserPoolConfig_smsConfigurationSNSRegion(rName, acctest.Region()),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "OFF"),
-					resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "sms_configuration.0.sns_region", acctest.Region()),
-					resource.TestCheckResourceAttrPair(resourceName, "sms_configuration.0.sns_caller_arn", iamRoleResourceName, "arn"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserPoolConfig_smsConfigurationSNSRegion(rName, acctest.Region()),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "OFF"),
+	resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "sms_configuration.0.sns_region", acctest.Region()),
+	resource.TestCheckResourceAttrPair(resourceName, "sms_configuration.0.sns_caller_arn", iamRoleResourceName, "arn"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -708,35 +708,35 @@ func TestAccCognitoIDPUserPool_SMS_externalID(t *testing.T) {
 	resourceName := "aws_cognito_user_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserPoolConfig_smsConfigurationExternalID(rName, "test"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "OFF"),
-					resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "sms_configuration.0.external_id", "test"),
-					resource.TestCheckResourceAttrPair(resourceName, "sms_configuration.0.sns_caller_arn", iamRoleResourceName, "arn"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccUserPoolConfig_smsConfigurationExternalID(rName, "test2"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "OFF"),
-					resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "sms_configuration.0.external_id", "test2"),
-					resource.TestCheckResourceAttrPair(resourceName, "sms_configuration.0.sns_caller_arn", iamRoleResourceName, "arn"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserPoolConfig_smsConfigurationExternalID(rName, "test"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "OFF"),
+	resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "sms_configuration.0.external_id", "test"),
+	resource.TestCheckResourceAttrPair(resourceName, "sms_configuration.0.sns_caller_arn", iamRoleResourceName, "arn"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccUserPoolConfig_smsConfigurationExternalID(rName, "test2"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "OFF"),
+	resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "sms_configuration.0.external_id", "test2"),
+	resource.TestCheckResourceAttrPair(resourceName, "sms_configuration.0.sns_caller_arn", iamRoleResourceName, "arn"),
+),
+	},
+},
 	})
 }
 
@@ -747,35 +747,35 @@ func TestAccCognitoIDPUserPool_SMS_snsCallerARN(t *testing.T) {
 	resourceName := "aws_cognito_user_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserPoolConfig_smsConfigurationExternalID(rName, "test"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "OFF"),
-					resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "sms_configuration.0.external_id", "test"),
-					resource.TestCheckResourceAttrPair(resourceName, "sms_configuration.0.sns_caller_arn", iamRoleResourceName, "arn"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccUserPoolConfig_smsConfigurationSNSCallerARN2(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "OFF"),
-					resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "sms_configuration.0.external_id", "test"),
-					resource.TestCheckResourceAttrPair(resourceName, "sms_configuration.0.sns_caller_arn", iamRoleResourceName, "arn"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserPoolConfig_smsConfigurationExternalID(rName, "test"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "OFF"),
+	resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "sms_configuration.0.external_id", "test"),
+	resource.TestCheckResourceAttrPair(resourceName, "sms_configuration.0.sns_caller_arn", iamRoleResourceName, "arn"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccUserPoolConfig_smsConfigurationSNSCallerARN2(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "mfa_configuration", "OFF"),
+	resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "sms_configuration.0.external_id", "test"),
+	resource.TestCheckResourceAttrPair(resourceName, "sms_configuration.0.sns_caller_arn", iamRoleResourceName, "arn"),
+),
+	},
+},
 	})
 }
 
@@ -787,31 +787,31 @@ func TestAccCognitoIDPUserPool_smsVerificationMessage(t *testing.T) {
 	resourceName := "aws_cognito_user_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserPoolConfig_smsVerificationMessage(rName, smsVerificationMessage1),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserPoolExists(ctx, resourceName, nil),
-					resource.TestCheckResourceAttr(resourceName, "sms_verification_message", smsVerificationMessage1),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccUserPoolConfig_smsVerificationMessage(rName, smsVerificationMessage2),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserPoolExists(ctx, resourceName, nil),
-					resource.TestCheckResourceAttr(resourceName, "sms_verification_message", smsVerificationMessage2),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserPoolConfig_smsVerificationMessage(rName, smsVerificationMessage1),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserPoolExists(ctx, resourceName, nil),
+	resource.TestCheckResourceAttr(resourceName, "sms_verification_message", smsVerificationMessage1),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccUserPoolConfig_smsVerificationMessage(rName, smsVerificationMessage2),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserPoolExists(ctx, resourceName, nil),
+	resource.TestCheckResourceAttr(resourceName, "sms_verification_message", smsVerificationMessage2),
+),
+	},
+},
 	})
 }
 
@@ -821,26 +821,26 @@ func TestAccCognitoIDPUserPool_withEmail(t *testing.T) {
 	resourceName := "aws_cognito_user_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserPoolConfig_emailConfiguration(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "email_configuration.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "email_configuration.0.reply_to_email_address", ""),
-					resource.TestCheckResourceAttr(resourceName, "email_configuration.0.email_sending_account", "COGNITO_DEFAULT"),
-					resource.TestCheckResourceAttr(resourceName, "email_configuration.0.from_email_address", ""),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserPoolConfig_emailConfiguration(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "email_configuration.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "email_configuration.0.reply_to_email_address", ""),
+	resource.TestCheckResourceAttr(resourceName, "email_configuration.0.email_sending_account", "COGNITO_DEFAULT"),
+	resource.TestCheckResourceAttr(resourceName, "email_configuration.0.from_email_address", ""),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -853,28 +853,28 @@ func TestAccCognitoIDPUserPool_withEmailSource(t *testing.T) {
 
 	sourceARN, ok := os.LookupEnv("TEST_AWS_SES_VERIFIED_EMAIL_ARN")
 	if !ok {
-		t.Skip("'TEST_AWS_SES_VERIFIED_EMAIL_ARN' not set, skipping test.")
+t.Skip("'TEST_AWS_SES_VERIFIED_EMAIL_ARN' not set, skipping test.")
 	}
 	emailTo := sourceARN[strings.LastIndex(sourceARN, "/")+1:]
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserPoolConfig_emailConfigurationSource(rName, replyTo, sourceARN, emailTo, "DEVELOPER"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "email_configuration.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "email_configuration.0.reply_to_email_address", replyTo),
-					resource.TestCheckResourceAttr(resourceName, "email_configuration.0.email_sending_account", "DEVELOPER"),
-					resource.TestCheckResourceAttr(resourceName, "email_configuration.0.source_arn", sourceARN),
-					resource.TestCheckResourceAttr(resourceName, "email_configuration.0.from_email_address", emailTo),
-					resource.TestCheckResourceAttrPair(resourceName, "email_configuration.0.configuration_set", resourceName2, "name"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserPoolConfig_emailConfigurationSource(rName, replyTo, sourceARN, emailTo, "DEVELOPER"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "email_configuration.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "email_configuration.0.reply_to_email_address", replyTo),
+	resource.TestCheckResourceAttr(resourceName, "email_configuration.0.email_sending_account", "DEVELOPER"),
+	resource.TestCheckResourceAttr(resourceName, "email_configuration.0.source_arn", sourceARN),
+	resource.TestCheckResourceAttr(resourceName, "email_configuration.0.from_email_address", emailTo),
+	resource.TestCheckResourceAttrPair(resourceName, "email_configuration.0.configuration_set", resourceName2, "name"),
+),
+	},
+},
 	})
 }
 
@@ -884,41 +884,41 @@ func TestAccCognitoIDPUserPool_withTags(t *testing.T) {
 	resourceName := "aws_cognito_user_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserPoolConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserPoolExists(ctx, resourceName, nil),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccUserPoolConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-			{
-				Config: testAccUserPoolConfig_tags1(rName, "key2", "value2"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserPoolExists(ctx, resourceName, nil),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserPoolConfig_tags1(rName, "key1", "value1"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserPoolExists(ctx, resourceName, nil),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccUserPoolConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+	{
+Config: testAccUserPoolConfig_tags1(rName, "key2", "value2"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserPoolExists(ctx, resourceName, nil),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+},
 	})
 }
 
@@ -928,36 +928,36 @@ func TestAccCognitoIDPUserPool_withAliasAttributes(t *testing.T) {
 	resourceName := "aws_cognito_user_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserPoolConfig_aliasAttributes(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserPoolExists(ctx, resourceName, nil),
-					resource.TestCheckResourceAttr(resourceName, "alias_attributes.#", "1"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "alias_attributes.*", "preferred_username"),
-					resource.TestCheckResourceAttr(resourceName, "auto_verified_attributes.#", "0"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccUserPoolConfig_aliasAttributesUpdated(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "alias_attributes.#", "2"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "alias_attributes.*", "email"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "alias_attributes.*", "preferred_username"),
-					resource.TestCheckResourceAttr(resourceName, "auto_verified_attributes.#", "1"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "auto_verified_attributes.*", "email"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserPoolConfig_aliasAttributes(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserPoolExists(ctx, resourceName, nil),
+	resource.TestCheckResourceAttr(resourceName, "alias_attributes.#", "1"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "alias_attributes.*", "preferred_username"),
+	resource.TestCheckResourceAttr(resourceName, "auto_verified_attributes.#", "0"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccUserPoolConfig_aliasAttributesUpdated(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "alias_attributes.#", "2"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "alias_attributes.*", "email"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "alias_attributes.*", "preferred_username"),
+	resource.TestCheckResourceAttr(resourceName, "auto_verified_attributes.#", "1"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "auto_verified_attributes.*", "email"),
+),
+	},
+},
 	})
 }
 
@@ -967,36 +967,36 @@ func TestAccCognitoIDPUserPool_withUsernameAttributes(t *testing.T) {
 	resourceName := "aws_cognito_user_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserPoolConfig_nameAttributes(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserPoolExists(ctx, resourceName, nil),
-					resource.TestCheckResourceAttr(resourceName, "username_attributes.#", "1"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "username_attributes.*", "phone_number"),
-					resource.TestCheckResourceAttr(resourceName, "auto_verified_attributes.#", "0"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccUserPoolConfig_nameAttributesUpdated(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "username_attributes.#", "2"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "username_attributes.*", "email"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "username_attributes.*", "phone_number"),
-					resource.TestCheckResourceAttr(resourceName, "auto_verified_attributes.#", "1"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "auto_verified_attributes.*", "email"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserPoolConfig_nameAttributes(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserPoolExists(ctx, resourceName, nil),
+	resource.TestCheckResourceAttr(resourceName, "username_attributes.#", "1"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "username_attributes.*", "phone_number"),
+	resource.TestCheckResourceAttr(resourceName, "auto_verified_attributes.#", "0"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccUserPoolConfig_nameAttributesUpdated(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "username_attributes.#", "2"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "username_attributes.*", "email"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "username_attributes.*", "phone_number"),
+	resource.TestCheckResourceAttr(resourceName, "auto_verified_attributes.#", "1"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "auto_verified_attributes.*", "email"),
+),
+	},
+},
 	})
 }
 
@@ -1006,42 +1006,42 @@ func TestAccCognitoIDPUserPool_withPasswordPolicy(t *testing.T) {
 	resourceName := "aws_cognito_user_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserPoolConfig_passwordPolicy(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserPoolExists(ctx, resourceName, nil),
-					resource.TestCheckResourceAttr(resourceName, "password_policy.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "password_policy.0.minimum_length", "7"),
-					resource.TestCheckResourceAttr(resourceName, "password_policy.0.require_lowercase", "true"),
-					resource.TestCheckResourceAttr(resourceName, "password_policy.0.require_numbers", "false"),
-					resource.TestCheckResourceAttr(resourceName, "password_policy.0.require_symbols", "true"),
-					resource.TestCheckResourceAttr(resourceName, "password_policy.0.require_uppercase", "false"),
-					resource.TestCheckResourceAttr(resourceName, "password_policy.0.temporary_password_validity_days", "7"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccUserPoolConfig_passwordPolicyUpdated(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "password_policy.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "password_policy.0.minimum_length", "9"),
-					resource.TestCheckResourceAttr(resourceName, "password_policy.0.require_lowercase", "false"),
-					resource.TestCheckResourceAttr(resourceName, "password_policy.0.require_numbers", "true"),
-					resource.TestCheckResourceAttr(resourceName, "password_policy.0.require_symbols", "false"),
-					resource.TestCheckResourceAttr(resourceName, "password_policy.0.require_uppercase", "true"),
-					resource.TestCheckResourceAttr(resourceName, "password_policy.0.temporary_password_validity_days", "14"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserPoolConfig_passwordPolicy(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserPoolExists(ctx, resourceName, nil),
+	resource.TestCheckResourceAttr(resourceName, "password_policy.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "password_policy.0.minimum_length", "7"),
+	resource.TestCheckResourceAttr(resourceName, "password_policy.0.require_lowercase", "true"),
+	resource.TestCheckResourceAttr(resourceName, "password_policy.0.require_numbers", "false"),
+	resource.TestCheckResourceAttr(resourceName, "password_policy.0.require_symbols", "true"),
+	resource.TestCheckResourceAttr(resourceName, "password_policy.0.require_uppercase", "false"),
+	resource.TestCheckResourceAttr(resourceName, "password_policy.0.temporary_password_validity_days", "7"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccUserPoolConfig_passwordPolicyUpdated(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "password_policy.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "password_policy.0.minimum_length", "9"),
+	resource.TestCheckResourceAttr(resourceName, "password_policy.0.require_lowercase", "false"),
+	resource.TestCheckResourceAttr(resourceName, "password_policy.0.require_numbers", "true"),
+	resource.TestCheckResourceAttr(resourceName, "password_policy.0.require_symbols", "false"),
+	resource.TestCheckResourceAttr(resourceName, "password_policy.0.require_uppercase", "true"),
+	resource.TestCheckResourceAttr(resourceName, "password_policy.0.temporary_password_validity_days", "14"),
+),
+	},
+},
 	})
 }
 
@@ -1051,33 +1051,33 @@ func TestAccCognitoIDPUserPool_withUsername(t *testing.T) {
 	resourceName := "aws_cognito_user_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserPoolConfig_nameConfiguration(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserPoolExists(ctx, resourceName, nil),
-					resource.TestCheckResourceAttr(resourceName, "username_configuration.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "username_configuration.0.case_sensitive", "true"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccUserPoolConfig_nameConfigurationUpdated(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserPoolExists(ctx, resourceName, nil),
-					resource.TestCheckResourceAttr(resourceName, "username_configuration.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "username_configuration.0.case_sensitive", "false"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserPoolConfig_nameConfiguration(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserPoolExists(ctx, resourceName, nil),
+	resource.TestCheckResourceAttr(resourceName, "username_configuration.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "username_configuration.0.case_sensitive", "true"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccUserPoolConfig_nameConfigurationUpdated(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserPoolExists(ctx, resourceName, nil),
+	resource.TestCheckResourceAttr(resourceName, "username_configuration.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "username_configuration.0.case_sensitive", "false"),
+),
+	},
+},
 	})
 }
 
@@ -1089,66 +1089,66 @@ func TestAccCognitoIDPUserPool_withLambda(t *testing.T) {
 	lambdaUpdatedResourceName := "aws_lambda_function.second"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserPoolConfig_lambda(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserPoolExists(ctx, resourceName, nil),
-					resource.TestCheckResourceAttr(resourceName, "lambda_config.#", "1"),
-					resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.create_auth_challenge", lambdaResourceName, "arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.custom_message", lambdaResourceName, "arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.define_auth_challenge", lambdaResourceName, "arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.post_authentication", lambdaResourceName, "arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.post_confirmation", lambdaResourceName, "arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.pre_authentication", lambdaResourceName, "arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.pre_sign_up", lambdaResourceName, "arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.pre_token_generation", lambdaResourceName, "arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.user_migration", lambdaResourceName, "arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.verify_auth_challenge_response", lambdaResourceName, "arn"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccUserPoolConfig_lambdaUpdated(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "lambda_config.#", "1"),
-					resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.create_auth_challenge", lambdaUpdatedResourceName, "arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.custom_message", lambdaUpdatedResourceName, "arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.define_auth_challenge", lambdaUpdatedResourceName, "arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.post_authentication", lambdaUpdatedResourceName, "arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.post_confirmation", lambdaUpdatedResourceName, "arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.pre_authentication", lambdaUpdatedResourceName, "arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.pre_sign_up", lambdaUpdatedResourceName, "arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.pre_token_generation", lambdaUpdatedResourceName, "arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.user_migration", lambdaUpdatedResourceName, "arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.verify_auth_challenge_response", lambdaUpdatedResourceName, "arn"),
-				),
-			},
-			{
-				Config: testAccUserPoolConfig_name(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserPoolExists(ctx, resourceName, nil),
-					resource.TestCheckResourceAttr(resourceName, "lambda_config.#", "0"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserPoolConfig_lambda(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserPoolExists(ctx, resourceName, nil),
+	resource.TestCheckResourceAttr(resourceName, "lambda_config.#", "1"),
+	resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.create_auth_challenge", lambdaResourceName, "arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.custom_message", lambdaResourceName, "arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.define_auth_challenge", lambdaResourceName, "arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.post_authentication", lambdaResourceName, "arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.post_confirmation", lambdaResourceName, "arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.pre_authentication", lambdaResourceName, "arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.pre_sign_up", lambdaResourceName, "arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.pre_token_generation", lambdaResourceName, "arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.user_migration", lambdaResourceName, "arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.verify_auth_challenge_response", lambdaResourceName, "arn"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccUserPoolConfig_lambdaUpdated(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "lambda_config.#", "1"),
+	resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.create_auth_challenge", lambdaUpdatedResourceName, "arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.custom_message", lambdaUpdatedResourceName, "arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.define_auth_challenge", lambdaUpdatedResourceName, "arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.post_authentication", lambdaUpdatedResourceName, "arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.post_confirmation", lambdaUpdatedResourceName, "arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.pre_authentication", lambdaUpdatedResourceName, "arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.pre_sign_up", lambdaUpdatedResourceName, "arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.pre_token_generation", lambdaUpdatedResourceName, "arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.user_migration", lambdaUpdatedResourceName, "arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.verify_auth_challenge_response", lambdaUpdatedResourceName, "arn"),
+),
+	},
+	{
+Config: testAccUserPoolConfig_name(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserPoolExists(ctx, resourceName, nil),
+	resource.TestCheckResourceAttr(resourceName, "lambda_config.#", "0"),
+),
+	},
+},
 	})
 }
 
 func testAccCheckUserPoolNotRecreated(pool1, pool2 *cognitoidentityprovider.DescribeUserPoolOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		if !aws.TimeValue(pool1.UserPool.CreationDate).Equal(aws.TimeValue(pool2.UserPool.CreationDate)) {
-			return fmt.Errorf("user pool was recreated. expected: %s, got: %s", pool1.UserPool.CreationDate, pool2.UserPool.CreationDate)
-		}
-		return nil
+if !aws.TimeValue(pool1.UserPool.CreationDate).Equal(aws.TimeValue(pool2.UserPool.CreationDate)) {
+	return fmt.Errorf("user pool was recreated. expected: %s, got: %s", pool1.UserPool.CreationDate, pool2.UserPool.CreationDate)
+}
+return nil
 	}
 }
 
@@ -1160,46 +1160,46 @@ func TestAccCognitoIDPUserPool_WithLambda_email(t *testing.T) {
 	lambdaUpdatedResourceName := "aws_lambda_function.second"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserPoolConfig_lambdaEmailSender(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserPoolExists(ctx, resourceName, nil),
-					resource.TestCheckResourceAttr(resourceName, "lambda_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "lambda_config.0.custom_email_sender.#", "1"),
-					resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.custom_email_sender.0.lambda_arn", lambdaResourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "lambda_config.0.custom_email_sender.0.lambda_version", "V1_0"),
-					resource.TestCheckResourceAttr(resourceName, "lambda_config.0.custom_sms_sender.#", "0"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccUserPoolConfig_lambdaEmailSenderUpdated(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "lambda_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "lambda_config.0.custom_email_sender.#", "1"),
-					resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.custom_email_sender.0.lambda_arn", lambdaUpdatedResourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "lambda_config.0.custom_email_sender.0.lambda_version", "V1_0"),
-					resource.TestCheckResourceAttr(resourceName, "lambda_config.0.custom_sms_sender.#", "0"),
-				),
-			},
-			{
-				Config: testAccUserPoolConfig_lambdaEmailSenderUpdatedRemove(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "lambda_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "lambda_config.0.custom_email_sender.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "lambda_config.0.custom_sms_sender.#", "0"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserPoolConfig_lambdaEmailSender(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserPoolExists(ctx, resourceName, nil),
+	resource.TestCheckResourceAttr(resourceName, "lambda_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "lambda_config.0.custom_email_sender.#", "1"),
+	resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.custom_email_sender.0.lambda_arn", lambdaResourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "lambda_config.0.custom_email_sender.0.lambda_version", "V1_0"),
+	resource.TestCheckResourceAttr(resourceName, "lambda_config.0.custom_sms_sender.#", "0"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccUserPoolConfig_lambdaEmailSenderUpdated(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "lambda_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "lambda_config.0.custom_email_sender.#", "1"),
+	resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.custom_email_sender.0.lambda_arn", lambdaUpdatedResourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "lambda_config.0.custom_email_sender.0.lambda_version", "V1_0"),
+	resource.TestCheckResourceAttr(resourceName, "lambda_config.0.custom_sms_sender.#", "0"),
+),
+	},
+	{
+Config: testAccUserPoolConfig_lambdaEmailSenderUpdatedRemove(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "lambda_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "lambda_config.0.custom_email_sender.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "lambda_config.0.custom_sms_sender.#", "0"),
+),
+	},
+},
 	})
 }
 
@@ -1211,46 +1211,46 @@ func TestAccCognitoIDPUserPool_WithLambda_sms(t *testing.T) {
 	lambdaUpdatedResourceName := "aws_lambda_function.second"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserPoolConfig_lambdaSMSSender(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserPoolExists(ctx, resourceName, nil),
-					resource.TestCheckResourceAttr(resourceName, "lambda_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "lambda_config.0.custom_email_sender.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "lambda_config.0.custom_sms_sender.#", "1"),
-					resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.custom_sms_sender.0.lambda_arn", lambdaResourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "lambda_config.0.custom_sms_sender.0.lambda_version", "V1_0"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccUserPoolConfig_lambdaSMSSenderUpdated(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "lambda_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "lambda_config.0.custom_email_sender.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "lambda_config.0.custom_sms_sender.#", "1"),
-					resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.custom_sms_sender.0.lambda_arn", lambdaUpdatedResourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "lambda_config.0.custom_sms_sender.0.lambda_version", "V1_0"),
-				),
-			},
-			{
-				Config: testAccUserPoolConfig_lambdaSMSSenderUpdatedRemove(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "lambda_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "lambda_config.0.custom_email_sender.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "lambda_config.0.custom_sms_sender.#", "0"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserPoolConfig_lambdaSMSSender(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserPoolExists(ctx, resourceName, nil),
+	resource.TestCheckResourceAttr(resourceName, "lambda_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "lambda_config.0.custom_email_sender.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "lambda_config.0.custom_sms_sender.#", "1"),
+	resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.custom_sms_sender.0.lambda_arn", lambdaResourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "lambda_config.0.custom_sms_sender.0.lambda_version", "V1_0"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccUserPoolConfig_lambdaSMSSenderUpdated(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "lambda_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "lambda_config.0.custom_email_sender.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "lambda_config.0.custom_sms_sender.#", "1"),
+	resource.TestCheckResourceAttrPair(resourceName, "lambda_config.0.custom_sms_sender.0.lambda_arn", lambdaUpdatedResourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "lambda_config.0.custom_sms_sender.0.lambda_version", "V1_0"),
+),
+	},
+	{
+Config: testAccUserPoolConfig_lambdaSMSSenderUpdatedRemove(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "lambda_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "lambda_config.0.custom_email_sender.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "lambda_config.0.custom_sms_sender.#", "0"),
+),
+	},
+},
 	})
 }
 
@@ -1261,83 +1261,83 @@ func TestAccCognitoIDPUserPool_schemaAttributes(t *testing.T) {
 	resourceName := "aws_cognito_user_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserPoolConfig_schemaAttributes(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserPoolExists(ctx, resourceName, &pool1),
-					resource.TestCheckResourceAttr(resourceName, "schema.#", "2"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "schema.*", map[string]string{
-						"attribute_data_type":            "String",
-						"developer_only_attribute":       "false",
-						"mutable":         "false",
-						"name":            "email",
-						"number_attribute_constraints.#": "0",
-						"required":        "true",
-						"string_attribute_constraints.#": "1",
-						"string_attribute_constraints.0.min_length": "5",
-						"string_attribute_constraints.0.max_length": "10",
-					}),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "schema.*", map[string]string{
-						"attribute_data_type":            "Boolean",
-						"developer_only_attribute":       "true",
-						"mutable":         "false",
-						"name":            "mybool",
-						"number_attribute_constraints.#": "0",
-						"required":        "false",
-						"string_attribute_constraints.#": "0",
-					}),
-				),
-			},
-			{
-				Config: testAccUserPoolConfig_schemaAttributesUpdated(rName, "mybool"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserPoolExists(ctx, resourceName, &pool2),
-					testAccCheckUserPoolNotRecreated(&pool1, &pool2),
-					resource.TestCheckResourceAttr(resourceName, "schema.#", "3"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "schema.*", map[string]string{
-						"attribute_data_type":            "String",
-						"developer_only_attribute":       "false",
-						"mutable":         "false",
-						"name":            "email",
-						"number_attribute_constraints.#": "0",
-						"required":        "true",
-						"string_attribute_constraints.#": "1",
-						"string_attribute_constraints.0.min_length": "5",
-						"string_attribute_constraints.0.max_length": "10",
-					}),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "schema.*", map[string]string{
-						"attribute_data_type":            "Boolean",
-						"developer_only_attribute":       "true",
-						"mutable":         "false",
-						"name":            "mybool",
-						"number_attribute_constraints.#": "0",
-						"required":        "false",
-						"string_attribute_constraints.#": "0",
-					}),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "schema.*", map[string]string{
-						"attribute_data_type":            "Number",
-						"developer_only_attribute":       "false",
-						"mutable":         "true",
-						"name":            "mynondevnumber",
-						"number_attribute_constraints.#": "1",
-						"number_attribute_constraints.0.min_value": "2",
-						"number_attribute_constraints.0.max_value": "6",
-						"required":        "false",
-						"string_attribute_constraints.#": "0",
-					}),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserPoolConfig_schemaAttributes(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserPoolExists(ctx, resourceName, &pool1),
+	resource.TestCheckResourceAttr(resourceName, "schema.#", "2"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "schema.*", map[string]string{
+"attribute_data_type":            "String",
+"developer_only_attribute":       "false",
+"mutable":         "false",
+"name":            "email",
+"number_attribute_constraints.#": "0",
+"required":        "true",
+"string_attribute_constraints.#": "1",
+"string_attribute_constraints.0.min_length": "5",
+"string_attribute_constraints.0.max_length": "10",
+	}),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "schema.*", map[string]string{
+"attribute_data_type":            "Boolean",
+"developer_only_attribute":       "true",
+"mutable":         "false",
+"name":            "mybool",
+"number_attribute_constraints.#": "0",
+"required":        "false",
+"string_attribute_constraints.#": "0",
+	}),
+),
+	},
+	{
+Config: testAccUserPoolConfig_schemaAttributesUpdated(rName, "mybool"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserPoolExists(ctx, resourceName, &pool2),
+	testAccCheckUserPoolNotRecreated(&pool1, &pool2),
+	resource.TestCheckResourceAttr(resourceName, "schema.#", "3"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "schema.*", map[string]string{
+"attribute_data_type":            "String",
+"developer_only_attribute":       "false",
+"mutable":         "false",
+"name":            "email",
+"number_attribute_constraints.#": "0",
+"required":        "true",
+"string_attribute_constraints.#": "1",
+"string_attribute_constraints.0.min_length": "5",
+"string_attribute_constraints.0.max_length": "10",
+	}),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "schema.*", map[string]string{
+"attribute_data_type":            "Boolean",
+"developer_only_attribute":       "true",
+"mutable":         "false",
+"name":            "mybool",
+"number_attribute_constraints.#": "0",
+"required":        "false",
+"string_attribute_constraints.#": "0",
+	}),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "schema.*", map[string]string{
+"attribute_data_type":            "Number",
+"developer_only_attribute":       "false",
+"mutable":         "true",
+"name":            "mynondevnumber",
+"number_attribute_constraints.#": "1",
+"number_attribute_constraints.0.min_value": "2",
+"number_attribute_constraints.0.max_value": "6",
+"required":        "false",
+"string_attribute_constraints.#": "0",
+	}),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -1346,19 +1346,19 @@ func TestAccCognitoIDPUserPool_schemaAttributesRemoved(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserPoolConfig_schemaAttributesUpdated(rName, "mybool"),
-			},
-			{
-				Config:      testAccUserPoolConfig_schemaAttributes(rName),
-				ExpectError: regexache.MustCompile("cannot modify or remove schema items"),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserPoolConfig_schemaAttributesUpdated(rName, "mybool"),
+	},
+	{
+Config:      testAccUserPoolConfig_schemaAttributes(rName),
+ExpectError: regexache.MustCompile("cannot modify or remove schema items"),
+	},
+},
 	})
 }
 
@@ -1367,19 +1367,19 @@ func TestAccCognitoIDPUserPool_schemaAttributesModified(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserPoolConfig_schemaAttributesUpdated(rName, "mybool"),
-			},
-			{
-				Config:      testAccUserPoolConfig_schemaAttributesUpdated(rName, "mybool2"),
-				ExpectError: regexache.MustCompile("cannot modify or remove schema items"),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserPoolConfig_schemaAttributesUpdated(rName, "mybool"),
+	},
+	{
+Config:      testAccUserPoolConfig_schemaAttributesUpdated(rName, "mybool2"),
+ExpectError: regexache.MustCompile("cannot modify or remove schema items"),
+	},
+},
 	})
 }
 
@@ -1391,26 +1391,26 @@ func TestAccCognitoIDPUserPool_schemaAttributesStringAttributeConstraints(t *tes
 	resourceName := "aws_cognito_user_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				// Omit optional "string_attribute_constraints" schema argument to verify a persistent
-				// diff is not present when AWS returns default values in the nested object.
-				Config: testAccUserPoolConfig_schemaAttributesStringAttributeConstraints(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserPoolExists(ctx, resourceName, &pool),
-				),
-			},
-			{
-				// Attempting to explicitly set constraints to non-default values after creation
-				// should trigger an error
-				Config:      testAccUserPoolConfig_schemaAttributes(rName),
-				ExpectError: regexache.MustCompile("cannot modify or remove schema items"),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+// Omit optional "string_attribute_constraints" schema argument to verify a persistent
+// diff is not present when AWS returns default values in the nested object.
+Config: testAccUserPoolConfig_schemaAttributesStringAttributeConstraints(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserPoolExists(ctx, resourceName, &pool),
+),
+	},
+	{
+// Attempting to explicitly set constraints to non-default values after creation
+// should trigger an error
+Config:      testAccUserPoolConfig_schemaAttributes(rName),
+ExpectError: regexache.MustCompile("cannot modify or remove schema items"),
+	},
+},
 	})
 }
 
@@ -1420,52 +1420,52 @@ func TestAccCognitoIDPUserPool_withVerificationMessageTemplate(t *testing.T) {
 	resourceName := "aws_cognito_user_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserPoolConfig_verificationMessageTemplate(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserPoolExists(ctx, resourceName, nil),
-					resource.TestCheckResourceAttr(resourceName, "verification_message_template.0.default_email_option", "CONFIRM_WITH_LINK"),
-					resource.TestCheckResourceAttr(resourceName, "verification_message_template.0.email_message", "foo {####} bar"),
-					resource.TestCheckResourceAttr(resourceName, "verification_message_template.0.email_message_by_link", "{##foobar##}"),
-					resource.TestCheckResourceAttr(resourceName, "verification_message_template.0.email_subject", "foobar {####}"),
-					resource.TestCheckResourceAttr(resourceName, "verification_message_template.0.email_subject_by_link", "foobar"),
-					resource.TestCheckResourceAttr(resourceName, "verification_message_template.0.sms_message", "{####} baz"),
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserPoolConfig_verificationMessageTemplate(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserPoolExists(ctx, resourceName, nil),
+	resource.TestCheckResourceAttr(resourceName, "verification_message_template.0.default_email_option", "CONFIRM_WITH_LINK"),
+	resource.TestCheckResourceAttr(resourceName, "verification_message_template.0.email_message", "foo {####} bar"),
+	resource.TestCheckResourceAttr(resourceName, "verification_message_template.0.email_message_by_link", "{##foobar##}"),
+	resource.TestCheckResourceAttr(resourceName, "verification_message_template.0.email_subject", "foobar {####}"),
+	resource.TestCheckResourceAttr(resourceName, "verification_message_template.0.email_subject_by_link", "foobar"),
+	resource.TestCheckResourceAttr(resourceName, "verification_message_template.0.sms_message", "{####} baz"),
 
-					/* Setting Verification template attributes like EmailMessage, EmailSubject or SmsMessage
-					will implicitly set EmailVerificationMessage, EmailVerificationSubject and SmsVerificationMessage attributes.
-					*/
-					resource.TestCheckResourceAttr(resourceName, "email_verification_message", "foo {####} bar"),
-					resource.TestCheckResourceAttr(resourceName, "email_verification_subject", "foobar {####}"),
-					resource.TestCheckResourceAttr(resourceName, "sms_verification_message", "{####} baz"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccUserPoolConfig_verificationMessageTemplateDefaultEmailOption(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "verification_message_template.0.default_email_option", "CONFIRM_WITH_CODE"),
-					resource.TestCheckResourceAttr(resourceName, "email_verification_message", "{####} Baz"),
-					resource.TestCheckResourceAttr(resourceName, "email_verification_subject", "BazBaz {####}"),
-					resource.TestCheckResourceAttr(resourceName, "sms_verification_message", "{####} BazBazBar?"),
+	/* Setting Verification template attributes like EmailMessage, EmailSubject or SmsMessage
+	will implicitly set EmailVerificationMessage, EmailVerificationSubject and SmsVerificationMessage attributes.
+	*/
+	resource.TestCheckResourceAttr(resourceName, "email_verification_message", "foo {####} bar"),
+	resource.TestCheckResourceAttr(resourceName, "email_verification_subject", "foobar {####}"),
+	resource.TestCheckResourceAttr(resourceName, "sms_verification_message", "{####} baz"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccUserPoolConfig_verificationMessageTemplateDefaultEmailOption(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "verification_message_template.0.default_email_option", "CONFIRM_WITH_CODE"),
+	resource.TestCheckResourceAttr(resourceName, "email_verification_message", "{####} Baz"),
+	resource.TestCheckResourceAttr(resourceName, "email_verification_subject", "BazBaz {####}"),
+	resource.TestCheckResourceAttr(resourceName, "sms_verification_message", "{####} BazBazBar?"),
 
-					/* Setting EmailVerificationMessage, EmailVerificationSubject and SmsVerificationMessage attributes
-					will implicitly set verification template attributes like EmailMessage, EmailSubject or SmsMessage.
-					*/
-					resource.TestCheckResourceAttr(resourceName, "verification_message_template.0.email_message", "{####} Baz"),
-					resource.TestCheckResourceAttr(resourceName, "verification_message_template.0.email_subject", "BazBaz {####}"),
-					resource.TestCheckResourceAttr(resourceName, "verification_message_template.0.sms_message", "{####} BazBazBar?"),
-				),
-			},
-		},
+	/* Setting EmailVerificationMessage, EmailVerificationSubject and SmsVerificationMessage attributes
+	will implicitly set verification template attributes like EmailMessage, EmailSubject or SmsMessage.
+	*/
+	resource.TestCheckResourceAttr(resourceName, "verification_message_template.0.email_message", "{####} Baz"),
+	resource.TestCheckResourceAttr(resourceName, "verification_message_template.0.email_subject", "BazBaz {####}"),
+	resource.TestCheckResourceAttr(resourceName, "verification_message_template.0.sms_message", "{####} BazBazBar?"),
+),
+	},
+},
 	})
 }
 
@@ -1479,83 +1479,83 @@ func TestAccCognitoIDPUserPool_update(t *testing.T) {
 	resourceName := "aws_cognito_user_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserPoolConfig_update(rName, optionalMfa, authenticationMessage),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserPoolExists(ctx, resourceName, nil),
-					resource.TestCheckResourceAttr(resourceName, "auto_verified_attributes.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "mfa_configuration", optionalMfa),
-					resource.TestCheckResourceAttr(resourceName, "email_verification_message", "Foo {####} Bar"),
-					resource.TestCheckResourceAttr(resourceName, "email_verification_subject", "FooBar {####}"),
-					resource.TestCheckResourceAttr(resourceName, "sms_verification_message", "{####} Baz"),
-					resource.TestCheckResourceAttr(resourceName, "sms_authentication_message", authenticationMessage),
-					resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.allow_admin_create_user_only", "true"),
-					resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.invite_message_template.0.email_message", "Your username is {username} and temporary password is {####}. "),
-					resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.invite_message_template.0.email_subject", "FooBar {####}"),
-					resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.invite_message_template.0.sms_message", "Your username is {username} and temporary password is {####}."),
-					resource.TestCheckResourceAttr(resourceName, "device_configuration.0.challenge_required_on_new_device", "true"),
-					resource.TestCheckResourceAttr(resourceName, "device_configuration.0.device_only_remembered_on_user_prompt", "false"),
-					resource.TestCheckResourceAttr(resourceName, "verification_message_template.0.default_email_option", "CONFIRM_WITH_CODE"),
-					resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
-					resource.TestCheckResourceAttrSet(resourceName, "sms_configuration.0.external_id"),
-					resource.TestCheckResourceAttrSet(resourceName, "sms_configuration.0.sns_caller_arn"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccUserPoolConfig_update(rName, optionalMfa, updatedAuthenticationMessage),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserPoolExists(ctx, resourceName, nil),
-					resource.TestCheckResourceAttr(resourceName, "auto_verified_attributes.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "mfa_configuration", optionalMfa),
-					resource.TestCheckResourceAttr(resourceName, "email_verification_message", "Foo {####} Bar"),
-					resource.TestCheckResourceAttr(resourceName, "email_verification_subject", "FooBar {####}"),
-					resource.TestCheckResourceAttr(resourceName, "sms_verification_message", "{####} Baz"),
-					resource.TestCheckResourceAttr(resourceName, "sms_authentication_message", updatedAuthenticationMessage),
-					resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.allow_admin_create_user_only", "true"),
-					resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.invite_message_template.0.email_message", "Your username is {username} and temporary password is {####}. "),
-					resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.invite_message_template.0.email_subject", "FooBar {####}"),
-					resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.invite_message_template.0.sms_message", "Your username is {username} and temporary password is {####}."),
-					resource.TestCheckResourceAttr(resourceName, "device_configuration.0.challenge_required_on_new_device", "true"),
-					resource.TestCheckResourceAttr(resourceName, "device_configuration.0.device_only_remembered_on_user_prompt", "false"),
-					resource.TestCheckResourceAttr(resourceName, "verification_message_template.0.default_email_option", "CONFIRM_WITH_CODE"),
-					resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
-					resource.TestCheckResourceAttrSet(resourceName, "sms_configuration.0.external_id"),
-					resource.TestCheckResourceAttrSet(resourceName, "sms_configuration.0.sns_caller_arn"),
-				),
-			},
-			{
-				Config: testAccUserPoolConfig_update(rName, offMfa, updatedAuthenticationMessage),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserPoolExists(ctx, resourceName, nil),
-					resource.TestCheckResourceAttr(resourceName, "auto_verified_attributes.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "mfa_configuration", offMfa),
-					resource.TestCheckResourceAttr(resourceName, "email_verification_message", "Foo {####} Bar"),
-					resource.TestCheckResourceAttr(resourceName, "email_verification_subject", "FooBar {####}"),
-					resource.TestCheckResourceAttr(resourceName, "sms_verification_message", "{####} Baz"),
-					resource.TestCheckResourceAttr(resourceName, "sms_authentication_message", updatedAuthenticationMessage),
-					resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.allow_admin_create_user_only", "true"),
-					resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.invite_message_template.0.email_message", "Your username is {username} and temporary password is {####}. "),
-					resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.invite_message_template.0.email_subject", "FooBar {####}"),
-					resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.invite_message_template.0.sms_message", "Your username is {username} and temporary password is {####}."),
-					resource.TestCheckResourceAttr(resourceName, "device_configuration.0.challenge_required_on_new_device", "true"),
-					resource.TestCheckResourceAttr(resourceName, "device_configuration.0.device_only_remembered_on_user_prompt", "false"),
-					resource.TestCheckResourceAttr(resourceName, "verification_message_template.0.default_email_option", "CONFIRM_WITH_CODE"),
-					resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
-					resource.TestCheckResourceAttrSet(resourceName, "sms_configuration.0.external_id"),
-					resource.TestCheckResourceAttrSet(resourceName, "sms_configuration.0.sns_caller_arn"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserPoolConfig_update(rName, optionalMfa, authenticationMessage),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserPoolExists(ctx, resourceName, nil),
+	resource.TestCheckResourceAttr(resourceName, "auto_verified_attributes.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mfa_configuration", optionalMfa),
+	resource.TestCheckResourceAttr(resourceName, "email_verification_message", "Foo {####} Bar"),
+	resource.TestCheckResourceAttr(resourceName, "email_verification_subject", "FooBar {####}"),
+	resource.TestCheckResourceAttr(resourceName, "sms_verification_message", "{####} Baz"),
+	resource.TestCheckResourceAttr(resourceName, "sms_authentication_message", authenticationMessage),
+	resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.allow_admin_create_user_only", "true"),
+	resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.invite_message_template.0.email_message", "Your username is {username} and temporary password is {####}. "),
+	resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.invite_message_template.0.email_subject", "FooBar {####}"),
+	resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.invite_message_template.0.sms_message", "Your username is {username} and temporary password is {####}."),
+	resource.TestCheckResourceAttr(resourceName, "device_configuration.0.challenge_required_on_new_device", "true"),
+	resource.TestCheckResourceAttr(resourceName, "device_configuration.0.device_only_remembered_on_user_prompt", "false"),
+	resource.TestCheckResourceAttr(resourceName, "verification_message_template.0.default_email_option", "CONFIRM_WITH_CODE"),
+	resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
+	resource.TestCheckResourceAttrSet(resourceName, "sms_configuration.0.external_id"),
+	resource.TestCheckResourceAttrSet(resourceName, "sms_configuration.0.sns_caller_arn"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccUserPoolConfig_update(rName, optionalMfa, updatedAuthenticationMessage),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserPoolExists(ctx, resourceName, nil),
+	resource.TestCheckResourceAttr(resourceName, "auto_verified_attributes.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mfa_configuration", optionalMfa),
+	resource.TestCheckResourceAttr(resourceName, "email_verification_message", "Foo {####} Bar"),
+	resource.TestCheckResourceAttr(resourceName, "email_verification_subject", "FooBar {####}"),
+	resource.TestCheckResourceAttr(resourceName, "sms_verification_message", "{####} Baz"),
+	resource.TestCheckResourceAttr(resourceName, "sms_authentication_message", updatedAuthenticationMessage),
+	resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.allow_admin_create_user_only", "true"),
+	resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.invite_message_template.0.email_message", "Your username is {username} and temporary password is {####}. "),
+	resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.invite_message_template.0.email_subject", "FooBar {####}"),
+	resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.invite_message_template.0.sms_message", "Your username is {username} and temporary password is {####}."),
+	resource.TestCheckResourceAttr(resourceName, "device_configuration.0.challenge_required_on_new_device", "true"),
+	resource.TestCheckResourceAttr(resourceName, "device_configuration.0.device_only_remembered_on_user_prompt", "false"),
+	resource.TestCheckResourceAttr(resourceName, "verification_message_template.0.default_email_option", "CONFIRM_WITH_CODE"),
+	resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
+	resource.TestCheckResourceAttrSet(resourceName, "sms_configuration.0.external_id"),
+	resource.TestCheckResourceAttrSet(resourceName, "sms_configuration.0.sns_caller_arn"),
+),
+	},
+	{
+Config: testAccUserPoolConfig_update(rName, offMfa, updatedAuthenticationMessage),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserPoolExists(ctx, resourceName, nil),
+	resource.TestCheckResourceAttr(resourceName, "auto_verified_attributes.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "mfa_configuration", offMfa),
+	resource.TestCheckResourceAttr(resourceName, "email_verification_message", "Foo {####} Bar"),
+	resource.TestCheckResourceAttr(resourceName, "email_verification_subject", "FooBar {####}"),
+	resource.TestCheckResourceAttr(resourceName, "sms_verification_message", "{####} Baz"),
+	resource.TestCheckResourceAttr(resourceName, "sms_authentication_message", updatedAuthenticationMessage),
+	resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.allow_admin_create_user_only", "true"),
+	resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.invite_message_template.0.email_message", "Your username is {username} and temporary password is {####}. "),
+	resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.invite_message_template.0.email_subject", "FooBar {####}"),
+	resource.TestCheckResourceAttr(resourceName, "admin_create_user_config.0.invite_message_template.0.sms_message", "Your username is {username} and temporary password is {####}."),
+	resource.TestCheckResourceAttr(resourceName, "device_configuration.0.challenge_required_on_new_device", "true"),
+	resource.TestCheckResourceAttr(resourceName, "device_configuration.0.device_only_remembered_on_user_prompt", "false"),
+	resource.TestCheckResourceAttr(resourceName, "verification_message_template.0.default_email_option", "CONFIRM_WITH_CODE"),
+	resource.TestCheckResourceAttr(resourceName, "sms_configuration.#", "1"),
+	resource.TestCheckResourceAttrSet(resourceName, "sms_configuration.0.external_id"),
+	resource.TestCheckResourceAttrSet(resourceName, "sms_configuration.0.sns_caller_arn"),
+),
+	},
+},
 	})
 }
 
@@ -1565,20 +1565,20 @@ func TestAccCognitoIDPUserPool_disappears(t *testing.T) {
 	resourceName := "aws_cognito_user_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserPoolConfig_name(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserPoolExists(ctx, resourceName, nil),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfcognitoidp.ResourceUserPool(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserPoolConfig_name(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserPoolExists(ctx, resourceName, nil),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfcognitoidp.ResourceUserPool(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -1588,92 +1588,92 @@ func TestAccCognitoIDPUserPool_withUserAttributeUpdateSettings(t *testing.T) {
 	resourceName := "aws_cognito_user_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config:      testAccUserPoolConfig_userAttributeUpdateSettings(rName, "invalid_value"),
-				ExpectError: regexache.MustCompile("expected user_attribute_update_settings.0.attributes_require_verification_before_update.0 to be one of"),
-			},
-			{
-				Config: testAccUserPoolConfig_userAttributeUpdateSettings(rName, cognitoidentityprovider.VerifiedAttributeTypeEmail),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserPoolExists(ctx, resourceName, nil),
-					resource.TestCheckResourceAttr(resourceName, "auto_verified_attributes.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "auto_verified_attributes.0", cognitoidentityprovider.VerifiedAttributeTypeEmail),
-					resource.TestCheckResourceAttr(resourceName, "user_attribute_update_settings.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "user_attribute_update_settings.0.attributes_require_verification_before_update.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "user_attribute_update_settings.0.attributes_require_verification_before_update.0", cognitoidentityprovider.VerifiedAttributeTypeEmail),
-				),
-			},
-			{
-				Config: testAccUserPoolConfig_name(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserPoolExists(ctx, resourceName, nil),
-					resource.TestCheckResourceAttr(resourceName, "auto_verified_attributes.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "user_attribute_update_settings.#", "0"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config:      testAccUserPoolConfig_userAttributeUpdateSettings(rName, "invalid_value"),
+ExpectError: regexache.MustCompile("expected user_attribute_update_settings.0.attributes_require_verification_before_update.0 to be one of"),
+	},
+	{
+Config: testAccUserPoolConfig_userAttributeUpdateSettings(rName, cognitoidentityprovider.VerifiedAttributeTypeEmail),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserPoolExists(ctx, resourceName, nil),
+	resource.TestCheckResourceAttr(resourceName, "auto_verified_attributes.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "auto_verified_attributes.0", cognitoidentityprovider.VerifiedAttributeTypeEmail),
+	resource.TestCheckResourceAttr(resourceName, "user_attribute_update_settings.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "user_attribute_update_settings.0.attributes_require_verification_before_update.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "user_attribute_update_settings.0.attributes_require_verification_before_update.0", cognitoidentityprovider.VerifiedAttributeTypeEmail),
+),
+	},
+	{
+Config: testAccUserPoolConfig_name(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserPoolExists(ctx, resourceName, nil),
+	resource.TestCheckResourceAttr(resourceName, "auto_verified_attributes.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "user_attribute_update_settings.#", "0"),
+),
+	},
+},
 	})
 }
 
 func testAccCheckUserPoolDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).CognitoIDPConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).CognitoIDPConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_cognito_user_pool" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_cognito_user_pool" {
+continue
+	}
 
-			params := &cognitoidentityprovider.DescribeUserPoolInput{
-				UserPoolId: aws.String(rs.Primary.ID),
-			}
+	params := &cognitoidentityprovider.DescribeUserPoolInput{
+UserPoolId: aws.String(rs.Primary.ID),
+	}
 
-			_, err := conn.DescribeUserPoolWithContext(ctx, params)
+	_, err := conn.DescribeUserPoolWithContext(ctx, params)
 
-			if err != nil {
-				if tfawserr.ErrCodeEquals(err, cognitoidentityprovider.ErrCodeResourceNotFoundException) {
-					return nil
-				}
-				return err
-			}
-		}
+	if err != nil {
+if tfawserr.ErrCodeEquals(err, cognitoidentityprovider.ErrCodeResourceNotFoundException) {
+	return nil
+}
+return err
+	}
+}
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckUserPoolExists(ctx context.Context, name string, pool *cognitoidentityprovider.DescribeUserPoolOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[name]
-		if !ok {
-			return fmt.Errorf("Not found: %s", name)
-		}
+rs, ok := s.RootModule().Resources[name]
+if !ok {
+	return fmt.Errorf("Not found: %s", name)
+}
 
-		if rs.Primary.ID == "" {
-			return errors.New("No Cognito User Pool ID set")
-		}
+if rs.Primary.ID == "" {
+	return errors.New("No Cognito User Pool ID set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).CognitoIDPConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).CognitoIDPConn(ctx)
 
-		params := &cognitoidentityprovider.DescribeUserPoolInput{
-			UserPoolId: aws.String(rs.Primary.ID),
-		}
+params := &cognitoidentityprovider.DescribeUserPoolInput{
+	UserPoolId: aws.String(rs.Primary.ID),
+}
 
-		poolOut, err := conn.DescribeUserPoolWithContext(ctx, params)
-		if err != nil {
-			return err
-		}
+poolOut, err := conn.DescribeUserPoolWithContext(ctx, params)
+if err != nil {
+	return err
+}
 
-		if pool != nil {
-			*pool = *poolOut
-		}
+if pool != nil {
+	*pool = *poolOut
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -1681,17 +1681,17 @@ func testAccPreCheckIdentityProvider(ctx context.Context, t *testing.T) {
 	conn := acctest.Provider.Meta().(*conns.AWSClient).CognitoIDPConn(ctx)
 
 	input := &cognitoidentityprovider.ListUserPoolsInput{
-		MaxResults: aws.Int64(1),
+MaxResults: aws.Int64(1),
 	}
 
 	_, err := conn.ListUserPoolsWithContext(ctx, input)
 
 	if acctest.PreCheckSkipError(err) {
-		t.Skipf("skipping acceptance testing: %s", err)
+t.Skipf("skipping acceptance testing: %s", err)
 	}
 
 	if err != nil {
-		t.Fatalf("unexpected PreCheck error: %s", err)
+t.Fatalf("unexpected PreCheck error: %s", err)
 	}
 }
 

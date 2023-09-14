@@ -742,10 +742,10 @@ func flattenCostTypes(costTypes *budgets.CostTypes) []map[string]interface{} {
 		"include_refund":             aws.BoolValue(costTypes.IncludeRefund),
 		"include_subscription":       aws.BoolValue(costTypes.IncludeSubscription),
 		"include_support":            aws.BoolValue(costTypes.IncludeSupport),
-		"include_tax": aws.BoolValue(costTypes.IncludeTax),
+		"include_tax":                aws.BoolValue(costTypes.IncludeTax),
 		"include_upfront":            aws.BoolValue(costTypes.IncludeUpfront),
 		"use_amortized":              aws.BoolValue(costTypes.UseAmortized),
-		"use_blended": aws.BoolValue(costTypes.UseBlended),
+		"use_blended":                aws.BoolValue(costTypes.UseBlended),
 	}
 	return []map[string]interface{}{m}
 }

@@ -371,14 +371,14 @@ func sweepUserProfiles(region string) error {
 }
 
 type userProfileSweeper struct {
-	d         *schema.ResourceData
+	d*schema.ResourceData
 	sweepable sweep.Sweepable
 }
 
 
 func newUserProfileSweeper(resource *schema.Resource, d *schema.ResourceData, client *conns.AWSClient) *userProfileSweeper {
 	return &userProfileSweeper{
-		d:         d,
+		d:d,
 		sweepable: sdk.NewSweepResource(resource, d, client),
 	}
 }

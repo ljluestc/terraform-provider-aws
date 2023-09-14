@@ -19,21 +19,21 @@ func TestAccKafkaConnectConnectorDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_mskconnect_connector.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, kafkaconnect.EndpointsID) },
-		ErrorCheck:acctest.ErrorCheck(t, kafkaconnect.EndpointsID),
-		CheckDestroy:             nil,
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccConnectorDataSourceConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttrPair(resourceName, "arn", dataSourceName, "arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "description", dataSourceName, "description"),
-					resource.TestCheckResourceAttrPair(resourceName, "name", dataSourceName, "name"),
-					resource.TestCheckResourceAttrPair(resourceName, "version", dataSourceName, "version"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, kafkaconnect.EndpointsID) },
+ErrorCheck:acctest.ErrorCheck(t, kafkaconnect.EndpointsID),
+CheckDestroy:             nil,
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccConnectorDataSourceConfig_basic(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttrPair(resourceName, "arn", dataSourceName, "arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "description", dataSourceName, "description"),
+	resource.TestCheckResourceAttrPair(resourceName, "name", dataSourceName, "name"),
+	resource.TestCheckResourceAttrPair(resourceName, "version", dataSourceName, "version"),
+),
+	},
+},
 	})
 }
 

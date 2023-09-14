@@ -72,64 +72,64 @@ func (r *resourceCollection) Metadata(_ context.Context, request resource.Metada
 
 func (r *resourceCollection) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Attributes: map[string]schema.Attribute{
-			"arn": framework.ARNAttributeComputedOnly(),
-			"collection_endpoint": schema.StringAttribute{
-				Computed: true,
-				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.UseStateForUnknown(),
-				},
-			},
-			"dashboard_endpoint": schema.StringAttribute{
-				Computed: true,
-				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.UseStateForUnknown(),
-				},
-			},
-			"description": schema.StringAttribute{
-				Optional: true,
-				Validators: []validator.String{
-					stringvalidator.LengthBetween(0, 1000),
-				},
-			},
-			"id": framework.IDAttribute(),
-			"kms_key_arn": schema.StringAttribute{
-				Computed: true,
-				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.UseStateForUnknown(),
-				},
-			},
-			"name": schema.StringAttribute{
-				Required: true,
-				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.RequiresReplace(),
-				},
-				Validators: []validator.String{
-					stringvalidator.LengthBetween(3, 32),
-					stringvalidator.RegexMatches(regexache.MustCompile(`^[a-z][0-9a-z-]+$`),
-						`must start with any lower case letter and can can include any lower case letter, number, or "-"`),
-				},
-			},
-			names.AttrTags:    tftags.TagsAttribute(),
-			names.AttrTagsAll: tftags.TagsAttributeComputedOnly(),
-			"type": schema.StringAttribute{
-				Optional: true,
-				Computed: true,
-				PlanModifiers: []planmodifier.String{
-					stringplanmodifier.RequiresReplace(),
-					stringplanmodifier.UseStateForUnknown(),
-				},
-				Validators: []validator.String{
-					enum.FrameworkValidate[awstypes.CollectionType](),
-				},
-			},
-		},
-		Blocks: map[string]schema.Block{
-			"timeouts": timeouts.Block(ctx, timeouts.Opts{
-				Create: true,
-				Delete: true,
-			}),
-		},
+Attributes: map[string]schema.Attribute{
+	"arn": framework.ARNAttributeComputedOnly(),
+	"collection_endpoint": schema.StringAttribute{
+Computed: true,
+PlanModifiers: []planmodifier.String{
+	stringplanmodifier.UseStateForUnknown(),
+},
+	},
+	"dashboard_endpoint": schema.StringAttribute{
+Computed: true,
+PlanModifiers: []planmodifier.String{
+	stringplanmodifier.UseStateForUnknown(),
+},
+	},
+	"description": schema.StringAttribute{
+Optional: true,
+Validators: []validator.String{
+	stringvalidator.LengthBetween(0, 1000),
+},
+	},
+	"id": framework.IDAttribute(),
+	"kms_key_arn": schema.StringAttribute{
+Computed: true,
+PlanModifiers: []planmodifier.String{
+	stringplanmodifier.UseStateForUnknown(),
+},
+	},
+	"name": schema.StringAttribute{
+Required: true,
+PlanModifiers: []planmodifier.String{
+	stringplanmodifier.RequiresReplace(),
+},
+Validators: []validator.String{
+	stringvalidator.LengthBetween(3, 32),
+	stringvalidator.RegexMatches(regexache.MustCompile(`^[a-z][0-9a-z-]+$`),
+`must start with any lower case letter and can can include any lower case letter, number, or "-"`),
+},
+	},
+	names.AttrTags:    tftags.TagsAttribute(),
+	names.AttrTagsAll: tftags.TagsAttributeComputedOnly(),
+	"type": schema.StringAttribute{
+Optional: true,
+Computed: true,
+PlanModifiers: []planmodifier.String{
+	stringplanmodifier.RequiresReplace(),
+	stringplanmodifier.UseStateForUnknown(),
+},
+Validators: []validator.String{
+	enum.FrameworkValidate[awstypes.CollectionType](),
+},
+	},
+},
+Blocks: map[string]schema.Block{
+	"timeouts": timeouts.Block(ctx, timeouts.Opts{
+Create: true,
+Delete: true,
+	}),
+},
 	}
 }
 
@@ -139,32 +139,32 @@ func (r *resourceCollection) Create(ctx context.Context, req resource.CreateRequ
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)
 
 	if resp.Diagnostics.HasError() {
-		return
+return
 	}
 
 	conn := r.Meta().OpenSearchServerlessClient(ctx)
 
 	in := &opensearchserverless.CreateCollectionInput{
-		ClientToken: aws.String(id.UniqueId()),
-		Name:        aws.String(plan.Name.ValueString()),
-		Tags:        getTagsIn(ctx),
+ClientToken: aws.String(id.UniqueId()),
+Name:        aws.String(plan.Name.ValueString()),
+Tags:        getTagsIn(ctx),
 	}
 
 	if !plan.Description.IsNull() {
-		in.Description = aws.String(plan.Description.ValueString())
+in.Description = aws.String(plan.Description.ValueString())
 	}
 
 	if !plan.Type.IsNull() {
-		in.Type = awstypes.CollectionType(plan.Type.ValueString())
+in.Type = awstypes.CollectionType(plan.Type.ValueString())
 	}
 
 	out, err := conn.CreateCollection(ctx, in)
 	if err != nil {
-		resp.Diagnostics.AddError(
-			create.ProblemStandardMessage(names.OpenSearchServerless, create.ErrActionCreating, ResNameCollection, plan.Name.ValueString(), nil),
-			err.Error(),
-		)
-		return
+resp.Diagnostics.AddError(
+	create.ProblemStandardMessage(names.OpenSearchServerless, create.ErrActionCreating, ResNameCollection, plan.Name.ValueString(), nil),
+	err.Error(),
+)
+return
 	}
 
 	state := plan
@@ -174,11 +174,11 @@ func (r *resourceCollection) Create(ctx context.Context, req resource.CreateRequ
 	waitOut, err := waitCollectionCreated(ctx, conn, aws.ToString(out.CreateCollectionDetail.Id), createTimeout)
 
 	if err != nil {
-		resp.Diagnostics.AddError(
-			create.ProblemStandardMessage(names.OpenSearchServerless, create.ErrActionWaitingForCreation, ResNameCollection, plan.Name.ValueString(), err),
-			err.Error(),
-		)
-		return
+resp.Diagnostics.AddError(
+	create.ProblemStandardMessage(names.OpenSearchServerless, create.ErrActionWaitingForCreation, ResNameCollection, plan.Name.ValueString(), err),
+	err.Error(),
+)
+return
 	}
 
 	state.ARN = flex.StringToFramework(ctx, waitOut.Arn)
@@ -198,14 +198,14 @@ func (r *resourceCollection) Read(ctx context.Context, req resource.ReadRequest,
 	var state resourceCollectionData
 	resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
 	if resp.Diagnostics.HasError() {
-		return
+return
 	}
 
 	out, err := findCollectionByID(ctx, conn, state.ID.ValueString())
 	if tfresource.NotFound(err) {
-		resp.Diagnostics.Append(fwdiag.NewResourceNotFoundWarningDiagnostic(err))
-		resp.State.RemoveResource(ctx)
-		return
+resp.Diagnostics.Append(fwdiag.NewResourceNotFoundWarningDiagnostic(err))
+resp.State.RemoveResource(ctx)
+return
 	}
 
 	state.ARN = flex.StringToFramework(ctx, out.Arn)
@@ -227,31 +227,31 @@ func (r *resourceCollection) Update(ctx context.Context, req resource.UpdateRequ
 	resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
 	resp.Diagnostics.Append(req.Plan.Get(ctx, &plan)...)
 	if resp.Diagnostics.HasError() {
-		return
+return
 	}
 
 	if !plan.Description.Equal(state.Description) {
-		input := &opensearchserverless.UpdateCollectionInput{
-			ClientToken: aws.String(id.UniqueId()),
-			Id:          flex.StringFromFramework(ctx, plan.ID),
-			Description: flex.StringFromFramework(ctx, plan.Description),
-		}
+input := &opensearchserverless.UpdateCollectionInput{
+	ClientToken: aws.String(id.UniqueId()),
+	Id:          flex.StringFromFramework(ctx, plan.ID),
+	Description: flex.StringFromFramework(ctx, plan.Description),
+}
 
-		out, err := conn.UpdateCollection(ctx, input)
+out, err := conn.UpdateCollection(ctx, input)
 
-		if err != nil {
-			resp.Diagnostics.AddError(
-				create.ProblemStandardMessage(names.OpenSearchServerless, create.ErrActionUpdating, ResNameCollection, state.ID.ValueString(), err),
-				err.Error(),
-			)
-			return
-		}
+if err != nil {
+	resp.Diagnostics.AddError(
+create.ProblemStandardMessage(names.OpenSearchServerless, create.ErrActionUpdating, ResNameCollection, state.ID.ValueString(), err),
+err.Error(),
+	)
+	return
+}
 
-		plan.ARN = flex.StringToFramework(ctx, out.UpdateCollectionDetail.Arn)
-		plan.Description = flex.StringToFramework(ctx, out.UpdateCollectionDetail.Description)
-		plan.ID = flex.StringToFramework(ctx, out.UpdateCollectionDetail.Id)
-		plan.Name = flex.StringToFramework(ctx, out.UpdateCollectionDetail.Name)
-		plan.Type = flex.StringValueToFramework(ctx, out.UpdateCollectionDetail.Type)
+plan.ARN = flex.StringToFramework(ctx, out.UpdateCollectionDetail.Arn)
+plan.Description = flex.StringToFramework(ctx, out.UpdateCollectionDetail.Description)
+plan.ID = flex.StringToFramework(ctx, out.UpdateCollectionDetail.Id)
+plan.Name = flex.StringToFramework(ctx, out.UpdateCollectionDetail.Name)
+plan.Type = flex.StringValueToFramework(ctx, out.UpdateCollectionDetail.Type)
 	}
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &plan)...)
@@ -263,34 +263,34 @@ func (r *resourceCollection) Delete(ctx context.Context, req resource.DeleteRequ
 	var state resourceCollectionData
 	resp.Diagnostics.Append(req.State.Get(ctx, &state)...)
 	if resp.Diagnostics.HasError() {
-		return
+return
 	}
 
 	_, err := conn.DeleteCollection(ctx, &opensearchserverless.DeleteCollectionInput{
-		ClientToken: aws.String(id.UniqueId()),
-		Id:          aws.String(state.ID.ValueString()),
+ClientToken: aws.String(id.UniqueId()),
+Id:          aws.String(state.ID.ValueString()),
 	})
 
 	if err != nil {
-		var nfe *awstypes.ResourceNotFoundException
-		if errors.As(err, &nfe) {
-			return
-		}
-		resp.Diagnostics.AddError(
-			create.ProblemStandardMessage(names.OpenSearchServerless, create.ErrActionDeleting, ResNameCollection, state.Name.ValueString(), nil),
-			err.Error(),
-		)
+var nfe *awstypes.ResourceNotFoundException
+if errors.As(err, &nfe) {
+	return
+}
+resp.Diagnostics.AddError(
+	create.ProblemStandardMessage(names.OpenSearchServerless, create.ErrActionDeleting, ResNameCollection, state.Name.ValueString(), nil),
+	err.Error(),
+)
 	}
 
 	deleteTimeout := r.DeleteTimeout(ctx, state.Timeouts)
 	_, err = waitCollectionDeleted(ctx, conn, state.ID.ValueString(), deleteTimeout)
 
 	if err != nil {
-		resp.Diagnostics.AddError(
-			create.ProblemStandardMessage(names.OpenSearchServerless, create.ErrActionWaitingForCreation, ResNameCollection, state.Name.ValueString(), err),
-			err.Error(),
-		)
-		return
+resp.Diagnostics.AddError(
+	create.ProblemStandardMessage(names.OpenSearchServerless, create.ErrActionWaitingForCreation, ResNameCollection, state.Name.ValueString(), err),
+	err.Error(),
+)
+return
 	}
 }
 
@@ -304,18 +304,18 @@ func (r *resourceCollection) ImportState(ctx context.Context, req resource.Impor
 
 func waitCollectionCreated(ctx context.Context, conn *opensearchserverless.Client, id string, timeout time.Duration) (*awstypes.CollectionDetail, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    enum.Slice(awstypes.CollectionStatusCreating),
-		Target:     enum.Slice(awstypes.CollectionStatusActive),
-		Refresh:    statusCollection(ctx, conn, id),
-		Timeout:    timeout,
-		MinTimeout: 10 * time.Second,
-		Delay:      30 * time.Second,
+Pending:    enum.Slice(awstypes.CollectionStatusCreating),
+Target:     enum.Slice(awstypes.CollectionStatusActive),
+Refresh:    statusCollection(ctx, conn, id),
+Timeout:    timeout,
+MinTimeout: 10 * time.Second,
+Delay:      30 * time.Second,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
 
 	if output, ok := outputRaw.(*awstypes.CollectionDetail); ok {
-		return output, err
+return output, err
 	}
 
 	return nil, err
@@ -323,18 +323,18 @@ func waitCollectionCreated(ctx context.Context, conn *opensearchserverless.Clien
 
 func waitCollectionDeleted(ctx context.Context, conn *opensearchserverless.Client, id string, timeout time.Duration) (*awstypes.CollectionDetail, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    enum.Slice(awstypes.CollectionStatusDeleting),
-		Target:     []string{},
-		Refresh:    statusCollection(ctx, conn, id),
-		Timeout:    timeout,
-		MinTimeout: 10 * time.Second,
-		Delay:      30 * time.Second,
+Pending:    enum.Slice(awstypes.CollectionStatusDeleting),
+Target:     []string{},
+Refresh:    statusCollection(ctx, conn, id),
+Timeout:    timeout,
+MinTimeout: 10 * time.Second,
+Delay:      30 * time.Second,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
 
 	if output, ok := outputRaw.(*awstypes.CollectionDetail); ok {
-		return output, err
+return output, err
 	}
 
 	return nil, err
@@ -342,16 +342,16 @@ func waitCollectionDeleted(ctx context.Context, conn *opensearchserverless.Clien
 
 func statusCollection(ctx context.Context, conn *opensearchserverless.Client, id string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
-		output, err := findCollectionByID(ctx, conn, id)
+output, err := findCollectionByID(ctx, conn, id)
 
-		if tfresource.NotFound(err) {
-			return nil, "", nil
-		}
+if tfresource.NotFound(err) {
+	return nil, "", nil
+}
 
-		if err != nil {
-			return nil, "", err
-		}
+if err != nil {
+	return nil, "", err
+}
 
-		return output, string(output.Status), nil
+return output, string(output.Status), nil
 	}
 }

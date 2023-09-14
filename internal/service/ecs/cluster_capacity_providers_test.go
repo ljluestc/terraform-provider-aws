@@ -312,8 +312,8 @@ resource "aws_ecs_cluster_capacity_providers" "test" {
   capacity_providers = ["FARGATE"]
 
   default_capacity_provider_strategy {
-    base              = 1
-    weight            = 100
+    base     = 1
+    weight   = 100
     capacity_provider = "FARGATE"
   }
 }
@@ -386,8 +386,8 @@ resource "aws_ecs_cluster_capacity_providers" "test" {
   capacity_providers = ["FARGATE", "FARGATE_SPOT"]
 
   default_capacity_provider_strategy {
-    base              = 1
-    weight            = 100
+    base     = 1
+    weight   = 100
     capacity_provider = "FARGATE"
   }
 }
@@ -406,13 +406,13 @@ resource "aws_ecs_cluster_capacity_providers" "test" {
   capacity_providers = ["FARGATE", "FARGATE_SPOT"]
 
   default_capacity_provider_strategy {
-    base              = 1
-    weight            = 50
+    base     = 1
+    weight   = 50
     capacity_provider = "FARGATE"
   }
 
   default_capacity_provider_strategy {
-    weight            = 50
+    weight   = 50
     capacity_provider = "FARGATE_SPOT"
   }
 }
@@ -431,13 +431,13 @@ resource "aws_ecs_cluster_capacity_providers" "test" {
   capacity_providers = ["FARGATE", "FARGATE_SPOT"]
 
   default_capacity_provider_strategy {
-    base              = 2
-    weight            = 25
+    base     = 2
+    weight   = 25
     capacity_provider = "FARGATE"
   }
 
   default_capacity_provider_strategy {
-    weight            = 75
+    weight   = 75
     capacity_provider = "FARGATE_SPOT"
   }
 }
@@ -479,8 +479,8 @@ resource "aws_vpc" "test" {
 }
 
 resource "aws_subnet" "test" {
-  vpc_id                  = aws_vpc.test.id
-  cidr_block              = "10.0.0.0/24"
+  vpc_id= aws_vpc.test.id
+  cidr_block     = "10.0.0.0/24"
   map_public_ip_on_launch = true
 
   tags = {
@@ -587,11 +587,11 @@ resource "aws_iam_instance_profile" "test" {
 }
 
 resource "aws_launch_template" "test" {
-  name                                 = %[1]q
-  image_id                             = data.aws_ami.test.id
-  instance_type                        = "t3.micro"
+  name      = %[1]q
+  image_id  = data.aws_ami.test.id
+  instance_type      = "t3.micro"
   instance_initiated_shutdown_behavior = "terminate"
-  vpc_security_group_ids               = [aws_security_group.test.id]
+  vpc_security_group_ids      = [aws_security_group.test.id]
 
   iam_instance_profile {
     name = aws_iam_instance_profile.test.name
@@ -606,9 +606,9 @@ EOL
 
 resource "aws_autoscaling_group" "test" {
   desired_capacity    = 2
-  max_size            = 4
-  min_size            = 2
-  name                = %[1]q
+  max_size   = 4
+  min_size   = 2
+  name       = %[1]q
   vpc_zone_identifier = [aws_subnet.test.id]
 
   wait_for_capacity_timeout = "5m"
@@ -623,14 +623,14 @@ resource "aws_autoscaling_group" "test" {
   }
 
   tag {
-    key                 = "AmazonECSManaged"
-    value               = ""
+    key        = "AmazonECSManaged"
+    value      = ""
     propagate_at_launch = true
   }
 
   tag {
-    key                 = "Name"
-    value               = %[1]q
+    key        = "Name"
+    value      = %[1]q
     propagate_at_launch = true
   }
 }

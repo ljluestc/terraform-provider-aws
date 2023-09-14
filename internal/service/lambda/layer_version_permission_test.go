@@ -25,28 +25,28 @@ func TestAccLambdaLayerVersionPermission_basic_byARN(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLayerVersionPermissionDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLayerVersionPermissionConfig_basicARN(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLayerVersionPermissionExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "action", "lambda:GetLayerVersion"),
-					resource.TestCheckResourceAttr(resourceName, "principal", "*"),
-					resource.TestCheckResourceAttr(resourceName, "statement_id", "xaccount"),
-					resource.TestCheckResourceAttrPair(resourceName, "layer_name", "aws_lambda_layer_version.test", "layer_arn"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"skip_destroy"},
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLayerVersionPermissionDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLayerVersionPermissionConfig_basicARN(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckLayerVersionPermissionExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "action", "lambda:GetLayerVersion"),
+	resource.TestCheckResourceAttr(resourceName, "principal", "*"),
+	resource.TestCheckResourceAttr(resourceName, "statement_id", "xaccount"),
+	resource.TestCheckResourceAttrPair(resourceName, "layer_name", "aws_lambda_layer_version.test", "layer_arn"),
+),
+	},
+	{
+ResourceName:            resourceName,
+ImportState:             true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"skip_destroy"},
+	},
+},
 	})
 }
 
@@ -56,28 +56,28 @@ func TestAccLambdaLayerVersionPermission_basic_byName(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLayerVersionPermissionDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLayerVersionPermissionConfig_basicName(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLayerVersionPermissionExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "action", "lambda:GetLayerVersion"),
-					resource.TestCheckResourceAttr(resourceName, "principal", "*"),
-					resource.TestCheckResourceAttr(resourceName, "statement_id", "xaccount"),
-					resource.TestCheckResourceAttrPair(resourceName, "layer_name", "aws_lambda_layer_version.test", "layer_name"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"skip_destroy"},
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLayerVersionPermissionDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLayerVersionPermissionConfig_basicName(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckLayerVersionPermissionExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "action", "lambda:GetLayerVersion"),
+	resource.TestCheckResourceAttr(resourceName, "principal", "*"),
+	resource.TestCheckResourceAttr(resourceName, "statement_id", "xaccount"),
+	resource.TestCheckResourceAttrPair(resourceName, "layer_name", "aws_lambda_layer_version.test", "layer_name"),
+),
+	},
+	{
+ResourceName:            resourceName,
+ImportState:             true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"skip_destroy"},
+	},
+},
 	})
 }
 
@@ -87,29 +87,29 @@ func TestAccLambdaLayerVersionPermission_org(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLayerVersionPermissionDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLayerVersionPermissionConfig_org(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLayerVersionPermissionExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "action", "lambda:GetLayerVersion"),
-					resource.TestCheckResourceAttr(resourceName, "principal", "*"),
-					resource.TestCheckResourceAttr(resourceName, "statement_id", "xaccount"),
-					resource.TestCheckResourceAttr(resourceName, "organization_id", "o-0123456789"),
-					resource.TestCheckResourceAttrPair(resourceName, "layer_name", "aws_lambda_layer_version.test", "layer_arn"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"skip_destroy"},
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLayerVersionPermissionDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLayerVersionPermissionConfig_org(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckLayerVersionPermissionExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "action", "lambda:GetLayerVersion"),
+	resource.TestCheckResourceAttr(resourceName, "principal", "*"),
+	resource.TestCheckResourceAttr(resourceName, "statement_id", "xaccount"),
+	resource.TestCheckResourceAttr(resourceName, "organization_id", "o-0123456789"),
+	resource.TestCheckResourceAttrPair(resourceName, "layer_name", "aws_lambda_layer_version.test", "layer_arn"),
+),
+	},
+	{
+ResourceName:            resourceName,
+ImportState:             true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"skip_destroy"},
+	},
+},
 	})
 }
 
@@ -119,28 +119,28 @@ func TestAccLambdaLayerVersionPermission_account(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLayerVersionPermissionDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLayerVersionPermissionConfig_account(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLayerVersionPermissionExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "action", "lambda:GetLayerVersion"),
-					resource.TestCheckResourceAttrPair(resourceName, "principal", "data.aws_caller_identity.current", "account_id"),
-					resource.TestCheckResourceAttr(resourceName, "statement_id", "xaccount"),
-					resource.TestCheckResourceAttrPair(resourceName, "layer_name", "aws_lambda_layer_version.test", "layer_arn"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"skip_destroy"},
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLayerVersionPermissionDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLayerVersionPermissionConfig_account(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckLayerVersionPermissionExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "action", "lambda:GetLayerVersion"),
+	resource.TestCheckResourceAttrPair(resourceName, "principal", "data.aws_caller_identity.current", "account_id"),
+	resource.TestCheckResourceAttr(resourceName, "statement_id", "xaccount"),
+	resource.TestCheckResourceAttrPair(resourceName, "layer_name", "aws_lambda_layer_version.test", "layer_arn"),
+),
+	},
+	{
+ResourceName:            resourceName,
+ImportState:             true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"skip_destroy"},
+	},
+},
 	})
 }
 
@@ -150,20 +150,20 @@ func TestAccLambdaLayerVersionPermission_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLayerVersionPermissionDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLayerVersionPermissionConfig_account(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLayerVersionPermissionExists(ctx, resourceName),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tflambda.ResourceLayerVersionPermission(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckLayerVersionPermissionDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccLayerVersionPermissionConfig_account(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckLayerVersionPermissionExists(ctx, resourceName),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tflambda.ResourceLayerVersionPermission(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -174,26 +174,26 @@ func TestAccLambdaLayerVersionPermission_skipDestroy(t *testing.T) {
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil, // this purposely leaves dangling resources, since skip_destroy = true
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLayerVersionPermissionConfig_skipDestroy(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLayerVersionPermissionExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "skip_destroy", "true"),
-				),
-			},
-			{
-				Config: testAccLayerVersionPermissionConfig_skipDestroy(rName2),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckLayerVersionPermissionExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "skip_destroy", "true"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             nil, // this purposely leaves dangling resources, since skip_destroy = true
+Steps: []resource.TestStep{
+	{
+Config: testAccLayerVersionPermissionConfig_skipDestroy(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckLayerVersionPermissionExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "skip_destroy", "true"),
+),
+	},
+	{
+Config: testAccLayerVersionPermissionConfig_skipDestroy(rName2),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckLayerVersionPermissionExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "skip_destroy", "true"),
+),
+	},
+},
 	})
 }
 
@@ -290,58 +290,58 @@ resource "aws_lambda_layer_version_permission" "test" {
 
 func testAccCheckLayerVersionPermissionExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("Lambda Layer version policy ID not set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("Lambda Layer version policy ID not set")
+}
 
-		layerName, versionNumber, err := tflambda.ResourceLayerVersionPermissionParseId(rs.Primary.ID)
-		if err != nil {
-			return fmt.Errorf("error parsing lambda layer ID: %w", err)
-		}
+layerName, versionNumber, err := tflambda.ResourceLayerVersionPermissionParseId(rs.Primary.ID)
+if err != nil {
+	return fmt.Errorf("error parsing lambda layer ID: %w", err)
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).LambdaConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).LambdaConn(ctx)
 
-		_, err = conn.GetLayerVersionPolicyWithContext(ctx, &lambda.GetLayerVersionPolicyInput{
-			LayerName:     aws.String(layerName),
-			VersionNumber: aws.Int64(versionNumber),
-		})
+_, err = conn.GetLayerVersionPolicyWithContext(ctx, &lambda.GetLayerVersionPolicyInput{
+	LayerName:     aws.String(layerName),
+	VersionNumber: aws.Int64(versionNumber),
+})
 
-		return err
+return err
 	}
 }
 
 func testAccCheckLayerVersionPermissionDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).LambdaConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).LambdaConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_lambda_layer_version_permission" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_lambda_layer_version_permission" {
+continue
+	}
 
-			layerName, versionNumber, err := tflambda.ResourceLayerVersionPermissionParseId(rs.Primary.ID)
-			if err != nil {
-				return err
-			}
+	layerName, versionNumber, err := tflambda.ResourceLayerVersionPermissionParseId(rs.Primary.ID)
+	if err != nil {
+return err
+	}
 
-			_, err = conn.GetLayerVersionPolicyWithContext(ctx, &lambda.GetLayerVersionPolicyInput{
-				LayerName:     aws.String(layerName),
-				VersionNumber: aws.Int64(versionNumber),
-			})
+	_, err = conn.GetLayerVersionPolicyWithContext(ctx, &lambda.GetLayerVersionPolicyInput{
+LayerName:     aws.String(layerName),
+VersionNumber: aws.Int64(versionNumber),
+	})
 
-			if tfawserr.ErrCodeEquals(err, lambda.ErrCodeResourceNotFoundException) {
-				continue
-			}
+	if tfawserr.ErrCodeEquals(err, lambda.ErrCodeResourceNotFoundException) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
-		}
-		return nil
+	if err != nil {
+return err
+	}
+}
+return nil
 	}
 }

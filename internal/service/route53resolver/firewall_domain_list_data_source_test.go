@@ -21,27 +21,27 @@ func TestAccRoute53ResolverFirewallDomainListDataSource_basic(t *testing.T) {
 	domainName := acctest.RandomFQDomainName()
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccFirewallDomainListDataSourceConfig_basic(rName, domainName),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccFirewallDomainListDataSourceConfig_basic(rName, domainName),
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "creation_time"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "creator_request_id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "firewall_domain_list_id", resourceName, "id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "domain_count", resourceName, "domains.#"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "modification_time"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "name", resourceName, "name"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "status"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "status_message"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "creation_time"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "creator_request_id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "firewall_domain_list_id", resourceName, "id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "domain_count", resourceName, "domains.#"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "modification_time"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "name", resourceName, "name"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "status"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "status_message"),
+),
+	},
+},
 	})
 }
 

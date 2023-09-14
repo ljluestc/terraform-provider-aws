@@ -59,7 +59,7 @@ func ResourceEBSSnapshotImport() *schema.Resource {
 							ForceNew: true,
 						},
 						"upload_end": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Computed:     true,
 							Validate
@@ -71,7 +71,7 @@ func: validation.IsRFC3339Time,
 							Computed: true,
 						},
 						"upload_start": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Computed:     true,
 							Validate
@@ -103,14 +103,14 @@ func: validation.IsRFC3339Time,
 							ForceNew: true,
 						},
 						"format": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
 							Validate
 func: validation.StringInSlice(ec2.DiskImageFormat_Values(), false),
 						},
 						"url": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ForceNew:     true,
 							ExactlyOneOf: []string{"disk_container.0.user_bucket", "disk_container.0.url"},
@@ -172,7 +172,7 @@ func: validation.StringInSlice(ec2.DiskImageFormat_Values(), false),
 				Default:  DefaultSnapshotImportRoleName,
 			},
 			"storage_tier": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				Validate

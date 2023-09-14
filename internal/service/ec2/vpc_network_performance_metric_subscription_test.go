@@ -23,8 +23,8 @@ func TestAccVPCNetworkPerformanceMetricSubscription_serial(t *testing.T) {
 
 	testCases := map[string]
 func(t *testing.T){
-		"basic":      testAccNetworkPerformanceMetricSubscription_basic,
-		"disappears": testAccNetworkPerformanceMetricSubscription_disappears,
+"basic":      testAccNetworkPerformanceMetricSubscription_basic,
+"disappears": testAccNetworkPerformanceMetricSubscription_disappears,
 	}
 
 	acctest.RunSerialTests1Level(t, testCases, 0)
@@ -38,25 +38,25 @@ func testAccNetworkPerformanceMetricSubscription_basic(t *testing.T) {
 	dst := acctest.Region()
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckNetworkPerformanceMetricSubscriptionDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCNetworkPerformanceMetricSubscription_basic(src, dst),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckNetworkPerformanceMetricSubscriptionDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCNetworkPerformanceMetricSubscription_basic(src, dst),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckNetworkPerformanceMetricSubscriptionExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "destination", dst),
-					resource.TestCheckResourceAttr(resourceName, "metric", "aggregate-latency"),
-					resource.TestCheckResourceAttr(resourceName, "period", "five-minutes"),
-					resource.TestCheckResourceAttr(resourceName, "source", src),
-					resource.TestCheckResourceAttr(resourceName, "statistic", "p50"),
-				),
-			},
-		},
+	testAccCheckNetworkPerformanceMetricSubscriptionExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "destination", dst),
+	resource.TestCheckResourceAttr(resourceName, "metric", "aggregate-latency"),
+	resource.TestCheckResourceAttr(resourceName, "period", "five-minutes"),
+	resource.TestCheckResourceAttr(resourceName, "source", src),
+	resource.TestCheckResourceAttr(resourceName, "statistic", "p50"),
+),
+	},
+},
 	})
 }
 
@@ -68,22 +68,22 @@ func testAccNetworkPerformanceMetricSubscription_disappears(t *testing.T) {
 	dst := acctest.Region()
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckNetworkPerformanceMetricSubscriptionDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCNetworkPerformanceMetricSubscription_basic(src, dst),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckNetworkPerformanceMetricSubscriptionDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCNetworkPerformanceMetricSubscription_basic(src, dst),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckNetworkPerformanceMetricSubscriptionExists(ctx, resourceName),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceNetworkPerformanceMetricSubscription(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckNetworkPerformanceMetricSubscriptionExists(ctx, resourceName),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceNetworkPerformanceMetricSubscription(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -92,25 +92,25 @@ func testAccCheckNetworkPerformanceMetricSubscriptionExists(ctx context.Context,
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No EC2 AWS Network Performance Metric Subscription ID is set")
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No EC2 AWS Network Performance Metric Subscription ID is set")
+}
 
-		source, destination, metric, statistic, err := tfec2.NetworkPerformanceMetricSubscriptionResourceID(rs.Primary.ID)
+source, destination, metric, statistic, err := tfec2.NetworkPerformanceMetricSubscriptionResourceID(rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Client(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Client(ctx)
 
-		_, err = tfec2.FindNetworkPerformanceMetricSubscriptionByFourPartKey(ctx, conn, source, destination, metric, statistic)
+_, err = tfec2.FindNetworkPerformanceMetricSubscriptionByFourPartKey(ctx, conn, source, destination, metric, statistic)
 
-		return err
+return err
 	}
 }
 
@@ -119,33 +119,33 @@ func testAccCheckNetworkPerformanceMetricSubscriptionDestroy(ctx context.Context
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Client(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Client(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_vpc_network_performance_metric_subscription" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_vpc_network_performance_metric_subscription" {
+continue
+	}
 
-			source, destination, metric, statistic, err := tfec2.NetworkPerformanceMetricSubscriptionResourceID(rs.Primary.ID)
+	source, destination, metric, statistic, err := tfec2.NetworkPerformanceMetricSubscriptionResourceID(rs.Primary.ID)
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			_, err = tfec2.FindNetworkPerformanceMetricSubscriptionByFourPartKey(ctx, conn, source, destination, metric, statistic)
+	_, err = tfec2.FindNetworkPerformanceMetricSubscriptionByFourPartKey(ctx, conn, source, destination, metric, statistic)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("EC2 AWS Network Performance Metric Subscription %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("EC2 AWS Network Performance Metric Subscription %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 

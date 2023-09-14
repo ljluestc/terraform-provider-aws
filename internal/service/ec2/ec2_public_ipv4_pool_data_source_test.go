@@ -20,20 +20,20 @@ func TestAccEC2PublicIPv4PoolDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_ec2_public_ipv4_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckPublicIPv4Pools(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testPublicIPv4PoolDataSourceConfig_basic,
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testPublicIPv4PoolDataSourceConfig_basic,
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttrSet(dataSourceName, "total_address_count"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "total_available_address_count"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrSet(dataSourceName, "total_address_count"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "total_available_address_count"),
+),
+	},
+},
 	})
 }
 
@@ -44,16 +44,16 @@ func testAccPreCheckPublicIPv4Pools(ctx context.Context, t *testing.T) {
 	output, err := tfec2.FindPublicIPv4Pools(ctx, conn, &ec2.DescribePublicIpv4PoolsInput{})
 
 	if acctest.PreCheckSkipError(err) {
-		t.Skipf("skipping acceptance testing: %s", err)
+t.Skipf("skipping acceptance testing: %s", err)
 	}
 
 	if err != nil {
-		t.Fatalf("unexpected PreCheck error: %s", err)
+t.Fatalf("unexpected PreCheck error: %s", err)
 	}
 
 	// Ensure there is at least one pool.
 	if len(output) == 0 {
-		t.Skip("skipping since no EC2 Public IPv4 Pools found")
+t.Skip("skipping since no EC2 Public IPv4 Pools found")
 	}
 }
 

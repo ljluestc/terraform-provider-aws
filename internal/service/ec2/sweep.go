@@ -1512,7 +1512,7 @@ func(page *ec2.DescribeRouteTablesOutput, lastPage bool) bool {
 					input := &ec2.DeleteRouteInput{
 						DestinationCidrBlock:     route.DestinationCidrBlock,
 						DestinationIpv6CidrBlock: route.DestinationIpv6CidrBlock,
-						RouteTableId:             routeTable.RouteTableId,
+						RouteTableId:    routeTable.RouteTableId,
 					}
 
 					log.Printf("[DEBUG] Deleting EC2 Route Table (%s) Route", id)

@@ -25,29 +25,29 @@ func TestAccVPCEndpointConnectionAccepter_crossAccount(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckAlternateAccount(t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckVPCEndpointConnectionAccepterDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCEndpointConnectionAccepterConfig_crossAccount(rName),
-				Check: resource.ComposeTestCheck
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckAlternateAccount(t)
+},
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
+CheckDestroy:    testAccCheckVPCEndpointConnectionAccepterDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCEndpointConnectionAccepterConfig_crossAccount(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttr(resourceName, "vpc_endpoint_state", "available"),
-				),
-			},
-			{
-				Config:            testAccVPCEndpointConnectionAccepterConfig_crossAccount(rName),
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	resource.TestCheckResourceAttr(resourceName, "vpc_endpoint_state", "available"),
+),
+	},
+	{
+Config:   testAccVPCEndpointConnectionAccepterConfig_crossAccount(rName),
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -56,33 +56,33 @@ func testAccCheckVPCEndpointConnectionAccepterDestroy(ctx context.Context) resou
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_vpc_endpoint_connection_accepter" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_vpc_endpoint_connection_accepter" {
+continue
+	}
 
-			serviceID, vpcEndpointID, err := tfec2.VPCEndpointConnectionAccepterParseResourceID(rs.Primary.ID)
+	serviceID, vpcEndpointID, err := tfec2.VPCEndpointConnectionAccepterParseResourceID(rs.Primary.ID)
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			_, err = tfec2.FindVPCEndpointConnectionByServiceIDAndVPCEndpointID(ctx, conn, serviceID, vpcEndpointID)
+	_, err = tfec2.FindVPCEndpointConnectionByServiceIDAndVPCEndpointID(ctx, conn, serviceID, vpcEndpointID)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("VPC Endpoint Connection %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("VPC Endpoint Connection %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -107,7 +107,7 @@ data "aws_availability_zones" "available" {
 }
 
 resource "aws_subnet" "test1" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   cidr_block        = "10.0.1.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
 
@@ -117,7 +117,7 @@ resource "aws_subnet" "test1" {
 }
 
 resource "aws_subnet" "test2" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   cidr_block        = "10.0.2.0/24"
   availability_zone = data.aws_availability_zones.available.names[1]
 
@@ -127,7 +127,7 @@ resource "aws_subnet" "test2" {
 }
 
 resource "aws_subnet" "test3" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   cidr_block        = "10.0.3.0/24"
   availability_zone = data.aws_availability_zones.available.names[2]
 
@@ -164,7 +164,7 @@ data "aws_availability_zones" "alternate_available" {
 resource "aws_subnet" "test_alternate1" {
   provider = "awsalternate"
 
-  vpc_id            = aws_vpc.test_alternate.id
+  vpc_id   = aws_vpc.test_alternate.id
   cidr_block        = "10.1.1.0/24"
   availability_zone = data.aws_availability_zones.alternate_available.names[0]
 
@@ -176,7 +176,7 @@ resource "aws_subnet" "test_alternate1" {
 resource "aws_subnet" "test_alternate2" {
   provider = "awsalternate"
 
-  vpc_id            = aws_vpc.test_alternate.id
+  vpc_id   = aws_vpc.test_alternate.id
   cidr_block        = "10.1.2.0/24"
   availability_zone = data.aws_availability_zones.alternate_available.names[1]
 
@@ -188,7 +188,7 @@ resource "aws_subnet" "test_alternate2" {
 resource "aws_subnet" "test_alternate3" {
   provider = "awsalternate"
 
-  vpc_id            = aws_vpc.test_alternate.id
+  vpc_id   = aws_vpc.test_alternate.id
   cidr_block        = "10.1.3.0/24"
   availability_zone = data.aws_availability_zones.alternate_available.names[2]
 
@@ -220,7 +220,7 @@ resource "aws_lb" "test" {
     aws_subnet.test3.id,
   ]
 
-  load_balancer_type         = "network"
+  load_balancer_type= "network"
   internal    = true
   idle_timeout= 60
   enable_deletion_protection = false
@@ -257,9 +257,9 @@ resource "aws_security_group" "test" {
 resource "aws_vpc_endpoint" "test" {
   provider = "awsalternate"
 
-  vpc_id              = aws_vpc.test_alternate.id
+  vpc_id     = aws_vpc.test_alternate.id
   service_name        = aws_vpc_endpoint_service.test.service_name
-  subnet_ids          = data.aws_subnets.alternate_intersect.ids
+  subnet_ids = data.aws_subnets.alternate_intersect.ids
   vpc_endpoint_type   = "Interface"
   private_dns_enabled = false
 
@@ -274,7 +274,7 @@ resource "aws_vpc_endpoint" "test" {
 
 resource "aws_vpc_endpoint_connection_accepter" "test" {
   vpc_endpoint_service_id = aws_vpc_endpoint_service.test.id
-  vpc_endpoint_id         = aws_vpc_endpoint.test.id
+  vpc_endpoint_id= aws_vpc_endpoint.test.id
 }
 `, rName))
 }

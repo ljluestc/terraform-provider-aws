@@ -82,7 +82,7 @@ func ResourceDefaultSubnet() *schema.Resource {
 				Computed: true,
 			},
 			"customer_owned_ipv4_pool": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				RequiredWith: []string{"map_customer_owned_ip_on_launch"},
 			},
@@ -115,7 +115,7 @@ func ResourceDefaultSubnet() *schema.Resource {
 				Default:  false,
 			},
 			"ipv6_cidr_block": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				Validate
@@ -132,7 +132,7 @@ func: verify.ValidIPv6CIDRNetworkAddress,
 				Default:  false,
 			},
 			"map_customer_owned_ip_on_launch": {
-				Type:         schema.TypeBool,
+				Type:schema.TypeBool,
 				Optional:     true,
 				RequiredWith: []string{"customer_owned_ipv4_pool", "outpost_arn"},
 			},
@@ -150,7 +150,7 @@ func: verify.ValidIPv6CIDRNetworkAddress,
 				Computed: true,
 			},
 			"private_dns_hostname_type_on_launch": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				Validate

@@ -29,36 +29,36 @@ type Duration struct {
 
 func Parse(s string) (Duration, error) {
 	if s == "" || s == "P" {
-		return Duration{}, ErrSyntax
+return Duration{}, ErrSyntax
 	}
 
 	re := regexache.MustCompile(pattern)
 	match := re.FindStringSubmatch(s)
 	if match == nil {
-		return Duration{}, ErrSyntax
+return Duration{}, ErrSyntax
 	}
 
 	var duration Duration
 
 	for i, name := range re.SubexpNames() {
-		value := match[i]
-		if i == 0 || name == "" || value == "" {
-			continue
-		}
+value := match[i]
+if i == 0 || name == "" || value == "" {
+	continue
+}
 
-		v, err := strconv.Atoi(value)
-		if err != nil {
-			return Duration{}, err
-		}
+v, err := strconv.Atoi(value)
+if err != nil {
+	return Duration{}, err
+}
 
-		switch name {
-		case "years":
-			duration.years = v
-		case "months":
-			duration.months = v
-		case "days":
-			duration.days = v
-		}
+switch name {
+case "years":
+	duration.years = v
+case "months":
+	duration.months = v
+case "days":
+	duration.days = v
+}
 	}
 
 	return duration, nil
@@ -68,13 +68,13 @@ func (d Duration) String() string {
 	var b strings.Builder
 	b.WriteString("P")
 	if d.years > 0 {
-		fmt.Fprintf(&b, "%dY", d.years)
+fmt.Fprintf(&b, "%dY", d.years)
 	}
 	if d.months > 0 {
-		fmt.Fprintf(&b, "%dM", d.months)
+fmt.Fprintf(&b, "%dM", d.months)
 	}
 	if d.days > 0 {
-		fmt.Fprintf(&b, "%dD", d.days)
+fmt.Fprintf(&b, "%dD", d.days)
 	}
 	return b.String()
 }
@@ -85,7 +85,7 @@ func (d Duration) IsZero() bool {
 
 func (d Duration) equal(o Duration) bool {
 	if d.years != o.years || d.months != o.months || d.days != o.days {
-		return false
+return false
 	}
 	return true
 }

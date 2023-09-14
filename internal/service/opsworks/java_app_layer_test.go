@@ -22,26 +22,26 @@ func TestAccOpsWorksJavaAppLayer_basic(t *testing.T) {
 	resourceName := "aws_opsworks_java_app_layer.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
-		ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckJavaAppLayerDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccJavaAppLayerConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckJavaAppLayerDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccJavaAppLayerConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLayerExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "app_server", "tomcat"),
-					resource.TestCheckResourceAttr(resourceName, "app_server_version", "7"),
-					resource.TestCheckResourceAttr(resourceName, "jvm_options", ""),
-					resource.TestCheckResourceAttr(resourceName, "jvm_type", "openjdk"),
-					resource.TestCheckResourceAttr(resourceName, "jvm_version", "7"),
-					resource.TestCheckResourceAttr(resourceName, "name", "Java App Server"),
-				),
-			},
-		},
+	testAccCheckLayerExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "app_server", "tomcat"),
+	resource.TestCheckResourceAttr(resourceName, "app_server_version", "7"),
+	resource.TestCheckResourceAttr(resourceName, "jvm_options", ""),
+	resource.TestCheckResourceAttr(resourceName, "jvm_type", "openjdk"),
+	resource.TestCheckResourceAttr(resourceName, "jvm_version", "7"),
+	resource.TestCheckResourceAttr(resourceName, "name", "Java App Server"),
+),
+	},
+},
 	})
 }
 

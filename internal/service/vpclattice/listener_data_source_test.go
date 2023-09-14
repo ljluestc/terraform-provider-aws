@@ -17,38 +17,38 @@ import (
 func TestAccVPCLatticeListenerDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_vpclattice_listener.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccListenerDataSourceConfig_fixedResponseHTTP(rName),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr(dataSourceName, "name", rName),
-					resource.TestCheckResourceAttr(dataSourceName, "protocol", "HTTP"),
-					resource.TestCheckResourceAttr(dataSourceName, "default_action.0.fixed_response.0.status_code", "404"),
-					acctest.MatchResourceAttrRegionalARN(dataSourceName, "arn", "vpc-lattice", regexache.MustCompile(`service/svc-.*/listener/listener-.+`)),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccListenerDataSourceConfig_fixedResponseHTTP(rName),
+Check: resource.ComposeTestCheckFunc(
+	resource.TestCheckResourceAttr(dataSourceName, "name", rName),
+	resource.TestCheckResourceAttr(dataSourceName, "protocol", "HTTP"),
+	resource.TestCheckResourceAttr(dataSourceName, "default_action.0.fixed_response.0.status_code", "404"),
+	acctest.MatchResourceAttrRegionalARN(dataSourceName, "arn", "vpc-lattice", regexache.MustCompile(`service/svc-.*/listener/listener-.+`)),
+),
+	},
+},
 	})
 }
 
 func TestAccVPCLatticeListenerDataSource_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -57,29 +57,29 @@ func TestAccVPCLatticeListenerDataSource_tags(t *testing.T) {
 	tag_value := "value0"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccListenerDataSourceConfig_one_tag(rName, tag_name, tag_value),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr(dataSourceName, "tags.tag0", "value0"),
-					acctest.MatchResourceAttrRegionalARN(dataSourceName, "arn", "vpc-lattice", regexache.MustCompile(`service/svc-.*/listener/listener-.+`)),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccListenerDataSourceConfig_one_tag(rName, tag_name, tag_value),
+Check: resource.ComposeTestCheckFunc(
+	resource.TestCheckResourceAttr(dataSourceName, "tags.tag0", "value0"),
+	acctest.MatchResourceAttrRegionalARN(dataSourceName, "arn", "vpc-lattice", regexache.MustCompile(`service/svc-.*/listener/listener-.+`)),
+),
+	},
+},
 	})
 }
 
 func TestAccVPCLatticeListenerDataSource_forwardMultiTargetGroupHTTP(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -90,25 +90,25 @@ func TestAccVPCLatticeListenerDataSource_forwardMultiTargetGroupHTTP(t *testing.
 	dataSourceName := "data.aws_vpclattice_listener.test_multi_target"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccListenerDataSourceConfig_forwardMultiTargetGroupHTTP(rName, targetGroupName1),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttrPair(dataSourceName, "default_action.0.forward.0.target_groups.0.target_group_identifier", targetGroupResourceName, "id"),
-					resource.TestCheckResourceAttr(dataSourceName, "default_action.0.forward.0.target_groups.0.weight", "80"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "default_action.0.forward.0.target_groups.1.target_group_identifier", targetGroup1ResourceName, "id"),
-					resource.TestCheckResourceAttr(dataSourceName, "default_action.0.forward.0.target_groups.1.weight", "20"),
-					acctest.MatchResourceAttrRegionalARN(dataSourceName, "arn", "vpc-lattice", regexache.MustCompile(`service/svc-.*/listener/listener-.+`)),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccListenerDataSourceConfig_forwardMultiTargetGroupHTTP(rName, targetGroupName1),
+Check: resource.ComposeTestCheckFunc(
+	resource.TestCheckResourceAttrPair(dataSourceName, "default_action.0.forward.0.target_groups.0.target_group_identifier", targetGroupResourceName, "id"),
+	resource.TestCheckResourceAttr(dataSourceName, "default_action.0.forward.0.target_groups.0.weight", "80"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "default_action.0.forward.0.target_groups.1.target_group_identifier", targetGroup1ResourceName, "id"),
+	resource.TestCheckResourceAttr(dataSourceName, "default_action.0.forward.0.target_groups.1.weight", "20"),
+	acctest.MatchResourceAttrRegionalARN(dataSourceName, "arn", "vpc-lattice", regexache.MustCompile(`service/svc-.*/listener/listener-.+`)),
+),
+	},
+},
 	})
 }
 

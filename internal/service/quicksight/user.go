@@ -91,7 +91,7 @@ func: validation.All(
 				},
 
 				"user_name": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Optional:     true,
 					Validate
 func: validation.NoZeroValues,
@@ -206,7 +206,7 @@ func resourceUserUpdate(ctx context.Context, d *schema.ResourceData, meta interf
 		AwsAccountId: aws.String(awsAccountID),
 		Email:        aws.String(d.Get("email").(string)),
 		Namespace:    aws.String(namespace),
-		Role:         aws.String(d.Get("user_role").(string)),
+		Role:aws.String(d.Get("user_role").(string)),
 		UserName:     aws.String(userName),
 	}
 

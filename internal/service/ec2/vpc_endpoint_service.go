@@ -69,7 +69,7 @@ func ResourceVPCEndpointService() *schema.Resource {
 				Optional: true,
 				MinItems: 1,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Validate
 func: verify.ValidARN,
 				},
@@ -83,7 +83,7 @@ func: verify.ValidARN,
 				Optional: true,
 				MinItems: 1,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Validate
 func: verify.ValidARN,
 				},
@@ -134,7 +134,7 @@ func: verify.ValidARN,
 				Optional: true,
 				Computed: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Validate
 func: validation.StringInSlice(ec2.ServiceConnectivityType_Values(), false),
 				},
@@ -195,7 +195,7 @@ func resourceVPCEndpointServiceCreate(ctx context.Context, d *schema.ResourceDat
 	if v, ok := d.GetOk("allowed_principals"); ok && v.(*schema.Set).Len() > 0 {
 		input := &ec2.ModifyVpcEndpointServicePermissionsInput{
 			AddAllowedPrincipals: flex.ExpandStringSet(v.(*schema.Set)),
-			ServiceId:            aws.String(d.Id()),
+			ServiceId:   aws.String(d.Id()),
 		}
 
 		if _, err := conn.ModifyVpcEndpointServicePermissionsWithContext(ctx, input); err != nil {

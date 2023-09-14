@@ -526,7 +526,7 @@ func DeleteServiceSpecificCredentials(ctx context.Context, conn *iam.IAM, userna
 	}
 	for _, m := range output.ServiceSpecificCredentials {
 		_, err := conn.DeleteServiceSpecificCredentialWithContext(ctx, &iam.DeleteServiceSpecificCredentialInput{
-			UserName:     aws.String(username),
+			UserName:                    aws.String(username),
 			ServiceSpecificCredentialId: m.ServiceSpecificCredentialId,
 		})
 		if err != nil {

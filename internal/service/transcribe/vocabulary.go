@@ -30,61 +30,61 @@ import (
 // @Tags(identifierAttribute="arn")
 func ResourceVocabulary() *schema.Resource {
 	return &schema.Resource{
-		CreateWithoutTimeout: resourceVocabularyCreate,
-		ReadWithoutTimeout:   resourceVocabularyRead,
-		UpdateWithoutTimeout: resourceVocabularyUpdate,
-		DeleteWithoutTimeout: resourceVocabularyDelete,
+CreateWithoutTimeout: resourceVocabularyCreate,
+ReadWithoutTimeout:   resourceVocabularyRead,
+UpdateWithoutTimeout: resourceVocabularyUpdate,
+DeleteWithoutTimeout: resourceVocabularyDelete,
 
-		Importer: &schema.ResourceImporter{
-			StateContext: schema.ImportStatePassthroughContext,
-		},
+Importer: &schema.ResourceImporter{
+	StateContext: schema.ImportStatePassthroughContext,
+},
 
-		Timeouts: &schema.ResourceTimeout{
-			Create: schema.DefaultTimeout(30 * time.Minute),
-			Update: schema.DefaultTimeout(30 * time.Minute),
-			Delete: schema.DefaultTimeout(30 * time.Minute),
-		},
+Timeouts: &schema.ResourceTimeout{
+	Create: schema.DefaultTimeout(30 * time.Minute),
+	Update: schema.DefaultTimeout(30 * time.Minute),
+	Delete: schema.DefaultTimeout(30 * time.Minute),
+},
 
-		Schema: map[string]*schema.Schema{
-			"arn": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"download_uri": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"language_code": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
-				ValidateFunc: validation.StringInSlice(validateLanguageCodes(types.LanguageCode("").Values()), false),
-			},
-			"phrases": {
-				Type:         schema.TypeList,
-				Optional:     true,
-				MaxItems:     256,
-				ExactlyOneOf: []string{"phrases", "vocabulary_file_uri"},
-				Elem:         &schema.Schema{Type: schema.TypeString},
-			},
-			names.AttrTags:    tftags.TagsSchema(),
-			names.AttrTagsAll: tftags.TagsSchemaComputed(),
-			"vocabulary_file_uri": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				Computed:     true,
-				ExactlyOneOf: []string{"phrases", "vocabulary_file_uri"},
-				ValidateFunc: validation.StringLenBetween(1, 2000),
-			},
-			"vocabulary_name": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ForceNew:     true,
-				ValidateFunc: validation.StringLenBetween(1, 200),
-			},
-		},
+Schema: map[string]*schema.Schema{
+	"arn": {
+Type:     schema.TypeString,
+Computed: true,
+	},
+	"download_uri": {
+Type:     schema.TypeString,
+Computed: true,
+	},
+	"language_code": {
+Type:         schema.TypeString,
+Required:     true,
+ForceNew:     true,
+ValidateFunc: validation.StringInSlice(validateLanguageCodes(types.LanguageCode("").Values()), false),
+	},
+	"phrases": {
+Type:         schema.TypeList,
+Optional:     true,
+MaxItems:     256,
+ExactlyOneOf: []string{"phrases", "vocabulary_file_uri"},
+Elem:         &schema.Schema{Type: schema.TypeString},
+	},
+	names.AttrTags:    tftags.TagsSchema(),
+	names.AttrTagsAll: tftags.TagsSchemaComputed(),
+	"vocabulary_file_uri": {
+Type:         schema.TypeString,
+Optional:     true,
+Computed:     true,
+ExactlyOneOf: []string{"phrases", "vocabulary_file_uri"},
+ValidateFunc: validation.StringLenBetween(1, 2000),
+	},
+	"vocabulary_name": {
+Type:         schema.TypeString,
+Required:     true,
+ForceNew:     true,
+ValidateFunc: validation.StringLenBetween(1, 200),
+	},
+},
 
-		CustomizeDiff: verify.SetTagsDiff,
+CustomizeDiff: verify.SetTagsDiff,
 	}
 }
 
@@ -96,32 +96,32 @@ func resourceVocabularyCreate(ctx context.Context, d *schema.ResourceData, meta 
 	conn := meta.(*conns.AWSClient).TranscribeClient(ctx)
 
 	in := &transcribe.CreateVocabularyInput{
-		VocabularyName: aws.String(d.Get("vocabulary_name").(string)),
-		LanguageCode:   types.LanguageCode(d.Get("language_code").(string)),
-		Tags:           getTagsIn(ctx),
+VocabularyName: aws.String(d.Get("vocabulary_name").(string)),
+LanguageCode:   types.LanguageCode(d.Get("language_code").(string)),
+Tags:           getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("vocabulary_file_uri"); ok {
-		in.VocabularyFileUri = aws.String(v.(string))
+in.VocabularyFileUri = aws.String(v.(string))
 	}
 
 	if v, ok := d.GetOk("phrases"); ok {
-		in.Phrases = expandPhrases(v.([]interface{}))
+in.Phrases = expandPhrases(v.([]interface{}))
 	}
 
 	out, err := conn.CreateVocabulary(ctx, in)
 	if err != nil {
-		return create.DiagError(names.Transcribe, create.ErrActionCreating, ResNameVocabulary, d.Get("vocabulary_name").(string), err)
+return create.DiagError(names.Transcribe, create.ErrActionCreating, ResNameVocabulary, d.Get("vocabulary_name").(string), err)
 	}
 
 	if out == nil {
-		return create.DiagError(names.Transcribe, create.ErrActionCreating, ResNameVocabulary, d.Get("vocabulary_name").(string), errors.New("empty output"))
+return create.DiagError(names.Transcribe, create.ErrActionCreating, ResNameVocabulary, d.Get("vocabulary_name").(string), errors.New("empty output"))
 	}
 
 	d.SetId(aws.ToString(out.VocabularyName))
 
 	if _, err := waitVocabularyCreated(ctx, conn, d.Id(), d.Timeout(schema.TimeoutCreate)); err != nil {
-		return create.DiagError(names.Transcribe, create.ErrActionWaitingForCreation, ResNameVocabulary, d.Id(), err)
+return create.DiagError(names.Transcribe, create.ErrActionWaitingForCreation, ResNameVocabulary, d.Id(), err)
 	}
 
 	return resourceVocabularyRead(ctx, d, meta)
@@ -133,21 +133,21 @@ func resourceVocabularyRead(ctx context.Context, d *schema.ResourceData, meta in
 	out, err := FindVocabularyByName(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
-		log.Printf("[WARN] Transcribe Vocabulary (%s) not found, removing from state", d.Id())
-		d.SetId("")
-		return nil
+log.Printf("[WARN] Transcribe Vocabulary (%s) not found, removing from state", d.Id())
+d.SetId("")
+return nil
 	}
 
 	if err != nil {
-		return create.DiagError(names.Transcribe, create.ErrActionReading, ResNameVocabulary, d.Id(), err)
+return create.DiagError(names.Transcribe, create.ErrActionReading, ResNameVocabulary, d.Id(), err)
 	}
 
 	arn := arn.ARN{
-		AccountID: meta.(*conns.AWSClient).AccountID,
-		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   "transcribe",
-		Region:    meta.(*conns.AWSClient).Region,
-		Resource:  fmt.Sprintf("vocabulary/%s", d.Id()),
+AccountID: meta.(*conns.AWSClient).AccountID,
+Partition: meta.(*conns.AWSClient).Partition,
+Service:   "transcribe",
+Region:    meta.(*conns.AWSClient).Region,
+Resource:  fmt.Sprintf("vocabulary/%s", d.Id()),
 	}.String()
 
 	d.Set("arn", arn)
@@ -162,28 +162,28 @@ func resourceVocabularyUpdate(ctx context.Context, d *schema.ResourceData, meta 
 	conn := meta.(*conns.AWSClient).TranscribeClient(ctx)
 
 	if d.HasChangesExcept("tags", "tags_all") {
-		in := &transcribe.UpdateVocabularyInput{
-			VocabularyName: aws.String(d.Id()),
-			LanguageCode:   types.LanguageCode(d.Get("language_code").(string)),
-		}
+in := &transcribe.UpdateVocabularyInput{
+	VocabularyName: aws.String(d.Id()),
+	LanguageCode:   types.LanguageCode(d.Get("language_code").(string)),
+}
 
-		if d.HasChanges("vocabulary_file_uri", "phrases") {
-			if d.Get("vocabulary_file_uri").(string) != "" {
-				in.VocabularyFileUri = aws.String(d.Get("vocabulary_file_uri").(string))
-			} else {
-				in.Phrases = expandPhrases(d.Get("phrases").([]interface{}))
-			}
-		}
+if d.HasChanges("vocabulary_file_uri", "phrases") {
+	if d.Get("vocabulary_file_uri").(string) != "" {
+in.VocabularyFileUri = aws.String(d.Get("vocabulary_file_uri").(string))
+	} else {
+in.Phrases = expandPhrases(d.Get("phrases").([]interface{}))
+	}
+}
 
-		log.Printf("[DEBUG] Updating Transcribe Vocabulary (%s): %#v", d.Id(), in)
-		_, err := conn.UpdateVocabulary(ctx, in)
-		if err != nil {
-			return create.DiagError(names.Transcribe, create.ErrActionUpdating, ResNameVocabulary, d.Id(), err)
-		}
+log.Printf("[DEBUG] Updating Transcribe Vocabulary (%s): %#v", d.Id(), in)
+_, err := conn.UpdateVocabulary(ctx, in)
+if err != nil {
+	return create.DiagError(names.Transcribe, create.ErrActionUpdating, ResNameVocabulary, d.Id(), err)
+}
 
-		if _, err := waitVocabularyUpdated(ctx, conn, d.Id(), d.Timeout(schema.TimeoutUpdate)); err != nil {
-			return create.DiagError(names.Transcribe, create.ErrActionWaitingForUpdate, ResNameVocabulary, d.Id(), err)
-		}
+if _, err := waitVocabularyUpdated(ctx, conn, d.Id(), d.Timeout(schema.TimeoutUpdate)); err != nil {
+	return create.DiagError(names.Transcribe, create.ErrActionWaitingForUpdate, ResNameVocabulary, d.Id(), err)
+}
 	}
 
 	return resourceVocabularyRead(ctx, d, meta)
@@ -195,20 +195,20 @@ func resourceVocabularyDelete(ctx context.Context, d *schema.ResourceData, meta 
 	log.Printf("[INFO] Deleting Transcribe Vocabulary %s", d.Id())
 
 	_, err := conn.DeleteVocabulary(ctx, &transcribe.DeleteVocabularyInput{
-		VocabularyName: aws.String(d.Id()),
+VocabularyName: aws.String(d.Id()),
 	})
 
 	var badRequestException *types.BadRequestException
 	if errors.As(err, &badRequestException) {
-		return nil
+return nil
 	}
 
 	if err != nil {
-		return create.DiagError(names.Transcribe, create.ErrActionDeleting, ResNameVocabulary, d.Id(), err)
+return create.DiagError(names.Transcribe, create.ErrActionDeleting, ResNameVocabulary, d.Id(), err)
 	}
 
 	if _, err := waitVocabularyDeleted(ctx, conn, d.Id(), d.Timeout(schema.TimeoutDelete)); err != nil {
-		return create.DiagError(names.Transcribe, create.ErrActionWaitingForDeletion, ResNameVocabulary, d.Id(), err)
+return create.DiagError(names.Transcribe, create.ErrActionWaitingForDeletion, ResNameVocabulary, d.Id(), err)
 	}
 
 	return nil
@@ -216,21 +216,21 @@ func resourceVocabularyDelete(ctx context.Context, d *schema.ResourceData, meta 
 
 func waitVocabularyCreated(ctx context.Context, conn *transcribe.Client, id string, timeout time.Duration) (*transcribe.GetVocabularyOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    vocabularyStatus(types.VocabularyStatePending),
-		Target:     vocabularyStatus(types.VocabularyStateReady),
-		Refresh:    statusVocabulary(ctx, conn, id),
-		Timeout:    timeout,
-		NotFoundChecks:            20,
-		ContinuousTargetOccurence: 2,
-		Delay:      30 * time.Second,
+Pending:    vocabularyStatus(types.VocabularyStatePending),
+Target:     vocabularyStatus(types.VocabularyStateReady),
+Refresh:    statusVocabulary(ctx, conn, id),
+Timeout:    timeout,
+NotFoundChecks:            20,
+ContinuousTargetOccurence: 2,
+Delay:      30 * time.Second,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
 	if out, ok := outputRaw.(*transcribe.GetVocabularyOutput); ok {
-		if status := out.VocabularyState; status == types.VocabularyStateFailed {
-			return out, errors.New(aws.ToString(out.FailureReason))
-		}
-		return out, err
+if status := out.VocabularyState; status == types.VocabularyStateFailed {
+	return out, errors.New(aws.ToString(out.FailureReason))
+}
+return out, err
 	}
 
 	return nil, err
@@ -238,21 +238,21 @@ func waitVocabularyCreated(ctx context.Context, conn *transcribe.Client, id stri
 
 func waitVocabularyUpdated(ctx context.Context, conn *transcribe.Client, id string, timeout time.Duration) (*transcribe.GetVocabularyOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:    vocabularyStatus(types.VocabularyStatePending),
-		Target:     vocabularyStatus(types.VocabularyStateReady),
-		Refresh:    statusVocabulary(ctx, conn, id),
-		Timeout:    timeout,
-		NotFoundChecks:            20,
-		ContinuousTargetOccurence: 2,
-		Delay:      30 * time.Second,
+Pending:    vocabularyStatus(types.VocabularyStatePending),
+Target:     vocabularyStatus(types.VocabularyStateReady),
+Refresh:    statusVocabulary(ctx, conn, id),
+Timeout:    timeout,
+NotFoundChecks:            20,
+ContinuousTargetOccurence: 2,
+Delay:      30 * time.Second,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
 	if out, ok := outputRaw.(*transcribe.GetVocabularyOutput); ok {
-		if status := out.VocabularyState; status == types.VocabularyStateFailed {
-			return out, errors.New(aws.ToString(out.FailureReason))
-		}
-		return out, err
+if status := out.VocabularyState; status == types.VocabularyStateFailed {
+	return out, errors.New(aws.ToString(out.FailureReason))
+}
+return out, err
 	}
 
 	return nil, err
@@ -260,19 +260,19 @@ func waitVocabularyUpdated(ctx context.Context, conn *transcribe.Client, id stri
 
 func waitVocabularyDeleted(ctx context.Context, conn *transcribe.Client, id string, timeout time.Duration) (*transcribe.GetVocabularyOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending: vocabularyStatus(types.VocabularyStatePending),
-		Target:  []string{},
-		Refresh: statusVocabulary(ctx, conn, id),
-		Timeout: timeout,
-		Delay:   30 * time.Second,
+Pending: vocabularyStatus(types.VocabularyStatePending),
+Target:  []string{},
+Refresh: statusVocabulary(ctx, conn, id),
+Timeout: timeout,
+Delay:   30 * time.Second,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
 	if out, ok := outputRaw.(*transcribe.GetVocabularyOutput); ok {
-		if status := out.VocabularyState; status == types.VocabularyStateFailed {
-			return out, errors.New(aws.ToString(out.FailureReason))
-		}
-		return out, err
+if status := out.VocabularyState; status == types.VocabularyStateFailed {
+	return out, errors.New(aws.ToString(out.FailureReason))
+}
+return out, err
 	}
 
 	return nil, err
@@ -280,40 +280,40 @@ func waitVocabularyDeleted(ctx context.Context, conn *transcribe.Client, id stri
 
 func statusVocabulary(ctx context.Context, conn *transcribe.Client, id string) retry.StateRefreshFunc {
 	return func() (interface{}, string, error) {
-		out, err := FindVocabularyByName(ctx, conn, id)
-		if tfresource.NotFound(err) {
-			return nil, "", nil
-		}
+out, err := FindVocabularyByName(ctx, conn, id)
+if tfresource.NotFound(err) {
+	return nil, "", nil
+}
 
-		if err != nil {
-			return nil, "", err
-		}
+if err != nil {
+	return nil, "", err
+}
 
-		return out, string(out.VocabularyState), nil
+return out, string(out.VocabularyState), nil
 	}
 }
 
 func FindVocabularyByName(ctx context.Context, conn *transcribe.Client, id string) (*transcribe.GetVocabularyOutput, error) {
 	in := &transcribe.GetVocabularyInput{
-		VocabularyName: aws.String(id),
+VocabularyName: aws.String(id),
 	}
 
 	out, err := conn.GetVocabulary(ctx, in)
 
 	var badRequestException *types.BadRequestException
 	if errors.As(err, &badRequestException) {
-		return nil, &retry.NotFoundError{
-			LastError:   err,
-			LastRequest: in,
-		}
+return nil, &retry.NotFoundError{
+	LastError:   err,
+	LastRequest: in,
+}
 	}
 
 	if err != nil {
-		return nil, err
+return nil, err
 	}
 
 	if out == nil {
-		return nil, tfresource.NewEmptyResultError(in)
+return nil, tfresource.NewEmptyResultError(in)
 	}
 
 	return out, nil
@@ -323,7 +323,7 @@ func vocabularyStatus(in ...types.VocabularyState) []string {
 	var s []string
 
 	for _, v := range in {
-		s = append(s, string(v))
+s = append(s, string(v))
 	}
 
 	return s
@@ -333,7 +333,7 @@ func expandPhrases(in []interface{}) []string {
 	var out []string
 
 	for _, val := range in {
-		out = append(out, val.(string))
+out = append(out, val.(string))
 	}
 	return out
 }

@@ -23,50 +23,50 @@ func TestAccVPCNATGatewayDataSource_basic(t *testing.T) {
 	resourceName := "aws_nat_gateway.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCNATGatewayDataSourceConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCNATGatewayDataSourceConfig_basic(rName),
+Check: resource.ComposeAggregateTestCheck
 func(
-					resource.TestCheckResourceAttrPair(dataSourceNameByID, "allocation_id", resourceName, "allocation_id"),
-					resource.TestCheckResourceAttrPair(dataSourceNameByID, "association_id", resourceName, "association_id"),
-					resource.TestCheckResourceAttrPair(dataSourceNameByID, "connectivity_type", resourceName, "connectivity_type"),
-					resource.TestCheckResourceAttrPair(dataSourceNameByID, "network_interface_id", resourceName, "network_interface_id"),
-					resource.TestCheckResourceAttrPair(dataSourceNameByID, "private_ip", resourceName, "private_ip"),
-					resource.TestCheckResourceAttrPair(dataSourceNameByID, "public_ip", resourceName, "public_ip"),
-					resource.TestCheckResourceAttrPair(dataSourceNameByID, "secondary_allocation_ids.#", resourceName, "secondary_allocation_ids.#"),
-					resource.TestCheckResourceAttrPair(dataSourceNameByID, "secondary_private_ip_address_count", resourceName, "secondary_private_ip_address_count"),
-					resource.TestCheckResourceAttrPair(dataSourceNameByID, "secondary_private_ip_addresses.#", resourceName, "secondary_private_ip_addresses.#"),
-					resource.TestCheckResourceAttrPair(dataSourceNameByID, "tags.#", resourceName, "tags.#"),
+	resource.TestCheckResourceAttrPair(dataSourceNameByID, "allocation_id", resourceName, "allocation_id"),
+	resource.TestCheckResourceAttrPair(dataSourceNameByID, "association_id", resourceName, "association_id"),
+	resource.TestCheckResourceAttrPair(dataSourceNameByID, "connectivity_type", resourceName, "connectivity_type"),
+	resource.TestCheckResourceAttrPair(dataSourceNameByID, "network_interface_id", resourceName, "network_interface_id"),
+	resource.TestCheckResourceAttrPair(dataSourceNameByID, "private_ip", resourceName, "private_ip"),
+	resource.TestCheckResourceAttrPair(dataSourceNameByID, "public_ip", resourceName, "public_ip"),
+	resource.TestCheckResourceAttrPair(dataSourceNameByID, "secondary_allocation_ids.#", resourceName, "secondary_allocation_ids.#"),
+	resource.TestCheckResourceAttrPair(dataSourceNameByID, "secondary_private_ip_address_count", resourceName, "secondary_private_ip_address_count"),
+	resource.TestCheckResourceAttrPair(dataSourceNameByID, "secondary_private_ip_addresses.#", resourceName, "secondary_private_ip_addresses.#"),
+	resource.TestCheckResourceAttrPair(dataSourceNameByID, "tags.#", resourceName, "tags.#"),
 
-					resource.TestCheckResourceAttrPair(dataSourceNameBySubnetID, "allocation_id", resourceName, "allocation_id"),
-					resource.TestCheckResourceAttrPair(dataSourceNameBySubnetID, "association_id", resourceName, "association_id"),
-					resource.TestCheckResourceAttrPair(dataSourceNameBySubnetID, "connectivity_type", resourceName, "connectivity_type"),
-					resource.TestCheckResourceAttrPair(dataSourceNameBySubnetID, "network_interface_id", resourceName, "network_interface_id"),
-					resource.TestCheckResourceAttrPair(dataSourceNameBySubnetID, "private_ip", resourceName, "private_ip"),
-					resource.TestCheckResourceAttrPair(dataSourceNameBySubnetID, "public_ip", resourceName, "public_ip"),
-					resource.TestCheckResourceAttrPair(dataSourceNameBySubnetID, "secondary_allocation_ids.#", resourceName, "secondary_allocation_ids.#"),
-					resource.TestCheckResourceAttrPair(dataSourceNameBySubnetID, "secondary_private_ip_address_count", resourceName, "secondary_private_ip_address_count"),
-					resource.TestCheckResourceAttrPair(dataSourceNameBySubnetID, "secondary_private_ip_addresses.#", resourceName, "secondary_private_ip_addresses.#"),
-					resource.TestCheckResourceAttrPair(dataSourceNameBySubnetID, "tags.#", resourceName, "tags.#"),
+	resource.TestCheckResourceAttrPair(dataSourceNameBySubnetID, "allocation_id", resourceName, "allocation_id"),
+	resource.TestCheckResourceAttrPair(dataSourceNameBySubnetID, "association_id", resourceName, "association_id"),
+	resource.TestCheckResourceAttrPair(dataSourceNameBySubnetID, "connectivity_type", resourceName, "connectivity_type"),
+	resource.TestCheckResourceAttrPair(dataSourceNameBySubnetID, "network_interface_id", resourceName, "network_interface_id"),
+	resource.TestCheckResourceAttrPair(dataSourceNameBySubnetID, "private_ip", resourceName, "private_ip"),
+	resource.TestCheckResourceAttrPair(dataSourceNameBySubnetID, "public_ip", resourceName, "public_ip"),
+	resource.TestCheckResourceAttrPair(dataSourceNameBySubnetID, "secondary_allocation_ids.#", resourceName, "secondary_allocation_ids.#"),
+	resource.TestCheckResourceAttrPair(dataSourceNameBySubnetID, "secondary_private_ip_address_count", resourceName, "secondary_private_ip_address_count"),
+	resource.TestCheckResourceAttrPair(dataSourceNameBySubnetID, "secondary_private_ip_addresses.#", resourceName, "secondary_private_ip_addresses.#"),
+	resource.TestCheckResourceAttrPair(dataSourceNameBySubnetID, "tags.#", resourceName, "tags.#"),
 
-					resource.TestCheckResourceAttrPair(dataSourceNameByTags, "allocation_id", resourceName, "allocation_id"),
-					resource.TestCheckResourceAttrPair(dataSourceNameByTags, "association_id", resourceName, "association_id"),
-					resource.TestCheckResourceAttrPair(dataSourceNameByTags, "connectivity_type", resourceName, "connectivity_type"),
-					resource.TestCheckResourceAttrPair(dataSourceNameByTags, "network_interface_id", resourceName, "network_interface_id"),
-					resource.TestCheckResourceAttrPair(dataSourceNameByTags, "private_ip", resourceName, "private_ip"),
-					resource.TestCheckResourceAttrPair(dataSourceNameByTags, "public_ip", resourceName, "public_ip"),
-					resource.TestCheckResourceAttrPair(dataSourceNameByTags, "secondary_allocation_ids.#", resourceName, "secondary_allocation_ids.#"),
-					resource.TestCheckResourceAttrPair(dataSourceNameByTags, "secondary_private_ip_address_count", resourceName, "secondary_private_ip_address_count"),
-					resource.TestCheckResourceAttrPair(dataSourceNameByTags, "secondary_private_ip_addresses.#", resourceName, "secondary_private_ip_addresses.#"),
-					resource.TestCheckResourceAttrPair(dataSourceNameByTags, "tags.#", resourceName, "tags.#"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(dataSourceNameByTags, "allocation_id", resourceName, "allocation_id"),
+	resource.TestCheckResourceAttrPair(dataSourceNameByTags, "association_id", resourceName, "association_id"),
+	resource.TestCheckResourceAttrPair(dataSourceNameByTags, "connectivity_type", resourceName, "connectivity_type"),
+	resource.TestCheckResourceAttrPair(dataSourceNameByTags, "network_interface_id", resourceName, "network_interface_id"),
+	resource.TestCheckResourceAttrPair(dataSourceNameByTags, "private_ip", resourceName, "private_ip"),
+	resource.TestCheckResourceAttrPair(dataSourceNameByTags, "public_ip", resourceName, "public_ip"),
+	resource.TestCheckResourceAttrPair(dataSourceNameByTags, "secondary_allocation_ids.#", resourceName, "secondary_allocation_ids.#"),
+	resource.TestCheckResourceAttrPair(dataSourceNameByTags, "secondary_private_ip_address_count", resourceName, "secondary_private_ip_address_count"),
+	resource.TestCheckResourceAttrPair(dataSourceNameByTags, "secondary_private_ip_addresses.#", resourceName, "secondary_private_ip_addresses.#"),
+	resource.TestCheckResourceAttrPair(dataSourceNameByTags, "tags.#", resourceName, "tags.#"),
+),
+	},
+},
 	})
 }
 

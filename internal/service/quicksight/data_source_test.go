@@ -30,35 +30,35 @@ func TestAccQuickSightDataSource_basic(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
-		CheckDestroy:             testAccCheckDataSourceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccDataSourceConfig_basic(rId, rName),
-				Check: resource.ComposeTestCheck
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
+CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccDataSourceConfig_basic(rId, rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckDataSourceExists(ctx, resourceName, &dataSource),
-					resource.TestCheckResourceAttr(resourceName, "data_source_id", rId),
-					acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "quicksight", fmt.Sprintf("datasource/%s", rId)),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "parameters.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "parameters.0.s3.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "parameters.0.s3.0.manifest_file_location.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "parameters.0.s3.0.manifest_file_location.0.bucket", rName),
-					resource.TestCheckResourceAttr(resourceName, "parameters.0.s3.0.manifest_file_location.0.key", rName),
-					resource.TestCheckResourceAttr(resourceName, "type", quicksight.DataSourceTypeS3),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckDataSourceExists(ctx, resourceName, &dataSource),
+	resource.TestCheckResourceAttr(resourceName, "data_source_id", rId),
+	acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "quicksight", fmt.Sprintf("datasource/%s", rId)),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "parameters.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "parameters.0.s3.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "parameters.0.s3.0.manifest_file_location.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "parameters.0.s3.0.manifest_file_location.0.bucket", rName),
+	resource.TestCheckResourceAttr(resourceName, "parameters.0.s3.0.manifest_file_location.0.key", rName),
+	resource.TestCheckResourceAttr(resourceName, "type", quicksight.DataSourceTypeS3),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -71,22 +71,22 @@ func TestAccQuickSightDataSource_disappears(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
-		CheckDestroy:             testAccCheckDataSourceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccDataSourceConfig_basic(rId, rName),
-				Check: resource.ComposeTestCheck
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
+CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccDataSourceConfig_basic(rId, rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckDataSourceExists(ctx, resourceName, &dataSource),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfquicksight.ResourceDataSource(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckDataSourceExists(ctx, resourceName, &dataSource),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfquicksight.ResourceDataSource(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -99,46 +99,46 @@ func TestAccQuickSightDataSource_tags(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataSourceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccDataSourceConfig_tags1(rId, rName, "key1", "value1"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccDataSourceConfig_tags1(rId, rName, "key1", "value1"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckDataSourceExists(ctx, resourceName, &dataSource),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccDataSourceConfig_tags2(rId, rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheck
+	testAccCheckDataSourceExists(ctx, resourceName, &dataSource),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccDataSourceConfig_tags2(rId, rName, "key1", "value1updated", "key2", "value2"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckDataSourceExists(ctx, resourceName, &dataSource),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-			{
-				Config: testAccDataSourceConfig_tags1(rId, rName, "key1", "value1"),
-				Check: resource.ComposeTestCheck
+	testAccCheckDataSourceExists(ctx, resourceName, &dataSource),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+	{
+Config: testAccDataSourceConfig_tags1(rId, rName, "key1", "value1"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckDataSourceExists(ctx, resourceName, &dataSource),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-				),
-			},
-		},
+	testAccCheckDataSourceExists(ctx, resourceName, &dataSource),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+),
+	},
+},
 	})
 }
 
@@ -151,62 +151,62 @@ func TestAccQuickSightDataSource_permissions(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
-		CheckDestroy:             testAccCheckDataSourceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccDataSourceConfig_permissions(rId, rName),
-				Check: resource.ComposeTestCheck
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
+CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccDataSourceConfig_permissions(rId, rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckDataSourceExists(ctx, resourceName, &dataSource),
-					resource.TestCheckResourceAttr(resourceName, "permission.#", "1"),
-					resource.TestMatchTypeSetElemNestedAttrs(resourceName, "permission.*", map[string]*regexp.Regexp{
-						"principal": regexache.MustCompile(fmt.Sprintf(`user/default/%s`, rName)),
-					}),
-					resource.TestCheckTypeSetElemAttr(resourceName, "permission.*.actions.*", "quicksight:DescribeDataSource"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "permission.*.actions.*", "quicksight:DescribeDataSourcePermissions"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "permission.*.actions.*", "quicksight:PassDataSource"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccDataSourceConfig_updatePermissions(rId, rName),
-				Check: resource.ComposeTestCheck
+	testAccCheckDataSourceExists(ctx, resourceName, &dataSource),
+	resource.TestCheckResourceAttr(resourceName, "permission.#", "1"),
+	resource.TestMatchTypeSetElemNestedAttrs(resourceName, "permission.*", map[string]*regexp.Regexp{
+"principal": regexache.MustCompile(fmt.Sprintf(`user/default/%s`, rName)),
+	}),
+	resource.TestCheckTypeSetElemAttr(resourceName, "permission.*.actions.*", "quicksight:DescribeDataSource"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "permission.*.actions.*", "quicksight:DescribeDataSourcePermissions"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "permission.*.actions.*", "quicksight:PassDataSource"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccDataSourceConfig_updatePermissions(rId, rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckDataSourceExists(ctx, resourceName, &dataSource),
-					resource.TestCheckResourceAttr(resourceName, "permission.#", "1"),
-					resource.TestMatchTypeSetElemNestedAttrs(resourceName, "permission.*", map[string]*regexp.Regexp{
-						"principal": regexache.MustCompile(fmt.Sprintf(`user/default/%s`, rName)),
-					}),
-					resource.TestCheckTypeSetElemAttr(resourceName, "permission.*.actions.*", "quicksight:DescribeDataSource"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "permission.*.actions.*", "quicksight:DescribeDataSourcePermissions"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "permission.*.actions.*", "quicksight:PassDataSource"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "permission.*.actions.*", "quicksight:UpdateDataSource"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "permission.*.actions.*", "quicksight:DeleteDataSource"),
-					resource.TestCheckTypeSetElemAttr(resourceName, "permission.*.actions.*", "quicksight:UpdateDataSourcePermissions"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccDataSourceConfig_basic(rId, rName),
-				Check: resource.ComposeTestCheck
+	testAccCheckDataSourceExists(ctx, resourceName, &dataSource),
+	resource.TestCheckResourceAttr(resourceName, "permission.#", "1"),
+	resource.TestMatchTypeSetElemNestedAttrs(resourceName, "permission.*", map[string]*regexp.Regexp{
+"principal": regexache.MustCompile(fmt.Sprintf(`user/default/%s`, rName)),
+	}),
+	resource.TestCheckTypeSetElemAttr(resourceName, "permission.*.actions.*", "quicksight:DescribeDataSource"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "permission.*.actions.*", "quicksight:DescribeDataSourcePermissions"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "permission.*.actions.*", "quicksight:PassDataSource"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "permission.*.actions.*", "quicksight:UpdateDataSource"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "permission.*.actions.*", "quicksight:DeleteDataSource"),
+	resource.TestCheckTypeSetElemAttr(resourceName, "permission.*.actions.*", "quicksight:UpdateDataSourcePermissions"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccDataSourceConfig_basic(rId, rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckDataSourceExists(ctx, resourceName, &dataSource),
-					resource.TestCheckResourceAttr(resourceName, "permission.#", "0"),
-				),
-			},
-		},
+	testAccCheckDataSourceExists(ctx, resourceName, &dataSource),
+	resource.TestCheckResourceAttr(resourceName, "permission.#", "0"),
+),
+	},
+},
 	})
 }
 
@@ -215,36 +215,36 @@ func testAccCheckDataSourceExists(ctx context.Context, resourceName string, data
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[resourceName]
-		if !ok {
-			return fmt.Errorf("Not found: %s", resourceName)
-		}
+rs, ok := s.RootModule().Resources[resourceName]
+if !ok {
+	return fmt.Errorf("Not found: %s", resourceName)
+}
 
-		awsAccountID, dataSourceId, err := tfquicksight.ParseDataSourceID(rs.Primary.ID)
-		if err != nil {
-			return err
-		}
+awsAccountID, dataSourceId, err := tfquicksight.ParseDataSourceID(rs.Primary.ID)
+if err != nil {
+	return err
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
 
-		input := &quicksight.DescribeDataSourceInput{
-			AwsAccountId: aws.String(awsAccountID),
-			DataSourceId: aws.String(dataSourceId),
-		}
+input := &quicksight.DescribeDataSourceInput{
+	AwsAccountId: aws.String(awsAccountID),
+	DataSourceId: aws.String(dataSourceId),
+}
 
-		output, err := conn.DescribeDataSourceWithContext(ctx, input)
+output, err := conn.DescribeDataSourceWithContext(ctx, input)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		if output == nil || output.DataSource == nil {
-			return fmt.Errorf("QuickSight Data Source (%s) not found", rs.Primary.ID)
-		}
+if output == nil || output.DataSource == nil {
+	return fmt.Errorf("QuickSight Data Source (%s) not found", rs.Primary.ID)
+}
 
-		*dataSource = *output.DataSource
+*dataSource = *output.DataSource
 
-		return nil
+return nil
 	}
 }
 
@@ -253,36 +253,36 @@ func testAccCheckDataSourceDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_quicksight_data_source" {
-				continue
-			}
+conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_quicksight_data_source" {
+continue
+	}
 
-			awsAccountID, dataSourceId, err := tfquicksight.ParseDataSourceID(rs.Primary.ID)
-			if err != nil {
-				return err
-			}
+	awsAccountID, dataSourceId, err := tfquicksight.ParseDataSourceID(rs.Primary.ID)
+	if err != nil {
+return err
+	}
 
-			output, err := conn.DescribeDataSourceWithContext(ctx, &quicksight.DescribeDataSourceInput{
-				AwsAccountId: aws.String(awsAccountID),
-				DataSourceId: aws.String(dataSourceId),
-			})
+	output, err := conn.DescribeDataSourceWithContext(ctx, &quicksight.DescribeDataSourceInput{
+AwsAccountId: aws.String(awsAccountID),
+DataSourceId: aws.String(dataSourceId),
+	})
 
-			if tfawserr.ErrCodeEquals(err, quicksight.ErrCodeResourceNotFoundException) {
-				continue
-			}
+	if tfawserr.ErrCodeEquals(err, quicksight.ErrCodeResourceNotFoundException) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			if output != nil && output.DataSource != nil {
-				return fmt.Errorf("QuickSight Data Source (%s) still exists", rs.Primary.ID)
-			}
-		}
+	if output != nil && output.DataSource != nil {
+return fmt.Errorf("QuickSight Data Source (%s) still exists", rs.Primary.ID)
+	}
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -331,12 +331,12 @@ resource "aws_s3_object" "test_data" {
   content = <<EOF
 [
 	{
-		"Column1": "aaa",
-		"Column2": 1
+"Column1": "aaa",
+"Column2": 1
 	},
 	{
-		"Column1": "bbb",
-		"Column2": 1
+"Column1": "bbb",
+"Column2": 1
 	}
 ]
   EOF
@@ -352,9 +352,9 @@ resource "aws_s3_object" "test" {
 {
   "fileLocations": [
       {
-          "URIs": [
-              "https://${aws_s3_bucket.test.bucket}.s3.${data.aws_partition.current.dns_suffix}/%[1]s-test-data"
-          ]
+ "URIs": [
+     "https://${aws_s3_bucket.test.bucket}.s3.${data.aws_partition.current.dns_suffix}/%[1]s-test-data"
+ ]
       }
   ],
   "globalUploadSettings": {
@@ -370,11 +370,11 @@ EOF
 
 func testAccDataSourceConfig_basic(rId, rName string) string {
 	return acctest.ConfigCompose(
-		testAccBaseDataSourceConfig(rName),
-		fmt.Sprintf(`
+testAccBaseDataSourceConfig(rName),
+fmt.Sprintf(`
 resource "aws_quicksight_data_source" "test" {
   data_source_id = %[1]q
-  name           = %[2]q
+  name  = %[2]q
 
   parameters {
     s3 {
@@ -393,11 +393,11 @@ resource "aws_quicksight_data_source" "test" {
 
 func testAccDataSourceConfig_tags1(rId, rName, key, value string) string {
 	return acctest.ConfigCompose(
-		testAccBaseDataSourceConfig(rName),
-		fmt.Sprintf(`
+testAccBaseDataSourceConfig(rName),
+fmt.Sprintf(`
 resource "aws_quicksight_data_source" "test" {
   data_source_id = %[1]q
-  name           = %[2]q
+  name  = %[2]q
 
   parameters {
     s3 {
@@ -420,11 +420,11 @@ resource "aws_quicksight_data_source" "test" {
 
 func testAccDataSourceConfig_tags2(rId, rName, key1, value1, key2, value2 string) string {
 	return acctest.ConfigCompose(
-		testAccBaseDataSourceConfig(rName),
-		fmt.Sprintf(`
+testAccBaseDataSourceConfig(rName),
+fmt.Sprintf(`
 resource "aws_quicksight_data_source" "test" {
   data_source_id = %[1]q
-  name           = %[2]q
+  name  = %[2]q
 
   parameters {
     s3 {
@@ -452,7 +452,7 @@ data "aws_caller_identity" "current" {}
 resource "aws_quicksight_user" "test" {
   aws_account_id = data.aws_caller_identity.current.account_id
   user_name      = %[1]q
-  email          = %[2]q
+  email = %[2]q
   identity_type  = "QUICKSIGHT"
   user_role      = "AUTHOR"
 
@@ -473,7 +473,7 @@ resource "aws_quicksight_user" "test" {
 
   aws_account_id = data.aws_caller_identity.current.account_id
   user_name      = "%[1]s-${count.index}"
-  email          = %[2]q
+  email = %[2]q
   identity_type  = "QUICKSIGHT"
   user_role      = "AUTHOR"
 
@@ -487,12 +487,12 @@ resource "aws_quicksight_user" "test" {
 
 func testAccDataSourceConfig_permissions(rId, rName string) string {
 	return acctest.ConfigCompose(
-		testAccBaseDataSourceConfig(rName),
-		testAccDataSource_UserConfig(rName),
-		fmt.Sprintf(`
+testAccBaseDataSourceConfig(rName),
+testAccDataSource_UserConfig(rName),
+fmt.Sprintf(`
 resource "aws_quicksight_data_source" "test" {
   data_source_id = %[1]q
-  name           = %[2]q
+  name  = %[2]q
 
   parameters {
     s3 {
@@ -521,12 +521,12 @@ resource "aws_quicksight_data_source" "test" {
 
 func testAccDataSourceConfig_updatePermissions(rId, rName string) string {
 	return acctest.ConfigCompose(
-		testAccBaseDataSourceConfig(rName),
-		testAccDataSource_UserConfig(rName),
-		fmt.Sprintf(`
+testAccBaseDataSourceConfig(rName),
+testAccDataSource_UserConfig(rName),
+fmt.Sprintf(`
 resource "aws_quicksight_data_source" "test" {
   data_source_id = %[1]q
-  name           = %[2]q
+  name  = %[2]q
 
   parameters {
     s3 {

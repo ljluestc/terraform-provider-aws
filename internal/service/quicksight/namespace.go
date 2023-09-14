@@ -126,7 +126,7 @@ func (r *resourceNamespace) Create(ctx context.Context, req resource.CreateReque
 		AwsAccountId:  aws.String(plan.AWSAccountID.ValueString()),
 		Namespace:     aws.String(plan.Namespace.ValueString()),
 		IdentityStore: aws.String(plan.IdentityStore.ValueString()),
-		Tags:          getTagsIn(ctx),
+		Tags: getTagsIn(ctx),
 	}
 
 	out, err := conn.CreateNamespaceWithContext(ctx, &in)
@@ -311,14 +311,14 @@ func createNamespaceID(awsAccountID, namespace string) string {
 }
 
 type resourceNamespaceData struct {
-	ARN            types.String   `tfsdk:"arn"`
+	ARN   types.String   `tfsdk:"arn"`
 	AWSAccountID   types.String   `tfsdk:"aws_account_id"`
 	CapacityRegion types.String   `tfsdk:"capacity_region"`
 	CreationStatus types.String   `tfsdk:"creation_status"`
-	ID             types.String   `tfsdk:"id"`
+	ID    types.String   `tfsdk:"id"`
 	IdentityStore  types.String   `tfsdk:"identity_store"`
 	Namespace      types.String   `tfsdk:"namespace"`
-	Tags           types.Map      `tfsdk:"tags"`
+	Tags  types.Map      `tfsdk:"tags"`
 	TagsAll        types.Map      `tfsdk:"tags_all"`
 	Timeouts       timeouts.Value `tfsdk:"timeouts"`
 }

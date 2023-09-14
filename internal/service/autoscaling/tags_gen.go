@@ -25,28 +25,28 @@ import (
 // it may also be a different identifier depending on the service.
 func GetTag(ctx context.Context, conn autoscalingiface.AutoScalingAPI, identifier, resourceType, key string) (*tftags.TagData, error) {
 	input := &autoscaling.DescribeTagsInput{
-		Filters: []*autoscaling.Filter{
-			{
-				Name:   aws.String("auto-scaling-group"),
-				Values: []*string{aws.String(identifier)},
-			},
-			{
-				Name:   aws.String("key"),
-				Values: []*string{aws.String(key)},
-			},
-		},
+Filters: []*autoscaling.Filter{
+	{
+Name:   aws.String("auto-scaling-group"),
+Values: []*string{aws.String(identifier)},
+	},
+	{
+Name:   aws.String("key"),
+Values: []*string{aws.String(key)},
+	},
+},
 	}
 
 	output, err := conn.DescribeTagsWithContext(ctx, input)
 
 	if err != nil {
-		return nil, err
+return nil, err
 	}
 
 	listTags := KeyValueTags(ctx, output.Tags, identifier, resourceType)
 
 	if !listTags.KeyExists(key) {
-		return nil, tfresource.NewEmptyResultError(nil)
+return nil, tfresource.NewEmptyResultError(nil)
 	}
 
 	return listTags.KeyTagData(key), nil
@@ -57,18 +57,18 @@ func GetTag(ctx context.Context, conn autoscalingiface.AutoScalingAPI, identifie
 // it may also be a different identifier depending on the service.
 func listTags(ctx context.Context, conn autoscalingiface.AutoScalingAPI, identifier, resourceType string) (tftags.KeyValueTags, error) {
 	input := &autoscaling.DescribeTagsInput{
-		Filters: []*autoscaling.Filter{
-			{
-				Name:   aws.String("auto-scaling-group"),
-				Values: []*string{aws.String(identifier)},
-			},
-		},
+Filters: []*autoscaling.Filter{
+	{
+Name:   aws.String("auto-scaling-group"),
+Values: []*string{aws.String(identifier)},
+	},
+},
 	}
 
 	output, err := conn.DescribeTagsWithContext(ctx, input)
 
 	if err != nil {
-		return tftags.New(ctx, nil), err
+return tftags.New(ctx, nil), err
 	}
 
 	return KeyValueTags(ctx, output.Tags, identifier, resourceType), nil
@@ -80,11 +80,11 @@ func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier, res
 	tags, err := listTags(ctx, meta.(*conns.AWSClient).AutoScalingConn(ctx), identifier, resourceType)
 
 	if err != nil {
-		return err
+return err
 	}
 
 	if inContext, ok := tftags.FromContext(ctx); ok {
-		inContext.TagsOut = types.Some(tags)
+inContext.TagsOut = types.Some(tags)
 	}
 
 	return nil
@@ -103,14 +103,14 @@ func ListOfMap(tags tftags.KeyValueTags) []any {
 	var result []any
 
 	for _, key := range tags.Keys() {
-		m := map[string]any{
-			"key":   key,
-			"value": aws.StringValue(tags.KeyValue(key)),
+m := map[string]any{
+	"key":   key,
+	"value": aws.StringValue(tags.KeyValue(key)),
 
-			"propagate_at_launch": aws.BoolValue(tags.KeyAdditionalBoolValue(key, "PropagateAtLaunch")),
-		}
+	"propagate_at_launch": aws.BoolValue(tags.KeyAdditionalBoolValue(key, "PropagateAtLaunch")),
+}
 
-		result = append(result, m)
+result = append(result, m)
 	}
 
 	return result
@@ -121,15 +121,15 @@ func Tags(tags tftags.KeyValueTags) []*autoscaling.Tag {
 	var result []*autoscaling.Tag
 
 	for _, key := range tags.Keys() {
-		tag := &autoscaling.Tag{
-			Key:aws.String(key),
-			Value:             tags.KeyValue(key),
-			ResourceId:        tags.KeyAdditionalStringValue(key, "ResourceId"),
-			ResourceType:      tags.KeyAdditionalStringValue(key, "ResourceType"),
-			PropagateAtLaunch: tags.KeyAdditionalBoolValue(key, "PropagateAtLaunch"),
-		}
+tag := &autoscaling.Tag{
+	Key:aws.String(key),
+	Value:             tags.KeyValue(key),
+	ResourceId:        tags.KeyAdditionalStringValue(key, "ResourceId"),
+	ResourceType:      tags.KeyAdditionalStringValue(key, "ResourceType"),
+	PropagateAtLaunch: tags.KeyAdditionalBoolValue(key, "PropagateAtLaunch"),
+}
 
-		result = append(result, tag)
+result = append(result, tag)
 	}
 
 	return result
@@ -145,79 +145,79 @@ func Tags(tags tftags.KeyValueTags) []*autoscaling.Tag {
 func KeyValueTags(ctx context.Context, tags any, identifier, resourceType string) tftags.KeyValueTags {
 	switch tags := tags.(type) {
 	case []*autoscaling.Tag:
-		m := make(map[string]*tftags.TagData, len(tags))
+m := make(map[string]*tftags.TagData, len(tags))
 
-		for _, tag := range tags {
-			tagData := &tftags.TagData{
-				Value: tag.Value,
-			}
+for _, tag := range tags {
+	tagData := &tftags.TagData{
+Value: tag.Value,
+	}
 
-			tagData.AdditionalBoolFields = make(map[string]*bool)
-			tagData.AdditionalBoolFields["PropagateAtLaunch"] = tag.PropagateAtLaunch
-			tagData.AdditionalStringFields = make(map[string]*string)
-			tagData.AdditionalStringFields["ResourceId"] = &identifier
-			tagData.AdditionalStringFields["ResourceType"] = &resourceType
+	tagData.AdditionalBoolFields = make(map[string]*bool)
+	tagData.AdditionalBoolFields["PropagateAtLaunch"] = tag.PropagateAtLaunch
+	tagData.AdditionalStringFields = make(map[string]*string)
+	tagData.AdditionalStringFields["ResourceId"] = &identifier
+	tagData.AdditionalStringFields["ResourceType"] = &resourceType
 
-			m[aws.StringValue(tag.Key)] = tagData
-		}
+	m[aws.StringValue(tag.Key)] = tagData
+}
 
-		return tftags.New(ctx, m)
+return tftags.New(ctx, m)
 	case []*autoscaling.TagDescription:
-		m := make(map[string]*tftags.TagData, len(tags))
+m := make(map[string]*tftags.TagData, len(tags))
 
-		for _, tag := range tags {
-			tagData := &tftags.TagData{
-				Value: tag.Value,
-			}
-			tagData.AdditionalBoolFields = make(map[string]*bool)
-			tagData.AdditionalBoolFields["PropagateAtLaunch"] = tag.PropagateAtLaunch
-			tagData.AdditionalStringFields = make(map[string]*string)
-			tagData.AdditionalStringFields["ResourceId"] = &identifier
-			tagData.AdditionalStringFields["ResourceType"] = &resourceType
+for _, tag := range tags {
+	tagData := &tftags.TagData{
+Value: tag.Value,
+	}
+	tagData.AdditionalBoolFields = make(map[string]*bool)
+	tagData.AdditionalBoolFields["PropagateAtLaunch"] = tag.PropagateAtLaunch
+	tagData.AdditionalStringFields = make(map[string]*string)
+	tagData.AdditionalStringFields["ResourceId"] = &identifier
+	tagData.AdditionalStringFields["ResourceType"] = &resourceType
 
-			m[aws.StringValue(tag.Key)] = tagData
-		}
+	m[aws.StringValue(tag.Key)] = tagData
+}
 
-		return tftags.New(ctx, m)
+return tftags.New(ctx, m)
 	case *schema.Set:
-		return KeyValueTags(ctx, tags.List(), identifier, resourceType)
+return KeyValueTags(ctx, tags.List(), identifier, resourceType)
 	case []any:
-		result := make(map[string]*tftags.TagData)
+result := make(map[string]*tftags.TagData)
 
-		for _, tfMapRaw := range tags {
-			tfMap, ok := tfMapRaw.(map[string]any)
+for _, tfMapRaw := range tags {
+	tfMap, ok := tfMapRaw.(map[string]any)
 
-			if !ok {
-				continue
-			}
+	if !ok {
+continue
+	}
 
-			key, ok := tfMap["key"].(string)
+	key, ok := tfMap["key"].(string)
 
-			if !ok {
-				continue
-			}
+	if !ok {
+continue
+	}
 
-			tagData := &tftags.TagData{}
+	tagData := &tftags.TagData{}
 
-			if v, ok := tfMap["value"].(string); ok {
-				tagData.Value = &v
-			}
+	if v, ok := tfMap["value"].(string); ok {
+tagData.Value = &v
+	}
 
-			tagData.AdditionalBoolFields = make(map[string]*bool)
-			if v, ok := tfMap["propagate_at_launch"].(bool); ok {
-				tagData.AdditionalBoolFields["PropagateAtLaunch"] = &v
-			}
+	tagData.AdditionalBoolFields = make(map[string]*bool)
+	if v, ok := tfMap["propagate_at_launch"].(bool); ok {
+tagData.AdditionalBoolFields["PropagateAtLaunch"] = &v
+	}
 
-			tagData.AdditionalStringFields = make(map[string]*string)
-			tagData.AdditionalStringFields["ResourceId"] = &identifier
-			tagData.AdditionalStringFields["ResourceType"] = &resourceType
+	tagData.AdditionalStringFields = make(map[string]*string)
+	tagData.AdditionalStringFields["ResourceId"] = &identifier
+	tagData.AdditionalStringFields["ResourceType"] = &resourceType
 
-			result[key] = tagData
-		}
+	result[key] = tagData
+}
 
-		return tftags.New(ctx, result)
+return tftags.New(ctx, result)
 	default:
-		return tftags.New(ctx, nil)
+return tftags.New(ctx, nil)
 	}
 }
 
@@ -225,9 +225,9 @@ func KeyValueTags(ctx context.Context, tags any, identifier, resourceType string
 // nil is returned if there are no input tags.
 func getTagsIn(ctx context.Context) []*autoscaling.Tag {
 	if inContext, ok := tftags.FromContext(ctx); ok {
-		if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
-			return tags
-		}
+if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
+	return tags
+}
 	}
 
 	return nil
@@ -236,7 +236,7 @@ func getTagsIn(ctx context.Context) []*autoscaling.Tag {
 // setTagsOut sets autoscaling service tags in Context.
 func setTagsOut(ctx context.Context, tags any, identifier, resourceType string) {
 	if inContext, ok := tftags.FromContext(ctx); ok {
-		inContext.TagsOut = types.Some(KeyValueTags(ctx, tags, identifier, resourceType))
+inContext.TagsOut = types.Some(KeyValueTags(ctx, tags, identifier, resourceType))
 	}
 }
 
@@ -252,29 +252,29 @@ func updateTags(ctx context.Context, conn autoscalingiface.AutoScalingAPI, ident
 	removedTags := oldTags.Removed(newTags)
 	removedTags = removedTags.IgnoreSystem(names.AutoScaling)
 	if len(removedTags) > 0 {
-		input := &autoscaling.DeleteTagsInput{
-			Tags: Tags(removedTags),
-		}
+input := &autoscaling.DeleteTagsInput{
+	Tags: Tags(removedTags),
+}
 
-		_, err := conn.DeleteTagsWithContext(ctx, input)
+_, err := conn.DeleteTagsWithContext(ctx, input)
 
-		if err != nil {
-			return fmt.Errorf("untagging resource (%s): %w", identifier, err)
-		}
+if err != nil {
+	return fmt.Errorf("untagging resource (%s): %w", identifier, err)
+}
 	}
 
 	updatedTags := oldTags.Updated(newTags)
 	updatedTags = updatedTags.IgnoreSystem(names.AutoScaling)
 	if len(updatedTags) > 0 {
-		input := &autoscaling.CreateOrUpdateTagsInput{
-			Tags: Tags(updatedTags),
-		}
+input := &autoscaling.CreateOrUpdateTagsInput{
+	Tags: Tags(updatedTags),
+}
 
-		_, err := conn.CreateOrUpdateTagsWithContext(ctx, input)
+_, err := conn.CreateOrUpdateTagsWithContext(ctx, input)
 
-		if err != nil {
-			return fmt.Errorf("tagging resource (%s): %w", identifier, err)
-		}
+if err != nil {
+	return fmt.Errorf("tagging resource (%s): %w", identifier, err)
+}
 	}
 
 	return nil

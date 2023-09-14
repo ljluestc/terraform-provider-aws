@@ -33,10 +33,10 @@ func waitRoleARNIsNotUniqueID(ctx context.Context, conn *iam.IAM, id string, rol
 	}
 
 	stateConf := &retry.StateChangeConf{
-		Pending:    []string{RoleStatusARNIsUniqueID, RoleStatusNotFound},
-		Target:     []string{RoleStatusARNIsARN},
-		Refresh:    statusRoleCreate(ctx, conn, id),
-		Timeout:    propagationTimeout,
+		Pending:                   []string{RoleStatusARNIsUniqueID, RoleStatusNotFound},
+		Target:                    []string{RoleStatusARNIsARN},
+		Refresh:                   statusRoleCreate(ctx, conn, id),
+		Timeout:                   propagationTimeout,
 		NotFoundChecks:            10,
 		ContinuousTargetOccurence: 5,
 	}

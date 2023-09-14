@@ -26,8 +26,8 @@ func TestAccRolesAnywhereTrustAnchor_basic(t *testing.T) {
 	resourceName := "aws_rolesanywhere_trust_anchor.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, names.RolesAnywhereEndpointID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, names.RolesAnywhereEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTrustAnchorDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -59,8 +59,8 @@ func TestAccRolesAnywhereTrustAnchor_tags(t *testing.T) {
 	resourceName := "aws_rolesanywhere_trust_anchor.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, names.RolesAnywhereEndpointID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, names.RolesAnywhereEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTrustAnchorDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -105,8 +105,8 @@ func TestAccRolesAnywhereTrustAnchor_disappears(t *testing.T) {
 	resourceName := "aws_rolesanywhere_trust_anchor.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, names.RolesAnywhereEndpointID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, names.RolesAnywhereEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTrustAnchorDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -128,8 +128,8 @@ func TestAccRolesAnywhereTrustAnchor_certificateBundle(t *testing.T) {
 	resourceName := "aws_rolesanywhere_trust_anchor.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, names.RolesAnywhereEndpointID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, names.RolesAnywhereEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTrustAnchorDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -159,8 +159,8 @@ func TestAccRolesAnywhereTrustAnchor_enabled(t *testing.T) {
 	resourceName := "aws_rolesanywhere_trust_anchor.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, names.RolesAnywhereEndpointID),
+		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, names.RolesAnywhereEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTrustAnchorDestroy(ctx),
 		Steps: []resource.TestStep{

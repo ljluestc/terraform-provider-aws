@@ -27,29 +27,29 @@ func TestAccEC2OutpostsLocalGatewayRouteTableVPCAssociation_basic(t *testing.T) 
 	vpcResourceName := "aws_vpc.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocalGatewayRouteTableVPCAssociationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccOutpostsLocalGatewayRouteTableVPCAssociationConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckLocalGatewayRouteTableVPCAssociationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccOutpostsLocalGatewayRouteTableVPCAssociationConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLocalGatewayRouteTableVPCAssociationExists(ctx, resourceName),
-					resource.TestCheckResourceAttrPair(resourceName, "local_gateway_id", localGatewayRouteTableDataSourceName, "local_gateway_id"),
-					resource.TestCheckResourceAttrPair(resourceName, "local_gateway_route_table_id", localGatewayRouteTableDataSourceName, "id"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-					resource.TestCheckResourceAttrPair(resourceName, "vpc_id", vpcResourceName, "id"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckLocalGatewayRouteTableVPCAssociationExists(ctx, resourceName),
+	resource.TestCheckResourceAttrPair(resourceName, "local_gateway_id", localGatewayRouteTableDataSourceName, "local_gateway_id"),
+	resource.TestCheckResourceAttrPair(resourceName, "local_gateway_route_table_id", localGatewayRouteTableDataSourceName, "id"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+	resource.TestCheckResourceAttrPair(resourceName, "vpc_id", vpcResourceName, "id"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -60,22 +60,22 @@ func TestAccEC2OutpostsLocalGatewayRouteTableVPCAssociation_disappears(t *testin
 	resourceName := "aws_ec2_local_gateway_route_table_vpc_association.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocalGatewayRouteTableVPCAssociationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccOutpostsLocalGatewayRouteTableVPCAssociationConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckLocalGatewayRouteTableVPCAssociationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccOutpostsLocalGatewayRouteTableVPCAssociationConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLocalGatewayRouteTableVPCAssociationExists(ctx, resourceName),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceLocalGatewayRouteTableVPCAssociation(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckLocalGatewayRouteTableVPCAssociationExists(ctx, resourceName),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceLocalGatewayRouteTableVPCAssociation(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -86,46 +86,46 @@ func TestAccEC2OutpostsLocalGatewayRouteTableVPCAssociation_tags(t *testing.T) {
 	resourceName := "aws_ec2_local_gateway_route_table_vpc_association.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLocalGatewayRouteTableVPCAssociationDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccOutpostsLocalGatewayRouteTableVPCAssociationConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckLocalGatewayRouteTableVPCAssociationDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccOutpostsLocalGatewayRouteTableVPCAssociationConfig_tags1(rName, "key1", "value1"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLocalGatewayRouteTableVPCAssociationExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccOutpostsLocalGatewayRouteTableVPCAssociationConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheck
+	testAccCheckLocalGatewayRouteTableVPCAssociationExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccOutpostsLocalGatewayRouteTableVPCAssociationConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLocalGatewayRouteTableVPCAssociationExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-			{
-				Config: testAccOutpostsLocalGatewayRouteTableVPCAssociationConfig_tags1(rName, "key2", "value2"),
-				Check: resource.ComposeTestCheck
+	testAccCheckLocalGatewayRouteTableVPCAssociationExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+	{
+Config: testAccOutpostsLocalGatewayRouteTableVPCAssociationConfig_tags1(rName, "key2", "value2"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckLocalGatewayRouteTableVPCAssociationExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-		},
+	testAccCheckLocalGatewayRouteTableVPCAssociationExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+},
 	})
 }
 
@@ -134,32 +134,32 @@ func testAccCheckLocalGatewayRouteTableVPCAssociationExists(ctx context.Context,
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[resourceName]
-		if !ok {
-			return fmt.Errorf("Not found: %s", resourceName)
-		}
+rs, ok := s.RootModule().Resources[resourceName]
+if !ok {
+	return fmt.Errorf("Not found: %s", resourceName)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("%s: missing resource ID", resourceName)
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("%s: missing resource ID", resourceName)
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-		association, err := tfec2.GetLocalGatewayRouteTableVPCAssociation(ctx, conn, rs.Primary.ID)
+association, err := tfec2.GetLocalGatewayRouteTableVPCAssociation(ctx, conn, rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		if association == nil {
-			return fmt.Errorf("EC2 Local Gateway Route Table VPC Association (%s) not found", rs.Primary.ID)
-		}
+if association == nil {
+	return fmt.Errorf("EC2 Local Gateway Route Table VPC Association (%s) not found", rs.Primary.ID)
+}
 
-		if aws.StringValue(association.State) != ec2.RouteTableAssociationStateCodeAssociated {
-			return fmt.Errorf("EC2 Local Gateway Route Table VPC Association (%s) not in associated state: %s", rs.Primary.ID, aws.StringValue(association.State))
-		}
+if aws.StringValue(association.State) != ec2.RouteTableAssociationStateCodeAssociated {
+	return fmt.Errorf("EC2 Local Gateway Route Table VPC Association (%s) not in associated state: %s", rs.Primary.ID, aws.StringValue(association.State))
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -168,25 +168,25 @@ func testAccCheckLocalGatewayRouteTableVPCAssociationDestroy(ctx context.Context
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_ec2_local_gateway_route_table_vpc_association" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_ec2_local_gateway_route_table_vpc_association" {
+continue
+	}
 
-			association, err := tfec2.GetLocalGatewayRouteTableVPCAssociation(ctx, conn, rs.Primary.ID)
+	association, err := tfec2.GetLocalGatewayRouteTableVPCAssociation(ctx, conn, rs.Primary.ID)
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			if association != nil && aws.StringValue(association.State) != ec2.RouteTableAssociationStateCodeDisassociated {
-				return fmt.Errorf("EC2 Local Gateway Route Table VPC Association (%s) still exists in state: %s", rs.Primary.ID, aws.StringValue(association.State))
-			}
-		}
+	if association != nil && aws.StringValue(association.State) != ec2.RouteTableAssociationStateCodeDisassociated {
+return fmt.Errorf("EC2 Local Gateway Route Table VPC Association (%s) still exists in state: %s", rs.Primary.ID, aws.StringValue(association.State))
+	}
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -212,8 +212,8 @@ resource "aws_vpc" "test" {
 
 func testAccOutpostsLocalGatewayRouteTableVPCAssociationConfig_basic(rName string) string {
 	return acctest.ConfigCompose(
-		testAccLocalGatewayRouteTableVPCAssociationBaseConfig(rName),
-		`
+testAccLocalGatewayRouteTableVPCAssociationBaseConfig(rName),
+`
 resource "aws_ec2_local_gateway_route_table_vpc_association" "test" {
   local_gateway_route_table_id = data.aws_ec2_local_gateway_route_table.test.id
   vpc_id        = aws_vpc.test.id
@@ -224,8 +224,8 @@ resource "aws_ec2_local_gateway_route_table_vpc_association" "test" {
 
 func testAccOutpostsLocalGatewayRouteTableVPCAssociationConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(
-		testAccLocalGatewayRouteTableVPCAssociationBaseConfig(rName),
-		fmt.Sprintf(`
+testAccLocalGatewayRouteTableVPCAssociationBaseConfig(rName),
+fmt.Sprintf(`
 resource "aws_ec2_local_gateway_route_table_vpc_association" "test" {
   local_gateway_route_table_id = data.aws_ec2_local_gateway_route_table.test.id
   vpc_id        = aws_vpc.test.id
@@ -240,8 +240,8 @@ resource "aws_ec2_local_gateway_route_table_vpc_association" "test" {
 
 func testAccOutpostsLocalGatewayRouteTableVPCAssociationConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(
-		testAccLocalGatewayRouteTableVPCAssociationBaseConfig(rName),
-		fmt.Sprintf(`
+testAccLocalGatewayRouteTableVPCAssociationBaseConfig(rName),
+fmt.Sprintf(`
 resource "aws_ec2_local_gateway_route_table_vpc_association" "test" {
   local_gateway_route_table_id = data.aws_ec2_local_gateway_route_table.test.id
   vpc_id        = aws_vpc.test.id

@@ -58,7 +58,7 @@ func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.R
 				Computed: true,
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
@@ -84,9 +84,9 @@ func resourcePrivateDNSNamespaceCreate(ctx context.Context, d *schema.ResourceDa
 	name := d.Get("name").(string)
 	input := &servicediscovery.CreatePrivateDnsNamespaceInput{
 		CreatorRequestId: aws.String(id.UniqueId()),
-		Name:             aws.String(name),
-		Tags:             getTagsIn(ctx),
-		Vpc:              aws.String(d.Get("vpc").(string)),
+		Name:    aws.String(name),
+		Tags:    getTagsIn(ctx),
+		Vpc:     aws.String(d.Get("vpc").(string)),
 	}
 
 	if v, ok := d.GetOk("description"); ok {

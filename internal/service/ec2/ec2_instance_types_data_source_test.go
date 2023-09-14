@@ -19,20 +19,20 @@ func TestAccEC2InstanceTypesDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_ec2_instance_types.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckInstanceTypes(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccInstanceTypesDataSourceConfig_basic(),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    nil,
+Steps: []resource.TestStep{
+	{
+Config: testAccInstanceTypesDataSourceConfig_basic(),
+Check: resource.ComposeTestCheck
 func(
-					acctest.CheckResourceAttrGreaterThanValue(dataSourceName, "instance_types.#", 0),
-				),
-			},
-		},
+	acctest.CheckResourceAttrGreaterThanValue(dataSourceName, "instance_types.#", 0),
+),
+	},
+},
 	})
 }
 
@@ -42,20 +42,20 @@ func TestAccEC2InstanceTypesDataSource_filter(t *testing.T) {
 	dataSourceName := "data.aws_ec2_instance_types.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckInstanceTypes(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccInstanceTypesDataSourceConfig_filter(),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    nil,
+Steps: []resource.TestStep{
+	{
+Config: testAccInstanceTypesDataSourceConfig_filter(),
+Check: resource.ComposeTestCheck
 func(
-					acctest.CheckResourceAttrGreaterThanValue(dataSourceName, "instance_types.#", 0),
-				),
-			},
-		},
+	acctest.CheckResourceAttrGreaterThanValue(dataSourceName, "instance_types.#", 0),
+),
+	},
+},
 	})
 }
 
@@ -68,11 +68,11 @@ func testAccPreCheckInstanceTypes(ctx context.Context, t *testing.T) {
 	_, err := conn.DescribeInstanceTypesWithContext(ctx, input)
 
 	if acctest.PreCheckSkipError(err) {
-		t.Skipf("skipping acceptance testing: %s", err)
+t.Skipf("skipping acceptance testing: %s", err)
 	}
 
 	if err != nil {
-		t.Fatalf("unexpected PreCheck error: %s", err)
+t.Fatalf("unexpected PreCheck error: %s", err)
 	}
 }
 

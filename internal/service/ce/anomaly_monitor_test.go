@@ -29,10 +29,10 @@ func TestAccCEAnomalyMonitor_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAnomalyMonitorDestroy(ctx),
-		ErrorCheck:acctest.ErrorCheck(t, costexplorer.EndpointsID),
+		ErrorCheck:               acctest.ErrorCheck(t, costexplorer.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAnomalyMonitorConfig_basic(rName),
@@ -60,10 +60,10 @@ func TestAccCEAnomalyMonitor_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAnomalyMonitorDestroy(ctx),
-		ErrorCheck:acctest.ErrorCheck(t, costexplorer.EndpointsID),
+		ErrorCheck:               acctest.ErrorCheck(t, costexplorer.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAnomalyMonitorConfig_basic(rName),
@@ -85,10 +85,10 @@ func TestAccCEAnomalyMonitor_update(t *testing.T) {
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAnomalyMonitorDestroy(ctx),
-		ErrorCheck:acctest.ErrorCheck(t, costexplorer.EndpointsID),
+		ErrorCheck:               acctest.ErrorCheck(t, costexplorer.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAnomalyMonitorConfig_basic(rName),
@@ -120,10 +120,10 @@ func TestAccCEAnomalyMonitor_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAnomalyMonitorDestroy(ctx),
-		ErrorCheck:acctest.ErrorCheck(t, costexplorer.EndpointsID),
+		ErrorCheck:               acctest.ErrorCheck(t, costexplorer.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAnomalyMonitorConfig_tags1(rName, "key1", "value1"),
@@ -169,10 +169,10 @@ func TestAccCEAnomalyMonitor_Dimensional(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAnomalyMonitorDestroy(ctx),
-		ErrorCheck:acctest.ErrorCheck(t, costexplorer.EndpointsID),
+		ErrorCheck:               acctest.ErrorCheck(t, costexplorer.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAnomalyMonitorConfig_dimensional(rName),
@@ -261,11 +261,11 @@ resource "aws_ce_anomaly_monitor" "test" {
 	"Not": null,
 	"Or": null,
 	"Tags": {
-		"Key": "CostCenter",
-		"MatchOptions": null,
-		"Values": [
-			"10000"
-		]
+"Key": "CostCenter",
+"MatchOptions": null,
+"Values": [
+	"10000"
+]
 	}
 }
 JSON
@@ -286,11 +286,11 @@ func testAccAnomalyMonitorConfig_tags1(rName string, tagKey1, tagValue1 string) 
 	"Not": null,
 	"Or": null,
 	"Tags": {
-		"Key": "CostCenter",
-		"MatchOptions": null,
-		"Values": [
-			"10000"
-		]
+"Key": "CostCenter",
+"MatchOptions": null,
+"Values": [
+	"10000"
+]
 	}
 }
 JSON
@@ -315,11 +315,11 @@ func testAccAnomalyMonitorConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagVa
 	"Not": null,
 	"Or": null,
 	"Tags": {
-		"Key": "CostCenter",
-		"MatchOptions": null,
-		"Values": [
-			"10000"
-		]
+"Key": "CostCenter",
+"MatchOptions": null,
+"Values": [
+	"10000"
+]
 	}
 }
 JSON

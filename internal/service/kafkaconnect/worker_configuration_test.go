@@ -23,27 +23,27 @@ func TestAccKafkaConnectWorkerConfiguration_basic(t *testing.T) {
 	resourceName := "aws_mskconnect_worker_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, kafkaconnect.EndpointsID) },
-		ErrorCheck:acctest.ErrorCheck(t, kafkaconnect.EndpointsID),
-		CheckDestroy:             nil,
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccWorkerConfigurationConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckWorkerConfigurationExists(ctx, resourceName),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttrSet(resourceName, "latest_revision"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckResourceAttr(resourceName, "properties_file_content", "key.converter=org.apache.kafka.connect.storage.StringConverter\nvalue.converter=org.apache.kafka.connect.storage.StringConverter\n"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, kafkaconnect.EndpointsID) },
+ErrorCheck:acctest.ErrorCheck(t, kafkaconnect.EndpointsID),
+CheckDestroy:             nil,
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccWorkerConfigurationConfig_basic(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckWorkerConfigurationExists(ctx, resourceName),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttrSet(resourceName, "latest_revision"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckResourceAttr(resourceName, "properties_file_content", "key.converter=org.apache.kafka.connect.storage.StringConverter\nvalue.converter=org.apache.kafka.connect.storage.StringConverter\n"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -53,43 +53,43 @@ func TestAccKafkaConnectWorkerConfiguration_description(t *testing.T) {
 	resourceName := "aws_mskconnect_worker_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, kafkaconnect.EndpointsID) },
-		ErrorCheck:acctest.ErrorCheck(t, kafkaconnect.EndpointsID),
-		CheckDestroy:             nil,
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccWorkerConfigurationConfig_description(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckWorkerConfigurationExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "description", "testing"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, kafkaconnect.EndpointsID) },
+ErrorCheck:acctest.ErrorCheck(t, kafkaconnect.EndpointsID),
+CheckDestroy:             nil,
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccWorkerConfigurationConfig_description(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckWorkerConfigurationExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "description", "testing"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
 func testAccCheckWorkerConfigurationExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No MSK Connect Worker Configuration ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No MSK Connect Worker Configuration ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).KafkaConnectConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).KafkaConnectConn(ctx)
 
-		_, err := tfkafkaconnect.FindWorkerConfigurationByARN(ctx, conn, rs.Primary.ID)
+_, err := tfkafkaconnect.FindWorkerConfigurationByARN(ctx, conn, rs.Primary.ID)
 
-		return err
+return err
 	}
 }
 

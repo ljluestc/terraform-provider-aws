@@ -30,44 +30,44 @@ func testAccApp_basic(t *testing.T) {
 	resourceName := "aws_amplify_app.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAppDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAppConfig_name(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckAppExists(ctx, resourceName, &app),
-					resource.TestCheckNoResourceAttr(resourceName, "access_token"),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "amplify", regexache.MustCompile(`apps/.+`)),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_patterns.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "basic_auth_credentials", ""),
-					resource.TestCheckResourceAttr(resourceName, "build_spec", ""),
-					resource.TestCheckResourceAttr(resourceName, "custom_rule.#", "0"),
-					resource.TestMatchResourceAttr(resourceName, "default_domain", regexache.MustCompile(`\.amplifyapp\.com$`)),
-					resource.TestCheckResourceAttr(resourceName, "description", ""),
-					resource.TestCheckResourceAttr(resourceName, "enable_auto_branch_creation", "false"),
-					resource.TestCheckResourceAttr(resourceName, "enable_basic_auth", "false"),
-					resource.TestCheckResourceAttr(resourceName, "enable_branch_auto_build", "false"),
-					resource.TestCheckResourceAttr(resourceName, "enable_branch_auto_deletion", "false"),
-					resource.TestCheckResourceAttr(resourceName, "environment_variables.%", "0"),
-					resource.TestCheckResourceAttr(resourceName, "iam_service_role_arn", ""),
-					resource.TestCheckResourceAttr(resourceName, "name", rName),
-					resource.TestCheckNoResourceAttr(resourceName, "oauth_token"),
-					resource.TestCheckResourceAttr(resourceName, "platform", "WEB"),
-					resource.TestCheckResourceAttr(resourceName, "production_branch.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "repository", ""),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckAppDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccAppConfig_name(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckAppExists(ctx, resourceName, &app),
+	resource.TestCheckNoResourceAttr(resourceName, "access_token"),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "amplify", regexache.MustCompile(`apps/.+`)),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_patterns.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "basic_auth_credentials", ""),
+	resource.TestCheckResourceAttr(resourceName, "build_spec", ""),
+	resource.TestCheckResourceAttr(resourceName, "custom_rule.#", "0"),
+	resource.TestMatchResourceAttr(resourceName, "default_domain", regexache.MustCompile(`\.amplifyapp\.com$`)),
+	resource.TestCheckResourceAttr(resourceName, "description", ""),
+	resource.TestCheckResourceAttr(resourceName, "enable_auto_branch_creation", "false"),
+	resource.TestCheckResourceAttr(resourceName, "enable_basic_auth", "false"),
+	resource.TestCheckResourceAttr(resourceName, "enable_branch_auto_build", "false"),
+	resource.TestCheckResourceAttr(resourceName, "enable_branch_auto_deletion", "false"),
+	resource.TestCheckResourceAttr(resourceName, "environment_variables.%", "0"),
+	resource.TestCheckResourceAttr(resourceName, "iam_service_role_arn", ""),
+	resource.TestCheckResourceAttr(resourceName, "name", rName),
+	resource.TestCheckNoResourceAttr(resourceName, "oauth_token"),
+	resource.TestCheckResourceAttr(resourceName, "platform", "WEB"),
+	resource.TestCheckResourceAttr(resourceName, "production_branch.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "repository", ""),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -78,20 +78,20 @@ func testAccApp_disappears(t *testing.T) {
 	resourceName := "aws_amplify_app.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAppDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAppConfig_name(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckAppExists(ctx, resourceName, &app),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfamplify.ResourceApp(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckAppDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccAppConfig_name(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckAppExists(ctx, resourceName, &app),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfamplify.ResourceApp(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -102,42 +102,42 @@ func testAccApp_tags(t *testing.T) {
 	resourceName := "aws_amplify_app.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAppDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAppConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAppExists(ctx, resourceName, &app),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccAppConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAppExists(ctx, resourceName, &app),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-			{
-				Config: testAccAppConfig_tags1(rName, "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAppExists(ctx, resourceName, &app),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckAppDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccAppConfig_tags1(rName, "key1", "value1"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAppExists(ctx, resourceName, &app),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccAppConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAppExists(ctx, resourceName, &app),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+	{
+Config: testAccAppConfig_tags1(rName, "key2", "value2"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAppExists(ctx, resourceName, &app),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+},
 	})
 }
 
@@ -150,90 +150,90 @@ func testAccApp_AutoBranchCreationConfig(t *testing.T) {
 	credentials := base64.StdEncoding.EncodeToString([]byte("username1:password1"))
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAppDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAppConfig_autoBranchCreationNoAutoBranchCreation(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAppExists(ctx, resourceName, &app),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.basic_auth_credentials", ""),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.build_spec", ""),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.enable_auto_build", "false"),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.enable_basic_auth", "false"),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.enable_performance_mode", "false"),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.enable_pull_request_preview", "false"),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.environment_variables.%", "0"),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.framework", ""),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.pull_request_environment_name", ""),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.stage", "NONE"),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_patterns.#", "2"),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_patterns.0", "*"),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_patterns.1", "*/**"),
-					resource.TestCheckResourceAttr(resourceName, "enable_auto_branch_creation", "true"),
-				),
-			},
-			{
-				Config: testAccAppConfig_autoBranchCreationAutoBranchCreation(rName, credentials),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAppExists(ctx, resourceName, &app),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.basic_auth_credentials", credentials),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.build_spec", "version: 0.1"),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.enable_auto_build", "true"),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.enable_basic_auth", "true"),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.enable_performance_mode", "false"),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.enable_pull_request_preview", "true"),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.environment_variables.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.environment_variables.ENVVAR1", "1"),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.framework", "React"),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.pull_request_environment_name", "test1"),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.stage", "DEVELOPMENT"),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_patterns.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_patterns.0", "feature/*"),
-					resource.TestCheckResourceAttr(resourceName, "enable_auto_branch_creation", "true"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccAppConfig_autoBranchCreationAutoBranchCreationUpdated(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAppExists(ctx, resourceName, &app),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.#", "1"),
-					// Clearing basic_auth_credentials not reflected in API.
-					// resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.basic_auth_credentials", ""),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.build_spec", "version: 0.2"),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.enable_auto_build", "false"),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.enable_basic_auth", "false"),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.enable_performance_mode", "false"),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.enable_pull_request_preview", "false"),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.environment_variables.%", "0"),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.framework", "React"),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.pull_request_environment_name", "test2"),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.stage", "EXPERIMENTAL"),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_patterns.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_patterns.0", "feature/*"),
-					resource.TestCheckResourceAttr(resourceName, "enable_auto_branch_creation", "true"),
-				),
-			},
-			{
-				Config: testAccAppConfig_name(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAppExists(ctx, resourceName, &app),
-					// No change is reflected in API.
-					// resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.#", "0"),
-					// resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_patterns.#", "0"),
-					resource.TestCheckResourceAttr(resourceName, "enable_auto_branch_creation", "false"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckAppDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccAppConfig_autoBranchCreationNoAutoBranchCreation(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAppExists(ctx, resourceName, &app),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.basic_auth_credentials", ""),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.build_spec", ""),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.enable_auto_build", "false"),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.enable_basic_auth", "false"),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.enable_performance_mode", "false"),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.enable_pull_request_preview", "false"),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.environment_variables.%", "0"),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.framework", ""),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.pull_request_environment_name", ""),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.stage", "NONE"),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_patterns.#", "2"),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_patterns.0", "*"),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_patterns.1", "*/**"),
+	resource.TestCheckResourceAttr(resourceName, "enable_auto_branch_creation", "true"),
+),
+	},
+	{
+Config: testAccAppConfig_autoBranchCreationAutoBranchCreation(rName, credentials),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAppExists(ctx, resourceName, &app),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.basic_auth_credentials", credentials),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.build_spec", "version: 0.1"),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.enable_auto_build", "true"),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.enable_basic_auth", "true"),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.enable_performance_mode", "false"),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.enable_pull_request_preview", "true"),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.environment_variables.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.environment_variables.ENVVAR1", "1"),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.framework", "React"),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.pull_request_environment_name", "test1"),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.stage", "DEVELOPMENT"),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_patterns.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_patterns.0", "feature/*"),
+	resource.TestCheckResourceAttr(resourceName, "enable_auto_branch_creation", "true"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccAppConfig_autoBranchCreationAutoBranchCreationUpdated(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAppExists(ctx, resourceName, &app),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.#", "1"),
+	// Clearing basic_auth_credentials not reflected in API.
+	// resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.basic_auth_credentials", ""),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.build_spec", "version: 0.2"),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.enable_auto_build", "false"),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.enable_basic_auth", "false"),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.enable_performance_mode", "false"),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.enable_pull_request_preview", "false"),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.environment_variables.%", "0"),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.framework", "React"),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.pull_request_environment_name", "test2"),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.0.stage", "EXPERIMENTAL"),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_patterns.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_patterns.0", "feature/*"),
+	resource.TestCheckResourceAttr(resourceName, "enable_auto_branch_creation", "true"),
+),
+	},
+	{
+Config: testAccAppConfig_name(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAppExists(ctx, resourceName, &app),
+	// No change is reflected in API.
+	// resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_config.#", "0"),
+	// resource.TestCheckResourceAttr(resourceName, "auto_branch_creation_patterns.#", "0"),
+	resource.TestCheckResourceAttr(resourceName, "enable_auto_branch_creation", "false"),
+),
+	},
+},
 	})
 }
 
@@ -247,42 +247,42 @@ func testAccApp_BasicAuthCredentials(t *testing.T) {
 	credentials2 := base64.StdEncoding.EncodeToString([]byte("username2:password2"))
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAppDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAppConfig_basicAuthCredentials(rName, credentials1),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAppExists(ctx, resourceName, &app),
-					resource.TestCheckResourceAttr(resourceName, "basic_auth_credentials", credentials1),
-					resource.TestCheckResourceAttr(resourceName, "enable_basic_auth", "true"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccAppConfig_basicAuthCredentials(rName, credentials2),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAppExists(ctx, resourceName, &app),
-					resource.TestCheckResourceAttr(resourceName, "basic_auth_credentials", credentials2),
-					resource.TestCheckResourceAttr(resourceName, "enable_basic_auth", "true"),
-				),
-			},
-			{
-				Config: testAccAppConfig_name(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAppExists(ctx, resourceName, &app),
-					// Clearing basic_auth_credentials not reflected in API.
-					// resource.TestCheckResourceAttr(resourceName, "basic_auth_credentials", ""),
-					resource.TestCheckResourceAttr(resourceName, "enable_basic_auth", "false"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckAppDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccAppConfig_basicAuthCredentials(rName, credentials1),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAppExists(ctx, resourceName, &app),
+	resource.TestCheckResourceAttr(resourceName, "basic_auth_credentials", credentials1),
+	resource.TestCheckResourceAttr(resourceName, "enable_basic_auth", "true"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccAppConfig_basicAuthCredentials(rName, credentials2),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAppExists(ctx, resourceName, &app),
+	resource.TestCheckResourceAttr(resourceName, "basic_auth_credentials", credentials2),
+	resource.TestCheckResourceAttr(resourceName, "enable_basic_auth", "true"),
+),
+	},
+	{
+Config: testAccAppConfig_name(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAppExists(ctx, resourceName, &app),
+	// Clearing basic_auth_credentials not reflected in API.
+	// resource.TestCheckResourceAttr(resourceName, "basic_auth_credentials", ""),
+	resource.TestCheckResourceAttr(resourceName, "enable_basic_auth", "false"),
+),
+	},
+},
 	})
 }
 
@@ -293,39 +293,39 @@ func testAccApp_BuildSpec(t *testing.T) {
 	resourceName := "aws_amplify_app.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAppDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAppConfig_buildSpec(rName, "version: 0.1"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAppExists(ctx, resourceName, &app),
-					resource.TestCheckResourceAttr(resourceName, "build_spec", "version: 0.1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccAppConfig_buildSpec(rName, "version: 0.2"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAppExists(ctx, resourceName, &app),
-					resource.TestCheckResourceAttr(resourceName, "build_spec", "version: 0.2"),
-				),
-			},
-			{
-				Config: testAccAppConfig_name(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAppExists(ctx, resourceName, &app),
-					// build_spec is Computed.
-					resource.TestCheckResourceAttr(resourceName, "build_spec", "version: 0.2"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckAppDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccAppConfig_buildSpec(rName, "version: 0.1"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAppExists(ctx, resourceName, &app),
+	resource.TestCheckResourceAttr(resourceName, "build_spec", "version: 0.1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccAppConfig_buildSpec(rName, "version: 0.2"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAppExists(ctx, resourceName, &app),
+	resource.TestCheckResourceAttr(resourceName, "build_spec", "version: 0.2"),
+),
+	},
+	{
+Config: testAccAppConfig_name(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAppExists(ctx, resourceName, &app),
+	// build_spec is Computed.
+	resource.TestCheckResourceAttr(resourceName, "build_spec", "version: 0.2"),
+),
+	},
+},
 	})
 }
 
@@ -336,47 +336,47 @@ func testAccApp_CustomRules(t *testing.T) {
 	resourceName := "aws_amplify_app.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAppDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAppConfig_customRules(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAppExists(ctx, resourceName, &app),
-					resource.TestCheckResourceAttr(resourceName, "custom_rule.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "custom_rule.0.source", "/<*>"),
-					resource.TestCheckResourceAttr(resourceName, "custom_rule.0.status", "404"),
-					resource.TestCheckResourceAttr(resourceName, "custom_rule.0.target", "/index.html"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccAppConfig_customRulesUpdated(rName),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr(resourceName, "custom_rule.#", "2"),
-					resource.TestCheckResourceAttr(resourceName, "custom_rule.0.condition", "<US>"),
-					resource.TestCheckResourceAttr(resourceName, "custom_rule.0.source", "/documents"),
-					resource.TestCheckResourceAttr(resourceName, "custom_rule.0.status", "302"),
-					resource.TestCheckResourceAttr(resourceName, "custom_rule.0.target", "/documents/us"),
-					resource.TestCheckResourceAttr(resourceName, "custom_rule.1.source", "/<*>"),
-					resource.TestCheckResourceAttr(resourceName, "custom_rule.1.status", "200"),
-					resource.TestCheckResourceAttr(resourceName, "custom_rule.1.target", "/index.html"),
-				),
-			},
-			{
-				Config: testAccAppConfig_name(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAppExists(ctx, resourceName, &app),
-					resource.TestCheckResourceAttr(resourceName, "custom_rule.#", "0"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckAppDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccAppConfig_customRules(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAppExists(ctx, resourceName, &app),
+	resource.TestCheckResourceAttr(resourceName, "custom_rule.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "custom_rule.0.source", "/<*>"),
+	resource.TestCheckResourceAttr(resourceName, "custom_rule.0.status", "404"),
+	resource.TestCheckResourceAttr(resourceName, "custom_rule.0.target", "/index.html"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccAppConfig_customRulesUpdated(rName),
+Check: resource.ComposeTestCheckFunc(
+	resource.TestCheckResourceAttr(resourceName, "custom_rule.#", "2"),
+	resource.TestCheckResourceAttr(resourceName, "custom_rule.0.condition", "<US>"),
+	resource.TestCheckResourceAttr(resourceName, "custom_rule.0.source", "/documents"),
+	resource.TestCheckResourceAttr(resourceName, "custom_rule.0.status", "302"),
+	resource.TestCheckResourceAttr(resourceName, "custom_rule.0.target", "/documents/us"),
+	resource.TestCheckResourceAttr(resourceName, "custom_rule.1.source", "/<*>"),
+	resource.TestCheckResourceAttr(resourceName, "custom_rule.1.status", "200"),
+	resource.TestCheckResourceAttr(resourceName, "custom_rule.1.target", "/index.html"),
+),
+	},
+	{
+Config: testAccAppConfig_name(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAppExists(ctx, resourceName, &app),
+	resource.TestCheckResourceAttr(resourceName, "custom_rule.#", "0"),
+),
+	},
+},
 	})
 }
 
@@ -387,40 +387,40 @@ func testAccApp_Description(t *testing.T) {
 	resourceName := "aws_amplify_app.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAppDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAppConfig_description(rName, "description 1"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAppExists(ctx, resourceName, &app1),
-					resource.TestCheckResourceAttr(resourceName, "description", "description 1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccAppConfig_description(rName, "description 2"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAppExists(ctx, resourceName, &app2),
-					testAccCheckAppNotRecreated(&app1, &app2),
-					resource.TestCheckResourceAttr(resourceName, "description", "description 2"),
-				),
-			},
-			{
-				Config: testAccAppConfig_name(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAppExists(ctx, resourceName, &app3),
-					testAccCheckAppRecreated(&app2, &app3),
-					resource.TestCheckResourceAttr(resourceName, "description", ""),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckAppDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccAppConfig_description(rName, "description 1"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAppExists(ctx, resourceName, &app1),
+	resource.TestCheckResourceAttr(resourceName, "description", "description 1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccAppConfig_description(rName, "description 2"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAppExists(ctx, resourceName, &app2),
+	testAccCheckAppNotRecreated(&app1, &app2),
+	resource.TestCheckResourceAttr(resourceName, "description", "description 2"),
+),
+	},
+	{
+Config: testAccAppConfig_name(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAppExists(ctx, resourceName, &app3),
+	testAccCheckAppRecreated(&app2, &app3),
+	resource.TestCheckResourceAttr(resourceName, "description", ""),
+),
+	},
+},
 	})
 }
 
@@ -431,41 +431,41 @@ func testAccApp_EnvironmentVariables(t *testing.T) {
 	resourceName := "aws_amplify_app.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAppDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAppConfig_environmentVariables(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAppExists(ctx, resourceName, &app),
-					resource.TestCheckResourceAttr(resourceName, "environment_variables.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "environment_variables.ENVVAR1", "1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccAppConfig_environmentVariablesUpdated(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAppExists(ctx, resourceName, &app),
-					resource.TestCheckResourceAttr(resourceName, "environment_variables.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "environment_variables.ENVVAR1", "2"),
-					resource.TestCheckResourceAttr(resourceName, "environment_variables.ENVVAR2", "2"),
-				),
-			},
-			{
-				Config: testAccAppConfig_name(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAppExists(ctx, resourceName, &app),
-					resource.TestCheckResourceAttr(resourceName, "environment_variables.%", "0"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckAppDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccAppConfig_environmentVariables(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAppExists(ctx, resourceName, &app),
+	resource.TestCheckResourceAttr(resourceName, "environment_variables.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "environment_variables.ENVVAR1", "1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccAppConfig_environmentVariablesUpdated(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAppExists(ctx, resourceName, &app),
+	resource.TestCheckResourceAttr(resourceName, "environment_variables.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "environment_variables.ENVVAR1", "2"),
+	resource.TestCheckResourceAttr(resourceName, "environment_variables.ENVVAR2", "2"),
+),
+	},
+	{
+Config: testAccAppConfig_name(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAppExists(ctx, resourceName, &app),
+	resource.TestCheckResourceAttr(resourceName, "environment_variables.%", "0"),
+),
+	},
+},
 	})
 }
 
@@ -478,39 +478,39 @@ func testAccApp_IAMServiceRole(t *testing.T) {
 	iamRole2ResourceName := "aws_iam_role.test2"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAppDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAppConfig_iamServiceRoleARN(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAppExists(ctx, resourceName, &app1),
-					resource.TestCheckResourceAttrPair(resourceName, "iam_service_role_arn", iamRole1ResourceName, "arn")),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccAppConfig_iamServiceRoleARNUpdated(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAppExists(ctx, resourceName, &app2),
-					testAccCheckAppNotRecreated(&app1, &app2),
-					resource.TestCheckResourceAttrPair(resourceName, "iam_service_role_arn", iamRole2ResourceName, "arn"),
-				),
-			},
-			{
-				Config: testAccAppConfig_name(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAppExists(ctx, resourceName, &app3),
-					testAccCheckAppRecreated(&app2, &app3),
-					resource.TestCheckResourceAttr(resourceName, "iam_service_role_arn", ""),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckAppDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccAppConfig_iamServiceRoleARN(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAppExists(ctx, resourceName, &app1),
+	resource.TestCheckResourceAttrPair(resourceName, "iam_service_role_arn", iamRole1ResourceName, "arn")),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccAppConfig_iamServiceRoleARNUpdated(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAppExists(ctx, resourceName, &app2),
+	testAccCheckAppNotRecreated(&app1, &app2),
+	resource.TestCheckResourceAttrPair(resourceName, "iam_service_role_arn", iamRole2ResourceName, "arn"),
+),
+	},
+	{
+Config: testAccAppConfig_name(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAppExists(ctx, resourceName, &app3),
+	testAccCheckAppRecreated(&app2, &app3),
+	resource.TestCheckResourceAttr(resourceName, "iam_service_role_arn", ""),
+),
+	},
+},
 	})
 }
 
@@ -522,31 +522,31 @@ func testAccApp_Name(t *testing.T) {
 	resourceName := "aws_amplify_app.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAppDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAppConfig_name(rName1),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAppExists(ctx, resourceName, &app),
-					resource.TestCheckResourceAttr(resourceName, "name", rName1),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccAppConfig_name(rName2),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAppExists(ctx, resourceName, &app),
-					resource.TestCheckResourceAttr(resourceName, "name", rName2),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckAppDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccAppConfig_name(rName1),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAppExists(ctx, resourceName, &app),
+	resource.TestCheckResourceAttr(resourceName, "name", rName1),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccAppConfig_name(rName2),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAppExists(ctx, resourceName, &app),
+	resource.TestCheckResourceAttr(resourceName, "name", rName2),
+),
+	},
+},
 	})
 }
 
@@ -555,13 +555,13 @@ func testAccApp_Repository(t *testing.T) {
 	key := "AMPLIFY_GITHUB_ACCESS_TOKEN"
 	accessToken := os.Getenv(key)
 	if accessToken == "" {
-		t.Skipf("Environment variable %s is not set", key)
+t.Skipf("Environment variable %s is not set", key)
 	}
 
 	key = "AMPLIFY_GITHUB_REPOSITORY"
 	repository := os.Getenv(key)
 	if repository == "" {
-		t.Skipf("Environment variable %s is not set", key)
+t.Skipf("Environment variable %s is not set", key)
 	}
 
 	var app amplify.App
@@ -569,79 +569,79 @@ func testAccApp_Repository(t *testing.T) {
 	resourceName := "aws_amplify_app.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAppDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccAppConfig_repository(rName, repository, accessToken),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckAppExists(ctx, resourceName, &app),
-					resource.TestCheckResourceAttr(resourceName, "access_token", accessToken),
-					resource.TestCheckResourceAttr(resourceName, "repository", repository),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-				// access_token is ignored because AWS does not store access_token and oauth_token
-				// See https://docs.aws.amazon.com/sdk-for-go/api/service/amplify/#CreateAppInput
-				ImportStateVerifyIgnore: []string{"access_token"},
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckAppDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccAppConfig_repository(rName, repository, accessToken),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckAppExists(ctx, resourceName, &app),
+	resource.TestCheckResourceAttr(resourceName, "access_token", accessToken),
+	resource.TestCheckResourceAttr(resourceName, "repository", repository),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+// access_token is ignored because AWS does not store access_token and oauth_token
+// See https://docs.aws.amazon.com/sdk-for-go/api/service/amplify/#CreateAppInput
+ImportStateVerifyIgnore: []string{"access_token"},
+	},
+},
 	})
 }
 
 func testAccCheckAppExists(ctx context.Context, n string, v *amplify.App) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No Amplify App ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No Amplify App ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).AmplifyConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).AmplifyConn(ctx)
 
-		output, err := tfamplify.FindAppByID(ctx, conn, rs.Primary.ID)
+output, err := tfamplify.FindAppByID(ctx, conn, rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*v = *output
+*v = *output
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckAppDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).AmplifyConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).AmplifyConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_amplify_app" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_amplify_app" {
+continue
+	}
 
-			_, err := tfamplify.FindAppByID(ctx, conn, rs.Primary.ID)
+	_, err := tfamplify.FindAppByID(ctx, conn, rs.Primary.ID)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("Amplify App %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("Amplify App %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -651,21 +651,21 @@ func testAccPreCheck(t *testing.T) {
 
 func testAccCheckAppNotRecreated(before, after *amplify.App) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		if before, after := aws.StringValue(before.AppId), aws.StringValue(after.AppId); before != after {
-			return fmt.Errorf("Amplify App (%s/%s) recreated", before, after)
-		}
+if before, after := aws.StringValue(before.AppId), aws.StringValue(after.AppId); before != after {
+	return fmt.Errorf("Amplify App (%s/%s) recreated", before, after)
+}
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckAppRecreated(before, after *amplify.App) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		if before, after := aws.StringValue(before.AppId), aws.StringValue(after.AppId); before == after {
-			return fmt.Errorf("Amplify App (%s) not recreated", before)
-		}
+if before, after := aws.StringValue(before.AppId), aws.StringValue(after.AppId); before == after {
+	return fmt.Errorf("Amplify App (%s) not recreated", before)
+}
 
-		return nil
+return nil
 	}
 }
 

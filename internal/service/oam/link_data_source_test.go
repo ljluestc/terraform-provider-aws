@@ -16,7 +16,7 @@ import (
 
 func TestAccObservabilityAccessManagerLinkDataSource_basic(t *testing.T) {
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	ctx := acctest.Context(t)
@@ -24,37 +24,37 @@ func TestAccObservabilityAccessManagerLinkDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_oam_link.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckAlternateAccount(t)
-			acctest.PreCheckPartitionHasService(t, names.ObservabilityAccessManagerEndpointID)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, names.ObservabilityAccessManagerEndpointID),
-		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccLinkDataSourceConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					acctest.MatchResourceAttrRegionalARN(dataSourceName, "arn", "oam", regexache.MustCompile(`link/+.`)),
-					resource.TestCheckResourceAttrSet(dataSourceName, "label"),
-					resource.TestCheckResourceAttr(dataSourceName, "label_template", "$AccountName"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "link_id"),
-					resource.TestCheckResourceAttr(dataSourceName, "resource_types.#", "1"),
-					resource.TestCheckResourceAttr(dataSourceName, "resource_types.0", "AWS::CloudWatch::Metric"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "sink_arn"),
-					resource.TestCheckResourceAttr(dataSourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(dataSourceName, "tags.key1", "value1"),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckAlternateAccount(t)
+	acctest.PreCheckPartitionHasService(t, names.ObservabilityAccessManagerEndpointID)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, names.ObservabilityAccessManagerEndpointID),
+ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
+Steps: []resource.TestStep{
+	{
+Config: testAccLinkDataSourceConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	acctest.MatchResourceAttrRegionalARN(dataSourceName, "arn", "oam", regexache.MustCompile(`link/+.`)),
+	resource.TestCheckResourceAttrSet(dataSourceName, "label"),
+	resource.TestCheckResourceAttr(dataSourceName, "label_template", "$AccountName"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "link_id"),
+	resource.TestCheckResourceAttr(dataSourceName, "resource_types.#", "1"),
+	resource.TestCheckResourceAttr(dataSourceName, "resource_types.0", "AWS::CloudWatch::Metric"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "sink_arn"),
+	resource.TestCheckResourceAttr(dataSourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(dataSourceName, "tags.key1", "value1"),
+),
+	},
+},
 	})
 }
 
 func testAccLinkDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(
-		acctest.ConfigAlternateAccountProvider(),
-		fmt.Sprintf(`
+acctest.ConfigAlternateAccountProvider(),
+fmt.Sprintf(`
 data "aws_caller_identity" "source" {}
 data "aws_partition" "source" {}
 

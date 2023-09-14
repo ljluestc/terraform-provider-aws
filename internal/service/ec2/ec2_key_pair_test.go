@@ -28,35 +28,35 @@ func TestAccEC2KeyPair_basic(t *testing.T) {
 
 	publicKey, _, err := sdkacctest.RandSSHKeyPair(acctest.DefaultEmailAddress)
 	if err != nil {
-		t.Fatalf("error generating random SSH key: %s", err)
+t.Fatalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKeyPairDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccKeyPairConfig_basic(rName, publicKey),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckKeyPairDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccKeyPairConfig_basic(rName, publicKey),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckKeyPairExists(ctx, resourceName, &keyPair),
-					acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "ec2", fmt.Sprintf("key-pair/%s", rName)),
-					resource.TestMatchResourceAttr(resourceName, "fingerprint", regexache.MustCompile(`[0-9a-f]{2}(:[0-9a-f]{2}){15}`)),
-					resource.TestCheckResourceAttr(resourceName, "key_name", rName),
-					resource.TestCheckResourceAttr(resourceName, "key_name_prefix", ""),
-					resource.TestCheckResourceAttr(resourceName, "public_key", publicKey),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"public_key"},
-			},
-		},
+	testAccCheckKeyPairExists(ctx, resourceName, &keyPair),
+	acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "ec2", fmt.Sprintf("key-pair/%s", rName)),
+	resource.TestMatchResourceAttr(resourceName, "fingerprint", regexache.MustCompile(`[0-9a-f]{2}(:[0-9a-f]{2}){15}`)),
+	resource.TestCheckResourceAttr(resourceName, "key_name", rName),
+	resource.TestCheckResourceAttr(resourceName, "key_name_prefix", ""),
+	resource.TestCheckResourceAttr(resourceName, "public_key", publicKey),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"public_key"},
+	},
+},
 	})
 }
 
@@ -69,51 +69,51 @@ func TestAccEC2KeyPair_tags(t *testing.T) {
 
 	publicKey, _, err := sdkacctest.RandSSHKeyPair(acctest.DefaultEmailAddress)
 	if err != nil {
-		t.Fatalf("error generating random SSH key: %s", err)
+t.Fatalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKeyPairDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccKeyPairConfig_tags1(rName, publicKey, "key1", "value1"),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckKeyPairDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccKeyPairConfig_tags1(rName, publicKey, "key1", "value1"),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckKeyPairExists(ctx, resourceName, &keyPair),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"public_key"},
-			},
-			{
-				Config: testAccKeyPairConfig_tags2(rName, publicKey, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeAggregateTestCheck
+	testAccCheckKeyPairExists(ctx, resourceName, &keyPair),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"public_key"},
+	},
+	{
+Config: testAccKeyPairConfig_tags2(rName, publicKey, "key1", "value1updated", "key2", "value2"),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckKeyPairExists(ctx, resourceName, &keyPair),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-			{
-				Config: testAccKeyPairConfig_tags1(rName, publicKey, "key2", "value2"),
-				Check: resource.ComposeAggregateTestCheck
+	testAccCheckKeyPairExists(ctx, resourceName, &keyPair),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+	{
+Config: testAccKeyPairConfig_tags1(rName, publicKey, "key2", "value2"),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckKeyPairExists(ctx, resourceName, &keyPair),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-		},
+	testAccCheckKeyPairExists(ctx, resourceName, &keyPair),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+},
 	})
 }
 
@@ -125,32 +125,32 @@ func TestAccEC2KeyPair_nameGenerated(t *testing.T) {
 
 	publicKey, _, err := sdkacctest.RandSSHKeyPair(acctest.DefaultEmailAddress)
 	if err != nil {
-		t.Fatalf("error generating random SSH key: %s", err)
+t.Fatalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKeyPairDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccKeyPairConfig_nameGenerated(publicKey),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckKeyPairDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccKeyPairConfig_nameGenerated(publicKey),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckKeyPairExists(ctx, resourceName, &keyPair),
-					acctest.CheckResourceAttrNameGenerated(resourceName, "key_name"),
-					resource.TestCheckResourceAttr(resourceName, "key_name_prefix", "terraform-"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"public_key"},
-			},
-		},
+	testAccCheckKeyPairExists(ctx, resourceName, &keyPair),
+	acctest.CheckResourceAttrNameGenerated(resourceName, "key_name"),
+	resource.TestCheckResourceAttr(resourceName, "key_name_prefix", "terraform-"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"public_key"},
+	},
+},
 	})
 }
 
@@ -162,32 +162,32 @@ func TestAccEC2KeyPair_namePrefix(t *testing.T) {
 
 	publicKey, _, err := sdkacctest.RandSSHKeyPair(acctest.DefaultEmailAddress)
 	if err != nil {
-		t.Fatalf("error generating random SSH key: %s", err)
+t.Fatalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKeyPairDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccKeyPairConfig_namePrefix("tf-acc-test-prefix-", publicKey),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckKeyPairDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccKeyPairConfig_namePrefix("tf-acc-test-prefix-", publicKey),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckKeyPairExists(ctx, resourceName, &keyPair),
-					acctest.CheckResourceAttrNameFromPrefix(resourceName, "key_name", "tf-acc-test-prefix-"),
-					resource.TestCheckResourceAttr(resourceName, "key_name_prefix", "tf-acc-test-prefix-"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"public_key"},
-			},
-		},
+	testAccCheckKeyPairExists(ctx, resourceName, &keyPair),
+	acctest.CheckResourceAttrNameFromPrefix(resourceName, "key_name", "tf-acc-test-prefix-"),
+	resource.TestCheckResourceAttr(resourceName, "key_name_prefix", "tf-acc-test-prefix-"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"public_key"},
+	},
+},
 	})
 }
 
@@ -200,26 +200,26 @@ func TestAccEC2KeyPair_disappears(t *testing.T) {
 
 	publicKey, _, err := sdkacctest.RandSSHKeyPair(acctest.DefaultEmailAddress)
 	if err != nil {
-		t.Fatalf("error generating random SSH key: %s", err)
+t.Fatalf("error generating random SSH key: %s", err)
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKeyPairDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccKeyPairConfig_basic(rName, publicKey),
-				Check: resource.ComposeAggregateTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckKeyPairDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccKeyPairConfig_basic(rName, publicKey),
+Check: resource.ComposeAggregateTestCheck
 func(
-					testAccCheckKeyPairExists(ctx, resourceName, &keyPair),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceKeyPair(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckKeyPairExists(ctx, resourceName, &keyPair),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceKeyPair(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -228,27 +228,27 @@ func testAccCheckKeyPairDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_key_pair" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_key_pair" {
+continue
+	}
 
-			_, err := tfec2.FindKeyPairByName(ctx, conn, rs.Primary.ID)
+	_, err := tfec2.FindKeyPairByName(ctx, conn, rs.Primary.ID)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("EC2 Key Pair %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("EC2 Key Pair %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -257,26 +257,26 @@ func testAccCheckKeyPairExists(ctx context.Context, n string, v *ec2.KeyPairInfo
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No EC2 Key Pair ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No EC2 Key Pair ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-		output, err := tfec2.FindKeyPairByName(ctx, conn, rs.Primary.ID)
+output, err := tfec2.FindKeyPairByName(ctx, conn, rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*v = *output
+*v = *output
 
-		return nil
+return nil
 	}
 }
 

@@ -46,14 +46,14 @@ func ResourceHost() *schema.Resource {
 				Computed: true,
 			},
 			"asset_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				RequiredWith: []string{"outpost_arn"},
 				Computed:     true,
 			},
 			"auto_placement": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Default:      ec2.AutoPlacementOn,
 				Validate
@@ -65,19 +65,19 @@ func: validation.StringInSlice(ec2.AutoPlacement_Values(), false),
 				ForceNew: true,
 			},
 			"host_recovery": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Default:      ec2.HostRecoveryOff,
 				Validate
 func: validation.StringInSlice(ec2.HostRecovery_Values(), false),
 			},
 			"instance_family": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ExactlyOneOf: []string{"instance_family", "instance_type"},
 			},
 			"instance_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ExactlyOneOf: []string{"instance_family", "instance_type"},
 			},
@@ -106,7 +106,7 @@ func resourceHostCreate(ctx context.Context, d *schema.ResourceData, meta interf
 		AvailabilityZone:  aws.String(d.Get("availability_zone").(string)),
 		ClientToken:       aws.String(id.UniqueId()),
 		HostRecovery:      aws.String(d.Get("host_recovery").(string)),
-		Quantity:          aws.Int64(1),
+		Quantity: aws.Int64(1),
 		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeDedicatedHost),
 	}
 

@@ -51,7 +51,7 @@ func visualCustomActionsSchema(maxItems int) *schema.Schema {
 														MinItems: 1,
 														MaxItems: 20,
 														Elem: &schema.Schema{
-															Type:         schema.TypeString,
+															Type:schema.TypeString,
 															Validate
 func: validation.StringLenBetween(1, 512),
 														},
@@ -153,7 +153,7 @@ func: validation.StringLenBetween(1, 512),
 																							MinItems: 1,
 																							MaxItems: 50000,
 																							Elem: &schema.Schema{
-																								Type:         schema.TypeString,
+																								Type:schema.TypeString,
 																								Validate
 func: verify.ValidUTCTimestamp,
 																							},
@@ -196,7 +196,7 @@ func: verify.ValidUTCTimestamp,
 																	},
 																},
 																"select_all_value_options": stringSchema(false, validation.StringInSlice(quicksight.SelectAllValueOptions_Values(), false)),
-																"source_field":             stringSchema(false, validation.StringLenBetween(1, 2048)),
+																"source_field":    stringSchema(false, validation.StringLenBetween(1, 2048)),
 																"source_parameter_name": {
 																	Type:     schema.TypeString,
 																	Optional: true,
@@ -226,9 +226,9 @@ func: verify.ValidUTCTimestamp,
 					},
 				},
 				"custom_action_id": idSchema(),
-				"name":             stringSchema(true, validation.StringLenBetween(1, 256)),
-				"trigger":          stringSchema(true, validation.StringInSlice(quicksight.VisualCustomActionTrigger_Values(), false)),
-				"status":           stringSchema(true, validation.StringInSlice(quicksight.Status_Values(), false)),
+				"name":    stringSchema(true, validation.StringLenBetween(1, 256)),
+				"trigger": stringSchema(true, validation.StringInSlice(quicksight.VisualCustomActionTrigger_Values(), false)),
+				"status":  stringSchema(true, validation.StringInSlice(quicksight.Status_Values(), false)),
 			},
 		},
 	}
@@ -641,9 +641,9 @@ func flattenVisualCustomAction(apiObject []*quicksight.VisualCustomAction) []int
 
 		tfMap := map[string]interface{}{
 			"custom_action_id": aws.StringValue(config.CustomActionId),
-			"name":             aws.StringValue(config.Name),
-			"status":           aws.StringValue(config.Status),
-			"trigger":          aws.StringValue(config.Trigger),
+			"name":    aws.StringValue(config.Name),
+			"status":  aws.StringValue(config.Status),
+			"trigger": aws.StringValue(config.Trigger),
 		}
 		if config.ActionOperations != nil {
 			tfMap["action_operations"] = flattenVisualCustomActionOperation(config.ActionOperations)

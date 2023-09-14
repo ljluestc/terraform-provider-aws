@@ -44,7 +44,7 @@ func ResourceQueue() *schema.Resource {
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Validate
 func: validation.StringLenBetween(1, 250),
@@ -54,19 +54,19 @@ func: validation.StringLenBetween(1, 250),
 				Required: true,
 			},
 			"instance_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				Validate
 func: validation.StringLenBetween(1, 100),
 			},
 			"max_contacts": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				Validate
 func: validation.IntAtLeast(0),
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				Validate
 func: validation.StringLenBetween(1, 127),
@@ -78,7 +78,7 @@ func: validation.StringLenBetween(1, 127),
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"outbound_caller_id_name": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Validate
 func: validation.StringLenBetween(1, 255),
@@ -88,7 +88,7 @@ func: validation.StringLenBetween(1, 255),
 							Optional: true,
 						},
 						"outbound_flow_id": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Validate
 func: validation.StringLenBetween(1, 500),
@@ -108,7 +108,7 @@ func: validation.StringLenBetween(1, 500),
 				},
 			},
 			"status": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				Validate
@@ -245,8 +245,8 @@ func resourceQueueUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 	// updates to hours_of_operation_id
 	if d.HasChange("hours_of_operation_id") {
 		input := &connect.UpdateQueueHoursOfOperationInput{
-			InstanceId:         aws.String(instanceID),
-			QueueId:            aws.String(queueID),
+			InstanceId:aws.String(instanceID),
+			QueueId:   aws.String(queueID),
 			HoursOfOperationId: aws.String(d.Get("hours_of_operation_id").(string)),
 		}
 		_, err = conn.UpdateQueueHoursOfOperationWithContext(ctx, input)
@@ -288,8 +288,8 @@ func resourceQueueUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 	// updates to outbound_caller_config
 	if d.HasChange("outbound_caller_config") {
 		input := &connect.UpdateQueueOutboundCallerConfigInput{
-			InstanceId:           aws.String(instanceID),
-			QueueId:              aws.String(queueID),
+			InstanceId:  aws.String(instanceID),
+			QueueId:     aws.String(queueID),
 			OutboundCallerConfig: expandOutboundCallerConfig(d.Get("outbound_caller_config").([]interface{})),
 		}
 		_, err = conn.UpdateQueueOutboundCallerConfigWithContext(ctx, input)
@@ -332,7 +332,7 @@ func resourceQueueUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 		if len(quickConnectIdsUpdateAdd.List()) > 0 { // nosemgrep:ci.semgrep.migrate.aws-api-context
 			_, err = conn.AssociateQueueQuickConnectsWithContext(ctx, &connect.AssociateQueueQuickConnectsInput{
 				InstanceId:      aws.String(instanceID),
-				QueueId:         aws.String(queueID),
+				QueueId:aws.String(queueID),
 				QuickConnectIds: flex.ExpandStringSet(quickConnectIdsUpdateAdd),
 			})
 			if err != nil {
@@ -343,7 +343,7 @@ func resourceQueueUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 		if len(quickConnectIdsUpdateRemove.List()) > 0 { // nosemgrep:ci.semgrep.migrate.aws-api-context
 			_, err = conn.DisassociateQueueQuickConnectsWithContext(ctx, &connect.DisassociateQueueQuickConnectsInput{
 				InstanceId:      aws.String(instanceID),
-				QueueId:         aws.String(queueID),
+				QueueId:aws.String(queueID),
 				QuickConnectIds: flex.ExpandStringSet(quickConnectIdsUpdateRemove),
 			})
 			if err != nil {

@@ -26,20 +26,20 @@ func TestAccSiteVPNConnectionRoute_basic(t *testing.T) {
 	resourceName := "aws_vpn_connection_route.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPNConnectionRouteDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSiteVPNConnectionRouteConfig_basic(rName, rBgpAsn),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckVPNConnectionRouteDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSiteVPNConnectionRouteConfig_basic(rName, rBgpAsn),
+Check: resource.ComposeTestCheck
 func(
-					testAccVPNConnectionRouteExists(ctx, resourceName),
-				),
-			},
-		},
+	testAccVPNConnectionRouteExists(ctx, resourceName),
+),
+	},
+},
 	})
 }
 
@@ -51,22 +51,22 @@ func TestAccSiteVPNConnectionRoute_disappears(t *testing.T) {
 	resourceName := "aws_vpn_connection_route.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPNConnectionRouteDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSiteVPNConnectionRouteConfig_basic(rName, rBgpAsn),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckVPNConnectionRouteDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccSiteVPNConnectionRouteConfig_basic(rName, rBgpAsn),
+Check: resource.ComposeTestCheck
 func(
-					testAccVPNConnectionRouteExists(ctx, resourceName),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceVPNConnectionRoute(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccVPNConnectionRouteExists(ctx, resourceName),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceVPNConnectionRoute(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -75,33 +75,33 @@ func testAccCheckVPNConnectionRouteDestroy(ctx context.Context) resource.TestChe
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_vpn_connection_route" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_vpn_connection_route" {
+continue
+	}
 
-			cidrBlock, vpnConnectionID, err := tfec2.VPNConnectionRouteParseResourceID(rs.Primary.ID)
+	cidrBlock, vpnConnectionID, err := tfec2.VPNConnectionRouteParseResourceID(rs.Primary.ID)
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			_, err = tfec2.FindVPNConnectionRouteByVPNConnectionIDAndCIDR(ctx, conn, vpnConnectionID, cidrBlock)
+	_, err = tfec2.FindVPNConnectionRouteByVPNConnectionIDAndCIDR(ctx, conn, vpnConnectionID, cidrBlock)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("EC2 VPN Connection Route %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("EC2 VPN Connection Route %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -110,26 +110,26 @@ func testAccVPNConnectionRouteExists(ctx context.Context, n string) resource.Tes
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No EC2 VPN Connection Route ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No EC2 VPN Connection Route ID is set")
+}
 
-		cidrBlock, vpnConnectionID, err := tfec2.VPNConnectionRouteParseResourceID(rs.Primary.ID)
+cidrBlock, vpnConnectionID, err := tfec2.VPNConnectionRouteParseResourceID(rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-		_, err = tfec2.FindVPNConnectionRouteByVPNConnectionIDAndCIDR(ctx, conn, vpnConnectionID, cidrBlock)
+_, err = tfec2.FindVPNConnectionRouteByVPNConnectionIDAndCIDR(ctx, conn, vpnConnectionID, cidrBlock)
 
-		return err
+return err
 	}
 }
 

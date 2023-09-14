@@ -16,7 +16,7 @@ import (
 func TestAccRDSInstanceDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -24,44 +24,44 @@ func TestAccRDSInstanceDataSource_basic(t *testing.T) {
 	resourceName := "aws_db_instance.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccInstanceDataSourceConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttrPair(dataSourceName, "address", resourceName, "address"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "allocated_storage", resourceName, "allocated_storage"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "auto_minor_version_upgrade", resourceName, "auto_minor_version_upgrade"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "db_instance_arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "db_instance_class", resourceName, "instance_class"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "db_name", resourceName, "db_name"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "db_subnet_group", resourceName, "db_subnet_group_name"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "enabled_cloudwatch_logs_exports.#", resourceName, "enabled_cloudwatch_logs_exports.#"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "endpoint", resourceName, "endpoint"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "engine", resourceName, "engine"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "hosted_zone_id", resourceName, "hosted_zone_id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "iops", resourceName, "iops"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "master_username", resourceName, "username"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "max_allocated_storage", resourceName, "max_allocated_storage"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "multi_az", resourceName, "multi_az"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "network_type", resourceName, "network_type"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "port", resourceName, "port"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "resource_id", resourceName, "resource_id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "storage_throughput", resourceName, "storage_throughput"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "storage_type", resourceName, "storage_type"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
-				),
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccInstanceDataSourceConfig_basic(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttrPair(dataSourceName, "address", resourceName, "address"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "allocated_storage", resourceName, "allocated_storage"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "auto_minor_version_upgrade", resourceName, "auto_minor_version_upgrade"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "db_instance_arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "db_instance_class", resourceName, "instance_class"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "db_name", resourceName, "db_name"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "db_subnet_group", resourceName, "db_subnet_group_name"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "enabled_cloudwatch_logs_exports.#", resourceName, "enabled_cloudwatch_logs_exports.#"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "endpoint", resourceName, "endpoint"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "engine", resourceName, "engine"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "hosted_zone_id", resourceName, "hosted_zone_id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "iops", resourceName, "iops"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "master_username", resourceName, "username"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "max_allocated_storage", resourceName, "max_allocated_storage"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "multi_az", resourceName, "multi_az"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "network_type", resourceName, "network_type"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "port", resourceName, "port"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "resource_id", resourceName, "resource_id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "storage_throughput", resourceName, "storage_throughput"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "storage_type", resourceName, "storage_type"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
+),
+	},
+},
 	})
 }
 
 func TestAccRDSInstanceDataSource_ManagedMasterPassword_managed(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -69,45 +69,45 @@ func TestAccRDSInstanceDataSource_ManagedMasterPassword_managed(t *testing.T) {
 	resourceName := "aws_db_instance.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccInstanceDataSourceConfig_managedMasterPassword(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttrPair(dataSourceName, "address", resourceName, "address"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "allocated_storage", resourceName, "allocated_storage"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "auto_minor_version_upgrade", resourceName, "auto_minor_version_upgrade"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "db_instance_arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "db_instance_class", resourceName, "instance_class"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "db_name", resourceName, "db_name"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "db_subnet_group", resourceName, "db_subnet_group_name"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "endpoint", resourceName, "endpoint"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "engine", resourceName, "engine"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "hosted_zone_id", resourceName, "hosted_zone_id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "iops", resourceName, "iops"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "master_username", resourceName, "username"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "master_user_secret.0.kms_key_id", resourceName, "master_user_secret.0.kms_key_id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "master_user_secret.0.secret_arn", resourceName, "master_user_secret.0.secret_arn"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "master_user_secret.0.secret_status", resourceName, "master_user_secret.0.secret_status"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "multi_az", resourceName, "multi_az"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "network_type", resourceName, "network_type"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "port", resourceName, "port"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "resource_id", resourceName, "resource_id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "storage_throughput", resourceName, "storage_throughput"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "storage_type", resourceName, "storage_type"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
-				),
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccInstanceDataSourceConfig_managedMasterPassword(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttrPair(dataSourceName, "address", resourceName, "address"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "allocated_storage", resourceName, "allocated_storage"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "auto_minor_version_upgrade", resourceName, "auto_minor_version_upgrade"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "db_instance_arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "db_instance_class", resourceName, "instance_class"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "db_name", resourceName, "db_name"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "db_subnet_group", resourceName, "db_subnet_group_name"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "endpoint", resourceName, "endpoint"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "engine", resourceName, "engine"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "hosted_zone_id", resourceName, "hosted_zone_id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "iops", resourceName, "iops"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "master_username", resourceName, "username"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "master_user_secret.0.kms_key_id", resourceName, "master_user_secret.0.kms_key_id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "master_user_secret.0.secret_arn", resourceName, "master_user_secret.0.secret_arn"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "master_user_secret.0.secret_status", resourceName, "master_user_secret.0.secret_status"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "multi_az", resourceName, "multi_az"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "network_type", resourceName, "network_type"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "port", resourceName, "port"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "resource_id", resourceName, "resource_id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "storage_throughput", resourceName, "storage_throughput"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "storage_type", resourceName, "storage_type"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
+),
+	},
+},
 	})
 }
 
 func TestAccRDSInstanceDataSource_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -115,45 +115,45 @@ func TestAccRDSInstanceDataSource_tags(t *testing.T) {
 	resourceName := "aws_db_instance.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccInstanceDataSourceConfig_tags(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttrPair(dataSourceName, "address", resourceName, "address"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "allocated_storage", resourceName, "allocated_storage"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "auto_minor_version_upgrade", resourceName, "auto_minor_version_upgrade"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "db_instance_arn", resourceName, "arn"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "db_instance_class", resourceName, "instance_class"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "db_name", resourceName, "db_name"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "db_subnet_group", resourceName, "db_subnet_group_name"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "enabled_cloudwatch_logs_exports.#", resourceName, "enabled_cloudwatch_logs_exports.#"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "endpoint", resourceName, "endpoint"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "engine", resourceName, "engine"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "hosted_zone_id", resourceName, "hosted_zone_id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "iops", resourceName, "iops"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "master_username", resourceName, "username"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "max_allocated_storage", resourceName, "max_allocated_storage"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "multi_az", resourceName, "multi_az"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "network_type", resourceName, "network_type"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "port", resourceName, "port"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "resource_id", resourceName, "resource_id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "storage_throughput", resourceName, "storage_throughput"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "storage_type", resourceName, "storage_type"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
-				),
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccInstanceDataSourceConfig_tags(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttrPair(dataSourceName, "address", resourceName, "address"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "allocated_storage", resourceName, "allocated_storage"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "auto_minor_version_upgrade", resourceName, "auto_minor_version_upgrade"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "db_instance_arn", resourceName, "arn"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "db_instance_class", resourceName, "instance_class"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "db_name", resourceName, "db_name"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "db_subnet_group", resourceName, "db_subnet_group_name"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "enabled_cloudwatch_logs_exports.#", resourceName, "enabled_cloudwatch_logs_exports.#"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "endpoint", resourceName, "endpoint"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "engine", resourceName, "engine"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "hosted_zone_id", resourceName, "hosted_zone_id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "iops", resourceName, "iops"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "master_username", resourceName, "username"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "max_allocated_storage", resourceName, "max_allocated_storage"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "multi_az", resourceName, "multi_az"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "network_type", resourceName, "network_type"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "port", resourceName, "port"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "resource_id", resourceName, "resource_id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "storage_throughput", resourceName, "storage_throughput"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "storage_type", resourceName, "storage_type"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
+),
+	},
+},
 	})
 }
 
 func testAccInstanceDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(
-		testAccInstanceConfig_orderableClassMariadb(),
-		testAccInstanceConfig_baseVPC(rName),
-		fmt.Sprintf(`
+testAccInstanceConfig_orderableClassMariadb(),
+testAccInstanceConfig_baseVPC(rName),
+fmt.Sprintf(`
 resource "aws_db_instance" "test" {
   allocated_storage       = 10
   backup_retention_period = 0
@@ -186,9 +186,9 @@ data "aws_db_instance" "test" {
 
 func testAccInstanceDataSourceConfig_managedMasterPassword(rName string) string {
 	return acctest.ConfigCompose(
-		testAccInstanceConfig_orderableClassMariadb(),
-		testAccInstanceConfig_baseVPC(rName),
-		fmt.Sprintf(`
+testAccInstanceConfig_orderableClassMariadb(),
+testAccInstanceConfig_baseVPC(rName),
+fmt.Sprintf(`
 resource "aws_db_instance" "test" {
   allocated_storage           = 10
   backup_retention_period     = 0
@@ -215,9 +215,9 @@ data "aws_db_instance" "test" {
 
 func testAccInstanceDataSourceConfig_tags(rName string) string {
 	return acctest.ConfigCompose(
-		testAccInstanceConfig_orderableClassMariadb(),
-		testAccInstanceConfig_baseVPC(rName),
-		fmt.Sprintf(`
+testAccInstanceConfig_orderableClassMariadb(),
+testAccInstanceConfig_baseVPC(rName),
+fmt.Sprintf(`
 resource "aws_db_instance" "test" {
   allocated_storage       = 10
   backup_retention_period = 0

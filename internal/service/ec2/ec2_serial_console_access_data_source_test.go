@@ -21,19 +21,19 @@ import (
 func TestAccEC2SerialConsoleAccessDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSerialConsoleAccessDataSourceConfig_basic,
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccSerialConsoleAccessDataSourceConfig_basic,
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckSerialConsoleAccessDataSource(ctx, "data.aws_ec2_serial_console_access.current"),
-				),
-			},
-		},
+	testAccCheckSerialConsoleAccessDataSource(ctx, "data.aws_ec2_serial_console_access.current"),
+),
+	},
+},
 	})
 }
 
@@ -42,29 +42,29 @@ func testAccCheckSerialConsoleAccessDataSource(ctx context.Context, n string) re
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No ID is set")
+}
 
-		actual, err := conn.GetSerialConsoleAccessStatusWithContext(ctx, &ec2.GetSerialConsoleAccessStatusInput{})
-		if err != nil {
-			return fmt.Errorf("Error reading serial console access toggle: %q", err)
-		}
+actual, err := conn.GetSerialConsoleAccessStatusWithContext(ctx, &ec2.GetSerialConsoleAccessStatusInput{})
+if err != nil {
+	return fmt.Errorf("Error reading serial console access toggle: %q", err)
+}
 
-		attr, _ := strconv.ParseBool(rs.Primary.Attributes["enabled"])
+attr, _ := strconv.ParseBool(rs.Primary.Attributes["enabled"])
 
-		if attr != aws.BoolValue(actual.SerialConsoleAccessEnabled) {
-			return fmt.Errorf("Serial console access is not in expected state (%t)", aws.BoolValue(actual.SerialConsoleAccessEnabled))
-		}
+if attr != aws.BoolValue(actual.SerialConsoleAccessEnabled) {
+	return fmt.Errorf("Serial console access is not in expected state (%t)", aws.BoolValue(actual.SerialConsoleAccessEnabled))
+}
 
-		return nil
+return nil
 	}
 }
 

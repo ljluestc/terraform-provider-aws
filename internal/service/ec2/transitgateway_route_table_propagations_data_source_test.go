@@ -19,19 +19,19 @@ func testAccTransitGatewayRouteTablePropagationsDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_ec2_transit_gateway_route_table_propagations.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTransitGatewayRouteTablePropagationsDataSourceConfig_basic(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccTransitGatewayRouteTablePropagationsDataSourceConfig_basic(rName),
+Check: resource.ComposeTestCheck
 func(
-					acctest.CheckResourceAttrGreaterThanValue(dataSourceName, "ids.#", 0),
-				),
-			},
-		},
+	acctest.CheckResourceAttrGreaterThanValue(dataSourceName, "ids.#", 0),
+),
+	},
+},
 	})
 }
 
@@ -42,19 +42,19 @@ func testAccTransitGatewayRouteTablePropagationsDataSource_filter(t *testing.T) 
 	dataSourceName := "data.aws_ec2_transit_gateway_route_table_propagations.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccTransitGatewayRouteTablePropagationsDataSourceConfig_filter(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccTransitGatewayRouteTablePropagationsDataSourceConfig_filter(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttr(dataSourceName, "ids.#", "1"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttr(dataSourceName, "ids.#", "1"),
+),
+	},
+},
 	})
 }
 

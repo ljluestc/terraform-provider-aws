@@ -24,7 +24,7 @@ import (
 
 func TestAccFinSpaceKxUser_basic(t *testing.T) {
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	ctx := acctest.Context(t)
@@ -34,33 +34,33 @@ func TestAccFinSpaceKxUser_basic(t *testing.T) {
 	resourceName := "aws_finspace_kx_user.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKxUserDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccKxUserConfig_basic(rName, userName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckKxUserExists(ctx, resourceName, &kxuser),
-					resource.TestCheckResourceAttr(resourceName, "name", userName),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
+},
+ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckKxUserDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccKxUserConfig_basic(rName, userName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckKxUserExists(ctx, resourceName, &kxuser),
+	resource.TestCheckResourceAttr(resourceName, "name", userName),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
 func TestAccFinSpaceKxUser_disappears(t *testing.T) {
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	ctx := acctest.Context(t)
@@ -70,29 +70,29 @@ func TestAccFinSpaceKxUser_disappears(t *testing.T) {
 	resourceName := "aws_finspace_kx_user.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKxUserDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccKxUserConfig_basic(rName, userName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckKxUserExists(ctx, resourceName, &kxuser),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tffinspace.ResourceKxUser(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
+},
+ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckKxUserDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccKxUserConfig_basic(rName, userName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckKxUserExists(ctx, resourceName, &kxuser),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tffinspace.ResourceKxUser(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
 func TestAccFinSpaceKxUser_updateRole(t *testing.T) {
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	ctx := acctest.Context(t)
@@ -102,34 +102,34 @@ func TestAccFinSpaceKxUser_updateRole(t *testing.T) {
 	resourceName := "aws_finspace_kx_user.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKxUserDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccKxUserConfig_basic(rName, userName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckKxUserExists(ctx, resourceName, &kxuser),
-				),
-			},
-			{
-				Config: testAccKxUserConfig_updateRole(rName, "updated"+rName, userName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckKxUserExists(ctx, resourceName, &kxuser),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
+},
+ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckKxUserDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccKxUserConfig_basic(rName, userName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckKxUserExists(ctx, resourceName, &kxuser),
+),
+	},
+	{
+Config: testAccKxUserConfig_updateRole(rName, "updated"+rName, userName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckKxUserExists(ctx, resourceName, &kxuser),
+),
+	},
+},
 	})
 }
 
 func TestAccFinSpaceKxUser_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	var kxuser finspace.GetKxUserOutput
@@ -138,96 +138,96 @@ func TestAccFinSpaceKxUser_tags(t *testing.T) {
 	resourceName := "aws_finspace_kx_user.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
-		},
-		ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKxUserDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccKxUserConfig_tags1(rName, userName, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckKxUserExists(ctx, resourceName, &kxuser),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-				),
-			},
-			{
-				Config: testAccKxUserConfig_tags2(rName, userName, "key1", "value1", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckKxUserExists(ctx, resourceName, &kxuser),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-			{
-				Config: testAccKxUserConfig_tags1(rName, userName, "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckKxUserExists(ctx, resourceName, &kxuser),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
+},
+ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckKxUserDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccKxUserConfig_tags1(rName, userName, "key1", "value1"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckKxUserExists(ctx, resourceName, &kxuser),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+),
+	},
+	{
+Config: testAccKxUserConfig_tags2(rName, userName, "key1", "value1", "key2", "value2"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckKxUserExists(ctx, resourceName, &kxuser),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+	{
+Config: testAccKxUserConfig_tags1(rName, userName, "key2", "value2"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckKxUserExists(ctx, resourceName, &kxuser),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+},
 	})
 }
 
 func testAccCheckKxUserDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).FinSpaceClient(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).FinSpaceClient(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_finspace_kx_user" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_finspace_kx_user" {
+continue
+	}
 
-			input := &finspace.GetKxUserInput{
-				UserName:      aws.String(rs.Primary.Attributes["name"]),
-				EnvironmentId: aws.String(rs.Primary.Attributes["environment_id"]),
-			}
-			_, err := conn.GetKxUser(ctx, input)
-			if err != nil {
-				var nfe *types.ResourceNotFoundException
-				if errors.As(err, &nfe) {
-					return nil
-				}
-				return err
-			}
+	input := &finspace.GetKxUserInput{
+UserName:      aws.String(rs.Primary.Attributes["name"]),
+EnvironmentId: aws.String(rs.Primary.Attributes["environment_id"]),
+	}
+	_, err := conn.GetKxUser(ctx, input)
+	if err != nil {
+var nfe *types.ResourceNotFoundException
+if errors.As(err, &nfe) {
+	return nil
+}
+return err
+	}
 
-			return create.Error(names.FinSpace, create.ErrActionCheckingDestroyed, tffinspace.ResNameKxUser, rs.Primary.ID, errors.New("not destroyed"))
-		}
+	return create.Error(names.FinSpace, create.ErrActionCheckingDestroyed, tffinspace.ResNameKxUser, rs.Primary.ID, errors.New("not destroyed"))
+}
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckKxUserExists(ctx context.Context, name string, kxuser *finspace.GetKxUserOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[name]
-		if !ok {
-			return create.Error(names.FinSpace, create.ErrActionCheckingExistence, tffinspace.ResNameKxUser, name, errors.New("not found"))
-		}
+rs, ok := s.RootModule().Resources[name]
+if !ok {
+	return create.Error(names.FinSpace, create.ErrActionCheckingExistence, tffinspace.ResNameKxUser, name, errors.New("not found"))
+}
 
-		if rs.Primary.ID == "" {
-			return create.Error(names.FinSpace, create.ErrActionCheckingExistence, tffinspace.ResNameKxUser, name, errors.New("not set"))
-		}
+if rs.Primary.ID == "" {
+	return create.Error(names.FinSpace, create.ErrActionCheckingExistence, tffinspace.ResNameKxUser, name, errors.New("not set"))
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).FinSpaceClient(ctx)
-		resp, err := conn.GetKxUser(ctx, &finspace.GetKxUserInput{
-			UserName:      aws.String(rs.Primary.Attributes["name"]),
-			EnvironmentId: aws.String(rs.Primary.Attributes["environment_id"]),
-		})
+conn := acctest.Provider.Meta().(*conns.AWSClient).FinSpaceClient(ctx)
+resp, err := conn.GetKxUser(ctx, &finspace.GetKxUserInput{
+	UserName:      aws.String(rs.Primary.Attributes["name"]),
+	EnvironmentId: aws.String(rs.Primary.Attributes["environment_id"]),
+})
 
-		if err != nil {
-			return create.Error(names.FinSpace, create.ErrActionCheckingExistence, tffinspace.ResNameKxUser, rs.Primary.ID, err)
-		}
+if err != nil {
+	return create.Error(names.FinSpace, create.ErrActionCheckingExistence, tffinspace.ResNameKxUser, rs.Primary.ID, err)
+}
 
-		*kxuser = *resp
+*kxuser = *resp
 
-		return nil
+return nil
 	}
 }
 
@@ -264,8 +264,8 @@ resource "aws_finspace_kx_environment" "test" {
 
 func testAccKxUserConfig_basic(rName, userName string) string {
 	return acctest.ConfigCompose(
-		testAccKxUserConfigBase(rName),
-		fmt.Sprintf(`
+testAccKxUserConfigBase(rName),
+fmt.Sprintf(`
 resource "aws_finspace_kx_user" "test" {
   name           = %[1]q
   environment_id = aws_finspace_kx_environment.test.id
@@ -276,8 +276,8 @@ resource "aws_finspace_kx_user" "test" {
 
 func testAccKxUserConfig_updateRole(rName, rName2, userName string) string {
 	return acctest.ConfigCompose(
-		testAccKxUserConfigBase(rName),
-		fmt.Sprintf(`
+testAccKxUserConfigBase(rName),
+fmt.Sprintf(`
 resource "aws_iam_role" "updated" {
   name = %[1]q
   assume_role_policy = jsonencode({
@@ -305,8 +305,8 @@ resource "aws_finspace_kx_user" "test" {
 
 func testAccKxUserConfig_tags1(rName, userName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(
-		testAccKxUserConfigBase(rName),
-		fmt.Sprintf(`
+testAccKxUserConfigBase(rName),
+fmt.Sprintf(`
 resource "aws_finspace_kx_user" "test" {
   name           = %[1]q
   environment_id = aws_finspace_kx_environment.test.id
@@ -321,8 +321,8 @@ resource "aws_finspace_kx_user" "test" {
 
 func testAccKxUserConfig_tags2(rName, userName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(
-		testAccKxUserConfigBase(rName),
-		fmt.Sprintf(`
+testAccKxUserConfigBase(rName),
+fmt.Sprintf(`
 resource "aws_finspace_kx_user" "test" {
   name           = %[1]q
   environment_id = aws_finspace_kx_environment.test.id

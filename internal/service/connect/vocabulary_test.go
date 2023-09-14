@@ -23,7 +23,7 @@ import (
 func testAccVocabulary_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 	var v connect.DescribeVocabularyOutput
 	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
@@ -35,35 +35,35 @@ func testAccVocabulary_basic(t *testing.T) {
 	resourceName := "aws_connect_vocabulary.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVocabularyDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVocabularyConfig_basic(rName, rName2, content, languageCode),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckVocabularyDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccVocabularyConfig_basic(rName, rName2, content, languageCode),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckVocabularyExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrSet(resourceName, "arn"),
-					resource.TestCheckResourceAttr(resourceName, "content", content),
-					resource.TestCheckResourceAttrPair(resourceName, "instance_id", "aws_connect_instance.test", "id"),
-					resource.TestCheckResourceAttr(resourceName, "language_code", languageCode),
-					resource.TestCheckResourceAttrSet(resourceName, "last_modified_time"),
-					resource.TestCheckResourceAttr(resourceName, "name", rName2),
-					resource.TestCheckResourceAttrSet(resourceName, "state"),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Key1", "Value1"),
-					resource.TestCheckResourceAttrSet(resourceName, "vocabulary_id"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckVocabularyExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrSet(resourceName, "arn"),
+	resource.TestCheckResourceAttr(resourceName, "content", content),
+	resource.TestCheckResourceAttrPair(resourceName, "instance_id", "aws_connect_instance.test", "id"),
+	resource.TestCheckResourceAttr(resourceName, "language_code", languageCode),
+	resource.TestCheckResourceAttrSet(resourceName, "last_modified_time"),
+	resource.TestCheckResourceAttr(resourceName, "name", rName2),
+	resource.TestCheckResourceAttrSet(resourceName, "state"),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Key1", "Value1"),
+	resource.TestCheckResourceAttrSet(resourceName, "vocabulary_id"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -71,7 +71,7 @@ func(
 func testAccVocabulary_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 	var v connect.DescribeVocabularyOutput
 	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
@@ -83,22 +83,22 @@ func testAccVocabulary_disappears(t *testing.T) {
 	resourceName := "aws_connect_vocabulary.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVocabularyDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVocabularyConfig_basic(rName, rName2, content, languageCode),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckVocabularyDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccVocabularyConfig_basic(rName, rName2, content, languageCode),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckVocabularyExists(ctx, resourceName, &v),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfconnect.ResourceVocabulary(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckVocabularyExists(ctx, resourceName, &v),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfconnect.ResourceVocabulary(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -106,7 +106,7 @@ func(
 func testAccVocabulary_updateTags(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 	var v connect.DescribeVocabularyOutput
 	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
@@ -118,48 +118,48 @@ func testAccVocabulary_updateTags(t *testing.T) {
 	resourceName := "aws_connect_vocabulary.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVocabularyDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVocabularyConfig_basic(rName, rName2, content, languageCode),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckVocabularyDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccVocabularyConfig_basic(rName, rName2, content, languageCode),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckVocabularyExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Key1", "Value1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccVocabularyConfig_tags(rName, rName2, content, languageCode),
-				Check: resource.ComposeTestCheck
+	testAccCheckVocabularyExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Key1", "Value1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccVocabularyConfig_tags(rName, rName2, content, languageCode),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckVocabularyExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Key1", "Value1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Key2", "Value2a"),
-				),
-			},
-			{
-				Config: testAccVocabularyConfig_tagsUpdate(rName, rName2, content, languageCode),
-				Check: resource.ComposeTestCheck
+	testAccCheckVocabularyExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Key1", "Value1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Key2", "Value2a"),
+),
+	},
+	{
+Config: testAccVocabularyConfig_tagsUpdate(rName, rName2, content, languageCode),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckVocabularyExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "3"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Key1", "Value1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Key2", "Value2b"),
-					resource.TestCheckResourceAttr(resourceName, "tags.Key3", "Value3"),
-				),
-			},
-		},
+	testAccCheckVocabularyExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "3"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Key1", "Value1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Key2", "Value2b"),
+	resource.TestCheckResourceAttr(resourceName, "tags.Key3", "Value3"),
+),
+	},
+},
 	})
 }
 
@@ -169,38 +169,38 @@ function *connect.DescribeVocabularyOutput) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[resourceName]
-		if !ok {
-			return fmt.Errorf("Connect Vocabulary not found: %s", resourceName)
-		}
+rs, ok := s.RootModule().Resources[resourceName]
+if !ok {
+	return fmt.Errorf("Connect Vocabulary not found: %s", resourceName)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("Connect Vocabulary ID not set")
-		}
-		instanceID, vocabularyID, err := tfconnect.VocabularyParseID(rs.Primary.ID)
+if rs.Primary.ID == "" {
+	return fmt.Errorf("Connect Vocabulary ID not set")
+}
+instanceID, vocabularyID, err := tfconnect.VocabularyParseID(rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)
 
-		params := &connect.DescribeVocabularyInput{
-			InstanceId:   aws.String(instanceID),
-			VocabularyId: aws.String(vocabularyID),
-		}
+params := &connect.DescribeVocabularyInput{
+	InstanceId:   aws.String(instanceID),
+	VocabularyId: aws.String(vocabularyID),
+}
 
-		get
+get
 function, err := conn.DescribeVocabularyWithContext(ctx, params)
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*
+*
 function = *get
 function
 
-		return nil
+return nil
 	}
 }
 
@@ -209,41 +209,41 @@ func testAccCheckVocabularyDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_connect_vocabulary" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_connect_vocabulary" {
+continue
+	}
 
-			conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)
+	conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)
 
-			instanceID, vocabularyID, err := tfconnect.VocabularyParseID(rs.Primary.ID)
+	instanceID, vocabularyID, err := tfconnect.VocabularyParseID(rs.Primary.ID)
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			params := &connect.DescribeVocabularyInput{
-				InstanceId:   aws.String(instanceID),
-				VocabularyId: aws.String(vocabularyID),
-			}
+	params := &connect.DescribeVocabularyInput{
+InstanceId:   aws.String(instanceID),
+VocabularyId: aws.String(vocabularyID),
+	}
 
-			resp, err := conn.DescribeVocabularyWithContext(ctx, params)
+	resp, err := conn.DescribeVocabularyWithContext(ctx, params)
 
-			if tfawserr.ErrCodeEquals(err, connect.ErrCodeResourceNotFoundException) {
-				continue
-			}
+	if tfawserr.ErrCodeEquals(err, connect.ErrCodeResourceNotFoundException) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			// API returns an empty list for Vocabulary if there are none
-			if resp.Vocabulary == nil {
-				continue
-			}
-		}
+	// API returns an empty list for Vocabulary if there are none
+	if resp.Vocabulary == nil {
+continue
+	}
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -262,8 +262,8 @@ resource "aws_connect_instance" "test" {
 
 func testAccVocabularyConfig_basic(rName, rName2, content, languageCode string) string {
 	return acctest.ConfigCompose(
-		testAccVocabularyConfig_base(rName),
-		fmt.Sprintf(`
+testAccVocabularyConfig_base(rName),
+fmt.Sprintf(`
 resource "aws_connect_vocabulary" "test" {
   instance_id   = aws_connect_instance.test.id
   name          = %[1]q
@@ -280,8 +280,8 @@ resource "aws_connect_vocabulary" "test" {
 
 func testAccVocabularyConfig_tags(rName, rName2, content, languageCode string) string {
 	return acctest.ConfigCompose(
-		testAccVocabularyConfig_base(rName),
-		fmt.Sprintf(`
+testAccVocabularyConfig_base(rName),
+fmt.Sprintf(`
 resource "aws_connect_vocabulary" "test" {
   instance_id   = aws_connect_instance.test.id
   name          = %[1]q
@@ -299,8 +299,8 @@ resource "aws_connect_vocabulary" "test" {
 
 func testAccVocabularyConfig_tagsUpdate(rName, rName2, content, languageCode string) string {
 	return acctest.ConfigCompose(
-		testAccVocabularyConfig_base(rName),
-		fmt.Sprintf(`
+testAccVocabularyConfig_base(rName),
+fmt.Sprintf(`
 resource "aws_connect_vocabulary" "test" {
   instance_id   = aws_connect_instance.test.id
   name          = %[1]q

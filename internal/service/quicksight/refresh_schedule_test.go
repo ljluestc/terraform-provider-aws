@@ -30,34 +30,34 @@ func TestAccQuickSightRefreshSchedule_basic(t *testing.T) {
 	sId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRefreshScheduleDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccRefreshScheduleConfigBasic(rId, rName, sId),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckRefreshScheduleDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccRefreshScheduleConfigBasic(rId, rName, sId),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckRefreshScheduleExists(ctx, resourceName, &schedule),
-					acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "quicksight",
-						fmt.Sprintf("dataset/%s/refresh-schedule/%s", rId, sId)),
-					resource.TestCheckResourceAttr(resourceName, "data_set_id", rId),
-					resource.TestCheckResourceAttr(resourceName, "schedule.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "schedule.0.refresh_type", "FULL_REFRESH"),
-					resource.TestCheckResourceAttr(resourceName, "schedule.0.schedule_frequency.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "schedule.0.schedule_frequency.0.interval", "DAILY"),
-					resource.TestCheckResourceAttr(resourceName, "schedule.0.schedule_frequency.0.time_of_the_day", "12:00"),
-					resource.TestCheckResourceAttr(resourceName, "schedule.0.schedule_frequency.0.timezone", "Europe/London"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckRefreshScheduleExists(ctx, resourceName, &schedule),
+	acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "quicksight",
+fmt.Sprintf("dataset/%s/refresh-schedule/%s", rId, sId)),
+	resource.TestCheckResourceAttr(resourceName, "data_set_id", rId),
+	resource.TestCheckResourceAttr(resourceName, "schedule.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "schedule.0.refresh_type", "FULL_REFRESH"),
+	resource.TestCheckResourceAttr(resourceName, "schedule.0.schedule_frequency.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "schedule.0.schedule_frequency.0.interval", "DAILY"),
+	resource.TestCheckResourceAttr(resourceName, "schedule.0.schedule_frequency.0.time_of_the_day", "12:00"),
+	resource.TestCheckResourceAttr(resourceName, "schedule.0.schedule_frequency.0.timezone", "Europe/London"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -71,22 +71,22 @@ func TestAccQuickSightRefreshSchedule_disappears(t *testing.T) {
 	sId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRefreshScheduleDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccRefreshScheduleConfigBasic(rId, rName, sId),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckRefreshScheduleDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccRefreshScheduleConfigBasic(rId, rName, sId),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckRefreshScheduleExists(ctx, resourceName, &schedule),
-					acctest.CheckFrameworkResourceDisappears(ctx, acctest.Provider, tfquicksight.ResourceRefreshSchedule, resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckRefreshScheduleExists(ctx, resourceName, &schedule),
+	acctest.CheckFrameworkResourceDisappears(ctx, acctest.Provider, tfquicksight.ResourceRefreshSchedule, resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -100,33 +100,33 @@ func TestAccQuickSightRefreshSchedule_weeklyRefresh(t *testing.T) {
 	sId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRefreshScheduleDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccRefreshScheduleConfigWeeklyRefresh(rId, rName, sId),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckRefreshScheduleDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccRefreshScheduleConfigWeeklyRefresh(rId, rName, sId),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckRefreshScheduleExists(ctx, resourceName, &schedule),
-					acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "quicksight",
-						fmt.Sprintf("dataset/%s/refresh-schedule/%s", rId, sId)),
-					resource.TestCheckResourceAttr(resourceName, "data_set_id", rId),
-					resource.TestCheckResourceAttr(resourceName, "schedule.0.refresh_type", "FULL_REFRESH"),
-					resource.TestCheckResourceAttr(resourceName, "schedule.0.schedule_frequency.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "schedule.0.schedule_frequency.0.interval", "WEEKLY"),
-					resource.TestCheckResourceAttr(resourceName, "schedule.0.schedule_frequency.0.refresh_on_day.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "schedule.0.schedule_frequency.0.refresh_on_day.0.day_of_week", "MONDAY"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckRefreshScheduleExists(ctx, resourceName, &schedule),
+	acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "quicksight",
+fmt.Sprintf("dataset/%s/refresh-schedule/%s", rId, sId)),
+	resource.TestCheckResourceAttr(resourceName, "data_set_id", rId),
+	resource.TestCheckResourceAttr(resourceName, "schedule.0.refresh_type", "FULL_REFRESH"),
+	resource.TestCheckResourceAttr(resourceName, "schedule.0.schedule_frequency.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "schedule.0.schedule_frequency.0.interval", "WEEKLY"),
+	resource.TestCheckResourceAttr(resourceName, "schedule.0.schedule_frequency.0.refresh_on_day.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "schedule.0.schedule_frequency.0.refresh_on_day.0.day_of_week", "MONDAY"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -140,33 +140,33 @@ func TestAccQuickSightRefreshSchedule_monthlyRefresh(t *testing.T) {
 	sId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRefreshScheduleDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccRefreshScheduleConfigMonthlyRefresh(rId, rName, sId),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckRefreshScheduleDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccRefreshScheduleConfigMonthlyRefresh(rId, rName, sId),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckRefreshScheduleExists(ctx, resourceName, &schedule),
-					acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "quicksight",
-						fmt.Sprintf("dataset/%s/refresh-schedule/%s", rId, sId)),
-					resource.TestCheckResourceAttr(resourceName, "data_set_id", rId),
-					resource.TestCheckResourceAttr(resourceName, "schedule.0.refresh_type", "FULL_REFRESH"),
-					resource.TestCheckResourceAttr(resourceName, "schedule.0.schedule_frequency.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "schedule.0.schedule_frequency.0.interval", "MONTHLY"),
-					resource.TestCheckResourceAttr(resourceName, "schedule.0.schedule_frequency.0.refresh_on_day.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "schedule.0.schedule_frequency.0.refresh_on_day.0.day_of_month", "1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-		},
+	testAccCheckRefreshScheduleExists(ctx, resourceName, &schedule),
+	acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "quicksight",
+fmt.Sprintf("dataset/%s/refresh-schedule/%s", rId, sId)),
+	resource.TestCheckResourceAttr(resourceName, "data_set_id", rId),
+	resource.TestCheckResourceAttr(resourceName, "schedule.0.refresh_type", "FULL_REFRESH"),
+	resource.TestCheckResourceAttr(resourceName, "schedule.0.schedule_frequency.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "schedule.0.schedule_frequency.0.interval", "MONTHLY"),
+	resource.TestCheckResourceAttr(resourceName, "schedule.0.schedule_frequency.0.refresh_on_day.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "schedule.0.schedule_frequency.0.refresh_on_day.0.day_of_month", "1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+},
 	})
 }
 
@@ -175,20 +175,20 @@ func testAccCheckRefreshScheduleExists(ctx context.Context, resourceName string,
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[resourceName]
-		if !ok {
-			return fmt.Errorf("Not found: %s", resourceName)
-		}
+rs, ok := s.RootModule().Resources[resourceName]
+if !ok {
+	return fmt.Errorf("Not found: %s", resourceName)
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
-		_, output, err := tfquicksight.FindRefreshScheduleByID(ctx, conn, rs.Primary.ID)
-		if err != nil {
-			return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameRefreshSchedule, rs.Primary.ID, err)
-		}
+conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
+_, output, err := tfquicksight.FindRefreshScheduleByID(ctx, conn, rs.Primary.ID)
+if err != nil {
+	return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameRefreshSchedule, rs.Primary.ID, err)
+}
 
-		*schedule = *output
+*schedule = *output
 
-		return nil
+return nil
 	}
 }
 
@@ -197,34 +197,34 @@ func testAccCheckRefreshScheduleDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_quicksight_refresh_schedule" {
-				continue
-			}
+conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_quicksight_refresh_schedule" {
+continue
+	}
 
-			_, output, err := tfquicksight.FindRefreshScheduleByID(ctx, conn, rs.Primary.ID)
-			if err != nil {
-				if tfawserr.ErrCodeEquals(err, quicksight.ErrCodeResourceNotFoundException) {
-					return nil
-				}
-				return err
-			}
+	_, output, err := tfquicksight.FindRefreshScheduleByID(ctx, conn, rs.Primary.ID)
+	if err != nil {
+if tfawserr.ErrCodeEquals(err, quicksight.ErrCodeResourceNotFoundException) {
+	return nil
+}
+return err
+	}
 
-			if output != nil {
-				return create.Error(names.QuickSight, create.ErrActionCheckingDestroyed, tfquicksight.ResNameRefreshSchedule, rs.Primary.ID, err)
-			}
-		}
+	if output != nil {
+return create.Error(names.QuickSight, create.ErrActionCheckingDestroyed, tfquicksight.ResNameRefreshSchedule, rs.Primary.ID, err)
+	}
+}
 
-		return nil
+return nil
 	}
 }
 
 
 func testAccBaseRefreshScheduleConfig(rId, rName string) string {
 	return acctest.ConfigCompose(
-		testAccBaseDataSourceConfig(rName),
-		fmt.Sprintf(`
+testAccBaseDataSourceConfig(rName),
+fmt.Sprintf(`
 resource "aws_quicksight_data_source" "test" {
   data_source_id = %[1]q
   name           = %[2]q
@@ -266,8 +266,8 @@ resource "aws_quicksight_data_set" "test" {
 
 func testAccRefreshScheduleConfigBasic(rId, rName, sId string) string {
 	return acctest.ConfigCompose(
-		testAccBaseRefreshScheduleConfig(rId, rName),
-		fmt.Sprintf(`
+testAccBaseRefreshScheduleConfig(rId, rName),
+fmt.Sprintf(`
 resource "aws_quicksight_refresh_schedule" "test" {
   data_set_id = aws_quicksight_data_set.test.data_set_id
   schedule_id = %[1]q
@@ -286,8 +286,8 @@ resource "aws_quicksight_refresh_schedule" "test" {
 
 func testAccRefreshScheduleConfigWeeklyRefresh(rId, rName, sId string) string {
 	return acctest.ConfigCompose(
-		testAccBaseRefreshScheduleConfig(rId, rName),
-		fmt.Sprintf(`
+testAccBaseRefreshScheduleConfig(rId, rName),
+fmt.Sprintf(`
 resource "aws_quicksight_refresh_schedule" "test" {
   data_set_id = aws_quicksight_data_set.test.data_set_id
   schedule_id = %[1]q
@@ -307,8 +307,8 @@ resource "aws_quicksight_refresh_schedule" "test" {
 
 func testAccRefreshScheduleConfigMonthlyRefresh(rId, rName, sId string) string {
 	return acctest.ConfigCompose(
-		testAccBaseRefreshScheduleConfig(rId, rName),
-		fmt.Sprintf(`
+testAccBaseRefreshScheduleConfig(rId, rName),
+fmt.Sprintf(`
 resource "aws_quicksight_refresh_schedule" "test" {
   data_set_id = aws_quicksight_data_set.test.data_set_id
   schedule_id = %[1]q

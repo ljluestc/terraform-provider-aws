@@ -23,67 +23,67 @@ func TestAccInspectorResourceGroup_basic(t *testing.T) {
 	resourceName := "aws_inspector_resource_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, inspector.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccResourceGroupConfig_basic,
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckResourceGroupExists(ctx, resourceName, &v1),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "inspector", regexache.MustCompile(`resourcegroup/.+`)),
-					resource.TestCheckResourceAttr(resourceName, "tags.Name", "foo"),
-				),
-			},
-			{
-				Config: testAccResourceGroupConfig_modified,
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckResourceGroupExists(ctx, resourceName, &v2),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "inspector", regexache.MustCompile(`resourcegroup/.+`)),
-					resource.TestCheckResourceAttr(resourceName, "tags.Name", "bar"),
-					testAccCheckResourceGroupRecreated(&v1, &v2),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, inspector.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             nil,
+Steps: []resource.TestStep{
+	{
+Config: testAccResourceGroupConfig_basic,
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckResourceGroupExists(ctx, resourceName, &v1),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "inspector", regexache.MustCompile(`resourcegroup/.+`)),
+	resource.TestCheckResourceAttr(resourceName, "tags.Name", "foo"),
+),
+	},
+	{
+Config: testAccResourceGroupConfig_modified,
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckResourceGroupExists(ctx, resourceName, &v2),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "inspector", regexache.MustCompile(`resourcegroup/.+`)),
+	resource.TestCheckResourceAttr(resourceName, "tags.Name", "bar"),
+	testAccCheckResourceGroupRecreated(&v1, &v2),
+),
+	},
+},
 	})
 }
 
 func testAccCheckResourceGroupExists(ctx context.Context, name string, rg *inspector.ResourceGroup) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).InspectorConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).InspectorConn(ctx)
 
-		rs, ok := s.RootModule().Resources[name]
-		if !ok {
-			return fmt.Errorf("Not found: %s", name)
-		}
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No ID is set")
-		}
+rs, ok := s.RootModule().Resources[name]
+if !ok {
+	return fmt.Errorf("Not found: %s", name)
+}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No ID is set")
+}
 
-		output, err := conn.DescribeResourceGroupsWithContext(ctx, &inspector.DescribeResourceGroupsInput{
-			ResourceGroupArns: aws.StringSlice([]string{rs.Primary.ID}),
-		})
-		if err != nil {
-			return err
-		}
-		if len(output.ResourceGroups) == 0 {
-			return fmt.Errorf("No matching Inspector Classic Resource Groups")
-		}
+output, err := conn.DescribeResourceGroupsWithContext(ctx, &inspector.DescribeResourceGroupsInput{
+	ResourceGroupArns: aws.StringSlice([]string{rs.Primary.ID}),
+})
+if err != nil {
+	return err
+}
+if len(output.ResourceGroups) == 0 {
+	return fmt.Errorf("No matching Inspector Classic Resource Groups")
+}
 
-		*rg = *output.ResourceGroups[0]
+*rg = *output.ResourceGroups[0]
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckResourceGroupRecreated(v1, v2 *inspector.ResourceGroup) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		if v2.CreatedAt.Equal(*v1.CreatedAt) {
-			return fmt.Errorf("Inspector Classic Resource Group not recreated when changing tags")
-		}
+if v2.CreatedAt.Equal(*v1.CreatedAt) {
+	return fmt.Errorf("Inspector Classic Resource Group not recreated when changing tags")
+}
 
-		return nil
+return nil
 	}
 }
 

@@ -22,12 +22,12 @@ func (i Float) IsNull() bool {
 
 func (i Float) Value() (float64, bool, error) {
 	if i.IsNull() {
-		return 0, true, nil
+return 0, true, nil
 	}
 
 	value, err := strconv.ParseFloat(string(i), 64)
 	if err != nil {
-		return 0, false, err
+return 0, false, err
 	}
 	return value, false, nil
 }
@@ -37,16 +37,16 @@ func (i Float) Value() (float64, bool, error) {
 func ValidateTypeStringNullableFloat(v interface{}, k string) (ws []string, es []error) {
 	value, ok := v.(string)
 	if !ok {
-		es = append(es, fmt.Errorf("expected type of %s to be string", k))
-		return
+es = append(es, fmt.Errorf("expected type of %s to be string", k))
+return
 	}
 
 	if value == "" {
-		return
+return
 	}
 
 	if _, err := strconv.ParseFloat(value, 64); err != nil {
-		es = append(es, fmt.Errorf("%s: cannot parse '%s' as float: %w", k, value, err))
+es = append(es, fmt.Errorf("%s: cannot parse '%s' as float: %w", k, value, err))
 	}
 
 	return

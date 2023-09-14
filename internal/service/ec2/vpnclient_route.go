@@ -49,7 +49,7 @@ func ResourceClientVPNRoute() *schema.Resource {
 				ForceNew: true,
 			},
 			"destination_cidr_block": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate

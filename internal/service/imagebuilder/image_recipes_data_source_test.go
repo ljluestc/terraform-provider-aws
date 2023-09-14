@@ -20,21 +20,21 @@ func TestAccImageBuilderImageRecipesDataSource_owner(t *testing.T) {
 	dataSourceNameOwnerSelf := "data.aws_imagebuilder_image_recipes.self"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, imagebuilder.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImageRecipeDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccImageRecipesDataSourceConfig_owner(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttr(dataSourceNameOwnerAmazon, "arns.#", "0"),
-					resource.TestCheckResourceAttr(dataSourceNameOwnerAmazon, "names.#", "0"),
-					acctest.CheckResourceAttrGreaterThanOrEqualValue(dataSourceNameOwnerSelf, "arns.#", 1),
-					acctest.CheckResourceAttrGreaterThanOrEqualValue(dataSourceNameOwnerSelf, "names.#", 1),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckImageRecipeDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccImageRecipesDataSourceConfig_owner(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttr(dataSourceNameOwnerAmazon, "arns.#", "0"),
+	resource.TestCheckResourceAttr(dataSourceNameOwnerAmazon, "names.#", "0"),
+	acctest.CheckResourceAttrGreaterThanOrEqualValue(dataSourceNameOwnerSelf, "arns.#", 1),
+	acctest.CheckResourceAttrGreaterThanOrEqualValue(dataSourceNameOwnerSelf, "names.#", 1),
+),
+	},
+},
 	})
 }
 
@@ -45,19 +45,19 @@ func TestAccImageBuilderImageRecipesDataSource_filter(t *testing.T) {
 	resourceName := "aws_imagebuilder_image_recipe.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, imagebuilder.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckImageRecipeDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccImageRecipesDataSourceConfig_filter(rName),
-				Check: resource.ComposeTestCheckFunc(
-					resource.TestCheckResourceAttr(dataSourceName, "names.#", "1"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "names.0", resourceName, "name"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckImageRecipeDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccImageRecipesDataSourceConfig_filter(rName),
+Check: resource.ComposeTestCheckFunc(
+	resource.TestCheckResourceAttr(dataSourceName, "names.#", "1"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "names.0", resourceName, "name"),
+),
+	},
+},
 	})
 }
 

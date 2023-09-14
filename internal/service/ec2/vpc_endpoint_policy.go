@@ -24,42 +24,42 @@ import (
 
 func ResourceVPCEndpointPolicy() *schema.Resource {
 	return &schema.Resource{
-		CreateWithoutTimeout: resourceVPCEndpointPolicyPut,
-		UpdateWithoutTimeout: resourceVPCEndpointPolicyPut,
-		ReadWithoutTimeout:   resourceVPCEndpointPolicyRead,
-		DeleteWithoutTimeout: resourceVPCEndpointPolicyDelete,
-		Importer: &schema.ResourceImporter{
-			StateContext: schema.ImportStatePassthroughContext,
-		},
+CreateWithoutTimeout: resourceVPCEndpointPolicyPut,
+UpdateWithoutTimeout: resourceVPCEndpointPolicyPut,
+ReadWithoutTimeout:   resourceVPCEndpointPolicyRead,
+DeleteWithoutTimeout: resourceVPCEndpointPolicyDelete,
+Importer: &schema.ResourceImporter{
+	StateContext: schema.ImportStatePassthroughContext,
+},
 
-		Schema: map[string]*schema.Schema{
-			"policy": {
-				Type:   schema.TypeString,
-				Optional:              true,
-				Computed:              true,
-				Validate
-func:          validation.StringIsJSON,
-				DiffSuppress
+Schema: map[string]*schema.Schema{
+	"policy": {
+Type:   schema.TypeString,
+Optional:     true,
+Computed:     true,
+Validate
+func: validation.StringIsJSON,
+DiffSuppress
 func:      verify.SuppressEquivalentPolicyDiffs,
-				DiffSuppressOnRefresh: true,
-				State
+DiffSuppressOnRefresh: true,
+State
 func: 
 func(v interface{}) string {
-					json, _ := structure.NormalizeJsonString(v)
-					return json
-				},
-			},
-			"vpc_endpoint_id": {
-				Type:     schema.TypeString,
-				Required: true,
-				ForceNew: true,
-			},
-		},
+	json, _ := structure.NormalizeJsonString(v)
+	return json
+},
+	},
+	"vpc_endpoint_id": {
+Type:     schema.TypeString,
+Required: true,
+ForceNew: true,
+	},
+},
 
-		Timeouts: &schema.ResourceTimeout{
-			Create: schema.DefaultTimeout(10 * time.Minute),
-			Delete: schema.DefaultTimeout(10 * time.Minute),
-		},
+Timeouts: &schema.ResourceTimeout{
+	Create: schema.DefaultTimeout(10 * time.Minute),
+	Delete: schema.DefaultTimeout(10 * time.Minute),
+},
 	}
 }
 
@@ -70,30 +70,30 @@ func resourceVPCEndpointPolicyPut(ctx context.Context, d *schema.ResourceData, m
 
 	endpointID := d.Get("vpc_endpoint_id").(string)
 	req := &ec2.ModifyVpcEndpointInput{
-		VpcEndpointId: aws.String(endpointID),
+VpcEndpointId: aws.String(endpointID),
 	}
 
 	policy, err := structure.NormalizeJsonString(d.Get("policy"))
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "policy contains an invalid JSON: %s", err)
+return sdkdiag.AppendErrorf(diags, "policy contains an invalid JSON: %s", err)
 	}
 
 	if policy == "" {
-		req.ResetPolicy = aws.Bool(true)
+req.ResetPolicy = aws.Bool(true)
 	} else {
-		req.PolicyDocument = aws.String(policy)
+req.PolicyDocument = aws.String(policy)
 	}
 
 	log.Printf("[DEBUG] Updating VPC Endpoint Policy: %#v", req)
 	if _, err := conn.ModifyVpcEndpointWithContext(ctx, req); err != nil {
-		return sdkdiag.AppendErrorf(diags, "updating VPC Endpoint Policy: %s", err)
+return sdkdiag.AppendErrorf(diags, "updating VPC Endpoint Policy: %s", err)
 	}
 	d.SetId(endpointID)
 
 	_, err = WaitVPCEndpointAvailable(ctx, conn, endpointID, d.Timeout(schema.TimeoutCreate))
 
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "waiting for VPC Endpoint (%s) to policy to set: %s", endpointID, err)
+return sdkdiag.AppendErrorf(diags, "waiting for VPC Endpoint (%s) to policy to set: %s", endpointID, err)
 	}
 
 	return append(diags, resourceVPCEndpointPolicyRead(ctx, d, meta)...)
@@ -107,13 +107,13 @@ func resourceVPCEndpointPolicyRead(ctx context.Context, d *schema.ResourceData, 
 	vpce, err := FindVPCEndpointByID(ctx, conn, d.Id())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
-		log.Printf("[WARN] VPC Endpoint Policy (%s) not found, removing from state", d.Id())
-		d.SetId("")
-		return diags
+log.Printf("[WARN] VPC Endpoint Policy (%s) not found, removing from state", d.Id())
+d.SetId("")
+return diags
 	}
 
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "reading VPC Endpoint Policy (%s): %s", d.Id(), err)
+return sdkdiag.AppendErrorf(diags, "reading VPC Endpoint Policy (%s): %s", d.Id(), err)
 	}
 
 	d.Set("vpc_endpoint_id", d.Id())
@@ -121,13 +121,13 @@ func resourceVPCEndpointPolicyRead(ctx context.Context, d *schema.ResourceData, 
 	policyToSet, err := verify.SecondJSONUnlessEquivalent(d.Get("policy").(string), aws.StringValue(vpce.PolicyDocument))
 
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "while setting policy (%s), encountered: %s", policyToSet, err)
+return sdkdiag.AppendErrorf(diags, "while setting policy (%s), encountered: %s", policyToSet, err)
 	}
 
 	policyToSet, err = structure.NormalizeJsonString(policyToSet)
 
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "policy (%s) is invalid JSON: %s", policyToSet, err)
+return sdkdiag.AppendErrorf(diags, "policy (%s) is invalid JSON: %s", policyToSet, err)
 	}
 
 	d.Set("policy", policyToSet)
@@ -140,19 +140,19 @@ func resourceVPCEndpointPolicyDelete(ctx context.Context, d *schema.ResourceData
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	req := &ec2.ModifyVpcEndpointInput{
-		VpcEndpointId: aws.String(d.Id()),
-		ResetPolicy:   aws.Bool(true),
+VpcEndpointId: aws.String(d.Id()),
+ResetPolicy:   aws.Bool(true),
 	}
 
 	log.Printf("[DEBUG] Resetting VPC Endpoint Policy: %#v", req)
 	if _, err := conn.ModifyVpcEndpointWithContext(ctx, req); err != nil {
-		return sdkdiag.AppendErrorf(diags, "Resetting VPC Endpoint Policy: %s", err)
+return sdkdiag.AppendErrorf(diags, "Resetting VPC Endpoint Policy: %s", err)
 	}
 
 	_, err := WaitVPCEndpointAvailable(ctx, conn, d.Id(), d.Timeout(schema.TimeoutDelete))
 
 	if err != nil {
-		return sdkdiag.AppendErrorf(diags, "waiting for VPC Endpoint (%s) to be reset: %s", d.Id(), err)
+return sdkdiag.AppendErrorf(diags, "waiting for VPC Endpoint (%s) to be reset: %s", d.Id(), err)
 	}
 
 	return diags

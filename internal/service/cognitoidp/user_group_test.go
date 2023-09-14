@@ -27,31 +27,31 @@ func TestAccCognitoIDPUserGroup_basic(t *testing.T) {
 	resourceName := "aws_cognito_user_group.main"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserGroupConfig_basic(poolName, groupName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserGroupExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "name", groupName),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccUserGroupConfig_basic(poolName, updatedGroupName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserGroupExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "name", updatedGroupName),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserGroupConfig_basic(poolName, groupName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserGroupExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "name", groupName),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccUserGroupConfig_basic(poolName, updatedGroupName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserGroupExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "name", updatedGroupName),
+),
+	},
+},
 	})
 }
 
@@ -63,37 +63,37 @@ func TestAccCognitoIDPUserGroup_complex(t *testing.T) {
 	resourceName := "aws_cognito_user_group.main"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserGroupConfig_complex(poolName, groupName, "This is the user group description", 1),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserGroupExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "name", groupName),
-					resource.TestCheckResourceAttr(resourceName, "description", "This is the user group description"),
-					resource.TestCheckResourceAttr(resourceName, "precedence", "1"),
-					resource.TestCheckResourceAttrSet(resourceName, "role_arn"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccUserGroupConfig_complex(poolName, updatedGroupName, "This is the updated user group description", 42),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserGroupExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "name", updatedGroupName),
-					resource.TestCheckResourceAttr(resourceName, "description", "This is the updated user group description"),
-					resource.TestCheckResourceAttr(resourceName, "precedence", "42"),
-					resource.TestCheckResourceAttrSet(resourceName, "role_arn"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserGroupConfig_complex(poolName, groupName, "This is the user group description", 1),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserGroupExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "name", groupName),
+	resource.TestCheckResourceAttr(resourceName, "description", "This is the user group description"),
+	resource.TestCheckResourceAttr(resourceName, "precedence", "1"),
+	resource.TestCheckResourceAttrSet(resourceName, "role_arn"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccUserGroupConfig_complex(poolName, updatedGroupName, "This is the updated user group description", 42),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserGroupExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "name", updatedGroupName),
+	resource.TestCheckResourceAttr(resourceName, "description", "This is the updated user group description"),
+	resource.TestCheckResourceAttr(resourceName, "precedence", "42"),
+	resource.TestCheckResourceAttrSet(resourceName, "role_arn"),
+),
+	},
+},
 	})
 }
 
@@ -103,95 +103,95 @@ func TestAccCognitoIDPUserGroup_roleARN(t *testing.T) {
 	resourceName := "aws_cognito_user_group.main"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserGroupDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccUserGroupConfig_roleARN(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserGroupExists(ctx, resourceName),
-					resource.TestCheckResourceAttrSet(resourceName, "role_arn"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccUserGroupConfig_roleARNUpdated(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckUserGroupExists(ctx, resourceName),
-					resource.TestCheckResourceAttrSet(resourceName, "role_arn"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckUserGroupDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccUserGroupConfig_roleARN(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserGroupExists(ctx, resourceName),
+	resource.TestCheckResourceAttrSet(resourceName, "role_arn"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccUserGroupConfig_roleARNUpdated(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckUserGroupExists(ctx, resourceName),
+	resource.TestCheckResourceAttrSet(resourceName, "role_arn"),
+),
+	},
+},
 	})
 }
 
 func testAccCheckUserGroupExists(ctx context.Context, name string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[name]
-		if !ok {
-			return fmt.Errorf("Not found: %s", name)
-		}
+rs, ok := s.RootModule().Resources[name]
+if !ok {
+	return fmt.Errorf("Not found: %s", name)
+}
 
-		id := rs.Primary.ID
-		name := rs.Primary.Attributes["name"]
-		userPoolId := rs.Primary.Attributes["user_pool_id"]
+id := rs.Primary.ID
+name := rs.Primary.Attributes["name"]
+userPoolId := rs.Primary.Attributes["user_pool_id"]
 
-		if name == "" {
-			return errors.New("No Cognito User Group Name set")
-		}
+if name == "" {
+	return errors.New("No Cognito User Group Name set")
+}
 
-		if userPoolId == "" {
-			return errors.New("No Cognito User Pool Id set")
-		}
+if userPoolId == "" {
+	return errors.New("No Cognito User Pool Id set")
+}
 
-		if id != fmt.Sprintf("%s/%s", userPoolId, name) {
-			return fmt.Errorf(fmt.Sprintf("ID should be user_pool_id/name. ID was %s. name was %s, user_pool_id was %s", id, name, userPoolId))
-		}
+if id != fmt.Sprintf("%s/%s", userPoolId, name) {
+	return fmt.Errorf(fmt.Sprintf("ID should be user_pool_id/name. ID was %s. name was %s, user_pool_id was %s", id, name, userPoolId))
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).CognitoIDPConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).CognitoIDPConn(ctx)
 
-		params := &cognitoidentityprovider.GetGroupInput{
-			GroupName:  aws.String(rs.Primary.Attributes["name"]),
-			UserPoolId: aws.String(rs.Primary.Attributes["user_pool_id"]),
-		}
+params := &cognitoidentityprovider.GetGroupInput{
+	GroupName:  aws.String(rs.Primary.Attributes["name"]),
+	UserPoolId: aws.String(rs.Primary.Attributes["user_pool_id"]),
+}
 
-		_, err := conn.GetGroupWithContext(ctx, params)
-		return err
+_, err := conn.GetGroupWithContext(ctx, params)
+return err
 	}
 }
 
 func testAccCheckUserGroupDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).CognitoIDPConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).CognitoIDPConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_cognito_user_group" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_cognito_user_group" {
+continue
+	}
 
-			params := &cognitoidentityprovider.GetGroupInput{
-				GroupName:  aws.String(rs.Primary.ID),
-				UserPoolId: aws.String(rs.Primary.Attributes["user_pool_id"]),
-			}
+	params := &cognitoidentityprovider.GetGroupInput{
+GroupName:  aws.String(rs.Primary.ID),
+UserPoolId: aws.String(rs.Primary.Attributes["user_pool_id"]),
+	}
 
-			_, err := conn.GetGroupWithContext(ctx, params)
+	_, err := conn.GetGroupWithContext(ctx, params)
 
-			if tfawserr.ErrCodeEquals(err, cognitoidentityprovider.ErrCodeResourceNotFoundException) {
-				continue
-			}
+	if tfawserr.ErrCodeEquals(err, cognitoidentityprovider.ErrCodeResourceNotFoundException) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
-		}
+	if err != nil {
+return err
+	}
+}
 
-		return nil
+return nil
 	}
 }
 

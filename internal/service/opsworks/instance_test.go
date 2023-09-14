@@ -27,50 +27,50 @@ func TestAccOpsWorksInstance_basic(t *testing.T) {
 	dataSourceName := "data.aws_availability_zones.available"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
-		ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckInstanceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccInstanceConfig_create(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckInstanceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccInstanceConfig_create(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckInstanceExists(ctx, resourceName, &opsinst),
-					testAccCheckInstanceAttributes(&opsinst),
-					resource.TestCheckResourceAttr(resourceName, "hostname", "tf-acc1"),
-					resource.TestCheckResourceAttr(resourceName, "instance_type", "t2.micro"),
-					resource.TestCheckResourceAttr(resourceName, "state", "stopped"),
-					resource.TestCheckResourceAttr(resourceName, "layer_ids.#", "1"),
-					resource.TestCheckResourceAttr(resourceName, "install_updates_on_boot", "true"),
-					resource.TestCheckResourceAttr(resourceName, "architecture", "x86_64"),
-					resource.TestCheckResourceAttr(resourceName, "tenancy", "default"),
-					resource.TestCheckResourceAttr(resourceName, "os", "Amazon Linux 2016.09"),        // inherited from opsworks_stack_test
-					resource.TestCheckResourceAttr(resourceName, "root_device_type", "ebs"),           // inherited from opsworks_stack_test
-					resource.TestCheckResourceAttrPair(resourceName, "availability_zone", dataSourceName, "names.0"), // inherited from opsworks_stack_test
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"state"}, //state is something we pass to the API and get back as status :(
-			},
-			{
-				Config: testAccInstanceConfig_update(rName),
-				Check: resource.ComposeTestCheck
+	testAccCheckInstanceExists(ctx, resourceName, &opsinst),
+	testAccCheckInstanceAttributes(&opsinst),
+	resource.TestCheckResourceAttr(resourceName, "hostname", "tf-acc1"),
+	resource.TestCheckResourceAttr(resourceName, "instance_type", "t2.micro"),
+	resource.TestCheckResourceAttr(resourceName, "state", "stopped"),
+	resource.TestCheckResourceAttr(resourceName, "layer_ids.#", "1"),
+	resource.TestCheckResourceAttr(resourceName, "install_updates_on_boot", "true"),
+	resource.TestCheckResourceAttr(resourceName, "architecture", "x86_64"),
+	resource.TestCheckResourceAttr(resourceName, "tenancy", "default"),
+	resource.TestCheckResourceAttr(resourceName, "os", "Amazon Linux 2016.09"),        // inherited from opsworks_stack_test
+	resource.TestCheckResourceAttr(resourceName, "root_device_type", "ebs"),  // inherited from opsworks_stack_test
+	resource.TestCheckResourceAttrPair(resourceName, "availability_zone", dataSourceName, "names.0"), // inherited from opsworks_stack_test
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"state"}, //state is something we pass to the API and get back as status :(
+	},
+	{
+Config: testAccInstanceConfig_update(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckInstanceExists(ctx, resourceName, &opsinst),
-					testAccCheckInstanceAttributes(&opsinst),
-					resource.TestCheckResourceAttr(resourceName, "hostname", "tf-acc1"),
-					resource.TestCheckResourceAttr(resourceName, "instance_type", "t2.small"),
-					resource.TestCheckResourceAttr(resourceName, "layer_ids.#", "2"),
-					resource.TestCheckResourceAttr(resourceName, "os", "Amazon Linux 2015.09"),
-					resource.TestCheckResourceAttr(resourceName, "tenancy", "default"),
-				),
-			},
-		},
+	testAccCheckInstanceExists(ctx, resourceName, &opsinst),
+	testAccCheckInstanceAttributes(&opsinst),
+	resource.TestCheckResourceAttr(resourceName, "hostname", "tf-acc1"),
+	resource.TestCheckResourceAttr(resourceName, "instance_type", "t2.small"),
+	resource.TestCheckResourceAttr(resourceName, "layer_ids.#", "2"),
+	resource.TestCheckResourceAttr(resourceName, "os", "Amazon Linux 2015.09"),
+	resource.TestCheckResourceAttr(resourceName, "tenancy", "default"),
+),
+	},
+},
 	})
 }
 
@@ -82,36 +82,36 @@ func TestAccOpsWorksInstance_updateHostNameForceNew(t *testing.T) {
 	var before, after opsworks.Instance
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
-		ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckInstanceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccInstanceConfig_create(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckInstanceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccInstanceConfig_create(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckInstanceExists(ctx, resourceName, &before),
-					resource.TestCheckResourceAttr(resourceName, "hostname", "tf-acc1"),
-				),
-			},
-			{
-				ResourceName:            resourceName,
-				ImportState:             true,
-				ImportStateVerify:       true,
-				ImportStateVerifyIgnore: []string{"state"},
-			},
-			{
-				Config: testAccInstanceConfig_updateHostName(rName),
-				Check: resource.ComposeTestCheck
+	testAccCheckInstanceExists(ctx, resourceName, &before),
+	resource.TestCheckResourceAttr(resourceName, "hostname", "tf-acc1"),
+),
+	},
+	{
+ResourceName:   resourceName,
+ImportState:    true,
+ImportStateVerify:       true,
+ImportStateVerifyIgnore: []string{"state"},
+	},
+	{
+Config: testAccInstanceConfig_updateHostName(rName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckInstanceExists(ctx, resourceName, &after),
-					resource.TestCheckResourceAttr(resourceName, "hostname", "tf-acc2"),
-					testAccCheckInstanceRecreated(t, &before, &after),
-				),
-			},
-		},
+	testAccCheckInstanceExists(ctx, resourceName, &after),
+	resource.TestCheckResourceAttr(resourceName, "hostname", "tf-acc2"),
+	testAccCheckInstanceRecreated(t, &before, &after),
+),
+	},
+},
 	})
 }
 
@@ -121,10 +121,10 @@ func testAccCheckInstanceRecreated(t *testing.T,
 func {
 	return 
 func(s *terraform.State) error {
-		if *before.InstanceId == *after.InstanceId {
-			t.Fatalf("Expected change of OpsWorks Instance IDs, but both were %s", *before.InstanceId)
-		}
-		return nil
+if *before.InstanceId == *after.InstanceId {
+	t.Fatalf("Expected change of OpsWorks Instance IDs, but both were %s", *before.InstanceId)
+}
+return nil
 	}
 }
 
@@ -134,33 +134,33 @@ func testAccCheckInstanceExists(ctx context.Context,
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No Opsworks Instance is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No Opsworks Instance is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).OpsWorksConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).OpsWorksConn(ctx)
 
-		params := &opsworks.DescribeInstancesInput{
-			InstanceIds: []*string{&rs.Primary.ID},
-		}
-		resp, err := conn.DescribeInstancesWithContext(ctx, params)
+params := &opsworks.DescribeInstancesInput{
+	InstanceIds: []*string{&rs.Primary.ID},
+}
+resp, err := conn.DescribeInstancesWithContext(ctx, params)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		if v := len(resp.Instances); v != 1 {
-			return fmt.Errorf("Expected 1 request returned, got %d", v)
-		}
+if v := len(resp.Instances); v != 1 {
+	return fmt.Errorf("Expected 1 request returned, got %d", v)
+}
 
-		*opsinst = *resp.Instances[0]
+*opsinst = *resp.Instances[0]
 
-		return nil
+return nil
 	}
 }
 
@@ -170,26 +170,26 @@ func testAccCheckInstanceAttributes(
 func {
 	return 
 func(s *terraform.State) error {
-		// Depending on the timing, the state could be requested or stopped
-		if *opsinst.Status != "stopped" && *opsinst.Status != "requested" {
-			return fmt.Errorf("Unexpected request status: %s", *opsinst.Status)
-		}
-		if *opsinst.Architecture != "x86_64" {
-			return fmt.Errorf("Unexpected architecture: %s", *opsinst.Architecture)
-		}
-		if *opsinst.Tenancy != "default" {
-			return fmt.Errorf("Unexpected tenancy: %s", *opsinst.Tenancy)
-		}
-		if *opsinst.InfrastructureClass != "ec2" {
-			return fmt.Errorf("Unexpected infrastructure class: %s", *opsinst.InfrastructureClass)
-		}
-		if *opsinst.RootDeviceType != "ebs" {
-			return fmt.Errorf("Unexpected root device type: %s", *opsinst.RootDeviceType)
-		}
-		if *opsinst.VirtualizationType != "hvm" {
-			return fmt.Errorf("Unexpected virtualization type: %s", *opsinst.VirtualizationType)
-		}
-		return nil
+// Depending on the timing, the state could be requested or stopped
+if *opsinst.Status != "stopped" && *opsinst.Status != "requested" {
+	return fmt.Errorf("Unexpected request status: %s", *opsinst.Status)
+}
+if *opsinst.Architecture != "x86_64" {
+	return fmt.Errorf("Unexpected architecture: %s", *opsinst.Architecture)
+}
+if *opsinst.Tenancy != "default" {
+	return fmt.Errorf("Unexpected tenancy: %s", *opsinst.Tenancy)
+}
+if *opsinst.InfrastructureClass != "ec2" {
+	return fmt.Errorf("Unexpected infrastructure class: %s", *opsinst.InfrastructureClass)
+}
+if *opsinst.RootDeviceType != "ebs" {
+	return fmt.Errorf("Unexpected root device type: %s", *opsinst.RootDeviceType)
+}
+if *opsinst.VirtualizationType != "hvm" {
+	return fmt.Errorf("Unexpected virtualization type: %s", *opsinst.VirtualizationType)
+}
+return nil
 	}
 }
 
@@ -198,44 +198,44 @@ func testAccCheckInstanceDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).OpsWorksConn(ctx)
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_opsworks_instance" {
-				continue
-			}
-			req := &opsworks.DescribeInstancesInput{
-				InstanceIds: aws.StringSlice([]string{rs.Primary.ID}),
-			}
+conn := acctest.Provider.Meta().(*conns.AWSClient).OpsWorksConn(ctx)
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_opsworks_instance" {
+continue
+	}
+	req := &opsworks.DescribeInstancesInput{
+InstanceIds: aws.StringSlice([]string{rs.Primary.ID}),
+	}
 
-			output, err := conn.DescribeInstancesWithContext(ctx, req)
+	output, err := conn.DescribeInstancesWithContext(ctx, req)
 
-			if tfawserr.ErrCodeEquals(err, opsworks.ErrCodeResourceNotFoundException) {
-				continue
-			}
+	if tfawserr.ErrCodeEquals(err, opsworks.ErrCodeResourceNotFoundException) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			if output != nil && len(output.Instances) > 0 {
-				for _, instance := range output.Instances {
-					if aws.StringValue(instance.InstanceId) != rs.Primary.ID {
-						continue
-					}
-					return fmt.Errorf("Expected OpsWorks instance (%s) to be gone, but was still found", rs.Primary.ID)
-				}
-			}
-		}
+	if output != nil && len(output.Instances) > 0 {
+for _, instance := range output.Instances {
+	if aws.StringValue(instance.InstanceId) != rs.Primary.ID {
+continue
+	}
+	return fmt.Errorf("Expected OpsWorks instance (%s) to be gone, but was still found", rs.Primary.ID)
+}
+	}
+}
 
-		return nil
+return nil
 	}
 }
 
 
 func testAccInstanceConfig_updateHostName(rName string) string {
 	return acctest.ConfigCompose(
-		testAccStackConfig_vpcCreate(rName),
-		fmt.Sprintf(`
+testAccStackConfig_vpcCreate(rName),
+fmt.Sprintf(`
 resource "aws_security_group" "tf-ops-acc-web" {
   name = "%[1]s-web"
 
@@ -282,7 +282,7 @@ resource "aws_opsworks_instance" "test" {
   ]
 
   instance_type = "t2.micro"
-  state         = "stopped"
+  state= "stopped"
   hostname      = "tf-acc2"
 }
 `, rName))
@@ -291,8 +291,8 @@ resource "aws_opsworks_instance" "test" {
 
 func testAccInstanceConfig_create(rName string) string {
 	return acctest.ConfigCompose(
-		testAccStackConfig_vpcCreate(rName),
-		fmt.Sprintf(`
+testAccStackConfig_vpcCreate(rName),
+fmt.Sprintf(`
 resource "aws_security_group" "tf-ops-acc-web" {
   name = "%[1]s-web"
 
@@ -339,7 +339,7 @@ resource "aws_opsworks_instance" "test" {
   ]
 
   instance_type = "t2.micro"
-  state         = "stopped"
+  state= "stopped"
   hostname      = "tf-acc1"
 }
 `, rName))
@@ -348,8 +348,8 @@ resource "aws_opsworks_instance" "test" {
 
 func testAccInstanceConfig_update(rName string) string {
 	return acctest.ConfigCompose(
-		testAccStackConfig_vpcCreate(rName),
-		fmt.Sprintf(`
+testAccStackConfig_vpcCreate(rName),
+fmt.Sprintf(`
 resource "aws_security_group" "tf-ops-acc-web" {
   name = "%[1]s-web"
 
@@ -397,9 +397,9 @@ resource "aws_opsworks_instance" "test" {
   ]
 
   instance_type = "t2.small"
-  state         = "stopped"
+  state= "stopped"
   hostname      = "tf-acc1"
-  os            = "Amazon Linux 2015.09"
+  os   = "Amazon Linux 2015.09"
 
   timeouts {
     update = "15s"

@@ -28,44 +28,44 @@ func TestAccVPCDataSource_basic(t *testing.T) {
 	ds4ResourceName := "data.aws_vpc.by_filter"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCDataSourceConfig_basic(rName, cidr),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCDataSourceConfig_basic(rName, cidr),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "arn", vpcResourceName, "arn"),
-					resource.TestCheckResourceAttr(ds1ResourceName, "cidr_block", cidr),
-					resource.TestCheckResourceAttr(ds1ResourceName, "enable_dns_hostnames", "false"),
-					resource.TestCheckResourceAttr(ds1ResourceName, "enable_dns_support", "true"),
-					resource.TestCheckResourceAttr(ds1ResourceName, "enable_network_address_usage_metrics", "false"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "id", vpcResourceName, "id"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "ipv6_association_id", vpcResourceName, "ipv6_association_id"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "ipv6_cidr_block", vpcResourceName, "ipv6_cidr_block"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "main_route_table_id", vpcResourceName, "main_route_table_id"),
-					resource.TestCheckResourceAttrPair(ds1ResourceName, "owner_id", vpcResourceName, "owner_id"),
-					resource.TestCheckResourceAttr(ds1ResourceName, "tags.Name", rName),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "arn", vpcResourceName, "arn"),
+	resource.TestCheckResourceAttr(ds1ResourceName, "cidr_block", cidr),
+	resource.TestCheckResourceAttr(ds1ResourceName, "enable_dns_hostnames", "false"),
+	resource.TestCheckResourceAttr(ds1ResourceName, "enable_dns_support", "true"),
+	resource.TestCheckResourceAttr(ds1ResourceName, "enable_network_address_usage_metrics", "false"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "id", vpcResourceName, "id"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "ipv6_association_id", vpcResourceName, "ipv6_association_id"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "ipv6_cidr_block", vpcResourceName, "ipv6_cidr_block"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "main_route_table_id", vpcResourceName, "main_route_table_id"),
+	resource.TestCheckResourceAttrPair(ds1ResourceName, "owner_id", vpcResourceName, "owner_id"),
+	resource.TestCheckResourceAttr(ds1ResourceName, "tags.Name", rName),
 
-					resource.TestCheckResourceAttrPair(ds2ResourceName, "id", vpcResourceName, "id"),
-					resource.TestCheckResourceAttrPair(ds2ResourceName, "owner_id", vpcResourceName, "owner_id"),
-					resource.TestCheckResourceAttr(ds2ResourceName, "cidr_block", cidr),
-					resource.TestCheckResourceAttr(ds2ResourceName, "tags.Name", rName),
+	resource.TestCheckResourceAttrPair(ds2ResourceName, "id", vpcResourceName, "id"),
+	resource.TestCheckResourceAttrPair(ds2ResourceName, "owner_id", vpcResourceName, "owner_id"),
+	resource.TestCheckResourceAttr(ds2ResourceName, "cidr_block", cidr),
+	resource.TestCheckResourceAttr(ds2ResourceName, "tags.Name", rName),
 
-					resource.TestCheckResourceAttrPair(ds3ResourceName, "id", vpcResourceName, "id"),
-					resource.TestCheckResourceAttrPair(ds3ResourceName, "owner_id", vpcResourceName, "owner_id"),
-					resource.TestCheckResourceAttr(ds3ResourceName, "cidr_block", cidr),
-					resource.TestCheckResourceAttr(ds3ResourceName, "tags.Name", rName),
+	resource.TestCheckResourceAttrPair(ds3ResourceName, "id", vpcResourceName, "id"),
+	resource.TestCheckResourceAttrPair(ds3ResourceName, "owner_id", vpcResourceName, "owner_id"),
+	resource.TestCheckResourceAttr(ds3ResourceName, "cidr_block", cidr),
+	resource.TestCheckResourceAttr(ds3ResourceName, "tags.Name", rName),
 
-					resource.TestCheckResourceAttrPair(ds4ResourceName, "id", vpcResourceName, "id"),
-					resource.TestCheckResourceAttrPair(ds4ResourceName, "owner_id", vpcResourceName, "owner_id"),
-					resource.TestCheckResourceAttr(ds4ResourceName, "cidr_block", cidr),
-					resource.TestCheckResourceAttr(ds4ResourceName, "tags.Name", rName),
-				),
-			},
-		},
+	resource.TestCheckResourceAttrPair(ds4ResourceName, "id", vpcResourceName, "id"),
+	resource.TestCheckResourceAttrPair(ds4ResourceName, "owner_id", vpcResourceName, "owner_id"),
+	resource.TestCheckResourceAttr(ds4ResourceName, "cidr_block", cidr),
+	resource.TestCheckResourceAttr(ds4ResourceName, "tags.Name", rName),
+),
+	},
+},
 	})
 }
 
@@ -76,20 +76,20 @@ func TestAccVPCDataSource_CIDRBlockAssociations_multiple(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPCDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCDataSourceConfig_cidrBlockAssociationsMultiple(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckVPCDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCDataSourceConfig_cidrBlockAssociationsMultiple(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttr(dataSourceName, "cidr_block_associations.#", "2"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttr(dataSourceName, "cidr_block_associations.#", "2"),
+),
+	},
+},
 	})
 }
 

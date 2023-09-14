@@ -20,33 +20,33 @@ func testAccOrganizationConfiguration_basic(t *testing.T) {
 	resourceName := "aws_securityhub_organization_configuration.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationManagementAccount(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, securityhub.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccOrganizationConfigurationConfig_basic(true),
-				Check: resource.ComposeTestCheckFunc(
-					testAccOrganizationConfigurationExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "auto_enable", "true"),
-					resource.TestCheckResourceAttr(resourceName, "auto_enable_standards", "DEFAULT"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccOrganizationConfigurationConfig_basic(false),
-				Check: resource.ComposeTestCheckFunc(
-					testAccOrganizationConfigurationExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "auto_enable", "false"),
-					resource.TestCheckResourceAttr(resourceName, "auto_enable_standards", "DEFAULT"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationManagementAccount(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, securityhub.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             acctest.CheckDestroyNoop,
+Steps: []resource.TestStep{
+	{
+Config: testAccOrganizationConfigurationConfig_basic(true),
+Check: resource.ComposeTestCheckFunc(
+	testAccOrganizationConfigurationExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "auto_enable", "true"),
+	resource.TestCheckResourceAttr(resourceName, "auto_enable_standards", "DEFAULT"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccOrganizationConfigurationConfig_basic(false),
+Check: resource.ComposeTestCheckFunc(
+	testAccOrganizationConfigurationExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "auto_enable", "false"),
+	resource.TestCheckResourceAttr(resourceName, "auto_enable_standards", "DEFAULT"),
+),
+	},
+},
 	})
 }
 
@@ -55,48 +55,48 @@ func testAccOrganizationConfiguration_autoEnableStandards(t *testing.T) {
 	resourceName := "aws_securityhub_organization_configuration.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationManagementAccount(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, securityhub.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccOrganizationConfigurationConfig_autoEnableStandards("DEFAULT"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccOrganizationConfigurationExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "auto_enable", "true"),
-					resource.TestCheckResourceAttr(resourceName, "auto_enable_standards", "DEFAULT"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccOrganizationConfigurationConfig_autoEnableStandards("NONE"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccOrganizationConfigurationExists(ctx, resourceName),
-					resource.TestCheckResourceAttr(resourceName, "auto_enable", "true"),
-					resource.TestCheckResourceAttr(resourceName, "auto_enable_standards", "NONE"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationManagementAccount(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, securityhub.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             acctest.CheckDestroyNoop,
+Steps: []resource.TestStep{
+	{
+Config: testAccOrganizationConfigurationConfig_autoEnableStandards("DEFAULT"),
+Check: resource.ComposeTestCheckFunc(
+	testAccOrganizationConfigurationExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "auto_enable", "true"),
+	resource.TestCheckResourceAttr(resourceName, "auto_enable_standards", "DEFAULT"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccOrganizationConfigurationConfig_autoEnableStandards("NONE"),
+Check: resource.ComposeTestCheckFunc(
+	testAccOrganizationConfigurationExists(ctx, resourceName),
+	resource.TestCheckResourceAttr(resourceName, "auto_enable", "true"),
+	resource.TestCheckResourceAttr(resourceName, "auto_enable_standards", "NONE"),
+),
+	},
+},
 	})
 }
 
 func testAccOrganizationConfigurationExists(ctx context.Context, n string) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		_, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+_, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).SecurityHubConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).SecurityHubConn(ctx)
 
-		_, err := conn.DescribeOrganizationConfigurationWithContext(ctx, &securityhub.DescribeOrganizationConfigurationInput{})
+_, err := conn.DescribeOrganizationConfigurationWithContext(ctx, &securityhub.DescribeOrganizationConfigurationInput{})
 
-		return err
+return err
 	}
 }
 

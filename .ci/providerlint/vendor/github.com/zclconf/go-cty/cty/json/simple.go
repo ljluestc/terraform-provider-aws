@@ -20,22 +20,22 @@ import (
 // For information on how types are inferred when decoding, see the
 // documentation of the function ImpliedType.
 type SimpleJSONValue struct {
-	cty.Value
+cty.Value
 }
 
 // MarshalJSON is an implementation of json.Marshaler. See the documentation
 // of SimpleJSONValue for more information.
 func (v SimpleJSONValue) MarshalJSON() ([]byte, error) {
-	return Marshal(v.Value, v.Type())
+return Marshal(v.Value, v.Type())
 }
 
 // UnmarshalJSON is an implementation of json.Unmarshaler. See the
 // documentation of SimpleJSONValue for more information.
 func (v *SimpleJSONValue) UnmarshalJSON(buf []byte) error {
-	t, err := ImpliedType(buf)
-	if err != nil {
-		return err
-	}
-	v.Value, err = Unmarshal(buf, t)
-	return err
+t, err := ImpliedType(buf)
+if err != nil {
+return err
+}
+v.Value, err = Unmarshal(buf, t)
+return err
 }

@@ -78,7 +78,7 @@ func ResourceEBSVolume() *schema.Resource {
 				Computed: true,
 			},
 			"kms_key_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
@@ -91,20 +91,20 @@ func: verify.ValidARN,
 				ForceNew: true,
 			},
 			"outpost_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Validate
 func: verify.ValidARN,
 			},
 			"size": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				Computed:     true,
 				AtLeastOneOf: []string{"size", "snapshot_id"},
 			},
 			"snapshot_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
@@ -113,7 +113,7 @@ func: verify.ValidARN,
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"throughput": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				Computed:     true,
 				Validate
@@ -290,7 +290,7 @@ func resourceEBSVolumeDelete(ctx context.Context, d *schema.ResourceData, meta i
 	if d.Get("final_snapshot").(bool) {
 		input := &ec2.CreateSnapshotInput{
 			TagSpecifications: tagSpecificationsFromMap(ctx, d.Get("tags_all").(map[string]interface{}), ec2.ResourceTypeSnapshot),
-			VolumeId:          aws.String(d.Id()),
+			VolumeId: aws.String(d.Id()),
 		}
 
 		log.Printf("[DEBUG] Creating EBS Snapshot: %s", input)

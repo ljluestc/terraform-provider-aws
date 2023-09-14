@@ -20,25 +20,25 @@ func TestAccLocationGeofenceCollectionDataSource_basic(t *testing.T) {
 	resourceName := "aws_location_geofence_collection.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, locationservice.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGeofenceCollectionDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccGeofenceCollectionDataSourceConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckGeofenceCollectionExists(ctx, dataSourceName),
-					resource.TestCheckResourceAttrPair(dataSourceName, "collection_arn", resourceName, "collection_arn"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "collection_name", resourceName, "collection_name"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "create_time", resourceName, "create_time"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "description", resourceName, "description"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "kms_key_id", resourceName, "kms_key_id"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "update_time", resourceName, "update_time"),
-					resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
-				),
-			},
-		},
+PreCheck:  func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:acctest.ErrorCheck(t, locationservice.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckGeofenceCollectionDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccGeofenceCollectionDataSourceConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckGeofenceCollectionExists(ctx, dataSourceName),
+	resource.TestCheckResourceAttrPair(dataSourceName, "collection_arn", resourceName, "collection_arn"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "collection_name", resourceName, "collection_name"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "create_time", resourceName, "create_time"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "description", resourceName, "description"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "kms_key_id", resourceName, "kms_key_id"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "update_time", resourceName, "update_time"),
+	resource.TestCheckResourceAttrPair(dataSourceName, "tags.%", resourceName, "tags.%"),
+),
+	},
+},
 	})
 }
 

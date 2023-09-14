@@ -19,25 +19,25 @@ func TestAccVPCSubnetsDataSource_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCSubnetsDataSourceConfig_basic(rName),
-			},
-			{
-				Config: testAccVPCSubnetsDataSourceConfig_dataSource(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCSubnetsDataSourceConfig_basic(rName),
+	},
+	{
+Config: testAccVPCSubnetsDataSourceConfig_dataSource(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttr("data.aws_subnets.selected", "ids.#", "4"),
-					resource.TestCheckResourceAttr("data.aws_subnets.private", "ids.#", "2"),
-					acctest.CheckResourceAttrGreaterThanValue("data.aws_subnets.all", "ids.#", 0),
-					resource.TestCheckResourceAttr("data.aws_subnets.none", "ids.#", "0"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttr("data.aws_subnets.selected", "ids.#", "4"),
+	resource.TestCheckResourceAttr("data.aws_subnets.private", "ids.#", "2"),
+	acctest.CheckResourceAttrGreaterThanValue("data.aws_subnets.all", "ids.#", 0),
+	resource.TestCheckResourceAttr("data.aws_subnets.none", "ids.#", "0"),
+),
+	},
+},
 	})
 }
 
@@ -47,19 +47,19 @@ func TestAccVPCSubnetsDataSource_filter(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccVPCSubnetsDataSourceConfig_filter(rName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccVPCSubnetsDataSourceConfig_filter(rName),
+Check: resource.ComposeTestCheck
 func(
-					resource.TestCheckResourceAttr("data.aws_subnets.test", "ids.#", "2"),
-				),
-			},
-		},
+	resource.TestCheckResourceAttr("data.aws_subnets.test", "ids.#", "2"),
+),
+	},
+},
 	})
 }
 
@@ -75,7 +75,7 @@ resource "aws_vpc" "test" {
 }
 
 resource "aws_subnet" "test_public_a" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   cidr_block        = "172.16.123.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
 
@@ -86,7 +86,7 @@ resource "aws_subnet" "test_public_a" {
 }
 
 resource "aws_subnet" "test_public_b" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   cidr_block        = "172.16.124.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
 
@@ -97,7 +97,7 @@ resource "aws_subnet" "test_public_b" {
 }
 
 resource "aws_subnet" "test_private_a" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   cidr_block        = "172.16.125.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
 
@@ -108,7 +108,7 @@ resource "aws_subnet" "test_private_a" {
 }
 
 resource "aws_subnet" "test_private_b" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   cidr_block        = "172.16.126.0/24"
   availability_zone = data.aws_availability_zones.available.names[1]
 
@@ -169,7 +169,7 @@ resource "aws_vpc" "test" {
 }
 
 resource "aws_subnet" "test_a_one" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   cidr_block        = "172.16.1.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
 
@@ -179,7 +179,7 @@ resource "aws_subnet" "test_a_one" {
 }
 
 resource "aws_subnet" "test_a_two" {
-  vpc_id            = aws_subnet.test_b.vpc_id
+  vpc_id   = aws_subnet.test_b.vpc_id
   cidr_block        = "172.16.2.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
 
@@ -189,7 +189,7 @@ resource "aws_subnet" "test_a_two" {
 }
 
 resource "aws_subnet" "test_b" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   cidr_block        = "172.16.3.0/24"
   availability_zone = data.aws_availability_zones.available.names[1]
 

@@ -37,7 +37,7 @@ func ResourceNetworkACLRule() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"cidr_block": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ExactlyOneOf: []string{"cidr_block", "ipv6_cidr_block"},
@@ -64,7 +64,7 @@ func ResourceNetworkACLRule() *schema.Resource {
 				ForceNew: true,
 			},
 			"ipv6_cidr_block": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ExactlyOneOf: []string{"cidr_block", "ipv6_cidr_block"},

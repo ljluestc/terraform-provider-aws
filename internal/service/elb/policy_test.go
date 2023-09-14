@@ -27,20 +27,20 @@ func TestAccELBPolicy_basic(t *testing.T) {
 	rInt := sdkacctest.RandInt()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccPolicyConfig_basic(rInt),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckPolicyDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccPolicyConfig_basic(rInt),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckPolicyExists(ctx, resourceName, &policy),
-				),
-			},
-		},
+	testAccCheckPolicyExists(ctx, resourceName, &policy),
+),
+	},
+},
 	})
 }
 
@@ -52,22 +52,22 @@ func TestAccELBPolicy_disappears(t *testing.T) {
 	rInt := sdkacctest.RandInt()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccPolicyConfig_basic(rInt),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckPolicyDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccPolicyConfig_basic(rInt),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckPolicyExists(ctx, resourceName, &policy),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfelb.ResourcePolicy(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+	testAccCheckPolicyExists(ctx, resourceName, &policy),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfelb.ResourcePolicy(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
@@ -80,22 +80,22 @@ func TestAccELBPolicy_LBCookieStickinessPolicyType_computedAttributesOnly(t *tes
 	policyTypeName := "LBCookieStickinessPolicyType"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccPolicyConfig_typeNameOnly(rName, policyTypeName),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckPolicyDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccPolicyConfig_typeNameOnly(rName, policyTypeName),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckPolicyExists(ctx, resourceName, &policy),
-					resource.TestCheckResourceAttr(resourceName, "policy_type_name", policyTypeName),
-					resource.TestCheckResourceAttr(resourceName, "policy_attribute.#", "1"),
-				),
-			},
-		},
+	testAccCheckPolicyExists(ctx, resourceName, &policy),
+	resource.TestCheckResourceAttr(resourceName, "policy_type_name", policyTypeName),
+	resource.TestCheckResourceAttr(resourceName, "policy_attribute.#", "1"),
+),
+	},
+},
 	})
 }
 
@@ -107,22 +107,22 @@ func TestAccELBPolicy_SSLNegotiationPolicyType_computedAttributesOnly(t *testing
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccPolicyConfig_typeNameOnly(rName, tfelb.SSLNegotiationPolicyType),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckPolicyDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccPolicyConfig_typeNameOnly(rName, tfelb.SSLNegotiationPolicyType),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckPolicyExists(ctx, resourceName, &policy),
-					resource.TestCheckResourceAttr(resourceName, "policy_type_name", tfelb.SSLNegotiationPolicyType),
-					resource.TestMatchResourceAttr(resourceName, "policy_attribute.#", regexache.MustCompile(`[^0]+`)),
-				),
-			},
-		},
+	testAccCheckPolicyExists(ctx, resourceName, &policy),
+	resource.TestCheckResourceAttr(resourceName, "policy_type_name", tfelb.SSLNegotiationPolicyType),
+	resource.TestMatchResourceAttr(resourceName, "policy_attribute.#", regexache.MustCompile(`[^0]+`)),
+),
+	},
+},
 	})
 }
 
@@ -134,49 +134,49 @@ func TestAccELBPolicy_SSLNegotiationPolicyType_customPolicy(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccPolicyConfig_customSSLSecurity(rName, "Protocol-TLSv1.1", "DHE-RSA-AES256-SHA256"),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckPolicyDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccPolicyConfig_customSSLSecurity(rName, "Protocol-TLSv1.1", "DHE-RSA-AES256-SHA256"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckPolicyExists(ctx, resourceName, &policy),
-					resource.TestCheckResourceAttr(resourceName, "policy_name", rName),
-					resource.TestCheckResourceAttr(resourceName, "policy_type_name", tfelb.SSLNegotiationPolicyType),
-					resource.TestCheckResourceAttr(resourceName, "policy_attribute.#", "2"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "policy_attribute.*", map[string]string{
-						"name":  "Protocol-TLSv1.1",
-						"value": "true",
-					}),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "policy_attribute.*", map[string]string{
-						"name":  "DHE-RSA-AES256-SHA256",
-						"value": "true",
-					}),
-				),
-			},
-			{
-				Config: testAccPolicyConfig_customSSLSecurity(rName, "Protocol-TLSv1.2", "ECDHE-ECDSA-AES128-GCM-SHA256"),
-				Check: resource.ComposeTestCheck
+	testAccCheckPolicyExists(ctx, resourceName, &policy),
+	resource.TestCheckResourceAttr(resourceName, "policy_name", rName),
+	resource.TestCheckResourceAttr(resourceName, "policy_type_name", tfelb.SSLNegotiationPolicyType),
+	resource.TestCheckResourceAttr(resourceName, "policy_attribute.#", "2"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "policy_attribute.*", map[string]string{
+"name":  "Protocol-TLSv1.1",
+"value": "true",
+	}),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "policy_attribute.*", map[string]string{
+"name":  "DHE-RSA-AES256-SHA256",
+"value": "true",
+	}),
+),
+	},
+	{
+Config: testAccPolicyConfig_customSSLSecurity(rName, "Protocol-TLSv1.2", "ECDHE-ECDSA-AES128-GCM-SHA256"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckPolicyExists(ctx, resourceName, &policy),
-					resource.TestCheckResourceAttr(resourceName, "policy_name", rName),
-					resource.TestCheckResourceAttr(resourceName, "policy_type_name", tfelb.SSLNegotiationPolicyType),
-					resource.TestCheckResourceAttr(resourceName, "policy_attribute.#", "2"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "policy_attribute.*", map[string]string{
-						"name":  "Protocol-TLSv1.2",
-						"value": "true",
-					}),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "policy_attribute.*", map[string]string{
-						"name":  "ECDHE-ECDSA-AES128-GCM-SHA256",
-						"value": "true",
-					}),
-				),
-			},
-		},
+	testAccCheckPolicyExists(ctx, resourceName, &policy),
+	resource.TestCheckResourceAttr(resourceName, "policy_name", rName),
+	resource.TestCheckResourceAttr(resourceName, "policy_type_name", tfelb.SSLNegotiationPolicyType),
+	resource.TestCheckResourceAttr(resourceName, "policy_attribute.#", "2"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "policy_attribute.*", map[string]string{
+"name":  "Protocol-TLSv1.2",
+"value": "true",
+	}),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "policy_attribute.*", map[string]string{
+"name":  "ECDHE-ECDSA-AES128-GCM-SHA256",
+"value": "true",
+	}),
+),
+	},
+},
 	})
 }
 
@@ -190,39 +190,39 @@ func TestAccELBPolicy_SSLSecurityPolicy_predefined(t *testing.T) {
 	predefinedSecurityPolicyUpdated := "ELBSecurityPolicy-2016-08"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccPolicyConfig_predefinedSSLSecurity(rName, predefinedSecurityPolicy),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckPolicyDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccPolicyConfig_predefinedSSLSecurity(rName, predefinedSecurityPolicy),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckPolicyExists(ctx, resourceName, &policy),
-					resource.TestCheckResourceAttr(resourceName, "policy_attribute.#", "1"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "policy_attribute.*", map[string]string{
-						"name":  tfelb.ReferenceSecurityPolicy,
-						"value": predefinedSecurityPolicy,
-					}),
-					resource.TestCheckResourceAttr(resourceName, "policy_type_name", tfelb.SSLNegotiationPolicyType),
-				),
-			},
-			{
-				Config: testAccPolicyConfig_predefinedSSLSecurity(rName, predefinedSecurityPolicyUpdated),
-				Check: resource.ComposeTestCheck
+	testAccCheckPolicyExists(ctx, resourceName, &policy),
+	resource.TestCheckResourceAttr(resourceName, "policy_attribute.#", "1"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "policy_attribute.*", map[string]string{
+"name":  tfelb.ReferenceSecurityPolicy,
+"value": predefinedSecurityPolicy,
+	}),
+	resource.TestCheckResourceAttr(resourceName, "policy_type_name", tfelb.SSLNegotiationPolicyType),
+),
+	},
+	{
+Config: testAccPolicyConfig_predefinedSSLSecurity(rName, predefinedSecurityPolicyUpdated),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckPolicyExists(ctx, resourceName, &policy),
-					resource.TestCheckResourceAttr(resourceName, "policy_attribute.#", "1"),
-					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "policy_attribute.*", map[string]string{
-						"name":  tfelb.ReferenceSecurityPolicy,
-						"value": predefinedSecurityPolicyUpdated,
-					}),
-					resource.TestCheckResourceAttr(resourceName, "policy_type_name", tfelb.SSLNegotiationPolicyType),
-				),
-			},
-		},
+	testAccCheckPolicyExists(ctx, resourceName, &policy),
+	resource.TestCheckResourceAttr(resourceName, "policy_attribute.#", "1"),
+	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "policy_attribute.*", map[string]string{
+"name":  tfelb.ReferenceSecurityPolicy,
+"value": predefinedSecurityPolicyUpdated,
+	}),
+	resource.TestCheckResourceAttr(resourceName, "policy_type_name", tfelb.SSLNegotiationPolicyType),
+),
+	},
+},
 	})
 }
 
@@ -234,27 +234,27 @@ func TestAccELBPolicy_updateWhileAssigned(t *testing.T) {
 	rInt := sdkacctest.RandInt()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:  
+PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccPolicyConfig_updateWhileAssigned0(rInt),
-				Check: resource.ComposeTestCheck
+ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:    testAccCheckPolicyDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccPolicyConfig_updateWhileAssigned0(rInt),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckPolicyExists(ctx, resourceName, &policy),
-				),
-			},
-			{
-				Config: testAccPolicyConfig_updateWhileAssigned1(rInt),
-				Check: resource.ComposeTestCheck
+	testAccCheckPolicyExists(ctx, resourceName, &policy),
+),
+	},
+	{
+Config: testAccPolicyConfig_updateWhileAssigned1(rInt),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckPolicyExists(ctx, resourceName, &policy),
-				),
-			},
-		},
+	testAccCheckPolicyExists(ctx, resourceName, &policy),
+),
+	},
+},
 	})
 }
 
@@ -263,32 +263,32 @@ func testAccCheckPolicyExists(ctx context.Context, n string, v *elb.PolicyDescri
 func {
 	return 
 func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No ELB Classic Load Balancer Policy is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No ELB Classic Load Balancer Policy is set")
+}
 
-		lbName, policyName, err := tfelb.PolicyParseResourceID(rs.Primary.ID)
+lbName, policyName, err := tfelb.PolicyParseResourceID(rs.Primary.ID)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ELBConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).ELBConn(ctx)
 
-		output, err := tfelb.FindLoadBalancerPolicyByTwoPartKey(ctx, conn, lbName, policyName)
+output, err := tfelb.FindLoadBalancerPolicyByTwoPartKey(ctx, conn, lbName, policyName)
 
-		if err != nil {
-			return err
-		}
+if err != nil {
+	return err
+}
 
-		*output = *v
+*output = *v
 
-		return nil
+return nil
 	}
 }
 
@@ -297,33 +297,33 @@ func testAccCheckPolicyDestroy(ctx context.Context) resource.TestCheck
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).ELBConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).ELBConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_load_balancer_policy" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_load_balancer_policy" {
+continue
+	}
 
-			lbName, policyName, err := tfelb.PolicyParseResourceID(rs.Primary.ID)
+	lbName, policyName, err := tfelb.PolicyParseResourceID(rs.Primary.ID)
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			_, err = tfelb.FindLoadBalancerPolicyByTwoPartKey(ctx, conn, lbName, policyName)
+	_, err = tfelb.FindLoadBalancerPolicyByTwoPartKey(ctx, conn, lbName, policyName)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("ELB Classic Load Balancer Policy %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("ELB Classic Load Balancer Policy %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
@@ -337,7 +337,7 @@ resource "aws_elb" "test-lb" {
   listener {
     instance_port     = 80
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 
@@ -362,8 +362,8 @@ resource "aws_load_balancer_policy" "test-policy" {
 
 func testAccPolicyConfig_typeNameOnly(rName, policyType string) string {
 	return acctest.ConfigCompose(
-		acctest.ConfigAvailableAZsNoOptIn(),
-		fmt.Sprintf(`
+acctest.ConfigAvailableAZsNoOptIn(),
+fmt.Sprintf(`
 resource "aws_elb" "test" {
   name= %[1]q
   availability_zones = [data.aws_availability_zones.available.names[0]]
@@ -371,7 +371,7 @@ resource "aws_elb" "test" {
   listener {
     instance_port     = 80
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 
@@ -398,7 +398,7 @@ resource "aws_elb" "test" {
   listener {
     instance_port     = 80
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 
@@ -435,7 +435,7 @@ resource "aws_elb" "test" {
   listener {
     instance_port     = 80
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 
@@ -467,7 +467,7 @@ resource "aws_elb" "test-lb" {
   listener {
     instance_port     = 80
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 
@@ -508,7 +508,7 @@ resource "aws_elb" "test-lb" {
   listener {
     instance_port     = 80
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 

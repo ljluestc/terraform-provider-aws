@@ -19,23 +19,23 @@ func TestAccRDSSubnetGroupDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_db_subnet_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccSubnetGroupDataSourceConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					resource.TestCheckResourceAttrPair(resourceName, "arn", dataSourceName, "arn"),
-					resource.TestCheckResourceAttrPair(resourceName, "description", dataSourceName, "description"),
-					resource.TestCheckResourceAttrPair(resourceName, "name", dataSourceName, "name"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "status"),
-					resource.TestCheckResourceAttrPair(resourceName, "subnet_ids.#", dataSourceName, "subnet_ids.#"),
-					resource.TestCheckResourceAttrPair(resourceName, "supported_network_types.#", dataSourceName, "supported_network_types.#"),
-					resource.TestCheckResourceAttrSet(dataSourceName, "vpc_id"),
-				),
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+Steps: []resource.TestStep{
+	{
+Config: testAccSubnetGroupDataSourceConfig_basic(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	resource.TestCheckResourceAttrPair(resourceName, "arn", dataSourceName, "arn"),
+	resource.TestCheckResourceAttrPair(resourceName, "description", dataSourceName, "description"),
+	resource.TestCheckResourceAttrPair(resourceName, "name", dataSourceName, "name"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "status"),
+	resource.TestCheckResourceAttrPair(resourceName, "subnet_ids.#", dataSourceName, "subnet_ids.#"),
+	resource.TestCheckResourceAttrPair(resourceName, "supported_network_types.#", dataSourceName, "supported_network_types.#"),
+	resource.TestCheckResourceAttrSet(dataSourceName, "vpc_id"),
+),
+	},
+},
 	})
 }
 

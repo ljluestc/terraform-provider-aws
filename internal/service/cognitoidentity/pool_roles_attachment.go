@@ -65,25 +65,25 @@ func: validation.StringInSlice([]string{
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"claim": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										Validate
 func: validRoleMappingsRulesClaim,
 									},
 									"match_type": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										Validate
 func: validation.StringInSlice(cognitoidentity.MappingRuleMatchType_Values(), false),
 									},
 									"role_arn": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										Validate
 func: verify.ValidARN,
 									},
 									"value": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										Validate
 func: validation.StringLenBetween(1, 128),
@@ -109,7 +109,7 @@ func: validation.StringInSlice([]string{
 				Required: true,
 				ForceNew: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Validate
 func: verify.ValidARN,
 				},
@@ -132,7 +132,7 @@ func validates only the value not the key.
 
 	params := &cognitoidentity.SetIdentityPoolRolesInput{
 		IdentityPoolId: aws.String(d.Get("identity_pool_id").(string)),
-		Roles:          expandIdentityPoolRoles(d.Get("roles").(map[string]interface{})),
+		Roles: expandIdentityPoolRoles(d.Get("roles").(map[string]interface{})),
 	}
 
 	if v, ok := d.GetOk("role_mapping"); ok {
@@ -202,7 +202,7 @@ func validates only the value not the key.
 
 	params := &cognitoidentity.SetIdentityPoolRolesInput{
 		IdentityPoolId: aws.String(d.Get("identity_pool_id").(string)),
-		Roles:          expandIdentityPoolRoles(d.Get("roles").(map[string]interface{})),
+		Roles: expandIdentityPoolRoles(d.Get("roles").(map[string]interface{})),
 	}
 
 	if d.HasChange("role_mapping") {
@@ -242,7 +242,7 @@ func resourcePoolRolesAttachmentDelete(ctx context.Context, d *schema.ResourceDa
 
 	_, err := conn.SetIdentityPoolRolesWithContext(ctx, &cognitoidentity.SetIdentityPoolRolesInput{
 		IdentityPoolId: aws.String(d.Id()),
-		Roles:          expandIdentityPoolRoles(make(map[string]interface{})),
+		Roles: expandIdentityPoolRoles(make(map[string]interface{})),
 		RoleMappings:   expandIdentityPoolRoleMappingsAttachment([]interface{}{}),
 	})
 

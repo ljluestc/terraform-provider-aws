@@ -21,15 +21,15 @@ func compareActualEngineVersion(d *schema.ResourceData, oldVersion, newVersion, 
 	d.Set("engine_version_actual", newVersion)
 
 	if oldVersion != "" && oldVersion == pendingVersion {
-		return
+return
 	}
 
 	newVersionSubstr := newVersion
 	if len(newVersion) > len(oldVersion) {
-		newVersionSubstr = string([]byte(newVersion)[0 : len(oldVersion)+1])
+newVersionSubstr = string([]byte(newVersion)[0 : len(oldVersion)+1])
 	}
 	if oldVersion != newVersion && oldVersion+"." == newVersionSubstr {
-		return
+return
 	}
 
 	d.Set("engine_version", newVersion)

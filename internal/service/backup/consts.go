@@ -31,7 +31,7 @@ func reportDeliveryChannelFormat_Values() []string {
 }
 
 const (
-	reportSettingTemplateJobReport = "BACKUP_JOB_REPORT"
+	reportSettingTemplateJobReport                = "BACKUP_JOB_REPORT"
 	reportSettingTemplateControlComplianceReport  = "CONTROL_COMPLIANCE_REPORT"
 	reportSettingTemplateCopyJobReport            = "COPY_JOB_REPORT"
 	reportSettingTemplateResourceComplianceReport = "RESOURCE_COMPLIANCE_REPORT"

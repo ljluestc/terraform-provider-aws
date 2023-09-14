@@ -116,7 +116,7 @@ func resourceServerCertificateCreate(ctx context.Context, d *schema.ResourceData
 		CertificateBody:       aws.String(d.Get("certificate_body").(string)),
 		PrivateKey:            aws.String(d.Get("private_key").(string)),
 		ServerCertificateName: aws.String(sslCertName),
-		Tags:   getTagsIn(ctx),
+		Tags:                  getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("certificate_chain"); ok {

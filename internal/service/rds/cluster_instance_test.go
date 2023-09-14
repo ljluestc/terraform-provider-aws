@@ -25,7 +25,7 @@ import (
 func TestAccRDSClusterInstance_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	var v rds.DBInstance
@@ -33,53 +33,53 @@ func TestAccRDSClusterInstance_basic(t *testing.T) {
 	resourceName := "aws_rds_cluster_instance.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterInstanceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccClusterInstanceConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "rds", regexache.MustCompile(`db:.+`)),
-					resource.TestCheckResourceAttr(resourceName, "auto_minor_version_upgrade", "true"),
-					resource.TestCheckResourceAttrSet(resourceName, "availability_zone"),
-					resource.TestCheckResourceAttr(resourceName, "cluster_identifier", rName),
-					resource.TestCheckResourceAttr(resourceName, "copy_tags_to_snapshot", "false"),
-					resource.TestCheckResourceAttr(resourceName, "custom_iam_instance_profile", ""),
-					resource.TestCheckResourceAttrSet(resourceName, "dbi_resource_id"),
-					resource.TestCheckResourceAttr(resourceName, "engine", "aurora-mysql"),
-					resource.TestCheckResourceAttrSet(resourceName, "engine_version"),
-					resource.TestCheckResourceAttr(resourceName, "network_type", "IPV4"),
-					resource.TestCheckResourceAttrSet(resourceName, "preferred_backup_window"),
-					resource.TestCheckResourceAttrSet(resourceName, "preferred_maintenance_window"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-				ImportStateVerifyIgnore: []string{
-					"apply_immediately",
-					"identifier_prefix",
-				},
-			},
-			{
-				Config: testAccClusterInstanceConfig_modified(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "auto_minor_version_upgrade", "false"),
-				),
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckClusterInstanceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccClusterInstanceConfig_basic(rName),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+	acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "rds", regexache.MustCompile(`db:.+`)),
+	resource.TestCheckResourceAttr(resourceName, "auto_minor_version_upgrade", "true"),
+	resource.TestCheckResourceAttrSet(resourceName, "availability_zone"),
+	resource.TestCheckResourceAttr(resourceName, "cluster_identifier", rName),
+	resource.TestCheckResourceAttr(resourceName, "copy_tags_to_snapshot", "false"),
+	resource.TestCheckResourceAttr(resourceName, "custom_iam_instance_profile", ""),
+	resource.TestCheckResourceAttrSet(resourceName, "dbi_resource_id"),
+	resource.TestCheckResourceAttr(resourceName, "engine", "aurora-mysql"),
+	resource.TestCheckResourceAttrSet(resourceName, "engine_version"),
+	resource.TestCheckResourceAttr(resourceName, "network_type", "IPV4"),
+	resource.TestCheckResourceAttrSet(resourceName, "preferred_backup_window"),
+	resource.TestCheckResourceAttrSet(resourceName, "preferred_maintenance_window"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+ImportStateVerifyIgnore: []string{
+	"apply_immediately",
+	"identifier_prefix",
+},
+	},
+	{
+Config: testAccClusterInstanceConfig_modified(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "auto_minor_version_upgrade", "false"),
+),
+	},
+},
 	})
 }
 
 func TestAccRDSClusterInstance_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	var v rds.DBInstance
@@ -87,27 +87,27 @@ func TestAccRDSClusterInstance_disappears(t *testing.T) {
 	resourceName := "aws_rds_cluster_instance.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterInstanceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccClusterInstanceConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfrds.ResourceClusterInstance(), resourceName),
-				),
-				ExpectNonEmptyPlan: true,
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckClusterInstanceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccClusterInstanceConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfrds.ResourceClusterInstance(), resourceName),
+),
+ExpectNonEmptyPlan: true,
+	},
+},
 	})
 }
 
 func TestAccRDSClusterInstance_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	var v rds.DBInstance
@@ -115,53 +115,53 @@ func TestAccRDSClusterInstance_tags(t *testing.T) {
 	resourceName := "aws_rds_cluster_instance.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterInstanceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccClusterInstanceConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-				ImportStateVerifyIgnore: []string{
-					"apply_immediately",
-					"identifier_prefix",
-				},
-			},
-			{
-				Config: testAccClusterInstanceConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-			{
-				Config: testAccClusterInstanceConfig_tags1(rName, "key2", "value2"),
-				Check: resource.ComposeAggregateTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
-				),
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckClusterInstanceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccClusterInstanceConfig_tags1(rName, "key1", "value1"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+ImportStateVerifyIgnore: []string{
+	"apply_immediately",
+	"identifier_prefix",
+},
+	},
+	{
+Config: testAccClusterInstanceConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+	{
+Config: testAccClusterInstanceConfig_tags1(rName, "key2", "value2"),
+Check: resource.ComposeAggregateTestCheckFunc(
+	testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
+),
+	},
+},
 	})
 }
 
 func TestAccRDSClusterInstance_isAlreadyBeingDeleted(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	var v rds.DBInstance
@@ -169,41 +169,41 @@ func TestAccRDSClusterInstance_isAlreadyBeingDeleted(t *testing.T) {
 	resourceName := "aws_rds_cluster_instance.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterInstanceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccClusterInstanceConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-				),
-			},
-			{
-				PreConfig: func() {
-					// Get Database Instance into deleting state
-					conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
-					input := &rds.DeleteDBInstanceInput{
-						DBInstanceIdentifier: aws.String(rName),
-						SkipFinalSnapshot:    aws.Bool(true),
-					}
-					_, err := conn.DeleteDBInstanceWithContext(ctx, input)
-					if err != nil {
-						t.Fatalf("error deleting Database Instance: %s", err)
-					}
-				},
-				Config:  testAccClusterInstanceConfig_basic(rName),
-				Destroy: true,
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckClusterInstanceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccClusterInstanceConfig_basic(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+),
+	},
+	{
+PreConfig: func() {
+	// Get Database Instance into deleting state
+	conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
+	input := &rds.DeleteDBInstanceInput{
+DBInstanceIdentifier: aws.String(rName),
+SkipFinalSnapshot:    aws.Bool(true),
+	}
+	_, err := conn.DeleteDBInstanceWithContext(ctx, input)
+	if err != nil {
+t.Fatalf("error deleting Database Instance: %s", err)
+	}
+},
+Config:  testAccClusterInstanceConfig_basic(rName),
+Destroy: true,
+	},
+},
 	})
 }
 
 func TestAccRDSClusterInstance_az(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	var v rds.DBInstance
@@ -212,35 +212,35 @@ func TestAccRDSClusterInstance_az(t *testing.T) {
 	availabilityZonesDataSourceName := "data.aws_availability_zones.available"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterInstanceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccClusterInstanceConfig_az(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrPair(resourceName, "availability_zone", availabilityZonesDataSourceName, "names.0"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-				ImportStateVerifyIgnore: []string{
-					"apply_immediately",
-					"identifier_prefix",
-				},
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckClusterInstanceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccClusterInstanceConfig_az(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrPair(resourceName, "availability_zone", availabilityZonesDataSourceName, "names.0"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+ImportStateVerifyIgnore: []string{
+	"apply_immediately",
+	"identifier_prefix",
+},
+	},
+},
 	})
 }
 
 func TestAccRDSClusterInstance_identifierPrefix(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	var v rds.DBInstance
@@ -248,37 +248,37 @@ func TestAccRDSClusterInstance_identifierPrefix(t *testing.T) {
 	resourceName := "aws_rds_cluster_instance.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterInstanceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccClusterInstanceConfig_identifierPrefix(rName, "tf-acc-test-prefix-"),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "db_subnet_group_name", rName),
-					acctest.CheckResourceAttrNameFromPrefix(resourceName, "identifier", "tf-acc-test-prefix-"),
-					resource.TestCheckResourceAttr(resourceName, "identifier_prefix", "tf-acc-test-prefix-"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-				ImportStateVerifyIgnore: []string{
-					"apply_immediately",
-					"identifier_prefix",
-				},
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckClusterInstanceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccClusterInstanceConfig_identifierPrefix(rName, "tf-acc-test-prefix-"),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "db_subnet_group_name", rName),
+	acctest.CheckResourceAttrNameFromPrefix(resourceName, "identifier", "tf-acc-test-prefix-"),
+	resource.TestCheckResourceAttr(resourceName, "identifier_prefix", "tf-acc-test-prefix-"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+ImportStateVerifyIgnore: []string{
+	"apply_immediately",
+	"identifier_prefix",
+},
+	},
+},
 	})
 }
 
 func TestAccRDSClusterInstance_identifierGenerated(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	var v rds.DBInstance
@@ -286,41 +286,41 @@ func TestAccRDSClusterInstance_identifierGenerated(t *testing.T) {
 	resourceName := "aws_rds_cluster_instance.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterInstanceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccClusterInstanceConfig_identifierGenerated(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrWith(resourceName, "identifier", func(value string) error {
-						if !strings.HasPrefix(value, "tf-") {
-							return fmt.Errorf("incorrect format: %s", value)
-						}
-						return nil
-					}),
-					resource.TestCheckNoResourceAttr(resourceName, "identifier_prefix"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-				ImportStateVerifyIgnore: []string{
-					"apply_immediately",
-					"identifier_prefix",
-				},
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckClusterInstanceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccClusterInstanceConfig_identifierGenerated(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrWith(resourceName, "identifier", func(value string) error {
+if !strings.HasPrefix(value, "tf-") {
+	return fmt.Errorf("incorrect format: %s", value)
+}
+return nil
+	}),
+	resource.TestCheckNoResourceAttr(resourceName, "identifier_prefix"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+ImportStateVerifyIgnore: []string{
+	"apply_immediately",
+	"identifier_prefix",
+},
+	},
+},
 	})
 }
 
 func TestAccRDSClusterInstance_kmsKey(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	var v rds.DBInstance
@@ -329,35 +329,35 @@ func TestAccRDSClusterInstance_kmsKey(t *testing.T) {
 	resourceName := "aws_rds_cluster_instance.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterInstanceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccClusterInstanceConfig_kmsKey(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrPair(resourceName, "kms_key_id", kmsKeyResourceName, "arn"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-				ImportStateVerifyIgnore: []string{
-					"apply_immediately",
-					"identifier_prefix",
-				},
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckClusterInstanceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccClusterInstanceConfig_kmsKey(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrPair(resourceName, "kms_key_id", kmsKeyResourceName, "arn"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+ImportStateVerifyIgnore: []string{
+	"apply_immediately",
+	"identifier_prefix",
+},
+	},
+},
 	})
 }
 
 func TestAccRDSClusterInstance_publiclyAccessible(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	var v rds.DBInstance
@@ -365,42 +365,42 @@ func TestAccRDSClusterInstance_publiclyAccessible(t *testing.T) {
 	resourceName := "aws_rds_cluster_instance.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterInstanceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccClusterInstanceConfig_publiclyAccessible(rName, true),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "publicly_accessible", "true"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-				ImportStateVerifyIgnore: []string{
-					"apply_immediately",
-					"identifier_prefix",
-				},
-			},
-			{
-				Config: testAccClusterInstanceConfig_publiclyAccessible(rName, false),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "publicly_accessible", "false"),
-				),
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckClusterInstanceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccClusterInstanceConfig_publiclyAccessible(rName, true),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "publicly_accessible", "true"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+ImportStateVerifyIgnore: []string{
+	"apply_immediately",
+	"identifier_prefix",
+},
+	},
+	{
+Config: testAccClusterInstanceConfig_publiclyAccessible(rName, false),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "publicly_accessible", "false"),
+),
+	},
+},
 	})
 }
 
 func TestAccRDSClusterInstance_copyTagsToSnapshot(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	var v rds.DBInstance
@@ -408,42 +408,42 @@ func TestAccRDSClusterInstance_copyTagsToSnapshot(t *testing.T) {
 	resourceName := "aws_rds_cluster_instance.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterInstanceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccClusterInstanceConfig_copyTagsToSnapshot(rName, true),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "copy_tags_to_snapshot", "true"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-				ImportStateVerifyIgnore: []string{
-					"apply_immediately",
-					"identifier_prefix",
-				},
-			},
-			{
-				Config: testAccClusterInstanceConfig_copyTagsToSnapshot(rName, false),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "copy_tags_to_snapshot", "false"),
-				),
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckClusterInstanceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccClusterInstanceConfig_copyTagsToSnapshot(rName, true),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "copy_tags_to_snapshot", "true"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+ImportStateVerifyIgnore: []string{
+	"apply_immediately",
+	"identifier_prefix",
+},
+	},
+	{
+Config: testAccClusterInstanceConfig_copyTagsToSnapshot(rName, false),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "copy_tags_to_snapshot", "false"),
+),
+	},
+},
 	})
 }
 
 func TestAccRDSClusterInstance_caCertificateIdentifier(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	var v rds.DBInstance
@@ -452,35 +452,35 @@ func TestAccRDSClusterInstance_caCertificateIdentifier(t *testing.T) {
 	certificateDataSourceName := "data.aws_rds_certificate.latest"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterInstanceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccClusterInstanceConfig_caCertificateID(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrPair(resourceName, "ca_cert_identifier", certificateDataSourceName, "id"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-				ImportStateVerifyIgnore: []string{
-					"apply_immediately",
-					"identifier_prefix",
-				},
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckClusterInstanceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccClusterInstanceConfig_caCertificateID(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrPair(resourceName, "ca_cert_identifier", certificateDataSourceName, "id"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+ImportStateVerifyIgnore: []string{
+	"apply_immediately",
+	"identifier_prefix",
+},
+	},
+},
 	})
 }
 
 func TestAccRDSClusterInstance_monitoringInterval(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	var v rds.DBInstance
@@ -488,56 +488,56 @@ func TestAccRDSClusterInstance_monitoringInterval(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckInstanceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccClusterInstanceConfig_monitoringInterval(rName, 30),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "monitoring_interval", "30"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-				ImportStateVerifyIgnore: []string{
-					"apply_immediately",
-					"identifier_prefix",
-				},
-			},
-			{
-				Config: testAccClusterInstanceConfig_monitoringInterval(rName, 60),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "monitoring_interval", "60"),
-				),
-			},
-			{
-				Config: testAccClusterInstanceConfig_monitoringInterval(rName, 0),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "monitoring_interval", "0"),
-				),
-			},
-			{
-				Config: testAccClusterInstanceConfig_monitoringInterval(rName, 30),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "monitoring_interval", "30"),
-				),
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckInstanceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccClusterInstanceConfig_monitoringInterval(rName, 30),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "monitoring_interval", "30"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+ImportStateVerifyIgnore: []string{
+	"apply_immediately",
+	"identifier_prefix",
+},
+	},
+	{
+Config: testAccClusterInstanceConfig_monitoringInterval(rName, 60),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "monitoring_interval", "60"),
+),
+	},
+	{
+Config: testAccClusterInstanceConfig_monitoringInterval(rName, 0),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "monitoring_interval", "0"),
+),
+	},
+	{
+Config: testAccClusterInstanceConfig_monitoringInterval(rName, 30),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "monitoring_interval", "30"),
+),
+	},
+},
 	})
 }
 
 func TestAccRDSClusterInstance_MonitoringRoleARN_enabledToDisabled(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	var v rds.DBInstance
@@ -546,42 +546,42 @@ func TestAccRDSClusterInstance_MonitoringRoleARN_enabledToDisabled(t *testing.T)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckInstanceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccClusterInstanceConfig_monitoringRoleARN(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrPair(resourceName, "monitoring_role_arn", iamRoleResourceName, "arn"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-				ImportStateVerifyIgnore: []string{
-					"apply_immediately",
-					"identifier_prefix",
-				},
-			},
-			{
-				Config: testAccClusterInstanceConfig_monitoringInterval(rName, 0),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "monitoring_interval", "0"),
-				),
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckInstanceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccClusterInstanceConfig_monitoringRoleARN(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrPair(resourceName, "monitoring_role_arn", iamRoleResourceName, "arn"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+ImportStateVerifyIgnore: []string{
+	"apply_immediately",
+	"identifier_prefix",
+},
+	},
+	{
+Config: testAccClusterInstanceConfig_monitoringInterval(rName, 0),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "monitoring_interval", "0"),
+),
+	},
+},
 	})
 }
 
 func TestAccRDSClusterInstance_MonitoringRoleARN_enabledToRemoved(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	var v rds.DBInstance
@@ -590,41 +590,41 @@ func TestAccRDSClusterInstance_MonitoringRoleARN_enabledToRemoved(t *testing.T) 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckInstanceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccClusterInstanceConfig_monitoringRoleARN(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrPair(resourceName, "monitoring_role_arn", iamRoleResourceName, "arn"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-				ImportStateVerifyIgnore: []string{
-					"apply_immediately",
-					"identifier_prefix",
-				},
-			},
-			{
-				Config: testAccClusterInstanceConfig_monitoringRoleARNRemoved(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-				),
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckInstanceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccClusterInstanceConfig_monitoringRoleARN(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrPair(resourceName, "monitoring_role_arn", iamRoleResourceName, "arn"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+ImportStateVerifyIgnore: []string{
+	"apply_immediately",
+	"identifier_prefix",
+},
+	},
+	{
+Config: testAccClusterInstanceConfig_monitoringRoleARNRemoved(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+),
+	},
+},
 	})
 }
 
 func TestAccRDSClusterInstance_MonitoringRoleARN_removedToEnabled(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	var v rds.DBInstance
@@ -633,41 +633,41 @@ func TestAccRDSClusterInstance_MonitoringRoleARN_removedToEnabled(t *testing.T) 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckInstanceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccClusterInstanceConfig_monitoringRoleARNRemoved(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-				ImportStateVerifyIgnore: []string{
-					"apply_immediately",
-					"identifier_prefix",
-				},
-			},
-			{
-				Config: testAccClusterInstanceConfig_monitoringRoleARN(rName),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttrPair(resourceName, "monitoring_role_arn", iamRoleResourceName, "arn"),
-				),
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckInstanceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccClusterInstanceConfig_monitoringRoleARNRemoved(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+ImportStateVerifyIgnore: []string{
+	"apply_immediately",
+	"identifier_prefix",
+},
+	},
+	{
+Config: testAccClusterInstanceConfig_monitoringRoleARN(rName),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttrPair(resourceName, "monitoring_role_arn", iamRoleResourceName, "arn"),
+),
+	},
+},
 	})
 }
 
 func TestAccRDSClusterInstance_PerformanceInsightsEnabled_auroraMySQL1(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	var v rds.DBInstance
@@ -676,35 +676,35 @@ func TestAccRDSClusterInstance_PerformanceInsightsEnabled_auroraMySQL1(t *testin
 	engine := "aurora-mysql"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPerformanceInsightsDefaultVersionPreCheck(ctx, t, engine) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterInstanceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccClusterInstanceConfig_performanceInsightsEnabledAuroraMySQL1(rName, engine),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "performance_insights_enabled", "true"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-				ImportStateVerifyIgnore: []string{
-					"apply_immediately",
-					"identifier_prefix",
-				},
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPerformanceInsightsDefaultVersionPreCheck(ctx, t, engine) },
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckClusterInstanceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccClusterInstanceConfig_performanceInsightsEnabledAuroraMySQL1(rName, engine),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "performance_insights_enabled", "true"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+ImportStateVerifyIgnore: []string{
+	"apply_immediately",
+	"identifier_prefix",
+},
+	},
+},
 	})
 }
 
 func TestAccRDSClusterInstance_PerformanceInsightsEnabled_auroraPostgresql(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	var v rds.DBInstance
@@ -713,35 +713,35 @@ func TestAccRDSClusterInstance_PerformanceInsightsEnabled_auroraPostgresql(t *te
 	engine := "aurora-postgresql"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPerformanceInsightsDefaultVersionPreCheck(ctx, t, engine) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterInstanceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccClusterInstanceConfig_performanceInsightsEnabledAuroraPostgresql(rName, engine),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "performance_insights_enabled", "true"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-				ImportStateVerifyIgnore: []string{
-					"apply_immediately",
-					"identifier_prefix",
-				},
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPerformanceInsightsDefaultVersionPreCheck(ctx, t, engine) },
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckClusterInstanceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccClusterInstanceConfig_performanceInsightsEnabledAuroraPostgresql(rName, engine),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "performance_insights_enabled", "true"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+ImportStateVerifyIgnore: []string{
+	"apply_immediately",
+	"identifier_prefix",
+},
+	},
+},
 	})
 }
 
 func TestAccRDSClusterInstance_PerformanceInsightsKMSKeyID_auroraMySQL1(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	var v rds.DBInstance
@@ -751,36 +751,36 @@ func TestAccRDSClusterInstance_PerformanceInsightsKMSKeyID_auroraMySQL1(t *testi
 	engine := "aurora-mysql"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPerformanceInsightsDefaultVersionPreCheck(ctx, t, engine) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterInstanceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccClusterInstanceConfig_performanceInsightsKMSKeyIDAuroraMySQL1(rName, engine),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "performance_insights_enabled", "true"),
-					resource.TestCheckResourceAttrPair(resourceName, "performance_insights_kms_key_id", kmsKeyResourceName, "arn"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-				ImportStateVerifyIgnore: []string{
-					"apply_immediately",
-					"identifier_prefix",
-				},
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPerformanceInsightsDefaultVersionPreCheck(ctx, t, engine) },
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckClusterInstanceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccClusterInstanceConfig_performanceInsightsKMSKeyIDAuroraMySQL1(rName, engine),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "performance_insights_enabled", "true"),
+	resource.TestCheckResourceAttrPair(resourceName, "performance_insights_kms_key_id", kmsKeyResourceName, "arn"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+ImportStateVerifyIgnore: []string{
+	"apply_immediately",
+	"identifier_prefix",
+},
+	},
+},
 	})
 }
 
 func TestAccRDSClusterInstance_PerformanceInsightsKMSKeyIDAuroraMySQL1_defaultKeyToCustomKey(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	var v rds.DBInstance
@@ -789,39 +789,39 @@ func TestAccRDSClusterInstance_PerformanceInsightsKMSKeyIDAuroraMySQL1_defaultKe
 	engine := "aurora-mysql"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPerformanceInsightsDefaultVersionPreCheck(ctx, t, engine) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterInstanceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccClusterInstanceConfig_performanceInsightsEnabledAuroraMySQL1(rName, engine),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "performance_insights_enabled", "true"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-				ImportStateVerifyIgnore: []string{
-					"apply_immediately",
-					"identifier_prefix",
-				},
-			},
-			{
-				Config:      testAccClusterInstanceConfig_performanceInsightsKMSKeyIDAuroraMySQL1(rName, engine),
-				ExpectError: regexache.MustCompile(`InvalidParameterCombination: You .* change your Performance Insights KMS key`),
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPerformanceInsightsDefaultVersionPreCheck(ctx, t, engine) },
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckClusterInstanceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccClusterInstanceConfig_performanceInsightsEnabledAuroraMySQL1(rName, engine),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "performance_insights_enabled", "true"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+ImportStateVerifyIgnore: []string{
+	"apply_immediately",
+	"identifier_prefix",
+},
+	},
+	{
+Config:      testAccClusterInstanceConfig_performanceInsightsKMSKeyIDAuroraMySQL1(rName, engine),
+ExpectError: regexache.MustCompile(`InvalidParameterCombination: You .* change your Performance Insights KMS key`),
+	},
+},
 	})
 }
 
 func TestAccRDSClusterInstance_performanceInsightsRetentionPeriod(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	var v rds.DBInstance
@@ -829,55 +829,55 @@ func TestAccRDSClusterInstance_performanceInsightsRetentionPeriod(t *testing.T) 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
-			acctest.PreCheck(ctx, t)
-			testAccPerformanceInsightsDefaultVersionPreCheck(ctx, t, "aurora-mysql")
-		},
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccClusterInstanceConfig_performanceInsightsRetentionPeriod(rName, 731),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "performance_insights_enabled", "true"),
-					resource.TestCheckResourceAttr(resourceName, "performance_insights_retention_period", "731"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-				ImportStateVerifyIgnore: []string{
-					"apply_immediately",
-					"identifier_prefix",
-				},
-			},
-			{
-				Config: testAccClusterInstanceConfig_performanceInsightsRetentionPeriod(rName, 7),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "performance_insights_enabled", "true"),
-					resource.TestCheckResourceAttr(resourceName, "performance_insights_retention_period", "7"),
-				),
-			},
-			{
-				Config: testAccClusterInstanceConfig_performanceInsightsRetentionPeriod(rName, 155),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "performance_insights_enabled", "true"),
-					resource.TestCheckResourceAttr(resourceName, "performance_insights_retention_period", "155"),
-				),
-			},
-		},
+PreCheck: func() {
+	acctest.PreCheck(ctx, t)
+	testAccPerformanceInsightsDefaultVersionPreCheck(ctx, t, "aurora-mysql")
+},
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckClusterDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccClusterInstanceConfig_performanceInsightsRetentionPeriod(rName, 731),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "performance_insights_enabled", "true"),
+	resource.TestCheckResourceAttr(resourceName, "performance_insights_retention_period", "731"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+ImportStateVerifyIgnore: []string{
+	"apply_immediately",
+	"identifier_prefix",
+},
+	},
+	{
+Config: testAccClusterInstanceConfig_performanceInsightsRetentionPeriod(rName, 7),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "performance_insights_enabled", "true"),
+	resource.TestCheckResourceAttr(resourceName, "performance_insights_retention_period", "7"),
+),
+	},
+	{
+Config: testAccClusterInstanceConfig_performanceInsightsRetentionPeriod(rName, 155),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "performance_insights_enabled", "true"),
+	resource.TestCheckResourceAttr(resourceName, "performance_insights_retention_period", "155"),
+),
+	},
+},
 	})
 }
 
 func TestAccRDSClusterInstance_PerformanceInsightsKMSKeyID_auroraPostgresql(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	var v rds.DBInstance
@@ -887,36 +887,36 @@ func TestAccRDSClusterInstance_PerformanceInsightsKMSKeyID_auroraPostgresql(t *t
 	engine := "aurora-postgresql"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPerformanceInsightsDefaultVersionPreCheck(ctx, t, engine) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterInstanceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccClusterInstanceConfig_performanceInsightsKMSKeyIDAuroraPostgresql(rName, engine),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "performance_insights_enabled", "true"),
-					resource.TestCheckResourceAttrPair(resourceName, "performance_insights_kms_key_id", kmsKeyResourceName, "arn"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-				ImportStateVerifyIgnore: []string{
-					"apply_immediately",
-					"identifier_prefix",
-				},
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPerformanceInsightsDefaultVersionPreCheck(ctx, t, engine) },
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckClusterInstanceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccClusterInstanceConfig_performanceInsightsKMSKeyIDAuroraPostgresql(rName, engine),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "performance_insights_enabled", "true"),
+	resource.TestCheckResourceAttrPair(resourceName, "performance_insights_kms_key_id", kmsKeyResourceName, "arn"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+ImportStateVerifyIgnore: []string{
+	"apply_immediately",
+	"identifier_prefix",
+},
+	},
+},
 	})
 }
 
 func TestAccRDSClusterInstance_PerformanceInsightsKMSKeyIDAuroraPostgresql_defaultKeyToCustomKey(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
-		t.Skip("skipping long-running test in short mode")
+t.Skip("skipping long-running test in short mode")
 	}
 
 	var v rds.DBInstance
@@ -925,32 +925,32 @@ func TestAccRDSClusterInstance_PerformanceInsightsKMSKeyIDAuroraPostgresql_defau
 	engine := "aurora-postgresql"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPerformanceInsightsDefaultVersionPreCheck(ctx, t, engine) },
-		ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckClusterInstanceDestroy(ctx),
-		Steps: []resource.TestStep{
-			{
-				Config: testAccClusterInstanceConfig_performanceInsightsEnabledAuroraPostgresql(rName, engine),
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckClusterInstanceExists(ctx, resourceName, &v),
-					resource.TestCheckResourceAttr(resourceName, "performance_insights_enabled", "true"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-				ImportStateVerifyIgnore: []string{
-					"apply_immediately",
-					"identifier_prefix",
-				},
-			},
-			{
-				Config:      testAccClusterInstanceConfig_performanceInsightsKMSKeyIDAuroraPostgresql(rName, engine),
-				ExpectError: regexache.MustCompile(`InvalidParameterCombination: You .* change your Performance Insights KMS key`),
-			},
-		},
+PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPerformanceInsightsDefaultVersionPreCheck(ctx, t, engine) },
+ErrorCheck:               acctest.ErrorCheck(t, rds.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             testAccCheckClusterInstanceDestroy(ctx),
+Steps: []resource.TestStep{
+	{
+Config: testAccClusterInstanceConfig_performanceInsightsEnabledAuroraPostgresql(rName, engine),
+Check: resource.ComposeTestCheckFunc(
+	testAccCheckClusterInstanceExists(ctx, resourceName, &v),
+	resource.TestCheckResourceAttr(resourceName, "performance_insights_enabled", "true"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+ImportStateVerifyIgnore: []string{
+	"apply_immediately",
+	"identifier_prefix",
+},
+	},
+	{
+Config:      testAccClusterInstanceConfig_performanceInsightsKMSKeyIDAuroraPostgresql(rName, engine),
+ExpectError: regexache.MustCompile(`InvalidParameterCombination: You .* change your Performance Insights KMS key`),
+	},
+},
 	})
 }
 
@@ -958,17 +958,17 @@ func testAccPerformanceInsightsDefaultVersionPreCheck(ctx context.Context, t *te
 	conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
 
 	input := &rds.DescribeDBEngineVersionsInput{
-		DefaultOnly: aws.Bool(true),
-		Engine:      aws.String(engine),
+DefaultOnly: aws.Bool(true),
+Engine:      aws.String(engine),
 	}
 
 	result, err := conn.DescribeDBEngineVersionsWithContext(ctx, input)
 	if err != nil {
-		t.Fatalf("unexpected PreCheck error: %s", err)
+t.Fatalf("unexpected PreCheck error: %s", err)
 	}
 
 	if len(result.DBEngineVersions) < 1 {
-		t.Fatalf("unexpected PreCheck error, no default version for engine: %s", engine)
+t.Fatalf("unexpected PreCheck error, no default version for engine: %s", engine)
 	}
 
 	testAccPerformanceInsightsPreCheck(ctx, t, engine, aws.StringValue(result.DBEngineVersions[0].EngineVersion))
@@ -978,91 +978,91 @@ func testAccPerformanceInsightsPreCheck(ctx context.Context, t *testing.T, engin
 	conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
 
 	input := &rds.DescribeOrderableDBInstanceOptionsInput{
-		Engine:        aws.String(engine),
-		EngineVersion: aws.String(engineVersion), // version cuts response time
+Engine:        aws.String(engine),
+EngineVersion: aws.String(engineVersion), // version cuts response time
 	}
 
 	supportsPerformanceInsights := false
 	err := conn.DescribeOrderableDBInstanceOptionsPagesWithContext(ctx, input, func(resp *rds.DescribeOrderableDBInstanceOptionsOutput, lastPage bool) bool {
-		for _, instanceOption := range resp.OrderableDBInstanceOptions {
-			if instanceOption == nil {
-				continue
-			}
+for _, instanceOption := range resp.OrderableDBInstanceOptions {
+	if instanceOption == nil {
+continue
+	}
 
-			if aws.BoolValue(instanceOption.SupportsPerformanceInsights) {
-				supportsPerformanceInsights = true
-				return false // stop processing pages
-			}
-		}
-		return !lastPage
+	if aws.BoolValue(instanceOption.SupportsPerformanceInsights) {
+supportsPerformanceInsights = true
+return false // stop processing pages
+	}
+}
+return !lastPage
 	})
 
 	if tfawserr.ErrCodeEquals(err, "InvalidParameterCombination") {
-		t.Skipf("RDS Performance Insights not supported, skipping acceptance test")
+t.Skipf("RDS Performance Insights not supported, skipping acceptance test")
 	}
 
 	if err != nil {
-		t.Fatalf("unexpected PreCheck error: %s", err)
+t.Fatalf("unexpected PreCheck error: %s", err)
 	}
 
 	if !supportsPerformanceInsights {
-		t.Skipf("RDS Performance Insights not supported, skipping acceptance test")
+t.Skipf("RDS Performance Insights not supported, skipping acceptance test")
 	}
 }
 
 func testAccCheckClusterInstanceExists(ctx context.Context, n string, v *rds.DBInstance) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		rs, ok := s.RootModule().Resources[n]
-		if !ok {
-			return fmt.Errorf("Not found: %s", n)
-		}
+rs, ok := s.RootModule().Resources[n]
+if !ok {
+	return fmt.Errorf("Not found: %s", n)
+}
 
-		if rs.Primary.ID == "" {
-			return fmt.Errorf("No RDS Cluster Instance ID is set")
-		}
+if rs.Primary.ID == "" {
+	return fmt.Errorf("No RDS Cluster Instance ID is set")
+}
 
-		conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
 
-		output, err := tfrds.FindDBInstanceByID(ctx, conn, rs.Primary.ID)
-		if err != nil {
-			return err
-		}
+output, err := tfrds.FindDBInstanceByID(ctx, conn, rs.Primary.ID)
+if err != nil {
+	return err
+}
 
-		*v = *output
+*v = *output
 
-		return nil
+return nil
 	}
 }
 
 func testAccCheckClusterInstanceDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
+conn := acctest.Provider.Meta().(*conns.AWSClient).RDSConn(ctx)
 
-		for _, rs := range s.RootModule().Resources {
-			if rs.Type != "aws_rds_cluster_instance" {
-				continue
-			}
+for _, rs := range s.RootModule().Resources {
+	if rs.Type != "aws_rds_cluster_instance" {
+continue
+	}
 
-			_, err := tfrds.FindDBInstanceByID(ctx, conn, rs.Primary.ID)
+	_, err := tfrds.FindDBInstanceByID(ctx, conn, rs.Primary.ID)
 
-			if tfresource.NotFound(err) {
-				continue
-			}
+	if tfresource.NotFound(err) {
+continue
+	}
 
-			if err != nil {
-				return err
-			}
+	if err != nil {
+return err
+	}
 
-			return fmt.Errorf("RDS Cluster Instance %s still exists", rs.Primary.ID)
-		}
+	return fmt.Errorf("RDS Cluster Instance %s still exists", rs.Primary.ID)
+}
 
-		return nil
+return nil
 	}
 }
 
 func testAccClusterInstanceConfig_orderableEngineBase(engine string, performanceInsights bool) string {
 	if performanceInsights {
-		return fmt.Sprintf(`
+return fmt.Sprintf(`
 data "aws_rds_engine_version" "default" {
   engine = %[1]q
 }
@@ -1091,9 +1091,9 @@ data "aws_rds_orderable_db_instance" "test" {
 
 func testAccClusterInstanceConfig_base(rName, engine string) string {
 	return acctest.ConfigCompose(
-		acctest.ConfigAvailableAZsNoOptIn(),
-		testAccClusterInstanceConfig_orderableEngineBase(engine, false),
-		fmt.Sprintf(`
+acctest.ConfigAvailableAZsNoOptIn(),
+testAccClusterInstanceConfig_orderableEngineBase(engine, false),
+fmt.Sprintf(`
 resource "aws_rds_cluster" "test" {
   cluster_identifier = %[2]q
   availability_zones = [
@@ -1244,9 +1244,9 @@ resource "aws_db_parameter_group" "test" {
 
 func testAccClusterInstanceConfig_identifierPrefix(rName, identifierPrefix string) string {
 	return acctest.ConfigCompose(
-		acctest.ConfigVPCWithSubnets(rName, 2),
-		testAccClusterInstanceConfig_orderableEngineBase("aurora-mysql", false),
-		fmt.Sprintf(`
+acctest.ConfigVPCWithSubnets(rName, 2),
+testAccClusterInstanceConfig_orderableEngineBase("aurora-mysql", false),
+fmt.Sprintf(`
 resource "aws_rds_cluster" "test" {
   cluster_identifier   = %[1]q
   db_subnet_group_name = aws_db_subnet_group.test.name
@@ -1273,9 +1273,9 @@ resource "aws_db_subnet_group" "test" {
 
 func testAccClusterInstanceConfig_identifierGenerated(rName string) string {
 	return acctest.ConfigCompose(
-		acctest.ConfigVPCWithSubnets(rName, 2),
-		testAccClusterInstanceConfig_orderableEngineBase("aurora-mysql", false),
-		fmt.Sprintf(`
+acctest.ConfigVPCWithSubnets(rName, 2),
+testAccClusterInstanceConfig_orderableEngineBase("aurora-mysql", false),
+fmt.Sprintf(`
 resource "aws_rds_cluster" "test" {
   cluster_identifier   = %[1]q
   master_username      = "root"
@@ -1301,9 +1301,9 @@ resource "aws_db_subnet_group" "test" {
 
 func testAccClusterInstanceConfig_kmsKey(rName string) string {
 	return acctest.ConfigCompose(
-		acctest.ConfigAvailableAZsNoOptIn(),
-		testAccClusterInstanceConfig_orderableEngineBase("aurora-mysql", false),
-		fmt.Sprintf(`
+acctest.ConfigAvailableAZsNoOptIn(),
+testAccClusterInstanceConfig_orderableEngineBase("aurora-mysql", false),
+fmt.Sprintf(`
 data "aws_caller_identity" "current" {}
 data "aws_partition" "current" {}
 
@@ -1507,8 +1507,8 @@ resource "aws_rds_cluster_instance" "test" {
 
 func testAccClusterInstanceConfig_performanceInsightsEnabledAuroraMySQL1(rName, engine string) string {
 	return acctest.ConfigCompose(
-		testAccClusterInstanceConfig_orderableEngineBase(engine, true),
-		fmt.Sprintf(`
+testAccClusterInstanceConfig_orderableEngineBase(engine, true),
+fmt.Sprintf(`
 resource "aws_rds_cluster" "test" {
   cluster_identifier  = %[1]q
   database_name       = "mydb"
@@ -1531,8 +1531,8 @@ resource "aws_rds_cluster_instance" "test" {
 
 func testAccClusterInstanceConfig_performanceInsightsEnabledAuroraPostgresql(rName, engine string) string {
 	return acctest.ConfigCompose(
-		testAccClusterInstanceConfig_orderableEngineBase(engine, true),
-		fmt.Sprintf(`
+testAccClusterInstanceConfig_orderableEngineBase(engine, true),
+fmt.Sprintf(`
 resource "aws_rds_cluster" "test" {
   cluster_identifier  = %[1]q
   database_name       = "mydb"
@@ -1555,8 +1555,8 @@ resource "aws_rds_cluster_instance" "test" {
 
 func testAccClusterInstanceConfig_performanceInsightsKMSKeyIDAuroraMySQL1(rName, engine string) string {
 	return acctest.ConfigCompose(
-		testAccClusterInstanceConfig_orderableEngineBase(engine, true),
-		fmt.Sprintf(`
+testAccClusterInstanceConfig_orderableEngineBase(engine, true),
+fmt.Sprintf(`
 resource "aws_kms_key" "test" {
   deletion_window_in_days = 7
 }
@@ -1584,8 +1584,8 @@ resource "aws_rds_cluster_instance" "test" {
 
 func testAccClusterInstanceConfig_performanceInsightsKMSKeyIDAuroraPostgresql(rName, engine string) string {
 	return acctest.ConfigCompose(
-		testAccClusterInstanceConfig_orderableEngineBase(engine, true),
-		fmt.Sprintf(`
+testAccClusterInstanceConfig_orderableEngineBase(engine, true),
+fmt.Sprintf(`
 resource "aws_kms_key" "test" {
   deletion_window_in_days = 7
 }
@@ -1613,8 +1613,8 @@ resource "aws_rds_cluster_instance" "test" {
 
 func testAccClusterInstanceConfig_performanceInsightsRetentionPeriod(rName string, performanceInsightsRetentionPeriod int) string {
 	return acctest.ConfigCompose(
-		testAccClusterInstanceConfig_orderableEngineBase("aurora-mysql", true),
-		fmt.Sprintf(`
+testAccClusterInstanceConfig_orderableEngineBase("aurora-mysql", true),
+fmt.Sprintf(`
 resource "aws_rds_cluster" "test" {
   cluster_identifier  = %[1]q
   database_name       = "mydb"
