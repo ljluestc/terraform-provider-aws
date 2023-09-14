@@ -19,6 +19,7 @@ import (
 )
 
 // @SDKResource("aws_route53_resolver_config")
+
 func ResourceConfig() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceConfigCreate,
@@ -34,7 +35,8 @@ func ResourceConfig() *schema.Resource {
 			"autodefined_reverse_flag": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: validation.StringInSlice(autodefinedReverseFlag_Values(), false),
+				Validate
+func: validation.StringInSlice(autodefinedReverseFlag_Values(), false),
 			},
 			"owner_id": {
 				Type:     schema.TypeString,
@@ -48,6 +50,7 @@ func ResourceConfig() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceConfigCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
@@ -72,6 +75,7 @@ func resourceConfigCreate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return resourceConfigRead(ctx, d, meta)
 }
+
 
 func resourceConfigRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
@@ -101,6 +105,7 @@ func resourceConfigRead(ctx context.Context, d *schema.ResourceData, meta interf
 	return nil
 }
 
+
 func resourceConfigUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
 
@@ -123,12 +128,14 @@ func resourceConfigUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 	return resourceConfigRead(ctx, d, meta)
 }
 
+
 func FindResolverConfigByID(ctx context.Context, conn *route53resolver.Route53Resolver, id string) (*route53resolver.ResolverConfig, error) {
 	input := &route53resolver.ListResolverConfigsInput{}
 	var output *route53resolver.ResolverConfig
 
 	// GetResolverConfig does not support query by ID.
-	err := conn.ListResolverConfigsPagesWithContext(ctx, input, func(page *route53resolver.ListResolverConfigsOutput, lastPage bool) bool {
+	err := conn.ListResolverConfigsPagesWithContext(ctx, input, 
+func(page *route53resolver.ListResolverConfigsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -161,6 +168,7 @@ const (
 	autodefinedReverseFlagEnable  = "ENABLE"
 )
 
+
 func autodefinedReverseFlag_Values() []string {
 	return []string{
 		autodefinedReverseFlagDisable,
@@ -168,8 +176,11 @@ func autodefinedReverseFlag_Values() []string {
 	}
 }
 
-func statusAutodefinedReverse(ctx context.Context, conn *route53resolver.Route53Resolver, id string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+
+func statusAutodefinedReverse(ctx context.Context, conn *route53resolver.Route53Resolver, id string) retry.StateRefresh
+func {
+	return 
+func() (interface{}, string, error) {
 		output, err := FindResolverConfigByID(ctx, conn, id)
 
 		if tfresource.NotFound(err) {
@@ -188,6 +199,7 @@ const (
 	autodefinedReverseUpdatedTimeout = 10 * time.Minute
 )
 
+
 func waitAutodefinedReverseUpdated(ctx context.Context, conn *route53resolver.Route53Resolver, id, autodefinedReverseFlag string) (*route53resolver.ResolverConfig, error) {
 	if autodefinedReverseFlag == autodefinedReverseFlagDisable {
 		return waitAutodefinedReverseDisabled(ctx, conn, id)
@@ -195,6 +207,7 @@ func waitAutodefinedReverseUpdated(ctx context.Context, conn *route53resolver.Ro
 		return waitAutodefinedReverseEnabled(ctx, conn, id)
 	}
 }
+
 
 func waitAutodefinedReverseEnabled(ctx context.Context, conn *route53resolver.Route53Resolver, id string) (*route53resolver.ResolverConfig, error) {
 	stateConf := &retry.StateChangeConf{
@@ -212,6 +225,7 @@ func waitAutodefinedReverseEnabled(ctx context.Context, conn *route53resolver.Ro
 
 	return nil, err
 }
+
 
 func waitAutodefinedReverseDisabled(ctx context.Context, conn *route53resolver.Route53Resolver, id string) (*route53resolver.ResolverConfig, error) {
 	stateConf := &retry.StateChangeConf{

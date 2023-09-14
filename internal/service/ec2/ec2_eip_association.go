@@ -19,6 +19,7 @@ import (
 )
 
 // @SDKResource("aws_eip_association")
+
 func ResourceEIPAssociation() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceEIPAssociationCreate,
@@ -108,9 +109,11 @@ func resourceEIPAssociationCreate(ctx context.Context, d *schema.ResourceData, m
 	d.SetId(aws.StringValue(output.AssociationId))
 
 	_, err = tfresource.RetryWhen(ctx, ec2PropagationTimeout,
+
 		func() (interface{}, error) {
 			return FindEIPByAssociationID(ctx, conn, d.Id())
 		},
+
 		func(err error) (bool, error) {
 			if tfresource.NotFound(err) {
 				return true, err
@@ -190,6 +193,7 @@ func resourceEIPAssociationDelete(ctx context.Context, d *schema.ResourceData, m
 type eipAssociationID string
 
 // IsVPC returns whether or not the associated EIP is in the VPC domain.
+
 func (id eipAssociationID) IsVPC() bool {
 	return strings.HasPrefix(string(id), "eipassoc-")
 }

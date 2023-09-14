@@ -24,6 +24,7 @@ import (
 
 // @SDKResource("aws_connect_security_profile", name="Security Profile")
 // @Tags(identifierAttribute="arn")
+
 func ResourceSecurityProfile() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceSecurityProfileCreate,
@@ -42,12 +43,14 @@ func ResourceSecurityProfile() *schema.Resource {
 			"description": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				ValidateFunc: validation.StringLenBetween(1, 250),
+				Validate
+func: validation.StringLenBetween(1, 250),
 			},
 			"instance_id": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: validation.StringLenBetween(1, 100),
+				Validate
+func: validation.StringLenBetween(1, 100),
 			},
 			"name": {
 				Type:     schema.TypeString,
@@ -64,7 +67,8 @@ func ResourceSecurityProfile() *schema.Resource {
 				MaxItems: 500,
 				Elem: &schema.Schema{
 					Type:         schema.TypeString,
-					ValidateFunc: validation.StringLenBetween(1, 128),
+					Validate
+func: validation.StringLenBetween(1, 128),
 				},
 			},
 			"security_profile_id": {
@@ -76,6 +80,7 @@ func ResourceSecurityProfile() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceSecurityProfileCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -111,6 +116,7 @@ func resourceSecurityProfileCreate(ctx context.Context, d *schema.ResourceData, 
 
 	return resourceSecurityProfileRead(ctx, d, meta)
 }
+
 
 func resourceSecurityProfileRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -163,6 +169,7 @@ func resourceSecurityProfileRead(ctx context.Context, d *schema.ResourceData, me
 	return nil
 }
 
+
 func resourceSecurityProfileUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
@@ -194,6 +201,7 @@ func resourceSecurityProfileUpdate(ctx context.Context, d *schema.ResourceData, 
 	return resourceSecurityProfileRead(ctx, d, meta)
 }
 
+
 func resourceSecurityProfileDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
@@ -215,6 +223,7 @@ func resourceSecurityProfileDelete(ctx context.Context, d *schema.ResourceData, 
 	return nil
 }
 
+
 func SecurityProfileParseID(id string) (string, string, error) {
 	parts := strings.SplitN(id, ":", 2)
 
@@ -225,6 +234,7 @@ func SecurityProfileParseID(id string) (string, string, error) {
 	return parts[0], parts[1], nil
 }
 
+
 func getSecurityProfilePermissions(ctx context.Context, conn *connect.Connect, instanceID, securityProfileID string) ([]*string, error) {
 	var result []*string
 
@@ -234,7 +244,8 @@ func getSecurityProfilePermissions(ctx context.Context, conn *connect.Connect, i
 		SecurityProfileId: aws.String(securityProfileID),
 	}
 
-	err := conn.ListSecurityProfilePermissionsPagesWithContext(ctx, input, func(page *connect.ListSecurityProfilePermissionsOutput, lastPage bool) bool {
+	err := conn.ListSecurityProfilePermissionsPagesWithContext(ctx, input, 
+func(page *connect.ListSecurityProfilePermissionsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}

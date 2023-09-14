@@ -18,6 +18,7 @@ import (
 )
 
 // @SDKDataSource("aws_vpc_peering_connection")
+
 func DataSourceVPCPeeringConnection() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceVPCPeeringConnectionRead,

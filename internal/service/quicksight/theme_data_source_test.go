@@ -13,6 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccQuickSightThemeDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -22,7 +23,8 @@ func TestAccQuickSightThemeDataSource_basic(t *testing.T) {
 	themeId := "MIDNIGHT"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 		},
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
@@ -30,7 +32,8 @@ func TestAccQuickSightThemeDataSource_basic(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccThemeDataSourceConfig_basic(rId, rName, themeId),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttr(dataSourceName, "configuration.0.data_color_palette.0.colors.0", "#FFFFFF"),
 					resource.TestCheckResourceAttr(dataSourceName, "configuration.0.data_color_palette.0.empty_fill_color", "#FFFFFF"),
@@ -44,6 +47,7 @@ func TestAccQuickSightThemeDataSource_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccQuickSightThemeDataSource_fullConfig(t *testing.T) {
 	ctx := acctest.Context(t)
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -53,7 +57,8 @@ func TestAccQuickSightThemeDataSource_fullConfig(t *testing.T) {
 	themeId := "MIDNIGHT"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 		},
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
@@ -61,7 +66,8 @@ func TestAccQuickSightThemeDataSource_fullConfig(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccThemeDataSourceConfig_fullConfig(rId, rName, themeId),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttr(dataSourceName, "configuration.0.data_color_palette.0.colors.0", "#FFFFFF"),
 					resource.TestCheckResourceAttr(dataSourceName, "configuration.0.data_color_palette.0.empty_fill_color", "#FFFFFF"),
@@ -78,6 +84,7 @@ func TestAccQuickSightThemeDataSource_fullConfig(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccThemeDataSourceConfig_basic(rId, rName, baseThemId string) string {
 	return acctest.ConfigCompose(
@@ -116,6 +123,7 @@ data "aws_quicksight_theme" "test" {
 }
 `, rId, rName, baseThemId))
 }
+
 
 func testAccThemeDataSourceConfig_fullConfig(rId, rName, baseThemId string) string {
 	return acctest.ConfigCompose(

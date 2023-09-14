@@ -17,16 +17,19 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccVPCNetworkPerformanceMetricSubscription_serial(t *testing.T) {
 	t.Parallel()
 
-	testCases := map[string]func(t *testing.T){
+	testCases := map[string]
+func(t *testing.T){
 		"basic":      testAccNetworkPerformanceMetricSubscription_basic,
 		"disappears": testAccNetworkPerformanceMetricSubscription_disappears,
 	}
 
 	acctest.RunSerialTests1Level(t, testCases, 0)
 }
+
 
 func testAccNetworkPerformanceMetricSubscription_basic(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -35,14 +38,16 @@ func testAccNetworkPerformanceMetricSubscription_basic(t *testing.T) {
 	dst := acctest.Region()
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckNetworkPerformanceMetricSubscriptionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCNetworkPerformanceMetricSubscription_basic(src, dst),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckNetworkPerformanceMetricSubscriptionExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "destination", dst),
 					resource.TestCheckResourceAttr(resourceName, "metric", "aggregate-latency"),
@@ -55,6 +60,7 @@ func testAccNetworkPerformanceMetricSubscription_basic(t *testing.T) {
 	})
 }
 
+
 func testAccNetworkPerformanceMetricSubscription_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_vpc_network_performance_metric_subscription.test"
@@ -62,14 +68,16 @@ func testAccNetworkPerformanceMetricSubscription_disappears(t *testing.T) {
 	dst := acctest.Region()
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckNetworkPerformanceMetricSubscriptionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCNetworkPerformanceMetricSubscription_basic(src, dst),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckNetworkPerformanceMetricSubscriptionExists(ctx, resourceName),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceNetworkPerformanceMetricSubscription(), resourceName),
 				),
@@ -79,8 +87,11 @@ func testAccNetworkPerformanceMetricSubscription_disappears(t *testing.T) {
 	})
 }
 
-func testAccCheckNetworkPerformanceMetricSubscriptionExists(ctx context.Context, n string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckNetworkPerformanceMetricSubscriptionExists(ctx context.Context, n string) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -103,8 +114,11 @@ func testAccCheckNetworkPerformanceMetricSubscriptionExists(ctx context.Context,
 	}
 }
 
-func testAccCheckNetworkPerformanceMetricSubscriptionDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckNetworkPerformanceMetricSubscriptionDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Client(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -134,6 +148,7 @@ func testAccCheckNetworkPerformanceMetricSubscriptionDestroy(ctx context.Context
 		return nil
 	}
 }
+
 
 func testAccVPCNetworkPerformanceMetricSubscription_basic(src, dst string) string {
 	return fmt.Sprintf(`

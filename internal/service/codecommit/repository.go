@@ -24,6 +24,7 @@ import (
 
 // @SDKResource("aws_codecommit_repository", name="Repository")
 // @Tags(identifierAttribute="arn")
+
 func ResourceRepository() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceRepositoryCreate,
@@ -39,13 +40,15 @@ func ResourceRepository() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringLenBetween(0, 100),
+				Validate
+func: validation.StringLenBetween(0, 100),
 			},
 
 			"description": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				ValidateFunc: validation.StringLenBetween(0, 1000),
+				Validate
+func: validation.StringLenBetween(0, 1000),
 			},
 
 			"arn": {
@@ -80,6 +83,7 @@ func ResourceRepository() *schema.Resource {
 	}
 }
 
+
 func resourceRepositoryCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CodeCommitConn(ctx)
@@ -109,6 +113,7 @@ func resourceRepositoryCreate(ctx context.Context, d *schema.ResourceData, meta 
 
 	return append(diags, resourceRepositoryRead(ctx, d, meta)...)
 }
+
 
 func resourceRepositoryRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -143,6 +148,7 @@ func resourceRepositoryRead(ctx context.Context, d *schema.ResourceData, meta in
 	return diags
 }
 
+
 func resourceRepositoryUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CodeCommitConn(ctx)
@@ -162,6 +168,7 @@ func resourceRepositoryUpdate(ctx context.Context, d *schema.ResourceData, meta 
 	return append(diags, resourceRepositoryRead(ctx, d, meta)...)
 }
 
+
 func resourceRepositoryDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CodeCommitConn(ctx)
@@ -177,6 +184,7 @@ func resourceRepositoryDelete(ctx context.Context, d *schema.ResourceData, meta 
 	return diags
 }
 
+
 func resourceUpdateDescription(ctx context.Context, conn *codecommit.CodeCommit, d *schema.ResourceData) error {
 	branchInput := &codecommit.UpdateRepositoryDescriptionInput{
 		RepositoryName:        aws.String(d.Id()),
@@ -190,6 +198,7 @@ func resourceUpdateDescription(ctx context.Context, conn *codecommit.CodeCommit,
 
 	return nil
 }
+
 
 func resourceUpdateDefaultBranch(ctx context.Context, conn *codecommit.CodeCommit, d *schema.ResourceData) error {
 	input := &codecommit.ListBranchesInput{

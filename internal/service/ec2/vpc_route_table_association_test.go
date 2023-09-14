@@ -18,6 +18,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccVPCRouteTableAssociation_Subnet_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var rta ec2.RouteTableAssociation
@@ -27,14 +28,16 @@ func TestAccVPCRouteTableAssociation_Subnet_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckRouteTableAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCRouteTableAssociationConfig_subnet(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckRouteTableAssociationExists(ctx, resourceName, &rta),
 					resource.TestCheckResourceAttrPair(resourceName, "route_table_id", resourceNameRouteTable, "id"),
 					resource.TestCheckResourceAttrPair(resourceName, "subnet_id", resourceNameSubnet, "id"),
@@ -43,12 +46,15 @@ func TestAccVPCRouteTableAssociation_Subnet_basic(t *testing.T) {
 			{
 				ResourceName:      resourceName,
 				ImportState:       true,
-				ImportStateIdFunc: testAccRouteTabAssocImportStateIdFunc(resourceName),
+				ImportStateId
+func: testAccRouteTabAssocImportStateId
+func(resourceName),
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
+
 
 func TestAccVPCRouteTableAssociation_Subnet_changeRouteTable(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -60,14 +66,16 @@ func TestAccVPCRouteTableAssociation_Subnet_changeRouteTable(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckRouteTableAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCRouteTableAssociationConfig_subnet(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckRouteTableAssociationExists(ctx, resourceName, &rta),
 					resource.TestCheckResourceAttrPair(resourceName, "route_table_id", resourceNameRouteTable1, "id"),
 					resource.TestCheckResourceAttrPair(resourceName, "subnet_id", resourceNameSubnet, "id"),
@@ -75,7 +83,8 @@ func TestAccVPCRouteTableAssociation_Subnet_changeRouteTable(t *testing.T) {
 			},
 			{
 				Config: testAccVPCRouteTableAssociationConfig_subnetChange(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckRouteTableAssociationExists(ctx, resourceName, &rta),
 					resource.TestCheckResourceAttrPair(resourceName, "route_table_id", resourceNameRouteTable2, "id"),
 					resource.TestCheckResourceAttrPair(resourceName, "subnet_id", resourceNameSubnet, "id"),
@@ -84,6 +93,7 @@ func TestAccVPCRouteTableAssociation_Subnet_changeRouteTable(t *testing.T) {
 		},
 	})
 }
+
 
 func TestAccVPCRouteTableAssociation_Gateway_basic(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -94,14 +104,16 @@ func TestAccVPCRouteTableAssociation_Gateway_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckRouteTableAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCRouteTableAssociationConfig_gateway(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckRouteTableAssociationExists(ctx, resourceName, &rta),
 					resource.TestCheckResourceAttrPair(resourceName, "route_table_id", resourceNameRouteTable, "id"),
 					resource.TestCheckResourceAttrPair(resourceName, "gateway_id", resourceNameGateway, "id"),
@@ -110,12 +122,15 @@ func TestAccVPCRouteTableAssociation_Gateway_basic(t *testing.T) {
 			{
 				ResourceName:      resourceName,
 				ImportState:       true,
-				ImportStateIdFunc: testAccRouteTabAssocImportStateIdFunc(resourceName),
+				ImportStateId
+func: testAccRouteTabAssocImportStateId
+func(resourceName),
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
+
 
 func TestAccVPCRouteTableAssociation_Gateway_changeRouteTable(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -127,14 +142,16 @@ func TestAccVPCRouteTableAssociation_Gateway_changeRouteTable(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckRouteTableAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCRouteTableAssociationConfig_gateway(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckRouteTableAssociationExists(ctx, resourceName, &rta),
 					resource.TestCheckResourceAttrPair(resourceName, "route_table_id", resourceNameRouteTable1, "id"),
 					resource.TestCheckResourceAttrPair(resourceName, "gateway_id", resourceNameGateway, "id"),
@@ -142,7 +159,8 @@ func TestAccVPCRouteTableAssociation_Gateway_changeRouteTable(t *testing.T) {
 			},
 			{
 				Config: testAccVPCRouteTableAssociationConfig_gatewayChange(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckRouteTableAssociationExists(ctx, resourceName, &rta),
 					resource.TestCheckResourceAttrPair(resourceName, "route_table_id", resourceNameRouteTable2, "id"),
 					resource.TestCheckResourceAttrPair(resourceName, "gateway_id", resourceNameGateway, "id"),
@@ -152,6 +170,7 @@ func TestAccVPCRouteTableAssociation_Gateway_changeRouteTable(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCRouteTableAssociation_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var rta ec2.RouteTableAssociation
@@ -159,14 +178,16 @@ func TestAccVPCRouteTableAssociation_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckRouteTableAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCRouteTableAssociationConfig_subnet(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckRouteTableAssociationExists(ctx, resourceName, &rta),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceRouteTableAssociation(), resourceName),
 				),
@@ -176,8 +197,11 @@ func TestAccVPCRouteTableAssociation_disappears(t *testing.T) {
 	})
 }
 
-func testAccCheckRouteTableAssociationDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckRouteTableAssociationDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -202,8 +226,11 @@ func testAccCheckRouteTableAssociationDestroy(ctx context.Context) resource.Test
 	}
 }
 
-func testAccCheckRouteTableAssociationExists(ctx context.Context, n string, v *ec2.RouteTableAssociation) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckRouteTableAssociationExists(ctx context.Context, n string, v *ec2.RouteTableAssociation) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -227,8 +254,12 @@ func testAccCheckRouteTableAssociationExists(ctx context.Context, n string, v *e
 	}
 }
 
-func testAccRouteTabAssocImportStateIdFunc(resourceName string) resource.ImportStateIdFunc {
-	return func(s *terraform.State) (string, error) {
+
+func testAccRouteTabAssocImportStateId
+func(resourceName string) resource.ImportStateId
+func {
+	return 
+func(s *terraform.State) (string, error) {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return "", fmt.Errorf("not found: %s", resourceName)
@@ -242,6 +273,7 @@ func testAccRouteTabAssocImportStateIdFunc(resourceName string) resource.ImportS
 		return fmt.Sprintf("%s/%s", target, rs.Primary.Attributes["route_table_id"]), nil
 	}
 }
+
 
 func testAccRouteTableAssociationConfigBaseVPC(rName string) string {
 	return fmt.Sprintf(`
@@ -272,6 +304,7 @@ resource "aws_internet_gateway" "test" {
 `, rName)
 }
 
+
 func testAccVPCRouteTableAssociationConfig_subnet(rName string) string {
 	return acctest.ConfigCompose(testAccRouteTableAssociationConfigBaseVPC(rName), fmt.Sprintf(`
 resource "aws_route_table" "test" {
@@ -294,6 +327,7 @@ resource "aws_route_table_association" "test" {
 `, rName))
 }
 
+
 func testAccVPCRouteTableAssociationConfig_subnetChange(rName string) string {
 	return acctest.ConfigCompose(testAccRouteTableAssociationConfigBaseVPC(rName), fmt.Sprintf(`
 resource "aws_route_table" "test2" {
@@ -315,6 +349,7 @@ resource "aws_route_table_association" "test" {
 }
 `, rName))
 }
+
 
 func testAccVPCRouteTableAssociationConfig_gateway(rName string) string {
 	return acctest.ConfigCompose(testAccRouteTableAssociationConfigBaseVPC(rName), fmt.Sprintf(`
@@ -345,6 +380,7 @@ resource "aws_route_table_association" "test" {
 }
 `, rName))
 }
+
 
 func testAccVPCRouteTableAssociationConfig_gatewayChange(rName string) string {
 	return acctest.ConfigCompose(testAccRouteTableAssociationConfigBaseVPC(rName), fmt.Sprintf(`

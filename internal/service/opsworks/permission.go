@@ -20,6 +20,7 @@ import (
 )
 
 // @SDKResource("aws_opsworks_permission")
+
 func ResourcePermission() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceSetPermission,
@@ -42,7 +43,8 @@ func ResourcePermission() *schema.Resource {
 				Type:     schema.TypeString,
 				Computed: true,
 				Optional: true,
-				ValidateFunc: validation.StringInSlice([]string{
+				Validate
+func: validation.StringInSlice([]string{
 					"deny",
 					"show",
 					"deploy",
@@ -63,6 +65,7 @@ func ResourcePermission() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceSetPermission(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -86,7 +89,8 @@ func resourceSetPermission(ctx context.Context, d *schema.ResourceData, meta int
 		input.Level = aws.String(d.Get("level").(string))
 	}
 
-	_, err := tfresource.RetryWhenAWSErrMessageContains(ctx, propagationTimeout, func() (interface{}, error) {
+	_, err := tfresource.RetryWhenAWSErrMessageContains(ctx, propagationTimeout, 
+func() (interface{}, error) {
 		return conn.SetPermissionWithContext(ctx, input)
 	}, opsworks.ErrCodeResourceNotFoundException, "Unable to find user with ARN")
 
@@ -100,6 +104,7 @@ func resourceSetPermission(ctx context.Context, d *schema.ResourceData, meta int
 
 	return append(diags, resourcePermissionRead(ctx, d, meta)...)
 }
+
 
 func resourcePermissionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -125,6 +130,7 @@ func resourcePermissionRead(ctx context.Context, d *schema.ResourceData, meta in
 
 	return diags
 }
+
 
 func FindPermissionByTwoPartKey(ctx context.Context, conn *opsworks.OpsWorks, iamUserARN, stackID string) (*opsworks.Permission, error) {
 	input := &opsworks.DescribePermissionsInput{

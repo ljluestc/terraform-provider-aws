@@ -16,6 +16,7 @@ import (
 )
 
 // @SDKResource("aws_ebs_default_kms_key")
+
 func ResourceEBSDefaultKMSKey() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceEBSDefaultKMSKeyCreate,
@@ -30,11 +31,13 @@ func ResourceEBSDefaultKMSKey() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 		},
 	}
 }
+
 
 func resourceEBSDefaultKMSKeyCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -52,6 +55,7 @@ func resourceEBSDefaultKMSKeyCreate(ctx context.Context, d *schema.ResourceData,
 	return append(diags, resourceEBSDefaultKMSKeyRead(ctx, d, meta)...)
 }
 
+
 func resourceEBSDefaultKMSKeyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -65,6 +69,7 @@ func resourceEBSDefaultKMSKeyRead(ctx context.Context, d *schema.ResourceData, m
 
 	return diags
 }
+
 
 func resourceEBSDefaultKMSKeyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

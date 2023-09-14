@@ -26,6 +26,7 @@ import (
 
 // @SDKResource("aws_route53_resolver_firewall_rule_group_association", name="Rule Group Association")
 // @Tags(identifierAttribute="arn")
+
 func ResourceFirewallRuleGroupAssociation() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceFirewallRuleGroupAssociationCreate,
@@ -51,12 +52,14 @@ func ResourceFirewallRuleGroupAssociation() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				Computed:     true,
-				ValidateFunc: validation.StringInSlice(route53resolver.MutationProtectionStatus_Values(), false),
+				Validate
+func: validation.StringInSlice(route53resolver.MutationProtectionStatus_Values(), false),
 			},
 			"name": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: validResolverName,
+				Validate
+func: validResolverName,
 			},
 			"priority": {
 				Type:     schema.TypeInt,
@@ -74,6 +77,7 @@ func ResourceFirewallRuleGroupAssociation() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
+
 
 func resourceFirewallRuleGroupAssociationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
@@ -107,6 +111,7 @@ func resourceFirewallRuleGroupAssociationCreate(ctx context.Context, d *schema.R
 	return resourceFirewallRuleGroupAssociationRead(ctx, d, meta)
 }
 
+
 func resourceFirewallRuleGroupAssociationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
 
@@ -132,6 +137,7 @@ func resourceFirewallRuleGroupAssociationRead(ctx context.Context, d *schema.Res
 
 	return nil
 }
+
 
 func resourceFirewallRuleGroupAssociationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
@@ -161,6 +167,7 @@ func resourceFirewallRuleGroupAssociationUpdate(ctx context.Context, d *schema.R
 	return resourceFirewallRuleGroupAssociationRead(ctx, d, meta)
 }
 
+
 func resourceFirewallRuleGroupAssociationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
 
@@ -183,6 +190,7 @@ func resourceFirewallRuleGroupAssociationDelete(ctx context.Context, d *schema.R
 
 	return nil
 }
+
 
 func FindFirewallRuleGroupAssociationByID(ctx context.Context, conn *route53resolver.Route53Resolver, id string) (*route53resolver.FirewallRuleGroupAssociation, error) {
 	input := &route53resolver.GetFirewallRuleGroupAssociationInput{
@@ -209,8 +217,11 @@ func FindFirewallRuleGroupAssociationByID(ctx context.Context, conn *route53reso
 	return output.FirewallRuleGroupAssociation, nil
 }
 
-func statusFirewallRuleGroupAssociation(ctx context.Context, conn *route53resolver.Route53Resolver, id string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+
+func statusFirewallRuleGroupAssociation(ctx context.Context, conn *route53resolver.Route53Resolver, id string) retry.StateRefresh
+func {
+	return 
+func() (interface{}, string, error) {
 		output, err := FindFirewallRuleGroupAssociationByID(ctx, conn, id)
 
 		if tfresource.NotFound(err) {
@@ -231,6 +242,7 @@ const (
 	firewallRuleGroupAssociationDeletedTimeout = 5 * time.Minute
 )
 
+
 func waitFirewallRuleGroupAssociationCreated(ctx context.Context, conn *route53resolver.Route53Resolver, id string) (*route53resolver.FirewallRuleGroupAssociation, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{route53resolver.FirewallRuleGroupAssociationStatusUpdating},
@@ -250,6 +262,7 @@ func waitFirewallRuleGroupAssociationCreated(ctx context.Context, conn *route53r
 	return nil, err
 }
 
+
 func waitFirewallRuleGroupAssociationUpdated(ctx context.Context, conn *route53resolver.Route53Resolver, id string) (*route53resolver.FirewallRuleGroupAssociation, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{route53resolver.FirewallRuleGroupAssociationStatusUpdating},
@@ -268,6 +281,7 @@ func waitFirewallRuleGroupAssociationUpdated(ctx context.Context, conn *route53r
 
 	return nil, err
 }
+
 
 func waitFirewallRuleGroupAssociationDeleted(ctx context.Context, conn *route53resolver.Route53Resolver, id string) (*route53resolver.FirewallRuleGroupAssociation, error) {
 	stateConf := &retry.StateChangeConf{

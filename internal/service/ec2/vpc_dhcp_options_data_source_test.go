@@ -14,13 +14,15 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccVPCDHCPOptionsDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_vpc_dhcp_options.test"
 	datasourceName := "data.aws_vpc_dhcp_options.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -30,7 +32,8 @@ func TestAccVPCDHCPOptionsDataSource_basic(t *testing.T) {
 			},
 			{
 				Config: testAccVPCDHCPOptionsDataSourceConfig_id,
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttrPair(datasourceName, "dhcp_options_id", resourceName, "id"),
 					resource.TestCheckResourceAttrPair(datasourceName, "domain_name", resourceName, "domain_name"),
 					resource.TestCheckResourceAttrPair(datasourceName, "domain_name_servers.#", resourceName, "domain_name_servers.#"),
@@ -51,6 +54,7 @@ func TestAccVPCDHCPOptionsDataSource_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCDHCPOptionsDataSource_filter(t *testing.T) {
 	ctx := acctest.Context(t)
 	rInt := sdkacctest.RandInt()
@@ -58,13 +62,15 @@ func TestAccVPCDHCPOptionsDataSource_filter(t *testing.T) {
 	datasourceName := "data.aws_vpc_dhcp_options.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCDHCPOptionsDataSourceConfig_filter(rInt, 1),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttrPair(datasourceName, "dhcp_options_id", resourceName, "id"),
 					resource.TestCheckResourceAttrPair(datasourceName, "domain_name", resourceName, "domain_name"),
 					resource.TestCheckResourceAttrPair(datasourceName, "domain_name_servers.#", resourceName, "domain_name_servers.#"),
@@ -123,6 +129,7 @@ data "aws_vpc_dhcp_options" "test" {
 }
 `
 
+
 func testAccVPCDHCPOptionsDataSourceConfig_filter(rInt, count int) string {
 	return fmt.Sprintf(`
 resource "aws_vpc_dhcp_options" "incorrect" {
@@ -156,6 +163,7 @@ data "aws_vpc_dhcp_options" "test" {
 }
 `, rInt, count)
 }
+
 
 func testAccVPCDHCPOptionsDataSourceConfig_blank() string {
 	return `/* this config intentionally left blank */`

@@ -22,6 +22,7 @@ import (
 
 // @SDKResource("aws_ebs_snapshot_copy", name="EBS Snapshot")
 // @Tags(identifierAttribute="id")
+
 func ResourceEBSSnapshotCopy() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceEBSSnapshotCopyCreate,
@@ -90,7 +91,8 @@ func ResourceEBSSnapshotCopy() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				Computed:     true,
-				ValidateFunc: validation.StringInSlice(append(ec2.TargetStorageTier_Values(), TargetStorageTierStandard), false),
+				Validate
+func: validation.StringInSlice(append(ec2.TargetStorageTier_Values(), TargetStorageTierStandard), false),
 			},
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
@@ -109,6 +111,7 @@ func ResourceEBSSnapshotCopy() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceEBSSnapshotCopyCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -141,7 +144,8 @@ func resourceEBSSnapshotCopyCreate(ctx context.Context, d *schema.ResourceData, 
 	d.SetId(aws.StringValue(output.SnapshotId))
 
 	_, err = tfresource.RetryWhenAWSErrCodeEquals(ctx, d.Timeout(schema.TimeoutCreate),
-		func() (interface{}, error) {
+		
+func() (interface{}, error) {
 			return nil, conn.WaitUntilSnapshotCompletedWithContext(ctx, &ec2.DescribeSnapshotsInput{
 				SnapshotIds: aws.StringSlice([]string{d.Id()}),
 			})

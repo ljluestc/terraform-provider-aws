@@ -16,6 +16,7 @@ import (
 )
 
 // @SDKDataSource("aws_connect_instance_storage_config")
+
 func DataSourceInstanceStorageConfig() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceInstanceStorageConfigRead,
@@ -23,17 +24,20 @@ func DataSourceInstanceStorageConfig() *schema.Resource {
 			"association_id": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: validation.StringLenBetween(1, 100),
+				Validate
+func: validation.StringLenBetween(1, 100),
 			},
 			"instance_id": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: validation.StringLenBetween(1, 100),
+				Validate
+func: validation.StringLenBetween(1, 100),
 			},
 			"resource_type": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: validation.StringInSlice(connect.InstanceStorageResourceType_Values(), false),
+				Validate
+func: validation.StringInSlice(connect.InstanceStorageResourceType_Values(), false),
 			},
 			"storage_config": {
 				Type:     schema.TypeList,
@@ -138,6 +142,7 @@ func DataSourceInstanceStorageConfig() *schema.Resource {
 		},
 	}
 }
+
 
 func dataSourceInstanceStorageConfigRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)

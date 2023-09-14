@@ -15,6 +15,7 @@ import (
 )
 
 // @SDKResource("aws_ebs_encryption_by_default")
+
 func ResourceEBSEncryptionByDefault() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceEBSEncryptionByDefaultCreate,

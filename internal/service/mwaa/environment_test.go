@@ -20,6 +20,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccMWAAEnvironment_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var environment mwaa.Environment
@@ -27,14 +28,16 @@ func TestAccMWAAEnvironment_basic(t *testing.T) {
 	resourceName := "aws_mwaa_environment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, mwaa.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEnvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEnvironmentConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEnvironmentExists(ctx, resourceName, &environment),
 					resource.TestCheckResourceAttrSet(resourceName, "airflow_version"),
 					acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "airflow", "environment/"+rName),
@@ -83,6 +86,7 @@ func TestAccMWAAEnvironment_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccMWAAEnvironment_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var environment mwaa.Environment
@@ -90,14 +94,16 @@ func TestAccMWAAEnvironment_disappears(t *testing.T) {
 	resourceName := "aws_mwaa_environment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, mwaa.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEnvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEnvironmentConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEnvironmentExists(ctx, resourceName, &environment),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfmwaa.ResourceEnvironment(), resourceName),
 				),
@@ -107,6 +113,7 @@ func TestAccMWAAEnvironment_disappears(t *testing.T) {
 	})
 }
 
+
 func TestAccMWAAEnvironment_airflowOptions(t *testing.T) {
 	ctx := acctest.Context(t)
 	var environment mwaa.Environment
@@ -114,14 +121,16 @@ func TestAccMWAAEnvironment_airflowOptions(t *testing.T) {
 	resourceName := "aws_mwaa_environment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, mwaa.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEnvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEnvironmentConfig_airflowOptions(rName, "1", "16"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEnvironmentExists(ctx, resourceName, &environment),
 					resource.TestCheckResourceAttr(resourceName, "airflow_configuration_options.%", "2"),
 					resource.TestCheckResourceAttr(resourceName, "airflow_configuration_options.core.default_task_retries", "1"),
@@ -135,7 +144,8 @@ func TestAccMWAAEnvironment_airflowOptions(t *testing.T) {
 			},
 			{
 				Config: testAccEnvironmentConfig_airflowOptions(rName, "2", "32"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEnvironmentExists(ctx, resourceName, &environment),
 					resource.TestCheckResourceAttr(resourceName, "airflow_configuration_options.%", "2"),
 					resource.TestCheckResourceAttr(resourceName, "airflow_configuration_options.core.default_task_retries", "2"),
@@ -144,7 +154,8 @@ func TestAccMWAAEnvironment_airflowOptions(t *testing.T) {
 			},
 			{
 				Config: testAccEnvironmentConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEnvironmentExists(ctx, resourceName, &environment),
 					resource.TestCheckResourceAttr(resourceName, "airflow_configuration_options.%", "0"),
 				),
@@ -153,6 +164,7 @@ func TestAccMWAAEnvironment_airflowOptions(t *testing.T) {
 	})
 }
 
+
 func TestAccMWAAEnvironment_log(t *testing.T) {
 	ctx := acctest.Context(t)
 	var environment1, environment2 mwaa.Environment
@@ -160,14 +172,16 @@ func TestAccMWAAEnvironment_log(t *testing.T) {
 	resourceName := "aws_mwaa_environment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, mwaa.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEnvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEnvironmentConfig_logging(rName, "true", mwaa.LoggingLevelCritical),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEnvironmentExists(ctx, resourceName, &environment1),
 					resource.TestCheckResourceAttr(resourceName, "logging_configuration.#", "1"),
 
@@ -204,7 +218,8 @@ func TestAccMWAAEnvironment_log(t *testing.T) {
 			},
 			{
 				Config: testAccEnvironmentConfig_logging(rName, "false", mwaa.LoggingLevelInfo),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEnvironmentExists(ctx, resourceName, &environment2),
 					testAccCheckEnvironmentNotRecreated(&environment2, &environment1),
 					resource.TestCheckResourceAttr(resourceName, "logging_configuration.#", "1"),
@@ -239,6 +254,7 @@ func TestAccMWAAEnvironment_log(t *testing.T) {
 	})
 }
 
+
 func TestAccMWAAEnvironment_full(t *testing.T) {
 	ctx := acctest.Context(t)
 	var environment mwaa.Environment
@@ -246,14 +262,16 @@ func TestAccMWAAEnvironment_full(t *testing.T) {
 	resourceName := "aws_mwaa_environment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, mwaa.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEnvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEnvironmentConfig_full(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEnvironmentExists(ctx, resourceName, &environment),
 					resource.TestCheckResourceAttr(resourceName, "airflow_configuration_options.%", "2"),
 					resource.TestCheckResourceAttr(resourceName, "airflow_configuration_options.core.default_task_retries", "1"),
@@ -315,6 +333,7 @@ func TestAccMWAAEnvironment_full(t *testing.T) {
 	})
 }
 
+
 func TestAccMWAAEnvironment_pluginsS3ObjectVersion(t *testing.T) {
 	ctx := acctest.Context(t)
 	var environment1, environment2 mwaa.Environment
@@ -323,14 +342,16 @@ func TestAccMWAAEnvironment_pluginsS3ObjectVersion(t *testing.T) {
 	s3ObjectResourceName := "aws_s3_object.plugins"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, mwaa.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEnvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEnvironmentConfig_pluginsS3ObjectVersion(rName, "test"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEnvironmentExists(ctx, resourceName, &environment1),
 					resource.TestCheckResourceAttrPair(resourceName, "plugins_s3_object_version", s3ObjectResourceName, "version_id"),
 				),
@@ -342,7 +363,8 @@ func TestAccMWAAEnvironment_pluginsS3ObjectVersion(t *testing.T) {
 			},
 			{
 				Config: testAccEnvironmentConfig_pluginsS3ObjectVersion(rName, "test-updated"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEnvironmentExists(ctx, resourceName, &environment2),
 					testAccCheckEnvironmentNotRecreated(&environment2, &environment1),
 					resource.TestCheckResourceAttrPair(resourceName, "plugins_s3_object_version", s3ObjectResourceName, "version_id"),
@@ -357,6 +379,7 @@ func TestAccMWAAEnvironment_pluginsS3ObjectVersion(t *testing.T) {
 	})
 }
 
+
 func TestAccMWAAEnvironment_updateAirflowVersionMinor(t *testing.T) {
 	ctx := acctest.Context(t)
 	var environment1, environment2 mwaa.Environment
@@ -364,14 +387,16 @@ func TestAccMWAAEnvironment_updateAirflowVersionMinor(t *testing.T) {
 	resourceName := "aws_mwaa_environment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, mwaa.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEnvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEnvironmentConfig_airflowVersion(rName, "2.4.3"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEnvironmentExists(ctx, resourceName, &environment1),
 					resource.TestCheckResourceAttr(resourceName, "airflow_version", "2.4.3"),
 				),
@@ -383,7 +408,8 @@ func TestAccMWAAEnvironment_updateAirflowVersionMinor(t *testing.T) {
 			},
 			{
 				Config: testAccEnvironmentConfig_airflowVersion(rName, "2.5.1"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEnvironmentExists(ctx, resourceName, &environment2),
 					testAccCheckEnvironmentNotRecreated(&environment2, &environment1),
 					resource.TestCheckResourceAttr(resourceName, "airflow_version", "2.5.1"),
@@ -393,8 +419,11 @@ func TestAccMWAAEnvironment_updateAirflowVersionMinor(t *testing.T) {
 	})
 }
 
-func testAccCheckEnvironmentExists(ctx context.Context, n string, v *mwaa.Environment) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckEnvironmentExists(ctx context.Context, n string, v *mwaa.Environment) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -418,8 +447,11 @@ func testAccCheckEnvironmentExists(ctx context.Context, n string, v *mwaa.Enviro
 	}
 }
 
-func testAccCheckEnvironmentDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckEnvironmentDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).MWAAConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -444,8 +476,11 @@ func testAccCheckEnvironmentDestroy(ctx context.Context) resource.TestCheckFunc 
 	}
 }
 
-func testAccCheckEnvironmentNotRecreated(i, j *mwaa.Environment) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckEnvironmentNotRecreated(i, j *mwaa.Environment) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		if !i.CreatedAt.Equal(aws.TimeValue(j.CreatedAt)) {
 			return errors.New("MWAA Environment was recreated")
 		}
@@ -453,6 +488,7 @@ func testAccCheckEnvironmentNotRecreated(i, j *mwaa.Environment) resource.TestCh
 		return nil
 	}
 }
+
 
 func testAccEnvironmentConfig_base(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
@@ -654,6 +690,7 @@ POLICY
 `, rName))
 }
 
+
 func testAccEnvironmentConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccEnvironmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_mwaa_environment" "test" {
@@ -670,6 +707,7 @@ resource "aws_mwaa_environment" "test" {
 }
 `, rName))
 }
+
 
 func testAccEnvironmentConfig_airflowOptions(rName, retries, parallelism string) string {
 	return acctest.ConfigCompose(testAccEnvironmentConfig_base(rName), fmt.Sprintf(`
@@ -692,6 +730,7 @@ resource "aws_mwaa_environment" "test" {
 }
 `, rName, retries, parallelism))
 }
+
 
 func testAccEnvironmentConfig_logging(rName, logEnabled, logLevel string) string {
 	return acctest.ConfigCompose(testAccEnvironmentConfig_base(rName), fmt.Sprintf(`
@@ -737,6 +776,7 @@ resource "aws_mwaa_environment" "test" {
 }
 `, rName, logEnabled, logLevel))
 }
+
 
 func testAccEnvironmentConfig_full(rName string) string {
 	return acctest.ConfigCompose(testAccEnvironmentConfig_base(rName), fmt.Sprintf(`
@@ -857,6 +897,7 @@ resource "aws_s3_object" "startup_script" {
 `, rName))
 }
 
+
 func testAccEnvironmentConfig_pluginsS3ObjectVersion(rName, content string) string {
 	return acctest.ConfigCompose(testAccEnvironmentConfig_base(rName), fmt.Sprintf(`
 resource "aws_mwaa_environment" "test" {
@@ -886,6 +927,7 @@ resource "aws_s3_object" "plugins" {
 }
 `, rName, content))
 }
+
 
 func testAccEnvironmentConfig_airflowVersion(rName, airflowVersion string) string {
 	return acctest.ConfigCompose(testAccEnvironmentConfig_base(rName), fmt.Sprintf(`

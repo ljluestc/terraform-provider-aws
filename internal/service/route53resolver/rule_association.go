@@ -21,6 +21,7 @@ import (
 )
 
 // @SDKResource("aws_route53_resolver_rule_association")
+
 func ResourceRuleAssociation() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceRuleAssociationCreate,
@@ -41,23 +42,27 @@ func ResourceRuleAssociation() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
-				ValidateFunc: validResolverName,
+				Validate
+func: validResolverName,
 			},
 			"resolver_rule_id": {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringLenBetween(1, 64),
+				Validate
+func: validation.StringLenBetween(1, 64),
 			},
 			"vpc_id": {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringLenBetween(1, 64),
+				Validate
+func: validation.StringLenBetween(1, 64),
 			},
 		},
 	}
 }
+
 
 func resourceRuleAssociationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
@@ -86,6 +91,7 @@ func resourceRuleAssociationCreate(ctx context.Context, d *schema.ResourceData, 
 	return resourceRuleAssociationRead(ctx, d, meta)
 }
 
+
 func resourceRuleAssociationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
 
@@ -107,6 +113,7 @@ func resourceRuleAssociationRead(ctx context.Context, d *schema.ResourceData, me
 
 	return nil
 }
+
 
 func resourceRuleAssociationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
@@ -131,6 +138,7 @@ func resourceRuleAssociationDelete(ctx context.Context, d *schema.ResourceData, 
 
 	return nil
 }
+
 
 func FindResolverRuleAssociationByID(ctx context.Context, conn *route53resolver.Route53Resolver, id string) (*route53resolver.ResolverRuleAssociation, error) {
 	input := &route53resolver.GetResolverRuleAssociationInput{
@@ -157,8 +165,11 @@ func FindResolverRuleAssociationByID(ctx context.Context, conn *route53resolver.
 	return output.ResolverRuleAssociation, nil
 }
 
-func statusRuleAssociation(ctx context.Context, conn *route53resolver.Route53Resolver, id string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+
+func statusRuleAssociation(ctx context.Context, conn *route53resolver.Route53Resolver, id string) retry.StateRefresh
+func {
+	return 
+func() (interface{}, string, error) {
 		output, err := FindResolverRuleAssociationByID(ctx, conn, id)
 
 		if tfresource.NotFound(err) {
@@ -172,6 +183,7 @@ func statusRuleAssociation(ctx context.Context, conn *route53resolver.Route53Res
 		return output, aws.StringValue(output.Status), nil
 	}
 }
+
 
 func waitRuleAssociationCreated(ctx context.Context, conn *route53resolver.Route53Resolver, id string, timeout time.Duration) (*route53resolver.ResolverRuleAssociation, error) {
 	stateConf := &retry.StateChangeConf{
@@ -193,6 +205,7 @@ func waitRuleAssociationCreated(ctx context.Context, conn *route53resolver.Route
 
 	return nil, err
 }
+
 
 func waitRuleAssociationDeleted(ctx context.Context, conn *route53resolver.Route53Resolver, id string, timeout time.Duration) (*route53resolver.ResolverRuleAssociation, error) {
 	stateConf := &retry.StateChangeConf{

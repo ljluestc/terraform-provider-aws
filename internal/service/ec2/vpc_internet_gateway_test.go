@@ -19,20 +19,23 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccVPCInternetGateway_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.InternetGateway
 	resourceName := "aws_internet_gateway.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckInternetGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCInternetGatewayConfig_basic,
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInternetGatewayExists(ctx, resourceName, &v),
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "ec2", regexache.MustCompile(`internet-gateway/igw-.+`)),
 					acctest.CheckResourceAttrAccountID(resourceName, "owner_id"),
@@ -49,20 +52,23 @@ func TestAccVPCInternetGateway_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCInternetGateway_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.InternetGateway
 	resourceName := "aws_internet_gateway.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckInternetGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCInternetGatewayConfig_basic,
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInternetGatewayExists(ctx, resourceName, &v),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceInternetGateway(), resourceName),
 				),
@@ -71,6 +77,7 @@ func TestAccVPCInternetGateway_disappears(t *testing.T) {
 		},
 	})
 }
+
 
 func TestAccVPCInternetGateway_Attachment(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -81,14 +88,16 @@ func TestAccVPCInternetGateway_Attachment(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckInternetGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCInternetGatewayConfig_attachment(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInternetGatewayExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttrPair(resourceName, "vpc_id", vpc1ResourceName, "id"),
 				),
@@ -100,7 +109,8 @@ func TestAccVPCInternetGateway_Attachment(t *testing.T) {
 			},
 			{
 				Config: testAccVPCInternetGatewayConfig_attachmentUpdated(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInternetGatewayExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttrPair(resourceName, "vpc_id", vpc2ResourceName, "id"),
 				),
@@ -109,6 +119,7 @@ func TestAccVPCInternetGateway_Attachment(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCInternetGateway_Tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.InternetGateway
@@ -116,14 +127,16 @@ func TestAccVPCInternetGateway_Tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckInternetGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCInternetGatewayConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInternetGatewayExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
@@ -136,7 +149,8 @@ func TestAccVPCInternetGateway_Tags(t *testing.T) {
 			},
 			{
 				Config: testAccVPCInternetGatewayConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInternetGatewayExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
@@ -145,7 +159,8 @@ func TestAccVPCInternetGateway_Tags(t *testing.T) {
 			},
 			{
 				Config: testAccVPCInternetGatewayConfig_tags1(rName, "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInternetGatewayExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
@@ -155,8 +170,11 @@ func TestAccVPCInternetGateway_Tags(t *testing.T) {
 	})
 }
 
-func testAccCheckInternetGatewayDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckInternetGatewayDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -181,8 +199,11 @@ func testAccCheckInternetGatewayDestroy(ctx context.Context) resource.TestCheckF
 	}
 }
 
-func testAccCheckInternetGatewayExists(ctx context.Context, n string, v *ec2.InternetGateway) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckInternetGatewayExists(ctx context.Context, n string, v *ec2.InternetGateway) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -209,6 +230,7 @@ func testAccCheckInternetGatewayExists(ctx context.Context, n string, v *ec2.Int
 const testAccVPCInternetGatewayConfig_basic = `
 resource "aws_internet_gateway" "test" {}
 `
+
 
 func testAccVPCInternetGatewayConfig_attachment(rName string) string {
 	return fmt.Sprintf(`
@@ -238,6 +260,7 @@ resource "aws_internet_gateway" "test" {
 `, rName)
 }
 
+
 func testAccVPCInternetGatewayConfig_attachmentUpdated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test1" {
@@ -266,6 +289,7 @@ resource "aws_internet_gateway" "test" {
 `, rName)
 }
 
+
 func testAccVPCInternetGatewayConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_internet_gateway" "test" {
@@ -275,6 +299,7 @@ resource "aws_internet_gateway" "test" {
 }
 `, rName, tagKey1, tagValue1)
 }
+
 
 func testAccVPCInternetGatewayConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`

@@ -22,6 +22,7 @@ import (
 )
 
 // @SDKResource("aws_ec2_client_vpn_authorization_rule")
+
 func ResourceClientVPNAuthorizationRule() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceClientVPNAuthorizationRuleCreate,
@@ -41,7 +42,8 @@ func ResourceClientVPNAuthorizationRule() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringDoesNotContainAny(","),
+				Validate
+func: validation.StringDoesNotContainAny(","),
 				ExactlyOneOf: []string{"access_group_id", "authorize_all_groups"},
 			},
 			"authorize_all_groups": {
@@ -64,11 +66,13 @@ func ResourceClientVPNAuthorizationRule() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.ValidCIDRNetworkAddress,
+				Validate
+func: verify.ValidCIDRNetworkAddress,
 			},
 		},
 	}
 }
+
 
 func resourceClientVPNAuthorizationRuleCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -114,6 +118,7 @@ func resourceClientVPNAuthorizationRuleCreate(ctx context.Context, d *schema.Res
 	return append(diags, resourceClientVPNAuthorizationRuleRead(ctx, d, meta)...)
 }
 
+
 func resourceClientVPNAuthorizationRuleRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -144,6 +149,7 @@ func resourceClientVPNAuthorizationRuleRead(ctx context.Context, d *schema.Resou
 
 	return diags
 }
+
 
 func resourceClientVPNAuthorizationRuleDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -184,6 +190,7 @@ func resourceClientVPNAuthorizationRuleDelete(ctx context.Context, d *schema.Res
 
 const clientVPNAuthorizationRuleIDSeparator = ","
 
+
 func ClientVPNAuthorizationRuleCreateResourceID(endpointID, targetNetworkCIDR, accessGroupID string) string {
 	parts := []string{endpointID, targetNetworkCIDR}
 	if accessGroupID != "" {
@@ -193,6 +200,7 @@ func ClientVPNAuthorizationRuleCreateResourceID(endpointID, targetNetworkCIDR, a
 
 	return id
 }
+
 
 func ClientVPNAuthorizationRuleParseResourceID(id string) (string, string, string, error) {
 	parts := strings.Split(id, clientVPNAuthorizationRuleIDSeparator)

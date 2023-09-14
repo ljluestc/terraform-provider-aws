@@ -13,6 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func testAccQueueDataSource_queueID(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
@@ -22,13 +23,15 @@ func testAccQueueDataSource_queueID(t *testing.T) {
 	outboundCallerConfigName := "exampleOutboundCallerConfigName"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccQueueDataSourceConfig_id(rName, rName2, outboundCallerConfigName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(datasourceName, "description", resourceName, "description"),
 					resource.TestCheckResourceAttrPair(datasourceName, "hours_of_operation_id", resourceName, "hours_of_operation_id"),
@@ -45,6 +48,7 @@ func testAccQueueDataSource_queueID(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccQueueDataSource_name(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -55,13 +59,15 @@ func testAccQueueDataSource_name(t *testing.T) {
 	outboundCallerConfigName := "exampleOutboundCallerConfigName"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccQueueDataSourceConfig_name(rName, rName2, outboundCallerConfigName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(datasourceName, "description", resourceName, "description"),
 					resource.TestCheckResourceAttrPair(datasourceName, "hours_of_operation_id", resourceName, "hours_of_operation_id"),
@@ -78,6 +84,7 @@ func testAccQueueDataSource_name(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccQueueBaseDataSourceConfig(rName, rName2, outboundCallerConfigName string) string {
 	return fmt.Sprintf(`
@@ -110,6 +117,7 @@ resource "aws_connect_queue" "test" {
 	`, rName, rName2, outboundCallerConfigName)
 }
 
+
 func testAccQueueDataSourceConfig_id(rName, rName2, outboundCallerConfigName string) string {
 	return acctest.ConfigCompose(
 		testAccQueueBaseDataSourceConfig(rName, rName2, outboundCallerConfigName),
@@ -120,6 +128,7 @@ data "aws_connect_queue" "test" {
 }
 `)
 }
+
 
 func testAccQueueDataSourceConfig_name(rName, rName2, outboundCallerConfigName string) string {
 	return acctest.ConfigCompose(

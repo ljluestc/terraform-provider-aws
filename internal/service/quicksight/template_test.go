@@ -22,6 +22,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
+
 func TestAccQuickSightTemplate_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 
@@ -31,7 +32,8 @@ func TestAccQuickSightTemplate_basic(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 		},
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
@@ -40,7 +42,8 @@ func TestAccQuickSightTemplate_basic(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTemplateConfig_basic(rId, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTemplateExists(ctx, resourceName, &template),
 					resource.TestCheckResourceAttr(resourceName, "template_id", rId),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
@@ -55,6 +58,7 @@ func TestAccQuickSightTemplate_basic(t *testing.T) {
 		},
 	})
 }
+
 
 func TestAccQuickSightTemplate_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -65,7 +69,8 @@ func TestAccQuickSightTemplate_disappears(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 		},
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
@@ -74,7 +79,8 @@ func TestAccQuickSightTemplate_disappears(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTemplateConfig_basic(rId, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTemplateExists(ctx, resourceName, &template),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfquicksight.ResourceTemplate(), resourceName),
 				),
@@ -83,6 +89,7 @@ func TestAccQuickSightTemplate_disappears(t *testing.T) {
 		},
 	})
 }
+
 
 func TestAccQuickSightTemplate_barChart(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -93,7 +100,8 @@ func TestAccQuickSightTemplate_barChart(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 		},
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
@@ -102,7 +110,8 @@ func TestAccQuickSightTemplate_barChart(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTemplateConfig_BarChart(rId, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTemplateExists(ctx, resourceName, &template),
 					resource.TestCheckResourceAttr(resourceName, "template_id", rId),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
@@ -118,6 +127,7 @@ func TestAccQuickSightTemplate_barChart(t *testing.T) {
 	})
 }
 
+
 func TestAccQuickSightTemplate_table(t *testing.T) {
 	ctx := acctest.Context(t)
 
@@ -127,7 +137,8 @@ func TestAccQuickSightTemplate_table(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 		},
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
@@ -136,7 +147,8 @@ func TestAccQuickSightTemplate_table(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTemplateConfig_Table(rId, rName, "ASC", "START"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTemplateExists(ctx, resourceName, &v1),
 					resource.TestCheckResourceAttr(resourceName, "template_id", rId),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
@@ -147,7 +159,8 @@ func TestAccQuickSightTemplate_table(t *testing.T) {
 			},
 			{
 				Config: testAccTemplateConfig_Table(rId, rName, "DESC", "END"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTemplateExists(ctx, resourceName, &v2),
 					testAccCheckTemplateNotRecreated(&v1, &v2),
 					resource.TestCheckResourceAttr(resourceName, "template_id", rId),
@@ -166,6 +179,7 @@ func TestAccQuickSightTemplate_table(t *testing.T) {
 	})
 }
 
+
 func TestAccQuickSightTemplate_sourceEntity(t *testing.T) {
 	ctx := acctest.Context(t)
 
@@ -177,7 +191,8 @@ func TestAccQuickSightTemplate_sourceEntity(t *testing.T) {
 	sourceId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 		},
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
@@ -186,7 +201,8 @@ func TestAccQuickSightTemplate_sourceEntity(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTemplateConfig_TemplateSourceEntity(rId, rName, sourceId, sourceName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTemplateExists(ctx, resourceName, &template),
 					resource.TestCheckResourceAttr(resourceName, "template_id", rId),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
@@ -204,6 +220,7 @@ func TestAccQuickSightTemplate_sourceEntity(t *testing.T) {
 	})
 }
 
+
 func TestAccQuickSightTemplate_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 
@@ -213,7 +230,8 @@ func TestAccQuickSightTemplate_tags(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 		},
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
@@ -222,7 +240,8 @@ func TestAccQuickSightTemplate_tags(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTemplateConfig_tags1(rId, rName, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTemplateExists(ctx, resourceName, &template),
 					resource.TestCheckResourceAttr(resourceName, "template_id", rId),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
@@ -238,7 +257,8 @@ func TestAccQuickSightTemplate_tags(t *testing.T) {
 			},
 			{
 				Config: testAccTemplateConfig_tags2(rId, rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTemplateExists(ctx, resourceName, &template),
 					resource.TestCheckResourceAttr(resourceName, "template_id", rId),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
@@ -250,7 +270,8 @@ func TestAccQuickSightTemplate_tags(t *testing.T) {
 			},
 			{
 				Config: testAccTemplateConfig_tags1(rId, rName, "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTemplateExists(ctx, resourceName, &template),
 					resource.TestCheckResourceAttr(resourceName, "template_id", rId),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
@@ -262,6 +283,7 @@ func TestAccQuickSightTemplate_tags(t *testing.T) {
 		},
 	})
 }
+
 
 func TestAccQuickSightTemplate_update(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -275,7 +297,8 @@ func TestAccQuickSightTemplate_update(t *testing.T) {
 	sourceId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 		},
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
@@ -284,7 +307,8 @@ func TestAccQuickSightTemplate_update(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTemplateConfig_TemplateSourceEntity(rId, rName, sourceId, sourceName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTemplateExists(ctx, resourceName, &template),
 					resource.TestCheckResourceAttr(resourceName, "template_id", rId),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
@@ -302,7 +326,8 @@ func TestAccQuickSightTemplate_update(t *testing.T) {
 
 			{
 				Config: testAccTemplateConfig_TemplateSourceEntity(rId, rNameUpdated, sourceId, sourceName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTemplateExists(ctx, resourceName, &template),
 					resource.TestCheckResourceAttr(resourceName, "template_id", rId),
 					resource.TestCheckResourceAttr(resourceName, "name", rNameUpdated),
@@ -315,8 +340,11 @@ func TestAccQuickSightTemplate_update(t *testing.T) {
 	})
 }
 
-func testAccCheckTemplateDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckTemplateDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -341,8 +369,11 @@ func testAccCheckTemplateDestroy(ctx context.Context) resource.TestCheckFunc {
 	}
 }
 
-func testAccCheckTemplateExists(ctx context.Context, name string, template *quicksight.Template) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckTemplateExists(ctx context.Context, name string, template *quicksight.Template) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
 		if !ok {
 			return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameTemplate, name, errors.New("not found"))
@@ -365,8 +396,11 @@ func testAccCheckTemplateExists(ctx context.Context, name string, template *quic
 	}
 }
 
-func testAccCheckTemplateNotRecreated(before, after *quicksight.Template) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckTemplateNotRecreated(before, after *quicksight.Template) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		if creationTimeBefore, creationTimeAfter := aws.TimeValue(before.CreatedTime), aws.TimeValue(after.CreatedTime); creationTimeBefore != creationTimeAfter {
 			return create.Error(names.QuickSight, create.ErrActionCheckingNotRecreated, tfquicksight.ResNameTemplate, aws.StringValue(before.TemplateId), errors.New("recreated"))
 		}
@@ -374,6 +408,7 @@ func testAccCheckTemplateNotRecreated(before, after *quicksight.Template) resour
 		return nil
 	}
 }
+
 
 func testAccTemplateConfigBase(rId string, rName string) string {
 	return acctest.ConfigCompose(
@@ -421,6 +456,7 @@ resource "aws_quicksight_data_set" "test" {
 }
 `, rId, rName))
 }
+
 
 func testAccTemplateConfig_basic(rId, rName string) string {
 	return acctest.ConfigCompose(
@@ -485,7 +521,8 @@ resource "aws_quicksight_template" "test" {
                       data_set_identifier = "1"
                       column_name         = "Column1"
                     }
-                    aggregation_function = "COUNT"
+                    aggregation_
+function = "COUNT"
                   }
                 }
               }
@@ -499,6 +536,7 @@ resource "aws_quicksight_template" "test" {
 }
 `, rId, rName))
 }
+
 
 func testAccTemplateConfig_BarChart(rId, rName string) string {
 	return acctest.ConfigCompose(
@@ -547,7 +585,8 @@ resource "aws_quicksight_template" "test" {
                       column_name         = "Column2"
                       data_set_identifier = "1"
                     }
-                    aggregation_function {
+                    aggregation_
+function {
                       simple_numerical_aggregation = "SUM"
                     }
                   }
@@ -562,6 +601,7 @@ resource "aws_quicksight_template" "test" {
 }
 `, rId, rName))
 }
+
 
 func testAccTemplateConfig_Table(rId, rName, sortDirection, totalPlacement string) string {
 	return acctest.ConfigCompose(
@@ -644,6 +684,7 @@ resource "aws_quicksight_template" "test" {
 `, rId, rName, sortDirection, totalPlacement))
 }
 
+
 func testAccTemplateConfig_TemplateSourceEntity(rId, rName, sourceId, sourceName string) string {
 	return acctest.ConfigCompose(
 		testAccTemplateConfig_BarChart(sourceId, sourceName),
@@ -660,6 +701,7 @@ resource "aws_quicksight_template" "copy" {
 }
 `, rId, rName))
 }
+
 
 func testAccTemplateConfig_tags1(rId, rName, key1, value1 string) string {
 	return acctest.ConfigCompose(
@@ -708,7 +750,8 @@ resource "aws_quicksight_template" "test" {
                       column_name         = "Column2"
                       data_set_identifier = "1"
                     }
-                    aggregation_function {
+                    aggregation_
+function {
                       simple_numerical_aggregation = "SUM"
                     }
                   }
@@ -727,6 +770,7 @@ resource "aws_quicksight_template" "test" {
 }
 `, rId, rName, key1, value1))
 }
+
 
 func testAccTemplateConfig_tags2(rId, rName, key1, value1, key2, value2 string) string {
 	return acctest.ConfigCompose(
@@ -775,7 +819,8 @@ resource "aws_quicksight_template" "test" {
                       column_name         = "Column2"
                       data_set_identifier = "1"
                     }
-                    aggregation_function {
+                    aggregation_
+function {
                       simple_numerical_aggregation = "SUM"
                     }
                   }

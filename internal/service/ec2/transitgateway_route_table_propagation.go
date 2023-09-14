@@ -21,6 +21,7 @@ import (
 )
 
 // @SDKResource("aws_ec2_transit_gateway_route_table_propagation")
+
 func ResourceTransitGatewayRouteTablePropagation() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceTransitGatewayRouteTablePropagationCreate,
@@ -44,17 +45,20 @@ func ResourceTransitGatewayRouteTablePropagation() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.NoZeroValues,
+				Validate
+func: validation.NoZeroValues,
 			},
 			"transit_gateway_route_table_id": {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.NoZeroValues,
+				Validate
+func: validation.NoZeroValues,
 			},
 		},
 	}
 }
+
 
 func resourceTransitGatewayRouteTablePropagationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -82,6 +86,7 @@ func resourceTransitGatewayRouteTablePropagationCreate(ctx context.Context, d *s
 
 	return append(diags, resourceTransitGatewayRouteTablePropagationRead(ctx, d, meta)...)
 }
+
 
 func resourceTransitGatewayRouteTablePropagationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -112,6 +117,7 @@ func resourceTransitGatewayRouteTablePropagationRead(ctx context.Context, d *sch
 
 	return diags
 }
+
 
 func resourceTransitGatewayRouteTablePropagationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -146,6 +152,7 @@ func resourceTransitGatewayRouteTablePropagationDelete(ctx context.Context, d *s
 
 // transitGatewayRouteTablePropagationUpdate is used by Transit Gateway attachment resources to modify their route table propagations.
 // The route table ID may be empty (e.g. when the Transit Gateway itself has default route table propagation disabled).
+
 func transitGatewayRouteTablePropagationUpdate(ctx context.Context, conn *ec2.EC2, transitGatewayRouteTableID, transitGatewayAttachmentID string, enable bool) error {
 	if transitGatewayRouteTableID == "" {
 		// Do nothing if no route table was specified.
@@ -203,12 +210,14 @@ func transitGatewayRouteTablePropagationUpdate(ctx context.Context, conn *ec2.EC
 
 const transitGatewayRouteTablePropagationIDSeparator = "_"
 
+
 func TransitGatewayRouteTablePropagationCreateResourceID(transitGatewayRouteTableID, transitGatewayAttachmentID string) string {
 	parts := []string{transitGatewayRouteTableID, transitGatewayAttachmentID}
 	id := strings.Join(parts, transitGatewayRouteTablePropagationIDSeparator)
 
 	return id
 }
+
 
 func TransitGatewayRouteTablePropagationParseResourceID(id string) (string, string, error) {
 	parts := strings.Split(id, transitGatewayRouteTablePropagationIDSeparator)

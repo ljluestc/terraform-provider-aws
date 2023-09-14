@@ -14,6 +14,7 @@ import (
 	tfec2 "github.com/hashicorp/terraform-provider-aws/internal/service/ec2"
 )
 
+
 func TestAccEC2KeyPairDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -28,13 +29,15 @@ func TestAccEC2KeyPairDataSource_basic(t *testing.T) {
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyPairDataSourceConfig_basic(rName, publicKey),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttrPair(dataSource1Name, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(dataSource1Name, "fingerprint", resourceName, "fingerprint"),
 					resource.TestCheckResourceAttrPair(dataSource1Name, "key_name", resourceName, "key_name"),
@@ -58,6 +61,7 @@ func TestAccEC2KeyPairDataSource_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2KeyPairDataSource_includePublicKey(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -70,18 +74,21 @@ func TestAccEC2KeyPairDataSource_includePublicKey(t *testing.T) {
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyPairDataSourceConfig_includePublicKey(rName, publicKey),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttrPair(dataSource1Name, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(dataSource1Name, "fingerprint", resourceName, "fingerprint"),
 					resource.TestCheckResourceAttrPair(dataSource1Name, "key_name", resourceName, "key_name"),
 					resource.TestCheckResourceAttrPair(dataSource1Name, "key_pair_id", resourceName, "key_pair_id"),
-					resource.TestCheckResourceAttrWith(dataSource1Name, "public_key", func(v string) error {
+					resource.TestCheckResourceAttrWith(dataSource1Name, "public_key", 
+func(v string) error {
 						if !tfec2.OpenSSHPublicKeysEqual(v, publicKey) {
 							return fmt.Errorf("Attribute 'public_key' expected %q, not equal to %q", publicKey, v)
 						}
@@ -94,6 +101,7 @@ func TestAccEC2KeyPairDataSource_includePublicKey(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccKeyPairDataSourceConfig_basic(rName, publicKey string) string {
 	return fmt.Sprintf(`
@@ -122,6 +130,7 @@ resource "aws_key_pair" "test" {
 }
 `, rName, publicKey)
 }
+
 
 func testAccKeyPairDataSourceConfig_includePublicKey(rName, publicKey string) string {
 	return fmt.Sprintf(`

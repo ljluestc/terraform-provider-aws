@@ -17,6 +17,7 @@ import (
 
 type servicePackage struct{}
 
+
 func (p *servicePackage) FrameworkDataSources(ctx context.Context) []*types.ServicePackageFrameworkDataSource {
 	return []*types.ServicePackageFrameworkDataSource{
 		{
@@ -27,6 +28,7 @@ func (p *servicePackage) FrameworkDataSources(ctx context.Context) []*types.Serv
 		},
 	}
 }
+
 
 func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.ServicePackageFrameworkResource {
 	return []*types.ServicePackageFrameworkResource{
@@ -53,6 +55,7 @@ func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.Servic
 		},
 	}
 }
+
 
 func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{
@@ -388,6 +391,7 @@ func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePac
 		},
 	}
 }
+
 
 func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
@@ -1130,11 +1134,13 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 	}
 }
 
+
 func (p *servicePackage) ServicePackageName() string {
 	return names.EC2
 }
 
 // NewConn returns a new AWS SDK for Go v1 client for this service package's AWS API.
+
 func (p *servicePackage) NewConn(ctx context.Context, config map[string]any) (*ec2_sdkv1.EC2, error) {
 	sess := config["session"].(*session_sdkv1.Session)
 
@@ -1142,15 +1148,18 @@ func (p *servicePackage) NewConn(ctx context.Context, config map[string]any) (*e
 }
 
 // NewClient returns a new AWS SDK for Go v2 client for this service package's AWS API.
+
 func (p *servicePackage) NewClient(ctx context.Context, config map[string]any) (*ec2_sdkv2.Client, error) {
 	cfg := *(config["aws_sdkv2_config"].(*aws_sdkv2.Config))
 
-	return ec2_sdkv2.NewFromConfig(cfg, func(o *ec2_sdkv2.Options) {
+	return ec2_sdkv2.NewFromConfig(cfg, 
+func(o *ec2_sdkv2.Options) {
 		if endpoint := config["endpoint"].(string); endpoint != "" {
 			o.BaseEndpoint = aws_sdkv2.String(endpoint)
 		}
 	}), nil
 }
+
 
 func ServicePackage(ctx context.Context) conns.ServicePackage {
 	return &servicePackage{}

@@ -14,6 +14,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccEC2EBSVolumeDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_ebs_volume.test"
@@ -21,13 +22,15 @@ func TestAccEC2EBSVolumeDataSource_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEBSVolumeDataSourceConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEBSVolumeIDDataSource(dataSourceName),
 					resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(dataSourceName, "size", resourceName, "size"),
@@ -41,6 +44,7 @@ func TestAccEC2EBSVolumeDataSource_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2EBSVolumeDataSource_multipleFilters(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_ebs_volume.test"
@@ -48,13 +52,15 @@ func TestAccEC2EBSVolumeDataSource_multipleFilters(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEBSVolumeDataSourceConfig_multipleFilters(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEBSVolumeIDDataSource(dataSourceName),
 					resource.TestCheckResourceAttrPair(dataSourceName, "size", resourceName, "size"),
 					resource.TestCheckResourceAttr(dataSourceName, "volume_type", "gp2"),
@@ -65,8 +71,11 @@ func TestAccEC2EBSVolumeDataSource_multipleFilters(t *testing.T) {
 	})
 }
 
-func testAccCheckEBSVolumeIDDataSource(n string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckEBSVolumeIDDataSource(n string) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Can't find Volume data source: %s", n)
@@ -78,6 +87,7 @@ func testAccCheckEBSVolumeIDDataSource(n string) resource.TestCheckFunc {
 		return nil
 	}
 }
+
 
 func testAccEBSVolumeDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(
@@ -108,6 +118,7 @@ data "aws_ebs_volume" "test" {
 }
 `, rName))
 }
+
 
 func testAccEBSVolumeDataSourceConfig_multipleFilters(rName string) string {
 	return acctest.ConfigCompose(

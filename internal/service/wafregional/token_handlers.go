@@ -21,15 +21,20 @@ type WafRegionalRetryer struct {
 	Region     string
 }
 
-type withRegionalTokenFunc func(token *string) (interface{}, error)
+type withRegionalToken
+func 
+func(token *string) (interface{}, error)
 
-func (t *WafRegionalRetryer) RetryWithToken(ctx context.Context, f withRegionalTokenFunc) (interface{}, error) {
+
+func (t *WafRegionalRetryer) RetryWithToken(ctx context.Context, f withRegionalToken
+func) (interface{}, error) {
 	conns.GlobalMutexKV.Lock(t.Region)
 	defer conns.GlobalMutexKV.Unlock(t.Region)
 
 	var out interface{}
 	var tokenOut *waf.GetChangeTokenOutput
-	err := retry.RetryContext(ctx, 15*time.Minute, func() *retry.RetryError {
+	err := retry.RetryContext(ctx, 15*time.Minute, 
+func() *retry.RetryError {
 		var err error
 
 		tokenOut, err = t.Connection.GetChangeToken(&waf.GetChangeTokenInput{})
@@ -60,6 +65,7 @@ func (t *WafRegionalRetryer) RetryWithToken(ctx context.Context, f withRegionalT
 	}
 	return out, nil
 }
+
 
 func NewRetryer(conn *wafregional.WAFRegional, region string) *WafRegionalRetryer {
 	return &WafRegionalRetryer{Connection: conn, Region: region}

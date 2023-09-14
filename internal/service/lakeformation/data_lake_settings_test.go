@@ -18,19 +18,22 @@ import (
 	tflakeformation "github.com/hashicorp/terraform-provider-aws/internal/service/lakeformation"
 )
 
+
 func testAccDataLakeSettings_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lakeformation_data_lake_settings.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
 		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDataLakeSettingsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataLakeSettingsConfig_basic,
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckDataLakeSettingsExists(ctx, resourceName),
 					resource.TestCheckResourceAttrPair(resourceName, "catalog_id", "data.aws_caller_identity.current", "account_id"),
 					resource.TestCheckResourceAttr(resourceName, "admins.#", "1"),
@@ -54,19 +57,22 @@ func testAccDataLakeSettings_basic(t *testing.T) {
 	})
 }
 
+
 func testAccDataLakeSettings_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lakeformation_data_lake_settings.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, lakeformation.EndpointsID) },
 		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDataLakeSettingsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataLakeSettingsConfig_basic,
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckDataLakeSettingsExists(ctx, resourceName),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tflakeformation.ResourceDataLakeSettings(), resourceName),
 				),
@@ -76,19 +82,22 @@ func testAccDataLakeSettings_disappears(t *testing.T) {
 	})
 }
 
+
 func testAccDataLakeSettings_withoutCatalogID(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lakeformation_data_lake_settings.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDataLakeSettingsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataLakeSettingsConfig_withoutCatalogID,
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckDataLakeSettingsExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "admins.#", "1"),
 					resource.TestCheckResourceAttrPair(resourceName, "admins.0", "data.aws_iam_session_context.current", "issuer_arn"),
@@ -98,19 +107,22 @@ func testAccDataLakeSettings_withoutCatalogID(t *testing.T) {
 	})
 }
 
+
 func testAccDataLakeSettings_readOnlyAdmins(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_lakeformation_data_lake_settings.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, lakeformation.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDataLakeSettingsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataLakeSettingsConfig_readOnlyAdmins,
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckDataLakeSettingsExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "read_only_admins.#", "1"),
 					resource.TestCheckResourceAttrPair(resourceName, "read_only_admins.0", "data.aws_iam_session_context.current", "issuer_arn"),
@@ -120,8 +132,11 @@ func testAccDataLakeSettings_readOnlyAdmins(t *testing.T) {
 	})
 }
 
-func testAccCheckDataLakeSettingsDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckDataLakeSettingsDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).LakeFormationConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -158,8 +173,11 @@ func testAccCheckDataLakeSettingsDestroy(ctx context.Context) resource.TestCheck
 	}
 }
 
-func testAccCheckDataLakeSettingsExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckDataLakeSettingsExists(ctx context.Context, resourceName string) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("resource not found: %s", resourceName)

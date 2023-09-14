@@ -16,8 +16,11 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func testAccCheckLayerExists(ctx context.Context, n string, v *opsworks.Layer) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckLayerExists(ctx context.Context, n string, v *opsworks.Layer) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -40,6 +43,7 @@ func testAccCheckLayerExists(ctx context.Context, n string, v *opsworks.Layer) r
 		return nil
 	}
 }
+
 
 func testAccCheckLayerDestroy(ctx context.Context, resourceType string, s *terraform.State) error { // nosemgrep:ci.semgrep.acctest.naming.destroy-check-signature
 	conn := acctest.Provider.Meta().(*conns.AWSClient).OpsWorksConn(ctx)
@@ -65,6 +69,7 @@ func testAccCheckLayerDestroy(ctx context.Context, resourceType string, s *terra
 	return nil
 }
 
+
 func testAccLayerConfig_base(rName string) string {
 	return acctest.ConfigCompose(testAccStackConfig_basic(rName), fmt.Sprintf(`
 resource "aws_security_group" "test" {
@@ -86,6 +91,7 @@ resource "aws_security_group" "test" {
 }
 `, rName))
 }
+
 
 func testAccLayerConfig_baseAlternateRegion(rName string) string {
 	return acctest.ConfigCompose(testAccStackConfig_baseVPCAlternateRegion(rName), fmt.Sprintf(`

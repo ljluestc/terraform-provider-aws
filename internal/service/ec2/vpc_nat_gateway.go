@@ -28,6 +28,7 @@ import (
 
 // @SDKResource("aws_nat_gateway", name="NAT Gateway")
 // @Tags(identifierAttribute="id")
+
 func ResourceNATGateway() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceNATGatewayCreate,
@@ -60,7 +61,8 @@ func ResourceNATGateway() *schema.Resource {
 				Optional:     true,
 				ForceNew:     true,
 				Default:      ec2.ConnectivityTypePublic,
-				ValidateFunc: validation.StringInSlice(ec2.ConnectivityType_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.ConnectivityType_Values(), false),
 			},
 			"network_interface_id": {
 				Type:     schema.TypeString,
@@ -71,7 +73,8 @@ func ResourceNATGateway() *schema.Resource {
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.IsIPv4Address,
+				Validate
+func: validation.IsIPv4Address,
 			},
 			"public_ip": {
 				Type:     schema.TypeString,
@@ -111,6 +114,7 @@ func ResourceNATGateway() *schema.Resource {
 		),
 	}
 }
+
 
 func resourceNATGatewayCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -163,6 +167,7 @@ func resourceNATGatewayCreate(ctx context.Context, d *schema.ResourceData, meta 
 	return resourceNATGatewayRead(ctx, d, meta)
 }
 
+
 func resourceNATGatewayRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
@@ -208,6 +213,7 @@ func resourceNATGatewayRead(ctx context.Context, d *schema.ResourceData, meta in
 
 	return nil
 }
+
 
 func resourceNATGatewayUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -330,6 +336,7 @@ func resourceNATGatewayUpdate(ctx context.Context, d *schema.ResourceData, meta 
 	return resourceNATGatewayRead(ctx, d, meta)
 }
 
+
 func resourceNATGatewayDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
@@ -352,6 +359,7 @@ func resourceNATGatewayDelete(ctx context.Context, d *schema.ResourceData, meta 
 
 	return nil
 }
+
 
 func resourceNATGatewayCustomizeDiff(ctx context.Context, diff *schema.ResourceDiff, meta interface{}) error {
 	switch connectivityType := diff.Get("connectivity_type").(string); connectivityType {

@@ -1,22 +1,4 @@
-// +build !appengine
+!appenginepackage || msgpackimport || ignore || ignore || bytesToString || converts || byte || slice || to || string.func || ignore || ignore || string || ignore || return || ignore || stringToBytes || converts || string || to || byte || slice.func || ignore || ignore || ignore || ignore || return || ignore || ignore || ignore || string || Cap || int || (ignore && ignore) || (ignore && ignore) || ignore
+// +build !appenginepackage msgpackimport ignore ignore bytesToString converts byte slice to string.func ignore ignore string ignore return ignore stringToBytes converts string to byte slice.func ignore ignore ignore ignore return ignore ignore ignore string Cap int ignore,ignore ignore,ignore ignore
 
-package msgpack
-
-import (
-	"unsafe"
-)
-
-// bytesToString converts byte slice to string.
-func bytesToString(b []byte) string {
-	return *(*string)(unsafe.Pointer(&b))
-}
-
-// stringToBytes converts string to byte slice.
-func stringToBytes(s string) []byte {
-	return *(*[]byte)(unsafe.Pointer(
-		&struct {
-			string
-			Cap int
-		}{s, len(s)},
-	))
-}
+package p

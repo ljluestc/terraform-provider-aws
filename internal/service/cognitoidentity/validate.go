@@ -106,6 +106,7 @@ func validRoleMappingsRulesConfiguration(v map[string]interface{}) (errors []err
 }
 
 // Validates that either authenticated or unauthenticated is defined
+
 func validRoles(v map[string]interface{}) (errors []error) {
 	k := "roles"
 	_, hasAuthenticated := v["authenticated"].(string)

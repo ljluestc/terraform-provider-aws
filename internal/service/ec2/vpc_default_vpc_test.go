@@ -21,10 +21,12 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccVPCDefaultVPCAndSubnet_serial(t *testing.T) {
 	t.Parallel()
 
-	testCases := map[string]map[string]func(t *testing.T){
+	testCases := map[string]map[string]
+func(t *testing.T){
 		"VPC": {
 			"existing.basic":                                testAccDefaultVPC_Existing_basic,
 			"existing.assignGeneratedIPv6CIDRBlock":         testAccDefaultVPC_Existing_assignGeneratedIPv6CIDRBlock,
@@ -47,11 +49,13 @@ func TestAccVPCDefaultVPCAndSubnet_serial(t *testing.T) {
 	acctest.RunSerialTests2Levels(t, testCases, 0)
 }
 
+
 func testAccPreCheckDefaultVPCExists(ctx context.Context, t *testing.T) {
 	if !hasDefaultVPC(ctx, t) {
 		t.Skip("skipping since no default VPC exists")
 	}
 }
+
 
 func testAccPreCheckDefaultVPCNotFound(ctx context.Context, t *testing.T) {
 	if vpcID := defaultVPC(ctx, t); vpcID != "" {
@@ -75,13 +79,15 @@ func testAccPreCheckDefaultVPCNotFound(ctx context.Context, t *testing.T) {
 	}
 }
 
+
 func testAccDefaultVPC_Existing_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.Vpc
 	resourceName := "aws_default_vpc.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckRegionNot(t, endpoints.UsWest2RegionID, endpoints.UsGovWest1RegionID)
 			testAccPreCheckDefaultVPCExists(ctx, t)
@@ -92,7 +98,8 @@ func testAccDefaultVPC_Existing_basic(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCDefaultVPCConfig_basic,
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					acctest.CheckVPCExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "assign_generated_ipv6_cidr_block", "false"),
@@ -120,6 +127,7 @@ func testAccDefaultVPC_Existing_basic(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccDefaultVPC_Existing_assignGeneratedIPv6CIDRBlock(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -128,7 +136,8 @@ func testAccDefaultVPC_Existing_assignGeneratedIPv6CIDRBlock(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckRegionNot(t, endpoints.UsWest2RegionID, endpoints.UsGovWest1RegionID)
 			testAccPreCheckDefaultVPCExists(ctx, t)
@@ -139,7 +148,8 @@ func testAccDefaultVPC_Existing_assignGeneratedIPv6CIDRBlock(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCDefaultVPCConfig_assignGeneratedIPv6CIDRBlock(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					acctest.CheckVPCExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "assign_generated_ipv6_cidr_block", "true"),
@@ -169,13 +179,15 @@ func testAccDefaultVPC_Existing_assignGeneratedIPv6CIDRBlock(t *testing.T) {
 	})
 }
 
+
 func testAccDefaultVPC_Existing_forceDestroy(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.Vpc
 	resourceName := "aws_default_vpc.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckRegionNot(t, endpoints.UsWest2RegionID, endpoints.UsGovWest1RegionID)
 			testAccPreCheckDefaultVPCExists(ctx, t)
@@ -186,7 +198,8 @@ func testAccDefaultVPC_Existing_forceDestroy(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCDefaultVPCConfig_forceDestroy,
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					acctest.CheckVPCExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "existing_default_vpc", "true"),
 					resource.TestCheckResourceAttr(resourceName, "force_destroy", "true"),
@@ -197,13 +210,15 @@ func testAccDefaultVPC_Existing_forceDestroy(t *testing.T) {
 	})
 }
 
+
 func testAccDefaultVPC_NotFound_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.Vpc
 	resourceName := "aws_default_vpc.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckRegionNot(t, endpoints.UsWest2RegionID, endpoints.UsGovWest1RegionID)
 			testAccPreCheckDefaultVPCNotFound(ctx, t)
@@ -214,7 +229,8 @@ func testAccDefaultVPC_NotFound_basic(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCDefaultVPCConfig_basic,
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					acctest.CheckVPCExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "assign_generated_ipv6_cidr_block", "false"),
@@ -243,6 +259,7 @@ func testAccDefaultVPC_NotFound_basic(t *testing.T) {
 	})
 }
 
+
 func testAccDefaultVPC_NotFound_assignGeneratedIPv6CIDRBlock(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.Vpc
@@ -250,7 +267,8 @@ func testAccDefaultVPC_NotFound_assignGeneratedIPv6CIDRBlock(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckRegionNot(t, endpoints.UsWest2RegionID, endpoints.UsGovWest1RegionID)
 			testAccPreCheckDefaultVPCNotFound(ctx, t)
@@ -261,7 +279,8 @@ func testAccDefaultVPC_NotFound_assignGeneratedIPv6CIDRBlock(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCDefaultVPCConfig_assignGeneratedIPv6CIDRBlock(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					acctest.CheckVPCExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "assign_generated_ipv6_cidr_block", "true"),
@@ -291,13 +310,15 @@ func testAccDefaultVPC_NotFound_assignGeneratedIPv6CIDRBlock(t *testing.T) {
 	})
 }
 
+
 func testAccDefaultVPC_NotFound_forceDestroy(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.Vpc
 	resourceName := "aws_default_vpc.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckRegionNot(t, endpoints.UsWest2RegionID, endpoints.UsGovWest1RegionID)
 			testAccPreCheckDefaultVPCNotFound(ctx, t)
@@ -308,7 +329,8 @@ func testAccDefaultVPC_NotFound_forceDestroy(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCDefaultVPCConfig_forceDestroy,
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					acctest.CheckVPCExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "existing_default_vpc", "false"),
 					resource.TestCheckResourceAttr(resourceName, "force_destroy", "true"),
@@ -319,6 +341,7 @@ func testAccDefaultVPC_NotFound_forceDestroy(t *testing.T) {
 	})
 }
 
+
 func testAccDefaultVPC_NotFound_assignGeneratedIPv6CIDRBlockAdoption(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.Vpc
@@ -326,7 +349,8 @@ func testAccDefaultVPC_NotFound_assignGeneratedIPv6CIDRBlockAdoption(t *testing.
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckRegionNot(t, endpoints.UsWest2RegionID, endpoints.UsGovWest1RegionID)
 			testAccPreCheckDefaultVPCNotFound(ctx, t)
@@ -337,7 +361,8 @@ func testAccDefaultVPC_NotFound_assignGeneratedIPv6CIDRBlockAdoption(t *testing.
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCDefaultVPCConfig_assignGeneratedIPv6CIDRBlockAdoptionStep1(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					acctest.CheckVPCExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "assign_generated_ipv6_cidr_block", "true"),
@@ -365,9 +390,11 @@ func testAccDefaultVPC_NotFound_assignGeneratedIPv6CIDRBlockAdoption(t *testing.
 			},
 			{
 				Config: testAccVPCDefaultVPCConfig_assignGeneratedIPv6CIDRBlockAdoptionStep2(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					// Verify that the default VPC is no longer in state.
-					func(s *terraform.State) error {
+					
+func(s *terraform.State) error {
 						_, ok := s.RootModule().Resources[resourceName]
 						if ok {
 							return fmt.Errorf("Found: %s", resourceName)
@@ -379,7 +406,8 @@ func testAccDefaultVPC_NotFound_assignGeneratedIPv6CIDRBlockAdoption(t *testing.
 			},
 			{
 				Config: testAccVPCDefaultVPCConfig_assignGeneratedIPv6CIDRBlockAdoptionStep3(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					acctest.CheckVPCExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "assign_generated_ipv6_cidr_block", "true"),
@@ -411,8 +439,11 @@ func testAccDefaultVPC_NotFound_assignGeneratedIPv6CIDRBlockAdoption(t *testing.
 
 // testAccCheckDefaultVPCDestroyExists runs after all resources are destroyed.
 // It verifies that the default VPC still exists.
-func testAccCheckDefaultVPCDestroyExists(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckDefaultVPCDestroyExists(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -434,8 +465,11 @@ func testAccCheckDefaultVPCDestroyExists(ctx context.Context) resource.TestCheck
 // testAccCheckDefaultVPCDestroyNotFound runs after all resources are destroyed.
 // It verifies that the default VPC does not exist.
 // A new default VPC is then created.
-func testAccCheckDefaultVPCDestroyNotFound(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckDefaultVPCDestroyNotFound(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -466,14 +500,19 @@ func testAccCheckDefaultVPCDestroyNotFound(ctx context.Context) resource.TestChe
 	}
 }
 
-// testAccCheckDefaultVPCEmpty returns a TestCheckFunc that empties the specified default VPC.
-func testAccCheckDefaultVPCEmpty(ctx context.Context, v *ec2.Vpc) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+// testAccCheckDefaultVPCEmpty returns a TestCheck
+func that empties the specified default VPC.
+
+func testAccCheckDefaultVPCEmpty(ctx context.Context, v *ec2.Vpc) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		return testAccEmptyDefaultVPC(ctx, aws.StringValue(v.VpcId))
 	}
 }
 
 // testAccEmptyDefaultVPC empties a default VPC so that it can be deleted.
+
 func testAccEmptyDefaultVPC(ctx context.Context, vpcID string) error {
 	conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
@@ -540,6 +579,7 @@ resource "aws_default_vpc" "test" {
 }
 `
 
+
 func testAccVPCDefaultVPCConfig_assignGeneratedIPv6CIDRBlock(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_default_vpc" "test" {
@@ -551,6 +591,7 @@ resource "aws_default_vpc" "test" {
 }
 `, rName)
 }
+
 
 func testAccVPCDefaultVPCConfig_assignGeneratedIPv6CIDRBlockAdoptionStep1(rName string) string {
 	// Create an IPV6 subnet in the default VPC.
@@ -582,6 +623,7 @@ resource "aws_subnet" "test" {
 `, rName)
 }
 
+
 func testAccVPCDefaultVPCConfig_assignGeneratedIPv6CIDRBlockAdoptionStep2(rName string) string {
 	// Remove the default VPC from state.
 	return fmt.Sprintf(`
@@ -601,6 +643,7 @@ resource "aws_subnet" "test" {
 }
 `, rName)
 }
+
 
 func testAccVPCDefaultVPCConfig_assignGeneratedIPv6CIDRBlockAdoptionStep3(rName string) string {
 	// Adopt the default VPC.

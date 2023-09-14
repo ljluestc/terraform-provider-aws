@@ -15,18 +15,21 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccVPCEndpointServiceDataSource_gateway(t *testing.T) {
 	ctx := acctest.Context(t)
 	datasourceName := "data.aws_vpc_endpoint_service.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCEndpointServiceDataSourceConfig_gateway,
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttr(datasourceName, "acceptance_required", "false"),
 					acctest.MatchResourceAttrRegionalARN(datasourceName, "arn", "ec2", regexache.MustCompile(`vpc-endpoint-service/vpce-svc-.+`)),
 					acctest.CheckResourceAttrGreaterThanValue(datasourceName, "availability_zones.#", 0),
@@ -45,18 +48,21 @@ func TestAccVPCEndpointServiceDataSource_gateway(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCEndpointServiceDataSource_interface(t *testing.T) {
 	ctx := acctest.Context(t)
 	datasourceName := "data.aws_vpc_endpoint_service.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCEndpointServiceDataSourceConfig_interface,
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttr(datasourceName, "acceptance_required", "false"),
 					acctest.MatchResourceAttrRegionalARN(datasourceName, "arn", "ec2", regexache.MustCompile(`vpc-endpoint-service/vpce-svc-.+`)),
 					acctest.CheckResourceAttrGreaterThanValue(datasourceName, "availability_zones.#", 0),
@@ -75,6 +81,7 @@ func TestAccVPCEndpointServiceDataSource_interface(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCEndpointServiceDataSource_custom(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_vpc_endpoint_service.test"
@@ -82,13 +89,15 @@ func TestAccVPCEndpointServiceDataSource_custom(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix("tfacctest") // 32 character limit
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCEndpointServiceDataSourceConfig_custom(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrPair(datasourceName, "acceptance_required", resourceName, "acceptance_required"),
 					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(datasourceName, "availability_zones.#", resourceName, "availability_zones.#"),
@@ -105,6 +114,7 @@ func TestAccVPCEndpointServiceDataSource_custom(t *testing.T) {
 		},
 	})
 }
+
 
 func TestAccVPCEndpointServiceDataSource_Custom_filter(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -113,13 +123,15 @@ func TestAccVPCEndpointServiceDataSource_Custom_filter(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix("tfacctest") // 32 character limit
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCEndpointServiceDataSourceConfig_customFilter(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrPair(datasourceName, "acceptance_required", resourceName, "acceptance_required"),
 					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(datasourceName, "availability_zones.#", resourceName, "availability_zones.#"),
@@ -136,6 +148,7 @@ func TestAccVPCEndpointServiceDataSource_Custom_filter(t *testing.T) {
 		},
 	})
 }
+
 
 func TestAccVPCEndpointServiceDataSource_CustomFilter_tags(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -144,13 +157,15 @@ func TestAccVPCEndpointServiceDataSource_CustomFilter_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix("tfacctest") // 32 character limit
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCEndpointServiceDataSourceConfig_customFilterTags(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrPair(datasourceName, "acceptance_required", resourceName, "acceptance_required"),
 					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(datasourceName, "availability_zones.#", resourceName, "availability_zones.#"),
@@ -168,18 +183,21 @@ func TestAccVPCEndpointServiceDataSource_CustomFilter_tags(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCEndpointServiceDataSource_ServiceType_gateway(t *testing.T) {
 	ctx := acctest.Context(t)
 	datasourceName := "data.aws_vpc_endpoint_service.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCEndpointServiceDataSourceConfig_type("s3", "Gateway"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckResourceAttrRegionalReverseDNSService(datasourceName, "service_name", "s3"),
 					resource.TestCheckResourceAttr(datasourceName, "service_type", "Gateway"),
 				),
@@ -188,18 +206,21 @@ func TestAccVPCEndpointServiceDataSource_ServiceType_gateway(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCEndpointServiceDataSource_ServiceType_interface(t *testing.T) {
 	ctx := acctest.Context(t)
 	datasourceName := "data.aws_vpc_endpoint_service.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCEndpointServiceDataSourceConfig_type("ec2", "Interface"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckResourceAttrRegionalReverseDNSService(datasourceName, "service_name", "ec2"),
 					resource.TestCheckResourceAttr(datasourceName, "service_type", "Interface"),
 				),
@@ -211,8 +232,11 @@ func TestAccVPCEndpointServiceDataSource_ServiceType_interface(t *testing.T) {
 // testAccCheckResourceAttrRegionalReverseDNSService ensures the Terraform state exactly matches a service reverse DNS hostname with region and partition DNS suffix
 //
 // For example: com.amazonaws.us-west-2.s3
-func testAccCheckResourceAttrRegionalReverseDNSService(resourceName, attributeName, serviceName string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckResourceAttrRegionalReverseDNSService(resourceName, attributeName, serviceName string) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		reverseDns := fmt.Sprintf("%s.%s.%s", acctest.PartitionReverseDNSPrefix(), acctest.Region(), serviceName)
 
 		return resource.TestCheckResourceAttr(resourceName, attributeName, reverseDns)(s)
@@ -231,6 +255,7 @@ data "aws_vpc_endpoint_service" "test" {
 }
 `
 
+
 func testAccVPCEndpointServiceDataSourceConfig_type(service string, serviceType string) string {
 	return fmt.Sprintf(`
 data "aws_vpc_endpoint_service" "test" {
@@ -239,6 +264,7 @@ data "aws_vpc_endpoint_service" "test" {
 }
 `, service, serviceType)
 }
+
 
 func testAccVPCEndpointServiceDataSourceConfig_customBase(rName string) string {
 	return acctest.ConfigCompose(testAccVPCEndpointServiceConfig_baseNetworkLoadBalancer(rName, 1), fmt.Sprintf(`
@@ -253,6 +279,7 @@ resource "aws_vpc_endpoint_service" "test" {
 `, rName))
 }
 
+
 func testAccVPCEndpointServiceDataSourceConfig_custom(rName string) string {
 	return acctest.ConfigCompose(testAccVPCEndpointServiceDataSourceConfig_customBase(rName), `
 data "aws_vpc_endpoint_service" "test" {
@@ -260,6 +287,7 @@ data "aws_vpc_endpoint_service" "test" {
 }
 `)
 }
+
 
 func testAccVPCEndpointServiceDataSourceConfig_customFilter(rName string) string {
 	return acctest.ConfigCompose(testAccVPCEndpointServiceDataSourceConfig_customBase(rName), `
@@ -271,6 +299,7 @@ data "aws_vpc_endpoint_service" "test" {
 }
 `)
 }
+
 
 func testAccVPCEndpointServiceDataSourceConfig_customFilterTags(rName string) string {
 	return acctest.ConfigCompose(testAccVPCEndpointServiceDataSourceConfig_customBase(rName), `

@@ -21,6 +21,7 @@ import (
 )
 
 // @SDKResource("aws_snapshot_create_volume_permission")
+
 func ResourceSnapshotCreateVolumePermission() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceSnapshotCreateVolumePermissionCreate,
@@ -75,9 +76,10 @@ func resourceSnapshotCreateVolumePermissionCreate(ctx context.Context, d *schema
 
 	d.SetId(id)
 
-	_, err = tfresource.RetryWhenNotFound(ctx, d.Timeout(schema.TimeoutCreate), func() (interface{}, error) {
-		return FindCreateSnapshotCreateVolumePermissionByTwoPartKey(ctx, conn, snapshotID, accountID)
-	})
+	_, err = tfresource.RetryWhenNotFound(ctx, d.Timeout(schema.TimeoutCreate),
+		func() (interface{}, error) {
+			return FindCreateSnapshotCreateVolumePermissionByTwoPartKey(ctx, conn, snapshotID, accountID)
+		})
 
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "waiting for EBS Snapshot CreateVolumePermission create (%s): %s", d.Id(), err)
@@ -140,9 +142,10 @@ func resourceSnapshotCreateVolumePermissionDelete(ctx context.Context, d *schema
 		return sdkdiag.AppendErrorf(diags, "deleting EBS Snapshot CreateVolumePermission (%s): %s", d.Id(), err)
 	}
 
-	_, err = tfresource.RetryUntilNotFound(ctx, d.Timeout(schema.TimeoutDelete), func() (interface{}, error) {
-		return FindCreateSnapshotCreateVolumePermissionByTwoPartKey(ctx, conn, snapshotID, accountID)
-	})
+	_, err = tfresource.RetryUntilNotFound(ctx, d.Timeout(schema.TimeoutDelete),
+		func() (interface{}, error) {
+			return FindCreateSnapshotCreateVolumePermissionByTwoPartKey(ctx, conn, snapshotID, accountID)
+		})
 
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "waiting for EBS Snapshot CreateVolumePermission delete (%s): %s", d.Id(), err)

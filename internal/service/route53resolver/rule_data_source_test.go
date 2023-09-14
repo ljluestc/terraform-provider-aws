@@ -13,9 +13,12 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func init() {
-	acctest.RegisterServiceErrorCheckFunc(route53resolver.EndpointsID, testAccErrorCheckSkipRoute53)
+	acctest.RegisterServiceErrorCheck
+func(route53resolver.EndpointsID, testAccErrorCheckSkipRoute53)
 }
+
 
 func TestAccRoute53ResolverRuleDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -27,13 +30,15 @@ func TestAccRoute53ResolverRuleDataSource_basic(t *testing.T) {
 	ds3ResourceName := "data.aws_route53_resolver_rule.by_name_and_rule_type"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, route53resolver.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleDataSourceConfig_basic(rName, domainName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrPair(ds1ResourceName, "id", resourceName, "id"),
 					resource.TestCheckResourceAttrPair(ds1ResourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(ds1ResourceName, "domain_name", resourceName, "domain_name"),
@@ -72,6 +77,7 @@ func TestAccRoute53ResolverRuleDataSource_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccRoute53ResolverRuleDataSource_resolverEndpointIdWithTags(t *testing.T) {
 	ctx := acctest.Context(t)
 	domainName := acctest.RandomDomainName()
@@ -80,13 +86,15 @@ func TestAccRoute53ResolverRuleDataSource_resolverEndpointIdWithTags(t *testing.
 	ds1ResourceName := "data.aws_route53_resolver_rule.by_resolver_endpoint_id"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, route53resolver.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleDataSourceConfig_resolverEndpointIDTags(rName, domainName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrPair(ds1ResourceName, "id", resourceName, "id"),
 					resource.TestCheckResourceAttrPair(ds1ResourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(ds1ResourceName, "domain_name", resourceName, "domain_name"),
@@ -106,6 +114,7 @@ func TestAccRoute53ResolverRuleDataSource_resolverEndpointIdWithTags(t *testing.
 	})
 }
 
+
 func TestAccRoute53ResolverRuleDataSource_sharedByMe(t *testing.T) {
 	ctx := acctest.Context(t)
 	domainName := acctest.RandomDomainName()
@@ -114,7 +123,8 @@ func TestAccRoute53ResolverRuleDataSource_sharedByMe(t *testing.T) {
 	ds1ResourceName := "data.aws_route53_resolver_rule.by_resolver_endpoint_id"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
 			testAccPreCheck(ctx, t)
@@ -124,7 +134,8 @@ func TestAccRoute53ResolverRuleDataSource_sharedByMe(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleDataSourceConfig_sharedByMe(rName, domainName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrPair(ds1ResourceName, "id", resourceName, "id"),
 					resource.TestCheckResourceAttrPair(ds1ResourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(ds1ResourceName, "domain_name", resourceName, "domain_name"),
@@ -144,6 +155,7 @@ func TestAccRoute53ResolverRuleDataSource_sharedByMe(t *testing.T) {
 	})
 }
 
+
 func TestAccRoute53ResolverRuleDataSource_sharedWithMe(t *testing.T) {
 	ctx := acctest.Context(t)
 	domainName := acctest.RandomDomainName()
@@ -152,7 +164,8 @@ func TestAccRoute53ResolverRuleDataSource_sharedWithMe(t *testing.T) {
 	ds1ResourceName := "data.aws_route53_resolver_rule.by_resolver_endpoint_id"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
 			testAccPreCheck(ctx, t)
@@ -162,7 +175,8 @@ func TestAccRoute53ResolverRuleDataSource_sharedWithMe(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleDataSourceConfig_sharedWithMe(rName, domainName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrPair(ds1ResourceName, "id", resourceName, "id"),
 					resource.TestCheckResourceAttrPair(ds1ResourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(ds1ResourceName, "domain_name", resourceName, "domain_name"),
@@ -179,6 +193,7 @@ func TestAccRoute53ResolverRuleDataSource_sharedWithMe(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccRuleDataSourceConfig_basic(rName, domainName string) string {
 	return fmt.Sprintf(`
@@ -202,6 +217,7 @@ data "aws_route53_resolver_rule" "by_name_and_rule_type" {
 }
 `, rName, domainName)
 }
+
 
 func testAccRuleDataSourceConfig_resolverEndpointIDTags(rName, domainName string) string {
 	return acctest.ConfigCompose(testAccRuleConfig_resolverEndpointBase(rName), fmt.Sprintf(`
@@ -227,6 +243,7 @@ data "aws_route53_resolver_rule" "by_resolver_endpoint_id" {
 }
 `, rName, domainName))
 }
+
 
 func testAccRuleDataSourceConfig_sharedByMe(rName, domainName string) string {
 	return acctest.ConfigCompose(testAccRuleConfig_resolverEndpointBase(rName), acctest.ConfigAlternateAccountProvider(), fmt.Sprintf(`
@@ -271,6 +288,7 @@ data "aws_route53_resolver_rule" "by_resolver_endpoint_id" {
 }
 `, rName, domainName))
 }
+
 
 func testAccRuleDataSourceConfig_sharedWithMe(rName, domainName string) string {
 	return acctest.ConfigCompose(testAccRuleConfig_resolverEndpointBase(rName), acctest.ConfigAlternateAccountProvider(), fmt.Sprintf(`
@@ -319,7 +337,9 @@ data "aws_route53_resolver_rule" "by_resolver_endpoint_id" {
 }
 
 // testAccErrorCheckSkipRoute53 skips Route53 tests that have error messages indicating unsupported features
-func testAccErrorCheckSkipRoute53(t *testing.T) resource.ErrorCheckFunc {
+
+func testAccErrorCheckSkipRoute53(t *testing.T) resource.ErrorCheck
+func {
 	return acctest.ErrorCheckSkipMessagesContaining(t,
 		"Operations related to PublicDNS",
 		"Regional control plane current does not support",

@@ -23,6 +23,7 @@ import (
 
 // @SDKDataSource("aws_vpc", name="VPC")
 // @Tags
+
 func DataSourceVPC() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceVPCRead,

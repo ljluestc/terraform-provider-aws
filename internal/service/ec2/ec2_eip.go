@@ -27,6 +27,7 @@ import (
 
 // @SDKResource("aws_eip", name="EIP")
 // @Tags(identifierAttribute="id")
+
 func ResourceEIP() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceEIPCreate,
@@ -80,7 +81,8 @@ func ResourceEIP() *schema.Resource {
 				ForceNew:      true,
 				Optional:      true,
 				Computed:      true,
-				ValidateFunc:  validation.StringInSlice(ec2.DomainType_Values(), false),
+				Validate
+func:  validation.StringInSlice(ec2.DomainType_Values(), false),
 				ConflictsWith: []string{"vpc"},
 			},
 			"instance": {
@@ -135,6 +137,7 @@ func ResourceEIP() *schema.Resource {
 	}
 }
 
+
 func resourceEIPCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -175,7 +178,8 @@ func resourceEIPCreate(ctx context.Context, d *schema.ResourceData, meta interfa
 
 	d.SetId(aws.StringValue(output.AllocationId))
 
-	_, err = tfresource.RetryWhenNotFound(ctx, d.Timeout(schema.TimeoutCreate), func() (interface{}, error) {
+	_, err = tfresource.RetryWhenNotFound(ctx, d.Timeout(schema.TimeoutCreate), 
+func() (interface{}, error) {
 		return FindEIPByAllocationID(ctx, conn, d.Id())
 	})
 
@@ -185,7 +189,8 @@ func resourceEIPCreate(ctx context.Context, d *schema.ResourceData, meta interfa
 
 	if instanceID, eniID := d.Get("instance").(string), d.Get("network_interface").(string); instanceID != "" || eniID != "" {
 		_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, d.Timeout(schema.TimeoutCreate),
-			func() (interface{}, error) {
+			
+func() (interface{}, error) {
 				return nil, associateEIP(ctx, conn, d.Id(), instanceID, eniID, d.Get("associate_with_private_ip").(string))
 			}, errCodeInvalidAllocationIDNotFound)
 
@@ -197,6 +202,7 @@ func resourceEIPCreate(ctx context.Context, d *schema.ResourceData, meta interfa
 	return append(diags, resourceEIPRead(ctx, d, meta)...)
 }
 
+
 func resourceEIPRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -205,7 +211,8 @@ func resourceEIPRead(ctx context.Context, d *schema.ResourceData, meta interface
 		return sdkdiag.AppendErrorf(diags, `with the retirement of EC2-Classic %s domain EC2 EIPs are no longer supported`, ec2.DomainTypeStandard)
 	}
 
-	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout, func() (interface{}, error) {
+	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout, 
+func() (interface{}, error) {
 		return FindEIPByAllocationID(ctx, conn, d.Id())
 	}, d.IsNewResource())
 
@@ -251,6 +258,7 @@ func resourceEIPRead(ctx context.Context, d *schema.ResourceData, meta interface
 	return diags
 }
 
+
 func resourceEIPUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -274,6 +282,7 @@ func resourceEIPUpdate(ctx context.Context, d *schema.ResourceData, meta interfa
 
 	return append(diags, resourceEIPRead(ctx, d, meta)...)
 }
+
 
 func resourceEIPDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -315,9 +324,11 @@ func resourceEIPDelete(ctx context.Context, d *schema.ResourceData, meta interfa
 type eipID string
 
 // IsVPC returns whether or not the EIP is in the VPC domain.
+
 func (id eipID) IsVPC() bool {
 	return strings.HasPrefix(string(id), "eipalloc-")
 }
+
 
 func associateEIP(ctx context.Context, conn *ec2.EC2, allocationID, instanceID, networkInterfaceID, privateIPAddress string) error {
 	input := &ec2.AssociateAddressInput{
@@ -343,10 +354,12 @@ func associateEIP(ctx context.Context, conn *ec2.EC2, allocationID, instanceID, 
 	}
 
 	_, err = tfresource.RetryWhen(ctx, ec2PropagationTimeout,
-		func() (interface{}, error) {
+		
+func() (interface{}, error) {
 			return FindEIPByAssociationID(ctx, conn, aws.StringValue(output.AssociationId))
 		},
-		func(err error) (bool, error) {
+		
+func(err error) (bool, error) {
 			if tfresource.NotFound(err) {
 				return true, err
 			}
@@ -366,6 +379,7 @@ func associateEIP(ctx context.Context, conn *ec2.EC2, allocationID, instanceID, 
 
 	return nil
 }
+
 
 func disassociateEIP(ctx context.Context, conn *ec2.EC2, associationID string) error {
 	if associationID == "" {
@@ -389,13 +403,16 @@ func disassociateEIP(ctx context.Context, conn *ec2.EC2, associationID string) e
 	return nil
 }
 
+
 func ConvertIPToDashIP(ip string) string {
 	return strings.Replace(ip, ".", "-", -1)
 }
 
+
 func PrivateDNSNameForIP(client *conns.AWSClient, ip string) string {
 	return fmt.Sprintf("ip-%s.%s", ConvertIPToDashIP(ip), RegionalPrivateDNSSuffix(client.Region))
 }
+
 
 func PublicDNSNameForIP(client *conns.AWSClient, ip string) string {
 	return client.PartitionHostname(fmt.Sprintf("ec2-%s.%s", ConvertIPToDashIP(ip), RegionalPublicDNSSuffix(client.Region)))

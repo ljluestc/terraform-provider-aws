@@ -29,6 +29,7 @@ import (
 
 // @SDKResource("aws_network_acl", name="Network ACL")
 // @Tags(identifierAttribute="id")
+
 func ResourceNetworkACL() *schema.Resource {
 	networkACLRuleSetNestedBlock := &schema.Schema{
 		Type:       schema.TypeSet,
@@ -46,7 +47,8 @@ func ResourceNetworkACL() *schema.Resource {
 		DeleteWithoutTimeout: resourceNetworkACLDelete,
 
 		Importer: &schema.ResourceImporter{
-			StateContext: func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+			StateContext: 
+func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 				conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 				nacl, err := FindNetworkACLByID(ctx, conn, d.Id())
@@ -102,20 +104,25 @@ var networkACLRuleNestedBlock = &schema.Resource{
 		"action": {
 			Type:     schema.TypeString,
 			Required: true,
-			DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+			DiffSuppress
+func: 
+func(k, old, new string, d *schema.ResourceData) bool {
 				return strings.EqualFold(old, new)
 			},
-			ValidateFunc: validation.StringInSlice(ec2.RuleAction_Values(), true),
+			Validate
+func: validation.StringInSlice(ec2.RuleAction_Values(), true),
 		},
 		"cidr_block": {
 			Type:         schema.TypeString,
 			Optional:     true,
-			ValidateFunc: verify.ValidIPv4CIDRNetworkAddress,
+			Validate
+func: verify.ValidIPv4CIDRNetworkAddress,
 		},
 		"from_port": {
 			Type:         schema.TypeInt,
 			Required:     true,
-			ValidateFunc: validation.IsPortNumberOrZero,
+			Validate
+func: validation.IsPortNumberOrZero,
 		},
 		"icmp_code": {
 			Type:     schema.TypeInt,
@@ -128,12 +135,15 @@ var networkACLRuleNestedBlock = &schema.Resource{
 		"ipv6_cidr_block": {
 			Type:         schema.TypeString,
 			Optional:     true,
-			ValidateFunc: verify.ValidIPv6CIDRNetworkAddress,
+			Validate
+func: verify.ValidIPv6CIDRNetworkAddress,
 		},
 		"protocol": {
 			Type:     schema.TypeString,
 			Required: true,
-			ValidateFunc: func(v interface{}, k string) (ws []string, errors []error) {
+			Validate
+func: 
+func(v interface{}, k string) (ws []string, errors []error) {
 				_, err := networkACLProtocolNumber(v.(string))
 
 				if err != nil {
@@ -146,15 +156,18 @@ var networkACLRuleNestedBlock = &schema.Resource{
 		"rule_no": {
 			Type:         schema.TypeInt,
 			Required:     true,
-			ValidateFunc: validation.IntBetween(1, 32766),
+			Validate
+func: validation.IntBetween(1, 32766),
 		},
 		"to_port": {
 			Type:         schema.TypeInt,
 			Required:     true,
-			ValidateFunc: validation.IsPortNumberOrZero,
+			Validate
+func: validation.IsPortNumberOrZero,
 		},
 	},
 }
+
 
 func resourceNetworkACLCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -181,11 +194,13 @@ func resourceNetworkACLCreate(ctx context.Context, d *schema.ResourceData, meta 
 	return append(diags, resourceNetworkACLRead(ctx, d, meta)...)
 }
 
+
 func resourceNetworkACLRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout, func() (interface{}, error) {
+	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout, 
+func() (interface{}, error) {
 		return FindNetworkACLByID(ctx, conn, d.Id())
 	}, d.IsNewResource())
 
@@ -247,6 +262,7 @@ func resourceNetworkACLRead(ctx context.Context, d *schema.ResourceData, meta in
 	return diags
 }
 
+
 func resourceNetworkACLUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -257,6 +273,7 @@ func resourceNetworkACLUpdate(ctx context.Context, d *schema.ResourceData, meta 
 
 	return append(diags, resourceNetworkACLRead(ctx, d, meta)...)
 }
+
 
 func resourceNetworkACLDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -284,7 +301,8 @@ func resourceNetworkACLDelete(ctx context.Context, d *schema.ResourceData, meta 
 	}
 
 	log.Printf("[INFO] Deleting EC2 Network ACL: %s", d.Id())
-	_, err = tfresource.RetryWhenAWSErrCodeEquals(ctx, ec2PropagationTimeout, func() (interface{}, error) {
+	_, err = tfresource.RetryWhenAWSErrCodeEquals(ctx, ec2PropagationTimeout, 
+func() (interface{}, error) {
 		return conn.DeleteNetworkAclWithContext(ctx, input)
 	}, errCodeDependencyViolation)
 
@@ -302,6 +320,7 @@ func resourceNetworkACLDelete(ctx context.Context, d *schema.ResourceData, meta 
 // modifyNetworkACLAttributesOnCreate sets NACL attributes on resource Create.
 // Called after new NACL creation or existing default NACL adoption.
 // Tags are not configured.
+
 func modifyNetworkACLAttributesOnCreate(ctx context.Context, conn *ec2.EC2, d *schema.ResourceData) error {
 	if v, ok := d.GetOk("egress"); ok && v.(*schema.Set).Len() > 0 {
 		if err := createNetworkACLEntries(ctx, conn, d.Id(), v.(*schema.Set).List(), true); err != nil {
@@ -328,6 +347,7 @@ func modifyNetworkACLAttributesOnCreate(ctx context.Context, conn *ec2.EC2, d *s
 
 // modifyNetworkACLAttributesOnUpdate sets NACL attributes on resource Update.
 // Tags are configured.
+
 func modifyNetworkACLAttributesOnUpdate(ctx context.Context, conn *ec2.EC2, d *schema.ResourceData, deleteAssociations bool) error {
 	if d.HasChange("ingress") {
 		o, n := d.GetChange("ingress")
@@ -368,6 +388,7 @@ func modifyNetworkACLAttributesOnUpdate(ctx context.Context, conn *ec2.EC2, d *s
 	return nil
 }
 
+
 func networkACLRuleHash(v interface{}) int {
 	var buf bytes.Buffer
 
@@ -397,6 +418,7 @@ func networkACLRuleHash(v interface{}) int {
 
 	return create.StringHashcode(buf.String())
 }
+
 
 func createNetworkACLEntries(ctx context.Context, conn *ec2.EC2, naclID string, tfList []interface{}, egress bool) error {
 	naclEntries := expandNetworkACLEntries(tfList, egress)
@@ -439,9 +461,11 @@ func createNetworkACLEntries(ctx context.Context, conn *ec2.EC2, naclID string, 
 	return nil
 }
 
+
 func deleteNetworkACLEntriesList(ctx context.Context, conn *ec2.EC2, naclID string, tfList []interface{}, egress bool) error {
 	return deleteNetworkACLEntries(ctx, conn, naclID, expandNetworkACLEntries(tfList, egress))
 }
+
 
 func deleteNetworkACLEntries(ctx context.Context, conn *ec2.EC2, naclID string, naclEntries []*ec2.NetworkAclEntry) error {
 	for _, naclEntry := range naclEntries {
@@ -474,6 +498,7 @@ func deleteNetworkACLEntries(ctx context.Context, conn *ec2.EC2, naclID string, 
 	return nil
 }
 
+
 func updateNetworkACLEntries(ctx context.Context, conn *ec2.EC2, naclID string, os, ns *schema.Set, egress bool) error {
 	if err := deleteNetworkACLEntriesList(ctx, conn, naclID, os.Difference(ns).List(), egress); err != nil {
 		return err
@@ -485,6 +510,7 @@ func updateNetworkACLEntries(ctx context.Context, conn *ec2.EC2, naclID string, 
 
 	return nil
 }
+
 
 func expandNetworkACLEntry(tfMap map[string]interface{}, egress bool) *ec2.NetworkAclEntry {
 	if tfMap == nil {
@@ -547,6 +573,7 @@ func expandNetworkACLEntry(tfMap map[string]interface{}, egress bool) *ec2.Netwo
 	return apiObject
 }
 
+
 func expandNetworkACLEntries(tfList []interface{}, egress bool) []*ec2.NetworkAclEntry {
 	if len(tfList) == 0 {
 		return nil
@@ -572,6 +599,7 @@ func expandNetworkACLEntries(tfList []interface{}, egress bool) []*ec2.NetworkAc
 
 	return apiObjects
 }
+
 
 func flattenNetworkACLEntry(apiObject *ec2.NetworkAclEntry) map[string]interface{} {
 	if apiObject == nil {
@@ -632,6 +660,7 @@ func flattenNetworkACLEntry(apiObject *ec2.NetworkAclEntry) map[string]interface
 	return tfMap
 }
 
+
 func flattenNetworkACLEntries(apiObjects []*ec2.NetworkAclEntry) []interface{} {
 	if len(apiObjects) == 0 {
 		return nil
@@ -649,6 +678,7 @@ func flattenNetworkACLEntries(apiObjects []*ec2.NetworkAclEntry) []interface{} {
 
 	return tfList
 }
+
 
 func networkACLProtocolNumber(v string) (int, error) {
 	i, err := strconv.Atoi(v)
@@ -674,6 +704,7 @@ func networkACLProtocolNumber(v string) (int, error) {
 
 type ianaProtocolAToIType map[string]int
 type ianaProtocolIToAType map[int]string
+
 
 func (m ianaProtocolAToIType) invert() ianaProtocolIToAType {
 	output := make(map[int]string, len(m))

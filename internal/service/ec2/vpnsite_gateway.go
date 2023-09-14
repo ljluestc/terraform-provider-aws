@@ -25,6 +25,7 @@ import (
 
 // @SDKResource("aws_vpn_gateway", name="VPN Gateway")
 // @Tags(identifierAttribute="id")
+
 func ResourceVPNGateway() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceVPNGatewayCreate,
@@ -42,7 +43,8 @@ func ResourceVPNGateway() *schema.Resource {
 				Optional:     true,
 				ForceNew:     true,
 				Computed:     true,
-				ValidateFunc: verify.ValidAmazonSideASN,
+				Validate
+func: verify.ValidAmazonSideASN,
 			},
 			"arn": {
 				Type:     schema.TypeString,
@@ -65,6 +67,7 @@ func ResourceVPNGateway() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
+
 
 func resourceVPNGatewayCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -103,11 +106,13 @@ func resourceVPNGatewayCreate(ctx context.Context, d *schema.ResourceData, meta 
 	return append(diags, resourceVPNGatewayRead(ctx, d, meta)...)
 }
 
+
 func resourceVPNGatewayRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout, func() (interface{}, error) {
+	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout, 
+func() (interface{}, error) {
 		return FindVPNGatewayByID(ctx, conn, d.Id())
 	}, d.IsNewResource())
 
@@ -148,6 +153,7 @@ func resourceVPNGatewayRead(ctx context.Context, d *schema.ResourceData, meta in
 	return diags
 }
 
+
 func resourceVPNGatewayUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -171,6 +177,7 @@ func resourceVPNGatewayUpdate(ctx context.Context, d *schema.ResourceData, meta 
 	return append(diags, resourceVPNGatewayRead(ctx, d, meta)...)
 }
 
+
 func resourceVPNGatewayDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -182,7 +189,8 @@ func resourceVPNGatewayDelete(ctx context.Context, d *schema.ResourceData, meta 
 	}
 
 	log.Printf("[INFO] Deleting EC2 VPN Gateway: %s", d.Id())
-	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, VPNGatewayDeletedTimeout, func() (interface{}, error) {
+	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, VPNGatewayDeletedTimeout, 
+func() (interface{}, error) {
 		return conn.DeleteVpnGatewayWithContext(ctx, &ec2.DeleteVpnGatewayInput{
 			VpnGatewayId: aws.String(d.Id()),
 		})
@@ -199,13 +207,15 @@ func resourceVPNGatewayDelete(ctx context.Context, d *schema.ResourceData, meta 
 	return diags
 }
 
+
 func attachVPNGatewayToVPC(ctx context.Context, conn *ec2.EC2, vpnGatewayID, vpcID string) error {
 	input := &ec2.AttachVpnGatewayInput{
 		VpcId:        aws.String(vpcID),
 		VpnGatewayId: aws.String(vpnGatewayID),
 	}
 
-	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, ec2PropagationTimeout, func() (interface{}, error) {
+	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, ec2PropagationTimeout, 
+func() (interface{}, error) {
 		return conn.AttachVpnGatewayWithContext(ctx, input)
 	}, errCodeInvalidVPNGatewayIDNotFound)
 
@@ -219,6 +229,7 @@ func attachVPNGatewayToVPC(ctx context.Context, conn *ec2.EC2, vpnGatewayID, vpc
 
 	return nil
 }
+
 
 func detachVPNGatewayFromVPC(ctx context.Context, conn *ec2.EC2, vpnGatewayID, vpcID string) error {
 	input := &ec2.DetachVpnGatewayInput{

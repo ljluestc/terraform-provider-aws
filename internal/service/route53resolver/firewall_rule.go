@@ -22,6 +22,7 @@ import (
 )
 
 // @SDKResource("aws_route53_resolver_firewall_rule")
+
 func ResourceFirewallRule() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceFirewallRuleCreate,
@@ -37,44 +38,52 @@ func ResourceFirewallRule() *schema.Resource {
 			"action": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: validation.StringInSlice(route53resolver.Action_Values(), false),
+				Validate
+func: validation.StringInSlice(route53resolver.Action_Values(), false),
 			},
 			"block_override_dns_type": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				ValidateFunc: validation.StringInSlice(route53resolver.BlockOverrideDnsType_Values(), false),
+				Validate
+func: validation.StringInSlice(route53resolver.BlockOverrideDnsType_Values(), false),
 			},
 			"block_override_domain": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				ValidateFunc: validation.StringLenBetween(1, 255),
+				Validate
+func: validation.StringLenBetween(1, 255),
 			},
 			"block_override_ttl": {
 				Type:         schema.TypeInt,
 				Optional:     true,
-				ValidateFunc: validation.IntBetween(0, 604800),
+				Validate
+func: validation.IntBetween(0, 604800),
 			},
 			"block_response": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				ValidateFunc: validation.StringInSlice(route53resolver.BlockResponse_Values(), false),
+				Validate
+func: validation.StringInSlice(route53resolver.BlockResponse_Values(), false),
 			},
 			"firewall_domain_list_id": {
 				Type:         schema.TypeString,
 				ForceNew:     true,
 				Required:     true,
-				ValidateFunc: validation.StringLenBetween(1, 64),
+				Validate
+func: validation.StringLenBetween(1, 64),
 			},
 			"firewall_rule_group_id": {
 				Type:         schema.TypeString,
 				ForceNew:     true,
 				Required:     true,
-				ValidateFunc: validation.StringLenBetween(1, 64),
+				Validate
+func: validation.StringLenBetween(1, 64),
 			},
 			"name": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: validResolverName,
+				Validate
+func: validResolverName,
 			},
 			"priority": {
 				Type:     schema.TypeInt,
@@ -83,6 +92,7 @@ func ResourceFirewallRule() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceFirewallRuleCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
@@ -127,6 +137,7 @@ func resourceFirewallRuleCreate(ctx context.Context, d *schema.ResourceData, met
 	return resourceFirewallRuleRead(ctx, d, meta)
 }
 
+
 func resourceFirewallRuleRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
 
@@ -160,6 +171,7 @@ func resourceFirewallRuleRead(ctx context.Context, d *schema.ResourceData, meta 
 
 	return nil
 }
+
 
 func resourceFirewallRuleUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
@@ -203,6 +215,7 @@ func resourceFirewallRuleUpdate(ctx context.Context, d *schema.ResourceData, met
 	return resourceFirewallRuleRead(ctx, d, meta)
 }
 
+
 func resourceFirewallRuleDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
 
@@ -231,12 +244,14 @@ func resourceFirewallRuleDelete(ctx context.Context, d *schema.ResourceData, met
 
 const firewallRuleIDSeparator = ":"
 
+
 func FirewallRuleCreateResourceID(firewallRuleGroupID, firewallDomainListID string) string {
 	parts := []string{firewallRuleGroupID, firewallDomainListID}
 	id := strings.Join(parts, firewallRuleIDSeparator)
 
 	return id
 }
+
 
 func FirewallRuleParseResourceID(id string) (string, string, error) {
 	parts := strings.SplitN(id, firewallRuleIDSeparator, 2)
@@ -248,8 +263,10 @@ func FirewallRuleParseResourceID(id string) (string, string, error) {
 	return parts[0], parts[1], nil
 }
 
+
 func FindFirewallRuleByTwoPartKey(ctx context.Context, conn *route53resolver.Route53Resolver, firewallRuleGroupID, firewallDomainListID string) (*route53resolver.FirewallRule, error) {
-	output, err := findFirewallRules(ctx, conn, firewallRuleGroupID, func(rule *route53resolver.FirewallRule) bool {
+	output, err := findFirewallRules(ctx, conn, firewallRuleGroupID, 
+func(rule *route53resolver.FirewallRule) bool {
 		return aws.StringValue(rule.FirewallDomainListId) == firewallDomainListID
 	})
 
@@ -268,13 +285,16 @@ func FindFirewallRuleByTwoPartKey(ctx context.Context, conn *route53resolver.Rou
 	return output[0], nil
 }
 
-func findFirewallRules(ctx context.Context, conn *route53resolver.Route53Resolver, firewallRuleGroupID string, f func(*route53resolver.FirewallRule) bool) ([]*route53resolver.FirewallRule, error) {
+
+func findFirewallRules(ctx context.Context, conn *route53resolver.Route53Resolver, firewallRuleGroupID string, f 
+func(*route53resolver.FirewallRule) bool) ([]*route53resolver.FirewallRule, error) {
 	input := &route53resolver.ListFirewallRulesInput{
 		FirewallRuleGroupId: aws.String(firewallRuleGroupID),
 	}
 	var output []*route53resolver.FirewallRule
 
-	err := conn.ListFirewallRulesPagesWithContext(ctx, input, func(page *route53resolver.ListFirewallRulesOutput, lastPage bool) bool {
+	err := conn.ListFirewallRulesPagesWithContext(ctx, input, 
+func(page *route53resolver.ListFirewallRulesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}

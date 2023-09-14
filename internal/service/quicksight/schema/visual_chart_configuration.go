@@ -11,6 +11,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 )
 
+
 func axisDisplayOptionsSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_AxisDisplayOptions.html
 		Type:     schema.TypeList,
@@ -188,6 +189,7 @@ func axisDisplayOptionsSchema() *schema.Schema {
 	}
 }
 
+
 func chartAxisLabelOptionsSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ChartAxisLabelOptions.html
 		Type:     schema.TypeList,
@@ -230,6 +232,7 @@ func chartAxisLabelOptionsSchema() *schema.Schema {
 	}
 }
 
+
 func itemsLimitConfigurationSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ItemsLimitConfiguration.html
 		Type:     schema.TypeList,
@@ -247,6 +250,7 @@ func itemsLimitConfigurationSchema() *schema.Schema {
 		},
 	}
 }
+
 
 func contributionAnalysisDefaultsSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ContributionAnalysisDefault.html
@@ -274,6 +278,7 @@ func contributionAnalysisDefaultsSchema() *schema.Schema {
 	}
 }
 
+
 func referenceLineSchema(maxItems int) *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ReferenceLine.html
 		Type:     schema.TypeList,
@@ -297,9 +302,14 @@ func referenceLineSchema(maxItems int) *schema.Schema {
 								MaxItems: 1,
 								Elem: &schema.Resource{
 									Schema: map[string]*schema.Schema{
-										"calculation":                  numericalAggregationFunctionSchema(true), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_NumericalAggregationFunction.html
+										"calculation":                  numericalAggregation
+functionSchema(true), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_NumericalAggregation
+function.html
 										"column":                       columnSchema(),                           // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnIdentifier.html
-										"measure_aggregation_function": aggregationFunctionSchema(true),          // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_AggregationFunction.html
+										"measure_aggregation_
+function": aggregation
+functionSchema(true),          // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_Aggregation
+function.html
 									},
 								},
 							},
@@ -375,6 +385,7 @@ func referenceLineSchema(maxItems int) *schema.Schema {
 	}
 }
 
+
 func smallMultiplesOptionsSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_SmallMultiplesOptions.html
 		Type:     schema.TypeList,
@@ -386,12 +397,14 @@ func smallMultiplesOptionsSchema() *schema.Schema {
 				"max_visible_columns": {
 					Type:         schema.TypeInt,
 					Optional:     true,
-					ValidateFunc: validation.IntBetween(1, 10),
+					Validate
+func: validation.IntBetween(1, 10),
 				},
 				"max_visible_rows": {
 					Type:         schema.TypeInt,
 					Optional:     true,
-					ValidateFunc: validation.IntBetween(1, 10),
+					Validate
+func: validation.IntBetween(1, 10),
 				},
 				"panel_configuration": { // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_PanelConfiguration.html
 					Type:     schema.TypeList,
@@ -435,6 +448,7 @@ func smallMultiplesOptionsSchema() *schema.Schema {
 	}
 }
 
+
 func expandAxisDisplayOptions(tfList []interface{}) *quicksight.AxisDisplayOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -469,6 +483,7 @@ func expandAxisDisplayOptions(tfList []interface{}) *quicksight.AxisDisplayOptio
 	return options
 }
 
+
 func expandAxisDataOptions(tfList []interface{}) *quicksight.AxisDataOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -491,6 +506,7 @@ func expandAxisDataOptions(tfList []interface{}) *quicksight.AxisDataOptions {
 	return options
 }
 
+
 func expandDateAxisOptions(tfList []interface{}) *quicksight.DateAxisOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -509,6 +525,7 @@ func expandDateAxisOptions(tfList []interface{}) *quicksight.DateAxisOptions {
 
 	return options
 }
+
 
 func expandNumericAxisOptions(tfList []interface{}) *quicksight.NumericAxisOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -532,6 +549,7 @@ func expandNumericAxisOptions(tfList []interface{}) *quicksight.NumericAxisOptio
 	return options
 }
 
+
 func expandAxisDisplayRange(tfList []interface{}) *quicksight.AxisDisplayRange {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -554,6 +572,7 @@ func expandAxisDisplayRange(tfList []interface{}) *quicksight.AxisDisplayRange {
 	return options
 }
 
+
 func expandAxisDisplayDataDrivenRange(tfList []interface{}) *quicksight.AxisDisplayDataDrivenRange {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -568,6 +587,7 @@ func expandAxisDisplayDataDrivenRange(tfList []interface{}) *quicksight.AxisDisp
 
 	return options
 }
+
 
 func expandAxisDisplayMinMaxRange(tfList []interface{}) *quicksight.AxisDisplayMinMaxRange {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -591,6 +611,7 @@ func expandAxisDisplayMinMaxRange(tfList []interface{}) *quicksight.AxisDisplayM
 	return options
 }
 
+
 func expandAxisScale(tfList []interface{}) *quicksight.AxisScale {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -612,6 +633,7 @@ func expandAxisScale(tfList []interface{}) *quicksight.AxisScale {
 
 	return options
 }
+
 
 func expandAxisLinearScale(tfList []interface{}) *quicksight.AxisLinearScale {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -635,6 +657,7 @@ func expandAxisLinearScale(tfList []interface{}) *quicksight.AxisLinearScale {
 	return options
 }
 
+
 func expandAxisLogarithmicScale(tfList []interface{}) *quicksight.AxisLogarithmicScale {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -653,6 +676,7 @@ func expandAxisLogarithmicScale(tfList []interface{}) *quicksight.AxisLogarithmi
 
 	return options
 }
+
 
 func expandScrollBarOptions(tfList []interface{}) *quicksight.ScrollBarOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -676,6 +700,7 @@ func expandScrollBarOptions(tfList []interface{}) *quicksight.ScrollBarOptions {
 	return options
 }
 
+
 func expandVisibleRangeOptions(tfList []interface{}) *quicksight.VisibleRangeOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -694,6 +719,7 @@ func expandVisibleRangeOptions(tfList []interface{}) *quicksight.VisibleRangeOpt
 
 	return options
 }
+
 
 func expandPercentVisibleRange(tfList []interface{}) *quicksight.PercentVisibleRange {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -717,6 +743,7 @@ func expandPercentVisibleRange(tfList []interface{}) *quicksight.PercentVisibleR
 	return options
 }
 
+
 func expandAxisTickLabelOptions(tfList []interface{}) *quicksight.AxisTickLabelOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -738,6 +765,7 @@ func expandAxisTickLabelOptions(tfList []interface{}) *quicksight.AxisTickLabelO
 
 	return options
 }
+
 
 func expandChartAxisLabelOptions(tfList []interface{}) *quicksight.ChartAxisLabelOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -764,6 +792,7 @@ func expandChartAxisLabelOptions(tfList []interface{}) *quicksight.ChartAxisLabe
 	return options
 }
 
+
 func expandAxisLabelOptionsList(tfList []interface{}) []*quicksight.AxisLabelOptions {
 	if len(tfList) == 0 {
 		return nil
@@ -787,6 +816,7 @@ func expandAxisLabelOptionsList(tfList []interface{}) []*quicksight.AxisLabelOpt
 	return options
 }
 
+
 func expandAxisLabelOptions(tfMap map[string]interface{}) *quicksight.AxisLabelOptions {
 	if tfMap == nil {
 		return nil
@@ -806,6 +836,7 @@ func expandAxisLabelOptions(tfMap map[string]interface{}) *quicksight.AxisLabelO
 
 	return options
 }
+
 
 func expandAxisLabelReferenceOptions(tfList []interface{}) *quicksight.AxisLabelReferenceOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -828,6 +859,7 @@ func expandAxisLabelReferenceOptions(tfList []interface{}) *quicksight.AxisLabel
 
 	return options
 }
+
 
 func expandContributionAnalysisDefaults(tfList []interface{}) []*quicksight.ContributionAnalysisDefault {
 	if len(tfList) == 0 {
@@ -852,6 +884,7 @@ func expandContributionAnalysisDefaults(tfList []interface{}) []*quicksight.Cont
 	return options
 }
 
+
 func expandContributionAnalysisDefault(tfMap map[string]interface{}) *quicksight.ContributionAnalysisDefault {
 	if tfMap == nil {
 		return nil
@@ -868,6 +901,7 @@ func expandContributionAnalysisDefault(tfMap map[string]interface{}) *quicksight
 
 	return options
 }
+
 
 func expandReferenceLines(tfList []interface{}) []*quicksight.ReferenceLine {
 	if len(tfList) == 0 {
@@ -892,6 +926,7 @@ func expandReferenceLines(tfList []interface{}) []*quicksight.ReferenceLine {
 	return lines
 }
 
+
 func expandReferenceLine(tfMap map[string]interface{}) *quicksight.ReferenceLine {
 	if tfMap == nil {
 		return nil
@@ -914,6 +949,7 @@ func expandReferenceLine(tfMap map[string]interface{}) *quicksight.ReferenceLine
 
 	return line
 }
+
 
 func expandReferenceLineDataConfiguration(tfList []interface{}) *quicksight.ReferenceLineDataConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -940,6 +976,7 @@ func expandReferenceLineDataConfiguration(tfList []interface{}) *quicksight.Refe
 	return config
 }
 
+
 func expandReferenceLineDynamicDataConfiguration(tfList []interface{}) *quicksight.ReferenceLineDynamicDataConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -953,17 +990,22 @@ func expandReferenceLineDynamicDataConfiguration(tfList []interface{}) *quicksig
 	config := &quicksight.ReferenceLineDynamicDataConfiguration{}
 
 	if v, ok := tfMap["calculation"].([]interface{}); ok && len(v) > 0 {
-		config.Calculation = expandNumericalAggregationFunction(v)
+		config.Calculation = expandNumericalAggregation
+function(v)
 	}
 	if v, ok := tfMap["column"].([]interface{}); ok && len(v) > 0 {
 		config.Column = expandColumnIdentifier(v)
 	}
-	if v, ok := tfMap["measure_aggregation_function"].([]interface{}); ok && len(v) > 0 {
-		config.MeasureAggregationFunction = expandAggregationFunction(v)
+	if v, ok := tfMap["measure_aggregation_
+function"].([]interface{}); ok && len(v) > 0 {
+		config.MeasureAggregation
+function = expandAggregation
+function(v)
 	}
 
 	return config
 }
+
 
 func expandReferenceLineStaticDataConfiguration(tfList []interface{}) *quicksight.ReferenceLineStaticDataConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -983,6 +1025,7 @@ func expandReferenceLineStaticDataConfiguration(tfList []interface{}) *quicksigh
 
 	return config
 }
+
 
 func expandReferenceLineLabelConfiguration(tfList []interface{}) *quicksight.ReferenceLineLabelConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -1018,6 +1061,7 @@ func expandReferenceLineLabelConfiguration(tfList []interface{}) *quicksight.Ref
 	return config
 }
 
+
 func expandReferenceLineCustomLabelConfiguration(tfList []interface{}) *quicksight.ReferenceLineCustomLabelConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -1036,6 +1080,7 @@ func expandReferenceLineCustomLabelConfiguration(tfList []interface{}) *quicksig
 
 	return config
 }
+
 
 func expandReferenceLineValueLabelConfiguration(tfList []interface{}) *quicksight.ReferenceLineValueLabelConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -1059,6 +1104,7 @@ func expandReferenceLineValueLabelConfiguration(tfList []interface{}) *quicksigh
 	return config
 }
 
+
 func expandReferenceLineStyleConfiguration(tfList []interface{}) *quicksight.ReferenceLineStyleConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -1080,6 +1126,7 @@ func expandReferenceLineStyleConfiguration(tfList []interface{}) *quicksight.Ref
 
 	return config
 }
+
 
 func expandSmallMultiplesOptions(tfList []interface{}) *quicksight.SmallMultiplesOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -1105,6 +1152,7 @@ func expandSmallMultiplesOptions(tfList []interface{}) *quicksight.SmallMultiple
 
 	return options
 }
+
 
 func expandPanelConfiguration(tfList []interface{}) *quicksight.PanelConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -1149,6 +1197,7 @@ func expandPanelConfiguration(tfList []interface{}) *quicksight.PanelConfigurati
 	return config
 }
 
+
 func expandPanelTitleOptions(tfList []interface{}) *quicksight.PanelTitleOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -1174,6 +1223,7 @@ func expandPanelTitleOptions(tfList []interface{}) *quicksight.PanelTitleOptions
 	return options
 }
 
+
 func expandItemsLimitConfiguration(tfList []interface{}) *quicksight.ItemsLimitConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -1195,6 +1245,7 @@ func expandItemsLimitConfiguration(tfList []interface{}) *quicksight.ItemsLimitC
 
 	return config
 }
+
 
 func flattenAxisDisplayOptions(apiObject *quicksight.AxisDisplayOptions) []interface{} {
 	if apiObject == nil {
@@ -1224,6 +1275,7 @@ func flattenAxisDisplayOptions(apiObject *quicksight.AxisDisplayOptions) []inter
 	return []interface{}{tfMap}
 }
 
+
 func flattenAxisDataOptions(apiObject *quicksight.AxisDataOptions) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1240,6 +1292,7 @@ func flattenAxisDataOptions(apiObject *quicksight.AxisDataOptions) []interface{}
 	return []interface{}{tfMap}
 }
 
+
 func flattenDateAxisOptions(apiObject *quicksight.DateAxisOptions) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1252,6 +1305,7 @@ func flattenDateAxisOptions(apiObject *quicksight.DateAxisOptions) []interface{}
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenNumericAxisOptions(apiObject *quicksight.NumericAxisOptions) []interface{} {
 	if apiObject == nil {
@@ -1269,6 +1323,7 @@ func flattenNumericAxisOptions(apiObject *quicksight.NumericAxisOptions) []inter
 	return []interface{}{tfMap}
 }
 
+
 func flattenAxisDisplayRange(apiObject *quicksight.AxisDisplayRange) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1285,6 +1340,7 @@ func flattenAxisDisplayRange(apiObject *quicksight.AxisDisplayRange) []interface
 	return []interface{}{tfMap}
 }
 
+
 func flattenAxisDisplayDataDrivenRange(apiObject *quicksight.AxisDisplayDataDrivenRange) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1295,6 +1351,7 @@ func flattenAxisDisplayDataDrivenRange(apiObject *quicksight.AxisDisplayDataDriv
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenAxisDisplayMinMaxRange(apiObject *quicksight.AxisDisplayMinMaxRange) []interface{} {
 	if apiObject == nil {
@@ -1312,6 +1369,7 @@ func flattenAxisDisplayMinMaxRange(apiObject *quicksight.AxisDisplayMinMaxRange)
 	return []interface{}{tfMap}
 }
 
+
 func flattenAxisScale(apiObject *quicksight.AxisScale) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1327,6 +1385,7 @@ func flattenAxisScale(apiObject *quicksight.AxisScale) []interface{} {
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenAxisLinearScale(apiObject *quicksight.AxisLinearScale) []interface{} {
 	if apiObject == nil {
@@ -1344,6 +1403,7 @@ func flattenAxisLinearScale(apiObject *quicksight.AxisLinearScale) []interface{}
 	return []interface{}{tfMap}
 }
 
+
 func flattenAxisLogarithmicScale(apiObject *quicksight.AxisLogarithmicScale) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1356,6 +1416,7 @@ func flattenAxisLogarithmicScale(apiObject *quicksight.AxisLogarithmicScale) []i
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenScrollBarOptions(apiObject *quicksight.ScrollBarOptions) []interface{} {
 	if apiObject == nil {
@@ -1373,6 +1434,7 @@ func flattenScrollBarOptions(apiObject *quicksight.ScrollBarOptions) []interface
 	return []interface{}{tfMap}
 }
 
+
 func flattenVisibleRangeOptions(apiObject *quicksight.VisibleRangeOptions) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1385,6 +1447,7 @@ func flattenVisibleRangeOptions(apiObject *quicksight.VisibleRangeOptions) []int
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenPercentVisibleRange(apiObject *quicksight.PercentVisibleRange) []interface{} {
 	if apiObject == nil {
@@ -1402,6 +1465,7 @@ func flattenPercentVisibleRange(apiObject *quicksight.PercentVisibleRange) []int
 	return []interface{}{tfMap}
 }
 
+
 func flattenAxisTickLabelOptions(apiObject *quicksight.AxisTickLabelOptions) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1417,6 +1481,7 @@ func flattenAxisTickLabelOptions(apiObject *quicksight.AxisTickLabelOptions) []i
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenChartAxisLabelOptions(apiObject *quicksight.ChartAxisLabelOptions) []interface{} {
 	if apiObject == nil {
@@ -1436,6 +1501,7 @@ func flattenChartAxisLabelOptions(apiObject *quicksight.ChartAxisLabelOptions) [
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenAxisLabelOptions(apiObject []*quicksight.AxisLabelOptions) []interface{} {
 	if len(apiObject) == 0 {
@@ -1465,6 +1531,7 @@ func flattenAxisLabelOptions(apiObject []*quicksight.AxisLabelOptions) []interfa
 	return tfList
 }
 
+
 func flattenAxisLabelReferenceOptions(apiObject *quicksight.AxisLabelReferenceOptions) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1480,6 +1547,7 @@ func flattenAxisLabelReferenceOptions(apiObject *quicksight.AxisLabelReferenceOp
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenContributionAnalysisDefault(apiObject []*quicksight.ContributionAnalysisDefault) []interface{} {
 	if len(apiObject) == 0 {
@@ -1505,6 +1573,7 @@ func flattenContributionAnalysisDefault(apiObject []*quicksight.ContributionAnal
 	return tfList
 }
 
+
 func flattenColumnIdentifiers(apiObject []*quicksight.ColumnIdentifier) []interface{} {
 	if len(apiObject) == 0 {
 		return nil
@@ -1526,6 +1595,7 @@ func flattenColumnIdentifiers(apiObject []*quicksight.ColumnIdentifier) []interf
 
 	return tfList
 }
+
 
 func flattenReferenceLine(apiObject []*quicksight.ReferenceLine) []interface{} {
 	if len(apiObject) == 0 {
@@ -1558,6 +1628,7 @@ func flattenReferenceLine(apiObject []*quicksight.ReferenceLine) []interface{} {
 	return tfList
 }
 
+
 func flattenReferenceLineDataConfiguration(apiObject *quicksight.ReferenceLineDataConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1577,6 +1648,7 @@ func flattenReferenceLineDataConfiguration(apiObject *quicksight.ReferenceLineDa
 	return []interface{}{tfMap}
 }
 
+
 func flattenReferenceLineDynamicDataConfiguration(apiObject *quicksight.ReferenceLineDynamicDataConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1584,17 +1656,23 @@ func flattenReferenceLineDynamicDataConfiguration(apiObject *quicksight.Referenc
 
 	tfMap := map[string]interface{}{}
 	if apiObject.Calculation != nil {
-		tfMap["calculation"] = flattenNumericalAggregationFunction(apiObject.Calculation)
+		tfMap["calculation"] = flattenNumericalAggregation
+function(apiObject.Calculation)
 	}
 	if apiObject.Column != nil {
 		tfMap["column"] = flattenColumnIdentifier(apiObject.Column)
 	}
-	if apiObject.MeasureAggregationFunction != nil {
-		tfMap["measure_aggregation_function"] = flattenAggregationFunction(apiObject.MeasureAggregationFunction)
+	if apiObject.MeasureAggregation
+function != nil {
+		tfMap["measure_aggregation_
+function"] = flattenAggregation
+function(apiObject.MeasureAggregation
+function)
 	}
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenReferenceLineStaticDataConfiguration(apiObject *quicksight.ReferenceLineStaticDataConfiguration) []interface{} {
 	if apiObject == nil {
@@ -1607,6 +1685,7 @@ func flattenReferenceLineStaticDataConfiguration(apiObject *quicksight.Reference
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenReferenceLineLabelConfiguration(apiObject *quicksight.ReferenceLineLabelConfiguration) []interface{} {
 	if apiObject == nil {
@@ -1635,6 +1714,7 @@ func flattenReferenceLineLabelConfiguration(apiObject *quicksight.ReferenceLineL
 
 	return []interface{}{tfMap}
 }
+
 func flattenReferenceLineCustomLabelConfiguration(apiObject *quicksight.ReferenceLineCustomLabelConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1646,6 +1726,7 @@ func flattenReferenceLineCustomLabelConfiguration(apiObject *quicksight.Referenc
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenReferenceLineValueLabelConfiguration(apiObject *quicksight.ReferenceLineValueLabelConfiguration) []interface{} {
 	if apiObject == nil {
@@ -1663,6 +1744,7 @@ func flattenReferenceLineValueLabelConfiguration(apiObject *quicksight.Reference
 	return []interface{}{tfMap}
 }
 
+
 func flattenReferenceLineStyleConfiguration(apiObject *quicksight.ReferenceLineStyleConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1678,6 +1760,7 @@ func flattenReferenceLineStyleConfiguration(apiObject *quicksight.ReferenceLineS
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenSmallMultiplesOptions(apiObject *quicksight.SmallMultiplesOptions) []interface{} {
 	if apiObject == nil {
@@ -1697,6 +1780,7 @@ func flattenSmallMultiplesOptions(apiObject *quicksight.SmallMultiplesOptions) [
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenPanelConfiguration(apiObject *quicksight.PanelConfiguration) []interface{} {
 	if apiObject == nil {
@@ -1731,6 +1815,7 @@ func flattenPanelConfiguration(apiObject *quicksight.PanelConfiguration) []inter
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenPanelTitleOptions(apiObject *quicksight.PanelTitleOptions) []interface{} {
 	if apiObject == nil {

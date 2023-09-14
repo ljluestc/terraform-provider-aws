@@ -18,32 +18,38 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccVPCEndpointRouteTableAssociation_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_vpc_endpoint_route_table_association.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPCEndpointRouteTableAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCEndpointRouteTableAssociationConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckVPCEndpointRouteTableAssociationExists(ctx, resourceName),
 				),
 			},
 			{
 				ResourceName:      resourceName,
 				ImportState:       true,
-				ImportStateIdFunc: testAccVPCEndpointRouteTableAssociationImportStateIdFunc(resourceName),
+				ImportStateId
+func: testAccVPCEndpointRouteTableAssociationImportStateId
+func(resourceName),
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
+
 
 func TestAccVPCEndpointRouteTableAssociation_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -51,14 +57,16 @@ func TestAccVPCEndpointRouteTableAssociation_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPCEndpointRouteTableAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCEndpointRouteTableAssociationConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckVPCEndpointRouteTableAssociationExists(ctx, resourceName),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceVPCEndpointRouteTableAssociation(), resourceName),
 				),
@@ -68,8 +76,11 @@ func TestAccVPCEndpointRouteTableAssociation_disappears(t *testing.T) {
 	})
 }
 
-func testAccCheckVPCEndpointRouteTableAssociationDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckVPCEndpointRouteTableAssociationDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -94,8 +105,11 @@ func testAccCheckVPCEndpointRouteTableAssociationDestroy(ctx context.Context) re
 	}
 }
 
-func testAccCheckVPCEndpointRouteTableAssociationExists(ctx context.Context, n string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckVPCEndpointRouteTableAssociationExists(ctx context.Context, n string) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -111,8 +125,12 @@ func testAccCheckVPCEndpointRouteTableAssociationExists(ctx context.Context, n s
 	}
 }
 
-func testAccVPCEndpointRouteTableAssociationImportStateIdFunc(n string) resource.ImportStateIdFunc {
-	return func(s *terraform.State) (string, error) {
+
+func testAccVPCEndpointRouteTableAssociationImportStateId
+func(n string) resource.ImportStateId
+func {
+	return 
+func(s *terraform.State) (string, error) {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return "", fmt.Errorf("Not found: %s", n)
@@ -122,6 +140,7 @@ func testAccVPCEndpointRouteTableAssociationImportStateIdFunc(n string) resource
 		return id, nil
 	}
 }
+
 
 func testAccVPCEndpointRouteTableAssociationConfig_basic(rName string) string {
 	return fmt.Sprintf(`

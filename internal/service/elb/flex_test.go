@@ -52,6 +52,7 @@ func TestExpandListeners(t *testing.T) {
 
 // this test should produce an error from expandlisteners on an invalid
 // combination
+
 func TestExpandListeners_invalid(t *testing.T) {
 	t.Parallel()
 

@@ -24,6 +24,7 @@ import (
 )
 
 // @SDKResource("aws_vpc_ipam_pool_cidr_allocation")
+
 func ResourceIPAMPoolCIDRAllocation() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceIPAMPoolCIDRAllocationCreate,
@@ -41,7 +42,8 @@ func ResourceIPAMPoolCIDRAllocation() *schema.Resource {
 				ForceNew:      true,
 				Computed:      true,
 				ConflictsWith: []string{"netmask_length"},
-				ValidateFunc: validation.Any(
+				Validate
+func: validation.Any(
 					verify.ValidIPv4CIDRNetworkAddress,
 					verify.ValidIPv6CIDRNetworkAddress,
 				),
@@ -57,7 +59,8 @@ func ResourceIPAMPoolCIDRAllocation() *schema.Resource {
 				ForceNew: true,
 				Elem: &schema.Schema{
 					Type: schema.TypeString,
-					ValidateFunc: validation.Any(
+					Validate
+func: validation.Any(
 						verify.ValidIPv4CIDRNetworkAddress,
 						// Follow the numbers used for netmask_length
 						validation.IsCIDRNetwork(0, 128),
@@ -77,7 +80,8 @@ func ResourceIPAMPoolCIDRAllocation() *schema.Resource {
 				Type:          schema.TypeInt,
 				Optional:      true,
 				ForceNew:      true,
-				ValidateFunc:  validation.IntBetween(0, 128),
+				Validate
+func:  validation.IntBetween(0, 128),
 				ConflictsWith: []string{"cidr"},
 			},
 			"resource_id": {
@@ -95,6 +99,7 @@ func ResourceIPAMPoolCIDRAllocation() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceIPAMPoolCIDRAllocationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -137,6 +142,7 @@ func resourceIPAMPoolCIDRAllocationCreate(ctx context.Context, d *schema.Resourc
 	return append(diags, resourceIPAMPoolCIDRAllocationRead(ctx, d, meta)...)
 }
 
+
 func resourceIPAMPoolCIDRAllocationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -169,6 +175,7 @@ func resourceIPAMPoolCIDRAllocationRead(ctx context.Context, d *schema.ResourceD
 	return diags
 }
 
+
 func resourceIPAMPoolCIDRAllocationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -199,12 +206,14 @@ func resourceIPAMPoolCIDRAllocationDelete(ctx context.Context, d *schema.Resourc
 
 const ipamPoolCIDRAllocationIDSeparator = "_"
 
+
 func IPAMPoolCIDRAllocationCreateResourceID(allocationID, poolID string) string {
 	parts := []string{allocationID, poolID}
 	id := strings.Join(parts, ipamPoolCIDRAllocationIDSeparator)
 
 	return id
 }
+
 
 func IPAMPoolCIDRAllocationParseResourceID(id string) (string, string, error) {
 	parts := strings.Split(id, ipamPoolCIDRAllocationIDSeparator)

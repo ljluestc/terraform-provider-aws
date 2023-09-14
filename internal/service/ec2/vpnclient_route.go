@@ -22,6 +22,7 @@ import (
 )
 
 // @SDKResource("aws_ec2_client_vpn_route")
+
 func ResourceClientVPNRoute() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceClientVPNRouteCreate,
@@ -51,7 +52,8 @@ func ResourceClientVPNRoute() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.ValidIPv4CIDRNetworkAddress,
+				Validate
+func: verify.ValidIPv4CIDRNetworkAddress,
 			},
 			"origin": {
 				Type:     schema.TypeString,
@@ -69,6 +71,7 @@ func ResourceClientVPNRoute() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceClientVPNRouteCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -88,7 +91,8 @@ func resourceClientVPNRouteCreate(ctx context.Context, d *schema.ResourceData, m
 		input.Description = aws.String(v.(string))
 	}
 
-	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, ec2PropagationTimeout, func() (interface{}, error) {
+	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, ec2PropagationTimeout, 
+func() (interface{}, error) {
 		return conn.CreateClientVpnRouteWithContext(ctx, input)
 	}, errCodeInvalidClientVPNActiveAssociationNotFound)
 
@@ -104,6 +108,7 @@ func resourceClientVPNRouteCreate(ctx context.Context, d *schema.ResourceData, m
 
 	return append(diags, resourceClientVPNRouteRead(ctx, d, meta)...)
 }
+
 
 func resourceClientVPNRouteRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -136,6 +141,7 @@ func resourceClientVPNRouteRead(ctx context.Context, d *schema.ResourceData, met
 
 	return diags
 }
+
 
 func resourceClientVPNRouteDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -171,12 +177,14 @@ func resourceClientVPNRouteDelete(ctx context.Context, d *schema.ResourceData, m
 
 const clientVPNRouteIDSeparator = ","
 
+
 func ClientVPNRouteCreateResourceID(endpointID, targetSubnetID, destinationCIDR string) string {
 	parts := []string{endpointID, targetSubnetID, destinationCIDR}
 	id := strings.Join(parts, clientVPNRouteIDSeparator)
 
 	return id
 }
+
 
 func ClientVPNRouteParseResourceID(id string) (string, string, string, error) {
 	parts := strings.Split(id, clientVPNRouteIDSeparator)

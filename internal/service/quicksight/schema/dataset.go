@@ -11,6 +11,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 )
 
+
 func dataSetIdentifierDeclarationsSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DataSetIdentifierDeclaration.html
 		Type:     schema.TypeList,
@@ -26,6 +27,7 @@ func dataSetIdentifierDeclarationsSchema() *schema.Schema {
 	}
 }
 
+
 func dataSetReferencesSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DataSetReference.html
 		Type:     schema.TypeList,
@@ -36,7 +38,8 @@ func dataSetReferencesSchema() *schema.Schema {
 				"data_set_arn": {
 					Type:         schema.TypeString,
 					Required:     true,
-					ValidateFunc: verify.ValidARN,
+					Validate
+func: verify.ValidARN,
 				},
 				"data_set_placeholder": {
 					Type:     schema.TypeString,
@@ -46,6 +49,7 @@ func dataSetReferencesSchema() *schema.Schema {
 		},
 	}
 }
+
 
 func expandDataSetIdentifierDeclarations(tfList []interface{}) []*quicksight.DataSetIdentifierDeclaration {
 	if len(tfList) == 0 {
@@ -70,6 +74,7 @@ func expandDataSetIdentifierDeclarations(tfList []interface{}) []*quicksight.Dat
 	return identifiers
 }
 
+
 func expandDataSetIdentifierDeclaration(tfMap map[string]interface{}) *quicksight.DataSetIdentifierDeclaration {
 	if tfMap == nil {
 		return nil
@@ -86,6 +91,7 @@ func expandDataSetIdentifierDeclaration(tfMap map[string]interface{}) *quicksigh
 
 	return identifier
 }
+
 
 func flattenDataSetIdentifierDeclarations(apiObject []*quicksight.DataSetIdentifierDeclaration) []interface{} {
 	if len(apiObject) == 0 {

@@ -23,6 +23,7 @@ import (
 )
 
 // @SDKResource("aws_ami_launch_permission")
+
 func ResourceAMILaunchPermission() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceAMILaunchPermissionCreate,
@@ -44,7 +45,8 @@ func ResourceAMILaunchPermission() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringInSlice(ec2.PermissionGroup_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.PermissionGroup_Values(), false),
 				ExactlyOneOf: []string{"account_id", "group", "organization_arn", "organizational_unit_arn"},
 			},
 			"image_id": {
@@ -56,19 +58,22 @@ func ResourceAMILaunchPermission() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 				ExactlyOneOf: []string{"account_id", "group", "organization_arn", "organizational_unit_arn"},
 			},
 			"organizational_unit_arn": {
 				Type:         schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 				ExactlyOneOf: []string{"account_id", "group", "organization_arn", "organizational_unit_arn"},
 			},
 		},
 	}
 }
+
 
 func resourceAMILaunchPermissionCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -98,6 +103,7 @@ func resourceAMILaunchPermissionCreate(ctx context.Context, d *schema.ResourceDa
 
 	return resourceAMILaunchPermissionRead(ctx, d, meta)
 }
+
 
 func resourceAMILaunchPermissionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -129,6 +135,7 @@ func resourceAMILaunchPermissionRead(ctx context.Context, d *schema.ResourceData
 	return nil
 }
 
+
 func resourceAMILaunchPermissionDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
@@ -159,6 +166,7 @@ func resourceAMILaunchPermissionDelete(ctx context.Context, d *schema.ResourceDa
 
 	return nil
 }
+
 
 func resourceAMILaunchPermissionImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	const importIDSeparator = "/"
@@ -200,6 +208,7 @@ func resourceAMILaunchPermissionImport(ctx context.Context, d *schema.ResourceDa
 	return []*schema.ResourceData{d}, nil
 }
 
+
 func expandLaunchPermissions(accountID, group, organizationARN, organizationalUnitARN string) []*ec2.LaunchPermission {
 	apiObject := &ec2.LaunchPermission{}
 
@@ -229,6 +238,7 @@ const (
 	amiLaunchPermissionIDOrganizationalUnitIndicator = "ou"
 )
 
+
 func AMILaunchPermissionCreateResourceID(imageID, accountID, group, organizationARN, organizationalUnitARN string) string {
 	parts := []string{imageID}
 
@@ -246,6 +256,7 @@ func AMILaunchPermissionCreateResourceID(imageID, accountID, group, organization
 
 	return id
 }
+
 
 func AMILaunchPermissionParseResourceID(id string) (string, string, string, string, string, error) {
 	parts := strings.Split(id, amiLaunchPermissionIDSeparator)

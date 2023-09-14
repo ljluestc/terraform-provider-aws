@@ -33,6 +33,7 @@ import (
 )
 
 // @FrameworkResource(name="IAM Policy Assignment")
+
 func newResourceIAMPolicyAssignment(_ context.Context) (resource.ResourceWithConfigure, error) {
 	return &resourceIAMPolicyAssignment{}, nil
 }
@@ -165,9 +166,10 @@ func (r *resourceIAMPolicyAssignment) Create(ctx context.Context, req resource.C
 	plan.AssignmentID = flex.StringToFramework(ctx, out.AssignmentId)
 
 	// wait for IAM to propagate before returning
-	_, err = tfresource.RetryWhenNotFound(ctx, iamPropagationTimeout, func() (interface{}, error) {
-		return FindIAMPolicyAssignmentByID(ctx, conn, plan.ID.ValueString())
-	})
+	_, err = tfresource.RetryWhenNotFound(ctx, iamPropagationTimeout,
+		func() (interface{}, error) {
+			return FindIAMPolicyAssignmentByID(ctx, conn, plan.ID.ValueString())
+		})
 	if err != nil {
 		resp.Diagnostics.AddError(
 			create.ProblemStandardMessage(names.QuickSight, create.ErrActionCreating, ResNameIAMPolicyAssignment, plan.AssignmentName.String(), nil),
@@ -303,9 +305,10 @@ func (r *resourceIAMPolicyAssignment) Delete(ctx context.Context, req resource.D
 	}
 
 	// wait for IAM to propagate before returning
-	_, err = tfresource.RetryUntilNotFound(ctx, iamPropagationTimeout, func() (interface{}, error) {
-		return FindIAMPolicyAssignmentByID(ctx, conn, state.ID.ValueString())
-	})
+	_, err = tfresource.RetryUntilNotFound(ctx, iamPropagationTimeout,
+		func() (interface{}, error) {
+			return FindIAMPolicyAssignmentByID(ctx, conn, state.ID.ValueString())
+		})
 	if err != nil {
 		resp.Diagnostics.AddError(
 			create.ProblemStandardMessage(names.QuickSight, create.ErrActionDeleting, ResNameIAMPolicyAssignment, state.ID.String(), nil),

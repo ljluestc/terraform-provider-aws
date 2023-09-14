@@ -21,6 +21,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func testAccPreCheckDefaultSubnetExists(ctx context.Context, t *testing.T) {
 	conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
@@ -42,6 +43,7 @@ func testAccPreCheckDefaultSubnetExists(ctx context.Context, t *testing.T) {
 		t.Skip("skipping since no default subnet is available")
 	}
 }
+
 
 func testAccPreCheckDefaultSubnetNotFound(ctx context.Context, t *testing.T) {
 	conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
@@ -77,13 +79,15 @@ func testAccPreCheckDefaultSubnetNotFound(ctx context.Context, t *testing.T) {
 	}
 }
 
+
 func testAccDefaultSubnet_Existing_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.Subnet
 	resourceName := "aws_default_subnet.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckRegionNot(t, endpoints.UsWest2RegionID, endpoints.UsGovWest1RegionID)
 			testAccPreCheckDefaultSubnetExists(ctx, t)
@@ -94,7 +98,8 @@ func testAccDefaultSubnet_Existing_basic(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCDefaultSubnetConfig_basic(),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckSubnetExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "assign_ipv6_address_on_creation", "false"),
@@ -123,13 +128,15 @@ func testAccDefaultSubnet_Existing_basic(t *testing.T) {
 	})
 }
 
+
 func testAccDefaultSubnet_Existing_forceDestroy(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.Subnet
 	resourceName := "aws_default_subnet.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckRegionNot(t, endpoints.UsWest2RegionID, endpoints.UsGovWest1RegionID)
 			testAccPreCheckDefaultSubnetExists(ctx, t)
@@ -140,7 +147,8 @@ func testAccDefaultSubnet_Existing_forceDestroy(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCDefaultSubnetConfig_forceDestroy(),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckSubnetExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "existing_default_subnet", "true"),
 					resource.TestCheckResourceAttr(resourceName, "force_destroy", "true"),
@@ -150,13 +158,15 @@ func testAccDefaultSubnet_Existing_forceDestroy(t *testing.T) {
 	})
 }
 
+
 func testAccDefaultSubnet_Existing_ipv6(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.Subnet
 	resourceName := "aws_default_subnet.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckRegionNot(t, endpoints.UsWest2RegionID, endpoints.UsGovWest1RegionID)
 			testAccPreCheckDefaultSubnetExists(ctx, t)
@@ -167,7 +177,8 @@ func testAccDefaultSubnet_Existing_ipv6(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCDefaultSubnetConfig_ipv6(),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckSubnetExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "assign_ipv6_address_on_creation", "true"),
@@ -196,6 +207,7 @@ func testAccDefaultSubnet_Existing_ipv6(t *testing.T) {
 	})
 }
 
+
 func testAccDefaultSubnet_Existing_privateDNSNameOptionsOnLaunch(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.Subnet
@@ -203,7 +215,8 @@ func testAccDefaultSubnet_Existing_privateDNSNameOptionsOnLaunch(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckRegionNot(t, endpoints.UsWest2RegionID, endpoints.UsGovWest1RegionID)
 			testAccPreCheckDefaultSubnetExists(ctx, t)
@@ -214,7 +227,8 @@ func testAccDefaultSubnet_Existing_privateDNSNameOptionsOnLaunch(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCDefaultSubnetConfig_privateDNSNameOptionsOnLaunch(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckSubnetExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "assign_ipv6_address_on_creation", "false"),
@@ -244,13 +258,15 @@ func testAccDefaultSubnet_Existing_privateDNSNameOptionsOnLaunch(t *testing.T) {
 	})
 }
 
+
 func testAccDefaultSubnet_NotFound_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.Subnet
 	resourceName := "aws_default_subnet.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckRegionNot(t, endpoints.UsWest2RegionID, endpoints.UsGovWest1RegionID)
 			testAccPreCheckDefaultSubnetNotFound(ctx, t)
@@ -261,7 +277,8 @@ func testAccDefaultSubnet_NotFound_basic(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCDefaultSubnetConfig_notFound(),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckSubnetExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "assign_ipv6_address_on_creation", "false"),
@@ -290,13 +307,15 @@ func testAccDefaultSubnet_NotFound_basic(t *testing.T) {
 	})
 }
 
+
 func testAccDefaultSubnet_NotFound_ipv6Native(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.Subnet
 	resourceName := "aws_default_subnet.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckRegionNot(t, endpoints.UsWest2RegionID, endpoints.UsGovWest1RegionID)
 			testAccPreCheckDefaultSubnetNotFound(ctx, t)
@@ -307,7 +326,8 @@ func testAccDefaultSubnet_NotFound_ipv6Native(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCDefaultSubnetConfig_ipv6Native(),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckSubnetExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "assign_ipv6_address_on_creation", "true"),
@@ -339,8 +359,11 @@ func testAccDefaultSubnet_NotFound_ipv6Native(t *testing.T) {
 // testAccCheckDefaultSubnetDestroyExists runs after all resources are destroyed.
 // It verifies that the default subnet still exists.
 // Any missing default subnets are then created.
-func testAccCheckDefaultSubnetDestroyExists(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckDefaultSubnetDestroyExists(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -362,8 +385,11 @@ func testAccCheckDefaultSubnetDestroyExists(ctx context.Context) resource.TestCh
 // testAccCheckDefaultSubnetDestroyNotFound runs after all resources are destroyed.
 // It verifies that the default subnet does not exist.
 // Any missing default subnets are then created.
-func testAccCheckDefaultSubnetDestroyNotFound(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckDefaultSubnetDestroyNotFound(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -387,6 +413,7 @@ func testAccCheckDefaultSubnetDestroyNotFound(ctx context.Context) resource.Test
 		return testAccCreateMissingDefaultSubnets(ctx)
 	}
 }
+
 
 func testAccCreateMissingDefaultSubnets(ctx context.Context) error {
 	conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
@@ -436,6 +463,7 @@ data "aws_subnet" "test" {
 }
 `
 
+
 func testAccVPCDefaultSubnetConfig_basic() string {
 	return acctest.ConfigCompose(testAccDefaultSubnetConfigBaseExisting, `
 resource "aws_default_subnet" "test" {
@@ -443,6 +471,7 @@ resource "aws_default_subnet" "test" {
 }
 `)
 }
+
 
 func testAccVPCDefaultSubnetConfig_notFound() string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), `
@@ -452,6 +481,7 @@ resource "aws_default_subnet" "test" {
 `)
 }
 
+
 func testAccVPCDefaultSubnetConfig_forceDestroy() string {
 	return acctest.ConfigCompose(testAccDefaultSubnetConfigBaseExisting, `
 resource "aws_default_subnet" "test" {
@@ -460,6 +490,7 @@ resource "aws_default_subnet" "test" {
 }
 `)
 }
+
 
 func testAccVPCDefaultSubnetConfig_ipv6() string {
 	return acctest.ConfigCompose(testAccDefaultSubnetConfigBaseExisting, `
@@ -484,6 +515,7 @@ resource "aws_default_subnet" "test" {
 `)
 }
 
+
 func testAccVPCDefaultSubnetConfig_ipv6Native() string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), `
 resource "aws_default_vpc" "test" {
@@ -506,6 +538,7 @@ resource "aws_default_subnet" "test" {
 }
 `)
 }
+
 
 func testAccVPCDefaultSubnetConfig_privateDNSNameOptionsOnLaunch(rName string) string {
 	return acctest.ConfigCompose(testAccDefaultSubnetConfigBaseExisting, fmt.Sprintf(`

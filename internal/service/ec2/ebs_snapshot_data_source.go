@@ -21,6 +21,7 @@ import (
 )
 
 // @SDKDataSource("aws_ebs_snapshot")
+
 func DataSourceEBSSnapshot() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceEBSSnapshotRead,
@@ -151,9 +152,10 @@ func dataSourceEBSSnapshotRead(ctx context.Context, d *schema.ResourceData, meta
 				"specific search criteria, or set `most_recent` attribute to true.")
 		}
 
-		sort.Slice(snapshots, func(i, j int) bool {
-			return aws.TimeValue(snapshots[i].StartTime).Unix() > aws.TimeValue(snapshots[j].StartTime).Unix()
-		})
+		sort.Slice(snapshots,
+			func(i, j int) bool {
+				return aws.TimeValue(snapshots[i].StartTime).Unix() > aws.TimeValue(snapshots[j].StartTime).Unix()
+			})
 	}
 
 	snapshot := snapshots[0]

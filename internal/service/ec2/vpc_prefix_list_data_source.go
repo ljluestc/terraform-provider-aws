@@ -17,6 +17,7 @@ import (
 )
 
 // @SDKDataSource("aws_prefix_list")
+
 func DataSourcePrefixList() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourcePrefixListRead,

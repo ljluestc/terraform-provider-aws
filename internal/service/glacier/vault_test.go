@@ -20,6 +20,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
+
 func TestAccGlacierVault_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var vault glacier.DescribeVaultOutput
@@ -27,14 +28,16 @@ func TestAccGlacierVault_basic(t *testing.T) {
 	resourceName := "aws_glacier_vault.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, names.GlacierEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVaultDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVaultConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckVaultExists(ctx, resourceName, &vault),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
@@ -52,6 +55,7 @@ func TestAccGlacierVault_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccGlacierVault_notification(t *testing.T) {
 	ctx := acctest.Context(t)
 	var vault glacier.DescribeVaultOutput
@@ -60,14 +64,16 @@ func TestAccGlacierVault_notification(t *testing.T) {
 	snsResourceName := "aws_sns_topic.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, names.GlacierEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVaultDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVaultConfig_notification(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckVaultExists(ctx, resourceName, &vault),
 					resource.TestCheckResourceAttr(resourceName, "notification.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "notification.0.events.#", "2"),
@@ -81,14 +87,16 @@ func TestAccGlacierVault_notification(t *testing.T) {
 			},
 			{
 				Config: testAccVaultConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckVaultExists(ctx, resourceName, &vault),
 					resource.TestCheckResourceAttr(resourceName, "notification.#", "0"),
 				),
 			},
 			{
 				Config: testAccVaultConfig_notification(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckVaultExists(ctx, resourceName, &vault),
 					resource.TestCheckResourceAttr(resourceName, "notification.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "notification.0.events.#", "2"),
@@ -99,6 +107,7 @@ func TestAccGlacierVault_notification(t *testing.T) {
 	})
 }
 
+
 func TestAccGlacierVault_policy(t *testing.T) {
 	ctx := acctest.Context(t)
 	var vault glacier.DescribeVaultOutput
@@ -106,14 +115,16 @@ func TestAccGlacierVault_policy(t *testing.T) {
 	resourceName := "aws_glacier_vault.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, names.GlacierEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVaultDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVaultConfig_policy(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckVaultExists(ctx, resourceName, &vault),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
 					resource.TestMatchResourceAttr(resourceName, "access_policy", regexache.MustCompile(`"Sid":"cross-account-upload".+`)),
@@ -126,7 +137,8 @@ func TestAccGlacierVault_policy(t *testing.T) {
 			},
 			{
 				Config: testAccVaultConfig_policyUpdated(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckVaultExists(ctx, resourceName, &vault),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
 					resource.TestMatchResourceAttr(resourceName, "access_policy", regexache.MustCompile(`"Sid":"cross-account-upload1".+`)),
@@ -134,7 +146,8 @@ func TestAccGlacierVault_policy(t *testing.T) {
 			},
 			{
 				Config: testAccVaultConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckVaultExists(ctx, resourceName, &vault),
 					resource.TestCheckResourceAttr(resourceName, "access_policy", ""),
 				),
@@ -143,6 +156,7 @@ func TestAccGlacierVault_policy(t *testing.T) {
 	})
 }
 
+
 func TestAccGlacierVault_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var vault glacier.DescribeVaultOutput
@@ -150,14 +164,16 @@ func TestAccGlacierVault_tags(t *testing.T) {
 	resourceName := "aws_glacier_vault.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, names.GlacierEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVaultDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVaultConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckVaultExists(ctx, resourceName, &vault),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
@@ -170,7 +186,8 @@ func TestAccGlacierVault_tags(t *testing.T) {
 			},
 			{
 				Config: testAccVaultConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckVaultExists(ctx, resourceName, &vault),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
@@ -179,7 +196,8 @@ func TestAccGlacierVault_tags(t *testing.T) {
 			},
 			{
 				Config: testAccVaultConfig_tags1(rName, "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckVaultExists(ctx, resourceName, &vault),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
@@ -189,6 +207,7 @@ func TestAccGlacierVault_tags(t *testing.T) {
 	})
 }
 
+
 func TestAccGlacierVault_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var vault glacier.DescribeVaultOutput
@@ -196,14 +215,16 @@ func TestAccGlacierVault_disappears(t *testing.T) {
 	resourceName := "aws_glacier_vault.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, names.GlacierEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVaultDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVaultConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckVaultExists(ctx, resourceName, &vault),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfglacier.ResourceVault(), resourceName),
 				),
@@ -213,6 +234,7 @@ func TestAccGlacierVault_disappears(t *testing.T) {
 	})
 }
 
+
 func TestAccGlacierVault_ignoreEquivalent(t *testing.T) {
 	ctx := acctest.Context(t)
 	var vault glacier.DescribeVaultOutput
@@ -220,14 +242,16 @@ func TestAccGlacierVault_ignoreEquivalent(t *testing.T) {
 	resourceName := "aws_glacier_vault.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, names.GlacierEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVaultDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVaultConfig_policyOrder(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckVaultExists(ctx, resourceName, &vault),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
@@ -244,8 +268,11 @@ func TestAccGlacierVault_ignoreEquivalent(t *testing.T) {
 	})
 }
 
-func testAccCheckVaultExists(ctx context.Context, n string, v *glacier.DescribeVaultOutput) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckVaultExists(ctx context.Context, n string, v *glacier.DescribeVaultOutput) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -269,8 +296,11 @@ func testAccCheckVaultExists(ctx context.Context, n string, v *glacier.DescribeV
 	}
 }
 
-func testAccCheckVaultDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckVaultDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).GlacierClient(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -294,6 +324,7 @@ func testAccCheckVaultDestroy(ctx context.Context) resource.TestCheckFunc {
 	}
 }
 
+
 func testAccVaultConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_glacier_vault" "test" {
@@ -301,6 +332,7 @@ resource "aws_glacier_vault" "test" {
 }
 `, rName)
 }
+
 
 func testAccVaultConfig_notification(rName string) string {
 	return fmt.Sprintf(`
@@ -318,6 +350,7 @@ resource "aws_glacier_vault" "test" {
 }
 `, rName)
 }
+
 
 func testAccVaultConfig_policy(rName string) string {
 	return fmt.Sprintf(`
@@ -353,6 +386,7 @@ EOF
 }
 `, rName)
 }
+
 
 func testAccVaultConfig_policyUpdated(rName string) string {
 	return fmt.Sprintf(`
@@ -390,6 +424,7 @@ EOF
 `, rName)
 }
 
+
 func testAccVaultConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_glacier_vault" "test" {
@@ -401,6 +436,7 @@ resource "aws_glacier_vault" "test" {
 }
 `, rName, tagKey1, tagValue1)
 }
+
 
 func testAccVaultConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
@@ -414,6 +450,7 @@ resource "aws_glacier_vault" "test" {
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }
+
 
 func testAccVaultConfig_policyOrder(rName string) string {
 	return fmt.Sprintf(`
@@ -447,6 +484,7 @@ resource "aws_glacier_vault" "test" {
 }
 `, rName)
 }
+
 
 func testAccVaultConfig_policyNewOrder(rName string) string {
 	return fmt.Sprintf(`

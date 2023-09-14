@@ -18,6 +18,7 @@ import (
 	tfec2 "github.com/hashicorp/terraform-provider-aws/internal/service/ec2"
 )
 
+
 func TestAccIPAMOrganizationAdminAccount_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var organization organizations.DelegatedAdministrator
@@ -25,7 +26,8 @@ func TestAccIPAMOrganizationAdminAccount_basic(t *testing.T) {
 	dataSourceIdentity := "data.aws_caller_identity.delegated"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
 		},
@@ -35,7 +37,8 @@ func TestAccIPAMOrganizationAdminAccount_basic(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIPAMOrganizationAdminAccountConfig_basic(),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckIPAMOrganizationAdminAccountExists(ctx, resourceName, &organization),
 					resource.TestCheckResourceAttrPair(resourceName, "id", dataSourceIdentity, "account_id"),
 					resource.TestCheckResourceAttr(resourceName, "service_principal", tfec2.IPAMServicePrincipal),
@@ -51,8 +54,11 @@ func TestAccIPAMOrganizationAdminAccount_basic(t *testing.T) {
 	})
 }
 
-func testAccCheckIPAMOrganizationAdminAccountDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckIPAMOrganizationAdminAccountDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).OrganizationsConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -80,8 +86,11 @@ func testAccCheckIPAMOrganizationAdminAccountDestroy(ctx context.Context) resour
 	}
 }
 
-func testAccCheckIPAMOrganizationAdminAccountExists(ctx context.Context, n string, org *organizations.DelegatedAdministrator) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckIPAMOrganizationAdminAccountExists(ctx context.Context, n string, org *organizations.DelegatedAdministrator) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -117,6 +126,7 @@ func testAccCheckIPAMOrganizationAdminAccountExists(ctx context.Context, n strin
 		return nil
 	}
 }
+
 
 func testAccIPAMOrganizationAdminAccountConfig_basic() string {
 	return acctest.ConfigCompose(acctest.ConfigAlternateAccountProvider() + `

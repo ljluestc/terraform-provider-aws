@@ -25,6 +25,7 @@ import (
 
 // @SDKResource("aws_ec2_traffic_mirror_session", name="Traffic Mirror Session")
 // @Tags(identifierAttribute="id")
+
 func ResourceTrafficMirrorSession() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceTrafficMirrorSessionCreate,
@@ -62,7 +63,8 @@ func ResourceTrafficMirrorSession() *schema.Resource {
 			"session_number": {
 				Type:         schema.TypeInt,
 				Required:     true,
-				ValidateFunc: validation.IntBetween(1, 32766),
+				Validate
+func: validation.IntBetween(1, 32766),
 			},
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
@@ -78,11 +80,13 @@ func ResourceTrafficMirrorSession() *schema.Resource {
 				Type:         schema.TypeInt,
 				Optional:     true,
 				Computed:     true,
-				ValidateFunc: validation.IntBetween(1, 16777216),
+				Validate
+func: validation.IntBetween(1, 16777216),
 			},
 		},
 	}
 }
+
 
 func resourceTrafficMirrorSessionCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -122,6 +126,7 @@ func resourceTrafficMirrorSessionCreate(ctx context.Context, d *schema.ResourceD
 	return append(diags, resourceTrafficMirrorSessionRead(ctx, d, meta)...)
 }
 
+
 func resourceTrafficMirrorSessionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -160,6 +165,7 @@ func resourceTrafficMirrorSessionRead(ctx context.Context, d *schema.ResourceDat
 
 	return diags
 }
+
 
 func resourceTrafficMirrorSessionUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -221,6 +227,7 @@ func resourceTrafficMirrorSessionUpdate(ctx context.Context, d *schema.ResourceD
 
 	return append(diags, resourceTrafficMirrorSessionRead(ctx, d, meta)...)
 }
+
 
 func resourceTrafficMirrorSessionDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

@@ -25,6 +25,7 @@ const (
 )
 
 // @SDKResource("aws_quicksight_group", name="Group")
+
 func ResourceGroup() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceGroupCreate,
@@ -36,7 +37,9 @@ func ResourceGroup() *schema.Resource {
 			StateContext: schema.ImportStatePassthroughContext,
 		},
 
-		SchemaFunc: func() map[string]*schema.Schema {
+		Schema
+func: 
+func() map[string]*schema.Schema {
 			return map[string]*schema.Schema{
 				"arn": {
 					Type:     schema.TypeString,
@@ -66,7 +69,8 @@ func ResourceGroup() *schema.Resource {
 					Optional: true,
 					ForceNew: true,
 					Default:  DefaultGroupNamespace,
-					ValidateFunc: validation.All(
+					Validate
+func: validation.All(
 						validation.StringLenBetween(1, 63),
 						validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_.-]*$`), "must contain only alphanumeric characters, hyphens, underscores, and periods"),
 					),
@@ -75,6 +79,7 @@ func ResourceGroup() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceGroupCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -106,6 +111,7 @@ func resourceGroupCreate(ctx context.Context, d *schema.ResourceData, meta inter
 
 	return append(diags, resourceGroupRead(ctx, d, meta)...)
 }
+
 
 func resourceGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -141,6 +147,7 @@ func resourceGroupRead(ctx context.Context, d *schema.ResourceData, meta interfa
 	return diags
 }
 
+
 func resourceGroupUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
@@ -168,6 +175,7 @@ func resourceGroupUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 	return append(diags, resourceGroupRead(ctx, d, meta)...)
 }
 
+
 func resourceGroupDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
@@ -192,6 +200,7 @@ func resourceGroupDelete(ctx context.Context, d *schema.ResourceData, meta inter
 
 	return diags
 }
+
 
 func GroupParseID(id string) (string, string, string, error) {
 	parts := strings.SplitN(id, "/", 3)

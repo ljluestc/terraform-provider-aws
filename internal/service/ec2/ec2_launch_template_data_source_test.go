@@ -13,6 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccEC2LaunchTemplateDataSource_name(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -20,14 +21,16 @@ func TestAccEC2LaunchTemplateDataSource_name(t *testing.T) {
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLaunchTemplateDataSourceConfig_name(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrPair(resourceName, "arn", dataSourceName, "arn"),
 					resource.TestCheckResourceAttrPair(resourceName, "block_device_mappings.#", dataSourceName, "block_device_mappings.#"),
 					resource.TestCheckResourceAttrPair(resourceName, "capacity_reservation_specification.#", dataSourceName, "capacity_reservation_specification.#"),
@@ -74,6 +77,7 @@ func TestAccEC2LaunchTemplateDataSource_name(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2LaunchTemplateDataSource_id(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -81,14 +85,16 @@ func TestAccEC2LaunchTemplateDataSource_id(t *testing.T) {
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLaunchTemplateDataSourceConfig_id(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttrPair(resourceName, "id", dataSourceName, "id"),
 					resource.TestCheckResourceAttrPair(resourceName, "name", dataSourceName, "name"),
 				),
@@ -96,6 +102,7 @@ func TestAccEC2LaunchTemplateDataSource_id(t *testing.T) {
 		},
 	})
 }
+
 
 func TestAccEC2LaunchTemplateDataSource_filter(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -104,14 +111,16 @@ func TestAccEC2LaunchTemplateDataSource_filter(t *testing.T) {
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLaunchTemplateDataSourceConfig_filter(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttrPair(resourceName, "id", dataSourceName, "id"),
 					resource.TestCheckResourceAttrPair(resourceName, "name", dataSourceName, "name"),
 				),
@@ -119,6 +128,7 @@ func TestAccEC2LaunchTemplateDataSource_filter(t *testing.T) {
 		},
 	})
 }
+
 
 func TestAccEC2LaunchTemplateDataSource_tags(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -127,14 +137,16 @@ func TestAccEC2LaunchTemplateDataSource_tags(t *testing.T) {
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLaunchTemplateDataSourceConfig_tags(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttrPair(resourceName, "id", dataSourceName, "id"),
 					resource.TestCheckResourceAttrPair(resourceName, "name", dataSourceName, "name"),
 					resource.TestCheckResourceAttrPair(resourceName, "tags.%", dataSourceName, "tags.%"),
@@ -143,6 +155,7 @@ func TestAccEC2LaunchTemplateDataSource_tags(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccLaunchTemplateDataSourceConfig_name(rName string) string {
 	return acctest.ConfigCompose(
@@ -242,6 +255,7 @@ data "aws_launch_template" "test" {
 `, rName))
 }
 
+
 func testAccLaunchTemplateDataSourceConfig_id(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_launch_template" "test" {
@@ -253,6 +267,7 @@ data "aws_launch_template" "test" {
 }
 `, rName)
 }
+
 
 func testAccLaunchTemplateDataSourceConfig_filter(rName string) string {
 	return fmt.Sprintf(`
@@ -268,6 +283,7 @@ data "aws_launch_template" "test" {
 }
 `, rName)
 }
+
 
 func testAccLaunchTemplateDataSourceConfig_tags(rName string) string {
 	return fmt.Sprintf(`

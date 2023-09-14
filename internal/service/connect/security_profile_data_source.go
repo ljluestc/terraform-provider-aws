@@ -18,6 +18,7 @@ import (
 )
 
 // @SDKDataSource("aws_connect_security_profile")
+
 func DataSourceSecurityProfile() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceSecurityProfileRead,
@@ -33,7 +34,8 @@ func DataSourceSecurityProfile() *schema.Resource {
 			"instance_id": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: validation.StringLenBetween(1, 100),
+				Validate
+func: validation.StringLenBetween(1, 100),
 			},
 			"name": {
 				Type:         schema.TypeString,
@@ -62,6 +64,7 @@ func DataSourceSecurityProfile() *schema.Resource {
 		},
 	}
 }
+
 
 func dataSourceSecurityProfileRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -129,6 +132,7 @@ func dataSourceSecurityProfileRead(ctx context.Context, d *schema.ResourceData, 
 	return nil
 }
 
+
 func dataSourceGetSecurityProfileSummaryByName(ctx context.Context, conn *connect.Connect, instanceID, name string) (*connect.SecurityProfileSummary, error) {
 	var result *connect.SecurityProfileSummary
 
@@ -137,7 +141,8 @@ func dataSourceGetSecurityProfileSummaryByName(ctx context.Context, conn *connec
 		MaxResults: aws.Int64(ListSecurityProfilesMaxResults),
 	}
 
-	err := conn.ListSecurityProfilesPagesWithContext(ctx, input, func(page *connect.ListSecurityProfilesOutput, lastPage bool) bool {
+	err := conn.ListSecurityProfilesPagesWithContext(ctx, input, 
+func(page *connect.ListSecurityProfilesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}

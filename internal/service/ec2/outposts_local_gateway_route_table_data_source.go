@@ -18,6 +18,7 @@ import (
 )
 
 // @SDKDataSource("aws_ec2_local_gateway_route_table")
+
 func DataSourceLocalGatewayRouteTable() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceLocalGatewayRouteTableRead,

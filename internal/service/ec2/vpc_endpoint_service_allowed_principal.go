@@ -18,6 +18,7 @@ import (
 )
 
 // @SDKResource("aws_vpc_endpoint_service_allowed_principal")
+
 func ResourceVPCEndpointServiceAllowedPrincipal() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceVPCEndpointServiceAllowedPrincipalCreate,

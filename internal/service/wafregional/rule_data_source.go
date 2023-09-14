@@ -15,6 +15,7 @@ import (
 )
 
 // @SDKDataSource("aws_wafregional_rule")
+
 func DataSourceRule() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceRuleRead,

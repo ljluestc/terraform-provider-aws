@@ -30,6 +30,7 @@ import (
 
 // @SDKResource("aws_route53_resolver_endpoint", name="Endpoint")
 // @Tags(identifierAttribute="arn")
+
 func ResourceEndpoint() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceEndpointCreate,
@@ -50,7 +51,8 @@ func ResourceEndpoint() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringInSlice(route53resolver.ResolverEndpointDirection_Values(), false),
+				Validate
+func: validation.StringInSlice(route53resolver.ResolverEndpointDirection_Values(), false),
 			},
 			"host_vpc_id": {
 				Type:     schema.TypeString,
@@ -67,7 +69,8 @@ func ResourceEndpoint() *schema.Resource {
 							Type:         schema.TypeString,
 							Optional:     true,
 							Computed:     true,
-							ValidateFunc: validation.IsIPAddress,
+							Validate
+func: validation.IsIPAddress,
 						},
 						"ip_id": {
 							Type:     schema.TypeString,
@@ -84,7 +87,8 @@ func ResourceEndpoint() *schema.Resource {
 			"name": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				ValidateFunc: validResolverName,
+				Validate
+func: validResolverName,
 			},
 			"security_group_ids": {
 				Type:     schema.TypeSet,
@@ -107,6 +111,7 @@ func ResourceEndpoint() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
+
 
 func resourceEndpointCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
@@ -137,6 +142,7 @@ func resourceEndpointCreate(ctx context.Context, d *schema.ResourceData, meta in
 
 	return resourceEndpointRead(ctx, d, meta)
 }
+
 
 func resourceEndpointRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
@@ -172,6 +178,7 @@ func resourceEndpointRead(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return nil
 }
+
 
 func resourceEndpointUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
@@ -233,6 +240,7 @@ func resourceEndpointUpdate(ctx context.Context, d *schema.ResourceData, meta in
 	return resourceEndpointRead(ctx, d, meta)
 }
 
+
 func resourceEndpointDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
 
@@ -255,6 +263,7 @@ func resourceEndpointDelete(ctx context.Context, d *schema.ResourceData, meta in
 
 	return nil
 }
+
 
 func FindResolverEndpointByID(ctx context.Context, conn *route53resolver.Route53Resolver, id string) (*route53resolver.ResolverEndpoint, error) {
 	input := &route53resolver.GetResolverEndpointInput{
@@ -281,13 +290,15 @@ func FindResolverEndpointByID(ctx context.Context, conn *route53resolver.Route53
 	return output.ResolverEndpoint, nil
 }
 
+
 func findResolverEndpointIPAddressesByID(ctx context.Context, conn *route53resolver.Route53Resolver, id string) ([]*route53resolver.IpAddressResponse, error) {
 	input := &route53resolver.ListResolverEndpointIpAddressesInput{
 		ResolverEndpointId: aws.String(id),
 	}
 	var output []*route53resolver.IpAddressResponse
 
-	err := conn.ListResolverEndpointIpAddressesPagesWithContext(ctx, input, func(page *route53resolver.ListResolverEndpointIpAddressesOutput, lastPage bool) bool {
+	err := conn.ListResolverEndpointIpAddressesPagesWithContext(ctx, input, 
+func(page *route53resolver.ListResolverEndpointIpAddressesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -304,8 +315,11 @@ func findResolverEndpointIPAddressesByID(ctx context.Context, conn *route53resol
 	return output, nil
 }
 
-func statusEndpoint(ctx context.Context, conn *route53resolver.Route53Resolver, id string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+
+func statusEndpoint(ctx context.Context, conn *route53resolver.Route53Resolver, id string) retry.StateRefresh
+func {
+	return 
+func() (interface{}, string, error) {
 		output, err := FindResolverEndpointByID(ctx, conn, id)
 
 		if tfresource.NotFound(err) {
@@ -319,6 +333,7 @@ func statusEndpoint(ctx context.Context, conn *route53resolver.Route53Resolver, 
 		return output, aws.StringValue(output.Status), nil
 	}
 }
+
 
 func waitEndpointCreated(ctx context.Context, conn *route53resolver.Route53Resolver, id string, timeout time.Duration) (*route53resolver.ResolverEndpoint, error) {
 	stateConf := &retry.StateChangeConf{
@@ -341,6 +356,7 @@ func waitEndpointCreated(ctx context.Context, conn *route53resolver.Route53Resol
 	return nil, err
 }
 
+
 func waitEndpointUpdated(ctx context.Context, conn *route53resolver.Route53Resolver, id string, timeout time.Duration) (*route53resolver.ResolverEndpoint, error) { //nolint:unparam
 	stateConf := &retry.StateChangeConf{
 		Pending:    []string{route53resolver.ResolverEndpointStatusUpdating},
@@ -361,6 +377,7 @@ func waitEndpointUpdated(ctx context.Context, conn *route53resolver.Route53Resol
 
 	return nil, err
 }
+
 
 func waitEndpointDeleted(ctx context.Context, conn *route53resolver.Route53Resolver, id string, timeout time.Duration) (*route53resolver.ResolverEndpoint, error) {
 	stateConf := &retry.StateChangeConf{
@@ -383,12 +400,14 @@ func waitEndpointDeleted(ctx context.Context, conn *route53resolver.Route53Resol
 	return nil, err
 }
 
+
 func endpointHashIPAddress(v interface{}) int {
 	var buf bytes.Buffer
 	m := v.(map[string]interface{})
 	buf.WriteString(fmt.Sprintf("%s-%s-", m["subnet_id"].(string), m["ip"].(string)))
 	return create.StringHashcode(buf.String())
 }
+
 
 func expandEndpointIPAddressUpdate(vIpAddress interface{}) *route53resolver.IpAddressUpdate {
 	ipAddressUpdate := &route53resolver.IpAddressUpdate{}
@@ -407,6 +426,7 @@ func expandEndpointIPAddressUpdate(vIpAddress interface{}) *route53resolver.IpAd
 
 	return ipAddressUpdate
 }
+
 
 func expandEndpointIPAddresses(vIpAddresses *schema.Set) []*route53resolver.IpAddressRequest {
 	ipAddressRequests := []*route53resolver.IpAddressRequest{}
@@ -428,6 +448,7 @@ func expandEndpointIPAddresses(vIpAddresses *schema.Set) []*route53resolver.IpAd
 
 	return ipAddressRequests
 }
+
 
 func flattenEndpointIPAddresses(ipAddresses []*route53resolver.IpAddressResponse) []interface{} {
 	if ipAddresses == nil {

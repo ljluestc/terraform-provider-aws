@@ -17,6 +17,7 @@ import (
 )
 
 // @SDKDataSource("aws_ec2_instance_type_offerings")
+
 func DataSourceInstanceTypeOfferings() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceInstanceTypeOfferingsRead,
@@ -40,7 +41,8 @@ func DataSourceInstanceTypeOfferings() *schema.Resource {
 			"location_type": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				ValidateFunc: validation.StringInSlice(ec2.LocationType_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.LocationType_Values(), false),
 			},
 			"location_types": {
 				Type:     schema.TypeList,
@@ -50,6 +52,7 @@ func DataSourceInstanceTypeOfferings() *schema.Resource {
 		},
 	}
 }
+
 
 func dataSourceInstanceTypeOfferingsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

@@ -19,6 +19,7 @@ import (
 	tfconnect "github.com/hashicorp/terraform-provider-aws/internal/service/connect"
 )
 
+
 func testAccContactFlowModule_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v connect.DescribeContactFlowModuleOutput
@@ -27,14 +28,16 @@ func testAccContactFlowModule_basic(t *testing.T) {
 	resourceName := "aws_connect_contact_flow_module.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckContactFlowModuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccContactFlowModuleConfig_basic(rName, rName2, "Created"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckContactFlowModuleExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
 					resource.TestCheckResourceAttrSet(resourceName, "contact_flow_module_id"),
@@ -52,7 +55,8 @@ func testAccContactFlowModule_basic(t *testing.T) {
 			},
 			{
 				Config: testAccContactFlowModuleConfig_basic(rName, rName2, "Updated"),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckContactFlowModuleExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
 					resource.TestCheckResourceAttrSet(resourceName, "contact_flow_module_id"),
@@ -67,6 +71,7 @@ func testAccContactFlowModule_basic(t *testing.T) {
 	})
 }
 
+
 func testAccContactFlowModule_filename(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v connect.DescribeContactFlowModuleOutput
@@ -75,14 +80,16 @@ func testAccContactFlowModule_filename(t *testing.T) {
 	resourceName := "aws_connect_contact_flow_module.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckContactFlowModuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccContactFlowModuleConfig_filename(rName, rName2, "Created", "test-fixtures/connect_contact_flow_module.json"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckContactFlowModuleExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
 					resource.TestCheckResourceAttrSet(resourceName, "contact_flow_module_id"),
@@ -103,7 +110,8 @@ func testAccContactFlowModule_filename(t *testing.T) {
 			},
 			{
 				Config: testAccContactFlowModuleConfig_filename(rName, rName2, "Updated", "test-fixtures/connect_contact_flow_module_updated.json"),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckContactFlowModuleExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
 					resource.TestCheckResourceAttrSet(resourceName, "contact_flow_module_id"),
@@ -117,6 +125,7 @@ func testAccContactFlowModule_filename(t *testing.T) {
 	})
 }
 
+
 func testAccContactFlowModule_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v connect.DescribeContactFlowModuleOutput
@@ -125,14 +134,16 @@ func testAccContactFlowModule_disappears(t *testing.T) {
 	resourceName := "aws_connect_contact_flow_module.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckContactFlowModuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccContactFlowModuleConfig_basic(rName, rName2, "Disappear"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckContactFlowModuleExists(ctx, resourceName, &v),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfconnect.ResourceContactFlowModule(), resourceName),
 				),
@@ -142,8 +153,12 @@ func testAccContactFlowModule_disappears(t *testing.T) {
 	})
 }
 
-func testAccCheckContactFlowModuleExists(ctx context.Context, resourceName string, function *connect.DescribeContactFlowModuleOutput) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckContactFlowModuleExists(ctx context.Context, resourceName string, 
+function *connect.DescribeContactFlowModuleOutput) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("Connect Contact Flow Module not found: %s", resourceName)
@@ -165,19 +180,25 @@ func testAccCheckContactFlowModuleExists(ctx context.Context, resourceName strin
 			InstanceId:          aws.String(instanceID),
 		}
 
-		getFunction, err := conn.DescribeContactFlowModuleWithContext(ctx, params)
+		get
+function, err := conn.DescribeContactFlowModuleWithContext(ctx, params)
 		if err != nil {
 			return err
 		}
 
-		*function = *getFunction
+		*
+function = *get
+function
 
 		return nil
 	}
 }
 
-func testAccCheckContactFlowModuleDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckContactFlowModuleDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_connect_contact_flow_module" {
 				continue
@@ -210,6 +231,7 @@ func testAccCheckContactFlowModuleDestroy(ctx context.Context) resource.TestChec
 	}
 }
 
+
 func testAccContactFlowModuleConfig_base(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_connect_instance" "test" {
@@ -220,6 +242,7 @@ resource "aws_connect_instance" "test" {
 }
 `, rName)
 }
+
 
 func testAccContactFlowModuleConfig_basic(rName, rName2, label string) string {
 	return acctest.ConfigCompose(
@@ -280,6 +303,7 @@ resource "aws_connect_contact_flow_module" "test" {
 }
 `, rName2, label))
 }
+
 
 func testAccContactFlowModuleConfig_filename(rName, rName2 string, label string, filepath string) string {
 	return acctest.ConfigCompose(

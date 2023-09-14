@@ -19,6 +19,7 @@ import (
 )
 
 // @SDKDataSource("aws_security_group")
+
 func DataSourceSecurityGroup() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceSecurityGroupRead,

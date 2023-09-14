@@ -24,6 +24,7 @@ import (
 
 // @SDKResource("aws_ec2_managed_prefix_list", name="Managed Prefix List")
 // @Tags(identifierAttribute="id")
+
 func ResourceManagedPrefixList() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceManagedPrefixListCreate,
@@ -36,7 +37,8 @@ func ResourceManagedPrefixList() *schema.Resource {
 		},
 
 		CustomizeDiff: customdiff.Sequence(
-			customdiff.ComputedIf("version", func(ctx context.Context, diff *schema.ResourceDiff, meta interface{}) bool {
+			customdiff.ComputedIf("version", 
+func(ctx context.Context, diff *schema.ResourceDiff, meta interface{}) bool {
 				return diff.HasChange("entry")
 			}),
 			verify.SetTagsDiff,
@@ -47,7 +49,8 @@ func ResourceManagedPrefixList() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringInSlice(managedPrefixListAddressFamily_Values(), false),
+				Validate
+func: validation.StringInSlice(managedPrefixListAddressFamily_Values(), false),
 			},
 			"arn": {
 				Type:     schema.TypeString,
@@ -62,12 +65,14 @@ func ResourceManagedPrefixList() *schema.Resource {
 						"cidr": {
 							Type:         schema.TypeString,
 							Required:     true,
-							ValidateFunc: validation.IsCIDR,
+							Validate
+func: validation.IsCIDR,
 						},
 						"description": {
 							Type:         schema.TypeString,
 							Optional:     true,
-							ValidateFunc: validation.StringLenBetween(0, 255),
+							Validate
+func: validation.StringLenBetween(0, 255),
 						},
 					},
 				},
@@ -75,12 +80,14 @@ func ResourceManagedPrefixList() *schema.Resource {
 			"max_entries": {
 				Type:         schema.TypeInt,
 				Required:     true,
-				ValidateFunc: validation.IntAtLeast(1),
+				Validate
+func: validation.IntAtLeast(1),
 			},
 			"name": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: validation.StringLenBetween(1, 255),
+				Validate
+func: validation.StringLenBetween(1, 255),
 			},
 			"owner_id": {
 				Type:     schema.TypeString,
@@ -95,6 +102,7 @@ func ResourceManagedPrefixList() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceManagedPrefixListCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -135,6 +143,7 @@ func resourceManagedPrefixListCreate(ctx context.Context, d *schema.ResourceData
 	return resourceManagedPrefixListRead(ctx, d, meta)
 }
 
+
 func resourceManagedPrefixListRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
@@ -170,6 +179,7 @@ func resourceManagedPrefixListRead(ctx context.Context, d *schema.ResourceData, 
 
 	return nil
 }
+
 
 func resourceManagedPrefixListUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -300,6 +310,7 @@ func resourceManagedPrefixListUpdate(ctx context.Context, d *schema.ResourceData
 	return resourceManagedPrefixListRead(ctx, d, meta)
 }
 
+
 func resourceManagedPrefixListDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
@@ -323,6 +334,7 @@ func resourceManagedPrefixListDelete(ctx context.Context, d *schema.ResourceData
 	return nil
 }
 
+
 func updateMaxEntry(ctx context.Context, conn *ec2.EC2, id string, maxEntries int64) error {
 	_, err := conn.ModifyManagedPrefixListWithContext(ctx, &ec2.ModifyManagedPrefixListInput{
 		PrefixListId: aws.String(id),
@@ -342,6 +354,7 @@ func updateMaxEntry(ctx context.Context, conn *ec2.EC2, id string, maxEntries in
 	return nil
 }
 
+
 func expandAddPrefixListEntry(tfMap map[string]interface{}) *ec2.AddPrefixListEntry {
 	if tfMap == nil {
 		return nil
@@ -359,6 +372,7 @@ func expandAddPrefixListEntry(tfMap map[string]interface{}) *ec2.AddPrefixListEn
 
 	return apiObject
 }
+
 
 func expandAddPrefixListEntries(tfList []interface{}) []*ec2.AddPrefixListEntry {
 	if len(tfList) == 0 {
@@ -386,6 +400,7 @@ func expandAddPrefixListEntries(tfList []interface{}) []*ec2.AddPrefixListEntry 
 	return apiObjects
 }
 
+
 func expandRemovePrefixListEntry(tfMap map[string]interface{}) *ec2.RemovePrefixListEntry {
 	if tfMap == nil {
 		return nil
@@ -399,6 +414,7 @@ func expandRemovePrefixListEntry(tfMap map[string]interface{}) *ec2.RemovePrefix
 
 	return apiObject
 }
+
 
 func expandRemovePrefixListEntries(tfList []interface{}) []*ec2.RemovePrefixListEntry {
 	if len(tfList) == 0 {
@@ -426,6 +442,7 @@ func expandRemovePrefixListEntries(tfList []interface{}) []*ec2.RemovePrefixList
 	return apiObjects
 }
 
+
 func flattenPrefixListEntry(apiObject *ec2.PrefixListEntry) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -443,6 +460,7 @@ func flattenPrefixListEntry(apiObject *ec2.PrefixListEntry) map[string]interface
 
 	return tfMap
 }
+
 
 func flattenPrefixListEntries(apiObjects []*ec2.PrefixListEntry) []interface{} {
 	if len(apiObjects) == 0 {

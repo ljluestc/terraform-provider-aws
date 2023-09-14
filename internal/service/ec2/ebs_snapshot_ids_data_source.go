@@ -18,6 +18,7 @@ import (
 )
 
 // @SDKDataSource("aws_ebs_snapshot_ids")
+
 func DataSourceEBSSnapshotIDs() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceEBSSnapshotIDsRead,
@@ -75,9 +76,10 @@ func dataSourceEBSSnapshotIDsRead(ctx context.Context, d *schema.ResourceData, m
 		return sdkdiag.AppendErrorf(diags, "reading EBS Snapshots: %s", err)
 	}
 
-	sort.Slice(snapshots, func(i, j int) bool {
-		return aws.TimeValue(snapshots[i].StartTime).Unix() > aws.TimeValue(snapshots[j].StartTime).Unix()
-	})
+	sort.Slice(snapshots,
+		func(i, j int) bool {
+			return aws.TimeValue(snapshots[i].StartTime).Unix() > aws.TimeValue(snapshots[j].StartTime).Unix()
+		})
 
 	var snapshotIDs []string
 

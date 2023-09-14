@@ -20,6 +20,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccSSOAdminAccountAssignment_Basic_group(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_ssoadmin_account_assignment.test"
@@ -27,7 +28,8 @@ func TestAccSSOAdminAccountAssignment_Basic_group(t *testing.T) {
 	groupName := os.Getenv("AWS_IDENTITY_STORE_GROUP_NAME")
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckInstances(ctx, t)
 			testAccPreCheckIdentityStoreGroupName(t)
@@ -38,7 +40,8 @@ func TestAccSSOAdminAccountAssignment_Basic_group(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAccountAssignmentConfig_basicGroup(groupName, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckAccountAssignmentExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "target_type", "AWS_ACCOUNT"),
 					resource.TestCheckResourceAttr(resourceName, "principal_type", "GROUP"),
@@ -54,6 +57,7 @@ func TestAccSSOAdminAccountAssignment_Basic_group(t *testing.T) {
 	})
 }
 
+
 func TestAccSSOAdminAccountAssignment_Basic_user(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_ssoadmin_account_assignment.test"
@@ -61,7 +65,8 @@ func TestAccSSOAdminAccountAssignment_Basic_user(t *testing.T) {
 	userName := os.Getenv("AWS_IDENTITY_STORE_USER_NAME")
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckInstances(ctx, t)
 			testAccPreCheckIdentityStoreUserName(t)
@@ -72,7 +77,8 @@ func TestAccSSOAdminAccountAssignment_Basic_user(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAccountAssignmentConfig_basicUser(userName, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckAccountAssignmentExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "target_type", "AWS_ACCOUNT"),
 					resource.TestCheckResourceAttr(resourceName, "principal_type", "USER"),
@@ -88,13 +94,15 @@ func TestAccSSOAdminAccountAssignment_Basic_user(t *testing.T) {
 	})
 }
 
+
 func TestAccSSOAdminAccountAssignment_MissingPolicy(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	userName := os.Getenv("AWS_IDENTITY_STORE_USER_NAME")
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckInstances(ctx, t)
 			testAccPreCheckIdentityStoreUserName(t)
@@ -112,6 +120,7 @@ func TestAccSSOAdminAccountAssignment_MissingPolicy(t *testing.T) {
 	})
 }
 
+
 func TestAccSSOAdminAccountAssignment_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_ssoadmin_account_assignment.test"
@@ -119,7 +128,8 @@ func TestAccSSOAdminAccountAssignment_disappears(t *testing.T) {
 	groupName := os.Getenv("AWS_IDENTITY_STORE_GROUP_NAME")
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckInstances(ctx, t)
 			testAccPreCheckIdentityStoreGroupName(t)
@@ -130,7 +140,8 @@ func TestAccSSOAdminAccountAssignment_disappears(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAccountAssignmentConfig_basicGroup(groupName, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckAccountAssignmentExists(ctx, resourceName),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfssoadmin.ResourceAccountAssignment(), resourceName),
 				),
@@ -140,8 +151,11 @@ func TestAccSSOAdminAccountAssignment_disappears(t *testing.T) {
 	})
 }
 
-func testAccCheckAccountAssignmentDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckAccountAssignmentDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).SSOAdminConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -177,8 +191,11 @@ func testAccCheckAccountAssignmentDestroy(ctx context.Context) resource.TestChec
 	}
 }
 
-func testAccCheckAccountAssignmentExists(ctx context.Context, n string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckAccountAssignmentExists(ctx context.Context, n string) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -203,6 +220,7 @@ func testAccCheckAccountAssignmentExists(ctx context.Context, n string) resource
 	}
 }
 
+
 func testAccAccountAssignmentConfig_base(rName string) string {
 	return fmt.Sprintf(`
 data "aws_ssoadmin_instances" "test" {}
@@ -215,6 +233,7 @@ resource "aws_ssoadmin_permission_set" "test" {
 }
 `, rName)
 }
+
 
 func testAccAccountAssignmentConfig_basicGroup(groupName, rName string) string {
 	return acctest.ConfigCompose(testAccAccountAssignmentConfig_base(rName), fmt.Sprintf(`
@@ -240,6 +259,7 @@ resource "aws_ssoadmin_account_assignment" "test" {
 `, groupName))
 }
 
+
 func testAccAccountAssignmentConfig_basicUser(userName, rName string) string {
 	return acctest.ConfigCompose(testAccAccountAssignmentConfig_base(rName), fmt.Sprintf(`
 data "aws_identitystore_user" "test" {
@@ -264,6 +284,7 @@ resource "aws_ssoadmin_account_assignment" "test" {
 `, userName))
 }
 
+
 func testAccPreCheckIdentityStoreGroupName(t *testing.T) {
 	if os.Getenv("AWS_IDENTITY_STORE_GROUP_NAME") == "" {
 		t.Skip("AWS_IDENTITY_STORE_GROUP_NAME env var must be set for AWS Identity Store Group acceptance test. " +
@@ -271,12 +292,14 @@ func testAccPreCheckIdentityStoreGroupName(t *testing.T) {
 	}
 }
 
+
 func testAccPreCheckIdentityStoreUserName(t *testing.T) {
 	if os.Getenv("AWS_IDENTITY_STORE_USER_NAME") == "" {
 		t.Skip("AWS_IDENTITY_STORE_USER_NAME env var must be set for AWS Identity Store User acceptance test. " +
 			"This is required until ListUsers API returns results without filtering by name.")
 	}
 }
+
 
 func testAccAccountAssignmentConfig_withCustomerPolicy(userName, policyPath, policyName, rName string) string {
 	return acctest.ConfigCompose(

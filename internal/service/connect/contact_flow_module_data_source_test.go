@@ -13,6 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func testAccContactFlowModuleDataSource_contactFlowModuleID(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
@@ -20,13 +21,15 @@ func testAccContactFlowModuleDataSource_contactFlowModuleID(t *testing.T) {
 	datasourceName := "data.aws_connect_contact_flow_module.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccContactFlowModuleDataSourceConfig_id(rName, resourceName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
 					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(datasourceName, "contact_flow_module_id", resourceName, "contact_flow_module_id"),
@@ -42,6 +45,7 @@ func testAccContactFlowModuleDataSource_contactFlowModuleID(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccContactFlowModuleDataSource_name(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -51,13 +55,15 @@ func testAccContactFlowModuleDataSource_name(t *testing.T) {
 	datasourceName := "data.aws_connect_contact_flow_module.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccContactFlowModuleDataSourceConfig_name(rName, rName2),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
 					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(datasourceName, "contact_flow_module_id", resourceName, "contact_flow_module_id"),
@@ -73,6 +79,7 @@ func testAccContactFlowModuleDataSource_name(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccContactFlowModuleBaseDataSourceConfig(rName, rName2 string) string {
 	return fmt.Sprintf(`
@@ -98,6 +105,7 @@ resource "aws_connect_contact_flow_module" "test" {
     `, rName, rName2)
 }
 
+
 func testAccContactFlowModuleDataSourceConfig_id(rName, rName2 string) string {
 	return acctest.ConfigCompose(
 		testAccContactFlowModuleBaseDataSourceConfig(rName, rName2),
@@ -108,6 +116,7 @@ data "aws_connect_contact_flow_module" "test" {
 }
 `)
 }
+
 
 func testAccContactFlowModuleDataSourceConfig_name(rName, rName2 string) string {
 	return acctest.ConfigCompose(

@@ -19,6 +19,7 @@ import (
 	tfconnect "github.com/hashicorp/terraform-provider-aws/internal/service/connect"
 )
 
+
 func testAccQuickConnect_phoneNumber(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v connect.DescribeQuickConnectOutput
@@ -27,14 +28,16 @@ func testAccQuickConnect_phoneNumber(t *testing.T) {
 	resourceName := "aws_connect_quick_connect.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckQuickConnectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccQuickConnectConfig_phoneNumber(rName, rName2, "Created", "+12345678912"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckQuickConnectExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
 					resource.TestCheckResourceAttrSet(resourceName, "name"),
@@ -57,7 +60,8 @@ func testAccQuickConnect_phoneNumber(t *testing.T) {
 			{
 				// update description
 				Config: testAccQuickConnectConfig_phoneNumber(rName, rName2, "Updated", "+12345678912"),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckQuickConnectExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
 					resource.TestCheckResourceAttrSet(resourceName, "name"),
@@ -80,7 +84,8 @@ func testAccQuickConnect_phoneNumber(t *testing.T) {
 			{
 				// update phone number
 				Config: testAccQuickConnectConfig_phoneNumber(rName, rName2, "Updated", "+12345678913"),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckQuickConnectExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
 					resource.TestCheckResourceAttrSet(resourceName, "name"),
@@ -99,6 +104,7 @@ func testAccQuickConnect_phoneNumber(t *testing.T) {
 	})
 }
 
+
 func testAccQuickConnect_updateTags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v connect.DescribeQuickConnectOutput
@@ -110,14 +116,16 @@ func testAccQuickConnect_updateTags(t *testing.T) {
 	resourceName := "aws_connect_quick_connect.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckQuickConnectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccQuickConnectConfig_phoneNumber(rName, rName2, description, phone_number),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckQuickConnectExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.Name", "Test Quick Connect"),
@@ -130,7 +138,8 @@ func testAccQuickConnect_updateTags(t *testing.T) {
 			},
 			{
 				Config: testAccQuickConnectConfig_tags(rName, rName2, description, phone_number),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckQuickConnectExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
 					resource.TestCheckResourceAttr(resourceName, "tags.Name", "Test Quick Connect"),
@@ -139,7 +148,8 @@ func testAccQuickConnect_updateTags(t *testing.T) {
 			},
 			{
 				Config: testAccQuickConnectConfig_tagsUpdated(rName, rName2, description, phone_number),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckQuickConnectExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "3"),
 					resource.TestCheckResourceAttr(resourceName, "tags.Name", "Test Quick Connect"),
@@ -151,6 +161,7 @@ func testAccQuickConnect_updateTags(t *testing.T) {
 	})
 }
 
+
 func testAccQuickConnect_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v connect.DescribeQuickConnectOutput
@@ -159,14 +170,16 @@ func testAccQuickConnect_disappears(t *testing.T) {
 	resourceName := "aws_connect_quick_connect.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckQuickConnectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccQuickConnectConfig_phoneNumber(rName, rName2, "Disappear", "+12345678912"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckQuickConnectExists(ctx, resourceName, &v),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfconnect.ResourceQuickConnect(), resourceName),
 				),
@@ -176,8 +189,12 @@ func testAccQuickConnect_disappears(t *testing.T) {
 	})
 }
 
-func testAccCheckQuickConnectExists(ctx context.Context, resourceName string, function *connect.DescribeQuickConnectOutput) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckQuickConnectExists(ctx context.Context, resourceName string, 
+function *connect.DescribeQuickConnectOutput) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("Connect Quick Connect not found: %s", resourceName)
@@ -199,19 +216,25 @@ func testAccCheckQuickConnectExists(ctx context.Context, resourceName string, fu
 			InstanceId:     aws.String(instanceID),
 		}
 
-		getFunction, err := conn.DescribeQuickConnectWithContext(ctx, params)
+		get
+function, err := conn.DescribeQuickConnectWithContext(ctx, params)
 		if err != nil {
 			return err
 		}
 
-		*function = *getFunction
+		*
+function = *get
+function
 
 		return nil
 	}
 }
 
-func testAccCheckQuickConnectDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckQuickConnectDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_connect_quick_connect" {
 				continue
@@ -245,6 +268,7 @@ func testAccCheckQuickConnectDestroy(ctx context.Context) resource.TestCheckFunc
 	}
 }
 
+
 func testAccQuickConnectConfig_base(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_connect_instance" "test" {
@@ -255,6 +279,7 @@ resource "aws_connect_instance" "test" {
 }
 `, rName)
 }
+
 
 func testAccQuickConnectConfig_phoneNumber(rName, rName2, label string, phoneNumber string) string {
 	return acctest.ConfigCompose(
@@ -280,6 +305,7 @@ resource "aws_connect_quick_connect" "test" {
 `, rName2, label, phoneNumber))
 }
 
+
 func testAccQuickConnectConfig_tags(rName, rName2, label string, phoneNumber string) string {
 	return acctest.ConfigCompose(
 		testAccQuickConnectConfig_base(rName),
@@ -304,6 +330,7 @@ resource "aws_connect_quick_connect" "test" {
 }
 `, rName2, label, phoneNumber))
 }
+
 
 func testAccQuickConnectConfig_tagsUpdated(rName, rName2, label string, phoneNumber string) string {
 	return acctest.ConfigCompose(

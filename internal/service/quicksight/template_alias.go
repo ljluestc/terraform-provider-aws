@@ -27,6 +27,7 @@ import (
 )
 
 // @FrameworkResource(name="Template Alias")
+
 func newResourceTemplateAlias(_ context.Context) (resource.ResourceWithConfigure, error) {
 	return &resourceTemplateAlias{}, nil
 }

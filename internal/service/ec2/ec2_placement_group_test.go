@@ -18,6 +18,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccEC2PlacementGroup_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var pg ec2.PlacementGroup
@@ -25,14 +26,16 @@ func TestAccEC2PlacementGroup_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPlacementGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPlacementGroupConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckPlacementGroupExists(ctx, resourceName, &pg),
 					acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "ec2", fmt.Sprintf("placement-group/%s", rName)),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
@@ -49,6 +52,7 @@ func TestAccEC2PlacementGroup_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2PlacementGroup_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var pg ec2.PlacementGroup
@@ -56,14 +60,16 @@ func TestAccEC2PlacementGroup_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPlacementGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPlacementGroupConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckPlacementGroupExists(ctx, resourceName, &pg),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourcePlacementGroup(), resourceName),
 				),
@@ -73,6 +79,7 @@ func TestAccEC2PlacementGroup_disappears(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2PlacementGroup_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var pg ec2.PlacementGroup
@@ -80,14 +87,16 @@ func TestAccEC2PlacementGroup_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPlacementGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPlacementGroupConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckPlacementGroupExists(ctx, resourceName, &pg),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
@@ -100,7 +109,8 @@ func TestAccEC2PlacementGroup_tags(t *testing.T) {
 			},
 			{
 				Config: testAccPlacementGroupConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckPlacementGroupExists(ctx, resourceName, &pg),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
@@ -109,7 +119,8 @@ func TestAccEC2PlacementGroup_tags(t *testing.T) {
 			},
 			{
 				Config: testAccPlacementGroupConfig_tags1(rName, "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckPlacementGroupExists(ctx, resourceName, &pg),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2")),
@@ -118,6 +129,7 @@ func TestAccEC2PlacementGroup_tags(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2PlacementGroup_partitionCount(t *testing.T) {
 	ctx := acctest.Context(t)
 	var pg ec2.PlacementGroup
@@ -125,14 +137,16 @@ func TestAccEC2PlacementGroup_partitionCount(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPlacementGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPlacementGroupConfig_partitionCount(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckPlacementGroupExists(ctx, resourceName, &pg),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
 					resource.TestCheckResourceAttr(resourceName, "partition_count", "7"),
@@ -148,6 +162,7 @@ func TestAccEC2PlacementGroup_partitionCount(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2PlacementGroup_defaultSpreadLevel(t *testing.T) {
 	ctx := acctest.Context(t)
 	var pg ec2.PlacementGroup
@@ -155,14 +170,16 @@ func TestAccEC2PlacementGroup_defaultSpreadLevel(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPlacementGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPlacementGroupConfig_defaultSpreadLevel(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckPlacementGroupExists(ctx, resourceName, &pg),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
 					resource.TestCheckResourceAttr(resourceName, "spread_level", "rack"),
@@ -178,6 +195,7 @@ func TestAccEC2PlacementGroup_defaultSpreadLevel(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2PlacementGroup_spreadLevel(t *testing.T) {
 	ctx := acctest.Context(t)
 	var pg ec2.PlacementGroup
@@ -185,14 +203,16 @@ func TestAccEC2PlacementGroup_spreadLevel(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPlacementGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPlacementGroupConfig_hostSpreadLevel(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckPlacementGroupExists(ctx, resourceName, &pg),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
 					resource.TestCheckResourceAttr(resourceName, "spread_level", "host"),
@@ -208,8 +228,11 @@ func TestAccEC2PlacementGroup_spreadLevel(t *testing.T) {
 	})
 }
 
-func testAccCheckPlacementGroupDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckPlacementGroupDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -234,8 +257,11 @@ func testAccCheckPlacementGroupDestroy(ctx context.Context) resource.TestCheckFu
 	}
 }
 
-func testAccCheckPlacementGroupExists(ctx context.Context, n string, v *ec2.PlacementGroup) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckPlacementGroupExists(ctx context.Context, n string, v *ec2.PlacementGroup) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -259,6 +285,7 @@ func testAccCheckPlacementGroupExists(ctx context.Context, n string, v *ec2.Plac
 	}
 }
 
+
 func testAccPlacementGroupConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_placement_group" "test" {
@@ -267,6 +294,7 @@ resource "aws_placement_group" "test" {
 }
 `, rName)
 }
+
 
 func testAccPlacementGroupConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
@@ -280,6 +308,7 @@ resource "aws_placement_group" "test" {
 }
 `, rName, tagKey1, tagValue1)
 }
+
 
 func testAccPlacementGroupConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
@@ -295,6 +324,7 @@ resource "aws_placement_group" "test" {
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }
 
+
 func testAccPlacementGroupConfig_partitionCount(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_placement_group" "test" {
@@ -305,6 +335,7 @@ resource "aws_placement_group" "test" {
 `, rName)
 }
 
+
 func testAccPlacementGroupConfig_hostSpreadLevel(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_placement_group" "test" {
@@ -314,6 +345,7 @@ resource "aws_placement_group" "test" {
 }
 `, rName)
 }
+
 
 func testAccPlacementGroupConfig_defaultSpreadLevel(rName string) string {
 	return fmt.Sprintf(`

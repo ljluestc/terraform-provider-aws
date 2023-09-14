@@ -19,6 +19,7 @@ import (
 )
 
 // @SDKResource("aws_codebuild_source_credential")
+
 func ResourceSourceCredential() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceSourceCredentialCreate,
@@ -38,13 +39,15 @@ func ResourceSourceCredential() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringInSlice(codebuild.AuthType_Values(), false),
+				Validate
+func: validation.StringInSlice(codebuild.AuthType_Values(), false),
 			},
 			"server_type": {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringInSlice(codebuild.ServerType_Values(), false),
+				Validate
+func: validation.StringInSlice(codebuild.ServerType_Values(), false),
 			},
 			"token": {
 				Type:      schema.TypeString,
@@ -60,6 +63,7 @@ func ResourceSourceCredential() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceSourceCredentialCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -87,6 +91,7 @@ func resourceSourceCredentialCreate(ctx context.Context, d *schema.ResourceData,
 	return append(diags, resourceSourceCredentialRead(ctx, d, meta)...)
 }
 
+
 func resourceSourceCredentialRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CodeBuildConn(ctx)
@@ -108,6 +113,7 @@ func resourceSourceCredentialRead(ctx context.Context, d *schema.ResourceData, m
 
 	return diags
 }
+
 
 func resourceSourceCredentialDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

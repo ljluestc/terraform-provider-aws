@@ -16,6 +16,7 @@ import (
 )
 
 // @SDKDataSource("aws_vpc_ipam_pool_cidrs")
+
 func DataSourceIPAMPoolCIDRs() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceIPAMPoolCIDRsRead,

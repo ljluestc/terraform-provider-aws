@@ -37,6 +37,7 @@ import (
 
 // @SDKResource("aws_emr_cluster", name="Cluster")
 // @Tags(identifierAttribute="id")
+
 func ResourceCluster() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceClusterCreate,
@@ -55,9 +56,13 @@ func ResourceCluster() *schema.Resource {
 				Type:             schema.TypeString,
 				Optional:         true,
 				ForceNew:         true,
-				ValidateFunc:     validation.StringIsJSON,
-				DiffSuppressFunc: verify.SuppressEquivalentJSONDiffs,
-				StateFunc: func(v interface{}) string {
+				Validate
+func:     validation.StringIsJSON,
+				DiffSuppress
+func: verify.SuppressEquivalentJSONDiffs,
+				State
+func: 
+func(v interface{}) string {
 					json, _ := structure.NormalizeJsonString(v)
 					return json
 				},
@@ -82,7 +87,8 @@ func ResourceCluster() *schema.Resource {
 						"idle_timeout": {
 							Type:         schema.TypeInt,
 							Optional:     true,
-							ValidateFunc: validation.IntBetween(60, 604800),
+							Validate
+func: validation.IntBetween(60, 604800),
 						},
 					},
 				},
@@ -129,9 +135,13 @@ func ResourceCluster() *schema.Resource {
 				Type:             schema.TypeString,
 				Optional:         true,
 				ForceNew:         true,
-				ValidateFunc:     validation.StringIsJSON,
-				DiffSuppressFunc: verify.SuppressEquivalentJSONDiffs,
-				StateFunc: func(v interface{}) string {
+				Validate
+func:     validation.StringIsJSON,
+				DiffSuppress
+func: verify.SuppressEquivalentJSONDiffs,
+				State
+func: 
+func(v interface{}) string {
 					json, _ := structure.NormalizeJsonString(v)
 					return json
 				},
@@ -157,8 +167,10 @@ func ResourceCluster() *schema.Resource {
 						"autoscaling_policy": {
 							Type:             schema.TypeString,
 							Optional:         true,
-							DiffSuppressFunc: verify.SuppressEquivalentJSONDiffs,
-							ValidateFunc:     validation.StringIsJSON,
+							DiffSuppress
+func: verify.SuppressEquivalentJSONDiffs,
+							Validate
+func:     validation.StringIsJSON,
 						},
 						"bid_price": {
 							Type:     schema.TypeString,
@@ -191,7 +203,8 @@ func ResourceCluster() *schema.Resource {
 										Type:         schema.TypeString,
 										Required:     true,
 										ForceNew:     true,
-										ValidateFunc: validEBSVolumeType(),
+										Validate
+func: validEBSVolumeType(),
 									},
 									"volumes_per_instance": {
 										Type:     schema.TypeInt,
@@ -211,7 +224,8 @@ func ResourceCluster() *schema.Resource {
 							Type:         schema.TypeInt,
 							Optional:     true,
 							Default:      1,
-							ValidateFunc: validation.IntAtLeast(1),
+							Validate
+func: validation.IntAtLeast(1),
 						},
 						"instance_type": {
 							Type:     schema.TypeString,
@@ -230,7 +244,8 @@ func ResourceCluster() *schema.Resource {
 				Type:         schema.TypeString,
 				ForceNew:     true,
 				Optional:     true,
-				ValidateFunc: validCustomAMIID,
+				Validate
+func: validCustomAMIID,
 			},
 			"ebs_root_volume_size": {
 				Type:     schema.TypeInt,
@@ -350,7 +365,8 @@ func ResourceCluster() *schema.Resource {
 				Optional: true,
 				Elem: &schema.Schema{
 					Type:         schema.TypeString,
-					ValidateFunc: validation.StringInSlice(emr.StepState_Values(), false),
+					Validate
+func: validation.StringInSlice(emr.StepState_Values(), false),
 				},
 			},
 			"log_encryption_kms_key_id": {
@@ -362,7 +378,9 @@ func ResourceCluster() *schema.Resource {
 				Type:     schema.TypeString,
 				ForceNew: true,
 				Optional: true,
-				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+				DiffSuppress
+func: 
+func(k, old, new string, d *schema.ResourceData) bool {
 					// EMR uses a proprietary filesystem called EMRFS
 					// and both s3n & s3 protocols are mapped to that FS
 					// so they're equvivalent in this context (confirmed by AWS support)
@@ -418,7 +436,8 @@ func ResourceCluster() *schema.Resource {
 										Type:         schema.TypeString,
 										Required:     true,
 										ForceNew:     true,
-										ValidateFunc: validEBSVolumeType(),
+										Validate
+func: validEBSVolumeType(),
 									},
 									"volumes_per_instance": {
 										Type:     schema.TypeInt,
@@ -439,7 +458,8 @@ func ResourceCluster() *schema.Resource {
 							Optional:     true,
 							ForceNew:     true,
 							Default:      1,
-							ValidateFunc: validation.IntInSlice([]int{1, 3}),
+							Validate
+func: validation.IntInSlice([]int{1, 3}),
 						},
 						"instance_type": {
 							Type:     schema.TypeString,
@@ -474,14 +494,16 @@ func ResourceCluster() *schema.Resource {
 							Type:         schema.TypeString,
 							ForceNew:     true,
 							Required:     true,
-							ValidateFunc: validation.StringInSlice(emr.InstanceRoleType_Values(), false),
+							Validate
+func: validation.StringInSlice(emr.InstanceRoleType_Values(), false),
 						},
 						"placement_strategy": {
 							Type:         schema.TypeString,
 							ForceNew:     true,
 							Optional:     true,
 							Computed:     true,
-							ValidateFunc: validation.StringInSlice(emr.PlacementGroupStrategy_Values(), false),
+							Validate
+func: validation.StringInSlice(emr.PlacementGroupStrategy_Values(), false),
 						},
 					},
 				},
@@ -496,7 +518,8 @@ func ResourceCluster() *schema.Resource {
 				ForceNew:     true,
 				Optional:     true,
 				Computed:     true,
-				ValidateFunc: validation.StringInSlice(emr.ScaleDownBehavior_Values(), false),
+				Validate
+func: validation.StringInSlice(emr.ScaleDownBehavior_Values(), false),
 			},
 			"security_configuration": {
 				Type:     schema.TypeString,
@@ -520,7 +543,8 @@ func ResourceCluster() *schema.Resource {
 							Type:         schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
-							ValidateFunc: validation.StringInSlice(emr.ActionOnFailure_Values(), false),
+							Validate
+func: validation.StringInSlice(emr.ActionOnFailure_Values(), false),
 						},
 						"hadoop_jar_step": {
 							Type:       schema.TypeList,
@@ -567,7 +591,8 @@ func ResourceCluster() *schema.Resource {
 				Type:         schema.TypeInt,
 				Optional:     true,
 				Default:      1,
-				ValidateFunc: validation.IntBetween(1, 256),
+				Validate
+func: validation.IntBetween(1, 256),
 			},
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
@@ -584,6 +609,7 @@ func ResourceCluster() *schema.Resource {
 		},
 	}
 }
+
 
 func instanceFleetConfigSchema() *schema.Resource {
 	return &schema.Resource{
@@ -650,7 +676,8 @@ func instanceFleetConfigSchema() *schema.Resource {
 										Type:         schema.TypeString,
 										Required:     true,
 										ForceNew:     true,
-										ValidateFunc: validEBSVolumeType(),
+										Validate
+func: validEBSVolumeType(),
 									},
 									"volumes_per_instance": {
 										Type:     schema.TypeInt,
@@ -695,7 +722,8 @@ func instanceFleetConfigSchema() *schema.Resource {
 										Type:         schema.TypeString,
 										Required:     true,
 										ForceNew:     true,
-										ValidateFunc: validation.StringInSlice(emr.OnDemandProvisioningAllocationStrategy_Values(), false),
+										Validate
+func: validation.StringInSlice(emr.OnDemandProvisioningAllocationStrategy_Values(), false),
 									},
 								},
 							},
@@ -711,7 +739,8 @@ func instanceFleetConfigSchema() *schema.Resource {
 										Type:         schema.TypeString,
 										ForceNew:     true,
 										Required:     true,
-										ValidateFunc: validation.StringInSlice(emr.SpotProvisioningAllocationStrategy_Values(), false),
+										Validate
+func: validation.StringInSlice(emr.SpotProvisioningAllocationStrategy_Values(), false),
 									},
 									"block_duration_minutes": {
 										Type:     schema.TypeInt,
@@ -723,7 +752,8 @@ func instanceFleetConfigSchema() *schema.Resource {
 										Type:         schema.TypeString,
 										Required:     true,
 										ForceNew:     true,
-										ValidateFunc: validation.StringInSlice(emr.SpotProvisioningTimeoutAction_Values(), false),
+										Validate
+func: validation.StringInSlice(emr.SpotProvisioningTimeoutAction_Values(), false),
 									},
 									"timeout_duration_minutes": {
 										Type:     schema.TypeInt,
@@ -764,6 +794,7 @@ func instanceFleetConfigSchema() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceClusterCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -994,7 +1025,8 @@ func resourceClusterCreate(ctx context.Context, d *schema.ResourceData, meta int
 	}
 
 	var resp *emr.RunJobFlowOutput
-	err := retry.RetryContext(ctx, propagationTimeout, func() *retry.RetryError {
+	err := retry.RetryContext(ctx, propagationTimeout, 
+func() *retry.RetryError {
 		var err error
 		resp, err = conn.RunJobFlowWithContext(ctx, params)
 		if err != nil {
@@ -1016,7 +1048,8 @@ func resourceClusterCreate(ctx context.Context, d *schema.ResourceData, meta int
 	}
 
 	d.SetId(aws.StringValue(resp.JobFlowId))
-	// This value can only be obtained through a deprecated function
+	// This value can only be obtained through a deprecated 
+function
 	d.Set("keep_job_flow_alive_when_no_steps", params.Instances.KeepJobFlowAliveWhenNoSteps)
 
 	log.Println("[INFO] Waiting for EMR Cluster to be available")
@@ -1043,6 +1076,7 @@ func resourceClusterCreate(ctx context.Context, d *schema.ResourceData, meta int
 
 	return append(diags, resourceClusterRead(ctx, d, meta)...)
 }
+
 
 func resourceClusterRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -1162,7 +1196,8 @@ func resourceClusterRead(ctx context.Context, d *schema.ResourceData, meta inter
 		input.StepStates = flex.ExpandStringSet(v.(*schema.Set))
 	}
 
-	err = conn.ListStepsPagesWithContext(ctx, input, func(page *emr.ListStepsOutput, lastPage bool) bool {
+	err = conn.ListStepsPagesWithContext(ctx, input, 
+func(page *emr.ListStepsOutput, lastPage bool) bool {
 		// ListSteps returns steps in reverse order (newest first).
 		for _, step := range page.Steps {
 			stepSummaries = append([]*emr.StepSummary{step}, stepSummaries...)
@@ -1213,6 +1248,7 @@ func resourceClusterRead(ctx context.Context, d *schema.ResourceData, meta inter
 
 	return diags
 }
+
 
 func resourceClusterUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -1294,7 +1330,8 @@ func resourceClusterUpdate(ctx context.Context, d *schema.ResourceData, meta int
 
 			// RemoveAutoScalingPolicy seems to have eventual consistency.
 			// Retry reading Instance Group configuration until the policy is removed.
-			err := retry.RetryContext(ctx, 1*time.Minute, func() *retry.RetryError {
+			err := retry.RetryContext(ctx, 1*time.Minute, 
+func() *retry.RetryError {
 				autoscalingPolicy, err := getCoreInstanceGroupAutoScalingPolicy(ctx, conn, d.Id())
 
 				if err != nil {
@@ -1414,6 +1451,7 @@ func resourceClusterUpdate(ctx context.Context, d *schema.ResourceData, meta int
 	return append(diags, resourceClusterRead(ctx, d, meta)...)
 }
 
+
 func resourceClusterDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EMRConn(ctx)
@@ -1439,6 +1477,7 @@ func resourceClusterDelete(ctx context.Context, d *schema.ResourceData, meta int
 	return diags
 }
 
+
 func expandApplications(apps []interface{}) []*emr.Application {
 	appOut := make([]*emr.Application, 0, len(apps))
 
@@ -1451,6 +1490,7 @@ func expandApplications(apps []interface{}) []*emr.Application {
 	return appOut
 }
 
+
 func flattenApplications(apps []*emr.Application) []interface{} {
 	appOut := make([]interface{}, 0, len(apps))
 
@@ -1459,6 +1499,7 @@ func flattenApplications(apps []*emr.Application) []interface{} {
 	}
 	return appOut
 }
+
 
 func flattenEC2InstanceAttributes(ia *emr.Ec2InstanceAttributes) []map[string]interface{} {
 	attrs := map[string]interface{}{}
@@ -1500,6 +1541,7 @@ func flattenEC2InstanceAttributes(ia *emr.Ec2InstanceAttributes) []map[string]in
 
 	return result
 }
+
 
 func flattenAutoScalingPolicyDescription(policy *emr.AutoScalingPolicyDescription) (string, error) {
 	if policy == nil {
@@ -1557,6 +1599,7 @@ func flattenAutoScalingPolicyDescription(policy *emr.AutoScalingPolicyDescriptio
 	return autoscalingPolicyString, nil
 }
 
+
 func flattenCoreInstanceGroup(instanceGroup *emr.InstanceGroup) ([]interface{}, error) {
 	if instanceGroup == nil {
 		return []interface{}{}, nil
@@ -1581,6 +1624,7 @@ func flattenCoreInstanceGroup(instanceGroup *emr.InstanceGroup) ([]interface{}, 
 	return []interface{}{m}, nil
 }
 
+
 func flattenMasterInstanceGroup(instanceGroup *emr.InstanceGroup) []interface{} {
 	if instanceGroup == nil {
 		return []interface{}{}
@@ -1597,6 +1641,7 @@ func flattenMasterInstanceGroup(instanceGroup *emr.InstanceGroup) []interface{} 
 
 	return []interface{}{m}
 }
+
 
 func flattenKerberosAttributes(d *schema.ResourceData, kerberosAttributes *emr.KerberosAttributes) []map[string]interface{} {
 	l := make([]map[string]interface{}, 0)
@@ -1633,6 +1678,7 @@ func flattenKerberosAttributes(d *schema.ResourceData, kerberosAttributes *emr.K
 	return l
 }
 
+
 func flattenHadoopStepConfig(config *emr.HadoopStepConfig) map[string]interface{} {
 	if config == nil {
 		return nil
@@ -1648,6 +1694,7 @@ func flattenHadoopStepConfig(config *emr.HadoopStepConfig) map[string]interface{
 	return m
 }
 
+
 func flattenStepSummaries(stepSummaries []*emr.StepSummary) []map[string]interface{} {
 	l := make([]map[string]interface{}, 0)
 
@@ -1662,6 +1709,7 @@ func flattenStepSummaries(stepSummaries []*emr.StepSummary) []map[string]interfa
 	return l
 }
 
+
 func flattenStepSummary(stepSummary *emr.StepSummary) map[string]interface{} {
 	if stepSummary == nil {
 		return nil
@@ -1675,6 +1723,7 @@ func flattenStepSummary(stepSummary *emr.StepSummary) map[string]interface{} {
 
 	return m
 }
+
 
 func flattenEBSConfig(ebsBlockDevices []*emr.EbsBlockDevice) *schema.Set {
 	uniqueEBS := make(map[int]int)
@@ -1704,6 +1753,7 @@ func flattenEBSConfig(ebsBlockDevices []*emr.EbsBlockDevice) *schema.Set {
 	return schema.NewSet(resourceClusterEBSHashConfig, ebsConfig)
 }
 
+
 func flattenBootstrapArguments(actions []*emr.Command) []map[string]interface{} {
 	result := make([]map[string]interface{}, 0)
 
@@ -1718,6 +1768,7 @@ func flattenBootstrapArguments(actions []*emr.Command) []map[string]interface{} 
 	return result
 }
 
+
 func coreInstanceGroup(grps []*emr.InstanceGroup) *emr.InstanceGroup {
 	for _, grp := range grps {
 		if aws.StringValue(grp.InstanceGroupType) == emr.InstanceGroupTypeCore {
@@ -1726,6 +1777,7 @@ func coreInstanceGroup(grps []*emr.InstanceGroup) *emr.InstanceGroup {
 	}
 	return nil
 }
+
 
 func expandBootstrapActions(bootstrapActions []interface{}) []*emr.BootstrapActionConfig {
 	actionsOut := []*emr.BootstrapActionConfig{}
@@ -1749,6 +1801,7 @@ func expandBootstrapActions(bootstrapActions []interface{}) []*emr.BootstrapActi
 	return actionsOut
 }
 
+
 func expandHadoopJarStepConfig(m map[string]interface{}) *emr.HadoopJarStepConfig {
 	hadoopJarStepConfig := &emr.HadoopJarStepConfig{
 		Jar: aws.String(m["jar"].(string)),
@@ -1769,6 +1822,7 @@ func expandHadoopJarStepConfig(m map[string]interface{}) *emr.HadoopJarStepConfi
 	return hadoopJarStepConfig
 }
 
+
 func expandKeyValues(m map[string]interface{}) []*emr.KeyValue {
 	keyValues := make([]*emr.KeyValue, 0)
 
@@ -1782,6 +1836,7 @@ func expandKeyValues(m map[string]interface{}) []*emr.KeyValue {
 
 	return keyValues
 }
+
 
 func expandKerberosAttributes(m map[string]interface{}) *emr.KerberosAttributes {
 	kerberosAttributes := &emr.KerberosAttributes{
@@ -1800,6 +1855,7 @@ func expandKerberosAttributes(m map[string]interface{}) *emr.KerberosAttributes 
 	return kerberosAttributes
 }
 
+
 func expandStepConfig(m map[string]interface{}) *emr.StepConfig {
 	hadoopJarStepList := m["hadoop_jar_step"].([]interface{})
 	hadoopJarStepMap := hadoopJarStepList[0].(map[string]interface{})
@@ -1813,6 +1869,7 @@ func expandStepConfig(m map[string]interface{}) *emr.StepConfig {
 	return stepConfig
 }
 
+
 func expandStepConfigs(l []interface{}) []*emr.StepConfig {
 	stepConfigs := []*emr.StepConfig{}
 
@@ -1823,6 +1880,7 @@ func expandStepConfigs(l []interface{}) []*emr.StepConfig {
 
 	return stepConfigs
 }
+
 
 func expandEBSConfig(configAttributes map[string]interface{}, config *emr.InstanceGroupConfig) {
 	if rawEbsConfigs, ok := configAttributes["ebs_config"]; ok {
@@ -1852,6 +1910,7 @@ func expandEBSConfig(configAttributes map[string]interface{}, config *emr.Instan
 	}
 }
 
+
 func expandConfigurationJSON(input string) ([]*emr.Configuration, error) {
 	configsOut := []*emr.Configuration{}
 	err := json.Unmarshal([]byte(input), &configsOut)
@@ -1863,6 +1922,7 @@ func expandConfigurationJSON(input string) ([]*emr.Configuration, error) {
 	return configsOut, nil
 }
 
+
 func flattenConfigurationJSON(config []*emr.Configuration) (string, error) {
 	out, err := jsonutil.BuildJSON(config)
 	if err != nil {
@@ -1870,6 +1930,7 @@ func flattenConfigurationJSON(config []*emr.Configuration) (string, error) {
 	}
 	return string(out), nil
 }
+
 
 func expandConfigures(input string) []*emr.Configuration {
 	configsOut := []*emr.Configuration{}
@@ -1891,6 +1952,7 @@ func expandConfigures(input string) []*emr.Configuration {
 	return configsOut
 }
 
+
 func readHTTPJSON(url string, target interface{}) error {
 	r, err := http.Get(url)
 	if err != nil {
@@ -1900,6 +1962,7 @@ func readHTTPJSON(url string, target interface{}) error {
 
 	return json.NewDecoder(r.Body).Decode(target)
 }
+
 
 func readLocalJSON(localFile string, target interface{}) error {
 	file, e := os.ReadFile(localFile)
@@ -1911,6 +1974,7 @@ func readLocalJSON(localFile string, target interface{}) error {
 	return json.Unmarshal(file, target)
 }
 
+
 func readBodyJSON(body string, target interface{}) error {
 	log.Printf("[DEBUG] Raw Body %s\n", body)
 	err := json.Unmarshal([]byte(body), target)
@@ -1921,6 +1985,7 @@ func readBodyJSON(body string, target interface{}) error {
 	return nil
 }
 
+
 func findMasterGroup(instanceGroups []*emr.InstanceGroup) *emr.InstanceGroup {
 	for _, group := range instanceGroups {
 		if aws.StringValue(group.InstanceGroupType) == emr.InstanceRoleTypeMaster {
@@ -1929,6 +1994,7 @@ func findMasterGroup(instanceGroups []*emr.InstanceGroup) *emr.InstanceGroup {
 	}
 	return nil
 }
+
 
 func resourceClusterEBSHashConfig(v interface{}) int {
 	var buf bytes.Buffer
@@ -1944,6 +2010,7 @@ func resourceClusterEBSHashConfig(v interface{}) int {
 	}
 	return create.StringHashcode(buf.String())
 }
+
 
 func getCoreInstanceGroupAutoScalingPolicy(ctx context.Context, conn *emr.EMR, clusterID string) (*emr.AutoScalingPolicyDescription, error) {
 	instanceGroups, err := fetchAllInstanceGroups(ctx, conn, clusterID)
@@ -1961,13 +2028,15 @@ func getCoreInstanceGroupAutoScalingPolicy(ctx context.Context, conn *emr.EMR, c
 	return coreGroup.AutoScalingPolicy, nil
 }
 
+
 func fetchAllInstanceGroups(ctx context.Context, conn *emr.EMR, clusterID string) ([]*emr.InstanceGroup, error) {
 	input := &emr.ListInstanceGroupsInput{
 		ClusterId: aws.String(clusterID),
 	}
 	var groups []*emr.InstanceGroup
 
-	err := conn.ListInstanceGroupsPagesWithContext(ctx, input, func(page *emr.ListInstanceGroupsOutput, lastPage bool) bool {
+	err := conn.ListInstanceGroupsPagesWithContext(ctx, input, 
+func(page *emr.ListInstanceGroupsOutput, lastPage bool) bool {
 		groups = append(groups, page.InstanceGroups...)
 
 		return !lastPage
@@ -1975,6 +2044,7 @@ func fetchAllInstanceGroups(ctx context.Context, conn *emr.EMR, clusterID string
 
 	return groups, err
 }
+
 
 func readInstanceFleetConfig(data map[string]interface{}, InstanceFleetType string) *emr.InstanceFleetConfig {
 	config := &emr.InstanceFleetConfig{
@@ -1995,13 +2065,15 @@ func readInstanceFleetConfig(data map[string]interface{}, InstanceFleetType stri
 	return config
 }
 
+
 func FetchAllInstanceFleets(ctx context.Context, conn *emr.EMR, clusterID string) ([]*emr.InstanceFleet, error) {
 	input := &emr.ListInstanceFleetsInput{
 		ClusterId: aws.String(clusterID),
 	}
 	var fleets []*emr.InstanceFleet
 
-	err := conn.ListInstanceFleetsPagesWithContext(ctx, input, func(page *emr.ListInstanceFleetsOutput, lastPage bool) bool {
+	err := conn.ListInstanceFleetsPagesWithContext(ctx, input, 
+func(page *emr.ListInstanceFleetsOutput, lastPage bool) bool {
 		fleets = append(fleets, page.InstanceFleets...)
 
 		return !lastPage
@@ -2009,6 +2081,7 @@ func FetchAllInstanceFleets(ctx context.Context, conn *emr.EMR, clusterID string
 
 	return fleets, err
 }
+
 
 func findInstanceFleet(instanceFleets []*emr.InstanceFleet, instanceRoleType string) *emr.InstanceFleet {
 	for _, instanceFleet := range instanceFleets {
@@ -2020,6 +2093,7 @@ func findInstanceFleet(instanceFleets []*emr.InstanceFleet, instanceRoleType str
 	}
 	return nil
 }
+
 
 func flattenInstanceFleet(instanceFleet *emr.InstanceFleet) []interface{} {
 	if instanceFleet == nil {
@@ -2039,6 +2113,7 @@ func flattenInstanceFleet(instanceFleet *emr.InstanceFleet) []interface{} {
 
 	return []interface{}{m}
 }
+
 
 func flatteninstanceTypeConfigs(instanceTypeSpecifications []*emr.InstanceTypeSpecification) *schema.Set {
 	instanceTypeConfigs := make([]interface{}, 0)
@@ -2065,6 +2140,7 @@ func flatteninstanceTypeConfigs(instanceTypeSpecifications []*emr.InstanceTypeSp
 	return schema.NewSet(resourceInstanceTypeHashConfig, instanceTypeConfigs)
 }
 
+
 func flattenLaunchSpecifications(launchSpecifications *emr.InstanceFleetProvisioningSpecifications) []interface{} {
 	if launchSpecifications == nil {
 		return []interface{}{}
@@ -2077,6 +2153,7 @@ func flattenLaunchSpecifications(launchSpecifications *emr.InstanceFleetProvisio
 	return []interface{}{m}
 }
 
+
 func flattenOnDemandSpecification(onDemandSpecification *emr.OnDemandProvisioningSpecification) []interface{} {
 	if onDemandSpecification == nil {
 		return []interface{}{}
@@ -2088,6 +2165,7 @@ func flattenOnDemandSpecification(onDemandSpecification *emr.OnDemandProvisionin
 	}
 	return []interface{}{m}
 }
+
 
 func flattenSpotSpecification(spotSpecification *emr.SpotProvisioningSpecification) []interface{} {
 	if spotSpecification == nil {
@@ -2108,6 +2186,7 @@ func flattenSpotSpecification(spotSpecification *emr.SpotProvisioningSpecificati
 
 	return []interface{}{m}
 }
+
 
 func expandEBSConfiguration(ebsConfigurations []interface{}) *emr.EbsConfiguration {
 	ebsConfig := &emr.EbsConfiguration{}
@@ -2132,6 +2211,7 @@ func expandEBSConfiguration(ebsConfigurations []interface{}) *emr.EbsConfigurati
 	ebsConfig.EbsBlockDeviceConfigs = ebsConfigs
 	return ebsConfig
 }
+
 
 func expandInstanceTypeConfigs(instanceTypeConfigs []interface{}) []*emr.InstanceTypeConfig {
 	configsOut := []*emr.InstanceTypeConfig{}
@@ -2171,6 +2251,7 @@ func expandInstanceTypeConfigs(instanceTypeConfigs []interface{}) []*emr.Instanc
 	return configsOut
 }
 
+
 func expandLaunchSpecification(launchSpecification map[string]interface{}) *emr.InstanceFleetProvisioningSpecifications {
 	onDemandSpecification := launchSpecification["on_demand_specification"].([]interface{})
 	spotSpecification := launchSpecification["spot_specification"].([]interface{})
@@ -2202,6 +2283,7 @@ func expandLaunchSpecification(launchSpecification map[string]interface{}) *emr.
 	return fleetSpecification
 }
 
+
 func expandConfigurations(configurations []interface{}) []*emr.Configuration {
 	configsOut := []*emr.Configuration{}
 
@@ -2232,6 +2314,7 @@ func expandConfigurations(configurations []interface{}) []*emr.Configuration {
 	return configsOut
 }
 
+
 func resourceInstanceTypeHashConfig(v interface{}) int {
 	var buf bytes.Buffer
 	m := v.(map[string]interface{})
@@ -2247,6 +2330,7 @@ func resourceInstanceTypeHashConfig(v interface{}) int {
 	}
 	return create.StringHashcode(buf.String())
 }
+
 
 func removeNil(data map[string]interface{}) map[string]interface{} {
 	withoutNil := make(map[string]interface{})
@@ -2267,6 +2351,7 @@ func removeNil(data map[string]interface{}) map[string]interface{} {
 	return withoutNil
 }
 
+
 func expandAutoTerminationPolicy(policy []interface{}) *emr.AutoTerminationPolicy {
 	if len(policy) == 0 || policy[0] == nil {
 		return nil
@@ -2281,6 +2366,7 @@ func expandAutoTerminationPolicy(policy []interface{}) *emr.AutoTerminationPolic
 
 	return app
 }
+
 
 func flattenAutoTerminationPolicy(atp *emr.AutoTerminationPolicy) []map[string]interface{} {
 	attrs := map[string]interface{}{}
@@ -2298,6 +2384,7 @@ func flattenAutoTerminationPolicy(atp *emr.AutoTerminationPolicy) []map[string]i
 
 	return result
 }
+
 
 func expandPlacementGroupConfigs(placementGroupConfigs []interface{}) []*emr.PlacementGroupConfig {
 	placementGroupConfigsOut := []*emr.PlacementGroupConfig{}
@@ -2317,6 +2404,7 @@ func expandPlacementGroupConfigs(placementGroupConfigs []interface{}) []*emr.Pla
 
 	return placementGroupConfigsOut
 }
+
 
 func flattenPlacementGroupConfigs(placementGroupSpecifications []*emr.PlacementGroupConfig) []interface{} {
 	if placementGroupSpecifications == nil {

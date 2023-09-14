@@ -19,11 +19,14 @@ import (
 )
 
 // @SDKDataSource("aws_quicksight_user", name="User")
+
 func DataSourceUser() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceUserRead,
 
-		SchemaFunc: func() map[string]*schema.Schema {
+		Schema
+func: 
+func() map[string]*schema.Schema {
 			return map[string]*schema.Schema{
 				"active": {
 					Type:     schema.TypeBool,
@@ -50,7 +53,8 @@ func DataSourceUser() *schema.Resource {
 					Type:     schema.TypeString,
 					Optional: true,
 					Default:  DefaultUserNamespace,
-					ValidateFunc: validation.All(
+					Validate
+func: validation.All(
 						validation.StringLenBetween(1, 63),
 						validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_.-]*$`), "must contain only alphanumeric characters, hyphens, underscores, and periods"),
 					),
@@ -71,6 +75,7 @@ func DataSourceUser() *schema.Resource {
 		},
 	}
 }
+
 
 func dataSourceUserRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

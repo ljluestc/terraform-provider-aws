@@ -11,30 +11,35 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccIPAMPoolCIDRsDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_vpc_ipam_pool_cidrs.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIPAMPoolCIDRsDataSourceConfig_basicOneCIDRs,
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttr(dataSourceName, "ipam_pool_cidrs.#", "1"),
 				),
 			},
 			{
 				Config: testAccIPAMPoolCIDRsDataSourceConfig_basicTwoCIDRs,
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttr(dataSourceName, "ipam_pool_cidrs.#", "2"),
 				),
 			},
 			{
 				Config: testAccIPAMPoolCIDRsDataSourceConfig_basicTwoCIDRsFiltered,
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttr(dataSourceName, "ipam_pool_cidrs.#", "1"),
 				),
 			},

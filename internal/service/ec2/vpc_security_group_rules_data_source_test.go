@@ -13,18 +13,21 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccVPCSecurityGroupRulesDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCSecurityGroupRulesDataSourceConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttr("data.aws_vpc_security_group_rules.test", "ids.#", "1"),
 				),
 			},
@@ -32,24 +35,28 @@ func TestAccVPCSecurityGroupRulesDataSource_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCSecurityGroupRulesDataSource_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCSecurityGroupRulesDataSourceConfig_tags(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttr("data.aws_vpc_security_group_rules.test", "ids.#", "2"),
 				),
 			},
 		},
 	})
 }
+
 
 func testAccVPCSecurityGroupRulesDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccVPCSecurityGroupRuleConfig_base(rName), `
@@ -70,6 +77,7 @@ data "aws_vpc_security_group_rules" "test" {
 }
 `)
 }
+
 
 func testAccVPCSecurityGroupRulesDataSourceConfig_tags(rName string) string {
 	return acctest.ConfigCompose(testAccVPCSecurityGroupRuleConfig_base(rName), fmt.Sprintf(`

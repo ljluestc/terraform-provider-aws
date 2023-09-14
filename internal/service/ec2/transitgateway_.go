@@ -27,6 +27,7 @@ import (
 
 // @SDKResource("aws_ec2_transit_gateway", name="Transit Gateway")
 // @Tags(identifierAttribute="id")
+
 func ResourceTransitGateway() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceTransitGatewayCreate,
@@ -45,11 +46,13 @@ func ResourceTransitGateway() *schema.Resource {
 		},
 
 		CustomizeDiff: customdiff.Sequence(
-			customdiff.ForceNewIfChange("default_route_table_association", func(_ context.Context, old, new, meta interface{}) bool {
+			customdiff.ForceNewIfChange("default_route_table_association", 
+func(_ context.Context, old, new, meta interface{}) bool {
 				// Only changes from disable to enable for feature_set should force a new resource.
 				return old.(string) == ec2.DefaultRouteTableAssociationValueDisable && new.(string) == ec2.DefaultRouteTableAssociationValueEnable
 			}),
-			customdiff.ForceNewIfChange("default_route_table_propagation", func(_ context.Context, old, new, meta interface{}) bool {
+			customdiff.ForceNewIfChange("default_route_table_propagation", 
+func(_ context.Context, old, new, meta interface{}) bool {
 				// Only changes from disable to enable for feature_set should force a new resource.
 				return old.(string) == ec2.DefaultRouteTablePropagationValueDisable && new.(string) == ec2.DefaultRouteTablePropagationValueEnable
 			}),
@@ -74,19 +77,22 @@ func ResourceTransitGateway() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				Default:      ec2.AutoAcceptSharedAttachmentsValueDisable,
-				ValidateFunc: validation.StringInSlice(ec2.AutoAcceptSharedAttachmentsValue_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.AutoAcceptSharedAttachmentsValue_Values(), false),
 			},
 			"default_route_table_association": {
 				Type:         schema.TypeString,
 				Optional:     true,
 				Default:      ec2.DefaultRouteTableAssociationValueEnable,
-				ValidateFunc: validation.StringInSlice(ec2.DefaultRouteTableAssociationValue_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.DefaultRouteTableAssociationValue_Values(), false),
 			},
 			"default_route_table_propagation": {
 				Type:         schema.TypeString,
 				Optional:     true,
 				Default:      ec2.DefaultRouteTablePropagationValueEnable,
-				ValidateFunc: validation.StringInSlice(ec2.DefaultRouteTablePropagationValue_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.DefaultRouteTablePropagationValue_Values(), false),
 			},
 			"description": {
 				Type:     schema.TypeString,
@@ -96,14 +102,16 @@ func ResourceTransitGateway() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				Default:      ec2.DnsSupportValueEnable,
-				ValidateFunc: validation.StringInSlice(ec2.DnsSupportValue_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.DnsSupportValue_Values(), false),
 			},
 			"multicast_support": {
 				Type:         schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Default:      ec2.MulticastSupportValueDisable,
-				ValidateFunc: validation.StringInSlice(ec2.MulticastSupportValue_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.MulticastSupportValue_Values(), false),
 			},
 			"owner_id": {
 				Type:     schema.TypeString,
@@ -121,7 +129,8 @@ func ResourceTransitGateway() *schema.Resource {
 				MaxItems: 5,
 				Elem: &schema.Schema{
 					Type: schema.TypeString,
-					ValidateFunc: verify.IsIPv4CIDRBlockOrIPv6CIDRBlock(
+					Validate
+func: verify.IsIPv4CIDRBlockOrIPv6CIDRBlock(
 						validation.All(
 							validation.IsCIDRNetwork(0, 24),
 							validation.StringDoesNotMatch(regexache.MustCompile(`^169\.254\.`), "must not be from range 169.254.0.0/16"),
@@ -134,11 +143,13 @@ func ResourceTransitGateway() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				Default:      ec2.VpnEcmpSupportValueEnable,
-				ValidateFunc: validation.StringInSlice(ec2.VpnEcmpSupportValue_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.VpnEcmpSupportValue_Values(), false),
 			},
 		},
 	}
 }
+
 
 func resourceTransitGatewayCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -184,6 +195,7 @@ func resourceTransitGatewayCreate(ctx context.Context, d *schema.ResourceData, m
 	return append(diags, resourceTransitGatewayRead(ctx, d, meta)...)
 }
 
+
 func resourceTransitGatewayRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -218,6 +230,7 @@ func resourceTransitGatewayRead(ctx context.Context, d *schema.ResourceData, met
 
 	return diags
 }
+
 
 func resourceTransitGatewayUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -282,12 +295,14 @@ func resourceTransitGatewayUpdate(ctx context.Context, d *schema.ResourceData, m
 	return diags
 }
 
+
 func resourceTransitGatewayDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	log.Printf("[DEBUG] Deleting EC2 Transit Gateway: %s", d.Id())
-	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, TransitGatewayIncorrectStateTimeout, func() (interface{}, error) {
+	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, TransitGatewayIncorrectStateTimeout, 
+func() (interface{}, error) {
 		return conn.DeleteTransitGatewayWithContext(ctx, &ec2.DeleteTransitGatewayInput{
 			TransitGatewayId: aws.String(d.Id()),
 		})

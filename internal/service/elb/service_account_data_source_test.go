@@ -12,6 +12,7 @@ import (
 	tfelb "github.com/hashicorp/terraform-provider-aws/internal/service/elb"
 )
 
+
 func TestAccELBServiceAccountDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	expectedAccountID := tfelb.AccountIdPerRegionMap[acctest.Region()]
@@ -19,13 +20,15 @@ func TestAccELBServiceAccountDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_elb_service_account.main"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, elb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccServiceAccountDataSourceConfig_basic,
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttr(dataSourceName, "id", expectedAccountID),
 					acctest.CheckResourceAttrGlobalARNAccountID(dataSourceName, "arn", expectedAccountID, "iam", "root"),
 				),
@@ -34,6 +37,7 @@ func TestAccELBServiceAccountDataSource_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccELBServiceAccountDataSource_region(t *testing.T) {
 	ctx := acctest.Context(t)
 	expectedAccountID := tfelb.AccountIdPerRegionMap[acctest.Region()]
@@ -41,13 +45,15 @@ func TestAccELBServiceAccountDataSource_region(t *testing.T) {
 	dataSourceName := "data.aws_elb_service_account.regional"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, elb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccServiceAccountDataSourceConfig_explicitRegion,
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttr(dataSourceName, "id", expectedAccountID),
 					acctest.CheckResourceAttrGlobalARNAccountID(dataSourceName, "arn", expectedAccountID, "iam", "root"),
 				),

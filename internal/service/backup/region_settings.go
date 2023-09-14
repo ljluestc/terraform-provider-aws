@@ -16,6 +16,7 @@ import (
 )
 
 // @SDKResource("aws_backup_region_settings")
+
 func ResourceRegionSettings() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceRegionSettingsUpdate,

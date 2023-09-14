@@ -19,20 +19,23 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccEC2Host_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var host ec2.Host
 	resourceName := "aws_ec2_host.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckHostDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccHostConfig_basic(),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckHostExists(ctx, resourceName, &host),
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "ec2", regexache.MustCompile(`dedicated-host/.+`)),
 					resource.TestCheckResourceAttr(resourceName, "auto_placement", "on"),
@@ -53,20 +56,23 @@ func TestAccEC2Host_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2Host_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var host ec2.Host
 	resourceName := "aws_ec2_host.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckHostDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccHostConfig_basic(),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckHostExists(ctx, resourceName, &host),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceHost(), resourceName),
 				),
@@ -76,6 +82,7 @@ func TestAccEC2Host_disappears(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2Host_instanceFamily(t *testing.T) {
 	ctx := acctest.Context(t)
 	var host ec2.Host
@@ -83,14 +90,16 @@ func TestAccEC2Host_instanceFamily(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckHostDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccHostConfig_instanceFamily(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckHostExists(ctx, resourceName, &host),
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "ec2", regexache.MustCompile(`dedicated-host/.+`)),
 					resource.TestCheckResourceAttr(resourceName, "auto_placement", "off"),
@@ -109,7 +118,8 @@ func TestAccEC2Host_instanceFamily(t *testing.T) {
 			},
 			{
 				Config: testAccHostConfig_instanceType(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckHostExists(ctx, resourceName, &host),
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "ec2", regexache.MustCompile(`dedicated-host/.+`)),
 					resource.TestCheckResourceAttr(resourceName, "auto_placement", "on"),
@@ -125,20 +135,23 @@ func TestAccEC2Host_instanceFamily(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2Host_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var host ec2.Host
 	resourceName := "aws_ec2_host.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckHostDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccHostConfig_tags1("key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckHostExists(ctx, resourceName, &host),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
@@ -151,7 +164,8 @@ func TestAccEC2Host_tags(t *testing.T) {
 			},
 			{
 				Config: testAccHostConfig_tags2("key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckHostExists(ctx, resourceName, &host),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
@@ -160,7 +174,8 @@ func TestAccEC2Host_tags(t *testing.T) {
 			},
 			{
 				Config: testAccHostConfig_tags1("key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckHostExists(ctx, resourceName, &host),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
@@ -170,6 +185,7 @@ func TestAccEC2Host_tags(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2Host_outpostAssetId(t *testing.T) {
 	ctx := acctest.Context(t)
 	var host ec2.Host
@@ -177,14 +193,16 @@ func TestAccEC2Host_outpostAssetId(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckHostDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccHostConfig_outpostAssetId(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckHostExists(ctx, resourceName, &host),
 					resource.TestCheckResourceAttrSet(resourceName, "asset_id"),
 				),
@@ -192,6 +210,7 @@ func TestAccEC2Host_outpostAssetId(t *testing.T) {
 		},
 	})
 }
+
 
 func TestAccEC2Host_outpost(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -201,14 +220,16 @@ func TestAccEC2Host_outpost(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckHostDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccHostConfig_outpost(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckHostExists(ctx, resourceName, &host),
 					resource.TestCheckResourceAttrPair(resourceName, "outpost_arn", outpostDataSourceName, "arn"),
 				),
@@ -222,8 +243,11 @@ func TestAccEC2Host_outpost(t *testing.T) {
 	})
 }
 
-func testAccCheckHostExists(ctx context.Context, n string, v *ec2.Host) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckHostExists(ctx context.Context, n string, v *ec2.Host) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -247,8 +271,11 @@ func testAccCheckHostExists(ctx context.Context, n string, v *ec2.Host) resource
 	}
 }
 
-func testAccCheckHostDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckHostDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -273,6 +300,7 @@ func testAccCheckHostDestroy(ctx context.Context) resource.TestCheckFunc {
 	}
 }
 
+
 func testAccHostConfig_basic() string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), `
 resource "aws_ec2_host" "test" {
@@ -281,6 +309,7 @@ resource "aws_ec2_host" "test" {
 }
 `)
 }
+
 
 func testAccHostConfig_instanceFamily(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
@@ -297,6 +326,7 @@ resource "aws_ec2_host" "test" {
 `, rName))
 }
 
+
 func testAccHostConfig_instanceType(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_ec2_host" "test" {
@@ -312,6 +342,7 @@ resource "aws_ec2_host" "test" {
 `, rName))
 }
 
+
 func testAccHostConfig_tags1(tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_ec2_host" "test" {
@@ -324,6 +355,7 @@ resource "aws_ec2_host" "test" {
 }
 `, tagKey1, tagValue1))
 }
+
 
 func testAccHostConfig_tags2(tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
@@ -338,6 +370,7 @@ resource "aws_ec2_host" "test" {
 }
 `, tagKey1, tagValue1, tagKey2, tagValue2))
 }
+
 
 func testAccHostConfig_outpostAssetId(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
@@ -363,6 +396,7 @@ resource "aws_ec2_host" "test" {
 }
 `, rName))
 }
+
 
 func testAccHostConfig_outpost(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`

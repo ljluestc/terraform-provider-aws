@@ -24,6 +24,7 @@ import (
 
 // @SDKResource("aws_ec2_traffic_mirror_target", name="Traffic Mirror Target")
 // @Tags(identifierAttribute="id")
+
 func ResourceTrafficMirrorTarget() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceTrafficMirrorTargetCreate,
@@ -76,7 +77,8 @@ func ResourceTrafficMirrorTarget() *schema.Resource {
 					"network_interface_id",
 					"network_load_balancer_arn",
 				},
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			"owner_id": {
 				Type:     schema.TypeString,
@@ -87,6 +89,7 @@ func ResourceTrafficMirrorTarget() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceTrafficMirrorTargetCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -122,6 +125,7 @@ func resourceTrafficMirrorTargetCreate(ctx context.Context, d *schema.ResourceDa
 
 	return append(diags, resourceTrafficMirrorTargetRead(ctx, d, meta)...)
 }
+
 
 func resourceTrafficMirrorTargetRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -159,6 +163,7 @@ func resourceTrafficMirrorTargetRead(ctx context.Context, d *schema.ResourceData
 	return diags
 }
 
+
 func resourceTrafficMirrorTargetUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 
@@ -166,6 +171,7 @@ func resourceTrafficMirrorTargetUpdate(ctx context.Context, d *schema.ResourceDa
 
 	return append(diags, resourceTrafficMirrorTargetRead(ctx, d, meta)...)
 }
+
 
 func resourceTrafficMirrorTargetDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

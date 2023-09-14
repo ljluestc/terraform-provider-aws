@@ -170,6 +170,7 @@ const (
 )
 
 // WaitLocalGatewayRouteTableVPCAssociationAssociated waits for a LocalGatewayRouteTableVpcAssociation to return Associated
+
 func WaitLocalGatewayRouteTableVPCAssociationAssociated(ctx context.Context, conn *ec2.EC2, localGatewayRouteTableVpcAssociationID string) (*ec2.LocalGatewayRouteTableVpcAssociation, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{ec2.RouteTableAssociationStateCodeAssociating},
@@ -188,6 +189,7 @@ func WaitLocalGatewayRouteTableVPCAssociationAssociated(ctx context.Context, con
 }
 
 // WaitLocalGatewayRouteTableVPCAssociationDisassociated waits for a LocalGatewayRouteTableVpcAssociation to return Disassociated
+
 func WaitLocalGatewayRouteTableVPCAssociationDisassociated(ctx context.Context, conn *ec2.EC2, localGatewayRouteTableVpcAssociationID string) (*ec2.LocalGatewayRouteTableVpcAssociation, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{ec2.RouteTableAssociationStateCodeDisassociating},

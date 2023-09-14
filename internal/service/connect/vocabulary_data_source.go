@@ -18,6 +18,7 @@ import (
 )
 
 // @SDKDataSource("aws_connect_vocabulary")
+
 func DataSourceVocabulary() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceVocabularyRead,
@@ -38,7 +39,8 @@ func DataSourceVocabulary() *schema.Resource {
 			"instance_id": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: validation.StringLenBetween(1, 100),
+				Validate
+func: validation.StringLenBetween(1, 100),
 			},
 			"language_code": {
 				Type:     schema.TypeString,
@@ -68,6 +70,7 @@ func DataSourceVocabulary() *schema.Resource {
 		},
 	}
 }
+
 
 func dataSourceVocabularyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -127,6 +130,7 @@ func dataSourceVocabularyRead(ctx context.Context, d *schema.ResourceData, meta 
 	return nil
 }
 
+
 func dataSourceGetVocabularySummaryByName(ctx context.Context, conn *connect.Connect, instanceID, name string) (*connect.VocabularySummary, error) {
 	var result *connect.VocabularySummary
 
@@ -136,7 +140,8 @@ func dataSourceGetVocabularySummaryByName(ctx context.Context, conn *connect.Con
 		NameStartsWith: aws.String(name),
 	}
 
-	err := conn.SearchVocabulariesPagesWithContext(ctx, input, func(page *connect.SearchVocabulariesOutput, lastPage bool) bool {
+	err := conn.SearchVocabulariesPagesWithContext(ctx, input, 
+func(page *connect.SearchVocabulariesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}

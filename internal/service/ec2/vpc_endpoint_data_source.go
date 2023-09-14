@@ -21,6 +21,7 @@ import (
 )
 
 // @SDKDataSource("aws_vpc_endpoint")
+
 func DataSourceVPCEndpoint() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceVPCEndpointRead,

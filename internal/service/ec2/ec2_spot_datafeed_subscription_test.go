@@ -19,16 +19,19 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccEC2SpotDatafeedSubscription_serial(t *testing.T) {
 	t.Parallel()
 
-	testCases := map[string]func(t *testing.T){
+	testCases := map[string]
+func(t *testing.T){
 		"basic":      testAccSpotDatafeedSubscription_basic,
 		"disappears": testAccSpotDatafeedSubscription_disappears,
 	}
 
 	acctest.RunSerialTests1Level(t, testCases, 0)
 }
+
 
 func testAccSpotDatafeedSubscription_basic(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -37,14 +40,16 @@ func testAccSpotDatafeedSubscription_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotDatafeedSubscription(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotDatafeedSubscription(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckSpotDatafeedSubscriptionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSpotDatafeedSubscriptionConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSpotDatafeedSubscriptionExists(ctx, resourceName, &subscription),
 				),
 			},
@@ -57,6 +62,7 @@ func testAccSpotDatafeedSubscription_basic(t *testing.T) {
 	})
 }
 
+
 func testAccSpotDatafeedSubscription_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var subscription ec2.SpotDatafeedSubscription
@@ -64,14 +70,16 @@ func testAccSpotDatafeedSubscription_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotDatafeedSubscription(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckSpotDatafeedSubscription(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckSpotDatafeedSubscriptionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSpotDatafeedSubscriptionConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSpotDatafeedSubscriptionExists(ctx, resourceName, &subscription),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceSpotDataFeedSubscription(), resourceName),
 				),
@@ -81,8 +89,11 @@ func testAccSpotDatafeedSubscription_disappears(t *testing.T) {
 	})
 }
 
-func testAccCheckSpotDatafeedSubscriptionExists(ctx context.Context, n string, v *ec2.SpotDatafeedSubscription) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckSpotDatafeedSubscriptionExists(ctx context.Context, n string, v *ec2.SpotDatafeedSubscription) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -106,8 +117,11 @@ func testAccCheckSpotDatafeedSubscriptionExists(ctx context.Context, n string, v
 	}
 }
 
-func testAccCheckSpotDatafeedSubscriptionDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckSpotDatafeedSubscriptionDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -132,6 +146,7 @@ func testAccCheckSpotDatafeedSubscriptionDestroy(ctx context.Context) resource.T
 	}
 }
 
+
 func testAccPreCheckSpotDatafeedSubscription(ctx context.Context, t *testing.T) {
 	conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
@@ -149,6 +164,7 @@ func testAccPreCheckSpotDatafeedSubscription(ctx context.Context, t *testing.T) 
 		t.Fatalf("unexpected PreCheck error: %s", err)
 	}
 }
+
 
 func testAccSpotDatafeedSubscriptionConfig_basic(rName string) string {
 	return fmt.Sprintf(`

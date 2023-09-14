@@ -39,28 +39,29 @@ func sweepInstance(region string) error {
 	// MaxResults:  Maximum value of 10. https://docs.aws.amazon.com/connect/latest/APIReference/API_ListInstances.html
 	input := &connect.ListInstancesInput{MaxResults: aws.Int64(ListInstancesMaxResults)}
 
-	err = conn.ListInstancesPagesWithContext(ctx, input, func(page *connect.ListInstancesOutput, lastPage bool) bool {
-		if page == nil {
-			return !lastPage
-		}
-
-		for _, instanceSummary := range page.InstanceSummaryList {
-			if instanceSummary == nil {
-				continue
+	err = conn.ListInstancesPagesWithContext(ctx, input,
+		func(page *connect.ListInstancesOutput, lastPage bool) bool {
+			if page == nil {
+				return !lastPage
 			}
 
-			id := aws.StringValue(instanceSummary.Id)
+			for _, instanceSummary := range page.InstanceSummaryList {
+				if instanceSummary == nil {
+					continue
+				}
 
-			log.Printf("[INFO] Deleting Connect Instance (%s)", id)
-			r := ResourceInstance()
-			d := r.Data(nil)
-			d.SetId(id)
+				id := aws.StringValue(instanceSummary.Id)
 
-			sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
-		}
+				log.Printf("[INFO] Deleting Connect Instance (%s)", id)
+				r := ResourceInstance()
+				d := r.Data(nil)
+				d.SetId(id)
 
-		return !lastPage
-	})
+				sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
+			}
+
+			return !lastPage
+		})
 
 	if err != nil {
 		errs = multierror.Append(errs, fmt.Errorf("error listing Connect Instances: %w", err))

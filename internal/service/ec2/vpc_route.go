@@ -47,6 +47,7 @@ var routeValidTargets = []string{
 }
 
 // @SDKResource("aws_route")
+
 func ResourceRoute() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceRouteCreate,
@@ -78,15 +79,18 @@ func ResourceRoute() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.ValidIPv4CIDRNetworkAddress,
+				Validate
+func: verify.ValidIPv4CIDRNetworkAddress,
 				ExactlyOneOf: routeValidDestinations,
 			},
 			routeDestinationIPv6CIDRBlock: {
 				Type:             schema.TypeString,
 				Optional:         true,
 				ForceNew:         true,
-				ValidateFunc:     verify.ValidIPv6CIDRNetworkAddress,
-				DiffSuppressFunc: suppressEqualCIDRBlockDiffs,
+				Validate
+func:     verify.ValidIPv6CIDRNetworkAddress,
+				DiffSuppress
+func: suppressEqualCIDRBlockDiffs,
 				ExactlyOneOf:     routeValidDestinations,
 			},
 			routeDestinationPrefixListID: {
@@ -179,6 +183,7 @@ func ResourceRoute() *schema.Resource {
 	}
 }
 
+
 func resourceRouteCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -242,7 +247,8 @@ func resourceRouteCreate(ctx context.Context, d *schema.ResourceData, meta inter
 	}
 
 	_, err = tfresource.RetryWhenAWSErrCodeEquals(ctx, d.Timeout(schema.TimeoutCreate),
-		func() (interface{}, error) {
+		
+func() (interface{}, error) {
 			return conn.CreateRouteWithContext(ctx, input)
 		},
 		errCodeInvalidParameterException,
@@ -267,6 +273,7 @@ func resourceRouteCreate(ctx context.Context, d *schema.ResourceData, meta inter
 	return append(diags, resourceRouteRead(ctx, d, meta)...)
 }
 
+
 func resourceRouteRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -290,7 +297,8 @@ func resourceRouteRead(ctx context.Context, d *schema.ResourceData, meta interfa
 	}
 
 	routeTableID := d.Get("route_table_id").(string)
-	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout, func() (interface{}, error) {
+	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout, 
+func() (interface{}, error) {
 		return routeFinder(ctx, conn, routeTableID, destination)
 	}, d.IsNewResource())
 
@@ -331,6 +339,7 @@ func resourceRouteRead(ctx context.Context, d *schema.ResourceData, meta interfa
 
 	return diags
 }
+
 
 func resourceRouteUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -413,6 +422,7 @@ func resourceRouteUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 	return append(diags, resourceRouteRead(ctx, d, meta)...)
 }
 
+
 func resourceRouteDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -446,7 +456,8 @@ func resourceRouteDelete(ctx context.Context, d *schema.ResourceData, meta inter
 
 	log.Printf("[DEBUG] Deleting Route: %s", input)
 	_, err = tfresource.RetryWhenAWSErrCodeEquals(ctx, d.Timeout(schema.TimeoutDelete),
-		func() (interface{}, error) {
+		
+func() (interface{}, error) {
 			return conn.DeleteRouteWithContext(ctx, input)
 		},
 		errCodeInvalidParameterException,
@@ -472,6 +483,7 @@ func resourceRouteDelete(ctx context.Context, d *schema.ResourceData, meta inter
 	return diags
 }
 
+
 func resourceRouteImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	idParts := strings.Split(d.Id(), "_")
 	if len(idParts) != 2 || idParts[0] == "" || idParts[1] == "" {
@@ -495,6 +507,7 @@ func resourceRouteImport(ctx context.Context, d *schema.ResourceData, meta inter
 }
 
 // routeDestinationAttribute returns the attribute key and value of the route's destination.
+
 func routeDestinationAttribute(d *schema.ResourceData) (string, string, error) {
 	for _, key := range routeValidDestinations {
 		if v, ok := d.Get(key).(string); ok && v != "" {
@@ -506,6 +519,7 @@ func routeDestinationAttribute(d *schema.ResourceData) (string, string, error) {
 }
 
 // routeTargetAttribute returns the attribute key and value of the route's target.
+
 func routeTargetAttribute(d *schema.ResourceData) (string, string, error) {
 	for _, key := range routeValidTargets {
 		// The HasChange check is necessary to handle Computed attributes that will be cleared once they are read back after update.

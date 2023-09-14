@@ -48,6 +48,7 @@ var routeTableValidTargets = []string{
 
 // @SDKResource("aws_route_table", name="Route Table")
 // @Tags(identifierAttribute="id")
+
 func ResourceRouteTable() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceRouteTableCreate,
@@ -92,7 +93,8 @@ func ResourceRouteTable() *schema.Resource {
 						"cidr_block": {
 							Type:         schema.TypeString,
 							Optional:     true,
-							ValidateFunc: verify.ValidIPv4CIDRNetworkAddress,
+							Validate
+func: verify.ValidIPv4CIDRNetworkAddress,
 						},
 						"destination_prefix_list_id": {
 							Type:     schema.TypeString,
@@ -101,7 +103,8 @@ func ResourceRouteTable() *schema.Resource {
 						"ipv6_cidr_block": {
 							Type:         schema.TypeString,
 							Optional:     true,
-							ValidateFunc: verify.ValidIPv6CIDRNetworkAddress,
+							Validate
+func: verify.ValidIPv6CIDRNetworkAddress,
 						},
 						//
 						// Targets.
@@ -163,6 +166,7 @@ func ResourceRouteTable() *schema.Resource {
 	}
 }
 
+
 func resourceRouteTableCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -207,11 +211,13 @@ func resourceRouteTableCreate(ctx context.Context, d *schema.ResourceData, meta 
 	return append(diags, resourceRouteTableRead(ctx, d, meta)...)
 }
 
+
 func resourceRouteTableRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout, func() (interface{}, error) {
+	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout, 
+func() (interface{}, error) {
 		return FindRouteTableByID(ctx, conn, d.Id())
 	}, d.IsNewResource())
 
@@ -253,6 +259,7 @@ func resourceRouteTableRead(ctx context.Context, d *schema.ResourceData, meta in
 
 	return diags
 }
+
 
 func resourceRouteTableUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -345,6 +352,7 @@ func resourceRouteTableUpdate(ctx context.Context, d *schema.ResourceData, meta 
 	return append(diags, resourceRouteTableRead(ctx, d, meta)...)
 }
 
+
 func resourceRouteTableDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -383,6 +391,7 @@ func resourceRouteTableDelete(ctx context.Context, d *schema.ResourceData, meta 
 
 	return diags
 }
+
 
 func resourceRouteTableHash(v interface{}) int {
 	var buf bytes.Buffer
@@ -449,6 +458,7 @@ func resourceRouteTableHash(v interface{}) int {
 }
 
 // routeTableAddRoute adds a route to the specified route table.
+
 func routeTableAddRoute(ctx context.Context, conn *ec2.EC2, routeTableID string, tfMap map[string]interface{}, timeout time.Duration) error {
 	if err := validNestedExactlyOneOf(tfMap, routeTableValidDestinations); err != nil {
 		return fmt.Errorf("creating route: %w", err)
@@ -486,7 +496,8 @@ func routeTableAddRoute(ctx context.Context, conn *ec2.EC2, routeTableID string,
 		// created by AWS so probably doesn't need a retry but just to be sure
 		// we provide a small one
 		_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, time.Second*15,
-			func() (interface{}, error) {
+			
+func() (interface{}, error) {
 				return routeFinder(ctx, conn, routeTableID, destination)
 			},
 			errCodeInvalidRouteNotFound,
@@ -500,7 +511,8 @@ func routeTableAddRoute(ctx context.Context, conn *ec2.EC2, routeTableID string,
 	}
 
 	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, timeout,
-		func() (interface{}, error) {
+		
+func() (interface{}, error) {
 			return conn.CreateRouteWithContext(ctx, input)
 		},
 		errCodeInvalidParameterException,
@@ -519,6 +531,7 @@ func routeTableAddRoute(ctx context.Context, conn *ec2.EC2, routeTableID string,
 }
 
 // routeTableDeleteRoute deletes a route from the specified route table.
+
 func routeTableDeleteRoute(ctx context.Context, conn *ec2.EC2, routeTableID string, tfMap map[string]interface{}, timeout time.Duration) error {
 	destinationAttributeKey, destination := routeTableRouteDestinationAttribute(tfMap)
 
@@ -560,6 +573,7 @@ func routeTableDeleteRoute(ctx context.Context, conn *ec2.EC2, routeTableID stri
 }
 
 // routeTableUpdateRoute updates a route in the specified route table.
+
 func routeTableUpdateRoute(ctx context.Context, conn *ec2.EC2, routeTableID string, tfMap map[string]interface{}, timeout time.Duration) error {
 	if err := validNestedExactlyOneOf(tfMap, routeTableValidDestinations); err != nil {
 		return fmt.Errorf("updating route: %w", err)
@@ -606,6 +620,7 @@ func routeTableUpdateRoute(ctx context.Context, conn *ec2.EC2, routeTableID stri
 
 // routeTableDisableVGWRoutePropagation attempts to disable VGW route propagation.
 // Any error is returned.
+
 func routeTableDisableVGWRoutePropagation(ctx context.Context, conn *ec2.EC2, routeTableID, gatewayID string) error {
 	input := &ec2.DisableVgwRoutePropagationInput{
 		GatewayId:    aws.String(gatewayID),
@@ -624,6 +639,7 @@ func routeTableDisableVGWRoutePropagation(ctx context.Context, conn *ec2.EC2, ro
 // routeTableEnableVGWRoutePropagation attempts to enable VGW route propagation.
 // The specified eventual consistency timeout is respected.
 // Any error is returned.
+
 func routeTableEnableVGWRoutePropagation(ctx context.Context, conn *ec2.EC2, routeTableID, gatewayID string, timeout time.Duration) error {
 	input := &ec2.EnableVgwRoutePropagationInput{
 		GatewayId:    aws.String(gatewayID),
@@ -631,7 +647,8 @@ func routeTableEnableVGWRoutePropagation(ctx context.Context, conn *ec2.EC2, rou
 	}
 
 	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, timeout,
-		func() (interface{}, error) {
+		
+func() (interface{}, error) {
 			return conn.EnableVgwRoutePropagationWithContext(ctx, input)
 		},
 		errCodeGatewayNotAttached,
@@ -643,6 +660,7 @@ func routeTableEnableVGWRoutePropagation(ctx context.Context, conn *ec2.EC2, rou
 
 	return nil
 }
+
 
 func expandCreateRouteInput(tfMap map[string]interface{}) *ec2.CreateRouteInput {
 	if tfMap == nil {
@@ -705,6 +723,7 @@ func expandCreateRouteInput(tfMap map[string]interface{}) *ec2.CreateRouteInput 
 
 	return apiObject
 }
+
 
 func expandReplaceRouteInput(tfMap map[string]interface{}) *ec2.ReplaceRouteInput {
 	if tfMap == nil {
@@ -772,6 +791,7 @@ func expandReplaceRouteInput(tfMap map[string]interface{}) *ec2.ReplaceRouteInpu
 	return apiObject
 }
 
+
 func flattenRoute(apiObject *ec2.Route) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -834,6 +854,7 @@ func flattenRoute(apiObject *ec2.Route) map[string]interface{} {
 	return tfMap
 }
 
+
 func flattenRoutes(ctx context.Context, conn *ec2.EC2, d *schema.ResourceData, apiObjects []*ec2.Route) []interface{} {
 	if len(apiObjects) == 0 {
 		return nil
@@ -890,6 +911,7 @@ func flattenRoutes(ctx context.Context, conn *ec2.EC2, d *schema.ResourceData, a
 // config. However, in this case, a local gateway route in ResourceData must
 // come from config because of the gatekeeping done by hasLocalConfig and
 // flattenRoutes.
+
 func hasLocalConfig(d *schema.ResourceData, apiObject *ec2.Route) bool {
 	if apiObject.GatewayId == nil {
 		return false
@@ -913,6 +935,7 @@ func hasLocalConfig(d *schema.ResourceData, apiObject *ec2.Route) bool {
 }
 
 // routeTableRouteDestinationAttribute returns the attribute key and value of the route table route's destination.
+
 func routeTableRouteDestinationAttribute(m map[string]interface{}) (string, string) {
 	for _, key := range routeTableValidDestinations {
 		if v, ok := m[key].(string); ok && v != "" {
@@ -924,6 +947,7 @@ func routeTableRouteDestinationAttribute(m map[string]interface{}) (string, stri
 }
 
 // routeTableRouteTargetAttribute returns the attribute key and value of the route table route's target.
+
 func routeTableRouteTargetAttribute(m map[string]interface{}) (string, string) { //nolint:unparam
 	for _, key := range routeTableValidTargets {
 		if v, ok := m[key].(string); ok && v != "" {

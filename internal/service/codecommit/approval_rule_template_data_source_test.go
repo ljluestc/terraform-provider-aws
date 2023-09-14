@@ -13,6 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccCodeCommitApprovalRuleTemplateDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -20,13 +21,15 @@ func TestAccCodeCommitApprovalRuleTemplateDataSource_basic(t *testing.T) {
 	datasourceName := "data.aws_codecommit_approval_rule_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, codecommit.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccApprovalRuleTemplateDataSourceConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttrPair(datasourceName, "description", resourceName, "description"),
 					resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
 					resource.TestCheckResourceAttrPair(datasourceName, "content", resourceName, "content"),
@@ -39,6 +42,7 @@ func TestAccCodeCommitApprovalRuleTemplateDataSource_basic(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccApprovalRuleTemplateDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`

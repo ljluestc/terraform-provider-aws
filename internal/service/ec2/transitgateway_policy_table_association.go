@@ -21,6 +21,7 @@ import (
 )
 
 // @SDKResource("aws_ec2_transit_gateway_policy_table_association")
+
 func ResourceTransitGatewayPolicyTableAssociation() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceTransitGatewayPolicyTableAssociationCreate,
@@ -44,17 +45,20 @@ func ResourceTransitGatewayPolicyTableAssociation() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.NoZeroValues,
+				Validate
+func: validation.NoZeroValues,
 			},
 			"transit_gateway_policy_table_id": {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.NoZeroValues,
+				Validate
+func: validation.NoZeroValues,
 			},
 		},
 	}
 }
+
 
 func resourceTransitGatewayPolicyTableAssociationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -109,6 +113,7 @@ func resourceTransitGatewayPolicyTableAssociationCreate(ctx context.Context, d *
 	return append(diags, resourceTransitGatewayPolicyTableAssociationRead(ctx, d, meta)...)
 }
 
+
 func resourceTransitGatewayPolicyTableAssociationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -138,6 +143,7 @@ func resourceTransitGatewayPolicyTableAssociationRead(ctx context.Context, d *sc
 
 	return diags
 }
+
 
 func resourceTransitGatewayPolicyTableAssociationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -172,12 +178,14 @@ func resourceTransitGatewayPolicyTableAssociationDelete(ctx context.Context, d *
 
 const transitGatewayPolicyTableAssociationIDSeparator = "_"
 
+
 func TransitGatewayPolicyTableAssociationCreateResourceID(transitGatewayPolicyTableID, transitGatewayAttachmentID string) string {
 	parts := []string{transitGatewayPolicyTableID, transitGatewayAttachmentID}
 	id := strings.Join(parts, transitGatewayPolicyTableAssociationIDSeparator)
 
 	return id
 }
+
 
 func TransitGatewayPolicyTableAssociationParseResourceID(id string) (string, string, error) {
 	parts := strings.Split(id, transitGatewayPolicyTableAssociationIDSeparator)

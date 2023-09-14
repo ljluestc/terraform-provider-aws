@@ -22,6 +22,7 @@ import (
 
 // @SDKResource("aws_connect_phone_number", name="Phone Number")
 // @Tags(identifierAttribute="arn")
+
 func ResourcePhoneNumber() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourcePhoneNumberCreate,
@@ -46,13 +47,15 @@ func ResourcePhoneNumber() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringInSlice(connect.PhoneNumberCountryCode_Values(), false),
+				Validate
+func: validation.StringInSlice(connect.PhoneNumberCountryCode_Values(), false),
 			},
 			"description": {
 				Type:         schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringLenBetween(1, 500),
+				Validate
+func: validation.StringLenBetween(1, 500),
 			},
 			"phone_number": {
 				Type:     schema.TypeString,
@@ -62,7 +65,8 @@ func ResourcePhoneNumber() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
-				ValidateFunc: validPhoneNumberPrefix,
+				Validate
+func: validPhoneNumberPrefix,
 			},
 			"status": {
 				Type:     schema.TypeList,
@@ -83,19 +87,22 @@ func ResourcePhoneNumber() *schema.Resource {
 			"target_arn": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			"type": {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringInSlice(connect.PhoneNumberType_Values(), false),
+				Validate
+func: validation.StringInSlice(connect.PhoneNumberType_Values(), false),
 			},
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 	}
 }
+
 
 func resourcePhoneNumberCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -163,6 +170,7 @@ func resourcePhoneNumberCreate(ctx context.Context, d *schema.ResourceData, meta
 	return resourcePhoneNumberRead(ctx, d, meta)
 }
 
+
 func resourcePhoneNumberRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
@@ -204,6 +212,7 @@ func resourcePhoneNumberRead(ctx context.Context, d *schema.ResourceData, meta i
 	return nil
 }
 
+
 func resourcePhoneNumberUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
@@ -233,6 +242,7 @@ func resourcePhoneNumberUpdate(ctx context.Context, d *schema.ResourceData, meta
 	return resourcePhoneNumberRead(ctx, d, meta)
 }
 
+
 func resourcePhoneNumberDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
@@ -258,6 +268,7 @@ func resourcePhoneNumberDelete(ctx context.Context, d *schema.ResourceData, meta
 
 	return nil
 }
+
 
 func flattenPhoneNumberStatus(apiObject *connect.PhoneNumberStatus) []interface{} {
 	if apiObject == nil {

@@ -24,6 +24,7 @@ import (
 
 // @SDKResource("aws_vpc_dhcp_options", name="DHCP Options")
 // @Tags(identifierAttribute="id")
+
 func ResourceVPCDHCPOptions() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceVPCDHCPOptionsCreate,
@@ -127,9 +128,10 @@ func resourceVPCDHCPOptionsRead(ctx context.Context, d *schema.ResourceData, met
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout, func() (interface{}, error) {
-		return FindDHCPOptionsByID(ctx, conn, d.Id())
-	}, d.IsNewResource())
+	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout,
+		func() (interface{}, error) {
+			return FindDHCPOptionsByID(ctx, conn, d.Id())
+		}, d.IsNewResource())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] EC2 DHCP Options Set %s not found, removing from state", d.Id())
@@ -210,9 +212,10 @@ func resourceVPCDHCPOptionsDelete(ctx context.Context, d *schema.ResourceData, m
 	}
 
 	log.Printf("[INFO] Deleting EC2 DHCP Options Set: %s", d.Id())
-	_, err = tfresource.RetryWhenAWSErrCodeEquals(ctx, dhcpOptionSetDeletedTimeout, func() (interface{}, error) {
-		return conn.DeleteDhcpOptionsWithContext(ctx, input)
-	}, errCodeDependencyViolation)
+	_, err = tfresource.RetryWhenAWSErrCodeEquals(ctx, dhcpOptionSetDeletedTimeout,
+		func() (interface{}, error) {
+			return conn.DeleteDhcpOptionsWithContext(ctx, input)
+		}, errCodeDependencyViolation)
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidDHCPOptionIDNotFound) {
 		return diags
@@ -245,6 +248,7 @@ func newDHCPOptionsMap(tfToApi map[string]string) *dhcpOptionsMap {
 }
 
 // dhcpConfigurationsToResourceData sets Terraform ResourceData from a list of AWS API DHCP configurations.
+
 func (m *dhcpOptionsMap) dhcpConfigurationsToResourceData(dhcpConfigurations []*ec2.DhcpConfiguration, d *schema.ResourceData) error {
 	for v := range m.tfToApi {
 		d.Set(v, nil)
@@ -274,6 +278,7 @@ func (m *dhcpOptionsMap) dhcpConfigurationsToResourceData(dhcpConfigurations []*
 }
 
 // resourceDataToDHCPConfigurations returns a list of AWS API DHCP configurations from Terraform ResourceData.
+
 func (m *dhcpOptionsMap) resourceDataToDHCPConfigurations(d *schema.ResourceData) ([]*ec2.NewDhcpConfiguration, error) {
 	var output []*ec2.NewDhcpConfiguration
 

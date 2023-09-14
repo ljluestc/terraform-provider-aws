@@ -13,6 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func testAccTransitGatewayPeeringAttachmentAccepter_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var transitGatewayPeeringAttachment ec2.TransitGatewayPeeringAttachment
@@ -23,7 +24,8 @@ func testAccTransitGatewayPeeringAttachmentAccepter_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
 			testAccPreCheckTransitGateway(ctx, t)
@@ -34,7 +36,8 @@ func testAccTransitGatewayPeeringAttachmentAccepter_basic(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayPeeringAttachmentAccepterConfig_sameAccount(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayPeeringAttachmentExists(ctx, resourceName, &transitGatewayPeeringAttachment),
 					resource.TestCheckResourceAttrPair(resourceName, "peer_account_id", transitGatewayResourceNamePeer, "owner_id"),
 					resource.TestCheckResourceAttr(resourceName, "peer_region", acctest.AlternateRegion()),
@@ -54,6 +57,7 @@ func testAccTransitGatewayPeeringAttachmentAccepter_basic(t *testing.T) {
 	})
 }
 
+
 func testAccTransitGatewayPeeringAttachmentAccepter_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var transitGatewayPeeringAttachment ec2.TransitGatewayPeeringAttachment
@@ -61,7 +65,8 @@ func testAccTransitGatewayPeeringAttachmentAccepter_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
 			testAccPreCheckTransitGateway(ctx, t)
@@ -72,7 +77,8 @@ func testAccTransitGatewayPeeringAttachmentAccepter_tags(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayPeeringAttachmentAccepterConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayPeeringAttachmentExists(ctx, resourceName, &transitGatewayPeeringAttachment),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
@@ -86,7 +92,8 @@ func testAccTransitGatewayPeeringAttachmentAccepter_tags(t *testing.T) {
 			},
 			{
 				Config: testAccTransitGatewayPeeringAttachmentAccepterConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayPeeringAttachmentExists(ctx, resourceName, &transitGatewayPeeringAttachment),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
@@ -95,7 +102,8 @@ func testAccTransitGatewayPeeringAttachmentAccepter_tags(t *testing.T) {
 			},
 			{
 				Config: testAccTransitGatewayPeeringAttachmentAccepterConfig_tags1(rName, "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayPeeringAttachmentExists(ctx, resourceName, &transitGatewayPeeringAttachment),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
@@ -104,6 +112,7 @@ func testAccTransitGatewayPeeringAttachmentAccepter_tags(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccTransitGatewayPeeringAttachmentAccepter_differentAccount(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -115,7 +124,8 @@ func testAccTransitGatewayPeeringAttachmentAccepter_differentAccount(t *testing.
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
 			testAccPreCheckTransitGateway(ctx, t)
@@ -126,7 +136,8 @@ func testAccTransitGatewayPeeringAttachmentAccepter_differentAccount(t *testing.
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayPeeringAttachmentAccepterConfig_differentAccount(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayPeeringAttachmentExists(ctx, resourceName, &transitGatewayPeeringAttachment),
 					resource.TestCheckResourceAttrPair(resourceName, "peer_account_id", transitGatewayResourceNamePeer, "owner_id"),
 					resource.TestCheckResourceAttr(resourceName, "peer_region", acctest.AlternateRegion()),
@@ -146,6 +157,7 @@ func testAccTransitGatewayPeeringAttachmentAccepter_differentAccount(t *testing.
 		},
 	})
 }
+
 
 func testAccTransitGatewayPeeringAttachmentAccepterConfig_base(rName string) string {
 	return fmt.Sprintf(`
@@ -180,6 +192,7 @@ resource "aws_ec2_transit_gateway_peering_attachment" "test" {
 `, rName)
 }
 
+
 func testAccTransitGatewayPeeringAttachmentAccepterConfig_sameAccount(rName string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigAlternateRegionProvider(),
@@ -190,6 +203,7 @@ resource "aws_ec2_transit_gateway_peering_attachment_accepter" "test" {
 }
 `)
 }
+
 
 func testAccTransitGatewayPeeringAttachmentAccepterConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(
@@ -206,6 +220,7 @@ resource "aws_ec2_transit_gateway_peering_attachment_accepter" "test" {
 `, tagKey1, tagValue1))
 }
 
+
 func testAccTransitGatewayPeeringAttachmentAccepterConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigAlternateRegionProvider(),
@@ -221,6 +236,7 @@ resource "aws_ec2_transit_gateway_peering_attachment_accepter" "test" {
 }
 `, tagKey1, tagValue1, tagKey2, tagValue2))
 }
+
 
 func testAccTransitGatewayPeeringAttachmentAccepterConfig_differentAccount(rName string) string {
 	return acctest.ConfigCompose(

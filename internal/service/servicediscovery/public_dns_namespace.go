@@ -21,6 +21,7 @@ import (
 
 // @SDKResource("aws_service_discovery_public_dns_namespace", name="Public DNS Namespace")
 // @Tags(identifierAttribute="arn")
+
 func ResourcePublicDNSNamespace() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourcePublicDNSNamespaceCreate,
@@ -49,7 +50,8 @@ func ResourcePublicDNSNamespace() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validNamespaceName,
+				Validate
+func: validNamespaceName,
 			},
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
@@ -58,6 +60,7 @@ func ResourcePublicDNSNamespace() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
+
 
 func resourcePublicDNSNamespaceCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ServiceDiscoveryConn(ctx)
@@ -96,6 +99,7 @@ func resourcePublicDNSNamespaceCreate(ctx context.Context, d *schema.ResourceDat
 	return resourcePublicDNSNamespaceRead(ctx, d, meta)
 }
 
+
 func resourcePublicDNSNamespaceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ServiceDiscoveryConn(ctx)
 
@@ -124,6 +128,7 @@ func resourcePublicDNSNamespaceRead(ctx context.Context, d *schema.ResourceData,
 	return nil
 }
 
+
 func resourcePublicDNSNamespaceUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ServiceDiscoveryConn(ctx)
 
@@ -151,6 +156,7 @@ func resourcePublicDNSNamespaceUpdate(ctx context.Context, d *schema.ResourceDat
 
 	return resourcePublicDNSNamespaceRead(ctx, d, meta)
 }
+
 
 func resourcePublicDNSNamespaceDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ServiceDiscoveryConn(ctx)

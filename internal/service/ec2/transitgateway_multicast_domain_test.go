@@ -19,6 +19,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func testAccTransitGatewayMulticastDomain_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.TransitGatewayMulticastDomain
@@ -26,14 +27,16 @@ func testAccTransitGatewayMulticastDomain_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayMulticastDomainDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayMulticastDomainConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayMulticastDomainExists(ctx, resourceName, &v),
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "ec2", regexache.MustCompile(`transit-gateway-multicast-domain/.+`)),
 					resource.TestCheckResourceAttr(resourceName, "auto_accept_shared_associations", "disable"),
@@ -53,6 +56,7 @@ func testAccTransitGatewayMulticastDomain_basic(t *testing.T) {
 	})
 }
 
+
 func testAccTransitGatewayMulticastDomain_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.TransitGatewayMulticastDomain
@@ -60,14 +64,16 @@ func testAccTransitGatewayMulticastDomain_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayMulticastDomainDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayMulticastDomainConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayMulticastDomainExists(ctx, resourceName, &v),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceTransitGatewayMulticastDomain(), resourceName),
 				),
@@ -77,6 +83,7 @@ func testAccTransitGatewayMulticastDomain_disappears(t *testing.T) {
 	})
 }
 
+
 func testAccTransitGatewayMulticastDomain_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.TransitGatewayMulticastDomain
@@ -84,14 +91,16 @@ func testAccTransitGatewayMulticastDomain_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayMulticastDomainDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayMulticastDomainConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayMulticastDomainExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
@@ -104,7 +113,8 @@ func testAccTransitGatewayMulticastDomain_tags(t *testing.T) {
 			},
 			{
 				Config: testAccTransitGatewayMulticastDomainConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
@@ -112,7 +122,8 @@ func testAccTransitGatewayMulticastDomain_tags(t *testing.T) {
 			},
 			{
 				Config: testAccTransitGatewayMulticastDomainConfig_tags1(rName, "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 				),
@@ -121,6 +132,7 @@ func testAccTransitGatewayMulticastDomain_tags(t *testing.T) {
 	})
 }
 
+
 func testAccTransitGatewayMulticastDomain_igmpv2Support(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.TransitGatewayMulticastDomain
@@ -128,14 +140,16 @@ func testAccTransitGatewayMulticastDomain_igmpv2Support(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayMulticastDomainDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayMulticastDomainConfig_igmpv2Support(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayMulticastDomainExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "auto_accept_shared_associations", "enable"),
 					resource.TestCheckResourceAttr(resourceName, "igmpv2_support", "enable"),
@@ -151,8 +165,11 @@ func testAccTransitGatewayMulticastDomain_igmpv2Support(t *testing.T) {
 	})
 }
 
-func testAccCheckTransitGatewayMulticastDomainExists(ctx context.Context, n string, v *ec2.TransitGatewayMulticastDomain) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckTransitGatewayMulticastDomainExists(ctx context.Context, n string, v *ec2.TransitGatewayMulticastDomain) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -176,8 +193,11 @@ func testAccCheckTransitGatewayMulticastDomainExists(ctx context.Context, n stri
 	}
 }
 
-func testAccCheckTransitGatewayMulticastDomainDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckTransitGatewayMulticastDomainDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -202,6 +222,7 @@ func testAccCheckTransitGatewayMulticastDomainDestroy(ctx context.Context) resou
 	}
 }
 
+
 func testAccTransitGatewayMulticastDomainConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
@@ -217,6 +238,7 @@ resource "aws_ec2_transit_gateway_multicast_domain" "test" {
 }
 `, rName)
 }
+
 
 func testAccTransitGatewayMulticastDomainConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
@@ -238,6 +260,7 @@ resource "aws_ec2_transit_gateway_multicast_domain" "test" {
 `, rName, tagKey1, tagValue1)
 }
 
+
 func testAccTransitGatewayMulticastDomainConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
@@ -257,6 +280,7 @@ resource "aws_ec2_transit_gateway_multicast_domain" "test" {
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }
+
 
 func testAccTransitGatewayMulticastDomainConfig_igmpv2Support(rName string) string {
 	return fmt.Sprintf(`

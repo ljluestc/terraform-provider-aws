@@ -69,60 +69,62 @@ func sweepAccountAssignments(region string) error {
 		InstanceArn: aws.String(instanceArn),
 	}
 
-	err = conn.ListPermissionSetsPagesWithContext(ctx, input, func(page *ssoadmin.ListPermissionSetsOutput, lastPage bool) bool {
-		if page == nil {
-			return !lastPage
-		}
-
-		for _, permissionSet := range page.PermissionSets {
-			if permissionSet == nil {
-				continue
-			}
-
-			permissionSetArn := aws.StringValue(permissionSet)
-
-			input := &ssoadmin.ListAccountAssignmentsInput{
-				AccountId:        aws.String(client.AccountID),
-				InstanceArn:      aws.String(instanceArn),
-				PermissionSetArn: permissionSet,
-			}
-
-			err := conn.ListAccountAssignmentsPagesWithContext(ctx, input, func(page *ssoadmin.ListAccountAssignmentsOutput, lastPage bool) bool {
-				if page == nil {
-					return !lastPage
-				}
-
-				for _, a := range page.AccountAssignments {
-					if a == nil {
-						continue
-					}
-
-					principalID := aws.StringValue(a.PrincipalId)
-					principalType := aws.StringValue(a.PrincipalType)
-					targetID := aws.StringValue(a.AccountId)
-					targetType := ssoadmin.TargetTypeAwsAccount // only valid value currently accepted by API
-
-					r := ResourceAccountAssignment()
-					d := r.Data(nil)
-					d.SetId(fmt.Sprintf("%s,%s,%s,%s,%s,%s", principalID, principalType, targetID, targetType, permissionSetArn, instanceArn))
-
-					sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
-				}
-
+	err = conn.ListPermissionSetsPagesWithContext(ctx, input,
+		func(page *ssoadmin.ListPermissionSetsOutput, lastPage bool) bool {
+			if page == nil {
 				return !lastPage
-			})
-
-			if sweep.SkipSweepError(err) {
-				log.Printf("[WARN] Skipping SSO Account Assignment sweep (PermissionSet %s) for %s: %s", permissionSetArn, region, err)
-				continue
 			}
-			if err != nil {
-				sweeperErrs = multierror.Append(sweeperErrs, fmt.Errorf("error retrieving SSO Account Assignments for Permission Set (%s): %w", permissionSetArn, err))
-			}
-		}
 
-		return !lastPage
-	})
+			for _, permissionSet := range page.PermissionSets {
+				if permissionSet == nil {
+					continue
+				}
+
+				permissionSetArn := aws.StringValue(permissionSet)
+
+				input := &ssoadmin.ListAccountAssignmentsInput{
+					AccountId:        aws.String(client.AccountID),
+					InstanceArn:      aws.String(instanceArn),
+					PermissionSetArn: permissionSet,
+				}
+
+				err := conn.ListAccountAssignmentsPagesWithContext(ctx, input,
+					func(page *ssoadmin.ListAccountAssignmentsOutput, lastPage bool) bool {
+						if page == nil {
+							return !lastPage
+						}
+
+						for _, a := range page.AccountAssignments {
+							if a == nil {
+								continue
+							}
+
+							principalID := aws.StringValue(a.PrincipalId)
+							principalType := aws.StringValue(a.PrincipalType)
+							targetID := aws.StringValue(a.AccountId)
+							targetType := ssoadmin.TargetTypeAwsAccount // only valid value currently accepted by API
+
+							r := ResourceAccountAssignment()
+							d := r.Data(nil)
+							d.SetId(fmt.Sprintf("%s,%s,%s,%s,%s,%s", principalID, principalType, targetID, targetType, permissionSetArn, instanceArn))
+
+							sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
+						}
+
+						return !lastPage
+					})
+
+				if sweep.SkipSweepError(err) {
+					log.Printf("[WARN] Skipping SSO Account Assignment sweep (PermissionSet %s) for %s: %s", permissionSetArn, region, err)
+					continue
+				}
+				if err != nil {
+					sweeperErrs = multierror.Append(sweeperErrs, fmt.Errorf("error retrieving SSO Account Assignments for Permission Set (%s): %w", permissionSetArn, err))
+				}
+			}
+
+			return !lastPage
+		})
 
 	if sweep.SkipSweepError(err) {
 		log.Printf("[WARN] Skipping SSO Account Assignment sweep for %s: %s", region, err)
@@ -171,29 +173,30 @@ func sweepPermissionSets(region string) error {
 		InstanceArn: aws.String(instanceArn),
 	}
 
-	err = conn.ListPermissionSetsPagesWithContext(ctx, input, func(page *ssoadmin.ListPermissionSetsOutput, lastPage bool) bool {
-		if page == nil {
-			return !lastPage
-		}
-
-		for _, permissionSet := range page.PermissionSets {
-			if permissionSet == nil {
-				continue
+	err = conn.ListPermissionSetsPagesWithContext(ctx, input,
+		func(page *ssoadmin.ListPermissionSetsOutput, lastPage bool) bool {
+			if page == nil {
+				return !lastPage
 			}
 
-			arn := aws.StringValue(permissionSet)
+			for _, permissionSet := range page.PermissionSets {
+				if permissionSet == nil {
+					continue
+				}
 
-			log.Printf("[INFO] Deleting SSO Permission Set: %s", arn)
+				arn := aws.StringValue(permissionSet)
 
-			r := ResourcePermissionSet()
-			d := r.Data(nil)
-			d.SetId(fmt.Sprintf("%s,%s", arn, instanceArn))
+				log.Printf("[INFO] Deleting SSO Permission Set: %s", arn)
 
-			sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
-		}
+				r := ResourcePermissionSet()
+				d := r.Data(nil)
+				d.SetId(fmt.Sprintf("%s,%s", arn, instanceArn))
 
-		return !lastPage
-	})
+				sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
+			}
+
+			return !lastPage
+		})
 
 	if sweep.SkipSweepError(err) {
 		log.Printf("[WARN] Skipping SSO Permission Set sweep for %s: %s", region, err)

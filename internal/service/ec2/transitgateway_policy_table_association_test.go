@@ -18,6 +18,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func testAccTransitGatewayPolicyTableAssociation_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.TransitGatewayPolicyTableAssociation
@@ -27,14 +28,16 @@ func testAccTransitGatewayPolicyTableAssociation_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayPolicyTableAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayPolicyTableAssociationConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayPolicyTableAssociationExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttrSet(resourceName, "resource_id"),
 					resource.TestCheckResourceAttrSet(resourceName, "resource_type"),
@@ -51,6 +54,7 @@ func testAccTransitGatewayPolicyTableAssociation_basic(t *testing.T) {
 	})
 }
 
+
 func testAccTransitGatewayPolicyTableAssociation_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.TransitGatewayPolicyTableAssociation
@@ -58,14 +62,16 @@ func testAccTransitGatewayPolicyTableAssociation_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayPolicyTableAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayPolicyTableAssociationConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayPolicyTableAssociationExists(ctx, resourceName, &v),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceTransitGatewayPolicyTableAssociation(), resourceName),
 				),
@@ -75,8 +81,11 @@ func testAccTransitGatewayPolicyTableAssociation_disappears(t *testing.T) {
 	})
 }
 
-func testAccCheckTransitGatewayPolicyTableAssociationExists(ctx context.Context, n string, v *ec2.TransitGatewayPolicyTableAssociation) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckTransitGatewayPolicyTableAssociationExists(ctx context.Context, n string, v *ec2.TransitGatewayPolicyTableAssociation) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -106,8 +115,11 @@ func testAccCheckTransitGatewayPolicyTableAssociationExists(ctx context.Context,
 	}
 }
 
-func testAccCheckTransitGatewayPolicyTableAssociationDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckTransitGatewayPolicyTableAssociationDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -137,6 +149,7 @@ func testAccCheckTransitGatewayPolicyTableAssociationDestroy(ctx context.Context
 		return nil
 	}
 }
+
 
 func testAccTransitGatewayPolicyTableAssociationConfig_basic(rName string) string {
 	return fmt.Sprintf(`

@@ -17,6 +17,7 @@ import (
 )
 
 // @SDKDataSource("aws_network_acls")
+
 func DataSourceNetworkACLs() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceNetworkACLsRead,

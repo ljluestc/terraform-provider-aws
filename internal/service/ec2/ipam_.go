@@ -26,6 +26,7 @@ import (
 
 // @SDKResource("aws_vpc_ipam", name="IPAM")
 // @Tags(identifierAttribute="id")
+
 func ResourceIPAM() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceIPAMCreate,
@@ -72,7 +73,8 @@ func ResourceIPAM() *schema.Resource {
 						"region_name": {
 							Type:         schema.TypeString,
 							Required:     true,
-							ValidateFunc: verify.ValidRegionName,
+							Validate
+func: verify.ValidRegionName,
 						},
 					},
 				},
@@ -95,7 +97,8 @@ func ResourceIPAM() *schema.Resource {
 
 		CustomizeDiff: customdiff.Sequence(
 			verify.SetTagsDiff,
-			func(_ context.Context, diff *schema.ResourceDiff, meta interface{}) error {
+			
+func(_ context.Context, diff *schema.ResourceDiff, meta interface{}) error {
 				if diff.Id() == "" { // Create.
 					currentRegion := meta.(*conns.AWSClient).Region
 
@@ -113,6 +116,7 @@ func ResourceIPAM() *schema.Resource {
 		),
 	}
 }
+
 
 func resourceIPAMCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -142,6 +146,7 @@ func resourceIPAMCreate(ctx context.Context, d *schema.ResourceData, meta interf
 
 	return append(diags, resourceIPAMRead(ctx, d, meta)...)
 }
+
 
 func resourceIPAMRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -174,6 +179,7 @@ func resourceIPAMRead(ctx context.Context, d *schema.ResourceData, meta interfac
 
 	return diags
 }
+
 
 func resourceIPAMUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -225,6 +231,7 @@ func resourceIPAMUpdate(ctx context.Context, d *schema.ResourceData, meta interf
 	return diags
 }
 
+
 func resourceIPAMDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -255,6 +262,7 @@ func resourceIPAMDelete(ctx context.Context, d *schema.ResourceData, meta interf
 	return diags
 }
 
+
 func expandIPAMOperatingRegions(operatingRegions []interface{}) []*ec2.AddIpamOperatingRegion {
 	regions := make([]*ec2.AddIpamOperatingRegion, 0, len(operatingRegions))
 	for _, regionRaw := range operatingRegions {
@@ -265,12 +273,14 @@ func expandIPAMOperatingRegions(operatingRegions []interface{}) []*ec2.AddIpamOp
 	return regions
 }
 
+
 func expandIPAMOperatingRegion(operatingRegion map[string]interface{}) *ec2.AddIpamOperatingRegion {
 	region := &ec2.AddIpamOperatingRegion{
 		RegionName: aws.String(operatingRegion["region_name"].(string)),
 	}
 	return region
 }
+
 
 func flattenIPAMOperatingRegions(operatingRegions []*ec2.IpamOperatingRegion) []interface{} {
 	regions := []interface{}{}
@@ -280,11 +290,13 @@ func flattenIPAMOperatingRegions(operatingRegions []*ec2.IpamOperatingRegion) []
 	return regions
 }
 
+
 func flattenIPAMOperatingRegion(operatingRegion *ec2.IpamOperatingRegion) map[string]interface{} {
 	region := make(map[string]interface{})
 	region["region_name"] = aws.StringValue(operatingRegion.RegionName)
 	return region
 }
+
 
 func expandIPAMOperatingRegionsUpdateAddRegions(operatingRegions []interface{}) []*ec2.AddIpamOperatingRegion {
 	regionUpdates := make([]*ec2.AddIpamOperatingRegion, 0, len(operatingRegions))
@@ -295,12 +307,14 @@ func expandIPAMOperatingRegionsUpdateAddRegions(operatingRegions []interface{}) 
 	return regionUpdates
 }
 
+
 func expandIPAMOperatingRegionsUpdateAddRegion(operatingRegion map[string]interface{}) *ec2.AddIpamOperatingRegion {
 	regionUpdate := &ec2.AddIpamOperatingRegion{
 		RegionName: aws.String(operatingRegion["region_name"].(string)),
 	}
 	return regionUpdate
 }
+
 
 func expandIPAMOperatingRegionsUpdateDeleteRegions(operatingRegions []interface{}) []*ec2.RemoveIpamOperatingRegion {
 	regionUpdates := make([]*ec2.RemoveIpamOperatingRegion, 0, len(operatingRegions))
@@ -310,6 +324,7 @@ func expandIPAMOperatingRegionsUpdateDeleteRegions(operatingRegions []interface{
 	}
 	return regionUpdates
 }
+
 
 func expandIPAMOperatingRegionsUpdateDeleteRegion(operatingRegion map[string]interface{}) *ec2.RemoveIpamOperatingRegion {
 	regionUpdate := &ec2.RemoveIpamOperatingRegion{

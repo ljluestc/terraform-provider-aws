@@ -21,6 +21,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
+
 func TestAccQuickSightVPCConnection_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var vpcConnection quicksight.VPCConnection
@@ -29,14 +30,16 @@ func TestAccQuickSightVPCConnection_basic(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPCConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCConnectionConfig_basic(rId, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckVPCConnectionExists(ctx, resourceName, &vpcConnection),
 					acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "quicksight", fmt.Sprintf("vpcConnection/%[1]s", rId)),
 					resource.TestCheckResourceAttr(resourceName, "vpc_connection_id", rId),
@@ -54,6 +57,7 @@ func TestAccQuickSightVPCConnection_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccQuickSightVPCConnection_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var vpcConnection quicksight.VPCConnection
@@ -62,14 +66,16 @@ func TestAccQuickSightVPCConnection_disappears(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPCConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCConnectionConfig_basic(rId, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckVPCConnectionExists(ctx, resourceName, &vpcConnection),
 					acctest.CheckFrameworkResourceDisappears(ctx, acctest.Provider, tfquicksight.ResourceVPCConnection, resourceName),
 				),
@@ -79,6 +85,7 @@ func TestAccQuickSightVPCConnection_disappears(t *testing.T) {
 	})
 }
 
+
 func TestAccQuickSightVPCConnection_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var vpcConnection quicksight.VPCConnection
@@ -87,14 +94,16 @@ func TestAccQuickSightVPCConnection_tags(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPCConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCConnectionConfig_tags1(rId, rName, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckVPCConnectionExists(ctx, resourceName, &vpcConnection),
 					resource.TestCheckResourceAttr(resourceName, "vpc_connection_id", rId),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
@@ -109,7 +118,8 @@ func TestAccQuickSightVPCConnection_tags(t *testing.T) {
 			},
 			{
 				Config: testAccVPCConnectionConfig_tags2(rId, rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckVPCConnectionExists(ctx, resourceName, &vpcConnection),
 					resource.TestCheckResourceAttr(resourceName, "vpc_connection_id", rId),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
@@ -120,7 +130,8 @@ func TestAccQuickSightVPCConnection_tags(t *testing.T) {
 			},
 			{
 				Config: testAccVPCConnectionConfig_tags1(rId, rName, "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckVPCConnectionExists(ctx, resourceName, &vpcConnection),
 					resource.TestCheckResourceAttr(resourceName, "vpc_connection_id", rId),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
@@ -132,8 +143,11 @@ func TestAccQuickSightVPCConnection_tags(t *testing.T) {
 	})
 }
 
-func testAccCheckVPCConnectionExists(ctx context.Context, resourceName string, vpcConnection *quicksight.VPCConnection) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckVPCConnectionExists(ctx context.Context, resourceName string, vpcConnection *quicksight.VPCConnection) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("not found: %s", resourceName)
@@ -151,8 +165,11 @@ func testAccCheckVPCConnectionExists(ctx context.Context, resourceName string, v
 	}
 }
 
-func testAccCheckVPCConnectionDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckVPCConnectionDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_quicksight_vpc_connection" {
@@ -177,6 +194,7 @@ func testAccCheckVPCConnectionDestroy(ctx context.Context) resource.TestCheckFun
 		return nil
 	}
 }
+
 
 func testAccBaseVPCConnectionConfig(rName string) string {
 	return acctest.ConfigCompose(
@@ -222,6 +240,7 @@ resource "aws_iam_role" "test" {
 `)
 }
 
+
 func testAccVPCConnectionConfig_basic(rId string, rName string) string {
 	return acctest.ConfigCompose(
 		testAccBaseVPCConnectionConfig(rName),
@@ -237,6 +256,7 @@ resource "aws_quicksight_vpc_connection" "test" {
 }
 `, rId, rName))
 }
+
 
 func testAccVPCConnectionConfig_tags1(rId, rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(
@@ -257,6 +277,7 @@ resource "aws_quicksight_vpc_connection" "test" {
 }
 `, rId, rName, tagKey1, tagValue1))
 }
+
 
 func testAccVPCConnectionConfig_tags2(rId, rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(

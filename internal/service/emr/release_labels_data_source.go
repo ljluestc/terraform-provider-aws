@@ -15,6 +15,7 @@ import (
 )
 
 // @SDKDataSource("aws_emr_release_labels")
+
 func DataSourceReleaseLabels() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceReleaseLabelsRead,
@@ -95,18 +96,19 @@ func expandReleaseLabelsFilters(filters []interface{}) *emr.ReleaseLabelFilter {
 func findReleaseLabels(ctx context.Context, conn *emr.EMR, input *emr.ListReleaseLabelsInput) ([]*string, error) {
 	var output []*string
 
-	err := conn.ListReleaseLabelsPagesWithContext(ctx, input, func(page *emr.ListReleaseLabelsOutput, lastPage bool) bool {
-		if page == nil {
-			return !lastPage
-		}
-		for _, v := range page.ReleaseLabels {
-			if v != nil {
-				output = append(output, v)
+	err := conn.ListReleaseLabelsPagesWithContext(ctx, input,
+		func(page *emr.ListReleaseLabelsOutput, lastPage bool) bool {
+			if page == nil {
+				return !lastPage
 			}
-		}
+			for _, v := range page.ReleaseLabels {
+				if v != nil {
+					output = append(output, v)
+				}
+			}
 
-		return !lastPage
-	})
+			return !lastPage
+		})
 
 	if err != nil {
 		return nil, err

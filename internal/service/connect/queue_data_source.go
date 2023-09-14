@@ -17,6 +17,7 @@ import (
 )
 
 // @SDKDataSource("aws_connect_queue")
+
 func DataSourceQueue() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceQueueRead,
@@ -36,7 +37,8 @@ func DataSourceQueue() *schema.Resource {
 			"instance_id": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: validation.StringLenBetween(1, 100),
+				Validate
+func: validation.StringLenBetween(1, 100),
 			},
 			"max_contacts": {
 				Type:     schema.TypeInt,
@@ -82,6 +84,7 @@ func DataSourceQueue() *schema.Resource {
 		},
 	}
 }
+
 
 func dataSourceQueueRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -143,6 +146,7 @@ func dataSourceQueueRead(ctx context.Context, d *schema.ResourceData, meta inter
 	return nil
 }
 
+
 func dataSourceGetQueueSummaryByName(ctx context.Context, conn *connect.Connect, instanceID, name string) (*connect.QueueSummary, error) {
 	var result *connect.QueueSummary
 
@@ -151,7 +155,8 @@ func dataSourceGetQueueSummaryByName(ctx context.Context, conn *connect.Connect,
 		MaxResults: aws.Int64(ListQueuesMaxResults),
 	}
 
-	err := conn.ListQueuesPagesWithContext(ctx, input, func(page *connect.ListQueuesOutput, lastPage bool) bool {
+	err := conn.ListQueuesPagesWithContext(ctx, input, 
+func(page *connect.ListQueuesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}

@@ -18,6 +18,7 @@ import (
 )
 
 // @SDKDataSource("aws_connect_hours_of_operation")
+
 func DataSourceHoursOfOperation() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceHoursOfOperationRead,
@@ -174,24 +175,25 @@ func dataSourceGetHoursOfOperationSummaryByName(ctx context.Context, conn *conne
 		MaxResults: aws.Int64(ListHoursOfOperationsMaxResults),
 	}
 
-	err := conn.ListHoursOfOperationsPagesWithContext(ctx, input, func(page *connect.ListHoursOfOperationsOutput, lastPage bool) bool {
-		if page == nil {
+	err := conn.ListHoursOfOperationsPagesWithContext(ctx, input,
+		func(page *connect.ListHoursOfOperationsOutput, lastPage bool) bool {
+			if page == nil {
+				return !lastPage
+			}
+
+			for _, cf := range page.HoursOfOperationSummaryList {
+				if cf == nil {
+					continue
+				}
+
+				if aws.StringValue(cf.Name) == name {
+					result = cf
+					return false
+				}
+			}
+
 			return !lastPage
-		}
-
-		for _, cf := range page.HoursOfOperationSummaryList {
-			if cf == nil {
-				continue
-			}
-
-			if aws.StringValue(cf.Name) == name {
-				result = cf
-				return false
-			}
-		}
-
-		return !lastPage
-	})
+		})
 
 	if err != nil {
 		return nil, err

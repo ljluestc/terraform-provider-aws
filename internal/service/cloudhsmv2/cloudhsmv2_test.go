@@ -9,10 +9,12 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccCloudHSMV2_serial(t *testing.T) {
 	t.Parallel()
 
-	testCases := map[string]map[string]func(t *testing.T){
+	testCases := map[string]map[string]
+func(t *testing.T){
 		"Cluster": {
 			"basic":      testAccCluster_basic,
 			"disappears": testAccCluster_disappears,

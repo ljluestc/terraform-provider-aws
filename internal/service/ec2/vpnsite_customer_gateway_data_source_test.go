@@ -13,6 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccSiteVPNCustomerGatewayDataSource_filter(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_customer_gateway.test"
@@ -22,14 +23,16 @@ func TestAccSiteVPNCustomerGatewayDataSource_filter(t *testing.T) {
 	hostOctet := sdkacctest.RandIntRange(1, 254)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckCustomerGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSiteVPNCustomerGatewayDataSourceConfig_filter(rName, asn, hostOctet),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttrPair(resourceName, "arn", dataSourceName, "arn"),
 					resource.TestCheckResourceAttrPair(resourceName, "bgp_asn", dataSourceName, "bgp_asn"),
 					resource.TestCheckResourceAttrPair(resourceName, "certificate_arn", dataSourceName, "certificate_arn"),
@@ -42,6 +45,7 @@ func TestAccSiteVPNCustomerGatewayDataSource_filter(t *testing.T) {
 		},
 	})
 }
+
 
 func TestAccSiteVPNCustomerGatewayDataSource_id(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -52,14 +56,16 @@ func TestAccSiteVPNCustomerGatewayDataSource_id(t *testing.T) {
 	hostOctet := sdkacctest.RandIntRange(1, 254)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckCustomerGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSiteVPNCustomerGatewayDataSourceConfig_id(rName, asn, hostOctet),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttrPair(resourceName, "arn", dataSourceName, "arn"),
 					resource.TestCheckResourceAttrPair(resourceName, "bgp_asn", dataSourceName, "bgp_asn"),
 					resource.TestCheckResourceAttrPair(resourceName, "certificate_arn", dataSourceName, "certificate_arn"),
@@ -72,6 +78,7 @@ func TestAccSiteVPNCustomerGatewayDataSource_id(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccSiteVPNCustomerGatewayDataSourceConfig_filter(rName string, asn, hostOctet int) string {
 	return fmt.Sprintf(`
@@ -93,6 +100,7 @@ data "aws_customer_gateway" "test" {
 }
 `, rName, asn, hostOctet)
 }
+
 
 func testAccSiteVPNCustomerGatewayDataSourceConfig_id(rName string, asn, hostOctet int) string {
 	return fmt.Sprintf(`

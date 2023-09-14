@@ -21,6 +21,7 @@ import (
 )
 
 // @SDKResource("aws_backup_vault_notifications")
+
 func ResourceVaultNotifications() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceVaultNotificationsCreate,
@@ -35,13 +36,15 @@ func ResourceVaultNotifications() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_.-]{1,50}$`), "must consist of lowercase letters, numbers, and hyphens."),
+				Validate
+func: validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_.-]{1,50}$`), "must consist of lowercase letters, numbers, and hyphens."),
 			},
 			"sns_topic_arn": {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			"backup_vault_events": {
 				Type:     schema.TypeSet,
@@ -49,7 +52,8 @@ func ResourceVaultNotifications() *schema.Resource {
 				ForceNew: true,
 				Elem: &schema.Schema{
 					Type:         schema.TypeString,
-					ValidateFunc: validation.StringInSlice(backup.VaultEvent_Values(), false),
+					Validate
+func: validation.StringInSlice(backup.VaultEvent_Values(), false),
 				},
 			},
 			"backup_vault_arn": {
@@ -59,6 +63,7 @@ func ResourceVaultNotifications() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceVaultNotificationsCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -79,6 +84,7 @@ func resourceVaultNotificationsCreate(ctx context.Context, d *schema.ResourceDat
 
 	return append(diags, resourceVaultNotificationsRead(ctx, d, meta)...)
 }
+
 
 func resourceVaultNotificationsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -107,6 +113,7 @@ func resourceVaultNotificationsRead(ctx context.Context, d *schema.ResourceData,
 
 	return diags
 }
+
 
 func resourceVaultNotificationsDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

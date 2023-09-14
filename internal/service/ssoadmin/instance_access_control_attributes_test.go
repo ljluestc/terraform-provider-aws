@@ -17,10 +17,12 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccSSOAdmin_serial(t *testing.T) {
 	t.Parallel()
 
-	testCases := map[string]map[string]func(t *testing.T){
+	testCases := map[string]map[string]
+func(t *testing.T){
 		"InstanceAccessControlAttributes": {
 			"basic":      testAccInstanceAccessControlAttributes_basic,
 			"disappears": testAccInstanceAccessControlAttributes_disappears,
@@ -32,19 +34,22 @@ func TestAccSSOAdmin_serial(t *testing.T) {
 	acctest.RunSerialTests2Levels(t, testCases, 0)
 }
 
+
 func testAccInstanceAccessControlAttributes_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_ssoadmin_instance_access_control_attributes.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckInstances(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckInstances(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ssoadmin.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckInstanceAccessControlAttributesDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstanceAccessControlAttributesConfig_basic(),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInstanceAccessControlAttributesExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "attribute.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "status", "ENABLED"),
@@ -59,19 +64,22 @@ func testAccInstanceAccessControlAttributes_basic(t *testing.T) {
 	})
 }
 
+
 func testAccInstanceAccessControlAttributes_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_ssoadmin_instance_access_control_attributes.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckInstances(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckInstances(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ssoadmin.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPermissionSetInlinePolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstanceAccessControlAttributesConfig_basic(),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInstanceAccessControlAttributesExists(ctx, resourceName),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfssoadmin.ResourceAccessControlAttributes(), resourceName),
 				),
@@ -81,19 +89,22 @@ func testAccInstanceAccessControlAttributes_disappears(t *testing.T) {
 	})
 }
 
+
 func testAccInstanceAccessControlAttributes_multiple(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_ssoadmin_instance_access_control_attributes.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckInstances(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckInstances(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ssoadmin.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckInstanceAccessControlAttributesDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstanceAccessControlAttributesConfig_multiple(),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInstanceAccessControlAttributesExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "attribute.#", "2"),
 					resource.TestCheckResourceAttr(resourceName, "status", "ENABLED"),
@@ -108,19 +119,22 @@ func testAccInstanceAccessControlAttributes_multiple(t *testing.T) {
 	})
 }
 
+
 func testAccInstanceAccessControlAttributes_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_ssoadmin_instance_access_control_attributes.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckInstances(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckInstances(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ssoadmin.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckInstanceAccessControlAttributesDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstanceAccessControlAttributesConfig_basic(),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInstanceAccessControlAttributesExists(ctx, resourceName),
 				),
 			},
@@ -131,7 +145,8 @@ func testAccInstanceAccessControlAttributes_update(t *testing.T) {
 			},
 			{
 				Config: testAccInstanceAccessControlAttributesConfig_update(),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInstanceAccessControlAttributesExists(ctx, resourceName),
 				),
 			},
@@ -139,8 +154,11 @@ func testAccInstanceAccessControlAttributes_update(t *testing.T) {
 	})
 }
 
-func testAccCheckInstanceAccessControlAttributesDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckInstanceAccessControlAttributesDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).SSOAdminConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -165,8 +183,11 @@ func testAccCheckInstanceAccessControlAttributesDestroy(ctx context.Context) res
 	}
 }
 
-func testAccCheckInstanceAccessControlAttributesExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckInstanceAccessControlAttributesExists(ctx context.Context, resourceName string) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("Not found: %s", resourceName)
@@ -184,6 +205,7 @@ func testAccCheckInstanceAccessControlAttributesExists(ctx context.Context, reso
 	}
 }
 
+
 func testAccInstanceAccessControlAttributesConfig_basic() string {
 	return `
 data "aws_ssoadmin_instances" "test" {}
@@ -199,6 +221,7 @@ resource "aws_ssoadmin_instance_access_control_attributes" "test" {
 }
 `
 }
+
 func testAccInstanceAccessControlAttributesConfig_multiple() string {
 	return `
 data "aws_ssoadmin_instances" "test" {}
@@ -220,6 +243,7 @@ resource "aws_ssoadmin_instance_access_control_attributes" "test" {
 }
 `
 }
+
 
 func testAccInstanceAccessControlAttributesConfig_update() string {
 	return `

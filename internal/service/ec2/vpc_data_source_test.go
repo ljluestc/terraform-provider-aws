@@ -13,6 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccVPCDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rInt1 := sdkacctest.RandIntRange(1, 128)
@@ -27,13 +28,15 @@ func TestAccVPCDataSource_basic(t *testing.T) {
 	ds4ResourceName := "data.aws_vpc.by_filter"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCDataSourceConfig_basic(rName, cidr),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttrPair(ds1ResourceName, "arn", vpcResourceName, "arn"),
 					resource.TestCheckResourceAttr(ds1ResourceName, "cidr_block", cidr),
 					resource.TestCheckResourceAttr(ds1ResourceName, "enable_dns_hostnames", "false"),
@@ -66,26 +69,30 @@ func TestAccVPCDataSource_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCDataSource_CIDRBlockAssociations_multiple(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_vpc.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPCDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCDataSourceConfig_cidrBlockAssociationsMultiple(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttr(dataSourceName, "cidr_block_associations.#", "2"),
 				),
 			},
 		},
 	})
 }
+
 
 func testAccVPCDataSourceConfig_basic(rName, cidr string) string {
 	return fmt.Sprintf(`
@@ -121,6 +128,7 @@ data "aws_vpc" "by_filter" {
 }
 `, rName, cidr)
 }
+
 
 func testAccVPCDataSourceConfig_cidrBlockAssociationsMultiple(rName string) string {
 	return fmt.Sprintf(`

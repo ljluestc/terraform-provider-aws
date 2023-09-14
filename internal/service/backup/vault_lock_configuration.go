@@ -20,6 +20,7 @@ import (
 )
 
 // @SDKResource("aws_backup_vault_lock_configuration")
+
 func ResourceVaultLockConfiguration() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceVaultLockConfigurationCreate,
@@ -34,7 +35,8 @@ func ResourceVaultLockConfiguration() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_.-]{1,50}$`), "must consist of lowercase letters, numbers, and hyphens."),
+				Validate
+func: validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_.-]{1,50}$`), "must consist of lowercase letters, numbers, and hyphens."),
 			},
 			"backup_vault_arn": {
 				Type:     schema.TypeString,
@@ -44,7 +46,8 @@ func ResourceVaultLockConfiguration() *schema.Resource {
 				Type:         schema.TypeInt,
 				Optional:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.IntAtLeast(3),
+				Validate
+func: validation.IntAtLeast(3),
 			},
 			"max_retention_days": {
 				Type:     schema.TypeInt,
@@ -59,6 +62,7 @@ func ResourceVaultLockConfiguration() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceVaultLockConfigurationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -92,6 +96,7 @@ func resourceVaultLockConfigurationCreate(ctx context.Context, d *schema.Resourc
 	return append(diags, resourceVaultLockConfigurationRead(ctx, d, meta)...)
 }
 
+
 func resourceVaultLockConfigurationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).BackupConn(ctx)
@@ -115,6 +120,7 @@ func resourceVaultLockConfigurationRead(ctx context.Context, d *schema.ResourceD
 
 	return diags
 }
+
 
 func resourceVaultLockConfigurationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

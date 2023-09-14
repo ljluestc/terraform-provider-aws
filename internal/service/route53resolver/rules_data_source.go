@@ -17,6 +17,7 @@ import (
 )
 
 // @SDKDataSource("aws_route53_resolver_rules")
+
 func DataSourceRules() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceRulesRead,
@@ -25,12 +26,14 @@ func DataSourceRules() *schema.Resource {
 			"name_regex": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				ValidateFunc: validation.StringIsValidRegExp,
+				Validate
+func: validation.StringIsValidRegExp,
 			},
 			"owner_id": {
 				Type:     schema.TypeString,
 				Optional: true,
-				ValidateFunc: validation.Any(
+				Validate
+func: validation.Any(
 					verify.ValidAccountID,
 					// The owner of the default Internet Resolver rule.
 					validation.StringInSlice([]string{"Route 53 Resolver"}, false),
@@ -48,16 +51,19 @@ func DataSourceRules() *schema.Resource {
 			"rule_type": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				ValidateFunc: validation.StringInSlice(route53resolver.RuleTypeOption_Values(), false),
+				Validate
+func: validation.StringInSlice(route53resolver.RuleTypeOption_Values(), false),
 			},
 			"share_status": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				ValidateFunc: validation.StringInSlice(route53resolver.ShareStatus_Values(), false),
+				Validate
+func: validation.StringInSlice(route53resolver.ShareStatus_Values(), false),
 			},
 		},
 	}
 }
+
 
 func dataSourceRulesRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
@@ -65,7 +71,8 @@ func dataSourceRulesRead(ctx context.Context, d *schema.ResourceData, meta inter
 	input := &route53resolver.ListResolverRulesInput{}
 	var ruleIDs []*string
 
-	err := conn.ListResolverRulesPagesWithContext(ctx, input, func(page *route53resolver.ListResolverRulesOutput, lastPage bool) bool {
+	err := conn.ListResolverRulesPagesWithContext(ctx, input, 
+func(page *route53resolver.ListResolverRulesOutput, lastPage bool) bool {
 		for _, rule := range page.ResolverRules {
 			if v, ok := d.GetOk("name_regex"); ok && !regexache.MustCompile(v.(string)).MatchString(aws.StringValue(rule.Name)) {
 				continue

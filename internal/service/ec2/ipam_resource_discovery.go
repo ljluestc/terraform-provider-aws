@@ -26,6 +26,7 @@ import (
 
 // @SDKResource("aws_vpc_ipam_resource_discovery", name="IPAM Resource Discovery")
 // @Tags(identifierAttribute="id")
+
 func ResourceIPAMResourceDiscovery() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceIPAMResourceDiscoveryCreate,
@@ -68,7 +69,8 @@ func ResourceIPAMResourceDiscovery() *schema.Resource {
 						"region_name": {
 							Type:         schema.TypeString,
 							Required:     true,
-							ValidateFunc: verify.ValidRegionName,
+							Validate
+func: verify.ValidRegionName,
 						},
 					},
 				},
@@ -84,7 +86,8 @@ func ResourceIPAMResourceDiscovery() *schema.Resource {
 		CustomizeDiff: customdiff.Sequence(
 			verify.SetTagsDiff,
 			// user must define authn region within `operating_regions {}`
-			func(_ context.Context, diff *schema.ResourceDiff, meta interface{}) error {
+			
+func(_ context.Context, diff *schema.ResourceDiff, meta interface{}) error {
 				if diff.Id() == "" { // Create.
 					currentRegion := meta.(*conns.AWSClient).Region
 
@@ -100,6 +103,7 @@ func ResourceIPAMResourceDiscovery() *schema.Resource {
 		),
 	}
 }
+
 
 func resourceIPAMResourceDiscoveryCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -130,6 +134,7 @@ func resourceIPAMResourceDiscoveryCreate(ctx context.Context, d *schema.Resource
 	return append(diags, resourceIPAMResourceDiscoveryRead(ctx, d, meta)...)
 }
 
+
 func resourceIPAMResourceDiscoveryRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -159,6 +164,7 @@ func resourceIPAMResourceDiscoveryRead(ctx context.Context, d *schema.ResourceDa
 
 	return diags
 }
+
 
 func resourceIPAMResourceDiscoveryUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -210,6 +216,7 @@ func resourceIPAMResourceDiscoveryUpdate(ctx context.Context, d *schema.Resource
 	return diags
 }
 
+
 func resourceIPAMResourceDiscoveryDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -234,6 +241,7 @@ func resourceIPAMResourceDiscoveryDelete(ctx context.Context, d *schema.Resource
 	return diags
 }
 
+
 func flattenIPAMResourceDiscoveryOperatingRegions(operatingRegions []*ec2.IpamOperatingRegion) []interface{} {
 	regions := []interface{}{}
 	for _, operatingRegion := range operatingRegions {
@@ -242,11 +250,13 @@ func flattenIPAMResourceDiscoveryOperatingRegions(operatingRegions []*ec2.IpamOp
 	return regions
 }
 
+
 func flattenIPAMResourceDiscoveryOperatingRegion(operatingRegion *ec2.IpamOperatingRegion) map[string]interface{} {
 	region := make(map[string]interface{})
 	region["region_name"] = aws.StringValue(operatingRegion.RegionName)
 	return region
 }
+
 
 func expandIPAMResourceDiscoveryOperatingRegionsUpdateAddRegions(operatingRegions []interface{}) []*ec2.AddIpamOperatingRegion {
 	regionUpdates := make([]*ec2.AddIpamOperatingRegion, 0, len(operatingRegions))
@@ -257,12 +267,14 @@ func expandIPAMResourceDiscoveryOperatingRegionsUpdateAddRegions(operatingRegion
 	return regionUpdates
 }
 
+
 func expandIPAMResourceDiscoveryOperatingRegionsUpdateAddRegion(operatingRegion map[string]interface{}) *ec2.AddIpamOperatingRegion {
 	regionUpdate := &ec2.AddIpamOperatingRegion{
 		RegionName: aws.String(operatingRegion["region_name"].(string)),
 	}
 	return regionUpdate
 }
+
 
 func expandIPAMResourceDiscoveryOperatingRegionsUpdateDeleteRegions(operatingRegions []interface{}) []*ec2.RemoveIpamOperatingRegion {
 	regionUpdates := make([]*ec2.RemoveIpamOperatingRegion, 0, len(operatingRegions))
@@ -272,6 +284,7 @@ func expandIPAMResourceDiscoveryOperatingRegionsUpdateDeleteRegions(operatingReg
 	}
 	return regionUpdates
 }
+
 
 func expandIPAMResourceDiscoveryOperatingRegionsUpdateDeleteRegion(operatingRegion map[string]interface{}) *ec2.RemoveIpamOperatingRegion {
 	regionUpdate := &ec2.RemoveIpamOperatingRegion{

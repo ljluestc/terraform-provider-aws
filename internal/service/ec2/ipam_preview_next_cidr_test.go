@@ -12,20 +12,23 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccIPAMPreviewNextCIDR_ipv4Basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_vpc_ipam_preview_next_cidr.test"
 	netmaskLength := "28"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             nil,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIPAMPreviewNextCIDRConfig_ipv4Basic(netmaskLength),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttrSet(resourceName, "cidr"),
 					resource.TestCheckResourceAttrSet(resourceName, "id"),
 					resource.TestCheckResourceAttrPair(resourceName, "ipam_pool_id", "aws_vpc_ipam_pool.test", "id"),
@@ -36,6 +39,7 @@ func TestAccIPAMPreviewNextCIDR_ipv4Basic(t *testing.T) {
 	})
 }
 
+
 func TestAccIPAMPreviewNextCIDR_ipv4Allocated(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_vpc_ipam_preview_next_cidr.test"
@@ -43,14 +47,16 @@ func TestAccIPAMPreviewNextCIDR_ipv4Allocated(t *testing.T) {
 	allocatedCidr := "172.2.0.0/28"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             nil,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIPAMPreviewNextCIDRConfig_ipv4Basic(netmaskLength),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttr(resourceName, "cidr", allocatedCidr),
 					resource.TestCheckResourceAttrSet(resourceName, "id"),
 					resource.TestCheckResourceAttrPair(resourceName, "ipam_pool_id", "aws_vpc_ipam_pool.test", "id"),
@@ -59,7 +65,8 @@ func TestAccIPAMPreviewNextCIDR_ipv4Allocated(t *testing.T) {
 			},
 			{
 				Config: testAccIPAMPreviewNextCIDRConfig_ipv4Allocated(netmaskLength),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					// cidr should not change even after allocation
 					resource.TestCheckResourceAttr(resourceName, "cidr", allocatedCidr),
 					resource.TestCheckResourceAttrSet(resourceName, "id"),
@@ -71,6 +78,7 @@ func TestAccIPAMPreviewNextCIDR_ipv4Allocated(t *testing.T) {
 	})
 }
 
+
 func TestAccIPAMPreviewNextCIDR_ipv4DisallowedCIDR(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_vpc_ipam_preview_next_cidr.test"
@@ -79,14 +87,16 @@ func TestAccIPAMPreviewNextCIDR_ipv4DisallowedCIDR(t *testing.T) {
 	expectedCidr := "172.2.0.16/28"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             nil,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIPAMPreviewNextCIDRConfig_ipv4Disallowed(netmaskLength, disallowedCidr),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttr(resourceName, "cidr", expectedCidr),
 					resource.TestCheckResourceAttr(resourceName, "disallowed_cidrs.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "disallowed_cidrs.0", disallowedCidr),
@@ -121,6 +131,7 @@ resource "aws_vpc_ipam_pool_cidr" "test" {
 }
 `
 
+
 func testAccIPAMPreviewNextCIDRConfig_ipv4Basic(netmaskLength string) string {
 	return acctest.ConfigCompose(
 		testAccIPAMPreviewNextCIDRConfig_ipv4Base,
@@ -135,6 +146,7 @@ resource "aws_vpc_ipam_preview_next_cidr" "test" {
 }
 `, netmaskLength))
 }
+
 
 func testAccIPAMPreviewNextCIDRConfig_ipv4Allocated(netmaskLength string) string {
 	return acctest.ConfigCompose(
@@ -155,6 +167,7 @@ resource "aws_vpc_ipam_pool_cidr_allocation" "test" {
 }
 `, netmaskLength))
 }
+
 
 func testAccIPAMPreviewNextCIDRConfig_ipv4Disallowed(netmaskLength, disallowedCidr string) string {
 	return testAccIPAMPreviewNextCIDRConfig_ipv4Base + fmt.Sprintf(`

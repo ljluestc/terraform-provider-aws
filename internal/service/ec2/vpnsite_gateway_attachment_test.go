@@ -18,6 +18,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccSiteVPNGatewayAttachment_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.VpcAttachment
@@ -25,20 +26,23 @@ func TestAccSiteVPNGatewayAttachment_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPNGatewayAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSiteVPNGatewayAttachmentConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckVPNGatewayAttachmentExists(ctx, resourceName, &v),
 				),
 			},
 		},
 	})
 }
+
 
 func TestAccSiteVPNGatewayAttachment_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -47,14 +51,16 @@ func TestAccSiteVPNGatewayAttachment_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPNGatewayAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSiteVPNGatewayAttachmentConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckVPNGatewayAttachmentExists(ctx, resourceName, &v),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceVPNGatewayAttachment(), resourceName),
 				),
@@ -64,8 +70,11 @@ func TestAccSiteVPNGatewayAttachment_disappears(t *testing.T) {
 	})
 }
 
-func testAccCheckVPNGatewayAttachmentExists(ctx context.Context, n string, v *ec2.VpcAttachment) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckVPNGatewayAttachmentExists(ctx context.Context, n string, v *ec2.VpcAttachment) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -89,8 +98,11 @@ func testAccCheckVPNGatewayAttachmentExists(ctx context.Context, n string, v *ec
 	}
 }
 
-func testAccCheckVPNGatewayAttachmentDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckVPNGatewayAttachmentDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -114,6 +126,7 @@ func testAccCheckVPNGatewayAttachmentDestroy(ctx context.Context) resource.TestC
 		return nil
 	}
 }
+
 
 func testAccSiteVPNGatewayAttachmentConfig_basic(rName string) string {
 	return fmt.Sprintf(`

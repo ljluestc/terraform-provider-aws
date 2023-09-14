@@ -20,6 +20,7 @@ import (
 )
 
 // @SDKResource("aws_proxy_protocol_policy")
+
 func ResourceProxyProtocolPolicy() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceProxyProtocolPolicyCreate,
@@ -257,6 +258,7 @@ func resourceProxyProtocolPolicyAdd(policyName string, ports []interface{}, back
 // resourceProxyProtocolPolicyParseID takes an ID and parses it into
 // it's constituent parts. You need two axes (LB name, policy name)
 // to create or identify a proxy protocol policy in AWS's API.
+
 func resourceProxyProtocolPolicyParseID(id string) string {
 	parts := strings.SplitN(id, ":", 2)
 	// We currently omit the ELB name as it is not currently used anywhere

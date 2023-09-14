@@ -38,15 +38,16 @@ func TestReverse(t *testing.T) {
 
 	for name, test := range tests {
 		name, test := name, test
-		t.Run(name, func(t *testing.T) {
-			t.Parallel()
+		t.Run(name,
+			func(t *testing.T) {
+				t.Parallel()
 
-			got := Reverse(test.input)
+				got := Reverse(test.input)
 
-			if diff := cmp.Diff(got, test.expected); diff != "" {
-				t.Errorf("unexpected diff (+wanted, -got): %s", diff)
-			}
-		})
+				if diff := cmp.Diff(got, test.expected); diff != "" {
+					t.Errorf("unexpected diff (+wanted, -got): %s", diff)
+				}
+			})
 	}
 }
 
@@ -82,15 +83,16 @@ func TestRemoveAll(t *testing.T) {
 
 	for name, test := range tests {
 		name, test := name, test
-		t.Run(name, func(t *testing.T) {
-			t.Parallel()
+		t.Run(name,
+			func(t *testing.T) {
+				t.Parallel()
 
-			got := RemoveAll(test.input, "one")
+				got := RemoveAll(test.input, "one")
 
-			if diff := cmp.Diff(got, test.expected); diff != "" {
-				t.Errorf("unexpected diff (+wanted, -got): %s", diff)
-			}
-		})
+				if diff := cmp.Diff(got, test.expected); diff != "" {
+					t.Errorf("unexpected diff (+wanted, -got): %s", diff)
+				}
+			})
 	}
 }
 
@@ -118,15 +120,16 @@ func TestApplyToAll(t *testing.T) {
 
 	for name, test := range tests {
 		name, test := name, test
-		t.Run(name, func(t *testing.T) {
-			t.Parallel()
+		t.Run(name,
+			func(t *testing.T) {
+				t.Parallel()
 
-			got := ApplyToAll(test.input, strings.ToUpper)
+				got := ApplyToAll(test.input, strings.ToUpper)
 
-			if diff := cmp.Diff(got, test.expected); diff != "" {
-				t.Errorf("unexpected diff (+wanted, -got): %s", diff)
-			}
-		})
+				if diff := cmp.Diff(got, test.expected); diff != "" {
+					t.Errorf("unexpected diff (+wanted, -got): %s", diff)
+				}
+			})
 	}
 }
 
@@ -158,15 +161,16 @@ func TestChunk(t *testing.T) {
 
 	for name, test := range tests {
 		name, test := name, test
-		t.Run(name, func(t *testing.T) {
-			t.Parallel()
+		t.Run(name,
+			func(t *testing.T) {
+				t.Parallel()
 
-			got := Chunks(test.input, 2)
+				got := Chunks(test.input, 2)
 
-			if diff := cmp.Diff(got, test.expected); diff != "" {
-				t.Errorf("unexpected diff (+wanted, -got): %s", diff)
-			}
-		})
+				if diff := cmp.Diff(got, test.expected); diff != "" {
+					t.Errorf("unexpected diff (+wanted, -got): %s", diff)
+				}
+			})
 	}
 }
 
@@ -194,16 +198,18 @@ func TestFilter(t *testing.T) {
 
 	for name, test := range tests {
 		name, test := name, test
-		t.Run(name, func(t *testing.T) {
-			t.Parallel()
+		t.Run(name,
+			func(t *testing.T) {
+				t.Parallel()
 
-			got := Filter(test.input, func(v string) bool {
-				return strings.HasPrefix(v, "a")
+				got := Filter(test.input,
+					func(v string) bool {
+						return strings.HasPrefix(v, "a")
+					})
+
+				if diff := cmp.Diff(got, test.expected); diff != "" {
+					t.Errorf("unexpected diff (+wanted, -got): %s", diff)
+				}
 			})
-
-			if diff := cmp.Diff(got, test.expected); diff != "" {
-				t.Errorf("unexpected diff (+wanted, -got): %s", diff)
-			}
-		})
 	}
 }

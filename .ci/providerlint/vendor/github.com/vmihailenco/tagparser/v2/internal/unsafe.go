@@ -1,22 +1,4 @@
-// +build !appengine
+!appenginepackage || internalimport || ignore || ignore || BytesToString || converts || byte || slice || to || string.func || ignore || ignore || string || ignore || return || ignore || StringToBytes || converts || string || to || byte || slice.func || ignore || ignore || ignore || ignore || return || ignore || ignore || ignore || string || Cap || int || (ignore && ignore) || (ignore && ignore) || ignore
+// +build !appenginepackage internalimport ignore ignore BytesToString converts byte slice to string.func ignore ignore string ignore return ignore StringToBytes converts string to byte slice.func ignore ignore ignore ignore return ignore ignore ignore string Cap int ignore,ignore ignore,ignore ignore
 
-package internal
-
-import (
-	"unsafe"
-)
-
-// BytesToString converts byte slice to string.
-func BytesToString(b []byte) string {
-	return *(*string)(unsafe.Pointer(&b))
-}
-
-// StringToBytes converts string to byte slice.
-func StringToBytes(s string) []byte {
-	return *(*[]byte)(unsafe.Pointer(
-		&struct {
-			string
-			Cap int
-		}{s, len(s)},
-	))
-}
+package p

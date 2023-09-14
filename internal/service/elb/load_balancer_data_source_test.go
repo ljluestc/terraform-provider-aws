@@ -13,6 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccELBLoadBalancerDataSource_basic(t *testing.T) {
 	// Must be less than 32 characters for ELB name
 	ctx := acctest.Context(t)
@@ -20,13 +21,15 @@ func TestAccELBLoadBalancerDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_elb.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, elb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLoadBalancerDataSourceConfig_basic(rName, t.Name()),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttr(dataSourceName, "name", rName),
 					resource.TestCheckResourceAttr(dataSourceName, "cross_zone_load_balancing", "true"),
 					resource.TestCheckResourceAttr(dataSourceName, "idle_timeout", "30"),
@@ -45,6 +48,7 @@ func TestAccELBLoadBalancerDataSource_basic(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccLoadBalancerDataSourceConfig_basic(rName, testName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`

@@ -12,8 +12,11 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func statusCluster(ctx context.Context, conn *emr.EMR, id string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+
+func statusCluster(ctx context.Context, conn *emr.EMR, id string) retry.StateRefresh
+func {
+	return 
+func() (interface{}, string, error) {
 		input := &emr.DescribeClusterInput{
 			ClusterId: aws.String(id),
 		}

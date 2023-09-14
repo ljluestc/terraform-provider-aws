@@ -29,6 +29,7 @@ import (
 
 // @SDKResource("aws_ssoadmin_permission_set", name="Permission Set")
 // @Tags
+
 func ResourcePermissionSet() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourcePermissionSetCreate,
@@ -56,7 +57,8 @@ func ResourcePermissionSet() *schema.Resource {
 			"description": {
 				Type:     schema.TypeString,
 				Optional: true,
-				ValidateFunc: validation.All(
+				Validate
+func: validation.All(
 					validation.StringLenBetween(1, 700),
 					validation.StringMatch(regexache.MustCompile(`[\p{L}\p{M}\p{Z}\p{S}\p{N}\p{P}]*`), "must match [\\p{L}\\p{M}\\p{Z}\\p{S}\\p{N}\\p{P}]"),
 				),
@@ -65,13 +67,15 @@ func ResourcePermissionSet() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			"name": {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
-				ValidateFunc: validation.All(
+				Validate
+func: validation.All(
 					validation.StringLenBetween(1, 32),
 					validation.StringMatch(regexache.MustCompile(`[\w+=,.@-]+`), "must match [\\w+=,.@-]"),
 				),
@@ -79,7 +83,8 @@ func ResourcePermissionSet() *schema.Resource {
 			"relay_state": {
 				Type:     schema.TypeString,
 				Optional: true,
-				ValidateFunc: validation.All(
+				Validate
+func: validation.All(
 					validation.StringLenBetween(1, 240),
 					validation.StringMatch(regexache.MustCompile(`[0-9A-Za-z&$@#\\\/%?=~\-_'"|!:,.;*+\[\]\ \(\)\{\}]+`), "must match [0-9A-Za-z&$@#\\\\\\/%?=~\\-_'\"|!:,.;*+\\[\\]\\(\\)\\{\\}]"),
 				),
@@ -87,7 +92,8 @@ func ResourcePermissionSet() *schema.Resource {
 			"session_duration": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				ValidateFunc: validation.StringLenBetween(1, 100),
+				Validate
+func: validation.StringLenBetween(1, 100),
 				Default:      "PT1H",
 			},
 			names.AttrTags:    tftags.TagsSchema(),
@@ -97,6 +103,7 @@ func ResourcePermissionSet() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
+
 
 func resourcePermissionSetCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -132,6 +139,7 @@ func resourcePermissionSetCreate(ctx context.Context, d *schema.ResourceData, me
 
 	return append(diags, resourcePermissionSetRead(ctx, d, meta)...)
 }
+
 
 func resourcePermissionSetRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -172,6 +180,7 @@ func resourcePermissionSetRead(ctx context.Context, d *schema.ResourceData, meta
 
 	return diags
 }
+
 
 func resourcePermissionSetUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -227,6 +236,7 @@ func resourcePermissionSetUpdate(ctx context.Context, d *schema.ResourceData, me
 	return append(diags, resourcePermissionSetRead(ctx, d, meta)...)
 }
 
+
 func resourcePermissionSetDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SSOAdminConn(ctx)
@@ -253,6 +263,7 @@ func resourcePermissionSetDelete(ctx context.Context, d *schema.ResourceData, me
 	return diags
 }
 
+
 func ParseResourceID(id string) (string, string, error) {
 	idParts := strings.Split(id, ",")
 	if len(idParts) != 2 || idParts[0] == "" || idParts[1] == "" {
@@ -260,6 +271,7 @@ func ParseResourceID(id string) (string, string, error) {
 	}
 	return idParts[0], idParts[1], nil
 }
+
 
 func FindPermissionSet(ctx context.Context, conn *ssoadmin.SSOAdmin, permissionSetARN, instanceARN string) (*ssoadmin.PermissionSet, error) {
 	input := &ssoadmin.DescribePermissionSetInput{
@@ -287,6 +299,7 @@ func FindPermissionSet(ctx context.Context, conn *ssoadmin.SSOAdmin, permissionS
 	return output.PermissionSet, nil
 }
 
+
 func provisionPermissionSet(ctx context.Context, conn *ssoadmin.SSOAdmin, permissionSetARN, instanceARN string, timeout time.Duration) error {
 	input := &ssoadmin.ProvisionPermissionSetInput{
 		InstanceArn:      aws.String(instanceARN),
@@ -306,6 +319,7 @@ func provisionPermissionSet(ctx context.Context, conn *ssoadmin.SSOAdmin, permis
 
 	return nil
 }
+
 
 func findPermissionSetProvisioningStatus(ctx context.Context, conn *ssoadmin.SSOAdmin, instanceARN, requestID string) (*ssoadmin.PermissionSetProvisioningStatus, error) {
 	input := &ssoadmin.DescribePermissionSetProvisioningStatusInput{
@@ -333,8 +347,11 @@ func findPermissionSetProvisioningStatus(ctx context.Context, conn *ssoadmin.SSO
 	return output.PermissionSetProvisioningStatus, nil
 }
 
-func statusPermissionSetProvisioning(ctx context.Context, conn *ssoadmin.SSOAdmin, instanceARN, requestID string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+
+func statusPermissionSetProvisioning(ctx context.Context, conn *ssoadmin.SSOAdmin, instanceARN, requestID string) retry.StateRefresh
+func {
+	return 
+func() (interface{}, string, error) {
 		output, err := findPermissionSetProvisioningStatus(ctx, conn, instanceARN, requestID)
 
 		if tfresource.NotFound(err) {
@@ -348,6 +365,7 @@ func statusPermissionSetProvisioning(ctx context.Context, conn *ssoadmin.SSOAdmi
 		return output, aws.StringValue(output.Status), nil
 	}
 }
+
 
 func waitPermissionSetProvisioned(ctx context.Context, conn *ssoadmin.SSOAdmin, instanceARN, requestID string, timeout time.Duration) (*ssoadmin.PermissionSetProvisioningStatus, error) {
 	stateConf := retry.StateChangeConf{

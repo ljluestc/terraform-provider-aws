@@ -23,6 +23,7 @@ import (
 )
 
 // @SDKResource("aws_s3_bucket_notification")
+
 func ResourceBucketNotification() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceBucketNotificationPut,
@@ -110,7 +111,8 @@ func ResourceBucketNotification() *schema.Resource {
 				},
 			},
 
-			"lambda_function": {
+			"lambda_
+function": {
 				Type:     schema.TypeList,
 				Optional: true,
 				Elem: &schema.Resource{
@@ -128,7 +130,8 @@ func ResourceBucketNotification() *schema.Resource {
 							Type:     schema.TypeString,
 							Optional: true,
 						},
-						"lambda_function_arn": {
+						"lambda_
+function_arn": {
 							Type:     schema.TypeString,
 							Optional: true,
 						},
@@ -144,6 +147,7 @@ func ResourceBucketNotification() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceBucketNotificationPut(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -264,10 +268,16 @@ func resourceBucketNotificationPut(ctx context.Context, d *schema.ResourceData, 
 	}
 
 	// Lambda
-	lambdaFunctionNotifications := d.Get("lambda_function").([]interface{})
-	lambdaConfigs := make([]*s3.LambdaFunctionConfiguration, 0, len(lambdaFunctionNotifications))
-	for i, c := range lambdaFunctionNotifications {
-		lc := &s3.LambdaFunctionConfiguration{}
+	lambda
+functionNotifications := d.Get("lambda_
+function").([]interface{})
+	lambdaConfigs := make([]*s3.Lambda
+functionConfiguration, 0, len(lambda
+functionNotifications))
+	for i, c := range lambda
+functionNotifications {
+		lc := &s3.Lambda
+functionConfiguration{}
 
 		c := c.(map[string]interface{})
 
@@ -278,13 +288,17 @@ func resourceBucketNotificationPut(ctx context.Context, d *schema.ResourceData, 
 			lc.Id = aws.String(id.PrefixedUniqueId("tf-s3-lambda-"))
 		}
 
-		// LambdaFunctionArn
-		if val, ok := c["lambda_function_arn"].(string); ok {
-			lc.LambdaFunctionArn = aws.String(val)
+		// Lambda
+functionArn
+		if val, ok := c["lambda_
+function_arn"].(string); ok {
+			lc.Lambda
+functionArn = aws.String(val)
 		}
 
 		// Events
-		events := d.Get(fmt.Sprintf("lambda_function.%d.events", i)).(*schema.Set).List()
+		events := d.Get(fmt.Sprintf("lambda_
+function.%d.events", i)).(*schema.Set).List()
 		lc.Events = make([]*string, 0, len(events))
 		for _, e := range events {
 			lc.Events = append(lc.Events, aws.String(e.(string)))
@@ -321,7 +335,8 @@ func resourceBucketNotificationPut(ctx context.Context, d *schema.ResourceData, 
 		notificationConfiguration.EventBridgeConfiguration = eventbridgeConfig
 	}
 	if len(lambdaConfigs) > 0 {
-		notificationConfiguration.LambdaFunctionConfigurations = lambdaConfigs
+		notificationConfiguration.Lambda
+functionConfigurations = lambdaConfigs
 	}
 	if len(queueConfigs) > 0 {
 		notificationConfiguration.QueueConfigurations = queueConfigs
@@ -335,7 +350,8 @@ func resourceBucketNotificationPut(ctx context.Context, d *schema.ResourceData, 
 	}
 
 	log.Printf("[DEBUG] S3 bucket: %s, Putting notification: %v", bucket, i)
-	err := retry.RetryContext(ctx, s3BucketPropagationTimeout, func() *retry.RetryError {
+	err := retry.RetryContext(ctx, s3BucketPropagationTimeout, 
+func() *retry.RetryError {
 		_, err := conn.PutBucketNotificationConfigurationWithContext(ctx, i)
 
 		if tfawserr.ErrCodeEquals(err, s3.ErrCodeNoSuchBucket) {
@@ -362,6 +378,7 @@ func resourceBucketNotificationPut(ctx context.Context, d *schema.ResourceData, 
 	return append(diags, resourceBucketNotificationRead(ctx, d, meta)...)
 }
 
+
 func resourceBucketNotificationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).S3Conn(ctx)
@@ -380,6 +397,7 @@ func resourceBucketNotificationDelete(ctx context.Context, d *schema.ResourceDat
 
 	return diags
 }
+
 
 func resourceBucketNotificationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -421,12 +439,17 @@ func resourceBucketNotificationRead(ctx context.Context, d *schema.ResourceData,
 	}
 
 	// Lambda Notification
-	if err := d.Set("lambda_function", flattenLambdaFunctionConfigurations(notificationConfigs.LambdaFunctionConfigurations)); err != nil {
-		return sdkdiag.AppendErrorf(diags, "reading S3 bucket \"%s\" lambda function notification: %s", d.Id(), err)
+	if err := d.Set("lambda_
+function", flattenLambda
+functionConfigurations(notificationConfigs.Lambda
+functionConfigurations)); err != nil {
+		return sdkdiag.AppendErrorf(diags, "reading S3 bucket \"%s\" lambda 
+function notification: %s", d.Id(), err)
 	}
 
 	return diags
 }
+
 
 func flattenNotificationConfigurationFilter(filter *s3.NotificationConfigurationFilter) map[string]interface{} {
 	filterRules := map[string]interface{}{}
@@ -444,6 +467,7 @@ func flattenNotificationConfigurationFilter(filter *s3.NotificationConfiguration
 	}
 	return filterRules
 }
+
 
 func flattenTopicConfigurations(configs []*s3.TopicConfiguration) []map[string]interface{} {
 	topicNotifications := make([]map[string]interface{}, 0, len(configs))
@@ -464,6 +488,7 @@ func flattenTopicConfigurations(configs []*s3.TopicConfiguration) []map[string]i
 	return topicNotifications
 }
 
+
 func flattenQueueConfigurations(configs []*s3.QueueConfiguration) []map[string]interface{} {
 	queueNotifications := make([]map[string]interface{}, 0, len(configs))
 	for _, notification := range configs {
@@ -483,8 +508,12 @@ func flattenQueueConfigurations(configs []*s3.QueueConfiguration) []map[string]i
 	return queueNotifications
 }
 
-func flattenLambdaFunctionConfigurations(configs []*s3.LambdaFunctionConfiguration) []map[string]interface{} {
-	lambdaFunctionNotifications := make([]map[string]interface{}, 0, len(configs))
+
+func flattenLambda
+functionConfigurations(configs []*s3.Lambda
+functionConfiguration) []map[string]interface{} {
+	lambda
+functionNotifications := make([]map[string]interface{}, 0, len(configs))
 	for _, notification := range configs {
 		var conf map[string]interface{}
 		if filter := notification.Filter; filter != nil {
@@ -495,9 +524,14 @@ func flattenLambdaFunctionConfigurations(configs []*s3.LambdaFunctionConfigurati
 
 		conf["id"] = aws.StringValue(notification.Id)
 		conf["events"] = flex.FlattenStringSet(notification.Events)
-		conf["lambda_function_arn"] = aws.StringValue(notification.LambdaFunctionArn)
-		lambdaFunctionNotifications = append(lambdaFunctionNotifications, conf)
+		conf["lambda_
+function_arn"] = aws.StringValue(notification.Lambda
+functionArn)
+		lambda
+functionNotifications = append(lambda
+functionNotifications, conf)
 	}
 
-	return lambdaFunctionNotifications
+	return lambda
+functionNotifications
 }

@@ -20,6 +20,7 @@ import (
 )
 
 // @SDKResource("aws_pinpoint_event_stream")
+
 func ResourceEventStream() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceEventStreamUpsert,
@@ -39,16 +40,19 @@ func ResourceEventStream() *schema.Resource {
 			"destination_stream_arn": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			"role_arn": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 		},
 	}
 }
+
 
 func resourceEventStreamUpsert(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -67,7 +71,8 @@ func resourceEventStreamUpsert(ctx context.Context, d *schema.ResourceData, meta
 	}
 
 	// Retry for IAM eventual consistency
-	err := retry.RetryContext(ctx, propagationTimeout, func() *retry.RetryError {
+	err := retry.RetryContext(ctx, propagationTimeout, 
+func() *retry.RetryError {
 		_, err := conn.PutEventStreamWithContext(ctx, &req)
 
 		if tfawserr.ErrMessageContains(err, pinpoint.ErrCodeBadRequestException, "make sure the IAM Role is configured correctly") {
@@ -93,6 +98,7 @@ func resourceEventStreamUpsert(ctx context.Context, d *schema.ResourceData, meta
 
 	return append(diags, resourceEventStreamRead(ctx, d, meta)...)
 }
+
 
 func resourceEventStreamRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -120,6 +126,7 @@ func resourceEventStreamRead(ctx context.Context, d *schema.ResourceData, meta i
 
 	return diags
 }
+
 
 func resourceEventStreamDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

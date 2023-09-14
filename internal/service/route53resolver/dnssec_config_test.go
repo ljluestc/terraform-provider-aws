@@ -19,20 +19,23 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccRoute53ResolverDNSSECConfig_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_route53_resolver_dnssec_config.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, route53resolver.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDNSSECConfigDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDNSSECConfigConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckDNSSECConfigExists(ctx, resourceName),
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "route53resolver", regexache.MustCompile(`resolver-dnssec-config/.+$`)),
 					resource.TestCheckResourceAttrSet(resourceName, "id"),
@@ -50,20 +53,23 @@ func TestAccRoute53ResolverDNSSECConfig_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccRoute53ResolverDNSSECConfig_disappear(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_route53_resolver_dnssec_config.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, route53resolver.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDNSSECConfigDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDNSSECConfigConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckDNSSECConfigExists(ctx, resourceName),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfroute53resolver.ResourceDNSSECConfig(), resourceName),
 				),
@@ -73,8 +79,11 @@ func TestAccRoute53ResolverDNSSECConfig_disappear(t *testing.T) {
 	})
 }
 
-func testAccCheckDNSSECConfigDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckDNSSECConfigDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).Route53ResolverConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -99,8 +108,11 @@ func testAccCheckDNSSECConfigDestroy(ctx context.Context) resource.TestCheckFunc
 	}
 }
 
-func testAccCheckDNSSECConfigExists(ctx context.Context, n string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckDNSSECConfigExists(ctx context.Context, n string) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -117,6 +129,7 @@ func testAccCheckDNSSECConfigExists(ctx context.Context, n string) resource.Test
 		return err
 	}
 }
+
 
 func testAccDNSSECConfigConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 0), `

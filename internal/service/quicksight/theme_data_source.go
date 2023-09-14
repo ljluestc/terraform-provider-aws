@@ -19,11 +19,14 @@ import (
 )
 
 // @SDKDataSource("aws_quicksight_theme", name="Theme")
+
 func DataSourceTheme() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceThemeRead,
 
-		SchemaFunc: func() map[string]*schema.Schema {
+		Schema
+func: 
+func() map[string]*schema.Schema {
 			return map[string]*schema.Schema{
 				"arn": {
 					Type:     schema.TypeString,
@@ -33,7 +36,8 @@ func DataSourceTheme() *schema.Resource {
 					Type:         schema.TypeString,
 					Optional:     true,
 					Computed:     true,
-					ValidateFunc: verify.ValidAccountID,
+					Validate
+func: verify.ValidAccountID,
 				},
 				"base_theme_id": {
 					Type:     schema.TypeString,
@@ -279,6 +283,7 @@ func DataSourceTheme() *schema.Resource {
 const (
 	DSNameTheme = "Theme Data Source"
 )
+
 
 func dataSourceThemeRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)

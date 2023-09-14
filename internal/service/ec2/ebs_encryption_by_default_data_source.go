@@ -15,6 +15,7 @@ import (
 )
 
 // @SDKDataSource("aws_ebs_encryption_by_default")
+
 func DataSourceEBSEncryptionByDefault() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceEBSEncryptionByDefaultRead,
@@ -31,6 +32,7 @@ func DataSourceEBSEncryptionByDefault() *schema.Resource {
 		},
 	}
 }
+
 func dataSourceEBSEncryptionByDefaultRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)

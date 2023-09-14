@@ -13,6 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func testAccTransitGatewayVPCAttachmentAccepter_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var transitGatewayVpcAttachment ec2.TransitGatewayVpcAttachment
@@ -24,7 +25,8 @@ func testAccTransitGatewayVPCAttachmentAccepter_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
 			testAccPreCheckTransitGateway(ctx, t)
@@ -35,7 +37,8 @@ func testAccTransitGatewayVPCAttachmentAccepter_basic(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayVPCAttachmentAccepterConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayVPCAttachmentExists(ctx, resourceName, &transitGatewayVpcAttachment),
 					resource.TestCheckResourceAttr(resourceName, "appliance_mode_support", ec2.ApplianceModeSupportValueDisable),
 					resource.TestCheckResourceAttr(resourceName, "dns_support", ec2.DnsSupportValueEnable),
@@ -60,6 +63,7 @@ func testAccTransitGatewayVPCAttachmentAccepter_basic(t *testing.T) {
 	})
 }
 
+
 func testAccTransitGatewayVPCAttachmentAccepter_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var transitGatewayVpcAttachment ec2.TransitGatewayVpcAttachment
@@ -67,7 +71,8 @@ func testAccTransitGatewayVPCAttachmentAccepter_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
 			testAccPreCheckTransitGateway(ctx, t)
@@ -78,7 +83,8 @@ func testAccTransitGatewayVPCAttachmentAccepter_tags(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayVPCAttachmentAccepterConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayVPCAttachmentExists(ctx, resourceName, &transitGatewayVpcAttachment),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
@@ -92,7 +98,8 @@ func testAccTransitGatewayVPCAttachmentAccepter_tags(t *testing.T) {
 			},
 			{
 				Config: testAccTransitGatewayVPCAttachmentAccepterConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayVPCAttachmentExists(ctx, resourceName, &transitGatewayVpcAttachment),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
@@ -101,7 +108,8 @@ func testAccTransitGatewayVPCAttachmentAccepter_tags(t *testing.T) {
 			},
 			{
 				Config: testAccTransitGatewayVPCAttachmentAccepterConfig_tags1(rName, "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayVPCAttachmentExists(ctx, resourceName, &transitGatewayVpcAttachment),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
@@ -110,6 +118,7 @@ func testAccTransitGatewayVPCAttachmentAccepter_tags(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccTransitGatewayVPCAttachmentAccepter_TransitGatewayDefaultRouteTableAssociationAndPropagation(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -120,7 +129,8 @@ func testAccTransitGatewayVPCAttachmentAccepter_TransitGatewayDefaultRouteTableA
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
 			testAccPreCheckTransitGateway(ctx, t)
@@ -131,7 +141,8 @@ func testAccTransitGatewayVPCAttachmentAccepter_TransitGatewayDefaultRouteTableA
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayVPCAttachmentAccepterConfig_defaultRouteTableAssociationAndPropagation(rName, false, false),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayExists(ctx, transitGatewayResourceName, &transitGateway),
 					testAccCheckTransitGatewayVPCAttachmentExists(ctx, resourceName, &transitGatewayVpcAttachment),
 					testAccCheckTransitGatewayAssociationDefaultRouteTableAttachmentNotAssociated(ctx, &transitGateway, &transitGatewayVpcAttachment),
@@ -142,7 +153,8 @@ func testAccTransitGatewayVPCAttachmentAccepter_TransitGatewayDefaultRouteTableA
 			},
 			{
 				Config: testAccTransitGatewayVPCAttachmentAccepterConfig_defaultRouteTableAssociationAndPropagation(rName, true, false),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayExists(ctx, transitGatewayResourceName, &transitGateway),
 					testAccCheckTransitGatewayVPCAttachmentExists(ctx, resourceName, &transitGatewayVpcAttachment),
 					testAccCheckTransitGatewayAssociationDefaultRouteTableAttachmentAssociated(ctx, &transitGateway, &transitGatewayVpcAttachment),
@@ -153,7 +165,8 @@ func testAccTransitGatewayVPCAttachmentAccepter_TransitGatewayDefaultRouteTableA
 			},
 			{
 				Config: testAccTransitGatewayVPCAttachmentAccepterConfig_defaultRouteTableAssociationAndPropagation(rName, false, true),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayExists(ctx, transitGatewayResourceName, &transitGateway),
 					testAccCheckTransitGatewayVPCAttachmentExists(ctx, resourceName, &transitGatewayVpcAttachment),
 					testAccCheckTransitGatewayAssociationDefaultRouteTableAttachmentNotAssociated(ctx, &transitGateway, &transitGatewayVpcAttachment),
@@ -164,7 +177,8 @@ func testAccTransitGatewayVPCAttachmentAccepter_TransitGatewayDefaultRouteTableA
 			},
 			{
 				Config: testAccTransitGatewayVPCAttachmentAccepterConfig_defaultRouteTableAssociationAndPropagation(rName, true, true),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayExists(ctx, transitGatewayResourceName, &transitGateway),
 					testAccCheckTransitGatewayVPCAttachmentExists(ctx, resourceName, &transitGatewayVpcAttachment),
 					testAccCheckTransitGatewayAssociationDefaultRouteTableAttachmentAssociated(ctx, &transitGateway, &transitGatewayVpcAttachment),
@@ -176,6 +190,7 @@ func testAccTransitGatewayVPCAttachmentAccepter_TransitGatewayDefaultRouteTableA
 		},
 	})
 }
+
 
 func testAccTransitGatewayVPCAttachmentAccepterConfig_base(rName string) string {
 	return acctest.ConfigCompose(
@@ -249,6 +264,7 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
 `, rName))
 }
 
+
 func testAccTransitGatewayVPCAttachmentAccepterConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccTransitGatewayVPCAttachmentAccepterConfig_base(rName), `
 resource "aws_ec2_transit_gateway_vpc_attachment_accepter" "test" {
@@ -256,6 +272,7 @@ resource "aws_ec2_transit_gateway_vpc_attachment_accepter" "test" {
 }
 `)
 }
+
 
 func testAccTransitGatewayVPCAttachmentAccepterConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccTransitGatewayVPCAttachmentAccepterConfig_base(rName), fmt.Sprintf(`
@@ -269,6 +286,7 @@ resource "aws_ec2_transit_gateway_vpc_attachment_accepter" "test" {
 `, tagKey1, tagValue1))
 }
 
+
 func testAccTransitGatewayVPCAttachmentAccepterConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccTransitGatewayVPCAttachmentAccepterConfig_base(rName), fmt.Sprintf(`
 resource "aws_ec2_transit_gateway_vpc_attachment_accepter" "test" {
@@ -281,6 +299,7 @@ resource "aws_ec2_transit_gateway_vpc_attachment_accepter" "test" {
 }
 `, tagKey1, tagValue1, tagKey2, tagValue2))
 }
+
 
 func testAccTransitGatewayVPCAttachmentAccepterConfig_defaultRouteTableAssociationAndPropagation(rName string, association, propagation bool) string {
 	return acctest.ConfigCompose(testAccTransitGatewayVPCAttachmentAccepterConfig_base(rName), fmt.Sprintf(`

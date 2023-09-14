@@ -26,6 +26,7 @@ import (
 
 // @SDKResource("aws_ec2_client_vpn_endpoint", name="Client VPN Endpoint")
 // @Tags(identifierAttribute="id")
+
 func ResourceClientVPNEndpoint() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceClientVPNEndpointCreate,
@@ -59,25 +60,29 @@ func ResourceClientVPNEndpoint() *schema.Resource {
 							Type:         schema.TypeString,
 							Optional:     true,
 							ForceNew:     true,
-							ValidateFunc: verify.ValidARN,
+							Validate
+func: verify.ValidARN,
 						},
 						"saml_provider_arn": {
 							Type:         schema.TypeString,
 							Optional:     true,
 							ForceNew:     true,
-							ValidateFunc: verify.ValidARN,
+							Validate
+func: verify.ValidARN,
 						},
 						"self_service_saml_provider_arn": {
 							Type:         schema.TypeString,
 							Optional:     true,
 							ForceNew:     true,
-							ValidateFunc: verify.ValidARN,
+							Validate
+func: verify.ValidARN,
 						},
 						"type": {
 							Type:         schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
-							ValidateFunc: validation.StringInSlice(ec2.ClientVpnAuthenticationType_Values(), false),
+							Validate
+func: validation.StringInSlice(ec2.ClientVpnAuthenticationType_Values(), false),
 						},
 					},
 				},
@@ -86,7 +91,8 @@ func ResourceClientVPNEndpoint() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.IsCIDR,
+				Validate
+func: validation.IsCIDR,
 			},
 			"client_connect_options": {
 				Type:     schema.TypeList,
@@ -100,11 +106,13 @@ func ResourceClientVPNEndpoint() *schema.Resource {
 							Optional: true,
 							Computed: true,
 						},
-						"lambda_function_arn": {
+						"lambda_
+function_arn": {
 							Type:         schema.TypeString,
 							Optional:     true,
 							Computed:     true,
-							ValidateFunc: verify.ValidARN,
+							Validate
+func: verify.ValidARN,
 						},
 					},
 				},
@@ -120,7 +128,8 @@ func ResourceClientVPNEndpoint() *schema.Resource {
 							Type:         schema.TypeString,
 							Optional:     true,
 							Computed:     true,
-							ValidateFunc: validation.StringLenBetween(0, 1400),
+							Validate
+func: validation.StringLenBetween(0, 1400),
 						},
 						"enabled": {
 							Type:     schema.TypeBool,
@@ -177,18 +186,21 @@ func ResourceClientVPNEndpoint() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				Default:      ec2.SelfServicePortalDisabled,
-				ValidateFunc: validation.StringInSlice(ec2.SelfServicePortal_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.SelfServicePortal_Values(), false),
 			},
 			"server_certificate_arn": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			"session_timeout_hours": {
 				Type:         schema.TypeInt,
 				Optional:     true,
 				Default:      24,
-				ValidateFunc: validation.IntInSlice([]int{8, 10, 12, 24}),
+				Validate
+func: validation.IntInSlice([]int{8, 10, 12, 24}),
 			},
 			"split_tunnel": {
 				Type:     schema.TypeBool,
@@ -202,7 +214,8 @@ func ResourceClientVPNEndpoint() *schema.Resource {
 				Optional:     true,
 				ForceNew:     true,
 				Default:      ec2.TransportProtocolUdp,
-				ValidateFunc: validation.StringInSlice(ec2.TransportProtocol_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.TransportProtocol_Values(), false),
 			},
 			"vpc_id": {
 				Type:     schema.TypeString,
@@ -213,7 +226,8 @@ func ResourceClientVPNEndpoint() *schema.Resource {
 				Type:     schema.TypeInt,
 				Optional: true,
 				Default:  443,
-				ValidateFunc: validation.IntInSlice([]int{
+				Validate
+func: validation.IntInSlice([]int{
 					443,
 					1194,
 				}),
@@ -221,6 +235,7 @@ func ResourceClientVPNEndpoint() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceClientVPNEndpointCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -286,6 +301,7 @@ func resourceClientVPNEndpointCreate(ctx context.Context, d *schema.ResourceData
 
 	return append(diags, resourceClientVPNEndpointRead(ctx, d, meta)...)
 }
+
 
 func resourceClientVPNEndpointRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -356,6 +372,7 @@ func resourceClientVPNEndpointRead(ctx context.Context, d *schema.ResourceData, 
 
 	return diags
 }
+
 
 func resourceClientVPNEndpointUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -447,6 +464,7 @@ func resourceClientVPNEndpointUpdate(ctx context.Context, d *schema.ResourceData
 	return append(diags, resourceClientVPNEndpointRead(ctx, d, meta)...)
 }
 
+
 func resourceClientVPNEndpointDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -470,6 +488,7 @@ func resourceClientVPNEndpointDelete(ctx context.Context, d *schema.ResourceData
 
 	return diags
 }
+
 
 func expandClientVPNAuthenticationRequest(tfMap map[string]interface{}) *ec2.ClientVpnAuthenticationRequest {
 	if tfMap == nil {
@@ -514,6 +533,7 @@ func expandClientVPNAuthenticationRequest(tfMap map[string]interface{}) *ec2.Cli
 	return apiObject
 }
 
+
 func expandClientVPNAuthenticationRequests(tfList []interface{}) []*ec2.ClientVpnAuthenticationRequest {
 	if len(tfList) == 0 {
 		return nil
@@ -539,6 +559,7 @@ func expandClientVPNAuthenticationRequests(tfList []interface{}) []*ec2.ClientVp
 
 	return apiObjects
 }
+
 
 func flattenClientVPNAuthentication(apiObject *ec2.ClientVpnAuthentication) map[string]interface{} {
 	if apiObject == nil {
@@ -572,6 +593,7 @@ func flattenClientVPNAuthentication(apiObject *ec2.ClientVpnAuthentication) map[
 	return tfMap
 }
 
+
 func flattenClientVPNAuthentications(apiObjects []*ec2.ClientVpnAuthentication) []interface{} {
 	if len(apiObjects) == 0 {
 		return nil
@@ -590,6 +612,7 @@ func flattenClientVPNAuthentications(apiObjects []*ec2.ClientVpnAuthentication) 
 	return tfList
 }
 
+
 func expandClientConnectOptions(tfMap map[string]interface{}) *ec2.ClientConnectOptions {
 	if tfMap == nil {
 		return nil
@@ -603,8 +626,10 @@ func expandClientConnectOptions(tfMap map[string]interface{}) *ec2.ClientConnect
 	}
 
 	if enabled {
-		if v, ok := tfMap["lambda_function_arn"].(string); ok && v != "" {
-			apiObject.LambdaFunctionArn = aws.String(v)
+		if v, ok := tfMap["lambda_
+function_arn"].(string); ok && v != "" {
+			apiObject.Lambda
+functionArn = aws.String(v)
 		}
 	}
 
@@ -612,6 +637,7 @@ func expandClientConnectOptions(tfMap map[string]interface{}) *ec2.ClientConnect
 
 	return apiObject
 }
+
 
 func flattenClientConnectResponseOptions(apiObject *ec2.ClientConnectResponseOptions) map[string]interface{} {
 	if apiObject == nil {
@@ -624,12 +650,15 @@ func flattenClientConnectResponseOptions(apiObject *ec2.ClientConnectResponseOpt
 		tfMap["enabled"] = aws.BoolValue(v)
 	}
 
-	if v := apiObject.LambdaFunctionArn; v != nil {
-		tfMap["lambda_function_arn"] = aws.StringValue(v)
+	if v := apiObject.Lambda
+functionArn; v != nil {
+		tfMap["lambda_
+function_arn"] = aws.StringValue(v)
 	}
 
 	return tfMap
 }
+
 
 func expandClientLoginBannerOptions(tfMap map[string]interface{}) *ec2.ClientLoginBannerOptions {
 	if tfMap == nil {
@@ -654,6 +683,7 @@ func expandClientLoginBannerOptions(tfMap map[string]interface{}) *ec2.ClientLog
 	return apiObject
 }
 
+
 func flattenClientLoginBannerResponseOptions(apiObject *ec2.ClientLoginBannerResponseOptions) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -671,6 +701,7 @@ func flattenClientLoginBannerResponseOptions(apiObject *ec2.ClientLoginBannerRes
 
 	return tfMap
 }
+
 
 func expandConnectionLogOptions(tfMap map[string]interface{}) *ec2.ConnectionLogOptions {
 	if tfMap == nil {
@@ -698,6 +729,7 @@ func expandConnectionLogOptions(tfMap map[string]interface{}) *ec2.ConnectionLog
 
 	return apiObject
 }
+
 
 func flattenConnectionLogResponseOptions(apiObject *ec2.ConnectionLogResponseOptions) map[string]interface{} {
 	if apiObject == nil {

@@ -13,6 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccVPCEndpointDataSource_gatewayBasic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_vpc_endpoint.test"
@@ -20,13 +21,15 @@ func TestAccVPCEndpointDataSource_gatewayBasic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCEndpointDataSourceConfig_gatewayBasic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(datasourceName, "cidr_blocks.#", resourceName, "cidr_blocks.#"),
 					resource.TestCheckResourceAttrPair(datasourceName, "dns_entry.#", resourceName, "dns_entry.#"),
@@ -52,6 +55,7 @@ func TestAccVPCEndpointDataSource_gatewayBasic(t *testing.T) {
 		},
 	})
 }
+
 
 func TestAccVPCEndpointDataSource_byID(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -60,13 +64,15 @@ func TestAccVPCEndpointDataSource_byID(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCEndpointDataSourceConfig_byID(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(datasourceName, "cidr_blocks.#", resourceName, "cidr_blocks.#"),
 					resource.TestCheckResourceAttrPair(datasourceName, "dns_entry.#", resourceName, "dns_entry.#"),
@@ -92,6 +98,7 @@ func TestAccVPCEndpointDataSource_byID(t *testing.T) {
 		},
 	})
 }
+
 
 func TestAccVPCEndpointDataSource_byFilter(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -100,13 +107,15 @@ func TestAccVPCEndpointDataSource_byFilter(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCEndpointDataSourceConfig_byFilter(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(datasourceName, "cidr_blocks.#", resourceName, "cidr_blocks.#"),
 					resource.TestCheckResourceAttrPair(datasourceName, "dns_entry.#", resourceName, "dns_entry.#"),
@@ -132,6 +141,7 @@ func TestAccVPCEndpointDataSource_byFilter(t *testing.T) {
 		},
 	})
 }
+
 
 func TestAccVPCEndpointDataSource_byTags(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -140,13 +150,15 @@ func TestAccVPCEndpointDataSource_byTags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCEndpointDataSourceConfig_byTags(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(datasourceName, "cidr_blocks.#", resourceName, "cidr_blocks.#"),
 					resource.TestCheckResourceAttrPair(datasourceName, "dns_entry.#", resourceName, "dns_entry.#"),
@@ -172,6 +184,7 @@ func TestAccVPCEndpointDataSource_byTags(t *testing.T) {
 		},
 	})
 }
+
 
 func TestAccVPCEndpointDataSource_gatewayWithRouteTableAndTags(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -180,13 +193,15 @@ func TestAccVPCEndpointDataSource_gatewayWithRouteTableAndTags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCEndpointDataSourceConfig_gatewayRouteTableAndTags(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(datasourceName, "cidr_blocks.#", resourceName, "cidr_blocks.#"),
 					resource.TestCheckResourceAttrPair(datasourceName, "dns_entry.#", resourceName, "dns_entry.#"),
@@ -213,6 +228,7 @@ func TestAccVPCEndpointDataSource_gatewayWithRouteTableAndTags(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCEndpointDataSource_interface(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_vpc_endpoint.test"
@@ -220,13 +236,15 @@ func TestAccVPCEndpointDataSource_interface(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCEndpointDataSourceConfig_interface(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(datasourceName, "cidr_blocks.#", resourceName, "cidr_blocks.#"),
 					resource.TestCheckResourceAttrPair(datasourceName, "dns_entry.#", resourceName, "dns_entry.#"),
@@ -252,6 +270,7 @@ func TestAccVPCEndpointDataSource_interface(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccVPCEndpointDataSourceConfig_gatewayBasic(rName string) string {
 	return fmt.Sprintf(`
@@ -282,6 +301,7 @@ data "aws_vpc_endpoint" "test" {
 `, rName)
 }
 
+
 func testAccVPCEndpointDataSourceConfig_byID(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
@@ -308,6 +328,7 @@ data "aws_vpc_endpoint" "test" {
 }
 `, rName)
 }
+
 
 func testAccVPCEndpointDataSourceConfig_byFilter(rName string) string {
 	return fmt.Sprintf(`
@@ -338,6 +359,7 @@ data "aws_vpc_endpoint" "test" {
 }
 `, rName)
 }
+
 
 func testAccVPCEndpointDataSourceConfig_byTags(rName string) string {
 	return fmt.Sprintf(`
@@ -375,6 +397,7 @@ data "aws_vpc_endpoint" "test" {
 }
 `, rName)
 }
+
 
 func testAccVPCEndpointDataSourceConfig_gatewayRouteTableAndTags(rName string) string {
 	return fmt.Sprintf(`
@@ -416,6 +439,7 @@ data "aws_vpc_endpoint" "test" {
 }
 `, rName)
 }
+
 
 func testAccVPCEndpointDataSourceConfig_interface(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`

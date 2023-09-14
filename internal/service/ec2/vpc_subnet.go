@@ -25,6 +25,7 @@ import (
 
 // @SDKResource("aws_subnet", name="Subnet")
 // @Tags(identifierAttribute="id")
+
 func ResourceSubnet() *schema.Resource {
 	//lintignore:R011
 	return &schema.Resource{
@@ -76,7 +77,8 @@ func ResourceSubnet() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.ValidIPv4CIDRNetworkAddress,
+				Validate
+func: verify.ValidIPv4CIDRNetworkAddress,
 			},
 			"customer_owned_ipv4_pool": {
 				Type:         schema.TypeString,
@@ -91,7 +93,8 @@ func ResourceSubnet() *schema.Resource {
 			"enable_lni_at_device_index": {
 				Type:         schema.TypeInt,
 				Optional:     true,
-				ValidateFunc: validation.NoZeroValues,
+				Validate
+func: validation.NoZeroValues,
 			},
 			"enable_resource_name_dns_aaaa_record_on_launch": {
 				Type:     schema.TypeBool,
@@ -106,7 +109,8 @@ func ResourceSubnet() *schema.Resource {
 			"ipv6_cidr_block": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				ValidateFunc: verify.ValidIPv6CIDRNetworkAddress,
+				Validate
+func: verify.ValidIPv6CIDRNetworkAddress,
 			},
 			"ipv6_cidr_block_association_id": {
 				Type:     schema.TypeString,
@@ -132,7 +136,8 @@ func ResourceSubnet() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			"owner_id": {
 				Type:     schema.TypeString,
@@ -142,7 +147,8 @@ func ResourceSubnet() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				Computed:     true,
-				ValidateFunc: validation.StringInSlice(ec2.HostnameType_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.HostnameType_Values(), false),
 			},
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
@@ -154,6 +160,7 @@ func ResourceSubnet() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceSubnetCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -224,11 +231,13 @@ func resourceSubnetCreate(ctx context.Context, d *schema.ResourceData, meta inte
 	return append(diags, resourceSubnetRead(ctx, d, meta)...)
 }
 
+
 func resourceSubnetRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout, func() (interface{}, error) {
+	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout, 
+func() (interface{}, error) {
 		return FindSubnetByID(ctx, conn, d.Id())
 	}, d.IsNewResource())
 
@@ -285,6 +294,7 @@ func resourceSubnetRead(ctx context.Context, d *schema.ResourceData, meta interf
 
 	return diags
 }
+
 
 func resourceSubnetUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -360,6 +370,7 @@ func resourceSubnetUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 	return append(diags, resourceSubnetRead(ctx, d, meta)...)
 }
 
+
 func resourceSubnetDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -370,7 +381,8 @@ func resourceSubnetDelete(ctx context.Context, d *schema.ResourceData, meta inte
 		return sdkdiag.AppendErrorf(diags, "deleting ENIs for EC2 Subnet (%s): %s", d.Id(), err)
 	}
 
-	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, d.Timeout(schema.TimeoutDelete), func() (interface{}, error) {
+	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, d.Timeout(schema.TimeoutDelete), 
+func() (interface{}, error) {
 		return conn.DeleteSubnetWithContext(ctx, &ec2.DeleteSubnetInput{
 			SubnetId: aws.String(d.Id()),
 		})
@@ -389,6 +401,7 @@ func resourceSubnetDelete(ctx context.Context, d *schema.ResourceData, meta inte
 
 // modifySubnetAttributesOnCreate sets subnet attributes on resource Create.
 // Called after new subnet creation or existing default subnet adoption.
+
 func modifySubnetAttributesOnCreate(ctx context.Context, conn *ec2.EC2, d *schema.ResourceData, subnet *ec2.Subnet, computedIPv6CidrBlock bool) error {
 	// If we're disabling IPv6 assignment for new ENIs, do that before modifying the IPv6 CIDR block.
 	if new, old := d.Get("assign_ipv6_address_on_creation").(bool), aws.BoolValue(subnet.AssignIpv6AddressOnCreation); old != new && !new {
@@ -480,6 +493,7 @@ func modifySubnetAttributesOnCreate(ctx context.Context, conn *ec2.EC2, d *schem
 	return nil
 }
 
+
 func modifySubnetAssignIPv6AddressOnCreation(ctx context.Context, conn *ec2.EC2, subnetID string, v bool) error {
 	input := &ec2.ModifySubnetAttributeInput{
 		AssignIpv6AddressOnCreation: &ec2.AttributeBooleanValue{
@@ -498,6 +512,7 @@ func modifySubnetAssignIPv6AddressOnCreation(ctx context.Context, conn *ec2.EC2,
 
 	return nil
 }
+
 
 func modifySubnetEnableDNS64(ctx context.Context, conn *ec2.EC2, subnetID string, v bool) error {
 	input := &ec2.ModifySubnetAttributeInput{
@@ -518,6 +533,7 @@ func modifySubnetEnableDNS64(ctx context.Context, conn *ec2.EC2, subnetID string
 	return nil
 }
 
+
 func modifySubnetEnableLniAtDeviceIndex(ctx context.Context, conn *ec2.EC2, subnetID string, deviceIndex int64) error {
 	input := &ec2.ModifySubnetAttributeInput{
 		EnableLniAtDeviceIndex: aws.Int64(deviceIndex),
@@ -534,6 +550,7 @@ func modifySubnetEnableLniAtDeviceIndex(ctx context.Context, conn *ec2.EC2, subn
 
 	return nil
 }
+
 
 func modifySubnetEnableResourceNameDNSAAAARecordOnLaunch(ctx context.Context, conn *ec2.EC2, subnetID string, v bool) error {
 	input := &ec2.ModifySubnetAttributeInput{
@@ -554,6 +571,7 @@ func modifySubnetEnableResourceNameDNSAAAARecordOnLaunch(ctx context.Context, co
 	return nil
 }
 
+
 func modifySubnetEnableResourceNameDNSARecordOnLaunch(ctx context.Context, conn *ec2.EC2, subnetID string, v bool) error {
 	input := &ec2.ModifySubnetAttributeInput{
 		EnableResourceNameDnsARecordOnLaunch: &ec2.AttributeBooleanValue{
@@ -572,6 +590,7 @@ func modifySubnetEnableResourceNameDNSARecordOnLaunch(ctx context.Context, conn 
 
 	return nil
 }
+
 
 func modifySubnetIPv6CIDRBlockAssociation(ctx context.Context, conn *ec2.EC2, subnetID, associationID, cidrBlock string) error {
 	// We need to handle that we disassociate the IPv6 CIDR block before we try to associate the new one
@@ -621,6 +640,7 @@ func modifySubnetIPv6CIDRBlockAssociation(ctx context.Context, conn *ec2.EC2, su
 	return nil
 }
 
+
 func modifySubnetMapPublicIPOnLaunch(ctx context.Context, conn *ec2.EC2, subnetID string, v bool) error {
 	input := &ec2.ModifySubnetAttributeInput{
 		MapPublicIpOnLaunch: &ec2.AttributeBooleanValue{
@@ -639,6 +659,7 @@ func modifySubnetMapPublicIPOnLaunch(ctx context.Context, conn *ec2.EC2, subnetI
 
 	return nil
 }
+
 
 func modifySubnetOutpostRackAttributes(ctx context.Context, conn *ec2.EC2, subnetID string, customerOwnedIPv4Pool string, mapCustomerOwnedIPOnLaunch bool) error {
 	input := &ec2.ModifySubnetAttributeInput{
@@ -662,6 +683,7 @@ func modifySubnetOutpostRackAttributes(ctx context.Context, conn *ec2.EC2, subne
 
 	return nil
 }
+
 
 func modifySubnetPrivateDNSHostnameTypeOnLaunch(ctx context.Context, conn *ec2.EC2, subnetID string, v string) error {
 	input := &ec2.ModifySubnetAttributeInput{

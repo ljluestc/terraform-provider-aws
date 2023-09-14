@@ -20,6 +20,7 @@ import (
 )
 
 // @SDKResource("aws_load_balancer_policy")
+
 func ResourcePolicy() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourcePolicyCreate,
@@ -55,7 +56,8 @@ func ResourcePolicy() *schema.Resource {
 				// For policy types like "SSLNegotiationPolicyType" that can reference predefined policies
 				// via the "Reference-Security-Policy" policy_attribute (https://docs.aws.amazon.com/elasticloadbalancing/latest/classic/elb-security-policy-table.html),
 				// differences caused by additional attributes returned by the API are suppressed.
-				DiffSuppressFunc: suppressPolicyAttributeDiffs,
+				DiffSuppress
+func: suppressPolicyAttributeDiffs,
 			},
 			"policy_name": {
 				Type:     schema.TypeString,
@@ -70,6 +72,7 @@ func ResourcePolicy() *schema.Resource {
 		},
 	}
 }
+
 
 func resourcePolicyCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -98,6 +101,7 @@ func resourcePolicyCreate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return append(diags, resourcePolicyRead(ctx, d, meta)...)
 }
+
 
 func resourcePolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -130,6 +134,7 @@ func resourcePolicyRead(ctx context.Context, d *schema.ResourceData, meta interf
 
 	return diags
 }
+
 
 func resourcePolicyUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -183,6 +188,7 @@ func resourcePolicyUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 	return append(diags, resourcePolicyRead(ctx, d, meta)...)
 }
 
+
 func resourcePolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ELBConn(ctx)
@@ -216,6 +222,7 @@ func resourcePolicyDelete(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return diags
 }
+
 
 func resourcePolicyAssigned(ctx context.Context, policyName, loadBalancerName string, conn *elb.ELB) (bool, error) {
 	describeElbOpts := &elb.DescribeLoadBalancersInput{
@@ -263,6 +270,7 @@ type Reassignment struct {
 	backendServerPolicies []*elb.SetLoadBalancerPoliciesForBackendServerInput
 	listenerPolicies      []*elb.SetLoadBalancerPoliciesOfListenerInput
 }
+
 
 func resourcePolicyUnassign(ctx context.Context, policyName, loadBalancerName string, conn *elb.ELB) (Reassignment, error) {
 	reassignments := Reassignment{}
@@ -352,6 +360,7 @@ func resourcePolicyUnassign(ctx context.Context, policyName, loadBalancerName st
 	return reassignments, nil
 }
 
+
 func suppressPolicyAttributeDiffs(k, old, new string, d *schema.ResourceData) bool {
 	// Show difference for new resource
 	if d.Id() == "" {
@@ -373,12 +382,14 @@ func suppressPolicyAttributeDiffs(k, old, new string, d *schema.ResourceData) bo
 
 const policyResourceIDSeparator = ":"
 
+
 func PolicyCreateResourceID(lbName, policyName string) string {
 	parts := []string{lbName, policyName}
 	id := strings.Join(parts, policyResourceIDSeparator)
 
 	return id
 }
+
 
 func PolicyParseResourceID(id string) (string, string, error) {
 	parts := strings.Split(id, backendServerPolicyResourceIDSeparator)

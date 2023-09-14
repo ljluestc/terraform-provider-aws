@@ -18,6 +18,7 @@ import (
 )
 
 // @SDKDataSource("aws_connect_user")
+
 func DataSourceUser() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceUserRead,
@@ -58,7 +59,8 @@ func DataSourceUser() *schema.Resource {
 			"instance_id": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: validation.StringLenBetween(1, 100),
+				Validate
+func: validation.StringLenBetween(1, 100),
 			},
 			"name": {
 				Type:         schema.TypeString,
@@ -111,6 +113,7 @@ func DataSourceUser() *schema.Resource {
 		},
 	}
 }
+
 
 func dataSourceUserRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -177,6 +180,7 @@ func dataSourceUserRead(ctx context.Context, d *schema.ResourceData, meta interf
 	return nil
 }
 
+
 func dataSourceGetUserSummaryByName(ctx context.Context, conn *connect.Connect, instanceID, name string) (*connect.UserSummary, error) {
 	var result *connect.UserSummary
 
@@ -185,7 +189,8 @@ func dataSourceGetUserSummaryByName(ctx context.Context, conn *connect.Connect, 
 		MaxResults: aws.Int64(ListUsersMaxResults),
 	}
 
-	err := conn.ListUsersPagesWithContext(ctx, input, func(page *connect.ListUsersOutput, lastPage bool) bool {
+	err := conn.ListUsersPagesWithContext(ctx, input, 
+func(page *connect.ListUsersOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}

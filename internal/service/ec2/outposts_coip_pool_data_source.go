@@ -18,6 +18,7 @@ import (
 )
 
 // @SDKDataSource("aws_ec2_coip_pool")
+
 func DataSourceCoIPPool() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceCoIPPoolRead,

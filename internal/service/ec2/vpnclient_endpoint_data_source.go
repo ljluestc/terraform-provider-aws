@@ -20,6 +20,7 @@ import (
 )
 
 // @SDKDataSource("aws_ec2_client_vpn_endpoint")
+
 func DataSourceClientVPNEndpoint() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceClientVPNEndpointRead,
@@ -74,7 +75,8 @@ func DataSourceClientVPNEndpoint() *schema.Resource {
 							Type:     schema.TypeBool,
 							Computed: true,
 						},
-						"lambda_function_arn": {
+						"lambda_
+function_arn": {
 							Type:     schema.TypeString,
 							Computed: true,
 						},
@@ -173,6 +175,7 @@ func DataSourceClientVPNEndpoint() *schema.Resource {
 		},
 	}
 }
+
 
 func dataSourceClientVPNEndpointRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

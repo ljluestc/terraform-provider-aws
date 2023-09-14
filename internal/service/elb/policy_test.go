@@ -19,6 +19,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccELBPolicy_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var policy elb.PolicyDescription
@@ -26,20 +27,23 @@ func TestAccELBPolicy_basic(t *testing.T) {
 	rInt := sdkacctest.RandInt()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, elb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPolicyConfig_basic(rInt),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckPolicyExists(ctx, resourceName, &policy),
 				),
 			},
 		},
 	})
 }
+
 
 func TestAccELBPolicy_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -48,14 +52,16 @@ func TestAccELBPolicy_disappears(t *testing.T) {
 	rInt := sdkacctest.RandInt()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, elb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPolicyConfig_basic(rInt),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckPolicyExists(ctx, resourceName, &policy),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfelb.ResourcePolicy(), resourceName),
 				),
@@ -65,6 +71,7 @@ func TestAccELBPolicy_disappears(t *testing.T) {
 	})
 }
 
+
 func TestAccELBPolicy_LBCookieStickinessPolicyType_computedAttributesOnly(t *testing.T) {
 	ctx := acctest.Context(t)
 	var policy elb.PolicyDescription
@@ -73,14 +80,16 @@ func TestAccELBPolicy_LBCookieStickinessPolicyType_computedAttributesOnly(t *tes
 	policyTypeName := "LBCookieStickinessPolicyType"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, elb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPolicyConfig_typeNameOnly(rName, policyTypeName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckPolicyExists(ctx, resourceName, &policy),
 					resource.TestCheckResourceAttr(resourceName, "policy_type_name", policyTypeName),
 					resource.TestCheckResourceAttr(resourceName, "policy_attribute.#", "1"),
@@ -90,6 +99,7 @@ func TestAccELBPolicy_LBCookieStickinessPolicyType_computedAttributesOnly(t *tes
 	})
 }
 
+
 func TestAccELBPolicy_SSLNegotiationPolicyType_computedAttributesOnly(t *testing.T) {
 	ctx := acctest.Context(t)
 	var policy elb.PolicyDescription
@@ -97,14 +107,16 @@ func TestAccELBPolicy_SSLNegotiationPolicyType_computedAttributesOnly(t *testing
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, elb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPolicyConfig_typeNameOnly(rName, tfelb.SSLNegotiationPolicyType),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckPolicyExists(ctx, resourceName, &policy),
 					resource.TestCheckResourceAttr(resourceName, "policy_type_name", tfelb.SSLNegotiationPolicyType),
 					resource.TestMatchResourceAttr(resourceName, "policy_attribute.#", regexache.MustCompile(`[^0]+`)),
@@ -114,6 +126,7 @@ func TestAccELBPolicy_SSLNegotiationPolicyType_computedAttributesOnly(t *testing
 	})
 }
 
+
 func TestAccELBPolicy_SSLNegotiationPolicyType_customPolicy(t *testing.T) {
 	ctx := acctest.Context(t)
 	var policy elb.PolicyDescription
@@ -121,14 +134,16 @@ func TestAccELBPolicy_SSLNegotiationPolicyType_customPolicy(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, elb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPolicyConfig_customSSLSecurity(rName, "Protocol-TLSv1.1", "DHE-RSA-AES256-SHA256"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckPolicyExists(ctx, resourceName, &policy),
 					resource.TestCheckResourceAttr(resourceName, "policy_name", rName),
 					resource.TestCheckResourceAttr(resourceName, "policy_type_name", tfelb.SSLNegotiationPolicyType),
@@ -145,7 +160,8 @@ func TestAccELBPolicy_SSLNegotiationPolicyType_customPolicy(t *testing.T) {
 			},
 			{
 				Config: testAccPolicyConfig_customSSLSecurity(rName, "Protocol-TLSv1.2", "ECDHE-ECDSA-AES128-GCM-SHA256"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckPolicyExists(ctx, resourceName, &policy),
 					resource.TestCheckResourceAttr(resourceName, "policy_name", rName),
 					resource.TestCheckResourceAttr(resourceName, "policy_type_name", tfelb.SSLNegotiationPolicyType),
@@ -164,6 +180,7 @@ func TestAccELBPolicy_SSLNegotiationPolicyType_customPolicy(t *testing.T) {
 	})
 }
 
+
 func TestAccELBPolicy_SSLSecurityPolicy_predefined(t *testing.T) {
 	ctx := acctest.Context(t)
 	var policy elb.PolicyDescription
@@ -173,14 +190,16 @@ func TestAccELBPolicy_SSLSecurityPolicy_predefined(t *testing.T) {
 	predefinedSecurityPolicyUpdated := "ELBSecurityPolicy-2016-08"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, elb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPolicyConfig_predefinedSSLSecurity(rName, predefinedSecurityPolicy),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckPolicyExists(ctx, resourceName, &policy),
 					resource.TestCheckResourceAttr(resourceName, "policy_attribute.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "policy_attribute.*", map[string]string{
@@ -192,7 +211,8 @@ func TestAccELBPolicy_SSLSecurityPolicy_predefined(t *testing.T) {
 			},
 			{
 				Config: testAccPolicyConfig_predefinedSSLSecurity(rName, predefinedSecurityPolicyUpdated),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckPolicyExists(ctx, resourceName, &policy),
 					resource.TestCheckResourceAttr(resourceName, "policy_attribute.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "policy_attribute.*", map[string]string{
@@ -206,6 +226,7 @@ func TestAccELBPolicy_SSLSecurityPolicy_predefined(t *testing.T) {
 	})
 }
 
+
 func TestAccELBPolicy_updateWhileAssigned(t *testing.T) {
 	ctx := acctest.Context(t)
 	var policy elb.PolicyDescription
@@ -213,20 +234,23 @@ func TestAccELBPolicy_updateWhileAssigned(t *testing.T) {
 	rInt := sdkacctest.RandInt()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, elb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPolicyConfig_updateWhileAssigned0(rInt),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckPolicyExists(ctx, resourceName, &policy),
 				),
 			},
 			{
 				Config: testAccPolicyConfig_updateWhileAssigned1(rInt),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckPolicyExists(ctx, resourceName, &policy),
 				),
 			},
@@ -234,8 +258,11 @@ func TestAccELBPolicy_updateWhileAssigned(t *testing.T) {
 	})
 }
 
-func testAccCheckPolicyExists(ctx context.Context, n string, v *elb.PolicyDescription) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckPolicyExists(ctx context.Context, n string, v *elb.PolicyDescription) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -265,8 +292,11 @@ func testAccCheckPolicyExists(ctx context.Context, n string, v *elb.PolicyDescri
 	}
 }
 
-func testAccCheckPolicyDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckPolicyDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).ELBConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -296,6 +326,7 @@ func testAccCheckPolicyDestroy(ctx context.Context) resource.TestCheckFunc {
 		return nil
 	}
 }
+
 
 func testAccPolicyConfig_basic(rInt int) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
@@ -328,6 +359,7 @@ resource "aws_load_balancer_policy" "test-policy" {
 `, rInt))
 }
 
+
 func testAccPolicyConfig_typeNameOnly(rName, policyType string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigAvailableAZsNoOptIn(),
@@ -355,6 +387,7 @@ resource "aws_load_balancer_policy" "test" {
 }
 `, rName, policyType))
 }
+
 
 func testAccPolicyConfig_customSSLSecurity(rName, protocol, cipher string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
@@ -392,6 +425,7 @@ resource "aws_load_balancer_policy" "test" {
 `, rName, protocol, cipher))
 }
 
+
 func testAccPolicyConfig_predefinedSSLSecurity(rName, securityPolicy string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_elb" "test" {
@@ -422,6 +456,7 @@ resource "aws_load_balancer_policy" "test" {
 }
 `, rName, securityPolicy))
 }
+
 
 func testAccPolicyConfig_updateWhileAssigned0(rInt int) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
@@ -462,6 +497,7 @@ resource "aws_load_balancer_listener_policy" "test-lb-test-policy-80" {
 }
 `, rInt))
 }
+
 
 func testAccPolicyConfig_updateWhileAssigned1(rInt int) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`

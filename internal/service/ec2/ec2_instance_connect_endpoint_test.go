@@ -19,6 +19,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccEC2InstanceConnectEndpoint_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_ec2_instance_connect_endpoint.test"
@@ -27,14 +28,16 @@ func TestAccEC2InstanceConnectEndpoint_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckInstanceConnectEndpointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstanceConnectEndpointConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckInstanceConnectEndpointExists(ctx, resourceName),
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "ec2", regexache.MustCompile(`instance-connect-endpoint/.+`)),
 					resource.TestCheckResourceAttrSet(resourceName, "availability_zone"),
@@ -58,20 +61,23 @@ func TestAccEC2InstanceConnectEndpoint_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2InstanceConnectEndpoint_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_ec2_instance_connect_endpoint.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckInstanceConnectEndpointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstanceConnectEndpointConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInstanceConnectEndpointExists(ctx, resourceName),
 					acctest.CheckFrameworkResourceDisappears(ctx, acctest.Provider, tfec2.ResourceInstanceConnectEndpoint, resourceName),
 				),
@@ -81,20 +87,23 @@ func TestAccEC2InstanceConnectEndpoint_disappears(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2InstanceConnectEndpoint_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_ec2_instance_connect_endpoint.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckInstanceConnectEndpointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstanceConnectEndpointConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInstanceConnectEndpointExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
@@ -107,7 +116,8 @@ func TestAccEC2InstanceConnectEndpoint_tags(t *testing.T) {
 			},
 			{
 				Config: testAccInstanceConnectEndpointConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInstanceConnectEndpointExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
@@ -116,7 +126,8 @@ func TestAccEC2InstanceConnectEndpoint_tags(t *testing.T) {
 			},
 			{
 				Config: testAccInstanceConnectEndpointConfig_tags1(rName, "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInstanceConnectEndpointExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
@@ -125,6 +136,7 @@ func TestAccEC2InstanceConnectEndpoint_tags(t *testing.T) {
 		},
 	})
 }
+
 
 func TestAccEC2InstanceConnectEndpoint_securityGroupIDs(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -136,14 +148,16 @@ func TestAccEC2InstanceConnectEndpoint_securityGroupIDs(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckInstanceConnectEndpointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstanceConnectEndpointConfig_securityGroupIDs(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckInstanceConnectEndpointExists(ctx, resourceName),
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "ec2", regexache.MustCompile(`instance-connect-endpoint/.+`)),
 					resource.TestCheckResourceAttrSet(resourceName, "availability_zone"),
@@ -169,8 +183,11 @@ func TestAccEC2InstanceConnectEndpoint_securityGroupIDs(t *testing.T) {
 	})
 }
 
-func testAccCheckInstanceConnectEndpointExists(ctx context.Context, n string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckInstanceConnectEndpointExists(ctx context.Context, n string) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -187,8 +204,11 @@ func testAccCheckInstanceConnectEndpointExists(ctx context.Context, n string) re
 	}
 }
 
-func testAccCheckInstanceConnectEndpointDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckInstanceConnectEndpointDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Client(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -213,6 +233,7 @@ func testAccCheckInstanceConnectEndpointDestroy(ctx context.Context) resource.Te
 	}
 }
 
+
 func testAccInstanceConnectEndpointConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), `
 resource "aws_ec2_instance_connect_endpoint" "test" {
@@ -220,6 +241,7 @@ resource "aws_ec2_instance_connect_endpoint" "test" {
 }
 `)
 }
+
 
 func testAccInstanceConnectEndpointConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
@@ -233,6 +255,7 @@ resource "aws_ec2_instance_connect_endpoint" "test" {
 `, tagKey1, tagValue1))
 }
 
+
 func testAccInstanceConnectEndpointConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
 resource "aws_ec2_instance_connect_endpoint" "test" {
@@ -245,6 +268,7 @@ resource "aws_ec2_instance_connect_endpoint" "test" {
 }
 `, tagKey1, tagValue1, tagKey2, tagValue2))
 }
+
 
 func testAccInstanceConnectEndpointConfig_securityGroupIDs(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`

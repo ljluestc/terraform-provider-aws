@@ -17,6 +17,7 @@ import (
 )
 
 // @SDKDataSource("aws_ec2_local_gateways")
+
 func DataSourceLocalGateways() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceLocalGatewaysRead,

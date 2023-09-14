@@ -18,6 +18,7 @@ import (
 )
 
 // @SDKResource("aws_vpn_gateway_attachment")
+
 func ResourceVPNGatewayAttachment() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceVPNGatewayAttachmentCreate,

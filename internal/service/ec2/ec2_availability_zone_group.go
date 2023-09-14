@@ -17,6 +17,7 @@ import (
 )
 
 // @SDKResource("aws_ec2_availability_zone_group")
+
 func ResourceAvailabilityZoneGroup() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceAvailabilityZoneGroupCreate,
@@ -37,7 +38,8 @@ func ResourceAvailabilityZoneGroup() *schema.Resource {
 			"opt_in_status": {
 				Type:     schema.TypeString,
 				Required: true,
-				ValidateFunc: validation.StringInSlice([]string{
+				Validate
+func: validation.StringInSlice([]string{
 					ec2.AvailabilityZoneOptInStatusOptedIn,
 					ec2.AvailabilityZoneOptInStatusNotOptedIn,
 				}, false),
@@ -45,6 +47,7 @@ func ResourceAvailabilityZoneGroup() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceAvailabilityZoneGroupCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -68,6 +71,7 @@ func resourceAvailabilityZoneGroupCreate(ctx context.Context, d *schema.Resource
 	return append(diags, resourceAvailabilityZoneGroupRead(ctx, d, meta)...)
 }
 
+
 func resourceAvailabilityZoneGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -88,6 +92,7 @@ func resourceAvailabilityZoneGroupRead(ctx context.Context, d *schema.ResourceDa
 	return diags
 }
 
+
 func resourceAvailabilityZoneGroupUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -98,6 +103,7 @@ func resourceAvailabilityZoneGroupUpdate(ctx context.Context, d *schema.Resource
 
 	return append(diags, resourceAvailabilityZoneGroupRead(ctx, d, meta)...)
 }
+
 
 func modifyAvailabilityZoneOptInStatus(ctx context.Context, conn *ec2.EC2, groupName, optInStatus string) error {
 	input := &ec2.ModifyAvailabilityZoneGroupInput{

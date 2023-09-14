@@ -14,6 +14,7 @@ import (
 	tfec2 "github.com/hashicorp/terraform-provider-aws/internal/service/ec2"
 )
 
+
 func TestAccVPCEndpointPolicy_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var endpoint ec2.VpcEndpoint
@@ -22,14 +23,16 @@ func TestAccVPCEndpointPolicy_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPCEndpointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCEndpointPolicyConfig_basic(rName, policy1),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckVPCEndpointExists(ctx, resourceName, &endpoint),
 				),
 			},
@@ -40,13 +43,15 @@ func TestAccVPCEndpointPolicy_basic(t *testing.T) {
 			},
 			{
 				Config: testAccVPCEndpointPolicyConfig_basic(rName, policy2),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckVPCEndpointExists(ctx, resourceName, &endpoint),
 				),
 			},
 		},
 	})
 }
+
 
 func TestAccVPCEndpointPolicy_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -55,14 +60,16 @@ func TestAccVPCEndpointPolicy_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPCEndpointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCEndpointPolicyConfig_basic(rName, policy1),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckVPCEndpointExists(ctx, resourceName, &endpoint),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceVPCEndpointPolicy(), resourceName),
 				),
@@ -72,6 +79,7 @@ func TestAccVPCEndpointPolicy_disappears(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCEndpointPolicy_disappears_endpoint(t *testing.T) {
 	ctx := acctest.Context(t)
 	var endpoint ec2.VpcEndpoint
@@ -79,14 +87,16 @@ func TestAccVPCEndpointPolicy_disappears_endpoint(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPCEndpointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCEndpointPolicyConfig_basic(rName, policy1),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckVPCEndpointExists(ctx, resourceName, &endpoint),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceVPCEndpoint(), "aws_vpc_endpoint.test"),
 				),
@@ -130,6 +140,7 @@ const policy2 = `
   ]
 }
 `
+
 
 func testAccVPCEndpointPolicyConfig_basic(rName, policy string) string {
 	return fmt.Sprintf(`

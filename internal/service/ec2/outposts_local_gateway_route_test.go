@@ -18,6 +18,7 @@ import (
 	tfec2 "github.com/hashicorp/terraform-provider-aws/internal/service/ec2"
 )
 
+
 func TestAccEC2OutpostsLocalGatewayRoute_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rInt := sdkacctest.RandIntRange(0, 255)
@@ -27,14 +28,16 @@ func TestAccEC2OutpostsLocalGatewayRoute_basic(t *testing.T) {
 	resourceName := "aws_ec2_local_gateway_route.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLocalGatewayRouteDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOutpostsLocalGatewayRouteConfig_destinationCIDRBlock(destinationCidrBlock),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckLocalGatewayRouteExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "destination_cidr_block", destinationCidrBlock),
 					resource.TestCheckResourceAttrPair(resourceName, "local_gateway_route_table_id", localGatewayRouteTableDataSourceName, "id"),
@@ -50,6 +53,7 @@ func TestAccEC2OutpostsLocalGatewayRoute_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2OutpostsLocalGatewayRoute_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rInt := sdkacctest.RandIntRange(0, 255)
@@ -57,14 +61,16 @@ func TestAccEC2OutpostsLocalGatewayRoute_disappears(t *testing.T) {
 	resourceName := "aws_ec2_local_gateway_route.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLocalGatewayRouteDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOutpostsLocalGatewayRouteConfig_destinationCIDRBlock(destinationCidrBlock),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckLocalGatewayRouteExists(ctx, resourceName),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceLocalGatewayRoute(), resourceName),
 				),
@@ -74,8 +80,11 @@ func TestAccEC2OutpostsLocalGatewayRoute_disappears(t *testing.T) {
 	})
 }
 
-func testAccCheckLocalGatewayRouteExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckLocalGatewayRouteExists(ctx context.Context, resourceName string) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("Not found: %s", resourceName)
@@ -107,8 +116,11 @@ func testAccCheckLocalGatewayRouteExists(ctx context.Context, resourceName strin
 	}
 }
 
-func testAccCheckLocalGatewayRouteDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckLocalGatewayRouteDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -142,6 +154,7 @@ func testAccCheckLocalGatewayRouteDestroy(ctx context.Context) resource.TestChec
 		return nil
 	}
 }
+
 
 func testAccOutpostsLocalGatewayRouteConfig_destinationCIDRBlock(destinationCidrBlock string) string {
 	return fmt.Sprintf(`

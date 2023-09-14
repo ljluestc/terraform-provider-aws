@@ -25,6 +25,7 @@ import (
 
 // @SDKResource("aws_athena_workgroup", name="WorkGroup")
 // @Tags(identifierAttribute="arn")
+
 func ResourceWorkGroup() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceWorkGroupCreate,
@@ -44,13 +45,15 @@ func ResourceWorkGroup() *schema.Resource {
 				Type:             schema.TypeList,
 				Optional:         true,
 				MaxItems:         1,
-				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
+				DiffSuppress
+func: verify.SuppressMissingOptionalConfigurationBlock,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"bytes_scanned_cutoff_per_query": {
 							Type:     schema.TypeInt,
 							Optional: true,
-							ValidateFunc: validation.Any(
+							Validate
+func: validation.Any(
 								validation.IntAtLeast(10485760),
 								validation.IntInSlice([]int{0}),
 							),
@@ -81,7 +84,8 @@ func ResourceWorkGroup() *schema.Resource {
 						"execution_role": {
 							Type:         schema.TypeString,
 							Optional:     true,
-							ValidateFunc: verify.ValidARN,
+							Validate
+func: verify.ValidARN,
 						},
 						"publish_cloudwatch_metrics_enabled": {
 							Type:     schema.TypeBool,
@@ -103,7 +107,8 @@ func ResourceWorkGroup() *schema.Resource {
 												"s3_acl_option": {
 													Type:         schema.TypeString,
 													Required:     true,
-													ValidateFunc: validation.StringInSlice(athena.S3AclOption_Values(), false),
+													Validate
+func: validation.StringInSlice(athena.S3AclOption_Values(), false),
 												},
 											},
 										},
@@ -117,12 +122,14 @@ func ResourceWorkGroup() *schema.Resource {
 												"encryption_option": {
 													Type:         schema.TypeString,
 													Optional:     true,
-													ValidateFunc: validation.StringInSlice(athena.EncryptionOption_Values(), false),
+													Validate
+func: validation.StringInSlice(athena.EncryptionOption_Values(), false),
 												},
 												"kms_key_arn": {
 													Type:         schema.TypeString,
 													Optional:     true,
-													ValidateFunc: verify.ValidARN,
+													Validate
+func: verify.ValidARN,
 												},
 											},
 										},
@@ -149,13 +156,15 @@ func ResourceWorkGroup() *schema.Resource {
 			"description": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				ValidateFunc: validation.StringLenBetween(0, 1024),
+				Validate
+func: validation.StringLenBetween(0, 1024),
 			},
 			"name": {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
-				ValidateFunc: validation.All(
+				Validate
+func: validation.All(
 					validation.StringLenBetween(1, 128),
 					validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_.-]+$`), "must contain only alphanumeric characters, periods, underscores, and hyphens"),
 				),
@@ -164,7 +173,8 @@ func ResourceWorkGroup() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				Default:      athena.WorkGroupStateEnabled,
-				ValidateFunc: validation.StringInSlice(athena.WorkGroupState_Values(), false),
+				Validate
+func: validation.StringInSlice(athena.WorkGroupState_Values(), false),
 			},
 			"force_destroy": {
 				Type:     schema.TypeBool,
@@ -178,6 +188,7 @@ func ResourceWorkGroup() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
+
 
 func resourceWorkGroupCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -215,6 +226,7 @@ func resourceWorkGroupCreate(ctx context.Context, d *schema.ResourceData, meta i
 
 	return append(diags, resourceWorkGroupRead(ctx, d, meta)...)
 }
+
 
 func resourceWorkGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -263,6 +275,7 @@ func resourceWorkGroupRead(ctx context.Context, d *schema.ResourceData, meta int
 	return diags
 }
 
+
 func resourceWorkGroupDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).AthenaConn(ctx)
@@ -282,6 +295,7 @@ func resourceWorkGroupDelete(ctx context.Context, d *schema.ResourceData, meta i
 
 	return diags
 }
+
 
 func resourceWorkGroupUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -312,6 +326,7 @@ func resourceWorkGroupUpdate(ctx context.Context, d *schema.ResourceData, meta i
 
 	return append(diags, resourceWorkGroupRead(ctx, d, meta)...)
 }
+
 
 func expandWorkGroupConfiguration(l []interface{}) *athena.WorkGroupConfiguration {
 	if len(l) == 0 || l[0] == nil {
@@ -353,6 +368,7 @@ func expandWorkGroupConfiguration(l []interface{}) *athena.WorkGroupConfiguratio
 	return configuration
 }
 
+
 func expandWorkGroupEngineVersion(l []interface{}) *athena.EngineVersion {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -368,6 +384,7 @@ func expandWorkGroupEngineVersion(l []interface{}) *athena.EngineVersion {
 
 	return engineVersion
 }
+
 
 func expandWorkGroupConfigurationUpdates(l []interface{}) *athena.WorkGroupConfigurationUpdates {
 	if len(l) == 0 || l[0] == nil {
@@ -411,6 +428,7 @@ func expandWorkGroupConfigurationUpdates(l []interface{}) *athena.WorkGroupConfi
 	return configurationUpdates
 }
 
+
 func expandWorkGroupResultConfiguration(l []interface{}) *athena.ResultConfiguration {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -438,6 +456,7 @@ func expandWorkGroupResultConfiguration(l []interface{}) *athena.ResultConfigura
 
 	return resultConfiguration
 }
+
 
 func expandWorkGroupResultConfigurationUpdates(l []interface{}) *athena.ResultConfigurationUpdates {
 	if len(l) == 0 || l[0] == nil {
@@ -475,6 +494,7 @@ func expandWorkGroupResultConfigurationUpdates(l []interface{}) *athena.ResultCo
 	return resultConfigurationUpdates
 }
 
+
 func expandWorkGroupEncryptionConfiguration(l []interface{}) *athena.EncryptionConfiguration {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -495,6 +515,7 @@ func expandWorkGroupEncryptionConfiguration(l []interface{}) *athena.EncryptionC
 	return encryptionConfiguration
 }
 
+
 func flattenWorkGroupConfiguration(configuration *athena.WorkGroupConfiguration) []interface{} {
 	if configuration == nil {
 		return []interface{}{}
@@ -513,6 +534,7 @@ func flattenWorkGroupConfiguration(configuration *athena.WorkGroupConfiguration)
 	return []interface{}{m}
 }
 
+
 func flattenWorkGroupEngineVersion(engineVersion *athena.EngineVersion) []interface{} {
 	if engineVersion == nil {
 		return []interface{}{}
@@ -525,6 +547,7 @@ func flattenWorkGroupEngineVersion(engineVersion *athena.EngineVersion) []interf
 
 	return []interface{}{m}
 }
+
 
 func flattenWorkGroupResultConfiguration(resultConfiguration *athena.ResultConfiguration) []interface{} {
 	if resultConfiguration == nil {
@@ -547,6 +570,7 @@ func flattenWorkGroupResultConfiguration(resultConfiguration *athena.ResultConfi
 	return []interface{}{m}
 }
 
+
 func flattenWorkGroupEncryptionConfiguration(encryptionConfiguration *athena.EncryptionConfiguration) []interface{} {
 	if encryptionConfiguration == nil {
 		return []interface{}{}
@@ -559,6 +583,7 @@ func flattenWorkGroupEncryptionConfiguration(encryptionConfiguration *athena.Enc
 
 	return []interface{}{m}
 }
+
 
 func flattenWorkGroupACLConfiguration(aclConfig *athena.AclConfiguration) []interface{} {
 	if aclConfig == nil {

@@ -19,6 +19,7 @@ import (
 )
 
 // @SDKResource("aws_network_acl_association")
+
 func ResourceNetworkACLAssociation() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceNetworkACLAssociationCreate,
@@ -62,9 +63,10 @@ func resourceNetworkACLAssociationRead(ctx context.Context, d *schema.ResourceDa
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout, func() (interface{}, error) {
-		return FindNetworkACLAssociationByID(ctx, conn, d.Id())
-	}, d.IsNewResource())
+	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout,
+		func() (interface{}, error) {
+			return FindNetworkACLAssociationByID(ctx, conn, d.Id())
+		}, d.IsNewResource())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] EC2 Network ACL Association (%s) not found, removing from state", d.Id())
@@ -116,6 +118,7 @@ func resourceNetworkACLAssociationDelete(ctx context.Context, d *schema.Resource
 
 // networkACLAssociationCreate creates an association between the specified NACL and subnet.
 // The subnet's current association is replaced and the new association's ID is returned.
+
 func networkACLAssociationCreate(ctx context.Context, conn *ec2.EC2, naclID, subnetID string) (string, error) {
 	association, err := FindNetworkACLAssociationBySubnetID(ctx, conn, subnetID)
 
@@ -129,9 +132,10 @@ func networkACLAssociationCreate(ctx context.Context, conn *ec2.EC2, naclID, sub
 	}
 
 	log.Printf("[DEBUG] Creating EC2 Network ACL Association: %s", input)
-	outputRaw, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, ec2PropagationTimeout, func() (interface{}, error) {
-		return conn.ReplaceNetworkAclAssociationWithContext(ctx, input)
-	}, errCodeInvalidAssociationIDNotFound)
+	outputRaw, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, ec2PropagationTimeout,
+		func() (interface{}, error) {
+			return conn.ReplaceNetworkAclAssociationWithContext(ctx, input)
+		}, errCodeInvalidAssociationIDNotFound)
 
 	if err != nil {
 		return "", fmt.Errorf("creating EC2 Network ACL (%s) Association: %w", naclID, err)
@@ -141,6 +145,7 @@ func networkACLAssociationCreate(ctx context.Context, conn *ec2.EC2, naclID, sub
 }
 
 // networkACLAssociationsCreate creates associations between the specified NACL and subnets.
+
 func networkACLAssociationsCreate(ctx context.Context, conn *ec2.EC2, naclID string, subnetIDs []interface{}) error {
 	for _, v := range subnetIDs {
 		subnetID := v.(string)
@@ -161,6 +166,7 @@ func networkACLAssociationsCreate(ctx context.Context, conn *ec2.EC2, naclID str
 
 // networkACLAssociationDelete deletes the specified association between a NACL and subnet.
 // The subnet's current association is replaced by an association with the VPC's default NACL.
+
 func networkACLAssociationDelete(ctx context.Context, conn *ec2.EC2, associationID, naclID string) error {
 	input := &ec2.ReplaceNetworkAclAssociationInput{
 		AssociationId: aws.String(associationID),
@@ -183,6 +189,7 @@ func networkACLAssociationDelete(ctx context.Context, conn *ec2.EC2, association
 
 // networkACLAssociationsDelete deletes the specified NACL associations for the specified subnets.
 // Each subnet's current association is replaced by an association with the specified VPC's default NACL.
+
 func networkACLAssociationsDelete(ctx context.Context, conn *ec2.EC2, vpcID string, subnetIDs []interface{}) error {
 	defaultNACL, err := FindVPCDefaultNetworkACL(ctx, conn, vpcID)
 

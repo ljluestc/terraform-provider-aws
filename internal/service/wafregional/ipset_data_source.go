@@ -15,6 +15,7 @@ import (
 )
 
 // @SDKDataSource("aws_wafregional_ipset")
+
 func DataSourceIPSet() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceIPSetRead,

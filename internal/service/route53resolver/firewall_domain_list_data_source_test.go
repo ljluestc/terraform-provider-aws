@@ -12,6 +12,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccRoute53ResolverFirewallDomainListDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -20,13 +21,15 @@ func TestAccRoute53ResolverFirewallDomainListDataSource_basic(t *testing.T) {
 	domainName := acctest.RandomFQDomainName()
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, route53resolver.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFirewallDomainListDataSourceConfig_basic(rName, domainName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrSet(dataSourceName, "creation_time"),
 					resource.TestCheckResourceAttrSet(dataSourceName, "creator_request_id"),
@@ -41,6 +44,7 @@ func TestAccRoute53ResolverFirewallDomainListDataSource_basic(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccFirewallDomainListDataSourceConfig_basic(rName, domain string) string {
 	return acctest.ConfigCompose(testAccFirewallDomainListConfig_domains(rName, domain), `

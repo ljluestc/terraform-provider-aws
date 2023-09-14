@@ -21,6 +21,7 @@ import (
 
 // @SDKResource("aws_default_vpc_dhcp_options", name="DHCP Options")
 // @Tags(identifierAttribute="id")
+
 func ResourceDefaultVPCDHCPOptions() *schema.Resource {
 	//lintignore:R011
 	return &schema.Resource{

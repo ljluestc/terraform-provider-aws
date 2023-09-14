@@ -20,9 +20,12 @@ const (
 	// MaxResults Valid Range: Minimum value of 1. Maximum value of 1000
 	// https://docs.aws.amazon.com/connect/latest/APIReference/API_ListHoursOfOperations.html
 	ListHoursOfOperationsMaxResults = 60
-	// ListLambdaFunctionsMaxResults Valid Range: Minimum value of 1. Maximum value of 25.
-	//https://docs.aws.amazon.com/connect/latest/APIReference/API_ListLambdaFunctions.html
-	ListLambdaFunctionsMaxResults = 25
+	// ListLambda
+functionsMaxResults Valid Range: Minimum value of 1. Maximum value of 25.
+	//https://docs.aws.amazon.com/connect/latest/APIReference/API_ListLambda
+functions.html
+	ListLambda
+functionsMaxResults = 25
 	// MaxResults Valid Range: Minimum value of 1. Maximum value of 1000
 	// https://docs.aws.amazon.com/connect/latest/APIReference/API_ListPrompts.html
 	ListPromptsMaxResults = 60
@@ -58,6 +61,7 @@ const (
 	SearchVocabulariesMaxResults = 60
 )
 
+
 func InstanceAttributeMapping() map[string]string {
 	return map[string]string{
 		connect.InstanceAttributeTypeAutoResolveBestVoices: "auto_resolve_best_voices_enabled",
@@ -67,7 +71,8 @@ func InstanceAttributeMapping() map[string]string {
 		connect.InstanceAttributeTypeInboundCalls:          "inbound_calls_enabled",
 		connect.InstanceAttributeTypeMultiPartyConference:  "multi_party_conference_enabled",
 		connect.InstanceAttributeTypeOutboundCalls:         "outbound_calls_enabled",
-		// Pre-release feature requiring allow-list from AWS. Removing all functionality until feature is GA
+		// Pre-release feature requiring allow-list from AWS. Removing all 
+functionality until feature is GA
 		//connect.InstanceAttributeTypeUseCustomTtsVoices:    "use_custom_tts_voices_enabled",
 	}
 }

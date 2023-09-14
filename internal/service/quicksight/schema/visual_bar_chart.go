@@ -11,6 +11,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 )
 
+
 func barCharVisualSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_BarChartVisual.html
 		Type:     schema.TypeList,
@@ -67,7 +68,8 @@ func barCharVisualSchema() *schema.Schema {
 								Optional:         true,
 								MinItems:         1,
 								MaxItems:         1,
-								DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
+								DiffSuppress
+func: verify.SuppressMissingOptionalConfigurationBlock,
 								Elem: &schema.Resource{
 									Schema: map[string]*schema.Schema{
 										"category_items_limit":                itemsLimitConfigurationSchema(),                     // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ItemsLimitConfiguration.html
@@ -93,6 +95,7 @@ func barCharVisualSchema() *schema.Schema {
 		},
 	}
 }
+
 
 func expandBarChartVisual(tfList []interface{}) *quicksight.BarChartVisual {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -127,6 +130,7 @@ func expandBarChartVisual(tfList []interface{}) *quicksight.BarChartVisual {
 
 	return visual
 }
+
 
 func expandBarChartConfiguration(tfList []interface{}) *quicksight.BarChartConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -192,6 +196,7 @@ func expandBarChartConfiguration(tfList []interface{}) *quicksight.BarChartConfi
 	return config
 }
 
+
 func expandBarChartFieldWells(tfList []interface{}) *quicksight.BarChartFieldWells {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -210,6 +215,7 @@ func expandBarChartFieldWells(tfList []interface{}) *quicksight.BarChartFieldWel
 
 	return config
 }
+
 
 func expandBarChartAggregatedFieldWells(tfList []interface{}) *quicksight.BarChartAggregatedFieldWells {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -238,6 +244,7 @@ func expandBarChartAggregatedFieldWells(tfList []interface{}) *quicksight.BarCha
 
 	return config
 }
+
 
 func expandBarChartSortConfiguration(tfList []interface{}) *quicksight.BarChartSortConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -273,6 +280,7 @@ func expandBarChartSortConfiguration(tfList []interface{}) *quicksight.BarChartS
 	return config
 }
 
+
 func flattenBarChartVisual(apiObject *quicksight.BarChartVisual) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -299,6 +307,7 @@ func flattenBarChartVisual(apiObject *quicksight.BarChartVisual) []interface{} {
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenBarChartConfiguration(apiObject *quicksight.BarChartConfiguration) []interface{} {
 	if apiObject == nil {
@@ -358,6 +367,7 @@ func flattenBarChartConfiguration(apiObject *quicksight.BarChartConfiguration) [
 	return []interface{}{tfMap}
 }
 
+
 func flattenBarChartFieldWells(apiObject *quicksight.BarChartFieldWells) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -370,6 +380,7 @@ func flattenBarChartFieldWells(apiObject *quicksight.BarChartFieldWells) []inter
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenBarChartAggregatedFieldWells(apiObject *quicksight.BarChartAggregatedFieldWells) []interface{} {
 	if apiObject == nil {
@@ -392,6 +403,7 @@ func flattenBarChartAggregatedFieldWells(apiObject *quicksight.BarChartAggregate
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenBarChartSortConfiguration(apiObject *quicksight.BarChartSortConfiguration) []interface{} {
 	if apiObject == nil {
@@ -421,6 +433,7 @@ func flattenBarChartSortConfiguration(apiObject *quicksight.BarChartSortConfigur
 	return []interface{}{tfMap}
 }
 
+
 func flattenItemsLimitConfiguration(apiObject *quicksight.ItemsLimitConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -436,6 +449,7 @@ func flattenItemsLimitConfiguration(apiObject *quicksight.ItemsLimitConfiguratio
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenFieldSortOptions(apiObject []*quicksight.FieldSortOptions) []interface{} {
 	if len(apiObject) == 0 {
@@ -462,6 +476,7 @@ func flattenFieldSortOptions(apiObject []*quicksight.FieldSortOptions) []interfa
 	return tfList
 }
 
+
 func flattenColumnSort(apiObject *quicksight.ColumnSort) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -474,12 +489,17 @@ func flattenColumnSort(apiObject *quicksight.ColumnSort) []interface{} {
 	if apiObject.SortBy != nil {
 		tfMap["sort_by"] = flattenColumnIdentifier(apiObject.SortBy)
 	}
-	if apiObject.AggregationFunction != nil {
-		tfMap["aggregation_function"] = flattenAggregationFunction(apiObject.AggregationFunction)
+	if apiObject.Aggregation
+function != nil {
+		tfMap["aggregation_
+function"] = flattenAggregation
+function(apiObject.Aggregation
+function)
 	}
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenFieldSort(apiObject *quicksight.FieldSort) []interface{} {
 	if apiObject == nil {

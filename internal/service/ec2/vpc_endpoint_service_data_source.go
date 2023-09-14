@@ -22,6 +22,7 @@ import (
 )
 
 // @SDKDataSource("aws_vpc_endpoint_service")
+
 func DataSourceVPCEndpointService() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceVPCEndpointServiceRead,
@@ -81,7 +82,8 @@ func DataSourceVPCEndpointService() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				Computed:     true,
-				ValidateFunc: validation.StringInSlice(ec2.ServiceType_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.ServiceType_Values(), false),
 			},
 			"supported_ip_address_types": {
 				Type:     schema.TypeSet,
@@ -96,6 +98,7 @@ func DataSourceVPCEndpointService() *schema.Resource {
 		},
 	}
 }
+
 
 func dataSourceVPCEndpointServiceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

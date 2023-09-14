@@ -45,23 +45,24 @@ func sweepReportGroups(region string) error {
 	sweepResources := make([]sweep.Sweepable, 0)
 
 	input := &codebuild.ListReportGroupsInput{}
-	err = conn.ListReportGroupsPagesWithContext(ctx, input, func(page *codebuild.ListReportGroupsOutput, lastPage bool) bool {
-		if page == nil {
+	err = conn.ListReportGroupsPagesWithContext(ctx, input,
+		func(page *codebuild.ListReportGroupsOutput, lastPage bool) bool {
+			if page == nil {
+				return !lastPage
+			}
+
+			for _, arn := range page.ReportGroups {
+				id := aws.StringValue(arn)
+				r := ResourceReportGroup()
+				d := r.Data(nil)
+				d.SetId(id)
+				d.Set("delete_reports", true)
+
+				sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
+			}
+
 			return !lastPage
-		}
-
-		for _, arn := range page.ReportGroups {
-			id := aws.StringValue(arn)
-			r := ResourceReportGroup()
-			d := r.Data(nil)
-			d.SetId(id)
-			d.Set("delete_reports", true)
-
-			sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
-		}
-
-		return !lastPage
-	})
+		})
 
 	if sweep.SkipSweepError(err) {
 		log.Printf("[WARN] Skipping CodeBuild Report Group sweep for %s: %s", region, err)
@@ -90,22 +91,23 @@ func sweepProjects(region string) error {
 	sweepResources := make([]sweep.Sweepable, 0)
 
 	input := &codebuild.ListProjectsInput{}
-	err = conn.ListProjectsPagesWithContext(ctx, input, func(page *codebuild.ListProjectsOutput, lastPage bool) bool {
-		if page == nil {
+	err = conn.ListProjectsPagesWithContext(ctx, input,
+		func(page *codebuild.ListProjectsOutput, lastPage bool) bool {
+			if page == nil {
+				return !lastPage
+			}
+
+			for _, arn := range page.Projects {
+				id := aws.StringValue(arn)
+				r := ResourceProject()
+				d := r.Data(nil)
+				d.SetId(id)
+
+				sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
+			}
+
 			return !lastPage
-		}
-
-		for _, arn := range page.Projects {
-			id := aws.StringValue(arn)
-			r := ResourceProject()
-			d := r.Data(nil)
-			d.SetId(id)
-
-			sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
-		}
-
-		return !lastPage
-	})
+		})
 
 	if sweep.SkipSweepError(err) {
 		log.Printf("[WARN] Skipping CodeBuild Project sweep for %s: %s", region, err)

@@ -11,6 +11,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 )
 
+
 func DashboardDefinitionSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DashboardVersionDefinition.html
 		Type:     schema.TypeList,
@@ -80,7 +81,8 @@ func DashboardDefinitionSchema() *schema.Schema {
 								Type:         schema.TypeString,
 								Optional:     true,
 								Computed:     true,
-								ValidateFunc: validation.StringInSlice(quicksight.SheetContentType_Values(), false),
+								Validate
+func: validation.StringInSlice(quicksight.SheetContentType_Values(), false),
 							},
 							"description":           stringSchema(false, validation.StringLenBetween(1, 1024)),
 							"filter_controls":       filterControlsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FilterControl.html
@@ -110,6 +112,7 @@ func DashboardDefinitionSchema() *schema.Schema {
 	}
 }
 
+
 func DashboardPublishOptionsSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DashboardPublishOptions.html
 		Type:     schema.TypeList,
@@ -128,7 +131,8 @@ func DashboardPublishOptionsSchema() *schema.Schema {
 								Type:         schema.TypeString,
 								Optional:     true,
 								Default:      quicksight.StatusEnabled,
-								ValidateFunc: validation.StringInSlice(quicksight.Status_Values(), false),
+								Validate
+func: validation.StringInSlice(quicksight.Status_Values(), false),
 							},
 						},
 					},
@@ -143,7 +147,8 @@ func DashboardPublishOptionsSchema() *schema.Schema {
 								Type:         schema.TypeString,
 								Optional:     true,
 								Default:      quicksight.StatusEnabled,
-								ValidateFunc: validation.StringInSlice(quicksight.Status_Values(), false),
+								Validate
+func: validation.StringInSlice(quicksight.Status_Values(), false),
 							}},
 					},
 				},
@@ -157,7 +162,8 @@ func DashboardPublishOptionsSchema() *schema.Schema {
 								Type:         schema.TypeString,
 								Optional:     true,
 								Default:      quicksight.StatusEnabled,
-								ValidateFunc: validation.StringInSlice(quicksight.Status_Values(), false),
+								Validate
+func: validation.StringInSlice(quicksight.Status_Values(), false),
 							}},
 					},
 				},
@@ -171,7 +177,8 @@ func DashboardPublishOptionsSchema() *schema.Schema {
 								Type:         schema.TypeString,
 								Optional:     true,
 								Default:      quicksight.StatusEnabled,
-								ValidateFunc: validation.StringInSlice(quicksight.Status_Values(), false),
+								Validate
+func: validation.StringInSlice(quicksight.Status_Values(), false),
 							}},
 					},
 				},
@@ -185,7 +192,8 @@ func DashboardPublishOptionsSchema() *schema.Schema {
 								Type:         schema.TypeString,
 								Optional:     true,
 								Default:      quicksight.StatusEnabled,
-								ValidateFunc: validation.StringInSlice(quicksight.Status_Values(), false),
+								Validate
+func: validation.StringInSlice(quicksight.Status_Values(), false),
 							}},
 					},
 				},
@@ -199,7 +207,8 @@ func DashboardPublishOptionsSchema() *schema.Schema {
 								Type:         schema.TypeString,
 								Optional:     true,
 								Default:      quicksight.StatusDisabled,
-								ValidateFunc: validation.StringInSlice(quicksight.Status_Values(), false),
+								Validate
+func: validation.StringInSlice(quicksight.Status_Values(), false),
 							}},
 					},
 				},
@@ -213,7 +222,8 @@ func DashboardPublishOptionsSchema() *schema.Schema {
 								Type:         schema.TypeString,
 								Optional:     true,
 								Default:      quicksight.DashboardUIStateCollapsed,
-								ValidateFunc: validation.StringInSlice(quicksight.DashboardUIState_Values(), false),
+								Validate
+func: validation.StringInSlice(quicksight.DashboardUIState_Values(), false),
 							},
 						},
 					},
@@ -228,7 +238,8 @@ func DashboardPublishOptionsSchema() *schema.Schema {
 								Type:         schema.TypeString,
 								Optional:     true,
 								Default:      quicksight.StatusEnabled,
-								ValidateFunc: validation.StringInSlice(quicksight.Status_Values(), false),
+								Validate
+func: validation.StringInSlice(quicksight.Status_Values(), false),
 							}},
 					},
 				},
@@ -242,7 +253,8 @@ func DashboardPublishOptionsSchema() *schema.Schema {
 								Type:         schema.TypeString,
 								Optional:     true,
 								Default:      quicksight.StatusEnabled,
-								ValidateFunc: validation.StringInSlice(quicksight.Status_Values(), false),
+								Validate
+func: validation.StringInSlice(quicksight.Status_Values(), false),
 							}},
 					},
 				},
@@ -256,7 +268,8 @@ func DashboardPublishOptionsSchema() *schema.Schema {
 								Type:         schema.TypeString,
 								Optional:     true,
 								Default:      quicksight.StatusEnabled,
-								ValidateFunc: validation.StringInSlice(quicksight.Status_Values(), false),
+								Validate
+func: validation.StringInSlice(quicksight.Status_Values(), false),
 							}},
 					},
 				},
@@ -264,6 +277,7 @@ func DashboardPublishOptionsSchema() *schema.Schema {
 		},
 	}
 }
+
 
 func DashboardSourceEntitySchema() *schema.Schema {
 	return &schema.Schema{
@@ -285,7 +299,8 @@ func DashboardSourceEntitySchema() *schema.Schema {
 							"arn": {
 								Type:         schema.TypeString,
 								Required:     true,
-								ValidateFunc: verify.ValidARN,
+								Validate
+func: verify.ValidARN,
 							},
 							"data_set_references": dataSetReferencesSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DataSetReference.html
 						},
@@ -295,6 +310,7 @@ func DashboardSourceEntitySchema() *schema.Schema {
 		},
 	}
 }
+
 
 func ExpandDashboardSourceEntity(tfList []interface{}) *quicksight.DashboardSourceEntity {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -315,6 +331,7 @@ func ExpandDashboardSourceEntity(tfList []interface{}) *quicksight.DashboardSour
 	return sourceEntity
 }
 
+
 func expandDashboardSourceTemplate(tfMap map[string]interface{}) *quicksight.DashboardSourceTemplate {
 	if tfMap == nil {
 		return nil
@@ -330,6 +347,7 @@ func expandDashboardSourceTemplate(tfMap map[string]interface{}) *quicksight.Das
 
 	return sourceTemplate
 }
+
 
 func ExpandDashboardDefinition(tfList []interface{}) *quicksight.DashboardVersionDefinition {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -367,6 +385,7 @@ func ExpandDashboardDefinition(tfList []interface{}) *quicksight.DashboardVersio
 
 	return definition
 }
+
 
 func ExpandDashboardPublishOptions(tfList []interface{}) *quicksight.DashboardPublishOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -414,6 +433,7 @@ func ExpandDashboardPublishOptions(tfList []interface{}) *quicksight.DashboardPu
 	return options
 }
 
+
 func expandAdHocFilteringOption(tfMap map[string]interface{}) *quicksight.AdHocFilteringOption {
 	if tfMap == nil {
 		return nil
@@ -426,6 +446,7 @@ func expandAdHocFilteringOption(tfMap map[string]interface{}) *quicksight.AdHocF
 
 	return options
 }
+
 
 func expandDataPointDrillUpDownOption(tfMap map[string]interface{}) *quicksight.DataPointDrillUpDownOption {
 	if tfMap == nil {
@@ -440,6 +461,7 @@ func expandDataPointDrillUpDownOption(tfMap map[string]interface{}) *quicksight.
 	return options
 }
 
+
 func expandDataPointMenuLabelOption(tfMap map[string]interface{}) *quicksight.DataPointMenuLabelOption {
 	if tfMap == nil {
 		return nil
@@ -452,6 +474,7 @@ func expandDataPointMenuLabelOption(tfMap map[string]interface{}) *quicksight.Da
 
 	return options
 }
+
 
 func expandDataPointTooltipOption(tfMap map[string]interface{}) *quicksight.DataPointTooltipOption {
 	if tfMap == nil {
@@ -466,6 +489,7 @@ func expandDataPointTooltipOption(tfMap map[string]interface{}) *quicksight.Data
 	return options
 }
 
+
 func expandExportToCSVOption(tfMap map[string]interface{}) *quicksight.ExportToCSVOption {
 	if tfMap == nil {
 		return nil
@@ -478,6 +502,7 @@ func expandExportToCSVOption(tfMap map[string]interface{}) *quicksight.ExportToC
 
 	return options
 }
+
 
 func expandExportWithHiddenFieldsOption(tfMap map[string]interface{}) *quicksight.ExportWithHiddenFieldsOption {
 	if tfMap == nil {
@@ -492,6 +517,7 @@ func expandExportWithHiddenFieldsOption(tfMap map[string]interface{}) *quicksigh
 	return options
 }
 
+
 func expandSheetLayoutElementMaximizationOption(tfMap map[string]interface{}) *quicksight.SheetLayoutElementMaximizationOption {
 	if tfMap == nil {
 		return nil
@@ -504,6 +530,7 @@ func expandSheetLayoutElementMaximizationOption(tfMap map[string]interface{}) *q
 
 	return options
 }
+
 
 func expandSheetControlsOption(tfMap map[string]interface{}) *quicksight.SheetControlsOption {
 	if tfMap == nil {
@@ -518,6 +545,7 @@ func expandSheetControlsOption(tfMap map[string]interface{}) *quicksight.SheetCo
 	return options
 }
 
+
 func expandVisualAxisSortOption(tfMap map[string]interface{}) *quicksight.VisualAxisSortOption {
 	if tfMap == nil {
 		return nil
@@ -531,6 +559,7 @@ func expandVisualAxisSortOption(tfMap map[string]interface{}) *quicksight.Visual
 	return options
 }
 
+
 func expandVisualMenuOption(tfMap map[string]interface{}) *quicksight.VisualMenuOption {
 	if tfMap == nil {
 		return nil
@@ -543,6 +572,7 @@ func expandVisualMenuOption(tfMap map[string]interface{}) *quicksight.VisualMenu
 
 	return options
 }
+
 
 func FlattenDashboardDefinition(apiObject *quicksight.DashboardVersionDefinition) []interface{} {
 	if apiObject == nil {
@@ -574,6 +604,7 @@ func FlattenDashboardDefinition(apiObject *quicksight.DashboardVersionDefinition
 
 	return []interface{}{tfMap}
 }
+
 
 func FlattenDashboardPublishOptions(apiObject *quicksight.DashboardPublishOptions) []interface{} {
 	if apiObject == nil {
@@ -615,6 +646,7 @@ func FlattenDashboardPublishOptions(apiObject *quicksight.DashboardPublishOption
 	return []interface{}{tfMap}
 }
 
+
 func flattenAdHocFilteringOption(apiObject *quicksight.AdHocFilteringOption) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -627,6 +659,7 @@ func flattenAdHocFilteringOption(apiObject *quicksight.AdHocFilteringOption) []i
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenDataPointDrillUpDownOption(apiObject *quicksight.DataPointDrillUpDownOption) []interface{} {
 	if apiObject == nil {
@@ -641,6 +674,7 @@ func flattenDataPointDrillUpDownOption(apiObject *quicksight.DataPointDrillUpDow
 	return []interface{}{tfMap}
 }
 
+
 func flattenDataPointMenuLabelOption(apiObject *quicksight.DataPointMenuLabelOption) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -653,6 +687,7 @@ func flattenDataPointMenuLabelOption(apiObject *quicksight.DataPointMenuLabelOpt
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenDataPointTooltipOption(apiObject *quicksight.DataPointTooltipOption) []interface{} {
 	if apiObject == nil {
@@ -667,6 +702,7 @@ func flattenDataPointTooltipOption(apiObject *quicksight.DataPointTooltipOption)
 	return []interface{}{tfMap}
 }
 
+
 func flattenExportToCSVOption(apiObject *quicksight.ExportToCSVOption) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -679,6 +715,7 @@ func flattenExportToCSVOption(apiObject *quicksight.ExportToCSVOption) []interfa
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenExportWithHiddenFieldsOption(apiObject *quicksight.ExportWithHiddenFieldsOption) []interface{} {
 	if apiObject == nil {
@@ -693,6 +730,7 @@ func flattenExportWithHiddenFieldsOption(apiObject *quicksight.ExportWithHiddenF
 	return []interface{}{tfMap}
 }
 
+
 func flattenSheetControlsOption(apiObject *quicksight.SheetControlsOption) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -705,6 +743,7 @@ func flattenSheetControlsOption(apiObject *quicksight.SheetControlsOption) []int
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenSheetLayoutElementMaximizationOption(apiObject *quicksight.SheetLayoutElementMaximizationOption) []interface{} {
 	if apiObject == nil {
@@ -719,6 +758,7 @@ func flattenSheetLayoutElementMaximizationOption(apiObject *quicksight.SheetLayo
 	return []interface{}{tfMap}
 }
 
+
 func flattenVisualAxisSortOption(apiObject *quicksight.VisualAxisSortOption) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -731,6 +771,7 @@ func flattenVisualAxisSortOption(apiObject *quicksight.VisualAxisSortOption) []i
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenVisualMenuOption(apiObject *quicksight.VisualMenuOption) []interface{} {
 	if apiObject == nil {

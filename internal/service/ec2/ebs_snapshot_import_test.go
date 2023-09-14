@@ -20,6 +20,7 @@ import (
 	tfs3 "github.com/hashicorp/terraform-provider-aws/internal/service/s3"
 )
 
+
 func TestAccEC2EBSSnapshotImport_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.Snapshot
@@ -27,14 +28,16 @@ func TestAccEC2EBSSnapshotImport_basic(t *testing.T) {
 	resourceName := "aws_ebs_snapshot_import.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEBSSnapshotDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEBSSnapshotImportConfig_basic(t, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSnapshotExists(ctx, resourceName, &v),
 					acctest.MatchResourceAttrRegionalARNNoAccount(resourceName, "arn", "ec2", regexache.MustCompile(`snapshot/snap-.+`)),
 					acctest.CheckResourceAttrAccountID(resourceName, "owner_id"),
@@ -45,6 +48,7 @@ func TestAccEC2EBSSnapshotImport_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2EBSSnapshotImport_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.Snapshot
@@ -52,14 +56,16 @@ func TestAccEC2EBSSnapshotImport_disappears(t *testing.T) {
 	resourceName := "aws_ebs_snapshot_import.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEBSSnapshotDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEBSSnapshotImportConfig_basic(t, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSnapshotExists(ctx, resourceName, &v),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceEBSSnapshotImport(), resourceName),
 				),
@@ -69,6 +75,7 @@ func TestAccEC2EBSSnapshotImport_disappears(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2EBSSnapshotImport_Disappears_s3Object(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.Snapshot
@@ -77,14 +84,16 @@ func TestAccEC2EBSSnapshotImport_Disappears_s3Object(t *testing.T) {
 	resourceName := "aws_ebs_snapshot_import.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEBSSnapshotDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEBSSnapshotImportConfig_basic(t, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSnapshotExists(ctx, resourceName, &v),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfs3.ResourceObject(), parentResourceName),
 				),
@@ -94,6 +103,7 @@ func TestAccEC2EBSSnapshotImport_Disappears_s3Object(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2EBSSnapshotImport_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.Snapshot
@@ -101,14 +111,16 @@ func TestAccEC2EBSSnapshotImport_tags(t *testing.T) {
 	resourceName := "aws_ebs_snapshot_import.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEBSSnapshotDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEBSSnapshotImportConfig_tags1(t, rName, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSnapshotExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
@@ -116,7 +128,8 @@ func TestAccEC2EBSSnapshotImport_tags(t *testing.T) {
 			},
 			{
 				Config: testAccEBSSnapshotImportConfig_tags2(t, rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSnapshotExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
@@ -125,7 +138,8 @@ func TestAccEC2EBSSnapshotImport_tags(t *testing.T) {
 			},
 			{
 				Config: testAccEBSSnapshotImportConfig_tags1(t, rName, "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSnapshotExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
@@ -135,6 +149,7 @@ func TestAccEC2EBSSnapshotImport_tags(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2EBSSnapshotImport_storageTier(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.Snapshot
@@ -142,14 +157,16 @@ func TestAccEC2EBSSnapshotImport_storageTier(t *testing.T) {
 	resourceName := "aws_ebs_snapshot_import.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEBSSnapshotDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEBSSnapshotImportConfig_storageTier(t, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSnapshotExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "storage_tier", "archive"),
 				),
@@ -157,6 +174,7 @@ func TestAccEC2EBSSnapshotImport_storageTier(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccEBSSnapshotImportBaseConfig(t *testing.T, rName string) string {
 	return fmt.Sprintf(`
@@ -231,6 +249,7 @@ data "aws_iam_policy_document" "vmimport-trust" {
 `, rName, testAccEBSSnapshotDisk(t))
 }
 
+
 func testAccEBSSnapshotImportConfig_basic(t *testing.T, rName string) string {
 	return acctest.ConfigCompose(testAccEBSSnapshotImportBaseConfig(t, rName), `
 resource "aws_ebs_snapshot_import" "test" {
@@ -247,6 +266,7 @@ resource "aws_ebs_snapshot_import" "test" {
 }
 `)
 }
+
 
 func testAccEBSSnapshotImportConfig_storageTier(t *testing.T, rName string) string {
 	return acctest.ConfigCompose(testAccEBSSnapshotImportBaseConfig(t, rName), fmt.Sprintf(`
@@ -270,6 +290,7 @@ resource "aws_ebs_snapshot_import" "test" {
 `, rName))
 }
 
+
 func testAccEBSSnapshotImportConfig_tags1(t *testing.T, rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccEBSSnapshotImportBaseConfig(t, rName), fmt.Sprintf(`
 resource "aws_ebs_snapshot_import" "test" {
@@ -290,6 +311,7 @@ resource "aws_ebs_snapshot_import" "test" {
 }
 `, tagKey1, tagValue1))
 }
+
 
 func testAccEBSSnapshotImportConfig_tags2(t *testing.T, rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccEBSSnapshotImportBaseConfig(t, rName), fmt.Sprintf(`
@@ -312,6 +334,7 @@ resource "aws_ebs_snapshot_import" "test" {
 }
 `, tagKey1, tagValue1, tagKey2, tagValue2))
 }
+
 
 func testAccEBSSnapshotDisk(t *testing.T) string {
 	// Take a compressed then base64'd disk image,

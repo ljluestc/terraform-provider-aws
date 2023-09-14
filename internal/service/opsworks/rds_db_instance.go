@@ -19,6 +19,7 @@ import (
 )
 
 // @SDKResource("aws_opsworks_rds_db_instance")
+
 func ResourceRDSDBInstance() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceRDSDBInstanceCreate,

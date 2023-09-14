@@ -38,6 +38,7 @@ import ( // nosemgrep:ci.semgrep.aws.multiple-service-imports
 
 // @SDKResource("aws_elb", name="Classic Load Balancer")
 // @Tags(identifierAttribute="id")
+
 func ResourceLoadBalancer() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceLoadBalancerCreate,
@@ -50,7 +51,8 @@ func ResourceLoadBalancer() *schema.Resource {
 		},
 
 		CustomizeDiff: customdiff.All(
-			customdiff.ForceNewIfChange("subnets", func(_ context.Context, o, n, meta interface{}) bool {
+			customdiff.ForceNewIfChange("subnets", 
+func(_ context.Context, o, n, meta interface{}) bool {
 				// Force new if removing all current subnets.
 				os := o.(*schema.Set)
 				ns := n.(*schema.Set)
@@ -91,7 +93,8 @@ func ResourceLoadBalancer() *schema.Resource {
 							Type:         schema.TypeInt,
 							Optional:     true,
 							Default:      60,
-							ValidateFunc: ValidAccessLogsInterval,
+							Validate
+func: ValidAccessLogsInterval,
 						},
 					},
 				},
@@ -125,7 +128,8 @@ func ResourceLoadBalancer() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 				Default:  "defensive",
-				ValidateFunc: validation.StringInSlice([]string{
+				Validate
+func: validation.StringInSlice([]string{
 					"monitor",
 					"defensive",
 					"strictest",
@@ -145,27 +149,32 @@ func ResourceLoadBalancer() *schema.Resource {
 						"healthy_threshold": {
 							Type:         schema.TypeInt,
 							Required:     true,
-							ValidateFunc: validation.IntBetween(2, 10),
+							Validate
+func: validation.IntBetween(2, 10),
 						},
 						"interval": {
 							Type:         schema.TypeInt,
 							Required:     true,
-							ValidateFunc: validation.IntBetween(5, 300),
+							Validate
+func: validation.IntBetween(5, 300),
 						},
 						"target": {
 							Type:         schema.TypeString,
 							Required:     true,
-							ValidateFunc: ValidHeathCheckTarget,
+							Validate
+func: ValidHeathCheckTarget,
 						},
 						"timeout": {
 							Type:         schema.TypeInt,
 							Required:     true,
-							ValidateFunc: validation.IntBetween(2, 60),
+							Validate
+func: validation.IntBetween(2, 60),
 						},
 						"unhealthy_threshold": {
 							Type:         schema.TypeInt,
 							Required:     true,
-							ValidateFunc: validation.IntBetween(2, 10),
+							Validate
+func: validation.IntBetween(2, 10),
 						},
 					},
 				},
@@ -174,7 +183,8 @@ func ResourceLoadBalancer() *schema.Resource {
 				Type:         schema.TypeInt,
 				Optional:     true,
 				Default:      60,
-				ValidateFunc: validation.IntBetween(1, 4000),
+				Validate
+func: validation.IntBetween(1, 4000),
 			},
 			"instances": {
 				Type:     schema.TypeSet,
@@ -196,27 +206,32 @@ func ResourceLoadBalancer() *schema.Resource {
 						"instance_port": {
 							Type:         schema.TypeInt,
 							Required:     true,
-							ValidateFunc: validation.IntBetween(1, 65535),
+							Validate
+func: validation.IntBetween(1, 65535),
 						},
 						"instance_protocol": {
 							Type:         schema.TypeString,
 							Required:     true,
-							ValidateFunc: validateListenerProtocol(),
+							Validate
+func: validateListenerProtocol(),
 						},
 						"lb_port": {
 							Type:         schema.TypeInt,
 							Required:     true,
-							ValidateFunc: validation.IntBetween(1, 65535),
+							Validate
+func: validation.IntBetween(1, 65535),
 						},
 						"lb_protocol": {
 							Type:         schema.TypeString,
 							Required:     true,
-							ValidateFunc: validateListenerProtocol(),
+							Validate
+func: validateListenerProtocol(),
 						},
 						"ssl_certificate_id": {
 							Type:         schema.TypeString,
 							Optional:     true,
-							ValidateFunc: verify.ValidARN,
+							Validate
+func: verify.ValidARN,
 						},
 					},
 				},
@@ -228,14 +243,16 @@ func ResourceLoadBalancer() *schema.Resource {
 				Computed:      true,
 				ForceNew:      true,
 				ConflictsWith: []string{"name_prefix"},
-				ValidateFunc:  ValidName,
+				Validate
+func:  ValidName,
 			},
 			"name_prefix": {
 				Type:          schema.TypeString,
 				Optional:      true,
 				ForceNew:      true,
 				ConflictsWith: []string{"name"},
-				ValidateFunc:  validNamePrefix,
+				Validate
+func:  validNamePrefix,
 			},
 			"security_groups": {
 				Type:     schema.TypeSet,
@@ -267,6 +284,7 @@ func ResourceLoadBalancer() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceLoadBalancerCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -311,7 +329,8 @@ func resourceLoadBalancerCreate(ctx context.Context, d *schema.ResourceData, met
 		input.Subnets = flex.ExpandStringSet(v.(*schema.Set))
 	}
 
-	_, err = tfresource.RetryWhenAWSErrCodeEquals(ctx, d.Timeout(schema.TimeoutCreate), func() (interface{}, error) {
+	_, err = tfresource.RetryWhenAWSErrCodeEquals(ctx, d.Timeout(schema.TimeoutCreate), 
+func() (interface{}, error) {
 		return conn.CreateLoadBalancerWithContext(ctx, input)
 	}, elb.ErrCodeCertificateNotFoundException)
 
@@ -323,6 +342,7 @@ func resourceLoadBalancerCreate(ctx context.Context, d *schema.ResourceData, met
 
 	return append(diags, resourceLoadBalancerUpdate(ctx, d, meta)...)
 }
+
 
 func resourceLoadBalancerRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -435,6 +455,7 @@ func resourceLoadBalancerRead(ctx context.Context, d *schema.ResourceData, meta 
 	return diags
 }
 
+
 func resourceLoadBalancerUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ELBConn(ctx)
@@ -478,10 +499,12 @@ func resourceLoadBalancerUpdate(ctx context.Context, d *schema.ResourceData, met
 			// Occasionally AWS will error with a 'duplicate listener', without any
 			// other listeners on the ELB. Retry here to eliminate that.
 			_, err := tfresource.RetryWhen(ctx, d.Timeout(schema.TimeoutUpdate),
-				func() (interface{}, error) {
+				
+func() (interface{}, error) {
 					return conn.CreateLoadBalancerListenersWithContext(ctx, input)
 				},
-				func(err error) (bool, error) {
+				
+func(err error) (bool, error) {
 					if tfawserr.ErrCodeEquals(err, elb.ErrCodeDuplicateListenerException) {
 						return true, err
 					}
@@ -716,7 +739,8 @@ func resourceLoadBalancerUpdate(ctx context.Context, d *schema.ResourceData, met
 				Subnets:          added,
 			}
 
-			_, err := tfresource.RetryWhenAWSErrMessageContains(ctx, d.Timeout(schema.TimeoutUpdate), func() (interface{}, error) {
+			_, err := tfresource.RetryWhenAWSErrMessageContains(ctx, d.Timeout(schema.TimeoutUpdate), 
+func() (interface{}, error) {
 				return conn.AttachLoadBalancerToSubnetsWithContext(ctx, input)
 			}, elb.ErrCodeInvalidConfigurationRequestException, "cannot be attached to multiple subnets in the same AZ")
 
@@ -728,6 +752,7 @@ func resourceLoadBalancerUpdate(ctx context.Context, d *schema.ResourceData, met
 
 	return append(diags, resourceLoadBalancerRead(ctx, d, meta)...)
 }
+
 
 func resourceLoadBalancerDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -750,6 +775,7 @@ func resourceLoadBalancerDelete(ctx context.Context, d *schema.ResourceData, met
 
 	return diags
 }
+
 
 func FindLoadBalancerByName(ctx context.Context, conn *elb.ELB, name string) (*elb.LoadBalancerDescription, error) {
 	input := &elb.DescribeLoadBalancersInput{
@@ -787,6 +813,7 @@ func FindLoadBalancerByName(ctx context.Context, conn *elb.ELB, name string) (*e
 	return output.LoadBalancerDescriptions[0], nil
 }
 
+
 func findLoadBalancerAttributesByName(ctx context.Context, conn *elb.ELB, name string) (*elb.LoadBalancerAttributes, error) {
 	input := &elb.DescribeLoadBalancerAttributesInput{
 		LoadBalancerName: aws.String(name),
@@ -812,6 +839,7 @@ func findLoadBalancerAttributesByName(ctx context.Context, conn *elb.ELB, name s
 	return output.LoadBalancerAttributes, nil
 }
 
+
 func ListenerHash(v interface{}) int {
 	var buf bytes.Buffer
 	m := v.(map[string]interface{})
@@ -827,6 +855,7 @@ func ListenerHash(v interface{}) int {
 	return create.StringHashcode(buf.String())
 }
 
+
 func ValidAccessLogsInterval(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(int)
 
@@ -839,6 +868,7 @@ func ValidAccessLogsInterval(v interface{}, k string) (ws []string, errors []err
 	}
 	return
 }
+
 
 func ValidHeathCheckTarget(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
@@ -903,6 +933,7 @@ func ValidHeathCheckTarget(v interface{}, k string) (ws []string, errors []error
 	return ws, errors
 }
 
+
 func isValidProtocol(s string) bool {
 	if s == "" {
 		return false
@@ -923,7 +954,9 @@ func isValidProtocol(s string) bool {
 	return true
 }
 
-func validateListenerProtocol() schema.SchemaValidateFunc {
+
+func validateListenerProtocol() schema.SchemaValidate
+func {
 	return validation.StringInSlice([]string{
 		"HTTP",
 		"HTTPS",
@@ -936,6 +969,7 @@ func validateListenerProtocol() schema.SchemaValidateFunc {
 // but the cleanup is asynchronous and may take time
 // which then blocks IGW, SG or VPC on deletion
 // So we make the cleanup "synchronous" here
+
 func deleteNetworkInterfaces(ctx context.Context, conn *ec2.EC2, name string) error {
 	// https://aws.amazon.com/premiumsupport/knowledge-center/elb-find-load-balancer-IP/.
 	networkInterfaces, err := tfec2.FindNetworkInterfacesByAttachmentInstanceOwnerIDAndDescription(ctx, conn, "amazon-elb", "ELB "+name)

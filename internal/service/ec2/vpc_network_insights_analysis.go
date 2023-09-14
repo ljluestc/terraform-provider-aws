@@ -23,6 +23,7 @@ import (
 
 // @SDKResource("aws_ec2_network_insights_analysis", name="Network Insights Analysis")
 // @Tags(identifierAttribute="id")
+
 func ResourceNetworkInsightsAnalysis() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceNetworkInsightsAnalysisCreate,
@@ -62,7 +63,8 @@ func ResourceNetworkInsightsAnalysis() *schema.Resource {
 				ForceNew: true,
 				Elem: &schema.Schema{
 					Type:         schema.TypeString,
-					ValidateFunc: verify.ValidARN,
+					Validate
+func: verify.ValidARN,
 				},
 			},
 			"forward_path_components": networkInsightsAnalysisPathComponentsSchema,
@@ -1403,6 +1405,7 @@ var networkInsightsAnalysisExplanationsSchema = &schema.Schema{
 	},
 }
 
+
 func resourceNetworkInsightsAnalysisCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
@@ -1432,6 +1435,7 @@ func resourceNetworkInsightsAnalysisCreate(ctx context.Context, d *schema.Resour
 
 	return resourceNetworkInsightsAnalysisRead(ctx, d, meta)
 }
+
 
 func resourceNetworkInsightsAnalysisRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -1474,10 +1478,12 @@ func resourceNetworkInsightsAnalysisRead(ctx context.Context, d *schema.Resource
 	return nil
 }
 
+
 func resourceNetworkInsightsAnalysisUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	// Tags only.
 	return resourceNetworkInsightsAnalysisRead(ctx, d, meta)
 }
+
 
 func resourceNetworkInsightsAnalysisDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -1498,6 +1504,7 @@ func resourceNetworkInsightsAnalysisDelete(ctx context.Context, d *schema.Resour
 	return nil
 }
 
+
 func flattenAdditionalDetail(apiObject *ec2.AdditionalDetail) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -1515,6 +1522,7 @@ func flattenAdditionalDetail(apiObject *ec2.AdditionalDetail) map[string]interfa
 
 	return tfMap
 }
+
 
 func flattenAdditionalDetails(apiObjects []*ec2.AdditionalDetail) []interface{} {
 	if len(apiObjects) == 0 {
@@ -1534,6 +1542,7 @@ func flattenAdditionalDetails(apiObjects []*ec2.AdditionalDetail) []interface{} 
 	return tfList
 }
 
+
 func flattenAlternatePathHint(apiObject *ec2.AlternatePathHint) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -1551,6 +1560,7 @@ func flattenAlternatePathHint(apiObject *ec2.AlternatePathHint) map[string]inter
 
 	return tfMap
 }
+
 
 func flattenAlternatePathHints(apiObjects []*ec2.AlternatePathHint) []interface{} {
 	if len(apiObjects) == 0 {
@@ -1570,7 +1580,9 @@ func flattenAlternatePathHints(apiObjects []*ec2.AlternatePathHint) []interface{
 	return tfList
 }
 
-func flattenAnalysisAclRule(apiObject *ec2.AnalysisAclRule) map[string]interface{} { // nosemgrep:ci.caps2-in-func-name
+
+func flattenAnalysisAclRule(apiObject *ec2.AnalysisAclRule) map[string]interface{} { // nosemgrep:ci.caps2-in-
+func-name
 	if apiObject == nil {
 		return nil
 	}
@@ -1604,6 +1616,7 @@ func flattenAnalysisAclRule(apiObject *ec2.AnalysisAclRule) map[string]interface
 	return tfMap
 }
 
+
 func flattenAnalysisLoadBalancerListener(apiObject *ec2.AnalysisLoadBalancerListener) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -1621,6 +1634,7 @@ func flattenAnalysisLoadBalancerListener(apiObject *ec2.AnalysisLoadBalancerList
 
 	return tfMap
 }
+
 
 func flattenAnalysisComponent(apiObject *ec2.AnalysisComponent) map[string]interface{} {
 	if apiObject == nil {
@@ -1644,6 +1658,7 @@ func flattenAnalysisComponent(apiObject *ec2.AnalysisComponent) map[string]inter
 	return tfMap
 }
 
+
 func flattenAnalysisComponents(apiObjects []*ec2.AnalysisComponent) []interface{} {
 	if len(apiObjects) == 0 {
 		return nil
@@ -1661,6 +1676,7 @@ func flattenAnalysisComponents(apiObjects []*ec2.AnalysisComponent) []interface{
 
 	return tfList
 }
+
 
 func flattenAnalysisLoadBalancerTarget(apiObject *ec2.AnalysisLoadBalancerTarget) map[string]interface{} {
 	if apiObject == nil {
@@ -1687,6 +1703,7 @@ func flattenAnalysisLoadBalancerTarget(apiObject *ec2.AnalysisLoadBalancerTarget
 
 	return tfMap
 }
+
 
 func flattenAnalysisPacketHeader(apiObject *ec2.AnalysisPacketHeader) map[string]interface{} {
 	if apiObject == nil {
@@ -1717,6 +1734,7 @@ func flattenAnalysisPacketHeader(apiObject *ec2.AnalysisPacketHeader) map[string
 
 	return tfMap
 }
+
 
 func flattenAnalysisRouteTableRoute(apiObject *ec2.AnalysisRouteTableRoute) map[string]interface{} {
 	if apiObject == nil {
@@ -1768,6 +1786,7 @@ func flattenAnalysisRouteTableRoute(apiObject *ec2.AnalysisRouteTableRoute) map[
 	return tfMap
 }
 
+
 func flattenAnalysisSecurityGroupRule(apiObject *ec2.AnalysisSecurityGroupRule) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -1797,6 +1816,7 @@ func flattenAnalysisSecurityGroupRule(apiObject *ec2.AnalysisSecurityGroupRule) 
 
 	return tfMap
 }
+
 
 func flattenExplanation(apiObject *ec2.Explanation) map[string]interface{} {
 	if apiObject == nil {
@@ -2004,6 +2024,7 @@ func flattenExplanation(apiObject *ec2.Explanation) map[string]interface{} {
 	return tfMap
 }
 
+
 func flattenExplanations(apiObjects []*ec2.Explanation) []interface{} {
 	if len(apiObjects) == 0 {
 		return nil
@@ -2021,6 +2042,7 @@ func flattenExplanations(apiObjects []*ec2.Explanation) []interface{} {
 
 	return tfList
 }
+
 
 func flattenPathComponent(apiObject *ec2.PathComponent) map[string]interface{} {
 	if apiObject == nil {
@@ -2088,6 +2110,7 @@ func flattenPathComponent(apiObject *ec2.PathComponent) map[string]interface{} {
 	return tfMap
 }
 
+
 func flattenPathComponents(apiObjects []*ec2.PathComponent) []interface{} {
 	if len(apiObjects) == 0 {
 		return nil
@@ -2105,6 +2128,7 @@ func flattenPathComponents(apiObjects []*ec2.PathComponent) []interface{} {
 
 	return tfList
 }
+
 
 func flattenPortRange(apiObject *ec2.PortRange) map[string]interface{} {
 	if apiObject == nil {
@@ -2124,6 +2148,7 @@ func flattenPortRange(apiObject *ec2.PortRange) map[string]interface{} {
 	return tfMap
 }
 
+
 func flattenPortRanges(apiObjects []*ec2.PortRange) []interface{} {
 	if len(apiObjects) == 0 {
 		return nil
@@ -2141,6 +2166,7 @@ func flattenPortRanges(apiObjects []*ec2.PortRange) []interface{} {
 
 	return tfList
 }
+
 
 func flattenTransitGatewayRouteTableRoute(apiObject *ec2.TransitGatewayRouteTableRoute) map[string]interface{} {
 	if apiObject == nil {

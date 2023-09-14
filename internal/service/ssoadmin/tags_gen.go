@@ -19,6 +19,7 @@ import (
 // listTags lists ssoadmin service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
 // it may also be a different identifier depending on the service.
+
 func listTags(ctx context.Context, conn ssoadminiface.SSOAdminAPI, identifier, resourceType string) (tftags.KeyValueTags, error) {
 	input := &ssoadmin.ListTagsForResourceInput{
 		ResourceArn: aws.String(identifier),
@@ -36,6 +37,7 @@ func listTags(ctx context.Context, conn ssoadminiface.SSOAdminAPI, identifier, r
 
 // ListTags lists ssoadmin service tags and set them in Context.
 // It is called from outside this package.
+
 func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier, resourceType string) error {
 	tags, err := listTags(ctx, meta.(*conns.AWSClient).SSOAdminConn(ctx), identifier, resourceType)
 
@@ -53,6 +55,7 @@ func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier, res
 // []*SERVICE.Tag handling
 
 // Tags returns ssoadmin service tags.
+
 func Tags(tags tftags.KeyValueTags) []*ssoadmin.Tag {
 	result := make([]*ssoadmin.Tag, 0, len(tags))
 
@@ -69,6 +72,7 @@ func Tags(tags tftags.KeyValueTags) []*ssoadmin.Tag {
 }
 
 // KeyValueTags creates tftags.KeyValueTags from ssoadmin service tags.
+
 func KeyValueTags(ctx context.Context, tags []*ssoadmin.Tag) tftags.KeyValueTags {
 	m := make(map[string]*string, len(tags))
 
@@ -81,6 +85,7 @@ func KeyValueTags(ctx context.Context, tags []*ssoadmin.Tag) tftags.KeyValueTags
 
 // getTagsIn returns ssoadmin service tags from Context.
 // nil is returned if there are no input tags.
+
 func getTagsIn(ctx context.Context) []*ssoadmin.Tag {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
@@ -92,6 +97,7 @@ func getTagsIn(ctx context.Context) []*ssoadmin.Tag {
 }
 
 // setTagsOut sets ssoadmin service tags in Context.
+
 func setTagsOut(ctx context.Context, tags []*ssoadmin.Tag) {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		inContext.TagsOut = types.Some(KeyValueTags(ctx, tags))
@@ -101,6 +107,7 @@ func setTagsOut(ctx context.Context, tags []*ssoadmin.Tag) {
 // updateTags updates ssoadmin service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
 // it may also be a different identifier depending on the service.
+
 func updateTags(ctx context.Context, conn ssoadminiface.SSOAdminAPI, identifier, resourceType string, oldTagsMap, newTagsMap any) error {
 	oldTags := tftags.New(ctx, oldTagsMap)
 	newTags := tftags.New(ctx, newTagsMap)
@@ -144,6 +151,7 @@ func updateTags(ctx context.Context, conn ssoadminiface.SSOAdminAPI, identifier,
 
 // UpdateTags updates ssoadmin service tags.
 // It is called from outside this package.
+
 func (p *servicePackage) UpdateTags(ctx context.Context, meta any, identifier, resourceType string, oldTags, newTags any) error {
 	return updateTags(ctx, meta.(*conns.AWSClient).SSOAdminConn(ctx), identifier, resourceType, oldTags, newTags)
 }

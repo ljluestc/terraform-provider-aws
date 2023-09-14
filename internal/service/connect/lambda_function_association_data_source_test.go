@@ -13,36 +13,49 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
-func testAccLambdaFunctionAssociationDataSource_basic(t *testing.T) {
+
+func testAccLambda
+functionAssociationDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandStringFromCharSet(8, sdkacctest.CharSetAlpha)
 	rName2 := sdkacctest.RandomWithPrefix("resource-test-terraform")
-	resourceName := "aws_connect_lambda_function_association.test"
-	datasourceName := "data.aws_connect_lambda_function_association.test"
+	resourceName := "aws_connect_lambda_
+function_association.test"
+	datasourceName := "data.aws_connect_lambda_
+function_association.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
-				Config: testAccLambdaFunctionAssociationDataSourceConfig_basic(rName, rName2),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Config: testAccLambda
+functionAssociationDataSourceConfig_basic(rName, rName2),
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrPair(datasourceName, "instance_id", resourceName, "instance_id"),
-					resource.TestCheckResourceAttrPair(datasourceName, "function_arn", resourceName, "function_arn"),
+					resource.TestCheckResourceAttrPair(datasourceName, "
+function_arn", resourceName, "
+function_arn"),
 				),
 			},
 		},
 	})
 }
 
-func testAccLambdaFunctionAssociationDataSourceConfig_base(rName string, rName2 string) string {
+
+func testAccLambda
+functionAssociationDataSourceConfig_base(rName string, rName2 string) string {
 	return fmt.Sprintf(`
 data "aws_partition" "current" {}
 
-resource "aws_lambda_function" "test" {
+resource "aws_lambda_
+function" "test" {
   filename      = "test-fixtures/lambdatest.zip"
-  function_name = %[1]q
+  
+function_name = %[1]q
   role          = aws_iam_role.test.arn
   handler       = "exports.handler"
   runtime       = "nodejs14.x"
@@ -75,17 +88,27 @@ resource "aws_connect_instance" "test" {
   outbound_calls_enabled   = true
 }
 
-resource "aws_connect_lambda_function_association" "test" {
+resource "aws_connect_lambda_
+function_association" "test" {
   instance_id  = aws_connect_instance.test.id
-  function_arn = aws_lambda_function.test.arn
+  
+function_arn = aws_lambda_
+function.test.arn
 }
 `, rName, rName2)
 }
 
-func testAccLambdaFunctionAssociationDataSourceConfig_basic(rName string, rName2 string) string {
-	return fmt.Sprintf(testAccLambdaFunctionAssociationDataSourceConfig_base(rName, rName2) + `
-data "aws_connect_lambda_function_association" "test" {
-  function_arn = aws_connect_lambda_function_association.test.function_arn
+
+func testAccLambda
+functionAssociationDataSourceConfig_basic(rName string, rName2 string) string {
+	return fmt.Sprintf(testAccLambda
+functionAssociationDataSourceConfig_base(rName, rName2) + `
+data "aws_connect_lambda_
+function_association" "test" {
+  
+function_arn = aws_connect_lambda_
+function_association.test.
+function_arn
   instance_id  = aws_connect_instance.test.id
 }
 `)

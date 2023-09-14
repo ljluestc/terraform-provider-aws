@@ -15,6 +15,7 @@ import (
 )
 
 // @SDKDataSource("aws_backup_selection")
+
 func DataSourceSelection() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceSelectionRead,

@@ -24,6 +24,7 @@ import (
 
 // @SDKResource("aws_ec2_capacity_reservation", name="Capacity Reservation")
 // @Tags(identifierAttribute="id")
+
 func ResourceCapacityReservation() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceCapacityReservationCreate,
@@ -55,13 +56,15 @@ func ResourceCapacityReservation() *schema.Resource {
 			"end_date": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				ValidateFunc: validation.IsRFC3339Time,
+				Validate
+func: validation.IsRFC3339Time,
 			},
 			"end_date_type": {
 				Type:         schema.TypeString,
 				Optional:     true,
 				Default:      ec2.EndDateTypeUnlimited,
-				ValidateFunc: validation.StringInSlice(ec2.EndDateType_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.EndDateType_Values(), false),
 			},
 			"ephemeral_storage": {
 				Type:     schema.TypeBool,
@@ -78,13 +81,15 @@ func ResourceCapacityReservation() *schema.Resource {
 				Optional:     true,
 				ForceNew:     true,
 				Default:      ec2.InstanceMatchCriteriaOpen,
-				ValidateFunc: validation.StringInSlice(ec2.InstanceMatchCriteria_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.InstanceMatchCriteria_Values(), false),
 			},
 			"instance_platform": {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringInSlice(ec2.CapacityReservationInstancePlatform_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.CapacityReservationInstancePlatform_Values(), false),
 			},
 			"instance_type": {
 				Type:     schema.TypeString,
@@ -94,7 +99,8 @@ func ResourceCapacityReservation() *schema.Resource {
 			"outpost_arn": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			"owner_id": {
 				Type:     schema.TypeString,
@@ -103,7 +109,8 @@ func ResourceCapacityReservation() *schema.Resource {
 			"placement_group_arn": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
@@ -112,11 +119,13 @@ func ResourceCapacityReservation() *schema.Resource {
 				Optional:     true,
 				ForceNew:     true,
 				Default:      ec2.CapacityReservationTenancyDefault,
-				ValidateFunc: validation.StringInSlice(ec2.CapacityReservationTenancy_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.CapacityReservationTenancy_Values(), false),
 			},
 		},
 	}
 }
+
 
 func resourceCapacityReservationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -177,6 +186,7 @@ func resourceCapacityReservationCreate(ctx context.Context, d *schema.ResourceDa
 	return append(diags, resourceCapacityReservationRead(ctx, d, meta)...)
 }
 
+
 func resourceCapacityReservationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -217,6 +227,7 @@ func resourceCapacityReservationRead(ctx context.Context, d *schema.ResourceData
 	return diags
 }
 
+
 func resourceCapacityReservationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -248,6 +259,7 @@ func resourceCapacityReservationUpdate(ctx context.Context, d *schema.ResourceDa
 
 	return append(diags, resourceCapacityReservationRead(ctx, d, meta)...)
 }
+
 
 func resourceCapacityReservationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

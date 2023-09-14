@@ -18,6 +18,7 @@ const customActionsMaxItems = 10
 const referenceLinesMaxItems = 20
 const dataPathValueMaxItems = 20
 
+
 func visualsSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_SheetControlLayout.html
 		Type:     schema.TypeList,
@@ -54,6 +55,7 @@ func visualsSchema() *schema.Schema {
 	}
 }
 
+
 func legendOptionsSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_LegendOptions.html
 		Type:     schema.TypeList,
@@ -77,6 +79,7 @@ func legendOptionsSchema() *schema.Schema {
 		},
 	}
 }
+
 
 func tooltipOptionsSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TooltipOptions.html
@@ -109,7 +112,9 @@ func tooltipOptionsSchema() *schema.Schema {
 											Elem: &schema.Resource{
 												Schema: map[string]*schema.Schema{
 													"column":      columnSchema(),                   // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnIdentifier.html
-													"aggregation": aggregationFunctionSchema(false), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_AggregationFunction.html
+													"aggregation": aggregation
+functionSchema(false), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_Aggregation
+function.html
 													"label": {
 														Type:     schema.TypeString,
 														Optional: true,
@@ -148,6 +153,7 @@ func tooltipOptionsSchema() *schema.Schema {
 	}
 }
 
+
 func visualPaletteSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_VisualPalette.html
 		Type:     schema.TypeList,
@@ -175,6 +181,7 @@ func visualPaletteSchema() *schema.Schema {
 	}
 }
 
+
 func dataPathValueSchema(maxItems int) *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DataPathValue.html
 		Type:     schema.TypeList,
@@ -189,6 +196,7 @@ func dataPathValueSchema(maxItems int) *schema.Schema {
 		},
 	}
 }
+
 
 func columnHierarchiesSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnHierarchy.html
@@ -263,6 +271,7 @@ func columnHierarchiesSchema() *schema.Schema {
 	}
 }
 
+
 func visualSubtitleLabelOptionsSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_VisualSubtitleLabelOptions.html
 		Type:     schema.TypeList,
@@ -279,6 +288,7 @@ func visualSubtitleLabelOptionsSchema() *schema.Schema {
 	}
 }
 
+
 func longFormatTextSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_LongFormatText.html
 		Type:     schema.TypeList,
@@ -290,17 +300,20 @@ func longFormatTextSchema() *schema.Schema {
 				"plain_text": {
 					Type:         schema.TypeString,
 					Optional:     true,
-					ValidateFunc: validation.StringLenBetween(1, 1024),
+					Validate
+func: validation.StringLenBetween(1, 1024),
 				},
 				"rich_text": {
 					Type:         schema.TypeString,
 					Optional:     true,
-					ValidateFunc: validation.StringLenBetween(1, 2048),
+					Validate
+func: validation.StringLenBetween(1, 2048),
 				},
 			},
 		},
 	}
 }
+
 
 func shortFormatTextSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ShortFormatText.html
@@ -313,17 +326,20 @@ func shortFormatTextSchema() *schema.Schema {
 				"plain_text": {
 					Type:         schema.TypeString,
 					Optional:     true,
-					ValidateFunc: validation.StringLenBetween(1, 512),
+					Validate
+func: validation.StringLenBetween(1, 512),
 				},
 				"rich_text": {
 					Type:         schema.TypeString,
 					Optional:     true,
-					ValidateFunc: validation.StringLenBetween(1, 1024),
+					Validate
+func: validation.StringLenBetween(1, 1024),
 				},
 			},
 		},
 	}
 }
+
 
 func visualTitleLabelOptionsSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_VisualTitleLabelOptions.html
@@ -340,6 +356,7 @@ func visualTitleLabelOptionsSchema() *schema.Schema {
 		},
 	}
 }
+
 
 func comparisonConfigurationSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ComparisonConfiguration.html
@@ -366,6 +383,7 @@ func comparisonConfigurationSchema() *schema.Schema {
 		},
 	}
 }
+
 
 func colorScaleSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColorScale.html
@@ -410,6 +428,7 @@ func colorScaleSchema() *schema.Schema {
 		},
 	}
 }
+
 
 func dataLabelOptionsSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DataLabelOptions.html
@@ -500,6 +519,7 @@ func dataLabelOptionsSchema() *schema.Schema {
 	}
 }
 
+
 func expandVisual(tfMap map[string]interface{}) *quicksight.Visual {
 	if tfMap == nil {
 		return nil
@@ -580,6 +600,7 @@ func expandVisual(tfMap map[string]interface{}) *quicksight.Visual {
 	return visual
 }
 
+
 func expandDataLabelOptions(tfList []interface{}) *quicksight.DataLabelOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -624,6 +645,7 @@ func expandDataLabelOptions(tfList []interface{}) *quicksight.DataLabelOptions {
 	return options
 }
 
+
 func expandDataLabelTypes(tfList []interface{}) []*quicksight.DataLabelType {
 	if len(tfList) == 0 {
 		return nil
@@ -646,6 +668,7 @@ func expandDataLabelTypes(tfList []interface{}) []*quicksight.DataLabelType {
 
 	return options
 }
+
 
 func expandDataLabelType(tfMap map[string]interface{}) *quicksight.DataLabelType {
 	if tfMap == nil {
@@ -673,6 +696,7 @@ func expandDataLabelType(tfMap map[string]interface{}) *quicksight.DataLabelType
 	return options
 }
 
+
 func expandDataPathLabelType(tfList []interface{}) *quicksight.DataPathLabelType {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -698,6 +722,7 @@ func expandDataPathLabelType(tfList []interface{}) *quicksight.DataPathLabelType
 	return options
 }
 
+
 func expandFieldLabelType(tfList []interface{}) *quicksight.FieldLabelType {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -720,6 +745,7 @@ func expandFieldLabelType(tfList []interface{}) *quicksight.FieldLabelType {
 	return options
 }
 
+
 func expandMaximumLabelType(tfList []interface{}) *quicksight.MaximumLabelType {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -738,6 +764,7 @@ func expandMaximumLabelType(tfList []interface{}) *quicksight.MaximumLabelType {
 
 	return options
 }
+
 
 func expandMinimumLabelType(tfList []interface{}) *quicksight.MinimumLabelType {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -758,6 +785,7 @@ func expandMinimumLabelType(tfList []interface{}) *quicksight.MinimumLabelType {
 	return options
 }
 
+
 func expandRangeEndsLabelType(tfList []interface{}) *quicksight.RangeEndsLabelType {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -776,6 +804,7 @@ func expandRangeEndsLabelType(tfList []interface{}) *quicksight.RangeEndsLabelTy
 
 	return options
 }
+
 
 func expandLegendOptions(tfList []interface{}) *quicksight.LegendOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -808,6 +837,7 @@ func expandLegendOptions(tfList []interface{}) *quicksight.LegendOptions {
 	return options
 }
 
+
 func expandTooltipOptions(tfList []interface{}) *quicksight.TooltipOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -832,6 +862,7 @@ func expandTooltipOptions(tfList []interface{}) *quicksight.TooltipOptions {
 
 	return options
 }
+
 
 func expandFieldBasedTooltip(tfList []interface{}) *quicksight.FieldBasedTooltip {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -858,6 +889,7 @@ func expandFieldBasedTooltip(tfList []interface{}) *quicksight.FieldBasedTooltip
 	return options
 }
 
+
 func expandTooltipItems(tfList []interface{}) []*quicksight.TooltipItem {
 	if len(tfList) == 0 {
 		return nil
@@ -881,6 +913,7 @@ func expandTooltipItems(tfList []interface{}) []*quicksight.TooltipItem {
 	return items
 }
 
+
 func expandTooltipItem(tfMap map[string]interface{}) *quicksight.TooltipItem {
 	if tfMap == nil {
 		return nil
@@ -897,6 +930,7 @@ func expandTooltipItem(tfMap map[string]interface{}) *quicksight.TooltipItem {
 
 	return item
 }
+
 
 func expandColumnTooltipItem(tfList []interface{}) *quicksight.ColumnTooltipItem {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -920,11 +954,13 @@ func expandColumnTooltipItem(tfList []interface{}) *quicksight.ColumnTooltipItem
 		item.Column = expandColumnIdentifier(v)
 	}
 	if v, ok := tfMap["aggregation"].([]interface{}); ok && len(v) > 0 {
-		item.Aggregation = expandAggregationFunction(v)
+		item.Aggregation = expandAggregation
+function(v)
 	}
 
 	return item
 }
+
 
 func expandFieldTooltipItem(tfList []interface{}) *quicksight.FieldTooltipItem {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -951,6 +987,7 @@ func expandFieldTooltipItem(tfList []interface{}) *quicksight.FieldTooltipItem {
 	return item
 }
 
+
 func expandVisualPalette(tfList []interface{}) *quicksight.VisualPalette {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -972,6 +1009,7 @@ func expandVisualPalette(tfList []interface{}) *quicksight.VisualPalette {
 
 	return config
 }
+
 
 func expandDataPathColors(tfList []interface{}) []*quicksight.DataPathColor {
 	if len(tfList) == 0 {
@@ -996,6 +1034,7 @@ func expandDataPathColors(tfList []interface{}) []*quicksight.DataPathColor {
 	return colors
 }
 
+
 func expandDataPathColor(tfMap map[string]interface{}) *quicksight.DataPathColor {
 	if tfMap == nil {
 		return nil
@@ -1015,6 +1054,7 @@ func expandDataPathColor(tfMap map[string]interface{}) *quicksight.DataPathColor
 
 	return color
 }
+
 
 func expandDataPathValues(tfList []interface{}) []*quicksight.DataPathValue {
 	if len(tfList) == 0 {
@@ -1039,6 +1079,7 @@ func expandDataPathValues(tfList []interface{}) []*quicksight.DataPathValue {
 	return values
 }
 
+
 func expandDataPathValueInternal(tfMap map[string]interface{}) *quicksight.DataPathValue {
 	if tfMap == nil {
 		return nil
@@ -1056,6 +1097,7 @@ func expandDataPathValueInternal(tfMap map[string]interface{}) *quicksight.DataP
 	return value
 }
 
+
 func expandDataPathValue(tfList []interface{}) *quicksight.DataPathValue {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -1068,6 +1110,7 @@ func expandDataPathValue(tfList []interface{}) *quicksight.DataPathValue {
 
 	return expandDataPathValueInternal(tfMap)
 }
+
 
 func expandColumnHierarchies(tfList []interface{}) []*quicksight.ColumnHierarchy {
 	if len(tfList) == 0 {
@@ -1092,6 +1135,7 @@ func expandColumnHierarchies(tfList []interface{}) []*quicksight.ColumnHierarchy
 	return options
 }
 
+
 func expandColumnHierarchy(tfMap map[string]interface{}) *quicksight.ColumnHierarchy {
 	if tfMap == nil {
 		return nil
@@ -1111,6 +1155,7 @@ func expandColumnHierarchy(tfMap map[string]interface{}) *quicksight.ColumnHiera
 
 	return options
 }
+
 
 func expandDateTimeHierarchy(tfList []interface{}) *quicksight.DateTimeHierarchy {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -1133,6 +1178,7 @@ func expandDateTimeHierarchy(tfList []interface{}) *quicksight.DateTimeHierarchy
 
 	return config
 }
+
 
 func expandExplicitHierarchy(tfList []interface{}) *quicksight.ExplicitHierarchy {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -1158,6 +1204,7 @@ func expandExplicitHierarchy(tfList []interface{}) *quicksight.ExplicitHierarchy
 
 	return config
 }
+
 func expandPredefinedHierarchy(tfList []interface{}) *quicksight.PredefinedHierarchy {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -1183,6 +1230,7 @@ func expandPredefinedHierarchy(tfList []interface{}) *quicksight.PredefinedHiera
 	return config
 }
 
+
 func expandVisualSubtitleLabelOptions(tfList []interface{}) *quicksight.VisualSubtitleLabelOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -1204,6 +1252,7 @@ func expandVisualSubtitleLabelOptions(tfList []interface{}) *quicksight.VisualSu
 
 	return options
 }
+
 
 func expandLongFormatText(tfList []interface{}) *quicksight.LongFormatText {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -1227,6 +1276,7 @@ func expandLongFormatText(tfList []interface{}) *quicksight.LongFormatText {
 	return format
 }
 
+
 func expandVisualTitleLabelOptions(tfList []interface{}) *quicksight.VisualTitleLabelOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -1248,6 +1298,7 @@ func expandVisualTitleLabelOptions(tfList []interface{}) *quicksight.VisualTitle
 
 	return options
 }
+
 
 func expandShortFormatText(tfList []interface{}) *quicksight.ShortFormatText {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -1271,6 +1322,7 @@ func expandShortFormatText(tfList []interface{}) *quicksight.ShortFormatText {
 	return format
 }
 
+
 func expandComparisonConfiguration(tfList []interface{}) *quicksight.ComparisonConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -1292,6 +1344,7 @@ func expandComparisonConfiguration(tfList []interface{}) *quicksight.ComparisonC
 
 	return config
 }
+
 
 func expandColorScale(tfList []interface{}) *quicksight.ColorScale {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -1318,6 +1371,7 @@ func expandColorScale(tfList []interface{}) *quicksight.ColorScale {
 	return config
 }
 
+
 func expandDataColor(tfList []interface{}) *quicksight.DataColor {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -1331,6 +1385,7 @@ func expandDataColor(tfList []interface{}) *quicksight.DataColor {
 	return expandDataColorInternal(tfMap)
 }
 
+
 func expandDataColorInternal(tfMap map[string]interface{}) *quicksight.DataColor {
 	color := &quicksight.DataColor{}
 
@@ -1343,6 +1398,7 @@ func expandDataColorInternal(tfMap map[string]interface{}) *quicksight.DataColor
 
 	return color
 }
+
 
 func expandDataColors(tfList []interface{}) []*quicksight.DataColor {
 	if len(tfList) == 0 {
@@ -1366,6 +1422,7 @@ func expandDataColors(tfList []interface{}) []*quicksight.DataColor {
 
 	return colors
 }
+
 
 func flattenVisuals(apiObject []*quicksight.Visual) []interface{} {
 	if len(apiObject) == 0 {
@@ -1454,6 +1511,7 @@ func flattenVisuals(apiObject []*quicksight.Visual) []interface{} {
 	return tfList
 }
 
+
 func flattenDataLabelOptions(apiObject *quicksight.DataLabelOptions) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1491,6 +1549,7 @@ func flattenDataLabelOptions(apiObject *quicksight.DataLabelOptions) []interface
 	return []interface{}{tfMap}
 }
 
+
 func flattenDataLabelType(apiObject []*quicksight.DataLabelType) []interface{} {
 	if len(apiObject) == 0 {
 		return nil
@@ -1525,6 +1584,7 @@ func flattenDataLabelType(apiObject []*quicksight.DataLabelType) []interface{} {
 	return tfList
 }
 
+
 func flattenDataPathLabelType(apiObject *quicksight.DataPathLabelType) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1544,6 +1604,7 @@ func flattenDataPathLabelType(apiObject *quicksight.DataPathLabelType) []interfa
 	return []interface{}{tfMap}
 }
 
+
 func flattenFieldLabelType(apiObject *quicksight.FieldLabelType) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1560,6 +1621,7 @@ func flattenFieldLabelType(apiObject *quicksight.FieldLabelType) []interface{} {
 	return []interface{}{tfMap}
 }
 
+
 func flattenMaximumLabelType(apiObject *quicksight.MaximumLabelType) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1572,6 +1634,7 @@ func flattenMaximumLabelType(apiObject *quicksight.MaximumLabelType) []interface
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenMinimumLabelType(apiObject *quicksight.MinimumLabelType) []interface{} {
 	if apiObject == nil {
@@ -1586,6 +1649,7 @@ func flattenMinimumLabelType(apiObject *quicksight.MinimumLabelType) []interface
 	return []interface{}{tfMap}
 }
 
+
 func flattenRangeEndsLabelType(apiObject *quicksight.RangeEndsLabelType) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1598,6 +1662,7 @@ func flattenRangeEndsLabelType(apiObject *quicksight.RangeEndsLabelType) []inter
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenLegendOptions(apiObject *quicksight.LegendOptions) []interface{} {
 	if apiObject == nil {
@@ -1624,6 +1689,7 @@ func flattenLegendOptions(apiObject *quicksight.LegendOptions) []interface{} {
 	return []interface{}{tfMap}
 }
 
+
 func flattenTooltipOptions(apiObject *quicksight.TooltipOptions) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1643,6 +1709,7 @@ func flattenTooltipOptions(apiObject *quicksight.TooltipOptions) []interface{} {
 	return []interface{}{tfMap}
 }
 
+
 func flattenFieldBasedTooltip(apiObject *quicksight.FieldBasedTooltip) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1661,6 +1728,7 @@ func flattenFieldBasedTooltip(apiObject *quicksight.FieldBasedTooltip) []interfa
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenTooltipItem(apiObject []*quicksight.TooltipItem) []interface{} {
 	if len(apiObject) == 0 {
@@ -1687,6 +1755,7 @@ func flattenTooltipItem(apiObject []*quicksight.TooltipItem) []interface{} {
 	return tfList
 }
 
+
 func flattenColumnTooltipItem(apiObject *quicksight.ColumnTooltipItem) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1697,7 +1766,8 @@ func flattenColumnTooltipItem(apiObject *quicksight.ColumnTooltipItem) []interfa
 		tfMap["column"] = flattenColumnIdentifier(apiObject.Column)
 	}
 	if apiObject.Aggregation != nil {
-		tfMap["aggregation"] = flattenAggregationFunction(apiObject.Aggregation)
+		tfMap["aggregation"] = flattenAggregation
+function(apiObject.Aggregation)
 	}
 	if apiObject.Label != nil {
 		tfMap["label"] = aws.StringValue(apiObject.Label)
@@ -1708,6 +1778,7 @@ func flattenColumnTooltipItem(apiObject *quicksight.ColumnTooltipItem) []interfa
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenFieldTooltipItem(apiObject *quicksight.FieldTooltipItem) []interface{} {
 	if apiObject == nil {
@@ -1728,6 +1799,7 @@ func flattenFieldTooltipItem(apiObject *quicksight.FieldTooltipItem) []interface
 	return []interface{}{tfMap}
 }
 
+
 func flattenVisualPalette(apiObject *quicksight.VisualPalette) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1743,6 +1815,7 @@ func flattenVisualPalette(apiObject *quicksight.VisualPalette) []interface{} {
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenDataPathColor(apiObject []*quicksight.DataPathColor) []interface{} {
 	if len(apiObject) == 0 {
@@ -1772,6 +1845,7 @@ func flattenDataPathColor(apiObject []*quicksight.DataPathColor) []interface{} {
 	return tfList
 }
 
+
 func flattenDataPathValue(apiObject *quicksight.DataPathValue) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1787,6 +1861,7 @@ func flattenDataPathValue(apiObject *quicksight.DataPathValue) []interface{} {
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenDataPathValues(apiObject []*quicksight.DataPathValue) []interface{} {
 	if len(apiObject) == 0 {
@@ -1812,6 +1887,7 @@ func flattenDataPathValues(apiObject []*quicksight.DataPathValue) []interface{} 
 
 	return tfList
 }
+
 
 func flattenColumnHierarchy(apiObject []*quicksight.ColumnHierarchy) []interface{} {
 	if len(apiObject) == 0 {
@@ -1841,6 +1917,7 @@ func flattenColumnHierarchy(apiObject []*quicksight.ColumnHierarchy) []interface
 	return tfList
 }
 
+
 func flattenDateTimeHierarchy(apiObject *quicksight.DateTimeHierarchy) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1856,6 +1933,7 @@ func flattenDateTimeHierarchy(apiObject *quicksight.DateTimeHierarchy) []interfa
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenDrillDownFilter(apiObject []*quicksight.DrillDownFilter) []interface{} {
 	if len(apiObject) == 0 {
@@ -1885,6 +1963,7 @@ func flattenDrillDownFilter(apiObject []*quicksight.DrillDownFilter) []interface
 	return tfList
 }
 
+
 func flattenCategoryDrillDownFilter(apiObject *quicksight.CategoryDrillDownFilter) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1901,6 +1980,7 @@ func flattenCategoryDrillDownFilter(apiObject *quicksight.CategoryDrillDownFilte
 	return []interface{}{tfMap}
 }
 
+
 func flattenNumericEqualityDrillDownFilter(apiObject *quicksight.NumericEqualityDrillDownFilter) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1916,6 +1996,7 @@ func flattenNumericEqualityDrillDownFilter(apiObject *quicksight.NumericEquality
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenTimeRangeDrillDownFilter(apiObject *quicksight.TimeRangeDrillDownFilter) []interface{} {
 	if apiObject == nil {
@@ -1939,6 +2020,7 @@ func flattenTimeRangeDrillDownFilter(apiObject *quicksight.TimeRangeDrillDownFil
 	return []interface{}{tfMap}
 }
 
+
 func flattenExplicitHierarchy(apiObject *quicksight.ExplicitHierarchy) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1957,6 +2039,7 @@ func flattenExplicitHierarchy(apiObject *quicksight.ExplicitHierarchy) []interfa
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenPredefinedHierarchy(apiObject *quicksight.PredefinedHierarchy) []interface{} {
 	if apiObject == nil {
@@ -1977,6 +2060,7 @@ func flattenPredefinedHierarchy(apiObject *quicksight.PredefinedHierarchy) []int
 	return []interface{}{tfMap}
 }
 
+
 func flattenVisualSubtitleLabelOptions(apiObject *quicksight.VisualSubtitleLabelOptions) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1992,6 +2076,7 @@ func flattenVisualSubtitleLabelOptions(apiObject *quicksight.VisualSubtitleLabel
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenLongFormatText(apiObject *quicksight.LongFormatText) []interface{} {
 	if apiObject == nil {
@@ -2009,6 +2094,7 @@ func flattenLongFormatText(apiObject *quicksight.LongFormatText) []interface{} {
 	return []interface{}{tfMap}
 }
 
+
 func flattenVisualTitleLabelOptions(apiObject *quicksight.VisualTitleLabelOptions) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -2025,6 +2111,7 @@ func flattenVisualTitleLabelOptions(apiObject *quicksight.VisualTitleLabelOption
 	return []interface{}{tfMap}
 }
 
+
 func flattenShortFormatText(apiObject *quicksight.ShortFormatText) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -2040,6 +2127,7 @@ func flattenShortFormatText(apiObject *quicksight.ShortFormatText) []interface{}
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenColorScale(apiObject *quicksight.ColorScale) []interface{} {
 	if apiObject == nil {
@@ -2060,6 +2148,7 @@ func flattenColorScale(apiObject *quicksight.ColorScale) []interface{} {
 	return []interface{}{tfMap}
 }
 
+
 func flattenDataColor(apiObject *quicksight.DataColor) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -2075,6 +2164,7 @@ func flattenDataColor(apiObject *quicksight.DataColor) []interface{} {
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenDataColors(apiObject []*quicksight.DataColor) []interface{} {
 	if len(apiObject) == 0 {

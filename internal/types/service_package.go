@@ -20,7 +20,8 @@ type ServicePackageResourceTags struct {
 // ServicePackageFrameworkDataSource represents a Terraform Plugin Framework data source
 // implemented by a service package.
 type ServicePackageFrameworkDataSource struct {
-	Factory func(context.Context) (datasource.DataSourceWithConfigure, error)
+	Factory 
+func(context.Context) (datasource.DataSourceWithConfigure, error)
 	Name    string
 	Tags    *ServicePackageResourceTags
 }
@@ -28,7 +29,8 @@ type ServicePackageFrameworkDataSource struct {
 // ServicePackageFrameworkResource represents a Terraform Plugin Framework resource
 // implemented by a service package.
 type ServicePackageFrameworkResource struct {
-	Factory func(context.Context) (resource.ResourceWithConfigure, error)
+	Factory 
+func(context.Context) (resource.ResourceWithConfigure, error)
 	Name    string
 	Tags    *ServicePackageResourceTags
 }
@@ -36,7 +38,8 @@ type ServicePackageFrameworkResource struct {
 // ServicePackageSDKDataSource represents a Terraform Plugin SDK data source
 // implemented by a service package.
 type ServicePackageSDKDataSource struct {
-	Factory  func() *schema.Resource
+	Factory  
+func() *schema.Resource
 	TypeName string
 	Name     string
 	Tags     *ServicePackageResourceTags
@@ -45,7 +48,8 @@ type ServicePackageSDKDataSource struct {
 // ServicePackageSDKResource represents a Terraform Plugin SDK resource
 // implemented by a service package.
 type ServicePackageSDKResource struct {
-	Factory  func() *schema.Resource
+	Factory  
+func() *schema.Resource
 	TypeName string
 	Name     string
 	Tags     *ServicePackageResourceTags

@@ -37,6 +37,7 @@ const (
 
 // @SDKResource("aws_vpc_endpoint", name="VPC Endpoint")
 // @Tags(identifierAttribute="id")
+
 func ResourceVPCEndpoint() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceVPCEndpointCreate,
@@ -82,14 +83,16 @@ func ResourceVPCEndpoint() *schema.Resource {
 				Type:             schema.TypeList,
 				Optional:         true,
 				Computed:         true,
-				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
+				DiffSuppress
+func: verify.SuppressMissingOptionalConfigurationBlock,
 				MaxItems:         1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"dns_record_ip_type": {
 							Type:         schema.TypeString,
 							Optional:     true,
-							ValidateFunc: validation.StringInSlice(ec2.DnsRecordIpType_Values(), false),
+							Validate
+func: validation.StringInSlice(ec2.DnsRecordIpType_Values(), false),
 						},
 						"private_dns_only_for_inbound_resolver_endpoint": {
 							Type:     schema.TypeBool,
@@ -102,7 +105,8 @@ func ResourceVPCEndpoint() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				Computed:     true,
-				ValidateFunc: validation.StringInSlice(ec2.IpAddressType_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.IpAddressType_Values(), false),
 			},
 			"network_interface_ids": {
 				Type:     schema.TypeSet,
@@ -117,10 +121,14 @@ func ResourceVPCEndpoint() *schema.Resource {
 				Type:                  schema.TypeString,
 				Optional:              true,
 				Computed:              true,
-				ValidateFunc:          validation.StringIsJSON,
-				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
+				Validate
+func:          validation.StringIsJSON,
+				DiffSuppress
+func:      verify.SuppressEquivalentPolicyDiffs,
 				DiffSuppressOnRefresh: true,
-				StateFunc: func(v interface{}) string {
+				State
+func: 
+func(v interface{}) string {
 					json, _ := structure.NormalizeJsonString(v)
 					return json
 				},
@@ -172,7 +180,8 @@ func ResourceVPCEndpoint() *schema.Resource {
 				Optional:     true,
 				ForceNew:     true,
 				Default:      ec2.VpcEndpointTypeGateway,
-				ValidateFunc: validation.StringInSlice(ec2.VpcEndpointType_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.VpcEndpointType_Values(), false),
 			},
 			"vpc_id": {
 				Type:     schema.TypeString,
@@ -190,6 +199,7 @@ func ResourceVPCEndpoint() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
+
 
 func resourceVPCEndpointCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -283,6 +293,7 @@ func resourceVPCEndpointCreate(ctx context.Context, d *schema.ResourceData, meta
 	return append(diags, resourceVPCEndpointRead(ctx, d, meta)...)
 }
 
+
 func resourceVPCEndpointRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -366,6 +377,7 @@ func resourceVPCEndpointRead(ctx context.Context, d *schema.ResourceData, meta i
 	return diags
 }
 
+
 func resourceVPCEndpointUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -439,6 +451,7 @@ func resourceVPCEndpointUpdate(ctx context.Context, d *schema.ResourceData, meta
 	return append(diags, resourceVPCEndpointRead(ctx, d, meta)...)
 }
 
+
 func resourceVPCEndpointDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -467,6 +480,7 @@ func resourceVPCEndpointDelete(ctx context.Context, d *schema.ResourceData, meta
 	return diags
 }
 
+
 func vpcEndpointAccept(ctx context.Context, conn *ec2.EC2, vpceID, serviceName string, timeout time.Duration) error {
 	serviceConfiguration, err := FindVPCEndpointServiceConfigurationByServiceName(ctx, conn, serviceName)
 
@@ -492,10 +506,12 @@ func vpcEndpointAccept(ctx context.Context, conn *ec2.EC2, vpceID, serviceName s
 	return nil
 }
 
+
 func isAmazonS3VPCEndpoint(serviceName string) bool {
 	ok, _ := regexp.MatchString("com\\.amazonaws\\.([a-z]+\\-[a-z]+\\-[0-9])\\.s3", serviceName)
 	return ok
 }
+
 
 func expandDNSOptionsSpecification(tfMap map[string]interface{}) *ec2.DnsOptionsSpecification {
 	if tfMap == nil {
@@ -510,6 +526,7 @@ func expandDNSOptionsSpecification(tfMap map[string]interface{}) *ec2.DnsOptions
 
 	return apiObject
 }
+
 
 func expandDNSOptionsSpecificationWithPrivateDNSOnly(tfMap map[string]interface{}) *ec2.DnsOptionsSpecification {
 	if tfMap == nil {
@@ -529,6 +546,7 @@ func expandDNSOptionsSpecificationWithPrivateDNSOnly(tfMap map[string]interface{
 	return apiObject
 }
 
+
 func flattenDNSEntry(apiObject *ec2.DnsEntry) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -546,6 +564,7 @@ func flattenDNSEntry(apiObject *ec2.DnsEntry) map[string]interface{} {
 
 	return tfMap
 }
+
 
 func flattenDNSEntries(apiObjects []*ec2.DnsEntry) []interface{} {
 	if len(apiObjects) == 0 {
@@ -565,6 +584,7 @@ func flattenDNSEntries(apiObjects []*ec2.DnsEntry) []interface{} {
 	return tfList
 }
 
+
 func flattenDNSOptions(apiObject *ec2.DnsOptions) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -583,6 +603,7 @@ func flattenDNSOptions(apiObject *ec2.DnsOptions) map[string]interface{} {
 	return tfMap
 }
 
+
 func flattenSecurityGroupIdentifiers(apiObjects []*ec2.SecurityGroupIdentifier) []string {
 	if len(apiObjects) == 0 {
 		return nil
@@ -600,6 +621,7 @@ func flattenSecurityGroupIdentifiers(apiObjects []*ec2.SecurityGroupIdentifier) 
 
 	return tfList
 }
+
 
 func flattenAddAndRemoveStringLists(d *schema.ResourceData, key string) ([]*string, []*string) {
 	if !d.HasChange(key) {

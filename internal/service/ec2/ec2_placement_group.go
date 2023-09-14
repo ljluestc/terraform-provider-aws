@@ -26,6 +26,7 @@ import (
 
 // @SDKResource("aws_placement_group", name="Placement Group")
 // @Tags(identifierAttribute="placement_group_id")
+
 func ResourcePlacementGroup() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourcePlacementGroupCreate,
@@ -53,7 +54,8 @@ func ResourcePlacementGroup() *schema.Resource {
 				Computed: true,
 				ForceNew: true,
 				// https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/placement-groups.html#placement-groups-limitations-partition.
-				ValidateFunc: validation.IntBetween(0, 7),
+				Validate
+func: validation.IntBetween(0, 7),
 			},
 			"placement_group_id": {
 				Type:     schema.TypeString,
@@ -64,13 +66,15 @@ func ResourcePlacementGroup() *schema.Resource {
 				Computed:     true,
 				Optional:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringInSlice(ec2.SpreadLevel_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.SpreadLevel_Values(), false),
 			},
 			"strategy": {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringInSlice(ec2.PlacementStrategy_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.PlacementStrategy_Values(), false),
 			},
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
@@ -82,6 +86,7 @@ func ResourcePlacementGroup() *schema.Resource {
 		),
 	}
 }
+
 
 func resourcePlacementGroupCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -119,6 +124,7 @@ func resourcePlacementGroupCreate(ctx context.Context, d *schema.ResourceData, m
 	return append(diags, resourcePlacementGroupRead(ctx, d, meta)...)
 }
 
+
 func resourcePlacementGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -154,6 +160,7 @@ func resourcePlacementGroupRead(ctx context.Context, d *schema.ResourceData, met
 	return diags
 }
 
+
 func resourcePlacementGroupUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 
@@ -161,6 +168,7 @@ func resourcePlacementGroupUpdate(ctx context.Context, d *schema.ResourceData, m
 
 	return append(diags, resourcePlacementGroupRead(ctx, d, meta)...)
 }
+
 
 func resourcePlacementGroupDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -187,6 +195,7 @@ func resourcePlacementGroupDelete(ctx context.Context, d *schema.ResourceData, m
 
 	return diags
 }
+
 
 func resourcePlacementGroupCustomizeDiff(_ context.Context, diff *schema.ResourceDiff, v interface{}) error {
 	if diff.Id() == "" {

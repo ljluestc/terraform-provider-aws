@@ -29,6 +29,7 @@ import (
 
 // @SDKResource("aws_key_pair", name="Key Pair")
 // @Tags(identifierAttribute="key_pair_id")
+
 func ResourceKeyPair() *schema.Resource {
 	//lintignore:R011
 	return &schema.Resource{
@@ -59,7 +60,8 @@ func ResourceKeyPair() *schema.Resource {
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
-				ValidateFunc:  validation.StringLenBetween(0, 255),
+				Validate
+func:  validation.StringLenBetween(0, 255),
 				ConflictsWith: []string{"key_name_prefix"},
 			},
 			"key_name_prefix": {
@@ -67,7 +69,8 @@ func ResourceKeyPair() *schema.Resource {
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
-				ValidateFunc:  validation.StringLenBetween(0, 255-id.UniqueIDSuffixLength),
+				Validate
+func:  validation.StringLenBetween(0, 255-id.UniqueIDSuffixLength),
 				ConflictsWith: []string{"key_name"},
 			},
 			"key_pair_id": {
@@ -82,7 +85,9 @@ func ResourceKeyPair() *schema.Resource {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
-				StateFunc: func(v interface{}) string {
+				State
+func: 
+func(v interface{}) string {
 					switch v := v.(type) {
 					case string:
 						return strings.TrimSpace(v)
@@ -96,6 +101,7 @@ func ResourceKeyPair() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceKeyPairCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -118,6 +124,7 @@ func resourceKeyPairCreate(ctx context.Context, d *schema.ResourceData, meta int
 
 	return append(diags, resourceKeyPairRead(ctx, d, meta)...)
 }
+
 
 func resourceKeyPairRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -154,6 +161,7 @@ func resourceKeyPairRead(ctx context.Context, d *schema.ResourceData, meta inter
 	return diags
 }
 
+
 func resourceKeyPairUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 
@@ -161,6 +169,7 @@ func resourceKeyPairUpdate(ctx context.Context, d *schema.ResourceData, meta int
 
 	return append(diags, resourceKeyPairRead(ctx, d, meta)...)
 }
+
 
 func resourceKeyPairDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -180,6 +189,7 @@ func resourceKeyPairDelete(ctx context.Context, d *schema.ResourceData, meta int
 
 // OpenSSHPublicKeysEqual returns whether or not two OpenSSH public key format strings represent the same key.
 // Any key comment is ignored when comparing values.
+
 func OpenSSHPublicKeysEqual(v1, v2 string) bool {
 	key1, _, _, _, err := ssh.ParseAuthorizedKey([]byte(v1))
 

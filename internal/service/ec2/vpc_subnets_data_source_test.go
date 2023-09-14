@@ -13,12 +13,14 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccVPCSubnetsDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -27,7 +29,8 @@ func TestAccVPCSubnetsDataSource_basic(t *testing.T) {
 			},
 			{
 				Config: testAccVPCSubnetsDataSourceConfig_dataSource(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttr("data.aws_subnets.selected", "ids.#", "4"),
 					resource.TestCheckResourceAttr("data.aws_subnets.private", "ids.#", "2"),
 					acctest.CheckResourceAttrGreaterThanValue("data.aws_subnets.all", "ids.#", 0),
@@ -38,24 +41,28 @@ func TestAccVPCSubnetsDataSource_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCSubnetsDataSource_filter(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCSubnetsDataSourceConfig_filter(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttr("data.aws_subnets.test", "ids.#", "2"),
 				),
 			},
 		},
 	})
 }
+
 
 func testAccVPCSubnetsDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
@@ -113,6 +120,7 @@ resource "aws_subnet" "test_private_b" {
 `, rName))
 }
 
+
 func testAccVPCSubnetsDataSourceConfig_dataSource(rName string) string {
 	return acctest.ConfigCompose(testAccVPCSubnetsDataSourceConfig_basic(rName), `
 data "aws_subnets" "selected" {
@@ -148,6 +156,7 @@ data "aws_subnets" "none" {
 }
 `)
 }
+
 
 func testAccVPCSubnetsDataSourceConfig_filter(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`

@@ -20,6 +20,7 @@ import (
 )
 
 // @SDKResource("aws_emr_security_configuration")
+
 func ResourceSecurityConfiguration() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceSecurityConfigurationCreate,
@@ -36,21 +37,24 @@ func ResourceSecurityConfiguration() *schema.Resource {
 				Computed:      true,
 				ForceNew:      true,
 				ConflictsWith: []string{"name_prefix"},
-				ValidateFunc:  validation.StringLenBetween(0, 10280),
+				Validate
+func:  validation.StringLenBetween(0, 10280),
 			},
 			"name_prefix": {
 				Type:          schema.TypeString,
 				Optional:      true,
 				ForceNew:      true,
 				ConflictsWith: []string{"name"},
-				ValidateFunc:  validation.StringLenBetween(0, 10280-id.UniqueIDSuffixLength),
+				Validate
+func:  validation.StringLenBetween(0, 10280-id.UniqueIDSuffixLength),
 			},
 
 			"configuration": {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringIsJSON,
+				Validate
+func: validation.StringIsJSON,
 			},
 
 			"creation_date": {
@@ -60,6 +64,7 @@ func ResourceSecurityConfiguration() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceSecurityConfigurationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -89,6 +94,7 @@ func resourceSecurityConfigurationCreate(ctx context.Context, d *schema.Resource
 	return append(diags, resourceSecurityConfigurationRead(ctx, d, meta)...)
 }
 
+
 func resourceSecurityConfigurationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EMRConn(ctx)
@@ -111,6 +117,7 @@ func resourceSecurityConfigurationRead(ctx context.Context, d *schema.ResourceDa
 
 	return diags
 }
+
 
 func resourceSecurityConfigurationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

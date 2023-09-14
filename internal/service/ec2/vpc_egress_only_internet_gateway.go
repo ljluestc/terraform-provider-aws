@@ -23,6 +23,7 @@ import (
 
 // @SDKResource("aws_egress_only_internet_gateway", name="Egress-only Internet Gateway")
 // @Tags(identifierAttribute="id")
+
 func ResourceEgressOnlyInternetGateway() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceEgressOnlyInternetGatewayCreate,
@@ -73,9 +74,10 @@ func resourceEgressOnlyInternetGatewayRead(ctx context.Context, d *schema.Resour
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout, func() (interface{}, error) {
-		return FindEgressOnlyInternetGatewayByID(ctx, conn, d.Id())
-	}, d.IsNewResource())
+	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout,
+		func() (interface{}, error) {
+			return FindEgressOnlyInternetGatewayByID(ctx, conn, d.Id())
+		}, d.IsNewResource())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] EC2 Egress-only Internet Gateway %s not found, removing from state", d.Id())

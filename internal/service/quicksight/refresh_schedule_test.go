@@ -20,6 +20,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
+
 func TestAccQuickSightRefreshSchedule_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var schedule quicksight.RefreshSchedule
@@ -29,14 +30,16 @@ func TestAccQuickSightRefreshSchedule_basic(t *testing.T) {
 	sId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckRefreshScheduleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRefreshScheduleConfigBasic(rId, rName, sId),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckRefreshScheduleExists(ctx, resourceName, &schedule),
 					acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "quicksight",
 						fmt.Sprintf("dataset/%s/refresh-schedule/%s", rId, sId)),
@@ -58,6 +61,7 @@ func TestAccQuickSightRefreshSchedule_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccQuickSightRefreshSchedule_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var schedule quicksight.RefreshSchedule
@@ -67,14 +71,16 @@ func TestAccQuickSightRefreshSchedule_disappears(t *testing.T) {
 	sId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckRefreshScheduleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRefreshScheduleConfigBasic(rId, rName, sId),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckRefreshScheduleExists(ctx, resourceName, &schedule),
 					acctest.CheckFrameworkResourceDisappears(ctx, acctest.Provider, tfquicksight.ResourceRefreshSchedule, resourceName),
 				),
@@ -83,6 +89,7 @@ func TestAccQuickSightRefreshSchedule_disappears(t *testing.T) {
 		},
 	})
 }
+
 
 func TestAccQuickSightRefreshSchedule_weeklyRefresh(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -93,14 +100,16 @@ func TestAccQuickSightRefreshSchedule_weeklyRefresh(t *testing.T) {
 	sId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckRefreshScheduleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRefreshScheduleConfigWeeklyRefresh(rId, rName, sId),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckRefreshScheduleExists(ctx, resourceName, &schedule),
 					acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "quicksight",
 						fmt.Sprintf("dataset/%s/refresh-schedule/%s", rId, sId)),
@@ -121,6 +130,7 @@ func TestAccQuickSightRefreshSchedule_weeklyRefresh(t *testing.T) {
 	})
 }
 
+
 func TestAccQuickSightRefreshSchedule_monthlyRefresh(t *testing.T) {
 	ctx := acctest.Context(t)
 	var schedule quicksight.RefreshSchedule
@@ -130,14 +140,16 @@ func TestAccQuickSightRefreshSchedule_monthlyRefresh(t *testing.T) {
 	sId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckRefreshScheduleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRefreshScheduleConfigMonthlyRefresh(rId, rName, sId),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckRefreshScheduleExists(ctx, resourceName, &schedule),
 					acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "quicksight",
 						fmt.Sprintf("dataset/%s/refresh-schedule/%s", rId, sId)),
@@ -158,8 +170,11 @@ func TestAccQuickSightRefreshSchedule_monthlyRefresh(t *testing.T) {
 	})
 }
 
-func testAccCheckRefreshScheduleExists(ctx context.Context, resourceName string, schedule *quicksight.RefreshSchedule) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckRefreshScheduleExists(ctx context.Context, resourceName string, schedule *quicksight.RefreshSchedule) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("Not found: %s", resourceName)
@@ -177,8 +192,11 @@ func testAccCheckRefreshScheduleExists(ctx context.Context, resourceName string,
 	}
 }
 
-func testAccCheckRefreshScheduleDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckRefreshScheduleDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_quicksight_refresh_schedule" {
@@ -201,6 +219,7 @@ func testAccCheckRefreshScheduleDestroy(ctx context.Context) resource.TestCheckF
 		return nil
 	}
 }
+
 
 func testAccBaseRefreshScheduleConfig(rId, rName string) string {
 	return acctest.ConfigCompose(
@@ -244,6 +263,7 @@ resource "aws_quicksight_data_set" "test" {
 `, rId, rName))
 }
 
+
 func testAccRefreshScheduleConfigBasic(rId, rName, sId string) string {
 	return acctest.ConfigCompose(
 		testAccBaseRefreshScheduleConfig(rId, rName),
@@ -262,6 +282,7 @@ resource "aws_quicksight_refresh_schedule" "test" {
 }
 `, sId))
 }
+
 
 func testAccRefreshScheduleConfigWeeklyRefresh(rId, rName, sId string) string {
 	return acctest.ConfigCompose(
@@ -282,6 +303,7 @@ resource "aws_quicksight_refresh_schedule" "test" {
 }
 `, sId))
 }
+
 
 func testAccRefreshScheduleConfigMonthlyRefresh(rId, rName, sId string) string {
 	return acctest.ConfigCompose(

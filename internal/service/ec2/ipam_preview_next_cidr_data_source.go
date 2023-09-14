@@ -20,6 +20,7 @@ import (
 )
 
 // @SDKDataSource("aws_vpc_ipam_preview_next_cidr")
+
 func DataSourceIPAMPreviewNextCIDR() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceIPAMPreviewNextCIDRRead,
@@ -38,7 +39,8 @@ func DataSourceIPAMPreviewNextCIDR() *schema.Resource {
 				Optional: true,
 				Elem: &schema.Schema{
 					Type: schema.TypeString,
-					ValidateFunc: validation.Any(
+					Validate
+func: validation.Any(
 						verify.ValidIPv4CIDRNetworkAddress,
 						// Follow the numbers used for netmask_length
 						validation.IsCIDRNetwork(0, 32),
@@ -59,11 +61,13 @@ func DataSourceIPAMPreviewNextCIDR() *schema.Resource {
 				//   DefaultNetmaskLength allocation rule will be ignored.
 				Type:         schema.TypeInt,
 				Optional:     true,
-				ValidateFunc: validation.IntBetween(0, 32),
+				Validate
+func: validation.IntBetween(0, 32),
 			},
 		},
 	}
 }
+
 
 func dataSourceIPAMPreviewNextCIDRRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

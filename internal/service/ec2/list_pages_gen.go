@@ -10,7 +10,9 @@ import (
 	"github.com/aws/aws-sdk-go/service/ec2/ec2iface"
 )
 
-func describeSpotFleetInstancesPages(ctx context.Context, conn ec2iface.EC2API, input *ec2.DescribeSpotFleetInstancesInput, fn func(*ec2.DescribeSpotFleetInstancesOutput, bool) bool) error {
+
+func describeSpotFleetInstancesPages(ctx context.Context, conn ec2iface.EC2API, input *ec2.DescribeSpotFleetInstancesInput, fn 
+func(*ec2.DescribeSpotFleetInstancesOutput, bool) bool) error {
 	for {
 		output, err := conn.DescribeSpotFleetInstancesWithContext(ctx, input)
 		if err != nil {
@@ -26,7 +28,9 @@ func describeSpotFleetInstancesPages(ctx context.Context, conn ec2iface.EC2API, 
 	}
 	return nil
 }
-func describeSpotFleetRequestHistoryPages(ctx context.Context, conn ec2iface.EC2API, input *ec2.DescribeSpotFleetRequestHistoryInput, fn func(*ec2.DescribeSpotFleetRequestHistoryOutput, bool) bool) error {
+
+func describeSpotFleetRequestHistoryPages(ctx context.Context, conn ec2iface.EC2API, input *ec2.DescribeSpotFleetRequestHistoryInput, fn 
+func(*ec2.DescribeSpotFleetRequestHistoryOutput, bool) bool) error {
 	for {
 		output, err := conn.DescribeSpotFleetRequestHistoryWithContext(ctx, input)
 		if err != nil {
@@ -42,7 +46,9 @@ func describeSpotFleetRequestHistoryPages(ctx context.Context, conn ec2iface.EC2
 	}
 	return nil
 }
-func describeVPCEndpointServicesPages(ctx context.Context, conn ec2iface.EC2API, input *ec2.DescribeVpcEndpointServicesInput, fn func(*ec2.DescribeVpcEndpointServicesOutput, bool) bool) error {
+
+func describeVPCEndpointServicesPages(ctx context.Context, conn ec2iface.EC2API, input *ec2.DescribeVpcEndpointServicesInput, fn 
+func(*ec2.DescribeVpcEndpointServicesOutput, bool) bool) error {
 	for {
 		output, err := conn.DescribeVpcEndpointServicesWithContext(ctx, input)
 		if err != nil {

@@ -16,6 +16,7 @@ import (
 )
 
 // @SDKDataSource("aws_connect_contact_flow")
+
 func DataSourceContactFlow() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceContactFlowRead,
@@ -121,24 +122,25 @@ func dataSourceGetContactFlowSummaryByName(ctx context.Context, conn *connect.Co
 		MaxResults: aws.Int64(ListContactFlowsMaxResults),
 	}
 
-	err := conn.ListContactFlowsPagesWithContext(ctx, input, func(page *connect.ListContactFlowsOutput, lastPage bool) bool {
-		if page == nil {
+	err := conn.ListContactFlowsPagesWithContext(ctx, input,
+		func(page *connect.ListContactFlowsOutput, lastPage bool) bool {
+			if page == nil {
+				return !lastPage
+			}
+
+			for _, cf := range page.ContactFlowSummaryList {
+				if cf == nil {
+					continue
+				}
+
+				if aws.StringValue(cf.Name) == name {
+					result = cf
+					return false
+				}
+			}
+
 			return !lastPage
-		}
-
-		for _, cf := range page.ContactFlowSummaryList {
-			if cf == nil {
-				continue
-			}
-
-			if aws.StringValue(cf.Name) == name {
-				result = cf
-				return false
-			}
-		}
-
-		return !lastPage
-	})
+		})
 
 	if err != nil {
 		return nil, err

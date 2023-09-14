@@ -26,6 +26,7 @@ import (
 
 // @SDKResource("aws_connect_vocabulary", name="Vocabulary")
 // @Tags(identifierAttribute="arn")
+
 func ResourceVocabulary() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceVocabularyCreate,
@@ -53,7 +54,8 @@ func ResourceVocabulary() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringLenBetween(1, 60000),
+				Validate
+func: validation.StringLenBetween(1, 60000),
 			},
 			"failure_reason": {
 				Type:     schema.TypeString,
@@ -63,13 +65,15 @@ func ResourceVocabulary() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringLenBetween(1, 100),
+				Validate
+func: validation.StringLenBetween(1, 100),
 			},
 			"language_code": {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringInSlice(connect.VocabularyLanguageCode_Values(), false),
+				Validate
+func: validation.StringInSlice(connect.VocabularyLanguageCode_Values(), false),
 			},
 			"last_modified_time": {
 				Type:     schema.TypeString,
@@ -79,7 +83,8 @@ func ResourceVocabulary() *schema.Resource {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
-				ValidateFunc: validation.All(
+				Validate
+func: validation.All(
 					validation.StringLenBetween(1, 140),
 					validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_.-]+`), "must contain only alphanumeric, period, underscore, and hyphen characters"),
 				),
@@ -97,6 +102,7 @@ func ResourceVocabulary() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceVocabularyCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -134,6 +140,7 @@ func resourceVocabularyCreate(ctx context.Context, d *schema.ResourceData, meta 
 
 	return resourceVocabularyRead(ctx, d, meta)
 }
+
 
 func resourceVocabularyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -180,10 +187,12 @@ func resourceVocabularyRead(ctx context.Context, d *schema.ResourceData, meta in
 	return nil
 }
 
+
 func resourceVocabularyUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	// Tags only.
 	return resourceVocabularyRead(ctx, d, meta)
 }
+
 
 func resourceVocabularyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -209,6 +218,7 @@ func resourceVocabularyDelete(ctx context.Context, d *schema.ResourceData, meta 
 
 	return nil
 }
+
 
 func VocabularyParseID(id string) (string, string, error) {
 	parts := strings.SplitN(id, ":", 2)

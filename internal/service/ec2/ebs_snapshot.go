@@ -26,6 +26,7 @@ import (
 
 // @SDKResource("aws_ebs_snapshot", name="EBS Snapshot")
 // @Tags(identifierAttribute="id")
+
 func ResourceEBSSnapshot() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceEBSSnapshotCreate,
@@ -70,7 +71,8 @@ func ResourceEBSSnapshot() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			"owner_alias": {
 				Type:     schema.TypeString,
@@ -88,7 +90,8 @@ func ResourceEBSSnapshot() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				Computed:     true,
-				ValidateFunc: validation.StringInSlice(append(ec2.TargetStorageTier_Values(), TargetStorageTierStandard), false),
+				Validate
+func: validation.StringInSlice(append(ec2.TargetStorageTier_Values(), TargetStorageTierStandard), false),
 			},
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
@@ -108,6 +111,7 @@ func ResourceEBSSnapshot() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceEBSSnapshotCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -129,7 +133,8 @@ func resourceEBSSnapshotCreate(ctx context.Context, d *schema.ResourceData, meta
 
 	log.Printf("[DEBUG] Creating EBS Snapshot: %s", input)
 	outputRaw, err := tfresource.RetryWhenAWSErrMessageContains(ctx, 1*time.Minute,
-		func() (interface{}, error) {
+		
+func() (interface{}, error) {
 			return conn.CreateSnapshotWithContext(ctx, input)
 		},
 		errCodeSnapshotCreationPerVolumeRateExceeded, "The maximum per volume CreateSnapshot request rate has been exceeded")
@@ -141,7 +146,8 @@ func resourceEBSSnapshotCreate(ctx context.Context, d *schema.ResourceData, meta
 	d.SetId(aws.StringValue(outputRaw.(*ec2.Snapshot).SnapshotId))
 
 	_, err = tfresource.RetryWhenAWSErrCodeEquals(ctx, d.Timeout(schema.TimeoutCreate),
-		func() (interface{}, error) {
+		
+func() (interface{}, error) {
 			return nil, conn.WaitUntilSnapshotCompletedWithContext(ctx, &ec2.DescribeSnapshotsInput{
 				SnapshotIds: aws.StringSlice([]string{d.Id()}),
 			})
@@ -169,6 +175,7 @@ func resourceEBSSnapshotCreate(ctx context.Context, d *schema.ResourceData, meta
 
 	return append(diags, resourceEBSSnapshotRead(ctx, d, meta)...)
 }
+
 
 func resourceEBSSnapshotRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -208,6 +215,7 @@ func resourceEBSSnapshotRead(ctx context.Context, d *schema.ResourceData, meta i
 
 	return diags
 }
+
 
 func resourceEBSSnapshotUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -252,12 +260,14 @@ func resourceEBSSnapshotUpdate(ctx context.Context, d *schema.ResourceData, meta
 	return append(diags, resourceEBSSnapshotRead(ctx, d, meta)...)
 }
 
+
 func resourceEBSSnapshotDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	log.Printf("[INFO] Deleting EBS Snapshot: %s", d.Id())
-	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, d.Timeout(schema.TimeoutDelete), func() (interface{}, error) {
+	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, d.Timeout(schema.TimeoutDelete), 
+func() (interface{}, error) {
 		return conn.DeleteSnapshotWithContext(ctx, &ec2.DeleteSnapshotInput{
 			SnapshotId: aws.String(d.Id()),
 		})

@@ -10,6 +10,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 )
 
+
 func histogramVisualSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_HistogramVisual.html
 		Type:     schema.TypeList,
@@ -44,7 +45,8 @@ func histogramVisualSchema() *schema.Schema {
 													"value": {
 														Type:         schema.TypeInt,
 														Optional:     true,
-														ValidateFunc: validation.IntAtLeast(0),
+														Validate
+func: validation.IntAtLeast(0),
 													},
 												},
 											},
@@ -59,12 +61,14 @@ func histogramVisualSchema() *schema.Schema {
 													"bin_count_limit": {
 														Type:         schema.TypeInt,
 														Optional:     true,
-														ValidateFunc: validation.IntBetween(0, 1000),
+														Validate
+func: validation.IntBetween(0, 1000),
 													},
 													"value": {
 														Type:         schema.TypeFloat,
 														Optional:     true,
-														ValidateFunc: validation.IntAtLeast(0),
+														Validate
+func: validation.IntAtLeast(0),
 													},
 												},
 											},
@@ -114,6 +118,7 @@ func histogramVisualSchema() *schema.Schema {
 	}
 }
 
+
 func expandHistogramVisual(tfList []interface{}) *quicksight.HistogramVisual {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -144,6 +149,7 @@ func expandHistogramVisual(tfList []interface{}) *quicksight.HistogramVisual {
 
 	return visual
 }
+
 
 func expandHistogramConfiguration(tfList []interface{}) *quicksight.HistogramConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -185,6 +191,7 @@ func expandHistogramConfiguration(tfList []interface{}) *quicksight.HistogramCon
 	return config
 }
 
+
 func expandHistogramFieldWells(tfList []interface{}) *quicksight.HistogramFieldWells {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -204,6 +211,7 @@ func expandHistogramFieldWells(tfList []interface{}) *quicksight.HistogramFieldW
 	return config
 }
 
+
 func expandHistogramAggregatedFieldWells(tfList []interface{}) *quicksight.HistogramAggregatedFieldWells {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -222,6 +230,7 @@ func expandHistogramAggregatedFieldWells(tfList []interface{}) *quicksight.Histo
 
 	return config
 }
+
 
 func expandHistogramBinOptions(tfList []interface{}) *quicksight.HistogramBinOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -251,6 +260,7 @@ func expandHistogramBinOptions(tfList []interface{}) *quicksight.HistogramBinOpt
 	return options
 }
 
+
 func expandBinCountOptions(tfList []interface{}) *quicksight.BinCountOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -269,6 +279,7 @@ func expandBinCountOptions(tfList []interface{}) *quicksight.BinCountOptions {
 
 	return options
 }
+
 
 func expandBinWidthOptions(tfList []interface{}) *quicksight.BinWidthOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -291,6 +302,7 @@ func expandBinWidthOptions(tfList []interface{}) *quicksight.BinWidthOptions {
 
 	return options
 }
+
 
 func flattenHistogramVisual(apiObject *quicksight.HistogramVisual) []interface{} {
 	if apiObject == nil {
@@ -315,6 +327,7 @@ func flattenHistogramVisual(apiObject *quicksight.HistogramVisual) []interface{}
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenHistogramConfiguration(apiObject *quicksight.HistogramConfiguration) []interface{} {
 	if apiObject == nil {
@@ -350,6 +363,7 @@ func flattenHistogramConfiguration(apiObject *quicksight.HistogramConfiguration)
 	return []interface{}{tfMap}
 }
 
+
 func flattenHistogramBinOptions(apiObject *quicksight.HistogramBinOptions) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -372,6 +386,7 @@ func flattenHistogramBinOptions(apiObject *quicksight.HistogramBinOptions) []int
 	return []interface{}{tfMap}
 }
 
+
 func flattenBinCountOptions(apiObject *quicksight.BinCountOptions) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -384,6 +399,7 @@ func flattenBinCountOptions(apiObject *quicksight.BinCountOptions) []interface{}
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenBinWidthOptions(apiObject *quicksight.BinWidthOptions) []interface{} {
 	if apiObject == nil {
@@ -401,6 +417,7 @@ func flattenBinWidthOptions(apiObject *quicksight.BinWidthOptions) []interface{}
 	return []interface{}{tfMap}
 }
 
+
 func flattenHistogramFieldWells(apiObject *quicksight.HistogramFieldWells) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -413,6 +430,7 @@ func flattenHistogramFieldWells(apiObject *quicksight.HistogramFieldWells) []int
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenHistogramAggregatedFieldWells(apiObject *quicksight.HistogramAggregatedFieldWells) []interface{} {
 	if apiObject == nil {

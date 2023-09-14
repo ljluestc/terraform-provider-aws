@@ -21,6 +21,7 @@ import (
 )
 
 // @SDKResource("aws_load_balancer_listener_policy")
+
 func ResourceListenerPolicy() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceListenerPolicySet,

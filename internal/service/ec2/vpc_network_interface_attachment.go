@@ -15,6 +15,7 @@ import (
 )
 
 // @SDKResource("aws_network_interface_attachment")
+
 func ResourceNetworkInterfaceAttachment() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceNetworkInterfaceAttachmentCreate,

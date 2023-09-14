@@ -22,6 +22,7 @@ import (
 )
 
 // @SDKResource("aws_codecommit_approval_rule_template_association")
+
 func ResourceApprovalRuleTemplateAssociation() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceApprovalRuleTemplateAssociationCreate,
@@ -36,13 +37,15 @@ func ResourceApprovalRuleTemplateAssociation() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringLenBetween(1, 100),
+				Validate
+func: validation.StringLenBetween(1, 100),
 			},
 			"repository_name": {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
-				ValidateFunc: validation.All(
+				Validate
+func: validation.All(
 					validation.StringLenBetween(1, 100),
 					validation.StringMatch(regexache.MustCompile(`[\w\.-]+`), ""),
 				),
@@ -50,6 +53,7 @@ func ResourceApprovalRuleTemplateAssociation() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceApprovalRuleTemplateAssociationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -73,6 +77,7 @@ func resourceApprovalRuleTemplateAssociationCreate(ctx context.Context, d *schem
 
 	return append(diags, resourceApprovalRuleTemplateAssociationRead(ctx, d, meta)...)
 }
+
 
 func resourceApprovalRuleTemplateAssociationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -102,6 +107,7 @@ func resourceApprovalRuleTemplateAssociationRead(ctx context.Context, d *schema.
 	return diags
 }
 
+
 func resourceApprovalRuleTemplateAssociationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CodeCommitConn(ctx)
@@ -129,6 +135,7 @@ func resourceApprovalRuleTemplateAssociationDelete(ctx context.Context, d *schem
 
 	return diags
 }
+
 
 func ApprovalRuleTemplateAssociationParseID(id string) (string, string, error) {
 	parts := strings.SplitN(id, ",", 2)

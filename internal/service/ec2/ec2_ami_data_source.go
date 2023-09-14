@@ -26,6 +26,7 @@ import (
 )
 
 // @SDKDataSource("aws_ami")
+
 func DataSourceAMI() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceAMIRead,
@@ -140,7 +141,8 @@ func DataSourceAMI() *schema.Resource {
 			"name_regex": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				ValidateFunc: validation.StringIsValidRegExp,
+				Validate
+func: validation.StringIsValidRegExp,
 			},
 			"owner_id": {
 				Type:     schema.TypeString,
@@ -152,7 +154,8 @@ func DataSourceAMI() *schema.Resource {
 				MinItems: 1,
 				Elem: &schema.Schema{
 					Type:         schema.TypeString,
-					ValidateFunc: validation.NoZeroValues,
+					Validate
+func: validation.NoZeroValues,
 				},
 			},
 			"platform": {
@@ -230,6 +233,7 @@ func DataSourceAMI() *schema.Resource {
 	}
 }
 
+
 func dataSourceAMIRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -287,7 +291,8 @@ func dataSourceAMIRead(ctx context.Context, d *schema.ResourceData, meta interfa
 			return sdkdiag.AppendErrorf(diags, "Your query returned more than one result. Please try a more "+
 				"specific search criteria, or set `most_recent` attribute to true.")
 		}
-		sort.Slice(filteredImages, func(i, j int) bool {
+		sort.Slice(filteredImages, 
+func(i, j int) bool {
 			itime, _ := time.Parse(time.RFC3339, aws.StringValue(filteredImages[i].CreationDate))
 			jtime, _ := time.Parse(time.RFC3339, aws.StringValue(filteredImages[j].CreationDate))
 			return itime.Unix() > jtime.Unix()
@@ -348,6 +353,7 @@ func dataSourceAMIRead(ctx context.Context, d *schema.ResourceData, meta interfa
 	return diags
 }
 
+
 func flattenAMIBlockDeviceMappings(m []*ec2.BlockDeviceMapping) *schema.Set {
 	s := &schema.Set{
 		F: amiBlockDeviceMappingHash,
@@ -378,6 +384,7 @@ func flattenAMIBlockDeviceMappings(m []*ec2.BlockDeviceMapping) *schema.Set {
 	return s
 }
 
+
 func flattenAMIProductCodes(m []*ec2.ProductCode) *schema.Set {
 	s := &schema.Set{
 		F: amiProductCodesHash,
@@ -391,6 +398,7 @@ func flattenAMIProductCodes(m []*ec2.ProductCode) *schema.Set {
 	}
 	return s
 }
+
 
 func amiRootSnapshotId(image *ec2.Image) string {
 	if image.RootDeviceName == nil {
@@ -408,6 +416,7 @@ func amiRootSnapshotId(image *ec2.Image) string {
 	return ""
 }
 
+
 func flattenAMIStateReason(m *ec2.StateReason) map[string]interface{} {
 	s := make(map[string]interface{})
 	if m != nil {
@@ -419,6 +428,7 @@ func flattenAMIStateReason(m *ec2.StateReason) map[string]interface{} {
 	}
 	return s
 }
+
 
 func amiBlockDeviceMappingHash(v interface{}) int {
 	var buf bytes.Buffer
@@ -446,6 +456,7 @@ func amiBlockDeviceMappingHash(v interface{}) int {
 	}
 	return create.StringHashcode(buf.String())
 }
+
 
 func amiProductCodesHash(v interface{}) int {
 	var buf bytes.Buffer

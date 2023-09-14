@@ -67,25 +67,26 @@ func sweepDashboards(region string) error {
 		AwsAccountId: aws.String(awsAccountId),
 	}
 
-	err = conn.ListDashboardsPagesWithContext(ctx, input, func(page *quicksight.ListDashboardsOutput, lastPage bool) bool {
-		if page == nil {
-			return !lastPage
-		}
-
-		for _, dashboard := range page.DashboardSummaryList {
-			if dashboard == nil {
-				continue
+	err = conn.ListDashboardsPagesWithContext(ctx, input,
+		func(page *quicksight.ListDashboardsOutput, lastPage bool) bool {
+			if page == nil {
+				return !lastPage
 			}
 
-			r := ResourceDashboard()
-			d := r.Data(nil)
-			d.SetId(fmt.Sprintf("%s,%s", awsAccountId, aws.StringValue(dashboard.DashboardId)))
+			for _, dashboard := range page.DashboardSummaryList {
+				if dashboard == nil {
+					continue
+				}
 
-			sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
-		}
+				r := ResourceDashboard()
+				d := r.Data(nil)
+				d.SetId(fmt.Sprintf("%s,%s", awsAccountId, aws.StringValue(dashboard.DashboardId)))
 
-		return !lastPage
-	})
+				sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
+			}
+
+			return !lastPage
+		})
 
 	if skipSweepError(err) {
 		log.Printf("[WARN] Skipping QuickSight Dashboard sweep for %s: %s", region, err)
@@ -119,25 +120,26 @@ func sweepDataSets(region string) error {
 		AwsAccountId: aws.String(awsAccountId),
 	}
 
-	err = conn.ListDataSetsPagesWithContext(ctx, input, func(page *quicksight.ListDataSetsOutput, lastPage bool) bool {
-		if page == nil {
-			return !lastPage
-		}
-
-		for _, ds := range page.DataSetSummaries {
-			if ds == nil {
-				continue
+	err = conn.ListDataSetsPagesWithContext(ctx, input,
+		func(page *quicksight.ListDataSetsOutput, lastPage bool) bool {
+			if page == nil {
+				return !lastPage
 			}
 
-			r := ResourceDataSet()
-			d := r.Data(nil)
-			d.SetId(fmt.Sprintf("%s,%s", awsAccountId, aws.StringValue(ds.DataSetId)))
+			for _, ds := range page.DataSetSummaries {
+				if ds == nil {
+					continue
+				}
 
-			sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
-		}
+				r := ResourceDataSet()
+				d := r.Data(nil)
+				d.SetId(fmt.Sprintf("%s,%s", awsAccountId, aws.StringValue(ds.DataSetId)))
 
-		return !lastPage
-	})
+				sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
+			}
+
+			return !lastPage
+		})
 
 	if skipSweepError(err) {
 		log.Printf("[WARN] Skipping QuickSight Data Set sweep for %s: %s", region, err)
@@ -171,25 +173,26 @@ func sweepDataSources(region string) error {
 		AwsAccountId: aws.String(awsAccountId),
 	}
 
-	err = conn.ListDataSourcesPagesWithContext(ctx, input, func(page *quicksight.ListDataSourcesOutput, lastPage bool) bool {
-		if page == nil {
-			return !lastPage
-		}
-
-		for _, ds := range page.DataSources {
-			if ds == nil {
-				continue
+	err = conn.ListDataSourcesPagesWithContext(ctx, input,
+		func(page *quicksight.ListDataSourcesOutput, lastPage bool) bool {
+			if page == nil {
+				return !lastPage
 			}
 
-			r := ResourceDataSource()
-			d := r.Data(nil)
-			d.SetId(fmt.Sprintf("%s/%s", awsAccountId, aws.StringValue(ds.DataSourceId)))
+			for _, ds := range page.DataSources {
+				if ds == nil {
+					continue
+				}
 
-			sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
-		}
+				r := ResourceDataSource()
+				d := r.Data(nil)
+				d.SetId(fmt.Sprintf("%s/%s", awsAccountId, aws.StringValue(ds.DataSourceId)))
 
-		return !lastPage
-	})
+				sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
+			}
+
+			return !lastPage
+		})
 
 	if skipSweepError(err) {
 		log.Printf("[WARN] Skipping QuickSight Data Source sweep for %s: %s", region, err)
@@ -268,25 +271,26 @@ func sweepTemplates(region string) error {
 		AwsAccountId: aws.String(awsAccountId),
 	}
 
-	err = conn.ListTemplatesPagesWithContext(ctx, input, func(page *quicksight.ListTemplatesOutput, lastPage bool) bool {
-		if page == nil {
-			return !lastPage
-		}
-
-		for _, tmpl := range page.TemplateSummaryList {
-			if tmpl == nil {
-				continue
+	err = conn.ListTemplatesPagesWithContext(ctx, input,
+		func(page *quicksight.ListTemplatesOutput, lastPage bool) bool {
+			if page == nil {
+				return !lastPage
 			}
 
-			r := ResourceTemplate()
-			d := r.Data(nil)
-			d.SetId(fmt.Sprintf("%s,%s", awsAccountId, aws.StringValue(tmpl.TemplateId)))
+			for _, tmpl := range page.TemplateSummaryList {
+				if tmpl == nil {
+					continue
+				}
 
-			sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
-		}
+				r := ResourceTemplate()
+				d := r.Data(nil)
+				d.SetId(fmt.Sprintf("%s,%s", awsAccountId, aws.StringValue(tmpl.TemplateId)))
 
-		return !lastPage
-	})
+				sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
+			}
+
+			return !lastPage
+		})
 
 	if skipSweepError(err) {
 		log.Printf("[WARN] Skipping QuickSight Template sweep for %s: %s", region, err)
@@ -350,6 +354,7 @@ func sweepUsers(region string) error {
 }
 
 // skipSweepError adds an additional skippable error code for listing QuickSight resources other than User
+
 func skipSweepError(err error) bool {
 	if tfawserr.ErrCodeEquals(err, quicksight.ErrCodeUnsupportedUserEditionException) {
 		return true
@@ -359,6 +364,7 @@ func skipSweepError(err error) bool {
 }
 
 // skipSweepUserError adds an additional skippable error code for listing QuickSight User resources
+
 func skipSweepUserError(err error) bool {
 	if tfawserr.ErrMessageContains(err, quicksight.ErrCodeResourceNotFoundException, "not signed up with QuickSight") {
 		return true

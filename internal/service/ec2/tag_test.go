@@ -14,6 +14,7 @@ import (
 	tfec2 "github.com/hashicorp/terraform-provider-aws/internal/service/ec2"
 )
 
+
 func TestAccEC2Tag_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -21,14 +22,16 @@ func TestAccEC2Tag_basic(t *testing.T) {
 	resourceName := "aws_ec2_tag.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTagDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTagConfig_basic(rName, rBgpAsn, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTagExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "key", "key1"),
 					resource.TestCheckResourceAttr(resourceName, "value", "value1"),
@@ -43,6 +46,7 @@ func TestAccEC2Tag_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2Tag_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -50,14 +54,16 @@ func TestAccEC2Tag_disappears(t *testing.T) {
 	resourceName := "aws_ec2_tag.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTagDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTagConfig_basic(rName, rBgpAsn, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTagExists(ctx, resourceName),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceTag(), resourceName),
 				),
@@ -67,6 +73,7 @@ func TestAccEC2Tag_disappears(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2Tag_value(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -74,14 +81,16 @@ func TestAccEC2Tag_value(t *testing.T) {
 	resourceName := "aws_ec2_tag.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTagDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTagConfig_basic(rName, rBgpAsn, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTagExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "key", "key1"),
 					resource.TestCheckResourceAttr(resourceName, "value", "value1"),
@@ -94,7 +103,8 @@ func TestAccEC2Tag_value(t *testing.T) {
 			},
 			{
 				Config: testAccTagConfig_basic(rName, rBgpAsn, "key1", "value1updated"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTagExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "key", "key1"),
 					resource.TestCheckResourceAttr(resourceName, "value", "value1updated"),
@@ -103,6 +113,7 @@ func TestAccEC2Tag_value(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccTagConfig_basic(rName string, rBgpAsn int, key, value string) string {
 	return fmt.Sprintf(`

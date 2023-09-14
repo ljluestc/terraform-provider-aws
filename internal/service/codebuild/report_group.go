@@ -24,6 +24,7 @@ import (
 
 // @SDKResource("aws_codebuild_report_group", name="Report Group")
 // @Tags
+
 func ResourceReportGroup() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceReportGroupCreate,
@@ -44,13 +45,15 @@ func ResourceReportGroup() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringLenBetween(2, 128),
+				Validate
+func: validation.StringLenBetween(2, 128),
 			},
 			"type": {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringInSlice(codebuild.ReportType_Values(), false),
+				Validate
+func: validation.StringInSlice(codebuild.ReportType_Values(), false),
 			},
 			"export_config": {
 				Type:     schema.TypeList,
@@ -61,7 +64,8 @@ func ResourceReportGroup() *schema.Resource {
 						"type": {
 							Type:         schema.TypeString,
 							Required:     true,
-							ValidateFunc: validation.StringInSlice(codebuild.ReportExportConfigType_Values(), false),
+							Validate
+func: validation.StringInSlice(codebuild.ReportExportConfigType_Values(), false),
 						},
 						"s3_destination": {
 							Type:     schema.TypeList,
@@ -80,13 +84,15 @@ func ResourceReportGroup() *schema.Resource {
 									"encryption_key": {
 										Type:         schema.TypeString,
 										Required:     true,
-										ValidateFunc: verify.ValidARN,
+										Validate
+func: verify.ValidARN,
 									},
 									"packaging": {
 										Type:         schema.TypeString,
 										Optional:     true,
 										Default:      codebuild.ReportPackagingTypeNone,
-										ValidateFunc: validation.StringInSlice(codebuild.ReportPackagingType_Values(), false),
+										Validate
+func: validation.StringInSlice(codebuild.ReportPackagingType_Values(), false),
 									},
 									"path": {
 										Type:     schema.TypeString,
@@ -115,6 +121,7 @@ func ResourceReportGroup() *schema.Resource {
 	}
 }
 
+
 func resourceReportGroupCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CodeBuildConn(ctx)
@@ -135,6 +142,7 @@ func resourceReportGroupCreate(ctx context.Context, d *schema.ResourceData, meta
 
 	return append(diags, resourceReportGroupRead(ctx, d, meta)...)
 }
+
 
 func resourceReportGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -178,6 +186,7 @@ func resourceReportGroupRead(ctx context.Context, d *schema.ResourceData, meta i
 	return diags
 }
 
+
 func resourceReportGroupUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CodeBuildConn(ctx)
@@ -202,6 +211,7 @@ func resourceReportGroupUpdate(ctx context.Context, d *schema.ResourceData, meta
 	return append(diags, resourceReportGroupRead(ctx, d, meta)...)
 }
 
+
 func resourceReportGroupDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CodeBuildConn(ctx)
@@ -222,6 +232,7 @@ func resourceReportGroupDelete(ctx context.Context, d *schema.ResourceData, meta
 	return diags
 }
 
+
 func expandReportGroupExportConfig(config []interface{}) *codebuild.ReportExportConfig {
 	if len(config) == 0 {
 		return nil
@@ -241,6 +252,7 @@ func expandReportGroupExportConfig(config []interface{}) *codebuild.ReportExport
 	return exportConfig
 }
 
+
 func flattenReportGroupExportConfig(config *codebuild.ReportExportConfig) []map[string]interface{} {
 	settings := make(map[string]interface{})
 
@@ -253,6 +265,7 @@ func flattenReportGroupExportConfig(config *codebuild.ReportExportConfig) []map[
 
 	return []map[string]interface{}{settings}
 }
+
 
 func expandReportGroupS3ReportExportConfig(config []interface{}) *codebuild.S3ReportExportConfig {
 	if len(config) == 0 {
@@ -283,6 +296,7 @@ func expandReportGroupS3ReportExportConfig(config []interface{}) *codebuild.S3Re
 
 	return s3ReportExportConfig
 }
+
 
 func flattenReportGroupS3ReportExportConfig(config *codebuild.S3ReportExportConfig) []map[string]interface{} {
 	settings := make(map[string]interface{})

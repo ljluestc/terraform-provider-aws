@@ -21,6 +21,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
+
 func TestAccQuickSightDashboard_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 
@@ -30,7 +31,8 @@ func TestAccQuickSightDashboard_basic(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 		},
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
@@ -39,7 +41,8 @@ func TestAccQuickSightDashboard_basic(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDashboardConfig_basic(rId, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckDashboardExists(ctx, resourceName, &dashboard),
 					resource.TestCheckResourceAttr(resourceName, "dashboard_id", rId),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
@@ -55,6 +58,7 @@ func TestAccQuickSightDashboard_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccQuickSightDashboard_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 
@@ -64,7 +68,8 @@ func TestAccQuickSightDashboard_disappears(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 		},
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
@@ -73,7 +78,8 @@ func TestAccQuickSightDashboard_disappears(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDashboardConfig_basic(rId, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckDashboardExists(ctx, resourceName, &dashboard),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfquicksight.ResourceDashboard(), resourceName),
 				),
@@ -82,6 +88,7 @@ func TestAccQuickSightDashboard_disappears(t *testing.T) {
 		},
 	})
 }
+
 
 func TestAccQuickSightDashboard_sourceEntity(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -94,7 +101,8 @@ func TestAccQuickSightDashboard_sourceEntity(t *testing.T) {
 	sourceId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 		},
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
@@ -103,7 +111,8 @@ func TestAccQuickSightDashboard_sourceEntity(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDashboardConfig_TemplateSourceEntity(rId, rName, sourceId, sourceName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckDashboardExists(ctx, resourceName, &dashboard),
 					resource.TestCheckResourceAttr(resourceName, "dashboard_id", rId),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
@@ -121,6 +130,7 @@ func TestAccQuickSightDashboard_sourceEntity(t *testing.T) {
 	})
 }
 
+
 func TestAccQuickSightDashboard_updateVersionNumber(t *testing.T) {
 	ctx := acctest.Context(t)
 
@@ -131,7 +141,8 @@ func TestAccQuickSightDashboard_updateVersionNumber(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 		},
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
@@ -140,7 +151,8 @@ func TestAccQuickSightDashboard_updateVersionNumber(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDashboardConfig_basic(rId, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckDashboardExists(ctx, resourceName, &dashboard),
 					resource.TestCheckResourceAttr(resourceName, "dashboard_id", rId),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
@@ -150,7 +162,8 @@ func TestAccQuickSightDashboard_updateVersionNumber(t *testing.T) {
 			},
 			{
 				Config: testAccDashboardConfig_basic(rId, rNameUpdated),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckDashboardExists(ctx, resourceName, &dashboard),
 					resource.TestCheckResourceAttr(resourceName, "dashboard_id", rId),
 					resource.TestCheckResourceAttr(resourceName, "name", rNameUpdated),
@@ -162,6 +175,7 @@ func TestAccQuickSightDashboard_updateVersionNumber(t *testing.T) {
 	})
 }
 
+
 func TestAccQuickSightDashboard_dashboardSpecificConfig(t *testing.T) {
 	ctx := acctest.Context(t)
 
@@ -171,7 +185,8 @@ func TestAccQuickSightDashboard_dashboardSpecificConfig(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 		},
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
@@ -180,7 +195,8 @@ func TestAccQuickSightDashboard_dashboardSpecificConfig(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDashboardConfig_DashboardSpecificConfig(rId, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckDashboardExists(ctx, resourceName, &dashboard),
 					resource.TestCheckResourceAttr(resourceName, "dashboard_id", rId),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
@@ -197,8 +213,11 @@ func TestAccQuickSightDashboard_dashboardSpecificConfig(t *testing.T) {
 	})
 }
 
-func testAccCheckDashboardDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckDashboardDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -223,8 +242,11 @@ func testAccCheckDashboardDestroy(ctx context.Context) resource.TestCheckFunc {
 	}
 }
 
-func testAccCheckDashboardExists(ctx context.Context, name string, dashboard *quicksight.Dashboard) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckDashboardExists(ctx context.Context, name string, dashboard *quicksight.Dashboard) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
 		if !ok {
 			return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameDashboard, name, errors.New("not found"))
@@ -246,6 +268,7 @@ func testAccCheckDashboardExists(ctx context.Context, name string, dashboard *qu
 		return nil
 	}
 }
+
 
 func testAccDashboardConfigBase(rId string, rName string) string {
 	return acctest.ConfigCompose(
@@ -293,6 +316,7 @@ resource "aws_quicksight_data_set" "test" {
 }
 `, rId, rName))
 }
+
 
 func testAccDashboardConfig_basic(rId, rName string) string {
 	return acctest.ConfigCompose(
@@ -348,7 +372,8 @@ resource "aws_quicksight_dashboard" "test" {
                       data_set_identifier = "1"
                       column_name         = "Column1"
                     }
-                    aggregation_function = "COUNT"
+                    aggregation_
+function = "COUNT"
                   }
                 }
               }
@@ -361,6 +386,7 @@ resource "aws_quicksight_dashboard" "test" {
 }
 `, rId, rName))
 }
+
 
 func testAccDashboardConfig_TemplateSourceEntity(rId, rName, sourceId, sourceName string) string {
 	return acctest.ConfigCompose(
@@ -425,7 +451,8 @@ resource "aws_quicksight_template" "test" {
                       data_set_identifier = "1"
                       column_name         = "Column1"
                     }
-                    aggregation_function = "COUNT"
+                    aggregation_
+function = "COUNT"
                   }
                 }
               }
@@ -453,6 +480,7 @@ resource "aws_quicksight_dashboard" "test" {
 }
 `, rId, rName, sourceId, sourceName))
 }
+
 
 func testAccDashboardConfig_DashboardSpecificConfig(rId, rName string) string {
 	return acctest.ConfigCompose(
@@ -547,7 +575,8 @@ resource "aws_quicksight_dashboard" "test" {
                       data_set_identifier = "1"
                       column_name         = "Column1"
                     }
-                    aggregation_function = "COUNT"
+                    aggregation_
+function = "COUNT"
                   }
                 }
               }

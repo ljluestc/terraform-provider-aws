@@ -11,6 +11,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 )
 
+
 func pieChartVisualSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_PieChartVisual.html
 		Type:     schema.TypeList,
@@ -93,7 +94,8 @@ func pieChartVisualSchema() *schema.Schema {
 								Optional:         true,
 								MinItems:         1,
 								MaxItems:         1,
-								DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
+								DiffSuppress
+func: verify.SuppressMissingOptionalConfigurationBlock,
 								Elem: &schema.Resource{
 									Schema: map[string]*schema.Schema{
 										"category_items_limit":                itemsLimitConfigurationSchema(),                     // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ItemsLimitConfiguration.html
@@ -116,6 +118,7 @@ func pieChartVisualSchema() *schema.Schema {
 		},
 	}
 }
+
 
 func expandPieChartVisual(tfList []interface{}) *quicksight.PieChartVisual {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -150,6 +153,7 @@ func expandPieChartVisual(tfList []interface{}) *quicksight.PieChartVisual {
 
 	return visual
 }
+
 
 func expandPieChartConfiguration(tfList []interface{}) *quicksight.PieChartConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -200,6 +204,7 @@ func expandPieChartConfiguration(tfList []interface{}) *quicksight.PieChartConfi
 	return config
 }
 
+
 func expandPieChartFieldWells(tfList []interface{}) *quicksight.PieChartFieldWells {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -218,6 +223,7 @@ func expandPieChartFieldWells(tfList []interface{}) *quicksight.PieChartFieldWel
 
 	return config
 }
+
 
 func expandPieChartAggregatedFieldWells(tfList []interface{}) *quicksight.PieChartAggregatedFieldWells {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -243,6 +249,7 @@ func expandPieChartAggregatedFieldWells(tfList []interface{}) *quicksight.PieCha
 
 	return config
 }
+
 
 func expandPieChartSortConfiguration(tfList []interface{}) *quicksight.PieChartSortConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -272,6 +279,7 @@ func expandPieChartSortConfiguration(tfList []interface{}) *quicksight.PieChartS
 	return config
 }
 
+
 func expandDonutOptions(tfList []interface{}) *quicksight.DonutOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -294,6 +302,7 @@ func expandDonutOptions(tfList []interface{}) *quicksight.DonutOptions {
 	return options
 }
 
+
 func expandArcOptions(tfList []interface{}) *quicksight.ArcOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -313,6 +322,7 @@ func expandArcOptions(tfList []interface{}) *quicksight.ArcOptions {
 	return options
 }
 
+
 func expandDonutCenterOptions(tfList []interface{}) *quicksight.DonutCenterOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -331,6 +341,7 @@ func expandDonutCenterOptions(tfList []interface{}) *quicksight.DonutCenterOptio
 
 	return options
 }
+
 
 func flattenPieChartVisual(apiObject *quicksight.PieChartVisual) []interface{} {
 	if apiObject == nil {
@@ -358,6 +369,7 @@ func flattenPieChartVisual(apiObject *quicksight.PieChartVisual) []interface{} {
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenPieChartConfiguration(apiObject *quicksight.PieChartConfiguration) []interface{} {
 	if apiObject == nil {
@@ -402,6 +414,7 @@ func flattenPieChartConfiguration(apiObject *quicksight.PieChartConfiguration) [
 	return []interface{}{tfMap}
 }
 
+
 func flattenDonutOptions(apiObject *quicksight.DonutOptions) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -418,6 +431,7 @@ func flattenDonutOptions(apiObject *quicksight.DonutOptions) []interface{} {
 	return []interface{}{tfMap}
 }
 
+
 func flattenArcOptions(apiObject *quicksight.ArcOptions) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -430,6 +444,7 @@ func flattenArcOptions(apiObject *quicksight.ArcOptions) []interface{} {
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenDonutCenterOptions(apiObject *quicksight.DonutCenterOptions) []interface{} {
 	if apiObject == nil {
@@ -444,6 +459,7 @@ func flattenDonutCenterOptions(apiObject *quicksight.DonutCenterOptions) []inter
 	return []interface{}{tfMap}
 }
 
+
 func flattenPieChartFieldWells(apiObject *quicksight.PieChartFieldWells) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -456,6 +472,7 @@ func flattenPieChartFieldWells(apiObject *quicksight.PieChartFieldWells) []inter
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenPieChartAggregatedFieldWells(apiObject *quicksight.PieChartAggregatedFieldWells) []interface{} {
 	if apiObject == nil {
@@ -475,6 +492,7 @@ func flattenPieChartAggregatedFieldWells(apiObject *quicksight.PieChartAggregate
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenPieChartSortConfiguration(apiObject *quicksight.PieChartSortConfiguration) []interface{} {
 	if apiObject == nil {

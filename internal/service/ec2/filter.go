@@ -28,10 +28,13 @@ import (
 // are ignored, assuming that the user wishes to leave that attribute
 // unconstrained while filtering.
 //
-// The purpose of this function is to create values to pass in
-// for the "Filters" attribute on most of the "Describe..." API functions in
+// The purpose of this 
+function is to create values to pass in
+// for the "Filters" attribute on most of the "Describe..." API 
+functions in
 // the EC2 API, to aid in the implementation of Terraform data sources that
 // retrieve data about EC2 objects.
+
 func BuildAttributeFilterList(m map[string]string) []*ec2.Filter {
 	var filters []*ec2.Filter
 
@@ -55,12 +58,14 @@ func BuildAttributeFilterList(m map[string]string) []*ec2.Filter {
 	return filters
 }
 
+
 func NewFilter(name string, values []string) *ec2.Filter {
 	return &ec2.Filter{
 		Name:   aws.String(name),
 		Values: aws.StringSlice(values),
 	}
 }
+
 
 func buildAttributeFilterListV2(m map[string]string) []awstypes.Filter {
 	var filters []awstypes.Filter
@@ -84,6 +89,7 @@ func buildAttributeFilterListV2(m map[string]string) []awstypes.Filter {
 
 	return filters
 }
+
 
 func newFilterV2(name string, values []string) awstypes.Filter {
 	return awstypes.Filter{

@@ -25,6 +25,7 @@ import (
 
 // @SDKResource("aws_ec2_transit_gateway_route_table", name="Transit Gateway Route Table")
 // @Tags(identifierAttribute="id")
+
 func ResourceTransitGatewayRouteTable() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceTransitGatewayRouteTableCreate,
@@ -57,11 +58,13 @@ func ResourceTransitGatewayRouteTable() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.NoZeroValues,
+				Validate
+func: validation.NoZeroValues,
 			},
 		},
 	}
 }
+
 
 func resourceTransitGatewayRouteTableCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -87,6 +90,7 @@ func resourceTransitGatewayRouteTableCreate(ctx context.Context, d *schema.Resou
 
 	return append(diags, resourceTransitGatewayRouteTableRead(ctx, d, meta)...)
 }
+
 
 func resourceTransitGatewayRouteTableRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -121,6 +125,7 @@ func resourceTransitGatewayRouteTableRead(ctx context.Context, d *schema.Resourc
 	return diags
 }
 
+
 func resourceTransitGatewayRouteTableUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 
@@ -128,6 +133,7 @@ func resourceTransitGatewayRouteTableUpdate(ctx context.Context, d *schema.Resou
 
 	return append(diags, resourceTransitGatewayRouteTableRead(ctx, d, meta)...)
 }
+
 
 func resourceTransitGatewayRouteTableDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

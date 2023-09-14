@@ -15,6 +15,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccVPCDefaultSecurityGroup_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group ec2.SecurityGroup
@@ -23,14 +24,16 @@ func TestAccVPCDefaultSecurityGroup_basic(t *testing.T) {
 	vpcResourceName := "aws_vpc.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCDefaultSecurityGroupConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSecurityGroupExists(ctx, resourceName, &group),
 					resource.TestCheckResourceAttr(resourceName, "name", "default"),
 					resource.TestCheckResourceAttr(resourceName, "description", "default VPC security group"),
@@ -70,6 +73,7 @@ func TestAccVPCDefaultSecurityGroup_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCDefaultSecurityGroup_empty(t *testing.T) {
 	ctx := acctest.Context(t)
 	var group ec2.SecurityGroup
@@ -77,14 +81,16 @@ func TestAccVPCDefaultSecurityGroup_empty(t *testing.T) {
 	resourceName := "aws_default_security_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCDefaultSecurityGroupConfig_empty(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSecurityGroupExists(ctx, resourceName, &group),
 					resource.TestCheckResourceAttr(resourceName, "ingress.#", "0"),
 					resource.TestCheckResourceAttr(resourceName, "egress.#", "0"),
@@ -102,11 +108,15 @@ func TestAccVPCDefaultSecurityGroup_empty(t *testing.T) {
 	})
 }
 
-func testAccCheckDefaultSecurityGroupARN(resourceName string, group *ec2.SecurityGroup) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckDefaultSecurityGroupARN(resourceName string, group *ec2.SecurityGroup) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		return acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "ec2", fmt.Sprintf("security-group/%s", aws.StringValue(group.GroupId)))(s)
 	}
 }
+
 
 func testAccVPCDefaultSecurityGroupConfig_basic(rName string) string {
 	return fmt.Sprintf(`
@@ -137,6 +147,7 @@ resource "aws_default_security_group" "test" {
 }
 `, rName)
 }
+
 
 func testAccVPCDefaultSecurityGroupConfig_empty(rName string) string {
 	return fmt.Sprintf(`

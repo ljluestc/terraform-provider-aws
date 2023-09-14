@@ -13,8 +13,11 @@ import (
 )
 
 // status fetches the DataSource and its Status
-func status(ctx context.Context, conn *quicksight.QuickSight, accountId, datasourceId string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+
+func status(ctx context.Context, conn *quicksight.QuickSight, accountId, datasourceId string) retry.StateRefresh
+func {
+	return 
+func() (interface{}, string, error) {
 		input := &quicksight.DescribeDataSourceInput{
 			AwsAccountId: aws.String(accountId),
 			DataSourceId: aws.String(datasourceId),
@@ -35,8 +38,11 @@ func status(ctx context.Context, conn *quicksight.QuickSight, accountId, datasou
 }
 
 // Fetch Template status
-func statusTemplate(ctx context.Context, conn *quicksight.QuickSight, id string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+
+func statusTemplate(ctx context.Context, conn *quicksight.QuickSight, id string) retry.StateRefresh
+func {
+	return 
+func() (interface{}, string, error) {
 		out, err := FindTemplateByID(ctx, conn, id)
 		if tfresource.NotFound(err) {
 			return nil, "", nil
@@ -51,8 +57,11 @@ func statusTemplate(ctx context.Context, conn *quicksight.QuickSight, id string)
 }
 
 // Fetch Dashboard status
-func statusDashboard(ctx context.Context, conn *quicksight.QuickSight, id string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+
+func statusDashboard(ctx context.Context, conn *quicksight.QuickSight, id string) retry.StateRefresh
+func {
+	return 
+func() (interface{}, string, error) {
 		out, err := FindDashboardByID(ctx, conn, id)
 		if tfresource.NotFound(err) {
 			return nil, "", nil
@@ -67,8 +76,11 @@ func statusDashboard(ctx context.Context, conn *quicksight.QuickSight, id string
 }
 
 // Fetch Analysis status
-func statusAnalysis(ctx context.Context, conn *quicksight.QuickSight, id string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+
+func statusAnalysis(ctx context.Context, conn *quicksight.QuickSight, id string) retry.StateRefresh
+func {
+	return 
+func() (interface{}, string, error) {
 		out, err := FindAnalysisByID(ctx, conn, id)
 		if tfresource.NotFound(err) {
 			return nil, "", nil
@@ -83,8 +95,11 @@ func statusAnalysis(ctx context.Context, conn *quicksight.QuickSight, id string)
 }
 
 // Fetch Theme status
-func statusTheme(ctx context.Context, conn *quicksight.QuickSight, id string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+
+func statusTheme(ctx context.Context, conn *quicksight.QuickSight, id string) retry.StateRefresh
+func {
+	return 
+func() (interface{}, string, error) {
 		out, err := FindThemeByID(ctx, conn, id)
 		if tfresource.NotFound(err) {
 			return nil, "", nil

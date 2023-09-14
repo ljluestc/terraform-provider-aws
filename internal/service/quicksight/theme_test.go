@@ -21,6 +21,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
+
 func TestAccQuickSightTheme_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 
@@ -31,7 +32,8 @@ func TestAccQuickSightTheme_basic(t *testing.T) {
 	themeId := "MIDNIGHT"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 		},
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
@@ -40,7 +42,8 @@ func TestAccQuickSightTheme_basic(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccThemeConfig_basic(rId, rName, themeId),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckThemeExists(ctx, resourceName, &theme),
 					resource.TestCheckResourceAttr(resourceName, "theme_id", rId),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
@@ -56,6 +59,7 @@ func TestAccQuickSightTheme_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccQuickSightTheme_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 
@@ -66,7 +70,8 @@ func TestAccQuickSightTheme_disappears(t *testing.T) {
 	themeId := "MIDNIGHT"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 		},
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
@@ -75,7 +80,8 @@ func TestAccQuickSightTheme_disappears(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccThemeConfig_basic(rId, rName, themeId),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckThemeExists(ctx, resourceName, &theme),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfquicksight.ResourceTheme(), resourceName),
 				),
@@ -84,6 +90,7 @@ func TestAccQuickSightTheme_disappears(t *testing.T) {
 		},
 	})
 }
+
 func TestAccQuickSightTheme_fullConfig(t *testing.T) {
 	ctx := acctest.Context(t)
 
@@ -94,7 +101,8 @@ func TestAccQuickSightTheme_fullConfig(t *testing.T) {
 	themeId := "MIDNIGHT"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 		},
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
@@ -103,7 +111,8 @@ func TestAccQuickSightTheme_fullConfig(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccThemeConfig_fullConfig(rId, rName, themeId),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckThemeExists(ctx, resourceName, &theme),
 					resource.TestCheckResourceAttr(resourceName, "theme_id", rId),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
@@ -120,6 +129,7 @@ func TestAccQuickSightTheme_fullConfig(t *testing.T) {
 	})
 }
 
+
 func TestAccQuickSightTheme_update(t *testing.T) {
 	ctx := acctest.Context(t)
 
@@ -131,7 +141,8 @@ func TestAccQuickSightTheme_update(t *testing.T) {
 	themeId := "MIDNIGHT"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 		},
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
@@ -140,7 +151,8 @@ func TestAccQuickSightTheme_update(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccThemeConfig_update(rId, rName, themeId, "#FFFFFF"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckThemeExists(ctx, resourceName, &theme),
 					resource.TestCheckResourceAttr(resourceName, "theme_id", rId),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
@@ -151,7 +163,8 @@ func TestAccQuickSightTheme_update(t *testing.T) {
 			},
 			{
 				Config: testAccThemeConfig_update(rId, rNameUpdated, themeId, "#000000"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckThemeExists(ctx, resourceName, &theme),
 					resource.TestCheckResourceAttr(resourceName, "theme_id", rId),
 					resource.TestCheckResourceAttr(resourceName, "name", rNameUpdated),
@@ -164,8 +177,11 @@ func TestAccQuickSightTheme_update(t *testing.T) {
 	})
 }
 
-func testAccCheckThemeDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckThemeDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -190,8 +206,11 @@ func testAccCheckThemeDestroy(ctx context.Context) resource.TestCheckFunc {
 	}
 }
 
-func testAccCheckThemeExists(ctx context.Context, name string, theme *quicksight.Theme) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckThemeExists(ctx context.Context, name string, theme *quicksight.Theme) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
 		if !ok {
 			return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameTheme, name, errors.New("not found"))
@@ -213,6 +232,7 @@ func testAccCheckThemeExists(ctx context.Context, name string, theme *quicksight
 		return nil
 	}
 }
+
 
 func testAccThemeConfig_basic(rId, rName, baseThemId string) string {
 	return acctest.ConfigCompose(
@@ -247,6 +267,7 @@ resource "aws_quicksight_theme" "test" {
 }
 `, rId, rName, baseThemId))
 }
+
 
 func testAccThemeConfig_fullConfig(rId, rName, baseThemId string) string {
 	return acctest.ConfigCompose(
@@ -322,6 +343,7 @@ resource "aws_quicksight_theme" "test" {
 }
 `, rId, rName, baseThemId))
 }
+
 
 func testAccThemeConfig_update(rId, rName, baseThemId, emptyFillColor string) string {
 	return acctest.ConfigCompose(

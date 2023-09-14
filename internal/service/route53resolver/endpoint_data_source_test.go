@@ -12,6 +12,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccRoute53ResolverEndpointDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -19,13 +20,15 @@ func TestAccRoute53ResolverEndpointDataSource_basic(t *testing.T) {
 	datasourceName := "data.aws_route53_resolver_endpoint.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, route53resolver.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEndpointDataSourceConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(datasourceName, "direction", resourceName, "direction"),
 					resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
@@ -38,6 +41,7 @@ func TestAccRoute53ResolverEndpointDataSource_basic(t *testing.T) {
 		},
 	})
 }
+
 
 func TestAccRoute53ResolverEndpointDataSource_filter(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -46,14 +50,16 @@ func TestAccRoute53ResolverEndpointDataSource_filter(t *testing.T) {
 	datasourceName := "data.aws_route53_resolver_endpoint.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, route53resolver.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 
 			{
 				Config: testAccEndpointDataSourceConfig_filter(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(datasourceName, "direction", resourceName, "direction"),
 					resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
@@ -67,6 +73,7 @@ func TestAccRoute53ResolverEndpointDataSource_filter(t *testing.T) {
 	})
 }
 
+
 func testAccEndpointDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccEndpointConfig_basic(rName), `
 data "aws_route53_resolver_endpoint" "test" {
@@ -74,6 +81,7 @@ data "aws_route53_resolver_endpoint" "test" {
 }
 `)
 }
+
 
 func testAccEndpointDataSourceConfig_filter(rName string) string {
 	return acctest.ConfigCompose(testAccEndpointConfig_outbound(rName, rName), `

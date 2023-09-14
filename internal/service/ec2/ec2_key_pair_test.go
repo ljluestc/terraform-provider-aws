@@ -19,6 +19,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccEC2KeyPair_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var keyPair ec2.KeyPairInfo
@@ -31,14 +32,16 @@ func TestAccEC2KeyPair_basic(t *testing.T) {
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckKeyPairDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyPairConfig_basic(rName, publicKey),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckKeyPairExists(ctx, resourceName, &keyPair),
 					acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "ec2", fmt.Sprintf("key-pair/%s", rName)),
 					resource.TestMatchResourceAttr(resourceName, "fingerprint", regexache.MustCompile(`[0-9a-f]{2}(:[0-9a-f]{2}){15}`)),
@@ -57,6 +60,7 @@ func TestAccEC2KeyPair_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2KeyPair_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var keyPair ec2.KeyPairInfo
@@ -69,14 +73,16 @@ func TestAccEC2KeyPair_tags(t *testing.T) {
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckKeyPairDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyPairConfig_tags1(rName, publicKey, "key1", "value1"),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckKeyPairExists(ctx, resourceName, &keyPair),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
@@ -90,7 +96,8 @@ func TestAccEC2KeyPair_tags(t *testing.T) {
 			},
 			{
 				Config: testAccKeyPairConfig_tags2(rName, publicKey, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckKeyPairExists(ctx, resourceName, &keyPair),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
@@ -99,7 +106,8 @@ func TestAccEC2KeyPair_tags(t *testing.T) {
 			},
 			{
 				Config: testAccKeyPairConfig_tags1(rName, publicKey, "key2", "value2"),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckKeyPairExists(ctx, resourceName, &keyPair),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
@@ -108,6 +116,7 @@ func TestAccEC2KeyPair_tags(t *testing.T) {
 		},
 	})
 }
+
 
 func TestAccEC2KeyPair_nameGenerated(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -120,14 +129,16 @@ func TestAccEC2KeyPair_nameGenerated(t *testing.T) {
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckKeyPairDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyPairConfig_nameGenerated(publicKey),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckKeyPairExists(ctx, resourceName, &keyPair),
 					acctest.CheckResourceAttrNameGenerated(resourceName, "key_name"),
 					resource.TestCheckResourceAttr(resourceName, "key_name_prefix", "terraform-"),
@@ -143,6 +154,7 @@ func TestAccEC2KeyPair_nameGenerated(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2KeyPair_namePrefix(t *testing.T) {
 	ctx := acctest.Context(t)
 	var keyPair ec2.KeyPairInfo
@@ -154,14 +166,16 @@ func TestAccEC2KeyPair_namePrefix(t *testing.T) {
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckKeyPairDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyPairConfig_namePrefix("tf-acc-test-prefix-", publicKey),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckKeyPairExists(ctx, resourceName, &keyPair),
 					acctest.CheckResourceAttrNameFromPrefix(resourceName, "key_name", "tf-acc-test-prefix-"),
 					resource.TestCheckResourceAttr(resourceName, "key_name_prefix", "tf-acc-test-prefix-"),
@@ -177,6 +191,7 @@ func TestAccEC2KeyPair_namePrefix(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2KeyPair_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var keyPair ec2.KeyPairInfo
@@ -189,14 +204,16 @@ func TestAccEC2KeyPair_disappears(t *testing.T) {
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckKeyPairDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyPairConfig_basic(rName, publicKey),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckKeyPairExists(ctx, resourceName, &keyPair),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceKeyPair(), resourceName),
 				),
@@ -206,8 +223,11 @@ func TestAccEC2KeyPair_disappears(t *testing.T) {
 	})
 }
 
-func testAccCheckKeyPairDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckKeyPairDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -232,8 +252,11 @@ func testAccCheckKeyPairDestroy(ctx context.Context) resource.TestCheckFunc {
 	}
 }
 
-func testAccCheckKeyPairExists(ctx context.Context, n string, v *ec2.KeyPairInfo) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckKeyPairExists(ctx context.Context, n string, v *ec2.KeyPairInfo) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -257,6 +280,7 @@ func testAccCheckKeyPairExists(ctx context.Context, n string, v *ec2.KeyPairInfo
 	}
 }
 
+
 func testAccKeyPairConfig_basic(rName, publicKey string) string {
 	return fmt.Sprintf(`
 resource "aws_key_pair" "test" {
@@ -265,6 +289,7 @@ resource "aws_key_pair" "test" {
 }
 `, rName, publicKey)
 }
+
 
 func testAccKeyPairConfig_tags1(rName, publicKey, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
@@ -278,6 +303,7 @@ resource "aws_key_pair" "test" {
 }
 `, rName, publicKey, tagKey1, tagValue1)
 }
+
 
 func testAccKeyPairConfig_tags2(rName, publicKey, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
@@ -293,6 +319,7 @@ resource "aws_key_pair" "test" {
 `, rName, publicKey, tagKey1, tagValue1, tagKey2, tagValue2)
 }
 
+
 func testAccKeyPairConfig_nameGenerated(publicKey string) string {
 	return fmt.Sprintf(`
 resource "aws_key_pair" "test" {
@@ -300,6 +327,7 @@ resource "aws_key_pair" "test" {
 }
 `, publicKey)
 }
+
 
 func testAccKeyPairConfig_namePrefix(namePrefix, publicKey string) string {
 	return fmt.Sprintf(`

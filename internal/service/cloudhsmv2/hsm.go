@@ -19,6 +19,7 @@ import (
 )
 
 // @SDKResource("aws_cloudhsm_v2_hsm")
+
 func ResourceHSM() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceHSMCreate,

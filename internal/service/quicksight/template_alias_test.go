@@ -21,6 +21,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
+
 func TestAccQuickSightTemplateAlias_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var templateAlias quicksight.TemplateAlias
@@ -31,7 +32,8 @@ func TestAccQuickSightTemplateAlias_basic(t *testing.T) {
 	resourceTemplateName := "aws_quicksight_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, quicksight.EndpointsID)
 		},
@@ -41,7 +43,8 @@ func TestAccQuickSightTemplateAlias_basic(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTemplateAliasConfig_basic(rId, rName, aliasName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTemplateAliasExists(ctx, resourceName, &templateAlias),
 					resource.TestCheckResourceAttr(resourceName, "alias_name", aliasName),
 					resource.TestCheckResourceAttrPair(resourceName, "template_id", resourceTemplateName, "template_id"),
@@ -58,6 +61,7 @@ func TestAccQuickSightTemplateAlias_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccQuickSightTemplateAlias_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var templateAlias quicksight.TemplateAlias
@@ -67,7 +71,8 @@ func TestAccQuickSightTemplateAlias_disappears(t *testing.T) {
 	resourceName := "aws_quicksight_template_alias.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, quicksight.EndpointsID)
 		},
@@ -77,7 +82,8 @@ func TestAccQuickSightTemplateAlias_disappears(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTemplateAliasConfig_basic(rId, rName, aliasName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTemplateAliasExists(ctx, resourceName, &templateAlias),
 					acctest.CheckFrameworkResourceDisappears(ctx, acctest.Provider, tfquicksight.ResourceTemplateAlias, resourceName),
 				),
@@ -87,8 +93,11 @@ func TestAccQuickSightTemplateAlias_disappears(t *testing.T) {
 	})
 }
 
-func testAccCheckTemplateAliasDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckTemplateAliasDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -111,8 +120,11 @@ func testAccCheckTemplateAliasDestroy(ctx context.Context) resource.TestCheckFun
 	}
 }
 
-func testAccCheckTemplateAliasExists(ctx context.Context, name string, templateAlias *quicksight.TemplateAlias) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckTemplateAliasExists(ctx context.Context, name string, templateAlias *quicksight.TemplateAlias) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
 		if !ok {
 			return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameTemplateAlias, name, errors.New("not found"))
@@ -133,6 +145,7 @@ func testAccCheckTemplateAliasExists(ctx context.Context, name string, templateA
 		return nil
 	}
 }
+
 
 func testAccTemplateAliasConfig_basic(rId, rName, aliasName string) string {
 	return acctest.ConfigCompose(

@@ -20,6 +20,7 @@ import (
 )
 
 // @SDKResource("aws_ec2_instance_state")
+
 func ResourceInstanceState() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceInstanceStateCreate,
@@ -51,11 +52,13 @@ func ResourceInstanceState() *schema.Resource {
 			"state": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: validation.StringInSlice([]string{ec2.InstanceStateNameRunning, ec2.InstanceStateNameStopped}, false),
+				Validate
+func: validation.StringInSlice([]string{ec2.InstanceStateNameRunning, ec2.InstanceStateNameStopped}, false),
 			},
 		},
 	}
 }
+
 
 func resourceInstanceStateCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -77,6 +80,7 @@ func resourceInstanceStateCreate(ctx context.Context, d *schema.ResourceData, me
 
 	return resourceInstanceStateRead(ctx, d, meta)
 }
+
 
 func resourceInstanceStateRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -100,6 +104,7 @@ func resourceInstanceStateRead(ctx context.Context, d *schema.ResourceData, meta
 	return nil
 }
 
+
 func resourceInstanceStateUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
@@ -121,11 +126,13 @@ func resourceInstanceStateUpdate(ctx context.Context, d *schema.ResourceData, me
 	return resourceInstanceStateRead(ctx, d, meta)
 }
 
+
 func resourceInstanceStateDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	log.Printf("[DEBUG] %s %s deleting an aws_ec2_instance_state resource only stops managing instance state, The Instance is left in its current state.: %s", names.EC2, ResInstanceState, d.Id())
 
 	return nil
 }
+
 
 func UpdateInstanceState(ctx context.Context, conn *ec2.EC2, id string, currentState string, configuredState string, force bool) diag.Diagnostics {
 	if currentState == configuredState {
@@ -147,6 +154,7 @@ func UpdateInstanceState(ctx context.Context, conn *ec2.EC2, id string, currentS
 	return nil
 }
 
+
 func StopInstanceWithContext(ctx context.Context, conn *ec2.EC2, id string, force bool, timeout time.Duration) diag.Diagnostics {
 	log.Printf("[INFO] Stopping EC2 Instance: %s, force: %t", id, force)
 	_, err := conn.StopInstancesWithContext(ctx, &ec2.StopInstancesInput{
@@ -164,6 +172,7 @@ func StopInstanceWithContext(ctx context.Context, conn *ec2.EC2, id string, forc
 
 	return nil
 }
+
 
 func StartInstanceWithContext(ctx context.Context, conn *ec2.EC2, id string, timeout time.Duration) diag.Diagnostics {
 	log.Printf("[INFO] Starting EC2 Instance: %s", id)

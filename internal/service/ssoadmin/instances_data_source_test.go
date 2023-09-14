@@ -14,11 +14,13 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )
 
+
 func testAccPreCheckInstances(ctx context.Context, t *testing.T) {
 	conn := acctest.Provider.Meta().(*conns.AWSClient).SSOAdminConn(ctx)
 
 	var instances []*ssoadmin.InstanceMetadata
-	err := conn.ListInstancesPagesWithContext(ctx, &ssoadmin.ListInstancesInput{}, func(page *ssoadmin.ListInstancesOutput, lastPage bool) bool {
+	err := conn.ListInstancesPagesWithContext(ctx, &ssoadmin.ListInstancesInput{}, 
+func(page *ssoadmin.ListInstancesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -41,18 +43,21 @@ func testAccPreCheckInstances(ctx context.Context, t *testing.T) {
 	}
 }
 
+
 func TestAccSSOAdminInstancesDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_ssoadmin_instances.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckInstances(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckInstances(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ssoadmin.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstancesDataSourceConfig_basic,
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttr(dataSourceName, "arns.#", "1"),
 					resource.TestCheckResourceAttr(dataSourceName, "identity_store_ids.#", "1"),
 					acctest.MatchResourceAttrGlobalARNNoAccount(dataSourceName, "arns.0", "sso", regexache.MustCompile("instance/(sso)?ins-[0-9A-Za-z.-]{16}")),

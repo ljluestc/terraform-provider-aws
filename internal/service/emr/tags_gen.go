@@ -19,6 +19,7 @@ import (
 // []*SERVICE.Tag handling
 
 // Tags returns emr service tags.
+
 func Tags(tags tftags.KeyValueTags) []*emr.Tag {
 	result := make([]*emr.Tag, 0, len(tags))
 
@@ -35,6 +36,7 @@ func Tags(tags tftags.KeyValueTags) []*emr.Tag {
 }
 
 // KeyValueTags creates tftags.KeyValueTags from emr service tags.
+
 func KeyValueTags(ctx context.Context, tags []*emr.Tag) tftags.KeyValueTags {
 	m := make(map[string]*string, len(tags))
 
@@ -47,6 +49,7 @@ func KeyValueTags(ctx context.Context, tags []*emr.Tag) tftags.KeyValueTags {
 
 // getTagsIn returns emr service tags from Context.
 // nil is returned if there are no input tags.
+
 func getTagsIn(ctx context.Context) []*emr.Tag {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
@@ -58,6 +61,7 @@ func getTagsIn(ctx context.Context) []*emr.Tag {
 }
 
 // setTagsOut sets emr service tags in Context.
+
 func setTagsOut(ctx context.Context, tags []*emr.Tag) {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		inContext.TagsOut = types.Some(KeyValueTags(ctx, tags))
@@ -67,6 +71,7 @@ func setTagsOut(ctx context.Context, tags []*emr.Tag) {
 // updateTags updates emr service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
 // it may also be a different identifier depending on the service.
+
 func updateTags(ctx context.Context, conn emriface.EMRAPI, identifier string, oldTagsMap, newTagsMap any) error {
 	oldTags := tftags.New(ctx, oldTagsMap)
 	newTags := tftags.New(ctx, newTagsMap)
@@ -108,6 +113,7 @@ func updateTags(ctx context.Context, conn emriface.EMRAPI, identifier string, ol
 
 // UpdateTags updates emr service tags.
 // It is called from outside this package.
+
 func (p *servicePackage) UpdateTags(ctx context.Context, meta any, identifier string, oldTags, newTags any) error {
 	return updateTags(ctx, meta.(*conns.AWSClient).EMRConn(ctx), identifier, oldTags, newTags)
 }

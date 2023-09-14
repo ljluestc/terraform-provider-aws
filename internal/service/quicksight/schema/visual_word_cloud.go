@@ -11,6 +11,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 )
 
+
 func wordCloudVisualSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_WordCloudVisual.html
 		Type:     schema.TypeList,
@@ -56,7 +57,8 @@ func wordCloudVisualSchema() *schema.Schema {
 								Optional:         true,
 								MinItems:         1,
 								MaxItems:         1,
-								DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
+								DiffSuppress
+func: verify.SuppressMissingOptionalConfigurationBlock,
 								Elem: &schema.Resource{
 									Schema: map[string]*schema.Schema{
 										"category_items_limit": itemsLimitConfigurationSchema(),                     // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ItemsLimitConfiguration.html
@@ -90,6 +92,7 @@ func wordCloudVisualSchema() *schema.Schema {
 		},
 	}
 }
+
 
 func expandWordCloudVisual(tfList []interface{}) *quicksight.WordCloudVisual {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -125,6 +128,7 @@ func expandWordCloudVisual(tfList []interface{}) *quicksight.WordCloudVisual {
 	return visual
 }
 
+
 func expandWordCloudChartConfiguration(tfList []interface{}) *quicksight.WordCloudChartConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -153,6 +157,7 @@ func expandWordCloudChartConfiguration(tfList []interface{}) *quicksight.WordClo
 	return config
 }
 
+
 func expandWordCloudFieldWells(tfList []interface{}) *quicksight.WordCloudFieldWells {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -171,6 +176,7 @@ func expandWordCloudFieldWells(tfList []interface{}) *quicksight.WordCloudFieldW
 
 	return config
 }
+
 
 func expandWordCloudAggregatedFieldWells(tfList []interface{}) *quicksight.WordCloudAggregatedFieldWells {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -194,6 +200,7 @@ func expandWordCloudAggregatedFieldWells(tfList []interface{}) *quicksight.WordC
 	return config
 }
 
+
 func expandWordCloudSortConfiguration(tfList []interface{}) *quicksight.WordCloudSortConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -215,6 +222,7 @@ func expandWordCloudSortConfiguration(tfList []interface{}) *quicksight.WordClou
 
 	return config
 }
+
 
 func expandWordCloudOptions(tfList []interface{}) *quicksight.WordCloudOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -250,6 +258,7 @@ func expandWordCloudOptions(tfList []interface{}) *quicksight.WordCloudOptions {
 	return options
 }
 
+
 func flattenWordCloudVisual(apiObject *quicksight.WordCloudVisual) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -277,6 +286,7 @@ func flattenWordCloudVisual(apiObject *quicksight.WordCloudVisual) []interface{}
 	return []interface{}{tfMap}
 }
 
+
 func flattenWordCloudChartConfiguration(apiObject *quicksight.WordCloudChartConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -299,6 +309,7 @@ func flattenWordCloudChartConfiguration(apiObject *quicksight.WordCloudChartConf
 	return []interface{}{tfMap}
 }
 
+
 func flattenWordCloudFieldWells(apiObject *quicksight.WordCloudFieldWells) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -311,6 +322,7 @@ func flattenWordCloudFieldWells(apiObject *quicksight.WordCloudFieldWells) []int
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenWordCloudAggregatedFieldWells(apiObject *quicksight.WordCloudAggregatedFieldWells) []interface{} {
 	if apiObject == nil {
@@ -328,6 +340,7 @@ func flattenWordCloudAggregatedFieldWells(apiObject *quicksight.WordCloudAggrega
 	return []interface{}{tfMap}
 }
 
+
 func flattenWordCloudSortConfiguration(apiObject *quicksight.WordCloudSortConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -343,6 +356,7 @@ func flattenWordCloudSortConfiguration(apiObject *quicksight.WordCloudSortConfig
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenWordCloudOptions(apiObject *quicksight.WordCloudOptions) []interface{} {
 	if apiObject == nil {

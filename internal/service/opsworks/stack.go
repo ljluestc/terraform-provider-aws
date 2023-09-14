@@ -33,6 +33,7 @@ const (
 
 // @SDKResource("aws_opsworks_stack", name="Stack")
 // @Tags
+
 func ResourceStack() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceStackCreate,
@@ -101,7 +102,8 @@ func ResourceStack() *schema.Resource {
 						"type": {
 							Type:         schema.TypeString,
 							Required:     true,
-							ValidateFunc: validation.StringInSlice(opsworks.SourceType_Values(), false),
+							Validate
+func: validation.StringInSlice(opsworks.SourceType_Values(), false),
 						},
 						"url": {
 							Type:     schema.TypeString,
@@ -117,7 +119,8 @@ func ResourceStack() *schema.Resource {
 			"custom_json": {
 				Type:             schema.TypeString,
 				Optional:         true,
-				DiffSuppressFunc: verify.SuppressEquivalentJSONDiffs,
+				DiffSuppress
+func: verify.SuppressEquivalentJSONDiffs,
 			},
 			"default_availability_zone": {
 				Type:          schema.TypeString,
@@ -202,6 +205,7 @@ func ResourceStack() *schema.Resource {
 	}
 }
 
+
 func resourceStackCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).OpsWorksConn(ctx)
@@ -269,10 +273,12 @@ func resourceStackCreate(ctx context.Context, d *schema.ResourceData, meta inter
 	}
 
 	outputRaw, err := tfresource.RetryWhen(ctx, d.Timeout(schema.TimeoutCreate),
-		func() (interface{}, error) {
+		
+func() (interface{}, error) {
 			return conn.CreateStackWithContext(ctx, input)
 		},
-		func(err error) (bool, error) {
+		
+func(err error) (bool, error) {
 			// If Terraform is also managing the service IAM role, it may have just been created and not yet be
 			// propagated. AWS doesn't provide a machine-readable code for this specific error, so we're forced
 			// to do fragile message matching.
@@ -318,6 +324,7 @@ func resourceStackCreate(ctx context.Context, d *schema.ResourceData, meta inter
 
 	return append(diags, resourceStackRead(ctx, d, meta)...)
 }
+
 
 func resourceStackRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -424,6 +431,7 @@ func resourceStackRead(ctx context.Context, d *schema.ResourceData, meta interfa
 
 	return diags
 }
+
 
 func resourceStackUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -541,6 +549,7 @@ func resourceStackUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 	return append(diags, resourceStackRead(ctx, d, meta)...)
 }
 
+
 func resourceStackDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	var err error
@@ -585,6 +594,7 @@ func resourceStackDelete(ctx context.Context, d *schema.ResourceData, meta inter
 	return diags
 }
 
+
 func FindStackByID(ctx context.Context, conn *opsworks.OpsWorks, id string) (*opsworks.Stack, error) {
 	input := &opsworks.DescribeStacksInput{
 		StackIds: aws.StringSlice([]string{id}),
@@ -613,6 +623,7 @@ func FindStackByID(ctx context.Context, conn *opsworks.OpsWorks, id string) (*op
 
 	return output.Stacks[0], nil
 }
+
 
 func expandSource(tfMap map[string]interface{}) *opsworks.Source {
 	if tfMap == nil {
@@ -647,6 +658,7 @@ func expandSource(tfMap map[string]interface{}) *opsworks.Source {
 
 	return apiObject
 }
+
 
 func flattenSource(apiObject *opsworks.Source) map[string]interface{} {
 	if apiObject == nil {
@@ -689,6 +701,7 @@ func flattenSource(apiObject *opsworks.Source) map[string]interface{} {
 // See:
 //   - https://github.com/hashicorp/terraform/pull/12688
 //   - https://github.com/hashicorp/terraform/issues/12842
+
 func regionalConn(ctx context.Context, client *conns.AWSClient, regionName string) (*opsworks.OpsWorks, error) {
 	conn := client.OpsWorksConn(ctx)
 

@@ -24,6 +24,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func init() {
 	resource.AddTestSweepers("aws_opsworks_stack", &resource.Sweeper{
 		Name: "aws_opsworks_stack",
@@ -69,6 +70,7 @@ func init() {
 		F:    sweepUserProfiles,
 	})
 }
+
 
 func sweepApplication(region string) error {
 	ctx := sweep.Context(region)
@@ -121,6 +123,7 @@ func sweepApplication(region string) error {
 
 	return sweep.SweepOrchestrator(ctx, sweepResources)
 }
+
 
 func sweepInstance(region string) error {
 	ctx := sweep.Context(region)
@@ -175,6 +178,7 @@ func sweepInstance(region string) error {
 	return sweep.SweepOrchestrator(ctx, sweepResources)
 }
 
+
 func sweepRDSDBInstance(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -228,6 +232,7 @@ func sweepRDSDBInstance(region string) error {
 	return sweep.SweepOrchestrator(ctx, sweepResources)
 }
 
+
 func sweepStacks(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -270,6 +275,7 @@ func sweepStacks(region string) error {
 
 	return sweep.SweepOrchestrator(ctx, sweepResources)
 }
+
 
 func sweepLayers(region string) error {
 	ctx := sweep.Context(region)
@@ -333,6 +339,7 @@ func sweepLayers(region string) error {
 	return sweep.SweepOrchestrator(ctx, sweepResources)
 }
 
+
 func sweepUserProfiles(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -368,6 +375,7 @@ type userProfileSweeper struct {
 	sweepable sweep.Sweepable
 }
 
+
 func newUserProfileSweeper(resource *schema.Resource, d *schema.ResourceData, client *conns.AWSClient) *userProfileSweeper {
 	return &userProfileSweeper{
 		d:         d,
@@ -375,7 +383,9 @@ func newUserProfileSweeper(resource *schema.Resource, d *schema.ResourceData, cl
 	}
 }
 
-func (ups userProfileSweeper) Delete(ctx context.Context, timeout time.Duration, optFns ...tfresource.OptionsFunc) error {
+
+func (ups userProfileSweeper) Delete(ctx context.Context, timeout time.Duration, optFns ...tfresource.Options
+func) error {
 	err := ups.sweepable.Delete(ctx, timeout, optFns...)
 	if err != nil && strings.Contains(err.Error(), "Cannot delete self") {
 		log.Printf("[WARN] Skipping OpsWorks User Profile (%s): %s", ups.d.Id(), err)

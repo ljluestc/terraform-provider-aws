@@ -18,6 +18,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func testAccIPAMResourceDiscoveryAssociation_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var rda ec2.IpamResourceDiscoveryAssociation
@@ -26,14 +27,16 @@ func testAccIPAMResourceDiscoveryAssociation_basic(t *testing.T) {
 	rdName := "aws_vpc_ipam_resource_discovery.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckIPAMResourceDiscoveryAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIPAMResourceDiscoveryAssociationConfig_basic(),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckIPAMResourceDiscoveryAssociationExists(ctx, resourceName, &rda),
 					acctest.MatchResourceAttrGlobalARN(resourceName, "arn", "ec2", regexache.MustCompile(`ipam-resource-discovery-association/ipam-res-disco-assoc-[0-9a-f]+$`)),
 					resource.TestCheckResourceAttrPair(resourceName, "ipam_id", ipamName, "id"),
@@ -51,20 +54,23 @@ func testAccIPAMResourceDiscoveryAssociation_basic(t *testing.T) {
 	})
 }
 
+
 func testAccIPAMResourceDiscoveryAssociation_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var rda ec2.IpamResourceDiscoveryAssociation
 	resourceName := "aws_vpc_ipam_resource_discovery_association.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckIPAMResourceDiscoveryAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIPAMResourceDiscoveryAssociationConfig_tags("key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckIPAMResourceDiscoveryAssociationExists(ctx, resourceName, &rda),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
@@ -77,7 +83,8 @@ func testAccIPAMResourceDiscoveryAssociation_tags(t *testing.T) {
 			},
 			{
 				Config: testAccIPAMResourceDiscoveryAssociationConfig_tags2("key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
@@ -85,7 +92,8 @@ func testAccIPAMResourceDiscoveryAssociation_tags(t *testing.T) {
 			},
 			{
 				Config: testAccIPAMResourceDiscoveryAssociationConfig_tags("key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
 				),
@@ -94,20 +102,23 @@ func testAccIPAMResourceDiscoveryAssociation_tags(t *testing.T) {
 	})
 }
 
+
 func testAccIPAMResourceDiscoveryAssociation_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var rda ec2.IpamResourceDiscoveryAssociation
 	resourceName := "aws_vpc_ipam_resource_discovery_association.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckIPAMResourceDiscoveryAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIPAMResourceDiscoveryAssociationConfig_basic(),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckIPAMResourceDiscoveryAssociationExists(ctx, resourceName, &rda),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceIPAMResourceDiscoveryAssociation(), resourceName),
 				),
@@ -117,8 +128,11 @@ func testAccIPAMResourceDiscoveryAssociation_disappears(t *testing.T) {
 	})
 }
 
-func testAccCheckIPAMResourceDiscoveryAssociationExists(ctx context.Context, n string, v *ec2.IpamResourceDiscoveryAssociation) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckIPAMResourceDiscoveryAssociationExists(ctx context.Context, n string, v *ec2.IpamResourceDiscoveryAssociation) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -142,8 +156,11 @@ func testAccCheckIPAMResourceDiscoveryAssociationExists(ctx context.Context, n s
 	}
 }
 
-func testAccCheckIPAMResourceDiscoveryAssociationDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckIPAMResourceDiscoveryAssociationDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -186,6 +203,7 @@ resource "aws_vpc_ipam_resource_discovery" "test" {
 }
 `
 
+
 func testAccIPAMResourceDiscoveryAssociationConfig_basic() string {
 	return acctest.ConfigCompose(testAccIPAMResourceDiscoveryAssociationConfig_base, `
 resource "aws_vpc_ipam_resource_discovery_association" "test" {
@@ -194,6 +212,7 @@ resource "aws_vpc_ipam_resource_discovery_association" "test" {
 }
 `)
 }
+
 
 func testAccIPAMResourceDiscoveryAssociationConfig_tags(tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccIPAMResourceDiscoveryAssociationConfig_base, fmt.Sprintf(`
@@ -207,6 +226,7 @@ resource "aws_vpc_ipam_resource_discovery_association" "test" {
 }
 `, tagKey1, tagValue1))
 }
+
 
 func testAccIPAMResourceDiscoveryAssociationConfig_tags2(tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccIPAMResourceDiscoveryAssociationConfig_base, fmt.Sprintf(`

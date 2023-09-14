@@ -19,11 +19,14 @@ import (
 )
 
 // @SDKDataSource("aws_quicksight_group", name="Group")
+
 func DataSourceGroup() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceGroupRead,
 
-		SchemaFunc: func() map[string]*schema.Schema {
+		Schema
+func: 
+func() map[string]*schema.Schema {
 			return map[string]*schema.Schema{
 				"arn": {
 					Type:     schema.TypeString,
@@ -46,7 +49,8 @@ func DataSourceGroup() *schema.Resource {
 					Type:     schema.TypeString,
 					Optional: true,
 					Default:  DefaultGroupNamespace,
-					ValidateFunc: validation.All(
+					Validate
+func: validation.All(
 						validation.StringLenBetween(1, 63),
 						validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_.-]*$`), "must contain only alphanumeric characters, hyphens, underscores, and periods"),
 					),
@@ -59,6 +63,7 @@ func DataSourceGroup() *schema.Resource {
 		},
 	}
 }
+
 
 func dataSourceGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

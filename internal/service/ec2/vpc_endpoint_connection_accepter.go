@@ -20,6 +20,7 @@ import (
 )
 
 // @SDKResource("aws_vpc_endpoint_connection_accepter")
+
 func ResourceVPCEndpointConnectionAccepter() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceVPCEndpointConnectionAccepterCreate,

@@ -26,6 +26,7 @@ import (
 
 // @SDKResource("aws_route53_resolver_firewall_domain_list", name="Firewall Domain List")
 // @Tags(identifierAttribute="arn")
+
 func ResourceFirewallDomainList() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceFirewallDomainListCreate,
@@ -51,7 +52,8 @@ func ResourceFirewallDomainList() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validResolverName,
+				Validate
+func: validResolverName,
 			},
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
@@ -60,6 +62,7 @@ func ResourceFirewallDomainList() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
+
 
 func resourceFirewallDomainListCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
@@ -98,6 +101,7 @@ func resourceFirewallDomainListCreate(ctx context.Context, d *schema.ResourceDat
 	return resourceFirewallDomainListRead(ctx, d, meta)
 }
 
+
 func resourceFirewallDomainListRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
 
@@ -122,7 +126,8 @@ func resourceFirewallDomainListRead(ctx context.Context, d *schema.ResourceData,
 	}
 	var output []*string
 
-	err = conn.ListFirewallDomainsPagesWithContext(ctx, input, func(page *route53resolver.ListFirewallDomainsOutput, lastPage bool) bool {
+	err = conn.ListFirewallDomainsPagesWithContext(ctx, input, 
+func(page *route53resolver.ListFirewallDomainsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -140,6 +145,7 @@ func resourceFirewallDomainListRead(ctx context.Context, d *schema.ResourceData,
 
 	return nil
 }
+
 
 func resourceFirewallDomainListUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
@@ -181,6 +187,7 @@ func resourceFirewallDomainListUpdate(ctx context.Context, d *schema.ResourceDat
 	return resourceFirewallDomainListRead(ctx, d, meta)
 }
 
+
 func resourceFirewallDomainListDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
 
@@ -203,6 +210,7 @@ func resourceFirewallDomainListDelete(ctx context.Context, d *schema.ResourceDat
 
 	return nil
 }
+
 
 func FindFirewallDomainListByID(ctx context.Context, conn *route53resolver.Route53Resolver, id string) (*route53resolver.FirewallDomainList, error) {
 	input := &route53resolver.GetFirewallDomainListInput{
@@ -229,8 +237,11 @@ func FindFirewallDomainListByID(ctx context.Context, conn *route53resolver.Route
 	return output.FirewallDomainList, nil
 }
 
-func statusFirewallDomainList(ctx context.Context, conn *route53resolver.Route53Resolver, id string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+
+func statusFirewallDomainList(ctx context.Context, conn *route53resolver.Route53Resolver, id string) retry.StateRefresh
+func {
+	return 
+func() (interface{}, string, error) {
 		output, err := FindFirewallDomainListByID(ctx, conn, id)
 
 		if tfresource.NotFound(err) {
@@ -249,6 +260,7 @@ const (
 	firewallDomainListUpdatedTimeout = 5 * time.Minute
 	firewallDomainListDeletedTimeout = 5 * time.Minute
 )
+
 
 func waitFirewallDomainListUpdated(ctx context.Context, conn *route53resolver.Route53Resolver, id string) (*route53resolver.FirewallDomainList, error) { //nolint:unparam
 	stateConf := &retry.StateChangeConf{
@@ -272,6 +284,7 @@ func waitFirewallDomainListUpdated(ctx context.Context, conn *route53resolver.Ro
 
 	return nil, err
 }
+
 
 func waitFirewallDomainListDeleted(ctx context.Context, conn *route53resolver.Route53Resolver, id string) (*route53resolver.FirewallDomainList, error) {
 	stateConf := &retry.StateChangeConf{

@@ -13,6 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccEC2AvailabilityZoneGroup_optInStatus(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_ec2_availability_zone_group.test"
@@ -23,14 +24,16 @@ func TestAccEC2AvailabilityZoneGroup_optInStatus(t *testing.T) {
 	localZone := "us-west-2-lax-1" // lintignore:AWSAT003
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsWest2RegionID) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsWest2RegionID) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             nil,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAvailabilityZoneGroupConfig_optInStatus(localZone, ec2.AvailabilityZoneOptInStatusOptedIn),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttr(resourceName, "opt_in_status", ec2.AvailabilityZoneOptInStatusOptedIn),
 				),
 			},
@@ -43,13 +46,15 @@ func TestAccEC2AvailabilityZoneGroup_optInStatus(t *testing.T) {
 			/*
 				{
 					Config: testAccAvailabilityZoneGroupConfig_optInStatus(ec2.AvailabilityZoneOptInStatusNotOptedIn),
-					Check: resource.ComposeTestCheckFunc(
+					Check: resource.ComposeTestCheck
+func(
 						resource.TestCheckResourceAttr(resourceName, "opt_in_status", ec2.AvailabilityZoneOptInStatusNotOptedIn),
 					),
 				},
 				{
 					Config: testAccAvailabilityZoneGroupConfig_optInStatus(ec2.AvailabilityZoneOptInStatusOptedIn),
-					Check: resource.ComposeTestCheckFunc(
+					Check: resource.ComposeTestCheck
+func(
 						resource.TestCheckResourceAttr(resourceName, "opt_in_status", ec2.AvailabilityZoneOptInStatusOptedIn),
 					),
 				},
@@ -57,6 +62,7 @@ func TestAccEC2AvailabilityZoneGroup_optInStatus(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccAvailabilityZoneGroupConfig_optInStatus(name, optInStatus string) string {
 	return fmt.Sprintf(`

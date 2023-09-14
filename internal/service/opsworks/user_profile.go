@@ -19,6 +19,7 @@ import (
 )
 
 // @SDKResource("aws_opsworks_user_profile")
+
 func ResourceUserProfile() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceUserProfileCreate,

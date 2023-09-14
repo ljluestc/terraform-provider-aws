@@ -25,6 +25,7 @@ const (
 )
 
 // @SDKResource("aws_quicksight_user", name="User")
+
 func ResourceUser() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceUserCreate,
@@ -32,7 +33,9 @@ func ResourceUser() *schema.Resource {
 		UpdateWithoutTimeout: resourceUserUpdate,
 		DeleteWithoutTimeout: resourceUserDelete,
 
-		SchemaFunc: func() map[string]*schema.Schema {
+		Schema
+func: 
+func() map[string]*schema.Schema {
 			return map[string]*schema.Schema{
 				"arn": {
 					Type:     schema.TypeString,
@@ -62,7 +65,8 @@ func ResourceUser() *schema.Resource {
 					Type:     schema.TypeString,
 					Required: true,
 					ForceNew: true,
-					ValidateFunc: validation.StringInSlice([]string{
+					Validate
+func: validation.StringInSlice([]string{
 						quicksight.IdentityTypeIam,
 						quicksight.IdentityTypeQuicksight,
 					}, false),
@@ -73,7 +77,8 @@ func ResourceUser() *schema.Resource {
 					Optional: true,
 					ForceNew: true,
 					Default:  DefaultUserNamespace,
-					ValidateFunc: validation.All(
+					Validate
+func: validation.All(
 						validation.StringLenBetween(1, 63),
 						validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_.-]*$`), "must contain only alphanumeric characters, hyphens, underscores, and periods"),
 					),
@@ -88,14 +93,16 @@ func ResourceUser() *schema.Resource {
 				"user_name": {
 					Type:         schema.TypeString,
 					Optional:     true,
-					ValidateFunc: validation.NoZeroValues,
+					Validate
+func: validation.NoZeroValues,
 				},
 
 				"user_role": {
 					Type:     schema.TypeString,
 					Required: true,
 					ForceNew: true,
-					ValidateFunc: validation.StringInSlice([]string{
+					Validate
+func: validation.StringInSlice([]string{
 						quicksight.UserRoleReader,
 						quicksight.UserRoleAuthor,
 						quicksight.UserRoleAdmin,
@@ -105,6 +112,7 @@ func ResourceUser() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceUserCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -148,6 +156,7 @@ func resourceUserCreate(ctx context.Context, d *schema.ResourceData, meta interf
 	return append(diags, resourceUserRead(ctx, d, meta)...)
 }
 
+
 func resourceUserRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
@@ -183,6 +192,7 @@ func resourceUserRead(ctx context.Context, d *schema.ResourceData, meta interfac
 	return diags
 }
 
+
 func resourceUserUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
@@ -208,6 +218,7 @@ func resourceUserUpdate(ctx context.Context, d *schema.ResourceData, meta interf
 	return append(diags, resourceUserRead(ctx, d, meta)...)
 }
 
+
 func resourceUserDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
@@ -232,6 +243,7 @@ func resourceUserDelete(ctx context.Context, d *schema.ResourceData, meta interf
 
 	return diags
 }
+
 
 func UserParseID(id string) (string, string, string, error) {
 	parts := strings.SplitN(id, "/", 3)

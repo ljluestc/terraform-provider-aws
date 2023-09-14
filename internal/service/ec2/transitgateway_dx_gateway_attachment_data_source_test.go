@@ -13,6 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func testAccTransitGatewayDxGatewayAttachmentDataSource_TransitGatewayIdAndDxGatewayID(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -22,7 +23,8 @@ func testAccTransitGatewayDxGatewayAttachmentDataSource_TransitGatewayIdAndDxGat
 	dxGatewayResourceName := "aws_dx_gateway.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckTransitGateway(ctx, t)
 		},
@@ -32,7 +34,8 @@ func testAccTransitGatewayDxGatewayAttachmentDataSource_TransitGatewayIdAndDxGat
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayDxGatewayAttachmentDataSourceConfig_transit(rName, rBgpAsn),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttrPair(dataSourceName, "dx_gateway_id", dxGatewayResourceName, "id"),
 					resource.TestCheckResourceAttr(dataSourceName, "tags.%", "0"),
 					resource.TestCheckResourceAttrPair(dataSourceName, "transit_gateway_id", transitGatewayResourceName, "id"),
@@ -41,6 +44,7 @@ func testAccTransitGatewayDxGatewayAttachmentDataSource_TransitGatewayIdAndDxGat
 		},
 	})
 }
+
 
 func testAccTransitGatewayDxGatewayAttachmentDataSource_filter(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -51,7 +55,8 @@ func testAccTransitGatewayDxGatewayAttachmentDataSource_filter(t *testing.T) {
 	dxGatewayResourceName := "aws_dx_gateway.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckTransitGateway(ctx, t)
 		},
@@ -61,7 +66,8 @@ func testAccTransitGatewayDxGatewayAttachmentDataSource_filter(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayDxGatewayAttachmentDataSourceConfig_transitFilter(rName, rBgpAsn),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttrPair(dataSourceName, "dx_gateway_id", dxGatewayResourceName, "id"),
 					resource.TestCheckResourceAttr(dataSourceName, "tags.%", "0"),
 					resource.TestCheckResourceAttrPair(dataSourceName, "transit_gateway_id", transitGatewayResourceName, "id"),
@@ -70,6 +76,7 @@ func testAccTransitGatewayDxGatewayAttachmentDataSource_filter(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccTransitGatewayDxGatewayAttachmentDataSourceConfig_transit(rName string, rBgpAsn int) string {
 	return fmt.Sprintf(`
@@ -100,6 +107,7 @@ data "aws_ec2_transit_gateway_dx_gateway_attachment" "test" {
 }
 `, rName, rBgpAsn)
 }
+
 
 func testAccTransitGatewayDxGatewayAttachmentDataSourceConfig_transitFilter(rName string, rBgpAsn int) string {
 	return fmt.Sprintf(`

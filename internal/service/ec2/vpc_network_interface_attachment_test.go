@@ -13,6 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccVPCNetworkInterfaceAttachment_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf ec2.NetworkInterface
@@ -20,14 +21,16 @@ func TestAccVPCNetworkInterfaceAttachment_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckENIDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCNetworkInterfaceAttachmentConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckENIExists(ctx, "aws_network_interface.test", &conf),
 					resource.TestCheckResourceAttrSet(resourceName, "attachment_id"),
 					resource.TestCheckResourceAttr(resourceName, "device_index", "1"),
@@ -44,6 +47,7 @@ func TestAccVPCNetworkInterfaceAttachment_basic(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccVPCNetworkInterfaceAttachmentConfig_basic(rName string) string {
 	return acctest.ConfigCompose(

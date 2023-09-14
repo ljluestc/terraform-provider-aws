@@ -24,6 +24,7 @@ import (
 )
 
 // @SDKResource("aws_glacier_vault_lock")
+
 func resourceVaultLock() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceVaultLockCreate,
@@ -50,10 +51,14 @@ func resourceVaultLock() *schema.Resource {
 				Type:                  schema.TypeString,
 				Required:              true,
 				ForceNew:              true,
-				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
+				DiffSuppress
+func:      verify.SuppressEquivalentPolicyDiffs,
 				DiffSuppressOnRefresh: true,
-				ValidateFunc:          verify.ValidIAMPolicyJSON,
-				StateFunc: func(v interface{}) string {
+				Validate
+func:          verify.ValidIAMPolicyJSON,
+				State
+func: 
+func(v interface{}) string {
 					json, _ := structure.NormalizeJsonString(v)
 					return json
 				},
@@ -62,7 +67,8 @@ func resourceVaultLock() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.NoZeroValues,
+				Validate
+func: validation.NoZeroValues,
 			},
 		},
 	}
@@ -72,6 +78,7 @@ const (
 	lockStateInProgress = "InProgress"
 	lockStateLocked     = "Locked"
 )
+
 
 func resourceVaultLockCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -120,6 +127,7 @@ func resourceVaultLockCreate(ctx context.Context, d *schema.ResourceData, meta i
 	return append(diags, resourceVaultLockRead(ctx, d, meta)...)
 }
 
+
 func resourceVaultLockRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).GlacierClient(ctx)
@@ -150,6 +158,7 @@ func resourceVaultLockRead(ctx context.Context, d *schema.ResourceData, meta int
 	return diags
 }
 
+
 func resourceVaultLockDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).GlacierClient(ctx)
@@ -169,6 +178,7 @@ func resourceVaultLockDelete(ctx context.Context, d *schema.ResourceData, meta i
 
 	return diags
 }
+
 
 func findVaultLockByName(ctx context.Context, conn *glacier.Client, name string) (*glacier.GetVaultLockOutput, error) {
 	input := &glacier.GetVaultLockInput{
@@ -196,8 +206,11 @@ func findVaultLockByName(ctx context.Context, conn *glacier.Client, name string)
 	return output, nil
 }
 
-func statusLockState(ctx context.Context, conn *glacier.Client, name string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+
+func statusLockState(ctx context.Context, conn *glacier.Client, name string) retry.StateRefresh
+func {
+	return 
+func() (interface{}, string, error) {
 		output, err := findVaultLockByName(ctx, conn, name)
 
 		if tfresource.NotFound(err) {
@@ -211,6 +224,7 @@ func statusLockState(ctx context.Context, conn *glacier.Client, name string) ret
 		return output, aws.ToString(output.State), nil
 	}
 }
+
 
 func waitVaultLockComplete(ctx context.Context, conn *glacier.Client, name string) error {
 	stateConf := &retry.StateChangeConf{

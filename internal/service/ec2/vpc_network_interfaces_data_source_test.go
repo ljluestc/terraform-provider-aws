@@ -13,19 +13,22 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccVPCNetworkInterfacesDataSource_filter(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPCDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCNetworkInterfacesDataSourceConfig_filter(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttr("data.aws_network_interfaces.test", "ids.#", "2"),
 				),
 			},
@@ -33,19 +36,22 @@ func TestAccVPCNetworkInterfacesDataSource_filter(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCNetworkInterfacesDataSource_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPCDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCNetworkInterfacesDataSourceConfig_tags(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttr("data.aws_network_interfaces.test", "ids.#", "1"),
 				),
 			},
@@ -53,25 +59,29 @@ func TestAccVPCNetworkInterfacesDataSource_tags(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCNetworkInterfacesDataSource_empty(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPCDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCNetworkInterfacesDataSourceConfig_empty(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttr("data.aws_network_interfaces.test", "ids.#", "0"),
 				),
 			},
 		},
 	})
 }
+
 
 func testAccNetworkInterfacesDataSourceConfig_Base(rName string) string {
 	return fmt.Sprintf(`
@@ -110,6 +120,7 @@ resource "aws_network_interface" "test2" {
 `, rName)
 }
 
+
 func testAccVPCNetworkInterfacesDataSourceConfig_filter(rName string) string {
 	return acctest.ConfigCompose(testAccNetworkInterfacesDataSourceConfig_Base(rName), `
 data "aws_network_interfaces" "test" {
@@ -121,6 +132,7 @@ data "aws_network_interfaces" "test" {
 `)
 }
 
+
 func testAccVPCNetworkInterfacesDataSourceConfig_tags(rName string) string {
 	return acctest.ConfigCompose(testAccNetworkInterfacesDataSourceConfig_Base(rName), `
 data "aws_network_interfaces" "test" {
@@ -130,6 +142,7 @@ data "aws_network_interfaces" "test" {
 }
 `)
 }
+
 
 func testAccVPCNetworkInterfacesDataSourceConfig_empty(rName string) string {
 	return fmt.Sprintf(`

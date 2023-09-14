@@ -27,6 +27,7 @@ import (
 
 // @SDKResource("aws_backup_vault", name="Vault")
 // @Tags(identifierAttribute="arn")
+
 func ResourceVault() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceVaultCreate,
@@ -57,13 +58,15 @@ func ResourceVault() *schema.Resource {
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			"name": {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
-				ValidateFunc: validation.All(
+				Validate
+func: validation.All(
 					validation.StringLenBetween(2, 50),
 					validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_-]*$`), "must consist of letters, numbers, and hyphens."),
 				),
@@ -79,6 +82,7 @@ func ResourceVault() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
+
 
 func resourceVaultCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -105,6 +109,7 @@ func resourceVaultCreate(ctx context.Context, d *schema.ResourceData, meta inter
 	return append(diags, resourceVaultRead(ctx, d, meta)...)
 }
 
+
 func resourceVaultRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).BackupConn(ctx)
@@ -129,6 +134,7 @@ func resourceVaultRead(ctx context.Context, d *schema.ResourceData, meta interfa
 	return diags
 }
 
+
 func resourceVaultUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 
@@ -136,6 +142,7 @@ func resourceVaultUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 
 	return append(diags, resourceVaultRead(ctx, d, meta)...)
 }
+
 
 func resourceVaultDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -147,7 +154,8 @@ func resourceVaultDelete(ctx context.Context, d *schema.ResourceData, meta inter
 		}
 		var recoveryPointErrs *multierror.Error
 
-		err := conn.ListRecoveryPointsByBackupVaultPagesWithContext(ctx, input, func(page *backup.ListRecoveryPointsByBackupVaultOutput, lastPage bool) bool {
+		err := conn.ListRecoveryPointsByBackupVaultPagesWithContext(ctx, input, 
+func(page *backup.ListRecoveryPointsByBackupVaultOutput, lastPage bool) bool {
 			if page == nil {
 				return !lastPage
 			}

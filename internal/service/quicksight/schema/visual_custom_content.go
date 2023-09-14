@@ -11,6 +11,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 )
 
+
 func customContentVisualSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_CustomContentVisual.html
 		Type:     schema.TypeList,
@@ -27,7 +28,8 @@ func customContentVisualSchema() *schema.Schema {
 					Optional:         true,
 					MinItems:         1,
 					MaxItems:         1,
-					DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
+					DiffSuppress
+func: verify.SuppressMissingOptionalConfigurationBlock,
 					Elem: &schema.Resource{
 						Schema: map[string]*schema.Schema{
 							"content_type":  stringSchema(false, validation.StringInSlice(quicksight.CustomContentType_Values(), false)),
@@ -42,6 +44,7 @@ func customContentVisualSchema() *schema.Schema {
 		},
 	}
 }
+
 
 func expandCustomContentVisual(tfList []interface{}) *quicksight.CustomContentVisual {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -77,6 +80,7 @@ func expandCustomContentVisual(tfList []interface{}) *quicksight.CustomContentVi
 	return visual
 }
 
+
 func expandCustomContentConfiguration(tfList []interface{}) *quicksight.CustomContentConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -102,6 +106,7 @@ func expandCustomContentConfiguration(tfList []interface{}) *quicksight.CustomCo
 	return config
 }
 
+
 func flattenCustomContentVisual(apiObject *quicksight.CustomContentVisual) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -126,6 +131,7 @@ func flattenCustomContentVisual(apiObject *quicksight.CustomContentVisual) []int
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenCustomContentConfiguration(apiObject *quicksight.CustomContentConfiguration) []interface{} {
 	if apiObject == nil {

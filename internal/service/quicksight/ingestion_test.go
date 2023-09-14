@@ -21,6 +21,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
+
 func TestAccQuickSightIngestion_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ingestion quicksight.Ingestion
@@ -30,14 +31,16 @@ func TestAccQuickSightIngestion_basic(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckIngestionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIngestionConfig_basic(rId, rName, quicksight.IngestionTypeFullRefresh),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckIngestionExists(ctx, resourceName, &ingestion),
 					resource.TestCheckResourceAttr(resourceName, "ingestion_id", rId),
 					resource.TestCheckResourceAttr(resourceName, "ingestion_type", quicksight.IngestionTypeFullRefresh),
@@ -60,6 +63,7 @@ func TestAccQuickSightIngestion_basic(t *testing.T) {
 // NOTE: There is no base _disappears test for this resource. Ingestions
 // persist for the life of the parent data set, even if cancelled, so
 // disappearance of this upstream resource is tested instead.
+
 func TestAccQuickSightIngestion_disappears_dataSet(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ingestion quicksight.Ingestion
@@ -69,14 +73,16 @@ func TestAccQuickSightIngestion_disappears_dataSet(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckIngestionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIngestionConfig_basic(rId, rName, quicksight.IngestionTypeFullRefresh),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckIngestionExists(ctx, resourceName, &ingestion),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfquicksight.ResourceDataSet(), dataSetName),
 				),
@@ -86,8 +92,11 @@ func TestAccQuickSightIngestion_disappears_dataSet(t *testing.T) {
 	})
 }
 
-func testAccCheckIngestionExists(ctx context.Context, resourceName string, ingestion *quicksight.Ingestion) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckIngestionExists(ctx context.Context, resourceName string, ingestion *quicksight.Ingestion) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("Not found: %s", resourceName)
@@ -105,8 +114,11 @@ func testAccCheckIngestionExists(ctx context.Context, resourceName string, inges
 	}
 }
 
-func testAccCheckIngestionDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckIngestionDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_quicksight_ingestion" {
@@ -130,6 +142,7 @@ func testAccCheckIngestionDestroy(ctx context.Context) resource.TestCheckFunc {
 	}
 }
 
+
 func isDestroyedStatus(status string) bool {
 	targetStatuses := []string{
 		quicksight.IngestionStatusCancelled,
@@ -143,6 +156,7 @@ func isDestroyedStatus(status string) bool {
 	}
 	return false
 }
+
 
 func testAccIngestionConfigBase(rId, rName string) string {
 	return acctest.ConfigCompose(
@@ -169,6 +183,7 @@ resource "aws_quicksight_data_set" "test" {
 }
 `, rId, rName))
 }
+
 
 func testAccIngestionConfig_basic(rId, rName, ingestionType string) string {
 	return acctest.ConfigCompose(

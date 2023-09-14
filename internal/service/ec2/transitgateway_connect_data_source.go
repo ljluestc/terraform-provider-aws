@@ -17,6 +17,7 @@ import (
 )
 
 // @SDKDataSource("aws_ec2_transit_gateway_connect")
+
 func DataSourceTransitGatewayConnect() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceTransitGatewayConnectRead,

@@ -12,6 +12,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func testAccClientVPNEndpointDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -21,14 +22,16 @@ func testAccClientVPNEndpointDataSource_basic(t *testing.T) {
 	datasource3Name := "data.aws_ec2_client_vpn_endpoint.by_tags"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { testAccPreCheckClientVPNSyncronize(t); acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { testAccPreCheckClientVPNSyncronize(t); acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckClientVPNEndpointDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClientVPNEndpointDataSourceConfig_basic(t, rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrPair(datasource1Name, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(datasource1Name, "authentication_options.#", resourceName, "authentication_options.#"),
 					resource.TestCheckResourceAttrPair(datasource1Name, "client_cidr_block", resourceName, "client_cidr_block"),
@@ -93,6 +96,7 @@ func testAccClientVPNEndpointDataSource_basic(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccClientVPNEndpointDataSourceConfig_basic(t *testing.T, rName string) string {
 	return acctest.ConfigCompose(testAccClientVPNEndpointConfig_basic(t, rName), `

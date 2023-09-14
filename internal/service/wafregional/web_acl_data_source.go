@@ -15,6 +15,7 @@ import (
 )
 
 // @SDKDataSource("aws_wafregional_web_acl")
+
 func DataSourceWebACL() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceWebACLRead,

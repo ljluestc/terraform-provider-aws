@@ -13,6 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func testAccTransitGatewayMulticastDomainDataSource_Filter(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_transit_gateway_multicast_domain.test"
@@ -20,13 +21,15 @@ func testAccTransitGatewayMulticastDomainDataSource_Filter(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayMulticastDomainDataSourceConfig_filter(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttr(dataSourceName, "associations.#", "0"),
 					resource.TestCheckResourceAttrPair(dataSourceName, "auto_accept_shared_associations", resourceName, "auto_accept_shared_associations"),
@@ -44,6 +47,7 @@ func testAccTransitGatewayMulticastDomainDataSource_Filter(t *testing.T) {
 	})
 }
 
+
 func testAccTransitGatewayMulticastDomainDataSource_ID(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_transit_gateway_multicast_domain.test"
@@ -51,13 +55,15 @@ func testAccTransitGatewayMulticastDomainDataSource_ID(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayMulticastDomainDataSourceConfig_iD(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttr(dataSourceName, "associations.#", "1"),
 					resource.TestCheckResourceAttrPair(dataSourceName, "auto_accept_shared_associations", resourceName, "auto_accept_shared_associations"),
@@ -74,6 +80,7 @@ func testAccTransitGatewayMulticastDomainDataSource_ID(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccTransitGatewayMulticastDomainDataSourceConfig_filter(rName string) string {
 	return fmt.Sprintf(`
@@ -101,6 +108,7 @@ data "aws_ec2_transit_gateway_multicast_domain" "test" {
 }
 `, rName)
 }
+
 
 func testAccTransitGatewayMulticastDomainDataSourceConfig_iD(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInDefaultExclude(), fmt.Sprintf(`

@@ -13,45 +13,52 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )
 
+
 func TestAccEC2InstanceTypesDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_instance_types.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckInstanceTypes(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckInstanceTypes(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             nil,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstanceTypesDataSourceConfig_basic(),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					acctest.CheckResourceAttrGreaterThanValue(dataSourceName, "instance_types.#", 0),
 				),
 			},
 		},
 	})
 }
+
 
 func TestAccEC2InstanceTypesDataSource_filter(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_instance_types.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckInstanceTypes(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckInstanceTypes(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             nil,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstanceTypesDataSourceConfig_filter(),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					acctest.CheckResourceAttrGreaterThanValue(dataSourceName, "instance_types.#", 0),
 				),
 			},
 		},
 	})
 }
+
 
 func testAccPreCheckInstanceTypes(ctx context.Context, t *testing.T) {
 	conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
@@ -69,11 +76,13 @@ func testAccPreCheckInstanceTypes(ctx context.Context, t *testing.T) {
 	}
 }
 
+
 func testAccInstanceTypesDataSourceConfig_basic() string {
 	return `
 data "aws_ec2_instance_types" "test" {}
 `
 }
+
 
 func testAccInstanceTypesDataSourceConfig_filter() string {
 	return `

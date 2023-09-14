@@ -13,18 +13,21 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccVPCNATGatewaysDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCNATGatewaysDataSourceConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttr("data.aws_nat_gateways.by_vpc_id", "ids.#", "2"),
 					resource.TestCheckResourceAttr("data.aws_nat_gateways.by_tags", "ids.#", "1"),
 					resource.TestCheckResourceAttr("data.aws_nat_gateways.by_filter", "ids.#", "3"),
@@ -34,6 +37,7 @@ func TestAccVPCNATGatewaysDataSource_basic(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccVPCNATGatewaysDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`

@@ -18,6 +18,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func testAccTransitGatewayMulticastGroupMember_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.TransitGatewayMulticastGroup
@@ -25,20 +26,23 @@ func testAccTransitGatewayMulticastGroupMember_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayMulticastGroupMemberDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayMulticastGroupMemberConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayMulticastGroupMemberExists(ctx, resourceName, &v),
 				),
 			},
 		},
 	})
 }
+
 
 func testAccTransitGatewayMulticastGroupMember_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -47,14 +51,16 @@ func testAccTransitGatewayMulticastGroupMember_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayMulticastGroupMemberDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayMulticastGroupMemberConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayMulticastGroupMemberExists(ctx, resourceName, &v),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceTransitGatewayMulticastGroupMember(), resourceName),
 				),
@@ -64,6 +70,7 @@ func testAccTransitGatewayMulticastGroupMember_disappears(t *testing.T) {
 	})
 }
 
+
 func testAccTransitGatewayMulticastGroupMember_Disappears_domain(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.TransitGatewayMulticastGroup
@@ -72,14 +79,16 @@ func testAccTransitGatewayMulticastGroupMember_Disappears_domain(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayMulticastGroupMemberDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayMulticastGroupMemberConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayMulticastGroupMemberExists(ctx, resourceName, &v),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceTransitGatewayMulticastDomain(), domainResourceName),
 				),
@@ -89,6 +98,7 @@ func testAccTransitGatewayMulticastGroupMember_Disappears_domain(t *testing.T) {
 	})
 }
 
+
 func testAccTransitGatewayMulticastGroupMember_twoMembers(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v1, v2 ec2.TransitGatewayMulticastGroup
@@ -97,14 +107,16 @@ func testAccTransitGatewayMulticastGroupMember_twoMembers(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayMulticastGroupMemberDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayMulticastGroupMemberConfig_twoMembers(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayMulticastGroupMemberExists(ctx, resource1Name, &v1),
 					testAccCheckTransitGatewayMulticastGroupMemberExists(ctx, resource2Name, &v2),
 				),
@@ -113,8 +125,11 @@ func testAccTransitGatewayMulticastGroupMember_twoMembers(t *testing.T) {
 	})
 }
 
-func testAccCheckTransitGatewayMulticastGroupMemberExists(ctx context.Context, n string, v *ec2.TransitGatewayMulticastGroup) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckTransitGatewayMulticastGroupMemberExists(ctx context.Context, n string, v *ec2.TransitGatewayMulticastGroup) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -144,8 +159,11 @@ func testAccCheckTransitGatewayMulticastGroupMemberExists(ctx context.Context, n
 	}
 }
 
-func testAccCheckTransitGatewayMulticastGroupMemberDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckTransitGatewayMulticastGroupMemberDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -175,6 +193,7 @@ func testAccCheckTransitGatewayMulticastGroupMemberDestroy(ctx context.Context) 
 		return nil
 	}
 }
+
 
 func testAccTransitGatewayMulticastGroupMemberConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInDefaultExclude(), fmt.Sprintf(`
@@ -243,6 +262,7 @@ resource "aws_ec2_transit_gateway_multicast_group_member" "test" {
 }
 `, rName))
 }
+
 
 func testAccTransitGatewayMulticastGroupMemberConfig_twoMembers(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInDefaultExclude(), fmt.Sprintf(`

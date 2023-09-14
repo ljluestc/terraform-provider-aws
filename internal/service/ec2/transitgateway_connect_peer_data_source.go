@@ -21,6 +21,7 @@ import (
 )
 
 // @SDKDataSource("aws_ec2_transit_gateway_connect_peer")
+
 func DataSourceTransitGatewayConnectPeer() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceTransitGatewayConnectPeerRead,
@@ -108,9 +109,10 @@ func dataSourceTransitGatewayConnectPeerRead(ctx context.Context, d *schema.Reso
 	d.Set("arn", arn)
 	d.Set("bgp_asn", strconv.FormatInt(aws.Int64Value(bgpConfigurations[0].PeerAsn), 10))
 	d.Set("bgp_peer_address", bgpConfigurations[0].PeerAddress)
-	d.Set("bgp_transit_gateway_addresses", slices.ApplyToAll(bgpConfigurations, func(v *ec2.TransitGatewayAttachmentBgpConfiguration) string {
-		return aws.StringValue(v.TransitGatewayAddress)
-	}))
+	d.Set("bgp_transit_gateway_addresses", slices.ApplyToAll(bgpConfigurations,
+		func(v *ec2.TransitGatewayAttachmentBgpConfiguration) string {
+			return aws.StringValue(v.TransitGatewayAddress)
+		}))
 	d.Set("inside_cidr_blocks", aws.StringValueSlice(transitGatewayConnectPeer.ConnectPeerConfiguration.InsideCidrBlocks))
 	d.Set("peer_address", transitGatewayConnectPeer.ConnectPeerConfiguration.PeerAddress)
 	d.Set("transit_gateway_address", transitGatewayConnectPeer.ConnectPeerConfiguration.TransitGatewayAddress)

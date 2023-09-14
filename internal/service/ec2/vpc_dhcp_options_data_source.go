@@ -20,6 +20,7 @@ import (
 )
 
 // @SDKDataSource("aws_vpc_dhcp_options")
+
 func DataSourceVPCDHCPOptions() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceVPCDHCPOptionsRead,

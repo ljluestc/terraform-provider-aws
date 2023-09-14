@@ -24,6 +24,7 @@ import (
 )
 
 // @SDKDataSource("aws_instance")
+
 func DataSourceInstance() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceInstanceRead,
@@ -397,6 +398,7 @@ func DataSourceInstance() *schema.Resource {
 }
 
 // dataSourceInstanceRead performs the instanceID lookup
+
 func dataSourceInstanceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -456,6 +458,7 @@ func dataSourceInstanceRead(ctx context.Context, d *schema.ResourceData, meta in
 }
 
 // Populate instance attribute fields with the returned instance
+
 func instanceDescriptionAttributes(ctx context.Context, d *schema.ResourceData, instance *ec2.Instance, conn *ec2.EC2, ignoreTagsConfig *tftags.IgnoreConfig) error {
 	d.SetId(aws.StringValue(instance.InstanceId))
 

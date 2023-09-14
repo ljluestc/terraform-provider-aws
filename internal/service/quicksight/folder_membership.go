@@ -28,8 +28,10 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
-// Function annotations are used for resource registration to the Provider. DO NOT EDIT.
+// 
+function annotations are used for resource registration to the Provider. DO NOT EDIT.
 // @FrameworkResource(name="Folder Membership")
+
 func newResourceFolderMembership(_ context.Context) (resource.ResourceWithConfigure, error) {
 	return &resourceFolderMembership{}, nil
 }
@@ -42,9 +44,11 @@ type resourceFolderMembership struct {
 	framework.ResourceWithConfigure
 }
 
+
 func (r *resourceFolderMembership) Metadata(_ context.Context, req resource.MetadataRequest, resp *resource.MetadataResponse) {
 	resp.TypeName = "aws_quicksight_folder_membership"
 }
+
 
 func (r *resourceFolderMembership) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
@@ -82,6 +86,7 @@ func (r *resourceFolderMembership) Schema(ctx context.Context, req resource.Sche
 		},
 	}
 }
+
 
 func (r *resourceFolderMembership) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
 	conn := r.Meta().QuickSightConn(ctx)
@@ -126,6 +131,7 @@ func (r *resourceFolderMembership) Create(ctx context.Context, req resource.Crea
 	resp.Diagnostics.Append(resp.State.Set(ctx, plan)...)
 }
 
+
 func (r *resourceFolderMembership) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
 	conn := r.Meta().QuickSightConn(ctx)
 
@@ -168,8 +174,10 @@ func (r *resourceFolderMembership) Read(ctx context.Context, req resource.ReadRe
 }
 
 // There is no update API, so this method is a no-op
+
 func (r *resourceFolderMembership) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
 }
+
 
 func (r *resourceFolderMembership) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
 	conn := r.Meta().QuickSightConn(ctx)
@@ -200,9 +208,11 @@ func (r *resourceFolderMembership) Delete(ctx context.Context, req resource.Dele
 	}
 }
 
+
 func (r *resourceFolderMembership) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
 	resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
 }
+
 
 func FindFolderMembershipByID(ctx context.Context, conn *quicksight.QuickSight, id string) (*quicksight.MemberIdArnPair, error) {
 	awsAccountID, folderID, _, memberID, err := ParseFolderMembershipID(id)
@@ -245,6 +255,7 @@ func FindFolderMembershipByID(ctx context.Context, conn *quicksight.QuickSight, 
 	}
 }
 
+
 func ParseFolderMembershipID(id string) (string, string, string, string, error) {
 	parts := strings.SplitN(id, ",", 4)
 	if len(parts) != 4 || parts[0] == "" || parts[1] == "" || parts[2] == "" || parts[3] == "" {
@@ -252,6 +263,7 @@ func ParseFolderMembershipID(id string) (string, string, string, string, error) 
 	}
 	return parts[0], parts[1], parts[2], parts[3], nil
 }
+
 
 func createFolderMembershipID(awsAccountID, folderID, memberType, memberID string) string {
 	return strings.Join([]string{awsAccountID, folderID, memberType, memberID}, ",")

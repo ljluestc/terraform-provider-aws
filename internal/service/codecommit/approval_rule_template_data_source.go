@@ -17,6 +17,7 @@ import (
 )
 
 // @SDKDataSource("aws_codecommit_approval_rule_template")
+
 func DataSourceApprovalRuleTemplate() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceApprovalRuleTemplateRead,
@@ -25,7 +26,8 @@ func DataSourceApprovalRuleTemplate() *schema.Resource {
 			"name": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: validation.StringLenBetween(1, 100),
+				Validate
+func: validation.StringLenBetween(1, 100),
 			},
 			"approval_rule_template_id": {
 				Type:     schema.TypeString,
@@ -58,6 +60,7 @@ func DataSourceApprovalRuleTemplate() *schema.Resource {
 		},
 	}
 }
+
 
 func dataSourceApprovalRuleTemplateRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

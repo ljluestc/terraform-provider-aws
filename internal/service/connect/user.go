@@ -24,6 +24,7 @@ import (
 
 // @SDKResource("aws_connect_user", name="User")
 // @Tags(identifierAttribute="arn")
+
 func ResourceUser() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceUserCreate,
@@ -61,12 +62,14 @@ func ResourceUser() *schema.Resource {
 						"first_name": {
 							Type:         schema.TypeString,
 							Optional:     true,
-							ValidateFunc: validation.StringLenBetween(1, 100),
+							Validate
+func: validation.StringLenBetween(1, 100),
 						},
 						"last_name": {
 							Type:         schema.TypeString,
 							Optional:     true,
-							ValidateFunc: validation.StringLenBetween(1, 100),
+							Validate
+func: validation.StringLenBetween(1, 100),
 						},
 					},
 				},
@@ -75,19 +78,22 @@ func ResourceUser() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringLenBetween(1, 100),
+				Validate
+func: validation.StringLenBetween(1, 100),
 			},
 			"name": {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringLenBetween(1, 100),
+				Validate
+func: validation.StringLenBetween(1, 100),
 			},
 			"password": {
 				Type:         schema.TypeString,
 				Optional:     true,
 				Sensitive:    true,
-				ValidateFunc: validation.StringLenBetween(8, 64),
+				Validate
+func: validation.StringLenBetween(8, 64),
 			},
 			"phone_config": {
 				Type:     schema.TypeList,
@@ -98,7 +104,8 @@ func ResourceUser() *schema.Resource {
 						"after_contact_work_time_limit": {
 							Type:         schema.TypeInt,
 							Optional:     true,
-							ValidateFunc: validation.IntAtLeast(0),
+							Validate
+func: validation.IntAtLeast(0),
 						},
 						"auto_accept": {
 							Type:     schema.TypeBool,
@@ -107,8 +114,11 @@ func ResourceUser() *schema.Resource {
 						"desk_phone_number": {
 							Type:         schema.TypeString,
 							Optional:     true,
-							ValidateFunc: validDeskPhoneNumber,
-							DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+							Validate
+func: validDeskPhoneNumber,
+							DiffSuppress
+func: 
+func(k, old, new string, d *schema.ResourceData) bool {
 								if v := d.Get("phone_config.0.phone_type").(string); v == connect.PhoneTypeDeskPhone {
 									return false
 								}
@@ -118,7 +128,8 @@ func ResourceUser() *schema.Resource {
 						"phone_type": {
 							Type:         schema.TypeString,
 							Required:     true,
-							ValidateFunc: validation.StringInSlice(connect.PhoneType_Values(), false),
+							Validate
+func: validation.StringInSlice(connect.PhoneType_Values(), false),
 						},
 					},
 				},
@@ -145,6 +156,7 @@ func ResourceUser() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceUserCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -190,6 +202,7 @@ func resourceUserCreate(ctx context.Context, d *schema.ResourceData, meta interf
 
 	return resourceUserRead(ctx, d, meta)
 }
+
 
 func resourceUserRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -242,6 +255,7 @@ func resourceUserRead(ctx context.Context, d *schema.ResourceData, meta interfac
 
 	return nil
 }
+
 
 func resourceUserUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -340,6 +354,7 @@ func resourceUserUpdate(ctx context.Context, d *schema.ResourceData, meta interf
 	return resourceUserRead(ctx, d, meta)
 }
 
+
 func resourceUserDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
@@ -361,6 +376,7 @@ func resourceUserDelete(ctx context.Context, d *schema.ResourceData, meta interf
 	return nil
 }
 
+
 func UserParseID(id string) (string, string, error) {
 	parts := strings.SplitN(id, ":", 2)
 
@@ -370,6 +386,7 @@ func UserParseID(id string) (string, string, error) {
 
 	return parts[0], parts[1], nil
 }
+
 
 func expandIdentityInfo(identityInfo []interface{}) *connect.UserIdentityInfo {
 	if len(identityInfo) == 0 || identityInfo[0] == nil {
@@ -397,6 +414,7 @@ func expandIdentityInfo(identityInfo []interface{}) *connect.UserIdentityInfo {
 
 	return result
 }
+
 
 func expandPhoneConfig(phoneConfig []interface{}) *connect.UserPhoneConfig {
 	if len(phoneConfig) == 0 || phoneConfig[0] == nil {
@@ -427,6 +445,7 @@ func expandPhoneConfig(phoneConfig []interface{}) *connect.UserPhoneConfig {
 	return result
 }
 
+
 func flattenIdentityInfo(identityInfo *connect.UserIdentityInfo) []interface{} {
 	if identityInfo == nil {
 		return []interface{}{}
@@ -448,6 +467,7 @@ func flattenIdentityInfo(identityInfo *connect.UserIdentityInfo) []interface{} {
 
 	return []interface{}{values}
 }
+
 
 func flattenPhoneConfig(phoneConfig *connect.UserPhoneConfig) []interface{} {
 	if phoneConfig == nil {

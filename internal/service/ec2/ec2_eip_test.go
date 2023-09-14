@@ -20,20 +20,23 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccEC2EIP_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf ec2.Address
 	resourceName := "aws_eip.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEIPDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEIPConfig_basic,
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEIPExists(ctx, resourceName, &conf),
 					resource.TestCheckResourceAttr(resourceName, "domain", "vpc"),
 					resource.TestCheckResourceAttrSet(resourceName, "public_ip"),
@@ -49,20 +52,23 @@ func TestAccEC2EIP_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2EIP_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf ec2.Address
 	resourceName := "aws_eip.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEIPDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEIPConfig_basic,
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEIPExists(ctx, resourceName, &conf),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceEIP(), resourceName),
 				),
@@ -72,13 +78,15 @@ func TestAccEC2EIP_disappears(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2EIP_migrateVPCToDomain(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf ec2.Address
 	resourceName := "aws_eip.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:     func() { acctest.PreCheck(ctx, t) },
+		PreCheck:     
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:   acctest.ErrorCheck(t, ec2.EndpointsID),
 		CheckDestroy: testAccCheckEIPDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -90,7 +98,8 @@ func TestAccEC2EIP_migrateVPCToDomain(t *testing.T) {
 					},
 				},
 				Config: testAccEIPConfig_vpc,
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEIPExists(ctx, resourceName, &conf),
 					resource.TestCheckResourceAttr(resourceName, "domain", "vpc"),
 					resource.TestCheckResourceAttrSet(resourceName, "public_ip"),
@@ -106,20 +115,23 @@ func TestAccEC2EIP_migrateVPCToDomain(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2EIP_noVPC(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf ec2.Address
 	resourceName := "aws_eip.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEIPDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEIPConfig_noVPC,
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEIPExists(ctx, resourceName, &conf),
 					resource.TestCheckResourceAttr(resourceName, "domain", "vpc"),
 					resource.TestCheckResourceAttrSet(resourceName, "public_ip"),
@@ -135,20 +147,23 @@ func TestAccEC2EIP_noVPC(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2EIP_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf ec2.Address
 	resourceName := "aws_eip.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEIPDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEIPConfig_tags1("key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEIPExists(ctx, resourceName, &conf),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
@@ -161,7 +176,8 @@ func TestAccEC2EIP_tags(t *testing.T) {
 			},
 			{
 				Config: testAccEIPConfig_tags2("key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEIPExists(ctx, resourceName, &conf),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
@@ -170,7 +186,8 @@ func TestAccEC2EIP_tags(t *testing.T) {
 			},
 			{
 				Config: testAccEIPConfig_tags1("key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEIPExists(ctx, resourceName, &conf),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
@@ -180,6 +197,7 @@ func TestAccEC2EIP_tags(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2EIP_instance(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf ec2.Address
@@ -188,14 +206,16 @@ func TestAccEC2EIP_instance(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEIPDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEIPConfig_instance(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEIPExists(ctx, resourceName, &conf),
 					resource.TestCheckResourceAttrPair(resourceName, "instance", instanceResourceName, "id"),
 					resource.TestCheckResourceAttrSet(resourceName, "public_ip"),
@@ -212,6 +232,7 @@ func TestAccEC2EIP_instance(t *testing.T) {
 
 // Regression test for https://github.com/hashicorp/terraform/issues/3429 (now
 // https://github.com/hashicorp/terraform-provider-aws/issues/42)
+
 func TestAccEC2EIP_Instance_reassociate(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf ec2.Address
@@ -220,21 +241,24 @@ func TestAccEC2EIP_Instance_reassociate(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEIPDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEIPConfig_instanceReassociate(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEIPExists(ctx, resourceName, &conf),
 					resource.TestCheckResourceAttrPair(resourceName, "instance", instanceResourceName, "id"),
 				),
 			},
 			{
 				Config: testAccEIPConfig_instanceReassociate(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEIPExists(ctx, resourceName, &conf),
 					resource.TestCheckResourceAttrPair(resourceName, "instance", instanceResourceName, "id"),
 				),
@@ -246,6 +270,7 @@ func TestAccEC2EIP_Instance_reassociate(t *testing.T) {
 
 // This test is an expansion of TestAccEC2EIP_Instance_associatedUserPrivateIP, by testing the
 // associated Private EIPs of two instances
+
 func TestAccEC2EIP_Instance_associatedUserPrivateIP(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf ec2.Address
@@ -255,14 +280,16 @@ func TestAccEC2EIP_Instance_associatedUserPrivateIP(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEIPDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEIPConfig_instanceAssociated(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEIPExists(ctx, resourceName, &conf),
 					resource.TestCheckResourceAttrSet(resourceName, "association_id"),
 					resource.TestCheckResourceAttrPair(resourceName, "instance", instance1ResourceName, "id"),
@@ -277,7 +304,8 @@ func TestAccEC2EIP_Instance_associatedUserPrivateIP(t *testing.T) {
 			},
 			{
 				Config: testAccEIPConfig_instanceAssociatedSwitch(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEIPExists(ctx, resourceName, &conf),
 					resource.TestCheckResourceAttrSet(resourceName, "association_id"),
 					resource.TestCheckResourceAttrPair(resourceName, "instance", instance2ResourceName, "id"),
@@ -288,6 +316,7 @@ func TestAccEC2EIP_Instance_associatedUserPrivateIP(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2EIP_Instance_notAssociated(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf ec2.Address
@@ -296,14 +325,16 @@ func TestAccEC2EIP_Instance_notAssociated(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEIPDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEIPConfig_instanceAssociateNotAssociated(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEIPExists(ctx, resourceName, &conf),
 					resource.TestCheckResourceAttr(resourceName, "association_id", ""),
 					resource.TestCheckResourceAttr(resourceName, "instance", ""),
@@ -317,7 +348,8 @@ func TestAccEC2EIP_Instance_notAssociated(t *testing.T) {
 			},
 			{
 				Config: testAccEIPConfig_instance(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEIPExists(ctx, resourceName, &conf),
 					resource.TestCheckResourceAttrSet(resourceName, "association_id"),
 					resource.TestCheckResourceAttrPair(resourceName, "instance", instanceResourceName, "id"),
@@ -328,6 +360,7 @@ func TestAccEC2EIP_Instance_notAssociated(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2EIP_networkInterface(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf ec2.Address
@@ -335,14 +368,16 @@ func TestAccEC2EIP_networkInterface(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEIPDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEIPConfig_networkInterface(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEIPExists(ctx, resourceName, &conf),
 					testAccCheckEIPPrivateDNS(resourceName),
 					resource.TestCheckResourceAttrSet(resourceName, "allocation_id"),
@@ -359,6 +394,7 @@ func TestAccEC2EIP_networkInterface(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2EIP_NetworkInterface_twoEIPsOneInterface(t *testing.T) {
 	ctx := acctest.Context(t)
 	var one, two ec2.Address
@@ -367,14 +403,16 @@ func TestAccEC2EIP_NetworkInterface_twoEIPsOneInterface(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEIPDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEIPConfig_multiNetworkInterface(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEIPExists(ctx, resource1Name, &one),
 					resource.TestCheckResourceAttrSet(resource1Name, "association_id"),
 					resource.TestCheckResourceAttrSet(resource1Name, "public_ip"),
@@ -388,6 +426,7 @@ func TestAccEC2EIP_NetworkInterface_twoEIPsOneInterface(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2EIP_association(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf ec2.Address
@@ -397,14 +436,16 @@ func TestAccEC2EIP_association(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEIPDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEIPConfig_associationNone(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEIPExists(ctx, resourceName, &conf),
 					resource.TestCheckResourceAttr(resourceName, "association_id", ""),
 					resource.TestCheckResourceAttr(resourceName, "instance", ""),
@@ -414,7 +455,8 @@ func TestAccEC2EIP_association(t *testing.T) {
 			},
 			{
 				Config: testAccEIPConfig_associationENI(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEIPExists(ctx, resourceName, &conf),
 					resource.TestCheckResourceAttrSet(resourceName, "association_id"),
 					resource.TestCheckResourceAttr(resourceName, "instance", ""),
@@ -424,7 +466,8 @@ func TestAccEC2EIP_association(t *testing.T) {
 			},
 			{
 				Config: testAccEIPConfig_associationInstance(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEIPExists(ctx, resourceName, &conf),
 					resource.TestCheckResourceAttrSet(resourceName, "association_id"),
 					resource.TestCheckResourceAttrPair(resourceName, "instance", instanceResourceName, "id"),
@@ -436,6 +479,7 @@ func TestAccEC2EIP_association(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2EIP_PublicIPv4Pool_default(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf ec2.Address
@@ -443,14 +487,16 @@ func TestAccEC2EIP_PublicIPv4Pool_default(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEIPDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEIPConfig_publicIPv4PoolDefault(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEIPExists(ctx, resourceName, &conf),
 					resource.TestCheckResourceAttrSet(resourceName, "public_ip"),
 					resource.TestCheckResourceAttr(resourceName, "public_ipv4_pool", "amazon"),
@@ -465,6 +511,7 @@ func TestAccEC2EIP_PublicIPv4Pool_default(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2EIP_PublicIPv4Pool_custom(t *testing.T) {
 	ctx := acctest.Context(t)
 	key := "AWS_EC2_EIP_PUBLIC_IPV4_POOL"
@@ -478,14 +525,16 @@ func TestAccEC2EIP_PublicIPv4Pool_custom(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEIPDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEIPConfig_publicIPv4PoolCustom(rName, poolName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEIPExists(ctx, resourceName, &conf),
 					resource.TestCheckResourceAttrSet(resourceName, "public_ip"),
 					resource.TestCheckResourceAttr(resourceName, "public_ipv4_pool", poolName),
@@ -500,6 +549,7 @@ func TestAccEC2EIP_PublicIPv4Pool_custom(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2EIP_customerOwnedIPv4Pool(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf ec2.Address
@@ -507,14 +557,16 @@ func TestAccEC2EIP_customerOwnedIPv4Pool(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEIPDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEIPConfig_customerOwnedIPv4Pool(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEIPExists(ctx, resourceName, &conf),
 					resource.TestMatchResourceAttr(resourceName, "customer_owned_ipv4_pool", regexache.MustCompile(`^ipv4pool-coip-.+$`)),
 					resource.TestMatchResourceAttr(resourceName, "customer_owned_ip", regexache.MustCompile(`\d+\.\d+\.\d+\.\d+`)),
@@ -529,6 +581,7 @@ func TestAccEC2EIP_customerOwnedIPv4Pool(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2EIP_networkBorderGroup(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf ec2.Address
@@ -536,14 +589,16 @@ func TestAccEC2EIP_networkBorderGroup(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEIPDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEIPConfig_networkBorderGroup(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEIPExists(ctx, resourceName, &conf),
 					resource.TestCheckResourceAttr(resourceName, "network_border_group", acctest.Region()),
 					resource.TestCheckResourceAttrSet(resourceName, "public_ip"),
@@ -559,6 +614,7 @@ func TestAccEC2EIP_networkBorderGroup(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2EIP_carrierIP(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf ec2.Address
@@ -566,14 +622,16 @@ func TestAccEC2EIP_carrierIP(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckWavelengthZoneAvailable(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckWavelengthZoneAvailable(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEIPDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEIPConfig_carrierIP(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEIPExists(ctx, resourceName, &conf),
 					resource.TestCheckResourceAttrSet(resourceName, "carrier_ip"),
 					resource.TestCheckResourceAttrSet(resourceName, "network_border_group"),
@@ -589,6 +647,7 @@ func TestAccEC2EIP_carrierIP(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2EIP_BYOIPAddress_default(t *testing.T) {
 	ctx := acctest.Context(t)
 	var conf ec2.Address
@@ -596,14 +655,16 @@ func TestAccEC2EIP_BYOIPAddress_default(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEIPDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEIPConfig_byoipAddressCustomDefault(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEIPExists(ctx, resourceName, &conf),
 					resource.TestCheckResourceAttrSet(resourceName, "public_ip"),
 				),
@@ -611,6 +672,7 @@ func TestAccEC2EIP_BYOIPAddress_default(t *testing.T) {
 		},
 	})
 }
+
 
 func TestAccEC2EIP_BYOIPAddress_custom(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -625,14 +687,16 @@ func TestAccEC2EIP_BYOIPAddress_custom(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEIPDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEIPConfig_byoipAddressCustom(rName, address),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEIPExists(ctx, resourceName, &conf),
 					resource.TestCheckResourceAttr(resourceName, "public_ip", address),
 				),
@@ -640,6 +704,7 @@ func TestAccEC2EIP_BYOIPAddress_custom(t *testing.T) {
 		},
 	})
 }
+
 
 func TestAccEC2EIP_BYOIPAddress_customWithPublicIPv4Pool(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -660,14 +725,16 @@ func TestAccEC2EIP_BYOIPAddress_customWithPublicIPv4Pool(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEIPDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEIPConfig_byoipAddressCustomPublicIPv4Pool(rName, address, poolName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEIPExists(ctx, resourceName, &conf),
 					resource.TestCheckResourceAttr(resourceName, "public_ip", address),
 					resource.TestCheckResourceAttr(resourceName, "public_ipv4_pool", poolName),
@@ -677,8 +744,11 @@ func TestAccEC2EIP_BYOIPAddress_customWithPublicIPv4Pool(t *testing.T) {
 	})
 }
 
-func testAccCheckEIPExists(ctx context.Context, n string, v *ec2.Address) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckEIPExists(ctx context.Context, n string, v *ec2.Address) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -702,8 +772,11 @@ func testAccCheckEIPExists(ctx context.Context, n string, v *ec2.Address) resour
 	}
 }
 
-func testAccCheckEIPDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckEIPDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -728,8 +801,11 @@ func testAccCheckEIPDestroy(ctx context.Context) resource.TestCheckFunc {
 	}
 }
 
-func testAccCheckEIPPrivateDNS(resourceName string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckEIPPrivateDNS(resourceName string) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("Not found: %s", resourceName)
@@ -750,8 +826,11 @@ func testAccCheckEIPPrivateDNS(resourceName string) resource.TestCheckFunc {
 	}
 }
 
-func testAccCheckEIPPublicDNS(resourceName string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckEIPPublicDNS(resourceName string) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("Not found: %s", resourceName)
@@ -790,6 +869,7 @@ resource "aws_eip" "test" {
 }
 `
 
+
 func testAccEIPConfig_tags1(tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_eip" "test" {
@@ -801,6 +881,7 @@ resource "aws_eip" "test" {
 }
 `, tagKey1, tagValue1)
 }
+
 
 func testAccEIPConfig_tags2(tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
@@ -814,6 +895,7 @@ resource "aws_eip" "test" {
 }
 `, tagKey1, tagValue1, tagKey2, tagValue2)
 }
+
 
 func testAccEIPConfig_baseInstance(rName string) string {
 	return acctest.ConfigCompose(
@@ -841,6 +923,7 @@ resource "aws_instance" "test" {
 `, rName))
 }
 
+
 func testAccEIPConfig_instance(rName string) string {
 	return acctest.ConfigCompose(testAccEIPConfig_baseInstance(rName), fmt.Sprintf(`
 resource "aws_eip" "test" {
@@ -853,6 +936,7 @@ resource "aws_eip" "test" {
 }
 `, rName))
 }
+
 
 func testAccEIPConfig_instanceReassociate(rName string) string {
 	return acctest.ConfigCompose(
@@ -912,6 +996,7 @@ resource "aws_route_table_association" "test" {
 `, rName))
 }
 
+
 func testAccEIPConfig_baseInstanceAssociated(rName string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
@@ -964,6 +1049,7 @@ resource "aws_instance" "test" {
 `, rName))
 }
 
+
 func testAccEIPConfig_instanceAssociated(rName string) string {
 	return acctest.ConfigCompose(testAccEIPConfig_baseInstanceAssociated(rName), fmt.Sprintf(`
 resource "aws_eip" "test" {
@@ -978,6 +1064,7 @@ resource "aws_eip" "test" {
 }
 `, rName))
 }
+
 
 func testAccEIPConfig_instanceAssociatedSwitch(rName string) string {
 	return acctest.ConfigCompose(testAccEIPConfig_baseInstanceAssociated(rName), fmt.Sprintf(`
@@ -994,6 +1081,7 @@ resource "aws_eip" "test" {
 `, rName))
 }
 
+
 func testAccEIPConfig_instanceAssociateNotAssociated(rName string) string {
 	return acctest.ConfigCompose(testAccEIPConfig_baseInstance(rName), fmt.Sprintf(`
 resource "aws_eip" "test" {
@@ -1005,6 +1093,7 @@ resource "aws_eip" "test" {
 }
 `, rName))
 }
+
 
 func testAccEIPConfig_networkInterface(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
@@ -1038,6 +1127,7 @@ resource "aws_eip" "test" {
 }
 `, rName))
 }
+
 
 func testAccEIPConfig_multiNetworkInterface(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
@@ -1075,6 +1165,7 @@ resource "aws_eip" "test" {
 `, rName))
 }
 
+
 func testAccEIPConfig_baseAssociation(rName string) string {
 	return acctest.ConfigCompose(testAccEIPConfig_baseInstance(rName), fmt.Sprintf(`
 resource "aws_network_interface" "test" {
@@ -1091,6 +1182,7 @@ resource "aws_network_interface" "test" {
 `, rName))
 }
 
+
 func testAccEIPConfig_associationNone(rName string) string {
 	return acctest.ConfigCompose(testAccEIPConfig_baseAssociation(rName), fmt.Sprintf(`
 resource "aws_eip" "test" {
@@ -1105,6 +1197,7 @@ resource "aws_eip" "test" {
 `, rName))
 }
 
+
 func testAccEIPConfig_associationENI(rName string) string {
 	return acctest.ConfigCompose(testAccEIPConfig_baseAssociation(rName), fmt.Sprintf(`
 resource "aws_eip" "test" {
@@ -1118,6 +1211,7 @@ resource "aws_eip" "test" {
 }
 `, rName))
 }
+
 
 func testAccEIPConfig_associationInstance(rName string) string {
 	return acctest.ConfigCompose(testAccEIPConfig_baseAssociation(rName), fmt.Sprintf(`
@@ -1135,6 +1229,7 @@ resource "aws_eip" "test" {
 `, rName))
 }
 
+
 func testAccEIPConfig_publicIPv4PoolDefault(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_eip" "test" {
@@ -1146,6 +1241,7 @@ resource "aws_eip" "test" {
 }
 `, rName)
 }
+
 
 func testAccEIPConfig_publicIPv4PoolCustom(rName, poolName string) string {
 	return fmt.Sprintf(`
@@ -1159,6 +1255,7 @@ resource "aws_eip" "test" {
 }
 `, rName, poolName)
 }
+
 
 func testAccEIPConfig_customerOwnedIPv4Pool(rName string) string {
 	return fmt.Sprintf(`
@@ -1175,6 +1272,7 @@ resource "aws_eip" "test" {
 `, rName)
 }
 
+
 func testAccEIPConfig_networkBorderGroup(rName string) string {
 	return fmt.Sprintf(`
 data "aws_region" current {}
@@ -1189,6 +1287,7 @@ resource "aws_eip" "test" {
 }
 `, rName)
 }
+
 
 func testAccEIPConfig_carrierIP(rName string) string {
 	return acctest.ConfigCompose(
@@ -1209,6 +1308,7 @@ resource "aws_eip" "test" {
 `, rName))
 }
 
+
 func testAccEIPConfig_byoipAddressCustomDefault(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_eip" "test" {
@@ -1220,6 +1320,7 @@ resource "aws_eip" "test" {
 }
 `, rName)
 }
+
 
 func testAccEIPConfig_byoipAddressCustom(rName, address string) string {
 	return fmt.Sprintf(`
@@ -1233,6 +1334,7 @@ resource "aws_eip" "test" {
 }
 `, rName, address)
 }
+
 
 func testAccEIPConfig_byoipAddressCustomPublicIPv4Pool(rName, address, poolName string) string {
 	return fmt.Sprintf(`

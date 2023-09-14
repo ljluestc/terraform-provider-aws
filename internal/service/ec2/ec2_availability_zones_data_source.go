@@ -19,6 +19,7 @@ import (
 )
 
 // @SDKDataSource("aws_availability_zones")
+
 func DataSourceAvailabilityZones() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceAvailabilityZonesRead,
@@ -56,7 +57,8 @@ func DataSourceAvailabilityZones() *schema.Resource {
 			"state": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				ValidateFunc: validation.StringInSlice(ec2.AvailabilityZoneState_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.AvailabilityZoneState_Values(), false),
 			},
 			"zone_ids": {
 				Type:     schema.TypeList,
@@ -66,6 +68,7 @@ func DataSourceAvailabilityZones() *schema.Resource {
 		},
 	}
 }
+
 
 func dataSourceAvailabilityZonesRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -105,7 +108,8 @@ func dataSourceAvailabilityZonesRead(ctx context.Context, d *schema.ResourceData
 		return sdkdiag.AppendErrorf(diags, "fetching Availability Zones: %s", err)
 	}
 
-	sort.Slice(resp.AvailabilityZones, func(i, j int) bool {
+	sort.Slice(resp.AvailabilityZones, 
+func(i, j int) bool {
 		return aws.StringValue(resp.AvailabilityZones[i].ZoneName) < aws.StringValue(resp.AvailabilityZones[j].ZoneName)
 	})
 

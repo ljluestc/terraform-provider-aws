@@ -25,6 +25,7 @@ import (
 
 // @SDKResource("aws_dataexchange_revision", name="Revision")
 // @Tags(identifierAttribute="arn")
+
 func ResourceRevision() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceRevisionCreate,
@@ -43,7 +44,8 @@ func ResourceRevision() *schema.Resource {
 			"comment": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				ValidateFunc: validation.StringLenBetween(0, 16348),
+				Validate
+func: validation.StringLenBetween(0, 16348),
 			},
 			"data_set_id": {
 				Type:     schema.TypeString,
@@ -60,6 +62,7 @@ func ResourceRevision() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
+
 
 func resourceRevisionCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -80,6 +83,7 @@ func resourceRevisionCreate(ctx context.Context, d *schema.ResourceData, meta in
 
 	return append(diags, resourceRevisionRead(ctx, d, meta)...)
 }
+
 
 func resourceRevisionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -112,6 +116,7 @@ func resourceRevisionRead(ctx context.Context, d *schema.ResourceData, meta inte
 	return diags
 }
 
+
 func resourceRevisionUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DataExchangeConn(ctx)
@@ -136,6 +141,7 @@ func resourceRevisionUpdate(ctx context.Context, d *schema.ResourceData, meta in
 	return append(diags, resourceRevisionRead(ctx, d, meta)...)
 }
 
+
 func resourceRevisionDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).DataExchangeConn(ctx)
@@ -156,6 +162,7 @@ func resourceRevisionDelete(ctx context.Context, d *schema.ResourceData, meta in
 
 	return diags
 }
+
 
 func RevisionParseResourceID(id string) (string, string, error) {
 	parts := strings.Split(id, ":")

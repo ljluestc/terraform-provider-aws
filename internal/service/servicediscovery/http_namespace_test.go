@@ -19,13 +19,15 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccServiceDiscoveryHTTPNamespace_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_service_discovery_http_namespace.test"
 	rName := fmt.Sprintf("%s-%s", acctest.ResourcePrefix, sdkacctest.RandStringFromCharSet(8, sdkacctest.CharSetAlpha))
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, servicediscovery.EndpointsID)
 			testAccPreCheck(ctx, t)
@@ -36,7 +38,8 @@ func TestAccServiceDiscoveryHTTPNamespace_basic(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccHTTPNamespaceConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckHTTPNamespaceExists(ctx, resourceName),
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "servicediscovery", regexache.MustCompile(`namespace/.+`)),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
@@ -55,13 +58,15 @@ func TestAccServiceDiscoveryHTTPNamespace_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccServiceDiscoveryHTTPNamespace_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_service_discovery_http_namespace.test"
 	rName := fmt.Sprintf("%s-%s", acctest.ResourcePrefix, sdkacctest.RandStringFromCharSet(8, sdkacctest.CharSetAlpha))
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, servicediscovery.EndpointsID)
 			testAccPreCheck(ctx, t)
@@ -72,7 +77,8 @@ func TestAccServiceDiscoveryHTTPNamespace_disappears(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccHTTPNamespaceConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckHTTPNamespaceExists(ctx, resourceName),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfservicediscovery.ResourceHTTPNamespace(), resourceName),
 				),
@@ -82,13 +88,15 @@ func TestAccServiceDiscoveryHTTPNamespace_disappears(t *testing.T) {
 	})
 }
 
+
 func TestAccServiceDiscoveryHTTPNamespace_description(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_service_discovery_http_namespace.test"
 	rName := fmt.Sprintf("%s-%s", acctest.ResourcePrefix, sdkacctest.RandStringFromCharSet(8, sdkacctest.CharSetAlpha))
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, servicediscovery.EndpointsID)
 			testAccPreCheck(ctx, t)
@@ -99,7 +107,8 @@ func TestAccServiceDiscoveryHTTPNamespace_description(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccHTTPNamespaceConfig_description(rName, "test"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckHTTPNamespaceExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "description", "test"),
 				),
@@ -113,13 +122,15 @@ func TestAccServiceDiscoveryHTTPNamespace_description(t *testing.T) {
 	})
 }
 
+
 func TestAccServiceDiscoveryHTTPNamespace_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_service_discovery_http_namespace.test"
 	rName := fmt.Sprintf("%s-%s", acctest.ResourcePrefix, sdkacctest.RandStringFromCharSet(8, sdkacctest.CharSetAlpha))
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, servicediscovery.EndpointsID)
 			testAccPreCheck(ctx, t)
@@ -130,7 +141,8 @@ func TestAccServiceDiscoveryHTTPNamespace_tags(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccHTTPNamespaceConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckHTTPNamespaceExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
@@ -143,7 +155,8 @@ func TestAccServiceDiscoveryHTTPNamespace_tags(t *testing.T) {
 			},
 			{
 				Config: testAccHTTPNamespaceConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckHTTPNamespaceExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
@@ -152,7 +165,8 @@ func TestAccServiceDiscoveryHTTPNamespace_tags(t *testing.T) {
 			},
 			{
 				Config: testAccHTTPNamespaceConfig_tags1(rName, "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckHTTPNamespaceExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
@@ -162,8 +176,11 @@ func TestAccServiceDiscoveryHTTPNamespace_tags(t *testing.T) {
 	})
 }
 
-func testAccCheckHTTPNamespaceDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckHTTPNamespaceDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).ServiceDiscoveryConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -188,8 +205,11 @@ func testAccCheckHTTPNamespaceDestroy(ctx context.Context) resource.TestCheckFun
 	}
 }
 
-func testAccCheckHTTPNamespaceExists(ctx context.Context, n string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckHTTPNamespaceExists(ctx context.Context, n string) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -207,6 +227,7 @@ func testAccCheckHTTPNamespaceExists(ctx context.Context, n string) resource.Tes
 	}
 }
 
+
 func testAccHTTPNamespaceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_service_discovery_http_namespace" "test" {
@@ -214,6 +235,7 @@ resource "aws_service_discovery_http_namespace" "test" {
 }
 `, rName)
 }
+
 
 func testAccHTTPNamespaceConfig_description(rName, description string) string {
 	return fmt.Sprintf(`
@@ -223,6 +245,7 @@ resource "aws_service_discovery_http_namespace" "test" {
 }
 `, description, rName)
 }
+
 
 func testAccHTTPNamespaceConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
@@ -235,6 +258,7 @@ resource "aws_service_discovery_http_namespace" "test" {
 }
 `, rName, tagKey1, tagValue1)
 }
+
 
 func testAccHTTPNamespaceConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`

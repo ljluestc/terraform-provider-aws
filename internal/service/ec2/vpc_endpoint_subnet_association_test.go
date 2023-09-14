@@ -18,6 +18,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccVPCEndpointSubnetAssociation_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var vpce ec2.VpcEndpoint
@@ -25,26 +26,31 @@ func TestAccVPCEndpointSubnetAssociation_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPCEndpointSubnetAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCEndpointSubnetAssociationConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckVPCEndpointSubnetAssociationExists(ctx, resourceName, &vpce),
 				),
 			},
 			{
 				ResourceName:      resourceName,
 				ImportState:       true,
-				ImportStateIdFunc: testAccVPCEndpointSubnetAssociationImportStateIdFunc(resourceName),
+				ImportStateId
+func: testAccVPCEndpointSubnetAssociationImportStateId
+func(resourceName),
 				ImportStateVerify: true,
 			},
 		},
 	})
 }
+
 
 func TestAccVPCEndpointSubnetAssociation_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -53,14 +59,16 @@ func TestAccVPCEndpointSubnetAssociation_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPCEndpointSubnetAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCEndpointSubnetAssociationConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckVPCEndpointSubnetAssociationExists(ctx, resourceName, &vpce),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceVPCEndpointSubnetAssociation(), resourceName),
 				),
@@ -69,6 +77,7 @@ func TestAccVPCEndpointSubnetAssociation_disappears(t *testing.T) {
 		},
 	})
 }
+
 
 func TestAccVPCEndpointSubnetAssociation_multiple(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -79,14 +88,16 @@ func TestAccVPCEndpointSubnetAssociation_multiple(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPCEndpointSubnetAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCEndpointSubnetAssociationConfig_multiple(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckVPCEndpointSubnetAssociationExists(ctx, resourceName0, &vpce),
 					testAccCheckVPCEndpointSubnetAssociationExists(ctx, resourceName1, &vpce),
 					testAccCheckVPCEndpointSubnetAssociationExists(ctx, resourceName2, &vpce),
@@ -96,8 +107,11 @@ func TestAccVPCEndpointSubnetAssociation_multiple(t *testing.T) {
 	})
 }
 
-func testAccCheckVPCEndpointSubnetAssociationDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckVPCEndpointSubnetAssociationDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -122,8 +136,11 @@ func testAccCheckVPCEndpointSubnetAssociationDestroy(ctx context.Context) resour
 	}
 }
 
-func testAccCheckVPCEndpointSubnetAssociationExists(ctx context.Context, n string, vpce *ec2.VpcEndpoint) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckVPCEndpointSubnetAssociationExists(ctx context.Context, n string, vpce *ec2.VpcEndpoint) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -152,6 +169,7 @@ func testAccCheckVPCEndpointSubnetAssociationExists(ctx context.Context, n strin
 		return nil
 	}
 }
+
 
 func testAccVPCEndpointSubnetAssociationConfig_base(rName string) string {
 	return acctest.ConfigCompose(
@@ -198,6 +216,7 @@ resource "aws_subnet" "test" {
 `, rName))
 }
 
+
 func testAccVPCEndpointSubnetAssociationConfig_basic(rName string) string {
 	return acctest.ConfigCompose(
 		testAccVPCEndpointSubnetAssociationConfig_base(rName),
@@ -208,6 +227,7 @@ resource "aws_vpc_endpoint_subnet_association" "test" {
 }
 `)
 }
+
 
 func testAccVPCEndpointSubnetAssociationConfig_multiple(rName string) string {
 	return acctest.ConfigCompose(
@@ -222,8 +242,12 @@ resource "aws_vpc_endpoint_subnet_association" "test" {
 `)
 }
 
-func testAccVPCEndpointSubnetAssociationImportStateIdFunc(n string) resource.ImportStateIdFunc {
-	return func(s *terraform.State) (string, error) {
+
+func testAccVPCEndpointSubnetAssociationImportStateId
+func(n string) resource.ImportStateId
+func {
+	return 
+func(s *terraform.State) (string, error) {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return "", fmt.Errorf("Not found: %s", n)

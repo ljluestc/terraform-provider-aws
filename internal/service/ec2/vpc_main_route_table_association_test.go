@@ -18,6 +18,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccVPCMainRouteTableAssociation_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var rta ec2.RouteTableAssociation
@@ -25,20 +26,23 @@ func TestAccVPCMainRouteTableAssociation_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckMainRouteTableAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCMainRouteTableAssociationConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckMainRouteTableAssociationExists(ctx, resourceName, &rta),
 				),
 			},
 			{
 				Config: testAccVPCMainRouteTableAssociationConfig_updated(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckMainRouteTableAssociationExists(ctx, resourceName, &rta),
 				),
 			},
@@ -46,8 +50,11 @@ func TestAccVPCMainRouteTableAssociation_basic(t *testing.T) {
 	})
 }
 
-func testAccCheckMainRouteTableAssociationDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckMainRouteTableAssociationDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -72,8 +79,11 @@ func testAccCheckMainRouteTableAssociationDestroy(ctx context.Context) resource.
 	}
 }
 
-func testAccCheckMainRouteTableAssociationExists(ctx context.Context, n string, v *ec2.RouteTableAssociation) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckMainRouteTableAssociationExists(ctx context.Context, n string, v *ec2.RouteTableAssociation) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -96,6 +106,7 @@ func testAccCheckMainRouteTableAssociationExists(ctx context.Context, n string, 
 		return nil
 	}
 }
+
 
 func testAccMainRouteTableAssociationConfigBaseVPC(rName string) string {
 	return fmt.Sprintf(`
@@ -126,6 +137,7 @@ resource "aws_internet_gateway" "test" {
 `, rName)
 }
 
+
 func testAccVPCMainRouteTableAssociationConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccMainRouteTableAssociationConfigBaseVPC(rName), fmt.Sprintf(`
 resource "aws_route_table" "test" {
@@ -147,6 +159,7 @@ resource "aws_main_route_table_association" "test" {
 }
 `, rName))
 }
+
 
 func testAccVPCMainRouteTableAssociationConfig_updated(rName string) string {
 	return acctest.ConfigCompose(testAccMainRouteTableAssociationConfigBaseVPC(rName), fmt.Sprintf(`

@@ -18,6 +18,7 @@ const (
 )
 
 // InstanceProfileARNToName converts Amazon Resource Name (ARN) to Name.
+
 func InstanceProfileARNToName(inputARN string) (string, error) {
 	parsedARN, err := arn.Parse(inputARN)
 

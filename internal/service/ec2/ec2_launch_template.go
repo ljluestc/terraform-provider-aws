@@ -32,6 +32,7 @@ import (
 
 // @SDKResource("aws_launch_template", name="Launch Template")
 // @Tags(identifierAttribute="id")
+
 func ResourceLaunchTemplate() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceLaunchTemplateCreate,
@@ -66,14 +67,18 @@ func ResourceLaunchTemplate() *schema.Resource {
 									"delete_on_termination": {
 										Type:             nullable.TypeNullableBool,
 										Optional:         true,
-										DiffSuppressFunc: nullable.DiffSuppressNullableBool,
-										ValidateFunc:     nullable.ValidateTypeStringNullableBool,
+										DiffSuppress
+func: nullable.DiffSuppressNullableBool,
+										Validate
+func:     nullable.ValidateTypeStringNullableBool,
 									},
 									"encrypted": {
 										Type:             nullable.TypeNullableBool,
 										Optional:         true,
-										DiffSuppressFunc: nullable.DiffSuppressNullableBool,
-										ValidateFunc:     nullable.ValidateTypeStringNullableBool,
+										DiffSuppress
+func: nullable.DiffSuppressNullableBool,
+										Validate
+func:     nullable.ValidateTypeStringNullableBool,
 									},
 									"iops": {
 										Type:     schema.TypeInt,
@@ -83,7 +88,8 @@ func ResourceLaunchTemplate() *schema.Resource {
 									"kms_key_id": {
 										Type:         schema.TypeString,
 										Optional:     true,
-										ValidateFunc: verify.ValidARN,
+										Validate
+func: verify.ValidARN,
 									},
 									"snapshot_id": {
 										Type:     schema.TypeString,
@@ -93,7 +99,8 @@ func ResourceLaunchTemplate() *schema.Resource {
 										Type:         schema.TypeInt,
 										Computed:     true,
 										Optional:     true,
-										ValidateFunc: validation.IntBetween(125, 1000),
+										Validate
+func: validation.IntBetween(125, 1000),
 									},
 									"volume_size": {
 										Type:     schema.TypeInt,
@@ -104,7 +111,8 @@ func ResourceLaunchTemplate() *schema.Resource {
 										Type:         schema.TypeString,
 										Optional:     true,
 										Computed:     true,
-										ValidateFunc: validation.StringInSlice(ec2.VolumeType_Values(), false),
+										Validate
+func: validation.StringInSlice(ec2.VolumeType_Values(), false),
 									},
 								},
 							},
@@ -129,7 +137,8 @@ func ResourceLaunchTemplate() *schema.Resource {
 						"capacity_reservation_preference": {
 							Type:         schema.TypeString,
 							Optional:     true,
-							ValidateFunc: validation.StringInSlice(ec2.CapacityReservationPreference_Values(), false),
+							Validate
+func: validation.StringInSlice(ec2.CapacityReservationPreference_Values(), false),
 						},
 						"capacity_reservation_target": {
 							Type:     schema.TypeList,
@@ -145,7 +154,8 @@ func ResourceLaunchTemplate() *schema.Resource {
 									"capacity_reservation_resource_group_arn": {
 										Type:          schema.TypeString,
 										Optional:      true,
-										ValidateFunc:  verify.ValidARN,
+										Validate
+func:  verify.ValidARN,
 										ConflictsWith: []string{"capacity_reservation_specification.0.capacity_reservation_target.0.capacity_reservation_id"},
 									},
 								},
@@ -163,7 +173,8 @@ func ResourceLaunchTemplate() *schema.Resource {
 						"amd_sev_snp": {
 							Type:         schema.TypeString,
 							Optional:     true,
-							ValidateFunc: validation.StringInSlice(ec2.AmdSevSnpSpecification_Values(), false),
+							Validate
+func: validation.StringInSlice(ec2.AmdSevSnpSpecification_Values(), false),
 						},
 						"core_count": {
 							Type:     schema.TypeInt,
@@ -185,7 +196,8 @@ func ResourceLaunchTemplate() *schema.Resource {
 						"cpu_credits": {
 							Type:         schema.TypeString,
 							Optional:     true,
-							ValidateFunc: validation.StringInSlice(CPUCredits_Values(), false),
+							Validate
+func: validation.StringInSlice(CPUCredits_Values(), false),
 						},
 					},
 				},
@@ -195,12 +207,14 @@ func ResourceLaunchTemplate() *schema.Resource {
 				Optional:      true,
 				Computed:      true,
 				ConflictsWith: []string{"update_default_version"},
-				ValidateFunc:  validation.IntAtLeast(1),
+				Validate
+func:  validation.IntAtLeast(1),
 			},
 			"description": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				ValidateFunc: validation.StringLenBetween(0, 255),
+				Validate
+func: validation.StringLenBetween(0, 255),
 			},
 			"disable_api_stop": {
 				Type:     schema.TypeBool,
@@ -213,8 +227,10 @@ func ResourceLaunchTemplate() *schema.Resource {
 			"ebs_optimized": {
 				Type:             nullable.TypeNullableBool,
 				Optional:         true,
-				DiffSuppressFunc: nullable.DiffSuppressNullableBool,
-				ValidateFunc:     nullable.ValidateTypeStringNullableBool,
+				DiffSuppress
+func: nullable.DiffSuppressNullableBool,
+				Validate
+func:     nullable.ValidateTypeStringNullableBool,
 			},
 			"elastic_gpu_specifications": {
 				Type:     schema.TypeList,
@@ -277,7 +293,8 @@ func ResourceLaunchTemplate() *schema.Resource {
 							Type:          schema.TypeString,
 							Optional:      true,
 							ConflictsWith: []string{"iam_instance_profile.0.name"},
-							ValidateFunc:  verify.ValidARN,
+							Validate
+func:  verify.ValidARN,
 						},
 						"name": {
 							Type:     schema.TypeString,
@@ -293,7 +310,8 @@ func ResourceLaunchTemplate() *schema.Resource {
 			"instance_initiated_shutdown_behavior": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				ValidateFunc: validation.StringInSlice(ec2.ShutdownBehavior_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.ShutdownBehavior_Values(), false),
 			},
 			"instance_market_options": {
 				Type:     schema.TypeList,
@@ -304,7 +322,8 @@ func ResourceLaunchTemplate() *schema.Resource {
 						"market_type": {
 							Type:         schema.TypeString,
 							Optional:     true,
-							ValidateFunc: validation.StringInSlice(ec2.MarketType_Values(), false),
+							Validate
+func: validation.StringInSlice(ec2.MarketType_Values(), false),
 						},
 						"spot_options": {
 							Type:     schema.TypeList,
@@ -315,12 +334,14 @@ func ResourceLaunchTemplate() *schema.Resource {
 									"block_duration_minutes": {
 										Type:         schema.TypeInt,
 										Optional:     true,
-										ValidateFunc: validation.IntDivisibleBy(60),
+										Validate
+func: validation.IntDivisibleBy(60),
 									},
 									"instance_interruption_behavior": {
 										Type:         schema.TypeString,
 										Optional:     true,
-										ValidateFunc: validation.StringInSlice(ec2.InstanceInterruptionBehavior_Values(), false),
+										Validate
+func: validation.StringInSlice(ec2.InstanceInterruptionBehavior_Values(), false),
 									},
 									"max_price": {
 										Type:     schema.TypeString,
@@ -329,13 +350,15 @@ func ResourceLaunchTemplate() *schema.Resource {
 									"spot_instance_type": {
 										Type:         schema.TypeString,
 										Optional:     true,
-										ValidateFunc: validation.StringInSlice(ec2.SpotInstanceType_Values(), false),
+										Validate
+func: validation.StringInSlice(ec2.SpotInstanceType_Values(), false),
 									},
 									"valid_until": {
 										Type:         schema.TypeString,
 										Optional:     true,
 										Computed:     true,
-										ValidateFunc: validation.IsRFC3339Time,
+										Validate
+func: validation.IsRFC3339Time,
 									},
 								},
 							},
@@ -358,12 +381,14 @@ func ResourceLaunchTemplate() *schema.Resource {
 									"max": {
 										Type:         schema.TypeInt,
 										Optional:     true,
-										ValidateFunc: validation.IntAtLeast(0),
+										Validate
+func: validation.IntAtLeast(0),
 									},
 									"min": {
 										Type:         schema.TypeInt,
 										Optional:     true,
-										ValidateFunc: validation.IntAtLeast(1),
+										Validate
+func: validation.IntAtLeast(1),
 									},
 								},
 							},
@@ -373,7 +398,8 @@ func ResourceLaunchTemplate() *schema.Resource {
 							Optional: true,
 							Elem: &schema.Schema{
 								Type:         schema.TypeString,
-								ValidateFunc: validation.StringInSlice(ec2.AcceleratorManufacturer_Values(), false),
+								Validate
+func: validation.StringInSlice(ec2.AcceleratorManufacturer_Values(), false),
 							},
 						},
 						"accelerator_names": {
@@ -381,7 +407,8 @@ func ResourceLaunchTemplate() *schema.Resource {
 							Optional: true,
 							Elem: &schema.Schema{
 								Type:         schema.TypeString,
-								ValidateFunc: validation.StringInSlice(ec2.AcceleratorName_Values(), false),
+								Validate
+func: validation.StringInSlice(ec2.AcceleratorName_Values(), false),
 							},
 						},
 						"accelerator_total_memory_mib": {
@@ -393,12 +420,14 @@ func ResourceLaunchTemplate() *schema.Resource {
 									"max": {
 										Type:         schema.TypeInt,
 										Optional:     true,
-										ValidateFunc: validation.IntAtLeast(1),
+										Validate
+func: validation.IntAtLeast(1),
 									},
 									"min": {
 										Type:         schema.TypeInt,
 										Optional:     true,
-										ValidateFunc: validation.IntAtLeast(1),
+										Validate
+func: validation.IntAtLeast(1),
 									},
 								},
 							},
@@ -408,7 +437,8 @@ func ResourceLaunchTemplate() *schema.Resource {
 							Optional: true,
 							Elem: &schema.Schema{
 								Type:         schema.TypeString,
-								ValidateFunc: validation.StringInSlice(ec2.AcceleratorType_Values(), false),
+								Validate
+func: validation.StringInSlice(ec2.AcceleratorType_Values(), false),
 							},
 						},
 						"allowed_instance_types": {
@@ -421,7 +451,8 @@ func ResourceLaunchTemplate() *schema.Resource {
 						"bare_metal": {
 							Type:         schema.TypeString,
 							Optional:     true,
-							ValidateFunc: validation.StringInSlice(ec2.BareMetal_Values(), false),
+							Validate
+func: validation.StringInSlice(ec2.BareMetal_Values(), false),
 						},
 						"baseline_ebs_bandwidth_mbps": {
 							Type:     schema.TypeList,
@@ -432,12 +463,14 @@ func ResourceLaunchTemplate() *schema.Resource {
 									"max": {
 										Type:         schema.TypeInt,
 										Optional:     true,
-										ValidateFunc: validation.IntAtLeast(1),
+										Validate
+func: validation.IntAtLeast(1),
 									},
 									"min": {
 										Type:         schema.TypeInt,
 										Optional:     true,
-										ValidateFunc: validation.IntAtLeast(1),
+										Validate
+func: validation.IntAtLeast(1),
 									},
 								},
 							},
@@ -445,14 +478,16 @@ func ResourceLaunchTemplate() *schema.Resource {
 						"burstable_performance": {
 							Type:         schema.TypeString,
 							Optional:     true,
-							ValidateFunc: validation.StringInSlice(ec2.BurstablePerformance_Values(), false),
+							Validate
+func: validation.StringInSlice(ec2.BurstablePerformance_Values(), false),
 						},
 						"cpu_manufacturers": {
 							Type:     schema.TypeSet,
 							Optional: true,
 							Elem: &schema.Schema{
 								Type:         schema.TypeString,
-								ValidateFunc: validation.StringInSlice(ec2.CpuManufacturer_Values(), false),
+								Validate
+func: validation.StringInSlice(ec2.CpuManufacturer_Values(), false),
 							},
 						},
 						"excluded_instance_types": {
@@ -467,20 +502,23 @@ func ResourceLaunchTemplate() *schema.Resource {
 							Optional: true,
 							Elem: &schema.Schema{
 								Type:         schema.TypeString,
-								ValidateFunc: validation.StringInSlice(ec2.InstanceGeneration_Values(), false),
+								Validate
+func: validation.StringInSlice(ec2.InstanceGeneration_Values(), false),
 							},
 						},
 						"local_storage": {
 							Type:         schema.TypeString,
 							Optional:     true,
-							ValidateFunc: validation.StringInSlice(ec2.LocalStorage_Values(), false),
+							Validate
+func: validation.StringInSlice(ec2.LocalStorage_Values(), false),
 						},
 						"local_storage_types": {
 							Type:     schema.TypeSet,
 							Optional: true,
 							Elem: &schema.Schema{
 								Type:         schema.TypeString,
-								ValidateFunc: validation.StringInSlice(ec2.LocalStorageType_Values(), false),
+								Validate
+func: validation.StringInSlice(ec2.LocalStorageType_Values(), false),
 							},
 						},
 						"memory_gib_per_vcpu": {
@@ -492,12 +530,14 @@ func ResourceLaunchTemplate() *schema.Resource {
 									"max": {
 										Type:         schema.TypeFloat,
 										Optional:     true,
-										ValidateFunc: verify.FloatGreaterThan(0.0),
+										Validate
+func: verify.FloatGreaterThan(0.0),
 									},
 									"min": {
 										Type:         schema.TypeFloat,
 										Optional:     true,
-										ValidateFunc: verify.FloatGreaterThan(0.0),
+										Validate
+func: verify.FloatGreaterThan(0.0),
 									},
 								},
 							},
@@ -511,12 +551,14 @@ func ResourceLaunchTemplate() *schema.Resource {
 									"max": {
 										Type:         schema.TypeInt,
 										Optional:     true,
-										ValidateFunc: validation.IntAtLeast(1),
+										Validate
+func: validation.IntAtLeast(1),
 									},
 									"min": {
 										Type:         schema.TypeInt,
 										Required:     true,
-										ValidateFunc: validation.IntAtLeast(1),
+										Validate
+func: validation.IntAtLeast(1),
 									},
 								},
 							},
@@ -530,12 +572,14 @@ func ResourceLaunchTemplate() *schema.Resource {
 									"max": {
 										Type:         schema.TypeFloat,
 										Optional:     true,
-										ValidateFunc: verify.FloatGreaterThan(0.0),
+										Validate
+func: verify.FloatGreaterThan(0.0),
 									},
 									"min": {
 										Type:         schema.TypeFloat,
 										Optional:     true,
-										ValidateFunc: verify.FloatGreaterThan(0.0),
+										Validate
+func: verify.FloatGreaterThan(0.0),
 									},
 								},
 							},
@@ -549,12 +593,14 @@ func ResourceLaunchTemplate() *schema.Resource {
 									"max": {
 										Type:         schema.TypeInt,
 										Optional:     true,
-										ValidateFunc: validation.IntAtLeast(1),
+										Validate
+func: validation.IntAtLeast(1),
 									},
 									"min": {
 										Type:         schema.TypeInt,
 										Optional:     true,
-										ValidateFunc: validation.IntAtLeast(1),
+										Validate
+func: validation.IntAtLeast(1),
 									},
 								},
 							},
@@ -562,7 +608,8 @@ func ResourceLaunchTemplate() *schema.Resource {
 						"on_demand_max_price_percentage_over_lowest_price": {
 							Type:         schema.TypeInt,
 							Optional:     true,
-							ValidateFunc: validation.IntAtLeast(1),
+							Validate
+func: validation.IntAtLeast(1),
 						},
 						"require_hibernate_support": {
 							Type:     schema.TypeBool,
@@ -571,7 +618,8 @@ func ResourceLaunchTemplate() *schema.Resource {
 						"spot_max_price_percentage_over_lowest_price": {
 							Type:         schema.TypeInt,
 							Optional:     true,
-							ValidateFunc: validation.IntAtLeast(1),
+							Validate
+func: validation.IntAtLeast(1),
 						},
 						"total_local_storage_gb": {
 							Type:     schema.TypeList,
@@ -582,12 +630,14 @@ func ResourceLaunchTemplate() *schema.Resource {
 									"max": {
 										Type:         schema.TypeFloat,
 										Optional:     true,
-										ValidateFunc: verify.FloatGreaterThan(0.0),
+										Validate
+func: verify.FloatGreaterThan(0.0),
 									},
 									"min": {
 										Type:         schema.TypeFloat,
 										Optional:     true,
-										ValidateFunc: verify.FloatGreaterThan(0.0),
+										Validate
+func: verify.FloatGreaterThan(0.0),
 									},
 								},
 							},
@@ -601,12 +651,14 @@ func ResourceLaunchTemplate() *schema.Resource {
 									"max": {
 										Type:         schema.TypeInt,
 										Optional:     true,
-										ValidateFunc: validation.IntAtLeast(1),
+										Validate
+func: validation.IntAtLeast(1),
 									},
 									"min": {
 										Type:         schema.TypeInt,
 										Required:     true,
-										ValidateFunc: validation.IntAtLeast(1),
+										Validate
+func: validation.IntAtLeast(1),
 									},
 								},
 							},
@@ -640,7 +692,8 @@ func ResourceLaunchTemplate() *schema.Resource {
 						"license_configuration_arn": {
 							Type:         schema.TypeString,
 							Required:     true,
-							ValidateFunc: verify.ValidARN,
+							Validate
+func: verify.ValidARN,
 						},
 					},
 				},
@@ -654,7 +707,8 @@ func ResourceLaunchTemplate() *schema.Resource {
 						"auto_recovery": {
 							Type:         schema.TypeString,
 							Optional:     true,
-							ValidateFunc: validation.StringInSlice(ec2.LaunchTemplateAutoRecoveryState_Values(), false),
+							Validate
+func: validation.StringInSlice(ec2.LaunchTemplateAutoRecoveryState_Values(), false),
 						},
 					},
 				},
@@ -670,31 +724,36 @@ func ResourceLaunchTemplate() *schema.Resource {
 							Type:         schema.TypeString,
 							Optional:     true,
 							Computed:     true,
-							ValidateFunc: validation.StringInSlice(ec2.LaunchTemplateInstanceMetadataEndpointState_Values(), false),
+							Validate
+func: validation.StringInSlice(ec2.LaunchTemplateInstanceMetadataEndpointState_Values(), false),
 						},
 						"http_protocol_ipv6": {
 							Type:         schema.TypeString,
 							Optional:     true,
 							Computed:     true,
-							ValidateFunc: validation.StringInSlice(ec2.LaunchTemplateInstanceMetadataProtocolIpv6_Values(), false),
+							Validate
+func: validation.StringInSlice(ec2.LaunchTemplateInstanceMetadataProtocolIpv6_Values(), false),
 						},
 						"http_put_response_hop_limit": {
 							Type:         schema.TypeInt,
 							Optional:     true,
 							Computed:     true,
-							ValidateFunc: validation.IntBetween(1, 64),
+							Validate
+func: validation.IntBetween(1, 64),
 						},
 						"http_tokens": {
 							Type:         schema.TypeString,
 							Optional:     true,
 							Computed:     true,
-							ValidateFunc: validation.StringInSlice(ec2.LaunchTemplateHttpTokensState_Values(), false),
+							Validate
+func: validation.StringInSlice(ec2.LaunchTemplateHttpTokensState_Values(), false),
 						},
 						"instance_metadata_tags": {
 							Type:         schema.TypeString,
 							Optional:     true,
 							Computed:     true,
-							ValidateFunc: validation.StringInSlice(ec2.LaunchTemplateInstanceMetadataTagsState_Values(), false),
+							Validate
+func: validation.StringInSlice(ec2.LaunchTemplateInstanceMetadataTagsState_Values(), false),
 						},
 					},
 				},
@@ -718,7 +777,8 @@ func ResourceLaunchTemplate() *schema.Resource {
 				Computed:      true,
 				ForceNew:      true,
 				ConflictsWith: []string{"name_prefix"},
-				ValidateFunc:  verify.ValidLaunchTemplateName,
+				Validate
+func:  verify.ValidLaunchTemplateName,
 			},
 			"name_prefix": {
 				Type:          schema.TypeString,
@@ -726,7 +786,8 @@ func ResourceLaunchTemplate() *schema.Resource {
 				Computed:      true,
 				ForceNew:      true,
 				ConflictsWith: []string{"name"},
-				ValidateFunc:  verify.ValidLaunchTemplateName,
+				Validate
+func:  verify.ValidLaunchTemplateName,
 			},
 			"network_interfaces": {
 				Type:     schema.TypeList,
@@ -736,20 +797,26 @@ func ResourceLaunchTemplate() *schema.Resource {
 						"associate_carrier_ip_address": {
 							Type:             nullable.TypeNullableBool,
 							Optional:         true,
-							DiffSuppressFunc: nullable.DiffSuppressNullableBool,
-							ValidateFunc:     nullable.ValidateTypeStringNullableBool,
+							DiffSuppress
+func: nullable.DiffSuppressNullableBool,
+							Validate
+func:     nullable.ValidateTypeStringNullableBool,
 						},
 						"associate_public_ip_address": {
 							Type:             nullable.TypeNullableBool,
 							Optional:         true,
-							DiffSuppressFunc: nullable.DiffSuppressNullableBool,
-							ValidateFunc:     nullable.ValidateTypeStringNullableBool,
+							DiffSuppress
+func: nullable.DiffSuppressNullableBool,
+							Validate
+func:     nullable.ValidateTypeStringNullableBool,
 						},
 						"delete_on_termination": {
 							Type:             nullable.TypeNullableBool,
 							Optional:         true,
-							DiffSuppressFunc: nullable.DiffSuppressNullableBool,
-							ValidateFunc:     nullable.ValidateTypeStringNullableBool,
+							DiffSuppress
+func: nullable.DiffSuppressNullableBool,
+							Validate
+func:     nullable.ValidateTypeStringNullableBool,
 						},
 						"description": {
 							Type:     schema.TypeString,
@@ -762,7 +829,8 @@ func ResourceLaunchTemplate() *schema.Resource {
 						"interface_type": {
 							Type:         schema.TypeString,
 							Optional:     true,
-							ValidateFunc: validation.StringInSlice([]string{"efa", "interface"}, false),
+							Validate
+func: validation.StringInSlice([]string{"efa", "interface"}, false),
 						},
 						"ipv4_address_count": {
 							Type:     schema.TypeInt,
@@ -773,7 +841,8 @@ func ResourceLaunchTemplate() *schema.Resource {
 							Optional: true,
 							Elem: &schema.Schema{
 								Type:         schema.TypeString,
-								ValidateFunc: validation.IsIPv4Address,
+								Validate
+func: validation.IsIPv4Address,
 							},
 						},
 						"ipv4_prefix_count": {
@@ -785,7 +854,8 @@ func ResourceLaunchTemplate() *schema.Resource {
 							Optional: true,
 							Elem: &schema.Schema{
 								Type:         schema.TypeString,
-								ValidateFunc: verify.ValidIPv4CIDRNetworkAddress,
+								Validate
+func: verify.ValidIPv4CIDRNetworkAddress,
 							},
 						},
 						"ipv6_address_count": {
@@ -797,7 +867,8 @@ func ResourceLaunchTemplate() *schema.Resource {
 							Optional: true,
 							Elem: &schema.Schema{
 								Type:         schema.TypeString,
-								ValidateFunc: validation.IsIPv6Address,
+								Validate
+func: validation.IsIPv6Address,
 							},
 						},
 						"ipv6_prefix_count": {
@@ -809,7 +880,8 @@ func ResourceLaunchTemplate() *schema.Resource {
 							Optional: true,
 							Elem: &schema.Schema{
 								Type:         schema.TypeString,
-								ValidateFunc: verify.ValidIPv6CIDRNetworkAddress,
+								Validate
+func: verify.ValidIPv6CIDRNetworkAddress,
 							},
 						},
 						"network_card_index": {
@@ -823,7 +895,8 @@ func ResourceLaunchTemplate() *schema.Resource {
 						"private_ip_address": {
 							Type:         schema.TypeString,
 							Optional:     true,
-							ValidateFunc: validation.IsIPv4Address,
+							Validate
+func: validation.IsIPv4Address,
 						},
 						"security_groups": {
 							Type:     schema.TypeSet,
@@ -863,7 +936,8 @@ func ResourceLaunchTemplate() *schema.Resource {
 							Type:          schema.TypeString,
 							Optional:      true,
 							ConflictsWith: []string{"placement.0.host_id"},
-							ValidateFunc:  verify.ValidARN,
+							Validate
+func:  verify.ValidARN,
 						},
 						"partition_number": {
 							Type:     schema.TypeInt,
@@ -876,7 +950,8 @@ func ResourceLaunchTemplate() *schema.Resource {
 						"tenancy": {
 							Type:         schema.TypeString,
 							Optional:     true,
-							ValidateFunc: validation.StringInSlice(ec2.Tenancy_Values(), false),
+							Validate
+func: validation.StringInSlice(ec2.Tenancy_Values(), false),
 						},
 					},
 				},
@@ -898,7 +973,8 @@ func ResourceLaunchTemplate() *schema.Resource {
 						"hostname_type": {
 							Type:         schema.TypeString,
 							Optional:     true,
-							ValidateFunc: validation.StringInSlice(ec2.HostnameType_Values(), false),
+							Validate
+func: validation.StringInSlice(ec2.HostnameType_Values(), false),
 						},
 					},
 				},
@@ -921,7 +997,8 @@ func ResourceLaunchTemplate() *schema.Resource {
 						"resource_type": {
 							Type:         schema.TypeString,
 							Optional:     true,
-							ValidateFunc: validation.StringInSlice(ec2.ResourceType_Values(), false),
+							Validate
+func: validation.StringInSlice(ec2.ResourceType_Values(), false),
 						},
 						"tags": tftags.TagsSchema(),
 					},
@@ -949,7 +1026,8 @@ func ResourceLaunchTemplate() *schema.Resource {
 		// Enable downstream updates for resources referencing schema attributes
 		// to prevent non-empty plans after "terraform apply"
 		CustomizeDiff: customdiff.Sequence(
-			customdiff.ComputedIf("default_version", func(_ context.Context, diff *schema.ResourceDiff, meta interface{}) bool {
+			customdiff.ComputedIf("default_version", 
+func(_ context.Context, diff *schema.ResourceDiff, meta interface{}) bool {
 				for _, changedKey := range diff.GetChangedKeysPrefix("") {
 					switch changedKey {
 					case "name", "name_prefix", "description":
@@ -960,7 +1038,8 @@ func ResourceLaunchTemplate() *schema.Resource {
 				}
 				return false
 			}),
-			customdiff.ComputedIf("latest_version", func(_ context.Context, diff *schema.ResourceDiff, meta interface{}) bool {
+			customdiff.ComputedIf("latest_version", 
+func(_ context.Context, diff *schema.ResourceDiff, meta interface{}) bool {
 				for _, changedKey := range diff.GetChangedKeysPrefix("") {
 					switch changedKey {
 					case "name", "name_prefix", "description", "default_version", "update_default_version":
@@ -975,6 +1054,7 @@ func ResourceLaunchTemplate() *schema.Resource {
 		),
 	}
 }
+
 
 func resourceLaunchTemplateCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -1007,6 +1087,7 @@ func resourceLaunchTemplateCreate(ctx context.Context, d *schema.ResourceData, m
 
 	return append(diags, resourceLaunchTemplateRead(ctx, d, meta)...)
 }
+
 
 func resourceLaunchTemplateRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -1053,6 +1134,7 @@ func resourceLaunchTemplateRead(ctx context.Context, d *schema.ResourceData, met
 
 	return diags
 }
+
 
 func resourceLaunchTemplateUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -1139,6 +1221,7 @@ func resourceLaunchTemplateUpdate(ctx context.Context, d *schema.ResourceData, m
 	return append(diags, resourceLaunchTemplateRead(ctx, d, meta)...)
 }
 
+
 func resourceLaunchTemplateDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -1158,6 +1241,7 @@ func resourceLaunchTemplateDelete(ctx context.Context, d *schema.ResourceData, m
 
 	return diags
 }
+
 
 func expandRequestLaunchTemplateData(ctx context.Context, conn *ec2.EC2, d *schema.ResourceData) (*ec2.RequestLaunchTemplateData, error) {
 	apiObject := &ec2.RequestLaunchTemplateData{
@@ -1314,6 +1398,7 @@ func expandRequestLaunchTemplateData(ctx context.Context, conn *ec2.EC2, d *sche
 	return apiObject, nil
 }
 
+
 func expandLaunchTemplateBlockDeviceMappingRequest(tfMap map[string]interface{}) *ec2.LaunchTemplateBlockDeviceMappingRequest {
 	if tfMap == nil {
 		return nil
@@ -1340,6 +1425,7 @@ func expandLaunchTemplateBlockDeviceMappingRequest(tfMap map[string]interface{})
 	return apiObject
 }
 
+
 func expandLaunchTemplateBlockDeviceMappingRequests(tfList []interface{}) []*ec2.LaunchTemplateBlockDeviceMappingRequest {
 	if len(tfList) == 0 {
 		return nil
@@ -1365,6 +1451,7 @@ func expandLaunchTemplateBlockDeviceMappingRequests(tfList []interface{}) []*ec2
 
 	return apiObjects
 }
+
 
 func expandLaunchTemplateEBSBlockDeviceRequest(tfMap map[string]interface{}) *ec2.LaunchTemplateEbsBlockDeviceRequest {
 	if tfMap == nil {
@@ -1408,6 +1495,7 @@ func expandLaunchTemplateEBSBlockDeviceRequest(tfMap map[string]interface{}) *ec
 	return apiObject
 }
 
+
 func expandLaunchTemplateCapacityReservationSpecificationRequest(tfMap map[string]interface{}) *ec2.LaunchTemplateCapacityReservationSpecificationRequest {
 	if tfMap == nil {
 		return nil
@@ -1425,6 +1513,7 @@ func expandLaunchTemplateCapacityReservationSpecificationRequest(tfMap map[strin
 
 	return apiObject
 }
+
 
 func expandLaunchTemplateCPUOptionsRequest(tfMap map[string]interface{}) *ec2.LaunchTemplateCpuOptionsRequest {
 	if tfMap == nil {
@@ -1448,6 +1537,7 @@ func expandLaunchTemplateCPUOptionsRequest(tfMap map[string]interface{}) *ec2.La
 	return apiObject
 }
 
+
 func expandElasticGpuSpecification(tfMap map[string]interface{}) *ec2.ElasticGpuSpecification {
 	if tfMap == nil {
 		return nil
@@ -1461,6 +1551,7 @@ func expandElasticGpuSpecification(tfMap map[string]interface{}) *ec2.ElasticGpu
 
 	return apiObject
 }
+
 
 func expandElasticGpuSpecifications(tfList []interface{}) []*ec2.ElasticGpuSpecification {
 	if len(tfList) == 0 {
@@ -1488,6 +1579,7 @@ func expandElasticGpuSpecifications(tfList []interface{}) []*ec2.ElasticGpuSpeci
 	return apiObjects
 }
 
+
 func expandLaunchTemplateElasticInferenceAccelerator(tfMap map[string]interface{}) *ec2.LaunchTemplateElasticInferenceAccelerator {
 	if tfMap == nil {
 		return nil
@@ -1501,6 +1593,7 @@ func expandLaunchTemplateElasticInferenceAccelerator(tfMap map[string]interface{
 
 	return apiObject
 }
+
 
 func expandLaunchTemplateElasticInferenceAccelerators(tfList []interface{}) []*ec2.LaunchTemplateElasticInferenceAccelerator {
 	if len(tfList) == 0 {
@@ -1528,6 +1621,7 @@ func expandLaunchTemplateElasticInferenceAccelerators(tfList []interface{}) []*e
 	return apiObjects
 }
 
+
 func expandLaunchTemplateIAMInstanceProfileSpecificationRequest(tfMap map[string]interface{}) *ec2.LaunchTemplateIamInstanceProfileSpecificationRequest {
 	if tfMap == nil {
 		return nil
@@ -1546,6 +1640,7 @@ func expandLaunchTemplateIAMInstanceProfileSpecificationRequest(tfMap map[string
 	return apiObject
 }
 
+
 func expandLaunchTemplateInstanceMarketOptionsRequest(tfMap map[string]interface{}) *ec2.LaunchTemplateInstanceMarketOptionsRequest {
 	if tfMap == nil {
 		return nil
@@ -1563,6 +1658,7 @@ func expandLaunchTemplateInstanceMarketOptionsRequest(tfMap map[string]interface
 
 	return apiObject
 }
+
 
 func expandInstanceRequirementsRequest(tfMap map[string]interface{}) *ec2.InstanceRequirementsRequest {
 	if tfMap == nil {
@@ -1666,6 +1762,7 @@ func expandInstanceRequirementsRequest(tfMap map[string]interface{}) *ec2.Instan
 	return apiObject
 }
 
+
 func expandAcceleratorCountRequest(tfMap map[string]interface{}) *ec2.AcceleratorCountRequest {
 	if tfMap == nil {
 		return nil
@@ -1685,6 +1782,7 @@ func expandAcceleratorCountRequest(tfMap map[string]interface{}) *ec2.Accelerato
 
 	return apiObject
 }
+
 
 func expandAcceleratorTotalMemoryMiBRequest(tfMap map[string]interface{}) *ec2.AcceleratorTotalMemoryMiBRequest {
 	if tfMap == nil {
@@ -1706,6 +1804,7 @@ func expandAcceleratorTotalMemoryMiBRequest(tfMap map[string]interface{}) *ec2.A
 	return apiObject
 }
 
+
 func expandBaselineEBSBandwidthMbpsRequest(tfMap map[string]interface{}) *ec2.BaselineEbsBandwidthMbpsRequest {
 	if tfMap == nil {
 		return nil
@@ -1725,6 +1824,7 @@ func expandBaselineEBSBandwidthMbpsRequest(tfMap map[string]interface{}) *ec2.Ba
 
 	return apiObject
 }
+
 
 func expandMemoryGiBPerVCPURequest(tfMap map[string]interface{}) *ec2.MemoryGiBPerVCpuRequest {
 	if tfMap == nil {
@@ -1746,6 +1846,7 @@ func expandMemoryGiBPerVCPURequest(tfMap map[string]interface{}) *ec2.MemoryGiBP
 	return apiObject
 }
 
+
 func expandMemoryMiBRequest(tfMap map[string]interface{}) *ec2.MemoryMiBRequest {
 	if tfMap == nil {
 		return nil
@@ -1765,6 +1866,7 @@ func expandMemoryMiBRequest(tfMap map[string]interface{}) *ec2.MemoryMiBRequest 
 
 	return apiObject
 }
+
 
 func expandNetworkBandwidthGbpsRequest(tfMap map[string]interface{}) *ec2.NetworkBandwidthGbpsRequest {
 	if tfMap == nil {
@@ -1786,6 +1888,7 @@ func expandNetworkBandwidthGbpsRequest(tfMap map[string]interface{}) *ec2.Networ
 	return apiObject
 }
 
+
 func expandNetworkInterfaceCountRequest(tfMap map[string]interface{}) *ec2.NetworkInterfaceCountRequest {
 	if tfMap == nil {
 		return nil
@@ -1805,6 +1908,7 @@ func expandNetworkInterfaceCountRequest(tfMap map[string]interface{}) *ec2.Netwo
 
 	return apiObject
 }
+
 
 func expandTotalLocalStorageGBRequest(tfMap map[string]interface{}) *ec2.TotalLocalStorageGBRequest {
 	if tfMap == nil {
@@ -1826,6 +1930,7 @@ func expandTotalLocalStorageGBRequest(tfMap map[string]interface{}) *ec2.TotalLo
 	return apiObject
 }
 
+
 func expandVCPUCountRangeRequest(tfMap map[string]interface{}) *ec2.VCpuCountRangeRequest {
 	if tfMap == nil {
 		return nil
@@ -1845,6 +1950,7 @@ func expandVCPUCountRangeRequest(tfMap map[string]interface{}) *ec2.VCpuCountRan
 
 	return apiObject
 }
+
 
 func expandLaunchTemplateSpotMarketOptionsRequest(tfMap map[string]interface{}) *ec2.LaunchTemplateSpotMarketOptionsRequest {
 	if tfMap == nil {
@@ -1878,6 +1984,7 @@ func expandLaunchTemplateSpotMarketOptionsRequest(tfMap map[string]interface{}) 
 	return apiObject
 }
 
+
 func expandLaunchTemplateLicenseConfigurationRequest(tfMap map[string]interface{}) *ec2.LaunchTemplateLicenseConfigurationRequest {
 	if tfMap == nil {
 		return nil
@@ -1891,6 +1998,7 @@ func expandLaunchTemplateLicenseConfigurationRequest(tfMap map[string]interface{
 
 	return apiObject
 }
+
 
 func expandLaunchTemplateLicenseConfigurationRequests(tfList []interface{}) []*ec2.LaunchTemplateLicenseConfigurationRequest {
 	if len(tfList) == 0 {
@@ -1917,6 +2025,7 @@ func expandLaunchTemplateLicenseConfigurationRequests(tfList []interface{}) []*e
 
 	return apiObjects
 }
+
 
 func expandLaunchTemplateInstanceMetadataOptionsRequest(tfMap map[string]interface{}) *ec2.LaunchTemplateInstanceMetadataOptionsRequest {
 	if tfMap == nil {
@@ -1948,6 +2057,7 @@ func expandLaunchTemplateInstanceMetadataOptionsRequest(tfMap map[string]interfa
 	return apiObject
 }
 
+
 func expandLaunchTemplateInstanceMaintenanceOptionsRequest(tfMap map[string]interface{}) *ec2.LaunchTemplateInstanceMaintenanceOptionsRequest {
 	if tfMap == nil {
 		return nil
@@ -1961,6 +2071,7 @@ func expandLaunchTemplateInstanceMaintenanceOptionsRequest(tfMap map[string]inte
 
 	return apiObject
 }
+
 
 func expandLaunchTemplateInstanceNetworkInterfaceSpecificationRequest(tfMap map[string]interface{}) *ec2.LaunchTemplateInstanceNetworkInterfaceSpecificationRequest {
 	if tfMap == nil {
@@ -2062,6 +2173,7 @@ func expandLaunchTemplateInstanceNetworkInterfaceSpecificationRequest(tfMap map[
 	return apiObject
 }
 
+
 func expandLaunchTemplateInstanceNetworkInterfaceSpecificationRequests(tfList []interface{}) []*ec2.LaunchTemplateInstanceNetworkInterfaceSpecificationRequest {
 	if len(tfList) == 0 {
 		return nil
@@ -2087,6 +2199,7 @@ func expandLaunchTemplateInstanceNetworkInterfaceSpecificationRequests(tfList []
 
 	return apiObjects
 }
+
 
 func expandLaunchTemplatePlacementRequest(tfMap map[string]interface{}) *ec2.LaunchTemplatePlacementRequest {
 	if tfMap == nil {
@@ -2130,6 +2243,7 @@ func expandLaunchTemplatePlacementRequest(tfMap map[string]interface{}) *ec2.Lau
 	return apiObject
 }
 
+
 func expandLaunchTemplatePrivateDNSNameOptionsRequest(tfMap map[string]interface{}) *ec2.LaunchTemplatePrivateDnsNameOptionsRequest {
 	if tfMap == nil {
 		return nil
@@ -2146,6 +2260,7 @@ func expandLaunchTemplatePrivateDNSNameOptionsRequest(tfMap map[string]interface
 
 	return apiObject
 }
+
 
 func expandLaunchTemplateTagSpecificationRequest(ctx context.Context, tfMap map[string]interface{}) *ec2.LaunchTemplateTagSpecificationRequest {
 	if tfMap == nil {
@@ -2166,6 +2281,7 @@ func expandLaunchTemplateTagSpecificationRequest(ctx context.Context, tfMap map[
 
 	return apiObject
 }
+
 
 func expandLaunchTemplateTagSpecificationRequests(ctx context.Context, tfList []interface{}) []*ec2.LaunchTemplateTagSpecificationRequest {
 	if len(tfList) == 0 {
@@ -2192,6 +2308,7 @@ func expandLaunchTemplateTagSpecificationRequests(ctx context.Context, tfList []
 
 	return apiObjects
 }
+
 
 func flattenResponseLaunchTemplateData(ctx context.Context, conn *ec2.EC2, d *schema.ResourceData, apiObject *ec2.ResponseLaunchTemplateData) error {
 	instanceType := aws.StringValue(apiObject.InstanceType)
@@ -2343,6 +2460,7 @@ func flattenResponseLaunchTemplateData(ctx context.Context, conn *ec2.EC2, d *sc
 	return nil
 }
 
+
 func flattenLaunchTemplateBlockDeviceMapping(apiObject *ec2.LaunchTemplateBlockDeviceMapping) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -2369,6 +2487,7 @@ func flattenLaunchTemplateBlockDeviceMapping(apiObject *ec2.LaunchTemplateBlockD
 	return tfMap
 }
 
+
 func flattenLaunchTemplateBlockDeviceMappings(apiObjects []*ec2.LaunchTemplateBlockDeviceMapping) []interface{} {
 	if len(apiObjects) == 0 {
 		return nil
@@ -2386,6 +2505,7 @@ func flattenLaunchTemplateBlockDeviceMappings(apiObjects []*ec2.LaunchTemplateBl
 
 	return tfList
 }
+
 
 func flattenLaunchTemplateEBSBlockDevice(apiObject *ec2.LaunchTemplateEbsBlockDevice) map[string]interface{} {
 	if apiObject == nil {
@@ -2429,6 +2549,7 @@ func flattenLaunchTemplateEBSBlockDevice(apiObject *ec2.LaunchTemplateEbsBlockDe
 	return tfMap
 }
 
+
 func flattenLaunchTemplateCapacityReservationSpecificationResponse(apiObject *ec2.LaunchTemplateCapacityReservationSpecificationResponse) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -2446,6 +2567,7 @@ func flattenLaunchTemplateCapacityReservationSpecificationResponse(apiObject *ec
 
 	return tfMap
 }
+
 
 func flattenLaunchTemplateCPUOptions(apiObject *ec2.LaunchTemplateCpuOptions) map[string]interface{} {
 	if apiObject == nil {
@@ -2469,6 +2591,7 @@ func flattenLaunchTemplateCPUOptions(apiObject *ec2.LaunchTemplateCpuOptions) ma
 	return tfMap
 }
 
+
 func flattenCreditSpecification(apiObject *ec2.CreditSpecification) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -2483,6 +2606,7 @@ func flattenCreditSpecification(apiObject *ec2.CreditSpecification) map[string]i
 	return tfMap
 }
 
+
 func flattenElasticGpuSpecificationResponse(apiObject *ec2.ElasticGpuSpecificationResponse) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -2496,6 +2620,7 @@ func flattenElasticGpuSpecificationResponse(apiObject *ec2.ElasticGpuSpecificati
 
 	return tfMap
 }
+
 
 func flattenElasticGpuSpecificationResponses(apiObjects []*ec2.ElasticGpuSpecificationResponse) []interface{} {
 	if len(apiObjects) == 0 {
@@ -2515,6 +2640,7 @@ func flattenElasticGpuSpecificationResponses(apiObjects []*ec2.ElasticGpuSpecifi
 	return tfList
 }
 
+
 func flattenLaunchTemplateElasticInferenceAcceleratorResponse(apiObject *ec2.LaunchTemplateElasticInferenceAcceleratorResponse) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -2528,6 +2654,7 @@ func flattenLaunchTemplateElasticInferenceAcceleratorResponse(apiObject *ec2.Lau
 
 	return tfMap
 }
+
 
 func flattenLaunchTemplateElasticInferenceAcceleratorResponses(apiObjects []*ec2.LaunchTemplateElasticInferenceAcceleratorResponse) []interface{} {
 	if len(apiObjects) == 0 {
@@ -2547,6 +2674,7 @@ func flattenLaunchTemplateElasticInferenceAcceleratorResponses(apiObjects []*ec2
 	return tfList
 }
 
+
 func flattenLaunchTemplateIAMInstanceProfileSpecification(apiObject *ec2.LaunchTemplateIamInstanceProfileSpecification) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -2565,6 +2693,7 @@ func flattenLaunchTemplateIAMInstanceProfileSpecification(apiObject *ec2.LaunchT
 	return tfMap
 }
 
+
 func flattenLaunchTemplateInstanceMarketOptions(apiObject *ec2.LaunchTemplateInstanceMarketOptions) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -2582,6 +2711,7 @@ func flattenLaunchTemplateInstanceMarketOptions(apiObject *ec2.LaunchTemplateIns
 
 	return tfMap
 }
+
 
 func flattenInstanceRequirements(apiObject *ec2.InstanceRequirements) map[string]interface{} {
 	if apiObject == nil {
@@ -2685,6 +2815,7 @@ func flattenInstanceRequirements(apiObject *ec2.InstanceRequirements) map[string
 	return tfMap
 }
 
+
 func flattenAcceleratorCount(apiObject *ec2.AcceleratorCount) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -2702,6 +2833,7 @@ func flattenAcceleratorCount(apiObject *ec2.AcceleratorCount) map[string]interfa
 
 	return tfMap
 }
+
 
 func flattenAcceleratorTotalMemoryMiB(apiObject *ec2.AcceleratorTotalMemoryMiB) map[string]interface{} {
 	if apiObject == nil {
@@ -2721,6 +2853,7 @@ func flattenAcceleratorTotalMemoryMiB(apiObject *ec2.AcceleratorTotalMemoryMiB) 
 	return tfMap
 }
 
+
 func flattenBaselineEBSBandwidthMbps(apiObject *ec2.BaselineEbsBandwidthMbps) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -2738,6 +2871,7 @@ func flattenBaselineEBSBandwidthMbps(apiObject *ec2.BaselineEbsBandwidthMbps) ma
 
 	return tfMap
 }
+
 
 func flattenMemoryGiBPerVCPU(apiObject *ec2.MemoryGiBPerVCpu) map[string]interface{} {
 	if apiObject == nil {
@@ -2757,6 +2891,7 @@ func flattenMemoryGiBPerVCPU(apiObject *ec2.MemoryGiBPerVCpu) map[string]interfa
 	return tfMap
 }
 
+
 func flattenMemoryMiB(apiObject *ec2.MemoryMiB) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -2774,6 +2909,7 @@ func flattenMemoryMiB(apiObject *ec2.MemoryMiB) map[string]interface{} {
 
 	return tfMap
 }
+
 
 func flattenNetworkBandwidthGbps(apiObject *ec2.NetworkBandwidthGbps) map[string]interface{} {
 	if apiObject == nil {
@@ -2793,6 +2929,7 @@ func flattenNetworkBandwidthGbps(apiObject *ec2.NetworkBandwidthGbps) map[string
 	return tfMap
 }
 
+
 func flattenNetworkInterfaceCount(apiObject *ec2.NetworkInterfaceCount) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -2810,6 +2947,7 @@ func flattenNetworkInterfaceCount(apiObject *ec2.NetworkInterfaceCount) map[stri
 
 	return tfMap
 }
+
 
 func flattenTotalLocalStorageGB(apiObject *ec2.TotalLocalStorageGB) map[string]interface{} {
 	if apiObject == nil {
@@ -2829,6 +2967,7 @@ func flattenTotalLocalStorageGB(apiObject *ec2.TotalLocalStorageGB) map[string]i
 	return tfMap
 }
 
+
 func flattenVCPUCountRange(apiObject *ec2.VCpuCountRange) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -2846,6 +2985,7 @@ func flattenVCPUCountRange(apiObject *ec2.VCpuCountRange) map[string]interface{}
 
 	return tfMap
 }
+
 
 func flattenLaunchTemplateSpotMarketOptions(apiObject *ec2.LaunchTemplateSpotMarketOptions) map[string]interface{} {
 	if apiObject == nil {
@@ -2877,6 +3017,7 @@ func flattenLaunchTemplateSpotMarketOptions(apiObject *ec2.LaunchTemplateSpotMar
 	return tfMap
 }
 
+
 func flattenLaunchTemplateLicenseConfiguration(apiObject *ec2.LaunchTemplateLicenseConfiguration) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -2890,6 +3031,7 @@ func flattenLaunchTemplateLicenseConfiguration(apiObject *ec2.LaunchTemplateLice
 
 	return tfMap
 }
+
 
 func flattenLaunchTemplateLicenseConfigurations(apiObjects []*ec2.LaunchTemplateLicenseConfiguration) []interface{} {
 	if len(apiObjects) == 0 {
@@ -2909,6 +3051,7 @@ func flattenLaunchTemplateLicenseConfigurations(apiObjects []*ec2.LaunchTemplate
 	return tfList
 }
 
+
 func flattenLaunchTemplateInstanceMaintenanceOptions(apiObject *ec2.LaunchTemplateInstanceMaintenanceOptions) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -2922,6 +3065,7 @@ func flattenLaunchTemplateInstanceMaintenanceOptions(apiObject *ec2.LaunchTempla
 
 	return tfMap
 }
+
 
 func flattenLaunchTemplateInstanceMetadataOptions(apiObject *ec2.LaunchTemplateInstanceMetadataOptions) map[string]interface{} {
 	if apiObject == nil {
@@ -2952,6 +3096,7 @@ func flattenLaunchTemplateInstanceMetadataOptions(apiObject *ec2.LaunchTemplateI
 
 	return tfMap
 }
+
 
 func flattenLaunchTemplateInstanceNetworkInterfaceSpecification(apiObject *ec2.LaunchTemplateInstanceNetworkInterfaceSpecification) map[string]interface{} {
 	if apiObject == nil {
@@ -3063,6 +3208,7 @@ func flattenLaunchTemplateInstanceNetworkInterfaceSpecification(apiObject *ec2.L
 	return tfMap
 }
 
+
 func flattenLaunchTemplateInstanceNetworkInterfaceSpecifications(apiObjects []*ec2.LaunchTemplateInstanceNetworkInterfaceSpecification) []interface{} {
 	if len(apiObjects) == 0 {
 		return nil
@@ -3080,6 +3226,7 @@ func flattenLaunchTemplateInstanceNetworkInterfaceSpecifications(apiObjects []*e
 
 	return tfList
 }
+
 
 func flattenLaunchTemplatePlacement(apiObject *ec2.LaunchTemplatePlacement) map[string]interface{} {
 	if apiObject == nil {
@@ -3123,6 +3270,7 @@ func flattenLaunchTemplatePlacement(apiObject *ec2.LaunchTemplatePlacement) map[
 	return tfMap
 }
 
+
 func flattenLaunchTemplatePrivateDNSNameOptions(apiObject *ec2.LaunchTemplatePrivateDnsNameOptions) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -3139,6 +3287,7 @@ func flattenLaunchTemplatePrivateDNSNameOptions(apiObject *ec2.LaunchTemplatePri
 
 	return tfMap
 }
+
 
 func flattenLaunchTemplateTagSpecification(ctx context.Context, apiObject *ec2.LaunchTemplateTagSpecification) map[string]interface{} {
 	if apiObject == nil {
@@ -3157,6 +3306,7 @@ func flattenLaunchTemplateTagSpecification(ctx context.Context, apiObject *ec2.L
 
 	return tfMap
 }
+
 
 func flattenLaunchTemplateTagSpecifications(ctx context.Context, apiObjects []*ec2.LaunchTemplateTagSpecification) []interface{} {
 	if len(apiObjects) == 0 {

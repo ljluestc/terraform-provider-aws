@@ -10,6 +10,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 )
 
+
 func heatMapVisualSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_HeatMapVisual.html
 		Type:     schema.TypeList,
@@ -60,7 +61,8 @@ func heatMapVisualSchema() *schema.Schema {
 								Optional:         true,
 								MinItems:         1,
 								MaxItems:         1,
-								DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
+								DiffSuppress
+func: verify.SuppressMissingOptionalConfigurationBlock,
 								Elem: &schema.Resource{
 									Schema: map[string]*schema.Schema{
 										"heat_map_column_items_limit_configuration": itemsLimitConfigurationSchema(),                     // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ItemsLimitConfiguration.html
@@ -81,6 +83,7 @@ func heatMapVisualSchema() *schema.Schema {
 		},
 	}
 }
+
 
 func expandHeatMapVisual(tfList []interface{}) *quicksight.HeatMapVisual {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -115,6 +118,7 @@ func expandHeatMapVisual(tfList []interface{}) *quicksight.HeatMapVisual {
 
 	return visual
 }
+
 
 func expandHeatMapConfiguration(tfList []interface{}) *quicksight.HeatMapConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -156,6 +160,7 @@ func expandHeatMapConfiguration(tfList []interface{}) *quicksight.HeatMapConfigu
 	return config
 }
 
+
 func expandHeatMapFieldWells(tfList []interface{}) *quicksight.HeatMapFieldWells {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -174,6 +179,7 @@ func expandHeatMapFieldWells(tfList []interface{}) *quicksight.HeatMapFieldWells
 
 	return config
 }
+
 
 func expandHeatMapAggregatedFieldWells(tfList []interface{}) *quicksight.HeatMapAggregatedFieldWells {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -199,6 +205,7 @@ func expandHeatMapAggregatedFieldWells(tfList []interface{}) *quicksight.HeatMap
 
 	return config
 }
+
 
 func expandHeatMapSortConfiguration(tfList []interface{}) *quicksight.HeatMapSortConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -228,6 +235,7 @@ func expandHeatMapSortConfiguration(tfList []interface{}) *quicksight.HeatMapSor
 	return config
 }
 
+
 func flattenHeatMapVisual(apiObject *quicksight.HeatMapVisual) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -254,6 +262,7 @@ func flattenHeatMapVisual(apiObject *quicksight.HeatMapVisual) []interface{} {
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenHeatMapConfiguration(apiObject *quicksight.HeatMapConfiguration) []interface{} {
 	if apiObject == nil {
@@ -289,6 +298,7 @@ func flattenHeatMapConfiguration(apiObject *quicksight.HeatMapConfiguration) []i
 	return []interface{}{tfMap}
 }
 
+
 func flattenHeatMapFieldWells(apiObject *quicksight.HeatMapFieldWells) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -301,6 +311,7 @@ func flattenHeatMapFieldWells(apiObject *quicksight.HeatMapFieldWells) []interfa
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenHeatMapAggregatedFieldWells(apiObject *quicksight.HeatMapAggregatedFieldWells) []interface{} {
 	if apiObject == nil {
@@ -320,6 +331,7 @@ func flattenHeatMapAggregatedFieldWells(apiObject *quicksight.HeatMapAggregatedF
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenHeatMapSortConfiguration(apiObject *quicksight.HeatMapSortConfiguration) []interface{} {
 	if apiObject == nil {

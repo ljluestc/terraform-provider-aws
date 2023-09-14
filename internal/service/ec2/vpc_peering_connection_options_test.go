@@ -19,6 +19,7 @@ import (
 	tfec2 "github.com/hashicorp/terraform-provider-aws/internal/service/ec2"
 )
 
+
 func TestAccVPCPeeringConnectionOptions_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -26,14 +27,16 @@ func TestAccVPCPeeringConnectionOptions_basic(t *testing.T) {
 	pcxResourceName := "aws_vpc_peering_connection.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPCPeeringConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCPeeringConnectionOptionsConfig_sameRegionSameAccount(rName, true),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					// Requester's view:
 					resource.TestCheckResourceAttr(resourceName, "requester.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "requester.0.allow_remote_vpc_dns_resolution", "false"),
@@ -61,7 +64,8 @@ func TestAccVPCPeeringConnectionOptions_basic(t *testing.T) {
 			},
 			{
 				Config: testAccVPCPeeringConnectionOptionsConfig_sameRegionSameAccount(rName, false),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					// Requester's view:
 					resource.TestCheckResourceAttr(
 						resourceName,
@@ -92,6 +96,7 @@ func TestAccVPCPeeringConnectionOptions_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCPeeringConnectionOptions_differentRegionSameAccount(t *testing.T) {
 	ctx := acctest.Context(t)
 	var providers []*schema.Provider
@@ -102,7 +107,8 @@ func TestAccVPCPeeringConnectionOptions_differentRegionSameAccount(t *testing.T)
 	pcxResourceNamePeer := "aws_vpc_peering_connection_accepter.peer" // Accepter
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
 		},
@@ -112,7 +118,8 @@ func TestAccVPCPeeringConnectionOptions_differentRegionSameAccount(t *testing.T)
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCPeeringConnectionOptionsConfig_differentRegionSameAccount(rName, true, true),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					// Requester's view:
 					resource.TestCheckResourceAttr(resourceName, "requester.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "requester.0.allow_remote_vpc_dns_resolution", "true"),
@@ -130,7 +137,8 @@ func TestAccVPCPeeringConnectionOptions_differentRegionSameAccount(t *testing.T)
 						&ec2.VpcPeeringConnectionOptionsDescription{
 							AllowDnsResolutionFromRemoteVpc: aws.Bool(true),
 						},
-						acctest.RegionProviderFunc(acctest.AlternateRegion(), &providers),
+						acctest.RegionProvider
+func(acctest.AlternateRegion(), &providers),
 					),
 				),
 			},
@@ -142,7 +150,8 @@ func TestAccVPCPeeringConnectionOptions_differentRegionSameAccount(t *testing.T)
 			},
 			{
 				Config: testAccVPCPeeringConnectionOptionsConfig_differentRegionSameAccount(rName, false, false),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					// Requester's view:
 					resource.TestCheckResourceAttr(
 						resourceName,
@@ -166,13 +175,15 @@ func TestAccVPCPeeringConnectionOptions_differentRegionSameAccount(t *testing.T)
 						&ec2.VpcPeeringConnectionOptionsDescription{
 							AllowDnsResolutionFromRemoteVpc: aws.Bool(false),
 						},
-						acctest.RegionProviderFunc(acctest.AlternateRegion(), &providers),
+						acctest.RegionProvider
+func(acctest.AlternateRegion(), &providers),
 					),
 				),
 			},
 		},
 	})
 }
+
 
 func TestAccVPCPeeringConnectionOptions_sameRegionDifferentAccount(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -182,7 +193,8 @@ func TestAccVPCPeeringConnectionOptions_sameRegionDifferentAccount(t *testing.T)
 	pcxResourceName := "aws_vpc_peering_connection.test"          // Requester
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
 		},
@@ -192,7 +204,8 @@ func TestAccVPCPeeringConnectionOptions_sameRegionDifferentAccount(t *testing.T)
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCPeeringConnectionOptionsConfig_sameRegionDifferentAccount(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					// Requester's view:
 					resource.TestCheckResourceAttr(resourceName, "requester.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "requester.0.allow_remote_vpc_dns_resolution", "true"),
@@ -217,12 +230,19 @@ func TestAccVPCPeeringConnectionOptions_sameRegionDifferentAccount(t *testing.T)
 	})
 }
 
-func testAccCheckVPCPeeringConnectionOptions(ctx context.Context, n, block string, options *ec2.VpcPeeringConnectionOptionsDescription) resource.TestCheckFunc {
-	return testAccCheckVPCPeeringConnectionOptionsWithProvider(ctx, n, block, options, func() *schema.Provider { return acctest.Provider })
+
+func testAccCheckVPCPeeringConnectionOptions(ctx context.Context, n, block string, options *ec2.VpcPeeringConnectionOptionsDescription) resource.TestCheck
+func {
+	return testAccCheckVPCPeeringConnectionOptionsWithProvider(ctx, n, block, options, 
+func() *schema.Provider { return acctest.Provider })
 }
 
-func testAccCheckVPCPeeringConnectionOptionsWithProvider(ctx context.Context, n, block string, options *ec2.VpcPeeringConnectionOptionsDescription, providerF func() *schema.Provider) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckVPCPeeringConnectionOptionsWithProvider(ctx context.Context, n, block string, options *ec2.VpcPeeringConnectionOptionsDescription, providerF 
+func() *schema.Provider) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -252,6 +272,7 @@ func testAccCheckVPCPeeringConnectionOptionsWithProvider(ctx context.Context, n,
 		return nil
 	}
 }
+
 
 func testAccVPCPeeringConnectionOptionsConfig_sameRegionSameAccount(rName string, accepterDnsResolution bool) string {
 	return fmt.Sprintf(`
@@ -291,6 +312,7 @@ resource "aws_vpc_peering_connection_options" "test" {
 }
 `, rName, accepterDnsResolution)
 }
+
 
 func testAccVPCPeeringConnectionOptionsConfig_differentRegionSameAccount(rName string, dnsResolution, dnsResolutionPeer bool) string {
 	return acctest.ConfigCompose(acctest.ConfigAlternateRegionProvider(), fmt.Sprintf(`
@@ -361,6 +383,7 @@ resource "aws_vpc_peering_connection_options" "peer" {
 }
 `, rName, acctest.AlternateRegion(), dnsResolution, dnsResolutionPeer))
 }
+
 
 func testAccVPCPeeringConnectionOptionsConfig_sameRegionDifferentAccount(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAlternateAccountProvider(), fmt.Sprintf(`

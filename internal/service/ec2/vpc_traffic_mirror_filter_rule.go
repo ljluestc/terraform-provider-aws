@@ -23,6 +23,7 @@ import (
 )
 
 // @SDKResource("aws_ec2_traffic_mirror_filter_rule")
+
 func ResourceTrafficMirrorFilterRule() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceTrafficMirrorFilterRuleCreate,
@@ -46,7 +47,8 @@ func ResourceTrafficMirrorFilterRule() *schema.Resource {
 			"destination_cidr_block": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: verify.ValidCIDRNetworkAddress,
+				Validate
+func: verify.ValidCIDRNetworkAddress,
 			},
 			"destination_port_range": {
 				Type:     schema.TypeList,
@@ -57,12 +59,14 @@ func ResourceTrafficMirrorFilterRule() *schema.Resource {
 						"from_port": {
 							Type:         schema.TypeInt,
 							Optional:     true,
-							ValidateFunc: validation.IsPortNumberOrZero,
+							Validate
+func: validation.IsPortNumberOrZero,
 						},
 						"to_port": {
 							Type:         schema.TypeInt,
 							Optional:     true,
-							ValidateFunc: validation.IsPortNumberOrZero,
+							Validate
+func: validation.IsPortNumberOrZero,
 						},
 					},
 				},
@@ -74,7 +78,8 @@ func ResourceTrafficMirrorFilterRule() *schema.Resource {
 			"rule_action": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: validation.StringInSlice(ec2.TrafficMirrorRuleAction_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.TrafficMirrorRuleAction_Values(), false),
 			},
 			"rule_number": {
 				Type:     schema.TypeInt,
@@ -83,7 +88,8 @@ func ResourceTrafficMirrorFilterRule() *schema.Resource {
 			"source_cidr_block": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: verify.ValidCIDRNetworkAddress,
+				Validate
+func: verify.ValidCIDRNetworkAddress,
 			},
 			"source_port_range": {
 				Type:     schema.TypeList,
@@ -94,12 +100,14 @@ func ResourceTrafficMirrorFilterRule() *schema.Resource {
 						"from_port": {
 							Type:         schema.TypeInt,
 							Optional:     true,
-							ValidateFunc: validation.IsPortNumberOrZero,
+							Validate
+func: validation.IsPortNumberOrZero,
 						},
 						"to_port": {
 							Type:         schema.TypeInt,
 							Optional:     true,
-							ValidateFunc: validation.IsPortNumberOrZero,
+							Validate
+func: validation.IsPortNumberOrZero,
 						},
 					},
 				},
@@ -107,7 +115,8 @@ func ResourceTrafficMirrorFilterRule() *schema.Resource {
 			"traffic_direction": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: validation.StringInSlice(ec2.TrafficDirection_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.TrafficDirection_Values(), false),
 			},
 			"traffic_mirror_filter_id": {
 				Type:     schema.TypeString,
@@ -117,6 +126,7 @@ func ResourceTrafficMirrorFilterRule() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceTrafficMirrorFilterRuleCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -157,6 +167,7 @@ func resourceTrafficMirrorFilterRuleCreate(ctx context.Context, d *schema.Resour
 
 	return append(diags, resourceTrafficMirrorFilterRuleRead(ctx, d, meta)...)
 }
+
 
 func resourceTrafficMirrorFilterRuleRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -207,6 +218,7 @@ func resourceTrafficMirrorFilterRuleRead(ctx context.Context, d *schema.Resource
 
 	return diags
 }
+
 
 func resourceTrafficMirrorFilterRuleUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -287,6 +299,7 @@ func resourceTrafficMirrorFilterRuleUpdate(ctx context.Context, d *schema.Resour
 	return append(diags, resourceTrafficMirrorFilterRuleRead(ctx, d, meta)...)
 }
 
+
 func resourceTrafficMirrorFilterRuleDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -307,6 +320,7 @@ func resourceTrafficMirrorFilterRuleDelete(ctx context.Context, d *schema.Resour
 	return diags
 }
 
+
 func resourceTrafficMirrorFilterRuleImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	parts := strings.SplitN(d.Id(), ":", 2)
 	if len(parts) != 2 || parts[0] == "" || parts[1] == "" {
@@ -318,6 +332,7 @@ func resourceTrafficMirrorFilterRuleImport(ctx context.Context, d *schema.Resour
 
 	return []*schema.ResourceData{d}, nil
 }
+
 
 func expandTrafficMirrorPortRangeRequest(tfMap map[string]interface{}) *ec2.TrafficMirrorPortRangeRequest {
 	if tfMap == nil {
@@ -336,6 +351,7 @@ func expandTrafficMirrorPortRangeRequest(tfMap map[string]interface{}) *ec2.Traf
 
 	return apiObject
 }
+
 
 func flattenTrafficMirrorPortRange(apiObject *ec2.TrafficMirrorPortRange) map[string]interface{} {
 	if apiObject == nil {

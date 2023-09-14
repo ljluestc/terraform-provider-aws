@@ -17,19 +17,22 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )
 
+
 func TestAccEMRSecurityConfiguration_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_emr_security_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, emr.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckSecurityConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSecurityConfigurationConfig_basic,
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSecurityConfigurationExists(ctx, resourceName),
 					acctest.CheckResourceAttrRFC3339(resourceName, "creation_date"),
 				),
@@ -43,8 +46,11 @@ func TestAccEMRSecurityConfiguration_basic(t *testing.T) {
 	})
 }
 
-func testAccCheckSecurityConfigurationDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckSecurityConfigurationDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EMRConn(ctx)
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_emr_security_configuration" {
@@ -75,8 +81,11 @@ func testAccCheckSecurityConfigurationDestroy(ctx context.Context) resource.Test
 	}
 }
 
-func testAccCheckSecurityConfigurationExists(ctx context.Context, n string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckSecurityConfigurationExists(ctx context.Context, n string) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)

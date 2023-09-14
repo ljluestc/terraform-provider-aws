@@ -25,6 +25,7 @@ import (
 )
 
 // @SDKResource("aws_connect_instance")
+
 func ResourceInstance() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceInstanceCreate,
@@ -69,7 +70,8 @@ func ResourceInstance() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringLenBetween(12, 12),
+				Validate
+func: validation.StringLenBetween(12, 12),
 				AtLeastOneOf: []string{"directory_id", "instance_alias"},
 			},
 			"early_media_enabled": {
@@ -81,7 +83,8 @@ func ResourceInstance() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringInSlice(connect.DirectoryType_Values(), false),
+				Validate
+func: validation.StringInSlice(connect.DirectoryType_Values(), false),
 			},
 			"inbound_calls_enabled": {
 				Type:     schema.TypeBool,
@@ -92,7 +95,8 @@ func ResourceInstance() *schema.Resource {
 				Optional:     true,
 				ForceNew:     true,
 				AtLeastOneOf: []string{"directory_id", "instance_alias"},
-				ValidateFunc: validation.All(
+				Validate
+func: validation.All(
 					validation.StringLenBetween(1, 64),
 					validation.StringMatch(regexache.MustCompile(`^([0-9A-Za-z]+)([0-9A-Za-z-]+)$`), "must contain only alphanumeric or hyphen characters"),
 					validation.StringDoesNotMatch(regexache.MustCompile(`^(d-).+$`), "can not start with d-"),
@@ -115,7 +119,8 @@ func ResourceInstance() *schema.Resource {
 				Type:     schema.TypeString,
 				Computed: true,
 			},
-			// Pre-release feature requiring allow-list from AWS. Removing all functionality until feature is GA
+			// Pre-release feature requiring allow-list from AWS. Removing all 
+functionality until feature is GA
 			// "use_custom_tts_voices_enabled": {
 			// 	Type:     schema.TypeBool,
 			// 	Optional: true,
@@ -124,6 +129,7 @@ func ResourceInstance() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceInstanceCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -163,6 +169,7 @@ func resourceInstanceCreate(ctx context.Context, d *schema.ResourceData, meta in
 
 	return resourceInstanceRead(ctx, d, meta)
 }
+
 
 func resourceInstanceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -215,6 +222,7 @@ func resourceInstanceRead(ctx context.Context, d *schema.ResourceData, meta inte
 	return nil
 }
 
+
 func resourceInstanceUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
@@ -230,6 +238,7 @@ func resourceInstanceUpdate(ctx context.Context, d *schema.ResourceData, meta in
 
 	return nil
 }
+
 
 func resourceInstanceDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -254,6 +263,7 @@ func resourceInstanceDelete(ctx context.Context, d *schema.ResourceData, meta in
 	return nil
 }
 
+
 func updateInstanceAttribute(ctx context.Context, conn *connect.Connect, instanceID, attributeType, value string) error {
 	input := &connect.UpdateInstanceAttributeInput{
 		AttributeType: aws.String(attributeType),
@@ -273,6 +283,7 @@ func updateInstanceAttribute(ctx context.Context, conn *connect.Connect, instanc
 
 	return nil
 }
+
 
 func FindInstanceByID(ctx context.Context, conn *connect.Connect, id string) (*connect.Instance, error) {
 	input := &connect.DescribeInstanceInput{
@@ -299,8 +310,11 @@ func FindInstanceByID(ctx context.Context, conn *connect.Connect, id string) (*c
 	return output.Instance, nil
 }
 
-func statusInstance(ctx context.Context, conn *connect.Connect, id string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+
+func statusInstance(ctx context.Context, conn *connect.Connect, id string) retry.StateRefresh
+func {
+	return 
+func() (interface{}, string, error) {
 		output, err := FindInstanceByID(ctx, conn, id)
 
 		if tfresource.NotFound(err) {
@@ -314,6 +328,7 @@ func statusInstance(ctx context.Context, conn *connect.Connect, id string) retry
 		return output, aws.StringValue(output.InstanceStatus), nil
 	}
 }
+
 
 func waitInstanceCreated(ctx context.Context, conn *connect.Connect, id string, timeout time.Duration) (*connect.Instance, error) {
 	stateConf := &retry.StateChangeConf{
@@ -334,6 +349,7 @@ func waitInstanceCreated(ctx context.Context, conn *connect.Connect, id string, 
 
 	return nil, err
 }
+
 
 func waitInstanceDeleted(ctx context.Context, conn *connect.Connect, id string, timeout time.Duration) (*connect.Instance, error) {
 	stateConf := &retry.StateChangeConf{

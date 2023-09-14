@@ -16,6 +16,7 @@ import (
 )
 
 // @SDKDataSource("aws_connect_instance")
+
 func DataSourceInstance() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceInstanceRead,
@@ -162,24 +163,25 @@ func dataSourceGetInstanceSummaryByInstanceAlias(ctx context.Context, conn *conn
 		MaxResults: aws.Int64(ListInstancesMaxResults),
 	}
 
-	err := conn.ListInstancesPagesWithContext(ctx, input, func(page *connect.ListInstancesOutput, lastPage bool) bool {
-		if page == nil {
+	err := conn.ListInstancesPagesWithContext(ctx, input,
+		func(page *connect.ListInstancesOutput, lastPage bool) bool {
+			if page == nil {
+				return !lastPage
+			}
+
+			for _, is := range page.InstanceSummaryList {
+				if is == nil {
+					continue
+				}
+
+				if aws.StringValue(is.InstanceAlias) == instanceAlias {
+					result = is
+					return false
+				}
+			}
+
 			return !lastPage
-		}
-
-		for _, is := range page.InstanceSummaryList {
-			if is == nil {
-				continue
-			}
-
-			if aws.StringValue(is.InstanceAlias) == instanceAlias {
-				result = is
-				return false
-			}
-		}
-
-		return !lastPage
-	})
+		})
 
 	if err != nil {
 		return nil, err

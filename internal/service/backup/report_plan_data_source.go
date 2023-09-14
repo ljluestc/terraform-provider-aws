@@ -16,6 +16,7 @@ import (
 )
 
 // @SDKDataSource("aws_backup_report_plan")
+
 func DataSourceReportPlan() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceReportPlanRead,

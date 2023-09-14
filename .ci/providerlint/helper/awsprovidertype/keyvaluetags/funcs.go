@@ -1,5 +1,1 @@
-package keyvaluetags
-
-const (
-	FuncNameNew = `New`
-)
+package keyvaluetagsconst (	FuncNameNew = `New`)

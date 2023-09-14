@@ -27,6 +27,7 @@ import (
 
 // @SDKResource("aws_spot_instance_request", name="Spot Instance Request")
 // @Tags(identifierAttribute="id")
+
 func ResourceSpotInstanceRequest() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceSpotInstanceRequestCreate,
@@ -43,7 +44,8 @@ func ResourceSpotInstanceRequest() *schema.Resource {
 			Delete: schema.DefaultTimeout(20 * time.Minute),
 		},
 
-		Schema: func() map[string]*schema.Schema {
+		Schema: 
+func() map[string]*schema.Schema {
 			// The Spot Instance Request Schema is based on the AWS Instance schema.
 			s := ResourceInstance().SchemaMap()
 
@@ -68,14 +70,16 @@ func ResourceSpotInstanceRequest() *schema.Resource {
 				Type:         schema.TypeInt,
 				Optional:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.IntDivisibleBy(60),
+				Validate
+func: validation.IntDivisibleBy(60),
 			}
 			s["instance_interruption_behavior"] = &schema.Schema{
 				Type:         schema.TypeString,
 				Optional:     true,
 				Default:      ec2.InstanceInterruptionBehaviorTerminate,
 				ForceNew:     true,
-				ValidateFunc: validation.StringInSlice(ec2.InstanceInterruptionBehavior_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.InstanceInterruptionBehavior_Values(), false),
 			}
 			s["launch_group"] = &schema.Schema{
 				Type:     schema.TypeString,
@@ -95,7 +99,9 @@ func ResourceSpotInstanceRequest() *schema.Resource {
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
-				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+				DiffSuppress
+func: 
+func(k, old, new string, d *schema.ResourceData) bool {
 					oldFloat, _ := strconv.ParseFloat(old, 64)
 					newFloat, _ := strconv.ParseFloat(new, 64)
 
@@ -110,20 +116,23 @@ func ResourceSpotInstanceRequest() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				Default:      ec2.SpotInstanceTypePersistent,
-				ValidateFunc: validation.StringInSlice(ec2.SpotInstanceType_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.SpotInstanceType_Values(), false),
 			}
 			s["valid_from"] = &schema.Schema{
 				Type:         schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.IsRFC3339Time,
+				Validate
+func: validation.IsRFC3339Time,
 				Computed:     true,
 			}
 			s["valid_until"] = &schema.Schema{
 				Type:         schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.IsRFC3339Time,
+				Validate
+func: validation.IsRFC3339Time,
 				Computed:     true,
 			}
 			s["volume_tags"] = &schema.Schema{
@@ -145,6 +154,7 @@ func ResourceSpotInstanceRequest() *schema.Resource {
 		),
 	}
 }
+
 
 func resourceSpotInstanceRequestCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -205,10 +215,12 @@ func resourceSpotInstanceRequestCreate(ctx context.Context, d *schema.ResourceDa
 	}
 
 	outputRaw, err := tfresource.RetryWhen(ctx, iamPropagationTimeout,
-		func() (interface{}, error) {
+		
+func() (interface{}, error) {
 			return conn.RequestSpotInstancesWithContext(ctx, input)
 		},
-		func(err error) (bool, error) {
+		
+func(err error) (bool, error) {
 			// IAM instance profiles can take ~10 seconds to propagate in AWS:
 			// http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html#launch-instance-with-role-console
 			if tfawserr.ErrMessageContains(err, errCodeInvalidParameterValue, "Invalid IAM Instance Profile") {
@@ -239,11 +251,13 @@ func resourceSpotInstanceRequestCreate(ctx context.Context, d *schema.ResourceDa
 	return append(diags, resourceSpotInstanceRequestRead(ctx, d, meta)...)
 }
 
+
 func resourceSpotInstanceRequestRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout, func() (interface{}, error) {
+	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout, 
+func() (interface{}, error) {
 		return FindSpotInstanceRequestByID(ctx, conn, d.Id())
 	}, d.IsNewResource())
 
@@ -287,6 +301,7 @@ func resourceSpotInstanceRequestRead(ctx context.Context, d *schema.ResourceData
 
 	return diags
 }
+
 
 func readInstance(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -361,6 +376,7 @@ func readInstance(ctx context.Context, d *schema.ResourceData, meta interface{})
 	return diags
 }
 
+
 func resourceSpotInstanceRequestUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 
@@ -368,6 +384,7 @@ func resourceSpotInstanceRequestUpdate(ctx context.Context, d *schema.ResourceDa
 
 	return append(diags, resourceSpotInstanceRequestRead(ctx, d, meta)...)
 }
+
 
 func resourceSpotInstanceRequestDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

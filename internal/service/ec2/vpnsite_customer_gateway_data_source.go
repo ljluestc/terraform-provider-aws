@@ -20,6 +20,7 @@ import (
 )
 
 // @SDKDataSource("aws_customer_gateway")
+
 func DataSourceCustomerGateway() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceCustomerGatewayRead,

@@ -21,6 +21,7 @@ import (
 )
 
 // @SDKResource("aws_ec2_transit_gateway_route_table_association")
+
 func ResourceTransitGatewayRouteTableAssociation() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceTransitGatewayRouteTableAssociationCreate,
@@ -50,17 +51,20 @@ func ResourceTransitGatewayRouteTableAssociation() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.NoZeroValues,
+				Validate
+func: validation.NoZeroValues,
 			},
 			"transit_gateway_route_table_id": {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.NoZeroValues,
+				Validate
+func: validation.NoZeroValues,
 			},
 		},
 	}
 }
+
 
 func resourceTransitGatewayRouteTableAssociationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -111,6 +115,7 @@ func resourceTransitGatewayRouteTableAssociationCreate(ctx context.Context, d *s
 	return append(diags, resourceTransitGatewayRouteTableAssociationRead(ctx, d, meta)...)
 }
 
+
 func resourceTransitGatewayRouteTableAssociationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -141,6 +146,7 @@ func resourceTransitGatewayRouteTableAssociationRead(ctx context.Context, d *sch
 	return diags
 }
 
+
 func resourceTransitGatewayRouteTableAssociationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -161,6 +167,7 @@ func resourceTransitGatewayRouteTableAssociationDelete(ctx context.Context, d *s
 
 // transitGatewayRouteTableAssociationUpdate is used by Transit Gateway attachment resources to modify their route table associations.
 // The route table ID may be empty (e.g. when the Transit Gateway itself has default route table association disabled).
+
 func transitGatewayRouteTableAssociationUpdate(ctx context.Context, conn *ec2.EC2, transitGatewayRouteTableID, transitGatewayAttachmentID string, associate bool) error {
 	if transitGatewayRouteTableID == "" {
 		// Do nothing if no route table was specified.
@@ -209,6 +216,7 @@ func transitGatewayRouteTableAssociationUpdate(ctx context.Context, conn *ec2.EC
 	return nil
 }
 
+
 func disassociateTransitGatewayRouteTable(ctx context.Context, conn *ec2.EC2, transitGatewayRouteTableID, transitGatewayAttachmentID string) error {
 	input := &ec2.DisassociateTransitGatewayRouteTableInput{
 		TransitGatewayAttachmentId: aws.String(transitGatewayAttachmentID),
@@ -234,12 +242,14 @@ func disassociateTransitGatewayRouteTable(ctx context.Context, conn *ec2.EC2, tr
 
 const transitGatewayRouteTableAssociationIDSeparator = "_"
 
+
 func TransitGatewayRouteTableAssociationCreateResourceID(transitGatewayRouteTableID, transitGatewayAttachmentID string) string {
 	parts := []string{transitGatewayRouteTableID, transitGatewayAttachmentID}
 	id := strings.Join(parts, transitGatewayRouteTableAssociationIDSeparator)
 
 	return id
 }
+
 
 func TransitGatewayRouteTableAssociationParseResourceID(id string) (string, string, error) {
 	parts := strings.Split(id, transitGatewayRouteTableAssociationIDSeparator)

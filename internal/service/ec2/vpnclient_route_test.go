@@ -18,6 +18,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func testAccClientVPNRoute_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.ClientVpnRoute
@@ -27,14 +28,16 @@ func testAccClientVPNRoute_basic(t *testing.T) {
 	subnetResourceName := "aws_subnet.test.0"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { testAccPreCheckClientVPNSyncronize(t); acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { testAccPreCheckClientVPNSyncronize(t); acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckClientVPNRouteDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClientVPNRouteConfig_basic(t, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckClientVPNRouteExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttrPair(resourceName, "client_vpn_endpoint_id", endpointResourceName, "id"),
 					resource.TestCheckResourceAttr(resourceName, "description", ""),
@@ -53,6 +56,7 @@ func testAccClientVPNRoute_basic(t *testing.T) {
 	})
 }
 
+
 func testAccClientVPNRoute_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.ClientVpnRoute
@@ -60,14 +64,16 @@ func testAccClientVPNRoute_disappears(t *testing.T) {
 	resourceName := "aws_ec2_client_vpn_route.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { testAccPreCheckClientVPNSyncronize(t); acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { testAccPreCheckClientVPNSyncronize(t); acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckClientVPNRouteDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClientVPNRouteConfig_basic(t, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckClientVPNRouteExists(ctx, resourceName, &v),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceClientVPNRoute(), resourceName),
 				),
@@ -77,6 +83,7 @@ func testAccClientVPNRoute_disappears(t *testing.T) {
 	})
 }
 
+
 func testAccClientVPNRoute_description(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.ClientVpnRoute
@@ -84,14 +91,16 @@ func testAccClientVPNRoute_description(t *testing.T) {
 	resourceName := "aws_ec2_client_vpn_route.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { testAccPreCheckClientVPNSyncronize(t); acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { testAccPreCheckClientVPNSyncronize(t); acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckClientVPNRouteDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClientVPNRouteConfig_description(t, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckClientVPNRouteExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "description", "test client VPN route"),
 				),
@@ -105,8 +114,11 @@ func testAccClientVPNRoute_description(t *testing.T) {
 	})
 }
 
-func testAccCheckClientVPNRouteDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckClientVPNRouteDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -137,8 +149,11 @@ func testAccCheckClientVPNRouteDestroy(ctx context.Context) resource.TestCheckFu
 	}
 }
 
-func testAccCheckClientVPNRouteExists(ctx context.Context, name string, v *ec2.ClientVpnRoute) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckClientVPNRouteExists(ctx context.Context, name string, v *ec2.ClientVpnRoute) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
 		if !ok {
 			return fmt.Errorf("Not found: %s", name)
@@ -168,6 +183,7 @@ func testAccCheckClientVPNRouteExists(ctx context.Context, name string, v *ec2.C
 	}
 }
 
+
 func testAccClientVPNRouteConfig_base(t *testing.T, rName string, subnetCount int) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), testAccClientVPNEndpointConfig_basic(t, rName), fmt.Sprintf(`
 resource "aws_vpc" "test" {
@@ -193,6 +209,7 @@ resource "aws_subnet" "test" {
 `, rName, subnetCount))
 }
 
+
 func testAccClientVPNRouteConfig_basic(t *testing.T, rName string) string {
 	return acctest.ConfigCompose(testAccClientVPNRouteConfig_base(t, rName, 1), `
 resource "aws_ec2_client_vpn_route" "test" {
@@ -207,6 +224,7 @@ resource "aws_ec2_client_vpn_network_association" "test" {
 }
 `)
 }
+
 
 func testAccClientVPNRouteConfig_description(t *testing.T, rName string) string {
 	return acctest.ConfigCompose(testAccClientVPNRouteConfig_base(t, rName, 1), `

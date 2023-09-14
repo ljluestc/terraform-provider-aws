@@ -20,6 +20,7 @@ import (
 )
 
 // @SDKDataSource("aws_ebs_volume")
+
 func DataSourceEBSVolume() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceEBSVolumeRead,
@@ -160,8 +161,10 @@ func dataSourceEBSVolumeRead(ctx context.Context, d *schema.ResourceData, meta i
 
 type volumeSort []*ec2.Volume
 
-func (a volumeSort) Len() int      { return len(a) }
+func (a volumeSort) Len() int { return len(a) }
+
 func (a volumeSort) Swap(i, j int) { a[i], a[j] = a[j], a[i] }
+
 func (a volumeSort) Less(i, j int) bool {
 	itime := aws.TimeValue(a[i].CreateTime)
 	jtime := aws.TimeValue(a[j].CreateTime)

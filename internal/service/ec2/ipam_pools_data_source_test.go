@@ -11,6 +11,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccIPAMPoolsDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_vpc_ipam_pools.test"
@@ -18,19 +19,22 @@ func TestAccIPAMPoolsDataSource_basic(t *testing.T) {
 	resourceName := "aws_vpc_ipam_pool.testthree"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIPAMPoolsDataSourceConfig_basic,
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					acctest.CheckResourceAttrGreaterThanValue(dataSourceName, "ipam_pools.#", 0),
 				),
 			},
 			{
 				Config: testAccIPAMPoolsDataSourceConfig_basicTwoPools,
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					// DS 1 finds all 3 pools
 					acctest.CheckResourceAttrGreaterThanValue(dataSourceName, "ipam_pools.#", 2),
 
@@ -58,18 +62,21 @@ func TestAccIPAMPoolsDataSource_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccIPAMPoolsDataSource_empty(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_vpc_ipam_pools.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIPAMPoolsDataSourceConfig_empty,
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttr(dataSourceName, "ipam_pools.#", "0"),
 				),
 			},

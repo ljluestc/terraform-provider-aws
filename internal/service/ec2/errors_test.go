@@ -122,22 +122,23 @@ func TestUnsuccessfulItemsError(t *testing.T) {
 
 	for _, testCase := range testCases {
 		testCase := testCase
-		t.Run(testCase.Name, func(t *testing.T) {
-			t.Parallel()
+		t.Run(testCase.Name,
+			func(t *testing.T) {
+				t.Parallel()
 
-			err := tfec2.UnsuccessfulItemsError(testCase.Items)
+				err := tfec2.UnsuccessfulItemsError(testCase.Items)
 
-			got := tfawserr.ErrCodeEquals(err, "test code")
+				got := tfawserr.ErrCodeEquals(err, "test code")
 
-			if got != testCase.Expected {
-				t.Errorf("ErrCodeEquals got %t, expected %t", got, testCase.Expected)
-			}
+				if got != testCase.Expected {
+					t.Errorf("ErrCodeEquals got %t, expected %t", got, testCase.Expected)
+				}
 
-			got = tfawserr.ErrMessageContains(err, "test code", "est mess")
+				got = tfawserr.ErrMessageContains(err, "test code", "est mess")
 
-			if got != testCase.Expected {
-				t.Errorf("ErrMessageContains got %t, expected %t", got, testCase.Expected)
-			}
-		})
+				if got != testCase.Expected {
+					t.Errorf("ErrMessageContains got %t, expected %t", got, testCase.Expected)
+				}
+			})
 	}
 }

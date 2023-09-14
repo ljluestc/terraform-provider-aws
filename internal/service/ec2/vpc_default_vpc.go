@@ -23,6 +23,7 @@ import (
 
 // @SDKResource("aws_default_vpc", name="VPC")
 // @Tags(identifierAttribute="id")
+
 func ResourceDefaultVPC() *schema.Resource {
 	//lintignore:R011
 	return &schema.Resource{
@@ -117,7 +118,8 @@ func ResourceDefaultVPC() *schema.Resource {
 				Computed:      true,
 				ConflictsWith: []string{"ipv6_netmask_length", "assign_generated_ipv6_cidr_block"},
 				RequiredWith:  []string{"ipv6_ipam_pool_id"},
-				ValidateFunc: validation.All(
+				Validate
+func: validation.All(
 					verify.ValidIPv6CIDRNetworkAddress,
 					validation.IsCIDRNetwork(VPCCIDRMaxIPv6, VPCCIDRMaxIPv6)),
 			},
@@ -135,7 +137,8 @@ func ResourceDefaultVPC() *schema.Resource {
 			"ipv6_netmask_length": {
 				Type:          schema.TypeInt,
 				Optional:      true,
-				ValidateFunc:  validation.IntInSlice([]int{VPCCIDRMaxIPv6}),
+				Validate
+func:  validation.IntInSlice([]int{VPCCIDRMaxIPv6}),
 				ConflictsWith: []string{"ipv6_cidr_block"},
 				RequiredWith:  []string{"ipv6_ipam_pool_id"},
 			},
@@ -152,6 +155,7 @@ func ResourceDefaultVPC() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceDefaultVPCCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics { // nosemgrep:ci.semgrep.tags.calling-UpdateTags-in-resource-create
 	var diags diag.Diagnostics
@@ -282,6 +286,7 @@ func resourceDefaultVPCCreate(ctx context.Context, d *schema.ResourceData, meta 
 
 	return append(diags, resourceVPCRead(ctx, d, meta)...)
 }
+
 
 func resourceDefaultVPCDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

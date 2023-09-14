@@ -20,6 +20,7 @@ const (
 )
 
 // WaitOperationSuccess waits for an Operation to return Success
+
 func WaitOperationSuccess(ctx context.Context, conn *servicediscovery.ServiceDiscovery, operationID string) (*servicediscovery.Operation, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{servicediscovery.OperationStatusSubmitted, servicediscovery.OperationStatusPending},

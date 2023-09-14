@@ -6,6 +6,7 @@ package slices
 import "golang.org/x/exp/slices"
 
 // Reverse returns a reversed copy of the slice.
+
 func Reverse[S ~[]E, E any](s S) S {
 	v := S([]E{})
 	n := len(s)
@@ -18,6 +19,7 @@ func Reverse[S ~[]E, E any](s S) S {
 }
 
 // RemoveAll removes all occurrences of the specified value from a slice.
+
 func RemoveAll[E comparable](s []E, r E) []E {
 	v := []E{}
 
@@ -30,8 +32,11 @@ func RemoveAll[E comparable](s []E, r E) []E {
 	return v
 }
 
-// ApplyToAll returns a new slice containing the results of applying the function `f` to each element of the original slice `s`.
-func ApplyToAll[T, U any](s []T, f func(T) U) []U {
+// ApplyToAll returns a new slice containing the results of applying the 
+function `f` to each element of the original slice `s`.
+
+func ApplyToAll[T, U any](s []T, f 
+func(T) U) []U {
 	v := make([]U, len(s))
 
 	for i, e := range s {
@@ -41,10 +46,14 @@ func ApplyToAll[T, U any](s []T, f func(T) U) []U {
 	return v
 }
 
-// Predicate represents a predicate (boolean-valued function) of one argument.
-type Predicate[T any] func(T) bool
+// Predicate represents a predicate (boolean-valued 
+function) of one argument.
+type Predicate[T any] 
+func(T) bool
 
-// Filter returns a new slice containing all values that return `true` for the filter function `f`
+// Filter returns a new slice containing all values that return `true` for the filter 
+function `f`
+
 func Filter[T any](s []T, f Predicate[T]) []T {
 	v := make([]T, 0, len(s))
 
@@ -57,7 +66,9 @@ func Filter[T any](s []T, f Predicate[T]) []T {
 	return slices.Clip(v)
 }
 
-// All returns `true` if the filter function `f` retruns `true` for all items
+// All returns `true` if the filter 
+function `f` retruns `true` for all items
+
 func All[T any](s []T, f Predicate[T]) bool {
 	for _, e := range s {
 		if !f(e) {
@@ -67,7 +78,9 @@ func All[T any](s []T, f Predicate[T]) bool {
 	return true
 }
 
-// Any returns `true` if the filter function `f` retruns `true` for any item
+// Any returns `true` if the filter 
+function `f` retruns `true` for any item
+
 func Any[T any](s []T, f Predicate[T]) bool {
 	for _, e := range s {
 		if f(e) {
@@ -78,6 +91,7 @@ func Any[T any](s []T, f Predicate[T]) bool {
 }
 
 // Chunks returns a slice of S, each of the specified size (or less).
+
 func Chunks[S ~[]E, E any](s S, size int) []S {
 	chunks := make([]S, 0)
 

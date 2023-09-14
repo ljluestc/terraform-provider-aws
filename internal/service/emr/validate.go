@@ -11,6 +11,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 )
 
+
 func validCustomAMIID(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
 	if len(value) > 256 {
@@ -25,7 +26,9 @@ func validCustomAMIID(v interface{}, k string) (ws []string, errors []error) {
 	return
 }
 
-func validEBSVolumeType() schema.SchemaValidateFunc {
+
+func validEBSVolumeType() schema.SchemaValidate
+func {
 	return validation.StringInSlice([]string{
 		"gp3",
 		"gp2",

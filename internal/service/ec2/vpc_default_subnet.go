@@ -23,6 +23,7 @@ import (
 
 // @SDKResource("aws_default_subnet", name="Subnet")
 // @Tags(identifierAttribute="id")
+
 func ResourceDefaultSubnet() *schema.Resource {
 	//lintignore:R011
 	return &schema.Resource{
@@ -117,7 +118,8 @@ func ResourceDefaultSubnet() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				Computed:     true,
-				ValidateFunc: verify.ValidIPv6CIDRNetworkAddress,
+				Validate
+func: verify.ValidIPv6CIDRNetworkAddress,
 			},
 			"ipv6_cidr_block_association_id": {
 				Type:     schema.TypeString,
@@ -151,7 +153,8 @@ func ResourceDefaultSubnet() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				Computed:     true,
-				ValidateFunc: validation.StringInSlice(ec2.HostnameType_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.HostnameType_Values(), false),
 			},
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
@@ -162,6 +165,7 @@ func ResourceDefaultSubnet() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceDefaultSubnetCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics { // nosemgrep:ci.semgrep.tags.calling-UpdateTags-in-resource-create
 	var diags diag.Diagnostics
@@ -252,6 +256,7 @@ func resourceDefaultSubnetCreate(ctx context.Context, d *schema.ResourceData, me
 
 	return append(diags, resourceSubnetRead(ctx, d, meta)...)
 }
+
 
 func resourceDefaultSubnetDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

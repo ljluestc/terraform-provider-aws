@@ -19,6 +19,7 @@ import (
 // listTags lists backup service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
 // it may also be a different identifier depending on the service.
+
 func listTags(ctx context.Context, conn backupiface.BackupAPI, identifier string) (tftags.KeyValueTags, error) {
 	input := &backup.ListTagsInput{
 		ResourceArn: aws.String(identifier),
@@ -35,6 +36,7 @@ func listTags(ctx context.Context, conn backupiface.BackupAPI, identifier string
 
 // ListTags lists backup service tags and set them in Context.
 // It is called from outside this package.
+
 func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier string) error {
 	tags, err := listTags(ctx, meta.(*conns.AWSClient).BackupConn(ctx), identifier)
 
@@ -52,17 +54,20 @@ func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier stri
 // map[string]*string handling
 
 // Tags returns backup service tags.
+
 func Tags(tags tftags.KeyValueTags) map[string]*string {
 	return aws.StringMap(tags.Map())
 }
 
 // KeyValueTags creates tftags.KeyValueTags from backup service tags.
+
 func KeyValueTags(ctx context.Context, tags map[string]*string) tftags.KeyValueTags {
 	return tftags.New(ctx, tags)
 }
 
 // getTagsIn returns backup service tags from Context.
 // nil is returned if there are no input tags.
+
 func getTagsIn(ctx context.Context) map[string]*string {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
@@ -74,6 +79,7 @@ func getTagsIn(ctx context.Context) map[string]*string {
 }
 
 // setTagsOut sets backup service tags in Context.
+
 func setTagsOut(ctx context.Context, tags map[string]*string) {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		inContext.TagsOut = types.Some(KeyValueTags(ctx, tags))
@@ -83,6 +89,7 @@ func setTagsOut(ctx context.Context, tags map[string]*string) {
 // updateTags updates backup service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
 // it may also be a different identifier depending on the service.
+
 func updateTags(ctx context.Context, conn backupiface.BackupAPI, identifier string, oldTagsMap, newTagsMap any) error {
 	oldTags := tftags.New(ctx, oldTagsMap)
 	newTags := tftags.New(ctx, newTagsMap)
@@ -124,6 +131,7 @@ func updateTags(ctx context.Context, conn backupiface.BackupAPI, identifier stri
 
 // UpdateTags updates backup service tags.
 // It is called from outside this package.
+
 func (p *servicePackage) UpdateTags(ctx context.Context, meta any, identifier string, oldTags, newTags any) error {
 	return updateTags(ctx, meta.(*conns.AWSClient).BackupConn(ctx), identifier, oldTags, newTags)
 }

@@ -17,6 +17,7 @@ import (
 )
 
 // @SDKDataSource("aws_route53_resolver_firewall_config")
+
 func DataSourceFirewallConfig() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceFirewallConfigRead,

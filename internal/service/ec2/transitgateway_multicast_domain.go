@@ -23,6 +23,7 @@ import (
 
 // @SDKResource("aws_ec2_transit_gateway_multicast_domain", name="Transit Gateway Multicast Domain")
 // @Tags(identifierAttribute="id")
+
 func ResourceTransitGatewayMulticastDomain() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceTransitGatewayMulticastDomainCreate,
@@ -51,14 +52,16 @@ func ResourceTransitGatewayMulticastDomain() *schema.Resource {
 				Optional:     true,
 				ForceNew:     true,
 				Default:      ec2.AutoAcceptSharedAssociationsValueDisable,
-				ValidateFunc: validation.StringInSlice(ec2.AutoAcceptSharedAssociationsValue_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.AutoAcceptSharedAssociationsValue_Values(), false),
 			},
 			"igmpv2_support": {
 				Type:         schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Default:      ec2.Igmpv2SupportValueDisable,
-				ValidateFunc: validation.StringInSlice(ec2.Igmpv2SupportValue_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.Igmpv2SupportValue_Values(), false),
 			},
 			"owner_id": {
 				Type:     schema.TypeString,
@@ -69,7 +72,8 @@ func ResourceTransitGatewayMulticastDomain() *schema.Resource {
 				Optional:     true,
 				ForceNew:     true,
 				Default:      ec2.StaticSourcesSupportValueDisable,
-				ValidateFunc: validation.StringInSlice(ec2.StaticSourcesSupportValue_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.StaticSourcesSupportValue_Values(), false),
 			},
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
@@ -81,6 +85,7 @@ func ResourceTransitGatewayMulticastDomain() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceTransitGatewayMulticastDomainCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -111,6 +116,7 @@ func resourceTransitGatewayMulticastDomainCreate(ctx context.Context, d *schema.
 	return resourceTransitGatewayMulticastDomainRead(ctx, d, meta)
 }
 
+
 func resourceTransitGatewayMulticastDomainRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
@@ -138,10 +144,12 @@ func resourceTransitGatewayMulticastDomainRead(ctx context.Context, d *schema.Re
 	return nil
 }
 
+
 func resourceTransitGatewayMulticastDomainUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	// Tags only.
 	return resourceTransitGatewayMulticastDomainRead(ctx, d, meta)
 }
+
 
 func resourceTransitGatewayMulticastDomainDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)

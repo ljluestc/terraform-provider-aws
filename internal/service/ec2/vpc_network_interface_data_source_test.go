@@ -13,6 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccVPCNetworkInterfaceDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	datasourceName := "data.aws_network_interface.test"
@@ -20,13 +21,15 @@ func TestAccVPCNetworkInterfaceDataSource_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCNetworkInterfaceDataSourceConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttr(datasourceName, "private_ips.#", "1"),
 					resource.TestCheckResourceAttr(datasourceName, "security_groups.#", "1"),
 					resource.TestCheckResourceAttrPair(datasourceName, "private_ip", resourceName, "private_ip"),
@@ -45,19 +48,22 @@ func TestAccVPCNetworkInterfaceDataSource_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCNetworkInterfaceDataSource_filters(t *testing.T) {
 	ctx := acctest.Context(t)
 	datasourceName := "data.aws_network_interface.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCNetworkInterfaceDataSourceConfig_filters(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttr(datasourceName, "private_ips.#", "1"),
 					resource.TestCheckResourceAttr(datasourceName, "security_groups.#", "1"),
 				),
@@ -65,6 +71,7 @@ func TestAccVPCNetworkInterfaceDataSource_filters(t *testing.T) {
 		},
 	})
 }
+
 
 func TestAccVPCNetworkInterfaceDataSource_carrierIPAssociation(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -77,13 +84,15 @@ func TestAccVPCNetworkInterfaceDataSource_carrierIPAssociation(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckWavelengthZoneAvailable(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckWavelengthZoneAvailable(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCNetworkInterfaceDataSourceConfig_carrierIPAssociation(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttr(datasourceName, "association.#", "1"),
 					resource.TestCheckResourceAttrPair(datasourceName, "association.0.allocation_id", eipResourceName, "id"),
 					resource.TestCheckResourceAttrPair(datasourceName, "association.0.association_id", eipAssociationResourceName, "id"),
@@ -115,6 +124,7 @@ func TestAccVPCNetworkInterfaceDataSource_carrierIPAssociation(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCNetworkInterfaceDataSource_publicIPAssociation(t *testing.T) {
 	ctx := acctest.Context(t)
 	datasourceName := "data.aws_network_interface.test"
@@ -126,13 +136,15 @@ func TestAccVPCNetworkInterfaceDataSource_publicIPAssociation(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCNetworkInterfaceDataSourceConfig_publicIPAssociation(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttr(datasourceName, "association.#", "1"),
 					resource.TestCheckResourceAttrPair(datasourceName, "association.0.allocation_id", eipResourceName, "id"),
 					resource.TestCheckResourceAttrPair(datasourceName, "association.0.association_id", eipAssociationResourceName, "id"),
@@ -165,6 +177,7 @@ func TestAccVPCNetworkInterfaceDataSource_publicIPAssociation(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCNetworkInterfaceDataSource_attachment(t *testing.T) {
 	ctx := acctest.Context(t)
 	datasourceName := "data.aws_network_interface.test"
@@ -173,13 +186,15 @@ func TestAccVPCNetworkInterfaceDataSource_attachment(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCNetworkInterfaceDataSourceConfig_attachment(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttr(datasourceName, "association.#", "0"),
 					resource.TestCheckResourceAttr(datasourceName, "attachment.#", "1"),
 					resource.TestCheckResourceAttr(datasourceName, "attachment.0.device_index", "1"),
@@ -204,6 +219,7 @@ func TestAccVPCNetworkInterfaceDataSource_attachment(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccNetworkInterfaceBaseDataSourceConfig(rName string) string {
 	return acctest.ConfigCompose(
@@ -248,6 +264,7 @@ resource "aws_network_interface" "test" {
 `, rName))
 }
 
+
 func testAccVPCNetworkInterfaceDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(
 		testAccNetworkInterfaceBaseDataSourceConfig(rName),
@@ -257,6 +274,7 @@ data "aws_network_interface" "test" {
 }
 `)
 }
+
 
 func testAccVPCNetworkInterfaceDataSourceConfig_carrierIPAssociation(rName string) string {
 	return acctest.ConfigCompose(
@@ -331,6 +349,7 @@ data "aws_network_interface" "test" {
 `, rName))
 }
 
+
 func testAccVPCNetworkInterfaceDataSourceConfig_publicIPAssociation(rName string) string {
 	return acctest.ConfigCompose(
 		testAccNetworkInterfaceBaseDataSourceConfig(rName),
@@ -362,6 +381,7 @@ data "aws_network_interface" "test" {
 `, rName))
 }
 
+
 func testAccVPCNetworkInterfaceDataSourceConfig_filters(rName string) string {
 	return acctest.ConfigCompose(
 		testAccNetworkInterfaceBaseDataSourceConfig(rName),
@@ -374,6 +394,7 @@ data "aws_network_interface" "test" {
 }
 `)
 }
+
 
 func testAccVPCNetworkInterfaceDataSourceConfig_attachment(rName string) string {
 	return acctest.ConfigCompose(

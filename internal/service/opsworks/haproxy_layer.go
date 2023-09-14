@@ -10,6 +10,7 @@ import (
 
 // @SDKResource("aws_opsworks_haproxy_layer", name="HAProxy Layer")
 // @Tags(identifierAttribute="arn")
+
 func ResourceHAProxyLayer() *schema.Resource {
 	layerType := &opsworksLayerType{
 		TypeName:         opsworks.LayerTypeLb,

@@ -17,6 +17,7 @@ import (
 )
 
 // @SDKDataSource("aws_ebs_volumes")
+
 func DataSourceEBSVolumes() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceEBSVolumesRead,

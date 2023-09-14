@@ -19,6 +19,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccVPCFlowLog_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var flowLog ec2.FlowLog
@@ -29,14 +30,16 @@ func TestAccVPCFlowLog_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFlowLogDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCFlowLogConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckFlowLogExists(ctx, resourceName, &flowLog),
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "ec2", regexache.MustCompile(`vpc-flow-log/fl-.+`)),
 					resource.TestCheckResourceAttr(resourceName, "deliver_cross_account_role", ""),
@@ -59,6 +62,7 @@ func TestAccVPCFlowLog_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCFlowLog_logFormat(t *testing.T) {
 	ctx := acctest.Context(t)
 	var flowLog ec2.FlowLog
@@ -67,14 +71,16 @@ func TestAccVPCFlowLog_logFormat(t *testing.T) {
 	logFormat := "${version} ${vpc-id} ${subnet-id}"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFlowLogDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCFlowLogConfig_format(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFlowLogExists(ctx, resourceName, &flowLog),
 					resource.TestCheckResourceAttr(resourceName, "log_format", logFormat),
 				),
@@ -88,6 +94,7 @@ func TestAccVPCFlowLog_logFormat(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCFlowLog_subnetID(t *testing.T) {
 	ctx := acctest.Context(t)
 	var flowLog ec2.FlowLog
@@ -98,14 +105,16 @@ func TestAccVPCFlowLog_subnetID(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFlowLogDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCFlowLogConfig_subnetID(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFlowLogExists(ctx, resourceName, &flowLog),
 					resource.TestCheckResourceAttrPair(resourceName, "iam_role_arn", iamRoleResourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "log_destination", ""),
@@ -125,6 +134,7 @@ func TestAccVPCFlowLog_subnetID(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCFlowLog_transitGatewayID(t *testing.T) {
 	ctx := acctest.Context(t)
 	var flowLog ec2.FlowLog
@@ -135,14 +145,16 @@ func TestAccVPCFlowLog_transitGatewayID(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFlowLogDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCFlowLogConfig_transitGatewayID(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFlowLogExists(ctx, resourceName, &flowLog),
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "ec2", regexache.MustCompile(`vpc-flow-log/fl-.+`)),
 					resource.TestCheckResourceAttrPair(resourceName, "iam_role_arn", iamRoleResourceName, "arn"),
@@ -162,6 +174,7 @@ func TestAccVPCFlowLog_transitGatewayID(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCFlowLog_transitGatewayAttachmentID(t *testing.T) {
 	ctx := acctest.Context(t)
 	var flowLog ec2.FlowLog
@@ -172,14 +185,16 @@ func TestAccVPCFlowLog_transitGatewayAttachmentID(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFlowLogDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCFlowLogConfig_transitGatewayAttachmentID(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFlowLogExists(ctx, resourceName, &flowLog),
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "ec2", regexache.MustCompile(`vpc-flow-log/fl-.+`)),
 					resource.TestCheckResourceAttrPair(resourceName, "iam_role_arn", iamRoleResourceName, "arn"),
@@ -199,6 +214,7 @@ func TestAccVPCFlowLog_transitGatewayAttachmentID(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCFlowLog_LogDestinationType_cloudWatchLogs(t *testing.T) {
 	ctx := acctest.Context(t)
 	var flowLog ec2.FlowLog
@@ -207,14 +223,16 @@ func TestAccVPCFlowLog_LogDestinationType_cloudWatchLogs(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFlowLogDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCFlowLogConfig_destinationTypeCloudWatchLogs(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFlowLogExists(ctx, resourceName, &flowLog),
 					// We automatically trim :* from ARNs if present
 					acctest.CheckResourceAttrRegionalARN(resourceName, "log_destination", "logs", fmt.Sprintf("log-group:%s", rName)),
@@ -231,6 +249,7 @@ func TestAccVPCFlowLog_LogDestinationType_cloudWatchLogs(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCFlowLog_LogDestinationType_kinesisFirehose(t *testing.T) {
 	ctx := acctest.Context(t)
 	var flowLog ec2.FlowLog
@@ -239,14 +258,16 @@ func TestAccVPCFlowLog_LogDestinationType_kinesisFirehose(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFlowLogDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCFlowLogConfig_destinationTypeKinesisFirehose(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFlowLogExists(ctx, resourceName, &flowLog),
 					resource.TestCheckResourceAttrPair(resourceName, "log_destination", kinesisFirehoseResourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "log_destination_type", "kinesis-data-firehose"),
@@ -262,6 +283,7 @@ func TestAccVPCFlowLog_LogDestinationType_kinesisFirehose(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCFlowLog_LogDestinationType_s3(t *testing.T) {
 	ctx := acctest.Context(t)
 	var flowLog ec2.FlowLog
@@ -270,14 +292,16 @@ func TestAccVPCFlowLog_LogDestinationType_s3(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFlowLogDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCFlowLogConfig_destinationTypeS3(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFlowLogExists(ctx, resourceName, &flowLog),
 					resource.TestCheckResourceAttrPair(resourceName, "log_destination", s3ResourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "log_destination_type", "s3"),
@@ -293,12 +317,14 @@ func TestAccVPCFlowLog_LogDestinationType_s3(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCFlowLog_LogDestinationTypeS3_invalid(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("tf-acc-test-flow-log-s3-invalid")
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFlowLogDestroy(ctx),
@@ -311,6 +337,7 @@ func TestAccVPCFlowLog_LogDestinationTypeS3_invalid(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCFlowLog_LogDestinationTypeS3DO_plainText(t *testing.T) {
 	ctx := acctest.Context(t)
 	var flowLog ec2.FlowLog
@@ -319,14 +346,16 @@ func TestAccVPCFlowLog_LogDestinationTypeS3DO_plainText(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFlowLogDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCFlowLogConfig_destinationTypeS3DOPlainText(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFlowLogExists(ctx, resourceName, &flowLog),
 					resource.TestCheckResourceAttrPair(resourceName, "log_destination", s3ResourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "log_destination_type", "s3"),
@@ -342,6 +371,7 @@ func TestAccVPCFlowLog_LogDestinationTypeS3DO_plainText(t *testing.T) {
 		},
 	})
 }
+
 
 func TestAccVPCFlowLog_LogDestinationTypeS3DOPlainText_hiveCompatible(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -351,14 +381,16 @@ func TestAccVPCFlowLog_LogDestinationTypeS3DOPlainText_hiveCompatible(t *testing
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFlowLogDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCFlowLogConfig_destinationTypeS3DOPlainTextHiveCompatiblePerHour(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFlowLogExists(ctx, resourceName, &flowLog),
 					resource.TestCheckResourceAttrPair(resourceName, "log_destination", s3ResourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "log_destination_type", "s3"),
@@ -377,6 +409,7 @@ func TestAccVPCFlowLog_LogDestinationTypeS3DOPlainText_hiveCompatible(t *testing
 	})
 }
 
+
 func TestAccVPCFlowLog_LogDestinationTypeS3DO_parquet(t *testing.T) {
 	ctx := acctest.Context(t)
 	var flowLog ec2.FlowLog
@@ -385,14 +418,16 @@ func TestAccVPCFlowLog_LogDestinationTypeS3DO_parquet(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFlowLogDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCFlowLogConfig_destinationTypeS3DOParquet(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFlowLogExists(ctx, resourceName, &flowLog),
 					resource.TestCheckResourceAttrPair(resourceName, "log_destination", s3ResourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "log_destination_type", "s3"),
@@ -409,6 +444,7 @@ func TestAccVPCFlowLog_LogDestinationTypeS3DO_parquet(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCFlowLog_LogDestinationTypeS3DOParquet_hiveCompatible(t *testing.T) {
 	ctx := acctest.Context(t)
 	var flowLog ec2.FlowLog
@@ -417,14 +453,16 @@ func TestAccVPCFlowLog_LogDestinationTypeS3DOParquet_hiveCompatible(t *testing.T
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFlowLogDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCFlowLogConfig_destinationTypeS3DOParquetHiveCompatible(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFlowLogExists(ctx, resourceName, &flowLog),
 					resource.TestCheckResourceAttrPair(resourceName, "log_destination", s3ResourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "log_destination_type", "s3"),
@@ -442,6 +480,7 @@ func TestAccVPCFlowLog_LogDestinationTypeS3DOParquet_hiveCompatible(t *testing.T
 	})
 }
 
+
 func TestAccVPCFlowLog_LogDestinationTypeS3DOParquetHiveCompatible_perHour(t *testing.T) {
 	ctx := acctest.Context(t)
 	var flowLog ec2.FlowLog
@@ -450,14 +489,16 @@ func TestAccVPCFlowLog_LogDestinationTypeS3DOParquetHiveCompatible_perHour(t *te
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFlowLogDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCFlowLogConfig_destinationTypeS3DOParquetHiveCompatiblePerHour(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFlowLogExists(ctx, resourceName, &flowLog),
 					resource.TestCheckResourceAttrPair(resourceName, "log_destination", s3ResourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "log_destination_type", "s3"),
@@ -476,6 +517,7 @@ func TestAccVPCFlowLog_LogDestinationTypeS3DOParquetHiveCompatible_perHour(t *te
 	})
 }
 
+
 func TestAccVPCFlowLog_LogDestinationType_maxAggregationInterval(t *testing.T) {
 	ctx := acctest.Context(t)
 	var flowLog ec2.FlowLog
@@ -483,14 +525,16 @@ func TestAccVPCFlowLog_LogDestinationType_maxAggregationInterval(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFlowLogDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCFlowLogConfig_maxAggregationInterval(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFlowLogExists(ctx, resourceName, &flowLog),
 					resource.TestCheckResourceAttr(resourceName, "max_aggregation_interval", "60"),
 				),
@@ -504,6 +548,7 @@ func TestAccVPCFlowLog_LogDestinationType_maxAggregationInterval(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCFlowLog_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var flowLog ec2.FlowLog
@@ -511,14 +556,16 @@ func TestAccVPCFlowLog_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFlowLogDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCFlowLogConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFlowLogExists(ctx, resourceName, &flowLog),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
@@ -531,7 +578,8 @@ func TestAccVPCFlowLog_tags(t *testing.T) {
 			},
 			{
 				Config: testAccVPCFlowLogConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFlowLogExists(ctx, resourceName, &flowLog),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
@@ -540,7 +588,8 @@ func TestAccVPCFlowLog_tags(t *testing.T) {
 			},
 			{
 				Config: testAccVPCFlowLogConfig_tags1(rName, "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFlowLogExists(ctx, resourceName, &flowLog),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
@@ -550,6 +599,7 @@ func TestAccVPCFlowLog_tags(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCFlowLog_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var flowLog ec2.FlowLog
@@ -557,14 +607,16 @@ func TestAccVPCFlowLog_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFlowLogDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCFlowLogConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFlowLogExists(ctx, resourceName, &flowLog),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceFlowLog(), resourceName),
 				),
@@ -574,8 +626,11 @@ func TestAccVPCFlowLog_disappears(t *testing.T) {
 	})
 }
 
-func testAccCheckFlowLogExists(ctx context.Context, n string, v *ec2.FlowLog) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckFlowLogExists(ctx context.Context, n string, v *ec2.FlowLog) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -599,8 +654,11 @@ func testAccCheckFlowLogExists(ctx context.Context, n string, v *ec2.FlowLog) re
 	}
 }
 
-func testAccCheckFlowLogDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckFlowLogDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -625,9 +683,11 @@ func testAccCheckFlowLogDestroy(ctx context.Context) resource.TestCheckFunc {
 	}
 }
 
+
 func testAccFlowLogConfig_base(rName string) string {
 	return acctest.ConfigVPCWithSubnets(rName, 1)
 }
+
 
 func testAccVPCFlowLogConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccFlowLogConfig_base(rName), fmt.Sprintf(`
@@ -668,6 +728,7 @@ resource "aws_flow_log" "test" {
 }
 `, rName))
 }
+
 
 func testAccVPCFlowLogConfig_destinationTypeCloudWatchLogs(rName string) string {
 	return acctest.ConfigCompose(testAccFlowLogConfig_base(rName), fmt.Sprintf(`
@@ -714,6 +775,7 @@ resource "aws_flow_log" "test" {
 `, rName))
 }
 
+
 func testAccVPCFlowLogConfig_destinationTypeS3(rName string) string {
 	return acctest.ConfigCompose(testAccFlowLogConfig_base(rName), fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
@@ -734,6 +796,7 @@ resource "aws_flow_log" "test" {
 `, rName))
 }
 
+
 func testAccVPCFlowLogConfig_destinationTypeS3Invalid(rName string) string {
 	return acctest.ConfigCompose(testAccFlowLogConfig_base(rName), fmt.Sprintf(`
 data "aws_partition" "current" {}
@@ -750,6 +813,7 @@ resource "aws_flow_log" "test" {
 }
 `, rName))
 }
+
 
 func testAccVPCFlowLogConfig_destinationTypeS3DOPlainText(rName string) string {
 	return acctest.ConfigCompose(testAccFlowLogConfig_base(rName), fmt.Sprintf(`
@@ -773,6 +837,7 @@ resource "aws_flow_log" "test" {
 }
 `, rName))
 }
+
 
 func testAccVPCFlowLogConfig_destinationTypeS3DOPlainTextHiveCompatiblePerHour(rName string) string {
 	return acctest.ConfigCompose(testAccFlowLogConfig_base(rName), fmt.Sprintf(`
@@ -799,6 +864,7 @@ resource "aws_flow_log" "test" {
 `, rName))
 }
 
+
 func testAccVPCFlowLogConfig_destinationTypeS3DOParquet(rName string) string {
 	return acctest.ConfigCompose(testAccFlowLogConfig_base(rName), fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
@@ -821,6 +887,7 @@ resource "aws_flow_log" "test" {
 }
 `, rName))
 }
+
 
 func testAccVPCFlowLogConfig_destinationTypeS3DOParquetHiveCompatible(rName string) string {
 	return acctest.ConfigCompose(testAccFlowLogConfig_base(rName), fmt.Sprintf(`
@@ -846,6 +913,7 @@ resource "aws_flow_log" "test" {
 `, rName))
 }
 
+
 func testAccVPCFlowLogConfig_destinationTypeS3DOParquetHiveCompatiblePerHour(rName string) string {
 	return acctest.ConfigCompose(testAccFlowLogConfig_base(rName), fmt.Sprintf(`
 resource "aws_s3_bucket" "test" {
@@ -870,6 +938,7 @@ resource "aws_flow_log" "test" {
 }
 `, rName))
 }
+
 
 func testAccVPCFlowLogConfig_subnetID(rName string) string {
 	return acctest.ConfigCompose(testAccFlowLogConfig_base(rName), fmt.Sprintf(`
@@ -914,6 +983,7 @@ resource "aws_flow_log" "test" {
 }
 `, rName))
 }
+
 
 func testAccVPCFlowLogConfig_format(rName string) string {
 	return acctest.ConfigCompose(testAccFlowLogConfig_base(rName), fmt.Sprintf(`
@@ -965,6 +1035,7 @@ resource "aws_flow_log" "test" {
 `, rName))
 }
 
+
 func testAccVPCFlowLogConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccFlowLogConfig_base(rName), fmt.Sprintf(`
 data "aws_partition" "current" {}
@@ -1008,6 +1079,7 @@ resource "aws_flow_log" "test" {
 }
 `, rName, tagKey1, tagValue1))
 }
+
 
 func testAccVPCFlowLogConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccFlowLogConfig_base(rName), fmt.Sprintf(`
@@ -1054,6 +1126,7 @@ resource "aws_flow_log" "test" {
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
 }
 
+
 func testAccVPCFlowLogConfig_maxAggregationInterval(rName string) string {
 	return acctest.ConfigCompose(testAccFlowLogConfig_base(rName), fmt.Sprintf(`
 data "aws_partition" "current" {}
@@ -1099,6 +1172,7 @@ resource "aws_flow_log" "test" {
 }
 `, rName))
 }
+
 
 func testAccVPCFlowLogConfig_transitGatewayID(rName string) string {
 	return acctest.ConfigCompose(testAccFlowLogConfig_base(rName), fmt.Sprintf(`
@@ -1149,6 +1223,7 @@ resource "aws_flow_log" "test" {
 }
 `, rName))
 }
+
 
 func testAccVPCFlowLogConfig_transitGatewayAttachmentID(rName string) string {
 	return acctest.ConfigCompose(testAccFlowLogConfig_base(rName), fmt.Sprintf(`
@@ -1209,6 +1284,7 @@ resource "aws_flow_log" "test" {
 }
 `, rName))
 }
+
 
 func testAccVPCFlowLogConfig_destinationTypeKinesisFirehose(rName string) string {
 	return acctest.ConfigCompose(testAccFlowLogConfig_base(rName), fmt.Sprintf(`

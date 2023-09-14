@@ -18,6 +18,7 @@ import (
 // []*SERVICE.Tag handling
 
 // TagsV2 returns ec2 service tags.
+
 func TagsV2(tags tftags.KeyValueTags) []awstypes.Tag {
 	result := make([]awstypes.Tag, 0, len(tags))
 
@@ -34,6 +35,7 @@ func TagsV2(tags tftags.KeyValueTags) []awstypes.Tag {
 }
 
 // keyValueTagsV2 creates tftags.KeyValueTags from ec2 service tags.
+
 func keyValueTagsV2(ctx context.Context, tags []awstypes.Tag) tftags.KeyValueTags {
 	m := make(map[string]*string, len(tags))
 
@@ -46,6 +48,7 @@ func keyValueTagsV2(ctx context.Context, tags []awstypes.Tag) tftags.KeyValueTag
 
 // getTagsInV2 returns ec2 service tags from Context.
 // nil is returned if there are no input tags.
+
 func getTagsInV2(ctx context.Context) []awstypes.Tag {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		if tags := TagsV2(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
@@ -57,6 +60,7 @@ func getTagsInV2(ctx context.Context) []awstypes.Tag {
 }
 
 // setTagsOutV2 sets ec2 service tags in Context.
+
 func setTagsOutV2(ctx context.Context, tags []awstypes.Tag) {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		inContext.TagsOut = types.Some(keyValueTagsV2(ctx, tags))
@@ -66,6 +70,7 @@ func setTagsOutV2(ctx context.Context, tags []awstypes.Tag) {
 // updateTagsV2 updates ec2 service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
 // it may also be a different identifier depending on the service.
+
 func updateTagsV2(ctx context.Context, conn *ec2.Client, identifier string, oldTagsMap, newTagsMap any) error {
 	oldTags := tftags.New(ctx, oldTagsMap)
 	newTags := tftags.New(ctx, newTagsMap)

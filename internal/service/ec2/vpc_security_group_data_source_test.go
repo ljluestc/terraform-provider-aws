@@ -13,18 +13,21 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccVPCSecurityGroupDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCSecurityGroupDataSourceConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccSecurityGroupCheckDataSource("data.aws_security_group.by_id"),
 					testAccSecurityGroupCheckDataSource("data.aws_security_group.by_tag"),
 					testAccSecurityGroupCheckDataSource("data.aws_security_group.by_filter"),
@@ -35,10 +38,13 @@ func TestAccVPCSecurityGroupDataSource_basic(t *testing.T) {
 	})
 }
 
-func testAccSecurityGroupCheckDataSource(dataSourceName string) resource.TestCheckFunc {
+
+func testAccSecurityGroupCheckDataSource(dataSourceName string) resource.TestCheck
+func {
 	resourceName := "aws_security_group.test"
 
-	return resource.ComposeAggregateTestCheckFunc(
+	return resource.ComposeAggregateTestCheck
+func(
 		resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
 		resource.TestCheckResourceAttrPair(dataSourceName, "description", resourceName, "description"),
 		resource.TestCheckResourceAttrPair(dataSourceName, "name", resourceName, "name"),
@@ -46,6 +52,7 @@ func testAccSecurityGroupCheckDataSource(dataSourceName string) resource.TestChe
 		resource.TestCheckResourceAttrPair(dataSourceName, "vpc_id", resourceName, "vpc_id"),
 	)
 }
+
 
 func testAccVPCSecurityGroupDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`

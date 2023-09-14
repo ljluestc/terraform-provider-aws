@@ -15,32 +15,39 @@ import (
 
 type servicePackage struct{}
 
+
 func (p *servicePackage) FrameworkDataSources(ctx context.Context) []*types.ServicePackageFrameworkDataSource {
 	return []*types.ServicePackageFrameworkDataSource{}
 }
+
 
 func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.ServicePackageFrameworkResource {
 	return []*types.ServicePackageFrameworkResource{}
 }
 
+
 func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{}
 }
 
+
 func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{}
 }
+
 
 func (p *servicePackage) ServicePackageName() string {
 	return names.MediaConnect
 }
 
 // NewConn returns a new AWS SDK for Go v1 client for this service package's AWS API.
+
 func (p *servicePackage) NewConn(ctx context.Context, config map[string]any) (*mediaconnect_sdkv1.MediaConnect, error) {
 	sess := config["session"].(*session_sdkv1.Session)
 
 	return mediaconnect_sdkv1.New(sess.Copy(&aws_sdkv1.Config{Endpoint: aws_sdkv1.String(config["endpoint"].(string))})), nil
 }
+
 
 func ServicePackage(ctx context.Context) conns.ServicePackage {
 	return &servicePackage{}

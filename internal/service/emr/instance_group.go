@@ -31,6 +31,7 @@ const (
 )
 
 // @SDKResource("aws_emr_instance_group")
+
 func ResourceInstanceGroup() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceInstanceGroupCreate,
@@ -38,7 +39,8 @@ func ResourceInstanceGroup() *schema.Resource {
 		UpdateWithoutTimeout: resourceInstanceGroupUpdate,
 		DeleteWithoutTimeout: resourceInstanceGroupDelete,
 		Importer: &schema.ResourceImporter{
-			StateContext: func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+			StateContext: 
+func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 				idParts := strings.Split(d.Id(), "/")
 				if len(idParts) != 2 || idParts[0] == "" || idParts[1] == "" {
 					return nil, fmt.Errorf("Unexpected format of ID (%q), expected cluster-id/ig-id", d.Id())
@@ -54,8 +56,10 @@ func ResourceInstanceGroup() *schema.Resource {
 			"autoscaling_policy": {
 				Type:             schema.TypeString,
 				Optional:         true,
-				DiffSuppressFunc: verify.SuppressEquivalentJSONDiffs,
-				ValidateFunc:     validation.StringIsJSON,
+				DiffSuppress
+func: verify.SuppressEquivalentJSONDiffs,
+				Validate
+func:     validation.StringIsJSON,
 			},
 			"bid_price": {
 				Type:     schema.TypeString,
@@ -70,9 +74,13 @@ func ResourceInstanceGroup() *schema.Resource {
 			"configurations_json": {
 				Type:             schema.TypeString,
 				Optional:         true,
-				ValidateFunc:     validation.StringIsJSON,
-				DiffSuppressFunc: verify.SuppressEquivalentJSONDiffs,
-				StateFunc: func(v interface{}) string {
+				Validate
+func:     validation.StringIsJSON,
+				DiffSuppress
+func: verify.SuppressEquivalentJSONDiffs,
+				State
+func: 
+func(v interface{}) string {
 					json, _ := structure.NormalizeJsonString(v)
 					return json
 				},
@@ -98,7 +106,8 @@ func ResourceInstanceGroup() *schema.Resource {
 							Type:         schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
-							ValidateFunc: validEBSVolumeType(),
+							Validate
+func: validEBSVolumeType(),
 						},
 						"volumes_per_instance": {
 							Type:     schema.TypeInt,
@@ -141,6 +150,7 @@ func ResourceInstanceGroup() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceInstanceGroupCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -207,6 +217,7 @@ func resourceInstanceGroupCreate(ctx context.Context, d *schema.ResourceData, me
 
 	return append(diags, resourceInstanceGroupRead(ctx, d, meta)...)
 }
+
 
 func resourceInstanceGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -278,6 +289,7 @@ func resourceInstanceGroupRead(ctx context.Context, d *schema.ResourceData, meta
 	return diags
 }
 
+
 func resourceInstanceGroupUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EMRConn(ctx)
@@ -341,6 +353,7 @@ func resourceInstanceGroupUpdate(ctx context.Context, d *schema.ResourceData, me
 	return append(diags, resourceInstanceGroupRead(ctx, d, meta)...)
 }
 
+
 func resourceInstanceGroupDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EMRConn(ctx)
@@ -361,8 +374,11 @@ func resourceInstanceGroupDelete(ctx context.Context, d *schema.ResourceData, me
 	return diags
 }
 
-func instanceGroupStateRefresh(ctx context.Context, conn *emr.EMR, clusterID, groupID string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+
+func instanceGroupStateRefresh(ctx context.Context, conn *emr.EMR, clusterID, groupID string) retry.StateRefresh
+func {
+	return 
+func() (interface{}, string, error) {
 		ig, err := FetchInstanceGroup(ctx, conn, clusterID, groupID)
 		if err != nil {
 			return nil, "Not Found", err
@@ -377,11 +393,13 @@ func instanceGroupStateRefresh(ctx context.Context, conn *emr.EMR, clusterID, gr
 	}
 }
 
+
 func FetchInstanceGroup(ctx context.Context, conn *emr.EMR, clusterID, groupID string) (*emr.InstanceGroup, error) {
 	input := &emr.ListInstanceGroupsInput{ClusterId: aws.String(clusterID)}
 
 	var groups []*emr.InstanceGroup
-	err := conn.ListInstanceGroupsPagesWithContext(ctx, input, func(page *emr.ListInstanceGroupsOutput, lastPage bool) bool {
+	err := conn.ListInstanceGroupsPagesWithContext(ctx, input, 
+func(page *emr.ListInstanceGroupsOutput, lastPage bool) bool {
 		groups = append(groups, page.InstanceGroups...)
 
 		return !lastPage
@@ -411,6 +429,7 @@ func FetchInstanceGroup(ctx context.Context, conn *emr.EMR, clusterID, groupID s
 }
 
 // readEBSConfig populates an emr.EbsConfiguration struct
+
 func readEBSConfig(d *schema.ResourceData) *emr.EbsConfiguration {
 	result := &emr.EbsConfiguration{}
 	if v, ok := d.GetOk("ebs_optimized"); ok {
@@ -440,6 +459,7 @@ func readEBSConfig(d *schema.ResourceData) *emr.EbsConfiguration {
 	result.EbsBlockDeviceConfigs = ebsConfigs
 	return result
 }
+
 
 func waitForInstanceGroupStateRunning(ctx context.Context, conn *emr.EMR, clusterID string, instanceGroupID string, timeout time.Duration) error {
 	stateConf := &retry.StateChangeConf{

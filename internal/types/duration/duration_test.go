@@ -76,24 +76,25 @@ func TestParse(t *testing.T) {
 
 	for name, tc := range testcases {
 		tc := tc
-		t.Run(name, func(t *testing.T) {
-			t.Parallel()
+		t.Run(name,
+			func(t *testing.T) {
+				t.Parallel()
 
-			duration, err := Parse(tc.input)
+				duration, err := Parse(tc.input)
 
-			if tc.expectedErr == nil && err != nil {
-				t.Fatalf("unexpected error: %s", err)
-			}
-			if tc.expectedErr != nil {
-				if !errors.Is(err, tc.expectedErr) {
-					t.Fatalf("expected error matching \"%s\", got %s", tc.expectedErr, err)
+				if tc.expectedErr == nil && err != nil {
+					t.Fatalf("unexpected error: %s", err)
 				}
-			}
+				if tc.expectedErr != nil {
+					if !errors.Is(err, tc.expectedErr) {
+						t.Fatalf("expected error matching \"%s\", got %s", tc.expectedErr, err)
+					}
+				}
 
-			if !duration.equal(tc.expected) {
-				t.Errorf("expected %q, got %q", tc.expected, duration)
-			}
-		})
+				if !duration.equal(tc.expected) {
+					t.Errorf("expected %q, got %q", tc.expected, duration)
+				}
+			})
 	}
 }
 
@@ -150,21 +151,22 @@ func TestSub(t *testing.T) {
 
 	for name, tc := range testcases {
 		tc := tc
-		t.Run(name, func(t *testing.T) {
-			t.Parallel()
+		t.Run(name,
+			func(t *testing.T) {
+				t.Parallel()
 
-			actual := Sub(tc.startTime, tc.duration)
+				actual := Sub(tc.startTime, tc.duration)
 
-			if !actual.Equal(tc.expected) {
-				t.Fatalf("expected %s, got %s", tc.expected, actual)
-			}
-
-			if tc.hoursDiff != 0 {
-				diff := tc.startTime.Sub(tc.expected)
-				if diff.Hours() != float64(tc.hoursDiff) {
-					t.Fatalf("diff expected %d, got %f", tc.hoursDiff, diff.Hours())
+				if !actual.Equal(tc.expected) {
+					t.Fatalf("expected %s, got %s", tc.expected, actual)
 				}
-			}
-		})
+
+				if tc.hoursDiff != 0 {
+					diff := tc.startTime.Sub(tc.expected)
+					if diff.Hours() != float64(tc.hoursDiff) {
+						t.Fatalf("diff expected %d, got %f", tc.hoursDiff, diff.Hours())
+					}
+				}
+			})
 	}
 }

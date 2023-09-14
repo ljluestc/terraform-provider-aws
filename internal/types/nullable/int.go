@@ -16,9 +16,11 @@ const (
 
 type Int string
 
+
 func (i Int) IsNull() bool {
 	return i == ""
 }
+
 
 func (i Int) Value() (int64, bool, error) {
 	if i.IsNull() {
@@ -34,6 +36,7 @@ func (i Int) Value() (int64, bool, error) {
 
 // ValidateTypeStringNullableInt provides custom error messaging for TypeString ints
 // Some arguments require an int value or unspecified, empty field.
+
 func ValidateTypeStringNullableInt(v interface{}, k string) (ws []string, es []error) {
 	value, ok := v.(string)
 	if !ok {
@@ -54,8 +57,11 @@ func ValidateTypeStringNullableInt(v interface{}, k string) (ws []string, es []e
 
 // ValidateTypeStringNullableIntAtLeast provides custom error messaging for TypeString ints
 // Some arguments require an int value or unspecified, empty field.
-func ValidateTypeStringNullableIntAtLeast(min int) schema.SchemaValidateFunc {
-	return func(i interface{}, k string) (ws []string, es []error) {
+
+func ValidateTypeStringNullableIntAtLeast(min int) schema.SchemaValidate
+func {
+	return 
+func(i interface{}, k string) (ws []string, es []error) {
 		value, ok := i.(string)
 		if !ok {
 			es = append(es, fmt.Errorf("expected type of %s to be string", k))
@@ -82,8 +88,11 @@ func ValidateTypeStringNullableIntAtLeast(min int) schema.SchemaValidateFunc {
 
 // ValidateTypeStringNullableIntBetween provides custom error messaging for TypeString ints
 // Some arguments require an int value or unspecified, empty field.
-func ValidateTypeStringNullableIntBetween(min int, max int) schema.SchemaValidateFunc {
-	return func(i interface{}, k string) (ws []string, es []error) {
+
+func ValidateTypeStringNullableIntBetween(min int, max int) schema.SchemaValidate
+func {
+	return 
+func(i interface{}, k string) (ws []string, es []error) {
 		value, ok := i.(string)
 		if !ok {
 			es = append(es, fmt.Errorf("expected type of %s to be string", k))

@@ -31,6 +31,7 @@ import (
 
 // @SDKResource("aws_codestarnotifications_notification_rule", name="Notification Rule")
 // @Tags(identifierAttribute="id")
+
 func resourceNotificationRule() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceNotificationRuleCreate,
@@ -50,7 +51,8 @@ func resourceNotificationRule() *schema.Resource {
 			"detail_type": {
 				Type:             schema.TypeString,
 				Required:         true,
-				ValidateDiagFunc: enum.Validate[types.DetailType](),
+				ValidateDiag
+func: enum.Validate[types.DetailType](),
 			},
 			"event_type_ids": {
 				Type:     schema.TypeSet,
@@ -62,7 +64,8 @@ func resourceNotificationRule() *schema.Resource {
 			"name": {
 				Type:     schema.TypeString,
 				Required: true,
-				ValidateFunc: validation.All(
+				Validate
+func: validation.All(
 					validation.StringLenBetween(1, 64),
 					validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_ -]+$`), "must be one or more alphanumeric, hyphen, underscore or space characters"),
 				),
@@ -71,13 +74,15 @@ func resourceNotificationRule() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			"status": {
 				Type:             schema.TypeString,
 				Optional:         true,
 				Default:          types.NotificationRuleStatusEnabled,
-				ValidateDiagFunc: enum.Validate[types.NotificationRuleStatus](),
+				ValidateDiag
+func: enum.Validate[types.NotificationRuleStatus](),
 			},
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
@@ -90,7 +95,8 @@ func resourceNotificationRule() *schema.Resource {
 						"address": {
 							Type:         schema.TypeString,
 							Required:     true,
-							ValidateFunc: verify.ValidARN,
+							Validate
+func: verify.ValidARN,
 						},
 						"status": {
 							Type:     schema.TypeString,
@@ -109,6 +115,7 @@ func resourceNotificationRule() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
+
 
 func resourceNotificationRuleCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -136,6 +143,7 @@ func resourceNotificationRuleCreate(ctx context.Context, d *schema.ResourceData,
 	return append(diags, resourceNotificationRuleRead(ctx, d, meta)...)
 }
 
+
 func resourceNotificationRuleRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CodeStarNotificationsClient(ctx)
@@ -154,7 +162,8 @@ func resourceNotificationRuleRead(ctx context.Context, d *schema.ResourceData, m
 
 	d.Set("arn", rule.Arn)
 	d.Set("detail_type", rule.DetailType)
-	eventTypeIDs := tfslices.ApplyToAll(rule.EventTypes, func(v types.EventTypeSummary) string {
+	eventTypeIDs := tfslices.ApplyToAll(rule.EventTypes, 
+func(v types.EventTypeSummary) string {
 		return aws.ToString(v.EventTypeId)
 	})
 	d.Set("event_type_ids", eventTypeIDs)
@@ -178,6 +187,7 @@ func resourceNotificationRuleRead(ctx context.Context, d *schema.ResourceData, m
 
 	return diags
 }
+
 
 func resourceNotificationRuleUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -206,6 +216,7 @@ func resourceNotificationRuleUpdate(ctx context.Context, d *schema.ResourceData,
 	return append(diags, resourceNotificationRuleRead(ctx, d, meta)...)
 }
 
+
 func resourceNotificationRuleDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CodeStarNotificationsClient(ctx)
@@ -225,6 +236,7 @@ func resourceNotificationRuleDelete(ctx context.Context, d *schema.ResourceData,
 
 	return diags
 }
+
 
 func findNotificationRuleByARN(ctx context.Context, conn *codestarnotifications.Client, arn string) (*codestarnotifications.DescribeNotificationRuleOutput, error) {
 	input := &codestarnotifications.DescribeNotificationRuleInput{
@@ -254,6 +266,7 @@ func findNotificationRuleByARN(ctx context.Context, conn *codestarnotifications.
 // cleanupNotificationRuleTargets tries to remove unused notification targets. AWS API does not
 // provide expicit way for creating targets, they are created on first subscription. Here we are trying to remove all
 // unused targets which were unsubscribed from this notification rule.
+
 func cleanupNotificationRuleTargets(ctx context.Context, conn *codestarnotifications.Client, oldVal, newVal *schema.Set) error {
 	const (
 		notificationRuleErrorSubscribed = "The target cannot be deleted because it is subscribed to one or more notification rules."
@@ -276,7 +289,8 @@ func cleanupNotificationRuleTargets(ctx context.Context, conn *codestarnotificat
 			TargetAddress:       aws.String(target["address"].(string)),
 		}
 
-		_, err := tfresource.RetryWhenAWSErrMessageContainsV2(ctx, targetSubscriptionTimeout, func() (interface{}, error) {
+		_, err := tfresource.RetryWhenAWSErrMessageContainsV2(ctx, targetSubscriptionTimeout, 
+func() (interface{}, error) {
 			return conn.DeleteTarget(ctx, input)
 		}, "ValidationException", notificationRuleErrorSubscribed)
 
@@ -292,6 +306,7 @@ func cleanupNotificationRuleTargets(ctx context.Context, conn *codestarnotificat
 
 	return nil
 }
+
 
 func expandNotificationRuleTargets(targetsData []interface{}) []types.Target {
 	targets := make([]types.Target, 0, len(targetsData))

@@ -18,6 +18,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func testAccTransitGatewayRouteTablePropagation_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.TransitGatewayRouteTablePropagation
@@ -27,14 +28,16 @@ func testAccTransitGatewayRouteTablePropagation_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayRouteTablePropagationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayRouteTablePropagationConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayRouteTablePropagationExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttrSet(resourceName, "resource_id"),
 					resource.TestCheckResourceAttrSet(resourceName, "resource_type"),
@@ -51,6 +54,7 @@ func testAccTransitGatewayRouteTablePropagation_basic(t *testing.T) {
 	})
 }
 
+
 func testAccTransitGatewayRouteTablePropagation_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.TransitGatewayRouteTablePropagation
@@ -58,14 +62,16 @@ func testAccTransitGatewayRouteTablePropagation_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayRouteTablePropagationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayRouteTablePropagationConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayRouteTablePropagationExists(ctx, resourceName, &v),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceTransitGatewayRouteTablePropagation(), resourceName),
 				),
@@ -75,8 +81,11 @@ func testAccTransitGatewayRouteTablePropagation_disappears(t *testing.T) {
 	})
 }
 
-func testAccCheckTransitGatewayRouteTablePropagationExists(ctx context.Context, n string, v *ec2.TransitGatewayRouteTablePropagation) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckTransitGatewayRouteTablePropagationExists(ctx context.Context, n string, v *ec2.TransitGatewayRouteTablePropagation) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -106,8 +115,11 @@ func testAccCheckTransitGatewayRouteTablePropagationExists(ctx context.Context, 
 	}
 }
 
-func testAccCheckTransitGatewayRouteTablePropagationDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckTransitGatewayRouteTablePropagationDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -138,6 +150,7 @@ func testAccCheckTransitGatewayRouteTablePropagationDestroy(ctx context.Context)
 	}
 }
 
+
 func testAccTransitGatewayRouteTablePropagationConfig_base(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
@@ -165,6 +178,7 @@ resource "aws_ec2_transit_gateway_route_table" "test" {
 }
 `, rName))
 }
+
 
 func testAccTransitGatewayRouteTablePropagationConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccTransitGatewayRouteTablePropagationConfig_base(rName), `

@@ -15,6 +15,7 @@ import (
 )
 
 // @SDKDataSource("aws_connect_user_hierarchy_structure")
+
 func DataSourceUserHierarchyStructure() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceUserHierarchyStructureRead,
@@ -24,23 +25,28 @@ func DataSourceUserHierarchyStructure() *schema.Resource {
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
-						"level_one": func() *schema.Schema {
+						"level_one": 
+func() *schema.Schema {
 							schema := userHierarchyLevelDataSourceSchema()
 							return schema
 						}(),
-						"level_two": func() *schema.Schema {
+						"level_two": 
+func() *schema.Schema {
 							schema := userHierarchyLevelDataSourceSchema()
 							return schema
 						}(),
-						"level_three": func() *schema.Schema {
+						"level_three": 
+func() *schema.Schema {
 							schema := userHierarchyLevelDataSourceSchema()
 							return schema
 						}(),
-						"level_four": func() *schema.Schema {
+						"level_four": 
+func() *schema.Schema {
 							schema := userHierarchyLevelDataSourceSchema()
 							return schema
 						}(),
-						"level_five": func() *schema.Schema {
+						"level_five": 
+func() *schema.Schema {
 							schema := userHierarchyLevelDataSourceSchema()
 							return schema
 						}(),
@@ -50,13 +56,15 @@ func DataSourceUserHierarchyStructure() *schema.Resource {
 			"instance_id": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: validation.StringLenBetween(1, 100),
+				Validate
+func: validation.StringLenBetween(1, 100),
 			},
 		},
 	}
 }
 
 // Each level shares the same schema
+
 func userHierarchyLevelDataSourceSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -79,6 +87,7 @@ func userHierarchyLevelDataSourceSchema() *schema.Schema {
 		},
 	}
 }
+
 
 func dataSourceUserHierarchyStructureRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)

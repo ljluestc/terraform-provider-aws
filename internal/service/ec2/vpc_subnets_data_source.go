@@ -17,6 +17,7 @@ import (
 )
 
 // @SDKDataSource("aws_subnets")
+
 func DataSourceSubnets() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceSubnetsRead,

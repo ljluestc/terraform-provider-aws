@@ -21,6 +21,7 @@ import (
 )
 
 // @SDKDataSource("aws_launch_template")
+
 func DataSourceLaunchTemplate() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceLaunchTemplateRead,

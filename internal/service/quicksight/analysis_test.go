@@ -22,6 +22,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
+
 func TestAccQuickSightAnalysis_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 
@@ -31,7 +32,8 @@ func TestAccQuickSightAnalysis_basic(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 		},
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
@@ -40,7 +42,8 @@ func TestAccQuickSightAnalysis_basic(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAnalysisConfig_basic(rId, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckAnalysisExists(ctx, resourceName, &analysis),
 					resource.TestCheckResourceAttr(resourceName, "analysis_id", rId),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
@@ -56,6 +59,7 @@ func TestAccQuickSightAnalysis_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccQuickSightAnalysis_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 
@@ -65,7 +69,8 @@ func TestAccQuickSightAnalysis_disappears(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 		},
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
@@ -74,7 +79,8 @@ func TestAccQuickSightAnalysis_disappears(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAnalysisConfig_basic(rId, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckAnalysisExists(ctx, resourceName, &analysis),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfquicksight.ResourceAnalysis(), resourceName),
 				),
@@ -83,6 +89,7 @@ func TestAccQuickSightAnalysis_disappears(t *testing.T) {
 		},
 	})
 }
+
 
 func TestAccQuickSightAnalysis_sourceEntity(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -95,7 +102,8 @@ func TestAccQuickSightAnalysis_sourceEntity(t *testing.T) {
 	sourceId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 		},
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
@@ -104,7 +112,8 @@ func TestAccQuickSightAnalysis_sourceEntity(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAnalysisConfig_TemplateSourceEntity(rId, rName, sourceId, sourceName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckAnalysisExists(ctx, resourceName, &analysis),
 					resource.TestCheckResourceAttr(resourceName, "analysis_id", rId),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
@@ -122,6 +131,7 @@ func TestAccQuickSightAnalysis_sourceEntity(t *testing.T) {
 	})
 }
 
+
 func TestAccQuickSightAnalysis_update(t *testing.T) {
 	ctx := acctest.Context(t)
 
@@ -132,7 +142,8 @@ func TestAccQuickSightAnalysis_update(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 		},
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
@@ -141,7 +152,8 @@ func TestAccQuickSightAnalysis_update(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAnalysisConfig_basic(rId, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckAnalysisExists(ctx, resourceName, &analysis),
 					resource.TestCheckResourceAttr(resourceName, "analysis_id", rId),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
@@ -150,7 +162,8 @@ func TestAccQuickSightAnalysis_update(t *testing.T) {
 			},
 			{
 				Config: testAccAnalysisConfig_basic(rId, rNameUpdated),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckAnalysisExists(ctx, resourceName, &analysis),
 					resource.TestCheckResourceAttr(resourceName, "analysis_id", rId),
 					resource.TestCheckResourceAttr(resourceName, "name", rNameUpdated),
@@ -161,6 +174,7 @@ func TestAccQuickSightAnalysis_update(t *testing.T) {
 	})
 }
 
+
 func TestAccQuickSightAnalysis_parametersConfig(t *testing.T) {
 	ctx := acctest.Context(t)
 
@@ -170,7 +184,8 @@ func TestAccQuickSightAnalysis_parametersConfig(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 		},
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
@@ -179,7 +194,8 @@ func TestAccQuickSightAnalysis_parametersConfig(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAnalysisConfig_ParametersConfig(rId, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckAnalysisExists(ctx, resourceName, &analysis),
 					resource.TestCheckResourceAttr(resourceName, "analysis_id", rId),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
@@ -196,6 +212,7 @@ func TestAccQuickSightAnalysis_parametersConfig(t *testing.T) {
 	})
 }
 
+
 func TestAccQuickSightAnalysis_forceDelete(t *testing.T) {
 	ctx := acctest.Context(t)
 
@@ -205,7 +222,8 @@ func TestAccQuickSightAnalysis_forceDelete(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 		},
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
@@ -214,7 +232,8 @@ func TestAccQuickSightAnalysis_forceDelete(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAnalysisConfig_ForceDelete(rId, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckAnalysisExists(ctx, resourceName, &analysis),
 					resource.TestCheckResourceAttr(resourceName, "analysis_id", rId),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
@@ -225,6 +244,7 @@ func TestAccQuickSightAnalysis_forceDelete(t *testing.T) {
 	})
 }
 
+
 func TestAccQuickSightAnalysis_Definition_calculatedFields(t *testing.T) {
 	ctx := acctest.Context(t)
 
@@ -234,7 +254,8 @@ func TestAccQuickSightAnalysis_Definition_calculatedFields(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 		},
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
@@ -243,7 +264,8 @@ func TestAccQuickSightAnalysis_Definition_calculatedFields(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAnalysisConfig_Definition_calculatedFields(rId, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckAnalysisExists(ctx, resourceName, &analysis),
 					resource.TestCheckResourceAttr(resourceName, "analysis_id", rId),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
@@ -271,8 +293,11 @@ func TestAccQuickSightAnalysis_Definition_calculatedFields(t *testing.T) {
 	})
 }
 
-func testAccCheckAnalysisDestroy(ctx context.Context, forceDelete bool) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckAnalysisDestroy(ctx context.Context, forceDelete bool) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -297,8 +322,11 @@ func testAccCheckAnalysisDestroy(ctx context.Context, forceDelete bool) resource
 	}
 }
 
-func testAccCheckAnalysisExists(ctx context.Context, name string, analysis *quicksight.Analysis) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckAnalysisExists(ctx context.Context, name string, analysis *quicksight.Analysis) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
 		if !ok {
 			return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameAnalysis, name, errors.New("not found"))
@@ -320,6 +348,7 @@ func testAccCheckAnalysisExists(ctx context.Context, name string, analysis *quic
 		return nil
 	}
 }
+
 
 func testAccAnalysisConfigBase(rId string, rName string) string {
 	return acctest.ConfigCompose(
@@ -367,6 +396,7 @@ resource "aws_quicksight_data_set" "test" {
 }
 `, rId, rName))
 }
+
 
 func testAccAnalysisConfig_basic(rId, rName string) string {
 	return acctest.ConfigCompose(
@@ -421,7 +451,8 @@ resource "aws_quicksight_analysis" "test" {
                       data_set_identifier = "1"
                       column_name         = "Column1"
                     }
-                    aggregation_function = "COUNT"
+                    aggregation_
+function = "COUNT"
                   }
                 }
               }
@@ -434,6 +465,7 @@ resource "aws_quicksight_analysis" "test" {
 }
 `, rId, rName))
 }
+
 
 func testAccAnalysisConfig_TemplateSourceEntity(rId, rName, sourceId, sourceName string) string {
 	return acctest.ConfigCompose(
@@ -498,7 +530,8 @@ resource "aws_quicksight_template" "test" {
                       data_set_identifier = "1"
                       column_name         = "Column1"
                     }
-                    aggregation_function = "COUNT"
+                    aggregation_
+function = "COUNT"
                   }
                 }
               }
@@ -525,6 +558,7 @@ resource "aws_quicksight_analysis" "test" {
 }
 `, rId, rName, sourceId, sourceName))
 }
+
 
 func testAccAnalysisConfig_ParametersConfig(rId, rName string) string {
 	return acctest.ConfigCompose(
@@ -586,7 +620,8 @@ resource "aws_quicksight_analysis" "test" {
                       data_set_identifier = "1"
                       column_name         = "Column1"
                     }
-                    aggregation_function = "COUNT"
+                    aggregation_
+function = "COUNT"
                   }
                 }
               }
@@ -599,6 +634,7 @@ resource "aws_quicksight_analysis" "test" {
 }
 `, rId, rName))
 }
+
 
 func testAccAnalysisConfig_ForceDelete(rId, rName string) string {
 	return acctest.ConfigCompose(
@@ -645,7 +681,8 @@ resource "aws_quicksight_analysis" "test" {
                       data_set_identifier = "1"
                       column_name         = "Column1"
                     }
-                    aggregation_function = "COUNT"
+                    aggregation_
+function = "COUNT"
                   }
                 }
               }
@@ -658,6 +695,7 @@ resource "aws_quicksight_analysis" "test" {
 }
 `, rId, rName))
 }
+
 
 func testAccAnalysisConfig_Definition_calculatedFields(rId, rName string) string {
 	return acctest.ConfigCompose(
@@ -722,7 +760,8 @@ resource "aws_quicksight_analysis" "test" {
                       data_set_identifier = "1"
                       column_name         = "Column1"
                     }
-                    aggregation_function = "COUNT"
+                    aggregation_
+function = "COUNT"
                   }
                 }
               }

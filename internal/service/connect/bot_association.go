@@ -18,6 +18,7 @@ import (
 )
 
 // @SDKResource("aws_connect_bot_association")
+
 func ResourceBotAssociation() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceBotAssociationCreate,
@@ -50,7 +51,8 @@ func ResourceBotAssociation() *schema.Resource {
 							Type:         schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
-							ValidateFunc: validation.StringLenBetween(2, 50),
+							Validate
+func: validation.StringLenBetween(2, 50),
 						},
 					},
 				},
@@ -66,7 +68,8 @@ func ResourceBotAssociation() *schema.Resource {
 						"alias_arn": {
 							Type:         schema.TypeString,
 							Required:     true,
-							ValidateFunc: verify.ValidARN,
+							Validate
+func: verify.ValidARN,
 							ForceNew: true,
 						},
 					},
@@ -76,6 +79,7 @@ func ResourceBotAssociation() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceBotAssociationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -101,10 +105,12 @@ func resourceBotAssociationCreate(ctx context.Context, d *schema.ResourceData, m
 	*/
 
 	_, err := tfresource.RetryWhen(ctx, botAssociationCreateTimeout,
-		func() (interface{}, error) {
+		
+func() (interface{}, error) {
 			return conn.AssociateBotWithContext(ctx, input)
 		},
-		func(err error) (bool, error) {
+		
+func(err error) (bool, error) {
 			if tfawserr.ErrCodeEquals(err, connect.ErrCodeInvalidRequestException) {
 				return true, err
 			}
@@ -123,6 +129,7 @@ func resourceBotAssociationCreate(ctx context.Context, d *schema.ResourceData, m
 
 	return resourceBotAssociationRead(ctx, d, meta)
 }
+
 
 func resourceBotAssociationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -157,6 +164,7 @@ func resourceBotAssociationRead(ctx context.Context, d *schema.ResourceData, met
 	return nil
 }
 
+
 func resourceBotAssociationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
@@ -189,6 +197,7 @@ func resourceBotAssociationDelete(ctx context.Context, d *schema.ResourceData, m
 	return nil
 }
 
+
 func expandLexBot(l []interface{}) *connect.LexBot {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -209,6 +218,7 @@ func expandLexBot(l []interface{}) *connect.LexBot {
 
 	return result
 }
+
 
 func flattenLexBot(bot *connect.LexBot) []interface{} {
 	if bot == nil {

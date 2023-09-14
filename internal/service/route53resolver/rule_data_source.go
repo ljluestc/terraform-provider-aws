@@ -16,6 +16,7 @@ import (
 )
 
 // @SDKDataSource("aws_route53_resolver_rule")
+
 func DataSourceRule() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceRuleRead,
@@ -29,14 +30,16 @@ func DataSourceRule() *schema.Resource {
 				Type:          schema.TypeString,
 				Optional:      true,
 				Computed:      true,
-				ValidateFunc:  validation.StringLenBetween(1, 256),
+				Validate
+func:  validation.StringLenBetween(1, 256),
 				ConflictsWith: []string{"resolver_rule_id"},
 			},
 			"name": {
 				Type:          schema.TypeString,
 				Optional:      true,
 				Computed:      true,
-				ValidateFunc:  validResolverName,
+				Validate
+func:  validResolverName,
 				ConflictsWith: []string{"resolver_rule_id"},
 			},
 			"owner_id": {
@@ -59,7 +62,8 @@ func DataSourceRule() *schema.Resource {
 				Type:          schema.TypeString,
 				Optional:      true,
 				Computed:      true,
-				ValidateFunc:  validation.StringInSlice(route53resolver.RuleTypeOption_Values(), false),
+				Validate
+func:  validation.StringInSlice(route53resolver.RuleTypeOption_Values(), false),
 				ConflictsWith: []string{"resolver_rule_id"},
 			},
 			"share_status": {
@@ -70,6 +74,7 @@ func DataSourceRule() *schema.Resource {
 		},
 	}
 }
+
 
 func dataSourceRuleRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
@@ -95,7 +100,8 @@ func dataSourceRuleRead(ctx context.Context, d *schema.ResourceData, meta interf
 		}
 
 		var rules []*route53resolver.ResolverRule
-		err = conn.ListResolverRulesPagesWithContext(ctx, input, func(page *route53resolver.ListResolverRulesOutput, lastPage bool) bool {
+		err = conn.ListResolverRulesPagesWithContext(ctx, input, 
+func(page *route53resolver.ListResolverRulesOutput, lastPage bool) bool {
 			rules = append(rules, page.ResolverRules...)
 			return !lastPage
 		})
@@ -141,6 +147,7 @@ func dataSourceRuleRead(ctx context.Context, d *schema.ResourceData, meta interf
 
 	return nil
 }
+
 
 func buildAttributeFilterList(attrs map[string]string) []*route53resolver.Filter {
 	filters := []*route53resolver.Filter{}

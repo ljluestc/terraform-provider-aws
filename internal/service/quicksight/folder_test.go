@@ -23,6 +23,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
+
 func TestAccQuickSightFolder_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var folder quicksight.Folder
@@ -31,7 +32,8 @@ func TestAccQuickSightFolder_basic(t *testing.T) {
 	resourceName := "aws_quicksight_folder.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, quicksight.EndpointsID)
 		},
@@ -41,7 +43,8 @@ func TestAccQuickSightFolder_basic(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFolderConfig_basic(rId, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFolderExists(ctx, resourceName, &folder),
 					resource.TestCheckResourceAttr(resourceName, "folder_id", rId),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
@@ -58,6 +61,7 @@ func TestAccQuickSightFolder_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccQuickSightFolder_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var folder quicksight.Folder
@@ -66,7 +70,8 @@ func TestAccQuickSightFolder_disappears(t *testing.T) {
 	resourceName := "aws_quicksight_folder.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, quicksight.EndpointsID)
 		},
@@ -76,7 +81,8 @@ func TestAccQuickSightFolder_disappears(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFolderConfig_basic(rId, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFolderExists(ctx, resourceName, &folder),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfquicksight.ResourceFolder(), resourceName),
 				),
@@ -86,6 +92,7 @@ func TestAccQuickSightFolder_disappears(t *testing.T) {
 	})
 }
 
+
 func TestAccQuickSightFolder_permissions(t *testing.T) {
 	ctx := acctest.Context(t)
 	var folder quicksight.Folder
@@ -94,14 +101,16 @@ func TestAccQuickSightFolder_permissions(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFolderDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFolderConfig_permissions(rId, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFolderExists(ctx, resourceName, &folder),
 					resource.TestCheckResourceAttr(resourceName, "permissions.#", "1"),
 					resource.TestMatchTypeSetElemNestedAttrs(resourceName, "permissions.*", map[string]*regexp.Regexp{
@@ -117,7 +126,8 @@ func TestAccQuickSightFolder_permissions(t *testing.T) {
 			},
 			{
 				Config: testAccFolderConfig_permissionsUpdate(rId, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFolderExists(ctx, resourceName, &folder),
 					resource.TestCheckResourceAttr(resourceName, "permissions.#", "1"),
 					resource.TestMatchTypeSetElemNestedAttrs(resourceName, "permissions.*", map[string]*regexp.Regexp{
@@ -140,7 +150,8 @@ func TestAccQuickSightFolder_permissions(t *testing.T) {
 			},
 			{
 				Config: testAccFolderConfig_basic(rId, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFolderExists(ctx, resourceName, &folder),
 					resource.TestCheckResourceAttr(resourceName, "permission.#", "0"),
 				),
@@ -148,6 +159,7 @@ func TestAccQuickSightFolder_permissions(t *testing.T) {
 		},
 	})
 }
+
 
 func TestAccQuickSightFolder_tags(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -157,7 +169,8 @@ func TestAccQuickSightFolder_tags(t *testing.T) {
 	resourceName := "aws_quicksight_folder.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, quicksight.EndpointsID)
 		},
@@ -167,7 +180,8 @@ func TestAccQuickSightFolder_tags(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFolderConfig_tags1(rId, rName, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFolderExists(ctx, resourceName, &folder),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
@@ -180,7 +194,8 @@ func TestAccQuickSightFolder_tags(t *testing.T) {
 			},
 			{
 				Config: testAccFolderConfig_tags2(rId, rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFolderExists(ctx, resourceName, &folder),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
@@ -189,7 +204,8 @@ func TestAccQuickSightFolder_tags(t *testing.T) {
 			},
 			{
 				Config: testAccFolderConfig_tags1(rId, rName, "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFolderExists(ctx, resourceName, &folder),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
@@ -198,6 +214,7 @@ func TestAccQuickSightFolder_tags(t *testing.T) {
 		},
 	})
 }
+
 
 func TestAccQuickSightFolder_parentFolder(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -211,7 +228,8 @@ func TestAccQuickSightFolder_parentFolder(t *testing.T) {
 	resourceName := "aws_quicksight_folder.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, quicksight.EndpointsID)
 		},
@@ -221,7 +239,8 @@ func TestAccQuickSightFolder_parentFolder(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFolderConfig_parentFolder(rId, rName, parentId1, parentName1),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFolderExists(ctx, resourceName, &folder),
 					acctest.CheckResourceAttrRegionalARN(resourceName, "parent_folder_arn", "quicksight", fmt.Sprintf("folder/%s", parentId1)),
 				),
@@ -233,7 +252,8 @@ func TestAccQuickSightFolder_parentFolder(t *testing.T) {
 			},
 			{
 				Config: testAccFolderConfig_parentFolder(rId, rName, parentId2, parentName2),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFolderExists(ctx, resourceName, &folder),
 					acctest.CheckResourceAttrRegionalARN(resourceName, "parent_folder_arn", "quicksight", fmt.Sprintf("folder/%s", parentId2)),
 				),
@@ -241,6 +261,7 @@ func TestAccQuickSightFolder_parentFolder(t *testing.T) {
 		},
 	})
 }
+
 
 func TestAccQuickSightFolder_parentFolderNested(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -254,7 +275,8 @@ func TestAccQuickSightFolder_parentFolderNested(t *testing.T) {
 	resourceName := "aws_quicksight_folder.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, quicksight.EndpointsID)
 		},
@@ -264,7 +286,8 @@ func TestAccQuickSightFolder_parentFolderNested(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFolderConfig_parentFolder(rId, rName, parentId1, parentName1),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFolderExists(ctx, resourceName, &folder),
 					acctest.CheckResourceAttrRegionalARN(resourceName, "parent_folder_arn", "quicksight", fmt.Sprintf("folder/%s", parentId1)),
 				),
@@ -276,7 +299,8 @@ func TestAccQuickSightFolder_parentFolderNested(t *testing.T) {
 			},
 			{
 				Config: testAccFolderConfig_parentFolder2(rId, rName, parentId1, parentName1, parentId2, parentName2),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFolderExists(ctx, resourceName, &folder),
 					acctest.CheckResourceAttrRegionalARN(resourceName, "parent_folder_arn", "quicksight", fmt.Sprintf("folder/%s", parentId2)),
 				),
@@ -285,8 +309,11 @@ func TestAccQuickSightFolder_parentFolderNested(t *testing.T) {
 	})
 }
 
-func testAccCheckFolderDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckFolderDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -311,8 +338,11 @@ func testAccCheckFolderDestroy(ctx context.Context) resource.TestCheckFunc {
 	}
 }
 
-func testAccCheckFolderExists(ctx context.Context, name string, folder *quicksight.Folder) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckFolderExists(ctx context.Context, name string, folder *quicksight.Folder) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
 		if !ok {
 			return create.Error(names.QuickSight, create.ErrActionCheckingExistence, tfquicksight.ResNameFolder, name, errors.New("not found"))
@@ -334,6 +364,7 @@ func testAccCheckFolderExists(ctx context.Context, name string, folder *quicksig
 	}
 }
 
+
 func testAccFolderConfig_basic(rId, rName string) string {
 	return fmt.Sprintf(`
 resource "aws_quicksight_folder" "test" {
@@ -342,6 +373,7 @@ resource "aws_quicksight_folder" "test" {
 }
 `, rId, rName)
 }
+
 
 func testAccFolderConfigUserBase(rName string) string {
 	return fmt.Sprintf(`
@@ -361,6 +393,7 @@ resource "aws_quicksight_user" "test" {
 `, rName, acctest.DefaultEmailAddress)
 }
 
+
 func testAccFolderConfig_permissions(rId, rName string) string {
 	return acctest.ConfigCompose(
 		testAccFolderConfigUserBase(rName),
@@ -377,6 +410,7 @@ resource "aws_quicksight_folder" "test" {
 }
 `, rId, rName))
 }
+
 
 func testAccFolderConfig_permissionsUpdate(rId, rName string) string {
 	return acctest.ConfigCompose(
@@ -402,6 +436,7 @@ resource "aws_quicksight_folder" "test" {
 `, rId, rName))
 }
 
+
 func testAccFolderConfig_tags1(rId, rName, key1, value1 string) string {
 	return fmt.Sprintf(`
 resource "aws_quicksight_folder" "test" {
@@ -414,6 +449,7 @@ resource "aws_quicksight_folder" "test" {
 }
 `, rId, rName, key1, value1)
 }
+
 
 func testAccFolderConfig_tags2(rId, rName, key1, value1, key2, value2 string) string {
 	return fmt.Sprintf(`
@@ -429,6 +465,7 @@ resource "aws_quicksight_folder" "test" {
 `, rId, rName, key1, value1, key2, value2)
 }
 
+
 func testAccFolderConfig_parentFolder(rId, rName, parentId, parentName string) string {
 	return fmt.Sprintf(`
 resource "aws_quicksight_folder" "parent" {
@@ -443,6 +480,7 @@ resource "aws_quicksight_folder" "test" {
 }
 `, rId, rName, parentId, parentName)
 }
+
 
 func testAccFolderConfig_parentFolder2(rId, rName, parentId1, parentName1, parentId2, parentName2 string) string {
 	return fmt.Sprintf(`

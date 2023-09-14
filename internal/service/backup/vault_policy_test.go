@@ -19,6 +19,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccBackupVaultPolicy_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var vault backup.GetBackupVaultAccessPolicyOutput
@@ -26,14 +27,16 @@ func TestAccBackupVaultPolicy_basic(t *testing.T) {
 	resourceName := "aws_backup_vault_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, backup.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVaultPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVaultPolicyConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckVaultPolicyExists(ctx, resourceName, &vault),
 					resource.TestMatchResourceAttr(resourceName, "policy", regexache.MustCompile("^{\"Id\":\"default\".+"))),
 			},
@@ -44,7 +47,8 @@ func TestAccBackupVaultPolicy_basic(t *testing.T) {
 			},
 			{
 				Config: testAccVaultPolicyConfig_updated(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckVaultPolicyExists(ctx, resourceName, &vault),
 					resource.TestMatchResourceAttr(resourceName, "policy", regexache.MustCompile("^{\"Id\":\"default\".+")),
 					resource.TestMatchResourceAttr(resourceName, "policy", regexache.MustCompile("backup:ListRecoveryPointsByBackupVault")),
@@ -54,6 +58,7 @@ func TestAccBackupVaultPolicy_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccBackupVaultPolicy_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var vault backup.GetBackupVaultAccessPolicyOutput
@@ -61,14 +66,16 @@ func TestAccBackupVaultPolicy_disappears(t *testing.T) {
 	resourceName := "aws_backup_vault_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, backup.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVaultPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVaultPolicyConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckVaultPolicyExists(ctx, resourceName, &vault),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfbackup.ResourceVaultPolicy(), resourceName),
 				),
@@ -78,6 +85,7 @@ func TestAccBackupVaultPolicy_disappears(t *testing.T) {
 	})
 }
 
+
 func TestAccBackupVaultPolicy_Disappears_vault(t *testing.T) {
 	ctx := acctest.Context(t)
 	var vault backup.GetBackupVaultAccessPolicyOutput
@@ -86,14 +94,16 @@ func TestAccBackupVaultPolicy_Disappears_vault(t *testing.T) {
 	vaultResourceName := "aws_backup_vault.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, backup.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVaultPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVaultPolicyConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckVaultPolicyExists(ctx, resourceName, &vault),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfbackup.ResourceVault(), vaultResourceName),
 				),
@@ -103,6 +113,7 @@ func TestAccBackupVaultPolicy_Disappears_vault(t *testing.T) {
 	})
 }
 
+
 func TestAccBackupVaultPolicy_ignoreEquivalent(t *testing.T) {
 	ctx := acctest.Context(t)
 	var vault backup.GetBackupVaultAccessPolicyOutput
@@ -110,14 +121,16 @@ func TestAccBackupVaultPolicy_ignoreEquivalent(t *testing.T) {
 	resourceName := "aws_backup_vault_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, backup.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVaultPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVaultPolicyConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckVaultPolicyExists(ctx, resourceName, &vault),
 					resource.TestMatchResourceAttr(resourceName, "policy", regexache.MustCompile("\"Version\":\"2012-10-17\""))),
 			},
@@ -129,8 +142,11 @@ func TestAccBackupVaultPolicy_ignoreEquivalent(t *testing.T) {
 	})
 }
 
-func testAccCheckVaultPolicyDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckVaultPolicyDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).BackupConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -155,8 +171,11 @@ func testAccCheckVaultPolicyDestroy(ctx context.Context) resource.TestCheckFunc 
 	}
 }
 
-func testAccCheckVaultPolicyExists(ctx context.Context, name string, vault *backup.GetBackupVaultAccessPolicyOutput) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckVaultPolicyExists(ctx context.Context, name string, vault *backup.GetBackupVaultAccessPolicyOutput) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
 		if !ok {
 			return fmt.Errorf("Not found: %s", name)
@@ -179,6 +198,7 @@ func testAccCheckVaultPolicyExists(ctx context.Context, name string, vault *back
 		return nil
 	}
 }
+
 
 func testAccVaultPolicyConfig_basic(rName string) string {
 	return fmt.Sprintf(`
@@ -215,6 +235,7 @@ resource "aws_backup_vault_policy" "test" {
 `, rName)
 }
 
+
 func testAccVaultPolicyConfig_updated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_backup_vault" "test" {
@@ -250,6 +271,7 @@ resource "aws_backup_vault_policy" "test" {
 }
 `, rName)
 }
+
 
 func testAccVaultPolicyConfig_newOrder(rName string) string {
 	return fmt.Sprintf(`

@@ -13,18 +13,21 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccEC2EIPsDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEIPsDataSourceConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					acctest.CheckResourceAttrGreaterThanValue("data.aws_eips.all", "allocation_ids.#", 1),
 					resource.TestCheckResourceAttr("data.aws_eips.by_tags", "allocation_ids.#", "1"),
 					resource.TestCheckResourceAttr("data.aws_eips.by_tags", "public_ips.#", "1"),
@@ -35,6 +38,7 @@ func TestAccEC2EIPsDataSource_basic(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccEIPsDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`

@@ -24,6 +24,7 @@ import (
 )
 
 // @SDKResource("aws_ssoadmin_managed_policy_attachment")
+
 func ResourceManagedPolicyAttachment() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceManagedPolicyAttachmentCreate,
@@ -44,13 +45,15 @@ func ResourceManagedPolicyAttachment() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			"managed_policy_arn": {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			"managed_policy_name": {
 				Type:     schema.TypeString,
@@ -60,11 +63,13 @@ func ResourceManagedPolicyAttachment() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 		},
 	}
 }
+
 
 func resourceManagedPolicyAttachmentCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -105,6 +110,7 @@ func resourceManagedPolicyAttachmentCreate(ctx context.Context, d *schema.Resour
 	return append(diags, resourceManagedPolicyAttachmentRead(ctx, d, meta)...)
 }
 
+
 func resourceManagedPolicyAttachmentRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SSOAdminConn(ctx)
@@ -133,6 +139,7 @@ func resourceManagedPolicyAttachmentRead(ctx context.Context, d *schema.Resource
 
 	return diags
 }
+
 
 func resourceManagedPolicyAttachmentDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -167,6 +174,7 @@ func resourceManagedPolicyAttachmentDelete(ctx context.Context, d *schema.Resour
 	return diags
 }
 
+
 func ParseManagedPolicyAttachmentID(id string) (string, string, string, error) {
 	idParts := strings.Split(id, ",")
 	if len(idParts) != 3 || idParts[0] == "" || idParts[1] == "" || idParts[2] == "" {
@@ -175,17 +183,20 @@ func ParseManagedPolicyAttachmentID(id string) (string, string, string, error) {
 	return idParts[0], idParts[1], idParts[2], nil
 }
 
+
 func FindManagedPolicy(ctx context.Context, conn *ssoadmin.SSOAdmin, managedPolicyARN, permissionSetARN, instanceARN string) (*ssoadmin.AttachedManagedPolicy, error) {
 	input := &ssoadmin.ListManagedPoliciesInPermissionSetInput{
 		InstanceArn:      aws.String(instanceARN),
 		PermissionSetArn: aws.String(permissionSetARN),
 	}
-	filter := func(a *ssoadmin.AttachedManagedPolicy) bool {
+	filter := 
+func(a *ssoadmin.AttachedManagedPolicy) bool {
 		return aws.StringValue(a.Arn) == managedPolicyARN
 	}
 
 	return findAttachedManagedPolicy(ctx, conn, input, filter)
 }
+
 
 func findAttachedManagedPolicy(ctx context.Context, conn *ssoadmin.SSOAdmin, input *ssoadmin.ListManagedPoliciesInPermissionSetInput, filter tfslices.Predicate[*ssoadmin.AttachedManagedPolicy]) (*ssoadmin.AttachedManagedPolicy, error) {
 	output, err := findAttachedManagedPolicies(ctx, conn, input, filter)
@@ -197,10 +208,12 @@ func findAttachedManagedPolicy(ctx context.Context, conn *ssoadmin.SSOAdmin, inp
 	return tfresource.AssertSinglePtrResult(output)
 }
 
+
 func findAttachedManagedPolicies(ctx context.Context, conn *ssoadmin.SSOAdmin, input *ssoadmin.ListManagedPoliciesInPermissionSetInput, filter tfslices.Predicate[*ssoadmin.AttachedManagedPolicy]) ([]*ssoadmin.AttachedManagedPolicy, error) {
 	var output []*ssoadmin.AttachedManagedPolicy
 
-	err := conn.ListManagedPoliciesInPermissionSetPagesWithContext(ctx, input, func(page *ssoadmin.ListManagedPoliciesInPermissionSetOutput, lastPage bool) bool {
+	err := conn.ListManagedPoliciesInPermissionSetPagesWithContext(ctx, input, 
+func(page *ssoadmin.ListManagedPoliciesInPermissionSetOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}

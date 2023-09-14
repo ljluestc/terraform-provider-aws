@@ -13,18 +13,21 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccVPCsDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCVPCsDataSourceConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					acctest.CheckResourceAttrGreaterThanValue("data.aws_vpcs.test", "ids.#", 0),
 				),
 			},
@@ -32,18 +35,21 @@ func TestAccVPCsDataSource_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCsDataSource_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCVPCsDataSourceConfig_tags(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttr("data.aws_vpcs.test", "ids.#", "1"),
 				),
 			},
@@ -51,18 +57,21 @@ func TestAccVPCsDataSource_tags(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCsDataSource_filters(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCVPCsDataSourceConfig_filters(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					acctest.CheckResourceAttrGreaterThanValue("data.aws_vpcs.test", "ids.#", 0),
 				),
 			},
@@ -70,24 +79,28 @@ func TestAccVPCsDataSource_filters(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCsDataSource_empty(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCVPCsDataSourceConfig_empty(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttr("data.aws_vpcs.test", "ids.#", "0"),
 				),
 			},
 		},
 	})
 }
+
 
 func testAccVPCVPCsDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
@@ -102,6 +115,7 @@ resource "aws_vpc" "test" {
 data "aws_vpcs" "test" {}
 `, rName)
 }
+
 
 func testAccVPCVPCsDataSourceConfig_tags(rName string) string {
 	return fmt.Sprintf(`
@@ -123,6 +137,7 @@ data "aws_vpcs" "test" {
 `, rName)
 }
 
+
 func testAccVPCVPCsDataSourceConfig_filters(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
@@ -141,6 +156,7 @@ data "aws_vpcs" "test" {
 }
 `, rName)
 }
+
 
 func testAccVPCVPCsDataSourceConfig_empty(rName string) string {
 	return fmt.Sprintf(`

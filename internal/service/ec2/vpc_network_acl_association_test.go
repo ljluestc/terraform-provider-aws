@@ -18,6 +18,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccVPCNetworkACLAssociation_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.NetworkAclAssociation
@@ -27,14 +28,16 @@ func TestAccVPCNetworkACLAssociation_basic(t *testing.T) {
 	subnetResourceName := "aws_subnet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckNetworkACLAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCNetworkACLAssociationConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckNetworkACLAssociationExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttrPair(resourceName, "network_acl_id", naclResourceName, "id"),
 					resource.TestCheckResourceAttrPair(resourceName, "subnet_id", subnetResourceName, "id"),
@@ -49,6 +52,7 @@ func TestAccVPCNetworkACLAssociation_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCNetworkACLAssociation_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.NetworkAclAssociation
@@ -56,14 +60,16 @@ func TestAccVPCNetworkACLAssociation_disappears(t *testing.T) {
 	resourceName := "aws_network_acl_association.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckNetworkACLAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCNetworkACLAssociationConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckNetworkACLAssociationExists(ctx, resourceName, &v),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceNetworkACLAssociation(), resourceName),
 				),
@@ -73,6 +79,7 @@ func TestAccVPCNetworkACLAssociation_disappears(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCNetworkACLAssociation_disappears_NACL(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.NetworkAclAssociation
@@ -81,14 +88,16 @@ func TestAccVPCNetworkACLAssociation_disappears_NACL(t *testing.T) {
 	naclResourceName := "aws_network_acl.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckNetworkACLAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCNetworkACLAssociationConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckNetworkACLAssociationExists(ctx, resourceName, &v),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceNetworkACL(), naclResourceName),
 				),
@@ -98,6 +107,7 @@ func TestAccVPCNetworkACLAssociation_disappears_NACL(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCNetworkACLAssociation_disappears_Subnet(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.NetworkAclAssociation
@@ -106,14 +116,16 @@ func TestAccVPCNetworkACLAssociation_disappears_Subnet(t *testing.T) {
 	subnetResourceName := "aws_subnet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckNetworkACLAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCNetworkACLAssociationConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckNetworkACLAssociationExists(ctx, resourceName, &v),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceSubnet(), subnetResourceName),
 				),
@@ -122,6 +134,7 @@ func TestAccVPCNetworkACLAssociation_disappears_Subnet(t *testing.T) {
 		},
 	})
 }
+
 
 func TestAccVPCNetworkACLAssociation_twoAssociations(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -134,14 +147,16 @@ func TestAccVPCNetworkACLAssociation_twoAssociations(t *testing.T) {
 	subnet2ResourceName := "aws_subnet.test2"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckNetworkACLAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCNetworkACLAssociationConfig_twoAssociations(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckNetworkACLAssociationExists(ctx, resource1Name, &v1),
 					testAccCheckNetworkACLAssociationExists(ctx, resource1Name, &v2),
 					resource.TestCheckResourceAttrPair(resource1Name, "network_acl_id", naclResourceName, "id"),
@@ -164,6 +179,7 @@ func TestAccVPCNetworkACLAssociation_twoAssociations(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCNetworkACLAssociation_associateWithDefaultNACL(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.NetworkAclAssociation
@@ -172,14 +188,16 @@ func TestAccVPCNetworkACLAssociation_associateWithDefaultNACL(t *testing.T) {
 	subnetResourceName := "aws_subnet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckNetworkACLAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCNetworkACLAssociationConfig_default(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckNetworkACLAssociationExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttrPair(resourceName, "subnet_id", subnetResourceName, "id"),
 				),
@@ -193,8 +211,11 @@ func TestAccVPCNetworkACLAssociation_associateWithDefaultNACL(t *testing.T) {
 	})
 }
 
-func testAccCheckNetworkACLAssociationDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckNetworkACLAssociationDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -219,8 +240,11 @@ func testAccCheckNetworkACLAssociationDestroy(ctx context.Context) resource.Test
 	}
 }
 
-func testAccCheckNetworkACLAssociationExists(ctx context.Context, n string, v *ec2.NetworkAclAssociation) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckNetworkACLAssociationExists(ctx context.Context, n string, v *ec2.NetworkAclAssociation) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -243,6 +267,7 @@ func testAccCheckNetworkACLAssociationExists(ctx context.Context, n string, v *e
 		return nil
 	}
 }
+
 
 func testAccVPCNetworkACLAssociationConfig_basic(rName string) string {
 	return fmt.Sprintf(`
@@ -278,6 +303,7 @@ resource "aws_network_acl_association" "test" {
 }
 `, rName)
 }
+
 
 func testAccVPCNetworkACLAssociationConfig_twoAssociations(rName string) string {
 	return fmt.Sprintf(`
@@ -328,6 +354,7 @@ resource "aws_network_acl_association" "test2" {
 }
 `, rName)
 }
+
 
 func testAccVPCNetworkACLAssociationConfig_default(rName string) string {
 	return fmt.Sprintf(`

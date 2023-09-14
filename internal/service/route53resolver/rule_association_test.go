@@ -19,6 +19,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccRoute53ResolverRuleAssociation_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var assn route53resolver.ResolverRuleAssociation
@@ -29,14 +30,16 @@ func TestAccRoute53ResolverRuleAssociation_basic(t *testing.T) {
 	domainName := acctest.RandomDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, route53resolver.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckRuleAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleAssociationConfig_basic(rName, domainName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckRuleAssociationExists(ctx, resourceName, &assn),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
 					resource.TestCheckResourceAttrPair(resourceName, "resolver_rule_id", ruleResourceName, "id"),
@@ -52,6 +55,7 @@ func TestAccRoute53ResolverRuleAssociation_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccRoute53ResolverRuleAssociation_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var assn route53resolver.ResolverRuleAssociation
@@ -60,14 +64,16 @@ func TestAccRoute53ResolverRuleAssociation_disappears(t *testing.T) {
 	domainName := acctest.RandomDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, route53resolver.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckRuleAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleAssociationConfig_basic(rName, domainName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckRuleAssociationExists(ctx, resourceName, &assn),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfroute53resolver.ResourceRuleAssociation(), resourceName),
 				),
@@ -76,6 +82,7 @@ func TestAccRoute53ResolverRuleAssociation_disappears(t *testing.T) {
 		},
 	})
 }
+
 
 func TestAccRoute53ResolverRuleAssociation_Disappears_vpc(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -86,14 +93,16 @@ func TestAccRoute53ResolverRuleAssociation_Disappears_vpc(t *testing.T) {
 	domainName := acctest.RandomDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, route53resolver.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckRuleAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRuleAssociationConfig_basic(rName, domainName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckRuleAssociationExists(ctx, resourceName, &assn),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceVPC(), vpcResourceName),
 				),
@@ -103,8 +112,11 @@ func TestAccRoute53ResolverRuleAssociation_Disappears_vpc(t *testing.T) {
 	})
 }
 
-func testAccCheckRuleAssociationDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckRuleAssociationDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).Route53ResolverConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -129,8 +141,11 @@ func testAccCheckRuleAssociationDestroy(ctx context.Context) resource.TestCheckF
 	}
 }
 
-func testAccCheckRuleAssociationExists(ctx context.Context, n string, v *route53resolver.ResolverRuleAssociation) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckRuleAssociationExists(ctx context.Context, n string, v *route53resolver.ResolverRuleAssociation) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -153,6 +168,7 @@ func testAccCheckRuleAssociationExists(ctx context.Context, n string, v *route53
 		return nil
 	}
 }
+
 
 func testAccRuleAssociationConfig_basic(rName, domainName string) string {
 	return fmt.Sprintf(`

@@ -17,6 +17,7 @@ import (
 	tfec2 "github.com/hashicorp/terraform-provider-aws/internal/service/ec2"
 )
 
+
 func TestAccEC2InstanceState_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_ec2_instance_state.test"
@@ -24,14 +25,16 @@ func TestAccEC2InstanceState_basic(t *testing.T) {
 	force := "false"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckInstanceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstanceStateConfig_basic(state, force),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInstanceStateExists(ctx, resourceName),
 					resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
 					resource.TestCheckResourceAttr(resourceName, "state", state),
@@ -41,6 +44,7 @@ func TestAccEC2InstanceState_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2InstanceState_state(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_ec2_instance_state.test"
@@ -49,14 +53,16 @@ func TestAccEC2InstanceState_state(t *testing.T) {
 	force := "false"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckInstanceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstanceStateConfig_basic(stateStopped, force),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInstanceStateExists(ctx, resourceName),
 					resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
 					resource.TestCheckResourceAttr(resourceName, "state", stateStopped),
@@ -69,7 +75,8 @@ func TestAccEC2InstanceState_state(t *testing.T) {
 			},
 			{
 				Config: testAccInstanceStateConfig_basic(stateRunning, force),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInstanceStateExists(ctx, resourceName),
 					resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
 					resource.TestCheckResourceAttr(resourceName, "state", stateRunning),
@@ -79,6 +86,7 @@ func TestAccEC2InstanceState_state(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2InstanceState_disappears_Instance(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_ec2_instance_state.test"
@@ -87,14 +95,16 @@ func TestAccEC2InstanceState_disappears_Instance(t *testing.T) {
 	force := "false"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckInstanceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstanceStateConfig_basic(state, force),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInstanceStateExists(ctx, resourceName),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceInstance(), parentResourceName),
 				),
@@ -104,8 +114,11 @@ func TestAccEC2InstanceState_disappears_Instance(t *testing.T) {
 	})
 }
 
-func testAccCheckInstanceStateExists(ctx context.Context, n string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckInstanceStateExists(ctx context.Context, n string) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -130,6 +143,7 @@ func testAccCheckInstanceStateExists(ctx context.Context, n string) resource.Tes
 		return nil
 	}
 }
+
 
 func testAccInstanceStateConfig_basic(state string, force string) string {
 	return acctest.ConfigCompose(

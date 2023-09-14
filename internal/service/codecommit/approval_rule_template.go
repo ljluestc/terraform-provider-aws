@@ -21,6 +21,7 @@ import (
 )
 
 // @SDKResource("aws_codecommit_approval_rule_template")
+
 func ResourceApprovalRuleTemplate() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceApprovalRuleTemplateCreate,
@@ -35,17 +36,22 @@ func ResourceApprovalRuleTemplate() *schema.Resource {
 			"name": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: validation.StringLenBetween(1, 100),
+				Validate
+func: validation.StringLenBetween(1, 100),
 			},
 			"content": {
 				Type:             schema.TypeString,
 				Required:         true,
-				DiffSuppressFunc: verify.SuppressEquivalentJSONDiffs,
-				StateFunc: func(v interface{}) string {
+				DiffSuppress
+func: verify.SuppressEquivalentJSONDiffs,
+				State
+func: 
+func(v interface{}) string {
 					json, _ := structure.NormalizeJsonString(v)
 					return json
 				},
-				ValidateFunc: validation.All(
+				Validate
+func: validation.All(
 					validation.StringIsJSON,
 					validation.StringLenBetween(1, 3000),
 				),
@@ -53,7 +59,8 @@ func ResourceApprovalRuleTemplate() *schema.Resource {
 			"description": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				ValidateFunc: validation.StringLenBetween(0, 1000),
+				Validate
+func: validation.StringLenBetween(0, 1000),
 			},
 			"approval_rule_template_id": {
 				Type:     schema.TypeString,
@@ -79,6 +86,7 @@ func ResourceApprovalRuleTemplate() *schema.Resource {
 	}
 }
 
+
 func resourceApprovalRuleTemplateCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CodeCommitConn(ctx)
@@ -103,6 +111,7 @@ func resourceApprovalRuleTemplateCreate(ctx context.Context, d *schema.ResourceD
 
 	return append(diags, resourceApprovalRuleTemplateRead(ctx, d, meta)...)
 }
+
 
 func resourceApprovalRuleTemplateRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -141,6 +150,7 @@ func resourceApprovalRuleTemplateRead(ctx context.Context, d *schema.ResourceDat
 
 	return diags
 }
+
 
 func resourceApprovalRuleTemplateUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -192,6 +202,7 @@ func resourceApprovalRuleTemplateUpdate(ctx context.Context, d *schema.ResourceD
 
 	return append(diags, resourceApprovalRuleTemplateRead(ctx, d, meta)...)
 }
+
 
 func resourceApprovalRuleTemplateDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

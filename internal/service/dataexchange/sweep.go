@@ -38,22 +38,23 @@ func sweepDataSets(region string) error {
 
 	input := &dataexchange.ListDataSetsInput{}
 
-	err = conn.ListDataSetsPagesWithContext(ctx, input, func(page *dataexchange.ListDataSetsOutput, lastPage bool) bool {
-		if page == nil {
+	err = conn.ListDataSetsPagesWithContext(ctx, input,
+		func(page *dataexchange.ListDataSetsOutput, lastPage bool) bool {
+			if page == nil {
+				return !lastPage
+			}
+
+			for _, dataSet := range page.DataSets {
+				r := ResourceDataSet()
+				d := r.Data(nil)
+
+				d.SetId(aws.StringValue(dataSet.Id))
+
+				sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
+			}
+
 			return !lastPage
-		}
-
-		for _, dataSet := range page.DataSets {
-			r := ResourceDataSet()
-			d := r.Data(nil)
-
-			d.SetId(aws.StringValue(dataSet.Id))
-
-			sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
-		}
-
-		return !lastPage
-	})
+		})
 
 	if err != nil {
 		errs = multierror.Append(errs, fmt.Errorf("error listing DataExchange DataSet for %s: %w", region, err))

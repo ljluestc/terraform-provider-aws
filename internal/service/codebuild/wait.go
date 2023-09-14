@@ -17,6 +17,7 @@ const (
 )
 
 // waitReportGroupDeleted waits for an ReportGroup to return Deleted
+
 func waitReportGroupDeleted(ctx context.Context, conn *codebuild.CodeBuild, arn string) (*codebuild.ReportGroup, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{codebuild.ReportGroupStatusTypeDeleting},

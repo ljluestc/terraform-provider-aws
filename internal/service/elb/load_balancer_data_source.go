@@ -20,6 +20,7 @@ import (
 )
 
 // @SDKDataSource("aws_elb")
+
 func DataSourceLoadBalancer() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceLoadBalancerRead,

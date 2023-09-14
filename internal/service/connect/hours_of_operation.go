@@ -25,6 +25,7 @@ import (
 
 // @SDKResource("aws_connect_hours_of_operation", name="Hours Of Operation")
 // @Tags(identifierAttribute="arn")
+
 func ResourceHoursOfOperation() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceHoursOfOperationCreate,
@@ -52,7 +53,8 @@ func ResourceHoursOfOperation() *schema.Resource {
 						"day": {
 							Type:         schema.TypeString,
 							Required:     true,
-							ValidateFunc: validation.StringInSlice(connect.HoursOfOperationDays_Values(), false),
+							Validate
+func: validation.StringInSlice(connect.HoursOfOperationDays_Values(), false),
 						},
 						"end_time": {
 							Type:     schema.TypeList,
@@ -90,7 +92,8 @@ func ResourceHoursOfOperation() *schema.Resource {
 						},
 					},
 				},
-				Set: func(v interface{}) int {
+				Set: 
+func(v interface{}) int {
 					var buf bytes.Buffer
 					m := v.(map[string]interface{})
 					buf.WriteString(m["day"].(string))
@@ -102,7 +105,8 @@ func ResourceHoursOfOperation() *schema.Resource {
 			"description": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				ValidateFunc: validation.StringLenBetween(1, 250),
+				Validate
+func: validation.StringLenBetween(1, 250),
 			},
 			"hours_of_operation_id": {
 				Type:     schema.TypeString,
@@ -115,7 +119,8 @@ func ResourceHoursOfOperation() *schema.Resource {
 			"name": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: validation.StringLenBetween(1, 127),
+				Validate
+func: validation.StringLenBetween(1, 127),
 			},
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
@@ -126,6 +131,7 @@ func ResourceHoursOfOperation() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceHoursOfOperationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -160,6 +166,7 @@ func resourceHoursOfOperationCreate(ctx context.Context, d *schema.ResourceData,
 
 	return resourceHoursOfOperationRead(ctx, d, meta)
 }
+
 
 func resourceHoursOfOperationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -205,6 +212,7 @@ func resourceHoursOfOperationRead(ctx context.Context, d *schema.ResourceData, m
 	return nil
 }
 
+
 func resourceHoursOfOperationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
@@ -231,6 +239,7 @@ func resourceHoursOfOperationUpdate(ctx context.Context, d *schema.ResourceData,
 	return resourceHoursOfOperationRead(ctx, d, meta)
 }
 
+
 func resourceHoursOfOperationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
@@ -251,6 +260,7 @@ func resourceHoursOfOperationDelete(ctx context.Context, d *schema.ResourceData,
 
 	return nil
 }
+
 
 func expandConfigs(configs []interface{}) []*connect.HoursOfOperationConfig {
 	if len(configs) == 0 {
@@ -286,6 +296,7 @@ func expandConfigs(configs []interface{}) []*connect.HoursOfOperationConfig {
 	return hoursOfOperationConfigs
 }
 
+
 func flattenConfigs(configs []*connect.HoursOfOperationConfig) []interface{} {
 	configsList := []interface{}{}
 	for _, config := range configs {
@@ -307,6 +318,7 @@ func flattenConfigs(configs []*connect.HoursOfOperationConfig) []interface{} {
 	}
 	return configsList
 }
+
 
 func HoursOfOperationParseID(id string) (string, string, error) {
 	parts := strings.SplitN(id, ":", 2)

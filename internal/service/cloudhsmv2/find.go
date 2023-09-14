@@ -63,19 +63,20 @@ func findCluster(ctx context.Context, conn *cloudhsmv2.CloudHSMV2, input *cloudh
 func findClusters(ctx context.Context, conn *cloudhsmv2.CloudHSMV2, input *cloudhsmv2.DescribeClustersInput) ([]*cloudhsmv2.Cluster, error) {
 	var output []*cloudhsmv2.Cluster
 
-	err := conn.DescribeClustersPagesWithContext(ctx, input, func(page *cloudhsmv2.DescribeClustersOutput, lastPage bool) bool {
-		if page == nil {
-			return !lastPage
-		}
-
-		for _, v := range page.Clusters {
-			if v != nil {
-				output = append(output, v)
+	err := conn.DescribeClustersPagesWithContext(ctx, input,
+		func(page *cloudhsmv2.DescribeClustersOutput, lastPage bool) bool {
+			if page == nil {
+				return !lastPage
 			}
-		}
 
-		return !lastPage
-	})
+			for _, v := range page.Clusters {
+				if v != nil {
+					output = append(output, v)
+				}
+			}
+
+			return !lastPage
+		})
 
 	if err != nil {
 		return nil, err

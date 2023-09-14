@@ -18,6 +18,7 @@ import (
 	tfemr "github.com/hashicorp/terraform-provider-aws/internal/service/emr"
 )
 
+
 func TestAccEMRInstanceGroup_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v emr.InstanceGroup
@@ -25,14 +26,16 @@ func TestAccEMRInstanceGroup_basic(t *testing.T) {
 	resourceName := "aws_emr_instance_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, emr.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstanceGroupConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInstanceGroupExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "autoscaling_policy", ""),
 					resource.TestCheckResourceAttr(resourceName, "bid_price", ""),
@@ -42,13 +45,16 @@ func TestAccEMRInstanceGroup_basic(t *testing.T) {
 			{
 				ResourceName:            resourceName,
 				ImportState:             true,
-				ImportStateIdFunc:       testAccInstanceGroupResourceImportStateIdFunc(resourceName),
+				ImportStateId
+func:       testAccInstanceGroupResourceImportStateId
+func(resourceName),
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"status"},
 			},
 		},
 	})
 }
+
 
 func TestAccEMRInstanceGroup_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -57,14 +63,16 @@ func TestAccEMRInstanceGroup_disappears(t *testing.T) {
 	resourceName := "aws_emr_instance_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, emr.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstanceGroupConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInstanceGroupExists(ctx, resourceName, &v),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfemr.ResourceInstanceGroup(), resourceName),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfemr.ResourceInstanceGroup(), resourceName),
@@ -76,6 +84,7 @@ func TestAccEMRInstanceGroup_disappears(t *testing.T) {
 }
 
 // Regression test for https://github.com/hashicorp/terraform-provider-aws/issues/1355
+
 func TestAccEMRInstanceGroup_Disappears_emrCluster(t *testing.T) {
 	ctx := acctest.Context(t)
 	var cluster emr.Cluster
@@ -85,14 +94,16 @@ func TestAccEMRInstanceGroup_Disappears_emrCluster(t *testing.T) {
 	emrClusterResourceName := "aws_emr_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, emr.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstanceGroupConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckClusterExists(ctx, emrClusterResourceName, &cluster),
 					testAccCheckInstanceGroupExists(ctx, resourceName, &ig),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfemr.ResourceCluster(), emrClusterResourceName),
@@ -103,6 +114,7 @@ func TestAccEMRInstanceGroup_Disappears_emrCluster(t *testing.T) {
 	})
 }
 
+
 func TestAccEMRInstanceGroup_bidPrice(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v1, v2 emr.InstanceGroup
@@ -110,14 +122,16 @@ func TestAccEMRInstanceGroup_bidPrice(t *testing.T) {
 	resourceName := "aws_emr_instance_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, emr.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstanceGroupConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInstanceGroupExists(ctx, resourceName, &v1),
 					resource.TestCheckResourceAttr(resourceName, "bid_price", ""),
 				),
@@ -125,13 +139,16 @@ func TestAccEMRInstanceGroup_bidPrice(t *testing.T) {
 			{
 				ResourceName:            resourceName,
 				ImportState:             true,
-				ImportStateIdFunc:       testAccInstanceGroupResourceImportStateIdFunc(resourceName),
+				ImportStateId
+func:       testAccInstanceGroupResourceImportStateId
+func(resourceName),
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"status"},
 			},
 			{
 				Config: testAccInstanceGroupConfig_bidPrice(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInstanceGroupExists(ctx, resourceName, &v2),
 					resource.TestCheckResourceAttr(resourceName, "bid_price", "0.30"),
 					testAccInstanceGroupRecreated(t, &v1, &v2),
@@ -140,13 +157,16 @@ func TestAccEMRInstanceGroup_bidPrice(t *testing.T) {
 			{
 				ResourceName:            resourceName,
 				ImportState:             true,
-				ImportStateIdFunc:       testAccInstanceGroupResourceImportStateIdFunc(resourceName),
+				ImportStateId
+func:       testAccInstanceGroupResourceImportStateId
+func(resourceName),
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"status"},
 			},
 			{
 				Config: testAccInstanceGroupConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInstanceGroupExists(ctx, resourceName, &v1),
 					resource.TestCheckResourceAttr(resourceName, "bid_price", ""),
 					testAccInstanceGroupRecreated(t, &v2, &v1),
@@ -156,6 +176,7 @@ func TestAccEMRInstanceGroup_bidPrice(t *testing.T) {
 	})
 }
 
+
 func TestAccEMRInstanceGroup_sJSON(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v emr.InstanceGroup
@@ -163,14 +184,16 @@ func TestAccEMRInstanceGroup_sJSON(t *testing.T) {
 	resourceName := "aws_emr_instance_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, emr.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstanceGroupConfig_configurationsJSON(rName, "partitionName1"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInstanceGroupExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttrSet(resourceName, "configurations_json"),
 				),
@@ -178,13 +201,16 @@ func TestAccEMRInstanceGroup_sJSON(t *testing.T) {
 			{
 				ResourceName:            resourceName,
 				ImportState:             true,
-				ImportStateIdFunc:       testAccInstanceGroupResourceImportStateIdFunc(resourceName),
+				ImportStateId
+func:       testAccInstanceGroupResourceImportStateId
+func(resourceName),
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"status"},
 			},
 			{
 				Config: testAccInstanceGroupConfig_configurationsJSON(rName, "partitionName2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInstanceGroupExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttrSet(resourceName, "configurations_json"),
 				),
@@ -192,13 +218,16 @@ func TestAccEMRInstanceGroup_sJSON(t *testing.T) {
 			{
 				ResourceName:            resourceName,
 				ImportState:             true,
-				ImportStateIdFunc:       testAccInstanceGroupResourceImportStateIdFunc(resourceName),
+				ImportStateId
+func:       testAccInstanceGroupResourceImportStateId
+func(resourceName),
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"status"},
 			},
 		},
 	})
 }
+
 
 func TestAccEMRInstanceGroup_autoScalingPolicy(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -207,14 +236,16 @@ func TestAccEMRInstanceGroup_autoScalingPolicy(t *testing.T) {
 	resourceName := "aws_emr_instance_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, emr.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstanceGroupConfig_autoScalingPolicy(rName, 1, 3),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInstanceGroupExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttrSet(resourceName, "autoscaling_policy"),
 				),
@@ -222,13 +253,16 @@ func TestAccEMRInstanceGroup_autoScalingPolicy(t *testing.T) {
 			{
 				ResourceName:            resourceName,
 				ImportState:             true,
-				ImportStateIdFunc:       testAccInstanceGroupResourceImportStateIdFunc(resourceName),
+				ImportStateId
+func:       testAccInstanceGroupResourceImportStateId
+func(resourceName),
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"status"},
 			},
 			{
 				Config: testAccInstanceGroupConfig_autoScalingPolicy(rName, 2, 3),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInstanceGroupExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttrSet(resourceName, "autoscaling_policy"),
 				),
@@ -236,7 +270,9 @@ func TestAccEMRInstanceGroup_autoScalingPolicy(t *testing.T) {
 			{
 				ResourceName:            resourceName,
 				ImportState:             true,
-				ImportStateIdFunc:       testAccInstanceGroupResourceImportStateIdFunc(resourceName),
+				ImportStateId
+func:       testAccInstanceGroupResourceImportStateId
+func(resourceName),
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"status"},
 			},
@@ -246,6 +282,7 @@ func TestAccEMRInstanceGroup_autoScalingPolicy(t *testing.T) {
 
 // Confirm we can scale down the instance count.
 // Regression test for https://github.com/hashicorp/terraform-provider-aws/issues/1264
+
 func TestAccEMRInstanceGroup_instanceCount(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v emr.InstanceGroup
@@ -253,7 +290,8 @@ func TestAccEMRInstanceGroup_instanceCount(t *testing.T) {
 	resourceName := "aws_emr_instance_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, emr.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             acctest.CheckDestroyNoop,
@@ -265,7 +303,9 @@ func TestAccEMRInstanceGroup_instanceCount(t *testing.T) {
 			{
 				ResourceName:            resourceName,
 				ImportState:             true,
-				ImportStateIdFunc:       testAccInstanceGroupResourceImportStateIdFunc(resourceName),
+				ImportStateId
+func:       testAccInstanceGroupResourceImportStateId
+func(resourceName),
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"status"},
 			},
@@ -277,6 +317,7 @@ func TestAccEMRInstanceGroup_instanceCount(t *testing.T) {
 	})
 }
 
+
 func TestAccEMRInstanceGroup_EBS_ebsOptimized(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v emr.InstanceGroup
@@ -284,14 +325,16 @@ func TestAccEMRInstanceGroup_EBS_ebsOptimized(t *testing.T) {
 	resourceName := "aws_emr_instance_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, emr.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstanceGroupConfig_ebs(rName, true),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInstanceGroupExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "ebs_config.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "ebs_optimized", "true"),
@@ -300,13 +343,16 @@ func TestAccEMRInstanceGroup_EBS_ebsOptimized(t *testing.T) {
 			{
 				ResourceName:            resourceName,
 				ImportState:             true,
-				ImportStateIdFunc:       testAccInstanceGroupResourceImportStateIdFunc(resourceName),
+				ImportStateId
+func:       testAccInstanceGroupResourceImportStateId
+func(resourceName),
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"status"},
 			},
 			{
 				Config: testAccInstanceGroupConfig_ebs(rName, false),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInstanceGroupExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "ebs_config.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "ebs_optimized", "false"),
@@ -316,8 +362,11 @@ func TestAccEMRInstanceGroup_EBS_ebsOptimized(t *testing.T) {
 	})
 }
 
-func testAccCheckInstanceGroupExists(ctx context.Context, name string, ig *emr.InstanceGroup) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckInstanceGroupExists(ctx context.Context, name string, ig *emr.InstanceGroup) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
 		if !ok {
 			return fmt.Errorf("Not found: %s", name)
@@ -343,8 +392,12 @@ func testAccCheckInstanceGroupExists(ctx context.Context, name string, ig *emr.I
 	}
 }
 
-func testAccInstanceGroupResourceImportStateIdFunc(resourceName string) resource.ImportStateIdFunc {
-	return func(s *terraform.State) (string, error) {
+
+func testAccInstanceGroupResourceImportStateId
+func(resourceName string) resource.ImportStateId
+func {
+	return 
+func(s *terraform.State) (string, error) {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return "", fmt.Errorf("Not found: %s", resourceName)
@@ -354,8 +407,11 @@ func testAccInstanceGroupResourceImportStateIdFunc(resourceName string) resource
 	}
 }
 
-func testAccInstanceGroupRecreated(t *testing.T, before, after *emr.InstanceGroup) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccInstanceGroupRecreated(t *testing.T, before, after *emr.InstanceGroup) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		if aws.StringValue(before.Id) == aws.StringValue(after.Id) {
 			t.Fatalf("Expected change of Instance Group Ids, but both were %v", aws.StringValue(before.Id))
 		}
@@ -363,6 +419,7 @@ func testAccInstanceGroupRecreated(t *testing.T, before, after *emr.InstanceGrou
 		return nil
 	}
 }
+
 
 func testAccInstanceGroupConfig_base(rName string) string {
 	return acctest.ConfigCompose(
@@ -408,6 +465,7 @@ resource "aws_emr_cluster" "test" {
 `, rName))
 }
 
+
 func testAccInstanceGroupConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccInstanceGroupConfig_base(rName), `
 resource "aws_emr_instance_group" "test" {
@@ -417,6 +475,7 @@ resource "aws_emr_instance_group" "test" {
 }
 `)
 }
+
 
 func testAccInstanceGroupConfig_bidPrice(rName string) string {
 	return acctest.ConfigCompose(testAccInstanceGroupConfig_base(rName), `
@@ -428,6 +487,7 @@ resource "aws_emr_instance_group" "test" {
 }
 `)
 }
+
 
 func testAccInstanceGroupConfig_configurationsJSON(rName, name string) string {
 	return acctest.ConfigCompose(testAccInstanceGroupConfig_base(rName), fmt.Sprintf(`
@@ -449,6 +509,7 @@ EOF
 }
 `, name))
 }
+
 
 func testAccInstanceGroupConfig_autoScalingPolicy(rName string, min, max int) string {
 	return acctest.ConfigCompose(testAccInstanceGroupConfig_base(rName), fmt.Sprintf(`
@@ -492,6 +553,7 @@ EOT
 `, min, max))
 }
 
+
 func testAccInstanceGroupConfig_ebs(rName string, o bool) string {
 	return acctest.ConfigCompose(testAccInstanceGroupConfig_base(rName), fmt.Sprintf(`
 resource "aws_emr_instance_group" "test" {
@@ -507,6 +569,7 @@ resource "aws_emr_instance_group" "test" {
 }
 `, o))
 }
+
 
 func testAccInstanceGroupConfig_zeroCount(rName string) string {
 	return acctest.ConfigCompose(testAccInstanceGroupConfig_base(rName), `

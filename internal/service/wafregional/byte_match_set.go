@@ -20,6 +20,7 @@ import (
 )
 
 // @SDKResource("aws_wafregional_byte_match_set")
+
 func ResourceByteMatchSet() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceByteMatchSetCreate,
@@ -85,13 +86,14 @@ func resourceByteMatchSetCreate(ctx context.Context, d *schema.ResourceData, met
 	log.Printf("[INFO] Creating ByteMatchSet: %s", d.Get("name").(string))
 
 	wr := NewRetryer(conn, region)
-	out, err := wr.RetryWithToken(ctx, func(token *string) (interface{}, error) {
-		params := &waf.CreateByteMatchSetInput{
-			ChangeToken: token,
-			Name:        aws.String(d.Get("name").(string)),
-		}
-		return conn.CreateByteMatchSetWithContext(ctx, params)
-	})
+	out, err := wr.RetryWithToken(ctx,
+		func(token *string) (interface{}, error) {
+			params := &waf.CreateByteMatchSetInput{
+				ChangeToken: token,
+				Name:        aws.String(d.Get("name").(string)),
+			}
+			return conn.CreateByteMatchSetWithContext(ctx, params)
+		})
 
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "creating ByteMatchSet: %s", err)
@@ -198,13 +200,14 @@ func resourceByteMatchSetDelete(ctx context.Context, d *schema.ResourceData, met
 	}
 
 	wr := NewRetryer(conn, region)
-	_, err := wr.RetryWithToken(ctx, func(token *string) (interface{}, error) {
-		req := &waf.DeleteByteMatchSetInput{
-			ChangeToken:    token,
-			ByteMatchSetId: aws.String(d.Id()),
-		}
-		return conn.DeleteByteMatchSetWithContext(ctx, req)
-	})
+	_, err := wr.RetryWithToken(ctx,
+		func(token *string) (interface{}, error) {
+			req := &waf.DeleteByteMatchSetInput{
+				ChangeToken:    token,
+				ByteMatchSetId: aws.String(d.Id()),
+			}
+			return conn.DeleteByteMatchSetWithContext(ctx, req)
+		})
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "deleting ByteMatchSet: %s", err)
 	}
@@ -214,15 +217,16 @@ func resourceByteMatchSetDelete(ctx context.Context, d *schema.ResourceData, met
 
 func updateByteMatchSetResourceWR(ctx context.Context, d *schema.ResourceData, oldT, newT []interface{}, conn *wafregional.WAFRegional, region string) error {
 	wr := NewRetryer(conn, region)
-	_, err := wr.RetryWithToken(ctx, func(token *string) (interface{}, error) {
-		req := &waf.UpdateByteMatchSetInput{
-			ChangeToken:    token,
-			ByteMatchSetId: aws.String(d.Id()),
-			Updates:        diffByteMatchSetTuple(oldT, newT),
-		}
+	_, err := wr.RetryWithToken(ctx,
+		func(token *string) (interface{}, error) {
+			req := &waf.UpdateByteMatchSetInput{
+				ChangeToken:    token,
+				ByteMatchSetId: aws.String(d.Id()),
+				Updates:        diffByteMatchSetTuple(oldT, newT),
+			}
 
-		return conn.UpdateByteMatchSetWithContext(ctx, req)
-	})
+			return conn.UpdateByteMatchSetWithContext(ctx, req)
+		})
 	if err != nil {
 		return fmt.Errorf("updating ByteMatchSet: %s", err)
 	}

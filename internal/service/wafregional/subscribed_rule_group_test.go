@@ -14,6 +14,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccWAFRegionalSubscribedRuleGroupDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if os.Getenv("WAF_SUBSCRIBED_RULE_GROUP_NAME") == "" {
@@ -31,7 +32,8 @@ func TestAccWAFRegionalSubscribedRuleGroupDataSource_basic(t *testing.T) {
 	datasourceName := "data.aws_wafregional_subscribed_rule_group.rulegroup"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		ErrorCheck:               acctest.ErrorCheck(t, wafregional.EndpointsID),
 		CheckDestroy:             nil,
@@ -42,21 +44,24 @@ func TestAccWAFRegionalSubscribedRuleGroupDataSource_basic(t *testing.T) {
 			},
 			{
 				Config: testAccSubscribedRuleGroupDataSourceConfig_name(ruleGroupName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttr(datasourceName, "name", ruleGroupName),
 					resource.TestCheckResourceAttr(datasourceName, "metric_name", metricName),
 				),
 			},
 			{
 				Config: testAccSubscribedRuleGroupDataSourceConfig_metricName(metricName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttr(datasourceName, "name", ruleGroupName),
 					resource.TestCheckResourceAttr(datasourceName, "metric_name", metricName),
 				),
 			},
 			{
 				Config: testAccSubscribedRuleGroupDataSourceConfig_nameAndMetricName(ruleGroupName, metricName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttr(datasourceName, "name", ruleGroupName),
 					resource.TestCheckResourceAttr(datasourceName, "metric_name", metricName),
 				),
@@ -69,6 +74,7 @@ func TestAccWAFRegionalSubscribedRuleGroupDataSource_basic(t *testing.T) {
 	})
 }
 
+
 func testAccSubscribedRuleGroupDataSourceConfig_name(name string) string {
 	return fmt.Sprintf(`
 data "aws_wafregional_subscribed_rule_group" "rulegroup" {
@@ -76,6 +82,7 @@ data "aws_wafregional_subscribed_rule_group" "rulegroup" {
 }
 `, name)
 }
+
 
 func testAccSubscribedRuleGroupDataSourceConfig_metricName(metricName string) string {
 	return fmt.Sprintf(`
@@ -85,6 +92,7 @@ data "aws_wafregional_subscribed_rule_group" "rulegroup" {
 `, metricName)
 }
 
+
 func testAccSubscribedRuleGroupDataSourceConfig_nameAndMetricName(name string, metricName string) string {
 	return fmt.Sprintf(`
 data "aws_wafregional_subscribed_rule_group" "rulegroup" {
@@ -93,6 +101,7 @@ data "aws_wafregional_subscribed_rule_group" "rulegroup" {
 }
 `, name, metricName)
 }
+
 
 func testAccDataSourceSubscribedRuleGroupDataSourceConfig_nameAndMismatchingMetricName(name string) string {
 	return fmt.Sprintf(`

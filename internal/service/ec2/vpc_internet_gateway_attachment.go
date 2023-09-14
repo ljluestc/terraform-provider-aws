@@ -19,6 +19,7 @@ import (
 )
 
 // @SDKResource("aws_internet_gateway_attachment")
+
 func ResourceInternetGatewayAttachment() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceInternetGatewayAttachmentCreate,
@@ -75,9 +76,10 @@ func resourceInternetGatewayAttachmentRead(ctx context.Context, d *schema.Resour
 		return sdkdiag.AppendErrorf(diags, "reading EC2 Internet Gateway Attachment (%s): %s", d.Id(), err)
 	}
 
-	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout, func() (interface{}, error) {
-		return FindInternetGatewayAttachment(ctx, conn, igwID, vpcID)
-	}, d.IsNewResource())
+	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout,
+		func() (interface{}, error) {
+			return FindInternetGatewayAttachment(ctx, conn, igwID, vpcID)
+		}, d.IsNewResource())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] EC2 Internet Gateway Attachment %s not found, removing from state", d.Id())

@@ -14,6 +14,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccBackupReportPlanDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	datasourceName := "data.aws_backup_report_plan.test"
@@ -22,7 +23,8 @@ func TestAccBackupReportPlanDataSource_basic(t *testing.T) {
 	rName2 := fmt.Sprintf("tf_acc_test_%s", sdkacctest.RandString(7))
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccReportPlanPreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccReportPlanPreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, backup.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -32,7 +34,8 @@ func TestAccBackupReportPlanDataSource_basic(t *testing.T) {
 			},
 			{
 				Config: testAccReportPlanDataSourceConfig_basic(rName, rName2),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(datasourceName, "creation_time", resourceName, "creation_time"),
 					resource.TestCheckResourceAttrSet(datasourceName, "deployment_status"), // CREATE_IN_PROGRESS | UPDATE_IN_PROGRESS | DELETE_IN_PROGRESS | COMPLETED
@@ -52,6 +55,7 @@ func TestAccBackupReportPlanDataSource_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccBackupReportPlanDataSource_reportSettings(t *testing.T) {
 	ctx := acctest.Context(t)
 	datasourceName := "data.aws_backup_report_plan.test"
@@ -60,13 +64,15 @@ func TestAccBackupReportPlanDataSource_reportSettings(t *testing.T) {
 	rName2 := fmt.Sprintf("tf_acc_test_%s", sdkacctest.RandString(7))
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccReportPlanPreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccReportPlanPreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, backup.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReportPlanDataSourceConfig_reportSettings(rName, rName2),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(datasourceName, "creation_time", resourceName, "creation_time"),
 					resource.TestCheckResourceAttrSet(datasourceName, "deployment_status"), // CREATE_IN_PROGRESS | UPDATE_IN_PROGRESS | DELETE_IN_PROGRESS | COMPLETED
@@ -96,6 +102,7 @@ data "aws_backup_report_plan" "test" {
 }
 `
 
+
 func testAccReportPlanDataSourceConfig_basic(rName, rName2 string) string {
 	return acctest.ConfigCompose(testAccReportPlanBaseConfig(rName), fmt.Sprintf(`
 resource "aws_backup_report_plan" "test" {
@@ -124,6 +131,7 @@ data "aws_backup_report_plan" "test" {
 }
 `, rName2))
 }
+
 
 func testAccReportPlanDataSourceConfig_reportSettings(rName, rName2 string) string {
 	return acctest.ConfigCompose(

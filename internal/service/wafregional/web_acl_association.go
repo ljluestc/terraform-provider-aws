@@ -22,6 +22,7 @@ import (
 )
 
 // @SDKResource("aws_wafregional_web_acl_association")
+
 func ResourceWebACLAssociation() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceWebACLAssociationCreate,
@@ -63,16 +64,17 @@ func resourceWebACLAssociationCreate(ctx context.Context, d *schema.ResourceData
 	// create association and wait on retryable error
 	// no response body
 	var err error
-	err = retry.RetryContext(ctx, 5*time.Minute, func() *retry.RetryError {
-		_, err = conn.AssociateWebACLWithContext(ctx, params)
-		if err != nil {
-			if tfawserr.ErrCodeEquals(err, wafregional.ErrCodeWAFUnavailableEntityException) {
-				return retry.RetryableError(err)
+	err = retry.RetryContext(ctx, 5*time.Minute,
+		func() *retry.RetryError {
+			_, err = conn.AssociateWebACLWithContext(ctx, params)
+			if err != nil {
+				if tfawserr.ErrCodeEquals(err, wafregional.ErrCodeWAFUnavailableEntityException) {
+					return retry.RetryableError(err)
+				}
+				return retry.NonRetryableError(err)
 			}
-			return retry.NonRetryableError(err)
-		}
-		return nil
-	})
+			return nil
+		})
 	if tfresource.TimedOut(err) {
 		_, err = conn.AssociateWebACLWithContext(ctx, params)
 	}

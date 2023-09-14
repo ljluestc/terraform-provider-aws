@@ -13,6 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func testAccUserHierarchyGroupDataSource_hierarchyGroupID(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
@@ -23,13 +24,15 @@ func testAccUserHierarchyGroupDataSource_hierarchyGroupID(t *testing.T) {
 	datasourceName := "data.aws_connect_user_hierarchy_group.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserHierarchyGroupDataSourceConfig_groupID(rName, rName2, rName3),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_group_id", resourceName, "hierarchy_group_id"),
 					resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_path.#", resourceName, "hierarchy_path.#"),
@@ -49,6 +52,7 @@ func testAccUserHierarchyGroupDataSource_hierarchyGroupID(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccUserHierarchyGroupDataSource_name(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -60,13 +64,15 @@ func testAccUserHierarchyGroupDataSource_name(t *testing.T) {
 	datasourceName := "data.aws_connect_user_hierarchy_group.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserHierarchyGroupDataSourceConfig_name(rName, rName2, rName3),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_group_id", resourceName, "hierarchy_group_id"),
 					resource.TestCheckResourceAttrPair(datasourceName, "hierarchy_path.#", resourceName, "hierarchy_path.#"),
@@ -86,6 +92,7 @@ func testAccUserHierarchyGroupDataSource_name(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccUserHierarchyGroupBaseDataSourceConfig(rName, rName2, rName3 string) string {
 	return fmt.Sprintf(`
@@ -147,6 +154,7 @@ resource "aws_connect_user_hierarchy_group" "test" {
 `, rName, rName2, rName3)
 }
 
+
 func testAccUserHierarchyGroupDataSourceConfig_groupID(rName, rName2, rName3 string) string {
 	return acctest.ConfigCompose(
 		testAccUserHierarchyGroupBaseDataSourceConfig(rName, rName2, rName3),
@@ -157,6 +165,7 @@ data "aws_connect_user_hierarchy_group" "test" {
 }
 `)
 }
+
 
 func testAccUserHierarchyGroupDataSourceConfig_name(rName, rName2, rName3 string) string {
 	return acctest.ConfigCompose(

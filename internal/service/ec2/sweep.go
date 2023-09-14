@@ -22,6 +22,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/sweep/framework"
 )
 
+
 func init() {
 	resource.AddTestSweepers("aws_customer_gateway", &resource.Sweeper{
 		Name: "aws_customer_gateway",
@@ -241,7 +242,8 @@ func init() {
 			"aws_fsx_openzfs_file_system",
 			"aws_fsx_windows_file_system",
 			"aws_iot_topic_rule_destination",
-			"aws_lambda_function",
+			"aws_lambda_
+function",
 			"aws_lb",
 			"aws_memorydb_subnet_group",
 			"aws_mq_broker",
@@ -408,6 +410,7 @@ func init() {
 	})
 }
 
+
 func sweepCapacityReservations(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -453,6 +456,7 @@ func sweepCapacityReservations(region string) error {
 	return nil
 }
 
+
 func sweepCarrierGateways(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -463,7 +467,8 @@ func sweepCarrierGateways(region string) error {
 	input := &ec2.DescribeCarrierGatewaysInput{}
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeCarrierGatewaysPagesWithContext(ctx, input, func(page *ec2.DescribeCarrierGatewaysOutput, lastPage bool) bool {
+	err = conn.DescribeCarrierGatewaysPagesWithContext(ctx, input, 
+func(page *ec2.DescribeCarrierGatewaysOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -497,6 +502,7 @@ func sweepCarrierGateways(region string) error {
 	return nil
 }
 
+
 func sweepClientVPNEndpoints(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -507,7 +513,8 @@ func sweepClientVPNEndpoints(region string) error {
 	input := &ec2.DescribeClientVpnEndpointsInput{}
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeClientVpnEndpointsPagesWithContext(ctx, input, func(page *ec2.DescribeClientVpnEndpointsOutput, lastPage bool) bool {
+	err = conn.DescribeClientVpnEndpointsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeClientVpnEndpointsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -541,6 +548,7 @@ func sweepClientVPNEndpoints(region string) error {
 	return nil
 }
 
+
 func sweepClientVPNNetworkAssociations(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -552,7 +560,8 @@ func sweepClientVPNNetworkAssociations(region string) error {
 	var sweeperErrs *multierror.Error
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeClientVpnEndpointsPagesWithContext(ctx, input, func(page *ec2.DescribeClientVpnEndpointsOutput, lastPage bool) bool {
+	err = conn.DescribeClientVpnEndpointsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeClientVpnEndpointsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -562,7 +571,8 @@ func sweepClientVPNNetworkAssociations(region string) error {
 				ClientVpnEndpointId: v.ClientVpnEndpointId,
 			}
 
-			err := conn.DescribeClientVpnTargetNetworksPagesWithContext(ctx, input, func(page *ec2.DescribeClientVpnTargetNetworksOutput, lastPage bool) bool {
+			err := conn.DescribeClientVpnTargetNetworksPagesWithContext(ctx, input, 
+func(page *ec2.DescribeClientVpnTargetNetworksOutput, lastPage bool) bool {
 				if page == nil {
 					return !lastPage
 				}
@@ -609,6 +619,7 @@ func sweepClientVPNNetworkAssociations(region string) error {
 	return sweeperErrs.ErrorOrNil()
 }
 
+
 func sweepFleets(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -620,7 +631,8 @@ func sweepFleets(region string) error {
 	var sweeperErrs *multierror.Error
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeFleetsPagesWithContext(ctx, &ec2.DescribeFleetsInput{}, func(page *ec2.DescribeFleetsOutput, lastPage bool) bool {
+	err = conn.DescribeFleetsPagesWithContext(ctx, &ec2.DescribeFleetsInput{}, 
+func(page *ec2.DescribeFleetsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -656,6 +668,7 @@ func sweepFleets(region string) error {
 	return sweeperErrs.ErrorOrNil()
 }
 
+
 func sweepEBSVolumes(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -666,7 +679,8 @@ func sweepEBSVolumes(region string) error {
 	input := &ec2.DescribeVolumesInput{}
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeVolumesPagesWithContext(ctx, input, func(page *ec2.DescribeVolumesOutput, lastPage bool) bool {
+	err = conn.DescribeVolumesPagesWithContext(ctx, input, 
+func(page *ec2.DescribeVolumesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -707,6 +721,7 @@ func sweepEBSVolumes(region string) error {
 	return nil
 }
 
+
 func sweepEBSSnapshots(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -719,7 +734,8 @@ func sweepEBSSnapshots(region string) error {
 	conn := client.EC2Conn(ctx)
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeSnapshotsPagesWithContext(ctx, input, func(page *ec2.DescribeSnapshotsOutput, lastPage bool) bool {
+	err = conn.DescribeSnapshotsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeSnapshotsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -753,6 +769,7 @@ func sweepEBSSnapshots(region string) error {
 	return nil
 }
 
+
 func sweepEgressOnlyInternetGateways(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -763,7 +780,8 @@ func sweepEgressOnlyInternetGateways(region string) error {
 	conn := client.EC2Conn(ctx)
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeEgressOnlyInternetGatewaysPagesWithContext(ctx, input, func(page *ec2.DescribeEgressOnlyInternetGatewaysOutput, lastPage bool) bool {
+	err = conn.DescribeEgressOnlyInternetGatewaysPagesWithContext(ctx, input, 
+func(page *ec2.DescribeEgressOnlyInternetGatewaysOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -796,6 +814,7 @@ func sweepEgressOnlyInternetGateways(region string) error {
 
 	return nil
 }
+
 
 func sweepEIPs(region string) error {
 	ctx := sweep.Context(region)
@@ -860,6 +879,7 @@ func sweepEIPs(region string) error {
 	return errs.ErrorOrNil()
 }
 
+
 func sweepFlowLogs(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -870,7 +890,8 @@ func sweepFlowLogs(region string) error {
 	input := &ec2.DescribeFlowLogsInput{}
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeFlowLogsPagesWithContext(ctx, input, func(page *ec2.DescribeFlowLogsOutput, lastPage bool) bool {
+	err = conn.DescribeFlowLogsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeFlowLogsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -904,6 +925,7 @@ func sweepFlowLogs(region string) error {
 	return nil
 }
 
+
 func sweepHosts(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -914,7 +936,8 @@ func sweepHosts(region string) error {
 	input := &ec2.DescribeHostsInput{}
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeHostsPagesWithContext(ctx, input, func(page *ec2.DescribeHostsOutput, lastPage bool) bool {
+	err = conn.DescribeHostsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeHostsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -948,6 +971,7 @@ func sweepHosts(region string) error {
 	return nil
 }
 
+
 func sweepInstances(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -959,7 +983,8 @@ func sweepInstances(region string) error {
 	sweepResources := make([]sweep.Sweepable, 0)
 	var errs *multierror.Error
 
-	err = conn.DescribeInstancesPagesWithContext(ctx, &ec2.DescribeInstancesInput{}, func(page *ec2.DescribeInstancesOutput, lastPage bool) bool {
+	err = conn.DescribeInstancesPagesWithContext(ctx, &ec2.DescribeInstancesInput{}, 
+func(page *ec2.DescribeInstancesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -1004,6 +1029,7 @@ func sweepInstances(region string) error {
 	return errs.ErrorOrNil()
 }
 
+
 func sweepInternetGateways(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -1035,7 +1061,8 @@ func sweepInternetGateways(region string) error {
 	input := &ec2.DescribeInternetGatewaysInput{}
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeInternetGatewaysPagesWithContext(ctx, input, func(page *ec2.DescribeInternetGatewaysOutput, lastPage bool) bool {
+	err = conn.DescribeInternetGatewaysPagesWithContext(ctx, input, 
+func(page *ec2.DescribeInternetGatewaysOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -1087,6 +1114,7 @@ func sweepInternetGateways(region string) error {
 	return nil
 }
 
+
 func sweepKeyPairs(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -1125,6 +1153,7 @@ func sweepKeyPairs(region string) error {
 	return nil
 }
 
+
 func sweepLaunchTemplates(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -1135,7 +1164,8 @@ func sweepLaunchTemplates(region string) error {
 	input := &ec2.DescribeLaunchTemplatesInput{}
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeLaunchTemplatesPagesWithContext(ctx, input, func(page *ec2.DescribeLaunchTemplatesOutput, lastPage bool) bool {
+	err = conn.DescribeLaunchTemplatesPagesWithContext(ctx, input, 
+func(page *ec2.DescribeLaunchTemplatesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -1169,6 +1199,7 @@ func sweepLaunchTemplates(region string) error {
 	return nil
 }
 
+
 func sweepNATGateways(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -1179,7 +1210,8 @@ func sweepNATGateways(region string) error {
 	conn := client.EC2Conn(ctx)
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeNatGatewaysPagesWithContext(ctx, input, func(page *ec2.DescribeNatGatewaysOutput, lastPage bool) bool {
+	err = conn.DescribeNatGatewaysPagesWithContext(ctx, input, 
+func(page *ec2.DescribeNatGatewaysOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -1213,6 +1245,7 @@ func sweepNATGateways(region string) error {
 	return nil
 }
 
+
 func sweepNetworkACLs(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -1223,7 +1256,8 @@ func sweepNetworkACLs(region string) error {
 	conn := client.EC2Conn(ctx)
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeNetworkAclsPagesWithContext(ctx, input, func(page *ec2.DescribeNetworkAclsOutput, lastPage bool) bool {
+	err = conn.DescribeNetworkAclsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeNetworkAclsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -1269,6 +1303,7 @@ func sweepNetworkACLs(region string) error {
 	return nil
 }
 
+
 func sweepNetworkInterfaces(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -1279,7 +1314,8 @@ func sweepNetworkInterfaces(region string) error {
 	input := &ec2.DescribeNetworkInterfacesInput{}
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeNetworkInterfacesPagesWithContext(ctx, input, func(page *ec2.DescribeNetworkInterfacesOutput, lastPage bool) bool {
+	err = conn.DescribeNetworkInterfacesPagesWithContext(ctx, input, 
+func(page *ec2.DescribeNetworkInterfacesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -1320,6 +1356,7 @@ func sweepNetworkInterfaces(region string) error {
 	return nil
 }
 
+
 func sweepNetworkInsightsPaths(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -1330,7 +1367,8 @@ func sweepNetworkInsightsPaths(region string) error {
 	sweepResources := make([]sweep.Sweepable, 0)
 	var errs *multierror.Error
 
-	err = conn.DescribeNetworkInsightsPathsPagesWithContext(ctx, &ec2.DescribeNetworkInsightsPathsInput{}, func(page *ec2.DescribeNetworkInsightsPathsOutput, lastPage bool) bool {
+	err = conn.DescribeNetworkInsightsPathsPagesWithContext(ctx, &ec2.DescribeNetworkInsightsPathsInput{}, 
+func(page *ec2.DescribeNetworkInsightsPathsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -1359,6 +1397,7 @@ func sweepNetworkInsightsPaths(region string) error {
 	}
 	return errs.ErrorOrNil()
 }
+
 
 func sweepPlacementGroups(region string) error {
 	ctx := sweep.Context(region)
@@ -1398,6 +1437,7 @@ func sweepPlacementGroups(region string) error {
 	return nil
 }
 
+
 func sweepRouteTables(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -1412,7 +1452,8 @@ func sweepRouteTables(region string) error {
 
 	input := &ec2.DescribeRouteTablesInput{}
 
-	err = conn.DescribeRouteTablesPagesWithContext(ctx, input, func(page *ec2.DescribeRouteTablesOutput, lastPage bool) bool {
+	err = conn.DescribeRouteTablesPagesWithContext(ctx, input, 
+func(page *ec2.DescribeRouteTablesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -1518,6 +1559,7 @@ func sweepRouteTables(region string) error {
 	return sweeperErrs.ErrorOrNil()
 }
 
+
 func sweepSecurityGroups(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -1529,7 +1571,8 @@ func sweepSecurityGroups(region string) error {
 	input := &ec2.DescribeSecurityGroupsInput{}
 
 	// Delete all non-default EC2 Security Group Rules to prevent DependencyViolation errors
-	err = conn.DescribeSecurityGroupsPagesWithContext(ctx, input, func(page *ec2.DescribeSecurityGroupsOutput, lastPage bool) bool {
+	err = conn.DescribeSecurityGroupsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeSecurityGroupsOutput, lastPage bool) bool {
 		for _, sg := range page.SecurityGroups {
 			if aws.StringValue(sg.GroupName) == "default" {
 				log.Printf("[DEBUG] Skipping default EC2 Security Group: %s", aws.StringValue(sg.GroupId))
@@ -1571,7 +1614,8 @@ func sweepSecurityGroups(region string) error {
 		return fmt.Errorf("Error retrieving EC2 Security Groups: %w", err)
 	}
 
-	err = conn.DescribeSecurityGroupsPagesWithContext(ctx, input, func(page *ec2.DescribeSecurityGroupsOutput, lastPage bool) bool {
+	err = conn.DescribeSecurityGroupsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeSecurityGroupsOutput, lastPage bool) bool {
 		for _, sg := range page.SecurityGroups {
 			if aws.StringValue(sg.GroupName) == "default" {
 				log.Printf("[DEBUG] Skipping default EC2 Security Group: %s", aws.StringValue(sg.GroupId))
@@ -1583,7 +1627,8 @@ func sweepSecurityGroups(region string) error {
 			}
 
 			// Handle EC2 eventual consistency
-			err := retry.RetryContext(ctx, 1*time.Minute, func() *retry.RetryError {
+			err := retry.RetryContext(ctx, 1*time.Minute, 
+func() *retry.RetryError {
 				_, err := conn.DeleteSecurityGroupWithContext(ctx, input)
 
 				if tfawserr.ErrCodeEquals(err, "DependencyViolation") {
@@ -1610,6 +1655,7 @@ func sweepSecurityGroups(region string) error {
 	return nil
 }
 
+
 func sweepSpotFleetRequests(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -1622,7 +1668,8 @@ func sweepSpotFleetRequests(region string) error {
 	sweepResources := make([]sweep.Sweepable, 0)
 	var errs *multierror.Error
 
-	err = conn.DescribeSpotFleetRequestsPagesWithContext(ctx, &ec2.DescribeSpotFleetRequestsInput{}, func(page *ec2.DescribeSpotFleetRequestsOutput, lastPage bool) bool {
+	err = conn.DescribeSpotFleetRequestsPagesWithContext(ctx, &ec2.DescribeSpotFleetRequestsInput{}, 
+func(page *ec2.DescribeSpotFleetRequestsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -1662,6 +1709,7 @@ func sweepSpotFleetRequests(region string) error {
 	return errs.ErrorOrNil()
 }
 
+
 func sweepSpotInstanceRequests(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -1674,7 +1722,8 @@ func sweepSpotInstanceRequests(region string) error {
 	sweepResources := make([]sweep.Sweepable, 0)
 	var errs *multierror.Error
 
-	err = conn.DescribeSpotInstanceRequestsPagesWithContext(ctx, &ec2.DescribeSpotInstanceRequestsInput{}, func(page *ec2.DescribeSpotInstanceRequestsOutput, lastPage bool) bool {
+	err = conn.DescribeSpotInstanceRequestsPagesWithContext(ctx, &ec2.DescribeSpotInstanceRequestsInput{}, 
+func(page *ec2.DescribeSpotInstanceRequestsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -1714,6 +1763,7 @@ func sweepSpotInstanceRequests(region string) error {
 	return errs.ErrorOrNil()
 }
 
+
 func sweepSubnets(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -1724,7 +1774,8 @@ func sweepSubnets(region string) error {
 	input := &ec2.DescribeSubnetsInput{}
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeSubnetsPagesWithContext(ctx, input, func(page *ec2.DescribeSubnetsOutput, lastPage bool) bool {
+	err = conn.DescribeSubnetsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeSubnetsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -1763,6 +1814,7 @@ func sweepSubnets(region string) error {
 	return nil
 }
 
+
 func sweepTrafficMirrorFilters(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -1773,7 +1825,8 @@ func sweepTrafficMirrorFilters(region string) error {
 	input := &ec2.DescribeTrafficMirrorFiltersInput{}
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeTrafficMirrorFiltersPagesWithContext(ctx, input, func(page *ec2.DescribeTrafficMirrorFiltersOutput, lastPage bool) bool {
+	err = conn.DescribeTrafficMirrorFiltersPagesWithContext(ctx, input, 
+func(page *ec2.DescribeTrafficMirrorFiltersOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -1807,6 +1860,7 @@ func sweepTrafficMirrorFilters(region string) error {
 	return nil
 }
 
+
 func sweepTrafficMirrorSessions(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -1817,7 +1871,8 @@ func sweepTrafficMirrorSessions(region string) error {
 	input := &ec2.DescribeTrafficMirrorSessionsInput{}
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeTrafficMirrorSessionsPagesWithContext(ctx, input, func(page *ec2.DescribeTrafficMirrorSessionsOutput, lastPage bool) bool {
+	err = conn.DescribeTrafficMirrorSessionsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeTrafficMirrorSessionsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -1851,6 +1906,7 @@ func sweepTrafficMirrorSessions(region string) error {
 	return nil
 }
 
+
 func sweepTrafficMirrorTargets(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -1861,7 +1917,8 @@ func sweepTrafficMirrorTargets(region string) error {
 	input := &ec2.DescribeTrafficMirrorTargetsInput{}
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeTrafficMirrorTargetsPagesWithContext(ctx, input, func(page *ec2.DescribeTrafficMirrorTargetsOutput, lastPage bool) bool {
+	err = conn.DescribeTrafficMirrorTargetsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeTrafficMirrorTargetsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -1895,6 +1952,7 @@ func sweepTrafficMirrorTargets(region string) error {
 	return nil
 }
 
+
 func sweepTransitGateways(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -1905,7 +1963,8 @@ func sweepTransitGateways(region string) error {
 	input := &ec2.DescribeTransitGatewaysInput{}
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeTransitGatewaysPagesWithContext(ctx, input, func(page *ec2.DescribeTransitGatewaysOutput, lastPage bool) bool {
+	err = conn.DescribeTransitGatewaysPagesWithContext(ctx, input, 
+func(page *ec2.DescribeTransitGatewaysOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -1943,6 +2002,7 @@ func sweepTransitGateways(region string) error {
 	return nil
 }
 
+
 func sweepTransitGatewayConnectPeers(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -1953,7 +2013,8 @@ func sweepTransitGatewayConnectPeers(region string) error {
 	input := &ec2.DescribeTransitGatewayConnectPeersInput{}
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeTransitGatewayConnectPeersPagesWithContext(ctx, input, func(page *ec2.DescribeTransitGatewayConnectPeersOutput, lastPage bool) bool {
+	err = conn.DescribeTransitGatewayConnectPeersPagesWithContext(ctx, input, 
+func(page *ec2.DescribeTransitGatewayConnectPeersOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -1991,6 +2052,7 @@ func sweepTransitGatewayConnectPeers(region string) error {
 	return nil
 }
 
+
 func sweepTransitGatewayConnects(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -2001,7 +2063,8 @@ func sweepTransitGatewayConnects(region string) error {
 	input := &ec2.DescribeTransitGatewayConnectsInput{}
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeTransitGatewayConnectsPagesWithContext(ctx, input, func(page *ec2.DescribeTransitGatewayConnectsOutput, lastPage bool) bool {
+	err = conn.DescribeTransitGatewayConnectsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeTransitGatewayConnectsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -2039,6 +2102,7 @@ func sweepTransitGatewayConnects(region string) error {
 	return nil
 }
 
+
 func sweepTransitGatewayMulticastDomains(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -2049,7 +2113,8 @@ func sweepTransitGatewayMulticastDomains(region string) error {
 	input := &ec2.DescribeTransitGatewayMulticastDomainsInput{}
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeTransitGatewayMulticastDomainsPagesWithContext(ctx, input, func(page *ec2.DescribeTransitGatewayMulticastDomainsOutput, lastPage bool) bool {
+	err = conn.DescribeTransitGatewayMulticastDomainsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeTransitGatewayMulticastDomainsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -2087,6 +2152,7 @@ func sweepTransitGatewayMulticastDomains(region string) error {
 	return nil
 }
 
+
 func sweepTransitGatewayPeeringAttachments(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -2097,7 +2163,8 @@ func sweepTransitGatewayPeeringAttachments(region string) error {
 	input := &ec2.DescribeTransitGatewayPeeringAttachmentsInput{}
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeTransitGatewayPeeringAttachmentsPagesWithContext(ctx, input, func(page *ec2.DescribeTransitGatewayPeeringAttachmentsOutput, lastPage bool) bool {
+	err = conn.DescribeTransitGatewayPeeringAttachmentsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeTransitGatewayPeeringAttachmentsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -2135,6 +2202,7 @@ func sweepTransitGatewayPeeringAttachments(region string) error {
 	return nil
 }
 
+
 func sweepTransitGatewayVPCAttachments(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -2145,7 +2213,8 @@ func sweepTransitGatewayVPCAttachments(region string) error {
 	input := &ec2.DescribeTransitGatewayVpcAttachmentsInput{}
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeTransitGatewayVpcAttachmentsPagesWithContext(ctx, input, func(page *ec2.DescribeTransitGatewayVpcAttachmentsOutput, lastPage bool) bool {
+	err = conn.DescribeTransitGatewayVpcAttachmentsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeTransitGatewayVpcAttachmentsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -2183,6 +2252,7 @@ func sweepTransitGatewayVPCAttachments(region string) error {
 	return nil
 }
 
+
 func sweepVPCDHCPOptions(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -2193,7 +2263,8 @@ func sweepVPCDHCPOptions(region string) error {
 	conn := client.EC2Conn(ctx)
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeDhcpOptionsPagesWithContext(ctx, input, func(page *ec2.DescribeDhcpOptionsOutput, lastPage bool) bool {
+	err = conn.DescribeDhcpOptionsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeDhcpOptionsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -2254,6 +2325,7 @@ func sweepVPCDHCPOptions(region string) error {
 	return nil
 }
 
+
 func sweepVPCEndpointServices(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -2264,7 +2336,8 @@ func sweepVPCEndpointServices(region string) error {
 	input := &ec2.DescribeVpcEndpointServiceConfigurationsInput{}
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeVpcEndpointServiceConfigurationsPagesWithContext(ctx, input, func(page *ec2.DescribeVpcEndpointServiceConfigurationsOutput, lastPage bool) bool {
+	err = conn.DescribeVpcEndpointServiceConfigurationsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeVpcEndpointServiceConfigurationsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -2302,6 +2375,7 @@ func sweepVPCEndpointServices(region string) error {
 	return nil
 }
 
+
 func sweepVPCEndpoints(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -2312,7 +2386,8 @@ func sweepVPCEndpoints(region string) error {
 	input := &ec2.DescribeVpcEndpointsInput{}
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeVpcEndpointsPagesWithContext(ctx, input, func(page *ec2.DescribeVpcEndpointsOutput, lastPage bool) bool {
+	err = conn.DescribeVpcEndpointsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeVpcEndpointsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -2350,6 +2425,7 @@ func sweepVPCEndpoints(region string) error {
 	return nil
 }
 
+
 func sweepVPCPeeringConnections(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -2360,7 +2436,8 @@ func sweepVPCPeeringConnections(region string) error {
 	conn := client.EC2Conn(ctx)
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeVpcPeeringConnectionsPagesWithContext(ctx, input, func(page *ec2.DescribeVpcPeeringConnectionsOutput, lastPage bool) bool {
+	err = conn.DescribeVpcPeeringConnectionsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeVpcPeeringConnectionsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -2394,6 +2471,7 @@ func sweepVPCPeeringConnections(region string) error {
 	return nil
 }
 
+
 func sweepVPCs(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -2404,7 +2482,8 @@ func sweepVPCs(region string) error {
 	input := &ec2.DescribeVpcsInput{}
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeVpcsPagesWithContext(ctx, input, func(page *ec2.DescribeVpcsOutput, lastPage bool) bool {
+	err = conn.DescribeVpcsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeVpcsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -2442,6 +2521,7 @@ func sweepVPCs(region string) error {
 
 	return nil
 }
+
 
 func sweepVPNConnections(region string) error {
 	ctx := sweep.Context(region)
@@ -2484,6 +2564,7 @@ func sweepVPNConnections(region string) error {
 
 	return nil
 }
+
 
 func sweepVPNGateways(region string) error {
 	ctx := sweep.Context(region)
@@ -2535,6 +2616,7 @@ func sweepVPNGateways(region string) error {
 	return nil
 }
 
+
 func sweepCustomerGateways(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -2577,6 +2659,7 @@ func sweepCustomerGateways(region string) error {
 	return nil
 }
 
+
 func sweepIPAMs(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -2587,7 +2670,8 @@ func sweepIPAMs(region string) error {
 	input := &ec2.DescribeIpamsInput{}
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeIpamsPagesWithContext(ctx, input, func(page *ec2.DescribeIpamsOutput, lastPage bool) bool {
+	err = conn.DescribeIpamsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeIpamsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -2622,6 +2706,7 @@ func sweepIPAMs(region string) error {
 	return nil
 }
 
+
 func sweepIPAMResourceDiscoveries(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -2632,7 +2717,8 @@ func sweepIPAMResourceDiscoveries(region string) error {
 	input := &ec2.DescribeIpamResourceDiscoveriesInput{}
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeIpamResourceDiscoveriesPagesWithContext(ctx, input, func(page *ec2.DescribeIpamResourceDiscoveriesOutput, lastPage bool) bool {
+	err = conn.DescribeIpamResourceDiscoveriesPagesWithContext(ctx, input, 
+func(page *ec2.DescribeIpamResourceDiscoveriesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -2669,6 +2755,7 @@ func sweepIPAMResourceDiscoveries(region string) error {
 	return nil
 }
 
+
 func sweepAMIs(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -2681,7 +2768,8 @@ func sweepAMIs(region string) error {
 	conn := client.EC2Conn(ctx)
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeImagesPagesWithContext(ctx, input, func(page *ec2.DescribeImagesOutput, lastPage bool) bool {
+	err = conn.DescribeImagesPagesWithContext(ctx, input, 
+func(page *ec2.DescribeImagesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -2715,6 +2803,7 @@ func sweepAMIs(region string) error {
 	return nil
 }
 
+
 func sweepNetworkPerformanceMetricSubscriptions(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -2725,7 +2814,8 @@ func sweepNetworkPerformanceMetricSubscriptions(region string) error {
 	input := &ec2.DescribeAwsNetworkPerformanceMetricSubscriptionsInput{}
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeAwsNetworkPerformanceMetricSubscriptionsPagesWithContext(ctx, input, func(page *ec2.DescribeAwsNetworkPerformanceMetricSubscriptionsOutput, lastPage bool) bool {
+	err = conn.DescribeAwsNetworkPerformanceMetricSubscriptionsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeAwsNetworkPerformanceMetricSubscriptionsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -2760,6 +2850,7 @@ func sweepNetworkPerformanceMetricSubscriptions(region string) error {
 	return nil
 }
 
+
 func sweepInstanceConnectEndpoints(region string) error {
 	ctx := sweep.Context(region)
 	client, err := sweep.SharedRegionalSweepClient(ctx, region)
@@ -2770,7 +2861,8 @@ func sweepInstanceConnectEndpoints(region string) error {
 	input := &ec2.DescribeInstanceConnectEndpointsInput{}
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeInstanceConnectEndpointsPagesWithContext(ctx, input, func(page *ec2.DescribeInstanceConnectEndpointsOutput, lastPage bool) bool {
+	err = conn.DescribeInstanceConnectEndpointsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeInstanceConnectEndpointsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}

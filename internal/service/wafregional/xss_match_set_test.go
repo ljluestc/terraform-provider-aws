@@ -20,6 +20,7 @@ import (
 	tfwafregional "github.com/hashicorp/terraform-provider-aws/internal/service/wafregional"
 )
 
+
 func TestAccWAFRegionalXSSMatchSet_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v waf.XssMatchSet
@@ -27,14 +28,16 @@ func TestAccWAFRegionalXSSMatchSet_basic(t *testing.T) {
 	resourceName := "aws_wafregional_xss_match_set.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 		ErrorCheck:               acctest.ErrorCheck(t, wafregional.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckXSSMatchSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccXSSMatchSetConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckXSSMatchSetExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
 					resource.TestCheckResourceAttr(resourceName, "xss_match_tuple.#", "2"),
@@ -61,6 +64,7 @@ func TestAccWAFRegionalXSSMatchSet_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccWAFRegionalXSSMatchSet_changeNameForceNew(t *testing.T) {
 	ctx := acctest.Context(t)
 	var before, after waf.XssMatchSet
@@ -69,14 +73,16 @@ func TestAccWAFRegionalXSSMatchSet_changeNameForceNew(t *testing.T) {
 	resourceName := "aws_wafregional_xss_match_set.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 		ErrorCheck:               acctest.ErrorCheck(t, wafregional.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckXSSMatchSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccXSSMatchSetConfig_basic(rName1),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckXSSMatchSetExists(ctx, resourceName, &before),
 					resource.TestCheckResourceAttr(resourceName, "name", rName1),
 					resource.TestCheckResourceAttr(resourceName, "xss_match_tuple.#", "2"),
@@ -89,7 +95,8 @@ func TestAccWAFRegionalXSSMatchSet_changeNameForceNew(t *testing.T) {
 			},
 			{
 				Config: testAccXSSMatchSetConfig_changeName(rName2),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckXSSMatchSetExists(ctx, resourceName, &after),
 					resource.TestCheckResourceAttr(resourceName, "name", rName2),
 					resource.TestCheckResourceAttr(resourceName, "xss_match_tuple.#", "2"),
@@ -99,6 +106,7 @@ func TestAccWAFRegionalXSSMatchSet_changeNameForceNew(t *testing.T) {
 	})
 }
 
+
 func TestAccWAFRegionalXSSMatchSet_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v waf.XssMatchSet
@@ -106,14 +114,16 @@ func TestAccWAFRegionalXSSMatchSet_disappears(t *testing.T) {
 	resourceName := "aws_wafregional_xss_match_set.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 		ErrorCheck:               acctest.ErrorCheck(t, wafregional.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckXSSMatchSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccXSSMatchSetConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckXSSMatchSetExists(ctx, resourceName, &v),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfwafregional.ResourceXSSMatchSet(), resourceName),
 				),
@@ -123,6 +133,7 @@ func TestAccWAFRegionalXSSMatchSet_disappears(t *testing.T) {
 	})
 }
 
+
 func TestAccWAFRegionalXSSMatchSet_changeTuples(t *testing.T) {
 	ctx := acctest.Context(t)
 	var before, after waf.XssMatchSet
@@ -130,14 +141,16 @@ func TestAccWAFRegionalXSSMatchSet_changeTuples(t *testing.T) {
 	resourceName := "aws_wafregional_xss_match_set.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 		ErrorCheck:               acctest.ErrorCheck(t, wafregional.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckXSSMatchSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccXSSMatchSetConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckXSSMatchSetExists(ctx, resourceName, &before),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
 					resource.TestCheckResourceAttr(resourceName, "xss_match_tuple.#", "2"),
@@ -162,7 +175,8 @@ func TestAccWAFRegionalXSSMatchSet_changeTuples(t *testing.T) {
 			},
 			{
 				Config: testAccXSSMatchSetConfig_changeTuples(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckXSSMatchSetExists(ctx, resourceName, &after),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
 					resource.TestCheckResourceAttr(resourceName, "xss_match_tuple.#", "2"),
@@ -184,6 +198,7 @@ func TestAccWAFRegionalXSSMatchSet_changeTuples(t *testing.T) {
 	})
 }
 
+
 func TestAccWAFRegionalXSSMatchSet_noTuples(t *testing.T) {
 	ctx := acctest.Context(t)
 	var ipset waf.XssMatchSet
@@ -191,14 +206,16 @@ func TestAccWAFRegionalXSSMatchSet_noTuples(t *testing.T) {
 	resourceName := "aws_wafregional_xss_match_set.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 		ErrorCheck:               acctest.ErrorCheck(t, wafregional.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckXSSMatchSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccXSSMatchSetConfig_noTuples(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckXSSMatchSetExists(ctx, resourceName, &ipset),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
 					resource.TestCheckResourceAttr(resourceName, "xss_match_tuple.#", "0"),
@@ -213,8 +230,11 @@ func TestAccWAFRegionalXSSMatchSet_noTuples(t *testing.T) {
 	})
 }
 
-func testAccCheckXSSMatchSetExists(ctx context.Context, n string, v *waf.XssMatchSet) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckXSSMatchSetExists(ctx context.Context, n string, v *waf.XssMatchSet) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -242,8 +262,11 @@ func testAccCheckXSSMatchSetExists(ctx context.Context, n string, v *waf.XssMatc
 	}
 }
 
-func testAccCheckXSSMatchSetDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckXSSMatchSetDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_wafregional_xss_match_set" {
 				continue
@@ -272,6 +295,7 @@ func testAccCheckXSSMatchSetDestroy(ctx context.Context) resource.TestCheckFunc 
 	}
 }
 
+
 func testAccXSSMatchSetConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_xss_match_set" "test" {
@@ -295,6 +319,7 @@ resource "aws_wafregional_xss_match_set" "test" {
 }
 `, rName)
 }
+
 
 func testAccXSSMatchSetConfig_changeName(rName string) string {
 	return fmt.Sprintf(`
@@ -320,6 +345,7 @@ resource "aws_wafregional_xss_match_set" "test" {
 `, rName)
 }
 
+
 func testAccXSSMatchSetConfig_changeTuples(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_wafregional_xss_match_set" "test" {
@@ -343,6 +369,7 @@ resource "aws_wafregional_xss_match_set" "test" {
 }
 `, rName)
 }
+
 
 func testAccXSSMatchSetConfig_noTuples(rName string) string {
 	return fmt.Sprintf(`

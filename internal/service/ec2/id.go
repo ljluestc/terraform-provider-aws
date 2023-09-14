@@ -11,6 +11,7 @@ import (
 )
 
 // RouteCreateID returns a route resource ID.
+
 func RouteCreateID(routeTableID, destination string) string {
 	return fmt.Sprintf("r-%s%d", routeTableID, create.StringHashcode(destination))
 }

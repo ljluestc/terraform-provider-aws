@@ -23,6 +23,7 @@ import (
 
 // @SDKResource("aws_connect_user_hierarchy_group", name="User Hierarchy Group")
 // @Tags(identifierAttribute="arn")
+
 func ResourceUserHierarchyGroup() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceUserHierarchyGroupCreate,
@@ -47,23 +48,28 @@ func ResourceUserHierarchyGroup() *schema.Resource {
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
-						"level_one": func() *schema.Schema {
+						"level_one": 
+func() *schema.Schema {
 							schema := userHierarchyPathLevelSchema()
 							return schema
 						}(),
-						"level_two": func() *schema.Schema {
+						"level_two": 
+func() *schema.Schema {
 							schema := userHierarchyPathLevelSchema()
 							return schema
 						}(),
-						"level_three": func() *schema.Schema {
+						"level_three": 
+func() *schema.Schema {
 							schema := userHierarchyPathLevelSchema()
 							return schema
 						}(),
-						"level_four": func() *schema.Schema {
+						"level_four": 
+func() *schema.Schema {
 							schema := userHierarchyPathLevelSchema()
 							return schema
 						}(),
-						"level_five": func() *schema.Schema {
+						"level_five": 
+func() *schema.Schema {
 							schema := userHierarchyPathLevelSchema()
 							return schema
 						}(),
@@ -73,7 +79,8 @@ func ResourceUserHierarchyGroup() *schema.Resource {
 			"instance_id": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: validation.StringLenBetween(1, 100),
+				Validate
+func: validation.StringLenBetween(1, 100),
 			},
 			"level_id": {
 				Type:     schema.TypeString,
@@ -82,7 +89,8 @@ func ResourceUserHierarchyGroup() *schema.Resource {
 			"name": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: validation.StringLenBetween(1, 100),
+				Validate
+func: validation.StringLenBetween(1, 100),
 			},
 			"parent_group_id": {
 				Type:     schema.TypeString,
@@ -96,6 +104,7 @@ func ResourceUserHierarchyGroup() *schema.Resource {
 }
 
 // Each level shares the same schema
+
 func userHierarchyPathLevelSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -118,6 +127,7 @@ func userHierarchyPathLevelSchema() *schema.Schema {
 		},
 	}
 }
+
 
 func resourceUserHierarchyGroupCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -149,6 +159,7 @@ func resourceUserHierarchyGroupCreate(ctx context.Context, d *schema.ResourceDat
 
 	return resourceUserHierarchyGroupRead(ctx, d, meta)
 }
+
 
 func resourceUserHierarchyGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -193,6 +204,7 @@ func resourceUserHierarchyGroupRead(ctx context.Context, d *schema.ResourceData,
 	return nil
 }
 
+
 func resourceUserHierarchyGroupUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
@@ -216,6 +228,7 @@ func resourceUserHierarchyGroupUpdate(ctx context.Context, d *schema.ResourceDat
 	return resourceUserHierarchyGroupRead(ctx, d, meta)
 }
 
+
 func resourceUserHierarchyGroupDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
@@ -237,6 +250,7 @@ func resourceUserHierarchyGroupDelete(ctx context.Context, d *schema.ResourceDat
 	return nil
 }
 
+
 func UserHierarchyGroupParseID(id string) (string, string, error) {
 	parts := strings.SplitN(id, ":", 2)
 
@@ -246,6 +260,7 @@ func UserHierarchyGroupParseID(id string) (string, string, error) {
 
 	return parts[0], parts[1], nil
 }
+
 
 func flattenUserHierarchyPath(userHierarchyPath *connect.HierarchyPath) []interface{} {
 	if userHierarchyPath == nil {
@@ -276,6 +291,7 @@ func flattenUserHierarchyPath(userHierarchyPath *connect.HierarchyPath) []interf
 
 	return []interface{}{values}
 }
+
 
 func flattenUserHierarchyPathLevel(userHierarchyPathLevel *connect.HierarchyGroupSummary) []interface{} {
 	if userHierarchyPathLevel == nil {

@@ -26,6 +26,7 @@ import (
 
 // @SDKResource("aws_ec2_host", name="Host")
 // @Tags(identifierAttribute="id")
+
 func ResourceHost() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceHostCreate,
@@ -55,7 +56,8 @@ func ResourceHost() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				Default:      ec2.AutoPlacementOn,
-				ValidateFunc: validation.StringInSlice(ec2.AutoPlacement_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.AutoPlacement_Values(), false),
 			},
 			"availability_zone": {
 				Type:     schema.TypeString,
@@ -66,7 +68,8 @@ func ResourceHost() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				Default:      ec2.HostRecoveryOff,
-				ValidateFunc: validation.StringInSlice(ec2.HostRecovery_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.HostRecovery_Values(), false),
 			},
 			"instance_family": {
 				Type:         schema.TypeString,
@@ -92,6 +95,7 @@ func ResourceHost() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceHostCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -137,6 +141,7 @@ func resourceHostCreate(ctx context.Context, d *schema.ResourceData, meta interf
 	return append(diags, resourceHostRead(ctx, d, meta)...)
 }
 
+
 func resourceHostRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -174,6 +179,7 @@ func resourceHostRead(ctx context.Context, d *schema.ResourceData, meta interfac
 
 	return diags
 }
+
 
 func resourceHostUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -217,6 +223,7 @@ func resourceHostUpdate(ctx context.Context, d *schema.ResourceData, meta interf
 
 	return append(diags, resourceHostRead(ctx, d, meta)...)
 }
+
 
 func resourceHostDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

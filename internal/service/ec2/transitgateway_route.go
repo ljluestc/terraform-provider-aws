@@ -22,6 +22,7 @@ import (
 )
 
 // @SDKResource("aws_ec2_transit_gateway_route")
+
 func ResourceTransitGatewayRoute() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceTransitGatewayRouteCreate,
@@ -42,24 +43,29 @@ func ResourceTransitGatewayRoute() *schema.Resource {
 				Type:             schema.TypeString,
 				Required:         true,
 				ForceNew:         true,
-				ValidateFunc:     verify.ValidCIDRNetworkAddress,
-				DiffSuppressFunc: suppressEqualCIDRBlockDiffs,
+				Validate
+func:     verify.ValidCIDRNetworkAddress,
+				DiffSuppress
+func: suppressEqualCIDRBlockDiffs,
 			},
 			"transit_gateway_attachment_id": {
 				Type:         schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.NoZeroValues,
+				Validate
+func: validation.NoZeroValues,
 			},
 			"transit_gateway_route_table_id": {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.NoZeroValues,
+				Validate
+func: validation.NoZeroValues,
 			},
 		},
 	}
 }
+
 
 func resourceTransitGatewayRouteCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -91,6 +97,7 @@ func resourceTransitGatewayRouteCreate(ctx context.Context, d *schema.ResourceDa
 	return append(diags, resourceTransitGatewayRouteRead(ctx, d, meta)...)
 }
 
+
 func resourceTransitGatewayRouteRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -101,7 +108,8 @@ func resourceTransitGatewayRouteRead(ctx context.Context, d *schema.ResourceData
 		return sdkdiag.AppendErrorf(diags, "reading EC2 Transit Gateway Route (%s): %s", d.Id(), err)
 	}
 
-	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout, func() (interface{}, error) {
+	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout, 
+func() (interface{}, error) {
 		return FindTransitGatewayStaticRoute(ctx, conn, transitGatewayRouteTableID, destination)
 	}, d.IsNewResource())
 
@@ -129,6 +137,7 @@ func resourceTransitGatewayRouteRead(ctx context.Context, d *schema.ResourceData
 
 	return diags
 }
+
 
 func resourceTransitGatewayRouteDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -163,12 +172,14 @@ func resourceTransitGatewayRouteDelete(ctx context.Context, d *schema.ResourceDa
 
 const transitGatewayRouteIDSeparator = "_"
 
+
 func TransitGatewayRouteCreateResourceID(transitGatewayRouteTableID, destination string) string {
 	parts := []string{transitGatewayRouteTableID, destination}
 	id := strings.Join(parts, transitGatewayRouteIDSeparator)
 
 	return id
 }
+
 
 func TransitGatewayRouteParseResourceID(id string) (string, string, error) {
 	parts := strings.Split(id, transitGatewayRouteIDSeparator)

@@ -11,6 +11,7 @@ import (
 
 // @SDKResource("aws_opsworks_ecs_cluster_layer", name="ECS Cluster Layer")
 // @Tags(identifierAttribute="arn")
+
 func ResourceECSClusterLayer() *schema.Resource {
 	layerType := &opsworksLayerType{
 		TypeName:         opsworks.LayerTypeEcsCluster,
@@ -22,7 +23,8 @@ func ResourceECSClusterLayer() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 		},
 	}

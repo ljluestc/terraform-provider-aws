@@ -15,6 +15,7 @@ import (
 )
 
 // @SDKDataSource("aws_service_discovery_http_namespace")
+
 func DataSourceHTTPNamespace() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceHTTPNamespaceRead,
@@ -35,12 +36,14 @@ func DataSourceHTTPNamespace() *schema.Resource {
 			"name": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: validNamespaceName,
+				Validate
+func: validNamespaceName,
 			},
 			"tags": tftags.TagsSchemaComputed(),
 		},
 	}
 }
+
 
 func dataSourceHTTPNamespaceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ServiceDiscoveryConn(ctx)

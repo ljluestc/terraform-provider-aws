@@ -17,6 +17,7 @@ import (
 )
 
 // @SDKDataSource("aws_connect_user_hierarchy_group")
+
 func DataSourceUserHierarchyGroup() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceUserHierarchyGroupRead,
@@ -36,23 +37,28 @@ func DataSourceUserHierarchyGroup() *schema.Resource {
 				Computed: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
-						"level_one": func() *schema.Schema {
+						"level_one": 
+func() *schema.Schema {
 							schema := userHierarchyPathLevelSchema()
 							return schema
 						}(),
-						"level_two": func() *schema.Schema {
+						"level_two": 
+func() *schema.Schema {
 							schema := userHierarchyPathLevelSchema()
 							return schema
 						}(),
-						"level_three": func() *schema.Schema {
+						"level_three": 
+func() *schema.Schema {
 							schema := userHierarchyPathLevelSchema()
 							return schema
 						}(),
-						"level_four": func() *schema.Schema {
+						"level_four": 
+func() *schema.Schema {
 							schema := userHierarchyPathLevelSchema()
 							return schema
 						}(),
-						"level_five": func() *schema.Schema {
+						"level_five": 
+func() *schema.Schema {
 							schema := userHierarchyPathLevelSchema()
 							return schema
 						}(),
@@ -62,7 +68,8 @@ func DataSourceUserHierarchyGroup() *schema.Resource {
 			"instance_id": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: validation.StringLenBetween(1, 100),
+				Validate
+func: validation.StringLenBetween(1, 100),
 			},
 			"level_id": {
 				Type:     schema.TypeString,
@@ -83,6 +90,7 @@ func DataSourceUserHierarchyGroup() *schema.Resource {
 		},
 	}
 }
+
 
 func dataSourceUserHierarchyGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -142,6 +150,7 @@ func dataSourceUserHierarchyGroupRead(ctx context.Context, d *schema.ResourceDat
 	return nil
 }
 
+
 func userHierarchyGroupSummaryByName(ctx context.Context, conn *connect.Connect, instanceID, name string) (*connect.HierarchyGroupSummary, error) {
 	var result *connect.HierarchyGroupSummary
 
@@ -150,7 +159,8 @@ func userHierarchyGroupSummaryByName(ctx context.Context, conn *connect.Connect,
 		MaxResults: aws.Int64(ListUserHierarchyGroupsMaxResults),
 	}
 
-	err := conn.ListUserHierarchyGroupsPagesWithContext(ctx, input, func(page *connect.ListUserHierarchyGroupsOutput, lastPage bool) bool {
+	err := conn.ListUserHierarchyGroupsPagesWithContext(ctx, input, 
+func(page *connect.ListUserHierarchyGroupsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}

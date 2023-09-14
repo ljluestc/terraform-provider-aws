@@ -23,6 +23,7 @@ import (
 
 // @SDKResource("aws_ec2_transit_gateway_connect", name="Transit Gateway Connect")
 // @Tags(identifierAttribute="id")
+
 func ResourceTransitGatewayConnect() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceTransitGatewayConnectCreate,
@@ -48,7 +49,8 @@ func ResourceTransitGatewayConnect() *schema.Resource {
 				Optional:     true,
 				ForceNew:     true,
 				Default:      ec2.ProtocolValueGre,
-				ValidateFunc: validation.StringInSlice(ec2.ProtocolValue_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.ProtocolValue_Values(), false),
 			},
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
@@ -66,17 +68,20 @@ func ResourceTransitGatewayConnect() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.NoZeroValues,
+				Validate
+func: validation.NoZeroValues,
 			},
 			"transport_attachment_id": {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.NoZeroValues,
+				Validate
+func: validation.NoZeroValues,
 			},
 		},
 	}
 }
+
 
 func resourceTransitGatewayConnectCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -129,6 +134,7 @@ func resourceTransitGatewayConnectCreate(ctx context.Context, d *schema.Resource
 
 	return resourceTransitGatewayConnectRead(ctx, d, meta)
 }
+
 
 func resourceTransitGatewayConnectRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -199,6 +205,7 @@ func resourceTransitGatewayConnectRead(ctx context.Context, d *schema.ResourceDa
 	return nil
 }
 
+
 func resourceTransitGatewayConnectUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
@@ -225,6 +232,7 @@ func resourceTransitGatewayConnectUpdate(ctx context.Context, d *schema.Resource
 
 	return resourceTransitGatewayConnectRead(ctx, d, meta)
 }
+
 
 func resourceTransitGatewayConnectDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)

@@ -17,6 +17,7 @@ import (
 )
 
 // @SDKDataSource("aws_eips")
+
 func DataSourceEIPs() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceEIPsRead,

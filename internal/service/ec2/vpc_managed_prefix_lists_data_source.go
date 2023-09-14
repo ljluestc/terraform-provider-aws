@@ -15,6 +15,7 @@ import (
 )
 
 // @SDKDataSource("aws_ec2_managed_prefix_lists")
+
 func DataSourceManagedPrefixLists() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceManagedPrefixListsRead,

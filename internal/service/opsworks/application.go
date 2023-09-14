@@ -22,6 +22,7 @@ import (
 )
 
 // @SDKResource("aws_opsworks_application")
+
 func ResourceApplication() *schema.Resource {
 	return &schema.Resource{
 
@@ -47,7 +48,8 @@ func ResourceApplication() *schema.Resource {
 			"type": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: validation.StringInSlice(opsworks.AppType_Values(), false),
+				Validate
+func: validation.StringInSlice(opsworks.AppType_Values(), false),
 			},
 			"stack_id": {
 				Type:     schema.TypeString,
@@ -82,7 +84,8 @@ func ResourceApplication() *schema.Resource {
 						"type": {
 							Type:         schema.TypeString,
 							Required:     true,
-							ValidateFunc: validation.StringInSlice(append(opsworks.SourceType_Values(), "other"), false),
+							Validate
+func: validation.StringInSlice(append(opsworks.SourceType_Values(), "other"), false),
 						},
 
 						"url": {
@@ -117,7 +120,8 @@ func ResourceApplication() *schema.Resource {
 			"data_source_type": {
 				Type:     schema.TypeString,
 				Optional: true,
-				ValidateFunc: validation.StringInSlice([]string{
+				Validate
+func: validation.StringInSlice([]string{
 					"AutoSelectOpsworksMysqlInstance",
 					"OpsworksMysqlInstance",
 					"RdsDbInstance",
@@ -131,7 +135,8 @@ func ResourceApplication() *schema.Resource {
 			"data_source_arn": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			"description": {
 				Type:     schema.TypeString,
@@ -177,7 +182,9 @@ func ResourceApplication() *schema.Resource {
 						"certificate": {
 							Type:     schema.TypeString,
 							Required: true,
-							StateFunc: func(v interface{}) string {
+							State
+func: 
+func(v interface{}) string {
 								switch v := v.(type) {
 								case string:
 									return strings.TrimSpace(v)
@@ -190,7 +197,9 @@ func ResourceApplication() *schema.Resource {
 							Type:      schema.TypeString,
 							Required:  true,
 							Sensitive: true,
-							StateFunc: func(v interface{}) string {
+							State
+func: 
+func(v interface{}) string {
 								switch v := v.(type) {
 								case string:
 									return strings.TrimSpace(v)
@@ -202,7 +211,9 @@ func ResourceApplication() *schema.Resource {
 						"chain": {
 							Type:     schema.TypeString,
 							Optional: true,
-							StateFunc: func(v interface{}) string {
+							State
+func: 
+func(v interface{}) string {
 								switch v := v.(type) {
 								case string:
 									return strings.TrimSpace(v)
@@ -217,6 +228,7 @@ func ResourceApplication() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceApplicationValidate(d *schema.ResourceData) error {
 	appSourceCount := d.Get("app_source.#").(int)
@@ -259,6 +271,7 @@ func resourceApplicationValidate(d *schema.ResourceData) error {
 
 	return nil
 }
+
 
 func resourceApplicationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -308,6 +321,7 @@ func resourceApplicationRead(ctx context.Context, d *schema.ResourceData, meta i
 	return diags
 }
 
+
 func resourceApplicationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).OpsWorksConn(ctx)
@@ -342,6 +356,7 @@ func resourceApplicationCreate(ctx context.Context, d *schema.ResourceData, meta
 	return append(diags, resourceApplicationRead(ctx, d, meta)...)
 }
 
+
 func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).OpsWorksConn(ctx)
@@ -375,6 +390,7 @@ func resourceApplicationUpdate(ctx context.Context, d *schema.ResourceData, meta
 	return append(diags, resourceApplicationRead(ctx, d, meta)...)
 }
 
+
 func resourceApplicationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).OpsWorksConn(ctx)
@@ -395,6 +411,7 @@ func resourceApplicationDelete(ctx context.Context, d *schema.ResourceData, meta
 	return diags
 }
 
+
 func resourceFindEnvironmentVariable(key string, vs []*opsworks.EnvironmentVariable) *opsworks.EnvironmentVariable {
 	for _, v := range vs {
 		if aws.StringValue(v.Key) == key {
@@ -403,6 +420,7 @@ func resourceFindEnvironmentVariable(key string, vs []*opsworks.EnvironmentVaria
 	}
 	return nil
 }
+
 
 func resourceSetApplicationEnvironmentVariable(d *schema.ResourceData, vs []*opsworks.EnvironmentVariable) {
 	if len(vs) == 0 {
@@ -433,6 +451,7 @@ func resourceSetApplicationEnvironmentVariable(d *schema.ResourceData, vs []*ops
 	d.Set("environment", values)
 }
 
+
 func resourceApplicationEnvironmentVariable(d *schema.ResourceData) []*opsworks.EnvironmentVariable {
 	environmentVariables := d.Get("environment").(*schema.Set).List()
 	result := make([]*opsworks.EnvironmentVariable, len(environmentVariables))
@@ -449,6 +468,7 @@ func resourceApplicationEnvironmentVariable(d *schema.ResourceData) []*opsworks.
 	return result
 }
 
+
 func resourceApplicationSource(d *schema.ResourceData) *opsworks.Source {
 	count := d.Get("app_source.#").(int)
 	if count == 0 {
@@ -464,6 +484,7 @@ func resourceApplicationSource(d *schema.ResourceData) *opsworks.Source {
 		SshKey:   aws.String(d.Get("app_source.0.ssh_key").(string)),
 	}
 }
+
 
 func resourceSetApplicationSource(d *schema.ResourceData, v *opsworks.Source) error {
 	nv := make([]interface{}, 0, 1)
@@ -494,6 +515,7 @@ func resourceSetApplicationSource(d *schema.ResourceData, v *opsworks.Source) er
 	return d.Set("app_source", nv)
 }
 
+
 func resourceApplicationsDataSource(d *schema.ResourceData) []*opsworks.DataSource {
 	arn := d.Get("data_source_arn").(string)
 	databaseName := d.Get("data_source_database_name").(string)
@@ -511,6 +533,7 @@ func resourceApplicationsDataSource(d *schema.ResourceData) []*opsworks.DataSour
 	return result
 }
 
+
 func resourceSetApplicationsDataSource(d *schema.ResourceData, v []*opsworks.DataSource) {
 	d.Set("data_source_arn", nil)
 	d.Set("data_source_database_name", nil)
@@ -525,6 +548,7 @@ func resourceSetApplicationsDataSource(d *schema.ResourceData, v []*opsworks.Dat
 	d.Set("data_source_type", v[0].Type)
 }
 
+
 func resourceApplicationSSL(d *schema.ResourceData) *opsworks.SslConfiguration {
 	count := d.Get("ssl_configuration.#").(int)
 	if count == 0 {
@@ -537,6 +561,7 @@ func resourceApplicationSSL(d *schema.ResourceData) *opsworks.SslConfiguration {
 		Chain:       aws.String(d.Get("ssl_configuration.0.chain").(string)),
 	}
 }
+
 
 func resourceSetApplicationSSL(d *schema.ResourceData, v *opsworks.SslConfiguration) error {
 	nv := make([]interface{}, 0, 1)
@@ -563,6 +588,7 @@ func resourceSetApplicationSSL(d *schema.ResourceData, v *opsworks.SslConfigurat
 	return d.Set("ssl_configuration", nv)
 }
 
+
 func resourceApplicationAttributes(d *schema.ResourceData) map[string]*string {
 	attributes := make(map[string]*string)
 
@@ -586,6 +612,7 @@ func resourceApplicationAttributes(d *schema.ResourceData) map[string]*string {
 
 	return attributes
 }
+
 
 func resourceSetApplicationAttributes(d *schema.ResourceData, v map[string]*string) {
 	d.Set("document_root", nil)

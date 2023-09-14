@@ -13,6 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccQuickSightDataSetDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -21,7 +22,8 @@ func TestAccQuickSightDataSetDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_quicksight_data_set.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 		},
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
@@ -29,13 +31,15 @@ func TestAccQuickSightDataSetDataSource_basic(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSetDataSourceConfig_basic(rId, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
 				),
 			},
 		},
 	})
 }
+
 
 func testAccDataSetDataSourceConfig_basic(rId, rName string) string {
 	return acctest.ConfigCompose(

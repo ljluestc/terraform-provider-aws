@@ -18,6 +18,7 @@ import (
 )
 
 // @SDKResource("aws_main_route_table_association")
+
 func ResourceMainRouteTableAssociation() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceMainRouteTableAssociationCreate,

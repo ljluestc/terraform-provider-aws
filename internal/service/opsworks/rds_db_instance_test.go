@@ -18,6 +18,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccOpsWorksRDSDBInstance_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -29,14 +30,16 @@ func TestAccOpsWorksRDSDBInstance_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
 		ErrorCheck:               acctest.ErrorCheck(t, opsworks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckRDSDBInstanceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRDSDBInstanceConfig_basic(rName, "user1", "password1"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckRDSDBInstanceExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "db_password", "password1"),
 					resource.TestCheckResourceAttr(resourceName, "db_user", "user1"),
@@ -44,7 +47,8 @@ func TestAccOpsWorksRDSDBInstance_basic(t *testing.T) {
 			},
 			{
 				Config: testAccRDSDBInstanceConfig_basic(rName, "user2", "password1"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckRDSDBInstanceExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "db_password", "password1"),
 					resource.TestCheckResourceAttr(resourceName, "db_user", "user2"),
@@ -52,7 +56,8 @@ func TestAccOpsWorksRDSDBInstance_basic(t *testing.T) {
 			},
 			{
 				Config: testAccRDSDBInstanceConfig_basic(rName, "user2", "password2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckRDSDBInstanceExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "db_password", "password2"),
 					resource.TestCheckResourceAttr(resourceName, "db_user", "user2"),
@@ -61,6 +66,7 @@ func TestAccOpsWorksRDSDBInstance_basic(t *testing.T) {
 		},
 	})
 }
+
 
 func TestAccOpsWorksRDSDBInstance_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -73,14 +79,16 @@ func TestAccOpsWorksRDSDBInstance_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
 		ErrorCheck:               acctest.ErrorCheck(t, opsworks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckRDSDBInstanceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRDSDBInstanceConfig_basic(rName, "user1", "password1"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckRDSDBInstanceExists(ctx, resourceName, &v),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfopsworks.ResourceRDSDBInstance(), resourceName),
 				),
@@ -90,8 +98,11 @@ func TestAccOpsWorksRDSDBInstance_disappears(t *testing.T) {
 	})
 }
 
-func testAccCheckRDSDBInstanceExists(ctx context.Context, n string, v *opsworks.RdsDbInstance) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckRDSDBInstanceExists(ctx context.Context, n string, v *opsworks.RdsDbInstance) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -115,8 +126,11 @@ func testAccCheckRDSDBInstanceExists(ctx context.Context, n string, v *opsworks.
 	}
 }
 
-func testAccCheckRDSDBInstanceDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckRDSDBInstanceDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).OpsWorksConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -140,6 +154,7 @@ func testAccCheckRDSDBInstanceDestroy(ctx context.Context) resource.TestCheckFun
 		return nil
 	}
 }
+
 
 func testAccRDSDBInstanceConfig_basic(rName, userName, password string) string {
 	return acctest.ConfigCompose(testAccStackConfig_basic(rName), fmt.Sprintf(`

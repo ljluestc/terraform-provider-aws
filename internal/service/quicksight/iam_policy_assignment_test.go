@@ -20,6 +20,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
+
 func TestAccQuickSightIAMPolicyAssignment_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var assignment quicksight.IAMPolicyAssignment
@@ -27,14 +28,16 @@ func TestAccQuickSightIAMPolicyAssignment_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckIAMPolicyAssignmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIAMPolicyAssignmentConfig_basic(rName, quicksight.AssignmentStatusEnabled),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckIAMPolicyAssignmentExists(ctx, resourceName, &assignment),
 					resource.TestCheckResourceAttr(resourceName, "assignment_name", rName),
 					resource.TestCheckResourceAttr(resourceName, "assignment_status", quicksight.AssignmentStatusEnabled),
@@ -50,6 +53,7 @@ func TestAccQuickSightIAMPolicyAssignment_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccQuickSightIAMPolicyAssignment_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var assignment quicksight.IAMPolicyAssignment
@@ -57,14 +61,16 @@ func TestAccQuickSightIAMPolicyAssignment_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckIAMPolicyAssignmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIAMPolicyAssignmentConfig_basic(rName, quicksight.AssignmentStatusEnabled),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckIAMPolicyAssignmentExists(ctx, resourceName, &assignment),
 					acctest.CheckFrameworkResourceDisappears(ctx, acctest.Provider, tfquicksight.ResourceIAMPolicyAssignment, resourceName),
 				),
@@ -74,6 +80,7 @@ func TestAccQuickSightIAMPolicyAssignment_disappears(t *testing.T) {
 	})
 }
 
+
 func TestAccQuickSightIAMPolicyAssignment_assignmentStatus(t *testing.T) {
 	ctx := acctest.Context(t)
 	var assignment quicksight.IAMPolicyAssignment
@@ -81,14 +88,16 @@ func TestAccQuickSightIAMPolicyAssignment_assignmentStatus(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckIAMPolicyAssignmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIAMPolicyAssignmentConfig_basic(rName, quicksight.AssignmentStatusDraft),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckIAMPolicyAssignmentExists(ctx, resourceName, &assignment),
 					resource.TestCheckResourceAttr(resourceName, "assignment_name", rName),
 					resource.TestCheckResourceAttr(resourceName, "assignment_status", quicksight.AssignmentStatusDraft),
@@ -102,7 +111,8 @@ func TestAccQuickSightIAMPolicyAssignment_assignmentStatus(t *testing.T) {
 			},
 			{
 				Config: testAccIAMPolicyAssignmentConfig_basic(rName, quicksight.AssignmentStatusEnabled),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckIAMPolicyAssignmentExists(ctx, resourceName, &assignment),
 					resource.TestCheckResourceAttr(resourceName, "assignment_name", rName),
 					resource.TestCheckResourceAttr(resourceName, "assignment_status", quicksight.AssignmentStatusEnabled),
@@ -111,7 +121,8 @@ func TestAccQuickSightIAMPolicyAssignment_assignmentStatus(t *testing.T) {
 			},
 			{
 				Config: testAccIAMPolicyAssignmentConfig_basic(rName, quicksight.AssignmentStatusDisabled),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckIAMPolicyAssignmentExists(ctx, resourceName, &assignment),
 					resource.TestCheckResourceAttr(resourceName, "assignment_name", rName),
 					resource.TestCheckResourceAttr(resourceName, "assignment_status", quicksight.AssignmentStatusDisabled),
@@ -122,6 +133,7 @@ func TestAccQuickSightIAMPolicyAssignment_assignmentStatus(t *testing.T) {
 	})
 }
 
+
 func TestAccQuickSightIAMPolicyAssignment_identities(t *testing.T) {
 	ctx := acctest.Context(t)
 	var assignment quicksight.IAMPolicyAssignment
@@ -131,14 +143,16 @@ func TestAccQuickSightIAMPolicyAssignment_identities(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckIAMPolicyAssignmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIAMPolicyAssignmentConfig_identities(rName, quicksight.AssignmentStatusEnabled),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckIAMPolicyAssignmentExists(ctx, resourceName, &assignment),
 					resource.TestCheckResourceAttr(resourceName, "assignment_name", rName),
 					resource.TestCheckResourceAttr(resourceName, "assignment_status", quicksight.AssignmentStatusEnabled),
@@ -158,8 +172,11 @@ func TestAccQuickSightIAMPolicyAssignment_identities(t *testing.T) {
 	})
 }
 
-func testAccCheckIAMPolicyAssignmentExists(ctx context.Context, resourceName string, assignment *quicksight.IAMPolicyAssignment) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckIAMPolicyAssignmentExists(ctx context.Context, resourceName string, assignment *quicksight.IAMPolicyAssignment) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("Not found: %s", resourceName)
@@ -177,8 +194,11 @@ func testAccCheckIAMPolicyAssignmentExists(ctx context.Context, resourceName str
 	}
 }
 
-func testAccCheckIAMPolicyAssignmentDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckIAMPolicyAssignmentDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_quicksight_iam_policy_assignment" {
@@ -202,6 +222,7 @@ func testAccCheckIAMPolicyAssignmentDestroy(ctx context.Context) resource.TestCh
 	}
 }
 
+
 func testAccIAMPolicyAssignmentConfig_basic(rName, assignmentStatus string) string {
 	return fmt.Sprintf(`
 resource "aws_quicksight_iam_policy_assignment" "test" {
@@ -210,6 +231,7 @@ resource "aws_quicksight_iam_policy_assignment" "test" {
 }
 `, rName, assignmentStatus)
 }
+
 
 func testAccIAMPolicyAssignmentConfig_identities(rName, assignmentStatus string) string {
 	return fmt.Sprintf(`

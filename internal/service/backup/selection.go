@@ -27,6 +27,7 @@ import (
 )
 
 // @SDKResource("aws_backup_selection")
+
 func ResourceSelection() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceSelectionCreate,
@@ -41,7 +42,8 @@ func ResourceSelection() *schema.Resource {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
-				ValidateFunc: validation.All(
+				Validate
+func: validation.All(
 					validation.StringLenBetween(1, 50),
 					validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_.-]+$`), "must contain only alphanumeric, hyphen, underscore, and period characters"),
 				),
@@ -141,7 +143,8 @@ func ResourceSelection() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			"selection_tag": {
 				Type:     schema.TypeSet,
@@ -153,7 +156,8 @@ func ResourceSelection() *schema.Resource {
 							Type:     schema.TypeString,
 							Required: true,
 							ForceNew: true,
-							ValidateFunc: validation.StringInSlice([]string{
+							Validate
+func: validation.StringInSlice([]string{
 								backup.ConditionTypeStringequals,
 							}, false),
 						},
@@ -187,6 +191,7 @@ func ResourceSelection() *schema.Resource {
 	}
 }
 
+
 func resourceSelectionCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).BackupConn(ctx)
@@ -207,7 +212,8 @@ func resourceSelectionCreate(ctx context.Context, d *schema.ResourceData, meta i
 
 	// Retry for IAM eventual consistency
 	var output *backup.CreateBackupSelectionOutput
-	err := retry.RetryContext(ctx, propagationTimeout, func() *retry.RetryError {
+	err := retry.RetryContext(ctx, propagationTimeout, 
+func() *retry.RetryError {
 		var err error
 		output, err = conn.CreateBackupSelectionWithContext(ctx, input)
 
@@ -245,6 +251,7 @@ func resourceSelectionCreate(ctx context.Context, d *schema.ResourceData, meta i
 	return append(diags, resourceSelectionRead(ctx, d, meta)...)
 }
 
+
 func resourceSelectionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).BackupConn(ctx)
@@ -256,7 +263,8 @@ func resourceSelectionRead(ctx context.Context, d *schema.ResourceData, meta int
 
 	var resp *backup.GetBackupSelectionOutput
 
-	err := retry.RetryContext(ctx, propagationTimeout, func() *retry.RetryError {
+	err := retry.RetryContext(ctx, propagationTimeout, 
+func() *retry.RetryError {
 		var err error
 
 		resp, err = conn.GetBackupSelectionWithContext(ctx, input)
@@ -343,6 +351,7 @@ func resourceSelectionRead(ctx context.Context, d *schema.ResourceData, meta int
 	return diags
 }
 
+
 func resourceSelectionDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).BackupConn(ctx)
@@ -360,6 +369,7 @@ func resourceSelectionDelete(ctx context.Context, d *schema.ResourceData, meta i
 	return diags
 }
 
+
 func resourceSelectionImportState(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	idParts := strings.Split(d.Id(), "|")
 	if len(idParts) != 2 || idParts[0] == "" || idParts[1] == "" {
@@ -374,6 +384,7 @@ func resourceSelectionImportState(ctx context.Context, d *schema.ResourceData, m
 
 	return []*schema.ResourceData{d}, nil
 }
+
 
 func expandConditionTags(tagList []interface{}) []*backup.Condition {
 	conditions := []*backup.Condition{}
@@ -391,6 +402,7 @@ func expandConditionTags(tagList []interface{}) []*backup.Condition {
 
 	return conditions
 }
+
 
 func expandConditions(conditionsList []interface{}) *backup.Conditions {
 	conditions := &backup.Conditions{}
@@ -415,6 +427,7 @@ func expandConditions(conditionsList []interface{}) *backup.Conditions {
 	return conditions
 }
 
+
 func expandConditionParameters(conditionParametersList []interface{}) []*backup.ConditionParameter {
 	conditionParameters := []*backup.ConditionParameter{}
 
@@ -431,6 +444,7 @@ func expandConditionParameters(conditionParametersList []interface{}) []*backup.
 	return conditionParameters
 }
 
+
 func flattenConditions(conditions *backup.Conditions) *schema.Set {
 	var vConditions []interface{}
 
@@ -445,6 +459,7 @@ func flattenConditions(conditions *backup.Conditions) *schema.Set {
 
 	return schema.NewSet(conditionsHash, vConditions)
 }
+
 
 func conditionsHash(vCondition interface{}) int {
 	var buf bytes.Buffer
@@ -469,6 +484,7 @@ func conditionsHash(vCondition interface{}) int {
 
 	return create.StringHashcode(buf.String())
 }
+
 
 func flattenConditionParameters(conditionParameters []*backup.ConditionParameter) []interface{} {
 	if len(conditionParameters) == 0 {

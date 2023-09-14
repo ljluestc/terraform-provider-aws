@@ -11,6 +11,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 )
 
+
 func filledMapVisualSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FilledMapVisual.html
 		Type:     schema.TypeList,
@@ -57,7 +58,8 @@ func filledMapVisualSchema() *schema.Schema {
 								Optional:         true,
 								MinItems:         1,
 								MaxItems:         1,
-								DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
+								DiffSuppress
+func: verify.SuppressMissingOptionalConfigurationBlock,
 								Elem: &schema.Resource{
 									Schema: map[string]*schema.Schema{
 										"category_sort": fieldSortOptionsSchema(fieldSortOptionsMaxItems100), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FieldSortOptions.html,
@@ -119,6 +121,7 @@ func filledMapVisualSchema() *schema.Schema {
 	}
 }
 
+
 func expandFilledMapVisual(tfList []interface{}) *quicksight.FilledMapVisual {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -156,6 +159,7 @@ func expandFilledMapVisual(tfList []interface{}) *quicksight.FilledMapVisual {
 	return visual
 }
 
+
 func expandFilledMapConfiguration(tfList []interface{}) *quicksight.FilledMapConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -190,6 +194,7 @@ func expandFilledMapConfiguration(tfList []interface{}) *quicksight.FilledMapCon
 	return config
 }
 
+
 func expandFilledMapFieldWells(tfList []interface{}) *quicksight.FilledMapFieldWells {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -208,6 +213,7 @@ func expandFilledMapFieldWells(tfList []interface{}) *quicksight.FilledMapFieldW
 
 	return config
 }
+
 
 func expandFilledMapAggregatedFieldWells(tfList []interface{}) *quicksight.FilledMapAggregatedFieldWells {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -231,6 +237,7 @@ func expandFilledMapAggregatedFieldWells(tfList []interface{}) *quicksight.Fille
 	return config
 }
 
+
 func expandFilledMapSortConfiguration(tfList []interface{}) *quicksight.FilledMapSortConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -250,6 +257,7 @@ func expandFilledMapSortConfiguration(tfList []interface{}) *quicksight.FilledMa
 	return config
 }
 
+
 func expandFilledMapConditionalFormatting(tfList []interface{}) *quicksight.FilledMapConditionalFormatting {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -268,6 +276,7 @@ func expandFilledMapConditionalFormatting(tfList []interface{}) *quicksight.Fill
 
 	return config
 }
+
 
 func expandFilledMapConditionalFormattingOptions(tfList []interface{}) []*quicksight.FilledMapConditionalFormattingOption {
 	if len(tfList) == 0 {
@@ -292,6 +301,7 @@ func expandFilledMapConditionalFormattingOptions(tfList []interface{}) []*quicks
 	return options
 }
 
+
 func expandFilledMapConditionalFormattingOption(tfMap map[string]interface{}) *quicksight.FilledMapConditionalFormattingOption {
 	if tfMap == nil {
 		return nil
@@ -305,6 +315,7 @@ func expandFilledMapConditionalFormattingOption(tfMap map[string]interface{}) *q
 
 	return options
 }
+
 
 func expandFilledMapShapeConditionalFormatting(tfList []interface{}) *quicksight.FilledMapShapeConditionalFormatting {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -328,6 +339,7 @@ func expandFilledMapShapeConditionalFormatting(tfList []interface{}) *quicksight
 	return options
 }
 
+
 func expandShapeConditionalFormat(tfList []interface{}) *quicksight.ShapeConditionalFormat {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -346,6 +358,7 @@ func expandShapeConditionalFormat(tfList []interface{}) *quicksight.ShapeConditi
 
 	return options
 }
+
 
 func flattenFilledMapVisual(apiObject *quicksight.FilledMapVisual) []interface{} {
 	if apiObject == nil {
@@ -377,6 +390,7 @@ func flattenFilledMapVisual(apiObject *quicksight.FilledMapVisual) []interface{}
 	return []interface{}{tfMap}
 }
 
+
 func flattenFilledMapConfiguration(apiObject *quicksight.FilledMapConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -405,6 +419,7 @@ func flattenFilledMapConfiguration(apiObject *quicksight.FilledMapConfiguration)
 	return []interface{}{tfMap}
 }
 
+
 func flattenFilledMapFieldWells(apiObject *quicksight.FilledMapFieldWells) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -417,6 +432,7 @@ func flattenFilledMapFieldWells(apiObject *quicksight.FilledMapFieldWells) []int
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenFilledMapAggregatedFieldWells(apiObject *quicksight.FilledMapAggregatedFieldWells) []interface{} {
 	if apiObject == nil {
@@ -434,6 +450,7 @@ func flattenFilledMapAggregatedFieldWells(apiObject *quicksight.FilledMapAggrega
 	return []interface{}{tfMap}
 }
 
+
 func flattenFilledMapSortConfiguration(apiObject *quicksight.FilledMapSortConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -447,6 +464,7 @@ func flattenFilledMapSortConfiguration(apiObject *quicksight.FilledMapSortConfig
 	return []interface{}{tfMap}
 }
 
+
 func flattenFilledMapConditionalFormatting(apiObject *quicksight.FilledMapConditionalFormatting) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -459,6 +477,7 @@ func flattenFilledMapConditionalFormatting(apiObject *quicksight.FilledMapCondit
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenFilledMapConditionalFormattingOption(apiObject []*quicksight.FilledMapConditionalFormattingOption) []interface{} {
 	if len(apiObject) == 0 {
@@ -482,6 +501,7 @@ func flattenFilledMapConditionalFormattingOption(apiObject []*quicksight.FilledM
 	return tfList
 }
 
+
 func flattenFilledMapShapeConditionalFormatting(apiObject *quicksight.FilledMapShapeConditionalFormatting) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -497,6 +517,7 @@ func flattenFilledMapShapeConditionalFormatting(apiObject *quicksight.FilledMapS
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenShapeConditionalFormat(apiObject *quicksight.ShapeConditionalFormat) []interface{} {
 	if apiObject == nil {

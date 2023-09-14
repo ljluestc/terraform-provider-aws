@@ -13,6 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func testAccHoursOfOperationDataSource_hoursOfOperationID(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
@@ -20,13 +21,15 @@ func testAccHoursOfOperationDataSource_hoursOfOperationID(t *testing.T) {
 	datasourceName := "data.aws_connect_hours_of_operation.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccHoursOfOperationDataSourceConfig_id(rName, resourceName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(datasourceName, "hours_of_operation_id", resourceName, "hours_of_operation_id"),
 					resource.TestCheckResourceAttrPair(datasourceName, "instance_id", resourceName, "instance_id"),
@@ -40,6 +43,7 @@ func testAccHoursOfOperationDataSource_hoursOfOperationID(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccHoursOfOperationDataSource_name(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -49,13 +53,15 @@ func testAccHoursOfOperationDataSource_name(t *testing.T) {
 	datasourceName := "data.aws_connect_hours_of_operation.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccHoursOfOperationDataSourceConfig_name(rName, rName2),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(datasourceName, "hours_of_operation_id", resourceName, "hours_of_operation_id"),
 					resource.TestCheckResourceAttrPair(datasourceName, "instance_id", resourceName, "instance_id"),
@@ -69,6 +75,7 @@ func testAccHoursOfOperationDataSource_name(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccHoursOfOperationBaseDataSourceConfig(rName, rName2 string) string {
 	return fmt.Sprintf(`
@@ -120,6 +127,7 @@ resource "aws_connect_hours_of_operation" "test" {
 	`, rName, rName2)
 }
 
+
 func testAccHoursOfOperationDataSourceConfig_id(rName, rName2 string) string {
 	return fmt.Sprintf(testAccHoursOfOperationBaseDataSourceConfig(rName, rName2) + `
 data "aws_connect_hours_of_operation" "test" {
@@ -128,6 +136,7 @@ data "aws_connect_hours_of_operation" "test" {
 }
 `)
 }
+
 
 func testAccHoursOfOperationDataSourceConfig_name(rName, rName2 string) string {
 	return fmt.Sprintf(testAccHoursOfOperationBaseDataSourceConfig(rName, rName2) + `

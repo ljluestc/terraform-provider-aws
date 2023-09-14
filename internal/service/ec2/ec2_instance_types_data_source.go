@@ -16,6 +16,7 @@ import (
 )
 
 // @SDKDataSource("aws_ec2_instance_types")
+
 func DataSourceInstanceTypes() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceInstanceTypesRead,

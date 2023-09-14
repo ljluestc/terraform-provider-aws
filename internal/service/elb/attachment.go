@@ -22,6 +22,7 @@ import (
 )
 
 // @SDKResource("aws_elb_attachment")
+
 func ResourceAttachment() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceAttachmentCreate,
@@ -58,19 +59,20 @@ func resourceAttachmentCreate(ctx context.Context, d *schema.ResourceData, meta 
 
 	log.Printf("[INFO] registering instance %s with ELB %s", instance, elbName)
 
-	err := retry.RetryContext(ctx, 10*time.Minute, func() *retry.RetryError {
-		_, err := conn.RegisterInstancesWithLoadBalancerWithContext(ctx, &registerInstancesOpts)
+	err := retry.RetryContext(ctx, 10*time.Minute,
+		func() *retry.RetryError {
+			_, err := conn.RegisterInstancesWithLoadBalancerWithContext(ctx, &registerInstancesOpts)
 
-		if tfawserr.ErrCodeEquals(err, "InvalidTarget") {
-			return retry.RetryableError(fmt.Errorf("attaching instance to ELB, retrying: %s", err))
-		}
+			if tfawserr.ErrCodeEquals(err, "InvalidTarget") {
+				return retry.RetryableError(fmt.Errorf("attaching instance to ELB, retrying: %s", err))
+			}
 
-		if err != nil {
-			return retry.NonRetryableError(err)
-		}
+			if err != nil {
+				return retry.NonRetryableError(err)
+			}
 
-		return nil
-	})
+			return nil
+		})
 	if tfresource.TimedOut(err) {
 		_, err = conn.RegisterInstancesWithLoadBalancerWithContext(ctx, &registerInstancesOpts)
 	}

@@ -36,6 +36,7 @@ const (
 
 // @SDKResource("aws_ami", name="AMI")
 // @Tags(identifierAttribute="id")
+
 func ResourceAMI() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceAMICreate,
@@ -62,7 +63,8 @@ func ResourceAMI() *schema.Resource {
 				Optional:     true,
 				ForceNew:     true,
 				Default:      ec2.ArchitectureValuesX8664,
-				ValidateFunc: validation.StringInSlice(ec2.ArchitectureValues_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.ArchitectureValues_Values(), false),
 			},
 			"arn": {
 				Type:     schema.TypeString,
@@ -72,13 +74,16 @@ func ResourceAMI() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringInSlice(ec2.BootModeValues_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.BootModeValues_Values(), false),
 			},
 			"deprecation_time": {
 				Type:                  schema.TypeString,
 				Optional:              true,
-				ValidateFunc:          validation.IsRFC3339Time,
-				DiffSuppressFunc:      verify.SuppressEquivalentRoundedTime(time.RFC3339, time.Minute),
+				Validate
+func:          validation.IsRFC3339Time,
+				DiffSuppress
+func:      verify.SuppressEquivalentRoundedTime(time.RFC3339, time.Minute),
 				DiffSuppressOnRefresh: true,
 			},
 			"description": {
@@ -122,7 +127,8 @@ func ResourceAMI() *schema.Resource {
 							Type:         schema.TypeString,
 							Optional:     true,
 							ForceNew:     true,
-							ValidateFunc: verify.ValidARN,
+							Validate
+func: verify.ValidARN,
 						},
 						"snapshot_id": {
 							Type:     schema.TypeString,
@@ -146,11 +152,13 @@ func ResourceAMI() *schema.Resource {
 							Optional:     true,
 							ForceNew:     true,
 							Default:      ec2.VolumeTypeStandard,
-							ValidateFunc: validation.StringInSlice(ec2.VolumeType_Values(), false),
+							Validate
+func: validation.StringInSlice(ec2.VolumeType_Values(), false),
 						},
 					},
 				},
-				Set: func(v interface{}) int {
+				Set: 
+func(v interface{}) int {
 					var buf bytes.Buffer
 					m := v.(map[string]interface{})
 					buf.WriteString(fmt.Sprintf("%s-", m["device_name"].(string)))
@@ -180,7 +188,8 @@ func ResourceAMI() *schema.Resource {
 						},
 					},
 				},
-				Set: func(v interface{}) int {
+				Set: 
+func(v interface{}) int {
 					var buf bytes.Buffer
 					m := v.(map[string]interface{})
 					buf.WriteString(fmt.Sprintf("%s-", m["device_name"].(string)))
@@ -210,7 +219,8 @@ func ResourceAMI() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				ForceNew:     true, // this attribute can only be set at registration time
-				ValidateFunc: validation.StringInSlice([]string{"v2.0"}, false),
+				Validate
+func: validation.StringInSlice([]string{"v2.0"}, false),
 			},
 			"kernel_id": {
 				Type:     schema.TypeString,
@@ -272,7 +282,8 @@ func ResourceAMI() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringInSlice(ec2.TpmSupportValues_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.TpmSupportValues_Values(), false),
 			},
 			"usage_operation": {
 				Type:     schema.TypeString,
@@ -283,13 +294,15 @@ func ResourceAMI() *schema.Resource {
 				Optional:     true,
 				ForceNew:     true,
 				Default:      ec2.VirtualizationTypeParavirtual,
-				ValidateFunc: validation.StringInSlice(ec2.VirtualizationType_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.VirtualizationType_Values(), false),
 			},
 		},
 
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
+
 
 func resourceAMICreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -384,11 +397,13 @@ func resourceAMICreate(ctx context.Context, d *schema.ResourceData, meta interfa
 	return append(diags, resourceAMIRead(ctx, d, meta)...)
 }
 
+
 func resourceAMIRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout, func() (interface{}, error) {
+	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout, 
+func() (interface{}, error) {
 		return FindImageByID(ctx, conn, d.Id())
 	}, d.IsNewResource())
 
@@ -461,6 +476,7 @@ func resourceAMIRead(ctx context.Context, d *schema.ResourceData, meta interface
 	return diags
 }
 
+
 func resourceAMIUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -486,6 +502,7 @@ func resourceAMIUpdate(ctx context.Context, d *schema.ResourceData, meta interfa
 
 	return append(diags, resourceAMIRead(ctx, d, meta)...)
 }
+
 
 func resourceAMIDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -538,6 +555,7 @@ func resourceAMIDelete(ctx context.Context, d *schema.ResourceData, meta interfa
 	return diags
 }
 
+
 func enableImageDeprecation(ctx context.Context, conn *ec2.EC2, id string, deprecateAt string) error {
 	v, _ := time.Parse(time.RFC3339, deprecateAt)
 	input := &ec2.EnableImageDeprecationInput{
@@ -553,6 +571,7 @@ func enableImageDeprecation(ctx context.Context, conn *ec2.EC2, id string, depre
 
 	return nil
 }
+
 
 func expandBlockDeviceMappingForAMIEBSBlockDevice(tfMap map[string]interface{}) *ec2.BlockDeviceMapping {
 	if tfMap == nil {
@@ -601,6 +620,7 @@ func expandBlockDeviceMappingForAMIEBSBlockDevice(tfMap map[string]interface{}) 
 	return apiObject
 }
 
+
 func expandBlockDeviceMappingsForAMIEBSBlockDevice(tfList []interface{}) []*ec2.BlockDeviceMapping {
 	if len(tfList) == 0 {
 		return nil
@@ -626,6 +646,7 @@ func expandBlockDeviceMappingsForAMIEBSBlockDevice(tfList []interface{}) []*ec2.
 
 	return apiObjects
 }
+
 
 func flattenBlockDeviceMappingForAMIEBSBlockDevice(apiObject *ec2.BlockDeviceMapping) map[string]interface{} {
 	if apiObject == nil {
@@ -677,6 +698,7 @@ func flattenBlockDeviceMappingForAMIEBSBlockDevice(apiObject *ec2.BlockDeviceMap
 	return tfMap
 }
 
+
 func flattenBlockDeviceMappingsForAMIEBSBlockDevice(apiObjects []*ec2.BlockDeviceMapping) []interface{} {
 	if len(apiObjects) == 0 {
 		return nil
@@ -699,6 +721,7 @@ func flattenBlockDeviceMappingsForAMIEBSBlockDevice(apiObjects []*ec2.BlockDevic
 	return tfList
 }
 
+
 func expandBlockDeviceMappingForAMIEphemeralBlockDevice(tfMap map[string]interface{}) *ec2.BlockDeviceMapping {
 	if tfMap == nil {
 		return nil
@@ -716,6 +739,7 @@ func expandBlockDeviceMappingForAMIEphemeralBlockDevice(tfMap map[string]interfa
 
 	return apiObject
 }
+
 
 func expandBlockDeviceMappingsForAMIEphemeralBlockDevice(tfList []interface{}) []*ec2.BlockDeviceMapping {
 	if len(tfList) == 0 {
@@ -743,6 +767,7 @@ func expandBlockDeviceMappingsForAMIEphemeralBlockDevice(tfList []interface{}) [
 	return apiObjects
 }
 
+
 func flattenBlockDeviceMappingForAMIEphemeralBlockDevice(apiObject *ec2.BlockDeviceMapping) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -760,6 +785,7 @@ func flattenBlockDeviceMappingForAMIEphemeralBlockDevice(apiObject *ec2.BlockDev
 
 	return tfMap
 }
+
 
 func flattenBlockDeviceMappingsForAMIEphemeralBlockDevice(apiObjects []*ec2.BlockDeviceMapping) []interface{} {
 	if len(apiObjects) == 0 {

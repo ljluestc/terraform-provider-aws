@@ -12,6 +12,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccRoute53ResolverQueryLogConfigDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 
@@ -20,7 +21,8 @@ func TestAccRoute53ResolverQueryLogConfigDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_route53_resolver_query_log_config.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, route53resolver.EndpointsID)
 			testAccPreCheck(ctx, t)
@@ -30,7 +32,8 @@ func TestAccRoute53ResolverQueryLogConfigDataSource_basic(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccQueryLogConfigDataSourceConfig_basic(rName, "key1", "value1"),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(dataSourceName, "destination_arn", resourceName, "destination_arn"),
 					resource.TestCheckResourceAttrPair(dataSourceName, "id", resourceName, "id"),
@@ -46,6 +49,7 @@ func TestAccRoute53ResolverQueryLogConfigDataSource_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccRoute53ResolverQueryLogConfigDataSource_filter(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -53,7 +57,8 @@ func TestAccRoute53ResolverQueryLogConfigDataSource_filter(t *testing.T) {
 	dataSourceName := "data.aws_route53_resolver_query_log_config.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, route53resolver.EndpointsID)
 			testAccPreCheck(ctx, t)
@@ -63,7 +68,8 @@ func TestAccRoute53ResolverQueryLogConfigDataSource_filter(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccQueryLogConfigDataSourceConfig_filter(rName, "key1", "value1"),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(dataSourceName, "destination_arn", resourceName, "destination_arn"),
 					resource.TestCheckResourceAttrPair(dataSourceName, "id", resourceName, "id"),
@@ -79,6 +85,7 @@ func TestAccRoute53ResolverQueryLogConfigDataSource_filter(t *testing.T) {
 	})
 }
 
+
 func testAccQueryLogConfigDataSourceConfig_basic(rName string, tagKey string, tagValue string) string {
 	return acctest.ConfigCompose(testAccQueryLogConfigConfig_tags1(rName, tagKey, tagValue), `
 data "aws_route53_resolver_query_log_config" "test" {
@@ -86,6 +93,7 @@ data "aws_route53_resolver_query_log_config" "test" {
 }
 `)
 }
+
 
 func testAccQueryLogConfigDataSourceConfig_filter(rName string, tagKey string, tagValue string) string {
 	return acctest.ConfigCompose(testAccQueryLogConfigConfig_tags1(rName, tagKey, tagValue), `

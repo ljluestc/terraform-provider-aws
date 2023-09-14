@@ -15,6 +15,7 @@ import (
 )
 
 // @SDKResource("aws_ec2_tag")
+
 func ResourceTag() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceTagCreate,
@@ -45,6 +46,7 @@ func ResourceTag() *schema.Resource {
 	}
 }
 
+
 func resourceTagCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
@@ -60,6 +62,7 @@ func resourceTagCreate(ctx context.Context, d *schema.ResourceData, meta interfa
 
 	return resourceTagRead(ctx, d, meta)
 }
+
 
 func resourceTagRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -88,6 +91,7 @@ func resourceTagRead(ctx context.Context, d *schema.ResourceData, meta interface
 	return nil
 }
 
+
 func resourceTagUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 	identifier, key, err := tftags.GetResourceID(d.Id())
@@ -102,6 +106,7 @@ func resourceTagUpdate(ctx context.Context, d *schema.ResourceData, meta interfa
 
 	return resourceTagRead(ctx, d, meta)
 }
+
 
 func resourceTagDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)

@@ -13,6 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func FindBotAssociationV1ByNameAndRegionWithContext(ctx context.Context, conn *connect.Connect, instanceID, name, region string) (*connect.LexBot, error) {
 	var result *connect.LexBot
 
@@ -22,7 +23,8 @@ func FindBotAssociationV1ByNameAndRegionWithContext(ctx context.Context, conn *c
 		MaxResults: aws.Int64(ListBotsMaxResults),
 	}
 
-	err := conn.ListBotsPagesWithContext(ctx, input, func(page *connect.ListBotsOutput, lastPage bool) bool {
+	err := conn.ListBotsPagesWithContext(ctx, input, 
+func(page *connect.ListBotsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -64,26 +66,37 @@ func FindBotAssociationV1ByNameAndRegionWithContext(ctx context.Context, conn *c
 	return result, nil
 }
 
-func FindLambdaFunctionAssociationByARNWithContext(ctx context.Context, conn *connect.Connect, instanceID string, functionArn string) (string, error) {
+
+func FindLambda
+functionAssociationByARNWithContext(ctx context.Context, conn *connect.Connect, instanceID string, 
+functionArn string) (string, error) {
 	var result string
 
-	input := &connect.ListLambdaFunctionsInput{
+	input := &connect.ListLambda
+functionsInput{
 		InstanceId: aws.String(instanceID),
-		MaxResults: aws.Int64(ListLambdaFunctionsMaxResults),
+		MaxResults: aws.Int64(ListLambda
+functionsMaxResults),
 	}
 
-	err := conn.ListLambdaFunctionsPagesWithContext(ctx, input, func(page *connect.ListLambdaFunctionsOutput, lastPage bool) bool {
+	err := conn.ListLambda
+functionsPagesWithContext(ctx, input, 
+func(page *connect.ListLambda
+functionsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
 
-		for _, cf := range page.LambdaFunctions {
+		for _, cf := range page.Lambda
+functions {
 			if cf == nil {
 				continue
 			}
 
-			if aws.StringValue(cf) == functionArn {
-				result = functionArn
+			if aws.StringValue(cf) == 
+functionArn {
+				result = 
+functionArn
 				return false
 			}
 		}

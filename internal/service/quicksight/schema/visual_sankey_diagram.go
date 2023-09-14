@@ -10,6 +10,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 )
 
+
 func sankeyDiagramVisualSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_SankeyDiagramVisual.html
 		Type:     schema.TypeList,
@@ -56,7 +57,8 @@ func sankeyDiagramVisualSchema() *schema.Schema {
 								Optional:         true,
 								MinItems:         1,
 								MaxItems:         1,
-								DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
+								DiffSuppress
+func: verify.SuppressMissingOptionalConfigurationBlock,
 								Elem: &schema.Resource{
 									Schema: map[string]*schema.Schema{
 										"destination_items_limit": itemsLimitConfigurationSchema(),                     // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ItemsLimitConfiguration.html
@@ -74,6 +76,7 @@ func sankeyDiagramVisualSchema() *schema.Schema {
 		},
 	}
 }
+
 
 func expandSankeyDiagramVisual(tfList []interface{}) *quicksight.SankeyDiagramVisual {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -106,6 +109,7 @@ func expandSankeyDiagramVisual(tfList []interface{}) *quicksight.SankeyDiagramVi
 	return visual
 }
 
+
 func expandSankeyDiagramConfiguration(tfList []interface{}) *quicksight.SankeyDiagramChartConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -131,6 +135,7 @@ func expandSankeyDiagramConfiguration(tfList []interface{}) *quicksight.SankeyDi
 	return config
 }
 
+
 func expandSankeyDiagramFieldWells(tfList []interface{}) *quicksight.SankeyDiagramFieldWells {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -149,6 +154,7 @@ func expandSankeyDiagramFieldWells(tfList []interface{}) *quicksight.SankeyDiagr
 
 	return config
 }
+
 
 func expandSankeyDiagramAggregatedFieldWells(tfList []interface{}) *quicksight.SankeyDiagramAggregatedFieldWells {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -175,6 +181,7 @@ func expandSankeyDiagramAggregatedFieldWells(tfList []interface{}) *quicksight.S
 	return config
 }
 
+
 func expandSankeyDiagramSortConfiguration(tfList []interface{}) *quicksight.SankeyDiagramSortConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -200,6 +207,7 @@ func expandSankeyDiagramSortConfiguration(tfList []interface{}) *quicksight.Sank
 	return config
 }
 
+
 func flattenSankeyDiagramVisual(apiObject *quicksight.SankeyDiagramVisual) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -224,6 +232,7 @@ func flattenSankeyDiagramVisual(apiObject *quicksight.SankeyDiagramVisual) []int
 	return []interface{}{tfMap}
 }
 
+
 func flattenSankeyDiagramChartConfiguration(apiObject *quicksight.SankeyDiagramChartConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -243,6 +252,7 @@ func flattenSankeyDiagramChartConfiguration(apiObject *quicksight.SankeyDiagramC
 	return []interface{}{tfMap}
 }
 
+
 func flattenSankeyDiagramFieldWells(apiObject *quicksight.SankeyDiagramFieldWells) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -255,6 +265,7 @@ func flattenSankeyDiagramFieldWells(apiObject *quicksight.SankeyDiagramFieldWell
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenSankeyDiagramAggregatedFieldWells(apiObject *quicksight.SankeyDiagramAggregatedFieldWells) []interface{} {
 	if apiObject == nil {
@@ -274,6 +285,7 @@ func flattenSankeyDiagramAggregatedFieldWells(apiObject *quicksight.SankeyDiagra
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenSankeyDiagramSortConfiguration(apiObject *quicksight.SankeyDiagramSortConfiguration) []interface{} {
 	if apiObject == nil {

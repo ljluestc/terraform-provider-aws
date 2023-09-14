@@ -23,6 +23,7 @@ import (
 )
 
 // @SDKResource("aws_app_cookie_stickiness_policy")
+
 func ResourceAppCookieStickinessPolicy() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceAppCookieStickinessPolicyCreate,
@@ -53,7 +54,9 @@ func ResourceAppCookieStickinessPolicy() *schema.Resource {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
-				ValidateFunc: func(v interface{}, k string) (ws []string, es []error) {
+				Validate
+func: 
+func(v interface{}, k string) (ws []string, es []error) {
 					value := v.(string)
 					if !regexache.MustCompile(`^[0-9A-Za-z-]+$`).MatchString(value) {
 						es = append(es, fmt.Errorf(
@@ -65,6 +68,7 @@ func ResourceAppCookieStickinessPolicy() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceAppCookieStickinessPolicyCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -103,6 +107,7 @@ func resourceAppCookieStickinessPolicyCreate(ctx context.Context, d *schema.Reso
 	return append(diags, resourceAppCookieStickinessPolicyRead(ctx, d, meta)...)
 }
 
+
 func resourceAppCookieStickinessPolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ELBConn(ctx)
@@ -136,6 +141,7 @@ func resourceAppCookieStickinessPolicyRead(ctx context.Context, d *schema.Resour
 
 	return diags
 }
+
 
 func resourceAppCookieStickinessPolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -175,6 +181,7 @@ func resourceAppCookieStickinessPolicyDelete(ctx context.Context, d *schema.Reso
 	return diags
 }
 
+
 func FindLoadBalancerPolicyByTwoPartKey(ctx context.Context, conn *elb.ELB, lbName, policyName string) (*elb.PolicyDescription, error) {
 	input := &elb.DescribeLoadBalancerPoliciesInput{
 		LoadBalancerName: aws.String(lbName),
@@ -204,6 +211,7 @@ func FindLoadBalancerPolicyByTwoPartKey(ctx context.Context, conn *elb.ELB, lbNa
 
 	return output.PolicyDescriptions[0], nil
 }
+
 
 func FindLoadBalancerListenerPolicyByThreePartKey(ctx context.Context, conn *elb.ELB, lbName string, lbPort int, policyName string) (*elb.PolicyDescription, error) {
 	policy, err := FindLoadBalancerPolicyByTwoPartKey(ctx, conn, lbName, policyName)
@@ -239,12 +247,14 @@ func FindLoadBalancerListenerPolicyByThreePartKey(ctx context.Context, conn *elb
 
 const appCookieStickinessPolicyResourceIDSeparator = ":"
 
+
 func AppCookieStickinessPolicyCreateResourceID(lbName string, lbPort int, policyName string) string {
 	parts := []string{lbName, strconv.Itoa(lbPort), policyName}
 	id := strings.Join(parts, appCookieStickinessPolicyResourceIDSeparator)
 
 	return id
 }
+
 
 func AppCookieStickinessPolicyParseResourceID(id string) (string, int, string, error) {
 	parts := strings.Split(id, appCookieStickinessPolicyResourceIDSeparator)

@@ -26,6 +26,7 @@ import (
 
 // @SDKResource("aws_backup_framework", name="Framework")
 // @Tags(identifierAttribute="arn")
+
 func ResourceFramework() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceFrameworkCreate,
@@ -70,7 +71,8 @@ func ResourceFramework() *schema.Resource {
 						"name": {
 							Type:         schema.TypeString,
 							Required:     true,
-							ValidateFunc: validation.StringLenBetween(1, 256),
+							Validate
+func: validation.StringLenBetween(1, 256),
 						},
 						"scope": {
 							// The control scope can include
@@ -118,13 +120,15 @@ func ResourceFramework() *schema.Resource {
 			"description": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				ValidateFunc: validation.StringLenBetween(0, 1024),
+				Validate
+func: validation.StringLenBetween(0, 1024),
 			},
 			"name": {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validFrameworkName,
+				Validate
+func: validFrameworkName,
 			},
 			"status": {
 				Type:     schema.TypeString,
@@ -136,6 +140,7 @@ func ResourceFramework() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
+
 
 func resourceFrameworkCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -168,6 +173,7 @@ func resourceFrameworkCreate(ctx context.Context, d *schema.ResourceData, meta i
 
 	return append(diags, resourceFrameworkRead(ctx, d, meta)...)
 }
+
 
 func resourceFrameworkRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -203,6 +209,7 @@ func resourceFrameworkRead(ctx context.Context, d *schema.ResourceData, meta int
 	return diags
 }
 
+
 func resourceFrameworkUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).BackupConn(ctx)
@@ -217,7 +224,8 @@ func resourceFrameworkUpdate(ctx context.Context, d *schema.ResourceData, meta i
 
 		log.Printf("[DEBUG] Updating Backup Framework: %#v", input)
 
-		_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, d.Timeout(schema.TimeoutUpdate), func() (interface{}, error) {
+		_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, d.Timeout(schema.TimeoutUpdate), 
+func() (interface{}, error) {
 			return conn.UpdateFrameworkWithContext(ctx, input)
 		}, backup.ErrCodeConflictException)
 
@@ -233,6 +241,7 @@ func resourceFrameworkUpdate(ctx context.Context, d *schema.ResourceData, meta i
 	return append(diags, resourceFrameworkRead(ctx, d, meta)...)
 }
 
+
 func resourceFrameworkDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).BackupConn(ctx)
@@ -241,7 +250,8 @@ func resourceFrameworkDelete(ctx context.Context, d *schema.ResourceData, meta i
 		FrameworkName: aws.String(d.Id()),
 	}
 
-	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, d.Timeout(schema.TimeoutDelete), func() (interface{}, error) {
+	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, d.Timeout(schema.TimeoutDelete), 
+func() (interface{}, error) {
 		return conn.DeleteFrameworkWithContext(ctx, input)
 	}, backup.ErrCodeConflictException)
 
@@ -255,6 +265,7 @@ func resourceFrameworkDelete(ctx context.Context, d *schema.ResourceData, meta i
 
 	return diags
 }
+
 
 func expandFrameworkControls(ctx context.Context, controls []interface{}) []*backup.FrameworkControl {
 	if len(controls) == 0 {
@@ -288,6 +299,7 @@ func expandFrameworkControls(ctx context.Context, controls []interface{}) []*bac
 	return frameworkControls
 }
 
+
 func expandInputParmaeters(inputParams []interface{}) []*backup.ControlInputParameter {
 	if len(inputParams) == 0 {
 		return nil
@@ -312,6 +324,7 @@ func expandInputParmaeters(inputParams []interface{}) []*backup.ControlInputPara
 
 	return controlInputParameters
 }
+
 
 func expandControlScope(ctx context.Context, scope []interface{}) *backup.ControlScope {
 	if len(scope) == 0 || scope[0] == nil {
@@ -342,6 +355,7 @@ func expandControlScope(ctx context.Context, scope []interface{}) *backup.Contro
 	return controlScope
 }
 
+
 func flattenFrameworkControls(ctx context.Context, controls []*backup.FrameworkControl) []interface{} {
 	if controls == nil {
 		return []interface{}{}
@@ -358,6 +372,7 @@ func flattenFrameworkControls(ctx context.Context, controls []*backup.FrameworkC
 	return frameworkControls
 }
 
+
 func flattenInputParameters(inputParams []*backup.ControlInputParameter) []interface{} {
 	if inputParams == nil {
 		return []interface{}{}
@@ -372,6 +387,7 @@ func flattenInputParameters(inputParams []*backup.ControlInputParameter) []inter
 	}
 	return controlInputParameters
 }
+
 
 func flattenScope(ctx context.Context, scope *backup.ControlScope) []interface{} {
 	if scope == nil {

@@ -19,13 +19,15 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccEC2EBSSnapshotCreateVolumePermission_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_snapshot_create_volume_permission.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
 		},
@@ -35,7 +37,8 @@ func TestAccEC2EBSSnapshotCreateVolumePermission_basic(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEBSSnapshotCreateVolumePermissionConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccSnapshotCreateVolumePermissionExists(ctx, resourceName),
 					resource.TestCheckResourceAttrSet(resourceName, "account_id"),
 					resource.TestCheckResourceAttrSet(resourceName, "snapshot_id"),
@@ -45,13 +48,15 @@ func TestAccEC2EBSSnapshotCreateVolumePermission_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2EBSSnapshotCreateVolumePermission_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_snapshot_create_volume_permission.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
 		},
@@ -61,7 +66,8 @@ func TestAccEC2EBSSnapshotCreateVolumePermission_disappears(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEBSSnapshotCreateVolumePermissionConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccSnapshotCreateVolumePermissionExists(ctx, resourceName),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceSnapshotCreateVolumePermission(), resourceName),
 				),
@@ -71,12 +77,14 @@ func TestAccEC2EBSSnapshotCreateVolumePermission_disappears(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2EBSSnapshotCreateVolumePermission_snapshotOwnerExpectError(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckSnapshotCreateVolumePermissionDestroy(ctx),
@@ -89,8 +97,11 @@ func TestAccEC2EBSSnapshotCreateVolumePermission_snapshotOwnerExpectError(t *tes
 	})
 }
 
-func testAccCheckSnapshotCreateVolumePermissionDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckSnapshotCreateVolumePermissionDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -121,8 +132,11 @@ func testAccCheckSnapshotCreateVolumePermissionDestroy(ctx context.Context) reso
 	}
 }
 
-func testAccSnapshotCreateVolumePermissionExists(ctx context.Context, n string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccSnapshotCreateVolumePermissionExists(ctx context.Context, n string) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -145,6 +159,7 @@ func testAccSnapshotCreateVolumePermissionExists(ctx context.Context, n string) 
 		return err
 	}
 }
+
 
 func testAccEBSSnapshotCreateVolumePermissionConfig_basic(rName string) string {
 	return acctest.ConfigCompose(
@@ -178,6 +193,7 @@ resource "aws_snapshot_create_volume_permission" "test" {
 }
 `, rName))
 }
+
 
 func testAccEBSSnapshotCreateVolumePermissionConfig_snapshotOwner(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(),

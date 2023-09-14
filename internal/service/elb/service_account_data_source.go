@@ -48,6 +48,7 @@ var AccountIdPerRegionMap = map[string]string{
 }
 
 // @SDKDataSource("aws_elb_service_account")
+
 func DataSourceServiceAccount() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceServiceAccountRead,

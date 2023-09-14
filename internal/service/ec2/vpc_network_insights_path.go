@@ -23,6 +23,7 @@ import (
 
 // @SDKResource("aws_ec2_network_insights_path", name="Network Insights Path")
 // @Tags(identifierAttribute="id")
+
 func ResourceNetworkInsightsPath() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceNetworkInsightsPathCreate,
@@ -47,7 +48,8 @@ func ResourceNetworkInsightsPath() *schema.Resource {
 				Type:             schema.TypeString,
 				Required:         true,
 				ForceNew:         true,
-				DiffSuppressFunc: suppressEquivalentIDOrARN,
+				DiffSuppress
+func: suppressEquivalentIDOrARN,
 			},
 			"destination_ip": {
 				Type:     schema.TypeString,
@@ -63,13 +65,15 @@ func ResourceNetworkInsightsPath() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringInSlice(ec2.Protocol_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.Protocol_Values(), false),
 			},
 			"source": {
 				Type:             schema.TypeString,
 				Required:         true,
 				ForceNew:         true,
-				DiffSuppressFunc: suppressEquivalentIDOrARN,
+				DiffSuppress
+func: suppressEquivalentIDOrARN,
 			},
 			"source_arn": {
 				Type:     schema.TypeString,
@@ -87,6 +91,7 @@ func ResourceNetworkInsightsPath() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
+
 
 func resourceNetworkInsightsPathCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -121,6 +126,7 @@ func resourceNetworkInsightsPathCreate(ctx context.Context, d *schema.ResourceDa
 	return resourceNetworkInsightsPathRead(ctx, d, meta)
 }
 
+
 func resourceNetworkInsightsPathRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
@@ -151,16 +157,19 @@ func resourceNetworkInsightsPathRead(ctx context.Context, d *schema.ResourceData
 	return nil
 }
 
+
 func resourceNetworkInsightsPathUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	// Tags only.
 	return resourceNetworkInsightsPathRead(ctx, d, meta)
 }
 
+
 func resourceNetworkInsightsPathDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	log.Printf("[DEBUG] Deleting EC2 Network Insights Path: %s", d.Id())
-	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, ec2PropagationTimeout, func() (interface{}, error) {
+	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, ec2PropagationTimeout, 
+func() (interface{}, error) {
 		return conn.DeleteNetworkInsightsPathWithContext(ctx, &ec2.DeleteNetworkInsightsPathInput{
 			NetworkInsightsPathId: aws.String(d.Id()),
 		})
@@ -178,6 +187,7 @@ func resourceNetworkInsightsPathDelete(ctx context.Context, d *schema.ResourceDa
 }
 
 // idFromIDOrARN return a resource ID from an ID or ARN.
+
 func idFromIDOrARN(idOrARN string) string {
 	// e.g. "eni-02ae120b80627a68f" or
 	// "arn:aws:ec2:ap-southeast-2:123456789012:network-interface/eni-02ae120b80627a68f".
@@ -186,6 +196,7 @@ func idFromIDOrARN(idOrARN string) string {
 
 // suppressEquivalentIDOrARN provides custom difference suppression
 // for strings that represent equal resource IDs or ARNs.
+
 func suppressEquivalentIDOrARN(_, old, new string, _ *schema.ResourceData) bool {
 	return idFromIDOrARN(old) == idFromIDOrARN(new)
 }

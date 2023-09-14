@@ -23,6 +23,7 @@ import (
 )
 
 // @SDKResource("aws_emr_instance_fleet")
+
 func ResourceInstanceFleet() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceInstanceFleetCreate,
@@ -31,7 +32,8 @@ func ResourceInstanceFleet() *schema.Resource {
 		DeleteWithoutTimeout: resourceInstanceFleetDelete,
 
 		Importer: &schema.ResourceImporter{
-			StateContext: func(_ context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+			StateContext: 
+func(_ context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 				idParts := strings.Split(d.Id(), "/")
 				if len(idParts) != 2 || idParts[0] == "" || idParts[1] == "" {
 					return nil, fmt.Errorf("Unexpected format of ID (%q), expected cluster-id/fleet-id", d.Id())
@@ -108,7 +110,8 @@ func ResourceInstanceFleet() *schema.Resource {
 										Type:         schema.TypeString,
 										Required:     true,
 										ForceNew:     true,
-										ValidateFunc: validEBSVolumeType(),
+										Validate
+func: validEBSVolumeType(),
 									},
 									"volumes_per_instance": {
 										Type:     schema.TypeInt,
@@ -153,7 +156,8 @@ func ResourceInstanceFleet() *schema.Resource {
 										Type:         schema.TypeString,
 										Required:     true,
 										ForceNew:     true,
-										ValidateFunc: validation.StringInSlice(emr.OnDemandProvisioningAllocationStrategy_Values(), false),
+										Validate
+func: validation.StringInSlice(emr.OnDemandProvisioningAllocationStrategy_Values(), false),
 									},
 								},
 							},
@@ -169,7 +173,8 @@ func ResourceInstanceFleet() *schema.Resource {
 										Type:         schema.TypeString,
 										ForceNew:     true,
 										Required:     true,
-										ValidateFunc: validation.StringInSlice(emr.SpotProvisioningAllocationStrategy_Values(), false),
+										Validate
+func: validation.StringInSlice(emr.SpotProvisioningAllocationStrategy_Values(), false),
 									},
 									"block_duration_minutes": {
 										Type:     schema.TypeInt,
@@ -181,7 +186,8 @@ func ResourceInstanceFleet() *schema.Resource {
 										Type:         schema.TypeString,
 										Required:     true,
 										ForceNew:     true,
-										ValidateFunc: validation.StringInSlice(emr.SpotProvisioningTimeoutAction_Values(), false),
+										Validate
+func: validation.StringInSlice(emr.SpotProvisioningTimeoutAction_Values(), false),
 									},
 									"timeout_duration_minutes": {
 										Type:     schema.TypeInt,
@@ -221,6 +227,7 @@ func ResourceInstanceFleet() *schema.Resource {
 	}
 }
 
+
 func resourceInstanceFleetCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EMRConn(ctx)
@@ -247,6 +254,7 @@ func resourceInstanceFleetCreate(ctx context.Context, d *schema.ResourceData, me
 
 	return append(diags, resourceInstanceFleetRead(ctx, d, meta)...)
 }
+
 
 func resourceInstanceFleetRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -278,6 +286,7 @@ func resourceInstanceFleetRead(ctx context.Context, d *schema.ResourceData, meta
 
 	return diags
 }
+
 
 func resourceInstanceFleetUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -317,6 +326,7 @@ func resourceInstanceFleetUpdate(ctx context.Context, d *schema.ResourceData, me
 	return append(diags, resourceInstanceFleetRead(ctx, d, meta)...)
 }
 
+
 func resourceInstanceFleetDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EMRConn(ctx)
@@ -347,13 +357,15 @@ func resourceInstanceFleetDelete(ctx context.Context, d *schema.ResourceData, me
 	return diags
 }
 
+
 func FindInstanceFleetByTwoPartKey(ctx context.Context, conn *emr.EMR, clusterID, fleetID string) (*emr.InstanceFleet, error) {
 	input := &emr.ListInstanceFleetsInput{
 		ClusterId: aws.String(clusterID),
 	}
 	var fleets []*emr.InstanceFleet
 
-	err := conn.ListInstanceFleetsPagesWithContext(ctx, input, func(page *emr.ListInstanceFleetsOutput, lastPage bool) bool {
+	err := conn.ListInstanceFleetsPagesWithContext(ctx, input, 
+func(page *emr.ListInstanceFleetsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -380,8 +392,11 @@ func FindInstanceFleetByTwoPartKey(ctx context.Context, conn *emr.EMR, clusterID
 	return nil, &retry.NotFoundError{}
 }
 
-func statusInstanceFleet(ctx context.Context, conn *emr.EMR, clusterID, fleetID string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+
+func statusInstanceFleet(ctx context.Context, conn *emr.EMR, clusterID, fleetID string) retry.StateRefresh
+func {
+	return 
+func() (interface{}, string, error) {
 		output, err := FindInstanceFleetByTwoPartKey(ctx, conn, clusterID, fleetID)
 
 		if tfresource.NotFound(err) {

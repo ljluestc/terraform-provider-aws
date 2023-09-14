@@ -17,6 +17,7 @@ import (
 )
 
 // @SDKDataSource("aws_route")
+
 func DataSourceRoute() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceRouteRead,

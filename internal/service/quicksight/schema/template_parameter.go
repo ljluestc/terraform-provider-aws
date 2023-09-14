@@ -15,6 +15,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 )
 
+
 func dateTimeParameterDeclarationSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DateTimeParameterDeclaration.html
 		Type:     schema.TypeList,
@@ -26,7 +27,8 @@ func dateTimeParameterDeclarationSchema() *schema.Schema {
 				"name": {
 					Type:     schema.TypeString,
 					Required: true,
-					ValidateFunc: validation.All(
+					Validate
+func: validation.All(
 						validation.StringLenBetween(1, 2048),
 						validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z]+$`), ""),
 					),
@@ -47,7 +49,8 @@ func dateTimeParameterDeclarationSchema() *schema.Schema {
 								MaxItems: 50000,
 								Elem: &schema.Schema{
 									Type:         schema.TypeString,
-									ValidateFunc: verify.ValidUTCTimestamp,
+									Validate
+func: verify.ValidUTCTimestamp,
 								},
 							},
 						},
@@ -64,7 +67,8 @@ func dateTimeParameterDeclarationSchema() *schema.Schema {
 							"custom_value": {
 								Type:         schema.TypeString,
 								Optional:     true,
-								ValidateFunc: verify.ValidUTCTimestamp,
+								Validate
+func: verify.ValidUTCTimestamp,
 							},
 							"value_when_unset_option": stringSchema(false, validation.StringInSlice(quicksight.ValueWhenUnsetOption_Values(), false)),
 						},
@@ -74,6 +78,7 @@ func dateTimeParameterDeclarationSchema() *schema.Schema {
 		},
 	}
 }
+
 
 func decimalParameterDeclarationSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DecimalParameterDeclaration.html
@@ -86,7 +91,8 @@ func decimalParameterDeclarationSchema() *schema.Schema {
 				"name": {
 					Type:     schema.TypeString,
 					Required: true,
-					ValidateFunc: validation.All(
+					Validate
+func: validation.All(
 						validation.StringLenBetween(1, 2048),
 						validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z]+$`), ""),
 					),
@@ -132,6 +138,7 @@ func decimalParameterDeclarationSchema() *schema.Schema {
 	}
 }
 
+
 func integerParameterDeclarationSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_IntegerParameterDeclaration.html
 		Type:     schema.TypeList,
@@ -143,7 +150,8 @@ func integerParameterDeclarationSchema() *schema.Schema {
 				"name": {
 					Type:     schema.TypeString,
 					Required: true,
-					ValidateFunc: validation.All(
+					Validate
+func: validation.All(
 						validation.StringLenBetween(1, 2048),
 						validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z]+$`), ""),
 					),
@@ -189,6 +197,7 @@ func integerParameterDeclarationSchema() *schema.Schema {
 	}
 }
 
+
 func stringParameterDeclarationSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_StringParameterDeclaration.html
 		Type:     schema.TypeList,
@@ -200,7 +209,8 @@ func stringParameterDeclarationSchema() *schema.Schema {
 				"name": {
 					Type:     schema.TypeString,
 					Required: true,
-					ValidateFunc: validation.All(
+					Validate
+func: validation.All(
 						validation.StringLenBetween(1, 2048),
 						validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z]+$`), ""),
 					),
@@ -246,6 +256,7 @@ func stringParameterDeclarationSchema() *schema.Schema {
 	}
 }
 
+
 func dynamicValueSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DynamicDefaultValue.html
 		Type:     schema.TypeList,
@@ -261,6 +272,7 @@ func dynamicValueSchema() *schema.Schema {
 		},
 	}
 }
+
 
 func parameterControlsSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ParameterControl.html
@@ -378,6 +390,7 @@ func parameterControlsSchema() *schema.Schema {
 	}
 }
 
+
 func parameterSelectableValuesSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ParameterSelectableValues.html
 		Type:     schema.TypeList,
@@ -401,17 +414,20 @@ func parameterSelectableValuesSchema() *schema.Schema {
 	}
 }
 
+
 func parameterNameSchema(required bool) *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeString,
 		Required: required,
 		Optional: !required,
-		ValidateFunc: validation.All(
+		Validate
+func: validation.All(
 			validation.StringLenBetween(1, 2048),
 			validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z]+$`), ""),
 		),
 	}
 }
+
 
 func expandDateTimeParameterDeclaration(tfList []interface{}) *quicksight.DateTimeParameterDeclaration {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -441,6 +457,7 @@ func expandDateTimeParameterDeclaration(tfList []interface{}) *quicksight.DateTi
 	return param
 }
 
+
 func expandDateTimeDefaultValues(tfList []interface{}) *quicksight.DateTimeDefaultValues {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -465,6 +482,7 @@ func expandDateTimeDefaultValues(tfList []interface{}) *quicksight.DateTimeDefau
 
 	return values
 }
+
 
 func expandDynamicDefaultValue(tfList []interface{}) *quicksight.DynamicDefaultValue {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -491,6 +509,7 @@ func expandDynamicDefaultValue(tfList []interface{}) *quicksight.DynamicDefaultV
 	return value
 }
 
+
 func expandDateTimeValueWhenUnsetConfiguration(tfList []interface{}) *quicksight.DateTimeValueWhenUnsetConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -504,7 +523,8 @@ func expandDateTimeValueWhenUnsetConfiguration(tfList []interface{}) *quicksight
 	config := &quicksight.DateTimeValueWhenUnsetConfiguration{}
 
 	if v, ok := tfMap["custom_value"].(string); ok && v != "" {
-		t, _ := time.Parse(time.RFC3339, v) // Format validated with validateFunc
+		t, _ := time.Parse(time.RFC3339, v) // Format validated with validate
+func
 		config.CustomValue = aws.Time(t)
 	}
 	if v, ok := tfMap["value_when_unset_option"].(string); ok && v != "" {
@@ -513,6 +533,7 @@ func expandDateTimeValueWhenUnsetConfiguration(tfList []interface{}) *quicksight
 
 	return config
 }
+
 
 func expandDecimalParameterDeclaration(tfList []interface{}) *quicksight.DecimalParameterDeclaration {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -542,6 +563,7 @@ func expandDecimalParameterDeclaration(tfList []interface{}) *quicksight.Decimal
 	return param
 }
 
+
 func expandDecimalValueWhenUnsetConfiguration(tfList []interface{}) *quicksight.DecimalValueWhenUnsetConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -564,6 +586,7 @@ func expandDecimalValueWhenUnsetConfiguration(tfList []interface{}) *quicksight.
 	return config
 }
 
+
 func expandDecimalDefaultValues(tfList []interface{}) *quicksight.DecimalDefaultValues {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -585,6 +608,7 @@ func expandDecimalDefaultValues(tfList []interface{}) *quicksight.DecimalDefault
 
 	return values
 }
+
 
 func expandIntegerParameterDeclaration(tfList []interface{}) *quicksight.IntegerParameterDeclaration {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -614,6 +638,7 @@ func expandIntegerParameterDeclaration(tfList []interface{}) *quicksight.Integer
 	return param
 }
 
+
 func expandIntegerValueWhenUnsetConfiguration(tfList []interface{}) *quicksight.IntegerValueWhenUnsetConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -636,6 +661,7 @@ func expandIntegerValueWhenUnsetConfiguration(tfList []interface{}) *quicksight.
 	return config
 }
 
+
 func expandIntegerDefaultValues(tfList []interface{}) *quicksight.IntegerDefaultValues {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -657,6 +683,7 @@ func expandIntegerDefaultValues(tfList []interface{}) *quicksight.IntegerDefault
 
 	return values
 }
+
 
 func expandStringParameterDeclaration(tfList []interface{}) *quicksight.StringParameterDeclaration {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -686,6 +713,7 @@ func expandStringParameterDeclaration(tfList []interface{}) *quicksight.StringPa
 	return param
 }
 
+
 func expandStringValueWhenUnsetConfiguration(tfList []interface{}) *quicksight.StringValueWhenUnsetConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -707,6 +735,7 @@ func expandStringValueWhenUnsetConfiguration(tfList []interface{}) *quicksight.S
 
 	return config
 }
+
 
 func expandStringDefaultValues(tfList []interface{}) *quicksight.StringDefaultValues {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -730,6 +759,7 @@ func expandStringDefaultValues(tfList []interface{}) *quicksight.StringDefaultVa
 	return values
 }
 
+
 func expandParameterSelectableValues(tfList []interface{}) *quicksight.ParameterSelectableValues {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -751,6 +781,7 @@ func expandParameterSelectableValues(tfList []interface{}) *quicksight.Parameter
 
 	return values
 }
+
 
 func flattenDateTimeParameterDeclaration(apiObject *quicksight.DateTimeParameterDeclaration) []interface{} {
 	if apiObject == nil {
@@ -774,6 +805,7 @@ func flattenDateTimeParameterDeclaration(apiObject *quicksight.DateTimeParameter
 	return []interface{}{tfMap}
 }
 
+
 func flattenDateTimeDefaultValues(apiObject *quicksight.DateTimeDefaultValues) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -792,6 +824,7 @@ func flattenDateTimeDefaultValues(apiObject *quicksight.DateTimeDefaultValues) [
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenDynamicDefaultValue(apiObject *quicksight.DynamicDefaultValue) []interface{} {
 	if apiObject == nil {
@@ -812,6 +845,7 @@ func flattenDynamicDefaultValue(apiObject *quicksight.DynamicDefaultValue) []int
 	return []interface{}{tfMap}
 }
 
+
 func flattenDateTimeValueWhenUnsetConfiguration(apiObject *quicksight.DateTimeValueWhenUnsetConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -827,6 +861,7 @@ func flattenDateTimeValueWhenUnsetConfiguration(apiObject *quicksight.DateTimeVa
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenDecimalParameterDeclaration(apiObject *quicksight.DecimalParameterDeclaration) []interface{} {
 	if apiObject == nil {
@@ -850,6 +885,7 @@ func flattenDecimalParameterDeclaration(apiObject *quicksight.DecimalParameterDe
 	return []interface{}{tfMap}
 }
 
+
 func flattenDecimalDefaultValues(apiObject *quicksight.DecimalDefaultValues) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -866,6 +902,7 @@ func flattenDecimalDefaultValues(apiObject *quicksight.DecimalDefaultValues) []i
 	return []interface{}{tfMap}
 }
 
+
 func flattenDecimalValueWhenUnsetConfiguration(apiObject *quicksight.DecimalValueWhenUnsetConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -881,6 +918,7 @@ func flattenDecimalValueWhenUnsetConfiguration(apiObject *quicksight.DecimalValu
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenIntegerParameterDeclaration(apiObject *quicksight.IntegerParameterDeclaration) []interface{} {
 	if apiObject == nil {
@@ -904,6 +942,7 @@ func flattenIntegerParameterDeclaration(apiObject *quicksight.IntegerParameterDe
 	return []interface{}{tfMap}
 }
 
+
 func flattenIntegerDefaultValues(apiObject *quicksight.IntegerDefaultValues) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -920,6 +959,7 @@ func flattenIntegerDefaultValues(apiObject *quicksight.IntegerDefaultValues) []i
 	return []interface{}{tfMap}
 }
 
+
 func flattenIntegerValueWhenUnsetConfiguration(apiObject *quicksight.IntegerValueWhenUnsetConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -935,6 +975,7 @@ func flattenIntegerValueWhenUnsetConfiguration(apiObject *quicksight.IntegerValu
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenStringParameterDeclaration(apiObject *quicksight.StringParameterDeclaration) []interface{} {
 	if apiObject == nil {
@@ -958,6 +999,7 @@ func flattenStringParameterDeclaration(apiObject *quicksight.StringParameterDecl
 	return []interface{}{tfMap}
 }
 
+
 func flattenStringDefaultValues(apiObject *quicksight.StringDefaultValues) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -974,6 +1016,7 @@ func flattenStringDefaultValues(apiObject *quicksight.StringDefaultValues) []int
 	return []interface{}{tfMap}
 }
 
+
 func flattenStringValueWhenUnsetConfiguration(apiObject *quicksight.StringValueWhenUnsetConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -989,6 +1032,7 @@ func flattenStringValueWhenUnsetConfiguration(apiObject *quicksight.StringValueW
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenParameterControls(apiObject []*quicksight.ParameterControl) []interface{} {
 	if len(apiObject) == 0 {
@@ -1026,6 +1070,7 @@ func flattenParameterControls(apiObject []*quicksight.ParameterControl) []interf
 	return tfList
 }
 
+
 func flattenParameterDateTimePickerControl(apiObject *quicksight.ParameterDateTimePickerControl) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1042,6 +1087,7 @@ func flattenParameterDateTimePickerControl(apiObject *quicksight.ParameterDateTi
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenParameterDropDownControl(apiObject *quicksight.ParameterDropDownControl) []interface{} {
 	if apiObject == nil {
@@ -1069,6 +1115,7 @@ func flattenParameterDropDownControl(apiObject *quicksight.ParameterDropDownCont
 	return []interface{}{tfMap}
 }
 
+
 func flattenParameterSelectableValues(apiObject *quicksight.ParameterSelectableValues) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1084,6 +1131,7 @@ func flattenParameterSelectableValues(apiObject *quicksight.ParameterSelectableV
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenParameterListControl(apiObject *quicksight.ParameterListControl) []interface{} {
 	if apiObject == nil {
@@ -1111,6 +1159,7 @@ func flattenParameterListControl(apiObject *quicksight.ParameterListControl) []i
 	return []interface{}{tfMap}
 }
 
+
 func flattenParameterSliderControl(apiObject *quicksight.ParameterSliderControl) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1131,6 +1180,7 @@ func flattenParameterSliderControl(apiObject *quicksight.ParameterSliderControl)
 	return []interface{}{tfMap}
 }
 
+
 func flattenParameterTextAreaControl(apiObject *quicksight.ParameterTextAreaControl) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1150,6 +1200,7 @@ func flattenParameterTextAreaControl(apiObject *quicksight.ParameterTextAreaCont
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenParameterTextFieldControl(apiObject *quicksight.ParameterTextFieldControl) []interface{} {
 	if apiObject == nil {

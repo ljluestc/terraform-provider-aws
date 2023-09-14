@@ -14,6 +14,7 @@ import (
 	tfquicksight "github.com/hashicorp/terraform-provider-aws/internal/service/quicksight"
 )
 
+
 func TestAccQuickSightGroupDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -21,7 +22,8 @@ func TestAccQuickSightGroupDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_quicksight_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 		},
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
@@ -29,7 +31,8 @@ func TestAccQuickSightGroupDataSource_basic(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGroupDataSourceConfig(rName, "text1"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttrPair(dataSourceName, "group_name", resourceName, "group_name"),
 					resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttr(dataSourceName, "description", "text1"),
@@ -40,6 +43,7 @@ func TestAccQuickSightGroupDataSource_basic(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccGroupDataSourceConfig(rName, description string) string {
 	return fmt.Sprintf(`

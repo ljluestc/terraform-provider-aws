@@ -22,6 +22,7 @@ import (
 )
 
 // @SDKDataSource("aws_ami_ids")
+
 func DataSourceAMIIDs() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceAMIIDsRead,
@@ -50,7 +51,8 @@ func DataSourceAMIIDs() *schema.Resource {
 			"name_regex": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				ValidateFunc: validation.StringIsValidRegExp,
+				Validate
+func: validation.StringIsValidRegExp,
 			},
 			"owners": {
 				Type:     schema.TypeList,
@@ -58,7 +60,8 @@ func DataSourceAMIIDs() *schema.Resource {
 				MinItems: 1,
 				Elem: &schema.Schema{
 					Type:         schema.TypeString,
-					ValidateFunc: validation.NoZeroValues,
+					Validate
+func: validation.NoZeroValues,
 				},
 			},
 			"sort_ascending": {
@@ -69,6 +72,7 @@ func DataSourceAMIIDs() *schema.Resource {
 		},
 	}
 }
+
 
 func dataSourceAMIIDsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -116,7 +120,8 @@ func dataSourceAMIIDsRead(ctx context.Context, d *schema.ResourceData, meta inte
 		filteredImages = images[:]
 	}
 
-	sort.Slice(filteredImages, func(i, j int) bool {
+	sort.Slice(filteredImages, 
+func(i, j int) bool {
 		itime, _ := time.Parse(time.RFC3339, aws.StringValue(filteredImages[i].CreationDate))
 		jtime, _ := time.Parse(time.RFC3339, aws.StringValue(filteredImages[j].CreationDate))
 		if d.Get("sort_ascending").(bool) {

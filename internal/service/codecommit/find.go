@@ -14,6 +14,7 @@ import (
 )
 
 // FindApprovalRuleTemplateAssociation validates that an approval rule template has the named associated repository
+
 func FindApprovalRuleTemplateAssociation(ctx context.Context, conn *codecommit.CodeCommit, approvalRuleTemplateName, repositoryName string) error {
 	input := &codecommit.ListRepositoriesForApprovalRuleTemplateInput{
 		ApprovalRuleTemplateName: aws.String(approvalRuleTemplateName),
@@ -21,20 +22,21 @@ func FindApprovalRuleTemplateAssociation(ctx context.Context, conn *codecommit.C
 
 	found := false
 
-	err := conn.ListRepositoriesForApprovalRuleTemplatePagesWithContext(ctx, input, func(page *codecommit.ListRepositoriesForApprovalRuleTemplateOutput, lastPage bool) bool {
-		if page == nil {
-			return !lastPage
-		}
-
-		for _, repoName := range page.RepositoryNames {
-			if aws.StringValue(repoName) == repositoryName {
-				found = true
-				return false
+	err := conn.ListRepositoriesForApprovalRuleTemplatePagesWithContext(ctx, input,
+		func(page *codecommit.ListRepositoriesForApprovalRuleTemplateOutput, lastPage bool) bool {
+			if page == nil {
+				return !lastPage
 			}
-		}
 
-		return !lastPage
-	})
+			for _, repoName := range page.RepositoryNames {
+				if aws.StringValue(repoName) == repositoryName {
+					found = true
+					return false
+				}
+			}
+
+			return !lastPage
+		})
 
 	if tfawserr.ErrCodeEquals(err, codecommit.ErrCodeApprovalRuleTemplateDoesNotExistException) {
 		return &retry.NotFoundError{

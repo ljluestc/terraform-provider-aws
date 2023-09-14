@@ -18,10 +18,12 @@ import (
 	tfbackup "github.com/hashicorp/terraform-provider-aws/internal/service/backup"
 )
 
+
 func TestAccBackupFramework_serial(t *testing.T) {
 	t.Parallel()
 
-	testCases := map[string]map[string]func(t *testing.T){
+	testCases := map[string]map[string]
+func(t *testing.T){
 		"Resource": {
 			"basic":                        testAccFramework_basic,
 			"disappears":                   testAccFramework_disappears,
@@ -39,6 +41,7 @@ func TestAccBackupFramework_serial(t *testing.T) {
 	acctest.RunSerialTests2Levels(t, testCases, 0)
 }
 
+
 func testAccFramework_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var framework backup.DescribeFrameworkOutput
@@ -49,14 +52,16 @@ func testAccFramework_basic(t *testing.T) {
 	resourceName := "aws_backup_framework.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccFrameworkPreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccFrameworkPreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, backup.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFrameworkDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFrameworkConfig_basic(rName, originalDescription),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFrameworkExists(ctx, resourceName, &framework),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "control.#", "1"),
@@ -80,7 +85,8 @@ func testAccFramework_basic(t *testing.T) {
 			},
 			{
 				Config: testAccFrameworkConfig_basic(rName, updatedDescription),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFrameworkExists(ctx, resourceName, &framework),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "control.#", "1"),
@@ -101,6 +107,7 @@ func testAccFramework_basic(t *testing.T) {
 	})
 }
 
+
 func testAccFramework_updateTags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var framework backup.DescribeFrameworkOutput
@@ -110,14 +117,16 @@ func testAccFramework_updateTags(t *testing.T) {
 	resourceName := "aws_backup_framework.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccFrameworkPreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccFrameworkPreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, backup.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFrameworkDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFrameworkConfig_basic(rName, description),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFrameworkExists(ctx, resourceName, &framework),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "control.#", "1"),
@@ -141,7 +150,8 @@ func testAccFramework_updateTags(t *testing.T) {
 			},
 			{
 				Config: testAccFrameworkConfig_tags(rName, description),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFrameworkExists(ctx, resourceName, &framework),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "control.#", "1"),
@@ -166,7 +176,8 @@ func testAccFramework_updateTags(t *testing.T) {
 			},
 			{
 				Config: testAccFrameworkConfig_tagsUpdated(rName, description),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFrameworkExists(ctx, resourceName, &framework),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "control.#", "1"),
@@ -189,6 +200,7 @@ func testAccFramework_updateTags(t *testing.T) {
 	})
 }
 
+
 func testAccFramework_updateControlScope(t *testing.T) {
 	ctx := acctest.Context(t)
 	var framework backup.DescribeFrameworkOutput
@@ -200,14 +212,16 @@ func testAccFramework_updateControlScope(t *testing.T) {
 	resourceName := "aws_backup_framework.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccFrameworkPreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccFrameworkPreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, backup.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFrameworkDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFrameworkConfig_basic(rName, description),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFrameworkExists(ctx, resourceName, &framework),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "control.#", "1"),
@@ -231,7 +245,8 @@ func testAccFramework_updateControlScope(t *testing.T) {
 			},
 			{
 				Config: testAccFrameworkConfig_controlScopeComplianceResourceID(rName, description),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFrameworkExists(ctx, resourceName, &framework),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "control.#", "1"),
@@ -257,7 +272,8 @@ func testAccFramework_updateControlScope(t *testing.T) {
 			},
 			{
 				Config: testAccFrameworkConfig_controlScopeTag(rName, description, originalControlScopeTagValue),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFrameworkExists(ctx, resourceName, &framework),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "control.#", "1"),
@@ -281,7 +297,8 @@ func testAccFramework_updateControlScope(t *testing.T) {
 			},
 			{
 				Config: testAccFrameworkConfig_controlScopeTag(rName, description, updatedControlScopeTagValue),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFrameworkExists(ctx, resourceName, &framework),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "control.#", "1"),
@@ -302,6 +319,7 @@ func testAccFramework_updateControlScope(t *testing.T) {
 	})
 }
 
+
 func testAccFramework_updateControlInputParameters(t *testing.T) {
 	ctx := acctest.Context(t)
 	var framework backup.DescribeFrameworkOutput
@@ -313,14 +331,16 @@ func testAccFramework_updateControlInputParameters(t *testing.T) {
 	resourceName := "aws_backup_framework.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccFrameworkPreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccFrameworkPreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, backup.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFrameworkDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFrameworkConfig_controlInputParameter(rName, description, originalRequiredRetentionDays),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFrameworkExists(ctx, resourceName, &framework),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "control.#", "1"),
@@ -354,7 +374,8 @@ func testAccFramework_updateControlInputParameters(t *testing.T) {
 			},
 			{
 				Config: testAccFrameworkConfig_controlInputParameter(rName, description, updatedRequiredRetentionDays),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFrameworkExists(ctx, resourceName, &framework),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "control.#", "1"),
@@ -385,6 +406,7 @@ func testAccFramework_updateControlInputParameters(t *testing.T) {
 	})
 }
 
+
 func testAccFramework_updateControls(t *testing.T) {
 	ctx := acctest.Context(t)
 	var framework backup.DescribeFrameworkOutput
@@ -394,14 +416,16 @@ func testAccFramework_updateControls(t *testing.T) {
 	resourceName := "aws_backup_framework.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccFrameworkPreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccFrameworkPreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, backup.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFrameworkDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFrameworkConfig_basic(rName, description),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFrameworkExists(ctx, resourceName, &framework),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "control.#", "1"),
@@ -425,7 +449,8 @@ func testAccFramework_updateControls(t *testing.T) {
 			},
 			{
 				Config: testAccFrameworkConfig_controls(rName, description),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFrameworkExists(ctx, resourceName, &framework),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "control.#", "5"),
@@ -464,6 +489,7 @@ func testAccFramework_updateControls(t *testing.T) {
 	})
 }
 
+
 func testAccFramework_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var framework backup.DescribeFrameworkOutput
@@ -473,14 +499,16 @@ func testAccFramework_disappears(t *testing.T) {
 	resourceName := "aws_backup_framework.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccFrameworkPreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccFrameworkPreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, backup.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFrameworkDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFrameworkConfig_basic(rName, description),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFrameworkExists(ctx, resourceName, &framework),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfbackup.ResourceFramework(), resourceName),
 				),
@@ -489,6 +517,7 @@ func testAccFramework_disappears(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccFrameworkPreCheck(ctx context.Context, t *testing.T) {
 	conn := acctest.Provider.Meta().(*conns.AWSClient).BackupConn(ctx)
@@ -504,8 +533,11 @@ func testAccFrameworkPreCheck(ctx context.Context, t *testing.T) {
 	}
 }
 
-func testAccCheckFrameworkDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckFrameworkDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).BackupConn(ctx)
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_backup_framework" {
@@ -529,8 +561,11 @@ func testAccCheckFrameworkDestroy(ctx context.Context) resource.TestCheckFunc {
 	}
 }
 
-func testAccCheckFrameworkExists(ctx context.Context, name string, framework *backup.DescribeFrameworkOutput) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckFrameworkExists(ctx context.Context, name string, framework *backup.DescribeFrameworkOutput) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
 
 		if !ok {
@@ -552,6 +587,7 @@ func testAccCheckFrameworkExists(ctx context.Context, name string, framework *ba
 		return nil
 	}
 }
+
 
 func testAccFrameworkConfig_basic(rName, label string) string {
 	return fmt.Sprintf(`
@@ -575,6 +611,7 @@ resource "aws_backup_framework" "test" {
 }
 `, rName, label)
 }
+
 
 func testAccFrameworkConfig_tags(rName, label string) string {
 	return fmt.Sprintf(`
@@ -600,6 +637,7 @@ resource "aws_backup_framework" "test" {
 `, rName, label)
 }
 
+
 func testAccFrameworkConfig_tagsUpdated(rName, label string) string {
 	return fmt.Sprintf(`
 resource "aws_backup_framework" "test" {
@@ -624,6 +662,7 @@ resource "aws_backup_framework" "test" {
 }
 `, rName, label)
 }
+
 
 func testAccFrameworkConfig_controlScopeComplianceResourceID(rName, label string) string {
 	return fmt.Sprintf(`
@@ -667,6 +706,7 @@ resource "aws_backup_framework" "test" {
 `, rName, label)
 }
 
+
 func testAccFrameworkConfig_controlScopeTag(rName, label, controlScopeTagValue string) string {
 	return fmt.Sprintf(`
 resource "aws_backup_framework" "test" {
@@ -689,6 +729,7 @@ resource "aws_backup_framework" "test" {
 }
 `, rName, label, controlScopeTagValue)
 }
+
 
 func testAccFrameworkConfig_controlInputParameter(rName, label, requiredRetentionDaysValue string) string {
 	return fmt.Sprintf(`
@@ -721,6 +762,7 @@ resource "aws_backup_framework" "test" {
 }
 `, rName, label, requiredRetentionDaysValue)
 }
+
 
 func testAccFrameworkConfig_controls(rName, label string) string {
 	return fmt.Sprintf(`

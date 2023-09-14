@@ -19,12 +19,14 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
+
 func TestAccEMRBlockPublicAccessConfiguration_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_emr_block_public_access_configuration.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, emr.EndpointsID)
 			testAccPreCheck(ctx, t)
@@ -35,7 +37,8 @@ func TestAccEMRBlockPublicAccessConfiguration_basic(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBlockPublicAccessConfigurationConfig_basic(true),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckBlockPublicAccessConfigurationAttributes_enabledOnly(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "block_public_security_group_rules", "true"),
 					resource.TestCheckResourceAttr(resourceName, "permitted_public_security_group_rule_range.#", "0"),
@@ -49,7 +52,8 @@ func TestAccEMRBlockPublicAccessConfiguration_basic(t *testing.T) {
 			},
 			{
 				Config: testAccBlockPublicAccessConfigurationConfig_basic(false),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckBlockPublicAccessConfigurationAttributes_disabled(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "block_public_security_group_rules", "false"),
 					resource.TestCheckResourceAttr(resourceName, "permitted_public_security_group_rule_range.#", "0"),
@@ -65,12 +69,14 @@ func TestAccEMRBlockPublicAccessConfiguration_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccEMRBlockPublicAccessConfiguration_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_emr_block_public_access_configuration.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, emr.EndpointsID)
 			testAccPreCheck(ctx, t)
@@ -81,7 +87,8 @@ func TestAccEMRBlockPublicAccessConfiguration_disappears(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBlockPublicAccessConfigurationConfig_basic(true),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckBlockPublicAccessConfigurationAttributes_enabledOnly(ctx, resourceName),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfemr.ResourceBlockPublicAccessConfiguration(), resourceName),
 				),
@@ -97,12 +104,14 @@ func TestAccEMRBlockPublicAccessConfiguration_disappears(t *testing.T) {
 	})
 }
 
+
 func TestAccEMRBlockPublicAccessConfiguration_default(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_emr_block_public_access_configuration.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, emr.EndpointsID)
 			testAccPreCheck(ctx, t)
@@ -113,7 +122,8 @@ func TestAccEMRBlockPublicAccessConfiguration_default(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: blockPublicAccessConfigurationConfig_defaultString,
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckBlockPublicAccessConfigurationAttributes_default(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "block_public_security_group_rules", "true"),
 					resource.TestCheckResourceAttr(resourceName, "permitted_public_security_group_rule_range.#", "1"),
@@ -131,12 +141,14 @@ func TestAccEMRBlockPublicAccessConfiguration_default(t *testing.T) {
 	})
 }
 
+
 func TestAccEMRBlockPublicAccessConfiguration_enabledMultiRange(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_emr_block_public_access_configuration.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, emr.EndpointsID)
 			testAccPreCheck(ctx, t)
@@ -147,7 +159,8 @@ func TestAccEMRBlockPublicAccessConfiguration_enabledMultiRange(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: blockPublicAccessConfigurationConfig_enabledMultiRangeString,
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckBlockPublicAccessConfigurationAttributes_enabledMultiRange(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "block_public_security_group_rules", "true"),
 					resource.TestCheckResourceAttr(resourceName, "permitted_public_security_group_rule_range.#", "2"),
@@ -167,8 +180,11 @@ func TestAccEMRBlockPublicAccessConfiguration_enabledMultiRange(t *testing.T) {
 	})
 }
 
-func testAccCheckBlockPublicAccessConfigurationDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckBlockPublicAccessConfigurationDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EMRConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -201,8 +217,11 @@ func testAccCheckBlockPublicAccessConfigurationDestroy(ctx context.Context) reso
 	}
 }
 
-func testAccCheckBlockPublicAccessConfigurationAttributes_enabledOnly(ctx context.Context, name string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckBlockPublicAccessConfigurationAttributes_enabledOnly(ctx context.Context, name string) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
 		if !ok {
 			return create.Error(names.EMR, create.ErrActionCheckingExistence, tfemr.ResNameBlockPublicAccessConfiguration, name, errors.New("not found"))
@@ -230,8 +249,11 @@ func testAccCheckBlockPublicAccessConfigurationAttributes_enabledOnly(ctx contex
 	}
 }
 
-func testAccCheckBlockPublicAccessConfigurationAttributes_default(ctx context.Context, name string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckBlockPublicAccessConfigurationAttributes_default(ctx context.Context, name string) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EMRConn(ctx)
 
 		rs, ok := s.RootModule().Resources[name]
@@ -263,8 +285,11 @@ func testAccCheckBlockPublicAccessConfigurationAttributes_default(ctx context.Co
 	}
 }
 
-func testAccCheckBlockPublicAccessConfigurationAttributes_enabledMultiRange(ctx context.Context, name string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckBlockPublicAccessConfigurationAttributes_enabledMultiRange(ctx context.Context, name string) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
 		if !ok {
 			return create.Error(names.EMR, create.ErrActionCheckingExistence, tfemr.ResNameBlockPublicAccessConfiguration, name, errors.New("not found"))
@@ -298,8 +323,11 @@ func testAccCheckBlockPublicAccessConfigurationAttributes_enabledMultiRange(ctx 
 	}
 }
 
-func testAccCheckBlockPublicAccessConfigurationAttributes_disabled(ctx context.Context, name string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckBlockPublicAccessConfigurationAttributes_disabled(ctx context.Context, name string) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
 		if !ok {
 			return create.Error(names.EMR, create.ErrActionCheckingExistence, tfemr.ResNameBlockPublicAccessConfiguration, name, errors.New("not found"))
@@ -326,6 +354,7 @@ func testAccCheckBlockPublicAccessConfigurationAttributes_disabled(ctx context.C
 	}
 }
 
+
 func testAccPreCheck(ctx context.Context, t *testing.T) {
 	conn := acctest.Provider.Meta().(*conns.AWSClient).EMRConn(ctx)
 
@@ -340,6 +369,7 @@ func testAccPreCheck(ctx context.Context, t *testing.T) {
 		t.Fatalf("unexpected PreCheck error: %s", err)
 	}
 }
+
 
 func testAccBlockPublicAccessConfigurationConfig_basic(enabled bool) string {
 	return fmt.Sprintf(`

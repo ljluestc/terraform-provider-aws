@@ -12,18 +12,21 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccEC2AMIIDsDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	datasourceName := "data.aws_ami_ids.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAMIIDsDataSourceConfig_basic,
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					acctest.CheckResourceAttrGreaterThanValue(datasourceName, "ids.#", 0),
 				),
 			},
@@ -31,18 +34,21 @@ func TestAccEC2AMIIDsDataSource_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2AMIIDsDataSource_sorted(t *testing.T) {
 	ctx := acctest.Context(t)
 	datasourceName := "data.aws_ami_ids.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAMIIDsDataSourceConfig_sorted(false),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttr(datasourceName, "ids.#", "2"),
 					resource.TestCheckResourceAttrPair(datasourceName, "ids.0", "data.aws_ami.test2", "id"),
 					resource.TestCheckResourceAttrPair(datasourceName, "ids.1", "data.aws_ami.test1", "id"),
@@ -50,7 +56,8 @@ func TestAccEC2AMIIDsDataSource_sorted(t *testing.T) {
 			},
 			{
 				Config: testAccAMIIDsDataSourceConfig_sorted(true),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttr(datasourceName, "ids.#", "2"),
 					resource.TestCheckResourceAttrPair(datasourceName, "ids.0", "data.aws_ami.test1", "id"),
 					resource.TestCheckResourceAttrPair(datasourceName, "ids.1", "data.aws_ami.test2", "id"),
@@ -60,18 +67,21 @@ func TestAccEC2AMIIDsDataSource_sorted(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2AMIIDsDataSource_includeDeprecated(t *testing.T) {
 	ctx := acctest.Context(t)
 	datasourceName := "data.aws_ami_ids.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAMIIDsDataSourceConfig_includeDeprecated(true),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					acctest.CheckResourceAttrGreaterThanValue(datasourceName, "ids.#", 0),
 				),
 			},
@@ -89,6 +99,7 @@ data "aws_ami_ids" "test" {
   }
 }
 `
+
 
 func testAccAMIIDsDataSourceConfig_sorted(sortAscending bool) string {
 	return fmt.Sprintf(`
@@ -122,6 +133,7 @@ data "aws_ami_ids" "test" {
 }
 `, sortAscending)
 }
+
 
 func testAccAMIIDsDataSourceConfig_includeDeprecated(includeDeprecated bool) string {
 	return fmt.Sprintf(`

@@ -23,6 +23,7 @@ import (
 )
 
 // @SDKResource("aws_ssoadmin_permission_set_inline_policy")
+
 func ResourcePermissionSetInlinePolicy() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourcePermissionSetInlinePolicyPut,
@@ -43,10 +44,14 @@ func ResourcePermissionSetInlinePolicy() *schema.Resource {
 			"inline_policy": {
 				Type:                  schema.TypeString,
 				Required:              true,
-				ValidateFunc:          verify.ValidIAMPolicyJSON,
-				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
+				Validate
+func:          verify.ValidIAMPolicyJSON,
+				DiffSuppress
+func:      verify.SuppressEquivalentPolicyDiffs,
 				DiffSuppressOnRefresh: true,
-				StateFunc: func(v interface{}) string {
+				State
+func: 
+func(v interface{}) string {
 					json, _ := structure.NormalizeJsonString(v)
 					return json
 				},
@@ -55,17 +60,20 @@ func ResourcePermissionSetInlinePolicy() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			"permission_set_arn": {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 		},
 	}
 }
+
 
 func resourcePermissionSetInlinePolicyPut(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -100,6 +108,7 @@ func resourcePermissionSetInlinePolicyPut(ctx context.Context, d *schema.Resourc
 	return append(diags, resourcePermissionSetInlinePolicyRead(ctx, d, meta)...)
 }
 
+
 func resourcePermissionSetInlinePolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SSOAdminConn(ctx)
@@ -133,6 +142,7 @@ func resourcePermissionSetInlinePolicyRead(ctx context.Context, d *schema.Resour
 	return diags
 }
 
+
 func resourcePermissionSetInlinePolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SSOAdminConn(ctx)
@@ -164,6 +174,7 @@ func resourcePermissionSetInlinePolicyDelete(ctx context.Context, d *schema.Reso
 
 	return diags
 }
+
 
 func FindPermissionSetInlinePolicy(ctx context.Context, conn *ssoadmin.SSOAdmin, permissionSetARN, instanceARN string) (string, error) {
 	input := &ssoadmin.GetInlinePolicyForPermissionSetInput{

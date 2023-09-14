@@ -28,6 +28,7 @@ import (
 
 // @SDKResource("aws_ebs_volume", name="EBS Volume")
 // @Tags(identifierAttribute="id")
+
 func ResourceEBSVolume() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceEBSVolumeCreate,
@@ -81,7 +82,8 @@ func ResourceEBSVolume() *schema.Resource {
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			"multi_attach_enabled": {
 				Type:     schema.TypeBool,
@@ -92,7 +94,8 @@ func ResourceEBSVolume() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			"size": {
 				Type:         schema.TypeInt,
@@ -113,7 +116,8 @@ func ResourceEBSVolume() *schema.Resource {
 				Type:         schema.TypeInt,
 				Optional:     true,
 				Computed:     true,
-				ValidateFunc: validation.IntBetween(125, 1000),
+				Validate
+func: validation.IntBetween(125, 1000),
 			},
 			"type": {
 				Type:     schema.TypeString,
@@ -123,6 +127,7 @@ func ResourceEBSVolume() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceEBSVolumeCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -185,6 +190,7 @@ func resourceEBSVolumeCreate(ctx context.Context, d *schema.ResourceData, meta i
 	return append(diags, resourceEBSVolumeRead(ctx, d, meta)...)
 }
 
+
 func resourceEBSVolumeRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -224,6 +230,7 @@ func resourceEBSVolumeRead(ctx context.Context, d *schema.ResourceData, meta int
 
 	return diags
 }
+
 
 func resourceEBSVolumeUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -275,6 +282,7 @@ func resourceEBSVolumeUpdate(ctx context.Context, d *schema.ResourceData, meta i
 	return append(diags, resourceEBSVolumeRead(ctx, d, meta)...)
 }
 
+
 func resourceEBSVolumeDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -287,7 +295,8 @@ func resourceEBSVolumeDelete(ctx context.Context, d *schema.ResourceData, meta i
 
 		log.Printf("[DEBUG] Creating EBS Snapshot: %s", input)
 		outputRaw, err := tfresource.RetryWhenAWSErrMessageContains(ctx, 1*time.Minute,
-			func() (interface{}, error) {
+			
+func() (interface{}, error) {
 				return conn.CreateSnapshotWithContext(ctx, input)
 			},
 			errCodeSnapshotCreationPerVolumeRateExceeded, "The maximum per volume CreateSnapshot request rate has been exceeded")
@@ -299,7 +308,8 @@ func resourceEBSVolumeDelete(ctx context.Context, d *schema.ResourceData, meta i
 		snapshotID := aws.StringValue(outputRaw.(*ec2.Snapshot).SnapshotId)
 
 		_, err = tfresource.RetryWhenAWSErrCodeEquals(ctx, d.Timeout(schema.TimeoutDelete),
-			func() (interface{}, error) {
+			
+func() (interface{}, error) {
 				return nil, conn.WaitUntilSnapshotCompletedWithContext(ctx, &ec2.DescribeSnapshotsInput{
 					SnapshotIds: aws.StringSlice([]string{snapshotID}),
 				})
@@ -313,7 +323,8 @@ func resourceEBSVolumeDelete(ctx context.Context, d *schema.ResourceData, meta i
 
 	log.Printf("[DEBUG] Deleting EBS Volume: %s", d.Id())
 	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, d.Timeout(schema.TimeoutDelete),
-		func() (interface{}, error) {
+		
+func() (interface{}, error) {
 			return conn.DeleteVolumeWithContext(ctx, &ec2.DeleteVolumeInput{
 				VolumeId: aws.String(d.Id()),
 			})
@@ -334,6 +345,7 @@ func resourceEBSVolumeDelete(ctx context.Context, d *schema.ResourceData, meta i
 
 	return diags
 }
+
 
 func resourceEBSVolumeCustomizeDiff(_ context.Context, diff *schema.ResourceDiff, meta interface{}) error {
 	iops := diff.Get("iops").(int)

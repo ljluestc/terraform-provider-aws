@@ -18,11 +18,14 @@ import (
 )
 
 // @SDKDataSource("aws_quicksight_data_set", name="Data Set")
+
 func DataSourceDataSet() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceDataSetRead,
 
-		SchemaFunc: func() map[string]*schema.Schema {
+		Schema
+func: 
+func() map[string]*schema.Schema {
 			return map[string]*schema.Schema{
 				"arn": {
 					Type:     schema.TypeString,
@@ -32,7 +35,8 @@ func DataSourceDataSet() *schema.Resource {
 					Type:         schema.TypeString,
 					Optional:     true,
 					Computed:     true,
-					ValidateFunc: verify.ValidAccountID,
+					Validate
+func: verify.ValidAccountID,
 				},
 				"column_groups": {
 					Type:     schema.TypeList,
@@ -235,6 +239,7 @@ func DataSourceDataSet() *schema.Resource {
 		},
 	}
 }
+
 
 func logicalTableMapDataSourceSchema() *schema.Resource {
 	return &schema.Resource{
@@ -467,6 +472,7 @@ func logicalTableMapDataSourceSchema() *schema.Resource {
 	}
 }
 
+
 func physicalTableMapDataSourceSchema() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
@@ -613,6 +619,7 @@ func physicalTableMapDataSourceSchema() *schema.Resource {
 const (
 	DSNameDataSet = "Data Set Data Source"
 )
+
 
 func dataSourceDataSetRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)

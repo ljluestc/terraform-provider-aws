@@ -25,6 +25,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestNormalizeIPProtocol(t *testing.T) {
 	ctx := acctest.Context(t)
 	t.Parallel()
@@ -55,7 +56,8 @@ func TestNormalizeIPProtocol(t *testing.T) {
 
 	for name, test := range tests {
 		name, test := name, test
-		t.Run(name, func(t *testing.T) {
+		t.Run(name, 
+func(t *testing.T) {
 			t.Parallel()
 
 			request := planmodifier.StringRequest{
@@ -83,6 +85,7 @@ func TestNormalizeIPProtocol(t *testing.T) {
 	}
 }
 
+
 func TestAccVPCSecurityGroupIngressRule_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.SecurityGroupRule
@@ -90,14 +93,16 @@ func TestAccVPCSecurityGroupIngressRule_basic(t *testing.T) {
 	resourceName := "aws_vpc_security_group_ingress_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckSecurityGroupIngressRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCSecurityGroupIngressRuleConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckSecurityGroupIngressRuleExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "cidr_ipv4", "10.0.0.0/8"),
@@ -121,6 +126,7 @@ func TestAccVPCSecurityGroupIngressRule_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCSecurityGroupIngressRule_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.SecurityGroupRule
@@ -128,14 +134,16 @@ func TestAccVPCSecurityGroupIngressRule_disappears(t *testing.T) {
 	resourceName := "aws_vpc_security_group_ingress_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckSecurityGroupIngressRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCSecurityGroupIngressRuleConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSecurityGroupIngressRuleExists(ctx, resourceName, &v),
 					acctest.CheckFrameworkResourceDisappears(ctx, acctest.Provider, tfec2.ResourceSecurityGroupIngressRule, resourceName),
 				),
@@ -145,6 +153,7 @@ func TestAccVPCSecurityGroupIngressRule_disappears(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCSecurityGroupIngressRule_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.SecurityGroupRule
@@ -152,14 +161,16 @@ func TestAccVPCSecurityGroupIngressRule_tags(t *testing.T) {
 	resourceName := "aws_vpc_security_group_ingress_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckSecurityGroupIngressRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCSecurityGroupIngressRuleConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSecurityGroupIngressRuleExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
@@ -172,7 +183,8 @@ func TestAccVPCSecurityGroupIngressRule_tags(t *testing.T) {
 			},
 			{
 				Config: testAccVPCSecurityGroupIngressRuleConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSecurityGroupIngressRuleExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
@@ -181,7 +193,8 @@ func TestAccVPCSecurityGroupIngressRule_tags(t *testing.T) {
 			},
 			{
 				Config: testAccVPCSecurityGroupIngressRuleConfig_tags1(rName, "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSecurityGroupIngressRuleExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
@@ -191,6 +204,7 @@ func TestAccVPCSecurityGroupIngressRule_tags(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCSecurityGroupIngressRule_tags_computed(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.SecurityGroupRule
@@ -198,14 +212,16 @@ func TestAccVPCSecurityGroupIngressRule_tags_computed(t *testing.T) {
 	resourceName := "aws_vpc_security_group_ingress_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckSecurityGroupIngressRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCSecurityGroupIngressRuleConfig_computed(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSecurityGroupIngressRuleExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttrSet(resourceName, "tags.eip"),
@@ -215,6 +231,7 @@ func TestAccVPCSecurityGroupIngressRule_tags_computed(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCSecurityGroupIngressRule_DefaultTags_providerOnly(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.SecurityGroupRule
@@ -222,7 +239,8 @@ func TestAccVPCSecurityGroupIngressRule_DefaultTags_providerOnly(t *testing.T) {
 	resourceName := "aws_vpc_security_group_ingress_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckSecurityGroupIngressRuleDestroy(ctx),
@@ -232,7 +250,8 @@ func TestAccVPCSecurityGroupIngressRule_DefaultTags_providerOnly(t *testing.T) {
 					acctest.ConfigDefaultTags_Tags1("providerkey1", "providervalue1"),
 					testAccVPCSecurityGroupIngressRuleConfig_basic(rName),
 				),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSecurityGroupIngressRuleExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
 					resource.TestCheckResourceAttr(resourceName, "tags_all.%", "1"),
@@ -249,7 +268,8 @@ func TestAccVPCSecurityGroupIngressRule_DefaultTags_providerOnly(t *testing.T) {
 					acctest.ConfigDefaultTags_Tags2("providerkey1", "providervalue1", "providerkey2", "providervalue2"),
 					testAccVPCSecurityGroupIngressRuleConfig_basic(rName),
 				),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSecurityGroupIngressRuleExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
 					resource.TestCheckResourceAttr(resourceName, "tags_all.%", "2"),
@@ -262,7 +282,8 @@ func TestAccVPCSecurityGroupIngressRule_DefaultTags_providerOnly(t *testing.T) {
 					acctest.ConfigDefaultTags_Tags1("providerkey1", "value1"),
 					testAccVPCSecurityGroupIngressRuleConfig_basic(rName),
 				),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSecurityGroupIngressRuleExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
 					resource.TestCheckResourceAttr(resourceName, "tags_all.%", "1"),
@@ -273,6 +294,7 @@ func TestAccVPCSecurityGroupIngressRule_DefaultTags_providerOnly(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCSecurityGroupIngressRule_DefaultTags_updateToProviderOnly(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.SecurityGroupRule
@@ -280,14 +302,16 @@ func TestAccVPCSecurityGroupIngressRule_DefaultTags_updateToProviderOnly(t *test
 	resourceName := "aws_vpc_security_group_ingress_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckSecurityGroupIngressRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCSecurityGroupIngressRuleConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSecurityGroupIngressRuleExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags_all.%", "1"),
@@ -300,7 +324,8 @@ func TestAccVPCSecurityGroupIngressRule_DefaultTags_updateToProviderOnly(t *test
 					acctest.ConfigDefaultTags_Tags1("key1", "value1"),
 					testAccVPCSecurityGroupIngressRuleConfig_basic(rName),
 				),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSecurityGroupIngressRuleExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
 					resource.TestCheckResourceAttr(resourceName, "tags_all.%", "1"),
@@ -315,6 +340,7 @@ func TestAccVPCSecurityGroupIngressRule_DefaultTags_updateToProviderOnly(t *test
 		},
 	})
 }
+
 
 func TestAccVPCSecurityGroupIngressRule_DefaultTags_updateToResourceOnly(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -323,7 +349,8 @@ func TestAccVPCSecurityGroupIngressRule_DefaultTags_updateToResourceOnly(t *test
 	resourceName := "aws_vpc_security_group_ingress_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckSecurityGroupIngressRuleDestroy(ctx),
@@ -333,7 +360,8 @@ func TestAccVPCSecurityGroupIngressRule_DefaultTags_updateToResourceOnly(t *test
 					acctest.ConfigDefaultTags_Tags1("key1", "value1"),
 					testAccVPCSecurityGroupIngressRuleConfig_basic(rName),
 				),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSecurityGroupIngressRuleExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
 					resource.TestCheckResourceAttr(resourceName, "tags_all.%", "1"),
@@ -342,7 +370,8 @@ func TestAccVPCSecurityGroupIngressRule_DefaultTags_updateToResourceOnly(t *test
 			},
 			{
 				Config: testAccVPCSecurityGroupIngressRuleConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSecurityGroupIngressRuleExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags_all.%", "1"),
@@ -359,6 +388,7 @@ func TestAccVPCSecurityGroupIngressRule_DefaultTags_updateToResourceOnly(t *test
 	})
 }
 
+
 func TestAccVPCSecurityGroupIngressRule_DefaultTagsProviderAndResource_nonOverlappingTag(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.SecurityGroupRule
@@ -366,7 +396,8 @@ func TestAccVPCSecurityGroupIngressRule_DefaultTagsProviderAndResource_nonOverla
 	resourceName := "aws_vpc_security_group_ingress_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckSecurityGroupIngressRuleDestroy(ctx),
@@ -376,7 +407,8 @@ func TestAccVPCSecurityGroupIngressRule_DefaultTagsProviderAndResource_nonOverla
 					acctest.ConfigDefaultTags_Tags1("providerkey1", "providervalue1"),
 					testAccVPCSecurityGroupIngressRuleConfig_tags1(rName, "resourcekey1", "resourcevalue1"),
 				),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSecurityGroupIngressRuleExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags_all.%", "2"),
@@ -395,7 +427,8 @@ func TestAccVPCSecurityGroupIngressRule_DefaultTagsProviderAndResource_nonOverla
 					acctest.ConfigDefaultTags_Tags1("providerkey1", "providervalue1"),
 					testAccVPCSecurityGroupIngressRuleConfig_tags2(rName, "resourcekey1", "resourcevalue1", "resourcekey2", "resourcevalue2"),
 				),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSecurityGroupIngressRuleExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
 					resource.TestCheckResourceAttr(resourceName, "tags_all.%", "3"),
@@ -411,7 +444,8 @@ func TestAccVPCSecurityGroupIngressRule_DefaultTagsProviderAndResource_nonOverla
 					acctest.ConfigDefaultTags_Tags1("providerkey2", "providervalue2"),
 					testAccVPCSecurityGroupIngressRuleConfig_tags1(rName, "resourcekey3", "resourcevalue3"),
 				),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSecurityGroupIngressRuleExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags_all.%", "2"),
@@ -424,6 +458,7 @@ func TestAccVPCSecurityGroupIngressRule_DefaultTagsProviderAndResource_nonOverla
 	})
 }
 
+
 func TestAccVPCSecurityGroupIngressRule_DefaultTagsProviderAndResource_overlappingTag(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.SecurityGroupRule
@@ -431,7 +466,8 @@ func TestAccVPCSecurityGroupIngressRule_DefaultTagsProviderAndResource_overlappi
 	resourceName := "aws_vpc_security_group_ingress_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckSecurityGroupIngressRuleDestroy(ctx),
@@ -441,7 +477,8 @@ func TestAccVPCSecurityGroupIngressRule_DefaultTagsProviderAndResource_overlappi
 					acctest.ConfigDefaultTags_Tags1("overlapkey1", "providervalue1"),
 					testAccVPCSecurityGroupIngressRuleConfig_tags1(rName, "overlapkey1", "resourcevalue1"),
 				),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSecurityGroupIngressRuleExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags_all.%", "1"),
@@ -458,7 +495,8 @@ func TestAccVPCSecurityGroupIngressRule_DefaultTagsProviderAndResource_overlappi
 					acctest.ConfigDefaultTags_Tags2("overlapkey1", "providervalue1", "overlapkey2", "providervalue2"),
 					testAccVPCSecurityGroupIngressRuleConfig_tags2(rName, "overlapkey1", "resourcevalue1", "overlapkey2", "resourcevalue2"),
 				),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSecurityGroupIngressRuleExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
 					resource.TestCheckResourceAttr(resourceName, "tags_all.%", "2"),
@@ -473,7 +511,8 @@ func TestAccVPCSecurityGroupIngressRule_DefaultTagsProviderAndResource_overlappi
 					acctest.ConfigDefaultTags_Tags1("overlapkey1", "providervalue1"),
 					testAccVPCSecurityGroupIngressRuleConfig_tags1(rName, "overlapkey1", "resourcevalue2"),
 				),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSecurityGroupIngressRuleExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags_all.%", "1"),
@@ -485,6 +524,7 @@ func TestAccVPCSecurityGroupIngressRule_DefaultTagsProviderAndResource_overlappi
 	})
 }
 
+
 func TestAccVPCSecurityGroupIngressRule_DefaultTagsProviderAndResource_duplicateTag(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -492,7 +532,8 @@ func TestAccVPCSecurityGroupIngressRule_DefaultTagsProviderAndResource_duplicate
 	resourceName := "aws_vpc_security_group_ingress_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckSecurityGroupIngressRuleDestroy(ctx),
@@ -502,7 +543,8 @@ func TestAccVPCSecurityGroupIngressRule_DefaultTagsProviderAndResource_duplicate
 					acctest.ConfigDefaultTags_Tags1("overlapkey", "overlapvalue"),
 					testAccVPCSecurityGroupIngressRuleConfig_tags1(rName, "overlapkey", "overlapvalue"),
 				),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSecurityGroupIngressRuleExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags_all.%", "1"),
@@ -512,6 +554,7 @@ func TestAccVPCSecurityGroupIngressRule_DefaultTagsProviderAndResource_duplicate
 	})
 }
 
+
 func TestAccVPCSecurityGroupIngressRule_updateTagsKnownAtApply(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.SecurityGroupRule
@@ -519,14 +562,16 @@ func TestAccVPCSecurityGroupIngressRule_updateTagsKnownAtApply(t *testing.T) {
 	resourceName := "aws_vpc_security_group_ingress_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckSecurityGroupIngressRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCSecurityGroupIngressRuleConfig_tagsComputedFromDataSource1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSecurityGroupIngressRuleExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags_all.%", "1"),
@@ -534,7 +579,8 @@ func TestAccVPCSecurityGroupIngressRule_updateTagsKnownAtApply(t *testing.T) {
 			},
 			{
 				Config: testAccVPCSecurityGroupIngressRuleConfig_tagsComputedFromDataSource2(rName, "key1", "value1", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSecurityGroupIngressRuleExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
 					resource.TestCheckResourceAttr(resourceName, "tags_all.%", "2"),
@@ -549,6 +595,7 @@ func TestAccVPCSecurityGroupIngressRule_updateTagsKnownAtApply(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCSecurityGroupIngressRule_defaultAndIgnoreTags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.SecurityGroupRule
@@ -556,14 +603,16 @@ func TestAccVPCSecurityGroupIngressRule_defaultAndIgnoreTags(t *testing.T) {
 	resourceName := "aws_vpc_security_group_ingress_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckSecurityGroupIngressRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCSecurityGroupIngressRuleConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSecurityGroupIngressRuleExists(ctx, resourceName, &v),
 					testAccCheckSecurityGroupIngressRuleUpdateTags(ctx, &v, nil, map[string]string{"defaultkey1": "defaultvalue1"}),
 				),
@@ -587,6 +636,7 @@ func TestAccVPCSecurityGroupIngressRule_defaultAndIgnoreTags(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCSecurityGroupIngressRule_ignoreTags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.SecurityGroupRule
@@ -594,14 +644,16 @@ func TestAccVPCSecurityGroupIngressRule_ignoreTags(t *testing.T) {
 	resourceName := "aws_vpc_security_group_ingress_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckSecurityGroupIngressRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCSecurityGroupIngressRuleConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSecurityGroupIngressRuleExists(ctx, resourceName, &v),
 					testAccCheckSecurityGroupIngressRuleUpdateTags(ctx, &v, nil, map[string]string{"ignorekey1": "ignorevalue1"}),
 				),
@@ -625,6 +677,7 @@ func TestAccVPCSecurityGroupIngressRule_ignoreTags(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCSecurityGroupIngressRule_cidrIPv4(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v1, v2 ec2.SecurityGroupRule
@@ -632,14 +685,16 @@ func TestAccVPCSecurityGroupIngressRule_cidrIPv4(t *testing.T) {
 	resourceName := "aws_vpc_security_group_ingress_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckSecurityGroupIngressRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCSecurityGroupIngressRuleConfig_cidrIPv4(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckSecurityGroupIngressRuleExists(ctx, resourceName, &v1),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "cidr_ipv4", "0.0.0.0/0"),
@@ -661,7 +716,8 @@ func TestAccVPCSecurityGroupIngressRule_cidrIPv4(t *testing.T) {
 			},
 			{
 				Config: testAccVPCSecurityGroupIngressRuleConfig_cidrIPv4Updated(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckSecurityGroupIngressRuleExists(ctx, resourceName, &v2),
 					testAccCheckSecurityGroupRuleNotRecreated(&v2, &v1),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
@@ -681,6 +737,7 @@ func TestAccVPCSecurityGroupIngressRule_cidrIPv4(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCSecurityGroupIngressRule_cidrIPv6(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v1, v2 ec2.SecurityGroupRule
@@ -688,14 +745,16 @@ func TestAccVPCSecurityGroupIngressRule_cidrIPv6(t *testing.T) {
 	resourceName := "aws_vpc_security_group_ingress_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckSecurityGroupIngressRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCSecurityGroupIngressRuleConfig_cidrIPv6(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckSecurityGroupIngressRuleExists(ctx, resourceName, &v1),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
 					resource.TestCheckNoResourceAttr(resourceName, "cidr_ipv4"),
@@ -717,7 +776,8 @@ func TestAccVPCSecurityGroupIngressRule_cidrIPv6(t *testing.T) {
 			},
 			{
 				Config: testAccVPCSecurityGroupIngressRuleConfig_cidrIPv6Updated(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckSecurityGroupIngressRuleExists(ctx, resourceName, &v2),
 					testAccCheckSecurityGroupRuleNotRecreated(&v2, &v1),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
@@ -737,6 +797,7 @@ func TestAccVPCSecurityGroupIngressRule_cidrIPv6(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCSecurityGroupIngressRule_description(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v1, v2 ec2.SecurityGroupRule
@@ -744,14 +805,16 @@ func TestAccVPCSecurityGroupIngressRule_description(t *testing.T) {
 	resourceName := "aws_vpc_security_group_ingress_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckSecurityGroupIngressRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCSecurityGroupIngressRuleConfig_description(rName, "description1"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSecurityGroupIngressRuleExists(ctx, resourceName, &v1),
 					resource.TestCheckResourceAttr(resourceName, "description", "description1"),
 				),
@@ -763,7 +826,8 @@ func TestAccVPCSecurityGroupIngressRule_description(t *testing.T) {
 			},
 			{
 				Config: testAccVPCSecurityGroupIngressRuleConfig_description(rName, "description2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSecurityGroupIngressRuleExists(ctx, resourceName, &v2),
 					testAccCheckSecurityGroupRuleNotRecreated(&v2, &v1),
 					resource.TestCheckResourceAttr(resourceName, "description", "description2"),
@@ -772,6 +836,7 @@ func TestAccVPCSecurityGroupIngressRule_description(t *testing.T) {
 		},
 	})
 }
+
 
 func TestAccVPCSecurityGroupIngressRule_prefixListID(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -782,14 +847,16 @@ func TestAccVPCSecurityGroupIngressRule_prefixListID(t *testing.T) {
 	vpcEndpoint2ResourceName := "aws_vpc_endpoint.test2"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckSecurityGroupIngressRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCSecurityGroupIngressRuleConfig_prefixListID(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckSecurityGroupIngressRuleExists(ctx, resourceName, &v1),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
 					resource.TestCheckNoResourceAttr(resourceName, "cidr_ipv4"),
@@ -811,7 +878,8 @@ func TestAccVPCSecurityGroupIngressRule_prefixListID(t *testing.T) {
 			},
 			{
 				Config: testAccVPCSecurityGroupIngressRuleConfig_prefixListIDUpdated(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckSecurityGroupIngressRuleExists(ctx, resourceName, &v2),
 					testAccCheckSecurityGroupRuleNotRecreated(&v2, &v1),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
@@ -831,6 +899,7 @@ func TestAccVPCSecurityGroupIngressRule_prefixListID(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCSecurityGroupIngressRule_referencedSecurityGroupID(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v1, v2 ec2.SecurityGroupRule
@@ -840,14 +909,16 @@ func TestAccVPCSecurityGroupIngressRule_referencedSecurityGroupID(t *testing.T) 
 	securityGroup2ResourceName := "aws_security_group.test1"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckSecurityGroupIngressRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCSecurityGroupIngressRuleConfig_referencedSecurityGroupID(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckSecurityGroupIngressRuleExists(ctx, resourceName, &v1),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
 					resource.TestCheckNoResourceAttr(resourceName, "cidr_ipv4"),
@@ -869,7 +940,8 @@ func TestAccVPCSecurityGroupIngressRule_referencedSecurityGroupID(t *testing.T) 
 			},
 			{
 				Config: testAccVPCSecurityGroupIngressRuleConfig_referencedSecurityGroupIDUpdated(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckSecurityGroupIngressRuleExists(ctx, resourceName, &v2),
 					testAccCheckSecurityGroupRuleNotRecreated(&v2, &v1),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
@@ -889,6 +961,7 @@ func TestAccVPCSecurityGroupIngressRule_referencedSecurityGroupID(t *testing.T) 
 	})
 }
 
+
 func TestAccVPCSecurityGroupIngressRule_ReferencedSecurityGroupID_peerVPC(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.SecurityGroupRule
@@ -896,7 +969,8 @@ func TestAccVPCSecurityGroupIngressRule_ReferencedSecurityGroupID_peerVPC(t *tes
 	resourceName := "aws_vpc_security_group_ingress_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
 		},
@@ -906,7 +980,8 @@ func TestAccVPCSecurityGroupIngressRule_ReferencedSecurityGroupID_peerVPC(t *tes
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCSecurityGroupIngressRuleConfig_referencedSecurityGroupIDPeerVPC(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckSecurityGroupIngressRuleExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
 					resource.TestCheckNoResourceAttr(resourceName, "cidr_ipv4"),
@@ -930,6 +1005,7 @@ func TestAccVPCSecurityGroupIngressRule_ReferencedSecurityGroupID_peerVPC(t *tes
 	})
 }
 
+
 func TestAccVPCSecurityGroupIngressRule_updateSourceType(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v1, v2 ec2.SecurityGroupRule
@@ -937,14 +1013,16 @@ func TestAccVPCSecurityGroupIngressRule_updateSourceType(t *testing.T) {
 	resourceName := "aws_vpc_security_group_ingress_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckSecurityGroupIngressRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCSecurityGroupIngressRuleConfig_cidrIPv4(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckSecurityGroupIngressRuleExists(ctx, resourceName, &v1),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "cidr_ipv4", "0.0.0.0/0"),
@@ -966,7 +1044,8 @@ func TestAccVPCSecurityGroupIngressRule_updateSourceType(t *testing.T) {
 			},
 			{
 				Config: testAccVPCSecurityGroupIngressRuleConfig_cidrIPv6(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckSecurityGroupIngressRuleExists(ctx, resourceName, &v2),
 					testAccCheckSecurityGroupRuleRecreated(&v2, &v1),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
@@ -986,8 +1065,11 @@ func TestAccVPCSecurityGroupIngressRule_updateSourceType(t *testing.T) {
 	})
 }
 
-func testAccCheckSecurityGroupRuleNotRecreated(i, j *ec2.SecurityGroupRule) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckSecurityGroupRuleNotRecreated(i, j *ec2.SecurityGroupRule) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		if aws.StringValue(i.SecurityGroupRuleId) != aws.StringValue(j.SecurityGroupRuleId) {
 			return errors.New("VPC Security Group Rule was recreated")
 		}
@@ -996,8 +1078,11 @@ func testAccCheckSecurityGroupRuleNotRecreated(i, j *ec2.SecurityGroupRule) reso
 	}
 }
 
-func testAccCheckSecurityGroupRuleRecreated(i, j *ec2.SecurityGroupRule) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckSecurityGroupRuleRecreated(i, j *ec2.SecurityGroupRule) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		if aws.StringValue(i.SecurityGroupRuleId) == aws.StringValue(j.SecurityGroupRuleId) {
 			return errors.New("VPC Security Group Rule was not recreated")
 		}
@@ -1006,8 +1091,11 @@ func testAccCheckSecurityGroupRuleRecreated(i, j *ec2.SecurityGroupRule) resourc
 	}
 }
 
-func testAccCheckSecurityGroupIngressRuleDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckSecurityGroupIngressRuleDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -1032,8 +1120,11 @@ func testAccCheckSecurityGroupIngressRuleDestroy(ctx context.Context) resource.T
 	}
 }
 
-func testAccCheckSecurityGroupIngressRuleExists(ctx context.Context, n string, v *ec2.SecurityGroupRule) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckSecurityGroupIngressRuleExists(ctx context.Context, n string, v *ec2.SecurityGroupRule) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -1057,13 +1148,17 @@ func testAccCheckSecurityGroupIngressRuleExists(ctx context.Context, n string, v
 	}
 }
 
-func testAccCheckSecurityGroupIngressRuleUpdateTags(ctx context.Context, v *ec2.SecurityGroupRule, oldTags, newTags map[string]string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckSecurityGroupIngressRuleUpdateTags(ctx context.Context, v *ec2.SecurityGroupRule, oldTags, newTags map[string]string) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 		return tfec2.UpdateTags(ctx, conn, aws.StringValue(v.SecurityGroupRuleId), oldTags, newTags)
 	}
 }
+
 
 func testAccVPCSecurityGroupRuleConfig_base(rName string) string {
 	return fmt.Sprintf(`
@@ -1086,6 +1181,7 @@ resource "aws_security_group" "test" {
 `, rName)
 }
 
+
 func testAccVPCSecurityGroupIngressRuleConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccVPCSecurityGroupRuleConfig_base(rName), `
 resource "aws_vpc_security_group_ingress_rule" "test" {
@@ -1098,6 +1194,7 @@ resource "aws_vpc_security_group_ingress_rule" "test" {
 }
 `)
 }
+
 
 func testAccVPCSecurityGroupIngressRuleConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccVPCSecurityGroupRuleConfig_base(rName), fmt.Sprintf(`
@@ -1115,6 +1212,7 @@ resource "aws_vpc_security_group_ingress_rule" "test" {
 }
 `, tagKey1, tagValue1))
 }
+
 
 func testAccVPCSecurityGroupIngressRuleConfig_computed(rName string) string {
 	return acctest.ConfigCompose(testAccVPCSecurityGroupRuleConfig_base(rName), `
@@ -1137,6 +1235,7 @@ resource "aws_vpc_security_group_ingress_rule" "test" {
 `)
 }
 
+
 func testAccVPCSecurityGroupIngressRuleConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccVPCSecurityGroupRuleConfig_base(rName), fmt.Sprintf(`
 resource "aws_vpc_security_group_ingress_rule" "test" {
@@ -1154,6 +1253,7 @@ resource "aws_vpc_security_group_ingress_rule" "test" {
 }
 `, tagKey1, tagValue1, tagKey2, tagValue2))
 }
+
 
 func testAccVPCSecurityGroupIngressRuleConfig_computedTagsBase(rName string) string {
 	return fmt.Sprintf(`
@@ -1188,6 +1288,7 @@ resource "aws_vpc_security_group_ingress_rule" "test" {
 `, rName)
 }
 
+
 func testAccVPCSecurityGroupIngressRuleConfig_tagsComputedFromDataSource1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccVPCSecurityGroupIngressRuleConfig_computedTagsBase(rName), fmt.Sprintf(`
 locals {
@@ -1197,6 +1298,7 @@ locals {
 }
 `, tagKey1, tagValue1))
 }
+
 
 func testAccVPCSecurityGroupIngressRuleConfig_tagsComputedFromDataSource2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccVPCSecurityGroupIngressRuleConfig_computedTagsBase(rName), fmt.Sprintf(`
@@ -1208,6 +1310,7 @@ locals {
 }
 `, tagKey1, tagValue1, tagKey2, tagValue2))
 }
+
 
 func testAccVPCSecurityGroupIngressRuleConfig_cidrIPv4(rName string) string {
 	return acctest.ConfigCompose(testAccVPCSecurityGroupRuleConfig_base(rName), `
@@ -1222,6 +1325,7 @@ resource "aws_vpc_security_group_ingress_rule" "test" {
 `)
 }
 
+
 func testAccVPCSecurityGroupIngressRuleConfig_cidrIPv4Updated(rName string) string {
 	return acctest.ConfigCompose(testAccVPCSecurityGroupRuleConfig_base(rName), `
 resource "aws_vpc_security_group_ingress_rule" "test" {
@@ -1234,6 +1338,7 @@ resource "aws_vpc_security_group_ingress_rule" "test" {
 }
 `)
 }
+
 
 func testAccVPCSecurityGroupIngressRuleConfig_cidrIPv6(rName string) string {
 	return acctest.ConfigCompose(testAccVPCSecurityGroupRuleConfig_base(rName), `
@@ -1248,6 +1353,7 @@ resource "aws_vpc_security_group_ingress_rule" "test" {
 `)
 }
 
+
 func testAccVPCSecurityGroupIngressRuleConfig_cidrIPv6Updated(rName string) string {
 	return acctest.ConfigCompose(testAccVPCSecurityGroupRuleConfig_base(rName), `
 resource "aws_vpc_security_group_ingress_rule" "test" {
@@ -1258,6 +1364,7 @@ resource "aws_vpc_security_group_ingress_rule" "test" {
 }
 `)
 }
+
 
 func testAccVPCSecurityGroupIngressRuleConfig_description(rName, description string) string {
 	return acctest.ConfigCompose(testAccVPCSecurityGroupRuleConfig_base(rName), fmt.Sprintf(`
@@ -1273,6 +1380,7 @@ resource "aws_vpc_security_group_ingress_rule" "test" {
 }
 `, description))
 }
+
 
 func testAccVPCSecurityGroupIngressRuleConfig_prefixListIDBase(rName string) string {
 	return acctest.ConfigCompose(testAccVPCSecurityGroupRuleConfig_base(rName), fmt.Sprintf(`
@@ -1298,6 +1406,7 @@ resource "aws_vpc_endpoint" "test2" {
 `, rName))
 }
 
+
 func testAccVPCSecurityGroupIngressRuleConfig_prefixListID(rName string) string {
 	return acctest.ConfigCompose(testAccVPCSecurityGroupIngressRuleConfig_prefixListIDBase(rName), `
 resource "aws_vpc_security_group_ingress_rule" "test" {
@@ -1310,6 +1419,7 @@ resource "aws_vpc_security_group_ingress_rule" "test" {
 }
 `)
 }
+
 
 func testAccVPCSecurityGroupIngressRuleConfig_prefixListIDUpdated(rName string) string {
 	return acctest.ConfigCompose(testAccVPCSecurityGroupIngressRuleConfig_prefixListIDBase(rName), `
@@ -1324,6 +1434,7 @@ resource "aws_vpc_security_group_ingress_rule" "test" {
 `)
 }
 
+
 func testAccVPCSecurityGroupIngressRuleConfig_referencedSecurityGroupID(rName string) string {
 	return acctest.ConfigCompose(testAccVPCSecurityGroupRuleConfig_base(rName), `
 resource "aws_vpc_security_group_ingress_rule" "test" {
@@ -1336,6 +1447,7 @@ resource "aws_vpc_security_group_ingress_rule" "test" {
 }
 `)
 }
+
 
 func testAccVPCSecurityGroupIngressRuleConfig_referencedSecurityGroupIDUpdated(rName string) string {
 	return acctest.ConfigCompose(testAccVPCSecurityGroupRuleConfig_base(rName), fmt.Sprintf(`
@@ -1358,6 +1470,7 @@ resource "aws_vpc_security_group_ingress_rule" "test" {
 }
 `, rName))
 }
+
 
 func testAccVPCSecurityGroupIngressRuleConfig_referencedSecurityGroupIDPeerVPC(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAlternateAccountProvider(), testAccVPCSecurityGroupRuleConfig_base(rName), fmt.Sprintf(`

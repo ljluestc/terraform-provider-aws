@@ -13,6 +13,7 @@ import (
 )
 
 // @SDKDataSource("aws_route53_resolver_firewall_rule_group_association")
+
 func DataSourceFirewallRuleGroupAssociation() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceRuleGroupAssociationRead,

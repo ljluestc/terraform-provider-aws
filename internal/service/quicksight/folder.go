@@ -29,6 +29,7 @@ import (
 
 // @SDKResource("aws_quicksight_folder", name="Folder")
 // @Tags(identifierAttribute="arn")
+
 func ResourceFolder() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceFolderCreate,
@@ -57,7 +58,8 @@ func ResourceFolder() *schema.Resource {
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.ValidAccountID,
+				Validate
+func: verify.ValidAccountID,
 			},
 			"created_time": {
 				Type:     schema.TypeString,
@@ -67,7 +69,8 @@ func ResourceFolder() *schema.Resource {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
-				ValidateFunc: validation.All(
+				Validate
+func: validation.All(
 					validation.NoZeroValues,
 					validation.StringLenBetween(1, 2048),
 				),
@@ -83,7 +86,8 @@ func ResourceFolder() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				Default:      quicksight.FolderTypeShared,
-				ValidateFunc: validation.StringInSlice(quicksight.FolderType_Values(), false),
+				Validate
+func: validation.StringInSlice(quicksight.FolderType_Values(), false),
 			},
 			"last_updated_time": {
 				Type:     schema.TypeString,
@@ -92,7 +96,8 @@ func ResourceFolder() *schema.Resource {
 			"name": {
 				Type:     schema.TypeString,
 				Optional: true,
-				ValidateFunc: validation.All(
+				Validate
+func: validation.All(
 					validation.NoZeroValues,
 					validation.StringLenBetween(1, 200),
 				),
@@ -101,7 +106,8 @@ func ResourceFolder() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			"permissions": {
 				Type:     schema.TypeList,
@@ -120,7 +126,8 @@ func ResourceFolder() *schema.Resource {
 						"principal": {
 							Type:         schema.TypeString,
 							Required:     true,
-							ValidateFunc: validation.StringLenBetween(1, 256),
+							Validate
+func: validation.StringLenBetween(1, 256),
 						},
 					},
 				},
@@ -135,6 +142,7 @@ func ResourceFolder() *schema.Resource {
 const (
 	ResNameFolder = "Folder"
 )
+
 
 func resourceFolderCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
@@ -178,6 +186,7 @@ func resourceFolderCreate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return resourceFolderRead(ctx, d, meta)
 }
+
 
 func resourceFolderRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
@@ -228,6 +237,7 @@ func resourceFolderRead(ctx context.Context, d *schema.ResourceData, meta interf
 	}
 	return nil
 }
+
 
 func resourceFolderUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
@@ -281,6 +291,7 @@ func resourceFolderUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 	return resourceFolderRead(ctx, d, meta)
 }
 
+
 func resourceFolderDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
 
@@ -306,6 +317,7 @@ func resourceFolderDelete(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return nil
 }
+
 
 func FindFolderByID(ctx context.Context, conn *quicksight.QuickSight, id string) (*quicksight.Folder, error) {
 	awsAccountId, folderId, err := ParseFolderId(id)
@@ -338,6 +350,7 @@ func FindFolderByID(ctx context.Context, conn *quicksight.QuickSight, id string)
 	return out.Folder, nil
 }
 
+
 func ParseFolderId(id string) (string, string, error) {
 	parts := strings.SplitN(id, ",", 2)
 	if len(parts) != 2 || parts[0] == "" || parts[1] == "" {
@@ -345,6 +358,7 @@ func ParseFolderId(id string) (string, string, error) {
 	}
 	return parts[0], parts[1], nil
 }
+
 
 func createFolderId(awsAccountID, folderId string) string {
 	return fmt.Sprintf("%s,%s", awsAccountID, folderId)

@@ -1,13 +1,4 @@
-// +build appengine
+appenginepackage || ignore || bytesToString || converts || byte || slice || to || string.func || ignore || ignore || string || ignore || return || ignore || stringToBytes || converts || string || to || byte || slice.func || ignore || ignore || ignore || ignore || return || ignore
+// +build appenginepackage ignore bytesToString converts byte slice to string.func ignore ignore string ignore return ignore stringToBytes converts string to byte slice.func ignore ignore ignore ignore return ignore
 
-package msgpack
-
-// bytesToString converts byte slice to string.
-func bytesToString(b []byte) string {
-	return string(b)
-}
-
-// stringToBytes converts string to byte slice.
-func stringToBytes(s string) []byte {
-	return []byte(s)
-}
+package p

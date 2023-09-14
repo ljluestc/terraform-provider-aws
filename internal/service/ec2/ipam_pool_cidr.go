@@ -24,6 +24,7 @@ import (
 )
 
 // @SDKResource("aws_vpc_ipam_pool_cidr")
+
 func ResourceIPAMPoolCIDR() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceIPAMPoolCIDRCreate,
@@ -50,7 +51,8 @@ func ResourceIPAMPoolCIDR() *schema.Resource {
 				Optional: true,
 				ForceNew: true,
 				Computed: true,
-				ValidateFunc: validation.Any(
+				Validate
+func: validation.Any(
 					verify.ValidIPv4CIDRNetworkAddress,
 					verify.ValidIPv6CIDRNetworkAddress,
 				),
@@ -90,10 +92,13 @@ func ResourceIPAMPoolCIDR() *schema.Resource {
 				Type:          schema.TypeInt,
 				Optional:      true,
 				ForceNew:      true,
-				ValidateFunc:  validation.IntBetween(0, 128),
+				Validate
+func:  validation.IntBetween(0, 128),
 				ConflictsWith: []string{"cidr"},
 				// NetmaskLength is not outputted by GetIpamPoolCidrsOutput
-				DiffSuppressFunc: func(k, o, n string, d *schema.ResourceData) bool {
+				DiffSuppress
+func: 
+func(k, o, n string, d *schema.ResourceData) bool {
 					if o != "0" && n == "0" {
 						return true
 					}
@@ -103,6 +108,7 @@ func ResourceIPAMPoolCIDR() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceIPAMPoolCIDRCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -148,6 +154,7 @@ func resourceIPAMPoolCIDRCreate(ctx context.Context, d *schema.ResourceData, met
 	return append(diags, resourceIPAMPoolCIDRRead(ctx, d, meta)...)
 }
 
+
 func resourceIPAMPoolCIDRRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -176,6 +183,7 @@ func resourceIPAMPoolCIDRRead(ctx context.Context, d *schema.ResourceData, meta 
 
 	return diags
 }
+
 
 func resourceIPAMPoolCIDRDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -211,12 +219,14 @@ func resourceIPAMPoolCIDRDelete(ctx context.Context, d *schema.ResourceData, met
 
 const ipamPoolCIDRIDSeparator = "_"
 
+
 func IPAMPoolCIDRCreateResourceID(cidrBlock, poolID string) string {
 	parts := []string{cidrBlock, poolID}
 	id := strings.Join(parts, ipamPoolCIDRIDSeparator)
 
 	return id
 }
+
 
 func IPAMPoolCIDRParseResourceID(id string) (string, string, error) {
 	parts := strings.Split(id, ipamPoolCIDRIDSeparator)
@@ -227,6 +237,7 @@ func IPAMPoolCIDRParseResourceID(id string) (string, string, error) {
 
 	return parts[0], parts[1], nil
 }
+
 
 func expandIPAMCIDRAuthorizationContext(tfMap map[string]interface{}) *ec2.IpamCidrAuthorizationContext {
 	if tfMap == nil {
@@ -245,6 +256,7 @@ func expandIPAMCIDRAuthorizationContext(tfMap map[string]interface{}) *ec2.IpamC
 
 	return apiObject
 }
+
 
 func resourceIPAMPoolCIDRCustomizeDiff(_ context.Context, diff *schema.ResourceDiff, v interface{}) error {
 	// cidr can be set by a value returned from IPAM or explicitly in config.

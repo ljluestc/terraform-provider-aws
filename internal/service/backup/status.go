@@ -13,8 +13,11 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func statusJobState(ctx context.Context, conn *backup.Backup, id string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+
+func statusJobState(ctx context.Context, conn *backup.Backup, id string) retry.StateRefresh
+func {
+	return 
+func() (interface{}, string, error) {
 		output, err := FindJobByID(ctx, conn, id)
 
 		if tfresource.NotFound(err) {
@@ -29,8 +32,11 @@ func statusJobState(ctx context.Context, conn *backup.Backup, id string) retry.S
 	}
 }
 
-func statusFramework(ctx context.Context, conn *backup.Backup, id string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+
+func statusFramework(ctx context.Context, conn *backup.Backup, id string) retry.StateRefresh
+func {
+	return 
+func() (interface{}, string, error) {
 		input := &backup.DescribeFrameworkInput{
 			FrameworkName: aws.String(id),
 		}
@@ -49,8 +55,11 @@ func statusFramework(ctx context.Context, conn *backup.Backup, id string) retry.
 	}
 }
 
-func statusRecoveryPoint(ctx context.Context, conn *backup.Backup, backupVaultName, recoveryPointARN string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+
+func statusRecoveryPoint(ctx context.Context, conn *backup.Backup, backupVaultName, recoveryPointARN string) retry.StateRefresh
+func {
+	return 
+func() (interface{}, string, error) {
 		output, err := FindRecoveryPointByTwoPartKey(ctx, conn, backupVaultName, recoveryPointARN)
 
 		if tfresource.NotFound(err) {

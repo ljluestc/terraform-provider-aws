@@ -27,6 +27,7 @@ const (
 
 // @SDKResource("aws_default_network_acl", name="Network ACL")
 // @Tags(identifierAttribute="id")
+
 func ResourceDefaultNetworkACL() *schema.Resource {
 	networkACLRuleSetNestedBlock := &schema.Schema{
 		Type:     schema.TypeSet,

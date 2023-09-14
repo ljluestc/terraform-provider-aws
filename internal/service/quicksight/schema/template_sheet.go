@@ -11,6 +11,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 )
 
+
 func analysisDefaultSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -35,6 +36,7 @@ func analysisDefaultSchema() *schema.Schema {
 		},
 	}
 }
+
 
 func interactiveLayoutConfigurationSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DefaultInteractiveLayoutConfiguration.html
@@ -118,6 +120,7 @@ func interactiveLayoutConfigurationSchema() *schema.Schema {
 	}
 }
 
+
 func paginatedLayoutConfigurationSchema() *schema.Schema {
 	return &schema.Schema{ // // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DefaultPaginatedLayoutConfiguration.html,
 		Type:     schema.TypeList,
@@ -152,6 +155,7 @@ func paginatedLayoutConfigurationSchema() *schema.Schema {
 	}
 }
 
+
 func paperCanvasSizeOptionsSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -167,6 +171,7 @@ func paperCanvasSizeOptionsSchema() *schema.Schema {
 		},
 	}
 }
+
 
 func sheetControlLayoutsSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_SheetControlLayout.html
@@ -191,6 +196,7 @@ func sheetControlLayoutsSchema() *schema.Schema {
 		},
 	}
 }
+
 
 func layoutSchema() *schema.Schema {
 	return &schema.Schema{ // // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_Layout.html
@@ -320,6 +326,7 @@ func layoutSchema() *schema.Schema {
 	}
 }
 
+
 func gridLayoutConfigurationSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_GridLayoutConfiguration.html
 		Type:     schema.TypeList,
@@ -339,24 +346,28 @@ func gridLayoutConfigurationSchema() *schema.Schema {
 							"column_span": {
 								Type:         schema.TypeInt,
 								Required:     true,
-								ValidateFunc: validation.IntBetween(1, 36),
+								Validate
+func: validation.IntBetween(1, 36),
 							},
 							"element_id":   idSchema(),
 							"element_type": stringSchema(true, validation.StringInSlice(quicksight.LayoutElementType_Values(), false)),
 							"row_span": {
 								Type:         schema.TypeInt,
 								Required:     true,
-								ValidateFunc: validation.IntBetween(1, 21),
+								Validate
+func: validation.IntBetween(1, 21),
 							},
 							"column_index": {
 								Type:         schema.TypeInt,
 								Optional:     true,
-								ValidateFunc: validation.IntBetween(0, 35),
+								Validate
+func: validation.IntBetween(0, 35),
 							},
 							"row_index": {
 								Type:         schema.TypeInt,
 								Optional:     true,
-								ValidateFunc: validation.IntBetween(0, 9009),
+								Validate
+func: validation.IntBetween(0, 9009),
 							},
 						},
 					},
@@ -391,6 +402,7 @@ func gridLayoutConfigurationSchema() *schema.Schema {
 	}
 }
 
+
 func headerFooterSectionConfigurationSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_HeaderFooterSectionConfiguration.html
 		Type:     schema.TypeList,
@@ -406,6 +418,7 @@ func headerFooterSectionConfigurationSchema() *schema.Schema {
 		},
 	}
 }
+
 
 func sectionStyleSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_SectionStyle.html
@@ -424,6 +437,7 @@ func sectionStyleSchema() *schema.Schema {
 		},
 	}
 }
+
 
 func freeFormLayoutElementsSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FreeFormLayoutElement.html
@@ -526,6 +540,7 @@ func freeFormLayoutElementsSchema() *schema.Schema {
 	}
 }
 
+
 func sectionLayoutConfigurationSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_SectionLayoutConfiguration.html
 		Type:     schema.TypeList,
@@ -549,6 +564,7 @@ func sectionLayoutConfigurationSchema() *schema.Schema {
 		},
 	}
 }
+
 
 func spacingSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_Spacing.html
@@ -579,6 +595,7 @@ func spacingSchema() *schema.Schema {
 	}
 }
 
+
 func expandAnalysisDefaults(tfList []interface{}) *quicksight.AnalysisDefaults {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -597,6 +614,7 @@ func expandAnalysisDefaults(tfList []interface{}) *quicksight.AnalysisDefaults {
 
 	return defaults
 }
+
 
 func expandDefaultNewSheetConfiguration(tfList []interface{}) *quicksight.DefaultNewSheetConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -625,6 +643,7 @@ func expandDefaultNewSheetConfiguration(tfList []interface{}) *quicksight.Defaul
 	return config
 }
 
+
 func expandDefaultInteractiveLayoutConfiguration(tfList []interface{}) *quicksight.DefaultInteractiveLayoutConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -648,6 +667,7 @@ func expandDefaultInteractiveLayoutConfiguration(tfList []interface{}) *quicksig
 	return config
 }
 
+
 func expandDefaultFreeFormLayoutConfiguration(tfList []interface{}) *quicksight.DefaultFreeFormLayoutConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -666,6 +686,7 @@ func expandDefaultFreeFormLayoutConfiguration(tfList []interface{}) *quicksight.
 
 	return config
 }
+
 
 func expandFreeFormLayoutCanvasSizeOptions(tfList []interface{}) *quicksight.FreeFormLayoutCanvasSizeOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -686,6 +707,7 @@ func expandFreeFormLayoutCanvasSizeOptions(tfList []interface{}) *quicksight.Fre
 	return options
 }
 
+
 func expandFreeFormLayoutScreenCanvasSizeOptions(tfList []interface{}) *quicksight.FreeFormLayoutScreenCanvasSizeOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -704,6 +726,7 @@ func expandFreeFormLayoutScreenCanvasSizeOptions(tfList []interface{}) *quicksig
 
 	return options
 }
+
 
 func expandDefaultGridLayoutConfiguration(tfList []interface{}) *quicksight.DefaultGridLayoutConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -724,6 +747,7 @@ func expandDefaultGridLayoutConfiguration(tfList []interface{}) *quicksight.Defa
 	return config
 }
 
+
 func expandGridLayoutCanvasSizeOptions(tfList []interface{}) *quicksight.GridLayoutCanvasSizeOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -742,6 +766,7 @@ func expandGridLayoutCanvasSizeOptions(tfList []interface{}) *quicksight.GridLay
 
 	return options
 }
+
 
 func expandGridLayoutScreenCanvasSizeOptions(tfList []interface{}) *quicksight.GridLayoutScreenCanvasSizeOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -765,6 +790,7 @@ func expandGridLayoutScreenCanvasSizeOptions(tfList []interface{}) *quicksight.G
 	return options
 }
 
+
 func expandDefaultPaginatedLayoutConfiguration(tfList []interface{}) *quicksight.DefaultPaginatedLayoutConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -783,6 +809,7 @@ func expandDefaultPaginatedLayoutConfiguration(tfList []interface{}) *quicksight
 
 	return config
 }
+
 
 func expandDefaultSectionBasedLayoutConfiguration(tfList []interface{}) *quicksight.DefaultSectionBasedLayoutConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -803,6 +830,7 @@ func expandDefaultSectionBasedLayoutConfiguration(tfList []interface{}) *quicksi
 	return config
 }
 
+
 func expandSectionBasedLayoutCanvasSizeOptions(tfList []interface{}) *quicksight.SectionBasedLayoutCanvasSizeOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -821,6 +849,7 @@ func expandSectionBasedLayoutCanvasSizeOptions(tfList []interface{}) *quicksight
 
 	return options
 }
+
 
 func expandSectionBasedLayoutPaperCanvasSizeOptions(tfList []interface{}) *quicksight.SectionBasedLayoutPaperCanvasSizeOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -846,6 +875,7 @@ func expandSectionBasedLayoutPaperCanvasSizeOptions(tfList []interface{}) *quick
 
 	return options
 }
+
 
 func expandSpacing(tfList []interface{}) *quicksight.Spacing {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -877,6 +907,7 @@ func expandSpacing(tfList []interface{}) *quicksight.Spacing {
 
 	return spacing
 }
+
 
 func expandSheetDefinition(tfMap map[string]interface{}) *quicksight.SheetDefinition {
 	if tfMap == nil {
@@ -922,6 +953,7 @@ func expandSheetDefinition(tfMap map[string]interface{}) *quicksight.SheetDefini
 	return sheet
 }
 
+
 func expandFilterControls(tfList []interface{}) []*quicksight.FilterControl {
 	if len(tfList) == 0 {
 		return nil
@@ -944,6 +976,7 @@ func expandFilterControls(tfList []interface{}) []*quicksight.FilterControl {
 
 	return controls
 }
+
 
 func expandLayouts(tfList []interface{}) []*quicksight.Layout {
 	if len(tfList) == 0 {
@@ -968,6 +1001,7 @@ func expandLayouts(tfList []interface{}) []*quicksight.Layout {
 	return layouts
 }
 
+
 func expandLayout(tfMap map[string]interface{}) *quicksight.Layout {
 	if tfMap == nil {
 		return nil
@@ -981,6 +1015,7 @@ func expandLayout(tfMap map[string]interface{}) *quicksight.Layout {
 
 	return layout
 }
+
 
 func expandLayoutConfiguration(tfList []interface{}) *quicksight.LayoutConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -1007,6 +1042,7 @@ func expandLayoutConfiguration(tfList []interface{}) *quicksight.LayoutConfigura
 	return config
 }
 
+
 func expandFreeFormLayoutConfiguration(tfList []interface{}) *quicksight.FreeFormLayoutConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -1028,6 +1064,7 @@ func expandFreeFormLayoutConfiguration(tfList []interface{}) *quicksight.FreeFor
 
 	return config
 }
+
 
 func expandFreeFormLayoutElements(tfList []interface{}) []*quicksight.FreeFormLayoutElement {
 	if len(tfList) == 0 {
@@ -1051,6 +1088,7 @@ func expandFreeFormLayoutElements(tfList []interface{}) []*quicksight.FreeFormLa
 
 	return layouts
 }
+
 
 func expandFreeFormLayoutElement(tfMap map[string]interface{}) *quicksight.FreeFormLayoutElement {
 	if tfMap == nil {
@@ -1099,6 +1137,7 @@ func expandFreeFormLayoutElement(tfMap map[string]interface{}) *quicksight.FreeF
 	return layout
 }
 
+
 func expandFreeFormLayoutElementBackgroundStyle(tfList []interface{}) *quicksight.FreeFormLayoutElementBackgroundStyle {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -1119,6 +1158,7 @@ func expandFreeFormLayoutElementBackgroundStyle(tfList []interface{}) *quicksigh
 	}
 	return config
 }
+
 
 func expandFreeFormLayoutElementBorderStyle(tfList []interface{}) *quicksight.FreeFormLayoutElementBorderStyle {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -1141,6 +1181,7 @@ func expandFreeFormLayoutElementBorderStyle(tfList []interface{}) *quicksight.Fr
 	return config
 }
 
+
 func expandLoadingAnimation(tfList []interface{}) *quicksight.LoadingAnimation {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -1158,6 +1199,7 @@ func expandLoadingAnimation(tfList []interface{}) *quicksight.LoadingAnimation {
 	}
 	return config
 }
+
 
 func expandSheetElementRenderingRules(tfList []interface{}) []*quicksight.SheetElementRenderingRule {
 	if len(tfList) == 0 {
@@ -1182,6 +1224,7 @@ func expandSheetElementRenderingRules(tfList []interface{}) []*quicksight.SheetE
 	return rules
 }
 
+
 func expandSheetElementRenderingRule(tfMap map[string]interface{}) *quicksight.SheetElementRenderingRule {
 	if tfMap == nil {
 		return nil
@@ -1198,6 +1241,7 @@ func expandSheetElementRenderingRule(tfMap map[string]interface{}) *quicksight.S
 
 	return layout
 }
+
 
 func expandSheetElementConfigurationOverrides(tfList []interface{}) *quicksight.SheetElementConfigurationOverrides {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -1216,6 +1260,7 @@ func expandSheetElementConfigurationOverrides(tfList []interface{}) *quicksight.
 	}
 	return config
 }
+
 
 func expandGridLayoutConfiguration(tfList []interface{}) *quicksight.GridLayoutConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -1239,6 +1284,7 @@ func expandGridLayoutConfiguration(tfList []interface{}) *quicksight.GridLayoutC
 	return config
 }
 
+
 func expandGridLayoutElements(tfList []interface{}) []*quicksight.GridLayoutElement {
 	if len(tfList) == 0 {
 		return nil
@@ -1261,6 +1307,7 @@ func expandGridLayoutElements(tfList []interface{}) []*quicksight.GridLayoutElem
 
 	return layouts
 }
+
 
 func expandGridLayoutElement(tfMap map[string]interface{}) *quicksight.GridLayoutElement {
 	if tfMap == nil {
@@ -1291,6 +1338,7 @@ func expandGridLayoutElement(tfMap map[string]interface{}) *quicksight.GridLayou
 	return layout
 }
 
+
 func expandSectionBasedLayoutConfiguration(tfList []interface{}) *quicksight.SectionBasedLayoutConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -1319,6 +1367,7 @@ func expandSectionBasedLayoutConfiguration(tfList []interface{}) *quicksight.Sec
 	return config
 }
 
+
 func expandBodySectionConfigurations(tfList []interface{}) []*quicksight.BodySectionConfiguration {
 	if len(tfList) == 0 {
 		return nil
@@ -1341,6 +1390,7 @@ func expandBodySectionConfigurations(tfList []interface{}) []*quicksight.BodySec
 
 	return configs
 }
+
 
 func expandBodySectionConfiguration(tfMap map[string]interface{}) *quicksight.BodySectionConfiguration {
 	if tfMap == nil {
@@ -1366,6 +1416,7 @@ func expandBodySectionConfiguration(tfMap map[string]interface{}) *quicksight.Bo
 	return config
 }
 
+
 func expandBodySectionContent(tfList []interface{}) *quicksight.BodySectionContent {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -1384,6 +1435,7 @@ func expandBodySectionContent(tfList []interface{}) *quicksight.BodySectionConte
 
 	return config
 }
+
 
 func expandSectionLayoutConfiguration(tfList []interface{}) *quicksight.SectionLayoutConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -1404,6 +1456,7 @@ func expandSectionLayoutConfiguration(tfList []interface{}) *quicksight.SectionL
 	return config
 }
 
+
 func expandFreeFormSectionLayoutConfiguration(tfList []interface{}) *quicksight.FreeFormSectionLayoutConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -1422,6 +1475,7 @@ func expandFreeFormSectionLayoutConfiguration(tfList []interface{}) *quicksight.
 
 	return config
 }
+
 
 func expandSectionPageBreakConfiguration(tfList []interface{}) *quicksight.SectionPageBreakConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -1442,6 +1496,7 @@ func expandSectionPageBreakConfiguration(tfList []interface{}) *quicksight.Secti
 	return config
 }
 
+
 func expandSectionAfterPageBreak(tfList []interface{}) *quicksight.SectionAfterPageBreak {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -1460,6 +1515,7 @@ func expandSectionAfterPageBreak(tfList []interface{}) *quicksight.SectionAfterP
 
 	return config
 }
+
 
 func expandSectionStyle(tfList []interface{}) *quicksight.SectionStyle {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -1482,6 +1538,7 @@ func expandSectionStyle(tfList []interface{}) *quicksight.SectionStyle {
 
 	return config
 }
+
 
 func expandHeaderFooterSectionConfigurations(tfList []interface{}) []*quicksight.HeaderFooterSectionConfiguration {
 	if len(tfList) == 0 {
@@ -1506,6 +1563,7 @@ func expandHeaderFooterSectionConfigurations(tfList []interface{}) []*quicksight
 	return configs
 }
 
+
 func expandHeaderFooterSectionConfiguration(tfMap map[string]interface{}) *quicksight.HeaderFooterSectionConfiguration {
 	if tfMap == nil {
 		return nil
@@ -1525,6 +1583,7 @@ func expandHeaderFooterSectionConfiguration(tfMap map[string]interface{}) *quick
 
 	return config
 }
+
 
 func expandParameterControls(tfList []interface{}) []*quicksight.ParameterControl {
 	if len(tfList) == 0 {
@@ -1549,6 +1608,7 @@ func expandParameterControls(tfList []interface{}) []*quicksight.ParameterContro
 	return controls
 }
 
+
 func expandSheetControlLayouts(tfList []interface{}) []*quicksight.SheetControlLayout {
 	if len(tfList) == 0 {
 		return nil
@@ -1572,6 +1632,7 @@ func expandSheetControlLayouts(tfList []interface{}) []*quicksight.SheetControlL
 	return layouts
 }
 
+
 func expandSheetControlLayout(tfMap map[string]interface{}) *quicksight.SheetControlLayout {
 	if tfMap == nil {
 		return nil
@@ -1585,6 +1646,7 @@ func expandSheetControlLayout(tfMap map[string]interface{}) *quicksight.SheetCon
 
 	return layout
 }
+
 
 func expandSheetControlLayoutConfiguration(tfList []interface{}) *quicksight.SheetControlLayoutConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -1604,6 +1666,7 @@ func expandSheetControlLayoutConfiguration(tfList []interface{}) *quicksight.She
 
 	return config
 }
+
 
 func expandSheetTextBoxes(tfList []interface{}) []*quicksight.SheetTextBox {
 	if len(tfList) == 0 {
@@ -1628,6 +1691,7 @@ func expandSheetTextBoxes(tfList []interface{}) []*quicksight.SheetTextBox {
 	return boxes
 }
 
+
 func expandSheetTextBox(tfMap map[string]interface{}) *quicksight.SheetTextBox {
 	if tfMap == nil {
 		return nil
@@ -1644,6 +1708,7 @@ func expandSheetTextBox(tfMap map[string]interface{}) *quicksight.SheetTextBox {
 
 	return box
 }
+
 
 func expandVisuals(tfList []interface{}) []*quicksight.Visual {
 	if len(tfList) == 0 {
@@ -1668,6 +1733,7 @@ func expandVisuals(tfList []interface{}) []*quicksight.Visual {
 	return visuals
 }
 
+
 func flattenAnalysisDefaults(apiObject *quicksight.AnalysisDefaults) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1680,6 +1746,7 @@ func flattenAnalysisDefaults(apiObject *quicksight.AnalysisDefaults) []interface
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenDefaultNewSheetConfiguration(apiObject *quicksight.DefaultNewSheetConfiguration) []interface{} {
 	if apiObject == nil {
@@ -1700,6 +1767,7 @@ func flattenDefaultNewSheetConfiguration(apiObject *quicksight.DefaultNewSheetCo
 	return []interface{}{tfMap}
 }
 
+
 func flattenDefaultInteractiveLayoutConfiguration(apiObject *quicksight.DefaultInteractiveLayoutConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1716,6 +1784,7 @@ func flattenDefaultInteractiveLayoutConfiguration(apiObject *quicksight.DefaultI
 	return []interface{}{tfMap}
 }
 
+
 func flattenDefaultFreeFormLayoutConfiguration(apiObject *quicksight.DefaultFreeFormLayoutConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1728,6 +1797,7 @@ func flattenDefaultFreeFormLayoutConfiguration(apiObject *quicksight.DefaultFree
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenFreeFormLayoutCanvasSizeOptions(apiObject *quicksight.FreeFormLayoutCanvasSizeOptions) []interface{} {
 	if apiObject == nil {
@@ -1742,6 +1812,7 @@ func flattenFreeFormLayoutCanvasSizeOptions(apiObject *quicksight.FreeFormLayout
 	return []interface{}{tfMap}
 }
 
+
 func flattenFreeFormLayoutScreenCanvasSizeOptions(apiObject *quicksight.FreeFormLayoutScreenCanvasSizeOptions) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1754,6 +1825,7 @@ func flattenFreeFormLayoutScreenCanvasSizeOptions(apiObject *quicksight.FreeForm
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenDefaultGridLayoutConfiguration(apiObject *quicksight.DefaultGridLayoutConfiguration) []interface{} {
 	if apiObject == nil {
@@ -1768,6 +1840,7 @@ func flattenDefaultGridLayoutConfiguration(apiObject *quicksight.DefaultGridLayo
 	return []interface{}{tfMap}
 }
 
+
 func flattenGridLayoutCanvasSizeOptions(apiObject *quicksight.GridLayoutCanvasSizeOptions) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1780,6 +1853,7 @@ func flattenGridLayoutCanvasSizeOptions(apiObject *quicksight.GridLayoutCanvasSi
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenGridLayoutScreenCanvasSizeOptions(apiObject *quicksight.GridLayoutScreenCanvasSizeOptions) []interface{} {
 	if apiObject == nil {
@@ -1797,6 +1871,7 @@ func flattenGridLayoutScreenCanvasSizeOptions(apiObject *quicksight.GridLayoutSc
 	return []interface{}{tfMap}
 }
 
+
 func flattenDefaultPaginatedLayoutConfiguration(apiObject *quicksight.DefaultPaginatedLayoutConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1809,6 +1884,7 @@ func flattenDefaultPaginatedLayoutConfiguration(apiObject *quicksight.DefaultPag
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenDefaultSectionBasedLayoutConfiguration(apiObject *quicksight.DefaultSectionBasedLayoutConfiguration) []interface{} {
 	if apiObject == nil {
@@ -1823,6 +1899,7 @@ func flattenDefaultSectionBasedLayoutConfiguration(apiObject *quicksight.Default
 	return []interface{}{tfMap}
 }
 
+
 func flattenSectionBasedLayoutCanvasSizeOptions(apiObject *quicksight.SectionBasedLayoutCanvasSizeOptions) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1835,6 +1912,7 @@ func flattenSectionBasedLayoutCanvasSizeOptions(apiObject *quicksight.SectionBas
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenSectionBasedLayoutPaperCanvasSizeOptions(apiObject *quicksight.SectionBasedLayoutPaperCanvasSizeOptions) []interface{} {
 	if apiObject == nil {
@@ -1854,6 +1932,7 @@ func flattenSectionBasedLayoutPaperCanvasSizeOptions(apiObject *quicksight.Secti
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenSpacing(apiObject *quicksight.Spacing) []interface{} {
 	if apiObject == nil {
@@ -1877,6 +1956,7 @@ func flattenSpacing(apiObject *quicksight.Spacing) []interface{} {
 	return []interface{}{tfMap}
 }
 
+
 func flattenLayouts(apiObject []*quicksight.Layout) []interface{} {
 	if len(apiObject) == 0 {
 		return nil
@@ -1898,6 +1978,7 @@ func flattenLayouts(apiObject []*quicksight.Layout) []interface{} {
 	return tfList
 }
 
+
 func flattenLayoutConfiguration(apiObject *quicksight.LayoutConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1917,6 +1998,7 @@ func flattenLayoutConfiguration(apiObject *quicksight.LayoutConfiguration) []int
 	return []interface{}{tfMap}
 }
 
+
 func flattenFreeFormLayoutConfiguration(apiObject *quicksight.FreeFormLayoutConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1932,6 +2014,7 @@ func flattenFreeFormLayoutConfiguration(apiObject *quicksight.FreeFormLayoutConf
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenFreeFormLayoutElement(apiObject []*quicksight.FreeFormLayoutElement) []interface{} {
 	if len(apiObject) == 0 {
@@ -1977,6 +2060,7 @@ func flattenFreeFormLayoutElement(apiObject []*quicksight.FreeFormLayoutElement)
 	return tfList
 }
 
+
 func flattenFreeFormLayoutElementBackgroundStyle(apiObject *quicksight.FreeFormLayoutElementBackgroundStyle) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1992,6 +2076,7 @@ func flattenFreeFormLayoutElementBackgroundStyle(apiObject *quicksight.FreeFormL
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenFreeFormLayoutElementBorderStyle(apiObject *quicksight.FreeFormLayoutElementBorderStyle) []interface{} {
 	if apiObject == nil {
@@ -2009,6 +2094,7 @@ func flattenFreeFormLayoutElementBorderStyle(apiObject *quicksight.FreeFormLayou
 	return []interface{}{tfMap}
 }
 
+
 func flattenLoadingAnimation(apiObject *quicksight.LoadingAnimation) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -2021,6 +2107,7 @@ func flattenLoadingAnimation(apiObject *quicksight.LoadingAnimation) []interface
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenSheetElementRenderingRule(apiObject []*quicksight.SheetElementRenderingRule) []interface{} {
 	if len(apiObject) == 0 {
@@ -2046,6 +2133,7 @@ func flattenSheetElementRenderingRule(apiObject []*quicksight.SheetElementRender
 	return tfList
 }
 
+
 func flattenSheetElementConfigurationOverrides(apiObject *quicksight.SheetElementConfigurationOverrides) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -2058,6 +2146,7 @@ func flattenSheetElementConfigurationOverrides(apiObject *quicksight.SheetElemen
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenGridLayoutConfiguration(apiObject *quicksight.GridLayoutConfiguration) []interface{} {
 	if apiObject == nil {
@@ -2074,6 +2163,7 @@ func flattenGridLayoutConfiguration(apiObject *quicksight.GridLayoutConfiguratio
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenGridLayoutElement(apiObject []*quicksight.GridLayoutElement) []interface{} {
 	if len(apiObject) == 0 {
@@ -2105,6 +2195,7 @@ func flattenGridLayoutElement(apiObject []*quicksight.GridLayoutElement) []inter
 	return tfList
 }
 
+
 func flattenSectionBasedLayoutConfiguration(apiObject *quicksight.SectionBasedLayoutConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -2126,6 +2217,7 @@ func flattenSectionBasedLayoutConfiguration(apiObject *quicksight.SectionBasedLa
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenBodySectionConfiguration(apiObject []*quicksight.BodySectionConfiguration) []interface{} {
 	if len(apiObject) == 0 {
@@ -2155,6 +2247,7 @@ func flattenBodySectionConfiguration(apiObject []*quicksight.BodySectionConfigur
 	return tfList
 }
 
+
 func flattenBodySectionContent(apiObject *quicksight.BodySectionContent) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -2167,6 +2260,7 @@ func flattenBodySectionContent(apiObject *quicksight.BodySectionContent) []inter
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenSectionLayoutConfiguration(apiObject *quicksight.SectionLayoutConfiguration) []interface{} {
 	if apiObject == nil {
@@ -2181,6 +2275,7 @@ func flattenSectionLayoutConfiguration(apiObject *quicksight.SectionLayoutConfig
 	return []interface{}{tfMap}
 }
 
+
 func flattenFreeFormSectionLayoutConfiguration(apiObject *quicksight.FreeFormSectionLayoutConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -2193,6 +2288,7 @@ func flattenFreeFormSectionLayoutConfiguration(apiObject *quicksight.FreeFormSec
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenSectionPageBreakConfiguration(apiObject *quicksight.SectionPageBreakConfiguration) []interface{} {
 	if apiObject == nil {
@@ -2207,6 +2303,7 @@ func flattenSectionPageBreakConfiguration(apiObject *quicksight.SectionPageBreak
 	return []interface{}{tfMap}
 }
 
+
 func flattenSectionAfterPageBreak(apiObject *quicksight.SectionAfterPageBreak) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -2219,6 +2316,7 @@ func flattenSectionAfterPageBreak(apiObject *quicksight.SectionAfterPageBreak) [
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenSectionStyle(apiObject *quicksight.SectionStyle) []interface{} {
 	if apiObject == nil {
@@ -2235,6 +2333,7 @@ func flattenSectionStyle(apiObject *quicksight.SectionStyle) []interface{} {
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenHeaderFooterSectionConfiguration(apiObject []*quicksight.HeaderFooterSectionConfiguration) []interface{} {
 	if len(apiObject) == 0 {
@@ -2263,6 +2362,7 @@ func flattenHeaderFooterSectionConfiguration(apiObject []*quicksight.HeaderFoote
 	return tfList
 }
 
+
 func flattenSheetControlLayouts(apiObject []*quicksight.SheetControlLayout) []interface{} {
 	if len(apiObject) == 0 {
 		return nil
@@ -2282,6 +2382,7 @@ func flattenSheetControlLayouts(apiObject []*quicksight.SheetControlLayout) []in
 
 	return tfList
 }
+
 
 func flattenSheetControlLayoutConfiguration(apiObject *quicksight.SheetControlLayoutConfiguration) []interface{} {
 	if apiObject == nil {

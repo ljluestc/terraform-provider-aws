@@ -19,6 +19,7 @@ import (
 )
 
 // @SDKDataSource("aws_instances")
+
 func DataSourceInstances() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceInstancesRead,
@@ -40,7 +41,8 @@ func DataSourceInstances() *schema.Resource {
 				Optional: true,
 				Elem: &schema.Schema{
 					Type:         schema.TypeString,
-					ValidateFunc: validation.StringInSlice(ec2.InstanceStateName_Values(), false),
+					Validate
+func: validation.StringInSlice(ec2.InstanceStateName_Values(), false),
 				},
 			},
 			"ipv6_addresses": {
@@ -61,6 +63,7 @@ func DataSourceInstances() *schema.Resource {
 		},
 	}
 }
+
 
 func dataSourceInstancesRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

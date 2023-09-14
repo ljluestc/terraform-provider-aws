@@ -21,6 +21,7 @@ import (
 )
 
 // @SDKResource("aws_route53_resolver_dnssec_config")
+
 func ResourceDNSSECConfig() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceDNSSECConfigCreate,
@@ -53,6 +54,7 @@ func ResourceDNSSECConfig() *schema.Resource {
 	}
 }
 
+
 func resourceDNSSECConfigCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
 
@@ -75,6 +77,7 @@ func resourceDNSSECConfigCreate(ctx context.Context, d *schema.ResourceData, met
 
 	return resourceDNSSECConfigRead(ctx, d, meta)
 }
+
 
 func resourceDNSSECConfigRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
@@ -108,6 +111,7 @@ func resourceDNSSECConfigRead(ctx context.Context, d *schema.ResourceData, meta 
 	return nil
 }
 
+
 func resourceDNSSECConfigDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
 
@@ -133,12 +137,14 @@ func resourceDNSSECConfigDelete(ctx context.Context, d *schema.ResourceData, met
 	return nil
 }
 
+
 func FindResolverDNSSECConfigByID(ctx context.Context, conn *route53resolver.Route53Resolver, id string) (*route53resolver.ResolverDnssecConfig, error) {
 	input := &route53resolver.ListResolverDnssecConfigsInput{}
 	var output *route53resolver.ResolverDnssecConfig
 
 	// GetResolverDnssecConfig does not support query by ID.
-	err := conn.ListResolverDnssecConfigsPagesWithContext(ctx, input, func(page *route53resolver.ListResolverDnssecConfigsOutput, lastPage bool) bool {
+	err := conn.ListResolverDnssecConfigsPagesWithContext(ctx, input, 
+func(page *route53resolver.ListResolverDnssecConfigsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -172,8 +178,11 @@ func FindResolverDNSSECConfigByID(ctx context.Context, conn *route53resolver.Rou
 	return output, nil
 }
 
-func statusDNSSECConfig(ctx context.Context, conn *route53resolver.Route53Resolver, id string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+
+func statusDNSSECConfig(ctx context.Context, conn *route53resolver.Route53Resolver, id string) retry.StateRefresh
+func {
+	return 
+func() (interface{}, string, error) {
 		output, err := FindResolverDNSSECConfigByID(ctx, conn, id)
 
 		if tfresource.NotFound(err) {
@@ -193,6 +202,7 @@ const (
 	dnssecConfigDeletedTimeout = 10 * time.Minute
 )
 
+
 func waitDNSSECConfigCreated(ctx context.Context, conn *route53resolver.Route53Resolver, id string) (*route53resolver.ResolverDnssecConfig, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{route53resolver.ResolverDNSSECValidationStatusEnabling},
@@ -209,6 +219,7 @@ func waitDNSSECConfigCreated(ctx context.Context, conn *route53resolver.Route53R
 
 	return nil, err
 }
+
 
 func waitDNSSECConfigDeleted(ctx context.Context, conn *route53resolver.Route53Resolver, id string) (*route53resolver.ResolverDnssecConfig, error) {
 	stateConf := &retry.StateChangeConf{

@@ -13,6 +13,7 @@ import (
 	tfec2 "github.com/hashicorp/terraform-provider-aws/internal/service/ec2"
 )
 
+
 func TestBuildAttributeFilterList(t *testing.T) {
 	t.Parallel()
 
@@ -63,6 +64,7 @@ func TestBuildAttributeFilterList(t *testing.T) {
 	}
 }
 
+
 func TestBuildTagFilterList(t *testing.T) {
 	t.Parallel()
 
@@ -107,23 +109,27 @@ func TestBuildTagFilterList(t *testing.T) {
 	}
 }
 
+
 func TestBuildCustomFilterList(t *testing.T) {
 	t.Parallel()
 
-	// We need to get a set with the appropriate hash function,
+	// We need to get a set with the appropriate hash 
+function,
 	// so we'll use the schema to help us produce what would
 	// be produced in the normal case.
 	filtersSchema := tfec2.CustomFiltersSchema()
 
 	// The zero value of this schema will be an interface{}
 	// referring to a new, empty *schema.Set with the
-	// appropriate hash function configured.
+	// appropriate hash 
+function configured.
 	filters := filtersSchema.ZeroValue().(*schema.Set)
 
 	// We also need an appropriately-configured set for
 	// the list of values.
 	valuesSchema := filtersSchema.Elem.(*schema.Resource).Schema["values"]
-	valuesSet := func(vals ...string) *schema.Set {
+	valuesSet := 
+func(vals ...string) *schema.Set {
 		ret := valuesSchema.ZeroValue().(*schema.Set)
 		for _, val := range vals {
 			ret.Add(val)

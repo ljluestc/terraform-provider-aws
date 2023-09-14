@@ -10,6 +10,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 )
 
+
 func geospatialMapStyleOptionsSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_GeospatialMapStyleOptions.html
 		Type:     schema.TypeList,
@@ -23,6 +24,7 @@ func geospatialMapStyleOptionsSchema() *schema.Schema {
 		},
 	}
 }
+
 
 func geospatialWindowOptionsSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_GeospatialWindowOptions.html
@@ -42,22 +44,26 @@ func geospatialWindowOptionsSchema() *schema.Schema {
 							"east": {
 								Type:         schema.TypeFloat,
 								Required:     true,
-								ValidateFunc: validation.IntBetween(-1800, 1800),
+								Validate
+func: validation.IntBetween(-1800, 1800),
 							},
 							"north": {
 								Type:         schema.TypeFloat,
 								Required:     true,
-								ValidateFunc: validation.IntBetween(-90, 90),
+								Validate
+func: validation.IntBetween(-90, 90),
 							},
 							"south": {
 								Type:         schema.TypeFloat,
 								Required:     true,
-								ValidateFunc: validation.IntBetween(-90, 90),
+								Validate
+func: validation.IntBetween(-90, 90),
 							},
 							"west": {
 								Type:         schema.TypeFloat,
 								Required:     true,
-								ValidateFunc: validation.IntBetween(-1800, 1800),
+								Validate
+func: validation.IntBetween(-1800, 1800),
 							},
 						},
 					},
@@ -67,6 +73,7 @@ func geospatialWindowOptionsSchema() *schema.Schema {
 		},
 	}
 }
+
 
 func expandGeospatialMapStyleOptions(tfList []interface{}) *quicksight.GeospatialMapStyleOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -86,6 +93,7 @@ func expandGeospatialMapStyleOptions(tfList []interface{}) *quicksight.Geospatia
 
 	return options
 }
+
 
 func expandGeospatialWindowOptions(tfList []interface{}) *quicksight.GeospatialWindowOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -108,6 +116,7 @@ func expandGeospatialWindowOptions(tfList []interface{}) *quicksight.GeospatialW
 
 	return options
 }
+
 
 func expandGeospatialCoordinateBounds(tfList []interface{}) *quicksight.GeospatialCoordinateBounds {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -137,6 +146,7 @@ func expandGeospatialCoordinateBounds(tfList []interface{}) *quicksight.Geospati
 	return config
 }
 
+
 func flattenGeospatialMapStyleOptions(apiObject *quicksight.GeospatialMapStyleOptions) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -149,6 +159,7 @@ func flattenGeospatialMapStyleOptions(apiObject *quicksight.GeospatialMapStyleOp
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenGeospatialWindowOptions(apiObject *quicksight.GeospatialWindowOptions) []interface{} {
 	if apiObject == nil {
@@ -165,6 +176,7 @@ func flattenGeospatialWindowOptions(apiObject *quicksight.GeospatialWindowOption
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenGeospatialCoordinateBounds(apiObject *quicksight.GeospatialCoordinateBounds) []interface{} {
 	if apiObject == nil {

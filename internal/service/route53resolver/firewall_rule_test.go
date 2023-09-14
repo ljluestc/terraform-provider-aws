@@ -18,6 +18,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccRoute53ResolverFirewallRule_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v route53resolver.FirewallRule
@@ -25,14 +26,16 @@ func TestAccRoute53ResolverFirewallRule_basic(t *testing.T) {
 	resourceName := "aws_route53_resolver_firewall_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, route53resolver.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFirewallRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFirewallRuleConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFirewallRuleExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
 					resource.TestCheckResourceAttr(resourceName, "action", "ALLOW"),
@@ -50,6 +53,7 @@ func TestAccRoute53ResolverFirewallRule_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccRoute53ResolverFirewallRule_block(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v route53resolver.FirewallRule
@@ -57,14 +61,16 @@ func TestAccRoute53ResolverFirewallRule_block(t *testing.T) {
 	resourceName := "aws_route53_resolver_firewall_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, route53resolver.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFirewallRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFirewallRuleConfig_block(rName, "NODATA"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFirewallRuleExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
 					resource.TestCheckResourceAttr(resourceName, "action", "BLOCK"),
@@ -80,6 +86,7 @@ func TestAccRoute53ResolverFirewallRule_block(t *testing.T) {
 	})
 }
 
+
 func TestAccRoute53ResolverFirewallRule_blockOverride(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v route53resolver.FirewallRule
@@ -87,14 +94,16 @@ func TestAccRoute53ResolverFirewallRule_blockOverride(t *testing.T) {
 	resourceName := "aws_route53_resolver_firewall_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, route53resolver.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFirewallRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFirewallRuleConfig_blockOverride(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFirewallRuleExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "name", rName),
 					resource.TestCheckResourceAttr(resourceName, "action", "BLOCK"),
@@ -113,6 +122,7 @@ func TestAccRoute53ResolverFirewallRule_blockOverride(t *testing.T) {
 	})
 }
 
+
 func TestAccRoute53ResolverFirewallRule_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v route53resolver.FirewallRule
@@ -120,14 +130,16 @@ func TestAccRoute53ResolverFirewallRule_disappears(t *testing.T) {
 	resourceName := "aws_route53_resolver_firewall_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, route53resolver.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFirewallRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFirewallRuleConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckFirewallRuleExists(ctx, resourceName, &v),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfroute53resolver.ResourceFirewallRule(), resourceName),
 				),
@@ -137,8 +149,11 @@ func TestAccRoute53ResolverFirewallRule_disappears(t *testing.T) {
 	})
 }
 
-func testAccCheckFirewallRuleDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckFirewallRuleDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).Route53ResolverConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -169,8 +184,11 @@ func testAccCheckFirewallRuleDestroy(ctx context.Context) resource.TestCheckFunc
 	}
 }
 
-func testAccCheckFirewallRuleExists(ctx context.Context, n string, v *route53resolver.FirewallRule) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckFirewallRuleExists(ctx context.Context, n string, v *route53resolver.FirewallRule) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -200,6 +218,7 @@ func testAccCheckFirewallRuleExists(ctx context.Context, n string, v *route53res
 	}
 }
 
+
 func testAccFirewallRuleConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_route53_resolver_firewall_rule_group" "test" {
@@ -219,6 +238,7 @@ resource "aws_route53_resolver_firewall_rule" "test" {
 }
 `, rName)
 }
+
 
 func testAccFirewallRuleConfig_block(rName, blockResponse string) string {
 	return fmt.Sprintf(`
@@ -240,6 +260,7 @@ resource "aws_route53_resolver_firewall_rule" "test" {
 }
 `, rName, blockResponse)
 }
+
 
 func testAccFirewallRuleConfig_blockOverride(rName string) string {
 	return fmt.Sprintf(`

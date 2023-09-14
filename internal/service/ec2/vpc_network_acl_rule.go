@@ -24,6 +24,7 @@ import (
 )
 
 // @SDKResource("aws_network_acl_rule")
+
 func ResourceNetworkACLRule() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceNetworkACLRuleCreate,
@@ -77,7 +78,9 @@ func ResourceNetworkACLRule() *schema.Resource {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
-				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+				DiffSuppress
+func: 
+func(k, old, new string, d *schema.ResourceData) bool {
 					if v, ok := ianaProtocolAToI[old]; ok {
 						old = strconv.Itoa(v)
 					}
@@ -87,7 +90,9 @@ func ResourceNetworkACLRule() *schema.Resource {
 
 					return old == new
 				},
-				ValidateFunc: func(v interface{}, k string) (ws []string, errors []error) {
+				Validate
+func: 
+func(v interface{}, k string) (ws []string, errors []error) {
 					_, err := networkACLProtocolNumber(v.(string))
 
 					if err != nil {
@@ -101,10 +106,13 @@ func ResourceNetworkACLRule() *schema.Resource {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
-				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+				DiffSuppress
+func: 
+func(k, old, new string, d *schema.ResourceData) bool {
 					return strings.EqualFold(old, new)
 				},
-				ValidateFunc: validation.StringInSlice(ec2.RuleAction_Values(), true),
+				Validate
+func: validation.StringInSlice(ec2.RuleAction_Values(), true),
 			},
 			"rule_number": {
 				Type:     schema.TypeInt,
@@ -119,6 +127,7 @@ func ResourceNetworkACLRule() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceNetworkACLRuleCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -176,6 +185,7 @@ func resourceNetworkACLRuleCreate(ctx context.Context, d *schema.ResourceData, m
 	return append(diags, resourceNetworkACLRuleRead(ctx, d, meta)...)
 }
 
+
 func resourceNetworkACLRuleRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -184,7 +194,8 @@ func resourceNetworkACLRuleRead(ctx context.Context, d *schema.ResourceData, met
 	naclID := d.Get("network_acl_id").(string)
 	ruleNumber := d.Get("rule_number").(int)
 
-	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout, func() (interface{}, error) {
+	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout, 
+func() (interface{}, error) {
 		return FindNetworkACLEntryByThreePartKey(ctx, conn, naclID, egress, ruleNumber)
 	}, d.IsNewResource())
 
@@ -231,6 +242,7 @@ func resourceNetworkACLRuleRead(ctx context.Context, d *schema.ResourceData, met
 	return diags
 }
 
+
 func resourceNetworkACLRuleDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -252,6 +264,7 @@ func resourceNetworkACLRuleDelete(ctx context.Context, d *schema.ResourceData, m
 
 	return diags
 }
+
 
 func resourceNetworkACLRuleImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	parts := strings.Split(d.Id(), NetworkACLRuleImportIDSeparator)
@@ -283,6 +296,7 @@ func resourceNetworkACLRuleImport(ctx context.Context, d *schema.ResourceData, m
 }
 
 const NetworkACLRuleImportIDSeparator = ":"
+
 
 func NetworkACLRuleCreateResourceID(naclID string, ruleNumber int, egress bool, protocol string) string {
 	var buf bytes.Buffer

@@ -10,6 +10,7 @@ import (
 
 // @SDKResource("aws_opsworks_mysql_layer", name="MySQL Layer")
 // @Tags(identifierAttribute="arn")
+
 func ResourceMySQLLayer() *schema.Resource {
 	layerType := &opsworksLayerType{
 		TypeName:         opsworks.LayerTypeDbMaster,

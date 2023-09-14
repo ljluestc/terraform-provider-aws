@@ -28,6 +28,7 @@ const contactFlowMutexKey = `aws_connect_contact_flow`
 
 // @SDKResource("aws_connect_contact_flow", name="Contact Flow")
 // @Tags(identifierAttribute="arn")
+
 func ResourceContactFlow() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceContactFlowCreate,
@@ -51,10 +52,14 @@ func ResourceContactFlow() *schema.Resource {
 				Type:             schema.TypeString,
 				Optional:         true,
 				Computed:         true,
-				ValidateFunc:     validation.StringIsJSON,
+				Validate
+func:     validation.StringIsJSON,
 				ConflictsWith:    []string{"filename"},
-				DiffSuppressFunc: verify.SuppressEquivalentJSONDiffs,
-				StateFunc: func(v interface{}) string {
+				DiffSuppress
+func: verify.SuppressEquivalentJSONDiffs,
+				State
+func: 
+func(v interface{}) string {
 					json, _ := structure.NormalizeJsonString(v)
 					return json
 				},
@@ -87,11 +92,13 @@ func ResourceContactFlow() *schema.Resource {
 				Optional:     true,
 				ForceNew:     true,
 				Default:      connect.ContactFlowTypeContactFlow,
-				ValidateFunc: validation.StringInSlice(connect.ContactFlowType_Values(), false),
+				Validate
+func: validation.StringInSlice(connect.ContactFlowType_Values(), false),
 			},
 		},
 	}
 }
+
 
 func resourceContactFlowCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -141,6 +148,7 @@ func resourceContactFlowCreate(ctx context.Context, d *schema.ResourceData, meta
 	return resourceContactFlowRead(ctx, d, meta)
 }
 
+
 func resourceContactFlowRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
@@ -181,6 +189,7 @@ func resourceContactFlowRead(ctx context.Context, d *schema.ResourceData, meta i
 
 	return nil
 }
+
 
 func resourceContactFlowUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -238,6 +247,7 @@ func resourceContactFlowUpdate(ctx context.Context, d *schema.ResourceData, meta
 	return resourceContactFlowRead(ctx, d, meta)
 }
 
+
 func resourceContactFlowDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
@@ -263,6 +273,7 @@ func resourceContactFlowDelete(ctx context.Context, d *schema.ResourceData, meta
 	return nil
 }
 
+
 func ContactFlowParseID(id string) (string, string, error) {
 	parts := strings.SplitN(id, ":", 2)
 
@@ -272,6 +283,7 @@ func ContactFlowParseID(id string) (string, string, error) {
 
 	return parts[0], parts[1], nil
 }
+
 
 func resourceContactFlowLoadFileContent(filename string) (string, error) {
 	filename, err := homedir.Expand(filename)

@@ -15,13 +15,15 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )
 
+
 func TestAccBackupGlobalSettings_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var settings backup.DescribeGlobalSettingsOutput
 
 	resourceName := "aws_backup_global_settings.test"
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 			testAccPreCheck(ctx, t)
@@ -32,7 +34,8 @@ func TestAccBackupGlobalSettings_basic(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGlobalSettingsConfig_basic("true"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckGlobalSettingsExists(ctx, &settings),
 					resource.TestCheckResourceAttr(resourceName, "global_settings.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "global_settings.isCrossAccountBackupEnabled", "true"),
@@ -45,7 +48,8 @@ func TestAccBackupGlobalSettings_basic(t *testing.T) {
 			},
 			{
 				Config: testAccGlobalSettingsConfig_basic("false"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckGlobalSettingsExists(ctx, &settings),
 					resource.TestCheckResourceAttr(resourceName, "global_settings.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "global_settings.isCrossAccountBackupEnabled", "false"),
@@ -53,7 +57,8 @@ func TestAccBackupGlobalSettings_basic(t *testing.T) {
 			},
 			{
 				Config: testAccGlobalSettingsConfig_basic("true"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckGlobalSettingsExists(ctx, &settings),
 					resource.TestCheckResourceAttr(resourceName, "global_settings.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "global_settings.isCrossAccountBackupEnabled", "true"),
@@ -63,8 +68,11 @@ func TestAccBackupGlobalSettings_basic(t *testing.T) {
 	})
 }
 
-func testAccCheckGlobalSettingsExists(ctx context.Context, settings *backup.DescribeGlobalSettingsOutput) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckGlobalSettingsExists(ctx context.Context, settings *backup.DescribeGlobalSettingsOutput) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).BackupConn(ctx)
 		resp, err := conn.DescribeGlobalSettingsWithContext(ctx, &backup.DescribeGlobalSettingsInput{})
 		if err != nil {
@@ -76,6 +84,7 @@ func testAccCheckGlobalSettingsExists(ctx context.Context, settings *backup.Desc
 		return nil
 	}
 }
+
 
 func testAccGlobalSettingsConfig_basic(setting string) string {
 	return fmt.Sprintf(`

@@ -19,6 +19,7 @@ import ( // nosemgrep:ci.semgrep.aws.multiple-service-imports
 )
 
 // @SDKResource("aws_vpc_ipam_organization_admin_account")
+
 func ResourceIPAMOrganizationAdminAccount() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceIPAMOrganizationAdminAccountCreate,
@@ -38,7 +39,8 @@ func ResourceIPAMOrganizationAdminAccount() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.ValidAccountID,
+				Validate
+func: verify.ValidAccountID,
 			},
 			"email": {
 				Type:     schema.TypeString,
@@ -59,6 +61,7 @@ func ResourceIPAMOrganizationAdminAccount() *schema.Resource {
 const (
 	IPAMServicePrincipal = "ipam.amazonaws.com"
 )
+
 
 func resourceIPAMOrganizationAdminAccountCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -83,6 +86,7 @@ func resourceIPAMOrganizationAdminAccountCreate(ctx context.Context, d *schema.R
 
 	return append(diags, resourceIPAMOrganizationAdminAccountRead(ctx, d, meta)...)
 }
+
 
 func resourceIPAMOrganizationAdminAccountRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -114,6 +118,7 @@ func resourceIPAMOrganizationAdminAccountRead(ctx context.Context, d *schema.Res
 
 	return diags
 }
+
 
 func resourceIPAMOrganizationAdminAccountDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

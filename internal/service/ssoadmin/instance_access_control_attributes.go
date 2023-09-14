@@ -21,6 +21,7 @@ import (
 )
 
 // @SDKResource("aws_ssoadmin_instance_access_control_attributes")
+
 func ResourceAccessControlAttributes() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceAccessControlAttributesCreate,
@@ -64,7 +65,8 @@ func ResourceAccessControlAttributes() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			"status": {
 				Type:     schema.TypeString,
@@ -77,6 +79,7 @@ func ResourceAccessControlAttributes() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceAccessControlAttributesCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -100,6 +103,7 @@ func resourceAccessControlAttributesCreate(ctx context.Context, d *schema.Resour
 
 	return append(diags, resourceAccessControlAttributesRead(ctx, d, meta)...)
 }
+
 
 func resourceAccessControlAttributesRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -127,6 +131,7 @@ func resourceAccessControlAttributesRead(ctx context.Context, d *schema.Resource
 	return diags
 }
 
+
 func resourceAccessControlAttributesUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SSOAdminConn(ctx)
@@ -147,6 +152,7 @@ func resourceAccessControlAttributesUpdate(ctx context.Context, d *schema.Resour
 	return append(diags, resourceAccessControlAttributesRead(ctx, d, meta)...)
 }
 
+
 func resourceAccessControlAttributesDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SSOAdminConn(ctx)
@@ -161,6 +167,7 @@ func resourceAccessControlAttributesDelete(ctx context.Context, d *schema.Resour
 
 	return diags
 }
+
 
 func FindInstanceAttributeControlAttributesByARN(ctx context.Context, conn *ssoadmin.SSOAdmin, arn string) (*ssoadmin.DescribeInstanceAccessControlAttributeConfigurationOutput, error) {
 	input := &ssoadmin.DescribeInstanceAccessControlAttributeConfigurationInput{
@@ -187,6 +194,7 @@ func FindInstanceAttributeControlAttributesByARN(ctx context.Context, conn *ssoa
 	return output, nil
 }
 
+
 func expandAccessControlAttributes(d *schema.ResourceData) (attributes []*ssoadmin.AccessControlAttribute) {
 	attInterface := d.Get("attribute").(*schema.Set).List()
 	for _, attrMap := range attInterface {
@@ -205,6 +213,7 @@ func expandAccessControlAttributes(d *schema.ResourceData) (attributes []*ssoadm
 	}
 	return
 }
+
 
 func flattenAccessControlAttributes(attributes []*ssoadmin.AccessControlAttribute) []interface{} {
 	var results []interface{}

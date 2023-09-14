@@ -17,6 +17,7 @@ import (
 )
 
 // @SDKDataSource("aws_ec2_transit_gateway_route_table_propagations")
+
 func DataSourceTransitGatewayRouteTablePropagations() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceTransitGatewayRouteTablePropagationsRead,
@@ -35,11 +36,13 @@ func DataSourceTransitGatewayRouteTablePropagations() *schema.Resource {
 			"transit_gateway_route_table_id": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: validation.NoZeroValues,
+				Validate
+func: validation.NoZeroValues,
 			},
 		},
 	}
 }
+
 
 func dataSourceTransitGatewayRouteTablePropagationsRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

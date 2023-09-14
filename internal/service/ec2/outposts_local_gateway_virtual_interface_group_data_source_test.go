@@ -14,18 +14,21 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccEC2OutpostsLocalGatewayVirtualInterfaceGroupDataSource_filter(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_local_gateway_virtual_interface_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOutpostsLocalGatewayVirtualInterfaceGroupDataSourceConfig_filter(),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestMatchResourceAttr(dataSourceName, "id", regexache.MustCompile(`^lgw-vif-grp-`)),
 					resource.TestMatchResourceAttr(dataSourceName, "local_gateway_id", regexache.MustCompile(`^lgw-`)),
 					resource.TestCheckResourceAttr(dataSourceName, "local_gateway_virtual_interface_ids.#", "2"),
@@ -34,19 +37,22 @@ func TestAccEC2OutpostsLocalGatewayVirtualInterfaceGroupDataSource_filter(t *tes
 		},
 	})
 }
+
 
 func TestAccEC2OutpostsLocalGatewayVirtualInterfaceGroupDataSource_localGatewayID(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_local_gateway_virtual_interface_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOutpostsLocalGatewayVirtualInterfaceGroupDataSourceConfig_id(),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestMatchResourceAttr(dataSourceName, "id", regexache.MustCompile(`^lgw-vif-grp-`)),
 					resource.TestMatchResourceAttr(dataSourceName, "local_gateway_id", regexache.MustCompile(`^lgw-`)),
 					resource.TestCheckResourceAttr(dataSourceName, "local_gateway_virtual_interface_ids.#", "2"),
@@ -55,6 +61,7 @@ func TestAccEC2OutpostsLocalGatewayVirtualInterfaceGroupDataSource_localGatewayI
 		},
 	})
 }
+
 
 func TestAccEC2OutpostsLocalGatewayVirtualInterfaceGroupDataSource_tags(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -63,13 +70,15 @@ func TestAccEC2OutpostsLocalGatewayVirtualInterfaceGroupDataSource_tags(t *testi
 	dataSourceName := "data.aws_ec2_local_gateway_virtual_interface_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccOutpostsLocalGatewayVirtualInterfaceGroupDataSourceConfig_tags(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttrPair(dataSourceName, "id", sourceDataSourceName, "id"),
 					resource.TestCheckResourceAttrPair(dataSourceName, "local_gateway_id", sourceDataSourceName, "local_gateway_id"),
 				),
@@ -77,6 +86,7 @@ func TestAccEC2OutpostsLocalGatewayVirtualInterfaceGroupDataSource_tags(t *testi
 		},
 	})
 }
+
 
 func testAccOutpostsLocalGatewayVirtualInterfaceGroupDataSourceConfig_filter() string {
 	return `
@@ -91,6 +101,7 @@ data "aws_ec2_local_gateway_virtual_interface_group" "test" {
 `
 }
 
+
 func testAccOutpostsLocalGatewayVirtualInterfaceGroupDataSourceConfig_id() string {
 	return `
 data "aws_ec2_local_gateways" "test" {}
@@ -100,6 +111,7 @@ data "aws_ec2_local_gateway_virtual_interface_group" "test" {
 }
 `
 }
+
 
 func testAccOutpostsLocalGatewayVirtualInterfaceGroupDataSourceConfig_tags(rName string) string {
 	return fmt.Sprintf(`

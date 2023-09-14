@@ -15,6 +15,7 @@ import (
 )
 
 // @SDKDataSource("aws_ebs_default_kms_key")
+
 func DataSourceEBSDefaultKMSKey() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceEBSDefaultKMSKeyRead,
@@ -31,6 +32,7 @@ func DataSourceEBSDefaultKMSKey() *schema.Resource {
 		},
 	}
 }
+
 func dataSourceEBSDefaultKMSKeyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)

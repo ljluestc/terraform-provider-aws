@@ -27,6 +27,7 @@ const (
 )
 
 // @SDKResource("aws_ec2_local_gateway_route")
+
 func ResourceLocalGatewayRoute() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceLocalGatewayRouteCreate,
@@ -41,7 +42,8 @@ func ResourceLocalGatewayRoute() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.ValidCIDRNetworkAddress,
+				Validate
+func: verify.ValidCIDRNetworkAddress,
 			},
 			"local_gateway_route_table_id": {
 				Type:     schema.TypeString,
@@ -56,6 +58,7 @@ func ResourceLocalGatewayRoute() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceLocalGatewayRouteCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -81,6 +84,7 @@ func resourceLocalGatewayRouteCreate(ctx context.Context, d *schema.ResourceData
 	return append(diags, resourceLocalGatewayRouteRead(ctx, d, meta)...)
 }
 
+
 func resourceLocalGatewayRouteRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -91,7 +95,8 @@ func resourceLocalGatewayRouteRead(ctx context.Context, d *schema.ResourceData, 
 	}
 
 	var localGatewayRoute *ec2.LocalGatewayRoute
-	err = retry.RetryContext(ctx, localGatewayRouteEventualConsistencyTimeout, func() *retry.RetryError {
+	err = retry.RetryContext(ctx, localGatewayRouteEventualConsistencyTimeout, 
+func() *retry.RetryError {
 		var err error
 		localGatewayRoute, err = GetLocalGatewayRoute(ctx, conn, localGatewayRouteTableID, destination)
 
@@ -146,6 +151,7 @@ func resourceLocalGatewayRouteRead(ctx context.Context, d *schema.ResourceData, 
 	return diags
 }
 
+
 func resourceLocalGatewayRouteDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -174,6 +180,7 @@ func resourceLocalGatewayRouteDelete(ctx context.Context, d *schema.ResourceData
 	return diags
 }
 
+
 func DecodeLocalGatewayRouteID(id string) (string, string, error) {
 	parts := strings.Split(id, "_")
 
@@ -183,6 +190,7 @@ func DecodeLocalGatewayRouteID(id string) (string, string, error) {
 
 	return parts[0], parts[1], nil
 }
+
 
 func GetLocalGatewayRoute(ctx context.Context, conn *ec2.EC2, localGatewayRouteTableID, destination string) (*ec2.LocalGatewayRoute, error) {
 	input := &ec2.SearchLocalGatewayRoutesInput{

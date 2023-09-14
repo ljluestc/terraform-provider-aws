@@ -20,6 +20,7 @@ import (
 )
 
 // @SDKDataSource("aws_key_pair")
+
 func DataSourceKeyPair() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceKeyPairRead,

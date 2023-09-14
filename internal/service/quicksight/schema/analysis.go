@@ -11,6 +11,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 )
 
+
 func AnalysisDefinitionSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_AnalysisDefinition.html
 		Type:     schema.TypeList,
@@ -80,7 +81,8 @@ func AnalysisDefinitionSchema() *schema.Schema {
 								Type:         schema.TypeString,
 								Optional:     true,
 								Computed:     true,
-								ValidateFunc: validation.StringInSlice(quicksight.SheetContentType_Values(), false),
+								Validate
+func: validation.StringInSlice(quicksight.SheetContentType_Values(), false),
 							},
 							"description":           stringSchema(false, validation.StringLenBetween(1, 1024)),
 							"filter_controls":       filterControlsSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FilterControl.html
@@ -110,6 +112,7 @@ func AnalysisDefinitionSchema() *schema.Schema {
 	}
 }
 
+
 func AnalysisSourceEntitySchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -130,7 +133,8 @@ func AnalysisSourceEntitySchema() *schema.Schema {
 							"arn": {
 								Type:         schema.TypeString,
 								Required:     true,
-								ValidateFunc: verify.ValidARN,
+								Validate
+func: verify.ValidARN,
 							},
 							"data_set_references": dataSetReferencesSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DataSetReference.html
 						},
@@ -140,6 +144,7 @@ func AnalysisSourceEntitySchema() *schema.Schema {
 		},
 	}
 }
+
 
 func ExpandAnalysisSourceEntity(tfList []interface{}) *quicksight.AnalysisSourceEntity {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -160,6 +165,7 @@ func ExpandAnalysisSourceEntity(tfList []interface{}) *quicksight.AnalysisSource
 	return sourceEntity
 }
 
+
 func expandAnalysisSourceTemplate(tfMap map[string]interface{}) *quicksight.AnalysisSourceTemplate {
 	if tfMap == nil {
 		return nil
@@ -175,6 +181,7 @@ func expandAnalysisSourceTemplate(tfMap map[string]interface{}) *quicksight.Anal
 
 	return sourceTemplate
 }
+
 
 func ExpandAnalysisDefinition(tfList []interface{}) *quicksight.AnalysisDefinition {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -212,6 +219,7 @@ func ExpandAnalysisDefinition(tfList []interface{}) *quicksight.AnalysisDefiniti
 
 	return definition
 }
+
 
 func FlattenAnalysisDefinition(apiObject *quicksight.AnalysisDefinition) []interface{} {
 	if apiObject == nil {

@@ -24,6 +24,7 @@ import (
 
 // @SDKResource("aws_route53_resolver_query_log_config", name="Query Log Config")
 // @Tags(identifierAttribute="arn")
+
 func ResourceQueryLogConfig() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceQueryLogConfigCreate,
@@ -44,13 +45,15 @@ func ResourceQueryLogConfig() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			"name": {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validResolverName,
+				Validate
+func: validResolverName,
 			},
 			"owner_id": {
 				Type:     schema.TypeString,
@@ -67,6 +70,7 @@ func ResourceQueryLogConfig() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
+
 
 func resourceQueryLogConfigCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
@@ -94,6 +98,7 @@ func resourceQueryLogConfigCreate(ctx context.Context, d *schema.ResourceData, m
 	return resourceQueryLogConfigRead(ctx, d, meta)
 }
 
+
 func resourceQueryLogConfigRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
 
@@ -119,10 +124,12 @@ func resourceQueryLogConfigRead(ctx context.Context, d *schema.ResourceData, met
 	return nil
 }
 
+
 func resourceQueryLogConfigUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	// Tags only.
 	return resourceQueryLogConfigRead(ctx, d, meta)
 }
+
 
 func resourceQueryLogConfigDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
@@ -146,6 +153,7 @@ func resourceQueryLogConfigDelete(ctx context.Context, d *schema.ResourceData, m
 
 	return nil
 }
+
 
 func FindResolverQueryLogConfigByID(ctx context.Context, conn *route53resolver.Route53Resolver, id string) (*route53resolver.ResolverQueryLogConfig, error) {
 	input := &route53resolver.GetResolverQueryLogConfigInput{
@@ -172,8 +180,11 @@ func FindResolverQueryLogConfigByID(ctx context.Context, conn *route53resolver.R
 	return output.ResolverQueryLogConfig, nil
 }
 
-func statusQueryLogConfig(ctx context.Context, conn *route53resolver.Route53Resolver, id string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+
+func statusQueryLogConfig(ctx context.Context, conn *route53resolver.Route53Resolver, id string) retry.StateRefresh
+func {
+	return 
+func() (interface{}, string, error) {
 		output, err := FindResolverQueryLogConfigByID(ctx, conn, id)
 
 		if tfresource.NotFound(err) {
@@ -193,6 +204,7 @@ const (
 	queryLogConfigDeletedTimeout = 5 * time.Minute
 )
 
+
 func waitQueryLogConfigCreated(ctx context.Context, conn *route53resolver.Route53Resolver, id string) (*route53resolver.ResolverQueryLogConfig, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{route53resolver.ResolverQueryLogConfigStatusCreating},
@@ -209,6 +221,7 @@ func waitQueryLogConfigCreated(ctx context.Context, conn *route53resolver.Route5
 
 	return nil, err
 }
+
 
 func waitQueryLogConfigDeleted(ctx context.Context, conn *route53resolver.Route53Resolver, id string) (*route53resolver.ResolverQueryLogConfig, error) {
 	stateConf := &retry.StateChangeConf{

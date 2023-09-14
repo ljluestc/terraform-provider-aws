@@ -33,21 +33,22 @@ func sweepLoadBalancers(region string) error {
 	input := &elb.DescribeLoadBalancersInput{}
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeLoadBalancersPagesWithContext(ctx, input, func(page *elb.DescribeLoadBalancersOutput, lastPage bool) bool {
-		if page == nil {
+	err = conn.DescribeLoadBalancersPagesWithContext(ctx, input,
+		func(page *elb.DescribeLoadBalancersOutput, lastPage bool) bool {
+			if page == nil {
+				return !lastPage
+			}
+
+			for _, v := range page.LoadBalancerDescriptions {
+				r := ResourceLoadBalancer()
+				d := r.Data(nil)
+				d.SetId(aws.StringValue(v.LoadBalancerName))
+
+				sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
+			}
+
 			return !lastPage
-		}
-
-		for _, v := range page.LoadBalancerDescriptions {
-			r := ResourceLoadBalancer()
-			d := r.Data(nil)
-			d.SetId(aws.StringValue(v.LoadBalancerName))
-
-			sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
-		}
-
-		return !lastPage
-	})
+		})
 
 	if sweep.SkipSweepError(err) {
 		log.Printf("[WARN] Skipping ELB Classic Load Balancer sweep for %s: %s", region, err)

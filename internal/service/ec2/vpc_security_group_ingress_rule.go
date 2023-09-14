@@ -32,6 +32,7 @@ import (
 
 // @FrameworkResource(name="Security Group Ingress Rule")
 // @Tags(identifierAttribute="id")
+
 func newResourceSecurityGroupIngressRule(context.Context) (resource.ResourceWithConfigure, error) {
 	r := &resourceSecurityGroupIngressRule{}
 	r.create = r.createSecurityGroupRule
@@ -45,9 +46,11 @@ type resourceSecurityGroupIngressRule struct {
 	resourceSecurityGroupRule
 }
 
+
 func (r *resourceSecurityGroupIngressRule) Metadata(_ context.Context, request resource.MetadataRequest, response *resource.MetadataResponse) {
 	response.TypeName = "aws_vpc_security_group_ingress_rule"
 }
+
 
 func (r *resourceSecurityGroupIngressRule) createSecurityGroupRule(ctx context.Context, data *resourceSecurityGroupRuleData) (string, error) {
 	conn := r.Meta().EC2Conn(ctx)
@@ -66,6 +69,7 @@ func (r *resourceSecurityGroupIngressRule) createSecurityGroupRule(ctx context.C
 	return aws.StringValue(output.SecurityGroupRules[0].SecurityGroupRuleId), nil
 }
 
+
 func (r *resourceSecurityGroupIngressRule) deleteSecurityGroupRule(ctx context.Context, data *resourceSecurityGroupRuleData) error {
 	conn := r.Meta().EC2Conn(ctx)
 
@@ -76,6 +80,7 @@ func (r *resourceSecurityGroupIngressRule) deleteSecurityGroupRule(ctx context.C
 
 	return err
 }
+
 
 func (r *resourceSecurityGroupIngressRule) findSecurityGroupRuleByID(ctx context.Context, id string) (*ec2.SecurityGroupRule, error) {
 	conn := r.Meta().EC2Conn(ctx)
@@ -88,10 +93,14 @@ func (r *resourceSecurityGroupIngressRule) findSecurityGroupRuleByID(ctx context
 type resourceSecurityGroupRule struct {
 	framework.ResourceWithConfigure
 
-	create   func(context.Context, *resourceSecurityGroupRuleData) (string, error)
-	delete   func(context.Context, *resourceSecurityGroupRuleData) error
-	findByID func(context.Context, string) (*ec2.SecurityGroupRule, error)
+	create   
+func(context.Context, *resourceSecurityGroupRuleData) (string, error)
+	delete   
+func(context.Context, *resourceSecurityGroupRuleData) error
+	findByID 
+func(context.Context, string) (*ec2.SecurityGroupRule, error)
 }
+
 
 func (r *resourceSecurityGroupRule) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
@@ -160,6 +169,7 @@ func (r *resourceSecurityGroupRule) Schema(ctx context.Context, req resource.Sch
 	}
 }
 
+
 func (r *resourceSecurityGroupRule) Create(ctx context.Context, request resource.CreateRequest, response *resource.CreateResponse) {
 	var data resourceSecurityGroupRuleData
 
@@ -192,6 +202,7 @@ func (r *resourceSecurityGroupRule) Create(ctx context.Context, request resource
 
 	response.Diagnostics.Append(response.State.Set(ctx, &data)...)
 }
+
 
 func (r *resourceSecurityGroupRule) Read(ctx context.Context, request resource.ReadRequest, response *resource.ReadResponse) {
 	var data resourceSecurityGroupRuleData
@@ -246,6 +257,7 @@ func (r *resourceSecurityGroupRule) Read(ctx context.Context, request resource.R
 	response.Diagnostics.Append(response.State.Set(ctx, &data)...)
 }
 
+
 func (r *resourceSecurityGroupRule) Update(ctx context.Context, request resource.UpdateRequest, response *resource.UpdateResponse) {
 	var old, new resourceSecurityGroupRuleData
 
@@ -291,6 +303,7 @@ func (r *resourceSecurityGroupRule) Update(ctx context.Context, request resource
 	response.Diagnostics.Append(response.State.Set(ctx, &new)...)
 }
 
+
 func (r *resourceSecurityGroupRule) Delete(ctx context.Context, request resource.DeleteRequest, response *resource.DeleteResponse) {
 	var data resourceSecurityGroupRuleData
 
@@ -316,9 +329,11 @@ func (r *resourceSecurityGroupRule) Delete(ctx context.Context, request resource
 	}
 }
 
+
 func (r *resourceSecurityGroupRule) ImportState(ctx context.Context, request resource.ImportStateRequest, response *resource.ImportStateResponse) {
 	resource.ImportStatePassthroughID(ctx, path.Root("id"), request, response)
 }
+
 
 func (r *resourceSecurityGroupRule) ModifyPlan(ctx context.Context, request resource.ModifyPlanRequest, response *resource.ModifyPlanResponse) {
 	if !request.State.Raw.IsNull() && !request.Plan.Raw.IsNull() {
@@ -345,6 +360,7 @@ func (r *resourceSecurityGroupRule) ModifyPlan(ctx context.Context, request reso
 	r.SetTagsAll(ctx, request, response)
 }
 
+
 func (r *resourceSecurityGroupRule) ConfigValidators(_ context.Context) []resource.ConfigValidator {
 	return []resource.ConfigValidator{
 		resourcevalidator.ExactlyOneOf(
@@ -356,6 +372,7 @@ func (r *resourceSecurityGroupRule) ConfigValidators(_ context.Context) []resour
 	}
 }
 
+
 func (r *resourceSecurityGroupRule) arn(_ context.Context, id string) types.String {
 	arn := arn.ARN{
 		Partition: r.Meta().Partition,
@@ -366,6 +383,7 @@ func (r *resourceSecurityGroupRule) arn(_ context.Context, id string) types.Stri
 	}.String()
 	return types.StringValue(arn)
 }
+
 
 func (r *resourceSecurityGroupRule) expandIPPermission(ctx context.Context, data *resourceSecurityGroupRuleData) *ec2.IpPermission {
 	apiObject := &ec2.IpPermission{
@@ -412,6 +430,7 @@ func (r *resourceSecurityGroupRule) expandIPPermission(ctx context.Context, data
 	return apiObject
 }
 
+
 func (r *resourceSecurityGroupRule) expandSecurityGroupRuleRequest(ctx context.Context, data *resourceSecurityGroupRuleData) *ec2.SecurityGroupRuleRequest {
 	apiObject := &ec2.SecurityGroupRuleRequest{
 		CidrIpv4:          flex.StringFromFramework(ctx, data.CIDRIPv4),
@@ -426,6 +445,7 @@ func (r *resourceSecurityGroupRule) expandSecurityGroupRuleRequest(ctx context.C
 
 	return apiObject
 }
+
 
 func (r *resourceSecurityGroupRule) flattenReferencedSecurityGroup(ctx context.Context, apiObject *ec2.ReferencedSecurityGroup) types.String {
 	if apiObject == nil {
@@ -457,6 +477,7 @@ type resourceSecurityGroupRuleData struct {
 	ToPort                    types.Int64  `tfsdk:"to_port"`
 }
 
+
 func (d *resourceSecurityGroupRuleData) sourceAttributeName() string {
 	switch {
 	case !d.CIDRIPv4.IsNull():
@@ -474,17 +495,21 @@ func (d *resourceSecurityGroupRuleData) sourceAttributeName() string {
 
 type normalizeIPProtocol struct{}
 
+
 func NormalizeIPProtocol() planmodifier.String {
 	return normalizeIPProtocol{}
 }
+
 
 func (m normalizeIPProtocol) Description(context.Context) string {
 	return "Resolve differences between IP protocol names and numbers"
 }
 
+
 func (m normalizeIPProtocol) MarkdownDescription(ctx context.Context) string {
 	return m.Description(ctx)
 }
+
 
 func (m normalizeIPProtocol) PlanModifyString(ctx context.Context, request planmodifier.StringRequest, response *planmodifier.StringResponse) {
 	if request.StateValue.IsNull() {

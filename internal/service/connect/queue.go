@@ -24,6 +24,7 @@ import (
 
 // @SDKResource("aws_connect_queue", name="Queue")
 // @Tags(identifierAttribute="arn")
+
 func ResourceQueue() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceQueueCreate,
@@ -45,7 +46,8 @@ func ResourceQueue() *schema.Resource {
 			"description": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				ValidateFunc: validation.StringLenBetween(1, 250),
+				Validate
+func: validation.StringLenBetween(1, 250),
 			},
 			"hours_of_operation_id": {
 				Type:     schema.TypeString,
@@ -54,17 +56,20 @@ func ResourceQueue() *schema.Resource {
 			"instance_id": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: validation.StringLenBetween(1, 100),
+				Validate
+func: validation.StringLenBetween(1, 100),
 			},
 			"max_contacts": {
 				Type:         schema.TypeInt,
 				Optional:     true,
-				ValidateFunc: validation.IntAtLeast(0),
+				Validate
+func: validation.IntAtLeast(0),
 			},
 			"name": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: validation.StringLenBetween(1, 127),
+				Validate
+func: validation.StringLenBetween(1, 127),
 			},
 			"outbound_caller_config": {
 				Type:     schema.TypeList,
@@ -75,7 +80,8 @@ func ResourceQueue() *schema.Resource {
 						"outbound_caller_id_name": {
 							Type:         schema.TypeString,
 							Optional:     true,
-							ValidateFunc: validation.StringLenBetween(1, 255),
+							Validate
+func: validation.StringLenBetween(1, 255),
 						},
 						"outbound_caller_id_number_id": {
 							Type:     schema.TypeString,
@@ -84,7 +90,8 @@ func ResourceQueue() *schema.Resource {
 						"outbound_flow_id": {
 							Type:         schema.TypeString,
 							Optional:     true,
-							ValidateFunc: validation.StringLenBetween(1, 500),
+							Validate
+func: validation.StringLenBetween(1, 500),
 						},
 					},
 				},
@@ -104,13 +111,15 @@ func ResourceQueue() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				Computed:     true,
-				ValidateFunc: validation.StringInSlice(connect.QueueStatus_Values(), false), // Valid Values: ENABLED | DISABLED
+				Validate
+func: validation.StringInSlice(connect.QueueStatus_Values(), false), // Valid Values: ENABLED | DISABLED
 			},
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 		},
 	}
 }
+
 
 func resourceQueueCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -158,6 +167,7 @@ func resourceQueueCreate(ctx context.Context, d *schema.ResourceData, meta inter
 
 	return resourceQueueRead(ctx, d, meta)
 }
+
 
 func resourceQueueRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -213,6 +223,7 @@ func resourceQueueRead(ctx context.Context, d *schema.ResourceData, meta interfa
 
 	return nil
 }
+
 
 func resourceQueueUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -344,6 +355,7 @@ func resourceQueueUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 	return resourceQueueRead(ctx, d, meta)
 }
 
+
 func resourceQueueDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
@@ -364,6 +376,7 @@ func resourceQueueDelete(ctx context.Context, d *schema.ResourceData, meta inter
 
 	return nil
 }
+
 
 func expandOutboundCallerConfig(outboundCallerConfig []interface{}) *connect.OutboundCallerConfig {
 	if len(outboundCallerConfig) == 0 || outboundCallerConfig[0] == nil {
@@ -394,6 +407,7 @@ func expandOutboundCallerConfig(outboundCallerConfig []interface{}) *connect.Out
 	return result
 }
 
+
 func flattenOutboundCallerConfig(outboundCallerConfig *connect.OutboundCallerConfig) []interface{} {
 	if outboundCallerConfig == nil {
 		return []interface{}{}
@@ -416,6 +430,7 @@ func flattenOutboundCallerConfig(outboundCallerConfig *connect.OutboundCallerCon
 	return []interface{}{values}
 }
 
+
 func getQueueQuickConnectIDs(ctx context.Context, conn *connect.Connect, instanceID, queueID string) ([]*string, error) {
 	var result []*string
 
@@ -425,7 +440,8 @@ func getQueueQuickConnectIDs(ctx context.Context, conn *connect.Connect, instanc
 		QueueId:    aws.String(queueID),
 	}
 
-	err := conn.ListQueueQuickConnectsPagesWithContext(ctx, input, func(page *connect.ListQueueQuickConnectsOutput, lastPage bool) bool {
+	err := conn.ListQueueQuickConnectsPagesWithContext(ctx, input, 
+func(page *connect.ListQueueQuickConnectsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -447,6 +463,7 @@ func getQueueQuickConnectIDs(ctx context.Context, conn *connect.Connect, instanc
 
 	return result, nil
 }
+
 
 func QueueParseID(id string) (string, string, error) {
 	parts := strings.SplitN(id, ":", 2)

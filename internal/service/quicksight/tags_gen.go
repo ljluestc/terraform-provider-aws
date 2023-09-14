@@ -19,6 +19,7 @@ import (
 // listTags lists quicksight service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
 // it may also be a different identifier depending on the service.
+
 func listTags(ctx context.Context, conn quicksightiface.QuickSightAPI, identifier string) (tftags.KeyValueTags, error) {
 	input := &quicksight.ListTagsForResourceInput{
 		ResourceArn: aws.String(identifier),
@@ -35,6 +36,7 @@ func listTags(ctx context.Context, conn quicksightiface.QuickSightAPI, identifie
 
 // ListTags lists quicksight service tags and set them in Context.
 // It is called from outside this package.
+
 func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier string) error {
 	tags, err := listTags(ctx, meta.(*conns.AWSClient).QuickSightConn(ctx), identifier)
 
@@ -52,6 +54,7 @@ func (p *servicePackage) ListTags(ctx context.Context, meta any, identifier stri
 // []*SERVICE.Tag handling
 
 // Tags returns quicksight service tags.
+
 func Tags(tags tftags.KeyValueTags) []*quicksight.Tag {
 	result := make([]*quicksight.Tag, 0, len(tags))
 
@@ -68,6 +71,7 @@ func Tags(tags tftags.KeyValueTags) []*quicksight.Tag {
 }
 
 // KeyValueTags creates tftags.KeyValueTags from quicksight service tags.
+
 func KeyValueTags(ctx context.Context, tags []*quicksight.Tag) tftags.KeyValueTags {
 	m := make(map[string]*string, len(tags))
 
@@ -80,6 +84,7 @@ func KeyValueTags(ctx context.Context, tags []*quicksight.Tag) tftags.KeyValueTa
 
 // getTagsIn returns quicksight service tags from Context.
 // nil is returned if there are no input tags.
+
 func getTagsIn(ctx context.Context) []*quicksight.Tag {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
@@ -91,6 +96,7 @@ func getTagsIn(ctx context.Context) []*quicksight.Tag {
 }
 
 // setTagsOut sets quicksight service tags in Context.
+
 func setTagsOut(ctx context.Context, tags []*quicksight.Tag) {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		inContext.TagsOut = types.Some(KeyValueTags(ctx, tags))
@@ -100,6 +106,7 @@ func setTagsOut(ctx context.Context, tags []*quicksight.Tag) {
 // updateTags updates quicksight service tags.
 // The identifier is typically the Amazon Resource Name (ARN), although
 // it may also be a different identifier depending on the service.
+
 func updateTags(ctx context.Context, conn quicksightiface.QuickSightAPI, identifier string, oldTagsMap, newTagsMap any) error {
 	oldTags := tftags.New(ctx, oldTagsMap)
 	newTags := tftags.New(ctx, newTagsMap)
@@ -141,6 +148,7 @@ func updateTags(ctx context.Context, conn quicksightiface.QuickSightAPI, identif
 
 // UpdateTags updates quicksight service tags.
 // It is called from outside this package.
+
 func (p *servicePackage) UpdateTags(ctx context.Context, meta any, identifier string, oldTags, newTags any) error {
 	return updateTags(ctx, meta.(*conns.AWSClient).QuickSightConn(ctx), identifier, oldTags, newTags)
 }

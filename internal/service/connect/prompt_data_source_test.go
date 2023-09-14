@@ -13,19 +13,22 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func testAccPromptDataSource_name(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix("resource-test-terraform")
 	datasourceName := "data.aws_connect_prompt.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPromptDataSourceConfig_name(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrSet(datasourceName, "arn"),
 					resource.TestCheckResourceAttrPair(datasourceName, "instance_id", "aws_connect_instance.test", "id"),
 					resource.TestCheckResourceAttr(datasourceName, "name", "Beep.wav"),
@@ -35,6 +38,7 @@ func testAccPromptDataSource_name(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccPromptBaseDataSourceConfig(rName string) string {
 	return fmt.Sprintf(`
@@ -46,6 +50,7 @@ resource "aws_connect_instance" "test" {
 }
 `, rName)
 }
+
 
 func testAccPromptDataSourceConfig_name(rName string) string {
 	return acctest.ConfigCompose(

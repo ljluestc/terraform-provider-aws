@@ -13,6 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func testAccVocabularyDataSource_vocabularyID(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -24,13 +25,15 @@ func testAccVocabularyDataSource_vocabularyID(t *testing.T) {
 	datasourceName := "data.aws_connect_vocabulary.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVocabularyDataSourceConfig_id(rName, rName2),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(datasourceName, "content", resourceName, "content"),
 					resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
@@ -47,6 +50,7 @@ func testAccVocabularyDataSource_vocabularyID(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccVocabularyDataSource_name(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -59,13 +63,15 @@ func testAccVocabularyDataSource_name(t *testing.T) {
 	datasourceName := "data.aws_connect_vocabulary.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVocabularyDataSourceConfig_name(rName, rName2),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(datasourceName, "content", resourceName, "content"),
 					resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
@@ -82,6 +88,7 @@ func testAccVocabularyDataSource_name(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccVocabularyBaseDataSourceConfig(rName, rName2 string) string {
 	return fmt.Sprintf(`
@@ -105,6 +112,7 @@ resource "aws_connect_vocabulary" "test" {
 `, rName, rName2)
 }
 
+
 func testAccVocabularyDataSourceConfig_id(rName, rName2 string) string {
 	return acctest.ConfigCompose(
 		testAccVocabularyBaseDataSourceConfig(rName, rName2),
@@ -115,6 +123,7 @@ data "aws_connect_vocabulary" "test" {
 }
 `)
 }
+
 
 func testAccVocabularyDataSourceConfig_name(rName, rName2 string) string {
 	return acctest.ConfigCompose(

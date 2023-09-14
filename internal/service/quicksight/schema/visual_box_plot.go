@@ -11,6 +11,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 )
 
+
 func boxPlotVisualSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_BoxPlotVisual.html
 		Type:     schema.TypeList,
@@ -84,7 +85,8 @@ func boxPlotVisualSchema() *schema.Schema {
 								Optional:         true,
 								MinItems:         1,
 								MaxItems:         1,
-								DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
+								DiffSuppress
+func: verify.SuppressMissingOptionalConfigurationBlock,
 								Elem: &schema.Resource{
 									Schema: map[string]*schema.Schema{
 										"category_sort":            fieldSortOptionsSchema(fieldSortOptionsMaxItems100), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FieldSortOptions.html,
@@ -105,6 +107,7 @@ func boxPlotVisualSchema() *schema.Schema {
 	}
 }
 
+
 func paginationConfigurationSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_PaginationConfiguration.html
 		Type:     schema.TypeList,
@@ -116,7 +119,8 @@ func paginationConfigurationSchema() *schema.Schema {
 				"page_number": {
 					Type:         schema.TypeInt,
 					Required:     true,
-					ValidateFunc: validation.IntAtLeast(0),
+					Validate
+func: validation.IntAtLeast(0),
 				},
 				"page_size": {
 					Type:     schema.TypeInt,
@@ -126,6 +130,7 @@ func paginationConfigurationSchema() *schema.Schema {
 		},
 	}
 }
+
 
 func expandBoxPlotVisual(tfList []interface{}) *quicksight.BoxPlotVisual {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -160,6 +165,7 @@ func expandBoxPlotVisual(tfList []interface{}) *quicksight.BoxPlotVisual {
 
 	return visual
 }
+
 
 func expandBoxPlotChartConfiguration(tfList []interface{}) *quicksight.BoxPlotChartConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -210,6 +216,7 @@ func expandBoxPlotChartConfiguration(tfList []interface{}) *quicksight.BoxPlotCh
 	return config
 }
 
+
 func expandBoxPlotOptions(tfList []interface{}) *quicksight.BoxPlotOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -235,6 +242,7 @@ func expandBoxPlotOptions(tfList []interface{}) *quicksight.BoxPlotOptions {
 	return options
 }
 
+
 func expandBoxPlotStyleOptions(tfList []interface{}) *quicksight.BoxPlotStyleOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -254,6 +262,7 @@ func expandBoxPlotStyleOptions(tfList []interface{}) *quicksight.BoxPlotStyleOpt
 	return options
 }
 
+
 func expandBoxPlotFieldWells(tfList []interface{}) *quicksight.BoxPlotFieldWells {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -272,6 +281,7 @@ func expandBoxPlotFieldWells(tfList []interface{}) *quicksight.BoxPlotFieldWells
 
 	return config
 }
+
 
 func expandBoxPlotAggregatedFieldWells(tfList []interface{}) *quicksight.BoxPlotAggregatedFieldWells {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -295,6 +305,7 @@ func expandBoxPlotAggregatedFieldWells(tfList []interface{}) *quicksight.BoxPlot
 	return config
 }
 
+
 func expandBoxPlotSortConfiguration(tfList []interface{}) *quicksight.BoxPlotSortConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -317,6 +328,7 @@ func expandBoxPlotSortConfiguration(tfList []interface{}) *quicksight.BoxPlotSor
 	return config
 }
 
+
 func expandPaginationConfiguration(tfList []interface{}) *quicksight.PaginationConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -338,6 +350,7 @@ func expandPaginationConfiguration(tfList []interface{}) *quicksight.PaginationC
 
 	return config
 }
+
 
 func flattenBoxPlotVisual(apiObject *quicksight.BoxPlotVisual) []interface{} {
 	if apiObject == nil {
@@ -365,6 +378,7 @@ func flattenBoxPlotVisual(apiObject *quicksight.BoxPlotVisual) []interface{} {
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenBoxPlotChartConfiguration(apiObject *quicksight.BoxPlotChartConfiguration) []interface{} {
 	if apiObject == nil {
@@ -409,6 +423,7 @@ func flattenBoxPlotChartConfiguration(apiObject *quicksight.BoxPlotChartConfigur
 	return []interface{}{tfMap}
 }
 
+
 func flattenBoxPlotOptions(apiObject *quicksight.BoxPlotOptions) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -428,6 +443,7 @@ func flattenBoxPlotOptions(apiObject *quicksight.BoxPlotOptions) []interface{} {
 	return []interface{}{tfMap}
 }
 
+
 func flattenBoxPlotStyleOptions(apiObject *quicksight.BoxPlotStyleOptions) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -441,6 +457,7 @@ func flattenBoxPlotStyleOptions(apiObject *quicksight.BoxPlotStyleOptions) []int
 	return []interface{}{tfMap}
 }
 
+
 func flattenBoxPlotFieldWells(apiObject *quicksight.BoxPlotFieldWells) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -453,6 +470,7 @@ func flattenBoxPlotFieldWells(apiObject *quicksight.BoxPlotFieldWells) []interfa
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenBoxPlotAggregatedFieldWells(apiObject *quicksight.BoxPlotAggregatedFieldWells) []interface{} {
 	if apiObject == nil {
@@ -470,6 +488,7 @@ func flattenBoxPlotAggregatedFieldWells(apiObject *quicksight.BoxPlotAggregatedF
 	return []interface{}{tfMap}
 }
 
+
 func flattenBoxPlotSortConfiguration(apiObject *quicksight.BoxPlotSortConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -485,6 +504,7 @@ func flattenBoxPlotSortConfiguration(apiObject *quicksight.BoxPlotSortConfigurat
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenPaginationConfiguration(apiObject *quicksight.PaginationConfiguration) []interface{} {
 	if apiObject == nil {

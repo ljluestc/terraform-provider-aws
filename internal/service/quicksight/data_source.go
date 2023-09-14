@@ -23,6 +23,7 @@ import (
 
 // @SDKResource("aws_quicksight_data_source", name="Data Source")
 // @Tags(identifierAttribute="arn")
+
 func ResourceDataSource() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceDataSourceCreate,
@@ -34,7 +35,9 @@ func ResourceDataSource() *schema.Resource {
 			StateContext: schema.ImportStatePassthroughContext,
 		},
 
-		SchemaFunc: func() map[string]*schema.Schema {
+		Schema
+func: 
+func() map[string]*schema.Schema {
 			return map[string]*schema.Schema{
 				"arn": {
 					Type:     schema.TypeString,
@@ -46,7 +49,8 @@ func ResourceDataSource() *schema.Resource {
 					Optional:     true,
 					Computed:     true,
 					ForceNew:     true,
-					ValidateFunc: verify.ValidAccountID,
+					Validate
+func: verify.ValidAccountID,
 				},
 
 				"credentials": {
@@ -58,7 +62,8 @@ func ResourceDataSource() *schema.Resource {
 							"copy_source_arn": {
 								Type:          schema.TypeString,
 								Optional:      true,
-								ValidateFunc:  verify.ValidARN,
+								Validate
+func:  verify.ValidARN,
 								ConflictsWith: []string{"credentials.0.credential_pair"},
 							},
 							"credential_pair": {
@@ -70,7 +75,8 @@ func ResourceDataSource() *schema.Resource {
 										"password": {
 											Type:     schema.TypeString,
 											Required: true,
-											ValidateFunc: validation.All(
+											Validate
+func: validation.All(
 												validation.NoZeroValues,
 												validation.StringLenBetween(1, 1024),
 											),
@@ -79,7 +85,8 @@ func ResourceDataSource() *schema.Resource {
 										"username": {
 											Type:     schema.TypeString,
 											Required: true,
-											ValidateFunc: validation.All(
+											Validate
+func: validation.All(
 												validation.NoZeroValues,
 												validation.StringLenBetween(1, 64),
 											),
@@ -102,7 +109,8 @@ func ResourceDataSource() *schema.Resource {
 				"name": {
 					Type:     schema.TypeString,
 					Required: true,
-					ValidateFunc: validation.All(
+					Validate
+func: validation.All(
 						validation.NoZeroValues,
 						validation.StringLenBetween(1, 128),
 					),
@@ -124,7 +132,8 @@ func ResourceDataSource() *schema.Resource {
 										"domain": {
 											Type:         schema.TypeString,
 											Required:     true,
-											ValidateFunc: validation.NoZeroValues,
+											Validate
+func: validation.NoZeroValues,
 										},
 									},
 								},
@@ -138,7 +147,8 @@ func ResourceDataSource() *schema.Resource {
 										"work_group": {
 											Type:         schema.TypeString,
 											Optional:     true,
-											ValidateFunc: validation.NoZeroValues,
+											Validate
+func: validation.NoZeroValues,
 										},
 									},
 								},
@@ -152,17 +162,20 @@ func ResourceDataSource() *schema.Resource {
 										"database": {
 											Type:         schema.TypeString,
 											Required:     true,
-											ValidateFunc: validation.NoZeroValues,
+											Validate
+func: validation.NoZeroValues,
 										},
 										"host": {
 											Type:         schema.TypeString,
 											Required:     true,
-											ValidateFunc: validation.NoZeroValues,
+											Validate
+func: validation.NoZeroValues,
 										},
 										"port": {
 											Type:         schema.TypeInt,
 											Required:     true,
-											ValidateFunc: validation.IntAtLeast(1),
+											Validate
+func: validation.IntAtLeast(1),
 										},
 									},
 								},
@@ -176,17 +189,20 @@ func ResourceDataSource() *schema.Resource {
 										"database": {
 											Type:         schema.TypeString,
 											Required:     true,
-											ValidateFunc: validation.NoZeroValues,
+											Validate
+func: validation.NoZeroValues,
 										},
 										"host": {
 											Type:         schema.TypeString,
 											Required:     true,
-											ValidateFunc: validation.NoZeroValues,
+											Validate
+func: validation.NoZeroValues,
 										},
 										"port": {
 											Type:         schema.TypeInt,
 											Required:     true,
-											ValidateFunc: validation.IntAtLeast(1),
+											Validate
+func: validation.IntAtLeast(1),
 										},
 									},
 								},
@@ -200,7 +216,8 @@ func ResourceDataSource() *schema.Resource {
 										"data_set_name": {
 											Type:         schema.TypeString,
 											Required:     true,
-											ValidateFunc: validation.NoZeroValues,
+											Validate
+func: validation.NoZeroValues,
 										},
 									},
 								},
@@ -214,7 +231,8 @@ func ResourceDataSource() *schema.Resource {
 										"site_base_url": {
 											Type:         schema.TypeString,
 											Required:     true,
-											ValidateFunc: validation.NoZeroValues,
+											Validate
+func: validation.NoZeroValues,
 										},
 									},
 								},
@@ -228,17 +246,20 @@ func ResourceDataSource() *schema.Resource {
 										"database": {
 											Type:         schema.TypeString,
 											Required:     true,
-											ValidateFunc: validation.NoZeroValues,
+											Validate
+func: validation.NoZeroValues,
 										},
 										"host": {
 											Type:         schema.TypeString,
 											Required:     true,
-											ValidateFunc: validation.NoZeroValues,
+											Validate
+func: validation.NoZeroValues,
 										},
 										"port": {
 											Type:         schema.TypeInt,
 											Required:     true,
-											ValidateFunc: validation.IntAtLeast(1),
+											Validate
+func: validation.IntAtLeast(1),
 										},
 									},
 								},
@@ -252,17 +273,20 @@ func ResourceDataSource() *schema.Resource {
 										"database": {
 											Type:         schema.TypeString,
 											Required:     true,
-											ValidateFunc: validation.NoZeroValues,
+											Validate
+func: validation.NoZeroValues,
 										},
 										"host": {
 											Type:         schema.TypeString,
 											Required:     true,
-											ValidateFunc: validation.NoZeroValues,
+											Validate
+func: validation.NoZeroValues,
 										},
 										"port": {
 											Type:         schema.TypeInt,
 											Required:     true,
-											ValidateFunc: validation.IntAtLeast(1),
+											Validate
+func: validation.IntAtLeast(1),
 										},
 									},
 								},
@@ -276,17 +300,20 @@ func ResourceDataSource() *schema.Resource {
 										"database": {
 											Type:         schema.TypeString,
 											Required:     true,
-											ValidateFunc: validation.NoZeroValues,
+											Validate
+func: validation.NoZeroValues,
 										},
 										"host": {
 											Type:         schema.TypeString,
 											Required:     true,
-											ValidateFunc: validation.NoZeroValues,
+											Validate
+func: validation.NoZeroValues,
 										},
 										"port": {
 											Type:         schema.TypeInt,
 											Required:     true,
-											ValidateFunc: validation.IntAtLeast(1),
+											Validate
+func: validation.IntAtLeast(1),
 										},
 									},
 								},
@@ -300,17 +327,20 @@ func ResourceDataSource() *schema.Resource {
 										"database": {
 											Type:         schema.TypeString,
 											Required:     true,
-											ValidateFunc: validation.NoZeroValues,
+											Validate
+func: validation.NoZeroValues,
 										},
 										"host": {
 											Type:         schema.TypeString,
 											Required:     true,
-											ValidateFunc: validation.NoZeroValues,
+											Validate
+func: validation.NoZeroValues,
 										},
 										"port": {
 											Type:         schema.TypeInt,
 											Required:     true,
-											ValidateFunc: validation.IntAtLeast(1),
+											Validate
+func: validation.IntAtLeast(1),
 										},
 									},
 								},
@@ -324,17 +354,20 @@ func ResourceDataSource() *schema.Resource {
 										"catalog": {
 											Type:         schema.TypeString,
 											Required:     true,
-											ValidateFunc: validation.NoZeroValues,
+											Validate
+func: validation.NoZeroValues,
 										},
 										"host": {
 											Type:         schema.TypeString,
 											Required:     true,
-											ValidateFunc: validation.NoZeroValues,
+											Validate
+func: validation.NoZeroValues,
 										},
 										"port": {
 											Type:         schema.TypeInt,
 											Required:     true,
-											ValidateFunc: validation.IntAtLeast(1),
+											Validate
+func: validation.IntAtLeast(1),
 										},
 									},
 								},
@@ -348,12 +381,14 @@ func ResourceDataSource() *schema.Resource {
 										"database": {
 											Type:         schema.TypeString,
 											Required:     true,
-											ValidateFunc: validation.NoZeroValues,
+											Validate
+func: validation.NoZeroValues,
 										},
 										"instance_id": {
 											Type:         schema.TypeString,
 											Required:     true,
-											ValidateFunc: validation.NoZeroValues,
+											Validate
+func: validation.NoZeroValues,
 										},
 									},
 								},
@@ -367,12 +402,14 @@ func ResourceDataSource() *schema.Resource {
 										"cluster_id": {
 											Type:         schema.TypeString,
 											Optional:     true,
-											ValidateFunc: validation.NoZeroValues,
+											Validate
+func: validation.NoZeroValues,
 										},
 										"database": {
 											Type:         schema.TypeString,
 											Required:     true,
-											ValidateFunc: validation.NoZeroValues,
+											Validate
+func: validation.NoZeroValues,
 										},
 										"host": {
 											Type:     schema.TypeString,
@@ -400,12 +437,14 @@ func ResourceDataSource() *schema.Resource {
 													"bucket": {
 														Type:         schema.TypeString,
 														Required:     true,
-														ValidateFunc: validation.NoZeroValues,
+														Validate
+func: validation.NoZeroValues,
 													},
 													"key": {
 														Type:         schema.TypeString,
 														Required:     true,
-														ValidateFunc: validation.NoZeroValues,
+														Validate
+func: validation.NoZeroValues,
 													},
 												},
 											},
@@ -422,7 +461,8 @@ func ResourceDataSource() *schema.Resource {
 										"site_base_url": {
 											Type:         schema.TypeString,
 											Required:     true,
-											ValidateFunc: validation.NoZeroValues,
+											Validate
+func: validation.NoZeroValues,
 										},
 									},
 								},
@@ -436,17 +476,20 @@ func ResourceDataSource() *schema.Resource {
 										"database": {
 											Type:         schema.TypeString,
 											Required:     true,
-											ValidateFunc: validation.NoZeroValues,
+											Validate
+func: validation.NoZeroValues,
 										},
 										"host": {
 											Type:         schema.TypeString,
 											Required:     true,
-											ValidateFunc: validation.NoZeroValues,
+											Validate
+func: validation.NoZeroValues,
 										},
 										"warehouse": {
 											Type:         schema.TypeString,
 											Required:     true,
-											ValidateFunc: validation.NoZeroValues,
+											Validate
+func: validation.NoZeroValues,
 										},
 									},
 								},
@@ -460,12 +503,14 @@ func ResourceDataSource() *schema.Resource {
 										"host": {
 											Type:         schema.TypeString,
 											Required:     true,
-											ValidateFunc: validation.NoZeroValues,
+											Validate
+func: validation.NoZeroValues,
 										},
 										"port": {
 											Type:         schema.TypeInt,
 											Required:     true,
-											ValidateFunc: validation.IntAtLeast(1),
+											Validate
+func: validation.IntAtLeast(1),
 										},
 									},
 								},
@@ -479,17 +524,20 @@ func ResourceDataSource() *schema.Resource {
 										"database": {
 											Type:         schema.TypeString,
 											Required:     true,
-											ValidateFunc: validation.NoZeroValues,
+											Validate
+func: validation.NoZeroValues,
 										},
 										"host": {
 											Type:         schema.TypeString,
 											Required:     true,
-											ValidateFunc: validation.NoZeroValues,
+											Validate
+func: validation.NoZeroValues,
 										},
 										"port": {
 											Type:         schema.TypeInt,
 											Required:     true,
-											ValidateFunc: validation.IntAtLeast(1),
+											Validate
+func: validation.IntAtLeast(1),
 										},
 									},
 								},
@@ -503,17 +551,20 @@ func ResourceDataSource() *schema.Resource {
 										"database": {
 											Type:         schema.TypeString,
 											Required:     true,
-											ValidateFunc: validation.NoZeroValues,
+											Validate
+func: validation.NoZeroValues,
 										},
 										"host": {
 											Type:         schema.TypeString,
 											Required:     true,
-											ValidateFunc: validation.NoZeroValues,
+											Validate
+func: validation.NoZeroValues,
 										},
 										"port": {
 											Type:         schema.TypeInt,
 											Required:     true,
-											ValidateFunc: validation.IntAtLeast(1),
+											Validate
+func: validation.IntAtLeast(1),
 										},
 									},
 								},
@@ -527,12 +578,14 @@ func ResourceDataSource() *schema.Resource {
 										"max_rows": {
 											Type:         schema.TypeInt,
 											Required:     true,
-											ValidateFunc: validation.IntAtLeast(1),
+											Validate
+func: validation.IntAtLeast(1),
 										},
 										"query": {
 											Type:         schema.TypeString,
 											Required:     true,
-											ValidateFunc: validation.NoZeroValues,
+											Validate
+func: validation.NoZeroValues,
 										},
 									},
 								},
@@ -558,7 +611,8 @@ func ResourceDataSource() *schema.Resource {
 							"principal": {
 								Type:         schema.TypeString,
 								Required:     true,
-								ValidateFunc: verify.ValidARN,
+								Validate
+func: verify.ValidARN,
 							},
 						},
 					},
@@ -585,7 +639,8 @@ func ResourceDataSource() *schema.Resource {
 					Type:         schema.TypeString,
 					Required:     true,
 					ForceNew:     true,
-					ValidateFunc: validation.StringInSlice(quicksight.DataSourceType_Values(), false),
+					Validate
+func: validation.StringInSlice(quicksight.DataSourceType_Values(), false),
 				},
 
 				"vpc_connection_properties": {
@@ -597,7 +652,8 @@ func ResourceDataSource() *schema.Resource {
 							"vpc_connection_arn": {
 								Type:         schema.TypeString,
 								Required:     true,
-								ValidateFunc: verify.ValidARN,
+								Validate
+func: verify.ValidARN,
 							},
 						},
 					},
@@ -608,6 +664,7 @@ func ResourceDataSource() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
+
 
 func resourceDataSourceCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
@@ -657,6 +714,7 @@ func resourceDataSourceCreate(ctx context.Context, d *schema.ResourceData, meta 
 
 	return resourceDataSourceRead(ctx, d, meta)
 }
+
 
 func resourceDataSourceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
@@ -723,6 +781,7 @@ func resourceDataSourceRead(ctx context.Context, d *schema.ResourceData, meta in
 
 	return nil
 }
+
 
 func resourceDataSourceUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
@@ -801,6 +860,7 @@ func resourceDataSourceUpdate(ctx context.Context, d *schema.ResourceData, meta 
 	return resourceDataSourceRead(ctx, d, meta)
 }
 
+
 func resourceDataSourceDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
 
@@ -827,6 +887,7 @@ func resourceDataSourceDelete(ctx context.Context, d *schema.ResourceData, meta 
 	return nil
 }
 
+
 func expandDataSourceCredentials(tfList []interface{}) *quicksight.DataSourceCredentials {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -851,6 +912,7 @@ func expandDataSourceCredentials(tfList []interface{}) *quicksight.DataSourceCre
 	return credentials
 }
 
+
 func expandDataSourceCredentialPair(tfList []interface{}) *quicksight.CredentialPair {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -874,6 +936,7 @@ func expandDataSourceCredentialPair(tfList []interface{}) *quicksight.Credential
 
 	return credentialPair
 }
+
 
 func expandDataSourceParameters(tfList []interface{}) *quicksight.DataSourceParameters {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -1248,6 +1311,7 @@ func expandDataSourceParameters(tfList []interface{}) *quicksight.DataSourcePara
 	return dataSourceParams
 }
 
+
 func expandDataSourceSSLProperties(tfList []interface{}) *quicksight.SslProperties {
 	if len(tfList) == 0 {
 		return nil
@@ -1266,6 +1330,7 @@ func expandDataSourceSSLProperties(tfList []interface{}) *quicksight.SslProperti
 
 	return props
 }
+
 
 func expandDataSourceVPCConnectionProperties(tfList []interface{}) *quicksight.VpcConnectionProperties {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -1286,6 +1351,7 @@ func expandDataSourceVPCConnectionProperties(tfList []interface{}) *quicksight.V
 
 	return props
 }
+
 
 func flattenParameters(parameters *quicksight.DataSourceParameters) []interface{} {
 	if parameters == nil {
@@ -1528,6 +1594,7 @@ func flattenParameters(parameters *quicksight.DataSourceParameters) []interface{
 	return params
 }
 
+
 func flattenSSLProperties(props *quicksight.SslProperties) []interface{} {
 	if props == nil {
 		return []interface{}{}
@@ -1542,6 +1609,7 @@ func flattenSSLProperties(props *quicksight.SslProperties) []interface{} {
 	return []interface{}{m}
 }
 
+
 func flattenVPCConnectionProperties(props *quicksight.VpcConnectionProperties) []interface{} {
 	if props == nil {
 		return []interface{}{}
@@ -1555,6 +1623,7 @@ func flattenVPCConnectionProperties(props *quicksight.VpcConnectionProperties) [
 
 	return []interface{}{m}
 }
+
 
 func ParseDataSourceID(id string) (string, string, error) {
 	parts := strings.SplitN(id, "/", 2)

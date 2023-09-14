@@ -16,19 +16,22 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )
 
+
 func TestAccEC2SerialConsoleAccess_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_ec2_serial_console_access.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckSerialConsoleAccessDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSerialConsoleAccessConfig_basic(false),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSerialConsoleAccess(ctx, resourceName, false),
 					resource.TestCheckResourceAttr(resourceName, "enabled", "false"),
 				),
@@ -40,7 +43,8 @@ func TestAccEC2SerialConsoleAccess_basic(t *testing.T) {
 			},
 			{
 				Config: testAccSerialConsoleAccessConfig_basic(true),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSerialConsoleAccess(ctx, resourceName, true),
 					resource.TestCheckResourceAttr(resourceName, "enabled", "true"),
 				),
@@ -49,8 +53,11 @@ func TestAccEC2SerialConsoleAccess_basic(t *testing.T) {
 	})
 }
 
-func testAccCheckSerialConsoleAccessDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckSerialConsoleAccessDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 		response, err := conn.GetSerialConsoleAccessStatusWithContext(ctx, &ec2.GetSerialConsoleAccessStatusInput{})
@@ -66,8 +73,11 @@ func testAccCheckSerialConsoleAccessDestroy(ctx context.Context) resource.TestCh
 	}
 }
 
-func testAccCheckSerialConsoleAccess(ctx context.Context, n string, enabled bool) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckSerialConsoleAccess(ctx context.Context, n string, enabled bool) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -91,6 +101,7 @@ func testAccCheckSerialConsoleAccess(ctx context.Context, n string, enabled bool
 		return nil
 	}
 }
+
 
 func testAccSerialConsoleAccessConfig_basic(enabled bool) string {
 	return fmt.Sprintf(`

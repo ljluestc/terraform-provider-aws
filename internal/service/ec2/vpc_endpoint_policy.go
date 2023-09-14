@@ -21,6 +21,7 @@ import (
 )
 
 // @SDKResource("aws_vpc_endpoint_policy")
+
 func ResourceVPCEndpointPolicy() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceVPCEndpointPolicyPut,
@@ -36,10 +37,14 @@ func ResourceVPCEndpointPolicy() *schema.Resource {
 				Type:                  schema.TypeString,
 				Optional:              true,
 				Computed:              true,
-				ValidateFunc:          validation.StringIsJSON,
-				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
+				Validate
+func:          validation.StringIsJSON,
+				DiffSuppress
+func:      verify.SuppressEquivalentPolicyDiffs,
 				DiffSuppressOnRefresh: true,
-				StateFunc: func(v interface{}) string {
+				State
+func: 
+func(v interface{}) string {
 					json, _ := structure.NormalizeJsonString(v)
 					return json
 				},
@@ -57,6 +62,7 @@ func ResourceVPCEndpointPolicy() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceVPCEndpointPolicyPut(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -93,6 +99,7 @@ func resourceVPCEndpointPolicyPut(ctx context.Context, d *schema.ResourceData, m
 	return append(diags, resourceVPCEndpointPolicyRead(ctx, d, meta)...)
 }
 
+
 func resourceVPCEndpointPolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -126,6 +133,7 @@ func resourceVPCEndpointPolicyRead(ctx context.Context, d *schema.ResourceData, 
 	d.Set("policy", policyToSet)
 	return diags
 }
+
 
 func resourceVPCEndpointPolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

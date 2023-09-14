@@ -20,6 +20,7 @@ import (
 )
 
 // @SDKResource("aws_vpc_network_performance_metric_subscription")
+
 func ResourceNetworkPerformanceMetricSubscription() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceNetworkPerformanceMetricSubscriptionCreate,
@@ -37,7 +38,8 @@ func ResourceNetworkPerformanceMetricSubscription() *schema.Resource {
 				Optional:         true,
 				ForceNew:         true,
 				Default:          types.MetricTypeAggregateLatency,
-				ValidateDiagFunc: enum.Validate[types.MetricType](),
+				ValidateDiag
+func: enum.Validate[types.MetricType](),
 			},
 			"period": {
 				Type:     schema.TypeString,
@@ -53,11 +55,13 @@ func ResourceNetworkPerformanceMetricSubscription() *schema.Resource {
 				Optional:         true,
 				ForceNew:         true,
 				Default:          types.StatisticTypeP50,
-				ValidateDiagFunc: enum.Validate[types.StatisticType](),
+				ValidateDiag
+func: enum.Validate[types.StatisticType](),
 			},
 		},
 	}
 }
+
 
 func resourceNetworkPerformanceMetricSubscriptionCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Client(ctx)
@@ -84,6 +88,7 @@ func resourceNetworkPerformanceMetricSubscriptionCreate(ctx context.Context, d *
 
 	return resourceNetworkPerformanceMetricSubscriptionRead(ctx, d, meta)
 }
+
 
 func resourceNetworkPerformanceMetricSubscriptionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Client(ctx)
@@ -115,6 +120,7 @@ func resourceNetworkPerformanceMetricSubscriptionRead(ctx context.Context, d *sc
 	return nil
 }
 
+
 func resourceNetworkPerformanceMetricSubscriptionDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Client(ctx)
 
@@ -141,12 +147,14 @@ func resourceNetworkPerformanceMetricSubscriptionDelete(ctx context.Context, d *
 
 const networkPerformanceMetricSubscriptionRuleIDSeparator = "/"
 
+
 func NetworkPerformanceMetricSubscriptionCreateResourceID(source, destination, metric, statistic string) string {
 	parts := []string{source, destination, metric, statistic}
 	id := strings.Join(parts, networkPerformanceMetricSubscriptionRuleIDSeparator)
 
 	return id
 }
+
 
 func NetworkPerformanceMetricSubscriptionResourceID(id string) (string, string, string, string, error) {
 	parts := strings.Split(id, networkPerformanceMetricSubscriptionRuleIDSeparator)

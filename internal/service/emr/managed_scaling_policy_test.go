@@ -19,11 +19,15 @@ import (
 	tfemr "github.com/hashicorp/terraform-provider-aws/internal/service/emr"
 )
 
+
 func init() {
-	acctest.RegisterServiceErrorCheckFunc(emr.EndpointsID, testAccErrorCheckSkip)
+	acctest.RegisterServiceErrorCheck
+func(emr.EndpointsID, testAccErrorCheckSkip)
 }
 
-func testAccErrorCheckSkip(t *testing.T) resource.ErrorCheckFunc {
+
+func testAccErrorCheckSkip(t *testing.T) resource.ErrorCheck
+func {
 	return acctest.ErrorCheckSkipMessagesContaining(t,
 		"Managed scaling is not available",
 		"SSO is not enabled",
@@ -31,13 +35,15 @@ func testAccErrorCheckSkip(t *testing.T) resource.ErrorCheckFunc {
 	)
 }
 
+
 func TestAccEMRManagedScalingPolicy_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_emr_managed_scaling_policy.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, emr.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckManagedScalingPolicyDestroy(ctx),
@@ -45,7 +51,8 @@ func TestAccEMRManagedScalingPolicy_basic(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccManagedScalingPolicyConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckManagedScalingPolicyExists(ctx, resourceName),
 				),
 			},
@@ -58,20 +65,23 @@ func TestAccEMRManagedScalingPolicy_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccEMRManagedScalingPolicy_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_emr_managed_scaling_policy.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, emr.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckManagedScalingPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccManagedScalingPolicyConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckManagedScalingPolicyExists(ctx, resourceName),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfemr.ResourceManagedScalingPolicy(), resourceName),
 				),
@@ -81,13 +91,15 @@ func TestAccEMRManagedScalingPolicy_disappears(t *testing.T) {
 	})
 }
 
+
 func TestAccEMRManagedScalingPolicy_ComputeLimits_maximumCoreCapacityUnits(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_emr_managed_scaling_policy.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, emr.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckManagedScalingPolicyDestroy(ctx),
@@ -95,7 +107,8 @@ func TestAccEMRManagedScalingPolicy_ComputeLimits_maximumCoreCapacityUnits(t *te
 		Steps: []resource.TestStep{
 			{
 				Config: testAccManagedScalingPolicyConfig_computeLimitsMaximumCoreCapacityUnits(rName, 2),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckManagedScalingPolicyExists(ctx, resourceName),
 				),
 			},
@@ -107,6 +120,7 @@ func TestAccEMRManagedScalingPolicy_ComputeLimits_maximumCoreCapacityUnits(t *te
 		},
 	})
 }
+
 
 func TestAccEMRManagedScalingPolicy_ComputeLimits_maximumOnDemandCapacityUnits(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -114,7 +128,8 @@ func TestAccEMRManagedScalingPolicy_ComputeLimits_maximumOnDemandCapacityUnits(t
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, emr.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckManagedScalingPolicyDestroy(ctx),
@@ -122,7 +137,8 @@ func TestAccEMRManagedScalingPolicy_ComputeLimits_maximumOnDemandCapacityUnits(t
 		Steps: []resource.TestStep{
 			{
 				Config: testAccManagedScalingPolicyConfig_computeLimitsMaximumOnDemandCapacityUnits(rName, 2),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckManagedScalingPolicyExists(ctx, resourceName),
 				),
 			},
@@ -134,6 +150,7 @@ func TestAccEMRManagedScalingPolicy_ComputeLimits_maximumOnDemandCapacityUnits(t
 		},
 	})
 }
+
 
 func TestAccEMRManagedScalingPolicy_ComputeLimits_maximumOnDemandCapacityUnitsSpotOnly(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -141,7 +158,8 @@ func TestAccEMRManagedScalingPolicy_ComputeLimits_maximumOnDemandCapacityUnitsSp
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, emr.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckManagedScalingPolicyDestroy(ctx),
@@ -149,7 +167,8 @@ func TestAccEMRManagedScalingPolicy_ComputeLimits_maximumOnDemandCapacityUnitsSp
 		Steps: []resource.TestStep{
 			{
 				Config: testAccManagedScalingPolicyConfig_computeLimitsMaximumOnDemandCapacityUnits(rName, 0),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckManagedScalingPolicyExists(ctx, resourceName),
 				),
 			},
@@ -162,8 +181,11 @@ func TestAccEMRManagedScalingPolicy_ComputeLimits_maximumOnDemandCapacityUnitsSp
 	})
 }
 
-func testAccCheckManagedScalingPolicyExists(ctx context.Context, n string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckManagedScalingPolicyExists(ctx context.Context, n string) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -188,8 +210,11 @@ func testAccCheckManagedScalingPolicyExists(ctx context.Context, n string) resou
 	}
 }
 
-func testAccCheckManagedScalingPolicyDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckManagedScalingPolicyDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EMRConn(ctx)
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_emr_managed_scaling_policy" {
@@ -220,6 +245,7 @@ func testAccCheckManagedScalingPolicyDestroy(ctx context.Context) resource.TestC
 		return nil
 	}
 }
+
 
 func testAccManagedScalingPolicyConfig_base(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInDefaultExclude(), fmt.Sprintf(`
@@ -490,6 +516,7 @@ resource "aws_emr_cluster" "test" {
 `, rName))
 }
 
+
 func testAccManagedScalingPolicyConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccManagedScalingPolicyConfig_base(rName), `
 resource "aws_emr_managed_scaling_policy" "test" {
@@ -502,6 +529,7 @@ resource "aws_emr_managed_scaling_policy" "test" {
 }
 `)
 }
+
 
 func testAccManagedScalingPolicyConfig_computeLimitsMaximumCoreCapacityUnits(rName string, maximumCoreCapacityUnits int) string {
 	return acctest.ConfigCompose(testAccManagedScalingPolicyConfig_base(rName), fmt.Sprintf(`
@@ -516,6 +544,7 @@ resource "aws_emr_managed_scaling_policy" "test" {
 }
 `, maximumCoreCapacityUnits))
 }
+
 
 func testAccManagedScalingPolicyConfig_computeLimitsMaximumOnDemandCapacityUnits(rName string, maximumOnDemandCapacityUnits int) string {
 	return acctest.ConfigCompose(testAccManagedScalingPolicyConfig_base(rName), fmt.Sprintf(`

@@ -16,6 +16,7 @@ import (
 )
 
 // @SDKDataSource("aws_ec2_public_ipv4_pools")
+
 func DataSourcePublicIPv4Pools() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourcePublicIPv4PoolsRead,

@@ -18,6 +18,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccVPCInternetGatewayAttachment_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.InternetGatewayAttachment
@@ -27,14 +28,16 @@ func TestAccVPCInternetGatewayAttachment_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckInternetGatewayAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCInternetGatewayAttachmentConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInternetGatewayAttachmentExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttrPair(resourceName, "internet_gateway_id", igwResourceName, "id"),
 					resource.TestCheckResourceAttrPair(resourceName, "vpc_id", vpcResourceName, "id"),
@@ -49,6 +52,7 @@ func TestAccVPCInternetGatewayAttachment_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCInternetGatewayAttachment_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.InternetGatewayAttachment
@@ -56,14 +60,16 @@ func TestAccVPCInternetGatewayAttachment_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckInternetGatewayAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCInternetGatewayAttachmentConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInternetGatewayAttachmentExists(ctx, resourceName, &v),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceInternetGatewayAttachment(), resourceName),
 				),
@@ -73,8 +79,11 @@ func TestAccVPCInternetGatewayAttachment_disappears(t *testing.T) {
 	})
 }
 
-func testAccCheckInternetGatewayAttachmentDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckInternetGatewayAttachmentDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -105,8 +114,11 @@ func testAccCheckInternetGatewayAttachmentDestroy(ctx context.Context) resource.
 	}
 }
 
-func testAccCheckInternetGatewayAttachmentExists(ctx context.Context, n string, v *ec2.InternetGatewayAttachment) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckInternetGatewayAttachmentExists(ctx context.Context, n string, v *ec2.InternetGatewayAttachment) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -135,6 +147,7 @@ func testAccCheckInternetGatewayAttachmentExists(ctx context.Context, n string, 
 		return nil
 	}
 }
+
 
 func testAccVPCInternetGatewayAttachmentConfig_basic(rName string) string {
 	return fmt.Sprintf(`

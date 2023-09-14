@@ -18,6 +18,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )
 
+
 func TestAccOpsWorksInstance_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var opsinst opsworks.Instance
@@ -26,14 +27,16 @@ func TestAccOpsWorksInstance_basic(t *testing.T) {
 	dataSourceName := "data.aws_availability_zones.available"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
 		ErrorCheck:               acctest.ErrorCheck(t, opsworks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckInstanceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstanceConfig_create(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInstanceExists(ctx, resourceName, &opsinst),
 					testAccCheckInstanceAttributes(&opsinst),
 					resource.TestCheckResourceAttr(resourceName, "hostname", "tf-acc1"),
@@ -56,7 +59,8 @@ func TestAccOpsWorksInstance_basic(t *testing.T) {
 			},
 			{
 				Config: testAccInstanceConfig_update(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInstanceExists(ctx, resourceName, &opsinst),
 					testAccCheckInstanceAttributes(&opsinst),
 					resource.TestCheckResourceAttr(resourceName, "hostname", "tf-acc1"),
@@ -70,6 +74,7 @@ func TestAccOpsWorksInstance_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccOpsWorksInstance_updateHostNameForceNew(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -77,14 +82,16 @@ func TestAccOpsWorksInstance_updateHostNameForceNew(t *testing.T) {
 	var before, after opsworks.Instance
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
 		ErrorCheck:               acctest.ErrorCheck(t, opsworks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckInstanceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstanceConfig_create(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInstanceExists(ctx, resourceName, &before),
 					resource.TestCheckResourceAttr(resourceName, "hostname", "tf-acc1"),
 				),
@@ -97,7 +104,8 @@ func TestAccOpsWorksInstance_updateHostNameForceNew(t *testing.T) {
 			},
 			{
 				Config: testAccInstanceConfig_updateHostName(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInstanceExists(ctx, resourceName, &after),
 					resource.TestCheckResourceAttr(resourceName, "hostname", "tf-acc2"),
 					testAccCheckInstanceRecreated(t, &before, &after),
@@ -107,9 +115,12 @@ func TestAccOpsWorksInstance_updateHostNameForceNew(t *testing.T) {
 	})
 }
 
+
 func testAccCheckInstanceRecreated(t *testing.T,
-	before, after *opsworks.Instance) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	before, after *opsworks.Instance) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		if *before.InstanceId == *after.InstanceId {
 			t.Fatalf("Expected change of OpsWorks Instance IDs, but both were %s", *before.InstanceId)
 		}
@@ -117,9 +128,12 @@ func testAccCheckInstanceRecreated(t *testing.T,
 	}
 }
 
+
 func testAccCheckInstanceExists(ctx context.Context,
-	n string, opsinst *opsworks.Instance) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	n string, opsinst *opsworks.Instance) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -150,9 +164,12 @@ func testAccCheckInstanceExists(ctx context.Context,
 	}
 }
 
+
 func testAccCheckInstanceAttributes(
-	opsinst *opsworks.Instance) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+	opsinst *opsworks.Instance) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		// Depending on the timing, the state could be requested or stopped
 		if *opsinst.Status != "stopped" && *opsinst.Status != "requested" {
 			return fmt.Errorf("Unexpected request status: %s", *opsinst.Status)
@@ -176,8 +193,11 @@ func testAccCheckInstanceAttributes(
 	}
 }
 
-func testAccCheckInstanceDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckInstanceDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).OpsWorksConn(ctx)
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_opsworks_instance" {
@@ -210,6 +230,7 @@ func testAccCheckInstanceDestroy(ctx context.Context) resource.TestCheckFunc {
 		return nil
 	}
 }
+
 
 func testAccInstanceConfig_updateHostName(rName string) string {
 	return acctest.ConfigCompose(
@@ -267,6 +288,7 @@ resource "aws_opsworks_instance" "test" {
 `, rName))
 }
 
+
 func testAccInstanceConfig_create(rName string) string {
 	return acctest.ConfigCompose(
 		testAccStackConfig_vpcCreate(rName),
@@ -322,6 +344,7 @@ resource "aws_opsworks_instance" "test" {
 }
 `, rName))
 }
+
 
 func testAccInstanceConfig_update(rName string) string {
 	return acctest.ConfigCompose(

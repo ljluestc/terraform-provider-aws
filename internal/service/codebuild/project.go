@@ -31,6 +31,7 @@ import (
 
 // @SDKResource("aws_codebuild_project", name="Project")
 // @Tags
+
 func ResourceProject() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceProjectCreate,
@@ -59,12 +60,15 @@ func ResourceProject() *schema.Resource {
 						"bucket_owner_access": {
 							Type:         schema.TypeString,
 							Optional:     true,
-							ValidateFunc: validation.StringInSlice(codebuild.BucketOwnerAccess_Values(), false),
+							Validate
+func: validation.StringInSlice(codebuild.BucketOwnerAccess_Values(), false),
 						},
 						"name": {
 							Type:     schema.TypeString,
 							Optional: true,
-							DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+							DiffSuppress
+func: 
+func(k, old, new string, d *schema.ResourceData) bool {
 								if old == d.Get("name") && new == "" {
 									return true
 								}
@@ -83,18 +87,23 @@ func ResourceProject() *schema.Resource {
 						"namespace_type": {
 							Type:     schema.TypeString,
 							Optional: true,
-							DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+							DiffSuppress
+func: 
+func(k, old, new string, d *schema.ResourceData) bool {
 								if d.Get("artifacts.0.type") == codebuild.ArtifactsTypeS3 {
 									return old == codebuild.ArtifactNamespaceNone && new == ""
 								}
 								return false
 							},
-							ValidateFunc: validation.StringInSlice(codebuild.ArtifactNamespace_Values(), false),
+							Validate
+func: validation.StringInSlice(codebuild.ArtifactNamespace_Values(), false),
 						},
 						"packaging": {
 							Type:     schema.TypeString,
 							Optional: true,
-							DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+							DiffSuppress
+func: 
+func(k, old, new string, d *schema.ResourceData) bool {
 								switch d.Get("artifacts.0.type") {
 								case codebuild.ArtifactsTypeCodepipeline:
 									return new == ""
@@ -103,7 +112,8 @@ func ResourceProject() *schema.Resource {
 								}
 								return false
 							},
-							ValidateFunc: validation.StringInSlice(codebuild.ArtifactPackaging_Values(), false),
+							Validate
+func: validation.StringInSlice(codebuild.ArtifactPackaging_Values(), false),
 						},
 						"path": {
 							Type:     schema.TypeString,
@@ -112,7 +122,8 @@ func ResourceProject() *schema.Resource {
 						"type": {
 							Type:         schema.TypeString,
 							Required:     true,
-							ValidateFunc: validation.StringInSlice(codebuild.ArtifactsType_Values(), false),
+							Validate
+func: validation.StringInSlice(codebuild.ArtifactsType_Values(), false),
 						},
 						"override_artifact_name": {
 							Type:     schema.TypeBool,
@@ -143,13 +154,15 @@ func ResourceProject() *schema.Resource {
 										Optional: true,
 										Elem: &schema.Schema{
 											Type:         schema.TypeString,
-											ValidateFunc: validation.StringInSlice(codebuild.ComputeType_Values(), false),
+											Validate
+func: validation.StringInSlice(codebuild.ComputeType_Values(), false),
 										},
 									},
 									"maximum_builds_allowed": {
 										Type:         schema.TypeInt,
 										Optional:     true,
-										ValidateFunc: validation.IntBetween(1, 100),
+										Validate
+func: validation.IntBetween(1, 100),
 									},
 								},
 							},
@@ -157,12 +170,14 @@ func ResourceProject() *schema.Resource {
 						"service_role": {
 							Type:         schema.TypeString,
 							Required:     true,
-							ValidateFunc: verify.ValidARN,
+							Validate
+func: verify.ValidARN,
 						},
 						"timeout_in_mins": {
 							Type:         schema.TypeInt,
 							Optional:     true,
-							ValidateFunc: validation.IntBetween(5, 480),
+							Validate
+func: validation.IntBetween(5, 480),
 						},
 					},
 				},
@@ -171,14 +186,16 @@ func ResourceProject() *schema.Resource {
 				Type:             schema.TypeList,
 				Optional:         true,
 				MaxItems:         1,
-				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
+				DiffSuppress
+func: verify.SuppressMissingOptionalConfigurationBlock,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"type": {
 							Type:         schema.TypeString,
 							Optional:     true,
 							Default:      codebuild.CacheTypeNoCache,
-							ValidateFunc: validation.StringInSlice(codebuild.CacheType_Values(), false),
+							Validate
+func: validation.StringInSlice(codebuild.CacheType_Values(), false),
 						},
 						"location": {
 							Type:     schema.TypeString,
@@ -189,7 +206,8 @@ func ResourceProject() *schema.Resource {
 							Optional: true,
 							Elem: &schema.Schema{
 								Type:         schema.TypeString,
-								ValidateFunc: validation.StringInSlice(codebuild.CacheMode_Values(), false),
+								Validate
+func: validation.StringInSlice(codebuild.CacheMode_Values(), false),
 							},
 						},
 					},
@@ -198,13 +216,15 @@ func ResourceProject() *schema.Resource {
 			"concurrent_build_limit": {
 				Type:         schema.TypeInt,
 				Optional:     true,
-				ValidateFunc: validation.IntAtLeast(1),
+				Validate
+func: validation.IntAtLeast(1),
 			},
 			"description": {
 				Type:         schema.TypeString,
 				Optional:     true,
 				Computed:     true,
-				ValidateFunc: validation.StringLenBetween(0, 255),
+				Validate
+func: validation.StringLenBetween(0, 255),
 			},
 			"encryption_key": {
 				Type:     schema.TypeString,
@@ -220,7 +240,8 @@ func ResourceProject() *schema.Resource {
 						"compute_type": {
 							Type:         schema.TypeString,
 							Required:     true,
-							ValidateFunc: validation.StringInSlice(codebuild.ComputeType_Values(), false),
+							Validate
+func: validation.StringInSlice(codebuild.ComputeType_Values(), false),
 						},
 						"environment_variable": {
 							Type:     schema.TypeList,
@@ -238,7 +259,8 @@ func ResourceProject() *schema.Resource {
 									"type": {
 										Type:         schema.TypeString,
 										Optional:     true,
-										ValidateFunc: validation.StringInSlice(codebuild.EnvironmentVariableType_Values(), false),
+										Validate
+func: validation.StringInSlice(codebuild.EnvironmentVariableType_Values(), false),
 										Default:      codebuild.EnvironmentVariableTypePlaintext,
 									},
 								},
@@ -251,13 +273,15 @@ func ResourceProject() *schema.Resource {
 						"type": {
 							Type:         schema.TypeString,
 							Required:     true,
-							ValidateFunc: validation.StringInSlice(codebuild.EnvironmentType_Values(), false),
+							Validate
+func: validation.StringInSlice(codebuild.EnvironmentType_Values(), false),
 						},
 						"image_pull_credentials_type": {
 							Type:         schema.TypeString,
 							Optional:     true,
 							Default:      codebuild.ImagePullCredentialsTypeCodebuild,
-							ValidateFunc: validation.StringInSlice(codebuild.ImagePullCredentialsType_Values(), false),
+							Validate
+func: validation.StringInSlice(codebuild.ImagePullCredentialsType_Values(), false),
 						},
 						"privileged_mode": {
 							Type:     schema.TypeBool,
@@ -267,7 +291,8 @@ func ResourceProject() *schema.Resource {
 						"certificate": {
 							Type:         schema.TypeString,
 							Optional:     true,
-							ValidateFunc: validation.StringMatch(regexache.MustCompile(`\.(pem|zip)$`), "must end in .pem or .zip"),
+							Validate
+func: validation.StringMatch(regexache.MustCompile(`\.(pem|zip)$`), "must end in .pem or .zip"),
 						},
 						"registry_credential": {
 							Type:     schema.TypeList,
@@ -282,7 +307,8 @@ func ResourceProject() *schema.Resource {
 									"credential_provider": {
 										Type:         schema.TypeString,
 										Required:     true,
-										ValidateFunc: validation.StringInSlice(codebuild.CredentialProviderType_Values(), false),
+										Validate
+func: validation.StringInSlice(codebuild.CredentialProviderType_Values(), false),
 									},
 								},
 							},
@@ -315,7 +341,8 @@ func ResourceProject() *schema.Resource {
 							Type:         schema.TypeString,
 							Optional:     true,
 							Default:      codebuild.FileSystemTypeEfs,
-							ValidateFunc: validation.StringInSlice(codebuild.FileSystemType_Values(), false),
+							Validate
+func: validation.StringInSlice(codebuild.FileSystemType_Values(), false),
 						},
 					},
 				},
@@ -336,7 +363,8 @@ func ResourceProject() *schema.Resource {
 										Type:         schema.TypeString,
 										Optional:     true,
 										Default:      codebuild.LogsConfigStatusTypeEnabled,
-										ValidateFunc: validation.StringInSlice(codebuild.LogsConfigStatusType_Values(), false),
+										Validate
+func: validation.StringInSlice(codebuild.LogsConfigStatusType_Values(), false),
 									},
 									"group_name": {
 										Type:     schema.TypeString,
@@ -348,7 +376,8 @@ func ResourceProject() *schema.Resource {
 									},
 								},
 							},
-							DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
+							DiffSuppress
+func: verify.SuppressMissingOptionalConfigurationBlock,
 						},
 						"s3_logs": {
 							Type:     schema.TypeList,
@@ -359,18 +388,21 @@ func ResourceProject() *schema.Resource {
 									"bucket_owner_access": {
 										Type:         schema.TypeString,
 										Optional:     true,
-										ValidateFunc: validation.StringInSlice(codebuild.BucketOwnerAccess_Values(), false),
+										Validate
+func: validation.StringInSlice(codebuild.BucketOwnerAccess_Values(), false),
 									},
 									"status": {
 										Type:         schema.TypeString,
 										Optional:     true,
 										Default:      codebuild.LogsConfigStatusTypeDisabled,
-										ValidateFunc: validation.StringInSlice(codebuild.LogsConfigStatusType_Values(), false),
+										Validate
+func: validation.StringInSlice(codebuild.LogsConfigStatusType_Values(), false),
 									},
 									"location": {
 										Type:         schema.TypeString,
 										Optional:     true,
-										ValidateFunc: validProjectS3LogsLocation,
+										Validate
+func: validProjectS3LogsLocation,
 									},
 									"encryption_disabled": {
 										Type:     schema.TypeBool,
@@ -379,17 +411,20 @@ func ResourceProject() *schema.Resource {
 									},
 								},
 							},
-							DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
+							DiffSuppress
+func: verify.SuppressMissingOptionalConfigurationBlock,
 						},
 					},
 				},
-				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
+				DiffSuppress
+func: verify.SuppressMissingOptionalConfigurationBlock,
 			},
 			"name": {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: ValidProjectName,
+				Validate
+func: ValidProjectName,
 			},
 			"secondary_artifacts": {
 				Type:     schema.TypeSet,
@@ -405,7 +440,8 @@ func ResourceProject() *schema.Resource {
 						"bucket_owner_access": {
 							Type:         schema.TypeString,
 							Optional:     true,
-							ValidateFunc: validation.StringInSlice(codebuild.BucketOwnerAccess_Values(), false),
+							Validate
+func: validation.StringInSlice(codebuild.BucketOwnerAccess_Values(), false),
 						},
 						"encryption_disabled": {
 							Type:     schema.TypeBool,
@@ -419,7 +455,8 @@ func ResourceProject() *schema.Resource {
 						"namespace_type": {
 							Type:         schema.TypeString,
 							Optional:     true,
-							ValidateFunc: validation.StringInSlice(codebuild.ArtifactNamespace_Values(), false),
+							Validate
+func: validation.StringInSlice(codebuild.ArtifactNamespace_Values(), false),
 							Default:      codebuild.ArtifactNamespaceNone,
 						},
 						"override_artifact_name": {
@@ -430,7 +467,8 @@ func ResourceProject() *schema.Resource {
 						"packaging": {
 							Type:         schema.TypeString,
 							Optional:     true,
-							ValidateFunc: validation.StringInSlice(codebuild.ArtifactPackaging_Values(), false),
+							Validate
+func: validation.StringInSlice(codebuild.ArtifactPackaging_Values(), false),
 							Default:      codebuild.ArtifactPackagingNone,
 						},
 						"path": {
@@ -444,7 +482,8 @@ func ResourceProject() *schema.Resource {
 						"type": {
 							Type:         schema.TypeString,
 							Required:     true,
-							ValidateFunc: validation.StringInSlice(codebuild.ArtifactsType_Values(), false),
+							Validate
+func: validation.StringInSlice(codebuild.ArtifactsType_Values(), false),
 						},
 					},
 				},
@@ -466,12 +505,14 @@ func ResourceProject() *schema.Resource {
 						"type": {
 							Type:         schema.TypeString,
 							Required:     true,
-							ValidateFunc: validation.StringInSlice(codebuild.SourceType_Values(), false),
+							Validate
+func: validation.StringInSlice(codebuild.SourceType_Values(), false),
 						},
 						"git_clone_depth": {
 							Type:         schema.TypeInt,
 							Optional:     true,
-							ValidateFunc: validation.IntAtLeast(0),
+							Validate
+func: validation.IntAtLeast(0),
 						},
 						"git_submodules_config": {
 							Type:     schema.TypeList,
@@ -538,7 +579,8 @@ func ResourceProject() *schema.Resource {
 			"service_role": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			"source": {
 				Type:     schema.TypeList,
@@ -557,12 +599,14 @@ func ResourceProject() *schema.Resource {
 						"type": {
 							Type:         schema.TypeString,
 							Required:     true,
-							ValidateFunc: validation.StringInSlice(codebuild.SourceType_Values(), false),
+							Validate
+func: validation.StringInSlice(codebuild.SourceType_Values(), false),
 						},
 						"git_clone_depth": {
 							Type:         schema.TypeInt,
 							Optional:     true,
-							ValidateFunc: validation.IntAtLeast(0),
+							Validate
+func: validation.IntAtLeast(0),
 						},
 						"git_submodules_config": {
 							Type:     schema.TypeList,
@@ -613,7 +657,8 @@ func ResourceProject() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				Default:      codebuild.ProjectVisibilityTypePrivate,
-				ValidateFunc: validation.StringInSlice(codebuild.ProjectVisibilityType_Values(), false),
+				Validate
+func: validation.StringInSlice(codebuild.ProjectVisibilityType_Values(), false),
 			},
 			"public_project_alias": {
 				Type:     schema.TypeString,
@@ -622,19 +667,22 @@ func ResourceProject() *schema.Resource {
 			"resource_access_role": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			"build_timeout": {
 				Type:         schema.TypeInt,
 				Optional:     true,
 				Default:      60,
-				ValidateFunc: validation.IntBetween(5, 480),
+				Validate
+func: validation.IntBetween(5, 480),
 			},
 			"queued_timeout": {
 				Type:         schema.TypeInt,
 				Optional:     true,
 				Default:      480,
-				ValidateFunc: validation.IntBetween(5, 480),
+				Validate
+func: validation.IntBetween(5, 480),
 			},
 			"badge_enabled": {
 				Type:     schema.TypeBool,
@@ -675,7 +723,8 @@ func ResourceProject() *schema.Resource {
 		},
 
 		CustomizeDiff: customdiff.Sequence(
-			func(_ context.Context, diff *schema.ResourceDiff, v interface{}) error {
+			
+func(_ context.Context, diff *schema.ResourceDiff, v interface{}) error {
 				// Plan time validation for cache location
 				cacheType, cacheTypeOk := diff.GetOk("cache.0.type")
 				if !cacheTypeOk || cacheType.(string) == codebuild.CacheTypeNoCache || cacheType.(string) == codebuild.CacheTypeLocal {
@@ -694,6 +743,7 @@ func ResourceProject() *schema.Resource {
 		),
 	}
 }
+
 
 func resourceProjectCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -777,7 +827,8 @@ func resourceProjectCreate(ctx context.Context, d *schema.ResourceData, meta int
 
 	var resp *codebuild.CreateProjectOutput
 	// Handle IAM eventual consistency
-	err := retry.RetryContext(ctx, 5*time.Minute, func() *retry.RetryError {
+	err := retry.RetryContext(ctx, 5*time.Minute, 
+func() *retry.RetryError {
 		var err error
 
 		resp, err = conn.CreateProjectWithContext(ctx, input)
@@ -821,6 +872,7 @@ func resourceProjectCreate(ctx context.Context, d *schema.ResourceData, meta int
 	return append(diags, resourceProjectRead(ctx, d, meta)...)
 }
 
+
 func expandProjectSecondarySourceVersions(ssv *schema.Set) []*codebuild.ProjectSourceVersion {
 	sourceVersions := make([]*codebuild.ProjectSourceVersion, 0)
 
@@ -837,6 +889,7 @@ func expandProjectSecondarySourceVersions(ssv *schema.Set) []*codebuild.ProjectS
 	return sourceVersions
 }
 
+
 func expandProjectSourceVersion(data map[string]interface{}) codebuild.ProjectSourceVersion {
 	sourceVersion := codebuild.ProjectSourceVersion{
 		SourceIdentifier: aws.String(data["source_identifier"].(string)),
@@ -845,6 +898,7 @@ func expandProjectSourceVersion(data map[string]interface{}) codebuild.ProjectSo
 
 	return sourceVersion
 }
+
 
 func expandProjectFileSystemLocations(d *schema.ResourceData) []*codebuild.ProjectFileSystemLocation {
 	fileSystemLocations := make([]*codebuild.ProjectFileSystemLocation, 0)
@@ -862,6 +916,7 @@ func expandProjectFileSystemLocations(d *schema.ResourceData) []*codebuild.Proje
 
 	return fileSystemLocations
 }
+
 
 func expandProjectFileSystemLocation(data map[string]interface{}) codebuild.ProjectFileSystemLocation {
 	projectFileSystemLocation := codebuild.ProjectFileSystemLocation{
@@ -887,6 +942,7 @@ func expandProjectFileSystemLocation(data map[string]interface{}) codebuild.Proj
 	return projectFileSystemLocation
 }
 
+
 func expandProjectSecondaryArtifacts(d *schema.ResourceData) []*codebuild.ProjectArtifacts {
 	artifacts := make([]*codebuild.ProjectArtifacts, 0)
 
@@ -904,12 +960,14 @@ func expandProjectSecondaryArtifacts(d *schema.ResourceData) []*codebuild.Projec
 	return artifacts
 }
 
+
 func expandProjectArtifacts(d *schema.ResourceData) codebuild.ProjectArtifacts {
 	configs := d.Get("artifacts").([]interface{})
 	data := configs[0].(map[string]interface{})
 
 	return expandProjectArtifactData(data)
 }
+
 
 func expandProjectArtifactData(data map[string]interface{}) codebuild.ProjectArtifacts {
 	artifactType := data["type"].(string)
@@ -959,6 +1017,7 @@ func expandProjectArtifactData(data map[string]interface{}) codebuild.ProjectArt
 	return projectArtifacts
 }
 
+
 func expandProjectCache(s []interface{}) *codebuild.ProjectCache {
 	var projectCache *codebuild.ProjectCache
 
@@ -981,6 +1040,7 @@ func expandProjectCache(s []interface{}) *codebuild.ProjectCache {
 
 	return projectCache
 }
+
 
 func expandProjectEnvironment(d *schema.ResourceData) *codebuild.ProjectEnvironment {
 	configs := d.Get("environment").([]interface{})
@@ -1059,6 +1119,7 @@ func expandProjectEnvironment(d *schema.ResourceData) *codebuild.ProjectEnvironm
 	return projectEnv
 }
 
+
 func expandProjectLogsConfig(d *schema.ResourceData) *codebuild.LogsConfig {
 	logsConfig := &codebuild.LogsConfig{}
 
@@ -1090,6 +1151,7 @@ func expandProjectLogsConfig(d *schema.ResourceData) *codebuild.LogsConfig {
 	return logsConfig
 }
 
+
 func expandBuildBatchConfig(d *schema.ResourceData) *codebuild.ProjectBuildBatchConfig {
 	configs, ok := d.Get("build_batch_config").([]interface{})
 	if !ok || len(configs) == 0 || configs[0] == nil {
@@ -1114,6 +1176,7 @@ func expandBuildBatchConfig(d *schema.ResourceData) *codebuild.ProjectBuildBatch
 	return projectBuildBatchConfig
 }
 
+
 func expandBatchRestrictions(data map[string]interface{}) *codebuild.BatchRestrictions {
 	if v, ok := data["restrictions"]; !ok || len(v.([]interface{})) == 0 || v.([]interface{})[0] == nil {
 		return nil
@@ -1132,6 +1195,7 @@ func expandBatchRestrictions(data map[string]interface{}) *codebuild.BatchRestri
 
 	return restrictions
 }
+
 
 func expandCloudWatchLogsConfig(configList []interface{}) *codebuild.CloudWatchLogsConfig {
 	if len(configList) == 0 || configList[0] == nil {
@@ -1163,6 +1227,7 @@ func expandCloudWatchLogsConfig(configList []interface{}) *codebuild.CloudWatchL
 	return cloudWatchLogsConfig
 }
 
+
 func expandS3LogsConfig(configList []interface{}) *codebuild.S3LogsConfig {
 	if len(configList) == 0 || configList[0] == nil {
 		return nil
@@ -1189,6 +1254,7 @@ func expandS3LogsConfig(configList []interface{}) *codebuild.S3LogsConfig {
 	return s3LogsConfig
 }
 
+
 func expandVPCConfig(rawVpcConfig []interface{}) *codebuild.VpcConfig {
 	vpcConfig := codebuild.VpcConfig{}
 	if len(rawVpcConfig) == 0 || rawVpcConfig[0] == nil {
@@ -1202,6 +1268,7 @@ func expandVPCConfig(rawVpcConfig []interface{}) *codebuild.VpcConfig {
 
 	return &vpcConfig
 }
+
 
 func expandProjectSecondarySources(d *schema.ResourceData) []*codebuild.ProjectSource {
 	configs := d.Get("secondary_sources").(*schema.Set).List()
@@ -1220,12 +1287,14 @@ func expandProjectSecondarySources(d *schema.ResourceData) []*codebuild.ProjectS
 	return sources
 }
 
+
 func expandProjectSource(d *schema.ResourceData) codebuild.ProjectSource {
 	configs := d.Get("source").([]interface{})
 
 	data := configs[0].(map[string]interface{})
 	return expandProjectSourceData(data)
 }
+
 
 func expandProjectSourceData(data map[string]interface{}) codebuild.ProjectSource {
 	sourceType := data["type"].(string)
@@ -1286,6 +1355,7 @@ func expandProjectSourceData(data map[string]interface{}) codebuild.ProjectSourc
 
 	return projectSource
 }
+
 
 func resourceProjectRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -1371,6 +1441,7 @@ func resourceProjectRead(ctx context.Context, d *schema.ResourceData, meta inter
 
 	return diags
 }
+
 
 func resourceProjectUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -1511,7 +1582,8 @@ func resourceProjectUpdate(ctx context.Context, d *schema.ResourceData, meta int
 		input.Tags = getTagsIn(ctx)
 
 		// Handle IAM eventual consistency
-		err := retry.RetryContext(ctx, propagationTimeout, func() *retry.RetryError {
+		err := retry.RetryContext(ctx, propagationTimeout, 
+func() *retry.RetryError {
 			_, err := conn.UpdateProjectWithContext(ctx, input)
 			if err != nil {
 				// InvalidInputException: CodeBuild is not authorized to perform
@@ -1537,6 +1609,7 @@ func resourceProjectUpdate(ctx context.Context, d *schema.ResourceData, meta int
 	return append(diags, resourceProjectRead(ctx, d, meta)...)
 }
 
+
 func resourceProjectDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CodeBuildConn(ctx)
@@ -1549,6 +1622,7 @@ func resourceProjectDelete(ctx context.Context, d *schema.ResourceData, meta int
 	}
 	return diags
 }
+
 
 func flattenProjectFileSystemLocations(apiObjects []*codebuild.ProjectFileSystemLocation) []interface{} {
 	if len(apiObjects) == 0 {
@@ -1567,6 +1641,7 @@ func flattenProjectFileSystemLocations(apiObjects []*codebuild.ProjectFileSystem
 
 	return tfList
 }
+
 
 func flattenProjectFileSystemLocation(apiObject *codebuild.ProjectFileSystemLocation) map[string]interface{} {
 	if apiObject == nil {
@@ -1598,6 +1673,7 @@ func flattenProjectFileSystemLocation(apiObject *codebuild.ProjectFileSystemLoca
 	return tfMap
 }
 
+
 func flattenLogsConfig(logsConfig *codebuild.LogsConfig) []interface{} {
 	if logsConfig == nil {
 		return []interface{}{}
@@ -1616,6 +1692,7 @@ func flattenLogsConfig(logsConfig *codebuild.LogsConfig) []interface{} {
 	return []interface{}{values}
 }
 
+
 func flattenCloudWatchLogs(cloudWatchLogsConfig *codebuild.CloudWatchLogsConfig) []interface{} {
 	values := map[string]interface{}{}
 
@@ -1629,6 +1706,7 @@ func flattenCloudWatchLogs(cloudWatchLogsConfig *codebuild.CloudWatchLogsConfig)
 
 	return []interface{}{values}
 }
+
 
 func flattenS3Logs(s3LogsConfig *codebuild.S3LogsConfig) []interface{} {
 	values := map[string]interface{}{}
@@ -1645,6 +1723,7 @@ func flattenS3Logs(s3LogsConfig *codebuild.S3LogsConfig) []interface{} {
 	return []interface{}{values}
 }
 
+
 func flattenProjectSecondaryArtifacts(artifactsList []*codebuild.ProjectArtifacts) *schema.Set {
 	artifactSet := schema.Set{
 		F: resourceProjectArtifactsHash,
@@ -1656,9 +1735,11 @@ func flattenProjectSecondaryArtifacts(artifactsList []*codebuild.ProjectArtifact
 	return &artifactSet
 }
 
+
 func flattenProjectArtifacts(artifacts *codebuild.ProjectArtifacts) []interface{} {
 	return []interface{}{flattenProjectArtifactsData(*artifacts)}
 }
+
 
 func flattenProjectArtifactsData(artifacts codebuild.ProjectArtifacts) map[string]interface{} {
 	values := map[string]interface{}{}
@@ -1703,6 +1784,7 @@ func flattenProjectArtifactsData(artifacts codebuild.ProjectArtifacts) map[strin
 	return values
 }
 
+
 func flattenProjectCache(cache *codebuild.ProjectCache) []interface{} {
 	if cache == nil {
 		return []interface{}{}
@@ -1716,6 +1798,7 @@ func flattenProjectCache(cache *codebuild.ProjectCache) []interface{} {
 
 	return []interface{}{values}
 }
+
 
 func flattenProjectEnvironment(environment *codebuild.ProjectEnvironment) []interface{} {
 	envConfig := map[string]interface{}{}
@@ -1736,6 +1819,7 @@ func flattenProjectEnvironment(environment *codebuild.ProjectEnvironment) []inte
 	return []interface{}{envConfig}
 }
 
+
 func flattenRegistryCredential(registryCredential *codebuild.RegistryCredential) []interface{} {
 	if registryCredential == nil {
 		return []interface{}{}
@@ -1749,6 +1833,7 @@ func flattenRegistryCredential(registryCredential *codebuild.RegistryCredential)
 	return []interface{}{values}
 }
 
+
 func flattenProjectSecondarySources(sourceList []*codebuild.ProjectSource) []interface{} {
 	l := make([]interface{}, 0)
 
@@ -1759,6 +1844,7 @@ func flattenProjectSecondarySources(sourceList []*codebuild.ProjectSource) []int
 	return l
 }
 
+
 func flattenProjectSource(source *codebuild.ProjectSource) []interface{} {
 	l := make([]interface{}, 1)
 
@@ -1766,6 +1852,7 @@ func flattenProjectSource(source *codebuild.ProjectSource) []interface{} {
 
 	return l
 }
+
 
 func flattenProjectSourceData(source *codebuild.ProjectSource) interface{} {
 	m := map[string]interface{}{
@@ -1788,6 +1875,7 @@ func flattenProjectSourceData(source *codebuild.ProjectSource) interface{} {
 	return m
 }
 
+
 func flattenProjectSecondarySourceVersions(sourceVersions []*codebuild.ProjectSourceVersion) []interface{} {
 	l := make([]interface{}, 0)
 
@@ -1796,6 +1884,7 @@ func flattenProjectSecondarySourceVersions(sourceVersions []*codebuild.ProjectSo
 	}
 	return l
 }
+
 
 func flattenProjectSourceVersionsData(sourceVersion *codebuild.ProjectSourceVersion) map[string]interface{} {
 	values := map[string]interface{}{}
@@ -1811,6 +1900,7 @@ func flattenProjectSourceVersionsData(sourceVersion *codebuild.ProjectSourceVers
 	return values
 }
 
+
 func flattenProjectGitSubmodulesConfig(config *codebuild.GitSubmodulesConfig) []interface{} {
 	if config == nil {
 		return []interface{}{}
@@ -1822,6 +1912,7 @@ func flattenProjectGitSubmodulesConfig(config *codebuild.GitSubmodulesConfig) []
 
 	return []interface{}{values}
 }
+
 
 func flattenProjectBuildStatusConfig(config *codebuild.BuildStatusConfig) []interface{} {
 	if config == nil {
@@ -1836,6 +1927,7 @@ func flattenProjectBuildStatusConfig(config *codebuild.BuildStatusConfig) []inte
 	return []interface{}{values}
 }
 
+
 func flattenVPCConfig(vpcConfig *codebuild.VpcConfig) []interface{} {
 	if vpcConfig != nil {
 		values := map[string]interface{}{}
@@ -1848,6 +1940,7 @@ func flattenVPCConfig(vpcConfig *codebuild.VpcConfig) []interface{} {
 	}
 	return nil
 }
+
 
 func flattenBuildBatchConfig(buildBatchConfig *codebuild.ProjectBuildBatchConfig) []interface{} {
 	if buildBatchConfig == nil {
@@ -1873,6 +1966,7 @@ func flattenBuildBatchConfig(buildBatchConfig *codebuild.ProjectBuildBatchConfig
 	return []interface{}{values}
 }
 
+
 func flattenBuildBatchRestrictionsConfig(restrictions *codebuild.BatchRestrictions) []interface{} {
 	if restrictions == nil {
 		return []interface{}{}
@@ -1885,6 +1979,7 @@ func flattenBuildBatchRestrictionsConfig(restrictions *codebuild.BatchRestrictio
 
 	return []interface{}{values}
 }
+
 
 func resourceProjectArtifactsHash(v interface{}) int {
 	var buf bytes.Buffer
@@ -1929,6 +2024,7 @@ func resourceProjectArtifactsHash(v interface{}) int {
 	return create.StringHashcode(buf.String())
 }
 
+
 func environmentVariablesToMap(environmentVariables []*codebuild.EnvironmentVariable) []interface{} {
 	envVariables := []interface{}{}
 	if len(environmentVariables) > 0 {
@@ -1945,6 +2041,7 @@ func environmentVariablesToMap(environmentVariables []*codebuild.EnvironmentVari
 
 	return envVariables
 }
+
 
 func ValidProjectName(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)
@@ -1965,6 +2062,7 @@ func ValidProjectName(v interface{}, k string) (ws []string, errors []error) {
 
 	return
 }
+
 
 func validProjectS3LogsLocation(v interface{}, k string) (ws []string, errors []error) {
 	value := v.(string)

@@ -39,6 +39,7 @@ const (
 
 // @SDKResource("aws_vpc", name="VPC")
 // @Tags(identifierAttribute="id")
+
 func ResourceVPC() *schema.Resource {
 	//lintignore:R011
 	return &schema.Resource{
@@ -76,7 +77,8 @@ func ResourceVPC() *schema.Resource {
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
-				ValidateFunc:  validation.IsCIDRNetwork(VPCCIDRMinIPv4, VPCCIDRMaxIPv4),
+				Validate
+func:  validation.IsCIDRNetwork(VPCCIDRMinIPv4, VPCCIDRMaxIPv4),
 				ConflictsWith: []string{"ipv4_netmask_length"},
 			},
 			"default_network_acl_id": {
@@ -114,7 +116,8 @@ func ResourceVPC() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				Default:      types.TenancyDefault,
-				ValidateFunc: validation.StringInSlice(enum.Slice(types.TenancyDefault, types.TenancyDedicated), false),
+				Validate
+func: validation.StringInSlice(enum.Slice(types.TenancyDefault, types.TenancyDedicated), false),
 			},
 			"ipv4_ipam_pool_id": {
 				Type:     schema.TypeString,
@@ -125,7 +128,8 @@ func ResourceVPC() *schema.Resource {
 				Type:          schema.TypeInt,
 				Optional:      true,
 				ForceNew:      true,
-				ValidateFunc:  validation.IntBetween(VPCCIDRMinIPv4, VPCCIDRMaxIPv4),
+				Validate
+func:  validation.IntBetween(VPCCIDRMinIPv4, VPCCIDRMaxIPv4),
 				ConflictsWith: []string{"cidr_block"},
 				RequiredWith:  []string{"ipv4_ipam_pool_id"},
 			},
@@ -139,7 +143,8 @@ func ResourceVPC() *schema.Resource {
 				Computed:      true,
 				ConflictsWith: []string{"ipv6_netmask_length", "assign_generated_ipv6_cidr_block"},
 				RequiredWith:  []string{"ipv6_ipam_pool_id"},
-				ValidateFunc: validation.All(
+				Validate
+func: validation.All(
 					verify.ValidIPv6CIDRNetworkAddress,
 					validation.IsCIDRNetwork(VPCCIDRMaxIPv6, VPCCIDRMaxIPv6)),
 			},
@@ -157,7 +162,8 @@ func ResourceVPC() *schema.Resource {
 			"ipv6_netmask_length": {
 				Type:          schema.TypeInt,
 				Optional:      true,
-				ValidateFunc:  validation.IntInSlice([]int{VPCCIDRMaxIPv6}),
+				Validate
+func:  validation.IntInSlice([]int{VPCCIDRMaxIPv6}),
 				ConflictsWith: []string{"ipv6_cidr_block"},
 				RequiredWith:  []string{"ipv6_ipam_pool_id"},
 			},
@@ -174,6 +180,7 @@ func ResourceVPC() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceVPCCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -214,7 +221,8 @@ func resourceVPCCreate(ctx context.Context, d *schema.ResourceData, meta interfa
 	}
 
 	// "UnsupportedOperation: The operation AllocateIpamPoolCidr is not supported. Account 123456789012 is not monitored by IPAM ipam-07b079e3392782a55."
-	outputRaw, err := tfresource.RetryWhenAWSErrMessageContainsV2(ctx, ec2PropagationTimeout, func() (interface{}, error) {
+	outputRaw, err := tfresource.RetryWhenAWSErrMessageContainsV2(ctx, ec2PropagationTimeout, 
+func() (interface{}, error) {
 		return conn.CreateVpc(ctx, input)
 	}, errCodeUnsupportedOperation, "is not monitored by IPAM")
 
@@ -254,11 +262,13 @@ func resourceVPCCreate(ctx context.Context, d *schema.ResourceData, meta interfa
 	return append(diags, resourceVPCRead(ctx, d, meta)...)
 }
 
+
 func resourceVPCRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Client(ctx)
 
-	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout, func() (interface{}, error) {
+	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout, 
+func() (interface{}, error) {
 		return findVPCByIDV2(ctx, conn, d.Id())
 	}, d.IsNewResource())
 
@@ -288,7 +298,8 @@ func resourceVPCRead(ctx context.Context, d *schema.ResourceData, meta interface
 	d.Set("instance_tenancy", vpc.InstanceTenancy)
 	d.Set("owner_id", ownerID)
 
-	if v, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout, func() (interface{}, error) {
+	if v, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout, 
+func() (interface{}, error) {
 		return findVPCAttributeV2(ctx, conn, d.Id(), types.VpcAttributeNameEnableDnsHostnames)
 	}, d.IsNewResource()); err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading EC2 VPC (%s) Attribute (%s): %s", d.Id(), types.VpcAttributeNameEnableDnsHostnames, err)
@@ -296,7 +307,8 @@ func resourceVPCRead(ctx context.Context, d *schema.ResourceData, meta interface
 		d.Set("enable_dns_hostnames", v)
 	}
 
-	if v, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout, func() (interface{}, error) {
+	if v, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout, 
+func() (interface{}, error) {
 		return findVPCAttributeV2(ctx, conn, d.Id(), types.VpcAttributeNameEnableDnsSupport)
 	}, d.IsNewResource()); err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading EC2 VPC (%s) Attribute (%s): %s", d.Id(), types.VpcAttributeNameEnableDnsSupport, err)
@@ -304,7 +316,8 @@ func resourceVPCRead(ctx context.Context, d *schema.ResourceData, meta interface
 		d.Set("enable_dns_support", v)
 	}
 
-	if v, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout, func() (interface{}, error) {
+	if v, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout, 
+func() (interface{}, error) {
 		return findVPCAttributeV2(ctx, conn, d.Id(), types.VpcAttributeNameEnableNetworkAddressUsageMetrics)
 	}, d.IsNewResource()); err != nil {
 		return sdkdiag.AppendErrorf(diags, "reading EC2 VPC (%s) Attribute (%s): %s", d.Id(), types.VpcAttributeNameEnableNetworkAddressUsageMetrics, err)
@@ -378,6 +391,7 @@ func resourceVPCRead(ctx context.Context, d *schema.ResourceData, meta interface
 	return diags
 }
 
+
 func resourceVPCUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Client(ctx)
@@ -441,6 +455,7 @@ func resourceVPCUpdate(ctx context.Context, d *schema.ResourceData, meta interfa
 	return append(diags, resourceVPCRead(ctx, d, meta)...)
 }
 
+
 func resourceVPCDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Client(ctx)
@@ -450,7 +465,8 @@ func resourceVPCDelete(ctx context.Context, d *schema.ResourceData, meta interfa
 	}
 
 	log.Printf("[INFO] Deleting EC2 VPC: %s", d.Id())
-	_, err := tfresource.RetryWhenAWSErrCodeEqualsV2(ctx, vpcDeletedTimeout, func() (interface{}, error) {
+	_, err := tfresource.RetryWhenAWSErrCodeEqualsV2(ctx, vpcDeletedTimeout, 
+func() (interface{}, error) {
 		return conn.DeleteVpc(ctx, input)
 	}, errCodeDependencyViolation)
 
@@ -462,7 +478,8 @@ func resourceVPCDelete(ctx context.Context, d *schema.ResourceData, meta interfa
 		return sdkdiag.AppendErrorf(diags, "deleting EC2 VPC (%s): %s", d.Id(), err)
 	}
 
-	_, err = tfresource.RetryUntilNotFound(ctx, vpcDeletedTimeout, func() (interface{}, error) {
+	_, err = tfresource.RetryUntilNotFound(ctx, vpcDeletedTimeout, 
+func() (interface{}, error) {
 		return findVPCByIDV2(ctx, conn, d.Id())
 	})
 
@@ -484,7 +501,8 @@ func resourceVPCDelete(ctx context.Context, d *schema.ResourceData, meta interfa
 		const (
 			timeout = 20 * time.Minute // IPAM eventual consistency
 		)
-		_, err := tfresource.RetryUntilNotFound(ctx, timeout, func() (interface{}, error) {
+		_, err := tfresource.RetryUntilNotFound(ctx, timeout, 
+func() (interface{}, error) {
 			return findIPAMPoolAllocationsForVPC(ctx, conn, ipamPoolID, d.Id())
 		})
 
@@ -496,10 +514,12 @@ func resourceVPCDelete(ctx context.Context, d *schema.ResourceData, meta interfa
 	return diags
 }
 
+
 func resourceVPCImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	d.Set("assign_generated_ipv6_cidr_block", false)
 	return []*schema.ResourceData{d}, nil
 }
+
 
 func resourceVPCCustomizeDiff(_ context.Context, diff *schema.ResourceDiff, v interface{}) error {
 	if diff.HasChange("assign_generated_ipv6_cidr_block") {
@@ -533,6 +553,7 @@ func resourceVPCCustomizeDiff(_ context.Context, diff *schema.ResourceDiff, v in
 // defaultIPv6CIDRBlockAssociation returns the "default" IPv6 CIDR block.
 // Try and find IPv6 CIDR block information, first by any stored association ID.
 // Then if no IPv6 CIDR block information is available, use the first associated IPv6 CIDR block.
+
 func defaultIPv6CIDRBlockAssociation(vpc *types.Vpc, associationID string) *types.VpcIpv6CidrBlockAssociation {
 	var ipv6CIDRBlockAssociation types.VpcIpv6CidrBlockAssociation
 
@@ -565,6 +586,7 @@ type vpcInfo struct {
 
 // modifyVPCAttributesOnCreate sets VPC attributes on resource Create.
 // Called after new VPC creation or existing default VPC adoption.
+
 func modifyVPCAttributesOnCreate(ctx context.Context, conn *ec2.Client, d *schema.ResourceData, vpcInfo *vpcInfo) error {
 	if new, old := d.Get("enable_dns_hostnames").(bool), vpcInfo.enableDnsHostnames; old != new {
 		if err := modifyVPCDNSHostnames(ctx, conn, d.Id(), new); err != nil {
@@ -587,6 +609,7 @@ func modifyVPCAttributesOnCreate(ctx context.Context, conn *ec2.Client, d *schem
 	return nil
 }
 
+
 func modifyVPCDNSHostnames(ctx context.Context, conn *ec2.Client, vpcID string, v bool) error {
 	input := &ec2.ModifyVpcAttributeInput{
 		EnableDnsHostnames: &types.AttributeBooleanValue{
@@ -606,6 +629,7 @@ func modifyVPCDNSHostnames(ctx context.Context, conn *ec2.Client, vpcID string, 
 	return nil
 }
 
+
 func modifyVPCDNSSupport(ctx context.Context, conn *ec2.Client, vpcID string, v bool) error {
 	input := &ec2.ModifyVpcAttributeInput{
 		EnableDnsSupport: &types.AttributeBooleanValue{
@@ -624,6 +648,7 @@ func modifyVPCDNSSupport(ctx context.Context, conn *ec2.Client, vpcID string, v 
 
 	return nil
 }
+
 
 func modifyVPCNetworkAddressUsageMetrics(ctx context.Context, conn *ec2.Client, vpcID string, v bool) error {
 	input := &ec2.ModifyVpcAttributeInput{
@@ -646,6 +671,7 @@ func modifyVPCNetworkAddressUsageMetrics(ctx context.Context, conn *ec2.Client, 
 
 // modifyVPCIPv6CIDRBlockAssociation modify's a VPC's IPv6 CIDR block association.
 // Any exiting association is deleted and any new association's ID is returned.
+
 func modifyVPCIPv6CIDRBlockAssociation(ctx context.Context, conn *ec2.Client, vpcID, associationID string, amazonProvidedCIDRBlock bool, cidrBlock, ipamPoolID string, netmaskLength int, networkBorderGroup string) (string, error) {
 	if associationID != "" {
 		input := &ec2.DisassociateVpcCidrBlockInput{
@@ -704,6 +730,7 @@ func modifyVPCIPv6CIDRBlockAssociation(ctx context.Context, conn *ec2.Client, vp
 	return associationID, nil
 }
 
+
 func modifyVPCTenancy(ctx context.Context, conn *ec2.Client, vpcID string, v string) error {
 	input := &ec2.ModifyVpcTenancyInput{
 		InstanceTenancy: types.VpcTenancy(v),
@@ -717,6 +744,7 @@ func modifyVPCTenancy(ctx context.Context, conn *ec2.Client, vpcID string, v str
 	return nil
 }
 
+
 func findIPAMPoolAllocationsForVPC(ctx context.Context, conn *ec2.Client, poolID, vpcID string) ([]types.IpamPoolAllocation, error) {
 	input := &ec2.GetIpamPoolAllocationsInput{
 		IpamPoolId: aws.String(poolID),
@@ -728,7 +756,8 @@ func findIPAMPoolAllocationsForVPC(ctx context.Context, conn *ec2.Client, poolID
 		return nil, err
 	}
 
-	output = slices.Filter(output, func(v types.IpamPoolAllocation) bool {
+	output = slices.Filter(output, 
+func(v types.IpamPoolAllocation) bool {
 		return string(v.ResourceType) == string(types.IpamPoolAllocationResourceTypeVpc) && aws.ToString(v.ResourceId) == vpcID
 	})
 

@@ -25,6 +25,7 @@ import (
 
 // @SDKResource("aws_ami_copy", name="AMI")
 // @Tags(identifierAttribute="id")
+
 func ResourceAMICopy() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceAMICopyCreate,
@@ -57,8 +58,10 @@ func ResourceAMICopy() *schema.Resource {
 			"deprecation_time": {
 				Type:                  schema.TypeString,
 				Optional:              true,
-				ValidateFunc:          validation.IsRFC3339Time,
-				DiffSuppressFunc:      verify.SuppressEquivalentRoundedTime(time.RFC3339, time.Minute),
+				Validate
+func:          validation.IsRFC3339Time,
+				DiffSuppress
+func:      verify.SuppressEquivalentRoundedTime(time.RFC3339, time.Minute),
 				DiffSuppressOnRefresh: true,
 			},
 			"description": {
@@ -68,7 +71,8 @@ func ResourceAMICopy() *schema.Resource {
 			"destination_outpost_arn": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			// The following block device attributes intentionally mimick the
 			// corresponding attributes on aws_instance, since they have the
@@ -120,7 +124,8 @@ func ResourceAMICopy() *schema.Resource {
 						},
 					},
 				},
-				Set: func(v interface{}) int {
+				Set: 
+func(v interface{}) int {
 					var buf bytes.Buffer
 					m := v.(map[string]interface{})
 					buf.WriteString(fmt.Sprintf("%s-", m["device_name"].(string)))
@@ -155,7 +160,8 @@ func ResourceAMICopy() *schema.Resource {
 						},
 					},
 				},
-				Set: func(v interface{}) int {
+				Set: 
+func(v interface{}) int {
 					var buf bytes.Buffer
 					m := v.(map[string]interface{})
 					buf.WriteString(fmt.Sprintf("%s-", m["device_name"].(string)))
@@ -192,7 +198,8 @@ func ResourceAMICopy() *schema.Resource {
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			// Not a public attribute; used to let the aws_ami_copy and aws_ami_from_instance
 			// resources record that they implicitly created new EBS snapshots that we should
@@ -268,6 +275,7 @@ func ResourceAMICopy() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
+
 
 func resourceAMICopyCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

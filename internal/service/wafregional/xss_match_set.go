@@ -21,6 +21,7 @@ import (
 )
 
 // @SDKResource("aws_wafregional_xss_match_set")
+
 func ResourceXSSMatchSet() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceXSSMatchSetCreate,
@@ -55,7 +56,8 @@ func ResourceXSSMatchSet() *schema.Resource {
 									"type": {
 										Type:         schema.TypeString,
 										Required:     true,
-										ValidateFunc: validation.StringInSlice(wafregional.MatchFieldType_Values(), false),
+										Validate
+func: validation.StringInSlice(wafregional.MatchFieldType_Values(), false),
 									},
 								},
 							},
@@ -63,7 +65,8 @@ func ResourceXSSMatchSet() *schema.Resource {
 						"text_transformation": {
 							Type:         schema.TypeString,
 							Required:     true,
-							ValidateFunc: validation.StringInSlice(wafregional.TextTransformation_Values(), false),
+							Validate
+func: validation.StringInSlice(wafregional.TextTransformation_Values(), false),
 						},
 					},
 				},
@@ -71,6 +74,7 @@ func ResourceXSSMatchSet() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceXSSMatchSetCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -80,7 +84,8 @@ func resourceXSSMatchSetCreate(ctx context.Context, d *schema.ResourceData, meta
 	log.Printf("[INFO] Creating regional WAF XSS Match Set: %s", d.Get("name").(string))
 
 	wr := NewRetryer(conn, region)
-	out, err := wr.RetryWithToken(ctx, func(token *string) (interface{}, error) {
+	out, err := wr.RetryWithToken(ctx, 
+func(token *string) (interface{}, error) {
 		params := &waf.CreateXssMatchSetInput{
 			ChangeToken: token,
 			Name:        aws.String(d.Get("name").(string)),
@@ -104,6 +109,7 @@ func resourceXSSMatchSetCreate(ctx context.Context, d *schema.ResourceData, meta
 
 	return append(diags, resourceXSSMatchSetRead(ctx, d, meta)...)
 }
+
 
 func resourceXSSMatchSetRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -133,6 +139,7 @@ func resourceXSSMatchSetRead(ctx context.Context, d *schema.ResourceData, meta i
 	return diags
 }
 
+
 func resourceXSSMatchSetUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).WAFRegionalConn(ctx)
@@ -151,6 +158,7 @@ func resourceXSSMatchSetUpdate(ctx context.Context, d *schema.ResourceData, meta
 	return append(diags, resourceXSSMatchSetRead(ctx, d, meta)...)
 }
 
+
 func resourceXSSMatchSetDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).WAFRegionalConn(ctx)
@@ -168,7 +176,8 @@ func resourceXSSMatchSetDelete(ctx context.Context, d *schema.ResourceData, meta
 	}
 
 	wr := NewRetryer(conn, region)
-	_, err := wr.RetryWithToken(ctx, func(token *string) (interface{}, error) {
+	_, err := wr.RetryWithToken(ctx, 
+func(token *string) (interface{}, error) {
 		req := &waf.DeleteXssMatchSetInput{
 			ChangeToken:   token,
 			XssMatchSetId: aws.String(d.Id()),
@@ -183,9 +192,11 @@ func resourceXSSMatchSetDelete(ctx context.Context, d *schema.ResourceData, meta
 	return diags
 }
 
+
 func updateXSSMatchSetResourceWR(ctx context.Context, id string, oldT, newT []interface{}, conn *wafregional.WAFRegional, region string) error {
 	wr := NewRetryer(conn, region)
-	_, err := wr.RetryWithToken(ctx, func(token *string) (interface{}, error) {
+	_, err := wr.RetryWithToken(ctx, 
+func(token *string) (interface{}, error) {
 		req := &waf.UpdateXssMatchSetInput{
 			ChangeToken:   token,
 			XssMatchSetId: aws.String(id),
@@ -202,6 +213,7 @@ func updateXSSMatchSetResourceWR(ctx context.Context, id string, oldT, newT []in
 	return nil
 }
 
+
 func flattenXSSMatchTuples(ts []*waf.XssMatchTuple) []interface{} {
 	out := make([]interface{}, len(ts))
 	for i, t := range ts {
@@ -212,6 +224,7 @@ func flattenXSSMatchTuples(ts []*waf.XssMatchTuple) []interface{} {
 	}
 	return out
 }
+
 
 func diffXSSMatchSetTuples(oldT, newT []interface{}) []*waf.XssMatchSetUpdate {
 	updates := make([]*waf.XssMatchSetUpdate, 0)

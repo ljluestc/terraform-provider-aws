@@ -18,6 +18,7 @@ import (
 )
 
 // @SDKResource("aws_route53_resolver_firewall_config")
+
 func ResourceFirewallConfig() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceFirewallConfigCreate,
@@ -34,7 +35,8 @@ func ResourceFirewallConfig() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				Computed:     true,
-				ValidateFunc: validation.StringInSlice(route53resolver.FirewallFailOpenStatus_Values(), false),
+				Validate
+func: validation.StringInSlice(route53resolver.FirewallFailOpenStatus_Values(), false),
 			},
 			"owner_id": {
 				Type:     schema.TypeString,
@@ -48,6 +50,7 @@ func ResourceFirewallConfig() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceFirewallConfigCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
@@ -71,6 +74,7 @@ func resourceFirewallConfigCreate(ctx context.Context, d *schema.ResourceData, m
 	return resourceFirewallConfigRead(ctx, d, meta)
 }
 
+
 func resourceFirewallConfigRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
 
@@ -93,6 +97,7 @@ func resourceFirewallConfigRead(ctx context.Context, d *schema.ResourceData, met
 	return nil
 }
 
+
 func resourceFirewallConfigUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
 
@@ -113,6 +118,7 @@ func resourceFirewallConfigUpdate(ctx context.Context, d *schema.ResourceData, m
 	return resourceFirewallConfigRead(ctx, d, meta)
 }
 
+
 func resourceFirewallConfigDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
 
@@ -129,12 +135,14 @@ func resourceFirewallConfigDelete(ctx context.Context, d *schema.ResourceData, m
 	return nil
 }
 
+
 func FindFirewallConfigByID(ctx context.Context, conn *route53resolver.Route53Resolver, id string) (*route53resolver.FirewallConfig, error) {
 	input := &route53resolver.ListFirewallConfigsInput{}
 	var output *route53resolver.FirewallConfig
 
 	// GetFirewallConfig does not support query by ID.
-	err := conn.ListFirewallConfigsPagesWithContext(ctx, input, func(page *route53resolver.ListFirewallConfigsOutput, lastPage bool) bool {
+	err := conn.ListFirewallConfigsPagesWithContext(ctx, input, 
+func(page *route53resolver.ListFirewallConfigsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}

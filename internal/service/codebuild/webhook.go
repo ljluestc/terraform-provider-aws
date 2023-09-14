@@ -22,6 +22,7 @@ import (
 )
 
 // @SDKResource("aws_codebuild_webhook")
+
 func ResourceWebhook() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceWebhookCreate,
@@ -42,7 +43,8 @@ func ResourceWebhook() *schema.Resource {
 			"build_type": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				ValidateFunc: validation.StringInSlice(codebuild.WebhookBuildType_Values(), false),
+				Validate
+func: validation.StringInSlice(codebuild.WebhookBuildType_Values(), false),
 			},
 			"branch_filter": {
 				Type:          schema.TypeString,
@@ -62,7 +64,8 @@ func ResourceWebhook() *schema.Resource {
 									"type": {
 										Type:         schema.TypeString,
 										Required:     true,
-										ValidateFunc: validation.StringInSlice(codebuild.WebhookFilterType_Values(), false),
+										Validate
+func: validation.StringInSlice(codebuild.WebhookFilterType_Values(), false),
 									},
 									"exclude_matched_pattern": {
 										Type:     schema.TypeBool,
@@ -98,6 +101,7 @@ func ResourceWebhook() *schema.Resource {
 	}
 }
 
+
 func resourceWebhookCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CodeBuildConn(ctx)
@@ -128,6 +132,7 @@ func resourceWebhookCreate(ctx context.Context, d *schema.ResourceData, meta int
 	return append(diags, resourceWebhookRead(ctx, d, meta)...)
 }
 
+
 func expandWebhookFilterGroups(d *schema.ResourceData) [][]*codebuild.WebhookFilter {
 	configs := d.Get("filter_group").(*schema.Set).List()
 
@@ -144,6 +149,7 @@ func expandWebhookFilterGroups(d *schema.ResourceData) [][]*codebuild.WebhookFil
 
 	return webhookFilters
 }
+
 
 func expandWebhookFilterData(data map[string]interface{}) []*codebuild.WebhookFilter {
 	filters := make([]*codebuild.WebhookFilter, 0)
@@ -163,6 +169,7 @@ func expandWebhookFilterData(data map[string]interface{}) []*codebuild.WebhookFi
 
 	return filters
 }
+
 
 func resourceWebhookRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -217,6 +224,7 @@ func resourceWebhookRead(ctx context.Context, d *schema.ResourceData, meta inter
 	return diags
 }
 
+
 func resourceWebhookUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CodeBuildConn(ctx)
@@ -252,6 +260,7 @@ func resourceWebhookUpdate(ctx context.Context, d *schema.ResourceData, meta int
 	return append(diags, resourceWebhookRead(ctx, d, meta)...)
 }
 
+
 func resourceWebhookDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CodeBuildConn(ctx)
@@ -270,6 +279,7 @@ func resourceWebhookDelete(ctx context.Context, d *schema.ResourceData, meta int
 	return diags
 }
 
+
 func flattenWebhookFilterGroups(filterList [][]*codebuild.WebhookFilter) *schema.Set {
 	filterSet := schema.Set{
 		F: resourceWebhookFilterHash,
@@ -280,6 +290,7 @@ func flattenWebhookFilterGroups(filterList [][]*codebuild.WebhookFilter) *schema
 	}
 	return &filterSet
 }
+
 
 func resourceWebhookFilterHash(v interface{}) int {
 	var buf bytes.Buffer
@@ -296,6 +307,7 @@ func resourceWebhookFilterHash(v interface{}) int {
 
 	return create.StringHashcode(buf.String())
 }
+
 
 func flattenWebhookFilterData(filters []*codebuild.WebhookFilter) map[string]interface{} {
 	values := map[string]interface{}{}

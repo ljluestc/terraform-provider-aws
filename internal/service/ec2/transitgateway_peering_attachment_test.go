@@ -18,6 +18,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func testAccTransitGatewayPeeringAttachment_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var transitGatewayPeeringAttachment ec2.TransitGatewayPeeringAttachment
@@ -27,7 +28,8 @@ func testAccTransitGatewayPeeringAttachment_basic(t *testing.T) {
 	transitGatewayResourceNamePeer := "aws_ec2_transit_gateway.peer"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckTransitGateway(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
@@ -38,7 +40,8 @@ func testAccTransitGatewayPeeringAttachment_basic(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayPeeringAttachmentConfig_sameAccount(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayPeeringAttachmentExists(ctx, resourceName, &transitGatewayPeeringAttachment),
 					acctest.CheckResourceAttrAccountID(resourceName, "peer_account_id"),
 					resource.TestCheckResourceAttr(resourceName, "peer_region", acctest.AlternateRegion()),
@@ -57,6 +60,7 @@ func testAccTransitGatewayPeeringAttachment_basic(t *testing.T) {
 	})
 }
 
+
 func testAccTransitGatewayPeeringAttachment_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var transitGatewayPeeringAttachment ec2.TransitGatewayPeeringAttachment
@@ -64,7 +68,8 @@ func testAccTransitGatewayPeeringAttachment_disappears(t *testing.T) {
 	resourceName := "aws_ec2_transit_gateway_peering_attachment.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckTransitGateway(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
@@ -75,7 +80,8 @@ func testAccTransitGatewayPeeringAttachment_disappears(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayPeeringAttachmentConfig_sameAccount(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayPeeringAttachmentExists(ctx, resourceName, &transitGatewayPeeringAttachment),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceTransitGatewayPeeringAttachment(), resourceName),
 				),
@@ -85,6 +91,7 @@ func testAccTransitGatewayPeeringAttachment_disappears(t *testing.T) {
 	})
 }
 
+
 func testAccTransitGatewayPeeringAttachment_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var transitGatewayPeeringAttachment ec2.TransitGatewayPeeringAttachment
@@ -92,7 +99,8 @@ func testAccTransitGatewayPeeringAttachment_tags(t *testing.T) {
 	resourceName := "aws_ec2_transit_gateway_peering_attachment.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckTransitGateway(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
@@ -103,7 +111,8 @@ func testAccTransitGatewayPeeringAttachment_tags(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayPeeringAttachmentConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayPeeringAttachmentExists(ctx, resourceName, &transitGatewayPeeringAttachment),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
@@ -117,7 +126,8 @@ func testAccTransitGatewayPeeringAttachment_tags(t *testing.T) {
 			},
 			{
 				Config: testAccTransitGatewayPeeringAttachmentConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayPeeringAttachmentExists(ctx, resourceName, &transitGatewayPeeringAttachment),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
@@ -126,7 +136,8 @@ func testAccTransitGatewayPeeringAttachment_tags(t *testing.T) {
 			},
 			{
 				Config: testAccTransitGatewayPeeringAttachmentConfig_tags1(rName, "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayPeeringAttachmentExists(ctx, resourceName, &transitGatewayPeeringAttachment),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
@@ -135,6 +146,7 @@ func testAccTransitGatewayPeeringAttachment_tags(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccTransitGatewayPeeringAttachment_differentAccount(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -145,7 +157,8 @@ func testAccTransitGatewayPeeringAttachment_differentAccount(t *testing.T) {
 	transitGatewayResourceNamePeer := "aws_ec2_transit_gateway.peer"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckTransitGateway(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
@@ -157,10 +170,12 @@ func testAccTransitGatewayPeeringAttachment_differentAccount(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayPeeringAttachmentConfig_differentAccount(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayPeeringAttachmentExists(ctx, resourceName, &transitGatewayPeeringAttachment),
 					// Test that the peer account ID != the primary (request) account ID
-					func(s *terraform.State) error {
+					
+func(s *terraform.State) error {
 						if acctest.CheckResourceAttrAccountID(resourceName, "peer_account_id") == nil {
 							return fmt.Errorf("peer_account_id attribute incorrectly to the requester's account ID")
 						}
@@ -183,8 +198,11 @@ func testAccTransitGatewayPeeringAttachment_differentAccount(t *testing.T) {
 	})
 }
 
-func testAccCheckTransitGatewayPeeringAttachmentExists(ctx context.Context, n string, v *ec2.TransitGatewayPeeringAttachment) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckTransitGatewayPeeringAttachmentExists(ctx context.Context, n string, v *ec2.TransitGatewayPeeringAttachment) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -208,8 +226,11 @@ func testAccCheckTransitGatewayPeeringAttachmentExists(ctx context.Context, n st
 	}
 }
 
-func testAccCheckTransitGatewayPeeringAttachmentDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckTransitGatewayPeeringAttachmentDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -234,6 +255,7 @@ func testAccCheckTransitGatewayPeeringAttachmentDestroy(ctx context.Context) res
 	}
 }
 
+
 func testAccTransitGatewayPeeringAttachmentConfig_base(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ec2_transit_gateway" "test" {
@@ -252,6 +274,7 @@ resource "aws_ec2_transit_gateway" "peer" {
 `, rName)
 }
 
+
 func testAccTransitGatewayPeeringAttachmentConfig_sameAccount_base(rName string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigAlternateRegionProvider(),
@@ -259,12 +282,14 @@ func testAccTransitGatewayPeeringAttachmentConfig_sameAccount_base(rName string)
 	)
 }
 
+
 func testAccTransitGatewayPeeringAttachmentConfig_differentAccount_base(rName string) string {
 	return acctest.ConfigCompose(
 		acctest.ConfigAlternateAccountAlternateRegionProvider(),
 		testAccTransitGatewayPeeringAttachmentConfig_base(rName),
 	)
 }
+
 
 func testAccTransitGatewayPeeringAttachmentConfig_sameAccount(rName string) string {
 	return acctest.ConfigCompose(testAccTransitGatewayPeeringAttachmentConfig_sameAccount_base(rName), fmt.Sprintf(`
@@ -275,6 +300,7 @@ resource "aws_ec2_transit_gateway_peering_attachment" "test" {
 }
 `, acctest.AlternateRegion()))
 }
+
 
 func testAccTransitGatewayPeeringAttachmentConfig_differentAccount(rName string) string {
 	return acctest.ConfigCompose(testAccTransitGatewayPeeringAttachmentConfig_differentAccount_base(rName), fmt.Sprintf(`
@@ -291,6 +317,7 @@ resource "aws_ec2_transit_gateway_peering_attachment" "test" {
 `, rName, acctest.AlternateRegion()))
 }
 
+
 func testAccTransitGatewayPeeringAttachmentConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccTransitGatewayPeeringAttachmentConfig_sameAccount_base(rName), fmt.Sprintf(`
 resource "aws_ec2_transit_gateway_peering_attachment" "test" {
@@ -304,6 +331,7 @@ resource "aws_ec2_transit_gateway_peering_attachment" "test" {
 }
 `, acctest.AlternateRegion(), tagKey1, tagValue1))
 }
+
 
 func testAccTransitGatewayPeeringAttachmentConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccTransitGatewayPeeringAttachmentConfig_sameAccount_base(rName), fmt.Sprintf(`

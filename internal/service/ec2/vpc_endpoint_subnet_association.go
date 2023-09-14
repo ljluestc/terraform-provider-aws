@@ -22,6 +22,7 @@ import (
 )
 
 // @SDKResource("aws_vpc_endpoint_subnet_association")
+
 func ResourceVPCEndpointSubnetAssociation() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceVPCEndpointSubnetAssociationCreate,

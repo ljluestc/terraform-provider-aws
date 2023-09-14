@@ -21,6 +21,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/types"
 )
 
+
 func FindAvailabilityZones(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeAvailabilityZonesInput) ([]*ec2.AvailabilityZone, error) {
 	output, err := conn.DescribeAvailabilityZonesWithContext(ctx, input)
 
@@ -34,6 +35,7 @@ func FindAvailabilityZones(ctx context.Context, conn *ec2.EC2, input *ec2.Descri
 
 	return output.AvailabilityZones, nil
 }
+
 
 func FindAvailabilityZone(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeAvailabilityZonesInput) (*ec2.AvailabilityZone, error) {
 	output, err := FindAvailabilityZones(ctx, conn, input)
@@ -52,6 +54,7 @@ func FindAvailabilityZone(ctx context.Context, conn *ec2.EC2, input *ec2.Describ
 
 	return output[0], nil
 }
+
 
 func FindAvailabilityZoneGroupByName(ctx context.Context, conn *ec2.EC2, name string) (*ec2.AvailabilityZone, error) {
 	input := &ec2.DescribeAvailabilityZonesInput{
@@ -84,6 +87,7 @@ func FindAvailabilityZoneGroupByName(ctx context.Context, conn *ec2.EC2, name st
 	return availabilityZone, nil
 }
 
+
 func FindCapacityReservation(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeCapacityReservationsInput) (*ec2.CapacityReservation, error) {
 	output, err := FindCapacityReservations(ctx, conn, input)
 
@@ -102,10 +106,12 @@ func FindCapacityReservation(ctx context.Context, conn *ec2.EC2, input *ec2.Desc
 	return output[0], nil
 }
 
+
 func FindCapacityReservations(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeCapacityReservationsInput) ([]*ec2.CapacityReservation, error) {
 	var output []*ec2.CapacityReservation
 
-	err := conn.DescribeCapacityReservationsPagesWithContext(ctx, input, func(page *ec2.DescribeCapacityReservationsOutput, lastPage bool) bool {
+	err := conn.DescribeCapacityReservationsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeCapacityReservationsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -132,6 +138,7 @@ func FindCapacityReservations(ctx context.Context, conn *ec2.EC2, input *ec2.Des
 
 	return output, nil
 }
+
 
 func FindCapacityReservationByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.CapacityReservation, error) {
 	input := &ec2.DescribeCapacityReservationsInput{
@@ -162,6 +169,7 @@ func FindCapacityReservationByID(ctx context.Context, conn *ec2.EC2, id string) 
 	return output, nil
 }
 
+
 func FindCarrierGateway(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeCarrierGatewaysInput) (*ec2.CarrierGateway, error) {
 	output, err := FindCarrierGateways(ctx, conn, input)
 
@@ -180,10 +188,12 @@ func FindCarrierGateway(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeC
 	return output[0], nil
 }
 
+
 func FindCarrierGateways(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeCarrierGatewaysInput) ([]*ec2.CarrierGateway, error) {
 	var output []*ec2.CarrierGateway
 
-	err := conn.DescribeCarrierGatewaysPagesWithContext(ctx, input, func(page *ec2.DescribeCarrierGatewaysOutput, lastPage bool) bool {
+	err := conn.DescribeCarrierGatewaysPagesWithContext(ctx, input, 
+func(page *ec2.DescribeCarrierGatewaysOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -210,6 +220,7 @@ func FindCarrierGateways(ctx context.Context, conn *ec2.EC2, input *ec2.Describe
 
 	return output, nil
 }
+
 
 func FindCarrierGatewayByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.CarrierGateway, error) {
 	input := &ec2.DescribeCarrierGatewaysInput{
@@ -239,6 +250,7 @@ func FindCarrierGatewayByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2
 	return output, nil
 }
 
+
 func FindClientVPNEndpoint(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeClientVpnEndpointsInput) (*ec2.ClientVpnEndpoint, error) {
 	output, err := FindClientVPNEndpoints(ctx, conn, input)
 
@@ -257,10 +269,12 @@ func FindClientVPNEndpoint(ctx context.Context, conn *ec2.EC2, input *ec2.Descri
 	return output[0], nil
 }
 
+
 func FindClientVPNEndpoints(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeClientVpnEndpointsInput) ([]*ec2.ClientVpnEndpoint, error) {
 	var output []*ec2.ClientVpnEndpoint
 
-	err := conn.DescribeClientVpnEndpointsPagesWithContext(ctx, input, func(page *ec2.DescribeClientVpnEndpointsOutput, lastPage bool) bool {
+	err := conn.DescribeClientVpnEndpointsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeClientVpnEndpointsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -290,6 +304,7 @@ func FindClientVPNEndpoints(ctx context.Context, conn *ec2.EC2, input *ec2.Descr
 	return output, nil
 }
 
+
 func FindClientVPNEndpointByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.ClientVpnEndpoint, error) {
 	input := &ec2.DescribeClientVpnEndpointsInput{
 		ClientVpnEndpointIds: aws.StringSlice([]string{id}),
@@ -318,6 +333,7 @@ func FindClientVPNEndpointByID(ctx context.Context, conn *ec2.EC2, id string) (*
 	return output, nil
 }
 
+
 func FindClientVPNEndpointClientConnectResponseOptionsByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.ClientConnectResponseOptions, error) {
 	output, err := FindClientVPNEndpointByID(ctx, conn, id)
 
@@ -331,6 +347,7 @@ func FindClientVPNEndpointClientConnectResponseOptionsByID(ctx context.Context, 
 
 	return output.ClientConnectOptions, nil
 }
+
 
 func FindClientVPNAuthorizationRule(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeClientVpnAuthorizationRulesInput) (*ec2.AuthorizationRule, error) {
 	output, err := FindClientVPNAuthorizationRules(ctx, conn, input)
@@ -350,10 +367,12 @@ func FindClientVPNAuthorizationRule(ctx context.Context, conn *ec2.EC2, input *e
 	return output[0], nil
 }
 
+
 func FindClientVPNAuthorizationRules(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeClientVpnAuthorizationRulesInput) ([]*ec2.AuthorizationRule, error) {
 	var output []*ec2.AuthorizationRule
 
-	err := conn.DescribeClientVpnAuthorizationRulesPagesWithContext(ctx, input, func(page *ec2.DescribeClientVpnAuthorizationRulesOutput, lastPage bool) bool {
+	err := conn.DescribeClientVpnAuthorizationRulesPagesWithContext(ctx, input, 
+func(page *ec2.DescribeClientVpnAuthorizationRulesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -383,6 +402,7 @@ func FindClientVPNAuthorizationRules(ctx context.Context, conn *ec2.EC2, input *
 	return output, nil
 }
 
+
 func FindClientVPNAuthorizationRuleByThreePartKey(ctx context.Context, conn *ec2.EC2, endpointID, targetNetworkCIDR, accessGroupID string) (*ec2.AuthorizationRule, error) {
 	filters := map[string]string{
 		"destination-cidr": targetNetworkCIDR,
@@ -397,6 +417,7 @@ func FindClientVPNAuthorizationRuleByThreePartKey(ctx context.Context, conn *ec2
 
 	return FindClientVPNAuthorizationRule(ctx, conn, input)
 }
+
 
 func FindClientVPNNetworkAssociation(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeClientVpnTargetNetworksInput) (*ec2.TargetNetwork, error) {
 	output, err := FindClientVPNNetworkAssociations(ctx, conn, input)
@@ -416,10 +437,12 @@ func FindClientVPNNetworkAssociation(ctx context.Context, conn *ec2.EC2, input *
 	return output[0], nil
 }
 
+
 func FindClientVPNNetworkAssociations(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeClientVpnTargetNetworksInput) ([]*ec2.TargetNetwork, error) {
 	var output []*ec2.TargetNetwork
 
-	err := conn.DescribeClientVpnTargetNetworksPagesWithContext(ctx, input, func(page *ec2.DescribeClientVpnTargetNetworksOutput, lastPage bool) bool {
+	err := conn.DescribeClientVpnTargetNetworksPagesWithContext(ctx, input, 
+func(page *ec2.DescribeClientVpnTargetNetworksOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -448,6 +471,7 @@ func FindClientVPNNetworkAssociations(ctx context.Context, conn *ec2.EC2, input 
 
 	return output, nil
 }
+
 
 func FindClientVPNNetworkAssociationByIDs(ctx context.Context, conn *ec2.EC2, associationID, endpointID string) (*ec2.TargetNetwork, error) {
 	input := &ec2.DescribeClientVpnTargetNetworksInput{
@@ -478,6 +502,7 @@ func FindClientVPNNetworkAssociationByIDs(ctx context.Context, conn *ec2.EC2, as
 	return output, nil
 }
 
+
 func FindClientVPNRoute(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeClientVpnRoutesInput) (*ec2.ClientVpnRoute, error) {
 	output, err := FindClientVPNRoutes(ctx, conn, input)
 
@@ -496,10 +521,12 @@ func FindClientVPNRoute(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeC
 	return output[0], nil
 }
 
+
 func FindClientVPNRoutes(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeClientVpnRoutesInput) ([]*ec2.ClientVpnRoute, error) {
 	var output []*ec2.ClientVpnRoute
 
-	err := conn.DescribeClientVpnRoutesPagesWithContext(ctx, input, func(page *ec2.DescribeClientVpnRoutesOutput, lastPage bool) bool {
+	err := conn.DescribeClientVpnRoutesPagesWithContext(ctx, input, 
+func(page *ec2.DescribeClientVpnRoutesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -529,6 +556,7 @@ func FindClientVPNRoutes(ctx context.Context, conn *ec2.EC2, input *ec2.Describe
 	return output, nil
 }
 
+
 func FindClientVPNRouteByThreePartKey(ctx context.Context, conn *ec2.EC2, endpointID, targetSubnetID, destinationCIDR string) (*ec2.ClientVpnRoute, error) {
 	input := &ec2.DescribeClientVpnRoutesInput{
 		ClientVpnEndpointId: aws.String(endpointID),
@@ -541,10 +569,12 @@ func FindClientVPNRouteByThreePartKey(ctx context.Context, conn *ec2.EC2, endpoi
 	return FindClientVPNRoute(ctx, conn, input)
 }
 
+
 func FindCOIPPools(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeCoipPoolsInput) ([]*ec2.CoipPool, error) {
 	var output []*ec2.CoipPool
 
-	err := conn.DescribeCoipPoolsPagesWithContext(ctx, input, func(page *ec2.DescribeCoipPoolsOutput, lastPage bool) bool {
+	err := conn.DescribeCoipPoolsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeCoipPoolsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -572,6 +602,7 @@ func FindCOIPPools(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeCoipPo
 	return output, nil
 }
 
+
 func FindCOIPPool(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeCoipPoolsInput) (*ec2.CoipPool, error) {
 	output, err := FindCOIPPools(ctx, conn, input)
 
@@ -590,10 +621,12 @@ func FindCOIPPool(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeCoipPoo
 	return output[0], nil
 }
 
+
 func FindEBSVolumes(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeVolumesInput) ([]*ec2.Volume, error) {
 	var output []*ec2.Volume
 
-	err := conn.DescribeVolumesPagesWithContext(ctx, input, func(page *ec2.DescribeVolumesOutput, lastPage bool) bool {
+	err := conn.DescribeVolumesPagesWithContext(ctx, input, 
+func(page *ec2.DescribeVolumesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -621,6 +654,7 @@ func FindEBSVolumes(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeVolum
 	return output, nil
 }
 
+
 func FindEBSVolume(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeVolumesInput) (*ec2.Volume, error) {
 	output, err := FindEBSVolumes(ctx, conn, input)
 
@@ -638,6 +672,7 @@ func FindEBSVolume(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeVolume
 
 	return output[0], nil
 }
+
 
 func FindEBSVolumeByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.Volume, error) {
 	input := &ec2.DescribeVolumesInput{
@@ -666,6 +701,7 @@ func FindEBSVolumeByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.Volu
 
 	return output, nil
 }
+
 
 func FindEBSVolumeAttachment(ctx context.Context, conn *ec2.EC2, volumeID, instanceID, deviceName string) (*ec2.VolumeAttachment, error) {
 	input := &ec2.DescribeVolumesInput{
@@ -709,6 +745,7 @@ func FindEBSVolumeAttachment(ctx context.Context, conn *ec2.EC2, volumeID, insta
 	return nil, &retry.NotFoundError{}
 }
 
+
 func FindEIPs(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeAddressesInput) ([]*ec2.Address, error) {
 	var addresses []*ec2.Address
 
@@ -735,6 +772,7 @@ func FindEIPs(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeAddressesIn
 	return addresses, nil
 }
 
+
 func FindEIP(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeAddressesInput) (*ec2.Address, error) {
 	output, err := FindEIPs(ctx, conn, input)
 
@@ -752,6 +790,7 @@ func FindEIP(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeAddressesInp
 
 	return output[0], nil
 }
+
 
 func FindEIPByAllocationID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.Address, error) {
 	input := &ec2.DescribeAddressesInput{
@@ -773,6 +812,7 @@ func FindEIPByAllocationID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.
 
 	return output, nil
 }
+
 
 func FindEIPByAssociationID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.Address, error) {
 	input := &ec2.DescribeAddressesInput{
@@ -796,6 +836,7 @@ func FindEIPByAssociationID(ctx context.Context, conn *ec2.EC2, id string) (*ec2
 
 	return output, nil
 }
+
 
 func FindHostByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.Host, error) {
 	input := &ec2.DescribeHostsInput{
@@ -825,10 +866,12 @@ func FindHostByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.Host, err
 	return output, nil
 }
 
+
 func FindHosts(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeHostsInput) ([]*ec2.Host, error) {
 	var output []*ec2.Host
 
-	err := conn.DescribeHostsPagesWithContext(ctx, input, func(page *ec2.DescribeHostsOutput, lastPage bool) bool {
+	err := conn.DescribeHostsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeHostsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -856,6 +899,7 @@ func FindHosts(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeHostsInput
 	return output, nil
 }
 
+
 func FindHost(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeHostsInput) (*ec2.Host, error) {
 	output, err := FindHosts(ctx, conn, input)
 
@@ -874,10 +918,12 @@ func FindHost(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeHostsInput)
 	return output[0], nil
 }
 
+
 func FindImages(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeImagesInput) ([]*ec2.Image, error) {
 	var output []*ec2.Image
 
-	err := conn.DescribeImagesPagesWithContext(ctx, input, func(page *ec2.DescribeImagesOutput, lastPage bool) bool {
+	err := conn.DescribeImagesPagesWithContext(ctx, input, 
+func(page *ec2.DescribeImagesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -905,6 +951,7 @@ func FindImages(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeImagesInp
 	return output, nil
 }
 
+
 func FindImage(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeImagesInput) (*ec2.Image, error) {
 	output, err := FindImages(ctx, conn, input)
 
@@ -922,6 +969,7 @@ func FindImage(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeImagesInpu
 
 	return output[0], nil
 }
+
 
 func FindImageByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.Image, error) {
 	input := &ec2.DescribeImagesInput{
@@ -951,6 +999,7 @@ func FindImageByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.Image, e
 	return output, nil
 }
 
+
 func FindImageAttribute(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeImageAttributeInput) (*ec2.DescribeImageAttributeOutput, error) {
 	output, err := conn.DescribeImageAttributeWithContext(ctx, input)
 
@@ -972,6 +1021,7 @@ func FindImageAttribute(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeI
 	return output, nil
 }
 
+
 func FindImageLaunchPermissionsByID(ctx context.Context, conn *ec2.EC2, id string) ([]*ec2.LaunchPermission, error) {
 	input := &ec2.DescribeImageAttributeInput{
 		Attribute: aws.String(ec2.ImageAttributeNameLaunchPermission),
@@ -990,6 +1040,7 @@ func FindImageLaunchPermissionsByID(ctx context.Context, conn *ec2.EC2, id strin
 
 	return output.LaunchPermissions, nil
 }
+
 
 func FindImageLaunchPermission(ctx context.Context, conn *ec2.EC2, imageID, accountID, group, organizationARN, organizationalUnitARN string) (*ec2.LaunchPermission, error) {
 	output, err := FindImageLaunchPermissionsByID(ctx, conn, imageID)
@@ -1010,10 +1061,12 @@ func FindImageLaunchPermission(ctx context.Context, conn *ec2.EC2, imageID, acco
 	return nil, &retry.NotFoundError{}
 }
 
+
 func FindInstances(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeInstancesInput) ([]*ec2.Instance, error) {
 	var output []*ec2.Instance
 
-	err := conn.DescribeInstancesPagesWithContext(ctx, input, func(page *ec2.DescribeInstancesOutput, lastPage bool) bool {
+	err := conn.DescribeInstancesPagesWithContext(ctx, input, 
+func(page *ec2.DescribeInstancesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -1045,6 +1098,7 @@ func FindInstances(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeInstan
 	return output, nil
 }
 
+
 func FindInstance(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeInstancesInput) (*ec2.Instance, error) {
 	output, err := FindInstances(ctx, conn, input)
 
@@ -1062,6 +1116,7 @@ func FindInstance(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeInstanc
 
 	return output[0], nil
 }
+
 
 func FindInstanceByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.Instance, error) {
 	input := &ec2.DescribeInstancesInput{
@@ -1091,10 +1146,12 @@ func FindInstanceByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.Insta
 	return output, nil
 }
 
+
 func FindInstanceCreditSpecifications(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeInstanceCreditSpecificationsInput) ([]*ec2.InstanceCreditSpecification, error) {
 	var output []*ec2.InstanceCreditSpecification
 
-	err := conn.DescribeInstanceCreditSpecificationsPagesWithContext(ctx, input, func(page *ec2.DescribeInstanceCreditSpecificationsOutput, lastPage bool) bool {
+	err := conn.DescribeInstanceCreditSpecificationsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeInstanceCreditSpecificationsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -1122,6 +1179,7 @@ func FindInstanceCreditSpecifications(ctx context.Context, conn *ec2.EC2, input 
 	return output, nil
 }
 
+
 func FindInstanceCreditSpecification(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeInstanceCreditSpecificationsInput) (*ec2.InstanceCreditSpecification, error) {
 	output, err := FindInstanceCreditSpecifications(ctx, conn, input)
 
@@ -1139,6 +1197,7 @@ func FindInstanceCreditSpecification(ctx context.Context, conn *ec2.EC2, input *
 
 	return output[0], nil
 }
+
 
 func FindInstanceCreditSpecificationByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.InstanceCreditSpecification, error) {
 	input := &ec2.DescribeInstanceCreditSpecificationsInput{
@@ -1161,10 +1220,12 @@ func FindInstanceCreditSpecificationByID(ctx context.Context, conn *ec2.EC2, id 
 	return output, nil
 }
 
+
 func FindInstanceTypes(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeInstanceTypesInput) ([]*ec2.InstanceTypeInfo, error) {
 	var output []*ec2.InstanceTypeInfo
 
-	err := conn.DescribeInstanceTypesPagesWithContext(ctx, input, func(page *ec2.DescribeInstanceTypesOutput, lastPage bool) bool {
+	err := conn.DescribeInstanceTypesPagesWithContext(ctx, input, 
+func(page *ec2.DescribeInstanceTypesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -1185,6 +1246,7 @@ func FindInstanceTypes(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeIn
 	return output, nil
 }
 
+
 func FindInstanceType(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeInstanceTypesInput) (*ec2.InstanceTypeInfo, error) {
 	output, err := FindInstanceTypes(ctx, conn, input)
 
@@ -1203,6 +1265,7 @@ func FindInstanceType(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeIns
 	return output[0], nil
 }
 
+
 func FindInstanceTypeByName(ctx context.Context, conn *ec2.EC2, name string) (*ec2.InstanceTypeInfo, error) {
 	input := &ec2.DescribeInstanceTypesInput{
 		InstanceTypes: aws.StringSlice([]string{name}),
@@ -1217,10 +1280,12 @@ func FindInstanceTypeByName(ctx context.Context, conn *ec2.EC2, name string) (*e
 	return output, nil
 }
 
+
 func FindInstanceTypeOfferings(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeInstanceTypeOfferingsInput) ([]*ec2.InstanceTypeOffering, error) {
 	var output []*ec2.InstanceTypeOffering
 
-	err := conn.DescribeInstanceTypeOfferingsPagesWithContext(ctx, input, func(page *ec2.DescribeInstanceTypeOfferingsOutput, lastPage bool) bool {
+	err := conn.DescribeInstanceTypeOfferingsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeInstanceTypeOfferingsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -1241,6 +1306,7 @@ func FindInstanceTypeOfferings(ctx context.Context, conn *ec2.EC2, input *ec2.De
 	return output, nil
 }
 
+
 func FindPublicIPv4Pool(ctx context.Context, conn *ec2.EC2, input *ec2.DescribePublicIpv4PoolsInput) (*ec2.PublicIpv4Pool, error) {
 	output, err := FindPublicIPv4Pools(ctx, conn, input)
 
@@ -1259,10 +1325,12 @@ func FindPublicIPv4Pool(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeP
 	return output[0], nil
 }
 
+
 func FindPublicIPv4Pools(ctx context.Context, conn *ec2.EC2, input *ec2.DescribePublicIpv4PoolsInput) ([]*ec2.PublicIpv4Pool, error) {
 	var output []*ec2.PublicIpv4Pool
 
-	err := conn.DescribePublicIpv4PoolsPagesWithContext(ctx, input, func(page *ec2.DescribePublicIpv4PoolsOutput, lastPage bool) bool {
+	err := conn.DescribePublicIpv4PoolsPagesWithContext(ctx, input, 
+func(page *ec2.DescribePublicIpv4PoolsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -1292,6 +1360,7 @@ func FindPublicIPv4Pools(ctx context.Context, conn *ec2.EC2, input *ec2.Describe
 	return output, nil
 }
 
+
 func FindPublicIPv4PoolByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.PublicIpv4Pool, error) {
 	input := &ec2.DescribePublicIpv4PoolsInput{
 		PoolIds: aws.StringSlice([]string{id}),
@@ -1313,10 +1382,12 @@ func FindPublicIPv4PoolByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2
 	return output, nil
 }
 
+
 func FindLocalGatewayRouteTables(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeLocalGatewayRouteTablesInput) ([]*ec2.LocalGatewayRouteTable, error) {
 	var output []*ec2.LocalGatewayRouteTable
 
-	err := conn.DescribeLocalGatewayRouteTablesPagesWithContext(ctx, input, func(page *ec2.DescribeLocalGatewayRouteTablesOutput, lastPage bool) bool {
+	err := conn.DescribeLocalGatewayRouteTablesPagesWithContext(ctx, input, 
+func(page *ec2.DescribeLocalGatewayRouteTablesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -1337,6 +1408,7 @@ func FindLocalGatewayRouteTables(ctx context.Context, conn *ec2.EC2, input *ec2.
 	return output, nil
 }
 
+
 func FindLocalGatewayRouteTable(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeLocalGatewayRouteTablesInput) (*ec2.LocalGatewayRouteTable, error) {
 	output, err := FindLocalGatewayRouteTables(ctx, conn, input)
 
@@ -1355,10 +1427,12 @@ func FindLocalGatewayRouteTable(ctx context.Context, conn *ec2.EC2, input *ec2.D
 	return output[0], nil
 }
 
+
 func FindLocalGatewayVirtualInterfaceGroups(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeLocalGatewayVirtualInterfaceGroupsInput) ([]*ec2.LocalGatewayVirtualInterfaceGroup, error) {
 	var output []*ec2.LocalGatewayVirtualInterfaceGroup
 
-	err := conn.DescribeLocalGatewayVirtualInterfaceGroupsPagesWithContext(ctx, input, func(page *ec2.DescribeLocalGatewayVirtualInterfaceGroupsOutput, lastPage bool) bool {
+	err := conn.DescribeLocalGatewayVirtualInterfaceGroupsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeLocalGatewayVirtualInterfaceGroupsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -1379,6 +1453,7 @@ func FindLocalGatewayVirtualInterfaceGroups(ctx context.Context, conn *ec2.EC2, 
 	return output, nil
 }
 
+
 func FindLocalGatewayVirtualInterfaceGroup(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeLocalGatewayVirtualInterfaceGroupsInput) (*ec2.LocalGatewayVirtualInterfaceGroup, error) {
 	output, err := FindLocalGatewayVirtualInterfaceGroups(ctx, conn, input)
 
@@ -1397,10 +1472,12 @@ func FindLocalGatewayVirtualInterfaceGroup(ctx context.Context, conn *ec2.EC2, i
 	return output[0], nil
 }
 
+
 func FindLocalGateways(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeLocalGatewaysInput) ([]*ec2.LocalGateway, error) {
 	var output []*ec2.LocalGateway
 
-	err := conn.DescribeLocalGatewaysPagesWithContext(ctx, input, func(page *ec2.DescribeLocalGatewaysOutput, lastPage bool) bool {
+	err := conn.DescribeLocalGatewaysPagesWithContext(ctx, input, 
+func(page *ec2.DescribeLocalGatewaysOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -1421,6 +1498,7 @@ func FindLocalGateways(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeLo
 	return output, nil
 }
 
+
 func FindLocalGateway(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeLocalGatewaysInput) (*ec2.LocalGateway, error) {
 	output, err := FindLocalGateways(ctx, conn, input)
 
@@ -1438,6 +1516,7 @@ func FindLocalGateway(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeLoc
 
 	return output[0], nil
 }
+
 
 func FindNetworkACL(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeNetworkAclsInput) (*ec2.NetworkAcl, error) {
 	output, err := FindNetworkACLs(ctx, conn, input)
@@ -1457,10 +1536,12 @@ func FindNetworkACL(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeNetwo
 	return output[0], nil
 }
 
+
 func FindNetworkACLs(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeNetworkAclsInput) ([]*ec2.NetworkAcl, error) {
 	var output []*ec2.NetworkAcl
 
-	err := conn.DescribeNetworkAclsPagesWithContext(ctx, input, func(page *ec2.DescribeNetworkAclsOutput, lastPage bool) bool {
+	err := conn.DescribeNetworkAclsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeNetworkAclsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -1490,6 +1571,7 @@ func FindNetworkACLs(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeNetw
 	return output, nil
 }
 
+
 func FindNetworkACLByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.NetworkAcl, error) {
 	input := &ec2.DescribeNetworkAclsInput{
 		NetworkAclIds: aws.StringSlice([]string{id}),
@@ -1510,6 +1592,7 @@ func FindNetworkACLByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.Net
 
 	return output, nil
 }
+
 
 func FindNetworkACLAssociationByID(ctx context.Context, conn *ec2.EC2, associationID string) (*ec2.NetworkAclAssociation, error) {
 	input := &ec2.DescribeNetworkAclsInput{
@@ -1533,6 +1616,7 @@ func FindNetworkACLAssociationByID(ctx context.Context, conn *ec2.EC2, associati
 	return nil, &retry.NotFoundError{}
 }
 
+
 func FindNetworkACLAssociationBySubnetID(ctx context.Context, conn *ec2.EC2, subnetID string) (*ec2.NetworkAclAssociation, error) {
 	input := &ec2.DescribeNetworkAclsInput{
 		Filters: BuildAttributeFilterList(map[string]string{
@@ -1554,6 +1638,7 @@ func FindNetworkACLAssociationBySubnetID(ctx context.Context, conn *ec2.EC2, sub
 
 	return nil, &retry.NotFoundError{}
 }
+
 
 func FindNetworkACLEntryByThreePartKey(ctx context.Context, conn *ec2.EC2, naclID string, egress bool, ruleNumber int) (*ec2.NetworkAclEntry, error) {
 	input := &ec2.DescribeNetworkAclsInput{
@@ -1579,6 +1664,7 @@ func FindNetworkACLEntryByThreePartKey(ctx context.Context, conn *ec2.EC2, naclI
 	return nil, &retry.NotFoundError{}
 }
 
+
 func FindNetworkInterface(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeNetworkInterfacesInput) (*ec2.NetworkInterface, error) {
 	output, err := FindNetworkInterfaces(ctx, conn, input)
 
@@ -1597,10 +1683,12 @@ func FindNetworkInterface(ctx context.Context, conn *ec2.EC2, input *ec2.Describ
 	return output[0], nil
 }
 
+
 func FindNetworkInterfaces(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeNetworkInterfacesInput) ([]*ec2.NetworkInterface, error) {
 	var output []*ec2.NetworkInterface
 
-	err := conn.DescribeNetworkInterfacesPagesWithContext(ctx, input, func(page *ec2.DescribeNetworkInterfacesOutput, lastPage bool) bool {
+	err := conn.DescribeNetworkInterfacesPagesWithContext(ctx, input, 
+func(page *ec2.DescribeNetworkInterfacesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -1628,6 +1716,7 @@ func FindNetworkInterfaces(ctx context.Context, conn *ec2.EC2, input *ec2.Descri
 	return output, nil
 }
 
+
 func FindNetworkInterfaceByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.NetworkInterface, error) {
 	input := &ec2.DescribeNetworkInterfacesInput{
 		NetworkInterfaceIds: aws.StringSlice([]string{id}),
@@ -1649,6 +1738,7 @@ func FindNetworkInterfaceByID(ctx context.Context, conn *ec2.EC2, id string) (*e
 	return output, nil
 }
 
+
 func FindNetworkInterfacesByAttachmentInstanceOwnerIDAndDescription(ctx context.Context, conn *ec2.EC2, attachmentInstanceOwnerID, description string) ([]*ec2.NetworkInterface, error) {
 	input := &ec2.DescribeNetworkInterfacesInput{
 		Filters: BuildAttributeFilterList(map[string]string{
@@ -1659,6 +1749,7 @@ func FindNetworkInterfacesByAttachmentInstanceOwnerIDAndDescription(ctx context.
 
 	return FindNetworkInterfaces(ctx, conn, input)
 }
+
 
 func FindNetworkInterfaceByAttachmentID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.NetworkInterface, error) {
 	input := &ec2.DescribeNetworkInterfacesInput{
@@ -1680,6 +1771,7 @@ func FindNetworkInterfaceByAttachmentID(ctx context.Context, conn *ec2.EC2, id s
 	return networkInterface, nil
 }
 
+
 func FindNetworkInterfaceAttachmentByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.NetworkInterfaceAttachment, error) {
 	input := &ec2.DescribeNetworkInterfacesInput{
 		Filters: BuildAttributeFilterList(map[string]string{
@@ -1700,6 +1792,7 @@ func FindNetworkInterfaceAttachmentByID(ctx context.Context, conn *ec2.EC2, id s
 	return networkInterface.Attachment, nil
 }
 
+
 func FindNetworkInterfaceSecurityGroup(ctx context.Context, conn *ec2.EC2, networkInterfaceID string, securityGroupID string) (*ec2.GroupIdentifier, error) {
 	networkInterface, err := FindNetworkInterfaceByID(ctx, conn, networkInterfaceID)
 
@@ -1717,6 +1810,7 @@ func FindNetworkInterfaceSecurityGroup(ctx context.Context, conn *ec2.EC2, netwo
 		LastError: fmt.Errorf("Network Interface (%s) Security Group (%s) not found", networkInterfaceID, securityGroupID),
 	}
 }
+
 
 func FindNetworkInsightsAnalysis(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeNetworkInsightsAnalysesInput) (*ec2.NetworkInsightsAnalysis, error) {
 	output, err := FindNetworkInsightsAnalyses(ctx, conn, input)
@@ -1736,10 +1830,12 @@ func FindNetworkInsightsAnalysis(ctx context.Context, conn *ec2.EC2, input *ec2.
 	return output[0], nil
 }
 
+
 func FindNetworkInsightsAnalyses(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeNetworkInsightsAnalysesInput) ([]*ec2.NetworkInsightsAnalysis, error) {
 	var output []*ec2.NetworkInsightsAnalysis
 
-	err := conn.DescribeNetworkInsightsAnalysesPagesWithContext(ctx, input, func(page *ec2.DescribeNetworkInsightsAnalysesOutput, lastPage bool) bool {
+	err := conn.DescribeNetworkInsightsAnalysesPagesWithContext(ctx, input, 
+func(page *ec2.DescribeNetworkInsightsAnalysesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -1767,6 +1863,7 @@ func FindNetworkInsightsAnalyses(ctx context.Context, conn *ec2.EC2, input *ec2.
 	return output, nil
 }
 
+
 func FindNetworkInsightsAnalysisByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.NetworkInsightsAnalysis, error) {
 	input := &ec2.DescribeNetworkInsightsAnalysesInput{
 		NetworkInsightsAnalysisIds: aws.StringSlice([]string{id}),
@@ -1788,6 +1885,7 @@ func FindNetworkInsightsAnalysisByID(ctx context.Context, conn *ec2.EC2, id stri
 	return output, nil
 }
 
+
 func FindNetworkInsightsPath(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeNetworkInsightsPathsInput) (*ec2.NetworkInsightsPath, error) {
 	output, err := FindNetworkInsightsPaths(ctx, conn, input)
 
@@ -1806,10 +1904,12 @@ func FindNetworkInsightsPath(ctx context.Context, conn *ec2.EC2, input *ec2.Desc
 	return output[0], nil
 }
 
+
 func FindNetworkInsightsPaths(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeNetworkInsightsPathsInput) ([]*ec2.NetworkInsightsPath, error) {
 	var output []*ec2.NetworkInsightsPath
 
-	err := conn.DescribeNetworkInsightsPathsPagesWithContext(ctx, input, func(page *ec2.DescribeNetworkInsightsPathsOutput, lastPage bool) bool {
+	err := conn.DescribeNetworkInsightsPathsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeNetworkInsightsPathsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -1837,6 +1937,7 @@ func FindNetworkInsightsPaths(ctx context.Context, conn *ec2.EC2, input *ec2.Des
 	return output, nil
 }
 
+
 func FindNetworkInsightsPathByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.NetworkInsightsPath, error) {
 	input := &ec2.DescribeNetworkInsightsPathsInput{
 		NetworkInsightsPathIds: aws.StringSlice([]string{id}),
@@ -1860,6 +1961,7 @@ func FindNetworkInsightsPathByID(ctx context.Context, conn *ec2.EC2, id string) 
 
 // FindMainRouteTableAssociationByID returns the main route table association corresponding to the specified identifier.
 // Returns NotFoundError if no route table association is found.
+
 func FindMainRouteTableAssociationByID(ctx context.Context, conn *ec2.EC2, associationID string) (*ec2.RouteTableAssociation, error) {
 	association, err := FindRouteTableAssociationByID(ctx, conn, associationID)
 
@@ -1878,6 +1980,7 @@ func FindMainRouteTableAssociationByID(ctx context.Context, conn *ec2.EC2, assoc
 
 // FindMainRouteTableAssociationByVPCID returns the main route table association for the specified VPC.
 // Returns NotFoundError if no route table association is found.
+
 func FindMainRouteTableAssociationByVPCID(ctx context.Context, conn *ec2.EC2, vpcID string) (*ec2.RouteTableAssociation, error) {
 	routeTable, err := FindMainRouteTableByVPCID(ctx, conn, vpcID)
 
@@ -1902,6 +2005,7 @@ func FindMainRouteTableAssociationByVPCID(ctx context.Context, conn *ec2.EC2, vp
 
 // FindRouteTableAssociationByID returns the route table association corresponding to the specified identifier.
 // Returns NotFoundError if no route table association is found.
+
 func FindRouteTableAssociationByID(ctx context.Context, conn *ec2.EC2, associationID string) (*ec2.RouteTableAssociation, error) {
 	input := &ec2.DescribeRouteTablesInput{
 		Filters: BuildAttributeFilterList(map[string]string{
@@ -1932,6 +2036,7 @@ func FindRouteTableAssociationByID(ctx context.Context, conn *ec2.EC2, associati
 
 // FindMainRouteTableByVPCID returns the main route table for the specified VPC.
 // Returns NotFoundError if no route table is found.
+
 func FindMainRouteTableByVPCID(ctx context.Context, conn *ec2.EC2, vpcID string) (*ec2.RouteTable, error) {
 	input := &ec2.DescribeRouteTablesInput{
 		Filters: BuildAttributeFilterList(map[string]string{
@@ -1945,6 +2050,7 @@ func FindMainRouteTableByVPCID(ctx context.Context, conn *ec2.EC2, vpcID string)
 
 // FindRouteTableByID returns the route table corresponding to the specified identifier.
 // Returns NotFoundError if no route table is found.
+
 func FindRouteTableByID(ctx context.Context, conn *ec2.EC2, routeTableID string) (*ec2.RouteTable, error) {
 	input := &ec2.DescribeRouteTablesInput{
 		RouteTableIds: aws.StringSlice([]string{routeTableID}),
@@ -1952,6 +2058,7 @@ func FindRouteTableByID(ctx context.Context, conn *ec2.EC2, routeTableID string)
 
 	return FindRouteTable(ctx, conn, input)
 }
+
 
 func FindRouteTable(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeRouteTablesInput) (*ec2.RouteTable, error) {
 	output, err := FindRouteTables(ctx, conn, input)
@@ -1971,10 +2078,12 @@ func FindRouteTable(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeRoute
 	return output[0], nil
 }
 
+
 func FindRouteTables(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeRouteTablesInput) ([]*ec2.RouteTable, error) {
 	var output []*ec2.RouteTable
 
-	err := conn.DescribeRouteTablesPagesWithContext(ctx, input, func(page *ec2.DescribeRouteTablesOutput, lastPage bool) bool {
+	err := conn.DescribeRouteTablesPagesWithContext(ctx, input, 
+func(page *ec2.DescribeRouteTablesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -2006,10 +2115,12 @@ func FindRouteTables(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeRout
 
 // RouteFinder returns the route corresponding to the specified destination.
 // Returns NotFoundError if no route is found.
-type RouteFinder func(context.Context, *ec2.EC2, string, string) (*ec2.Route, error)
+type RouteFinder 
+func(context.Context, *ec2.EC2, string, string) (*ec2.Route, error)
 
 // FindRouteByIPv4Destination returns the route corresponding to the specified IPv4 destination.
 // Returns NotFoundError if no route is found.
+
 func FindRouteByIPv4Destination(ctx context.Context, conn *ec2.EC2, routeTableID, destinationCidr string) (*ec2.Route, error) {
 	routeTable, err := FindRouteTableByID(ctx, conn, routeTableID)
 
@@ -2030,6 +2141,7 @@ func FindRouteByIPv4Destination(ctx context.Context, conn *ec2.EC2, routeTableID
 
 // FindRouteByIPv6Destination returns the route corresponding to the specified IPv6 destination.
 // Returns NotFoundError if no route is found.
+
 func FindRouteByIPv6Destination(ctx context.Context, conn *ec2.EC2, routeTableID, destinationIpv6Cidr string) (*ec2.Route, error) {
 	routeTable, err := FindRouteTableByID(ctx, conn, routeTableID)
 
@@ -2050,6 +2162,7 @@ func FindRouteByIPv6Destination(ctx context.Context, conn *ec2.EC2, routeTableID
 
 // FindRouteByPrefixListIDDestination returns the route corresponding to the specified prefix list destination.
 // Returns NotFoundError if no route is found.
+
 func FindRouteByPrefixListIDDestination(ctx context.Context, conn *ec2.EC2, routeTableID, prefixListID string) (*ec2.Route, error) {
 	routeTable, err := FindRouteTableByID(ctx, conn, routeTableID)
 	if err != nil {
@@ -2066,6 +2179,7 @@ func FindRouteByPrefixListIDDestination(ctx context.Context, conn *ec2.EC2, rout
 		LastError: fmt.Errorf("Route in Route Table (%s) with Prefix List ID destination (%s) not found", routeTableID, prefixListID),
 	}
 }
+
 
 func FindSecurityGroupByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.SecurityGroup, error) {
 	input := &ec2.DescribeSecurityGroupsInput{
@@ -2089,6 +2203,7 @@ func FindSecurityGroupByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.
 }
 
 // FindSecurityGroupByNameAndVPCID looks up a security group by name, VPC ID. Returns a retry.NotFoundError if not found.
+
 func FindSecurityGroupByNameAndVPCID(ctx context.Context, conn *ec2.EC2, name, vpcID string) (*ec2.SecurityGroup, error) {
 	input := &ec2.DescribeSecurityGroupsInput{
 		Filters: BuildAttributeFilterList(
@@ -2102,6 +2217,7 @@ func FindSecurityGroupByNameAndVPCID(ctx context.Context, conn *ec2.EC2, name, v
 }
 
 // FindSecurityGroupByNameAndVPCIDAndOwnerID looks up a security group by name, VPC ID and owner ID. Returns a retry.NotFoundError if not found.
+
 func FindSecurityGroupByNameAndVPCIDAndOwnerID(ctx context.Context, conn *ec2.EC2, name, vpcID, ownerID string) (*ec2.SecurityGroup, error) {
 	input := &ec2.DescribeSecurityGroupsInput{
 		Filters: BuildAttributeFilterList(
@@ -2116,6 +2232,7 @@ func FindSecurityGroupByNameAndVPCIDAndOwnerID(ctx context.Context, conn *ec2.EC
 }
 
 // FindSecurityGroup looks up a security group using an ec2.DescribeSecurityGroupsInput. Returns a retry.NotFoundError if not found.
+
 func FindSecurityGroup(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeSecurityGroupsInput) (*ec2.SecurityGroup, error) {
 	output, err := FindSecurityGroups(ctx, conn, input)
 
@@ -2134,10 +2251,12 @@ func FindSecurityGroup(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeSe
 	return output[0], nil
 }
 
+
 func FindSecurityGroups(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeSecurityGroupsInput) ([]*ec2.SecurityGroup, error) {
 	var output []*ec2.SecurityGroup
 
-	err := conn.DescribeSecurityGroupsPagesWithContext(ctx, input, func(page *ec2.DescribeSecurityGroupsOutput, lastPage bool) bool {
+	err := conn.DescribeSecurityGroupsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeSecurityGroupsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -2167,6 +2286,7 @@ func FindSecurityGroups(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeS
 	return output, nil
 }
 
+
 func FindSecurityGroupRule(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeSecurityGroupRulesInput) (*ec2.SecurityGroupRule, error) {
 	output, err := FindSecurityGroupRules(ctx, conn, input)
 
@@ -2185,10 +2305,12 @@ func FindSecurityGroupRule(ctx context.Context, conn *ec2.EC2, input *ec2.Descri
 	return output[0], nil
 }
 
+
 func FindSecurityGroupRules(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeSecurityGroupRulesInput) ([]*ec2.SecurityGroupRule, error) {
 	var output []*ec2.SecurityGroupRule
 
-	err := conn.DescribeSecurityGroupRulesPagesWithContext(ctx, input, func(page *ec2.DescribeSecurityGroupRulesOutput, lastPage bool) bool {
+	err := conn.DescribeSecurityGroupRulesPagesWithContext(ctx, input, 
+func(page *ec2.DescribeSecurityGroupRulesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -2218,6 +2340,7 @@ func FindSecurityGroupRules(ctx context.Context, conn *ec2.EC2, input *ec2.Descr
 	return output, nil
 }
 
+
 func FindSecurityGroupRuleByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.SecurityGroupRule, error) {
 	input := &ec2.DescribeSecurityGroupRulesInput{
 		SecurityGroupRuleIds: aws.StringSlice([]string{id}),
@@ -2239,6 +2362,7 @@ func FindSecurityGroupRuleByID(ctx context.Context, conn *ec2.EC2, id string) (*
 	return output, nil
 }
 
+
 func FindSecurityGroupEgressRuleByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.SecurityGroupRule, error) {
 	output, err := FindSecurityGroupRuleByID(ctx, conn, id)
 
@@ -2252,6 +2376,7 @@ func FindSecurityGroupEgressRuleByID(ctx context.Context, conn *ec2.EC2, id stri
 
 	return output, nil
 }
+
 
 func FindSecurityGroupIngressRuleByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.SecurityGroupRule, error) {
 	output, err := FindSecurityGroupRuleByID(ctx, conn, id)
@@ -2267,6 +2392,7 @@ func FindSecurityGroupIngressRuleByID(ctx context.Context, conn *ec2.EC2, id str
 	return output, nil
 }
 
+
 func FindSecurityGroupRulesBySecurityGroupID(ctx context.Context, conn *ec2.EC2, id string) ([]*ec2.SecurityGroupRule, error) {
 	input := &ec2.DescribeSecurityGroupRulesInput{
 		Filters: BuildAttributeFilterList(map[string]string{
@@ -2276,6 +2402,7 @@ func FindSecurityGroupRulesBySecurityGroupID(ctx context.Context, conn *ec2.EC2,
 
 	return FindSecurityGroupRules(ctx, conn, input)
 }
+
 
 func FindSpotDatafeedSubscription(ctx context.Context, conn *ec2.EC2) (*ec2.SpotDatafeedSubscription, error) {
 	input := &ec2.DescribeSpotDatafeedSubscriptionInput{}
@@ -2300,10 +2427,12 @@ func FindSpotDatafeedSubscription(ctx context.Context, conn *ec2.EC2) (*ec2.Spot
 	return output.SpotDatafeedSubscription, nil
 }
 
+
 func FindSpotFleetInstances(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeSpotFleetInstancesInput) ([]*ec2.ActiveInstance, error) {
 	var output []*ec2.ActiveInstance
 
-	err := describeSpotFleetInstancesPages(ctx, conn, input, func(page *ec2.DescribeSpotFleetInstancesOutput, lastPage bool) bool {
+	err := describeSpotFleetInstancesPages(ctx, conn, input, 
+func(page *ec2.DescribeSpotFleetInstancesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -2331,10 +2460,12 @@ func FindSpotFleetInstances(ctx context.Context, conn *ec2.EC2, input *ec2.Descr
 	return output, nil
 }
 
+
 func FindSpotFleetRequests(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeSpotFleetRequestsInput) ([]*ec2.SpotFleetRequestConfig, error) {
 	var output []*ec2.SpotFleetRequestConfig
 
-	err := conn.DescribeSpotFleetRequestsPagesWithContext(ctx, input, func(page *ec2.DescribeSpotFleetRequestsOutput, lastPage bool) bool {
+	err := conn.DescribeSpotFleetRequestsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeSpotFleetRequestsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -2362,6 +2493,7 @@ func FindSpotFleetRequests(ctx context.Context, conn *ec2.EC2, input *ec2.Descri
 	return output, nil
 }
 
+
 func FindSpotFleetRequest(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeSpotFleetRequestsInput) (*ec2.SpotFleetRequestConfig, error) {
 	output, err := FindSpotFleetRequests(ctx, conn, input)
 
@@ -2379,6 +2511,7 @@ func FindSpotFleetRequest(ctx context.Context, conn *ec2.EC2, input *ec2.Describ
 
 	return output[0], nil
 }
+
 
 func FindSpotFleetRequestByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.SpotFleetRequestConfig, error) {
 	input := &ec2.DescribeSpotFleetRequestsInput{
@@ -2408,10 +2541,12 @@ func FindSpotFleetRequestByID(ctx context.Context, conn *ec2.EC2, id string) (*e
 	return output, nil
 }
 
+
 func FindSpotFleetRequestHistoryRecords(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeSpotFleetRequestHistoryInput) ([]*ec2.HistoryRecord, error) {
 	var output []*ec2.HistoryRecord
 
-	err := describeSpotFleetRequestHistoryPages(ctx, conn, input, func(page *ec2.DescribeSpotFleetRequestHistoryOutput, lastPage bool) bool {
+	err := describeSpotFleetRequestHistoryPages(ctx, conn, input, 
+func(page *ec2.DescribeSpotFleetRequestHistoryOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -2439,10 +2574,12 @@ func FindSpotFleetRequestHistoryRecords(ctx context.Context, conn *ec2.EC2, inpu
 	return output, nil
 }
 
+
 func FindSpotInstanceRequests(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeSpotInstanceRequestsInput) ([]*ec2.SpotInstanceRequest, error) {
 	var output []*ec2.SpotInstanceRequest
 
-	err := conn.DescribeSpotInstanceRequestsPagesWithContext(ctx, input, func(page *ec2.DescribeSpotInstanceRequestsOutput, lastPage bool) bool {
+	err := conn.DescribeSpotInstanceRequestsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeSpotInstanceRequestsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -2470,6 +2607,7 @@ func FindSpotInstanceRequests(ctx context.Context, conn *ec2.EC2, input *ec2.Des
 	return output, nil
 }
 
+
 func FindSpotInstanceRequest(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeSpotInstanceRequestsInput) (*ec2.SpotInstanceRequest, error) {
 	output, err := FindSpotInstanceRequests(ctx, conn, input)
 
@@ -2487,6 +2625,7 @@ func FindSpotInstanceRequest(ctx context.Context, conn *ec2.EC2, input *ec2.Desc
 
 	return output[0], nil
 }
+
 
 func FindSpotInstanceRequestByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.SpotInstanceRequest, error) {
 	input := &ec2.DescribeSpotInstanceRequestsInput{
@@ -2516,6 +2655,7 @@ func FindSpotInstanceRequestByID(ctx context.Context, conn *ec2.EC2, id string) 
 	return output, nil
 }
 
+
 func FindSubnetByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.Subnet, error) {
 	input := &ec2.DescribeSubnetsInput{
 		SubnetIds: aws.StringSlice([]string{id}),
@@ -2537,6 +2677,7 @@ func FindSubnetByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.Subnet,
 	return output, nil
 }
 
+
 func FindSubnet(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeSubnetsInput) (*ec2.Subnet, error) {
 	output, err := FindSubnets(ctx, conn, input)
 
@@ -2555,10 +2696,12 @@ func FindSubnet(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeSubnetsIn
 	return output[0], nil
 }
 
+
 func FindSubnets(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeSubnetsInput) ([]*ec2.Subnet, error) {
 	var output []*ec2.Subnet
 
-	err := conn.DescribeSubnetsPagesWithContext(ctx, input, func(page *ec2.DescribeSubnetsOutput, lastPage bool) bool {
+	err := conn.DescribeSubnetsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeSubnetsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -2585,6 +2728,7 @@ func FindSubnets(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeSubnetsI
 
 	return output, nil
 }
+
 
 func FindSubnetCIDRReservationBySubnetIDAndReservationID(ctx context.Context, conn *ec2.EC2, subnetID, reservationID string) (*ec2.SubnetCidrReservation, error) {
 	input := &ec2.GetSubnetCidrReservationsInput{
@@ -2624,6 +2768,7 @@ func FindSubnetCIDRReservationBySubnetIDAndReservationID(ctx context.Context, co
 	}
 }
 
+
 func FindSubnetIPv6CIDRBlockAssociationByID(ctx context.Context, conn *ec2.EC2, associationID string) (*ec2.SubnetIpv6CidrBlockAssociation, error) {
 	input := &ec2.DescribeSubnetsInput{
 		Filters: BuildAttributeFilterList(map[string]string{
@@ -2650,10 +2795,12 @@ func FindSubnetIPv6CIDRBlockAssociationByID(ctx context.Context, conn *ec2.EC2, 
 	return nil, &retry.NotFoundError{}
 }
 
+
 func FindVolumeModifications(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeVolumesModificationsInput) ([]*ec2.VolumeModification, error) {
 	var output []*ec2.VolumeModification
 
-	err := conn.DescribeVolumesModificationsPagesWithContext(ctx, input, func(page *ec2.DescribeVolumesModificationsOutput, lastPage bool) bool {
+	err := conn.DescribeVolumesModificationsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeVolumesModificationsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -2681,6 +2828,7 @@ func FindVolumeModifications(ctx context.Context, conn *ec2.EC2, input *ec2.Desc
 	return output, nil
 }
 
+
 func FindVolumeModification(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeVolumesModificationsInput) (*ec2.VolumeModification, error) {
 	output, err := FindVolumeModifications(ctx, conn, input)
 
@@ -2698,6 +2846,7 @@ func FindVolumeModification(ctx context.Context, conn *ec2.EC2, input *ec2.Descr
 
 	return output[0], nil
 }
+
 
 func FindVolumeModificationByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.VolumeModification, error) {
 	input := &ec2.DescribeVolumesModificationsInput{
@@ -2719,6 +2868,7 @@ func FindVolumeModificationByID(ctx context.Context, conn *ec2.EC2, id string) (
 
 	return output, nil
 }
+
 
 func FindVPCAttribute(ctx context.Context, conn *ec2.EC2, vpcID string, attribute string) (bool, error) {
 	input := &ec2.DescribeVpcAttributeInput{
@@ -2762,6 +2912,7 @@ func FindVPCAttribute(ctx context.Context, conn *ec2.EC2, vpcID string, attribut
 	return aws.BoolValue(v.Value), nil
 }
 
+
 func FindVPC(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeVpcsInput) (*ec2.Vpc, error) {
 	output, err := FindVPCs(ctx, conn, input)
 
@@ -2780,10 +2931,12 @@ func FindVPC(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeVpcsInput) (
 	return output[0], nil
 }
 
+
 func FindVPCs(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeVpcsInput) ([]*ec2.Vpc, error) {
 	var output []*ec2.Vpc
 
-	err := conn.DescribeVpcsPagesWithContext(ctx, input, func(page *ec2.DescribeVpcsOutput, lastPage bool) bool {
+	err := conn.DescribeVpcsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeVpcsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -2811,6 +2964,7 @@ func FindVPCs(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeVpcsInput) 
 	return output, nil
 }
 
+
 func FindVPCByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.Vpc, error) {
 	input := &ec2.DescribeVpcsInput{
 		VpcIds: aws.StringSlice([]string{id}),
@@ -2832,6 +2986,7 @@ func FindVPCByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.Vpc, error
 	return output, nil
 }
 
+
 func FindVPCDHCPOptionsAssociation(ctx context.Context, conn *ec2.EC2, vpcID string, dhcpOptionsID string) error {
 	vpc, err := FindVPCByID(ctx, conn, vpcID)
 
@@ -2847,6 +3002,7 @@ func FindVPCDHCPOptionsAssociation(ctx context.Context, conn *ec2.EC2, vpcID str
 
 	return nil
 }
+
 
 func FindVPCCIDRBlockAssociationByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.VpcCidrBlockAssociation, *ec2.Vpc, error) {
 	input := &ec2.DescribeVpcsInput{
@@ -2874,6 +3030,7 @@ func FindVPCCIDRBlockAssociationByID(ctx context.Context, conn *ec2.EC2, id stri
 	return nil, nil, &retry.NotFoundError{}
 }
 
+
 func FindVPCIPv6CIDRBlockAssociationByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.VpcIpv6CidrBlockAssociation, *ec2.Vpc, error) {
 	input := &ec2.DescribeVpcsInput{
 		Filters: BuildAttributeFilterList(map[string]string{
@@ -2900,6 +3057,7 @@ func FindVPCIPv6CIDRBlockAssociationByID(ctx context.Context, conn *ec2.EC2, id 
 	return nil, nil, &retry.NotFoundError{}
 }
 
+
 func FindVPCDefaultNetworkACL(ctx context.Context, conn *ec2.EC2, id string) (*ec2.NetworkAcl, error) {
 	input := &ec2.DescribeNetworkAclsInput{
 		Filters: BuildAttributeFilterList(map[string]string{
@@ -2910,6 +3068,7 @@ func FindVPCDefaultNetworkACL(ctx context.Context, conn *ec2.EC2, id string) (*e
 
 	return FindNetworkACL(ctx, conn, input)
 }
+
 
 func FindVPCDefaultSecurityGroup(ctx context.Context, conn *ec2.EC2, id string) (*ec2.SecurityGroup, error) {
 	input := &ec2.DescribeSecurityGroupsInput{
@@ -2922,6 +3081,7 @@ func FindVPCDefaultSecurityGroup(ctx context.Context, conn *ec2.EC2, id string) 
 	return FindSecurityGroup(ctx, conn, input)
 }
 
+
 func FindVPCMainRouteTable(ctx context.Context, conn *ec2.EC2, id string) (*ec2.RouteTable, error) {
 	input := &ec2.DescribeRouteTablesInput{
 		Filters: BuildAttributeFilterList(map[string]string{
@@ -2932,6 +3092,7 @@ func FindVPCMainRouteTable(ctx context.Context, conn *ec2.EC2, id string) (*ec2.
 
 	return FindRouteTable(ctx, conn, input)
 }
+
 
 func FindVPCEndpoint(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeVpcEndpointsInput) (*ec2.VpcEndpoint, error) {
 	output, err := FindVPCEndpoints(ctx, conn, input)
@@ -2951,10 +3112,12 @@ func FindVPCEndpoint(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeVpcE
 	return output[0], nil
 }
 
+
 func FindVPCEndpoints(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeVpcEndpointsInput) ([]*ec2.VpcEndpoint, error) {
 	var output []*ec2.VpcEndpoint
 
-	err := conn.DescribeVpcEndpointsPagesWithContext(ctx, input, func(page *ec2.DescribeVpcEndpointsOutput, lastPage bool) bool {
+	err := conn.DescribeVpcEndpointsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeVpcEndpointsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -2981,6 +3144,7 @@ func FindVPCEndpoints(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeVpc
 
 	return output, nil
 }
+
 
 func FindVPCEndpointByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.VpcEndpoint, error) {
 	input := &ec2.DescribeVpcEndpointsInput{
@@ -3010,6 +3174,7 @@ func FindVPCEndpointByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.Vp
 	return output, nil
 }
 
+
 func FindVPCConnectionNotification(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeVpcEndpointConnectionNotificationsInput) (*ec2.ConnectionNotification, error) {
 	output, err := FindVPCConnectionNotifications(ctx, conn, input)
 
@@ -3028,10 +3193,12 @@ func FindVPCConnectionNotification(ctx context.Context, conn *ec2.EC2, input *ec
 	return output[0], nil
 }
 
+
 func FindVPCConnectionNotifications(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeVpcEndpointConnectionNotificationsInput) ([]*ec2.ConnectionNotification, error) {
 	var output []*ec2.ConnectionNotification
 
-	err := conn.DescribeVpcEndpointConnectionNotificationsPagesWithContext(ctx, input, func(page *ec2.DescribeVpcEndpointConnectionNotificationsOutput, lastPage bool) bool {
+	err := conn.DescribeVpcEndpointConnectionNotificationsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeVpcEndpointConnectionNotificationsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -3059,6 +3226,7 @@ func FindVPCConnectionNotifications(ctx context.Context, conn *ec2.EC2, input *e
 	return output, nil
 }
 
+
 func FindVPCConnectionNotificationByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.ConnectionNotification, error) {
 	input := &ec2.DescribeVpcEndpointConnectionNotificationsInput{
 		ConnectionNotificationId: aws.String(id),
@@ -3080,6 +3248,7 @@ func FindVPCConnectionNotificationByID(ctx context.Context, conn *ec2.EC2, id st
 	return output, nil
 }
 
+
 func FindVPCEndpointServiceConfiguration(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeVpcEndpointServiceConfigurationsInput) (*ec2.ServiceConfiguration, error) {
 	output, err := FindVPCEndpointServiceConfigurations(ctx, conn, input)
 
@@ -3098,10 +3267,12 @@ func FindVPCEndpointServiceConfiguration(ctx context.Context, conn *ec2.EC2, inp
 	return output[0], nil
 }
 
+
 func FindVPCEndpointServiceConfigurations(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeVpcEndpointServiceConfigurationsInput) ([]*ec2.ServiceConfiguration, error) {
 	var output []*ec2.ServiceConfiguration
 
-	err := conn.DescribeVpcEndpointServiceConfigurationsPagesWithContext(ctx, input, func(page *ec2.DescribeVpcEndpointServiceConfigurationsOutput, lastPage bool) bool {
+	err := conn.DescribeVpcEndpointServiceConfigurationsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeVpcEndpointServiceConfigurationsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -3129,6 +3300,7 @@ func FindVPCEndpointServiceConfigurations(ctx context.Context, conn *ec2.EC2, in
 	return output, nil
 }
 
+
 func FindVPCEndpointServiceConfigurationByServiceName(ctx context.Context, conn *ec2.EC2, name string) (*ec2.ServiceConfiguration, error) {
 	input := &ec2.DescribeVpcEndpointServiceConfigurationsInput{
 		Filters: BuildAttributeFilterList(map[string]string{
@@ -3139,11 +3311,13 @@ func FindVPCEndpointServiceConfigurationByServiceName(ctx context.Context, conn 
 	return FindVPCEndpointServiceConfiguration(ctx, conn, input)
 }
 
+
 func FindVPCEndpointServices(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeVpcEndpointServicesInput) ([]*ec2.ServiceDetail, []string, error) {
 	var serviceDetails []*ec2.ServiceDetail
 	var serviceNames []string
 
-	err := describeVPCEndpointServicesPages(ctx, conn, input, func(page *ec2.DescribeVpcEndpointServicesOutput, lastPage bool) bool {
+	err := describeVPCEndpointServicesPages(ctx, conn, input, 
+func(page *ec2.DescribeVpcEndpointServicesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -3175,6 +3349,7 @@ func FindVPCEndpointServices(ctx context.Context, conn *ec2.EC2, input *ec2.Desc
 	return serviceDetails, serviceNames, nil
 }
 
+
 func FindVPCEndpointServiceConfigurationByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.ServiceConfiguration, error) {
 	input := &ec2.DescribeVpcEndpointServiceConfigurationsInput{
 		ServiceIds: aws.StringSlice([]string{id}),
@@ -3203,10 +3378,12 @@ func FindVPCEndpointServiceConfigurationByID(ctx context.Context, conn *ec2.EC2,
 	return output, nil
 }
 
+
 func FindVPCEndpointServicePermissions(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeVpcEndpointServicePermissionsInput) ([]*ec2.AllowedPrincipal, error) {
 	var output []*ec2.AllowedPrincipal
 
-	err := conn.DescribeVpcEndpointServicePermissionsPagesWithContext(ctx, input, func(page *ec2.DescribeVpcEndpointServicePermissionsOutput, lastPage bool) bool {
+	err := conn.DescribeVpcEndpointServicePermissionsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeVpcEndpointServicePermissionsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -3234,6 +3411,7 @@ func FindVPCEndpointServicePermissions(ctx context.Context, conn *ec2.EC2, input
 	return output, nil
 }
 
+
 func FindVPCEndpointServicePermissionsByServiceID(ctx context.Context, conn *ec2.EC2, id string) ([]*ec2.AllowedPrincipal, error) {
 	input := &ec2.DescribeVpcEndpointServicePermissionsInput{
 		ServiceId: aws.String(id),
@@ -3241,6 +3419,7 @@ func FindVPCEndpointServicePermissionsByServiceID(ctx context.Context, conn *ec2
 
 	return FindVPCEndpointServicePermissions(ctx, conn, input)
 }
+
 
 func FindVPCEndpointServicePermission(ctx context.Context, conn *ec2.EC2, serviceID, principalARN string) (*ec2.AllowedPrincipal, error) {
 	// Applying a server-side filter on "principal" can lead to errors like
@@ -3256,7 +3435,8 @@ func FindVPCEndpointServicePermission(ctx context.Context, conn *ec2.EC2, servic
 		return nil, err
 	}
 
-	allowedPrincipals = slices.Filter(allowedPrincipals, func(v *ec2.AllowedPrincipal) bool {
+	allowedPrincipals = slices.Filter(allowedPrincipals, 
+func(v *ec2.AllowedPrincipal) bool {
 		return aws.StringValue(v.Principal) == principalARN
 	})
 
@@ -3264,6 +3444,7 @@ func FindVPCEndpointServicePermission(ctx context.Context, conn *ec2.EC2, servic
 }
 
 // FindVPCEndpointRouteTableAssociationExists returns NotFoundError if no association for the specified VPC endpoint and route table IDs is found.
+
 func FindVPCEndpointRouteTableAssociationExists(ctx context.Context, conn *ec2.EC2, vpcEndpointID string, routeTableID string) error {
 	vpcEndpoint, err := FindVPCEndpointByID(ctx, conn, vpcEndpointID)
 
@@ -3283,6 +3464,7 @@ func FindVPCEndpointRouteTableAssociationExists(ctx context.Context, conn *ec2.E
 }
 
 // FindVPCEndpointSecurityGroupAssociationExists returns NotFoundError if no association for the specified VPC endpoint and security group IDs is found.
+
 func FindVPCEndpointSecurityGroupAssociationExists(ctx context.Context, conn *ec2.EC2, vpcEndpointID, securityGroupID string) error {
 	vpcEndpoint, err := FindVPCEndpointByID(ctx, conn, vpcEndpointID)
 
@@ -3302,6 +3484,7 @@ func FindVPCEndpointSecurityGroupAssociationExists(ctx context.Context, conn *ec
 }
 
 // FindVPCEndpointSubnetAssociationExists returns NotFoundError if no association for the specified VPC endpoint and subnet IDs is found.
+
 func FindVPCEndpointSubnetAssociationExists(ctx context.Context, conn *ec2.EC2, vpcEndpointID string, subnetID string) error {
 	vpcEndpoint, err := FindVPCEndpointByID(ctx, conn, vpcEndpointID)
 
@@ -3319,6 +3502,7 @@ func FindVPCEndpointSubnetAssociationExists(ctx context.Context, conn *ec2.EC2, 
 		LastError: fmt.Errorf("VPC Endpoint (%s) Subnet (%s) Association not found", vpcEndpointID, subnetID),
 	}
 }
+
 
 func FindVPCPeeringConnection(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeVpcPeeringConnectionsInput) (*ec2.VpcPeeringConnection, error) {
 	output, err := FindVPCPeeringConnections(ctx, conn, input)
@@ -3338,10 +3522,12 @@ func FindVPCPeeringConnection(ctx context.Context, conn *ec2.EC2, input *ec2.Des
 	return output[0], nil
 }
 
+
 func FindVPCPeeringConnections(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeVpcPeeringConnectionsInput) ([]*ec2.VpcPeeringConnection, error) {
 	var output []*ec2.VpcPeeringConnection
 
-	err := conn.DescribeVpcPeeringConnectionsPagesWithContext(ctx, input, func(page *ec2.DescribeVpcPeeringConnectionsOutput, lastPage bool) bool {
+	err := conn.DescribeVpcPeeringConnectionsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeVpcPeeringConnectionsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -3368,6 +3554,7 @@ func FindVPCPeeringConnections(ctx context.Context, conn *ec2.EC2, input *ec2.De
 
 	return output, nil
 }
+
 
 func FindVPCPeeringConnectionByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.VpcPeeringConnection, error) {
 	input := &ec2.DescribeVpcPeeringConnectionsInput{
@@ -3403,6 +3590,7 @@ func FindVPCPeeringConnectionByID(ctx context.Context, conn *ec2.EC2, id string)
 }
 
 // FindVPNGatewayRoutePropagationExists returns NotFoundError if no route propagation for the specified VPN gateway is found.
+
 func FindVPNGatewayRoutePropagationExists(ctx context.Context, conn *ec2.EC2, routeTableID, gatewayID string) error {
 	routeTable, err := FindRouteTableByID(ctx, conn, routeTableID)
 
@@ -3420,6 +3608,7 @@ func FindVPNGatewayRoutePropagationExists(ctx context.Context, conn *ec2.EC2, ro
 		LastError: fmt.Errorf("Route Table (%s) VPN Gateway (%s) route propagation not found", routeTableID, gatewayID),
 	}
 }
+
 
 func FindVPNGatewayVPCAttachment(ctx context.Context, conn *ec2.EC2, vpnGatewayID, vpcID string) (*ec2.VpcAttachment, error) {
 	vpnGateway, err := FindVPNGatewayByID(ctx, conn, vpnGatewayID)
@@ -3443,6 +3632,7 @@ func FindVPNGatewayVPCAttachment(ctx context.Context, conn *ec2.EC2, vpnGatewayI
 
 	return nil, tfresource.NewEmptyResultError(vpcID)
 }
+
 
 func FindVPNGatewayByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.VpnGateway, error) {
 	input := &ec2.DescribeVpnGatewaysInput{
@@ -3472,6 +3662,7 @@ func FindVPNGatewayByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.Vpn
 	return output, nil
 }
 
+
 func FindVPNGateway(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeVpnGatewaysInput) (*ec2.VpnGateway, error) {
 	output, err := conn.DescribeVpnGatewaysWithContext(ctx, input)
 
@@ -3497,6 +3688,7 @@ func FindVPNGateway(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeVpnGa
 	return output.VpnGateways[0], nil
 }
 
+
 func FindCustomerGateway(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeCustomerGatewaysInput) (*ec2.CustomerGateway, error) {
 	output, err := FindCustomerGateways(ctx, conn, input)
 
@@ -3514,6 +3706,7 @@ func FindCustomerGateway(ctx context.Context, conn *ec2.EC2, input *ec2.Describe
 
 	return output[0], nil
 }
+
 
 func FindCustomerGateways(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeCustomerGatewaysInput) ([]*ec2.CustomerGateway, error) {
 	output, err := conn.DescribeCustomerGatewaysWithContext(ctx, input)
@@ -3535,6 +3728,7 @@ func FindCustomerGateways(ctx context.Context, conn *ec2.EC2, input *ec2.Describ
 
 	return output.CustomerGateways, nil
 }
+
 
 func FindCustomerGatewayByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.CustomerGateway, error) {
 	input := &ec2.DescribeCustomerGatewaysInput{
@@ -3564,6 +3758,7 @@ func FindCustomerGatewayByID(ctx context.Context, conn *ec2.EC2, id string) (*ec
 	return output, nil
 }
 
+
 func FindVPNConnectionByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.VpnConnection, error) {
 	input := &ec2.DescribeVpnConnectionsInput{
 		VpnConnectionIds: aws.StringSlice([]string{id}),
@@ -3592,6 +3787,7 @@ func FindVPNConnectionByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.
 	return output, nil
 }
 
+
 func FindVPNConnections(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeVpnConnectionsInput) ([]*ec2.VpnConnection, error) {
 	output, err := conn.DescribeVpnConnectionsWithContext(ctx, input)
 
@@ -3608,6 +3804,7 @@ func FindVPNConnections(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeV
 
 	return output.VpnConnections, nil
 }
+
 
 func FindVPNConnection(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeVpnConnectionsInput) (*ec2.VpnConnection, error) {
 	output, err := FindVPNConnections(ctx, conn, input)
@@ -3626,6 +3823,7 @@ func FindVPNConnection(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeVp
 
 	return output[0], nil
 }
+
 
 func FindVPNConnectionRouteByVPNConnectionIDAndCIDR(ctx context.Context, conn *ec2.EC2, vpnConnectionID, cidrBlock string) (*ec2.VpnStaticRoute, error) {
 	input := &ec2.DescribeVpnConnectionsInput{
@@ -3652,6 +3850,7 @@ func FindVPNConnectionRouteByVPNConnectionIDAndCIDR(ctx context.Context, conn *e
 	}
 }
 
+
 func FindTrafficMirrorFilter(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeTrafficMirrorFiltersInput) (*ec2.TrafficMirrorFilter, error) {
 	output, err := FindTrafficMirrorFilters(ctx, conn, input)
 
@@ -3670,10 +3869,12 @@ func FindTrafficMirrorFilter(ctx context.Context, conn *ec2.EC2, input *ec2.Desc
 	return output[0], nil
 }
 
+
 func FindTrafficMirrorFilters(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeTrafficMirrorFiltersInput) ([]*ec2.TrafficMirrorFilter, error) {
 	var output []*ec2.TrafficMirrorFilter
 
-	err := conn.DescribeTrafficMirrorFiltersPagesWithContext(ctx, input, func(page *ec2.DescribeTrafficMirrorFiltersOutput, lastPage bool) bool {
+	err := conn.DescribeTrafficMirrorFiltersPagesWithContext(ctx, input, 
+func(page *ec2.DescribeTrafficMirrorFiltersOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -3701,6 +3902,7 @@ func FindTrafficMirrorFilters(ctx context.Context, conn *ec2.EC2, input *ec2.Des
 	return output, nil
 }
 
+
 func FindTrafficMirrorFilterByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.TrafficMirrorFilter, error) {
 	input := &ec2.DescribeTrafficMirrorFiltersInput{
 		TrafficMirrorFilterIds: aws.StringSlice([]string{id}),
@@ -3722,6 +3924,7 @@ func FindTrafficMirrorFilterByID(ctx context.Context, conn *ec2.EC2, id string) 
 	return output, nil
 }
 
+
 func FindTrafficMirrorFilterRuleByTwoPartKey(ctx context.Context, conn *ec2.EC2, filterID, ruleID string) (*ec2.TrafficMirrorFilterRule, error) {
 	output, err := FindTrafficMirrorFilterByID(ctx, conn, filterID)
 
@@ -3739,6 +3942,7 @@ func FindTrafficMirrorFilterRuleByTwoPartKey(ctx context.Context, conn *ec2.EC2,
 
 	return nil, &retry.NotFoundError{}
 }
+
 
 func FindTrafficMirrorSession(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeTrafficMirrorSessionsInput) (*ec2.TrafficMirrorSession, error) {
 	output, err := FindTrafficMirrorSessions(ctx, conn, input)
@@ -3758,10 +3962,12 @@ func FindTrafficMirrorSession(ctx context.Context, conn *ec2.EC2, input *ec2.Des
 	return output[0], nil
 }
 
+
 func FindTrafficMirrorSessions(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeTrafficMirrorSessionsInput) ([]*ec2.TrafficMirrorSession, error) {
 	var output []*ec2.TrafficMirrorSession
 
-	err := conn.DescribeTrafficMirrorSessionsPagesWithContext(ctx, input, func(page *ec2.DescribeTrafficMirrorSessionsOutput, lastPage bool) bool {
+	err := conn.DescribeTrafficMirrorSessionsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeTrafficMirrorSessionsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -3789,6 +3995,7 @@ func FindTrafficMirrorSessions(ctx context.Context, conn *ec2.EC2, input *ec2.De
 	return output, nil
 }
 
+
 func FindTrafficMirrorSessionByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.TrafficMirrorSession, error) {
 	input := &ec2.DescribeTrafficMirrorSessionsInput{
 		TrafficMirrorSessionIds: aws.StringSlice([]string{id}),
@@ -3810,6 +4017,7 @@ func FindTrafficMirrorSessionByID(ctx context.Context, conn *ec2.EC2, id string)
 	return output, nil
 }
 
+
 func FindTrafficMirrorTarget(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeTrafficMirrorTargetsInput) (*ec2.TrafficMirrorTarget, error) {
 	output, err := FindTrafficMirrorTargets(ctx, conn, input)
 
@@ -3828,10 +4036,12 @@ func FindTrafficMirrorTarget(ctx context.Context, conn *ec2.EC2, input *ec2.Desc
 	return output[0], nil
 }
 
+
 func FindTrafficMirrorTargets(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeTrafficMirrorTargetsInput) ([]*ec2.TrafficMirrorTarget, error) {
 	var output []*ec2.TrafficMirrorTarget
 
-	err := conn.DescribeTrafficMirrorTargetsPagesWithContext(ctx, input, func(page *ec2.DescribeTrafficMirrorTargetsOutput, lastPage bool) bool {
+	err := conn.DescribeTrafficMirrorTargetsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeTrafficMirrorTargetsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -3859,6 +4069,7 @@ func FindTrafficMirrorTargets(ctx context.Context, conn *ec2.EC2, input *ec2.Des
 	return output, nil
 }
 
+
 func FindTrafficMirrorTargetByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.TrafficMirrorTarget, error) {
 	input := &ec2.DescribeTrafficMirrorTargetsInput{
 		TrafficMirrorTargetIds: aws.StringSlice([]string{id}),
@@ -3880,6 +4091,7 @@ func FindTrafficMirrorTargetByID(ctx context.Context, conn *ec2.EC2, id string) 
 	return output, nil
 }
 
+
 func FindTransitGateway(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeTransitGatewaysInput) (*ec2.TransitGateway, error) {
 	output, err := FindTransitGateways(ctx, conn, input)
 
@@ -3898,10 +4110,12 @@ func FindTransitGateway(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeT
 	return output[0], nil
 }
 
+
 func FindTransitGateways(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeTransitGatewaysInput) ([]*ec2.TransitGateway, error) {
 	var output []*ec2.TransitGateway
 
-	err := conn.DescribeTransitGatewaysPagesWithContext(ctx, input, func(page *ec2.DescribeTransitGatewaysOutput, lastPage bool) bool {
+	err := conn.DescribeTransitGatewaysPagesWithContext(ctx, input, 
+func(page *ec2.DescribeTransitGatewaysOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -3928,6 +4142,7 @@ func FindTransitGateways(ctx context.Context, conn *ec2.EC2, input *ec2.Describe
 
 	return output, nil
 }
+
 
 func FindTransitGatewayByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.TransitGateway, error) {
 	input := &ec2.DescribeTransitGatewaysInput{
@@ -3957,6 +4172,7 @@ func FindTransitGatewayByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2
 	return output, nil
 }
 
+
 func FindTransitGatewayAttachment(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeTransitGatewayAttachmentsInput) (*ec2.TransitGatewayAttachment, error) {
 	output, err := FindTransitGatewayAttachments(ctx, conn, input)
 
@@ -3975,10 +4191,12 @@ func FindTransitGatewayAttachment(ctx context.Context, conn *ec2.EC2, input *ec2
 	return output[0], nil
 }
 
+
 func FindTransitGatewayAttachments(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeTransitGatewayAttachmentsInput) ([]*ec2.TransitGatewayAttachment, error) {
 	var output []*ec2.TransitGatewayAttachment
 
-	err := conn.DescribeTransitGatewayAttachmentsPagesWithContext(ctx, input, func(page *ec2.DescribeTransitGatewayAttachmentsOutput, lastPage bool) bool {
+	err := conn.DescribeTransitGatewayAttachmentsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeTransitGatewayAttachmentsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -4006,6 +4224,7 @@ func FindTransitGatewayAttachments(ctx context.Context, conn *ec2.EC2, input *ec
 	return output, nil
 }
 
+
 func FindTransitGatewayAttachmentByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.TransitGatewayAttachment, error) {
 	input := &ec2.DescribeTransitGatewayAttachmentsInput{
 		TransitGatewayAttachmentIds: aws.StringSlice([]string{id}),
@@ -4027,6 +4246,7 @@ func FindTransitGatewayAttachmentByID(ctx context.Context, conn *ec2.EC2, id str
 	return output, nil
 }
 
+
 func FindTransitGatewayConnect(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeTransitGatewayConnectsInput) (*ec2.TransitGatewayConnect, error) {
 	output, err := FindTransitGatewayConnects(ctx, conn, input)
 
@@ -4045,10 +4265,12 @@ func FindTransitGatewayConnect(ctx context.Context, conn *ec2.EC2, input *ec2.De
 	return output[0], nil
 }
 
+
 func FindTransitGatewayConnects(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeTransitGatewayConnectsInput) ([]*ec2.TransitGatewayConnect, error) {
 	var output []*ec2.TransitGatewayConnect
 
-	err := conn.DescribeTransitGatewayConnectsPagesWithContext(ctx, input, func(page *ec2.DescribeTransitGatewayConnectsOutput, lastPage bool) bool {
+	err := conn.DescribeTransitGatewayConnectsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeTransitGatewayConnectsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -4075,6 +4297,7 @@ func FindTransitGatewayConnects(ctx context.Context, conn *ec2.EC2, input *ec2.D
 
 	return output, nil
 }
+
 
 func FindTransitGatewayConnectByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.TransitGatewayConnect, error) {
 	input := &ec2.DescribeTransitGatewayConnectsInput{
@@ -4104,6 +4327,7 @@ func FindTransitGatewayConnectByID(ctx context.Context, conn *ec2.EC2, id string
 	return output, nil
 }
 
+
 func FindTransitGatewayConnectPeer(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeTransitGatewayConnectPeersInput) (*ec2.TransitGatewayConnectPeer, error) {
 	output, err := FindTransitGatewayConnectPeers(ctx, conn, input)
 
@@ -4123,10 +4347,12 @@ func FindTransitGatewayConnectPeer(ctx context.Context, conn *ec2.EC2, input *ec
 	return output[0], nil
 }
 
+
 func FindTransitGatewayConnectPeers(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeTransitGatewayConnectPeersInput) ([]*ec2.TransitGatewayConnectPeer, error) {
 	var output []*ec2.TransitGatewayConnectPeer
 
-	err := conn.DescribeTransitGatewayConnectPeersPagesWithContext(ctx, input, func(page *ec2.DescribeTransitGatewayConnectPeersOutput, lastPage bool) bool {
+	err := conn.DescribeTransitGatewayConnectPeersPagesWithContext(ctx, input, 
+func(page *ec2.DescribeTransitGatewayConnectPeersOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -4153,6 +4379,7 @@ func FindTransitGatewayConnectPeers(ctx context.Context, conn *ec2.EC2, input *e
 
 	return output, nil
 }
+
 
 func FindTransitGatewayConnectPeerByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.TransitGatewayConnectPeer, error) {
 	input := &ec2.DescribeTransitGatewayConnectPeersInput{
@@ -4182,6 +4409,7 @@ func FindTransitGatewayConnectPeerByID(ctx context.Context, conn *ec2.EC2, id st
 	return output, nil
 }
 
+
 func FindTransitGatewayMulticastDomain(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeTransitGatewayMulticastDomainsInput) (*ec2.TransitGatewayMulticastDomain, error) {
 	output, err := FindTransitGatewayMulticastDomains(ctx, conn, input)
 
@@ -4200,10 +4428,12 @@ func FindTransitGatewayMulticastDomain(ctx context.Context, conn *ec2.EC2, input
 	return output[0], nil
 }
 
+
 func FindTransitGatewayMulticastDomains(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeTransitGatewayMulticastDomainsInput) ([]*ec2.TransitGatewayMulticastDomain, error) {
 	var output []*ec2.TransitGatewayMulticastDomain
 
-	err := conn.DescribeTransitGatewayMulticastDomainsPagesWithContext(ctx, input, func(page *ec2.DescribeTransitGatewayMulticastDomainsOutput, lastPage bool) bool {
+	err := conn.DescribeTransitGatewayMulticastDomainsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeTransitGatewayMulticastDomainsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -4230,6 +4460,7 @@ func FindTransitGatewayMulticastDomains(ctx context.Context, conn *ec2.EC2, inpu
 
 	return output, nil
 }
+
 
 func FindTransitGatewayMulticastDomainByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.TransitGatewayMulticastDomain, error) {
 	input := &ec2.DescribeTransitGatewayMulticastDomainsInput{
@@ -4259,6 +4490,7 @@ func FindTransitGatewayMulticastDomainByID(ctx context.Context, conn *ec2.EC2, i
 	return output, nil
 }
 
+
 func FindTransitGatewayMulticastDomainAssociation(ctx context.Context, conn *ec2.EC2, input *ec2.GetTransitGatewayMulticastDomainAssociationsInput) (*ec2.TransitGatewayMulticastDomainAssociation, error) {
 	output, err := FindTransitGatewayMulticastDomainAssociations(ctx, conn, input)
 
@@ -4277,10 +4509,12 @@ func FindTransitGatewayMulticastDomainAssociation(ctx context.Context, conn *ec2
 	return output[0], nil
 }
 
+
 func FindTransitGatewayMulticastDomainAssociations(ctx context.Context, conn *ec2.EC2, input *ec2.GetTransitGatewayMulticastDomainAssociationsInput) ([]*ec2.TransitGatewayMulticastDomainAssociation, error) {
 	var output []*ec2.TransitGatewayMulticastDomainAssociation
 
-	err := conn.GetTransitGatewayMulticastDomainAssociationsPagesWithContext(ctx, input, func(page *ec2.GetTransitGatewayMulticastDomainAssociationsOutput, lastPage bool) bool {
+	err := conn.GetTransitGatewayMulticastDomainAssociationsPagesWithContext(ctx, input, 
+func(page *ec2.GetTransitGatewayMulticastDomainAssociationsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -4307,6 +4541,7 @@ func FindTransitGatewayMulticastDomainAssociations(ctx context.Context, conn *ec
 
 	return output, nil
 }
+
 
 func FindTransitGatewayMulticastDomainAssociationByThreePartKey(ctx context.Context, conn *ec2.EC2, multicastDomainID, attachmentID, subnetID string) (*ec2.TransitGatewayMulticastDomainAssociation, error) {
 	input := &ec2.GetTransitGatewayMulticastDomainAssociationsInput{
@@ -4340,10 +4575,12 @@ func FindTransitGatewayMulticastDomainAssociationByThreePartKey(ctx context.Cont
 	return output, nil
 }
 
+
 func FindTransitGatewayMulticastGroups(ctx context.Context, conn *ec2.EC2, input *ec2.SearchTransitGatewayMulticastGroupsInput) ([]*ec2.TransitGatewayMulticastGroup, error) {
 	var output []*ec2.TransitGatewayMulticastGroup
 
-	err := conn.SearchTransitGatewayMulticastGroupsPagesWithContext(ctx, input, func(page *ec2.SearchTransitGatewayMulticastGroupsOutput, lastPage bool) bool {
+	err := conn.SearchTransitGatewayMulticastGroupsPagesWithContext(ctx, input, 
+func(page *ec2.SearchTransitGatewayMulticastGroupsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -4370,6 +4607,7 @@ func FindTransitGatewayMulticastGroups(ctx context.Context, conn *ec2.EC2, input
 
 	return output, nil
 }
+
 
 func FindTransitGatewayMulticastGroupMemberByThreePartKey(ctx context.Context, conn *ec2.EC2, multicastDomainID, groupIPAddress, eniID string) (*ec2.TransitGatewayMulticastGroup, error) {
 	input := &ec2.SearchTransitGatewayMulticastGroupsInput{
@@ -4407,6 +4645,7 @@ func FindTransitGatewayMulticastGroupMemberByThreePartKey(ctx context.Context, c
 	return nil, tfresource.NewEmptyResultError(input)
 }
 
+
 func FindTransitGatewayMulticastGroupSourceByThreePartKey(ctx context.Context, conn *ec2.EC2, multicastDomainID, groupIPAddress, eniID string) (*ec2.TransitGatewayMulticastGroup, error) {
 	input := &ec2.SearchTransitGatewayMulticastGroupsInput{
 		Filters: BuildAttributeFilterList(map[string]string{
@@ -4443,6 +4682,7 @@ func FindTransitGatewayMulticastGroupSourceByThreePartKey(ctx context.Context, c
 	return nil, tfresource.NewEmptyResultError(input)
 }
 
+
 func FindTransitGatewayPeeringAttachment(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeTransitGatewayPeeringAttachmentsInput) (*ec2.TransitGatewayPeeringAttachment, error) {
 	output, err := FindTransitGatewayPeeringAttachments(ctx, conn, input)
 
@@ -4461,10 +4701,12 @@ func FindTransitGatewayPeeringAttachment(ctx context.Context, conn *ec2.EC2, inp
 	return output[0], nil
 }
 
+
 func FindTransitGatewayPeeringAttachments(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeTransitGatewayPeeringAttachmentsInput) ([]*ec2.TransitGatewayPeeringAttachment, error) {
 	var output []*ec2.TransitGatewayPeeringAttachment
 
-	err := conn.DescribeTransitGatewayPeeringAttachmentsPagesWithContext(ctx, input, func(page *ec2.DescribeTransitGatewayPeeringAttachmentsOutput, lastPage bool) bool {
+	err := conn.DescribeTransitGatewayPeeringAttachmentsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeTransitGatewayPeeringAttachmentsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -4491,6 +4733,7 @@ func FindTransitGatewayPeeringAttachments(ctx context.Context, conn *ec2.EC2, in
 
 	return output, nil
 }
+
 
 func FindTransitGatewayPeeringAttachmentByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.TransitGatewayPeeringAttachment, error) {
 	input := &ec2.DescribeTransitGatewayPeeringAttachmentsInput{
@@ -4524,6 +4767,7 @@ func FindTransitGatewayPeeringAttachmentByID(ctx context.Context, conn *ec2.EC2,
 	return output, nil
 }
 
+
 func FindTransitGatewayPrefixListReference(ctx context.Context, conn *ec2.EC2, input *ec2.GetTransitGatewayPrefixListReferencesInput) (*ec2.TransitGatewayPrefixListReference, error) {
 	output, err := FindTransitGatewayPrefixListReferences(ctx, conn, input)
 
@@ -4542,10 +4786,12 @@ func FindTransitGatewayPrefixListReference(ctx context.Context, conn *ec2.EC2, i
 	return output[0], nil
 }
 
+
 func FindTransitGatewayPrefixListReferences(ctx context.Context, conn *ec2.EC2, input *ec2.GetTransitGatewayPrefixListReferencesInput) ([]*ec2.TransitGatewayPrefixListReference, error) {
 	var output []*ec2.TransitGatewayPrefixListReference
 
-	err := conn.GetTransitGatewayPrefixListReferencesPagesWithContext(ctx, input, func(page *ec2.GetTransitGatewayPrefixListReferencesOutput, lastPage bool) bool {
+	err := conn.GetTransitGatewayPrefixListReferencesPagesWithContext(ctx, input, 
+func(page *ec2.GetTransitGatewayPrefixListReferencesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -4573,6 +4819,7 @@ func FindTransitGatewayPrefixListReferences(ctx context.Context, conn *ec2.EC2, 
 	return output, nil
 }
 
+
 func FindTransitGatewayPrefixListReferenceByTwoPartKey(ctx context.Context, conn *ec2.EC2, transitGatewayRouteTableID, prefixListID string) (*ec2.TransitGatewayPrefixListReference, error) {
 	input := &ec2.GetTransitGatewayPrefixListReferencesInput{
 		Filters: BuildAttributeFilterList(map[string]string{
@@ -4596,6 +4843,7 @@ func FindTransitGatewayPrefixListReferenceByTwoPartKey(ctx context.Context, conn
 
 	return output, nil
 }
+
 
 func FindTransitGatewayStaticRoute(ctx context.Context, conn *ec2.EC2, transitGatewayRouteTableID, destination string) (*ec2.TransitGatewayRoute, error) {
 	input := &ec2.SearchTransitGatewayRoutesInput{
@@ -4633,6 +4881,7 @@ func FindTransitGatewayStaticRoute(ctx context.Context, conn *ec2.EC2, transitGa
 	return nil, &retry.NotFoundError{}
 }
 
+
 func FindTransitGatewayRoutes(ctx context.Context, conn *ec2.EC2, input *ec2.SearchTransitGatewayRoutesInput) ([]*ec2.TransitGatewayRoute, error) {
 	output, err := conn.SearchTransitGatewayRoutesWithContext(ctx, input)
 
@@ -4654,6 +4903,7 @@ func FindTransitGatewayRoutes(ctx context.Context, conn *ec2.EC2, input *ec2.Sea
 	return output.Routes, err
 }
 
+
 func FindTransitGatewayPolicyTable(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeTransitGatewayPolicyTablesInput) (*ec2.TransitGatewayPolicyTable, error) {
 	output, err := FindTransitGatewayPolicyTables(ctx, conn, input)
 
@@ -4671,6 +4921,7 @@ func FindTransitGatewayPolicyTable(ctx context.Context, conn *ec2.EC2, input *ec
 
 	return output[0], nil
 }
+
 
 func FindTransitGatewayRouteTable(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeTransitGatewayRouteTablesInput) (*ec2.TransitGatewayRouteTable, error) {
 	output, err := FindTransitGatewayRouteTables(ctx, conn, input)
@@ -4690,10 +4941,12 @@ func FindTransitGatewayRouteTable(ctx context.Context, conn *ec2.EC2, input *ec2
 	return output[0], nil
 }
 
+
 func FindTransitGatewayPolicyTables(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeTransitGatewayPolicyTablesInput) ([]*ec2.TransitGatewayPolicyTable, error) {
 	var output []*ec2.TransitGatewayPolicyTable
 
-	err := conn.DescribeTransitGatewayPolicyTablesPagesWithContext(ctx, input, func(page *ec2.DescribeTransitGatewayPolicyTablesOutput, lastPage bool) bool {
+	err := conn.DescribeTransitGatewayPolicyTablesPagesWithContext(ctx, input, 
+func(page *ec2.DescribeTransitGatewayPolicyTablesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -4721,10 +4974,12 @@ func FindTransitGatewayPolicyTables(ctx context.Context, conn *ec2.EC2, input *e
 	return output, nil
 }
 
+
 func FindTransitGatewayRouteTables(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeTransitGatewayRouteTablesInput) ([]*ec2.TransitGatewayRouteTable, error) {
 	var output []*ec2.TransitGatewayRouteTable
 
-	err := conn.DescribeTransitGatewayRouteTablesPagesWithContext(ctx, input, func(page *ec2.DescribeTransitGatewayRouteTablesOutput, lastPage bool) bool {
+	err := conn.DescribeTransitGatewayRouteTablesPagesWithContext(ctx, input, 
+func(page *ec2.DescribeTransitGatewayRouteTablesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -4752,6 +5007,7 @@ func FindTransitGatewayRouteTables(ctx context.Context, conn *ec2.EC2, input *ec
 	return output, nil
 }
 
+
 func FindTransitGatewayPolicyTableByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.TransitGatewayPolicyTable, error) {
 	input := &ec2.DescribeTransitGatewayPolicyTablesInput{
 		TransitGatewayPolicyTableIds: aws.StringSlice([]string{id}),
@@ -4772,6 +5028,7 @@ func FindTransitGatewayPolicyTableByID(ctx context.Context, conn *ec2.EC2, id st
 
 	return output, nil
 }
+
 
 func FindTransitGatewayRouteTableByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.TransitGatewayRouteTable, error) {
 	input := &ec2.DescribeTransitGatewayRouteTablesInput{
@@ -4800,6 +5057,7 @@ func FindTransitGatewayRouteTableByID(ctx context.Context, conn *ec2.EC2, id str
 
 	return output, nil
 }
+
 
 func FindTransitGatewayPolicyTableAssociationByTwoPartKey(ctx context.Context, conn *ec2.EC2, transitGatewayPolicyTableID, transitGatewayAttachmentID string) (*ec2.TransitGatewayPolicyTableAssociation, error) {
 	input := &ec2.GetTransitGatewayPolicyTableAssociationsInput{
@@ -4832,6 +5090,7 @@ func FindTransitGatewayPolicyTableAssociationByTwoPartKey(ctx context.Context, c
 	return output, err
 }
 
+
 func FindTransitGatewayRouteTableAssociationByTwoPartKey(ctx context.Context, conn *ec2.EC2, transitGatewayRouteTableID, transitGatewayAttachmentID string) (*ec2.TransitGatewayRouteTableAssociation, error) {
 	input := &ec2.GetTransitGatewayRouteTableAssociationsInput{
 		Filters: BuildAttributeFilterList(map[string]string{
@@ -4863,6 +5122,7 @@ func FindTransitGatewayRouteTableAssociationByTwoPartKey(ctx context.Context, co
 	return output, err
 }
 
+
 func FindTransitGatewayRouteTableAssociation(ctx context.Context, conn *ec2.EC2, input *ec2.GetTransitGatewayRouteTableAssociationsInput) (*ec2.TransitGatewayRouteTableAssociation, error) {
 	output, err := FindTransitGatewayRouteTableAssociations(ctx, conn, input)
 
@@ -4881,10 +5141,12 @@ func FindTransitGatewayRouteTableAssociation(ctx context.Context, conn *ec2.EC2,
 	return output[0], nil
 }
 
+
 func FindTransitGatewayPolicyTableAssociations(ctx context.Context, conn *ec2.EC2, input *ec2.GetTransitGatewayPolicyTableAssociationsInput) ([]*ec2.TransitGatewayPolicyTableAssociation, error) {
 	var output []*ec2.TransitGatewayPolicyTableAssociation
 
-	err := conn.GetTransitGatewayPolicyTableAssociationsPagesWithContext(ctx, input, func(page *ec2.GetTransitGatewayPolicyTableAssociationsOutput, lastPage bool) bool {
+	err := conn.GetTransitGatewayPolicyTableAssociationsPagesWithContext(ctx, input, 
+func(page *ec2.GetTransitGatewayPolicyTableAssociationsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -4912,6 +5174,7 @@ func FindTransitGatewayPolicyTableAssociations(ctx context.Context, conn *ec2.EC
 	return output, nil
 }
 
+
 func FindTransitGatewayPolicyTableAssociation(ctx context.Context, conn *ec2.EC2, input *ec2.GetTransitGatewayPolicyTableAssociationsInput) (*ec2.TransitGatewayPolicyTableAssociation, error) {
 	output, err := FindTransitGatewayPolicyTableAssociations(ctx, conn, input)
 
@@ -4930,10 +5193,12 @@ func FindTransitGatewayPolicyTableAssociation(ctx context.Context, conn *ec2.EC2
 	return output[0], nil
 }
 
+
 func FindTransitGatewayRouteTableAssociations(ctx context.Context, conn *ec2.EC2, input *ec2.GetTransitGatewayRouteTableAssociationsInput) ([]*ec2.TransitGatewayRouteTableAssociation, error) {
 	var output []*ec2.TransitGatewayRouteTableAssociation
 
-	err := conn.GetTransitGatewayRouteTableAssociationsPagesWithContext(ctx, input, func(page *ec2.GetTransitGatewayRouteTableAssociationsOutput, lastPage bool) bool {
+	err := conn.GetTransitGatewayRouteTableAssociationsPagesWithContext(ctx, input, 
+func(page *ec2.GetTransitGatewayRouteTableAssociationsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -4960,6 +5225,7 @@ func FindTransitGatewayRouteTableAssociations(ctx context.Context, conn *ec2.EC2
 
 	return output, nil
 }
+
 
 func FindTransitGatewayRouteTablePropagationByTwoPartKey(ctx context.Context, conn *ec2.EC2, transitGatewayRouteTableID string, transitGatewayAttachmentID string) (*ec2.TransitGatewayRouteTablePropagation, error) {
 	input := &ec2.GetTransitGatewayRouteTablePropagationsInput{
@@ -4992,6 +5258,7 @@ func FindTransitGatewayRouteTablePropagationByTwoPartKey(ctx context.Context, co
 	return output, err
 }
 
+
 func FindTransitGatewayRouteTablePropagation(ctx context.Context, conn *ec2.EC2, input *ec2.GetTransitGatewayRouteTablePropagationsInput) (*ec2.TransitGatewayRouteTablePropagation, error) {
 	output, err := FindTransitGatewayRouteTablePropagations(ctx, conn, input)
 
@@ -5010,10 +5277,12 @@ func FindTransitGatewayRouteTablePropagation(ctx context.Context, conn *ec2.EC2,
 	return output[0], nil
 }
 
+
 func FindTransitGatewayRouteTablePropagations(ctx context.Context, conn *ec2.EC2, input *ec2.GetTransitGatewayRouteTablePropagationsInput) ([]*ec2.TransitGatewayRouteTablePropagation, error) {
 	var output []*ec2.TransitGatewayRouteTablePropagation
 
-	err := conn.GetTransitGatewayRouteTablePropagationsPagesWithContext(ctx, input, func(page *ec2.GetTransitGatewayRouteTablePropagationsOutput, lastPage bool) bool {
+	err := conn.GetTransitGatewayRouteTablePropagationsPagesWithContext(ctx, input, 
+func(page *ec2.GetTransitGatewayRouteTablePropagationsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -5041,6 +5310,7 @@ func FindTransitGatewayRouteTablePropagations(ctx context.Context, conn *ec2.EC2
 	return output, nil
 }
 
+
 func FindTransitGatewayVPCAttachment(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeTransitGatewayVpcAttachmentsInput) (*ec2.TransitGatewayVpcAttachment, error) {
 	output, err := FindTransitGatewayVPCAttachments(ctx, conn, input)
 
@@ -5059,10 +5329,12 @@ func FindTransitGatewayVPCAttachment(ctx context.Context, conn *ec2.EC2, input *
 	return output[0], nil
 }
 
+
 func FindTransitGatewayVPCAttachments(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeTransitGatewayVpcAttachmentsInput) ([]*ec2.TransitGatewayVpcAttachment, error) {
 	var output []*ec2.TransitGatewayVpcAttachment
 
-	err := conn.DescribeTransitGatewayVpcAttachmentsPagesWithContext(ctx, input, func(page *ec2.DescribeTransitGatewayVpcAttachmentsOutput, lastPage bool) bool {
+	err := conn.DescribeTransitGatewayVpcAttachmentsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeTransitGatewayVpcAttachmentsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -5089,6 +5361,7 @@ func FindTransitGatewayVPCAttachments(ctx context.Context, conn *ec2.EC2, input 
 
 	return output, nil
 }
+
 
 func FindTransitGatewayVPCAttachmentByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.TransitGatewayVpcAttachment, error) {
 	input := &ec2.DescribeTransitGatewayVpcAttachmentsInput{
@@ -5122,6 +5395,7 @@ func FindTransitGatewayVPCAttachmentByID(ctx context.Context, conn *ec2.EC2, id 
 	return output, nil
 }
 
+
 func FindDHCPOptions(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeDhcpOptionsInput) (*ec2.DhcpOptions, error) {
 	output, err := FindDHCPOptionses(ctx, conn, input)
 
@@ -5140,10 +5414,12 @@ func FindDHCPOptions(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeDhcp
 	return output[0], nil
 }
 
+
 func FindDHCPOptionses(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeDhcpOptionsInput) ([]*ec2.DhcpOptions, error) {
 	var output []*ec2.DhcpOptions
 
-	err := conn.DescribeDhcpOptionsPagesWithContext(ctx, input, func(page *ec2.DescribeDhcpOptionsOutput, lastPage bool) bool {
+	err := conn.DescribeDhcpOptionsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeDhcpOptionsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -5171,6 +5447,7 @@ func FindDHCPOptionses(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeDh
 	return output, nil
 }
 
+
 func FindDHCPOptionsByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.DhcpOptions, error) {
 	input := &ec2.DescribeDhcpOptionsInput{
 		DhcpOptionsIds: aws.StringSlice([]string{id}),
@@ -5192,6 +5469,7 @@ func FindDHCPOptionsByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.Dh
 	return output, nil
 }
 
+
 func FindEgressOnlyInternetGateway(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeEgressOnlyInternetGatewaysInput) (*ec2.EgressOnlyInternetGateway, error) {
 	output, err := FindEgressOnlyInternetGateways(ctx, conn, input)
 
@@ -5210,10 +5488,12 @@ func FindEgressOnlyInternetGateway(ctx context.Context, conn *ec2.EC2, input *ec
 	return output[0], nil
 }
 
+
 func FindEgressOnlyInternetGateways(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeEgressOnlyInternetGatewaysInput) ([]*ec2.EgressOnlyInternetGateway, error) {
 	var output []*ec2.EgressOnlyInternetGateway
 
-	err := conn.DescribeEgressOnlyInternetGatewaysPagesWithContext(ctx, input, func(page *ec2.DescribeEgressOnlyInternetGatewaysOutput, lastPage bool) bool {
+	err := conn.DescribeEgressOnlyInternetGatewaysPagesWithContext(ctx, input, 
+func(page *ec2.DescribeEgressOnlyInternetGatewaysOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -5233,6 +5513,7 @@ func FindEgressOnlyInternetGateways(ctx context.Context, conn *ec2.EC2, input *e
 
 	return output, nil
 }
+
 
 func FindEgressOnlyInternetGatewayByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.EgressOnlyInternetGateway, error) {
 	input := &ec2.DescribeEgressOnlyInternetGatewaysInput{
@@ -5255,6 +5536,7 @@ func FindEgressOnlyInternetGatewayByID(ctx context.Context, conn *ec2.EC2, id st
 	return output, nil
 }
 
+
 func FindFleet(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeFleetsInput) (*ec2.FleetData, error) {
 	output, err := FindFleets(ctx, conn, input)
 
@@ -5273,10 +5555,12 @@ func FindFleet(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeFleetsInpu
 	return output[0], nil
 }
 
+
 func FindFleets(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeFleetsInput) ([]*ec2.FleetData, error) {
 	var output []*ec2.FleetData
 
-	err := conn.DescribeFleetsPagesWithContext(ctx, input, func(page *ec2.DescribeFleetsOutput, lastPage bool) bool {
+	err := conn.DescribeFleetsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeFleetsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -5303,6 +5587,7 @@ func FindFleets(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeFleetsInp
 
 	return output, nil
 }
+
 
 func FindFleetByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.FleetData, error) {
 	input := &ec2.DescribeFleetsInput{
@@ -5332,6 +5617,7 @@ func FindFleetByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.FleetDat
 	return output, nil
 }
 
+
 func FindFlowLogByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.FlowLog, error) {
 	input := &ec2.DescribeFlowLogsInput{
 		FlowLogIds: aws.StringSlice([]string{id}),
@@ -5353,10 +5639,12 @@ func FindFlowLogByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.FlowLo
 	return output, nil
 }
 
+
 func FindFlowLogs(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeFlowLogsInput) ([]*ec2.FlowLog, error) {
 	var output []*ec2.FlowLog
 
-	err := conn.DescribeFlowLogsPagesWithContext(ctx, input, func(page *ec2.DescribeFlowLogsOutput, lastPage bool) bool {
+	err := conn.DescribeFlowLogsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeFlowLogsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -5377,6 +5665,7 @@ func FindFlowLogs(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeFlowLog
 	return output, nil
 }
 
+
 func FindFlowLog(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeFlowLogsInput) (*ec2.FlowLog, error) {
 	output, err := FindFlowLogs(ctx, conn, input)
 
@@ -5394,6 +5683,7 @@ func FindFlowLog(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeFlowLogs
 
 	return output[0], nil
 }
+
 
 func FindInternetGateway(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeInternetGatewaysInput) (*ec2.InternetGateway, error) {
 	output, err := FindInternetGateways(ctx, conn, input)
@@ -5413,10 +5703,12 @@ func FindInternetGateway(ctx context.Context, conn *ec2.EC2, input *ec2.Describe
 	return output[0], nil
 }
 
+
 func FindInternetGateways(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeInternetGatewaysInput) ([]*ec2.InternetGateway, error) {
 	var output []*ec2.InternetGateway
 
-	err := conn.DescribeInternetGatewaysPagesWithContext(ctx, input, func(page *ec2.DescribeInternetGatewaysOutput, lastPage bool) bool {
+	err := conn.DescribeInternetGatewaysPagesWithContext(ctx, input, 
+func(page *ec2.DescribeInternetGatewaysOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -5444,6 +5736,7 @@ func FindInternetGateways(ctx context.Context, conn *ec2.EC2, input *ec2.Describ
 	return output, nil
 }
 
+
 func FindInternetGatewayByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.InternetGateway, error) {
 	input := &ec2.DescribeInternetGatewaysInput{
 		InternetGatewayIds: aws.StringSlice([]string{id}),
@@ -5464,6 +5757,7 @@ func FindInternetGatewayByID(ctx context.Context, conn *ec2.EC2, id string) (*ec
 
 	return output, nil
 }
+
 
 func FindInternetGatewayAttachment(ctx context.Context, conn *ec2.EC2, internetGatewayID, vpcID string) (*ec2.InternetGatewayAttachment, error) {
 	internetGateway, err := FindInternetGatewayByID(ctx, conn, internetGatewayID)
@@ -5489,6 +5783,7 @@ func FindInternetGatewayAttachment(ctx context.Context, conn *ec2.EC2, internetG
 	return attachment, nil
 }
 
+
 func FindIPAM(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeIpamsInput) (*ec2.Ipam, error) {
 	output, err := FindIPAMs(ctx, conn, input)
 
@@ -5507,10 +5802,12 @@ func FindIPAM(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeIpamsInput)
 	return output[0], nil
 }
 
+
 func FindIPAMs(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeIpamsInput) ([]*ec2.Ipam, error) {
 	var output []*ec2.Ipam
 
-	err := conn.DescribeIpamsPagesWithContext(ctx, input, func(page *ec2.DescribeIpamsOutput, lastPage bool) bool {
+	err := conn.DescribeIpamsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeIpamsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -5537,6 +5834,7 @@ func FindIPAMs(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeIpamsInput
 
 	return output, nil
 }
+
 
 func FindIPAMByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.Ipam, error) {
 	input := &ec2.DescribeIpamsInput{
@@ -5566,6 +5864,7 @@ func FindIPAMByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.Ipam, err
 	return output, nil
 }
 
+
 func FindIPAMPool(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeIpamPoolsInput) (*ec2.IpamPool, error) {
 	output, err := FindIPAMPools(ctx, conn, input)
 
@@ -5584,10 +5883,12 @@ func FindIPAMPool(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeIpamPoo
 	return output[0], nil
 }
 
+
 func FindIPAMPools(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeIpamPoolsInput) ([]*ec2.IpamPool, error) {
 	var output []*ec2.IpamPool
 
-	err := conn.DescribeIpamPoolsPagesWithContext(ctx, input, func(page *ec2.DescribeIpamPoolsOutput, lastPage bool) bool {
+	err := conn.DescribeIpamPoolsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeIpamPoolsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -5614,6 +5915,7 @@ func FindIPAMPools(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeIpamPo
 
 	return output, nil
 }
+
 
 func FindIPAMPoolByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.IpamPool, error) {
 	input := &ec2.DescribeIpamPoolsInput{
@@ -5643,6 +5945,7 @@ func FindIPAMPoolByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.IpamP
 	return output, nil
 }
 
+
 func FindIPAMPoolAllocation(ctx context.Context, conn *ec2.EC2, input *ec2.GetIpamPoolAllocationsInput) (*ec2.IpamPoolAllocation, error) {
 	output, err := FindIPAMPoolAllocations(ctx, conn, input)
 
@@ -5661,10 +5964,12 @@ func FindIPAMPoolAllocation(ctx context.Context, conn *ec2.EC2, input *ec2.GetIp
 	return output[0], nil
 }
 
+
 func FindIPAMPoolAllocations(ctx context.Context, conn *ec2.EC2, input *ec2.GetIpamPoolAllocationsInput) ([]*ec2.IpamPoolAllocation, error) {
 	var output []*ec2.IpamPoolAllocation
 
-	err := conn.GetIpamPoolAllocationsPagesWithContext(ctx, input, func(page *ec2.GetIpamPoolAllocationsOutput, lastPage bool) bool {
+	err := conn.GetIpamPoolAllocationsPagesWithContext(ctx, input, 
+func(page *ec2.GetIpamPoolAllocationsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -5692,6 +5997,7 @@ func FindIPAMPoolAllocations(ctx context.Context, conn *ec2.EC2, input *ec2.GetI
 	return output, nil
 }
 
+
 func FindIPAMPoolAllocationByTwoPartKey(ctx context.Context, conn *ec2.EC2, allocationID, poolID string) (*ec2.IpamPoolAllocation, error) {
 	input := &ec2.GetIpamPoolAllocationsInput{
 		IpamPoolAllocationId: aws.String(allocationID),
@@ -5714,6 +6020,7 @@ func FindIPAMPoolAllocationByTwoPartKey(ctx context.Context, conn *ec2.EC2, allo
 	return output, nil
 }
 
+
 func FindIPAMPoolCIDR(ctx context.Context, conn *ec2.EC2, input *ec2.GetIpamPoolCidrsInput) (*ec2.IpamPoolCidr, error) {
 	output, err := FindIPAMPoolCIDRs(ctx, conn, input)
 
@@ -5732,10 +6039,12 @@ func FindIPAMPoolCIDR(ctx context.Context, conn *ec2.EC2, input *ec2.GetIpamPool
 	return output[0], nil
 }
 
+
 func FindIPAMPoolCIDRs(ctx context.Context, conn *ec2.EC2, input *ec2.GetIpamPoolCidrsInput) ([]*ec2.IpamPoolCidr, error) {
 	var output []*ec2.IpamPoolCidr
 
-	err := conn.GetIpamPoolCidrsPagesWithContext(ctx, input, func(page *ec2.GetIpamPoolCidrsOutput, lastPage bool) bool {
+	err := conn.GetIpamPoolCidrsPagesWithContext(ctx, input, 
+func(page *ec2.GetIpamPoolCidrsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -5762,6 +6071,7 @@ func FindIPAMPoolCIDRs(ctx context.Context, conn *ec2.EC2, input *ec2.GetIpamPoo
 
 	return output, nil
 }
+
 
 func FindIPAMPoolCIDRByTwoPartKey(ctx context.Context, conn *ec2.EC2, cidrBlock, poolID string) (*ec2.IpamPoolCidr, error) {
 	input := &ec2.GetIpamPoolCidrsInput{
@@ -5793,6 +6103,7 @@ func FindIPAMPoolCIDRByTwoPartKey(ctx context.Context, conn *ec2.EC2, cidrBlock,
 
 	return output, nil
 }
+
 
 func FindIPAMPoolCIDRByPoolCIDRId(ctx context.Context, conn *ec2.EC2, poolCidrId, poolID string) (*ec2.IpamPoolCidr, error) {
 	input := &ec2.GetIpamPoolCidrsInput{
@@ -5826,6 +6137,7 @@ func FindIPAMPoolCIDRByPoolCIDRId(ctx context.Context, conn *ec2.EC2, poolCidrId
 	return output, nil
 }
 
+
 func FindIPAMResourceDiscovery(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeIpamResourceDiscoveriesInput) (*ec2.IpamResourceDiscovery, error) {
 	output, err := FindIPAMResourceDiscoveries(ctx, conn, input)
 
@@ -5844,10 +6156,12 @@ func FindIPAMResourceDiscovery(ctx context.Context, conn *ec2.EC2, input *ec2.De
 	return output[0], nil
 }
 
+
 func FindIPAMResourceDiscoveries(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeIpamResourceDiscoveriesInput) ([]*ec2.IpamResourceDiscovery, error) {
 	var output []*ec2.IpamResourceDiscovery
 
-	err := conn.DescribeIpamResourceDiscoveriesPagesWithContext(ctx, input, func(page *ec2.DescribeIpamResourceDiscoveriesOutput, lastPage bool) bool {
+	err := conn.DescribeIpamResourceDiscoveriesPagesWithContext(ctx, input, 
+func(page *ec2.DescribeIpamResourceDiscoveriesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -5874,6 +6188,7 @@ func FindIPAMResourceDiscoveries(ctx context.Context, conn *ec2.EC2, input *ec2.
 
 	return output, nil
 }
+
 
 func FindIPAMResourceDiscoveryByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.IpamResourceDiscovery, error) {
 	input := &ec2.DescribeIpamResourceDiscoveriesInput{
@@ -5903,6 +6218,7 @@ func FindIPAMResourceDiscoveryByID(ctx context.Context, conn *ec2.EC2, id string
 	return output, nil
 }
 
+
 func FindIPAMResourceDiscoveryAssociation(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeIpamResourceDiscoveryAssociationsInput) (*ec2.IpamResourceDiscoveryAssociation, error) {
 	output, err := FindIPAMResourceDiscoveryAssociations(ctx, conn, input)
 
@@ -5921,10 +6237,12 @@ func FindIPAMResourceDiscoveryAssociation(ctx context.Context, conn *ec2.EC2, in
 	return output[0], nil
 }
 
+
 func FindIPAMResourceDiscoveryAssociations(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeIpamResourceDiscoveryAssociationsInput) ([]*ec2.IpamResourceDiscoveryAssociation, error) {
 	var output []*ec2.IpamResourceDiscoveryAssociation
 
-	err := conn.DescribeIpamResourceDiscoveryAssociationsPagesWithContext(ctx, input, func(page *ec2.DescribeIpamResourceDiscoveryAssociationsOutput, lastPage bool) bool {
+	err := conn.DescribeIpamResourceDiscoveryAssociationsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeIpamResourceDiscoveryAssociationsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -5951,6 +6269,7 @@ func FindIPAMResourceDiscoveryAssociations(ctx context.Context, conn *ec2.EC2, i
 
 	return output, nil
 }
+
 
 func FindIPAMResourceDiscoveryAssociationByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.IpamResourceDiscoveryAssociation, error) {
 	input := &ec2.DescribeIpamResourceDiscoveryAssociationsInput{
@@ -5980,6 +6299,7 @@ func FindIPAMResourceDiscoveryAssociationByID(ctx context.Context, conn *ec2.EC2
 	return output, nil
 }
 
+
 func FindIPAMScope(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeIpamScopesInput) (*ec2.IpamScope, error) {
 	output, err := FindIPAMScopes(ctx, conn, input)
 
@@ -5998,10 +6318,12 @@ func FindIPAMScope(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeIpamSc
 	return output[0], nil
 }
 
+
 func FindIPAMScopes(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeIpamScopesInput) ([]*ec2.IpamScope, error) {
 	var output []*ec2.IpamScope
 
-	err := conn.DescribeIpamScopesPagesWithContext(ctx, input, func(page *ec2.DescribeIpamScopesOutput, lastPage bool) bool {
+	err := conn.DescribeIpamScopesPagesWithContext(ctx, input, 
+func(page *ec2.DescribeIpamScopesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -6028,6 +6350,7 @@ func FindIPAMScopes(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeIpamS
 
 	return output, nil
 }
+
 
 func FindIPAMScopeByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.IpamScope, error) {
 	input := &ec2.DescribeIpamScopesInput{
@@ -6057,6 +6380,7 @@ func FindIPAMScopeByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.Ipam
 	return output, nil
 }
 
+
 func FindKeyPair(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeKeyPairsInput) (*ec2.KeyPairInfo, error) {
 	output, err := FindKeyPairs(ctx, conn, input)
 
@@ -6075,6 +6399,7 @@ func FindKeyPair(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeKeyPairs
 	return output[0], nil
 }
 
+
 func FindKeyPairs(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeKeyPairsInput) ([]*ec2.KeyPairInfo, error) {
 	output, err := conn.DescribeKeyPairsWithContext(ctx, input)
 
@@ -6091,6 +6416,7 @@ func FindKeyPairs(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeKeyPair
 
 	return output.KeyPairs, nil
 }
+
 
 func FindKeyPairByName(ctx context.Context, conn *ec2.EC2, name string) (*ec2.KeyPairInfo, error) {
 	input := &ec2.DescribeKeyPairsInput{
@@ -6113,6 +6439,7 @@ func FindKeyPairByName(ctx context.Context, conn *ec2.EC2, name string) (*ec2.Ke
 	return output, nil
 }
 
+
 func FindLaunchTemplate(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeLaunchTemplatesInput) (*ec2.LaunchTemplate, error) {
 	output, err := FindLaunchTemplates(ctx, conn, input)
 
@@ -6131,10 +6458,12 @@ func FindLaunchTemplate(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeL
 	return output[0], nil
 }
 
+
 func FindLaunchTemplates(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeLaunchTemplatesInput) ([]*ec2.LaunchTemplate, error) {
 	var output []*ec2.LaunchTemplate
 
-	err := conn.DescribeLaunchTemplatesPagesWithContext(ctx, input, func(page *ec2.DescribeLaunchTemplatesOutput, lastPage bool) bool {
+	err := conn.DescribeLaunchTemplatesPagesWithContext(ctx, input, 
+func(page *ec2.DescribeLaunchTemplatesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -6162,6 +6491,7 @@ func FindLaunchTemplates(ctx context.Context, conn *ec2.EC2, input *ec2.Describe
 	return output, nil
 }
 
+
 func FindLaunchTemplateByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.LaunchTemplate, error) {
 	input := &ec2.DescribeLaunchTemplatesInput{
 		LaunchTemplateIds: aws.StringSlice([]string{id}),
@@ -6183,6 +6513,7 @@ func FindLaunchTemplateByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2
 	return output, nil
 }
 
+
 func FindLaunchTemplateVersion(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeLaunchTemplateVersionsInput) (*ec2.LaunchTemplateVersion, error) {
 	output, err := FindLaunchTemplateVersions(ctx, conn, input)
 
@@ -6201,10 +6532,12 @@ func FindLaunchTemplateVersion(ctx context.Context, conn *ec2.EC2, input *ec2.De
 	return output[0], nil
 }
 
+
 func FindLaunchTemplateVersions(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeLaunchTemplateVersionsInput) ([]*ec2.LaunchTemplateVersion, error) {
 	var output []*ec2.LaunchTemplateVersion
 
-	err := conn.DescribeLaunchTemplateVersionsPagesWithContext(ctx, input, func(page *ec2.DescribeLaunchTemplateVersionsOutput, lastPage bool) bool {
+	err := conn.DescribeLaunchTemplateVersionsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeLaunchTemplateVersionsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -6232,6 +6565,7 @@ func FindLaunchTemplateVersions(ctx context.Context, conn *ec2.EC2, input *ec2.D
 	return output, nil
 }
 
+
 func FindLaunchTemplateVersionByTwoPartKey(ctx context.Context, conn *ec2.EC2, launchTemplateID, version string) (*ec2.LaunchTemplateVersion, error) {
 	input := &ec2.DescribeLaunchTemplateVersionsInput{
 		LaunchTemplateId: aws.String(launchTemplateID),
@@ -6254,6 +6588,7 @@ func FindLaunchTemplateVersionByTwoPartKey(ctx context.Context, conn *ec2.EC2, l
 	return output, nil
 }
 
+
 func FindManagedPrefixList(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeManagedPrefixListsInput) (*ec2.ManagedPrefixList, error) {
 	output, err := FindManagedPrefixLists(ctx, conn, input)
 
@@ -6272,10 +6607,12 @@ func FindManagedPrefixList(ctx context.Context, conn *ec2.EC2, input *ec2.Descri
 	return output[0], nil
 }
 
+
 func FindManagedPrefixLists(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeManagedPrefixListsInput) ([]*ec2.ManagedPrefixList, error) {
 	var output []*ec2.ManagedPrefixList
 
-	err := conn.DescribeManagedPrefixListsPagesWithContext(ctx, input, func(page *ec2.DescribeManagedPrefixListsOutput, lastPage bool) bool {
+	err := conn.DescribeManagedPrefixListsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeManagedPrefixListsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -6302,6 +6639,7 @@ func FindManagedPrefixLists(ctx context.Context, conn *ec2.EC2, input *ec2.Descr
 
 	return output, nil
 }
+
 
 func FindManagedPrefixListByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.ManagedPrefixList, error) {
 	input := &ec2.DescribeManagedPrefixListsInput{
@@ -6331,10 +6669,12 @@ func FindManagedPrefixListByID(ctx context.Context, conn *ec2.EC2, id string) (*
 	return output, nil
 }
 
+
 func FindManagedPrefixListEntries(ctx context.Context, conn *ec2.EC2, input *ec2.GetManagedPrefixListEntriesInput) ([]*ec2.PrefixListEntry, error) {
 	var output []*ec2.PrefixListEntry
 
-	err := conn.GetManagedPrefixListEntriesPagesWithContext(ctx, input, func(page *ec2.GetManagedPrefixListEntriesOutput, lastPage bool) bool {
+	err := conn.GetManagedPrefixListEntriesPagesWithContext(ctx, input, 
+func(page *ec2.GetManagedPrefixListEntriesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -6362,6 +6702,7 @@ func FindManagedPrefixListEntries(ctx context.Context, conn *ec2.EC2, input *ec2
 	return output, nil
 }
 
+
 func FindManagedPrefixListEntriesByID(ctx context.Context, conn *ec2.EC2, id string) ([]*ec2.PrefixListEntry, error) {
 	input := &ec2.GetManagedPrefixListEntriesInput{
 		PrefixListId: aws.String(id),
@@ -6369,6 +6710,7 @@ func FindManagedPrefixListEntriesByID(ctx context.Context, conn *ec2.EC2, id str
 
 	return FindManagedPrefixListEntries(ctx, conn, input)
 }
+
 
 func FindManagedPrefixListEntryByIDAndCIDR(ctx context.Context, conn *ec2.EC2, id, cidr string) (*ec2.PrefixListEntry, error) {
 	prefixListEntries, err := FindManagedPrefixListEntriesByID(ctx, conn, id)
@@ -6385,6 +6727,7 @@ func FindManagedPrefixListEntryByIDAndCIDR(ctx context.Context, conn *ec2.EC2, i
 
 	return nil, &retry.NotFoundError{}
 }
+
 
 func FindNATGateway(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeNatGatewaysInput) (*ec2.NatGateway, error) {
 	output, err := FindNATGateways(ctx, conn, input)
@@ -6404,10 +6747,12 @@ func FindNATGateway(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeNatGa
 	return output[0], nil
 }
 
+
 func FindNATGateways(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeNatGatewaysInput) ([]*ec2.NatGateway, error) {
 	var output []*ec2.NatGateway
 
-	err := conn.DescribeNatGatewaysPagesWithContext(ctx, input, func(page *ec2.DescribeNatGatewaysOutput, lastPage bool) bool {
+	err := conn.DescribeNatGatewaysPagesWithContext(ctx, input, 
+func(page *ec2.DescribeNatGatewaysOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -6434,6 +6779,7 @@ func FindNATGateways(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeNatG
 
 	return output, nil
 }
+
 
 func FindNATGatewayByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.NatGateway, error) {
 	input := &ec2.DescribeNatGatewaysInput{
@@ -6463,6 +6809,7 @@ func FindNATGatewayByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.Nat
 	return output, nil
 }
 
+
 func FindNATGatewayAddressByNATGatewayIDAndAllocationID(ctx context.Context, conn *ec2.EC2, natGatewayID, allocationID string) (*ec2.NatGatewayAddress, error) {
 	output, err := FindNATGatewayByID(ctx, conn, natGatewayID)
 
@@ -6479,6 +6826,7 @@ func FindNATGatewayAddressByNATGatewayIDAndAllocationID(ctx context.Context, con
 	return nil, &retry.NotFoundError{}
 }
 
+
 func FindNATGatewayAddressByNATGatewayIDAndPrivateIP(ctx context.Context, conn *ec2.EC2, natGatewayID, privateIP string) (*ec2.NatGatewayAddress, error) {
 	output, err := FindNATGatewayByID(ctx, conn, natGatewayID)
 
@@ -6494,6 +6842,7 @@ func FindNATGatewayAddressByNATGatewayIDAndPrivateIP(ctx context.Context, conn *
 
 	return nil, &retry.NotFoundError{}
 }
+
 
 func FindPlacementGroupByName(ctx context.Context, conn *ec2.EC2, name string) (*ec2.PlacementGroup, error) {
 	input := &ec2.DescribePlacementGroupsInput{
@@ -6533,6 +6882,7 @@ func FindPlacementGroupByName(ctx context.Context, conn *ec2.EC2, name string) (
 	return placementGroup, nil
 }
 
+
 func FindPrefixList(ctx context.Context, conn *ec2.EC2, input *ec2.DescribePrefixListsInput) (*ec2.PrefixList, error) {
 	output, err := FindPrefixLists(ctx, conn, input)
 
@@ -6551,10 +6901,12 @@ func FindPrefixList(ctx context.Context, conn *ec2.EC2, input *ec2.DescribePrefi
 	return output[0], nil
 }
 
+
 func FindPrefixLists(ctx context.Context, conn *ec2.EC2, input *ec2.DescribePrefixListsInput) ([]*ec2.PrefixList, error) {
 	var output []*ec2.PrefixList
 
-	err := conn.DescribePrefixListsPagesWithContext(ctx, input, func(page *ec2.DescribePrefixListsOutput, lastPage bool) bool {
+	err := conn.DescribePrefixListsPagesWithContext(ctx, input, 
+func(page *ec2.DescribePrefixListsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -6582,6 +6934,7 @@ func FindPrefixLists(ctx context.Context, conn *ec2.EC2, input *ec2.DescribePref
 	return output, nil
 }
 
+
 func FindPrefixListByName(ctx context.Context, conn *ec2.EC2, name string) (*ec2.PrefixList, error) {
 	input := &ec2.DescribePrefixListsInput{
 		Filters: BuildAttributeFilterList(map[string]string{
@@ -6591,6 +6944,7 @@ func FindPrefixListByName(ctx context.Context, conn *ec2.EC2, name string) (*ec2
 
 	return FindPrefixList(ctx, conn, input)
 }
+
 
 func FindVPCEndpointConnectionByServiceIDAndVPCEndpointID(ctx context.Context, conn *ec2.EC2, serviceID, vpcEndpointID string) (*ec2.VpcEndpointConnection, error) {
 	input := &ec2.DescribeVpcEndpointConnectionsInput{
@@ -6603,7 +6957,8 @@ func FindVPCEndpointConnectionByServiceIDAndVPCEndpointID(ctx context.Context, c
 
 	var output *ec2.VpcEndpointConnection
 
-	err := conn.DescribeVpcEndpointConnectionsPagesWithContext(ctx, input, func(page *ec2.DescribeVpcEndpointConnectionsOutput, lastPage bool) bool {
+	err := conn.DescribeVpcEndpointConnectionsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeVpcEndpointConnectionsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -6637,10 +6992,12 @@ func FindVPCEndpointConnectionByServiceIDAndVPCEndpointID(ctx context.Context, c
 	return output, nil
 }
 
+
 func FindImportSnapshotTasks(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeImportSnapshotTasksInput) ([]*ec2.ImportSnapshotTask, error) {
 	var output []*ec2.ImportSnapshotTask
 
-	err := conn.DescribeImportSnapshotTasksPagesWithContext(ctx, input, func(page *ec2.DescribeImportSnapshotTasksOutput, lastPage bool) bool {
+	err := conn.DescribeImportSnapshotTasksPagesWithContext(ctx, input, 
+func(page *ec2.DescribeImportSnapshotTasksOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -6668,6 +7025,7 @@ func FindImportSnapshotTasks(ctx context.Context, conn *ec2.EC2, input *ec2.Desc
 	return output, nil
 }
 
+
 func FindImportSnapshotTask(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeImportSnapshotTasksInput) (*ec2.ImportSnapshotTask, error) {
 	output, err := FindImportSnapshotTasks(ctx, conn, input)
 
@@ -6685,6 +7043,7 @@ func FindImportSnapshotTask(ctx context.Context, conn *ec2.EC2, input *ec2.Descr
 
 	return output[0], nil
 }
+
 
 func FindImportSnapshotTaskByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.ImportSnapshotTask, error) {
 	input := &ec2.DescribeImportSnapshotTasksInput{
@@ -6707,10 +7066,12 @@ func FindImportSnapshotTaskByID(ctx context.Context, conn *ec2.EC2, id string) (
 	return output, nil
 }
 
+
 func FindSnapshots(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeSnapshotsInput) ([]*ec2.Snapshot, error) {
 	var output []*ec2.Snapshot
 
-	err := conn.DescribeSnapshotsPagesWithContext(ctx, input, func(page *ec2.DescribeSnapshotsOutput, lastPage bool) bool {
+	err := conn.DescribeSnapshotsPagesWithContext(ctx, input, 
+func(page *ec2.DescribeSnapshotsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -6738,6 +7099,7 @@ func FindSnapshots(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeSnapsh
 	return output, nil
 }
 
+
 func FindSnapshot(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeSnapshotsInput) (*ec2.Snapshot, error) {
 	output, err := FindSnapshots(ctx, conn, input)
 
@@ -6755,6 +7117,7 @@ func FindSnapshot(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeSnapsho
 
 	return output[0], nil
 }
+
 
 func FindSnapshotByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.Snapshot, error) {
 	input := &ec2.DescribeSnapshotsInput{
@@ -6777,6 +7140,7 @@ func FindSnapshotByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.Snaps
 	return output, nil
 }
 
+
 func FindSnapshotAttribute(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeSnapshotAttributeInput) (*ec2.DescribeSnapshotAttributeOutput, error) {
 	output, err := conn.DescribeSnapshotAttributeWithContext(ctx, input)
 
@@ -6797,6 +7161,7 @@ func FindSnapshotAttribute(ctx context.Context, conn *ec2.EC2, input *ec2.Descri
 
 	return output, nil
 }
+
 
 func FindCreateSnapshotCreateVolumePermissionByTwoPartKey(ctx context.Context, conn *ec2.EC2, snapshotID, accountID string) (*ec2.CreateVolumePermission, error) {
 	input := &ec2.DescribeSnapshotAttributeInput{
@@ -6819,10 +7184,12 @@ func FindCreateSnapshotCreateVolumePermissionByTwoPartKey(ctx context.Context, c
 	return nil, &retry.NotFoundError{LastRequest: input}
 }
 
+
 func FindFindSnapshotTierStatuses(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeSnapshotTierStatusInput) ([]*ec2.SnapshotTierStatus, error) {
 	var output []*ec2.SnapshotTierStatus
 
-	err := conn.DescribeSnapshotTierStatusPagesWithContext(ctx, input, func(page *ec2.DescribeSnapshotTierStatusOutput, lastPage bool) bool {
+	err := conn.DescribeSnapshotTierStatusPagesWithContext(ctx, input, 
+func(page *ec2.DescribeSnapshotTierStatusOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}
@@ -6843,6 +7210,7 @@ func FindFindSnapshotTierStatuses(ctx context.Context, conn *ec2.EC2, input *ec2
 	return output, nil
 }
 
+
 func FindFindSnapshotTierStatus(ctx context.Context, conn *ec2.EC2, input *ec2.DescribeSnapshotTierStatusInput) (*ec2.SnapshotTierStatus, error) {
 	output, err := FindFindSnapshotTierStatuses(ctx, conn, input)
 
@@ -6860,6 +7228,7 @@ func FindFindSnapshotTierStatus(ctx context.Context, conn *ec2.EC2, input *ec2.D
 
 	return output[0], nil
 }
+
 
 func FindSnapshotTierStatusBySnapshotID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.SnapshotTierStatus, error) {
 	input := &ec2.DescribeSnapshotTierStatusInput{
@@ -6884,9 +7253,11 @@ func FindSnapshotTierStatusBySnapshotID(ctx context.Context, conn *ec2.EC2, id s
 	return output, nil
 }
 
+
 func FindNetworkPerformanceMetricSubscriptions(ctx context.Context, conn *ec2_sdkv2.Client, input *ec2_sdkv2.DescribeAwsNetworkPerformanceMetricSubscriptionsInput) ([]awstypes.Subscription, error) {
 	var output []awstypes.Subscription
-	paginator := ec2_sdkv2.NewDescribeAwsNetworkPerformanceMetricSubscriptionsPaginator(conn, input, func(o *ec2_sdkv2.DescribeAwsNetworkPerformanceMetricSubscriptionsPaginatorOptions) {
+	paginator := ec2_sdkv2.NewDescribeAwsNetworkPerformanceMetricSubscriptionsPaginator(conn, input, 
+func(o *ec2_sdkv2.DescribeAwsNetworkPerformanceMetricSubscriptionsPaginatorOptions) {
 		o.Limit = 100
 	})
 
@@ -6902,6 +7273,7 @@ func FindNetworkPerformanceMetricSubscriptions(ctx context.Context, conn *ec2_sd
 
 	return output, nil
 }
+
 
 func FindNetworkPerformanceMetricSubscriptionByFourPartKey(ctx context.Context, conn *ec2_sdkv2.Client, source, destination, metric, statistic string) (*awstypes.Subscription, error) {
 	input := &ec2_sdkv2.DescribeAwsNetworkPerformanceMetricSubscriptionsInput{}
@@ -6920,6 +7292,7 @@ func FindNetworkPerformanceMetricSubscriptionByFourPartKey(ctx context.Context, 
 
 	return nil, &retry.NotFoundError{}
 }
+
 
 func FindInstanceStateByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.InstanceState, error) {
 	input := &ec2.DescribeInstanceStatusInput{
@@ -6960,6 +7333,7 @@ func FindInstanceStateByID(ctx context.Context, conn *ec2.EC2, id string) (*ec2.
 	return instanceState, nil
 }
 
+
 func FindInstanceConnectEndpoint(ctx context.Context, conn *ec2_sdkv2.Client, input *ec2_sdkv2.DescribeInstanceConnectEndpointsInput) (*awstypes.Ec2InstanceConnectEndpoint, error) {
 	output, err := FindInstanceConnectEndpoints(ctx, conn, input)
 
@@ -6969,6 +7343,7 @@ func FindInstanceConnectEndpoint(ctx context.Context, conn *ec2_sdkv2.Client, in
 
 	return tfresource.AssertSingleValueResult(output)
 }
+
 
 func FindInstanceConnectEndpoints(ctx context.Context, conn *ec2_sdkv2.Client, input *ec2_sdkv2.DescribeInstanceConnectEndpointsInput) ([]awstypes.Ec2InstanceConnectEndpoint, error) {
 	var output []awstypes.Ec2InstanceConnectEndpoint
@@ -6993,6 +7368,7 @@ func FindInstanceConnectEndpoints(ctx context.Context, conn *ec2_sdkv2.Client, i
 
 	return output, nil
 }
+
 
 func FindInstanceConnectEndpointByID(ctx context.Context, conn *ec2_sdkv2.Client, id string) (*awstypes.Ec2InstanceConnectEndpoint, error) {
 	input := &ec2_sdkv2.DescribeInstanceConnectEndpointsInput{

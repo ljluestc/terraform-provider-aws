@@ -25,6 +25,7 @@ import (
 
 // @SDKResource("aws_emr_studio", name="Studio")
 // @Tags(identifierAttribute="id")
+
 func ResourceStudio() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceStudioCreate,
@@ -46,7 +47,8 @@ func ResourceStudio() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringInSlice(emr.AuthMode_Values(), false),
+				Validate
+func: validation.StringInSlice(emr.AuthMode_Values(), false),
 			},
 			"default_s3_location": {
 				Type:     schema.TypeString,
@@ -55,7 +57,8 @@ func ResourceStudio() *schema.Resource {
 			"description": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				ValidateFunc: validation.StringLenBetween(0, 256),
+				Validate
+func: validation.StringLenBetween(0, 256),
 			},
 			"engine_security_group_id": {
 				Type:     schema.TypeString,
@@ -75,13 +78,15 @@ func ResourceStudio() *schema.Resource {
 			"name": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: validation.StringLenBetween(1, 256),
+				Validate
+func: validation.StringLenBetween(1, 256),
 			},
 			"service_role": {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			"subnet_ids": {
 				Type:     schema.TypeSet,
@@ -96,7 +101,8 @@ func ResourceStudio() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			"url": {
 				Type:     schema.TypeString,
@@ -115,6 +121,7 @@ func ResourceStudio() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceStudioCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -149,7 +156,8 @@ func resourceStudioCreate(ctx context.Context, d *schema.ResourceData, meta inte
 	}
 
 	var result *emr.CreateStudioOutput
-	err := retry.RetryContext(ctx, propagationTimeout, func() *retry.RetryError {
+	err := retry.RetryContext(ctx, propagationTimeout, 
+func() *retry.RetryError {
 		var err error
 		result, err = conn.CreateStudioWithContext(ctx, input)
 		if tfawserr.ErrMessageContains(err, emr.ErrCodeInvalidRequestException, "entity does not have permissions to assume role") {
@@ -174,6 +182,7 @@ func resourceStudioCreate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return append(diags, resourceStudioRead(ctx, d, meta)...)
 }
+
 
 func resourceStudioUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -210,6 +219,7 @@ func resourceStudioUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 	return append(diags, resourceStudioRead(ctx, d, meta)...)
 }
 
+
 func resourceStudioRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EMRConn(ctx)
@@ -244,6 +254,7 @@ func resourceStudioRead(ctx context.Context, d *schema.ResourceData, meta interf
 
 	return diags
 }
+
 
 func resourceStudioDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

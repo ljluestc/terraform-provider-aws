@@ -17,6 +17,7 @@ import (
 )
 
 // @SDKResource("aws_pinpoint_apns_voip_sandbox_channel")
+
 func ResourceAPNSVoIPSandboxChannel() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceAPNSVoIPSandboxChannelUpsert,

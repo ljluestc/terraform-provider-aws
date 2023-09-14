@@ -27,6 +27,7 @@ import (
 
 // @SDKResource("aws_backup_report_plan", name="Report Plan")
 // @Tags(identifierAttribute="arn")
+
 func ResourceReportPlan() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceReportPlanCreate,
@@ -54,13 +55,15 @@ func ResourceReportPlan() *schema.Resource {
 			"description": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				ValidateFunc: validation.StringLenBetween(0, 1024),
+				Validate
+func: validation.StringLenBetween(0, 1024),
 			},
 			"name": {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validReportPlanName,
+				Validate
+func: validReportPlanName,
 			},
 			"report_delivery_channel": {
 				Type:     schema.TypeList,
@@ -73,7 +76,8 @@ func ResourceReportPlan() *schema.Resource {
 							Optional: true,
 							Elem: &schema.Schema{
 								Type:         schema.TypeString,
-								ValidateFunc: validation.StringInSlice(reportDeliveryChannelFormat_Values(), false),
+								Validate
+func: validation.StringInSlice(reportDeliveryChannelFormat_Values(), false),
 							},
 						},
 						"s3_bucket_name": {
@@ -130,7 +134,8 @@ func ResourceReportPlan() *schema.Resource {
 							Type:         schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
-							ValidateFunc: validation.StringInSlice(reportSettingTemplate_Values(), false),
+							Validate
+func: validation.StringInSlice(reportSettingTemplate_Values(), false),
 						},
 					},
 				},
@@ -142,6 +147,7 @@ func ResourceReportPlan() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
+
 
 func resourceReportPlanCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -176,6 +182,7 @@ func resourceReportPlanCreate(ctx context.Context, d *schema.ResourceData, meta 
 	return append(diags, resourceReportPlanRead(ctx, d, meta)...)
 }
 
+
 func resourceReportPlanRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).BackupConn(ctx)
@@ -209,6 +216,7 @@ func resourceReportPlanRead(ctx context.Context, d *schema.ResourceData, meta in
 	return diags
 }
 
+
 func resourceReportPlanUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).BackupConn(ctx)
@@ -237,6 +245,7 @@ func resourceReportPlanUpdate(ctx context.Context, d *schema.ResourceData, meta 
 	return append(diags, resourceReportPlanRead(ctx, d, meta)...)
 }
 
+
 func resourceReportPlanDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).BackupConn(ctx)
@@ -256,6 +265,7 @@ func resourceReportPlanDelete(ctx context.Context, d *schema.ResourceData, meta 
 
 	return diags
 }
+
 
 func expandReportDeliveryChannel(reportDeliveryChannel []interface{}) *backup.ReportDeliveryChannel {
 	if len(reportDeliveryChannel) == 0 || reportDeliveryChannel[0] == nil {
@@ -281,6 +291,7 @@ func expandReportDeliveryChannel(reportDeliveryChannel []interface{}) *backup.Re
 
 	return result
 }
+
 
 func expandReportSetting(reportSetting []interface{}) *backup.ReportSetting {
 	if len(reportSetting) == 0 || reportSetting[0] == nil {
@@ -319,6 +330,7 @@ func expandReportSetting(reportSetting []interface{}) *backup.ReportSetting {
 	return result
 }
 
+
 func flattenReportDeliveryChannel(reportDeliveryChannel *backup.ReportDeliveryChannel) []interface{} {
 	if reportDeliveryChannel == nil {
 		return []interface{}{}
@@ -338,6 +350,7 @@ func flattenReportDeliveryChannel(reportDeliveryChannel *backup.ReportDeliveryCh
 
 	return []interface{}{values}
 }
+
 
 func flattenReportSetting(reportSetting *backup.ReportSetting) []interface{} {
 	if reportSetting == nil {
@@ -371,6 +384,7 @@ func flattenReportSetting(reportSetting *backup.ReportSetting) []interface{} {
 	return []interface{}{values}
 }
 
+
 func FindReportPlanByName(ctx context.Context, conn *backup.Backup, name string) (*backup.ReportPlan, error) {
 	input := &backup.DescribeReportPlanInput{
 		ReportPlanName: aws.String(name),
@@ -396,8 +410,11 @@ func FindReportPlanByName(ctx context.Context, conn *backup.Backup, name string)
 	return output.ReportPlan, nil
 }
 
-func statusReportPlanDeployment(ctx context.Context, conn *backup.Backup, name string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+
+func statusReportPlanDeployment(ctx context.Context, conn *backup.Backup, name string) retry.StateRefresh
+func {
+	return 
+func() (interface{}, string, error) {
 		output, err := FindReportPlanByName(ctx, conn, name)
 
 		if tfresource.NotFound(err) {
@@ -411,6 +428,7 @@ func statusReportPlanDeployment(ctx context.Context, conn *backup.Backup, name s
 		return output, aws.StringValue(output.DeploymentStatus), nil
 	}
 }
+
 
 func waitReportPlanCreated(ctx context.Context, conn *backup.Backup, name string, timeout time.Duration) (*backup.ReportPlan, error) {
 	stateConf := &retry.StateChangeConf{
@@ -429,6 +447,7 @@ func waitReportPlanCreated(ctx context.Context, conn *backup.Backup, name string
 	return nil, err
 }
 
+
 func waitReportPlanDeleted(ctx context.Context, conn *backup.Backup, name string, timeout time.Duration) (*backup.ReportPlan, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{reportPlanDeploymentStatusDeleteInProgress},
@@ -445,6 +464,7 @@ func waitReportPlanDeleted(ctx context.Context, conn *backup.Backup, name string
 
 	return nil, err
 }
+
 
 func waitReportPlanUpdated(ctx context.Context, conn *backup.Backup, name string, timeout time.Duration) (*backup.ReportPlan, error) {
 	stateConf := &retry.StateChangeConf{

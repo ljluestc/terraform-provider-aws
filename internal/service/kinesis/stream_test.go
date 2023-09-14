@@ -20,6 +20,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccKinesisStream_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var stream kinesis.StreamDescriptionSummary
@@ -27,14 +28,16 @@ func TestAccKinesisStream_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, kinesis.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckStreamDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccStreamConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckStreamExists(ctx, resourceName, &stream),
 					acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "kinesis", fmt.Sprintf("stream/%s", rName)),
 					resource.TestCheckResourceAttr(resourceName, "encryption_type", "NONE"),
@@ -60,6 +63,7 @@ func TestAccKinesisStream_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccKinesisStream_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var stream kinesis.StreamDescriptionSummary
@@ -67,14 +71,16 @@ func TestAccKinesisStream_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, kinesis.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckStreamDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccStreamConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckStreamExists(ctx, resourceName, &stream),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfkinesis.ResourceStream(), resourceName),
 				),
@@ -84,6 +90,7 @@ func TestAccKinesisStream_disappears(t *testing.T) {
 	})
 }
 
+
 func TestAccKinesisStream_createMultipleConcurrentStreams(t *testing.T) {
 	ctx := acctest.Context(t)
 	var stream kinesis.StreamDescriptionSummary
@@ -91,14 +98,16 @@ func TestAccKinesisStream_createMultipleConcurrentStreams(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, kinesis.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckStreamDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccStreamConfig_concurrent(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckStreamExists(ctx, "aws_kinesis_stream.test.0", &stream),
 					testAccCheckStreamExists(ctx, "aws_kinesis_stream.test.1", &stream),
 					testAccCheckStreamExists(ctx, "aws_kinesis_stream.test.2", &stream),
@@ -132,12 +141,14 @@ func TestAccKinesisStream_createMultipleConcurrentStreams(t *testing.T) {
 	})
 }
 
+
 func TestAccKinesisStream_encryptionWithoutKMSKeyThrowsError(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, kinesis.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckStreamDestroy(ctx),
@@ -150,6 +161,7 @@ func TestAccKinesisStream_encryptionWithoutKMSKeyThrowsError(t *testing.T) {
 	})
 }
 
+
 func TestAccKinesisStream_encryption(t *testing.T) {
 	ctx := acctest.Context(t)
 	var stream kinesis.StreamDescriptionSummary
@@ -157,14 +169,16 @@ func TestAccKinesisStream_encryption(t *testing.T) {
 	resourceName := "aws_kinesis_stream.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, kinesis.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckStreamDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccStreamConfig_encryption(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckStreamExists(ctx, resourceName, &stream),
 					resource.TestCheckResourceAttr(resourceName, "encryption_type", "KMS"),
 				),
@@ -178,14 +192,16 @@ func TestAccKinesisStream_encryption(t *testing.T) {
 			},
 			{
 				Config: testAccStreamConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckStreamExists(ctx, resourceName, &stream),
 					resource.TestCheckResourceAttr(resourceName, "encryption_type", "NONE"),
 				),
 			},
 			{
 				Config: testAccStreamConfig_encryption(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckStreamExists(ctx, resourceName, &stream),
 					resource.TestCheckResourceAttr(resourceName, "encryption_type", "KMS"),
 				),
@@ -194,13 +210,17 @@ func TestAccKinesisStream_encryption(t *testing.T) {
 	})
 }
 
+
 func TestAccKinesisStream_shardCount(t *testing.T) {
 	ctx := acctest.Context(t)
 	var stream kinesis.StreamDescriptionSummary
 	var updatedStream kinesis.StreamDescriptionSummary
 
-	testCheckStreamNotDestroyed := func() resource.TestCheckFunc {
-		return func(*terraform.State) error {
+	testCheckStreamNotDestroyed := 
+func() resource.TestCheck
+func {
+		return 
+func(*terraform.State) error {
 			if *stream.StreamCreationTimestamp != *updatedStream.StreamCreationTimestamp {
 				return fmt.Errorf("Creation timestamps dont match, stream was recreated")
 			}
@@ -212,14 +232,16 @@ func TestAccKinesisStream_shardCount(t *testing.T) {
 	resourceName := "aws_kinesis_stream.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, kinesis.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckStreamDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccStreamConfig_shardCount(rName, 128),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckStreamExists(ctx, resourceName, &stream),
 					resource.TestCheckResourceAttr(resourceName, "shard_count", "128"),
 				),
@@ -233,7 +255,8 @@ func TestAccKinesisStream_shardCount(t *testing.T) {
 			},
 			{
 				Config: testAccStreamConfig_shardCount(rName, 96),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckStreamExists(ctx, resourceName, &updatedStream),
 					testCheckStreamNotDestroyed(),
 					resource.TestCheckResourceAttr(resourceName, "shard_count", "96"),
@@ -243,6 +266,7 @@ func TestAccKinesisStream_shardCount(t *testing.T) {
 	})
 }
 
+
 func TestAccKinesisStream_retentionPeriod(t *testing.T) {
 	ctx := acctest.Context(t)
 	var stream kinesis.StreamDescriptionSummary
@@ -250,14 +274,16 @@ func TestAccKinesisStream_retentionPeriod(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, kinesis.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckStreamDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccStreamConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckStreamExists(ctx, resourceName, &stream),
 					resource.TestCheckResourceAttr(resourceName, "retention_period", "24"),
 				),
@@ -271,7 +297,8 @@ func TestAccKinesisStream_retentionPeriod(t *testing.T) {
 			},
 			{
 				Config: testAccStreamConfig_updateRetentionPeriod(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckStreamExists(ctx, resourceName, &stream),
 					resource.TestCheckResourceAttr(resourceName, "retention_period", "8760"),
 				),
@@ -279,7 +306,8 @@ func TestAccKinesisStream_retentionPeriod(t *testing.T) {
 
 			{
 				Config: testAccStreamConfig_decreaseRetentionPeriod(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckStreamExists(ctx, resourceName, &stream),
 					resource.TestCheckResourceAttr(resourceName, "retention_period", "28"),
 				),
@@ -288,6 +316,7 @@ func TestAccKinesisStream_retentionPeriod(t *testing.T) {
 	})
 }
 
+
 func TestAccKinesisStream_shardLevelMetrics(t *testing.T) {
 	ctx := acctest.Context(t)
 	var stream kinesis.StreamDescriptionSummary
@@ -295,14 +324,16 @@ func TestAccKinesisStream_shardLevelMetrics(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, kinesis.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckStreamDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccStreamConfig_singleShardLevelMetric(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckStreamExists(ctx, resourceName, &stream),
 					resource.TestCheckResourceAttr(resourceName, "shard_level_metrics.#", "1"),
 					resource.TestCheckTypeSetElemAttr(resourceName, "shard_level_metrics.*", "IncomingBytes"),
@@ -317,7 +348,8 @@ func TestAccKinesisStream_shardLevelMetrics(t *testing.T) {
 			},
 			{
 				Config: testAccStreamConfig_allShardLevelMetrics(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckStreamExists(ctx, resourceName, &stream),
 					resource.TestCheckResourceAttr(resourceName, "shard_level_metrics.#", "7"),
 					resource.TestCheckTypeSetElemAttr(resourceName, "shard_level_metrics.*", "IncomingBytes"),
@@ -331,7 +363,8 @@ func TestAccKinesisStream_shardLevelMetrics(t *testing.T) {
 			},
 			{
 				Config: testAccStreamConfig_singleShardLevelMetric(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckStreamExists(ctx, resourceName, &stream),
 					resource.TestCheckResourceAttr(resourceName, "shard_level_metrics.#", "1"),
 					resource.TestCheckTypeSetElemAttr(resourceName, "shard_level_metrics.*", "IncomingBytes"),
@@ -341,6 +374,7 @@ func TestAccKinesisStream_shardLevelMetrics(t *testing.T) {
 	})
 }
 
+
 func TestAccKinesisStream_enforceConsumerDeletion(t *testing.T) {
 	ctx := acctest.Context(t)
 	var stream kinesis.StreamDescriptionSummary
@@ -348,14 +382,16 @@ func TestAccKinesisStream_enforceConsumerDeletion(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, kinesis.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckStreamDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccStreamConfig_enforceConsumerDeletion(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckStreamExists(ctx, resourceName, &stream),
 					testAccStreamRegisterStreamConsumer(ctx, &stream, rName),
 				),
@@ -371,6 +407,7 @@ func TestAccKinesisStream_enforceConsumerDeletion(t *testing.T) {
 	})
 }
 
+
 func TestAccKinesisStream_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var stream kinesis.StreamDescriptionSummary
@@ -378,14 +415,16 @@ func TestAccKinesisStream_tags(t *testing.T) {
 	resourceName := "aws_kinesis_stream.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, kinesis.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckStreamDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccStreamConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckStreamExists(ctx, resourceName, &stream),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
@@ -400,7 +439,8 @@ func TestAccKinesisStream_tags(t *testing.T) {
 			},
 			{
 				Config: testAccStreamConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckStreamExists(ctx, resourceName, &stream),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
@@ -409,7 +449,8 @@ func TestAccKinesisStream_tags(t *testing.T) {
 			},
 			{
 				Config: testAccStreamConfig_tags1(rName, "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckStreamExists(ctx, resourceName, &stream),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
@@ -419,6 +460,7 @@ func TestAccKinesisStream_tags(t *testing.T) {
 	})
 }
 
+
 func TestAccKinesisStream_updateKMSKeyID(t *testing.T) {
 	ctx := acctest.Context(t)
 	var stream kinesis.StreamDescriptionSummary
@@ -426,21 +468,24 @@ func TestAccKinesisStream_updateKMSKeyID(t *testing.T) {
 	resourceName := "aws_kinesis_stream.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, kinesis.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckStreamDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccStreamConfig_updateKMSKeyID(rName, 0),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckStreamExists(ctx, resourceName, &stream),
 					resource.TestCheckResourceAttrPair(resourceName, "kms_key_id", "aws_kms_key.key.0", "id"),
 				),
 			},
 			{
 				Config: testAccStreamConfig_updateKMSKeyID(rName, 1),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckStreamExists(ctx, resourceName, &stream),
 					resource.TestCheckResourceAttrPair(resourceName, "kms_key_id", "aws_kms_key.key.1", "id"),
 				),
@@ -449,6 +494,7 @@ func TestAccKinesisStream_updateKMSKeyID(t *testing.T) {
 	})
 }
 
+
 func TestAccKinesisStream_basicOnDemand(t *testing.T) {
 	ctx := acctest.Context(t)
 	var stream kinesis.StreamDescriptionSummary
@@ -456,14 +502,16 @@ func TestAccKinesisStream_basicOnDemand(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, kinesis.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckStreamDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccStreamConfig_basicOnDemand(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckStreamExists(ctx, resourceName, &stream),
 					resource.TestCheckResourceAttr(resourceName, "shard_count", "0"),
 					resource.TestCheckResourceAttr(resourceName, "stream_mode_details.0.stream_mode", "ON_DEMAND"),
@@ -480,6 +528,7 @@ func TestAccKinesisStream_basicOnDemand(t *testing.T) {
 	})
 }
 
+
 func TestAccKinesisStream_switchBetweenProvisionedAndOnDemand(t *testing.T) {
 	ctx := acctest.Context(t)
 	var stream kinesis.StreamDescriptionSummary
@@ -487,14 +536,16 @@ func TestAccKinesisStream_switchBetweenProvisionedAndOnDemand(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, kinesis.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckStreamDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccStreamConfig_changeProvisionedToOnDemand1(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckStreamExists(ctx, resourceName, &stream),
 					resource.TestCheckResourceAttr(resourceName, "shard_count", "1"),
 					resource.TestCheckResourceAttr(resourceName, "stream_mode_details.0.stream_mode", "PROVISIONED"),
@@ -509,7 +560,8 @@ func TestAccKinesisStream_switchBetweenProvisionedAndOnDemand(t *testing.T) {
 			},
 			{
 				Config: testAccStreamConfig_changeProvisionedToOnDemand2(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckStreamExists(ctx, resourceName, &stream),
 					resource.TestCheckResourceAttr(resourceName, "shard_count", "0"),
 					resource.TestCheckResourceAttr(resourceName, "stream_mode_details.0.stream_mode", "ON_DEMAND"),
@@ -524,7 +576,8 @@ func TestAccKinesisStream_switchBetweenProvisionedAndOnDemand(t *testing.T) {
 			},
 			{
 				Config: testAccStreamConfig_changeProvisionedToOnDemand3(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckStreamExists(ctx, resourceName, &stream),
 					resource.TestCheckResourceAttr(resourceName, "shard_count", "2"),
 					resource.TestCheckResourceAttr(resourceName, "stream_mode_details.0.stream_mode", "PROVISIONED"),
@@ -539,7 +592,8 @@ func TestAccKinesisStream_switchBetweenProvisionedAndOnDemand(t *testing.T) {
 			},
 			{
 				Config: testAccStreamConfig_changeProvisionedToOnDemand1(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckStreamExists(ctx, resourceName, &stream),
 					resource.TestCheckResourceAttr(resourceName, "shard_count", "1"),
 					resource.TestCheckResourceAttr(resourceName, "stream_mode_details.0.stream_mode", "PROVISIONED"),
@@ -556,6 +610,7 @@ func TestAccKinesisStream_switchBetweenProvisionedAndOnDemand(t *testing.T) {
 	})
 }
 
+
 func TestAccKinesisStream_failOnBadStreamCountAndStreamModeCombination(t *testing.T) {
 	ctx := acctest.Context(t)
 	var stream kinesis.StreamDescriptionSummary
@@ -563,7 +618,8 @@ func TestAccKinesisStream_failOnBadStreamCountAndStreamModeCombination(t *testin
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, kinesis.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckStreamDestroy(ctx),
@@ -581,7 +637,8 @@ func TestAccKinesisStream_failOnBadStreamCountAndStreamModeCombination(t *testin
 			// Prepare for updates...
 			{
 				Config: testAccStreamConfig_failOnBadCountAndModeCombination(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckStreamExists(ctx, resourceName, &stream),
 					resource.TestCheckResourceAttr(resourceName, "shard_count", "1"),
 					resource.TestCheckResourceAttr(resourceName, "stream_mode_details.0.stream_mode", "PROVISIONED"),
@@ -601,8 +658,11 @@ func TestAccKinesisStream_failOnBadStreamCountAndStreamModeCombination(t *testin
 	})
 }
 
-func testAccCheckStreamExists(ctx context.Context, n string, v *kinesis.StreamDescriptionSummary) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckStreamExists(ctx context.Context, n string, v *kinesis.StreamDescriptionSummary) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).KinesisConn(ctx)
 
 		rs, ok := s.RootModule().Resources[n]
@@ -626,8 +686,11 @@ func testAccCheckStreamExists(ctx context.Context, n string, v *kinesis.StreamDe
 	}
 }
 
-func testAccCheckStreamDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckStreamDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).KinesisConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -652,8 +715,11 @@ func testAccCheckStreamDestroy(ctx context.Context) resource.TestCheckFunc {
 	}
 }
 
-func testAccStreamRegisterStreamConsumer(ctx context.Context, stream *kinesis.StreamDescriptionSummary, rName string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccStreamRegisterStreamConsumer(ctx context.Context, stream *kinesis.StreamDescriptionSummary, rName string) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).KinesisConn(ctx)
 
 		if _, err := conn.RegisterStreamConsumerWithContext(ctx, &kinesis.RegisterStreamConsumerInput{
@@ -667,6 +733,7 @@ func testAccStreamRegisterStreamConsumer(ctx context.Context, stream *kinesis.St
 	}
 }
 
+
 func testAccStreamConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kinesis_stream" "test" {
@@ -675,6 +742,7 @@ resource "aws_kinesis_stream" "test" {
 }
 `, rName)
 }
+
 
 func testAccStreamConfig_concurrent(rName string) string {
 	return fmt.Sprintf(`
@@ -686,6 +754,7 @@ resource "aws_kinesis_stream" "test" {
 `, rName)
 }
 
+
 func testAccStreamConfig_encryptionAndNoKMSKey(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kinesis_stream" "test" {
@@ -695,6 +764,7 @@ resource "aws_kinesis_stream" "test" {
 }
 `, rName)
 }
+
 
 func testAccStreamConfig_encryption(rName string) string {
 	return fmt.Sprintf(`
@@ -730,6 +800,7 @@ POLICY
 `, rName)
 }
 
+
 func testAccStreamConfig_shardCount(rName string, shardCount int) string {
 	return fmt.Sprintf(`
 resource "aws_kinesis_stream" "test" {
@@ -738,6 +809,7 @@ resource "aws_kinesis_stream" "test" {
 }
 `, rName, shardCount)
 }
+
 
 func testAccStreamConfig_updateRetentionPeriod(rName string) string {
 	return fmt.Sprintf(`
@@ -749,6 +821,7 @@ resource "aws_kinesis_stream" "test" {
 `, rName)
 }
 
+
 func testAccStreamConfig_decreaseRetentionPeriod(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kinesis_stream" "test" {
@@ -758,6 +831,7 @@ resource "aws_kinesis_stream" "test" {
 }
 `, rName)
 }
+
 
 func testAccStreamConfig_allShardLevelMetrics(rName string) string {
 	return fmt.Sprintf(`
@@ -778,6 +852,7 @@ resource "aws_kinesis_stream" "test" {
 `, rName)
 }
 
+
 func testAccStreamConfig_singleShardLevelMetric(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kinesis_stream" "test" {
@@ -791,6 +866,7 @@ resource "aws_kinesis_stream" "test" {
 `, rName)
 }
 
+
 func testAccStreamConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_kinesis_stream" "test" {
@@ -803,6 +879,7 @@ resource "aws_kinesis_stream" "test" {
 }
 `, rName, tagKey1, tagValue1)
 }
+
 
 func testAccStreamConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
@@ -818,6 +895,7 @@ resource "aws_kinesis_stream" "test" {
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2)
 }
 
+
 func testAccStreamConfig_enforceConsumerDeletion(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kinesis_stream" "test" {
@@ -827,6 +905,7 @@ resource "aws_kinesis_stream" "test" {
 }
 `, rName)
 }
+
 
 func testAccStreamConfig_updateKMSKeyID(rName string, keyIdx int) string {
 	return fmt.Sprintf(`
@@ -846,6 +925,7 @@ resource "aws_kinesis_stream" "test" {
 `, rName, keyIdx)
 }
 
+
 func testAccStreamConfig_basicOnDemand(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kinesis_stream" "test" {
@@ -858,6 +938,7 @@ resource "aws_kinesis_stream" "test" {
 `, rName)
 }
 
+
 func testAccStreamConfig_changeProvisionedToOnDemand1(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kinesis_stream" "test" {
@@ -866,6 +947,7 @@ resource "aws_kinesis_stream" "test" {
 }
 `, rName)
 }
+
 
 func testAccStreamConfig_changeProvisionedToOnDemand2(rName string) string {
 	return fmt.Sprintf(`
@@ -878,6 +960,7 @@ resource "aws_kinesis_stream" "test" {
 }
 `, rName)
 }
+
 
 func testAccStreamConfig_changeProvisionedToOnDemand3(rName string) string {
 	return fmt.Sprintf(`
@@ -892,6 +975,7 @@ resource "aws_kinesis_stream" "test" {
 `, rName)
 }
 
+
 func testAccStreamConfig_failOnBadCountAndModeCombinationNothingSet(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kinesis_stream" "test" {
@@ -899,6 +983,7 @@ resource "aws_kinesis_stream" "test" {
 }
 `, rName)
 }
+
 
 func testAccStreamConfig_failOnBadCountAndModeCombinationShardCountWhenOnDemand(rName string) string {
 	return fmt.Sprintf(`
@@ -912,6 +997,7 @@ resource "aws_kinesis_stream" "test" {
 }
 `, rName)
 }
+
 
 func testAccStreamConfig_failOnBadCountAndModeCombination(rName string) string {
 	return fmt.Sprintf(`

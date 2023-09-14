@@ -29,6 +29,7 @@ import (
 
 // @SDKResource("aws_glacier_vault", name="Vault")
 // @Tags(identifierAttribute="id")
+
 func resourceVault() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceVaultCreate,
@@ -44,10 +45,14 @@ func resourceVault() *schema.Resource {
 			"access_policy": {
 				Type:                  schema.TypeString,
 				Optional:              true,
-				ValidateFunc:          validation.StringIsJSON,
-				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
+				Validate
+func:          validation.StringIsJSON,
+				DiffSuppress
+func:      verify.SuppressEquivalentPolicyDiffs,
 				DiffSuppressOnRefresh: true,
-				StateFunc: func(v interface{}) string {
+				State
+func: 
+func(v interface{}) string {
 					json, _ := structure.NormalizeJsonString(v)
 					return json
 				},
@@ -64,7 +69,8 @@ func resourceVault() *schema.Resource {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
-				ValidateFunc: validation.All(
+				Validate
+func: validation.All(
 					validation.StringLenBetween(1, 255),
 					validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_.-]+$`),
 						"only alphanumeric characters, hyphens, underscores, and periods are allowed"),
@@ -81,7 +87,8 @@ func resourceVault() *schema.Resource {
 							Required: true,
 							Elem: &schema.Schema{
 								Type: schema.TypeString,
-								ValidateFunc: validation.StringInSlice([]string{
+								Validate
+func: validation.StringInSlice([]string{
 									"ArchiveRetrievalCompleted",
 									"InventoryRetrievalCompleted",
 								}, false),
@@ -90,7 +97,8 @@ func resourceVault() *schema.Resource {
 						"sns_topic": {
 							Type:         schema.TypeString,
 							Required:     true,
-							ValidateFunc: verify.ValidARN,
+							Validate
+func: verify.ValidARN,
 						},
 					},
 				},
@@ -102,6 +110,7 @@ func resourceVault() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
+
 
 func resourceVaultCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -160,6 +169,7 @@ func resourceVaultCreate(ctx context.Context, d *schema.ResourceData, meta inter
 
 	return append(diags, resourceVaultRead(ctx, d, meta)...)
 }
+
 
 func resourceVaultRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -227,6 +237,7 @@ func resourceVaultRead(ctx context.Context, d *schema.ResourceData, meta interfa
 	return diags
 }
 
+
 func resourceVaultUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).GlacierClient(ctx)
@@ -292,6 +303,7 @@ func resourceVaultUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 	return append(diags, resourceVaultRead(ctx, d, meta)...)
 }
 
+
 func resourceVaultDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).GlacierClient(ctx)
@@ -307,6 +319,7 @@ func resourceVaultDelete(ctx context.Context, d *schema.ResourceData, meta inter
 
 	return diags
 }
+
 
 func findVaultByName(ctx context.Context, conn *glacier.Client, name string) (*glacier.DescribeVaultOutput, error) {
 	input := &glacier.DescribeVaultInput{
@@ -332,6 +345,7 @@ func findVaultByName(ctx context.Context, conn *glacier.Client, name string) (*g
 
 	return output, nil
 }
+
 
 func expandVaultNotificationConfig(tfMap map[string]interface{}) *types.VaultNotificationConfig {
 	if tfMap == nil {

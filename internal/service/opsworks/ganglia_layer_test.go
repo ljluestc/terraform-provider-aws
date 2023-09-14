@@ -14,6 +14,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccOpsWorksGangliaLayer_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v opsworks.Layer
@@ -21,14 +22,16 @@ func TestAccOpsWorksGangliaLayer_basic(t *testing.T) {
 	resourceName := "aws_opsworks_ganglia_layer.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
 		ErrorCheck:               acctest.ErrorCheck(t, opsworks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckGangliaLayerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGangliaLayerConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckLayerExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "name", "Ganglia"),
 					resource.TestCheckResourceAttrSet(resourceName, "password"),
@@ -42,9 +45,13 @@ func TestAccOpsWorksGangliaLayer_basic(t *testing.T) {
 
 // _disappears and _tags for OpsWorks Layers are tested via aws_opsworks_rails_app_layer.
 
-func testAccCheckGangliaLayerDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error { return testAccCheckLayerDestroy(ctx, "aws_opsworks_ganglia_layer", s) }
+
+func testAccCheckGangliaLayerDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error { return testAccCheckLayerDestroy(ctx, "aws_opsworks_ganglia_layer", s) }
 }
+
 
 func testAccGangliaLayerConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccLayerConfig_base(rName), `

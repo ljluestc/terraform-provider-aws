@@ -23,6 +23,7 @@ import (
 
 // @SDKResource("aws_connect_quick_connect", name="Quick Connect")
 // @Tags(identifierAttribute="arn")
+
 func ResourceQuickConnect() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceQuickConnectCreate,
@@ -37,7 +38,8 @@ func ResourceQuickConnect() *schema.Resource {
 			"description": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				ValidateFunc: validation.StringLenBetween(1, 250),
+				Validate
+func: validation.StringLenBetween(1, 250),
 			},
 			"arn": {
 				Type:     schema.TypeString,
@@ -54,7 +56,8 @@ func ResourceQuickConnect() *schema.Resource {
 			"name": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: validation.StringLenBetween(1, 127),
+				Validate
+func: validation.StringLenBetween(1, 127),
 			},
 			"quick_connect_config": {
 				Type:     schema.TypeList,
@@ -73,7 +76,9 @@ func ResourceQuickConnect() *schema.Resource {
 									},
 								},
 							},
-							DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+							DiffSuppress
+func: 
+func(k, old, new string, d *schema.ResourceData) bool {
 								if v := d.Get("quick_connect_config.0.quick_connect_type").(string); v == connect.QuickConnectTypePhoneNumber {
 									return false
 								}
@@ -95,7 +100,9 @@ func ResourceQuickConnect() *schema.Resource {
 									},
 								},
 							},
-							DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+							DiffSuppress
+func: 
+func(k, old, new string, d *schema.ResourceData) bool {
 								if v := d.Get("quick_connect_config.0.quick_connect_type").(string); v == connect.QuickConnectTypeQueue {
 									return false
 								}
@@ -105,7 +112,8 @@ func ResourceQuickConnect() *schema.Resource {
 						"quick_connect_type": {
 							Type:         schema.TypeString,
 							Required:     true,
-							ValidateFunc: validation.StringInSlice(connect.QuickConnectType_Values(), false),
+							Validate
+func: validation.StringInSlice(connect.QuickConnectType_Values(), false),
 						},
 						"user_config": {
 							Type:     schema.TypeList,
@@ -122,7 +130,9 @@ func ResourceQuickConnect() *schema.Resource {
 									},
 								},
 							},
-							DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+							DiffSuppress
+func: 
+func(k, old, new string, d *schema.ResourceData) bool {
 								if v := d.Get("quick_connect_config.0.quick_connect_type").(string); v == connect.QuickConnectTypeUser {
 									return false
 								}
@@ -137,6 +147,7 @@ func ResourceQuickConnect() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceQuickConnectCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -170,6 +181,7 @@ func resourceQuickConnectCreate(ctx context.Context, d *schema.ResourceData, met
 
 	return resourceQuickConnectRead(ctx, d, meta)
 }
+
 
 func resourceQuickConnectRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -213,6 +225,7 @@ func resourceQuickConnectRead(ctx context.Context, d *schema.ResourceData, meta 
 
 	return nil
 }
+
 
 func resourceQuickConnectUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -263,6 +276,7 @@ func resourceQuickConnectUpdate(ctx context.Context, d *schema.ResourceData, met
 	return resourceQuickConnectRead(ctx, d, meta)
 }
 
+
 func resourceQuickConnectDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
@@ -283,6 +297,7 @@ func resourceQuickConnectDelete(ctx context.Context, d *schema.ResourceData, met
 
 	return nil
 }
+
 
 func expandQuickConnectConfig(quickConnectConfig []interface{}) *connect.QuickConnectConfig {
 	if len(quickConnectConfig) == 0 || quickConnectConfig[0] == nil {
@@ -347,6 +362,7 @@ func expandQuickConnectConfig(quickConnectConfig []interface{}) *connect.QuickCo
 	return result
 }
 
+
 func flattenQuickConnectConfig(quickConnectConfig *connect.QuickConnectConfig) []interface{} {
 	if quickConnectConfig == nil {
 		return []interface{}{}
@@ -386,6 +402,7 @@ func flattenQuickConnectConfig(quickConnectConfig *connect.QuickConnectConfig) [
 
 	return []interface{}{values}
 }
+
 
 func QuickConnectParseID(id string) (string, string, error) {
 	parts := strings.SplitN(id, ":", 2)

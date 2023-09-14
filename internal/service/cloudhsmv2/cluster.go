@@ -25,6 +25,7 @@ import (
 
 // @SDKResource("aws_cloudhsm_v2_cluster", name="Cluster")
 // @Tags(identifierAttribute="id")
+
 func ResourceCluster() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceClusterCreate,
@@ -83,7 +84,8 @@ func ResourceCluster() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringInSlice([]string{"hsm1.medium"}, false),
+				Validate
+func: validation.StringInSlice([]string{"hsm1.medium"}, false),
 			},
 			"security_group_id": {
 				Type:     schema.TypeString,
@@ -111,6 +113,7 @@ func ResourceCluster() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
+
 
 func resourceClusterCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -145,6 +148,7 @@ func resourceClusterCreate(ctx context.Context, d *schema.ResourceData, meta int
 
 	return append(diags, resourceClusterRead(ctx, d, meta)...)
 }
+
 
 func resourceClusterRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -182,6 +186,7 @@ func resourceClusterRead(ctx context.Context, d *schema.ResourceData, meta inter
 	return diags
 }
 
+
 func resourceClusterUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 
@@ -189,6 +194,7 @@ func resourceClusterUpdate(ctx context.Context, d *schema.ResourceData, meta int
 
 	return append(diags, resourceClusterRead(ctx, d, meta)...)
 }
+
 
 func resourceClusterDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -213,6 +219,7 @@ func resourceClusterDelete(ctx context.Context, d *schema.ResourceData, meta int
 
 	return diags
 }
+
 
 func flattenCertificates(apiObject *cloudhsmv2.Cluster) []map[string]interface{} {
 	tfMap := map[string]interface{}{}

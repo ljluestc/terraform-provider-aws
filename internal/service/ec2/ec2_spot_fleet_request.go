@@ -31,6 +31,7 @@ import (
 
 // @SDKResource("aws_spot_fleet_request", name="Spot Fleet Request")
 // @Tags(identifierAttribute="id")
+
 func ResourceSpotFleetRequest() *schema.Resource {
 	//lintignore:R011
 	return &schema.Resource{
@@ -40,7 +41,8 @@ func ResourceSpotFleetRequest() *schema.Resource {
 		UpdateWithoutTimeout: resourceSpotFleetRequestUpdate,
 
 		Importer: &schema.ResourceImporter{
-			StateContext: func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+			StateContext: 
+func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 				d.Set("instance_pools_to_use_count", 1)
 				return []*schema.ResourceData{d}, nil
 			},
@@ -61,7 +63,8 @@ func ResourceSpotFleetRequest() *schema.Resource {
 				Optional:     true,
 				ForceNew:     true,
 				Default:      ec2.AllocationStrategyLowestPrice,
-				ValidateFunc: validation.StringInSlice(ec2.AllocationStrategy_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.AllocationStrategy_Values(), false),
 			},
 			"client_token": {
 				Type:     schema.TypeString,
@@ -71,14 +74,16 @@ func ResourceSpotFleetRequest() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringIsNotWhiteSpace,
+				Validate
+func: validation.StringIsNotWhiteSpace,
 			},
 			// Provided constants do not have the correct casing so going with hard-coded values.
 			"excess_capacity_termination_policy": {
 				Type:     schema.TypeString,
 				Optional: true,
 				Default:  "Default",
-				ValidateFunc: validation.StringInSlice([]string{
+				Validate
+func: validation.StringInSlice([]string{
 					"Default",
 					"NoTermination",
 				}, false),
@@ -88,20 +93,23 @@ func ResourceSpotFleetRequest() *schema.Resource {
 				Optional:     true,
 				Default:      ec2.FleetTypeMaintain,
 				ForceNew:     true,
-				ValidateFunc: validation.StringInSlice(ec2.FleetType_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.FleetType_Values(), false),
 			},
 			"iam_fleet_role": {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			"instance_interruption_behaviour": {
 				Type:         schema.TypeString,
 				Optional:     true,
 				Default:      ec2.InstanceInterruptionBehaviorTerminate,
 				ForceNew:     true,
-				ValidateFunc: validation.StringInSlice(ec2.InstanceInterruptionBehavior_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.InstanceInterruptionBehavior_Values(), false),
 			},
 			"instance_pools_to_use_count": {
 				Type:     schema.TypeInt,
@@ -189,7 +197,8 @@ func ResourceSpotFleetRequest() *schema.Resource {
 										Optional:     true,
 										Computed:     true,
 										ForceNew:     true,
-										ValidateFunc: validation.StringInSlice(ec2.VolumeType_Values(), false),
+										Validate
+func: validation.StringInSlice(ec2.VolumeType_Values(), false),
 									},
 								},
 							},
@@ -228,7 +237,8 @@ func ResourceSpotFleetRequest() *schema.Resource {
 							Type:         schema.TypeString,
 							ForceNew:     true,
 							Optional:     true,
-							ValidateFunc: verify.ValidARN,
+							Validate
+func: verify.ValidARN,
 						},
 						"instance_type": {
 							Type:     schema.TypeString,
@@ -240,7 +250,8 @@ func ResourceSpotFleetRequest() *schema.Resource {
 							Optional:     true,
 							ForceNew:     true,
 							Computed:     true,
-							ValidateFunc: validation.NoZeroValues,
+							Validate
+func: validation.NoZeroValues,
 						},
 						"monitoring": {
 							Type:     schema.TypeBool,
@@ -257,7 +268,8 @@ func ResourceSpotFleetRequest() *schema.Resource {
 							Type:         schema.TypeString,
 							Optional:     true,
 							ForceNew:     true,
-							ValidateFunc: validation.StringInSlice(ec2.Tenancy_Values(), false),
+							Validate
+func: validation.StringInSlice(ec2.Tenancy_Values(), false),
 						},
 						"root_block_device": {
 							// TODO: This is a set because we don't support singleton
@@ -313,7 +325,8 @@ func ResourceSpotFleetRequest() *schema.Resource {
 										Optional:     true,
 										Computed:     true,
 										ForceNew:     true,
-										ValidateFunc: validation.StringInSlice(ec2.VolumeType_Values(), false),
+										Validate
+func: validation.StringInSlice(ec2.VolumeType_Values(), false),
 									},
 								},
 							},
@@ -335,7 +348,9 @@ func ResourceSpotFleetRequest() *schema.Resource {
 							Type:     schema.TypeString,
 							Optional: true,
 							ForceNew: true,
-							StateFunc: func(v interface{}) string {
+							State
+func: 
+func(v interface{}) string {
 								switch v := v.(type) {
 								case string:
 									return userDataHashSum(v)
@@ -376,19 +391,22 @@ func ResourceSpotFleetRequest() *schema.Resource {
 										Type:         schema.TypeString,
 										Optional:     true,
 										ForceNew:     true,
-										ValidateFunc: verify.ValidLaunchTemplateID,
+										Validate
+func: verify.ValidLaunchTemplateID,
 									},
 									"name": {
 										Type:         schema.TypeString,
 										Optional:     true,
 										ForceNew:     true,
-										ValidateFunc: verify.ValidLaunchTemplateName,
+										Validate
+func: verify.ValidLaunchTemplateName,
 									},
 									"version": {
 										Type:         schema.TypeString,
 										Optional:     true,
 										ForceNew:     true,
-										ValidateFunc: validation.StringLenBetween(1, 255),
+										Validate
+func: validation.StringLenBetween(1, 255),
 									},
 								},
 							},
@@ -422,13 +440,15 @@ func ResourceSpotFleetRequest() *schema.Resource {
 																Type:         schema.TypeInt,
 																Optional:     true,
 																ForceNew:     true,
-																ValidateFunc: validation.IntAtLeast(0),
+																Validate
+func: validation.IntAtLeast(0),
 															},
 															"min": {
 																Type:         schema.TypeInt,
 																Optional:     true,
 																ForceNew:     true,
-																ValidateFunc: validation.IntAtLeast(1),
+																Validate
+func: validation.IntAtLeast(1),
 															},
 														},
 													},
@@ -439,7 +459,8 @@ func ResourceSpotFleetRequest() *schema.Resource {
 													ForceNew: true,
 													Elem: &schema.Schema{
 														Type:         schema.TypeString,
-														ValidateFunc: validation.StringInSlice(ec2.AcceleratorManufacturer_Values(), false),
+														Validate
+func: validation.StringInSlice(ec2.AcceleratorManufacturer_Values(), false),
 													},
 												},
 												"accelerator_names": {
@@ -448,7 +469,8 @@ func ResourceSpotFleetRequest() *schema.Resource {
 													ForceNew: true,
 													Elem: &schema.Schema{
 														Type:         schema.TypeString,
-														ValidateFunc: validation.StringInSlice(ec2.AcceleratorName_Values(), false),
+														Validate
+func: validation.StringInSlice(ec2.AcceleratorName_Values(), false),
 													},
 												},
 												"accelerator_total_memory_mib": {
@@ -462,13 +484,15 @@ func ResourceSpotFleetRequest() *schema.Resource {
 																Type:         schema.TypeInt,
 																Optional:     true,
 																ForceNew:     true,
-																ValidateFunc: validation.IntAtLeast(1),
+																Validate
+func: validation.IntAtLeast(1),
 															},
 															"min": {
 																Type:         schema.TypeInt,
 																Optional:     true,
 																ForceNew:     true,
-																ValidateFunc: validation.IntAtLeast(1),
+																Validate
+func: validation.IntAtLeast(1),
 															},
 														},
 													},
@@ -479,7 +503,8 @@ func ResourceSpotFleetRequest() *schema.Resource {
 													ForceNew: true,
 													Elem: &schema.Schema{
 														Type:         schema.TypeString,
-														ValidateFunc: validation.StringInSlice(ec2.AcceleratorType_Values(), false),
+														Validate
+func: validation.StringInSlice(ec2.AcceleratorType_Values(), false),
 													},
 												},
 												"allowed_instance_types": {
@@ -493,7 +518,8 @@ func ResourceSpotFleetRequest() *schema.Resource {
 													Type:         schema.TypeString,
 													Optional:     true,
 													ForceNew:     true,
-													ValidateFunc: validation.StringInSlice(ec2.BareMetal_Values(), false),
+													Validate
+func: validation.StringInSlice(ec2.BareMetal_Values(), false),
 												},
 												"baseline_ebs_bandwidth_mbps": {
 													Type:     schema.TypeList,
@@ -506,13 +532,15 @@ func ResourceSpotFleetRequest() *schema.Resource {
 																Type:         schema.TypeInt,
 																Optional:     true,
 																ForceNew:     true,
-																ValidateFunc: validation.IntAtLeast(1),
+																Validate
+func: validation.IntAtLeast(1),
 															},
 															"min": {
 																Type:         schema.TypeInt,
 																Optional:     true,
 																ForceNew:     true,
-																ValidateFunc: validation.IntAtLeast(1),
+																Validate
+func: validation.IntAtLeast(1),
 															},
 														},
 													},
@@ -521,7 +549,8 @@ func ResourceSpotFleetRequest() *schema.Resource {
 													Type:         schema.TypeString,
 													Optional:     true,
 													ForceNew:     true,
-													ValidateFunc: validation.StringInSlice(ec2.BurstablePerformance_Values(), false),
+													Validate
+func: validation.StringInSlice(ec2.BurstablePerformance_Values(), false),
 												},
 												"cpu_manufacturers": {
 													Type:     schema.TypeSet,
@@ -529,7 +558,8 @@ func ResourceSpotFleetRequest() *schema.Resource {
 													ForceNew: true,
 													Elem: &schema.Schema{
 														Type:         schema.TypeString,
-														ValidateFunc: validation.StringInSlice(ec2.CpuManufacturer_Values(), false),
+														Validate
+func: validation.StringInSlice(ec2.CpuManufacturer_Values(), false),
 													},
 												},
 												"excluded_instance_types": {
@@ -545,14 +575,16 @@ func ResourceSpotFleetRequest() *schema.Resource {
 													ForceNew: true,
 													Elem: &schema.Schema{
 														Type:         schema.TypeString,
-														ValidateFunc: validation.StringInSlice(ec2.InstanceGeneration_Values(), false),
+														Validate
+func: validation.StringInSlice(ec2.InstanceGeneration_Values(), false),
 													},
 												},
 												"local_storage": {
 													Type:         schema.TypeString,
 													Optional:     true,
 													ForceNew:     true,
-													ValidateFunc: validation.StringInSlice(ec2.LocalStorage_Values(), false),
+													Validate
+func: validation.StringInSlice(ec2.LocalStorage_Values(), false),
 												},
 												"local_storage_types": {
 													Type:     schema.TypeSet,
@@ -560,7 +592,8 @@ func ResourceSpotFleetRequest() *schema.Resource {
 													ForceNew: true,
 													Elem: &schema.Schema{
 														Type:         schema.TypeString,
-														ValidateFunc: validation.StringInSlice(ec2.LocalStorageType_Values(), false),
+														Validate
+func: validation.StringInSlice(ec2.LocalStorageType_Values(), false),
 													},
 												},
 												"memory_gib_per_vcpu": {
@@ -574,13 +607,15 @@ func ResourceSpotFleetRequest() *schema.Resource {
 																Type:         schema.TypeFloat,
 																Optional:     true,
 																ForceNew:     true,
-																ValidateFunc: verify.FloatGreaterThan(0.0),
+																Validate
+func: verify.FloatGreaterThan(0.0),
 															},
 															"min": {
 																Type:         schema.TypeFloat,
 																Optional:     true,
 																ForceNew:     true,
-																ValidateFunc: verify.FloatGreaterThan(0.0),
+																Validate
+func: verify.FloatGreaterThan(0.0),
 															},
 														},
 													},
@@ -596,13 +631,15 @@ func ResourceSpotFleetRequest() *schema.Resource {
 																Type:         schema.TypeInt,
 																Optional:     true,
 																ForceNew:     true,
-																ValidateFunc: validation.IntAtLeast(1),
+																Validate
+func: validation.IntAtLeast(1),
 															},
 															"min": {
 																Type:         schema.TypeInt,
 																Optional:     true,
 																ForceNew:     true,
-																ValidateFunc: validation.IntAtLeast(1),
+																Validate
+func: validation.IntAtLeast(1),
 															},
 														},
 													},
@@ -618,13 +655,15 @@ func ResourceSpotFleetRequest() *schema.Resource {
 																Type:         schema.TypeFloat,
 																Optional:     true,
 																ForceNew:     true,
-																ValidateFunc: verify.FloatGreaterThan(0.0),
+																Validate
+func: verify.FloatGreaterThan(0.0),
 															},
 															"min": {
 																Type:         schema.TypeFloat,
 																Optional:     true,
 																ForceNew:     true,
-																ValidateFunc: verify.FloatGreaterThan(0.0),
+																Validate
+func: verify.FloatGreaterThan(0.0),
 															},
 														},
 													},
@@ -640,13 +679,15 @@ func ResourceSpotFleetRequest() *schema.Resource {
 																Type:         schema.TypeInt,
 																Optional:     true,
 																ForceNew:     true,
-																ValidateFunc: validation.IntAtLeast(1),
+																Validate
+func: validation.IntAtLeast(1),
 															},
 															"min": {
 																Type:         schema.TypeInt,
 																Optional:     true,
 																ForceNew:     true,
-																ValidateFunc: validation.IntAtLeast(1),
+																Validate
+func: validation.IntAtLeast(1),
 															},
 														},
 													},
@@ -655,7 +696,8 @@ func ResourceSpotFleetRequest() *schema.Resource {
 													Type:         schema.TypeInt,
 													Optional:     true,
 													ForceNew:     true,
-													ValidateFunc: validation.IntAtLeast(1),
+													Validate
+func: validation.IntAtLeast(1),
 												},
 												"require_hibernate_support": {
 													Type:     schema.TypeBool,
@@ -666,7 +708,8 @@ func ResourceSpotFleetRequest() *schema.Resource {
 													Type:         schema.TypeInt,
 													Optional:     true,
 													ForceNew:     true,
-													ValidateFunc: validation.IntAtLeast(1),
+													Validate
+func: validation.IntAtLeast(1),
 												},
 												"total_local_storage_gb": {
 													Type:     schema.TypeList,
@@ -679,13 +722,15 @@ func ResourceSpotFleetRequest() *schema.Resource {
 																Type:         schema.TypeFloat,
 																Optional:     true,
 																ForceNew:     true,
-																ValidateFunc: verify.FloatGreaterThan(0.0),
+																Validate
+func: verify.FloatGreaterThan(0.0),
 															},
 															"min": {
 																Type:         schema.TypeFloat,
 																Optional:     true,
 																ForceNew:     true,
-																ValidateFunc: verify.FloatGreaterThan(0.0),
+																Validate
+func: verify.FloatGreaterThan(0.0),
 															},
 														},
 													},
@@ -701,13 +746,15 @@ func ResourceSpotFleetRequest() *schema.Resource {
 																Type:         schema.TypeInt,
 																Optional:     true,
 																ForceNew:     true,
-																ValidateFunc: validation.IntAtLeast(1),
+																Validate
+func: validation.IntAtLeast(1),
 															},
 															"min": {
 																Type:         schema.TypeInt,
 																Optional:     true,
 																ForceNew:     true,
-																ValidateFunc: validation.IntAtLeast(1),
+																Validate
+func: validation.IntAtLeast(1),
 															},
 														},
 													},
@@ -763,7 +810,8 @@ func ResourceSpotFleetRequest() *schema.Resource {
 				Optional:     true,
 				ForceNew:     true,
 				Default:      ec2.OnDemandAllocationStrategyLowestPrice,
-				ValidateFunc: validation.StringInSlice(ec2.OnDemandAllocationStrategy_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.OnDemandAllocationStrategy_Values(), false),
 			},
 			"on_demand_max_total_price": {
 				Type:     schema.TypeString,
@@ -784,21 +832,24 @@ func ResourceSpotFleetRequest() *schema.Resource {
 				Type:             schema.TypeList,
 				Optional:         true,
 				MaxItems:         1,
-				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
+				DiffSuppress
+func: verify.SuppressMissingOptionalConfigurationBlock,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"capacity_rebalance": {
 							Type:             schema.TypeList,
 							Optional:         true,
 							MaxItems:         1,
-							DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
+							DiffSuppress
+func: verify.SuppressMissingOptionalConfigurationBlock,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"replacement_strategy": {
 										Type:         schema.TypeString,
 										Optional:     true,
 										ForceNew:     true,
-										ValidateFunc: validation.StringInSlice(ec2.ReplacementStrategy_Values(), false),
+										Validate
+func: validation.StringInSlice(ec2.ReplacementStrategy_Values(), false),
 									},
 								},
 							},
@@ -825,7 +876,8 @@ func ResourceSpotFleetRequest() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringInSlice(ec2.TargetCapacityUnitType_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.TargetCapacityUnitType_Values(), false),
 			},
 			"target_group_arns": {
 				Type:     schema.TypeSet,
@@ -834,13 +886,15 @@ func ResourceSpotFleetRequest() *schema.Resource {
 				ForceNew: true,
 				Elem: &schema.Schema{
 					Type:         schema.TypeString,
-					ValidateFunc: verify.ValidARN,
+					Validate
+func: verify.ValidARN,
 				},
 			},
 			"terminate_instances_on_delete": {
 				Type:         nullable.TypeNullableBool,
 				Optional:     true,
-				ValidateFunc: nullable.ValidateTypeStringNullableBool,
+				Validate
+func: nullable.ValidateTypeStringNullableBool,
 			},
 			"terminate_instances_with_expiration": {
 				Type:     schema.TypeBool,
@@ -851,13 +905,15 @@ func ResourceSpotFleetRequest() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.IsRFC3339Time,
+				Validate
+func: validation.IsRFC3339Time,
 			},
 			"valid_until": {
 				Type:         schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.IsRFC3339Time,
+				Validate
+func: validation.IsRFC3339Time,
 			},
 			"wait_for_fulfillment": {
 				Type:     schema.TypeBool,
@@ -869,6 +925,7 @@ func ResourceSpotFleetRequest() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
+
 
 func resourceSpotFleetRequestCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -997,7 +1054,8 @@ func resourceSpotFleetRequestCreate(ctx context.Context, d *schema.ResourceData,
 
 	log.Printf("[DEBUG] Creating EC2 Spot Fleet Request: %s", input)
 	outputRaw, err := tfresource.RetryWhenAWSErrMessageContains(ctx, iamPropagationTimeout,
-		func() (interface{}, error) {
+		
+func() (interface{}, error) {
 			return conn.RequestSpotFleetWithContext(ctx, input)
 		},
 		errCodeInvalidSpotFleetRequestConfig, "SpotFleetRequestConfig.IamFleetRole",
@@ -1021,6 +1079,7 @@ func resourceSpotFleetRequestCreate(ctx context.Context, d *schema.ResourceData,
 
 	return append(diags, resourceSpotFleetRequestRead(ctx, d, meta)...)
 }
+
 
 func resourceSpotFleetRequestRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -1108,6 +1167,7 @@ func resourceSpotFleetRequestRead(ctx context.Context, d *schema.ResourceData, m
 	return diags
 }
 
+
 func resourceSpotFleetRequestUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 
@@ -1145,6 +1205,7 @@ func resourceSpotFleetRequestUpdate(ctx context.Context, d *schema.ResourceData,
 	return append(diags, resourceSpotFleetRequestRead(ctx, d, meta)...)
 }
 
+
 func resourceSpotFleetRequestDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -1178,7 +1239,8 @@ func resourceSpotFleetRequestDelete(ctx context.Context, d *schema.ResourceData,
 		return diags
 	}
 
-	_, err = tfresource.RetryUntilNotFound(ctx, d.Timeout(schema.TimeoutDelete), func() (interface{}, error) {
+	_, err = tfresource.RetryUntilNotFound(ctx, d.Timeout(schema.TimeoutDelete), 
+func() (interface{}, error) {
 		input := &ec2.DescribeSpotFleetInstancesInput{
 			SpotFleetRequestId: aws.String(d.Id()),
 		}
@@ -1201,6 +1263,7 @@ func resourceSpotFleetRequestDelete(ctx context.Context, d *schema.ResourceData,
 
 	return diags
 }
+
 
 func buildSpotFleetLaunchSpecification(ctx context.Context, d map[string]interface{}, meta interface{}) (*ec2.SpotFleetLaunchSpecification, error) {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -1333,6 +1396,7 @@ func buildSpotFleetLaunchSpecification(ctx context.Context, d map[string]interfa
 	return opts, nil
 }
 
+
 func readSpotFleetBlockDeviceMappingsFromConfig(ctx context.Context, d map[string]interface{}, conn *ec2.EC2) ([]*ec2.BlockDeviceMapping, error) {
 	blockDevices := make([]*ec2.BlockDeviceMapping, 0)
 
@@ -1445,6 +1509,7 @@ func readSpotFleetBlockDeviceMappingsFromConfig(ctx context.Context, d map[strin
 	return blockDevices, nil
 }
 
+
 func buildSpotFleetLaunchSpecifications(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*ec2.SpotFleetLaunchSpecification, error) {
 	userSpecs := d.Get("launch_specification").(*schema.Set).List()
 	specs := make([]*ec2.SpotFleetLaunchSpecification, len(userSpecs))
@@ -1460,6 +1525,7 @@ func buildSpotFleetLaunchSpecifications(ctx context.Context, d *schema.ResourceD
 
 	return specs, nil
 }
+
 
 func expandLaunchTemplateConfig(tfMap map[string]interface{}) *ec2.LaunchTemplateConfig {
 	if tfMap == nil {
@@ -1478,6 +1544,7 @@ func expandLaunchTemplateConfig(tfMap map[string]interface{}) *ec2.LaunchTemplat
 
 	return apiObject
 }
+
 
 func expandLaunchTemplateConfigs(tfList []interface{}) []*ec2.LaunchTemplateConfig {
 	if len(tfList) == 0 {
@@ -1505,6 +1572,7 @@ func expandLaunchTemplateConfigs(tfList []interface{}) []*ec2.LaunchTemplateConf
 	return apiObjects
 }
 
+
 func expandFleetLaunchTemplateSpecification(tfMap map[string]interface{}) *ec2.FleetLaunchTemplateSpecification {
 	if tfMap == nil {
 		return nil
@@ -1526,6 +1594,7 @@ func expandFleetLaunchTemplateSpecification(tfMap map[string]interface{}) *ec2.F
 
 	return apiObject
 }
+
 
 func expandLaunchTemplateOverrides(tfMap map[string]interface{}) *ec2.LaunchTemplateOverrides {
 	if tfMap == nil {
@@ -1565,6 +1634,7 @@ func expandLaunchTemplateOverrides(tfMap map[string]interface{}) *ec2.LaunchTemp
 	return apiObject
 }
 
+
 func expandLaunchTemplateOverrideses(tfList []interface{}) []*ec2.LaunchTemplateOverrides {
 	if len(tfList) == 0 {
 		return nil
@@ -1590,6 +1660,7 @@ func expandLaunchTemplateOverrideses(tfList []interface{}) []*ec2.LaunchTemplate
 
 	return apiObjects
 }
+
 
 func expandInstanceRequirements(tfMap map[string]interface{}) *ec2.InstanceRequirements {
 	if tfMap == nil {
@@ -1689,6 +1760,7 @@ func expandInstanceRequirements(tfMap map[string]interface{}) *ec2.InstanceRequi
 	return apiObject
 }
 
+
 func expandAcceleratorCount(tfMap map[string]interface{}) *ec2.AcceleratorCount {
 	if tfMap == nil {
 		return nil
@@ -1706,6 +1778,7 @@ func expandAcceleratorCount(tfMap map[string]interface{}) *ec2.AcceleratorCount 
 
 	return apiObject
 }
+
 
 func expandAcceleratorTotalMemoryMiB(tfMap map[string]interface{}) *ec2.AcceleratorTotalMemoryMiB {
 	if tfMap == nil {
@@ -1725,6 +1798,7 @@ func expandAcceleratorTotalMemoryMiB(tfMap map[string]interface{}) *ec2.Accelera
 	return apiObject
 }
 
+
 func expandBaselineEBSBandwidthMbps(tfMap map[string]interface{}) *ec2.BaselineEbsBandwidthMbps {
 	if tfMap == nil {
 		return nil
@@ -1742,6 +1816,7 @@ func expandBaselineEBSBandwidthMbps(tfMap map[string]interface{}) *ec2.BaselineE
 
 	return apiObject
 }
+
 
 func expandMemoryGiBPerVCPU(tfMap map[string]interface{}) *ec2.MemoryGiBPerVCpu {
 	if tfMap == nil {
@@ -1761,6 +1836,7 @@ func expandMemoryGiBPerVCPU(tfMap map[string]interface{}) *ec2.MemoryGiBPerVCpu 
 	return apiObject
 }
 
+
 func expandMemoryMiB(tfMap map[string]interface{}) *ec2.MemoryMiB {
 	if tfMap == nil {
 		return nil
@@ -1778,6 +1854,7 @@ func expandMemoryMiB(tfMap map[string]interface{}) *ec2.MemoryMiB {
 
 	return apiObject
 }
+
 
 func expandNetworkInterfaceCount(tfMap map[string]interface{}) *ec2.NetworkInterfaceCount {
 	if tfMap == nil {
@@ -1797,6 +1874,7 @@ func expandNetworkInterfaceCount(tfMap map[string]interface{}) *ec2.NetworkInter
 	return apiObject
 }
 
+
 func expandTotalLocalStorageGB(tfMap map[string]interface{}) *ec2.TotalLocalStorageGB {
 	if tfMap == nil {
 		return nil
@@ -1814,6 +1892,7 @@ func expandTotalLocalStorageGB(tfMap map[string]interface{}) *ec2.TotalLocalStor
 
 	return apiObject
 }
+
 
 func expandVCPUCountRange(tfMap map[string]interface{}) *ec2.VCpuCountRange {
 	if tfMap == nil {
@@ -1833,6 +1912,7 @@ func expandVCPUCountRange(tfMap map[string]interface{}) *ec2.VCpuCountRange {
 	return apiObject
 }
 
+
 func expandSpotMaintenanceStrategies(l []interface{}) *ec2.SpotMaintenanceStrategies {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -1846,6 +1926,7 @@ func expandSpotMaintenanceStrategies(l []interface{}) *ec2.SpotMaintenanceStrate
 
 	return fleetSpotMaintenanceStrategies
 }
+
 
 func expandSpotCapacityRebalance(l []interface{}) *ec2.SpotCapacityRebalance {
 	if len(l) == 0 || l[0] == nil {
@@ -1863,6 +1944,7 @@ func expandSpotCapacityRebalance(l []interface{}) *ec2.SpotCapacityRebalance {
 	return capacityRebalance
 }
 
+
 func launchSpecsToSet(ctx context.Context, conn *ec2.EC2, launchSpecs []*ec2.SpotFleetLaunchSpecification) (*schema.Set, error) {
 	specSet := &schema.Set{F: hashLaunchSpecification}
 	for _, spec := range launchSpecs {
@@ -1875,6 +1957,7 @@ func launchSpecsToSet(ctx context.Context, conn *ec2.EC2, launchSpecs []*ec2.Spo
 	}
 	return specSet, nil
 }
+
 
 func launchSpecToMap(ctx context.Context, l *ec2.SpotFleetLaunchSpecification, rootDevName *string) map[string]interface{} {
 	m := make(map[string]interface{})
@@ -1958,6 +2041,7 @@ func launchSpecToMap(ctx context.Context, l *ec2.SpotFleetLaunchSpecification, r
 	return m
 }
 
+
 func ebsBlockDevicesToSet(bdm []*ec2.BlockDeviceMapping, rootDevName *string) *schema.Set {
 	set := &schema.Set{F: hashEBSBlockDevice}
 
@@ -2014,6 +2098,7 @@ func ebsBlockDevicesToSet(bdm []*ec2.BlockDeviceMapping, rootDevName *string) *s
 	return set
 }
 
+
 func ephemeralBlockDevicesToSet(bdm []*ec2.BlockDeviceMapping) *schema.Set {
 	set := &schema.Set{F: hashEphemeralBlockDevice}
 
@@ -2032,6 +2117,7 @@ func ephemeralBlockDevicesToSet(bdm []*ec2.BlockDeviceMapping) *schema.Set {
 
 	return set
 }
+
 
 func rootBlockDeviceToSet(bdm []*ec2.BlockDeviceMapping, rootDevName *string) *schema.Set {
 	set := &schema.Set{F: hashRootBlockDevice}
@@ -2076,6 +2162,7 @@ func rootBlockDeviceToSet(bdm []*ec2.BlockDeviceMapping, rootDevName *string) *s
 	return set
 }
 
+
 func hashEphemeralBlockDevice(v interface{}) int {
 	var buf bytes.Buffer
 	m := v.(map[string]interface{})
@@ -2084,10 +2171,12 @@ func hashEphemeralBlockDevice(v interface{}) int {
 	return create.StringHashcode(buf.String())
 }
 
+
 func hashRootBlockDevice(v interface{}) int {
 	// there can be only one root device; no need to hash anything
 	return 0
 }
+
 
 func hashLaunchSpecification(v interface{}) int {
 	var buf bytes.Buffer
@@ -2104,6 +2193,7 @@ func hashLaunchSpecification(v interface{}) int {
 	return create.StringHashcode(buf.String())
 }
 
+
 func hashEBSBlockDevice(v interface{}) int {
 	var buf bytes.Buffer
 	m := v.(map[string]interface{})
@@ -2115,6 +2205,7 @@ func hashEBSBlockDevice(v interface{}) int {
 	}
 	return create.StringHashcode(buf.String())
 }
+
 
 func flattenLaunchTemplateConfig(apiObject *ec2.LaunchTemplateConfig) map[string]interface{} {
 	if apiObject == nil {
@@ -2134,6 +2225,7 @@ func flattenLaunchTemplateConfig(apiObject *ec2.LaunchTemplateConfig) map[string
 	return tfMap
 }
 
+
 func flattenLaunchTemplateConfigs(apiObjects []*ec2.LaunchTemplateConfig) []interface{} {
 	if len(apiObjects) == 0 {
 		return nil
@@ -2151,6 +2243,7 @@ func flattenLaunchTemplateConfigs(apiObjects []*ec2.LaunchTemplateConfig) []inte
 
 	return tfList
 }
+
 
 func flattenFleetLaunchTemplateSpecificationForSpotFleetRequest(apiObject *ec2.FleetLaunchTemplateSpecification) map[string]interface{} {
 	if apiObject == nil {
@@ -2173,6 +2266,7 @@ func flattenFleetLaunchTemplateSpecificationForSpotFleetRequest(apiObject *ec2.F
 
 	return tfMap
 }
+
 
 func flattenLaunchTemplateOverrides(apiObject *ec2.LaunchTemplateOverrides) map[string]interface{} {
 	if apiObject == nil {
@@ -2212,6 +2306,7 @@ func flattenLaunchTemplateOverrides(apiObject *ec2.LaunchTemplateOverrides) map[
 	return tfMap
 }
 
+
 func flattenLaunchTemplateOverrideses(apiObjects []*ec2.LaunchTemplateOverrides) []interface{} {
 	if len(apiObjects) == 0 {
 		return nil
@@ -2230,6 +2325,7 @@ func flattenLaunchTemplateOverrideses(apiObjects []*ec2.LaunchTemplateOverrides)
 	return tfList
 }
 
+
 func flattenSpotMaintenanceStrategies(spotMaintenanceStrategies *ec2.SpotMaintenanceStrategies) []interface{} {
 	if spotMaintenanceStrategies == nil {
 		return []interface{}{}
@@ -2241,6 +2337,7 @@ func flattenSpotMaintenanceStrategies(spotMaintenanceStrategies *ec2.SpotMainten
 
 	return []interface{}{m}
 }
+
 
 func flattenSpotCapacityRebalance(spotCapacityRebalance *ec2.SpotCapacityRebalance) []interface{} {
 	if spotCapacityRebalance == nil {

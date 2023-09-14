@@ -19,6 +19,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccVPCTrafficMirrorTarget_nlb(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.TrafficMirrorTarget
@@ -27,7 +28,8 @@ func TestAccVPCTrafficMirrorTarget_nlb(t *testing.T) {
 	rName := fmt.Sprintf("tf-acc-test-%s", sdkacctest.RandString(10))
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckTrafficMirrorTarget(ctx, t)
 		},
@@ -37,7 +39,8 @@ func TestAccVPCTrafficMirrorTarget_nlb(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCTrafficMirrorTargetConfig_nlb(rName, description),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTrafficMirrorTargetExists(ctx, resourceName, &v),
 					acctest.CheckResourceAttrAccountID(resourceName, "owner_id"),
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "ec2", regexache.MustCompile(`traffic-mirror-target/tmt-.+`)),
@@ -55,6 +58,7 @@ func TestAccVPCTrafficMirrorTarget_nlb(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCTrafficMirrorTarget_eni(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.TrafficMirrorTarget
@@ -63,7 +67,8 @@ func TestAccVPCTrafficMirrorTarget_eni(t *testing.T) {
 	description := "test eni target"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckTrafficMirrorTarget(ctx, t)
 		},
@@ -73,7 +78,8 @@ func TestAccVPCTrafficMirrorTarget_eni(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCTrafficMirrorTargetConfig_eni(rName, description),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTrafficMirrorTargetExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "description", description),
 					resource.TestMatchResourceAttr(resourceName, "network_interface_id", regexache.MustCompile("eni-.*")),
@@ -88,6 +94,7 @@ func TestAccVPCTrafficMirrorTarget_eni(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCTrafficMirrorTarget_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.TrafficMirrorTarget
@@ -96,7 +103,8 @@ func TestAccVPCTrafficMirrorTarget_tags(t *testing.T) {
 	rName := fmt.Sprintf("tf-acc-test-%s", sdkacctest.RandString(10))
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckTrafficMirrorTarget(ctx, t)
 		},
@@ -106,7 +114,8 @@ func TestAccVPCTrafficMirrorTarget_tags(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCTrafficMirrorTargetConfig_tags1(rName, description, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTrafficMirrorTargetExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
@@ -119,7 +128,8 @@ func TestAccVPCTrafficMirrorTarget_tags(t *testing.T) {
 			},
 			{
 				Config: testAccVPCTrafficMirrorTargetConfig_tags2(rName, description, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTrafficMirrorTargetExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
@@ -128,7 +138,8 @@ func TestAccVPCTrafficMirrorTarget_tags(t *testing.T) {
 			},
 			{
 				Config: testAccVPCTrafficMirrorTargetConfig_tags1(rName, description, "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTrafficMirrorTargetExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
@@ -138,6 +149,7 @@ func TestAccVPCTrafficMirrorTarget_tags(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCTrafficMirrorTarget_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.TrafficMirrorTarget
@@ -146,7 +158,8 @@ func TestAccVPCTrafficMirrorTarget_disappears(t *testing.T) {
 	rName := fmt.Sprintf("tf-acc-test-%s", sdkacctest.RandString(10))
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckTrafficMirrorTarget(ctx, t)
 		},
@@ -156,7 +169,8 @@ func TestAccVPCTrafficMirrorTarget_disappears(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCTrafficMirrorTargetConfig_nlb(rName, description),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTrafficMirrorTargetExists(ctx, resourceName, &v),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceTrafficMirrorTarget(), resourceName),
 				),
@@ -166,6 +180,7 @@ func TestAccVPCTrafficMirrorTarget_disappears(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCTrafficMirrorTarget_gwlb(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_ec2_traffic_mirror_target.test"
@@ -173,7 +188,8 @@ func TestAccVPCTrafficMirrorTarget_gwlb(t *testing.T) {
 	description := "test gwlb endpoint target"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckTrafficMirrorTarget(ctx, t)
 		},
@@ -183,7 +199,8 @@ func TestAccVPCTrafficMirrorTarget_gwlb(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCTrafficMirrorTargetConfig_gwlb(rName, description),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttr(resourceName, "description", description),
 					resource.TestCheckResourceAttrPair(resourceName, "gateway_load_balancer_endpoint_id", "aws_vpc_endpoint.test", "id"),
 				),
@@ -197,8 +214,11 @@ func TestAccVPCTrafficMirrorTarget_gwlb(t *testing.T) {
 	})
 }
 
-func testAccCheckTrafficMirrorTargetDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckTrafficMirrorTargetDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -223,8 +243,11 @@ func testAccCheckTrafficMirrorTargetDestroy(ctx context.Context) resource.TestCh
 	}
 }
 
-func testAccCheckTrafficMirrorTargetExists(ctx context.Context, n string, v *ec2.TrafficMirrorTarget) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckTrafficMirrorTargetExists(ctx context.Context, n string, v *ec2.TrafficMirrorTarget) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -248,6 +271,7 @@ func testAccCheckTrafficMirrorTargetExists(ctx context.Context, n string, v *ec2
 	}
 }
 
+
 func testAccVPCTrafficMirrorTargetConfig_nlb(rName, description string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_lb" "test" {
@@ -265,6 +289,7 @@ resource "aws_ec2_traffic_mirror_target" "test" {
 }
 `, rName, description))
 }
+
 
 func testAccVPCTrafficMirrorTargetConfig_eni(rName, description string) string {
 	return acctest.ConfigCompose(
@@ -292,6 +317,7 @@ resource "aws_ec2_traffic_mirror_target" "test" {
 `, rName, description))
 }
 
+
 func testAccVPCTrafficMirrorTargetConfig_tags1(rName, description, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_lb" "test" {
@@ -313,6 +339,7 @@ resource "aws_ec2_traffic_mirror_target" "test" {
 }
 `, rName, description, tagKey1, tagValue1))
 }
+
 
 func testAccVPCTrafficMirrorTargetConfig_tags2(rName, description, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
@@ -337,6 +364,7 @@ resource "aws_ec2_traffic_mirror_target" "test" {
 `, rName, description, tagKey1, tagValue1, tagKey2, tagValue2))
 }
 
+
 func testAccVPCTrafficMirrorTargetConfig_gwlb(rName, description string) string {
 	return acctest.ConfigCompose(
 		testAccVPCEndpointConfig_gatewayLoadBalancer(rName),
@@ -351,6 +379,7 @@ resource "aws_ec2_traffic_mirror_target" "test" {
 }
 `, rName, description))
 }
+
 
 func testAccPreCheckTrafficMirrorTarget(ctx context.Context, t *testing.T) {
 	conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)

@@ -20,6 +20,7 @@ import (
 )
 
 // @SDKResource("aws_vpc_endpoint_route_table_association")
+
 func ResourceVPCEndpointRouteTableAssociation() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceVPCEndpointRouteTableAssociationCreate,
@@ -84,9 +85,10 @@ func resourceVPCEndpointRouteTableAssociationRead(ctx context.Context, d *schema
 	// Human friendly ID for error messages since d.Id() is non-descriptive
 	id := fmt.Sprintf("%s/%s", endpointID, routeTableID)
 
-	_, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout, func() (interface{}, error) {
-		return nil, FindVPCEndpointRouteTableAssociationExists(ctx, conn, endpointID, routeTableID)
-	}, d.IsNewResource())
+	_, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout,
+		func() (interface{}, error) {
+			return nil, FindVPCEndpointRouteTableAssociationExists(ctx, conn, endpointID, routeTableID)
+		}, d.IsNewResource())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] VPC Endpoint Route Table Association (%s) not found, removing from state", id)

@@ -214,17 +214,18 @@ func TestDataSourcePermissionsDiff(t *testing.T) {
 
 	for _, testCase := range testCases {
 		testCase := testCase
-		t.Run(testCase.name, func(t *testing.T) {
-			t.Parallel()
+		t.Run(testCase.name,
+			func(t *testing.T) {
+				t.Parallel()
 
-			toGrant, toRevoke := tfquicksight.DiffPermissions(testCase.oldPermissions, testCase.newPermissions)
-			if !reflect.DeepEqual(toGrant, testCase.expectedGrants) {
-				t.Fatalf("Expected: %v, got: %v", testCase.expectedGrants, toGrant)
-			}
+				toGrant, toRevoke := tfquicksight.DiffPermissions(testCase.oldPermissions, testCase.newPermissions)
+				if !reflect.DeepEqual(toGrant, testCase.expectedGrants) {
+					t.Fatalf("Expected: %v, got: %v", testCase.expectedGrants, toGrant)
+				}
 
-			if !reflect.DeepEqual(toRevoke, testCase.expectedRevokes) {
-				t.Fatalf("Expected: %v, got: %v", testCase.expectedRevokes, toRevoke)
-			}
-		})
+				if !reflect.DeepEqual(toRevoke, testCase.expectedRevokes) {
+					t.Fatalf("Expected: %v, got: %v", testCase.expectedRevokes, toRevoke)
+				}
+			})
 	}
 }

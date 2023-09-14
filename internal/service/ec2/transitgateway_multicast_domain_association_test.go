@@ -18,6 +18,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func testAccTransitGatewayMulticastDomainAssociation_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.TransitGatewayMulticastDomainAssociation
@@ -25,20 +26,23 @@ func testAccTransitGatewayMulticastDomainAssociation_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayMulticastDomainAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayMulticastDomainAssociationConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayMulticastDomainAssociationExists(ctx, resourceName, &v),
 				),
 			},
 		},
 	})
 }
+
 
 func testAccTransitGatewayMulticastDomainAssociation_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -47,14 +51,16 @@ func testAccTransitGatewayMulticastDomainAssociation_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayMulticastDomainAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayMulticastDomainAssociationConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayMulticastDomainAssociationExists(ctx, resourceName, &v),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceTransitGatewayMulticastDomainAssociation(), resourceName),
 				),
@@ -64,6 +70,7 @@ func testAccTransitGatewayMulticastDomainAssociation_disappears(t *testing.T) {
 	})
 }
 
+
 func testAccTransitGatewayMulticastDomainAssociation_Disappears_domain(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.TransitGatewayMulticastDomainAssociation
@@ -72,14 +79,16 @@ func testAccTransitGatewayMulticastDomainAssociation_Disappears_domain(t *testin
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayMulticastDomainAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayMulticastDomainAssociationConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayMulticastDomainAssociationExists(ctx, resourceName, &v),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceTransitGatewayMulticastDomain(), domainResourceName),
 				),
@@ -89,6 +98,7 @@ func testAccTransitGatewayMulticastDomainAssociation_Disappears_domain(t *testin
 	})
 }
 
+
 func testAccTransitGatewayMulticastDomainAssociation_twoAssociations(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v1, v2 ec2.TransitGatewayMulticastDomainAssociation
@@ -97,14 +107,16 @@ func testAccTransitGatewayMulticastDomainAssociation_twoAssociations(t *testing.
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayMulticastDomainAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayMulticastDomainAssociationConfig_twoAssociations(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayMulticastDomainAssociationExists(ctx, resource1Name, &v1),
 					testAccCheckTransitGatewayMulticastDomainAssociationExists(ctx, resource2Name, &v2),
 				),
@@ -113,8 +125,11 @@ func testAccTransitGatewayMulticastDomainAssociation_twoAssociations(t *testing.
 	})
 }
 
-func testAccCheckTransitGatewayMulticastDomainAssociationExists(ctx context.Context, n string, v *ec2.TransitGatewayMulticastDomainAssociation) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckTransitGatewayMulticastDomainAssociationExists(ctx context.Context, n string, v *ec2.TransitGatewayMulticastDomainAssociation) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -144,8 +159,11 @@ func testAccCheckTransitGatewayMulticastDomainAssociationExists(ctx context.Cont
 	}
 }
 
-func testAccCheckTransitGatewayMulticastDomainAssociationDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckTransitGatewayMulticastDomainAssociationDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -175,6 +193,7 @@ func testAccCheckTransitGatewayMulticastDomainAssociationDestroy(ctx context.Con
 		return nil
 	}
 }
+
 
 func testAccTransitGatewayMulticastDomainAssociationConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInDefaultExclude(), fmt.Sprintf(`
@@ -229,6 +248,7 @@ resource "aws_ec2_transit_gateway_multicast_domain_association" "test" {
 }
 `, rName))
 }
+
 
 func testAccTransitGatewayMulticastDomainAssociationConfig_twoAssociations(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInDefaultExclude(), fmt.Sprintf(`

@@ -15,13 +15,16 @@ import (
 
 type servicePackage struct{}
 
+
 func (p *servicePackage) FrameworkDataSources(ctx context.Context) []*types.ServicePackageFrameworkDataSource {
 	return []*types.ServicePackageFrameworkDataSource{}
 }
 
+
 func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.ServicePackageFrameworkResource {
 	return []*types.ServicePackageFrameworkResource{}
 }
+
 
 func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePackageSDKDataSource {
 	return []*types.ServicePackageSDKDataSource{
@@ -50,8 +53,10 @@ func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePac
 			TypeName: "aws_connect_instance_storage_config",
 		},
 		{
-			Factory:  DataSourceLambdaFunctionAssociation,
-			TypeName: "aws_connect_lambda_function_association",
+			Factory:  DataSourceLambda
+functionAssociation,
+			TypeName: "aws_connect_lambda_
+function_association",
 		},
 		{
 			Factory:  DataSourcePrompt,
@@ -92,6 +97,7 @@ func (p *servicePackage) SDKDataSources(ctx context.Context) []*types.ServicePac
 	}
 }
 
+
 func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePackageSDKResource {
 	return []*types.ServicePackageSDKResource{
 		{
@@ -131,8 +137,10 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 			TypeName: "aws_connect_instance_storage_config",
 		},
 		{
-			Factory:  ResourceLambdaFunctionAssociation,
-			TypeName: "aws_connect_lambda_function_association",
+			Factory:  ResourceLambda
+functionAssociation,
+			TypeName: "aws_connect_lambda_
+function_association",
 		},
 		{
 			Factory:  ResourcePhoneNumber,
@@ -205,16 +213,19 @@ func (p *servicePackage) SDKResources(ctx context.Context) []*types.ServicePacka
 	}
 }
 
+
 func (p *servicePackage) ServicePackageName() string {
 	return names.Connect
 }
 
 // NewConn returns a new AWS SDK for Go v1 client for this service package's AWS API.
+
 func (p *servicePackage) NewConn(ctx context.Context, config map[string]any) (*connect_sdkv1.Connect, error) {
 	sess := config["session"].(*session_sdkv1.Session)
 
 	return connect_sdkv1.New(sess.Copy(&aws_sdkv1.Config{Endpoint: aws_sdkv1.String(config["endpoint"].(string))})), nil
 }
+
 
 func ServicePackage(ctx context.Context) conns.ServicePackage {
 	return &servicePackage{}

@@ -13,6 +13,7 @@ import (
 )
 
 // Flattens an access log into something that flatmap.Flatten() can handle
+
 func flattenAccessLog(l *elb.AccessLog) []map[string]interface{} {
 	result := make([]map[string]interface{}, 0, 1)
 
@@ -43,6 +44,7 @@ func flattenAccessLog(l *elb.AccessLog) []map[string]interface{} {
 }
 
 // Flattens an array of Backend Descriptions into a a map of instance_port to policy names.
+
 func flattenBackendPolicies(backends []*elb.BackendServerDescription) map[int64][]string {
 	policies := make(map[int64][]string)
 	for _, i := range backends {
@@ -56,6 +58,7 @@ func flattenBackendPolicies(backends []*elb.BackendServerDescription) map[int64]
 
 // Flattens a health check into something that flatmap.Flatten()
 // can handle
+
 func FlattenHealthCheck(check *elb.HealthCheck) []map[string]interface{} {
 	result := make([]map[string]interface{}, 0, 1)
 
@@ -72,6 +75,7 @@ func FlattenHealthCheck(check *elb.HealthCheck) []map[string]interface{} {
 }
 
 // Flattens an array of Instances into a []string
+
 func flattenInstances(list []*elb.Instance) []string {
 	result := make([]string, 0, len(list))
 	for _, i := range list {
@@ -81,6 +85,7 @@ func flattenInstances(list []*elb.Instance) []string {
 }
 
 // Expands an array of String Instance IDs into a []Instances
+
 func ExpandInstanceString(list []interface{}) []*elb.Instance {
 	result := make([]*elb.Instance, 0, len(list))
 	for _, i := range list {
@@ -91,6 +96,7 @@ func ExpandInstanceString(list []interface{}) []*elb.Instance {
 
 // Takes the result of flatmap.Expand for an array of listeners and
 // returns ELB API compatible objects
+
 func ExpandListeners(configured []interface{}) ([]*elb.Listener, error) {
 	listeners := make([]*elb.Listener, 0, len(configured))
 
@@ -135,6 +141,7 @@ func ExpandListeners(configured []interface{}) ([]*elb.Listener, error) {
 }
 
 // Flattens an array of Listeners into a []map[string]interface{}
+
 func flattenListeners(list []*elb.ListenerDescription) []map[string]interface{} {
 	result := make([]map[string]interface{}, 0, len(list))
 	for _, i := range list {
@@ -155,6 +162,7 @@ func flattenListeners(list []*elb.ListenerDescription) []map[string]interface{} 
 
 // Takes the result of flatmap.Expand for an array of policy attributes and
 // returns ELB API compatible objects
+
 func ExpandPolicyAttributes(configured []interface{}) []*elb.PolicyAttribute {
 	attributes := make([]*elb.PolicyAttribute, 0, len(configured))
 
@@ -175,6 +183,7 @@ func ExpandPolicyAttributes(configured []interface{}) []*elb.PolicyAttribute {
 }
 
 // Flattens an array of PolicyAttributes into a []interface{}
+
 func FlattenPolicyAttributes(list []*elb.PolicyAttributeDescription) []interface{} {
 	var attributes []interface{}
 

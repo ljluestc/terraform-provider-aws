@@ -19,6 +19,7 @@ import (
 )
 
 // @SDKDataSource("aws_route53_resolver_query_log_config")
+
 func DataSourceQueryLogConfig() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceQueryLogConfigRead,
@@ -36,7 +37,8 @@ func DataSourceQueryLogConfig() *schema.Resource {
 			"name": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				ValidateFunc: validResolverName,
+				Validate
+func: validResolverName,
 			},
 			"owner_id": {
 				Type:     schema.TypeString,
@@ -59,6 +61,7 @@ const (
 	DSNameQueryLogConfig = "Query Log Config Data Source"
 )
 
+
 func dataSourceQueryLogConfigRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
 
@@ -72,7 +75,8 @@ func dataSourceQueryLogConfigRead(ctx context.Context, d *schema.ResourceData, m
 
 	var configs []*route53resolver.ResolverQueryLogConfig
 
-	err := conn.ListResolverQueryLogConfigsPagesWithContext(ctx, input, func(page *route53resolver.ListResolverQueryLogConfigsOutput, lastPage bool) bool {
+	err := conn.ListResolverQueryLogConfigsPagesWithContext(ctx, input, 
+func(page *route53resolver.ListResolverQueryLogConfigsOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}

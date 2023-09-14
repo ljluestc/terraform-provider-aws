@@ -18,20 +18,23 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )
 
+
 func TestAccCodeCommitTrigger_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_codecommit_trigger.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, codecommit.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTriggerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTriggerConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTriggerExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "trigger.#", "1"),
 				),
@@ -40,8 +43,11 @@ func TestAccCodeCommitTrigger_basic(t *testing.T) {
 	})
 }
 
-func testAccCheckTriggerDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckTriggerDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).CodeCommitConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -67,8 +73,11 @@ func testAccCheckTriggerDestroy(ctx context.Context) resource.TestCheckFunc {
 	}
 }
 
-func testAccCheckTriggerExists(ctx context.Context, name string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckTriggerExists(ctx context.Context, name string) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
 		if !ok {
 			return fmt.Errorf("Not found: %s", name)
@@ -94,6 +103,7 @@ func testAccCheckTriggerExists(ctx context.Context, name string) resource.TestCh
 		return nil
 	}
 }
+
 
 func testAccTriggerConfig_basic(rName string) string {
 	return fmt.Sprintf(`

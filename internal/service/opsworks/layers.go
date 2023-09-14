@@ -43,7 +43,9 @@ type opsworksLayerTypeAttribute struct {
 	Default      interface{}
 	ForceNew     bool
 	Required     bool
-	ValidateFunc schema.SchemaValidateFunc
+	Validate
+func schema.SchemaValidate
+func
 	WriteOnly    bool
 }
 
@@ -55,6 +57,7 @@ type opsworksLayerType struct {
 	Attributes       opsworksLayerTypeAttributeMap
 	CustomShortName  bool
 }
+
 
 func (lt *opsworksLayerType) resourceSchema() *schema.Resource {
 	resourceSchema := map[string]*schema.Schema{
@@ -81,7 +84,9 @@ func (lt *opsworksLayerType) resourceSchema() *schema.Resource {
 			Type:     schema.TypeList,
 			Optional: true,
 			MaxItems: 1,
-			DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+			DiffSuppress
+func: 
+func(k, old, new string, d *schema.ResourceData) bool {
 				if old == "1" && new == "0" && !d.Get("cloudwatch_configuration.0.enabled").(bool) {
 					return true
 				}
@@ -92,7 +97,9 @@ func (lt *opsworksLayerType) resourceSchema() *schema.Resource {
 					"enabled": {
 						Type:     schema.TypeBool,
 						Optional: true,
-						DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+						DiffSuppress
+func: 
+func(k, old, new string, d *schema.ResourceData) bool {
 							if old == "false" && new == "" {
 								return true
 							}
@@ -102,7 +109,9 @@ func (lt *opsworksLayerType) resourceSchema() *schema.Resource {
 					"log_streams": {
 						Type:     schema.TypeList,
 						Optional: true,
-						DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+						DiffSuppress
+func: 
+func(k, old, new string, d *schema.ResourceData) bool {
 							if old == "1" && new == "0" && !d.Get("cloudwatch_configuration.0.enabled").(bool) {
 								return true
 							}
@@ -114,19 +123,22 @@ func (lt *opsworksLayerType) resourceSchema() *schema.Resource {
 									Type:         schema.TypeInt,
 									Default:      1000,
 									Optional:     true,
-									ValidateFunc: validation.IntAtMost(10000),
+									Validate
+func: validation.IntAtMost(10000),
 								},
 								"batch_size": {
 									Type:         schema.TypeInt,
 									Default:      32768,
 									Optional:     true,
-									ValidateFunc: validation.IntAtMost(1048576),
+									Validate
+func: validation.IntAtMost(1048576),
 								},
 								"buffer_duration": {
 									Type:         schema.TypeInt,
 									Default:      5000,
 									Optional:     true,
-									ValidateFunc: validation.IntAtLeast(5000),
+									Validate
+func: validation.IntAtLeast(5000),
 								},
 								"datetime_format": {
 									Type:     schema.TypeString,
@@ -136,7 +148,8 @@ func (lt *opsworksLayerType) resourceSchema() *schema.Resource {
 									Type:         schema.TypeString,
 									Optional:     true,
 									Default:      opsworks.CloudWatchLogsEncodingUtf8,
-									ValidateFunc: validation.StringInSlice(opsworks.CloudWatchLogsEncoding_Values(), false),
+									Validate
+func: validation.StringInSlice(opsworks.CloudWatchLogsEncoding_Values(), false),
 								},
 								"file": {
 									Type:     schema.TypeString,
@@ -151,7 +164,8 @@ func (lt *opsworksLayerType) resourceSchema() *schema.Resource {
 									Type:         schema.TypeString,
 									Optional:     true,
 									Default:      opsworks.CloudWatchLogsInitialPositionStartOfFile,
-									ValidateFunc: validation.StringInSlice(opsworks.CloudWatchLogsInitialPosition_Values(), false),
+									Validate
+func: validation.StringInSlice(opsworks.CloudWatchLogsInitialPosition_Values(), false),
 								},
 								"log_group_name": {
 									Type:     schema.TypeString,
@@ -164,7 +178,8 @@ func (lt *opsworksLayerType) resourceSchema() *schema.Resource {
 								"time_zone": {
 									Type:         schema.TypeString,
 									Optional:     true,
-									ValidateFunc: validation.StringInSlice(opsworks.CloudWatchLogsTimeZone_Values(), false),
+									Validate
+func: validation.StringInSlice(opsworks.CloudWatchLogsTimeZone_Values(), false),
 								},
 							},
 						},
@@ -185,12 +200,16 @@ func (lt *opsworksLayerType) resourceSchema() *schema.Resource {
 		"custom_instance_profile_arn": {
 			Type:         schema.TypeString,
 			Optional:     true,
-			ValidateFunc: verify.ValidARN,
+			Validate
+func: verify.ValidARN,
 		},
 		"custom_json": {
 			Type:         schema.TypeString,
-			ValidateFunc: validation.StringIsJSON,
-			StateFunc: func(v interface{}) string {
+			Validate
+func: validation.StringIsJSON,
+			State
+func: 
+func(v interface{}) string {
 				json, _ := structure.NormalizeJsonString(v)
 				return json
 			},
@@ -258,7 +277,8 @@ func (lt *opsworksLayerType) resourceSchema() *schema.Resource {
 						Type:     schema.TypeString,
 						Optional: true,
 						Default:  "standard",
-						ValidateFunc: validation.StringInSlice([]string{
+						Validate
+func: validation.StringInSlice([]string{
 							"standard",
 							"io1",
 							"gp2",
@@ -268,7 +288,8 @@ func (lt *opsworksLayerType) resourceSchema() *schema.Resource {
 					},
 				},
 			},
-			Set: func(v interface{}) int {
+			Set: 
+func(v interface{}) int {
 				m := v.(map[string]interface{})
 				return create.StringHashcode(m["mount_point"].(string))
 			},
@@ -316,7 +337,8 @@ func (lt *opsworksLayerType) resourceSchema() *schema.Resource {
 									Type:         schema.TypeInt,
 									Optional:     true,
 									Default:      10,
-									ValidateFunc: validation.IntBetween(1, 100),
+									Validate
+func: validation.IntBetween(1, 100),
 								},
 								"instance_count": {
 									Type:     schema.TypeInt,
@@ -335,7 +357,8 @@ func (lt *opsworksLayerType) resourceSchema() *schema.Resource {
 									Type:         schema.TypeInt,
 									Optional:     true,
 									Default:      10,
-									ValidateFunc: validation.IntBetween(1, 100),
+									Validate
+func: validation.IntBetween(1, 100),
 								},
 							},
 						},
@@ -366,7 +389,8 @@ func (lt *opsworksLayerType) resourceSchema() *schema.Resource {
 									Type:         schema.TypeInt,
 									Optional:     true,
 									Default:      5,
-									ValidateFunc: validation.IntBetween(1, 100),
+									Validate
+func: validation.IntBetween(1, 100),
 								},
 								"instance_count": {
 									Type:     schema.TypeInt,
@@ -385,7 +409,8 @@ func (lt *opsworksLayerType) resourceSchema() *schema.Resource {
 									Type:         schema.TypeInt,
 									Optional:     true,
 									Default:      5,
-									ValidateFunc: validation.IntBetween(1, 100),
+									Validate
+func: validation.IntBetween(1, 100),
 								},
 							},
 						},
@@ -439,21 +464,27 @@ func (lt *opsworksLayerType) resourceSchema() *schema.Resource {
 			ForceNew:     def.ForceNew,
 			Required:     def.Required,
 			Optional:     !def.Required,
-			ValidateFunc: def.ValidateFunc,
+			Validate
+func: def.Validate
+func,
 		}
 	}
 
 	return &schema.Resource{
-		CreateWithoutTimeout: func(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+		CreateWithoutTimeout: 
+func(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 			return lt.Create(ctx, d, meta)
 		},
-		ReadWithoutTimeout: func(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+		ReadWithoutTimeout: 
+func(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 			return lt.Read(ctx, d, meta)
 		},
-		UpdateWithoutTimeout: func(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+		UpdateWithoutTimeout: 
+func(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 			return lt.Update(ctx, d, meta)
 		},
-		DeleteWithoutTimeout: func(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+		DeleteWithoutTimeout: 
+func(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 			return lt.Delete(ctx, d, meta)
 		},
 
@@ -461,13 +492,16 @@ func (lt *opsworksLayerType) resourceSchema() *schema.Resource {
 			StateContext: schema.ImportStatePassthroughContext,
 		},
 
-		SchemaFunc: func() map[string]*schema.Schema {
+		Schema
+func: 
+func() map[string]*schema.Schema {
 			return resourceSchema
 		},
 
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
+
 
 func (lt *opsworksLayerType) Create(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).OpsWorksConn(ctx)
@@ -611,6 +645,7 @@ func (lt *opsworksLayerType) Create(ctx context.Context, d *schema.ResourceData,
 	return lt.Read(ctx, d, meta)
 }
 
+
 func (lt *opsworksLayerType) Read(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).OpsWorksConn(ctx)
 
@@ -709,6 +744,7 @@ func (lt *opsworksLayerType) Read(ctx context.Context, d *schema.ResourceData, m
 
 	return nil
 }
+
 
 func (lt *opsworksLayerType) Update(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).OpsWorksConn(ctx)
@@ -867,6 +903,7 @@ func (lt *opsworksLayerType) Update(ctx context.Context, d *schema.ResourceData,
 	return lt.Read(ctx, d, meta)
 }
 
+
 func (lt *opsworksLayerType) Delete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).OpsWorksConn(ctx)
 
@@ -897,6 +934,7 @@ func (lt *opsworksLayerType) Delete(ctx context.Context, d *schema.ResourceData,
 	return nil
 }
 
+
 func FindLayerByID(ctx context.Context, conn *opsworks.OpsWorks, id string) (*opsworks.Layer, error) {
 	input := &opsworks.DescribeLayersInput{
 		LayerIds: aws.StringSlice([]string{id}),
@@ -926,6 +964,7 @@ func FindLayerByID(ctx context.Context, conn *opsworks.OpsWorks, id string) (*op
 	return output.Layers[0], nil
 }
 
+
 func findElasticLoadBalancerByLayerID(ctx context.Context, conn *opsworks.OpsWorks, id string) (*opsworks.ElasticLoadBalancer, error) {
 	input := &opsworks.DescribeElasticLoadBalancersInput{
 		LayerIds: aws.StringSlice([]string{id}),
@@ -948,6 +987,7 @@ func findElasticLoadBalancerByLayerID(ctx context.Context, conn *opsworks.OpsWor
 	return output.ElasticLoadBalancers[0], nil
 }
 
+
 func findLoadBasedAutoScalingConfigurationByLayerID(ctx context.Context, conn *opsworks.OpsWorks, id string) (*opsworks.LoadBasedAutoScalingConfiguration, error) {
 	input := &opsworks.DescribeLoadBasedAutoScalingInput{
 		LayerIds: aws.StringSlice([]string{id}),
@@ -969,6 +1009,7 @@ func findLoadBasedAutoScalingConfigurationByLayerID(ctx context.Context, conn *o
 
 	return output.LoadBasedAutoScalingConfigurations[0], nil
 }
+
 
 func (m opsworksLayerTypeAttributeMap) apiAttributesToResourceData(apiAttributes map[string]string, d *schema.ResourceData) error {
 	for k, attr := range m {
@@ -1001,6 +1042,7 @@ func (m opsworksLayerTypeAttributeMap) apiAttributesToResourceData(apiAttributes
 	return nil
 }
 
+
 func (m opsworksLayerTypeAttributeMap) resourceDataToAPIAttributes(d *schema.ResourceData) (map[string]string, error) {
 	apiAttributes := map[string]string{}
 
@@ -1022,6 +1064,7 @@ func (m opsworksLayerTypeAttributeMap) resourceDataToAPIAttributes(d *schema.Res
 	return apiAttributes, nil
 }
 
+
 func expandCloudWatchLogsConfiguration(tfMap map[string]interface{}) *opsworks.CloudWatchLogsConfiguration {
 	if tfMap == nil {
 		return nil
@@ -1039,6 +1082,7 @@ func expandCloudWatchLogsConfiguration(tfMap map[string]interface{}) *opsworks.C
 
 	return apiObject
 }
+
 
 func expandCloudWatchLogsLogStream(tfMap map[string]interface{}) *opsworks.CloudWatchLogsLogStream {
 	if tfMap == nil {
@@ -1094,6 +1138,7 @@ func expandCloudWatchLogsLogStream(tfMap map[string]interface{}) *opsworks.Cloud
 	return apiObject
 }
 
+
 func expandCloudWatchLogsLogStreams(tfList []interface{}) []*opsworks.CloudWatchLogsLogStream {
 	if len(tfList) == 0 {
 		return nil
@@ -1120,6 +1165,7 @@ func expandCloudWatchLogsLogStreams(tfList []interface{}) []*opsworks.CloudWatch
 	return apiObjects
 }
 
+
 func flattenCloudWatchLogsConfiguration(apiObject *opsworks.CloudWatchLogsConfiguration) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -1137,6 +1183,7 @@ func flattenCloudWatchLogsConfiguration(apiObject *opsworks.CloudWatchLogsConfig
 
 	return tfMap
 }
+
 
 func flattenCloudWatchLogsLogStream(apiObject *opsworks.CloudWatchLogsLogStream) map[string]interface{} {
 	if apiObject == nil {
@@ -1192,6 +1239,7 @@ func flattenCloudWatchLogsLogStream(apiObject *opsworks.CloudWatchLogsLogStream)
 	return tfMap
 }
 
+
 func flattenCloudWatchLogsLogStreams(apiObjects []*opsworks.CloudWatchLogsLogStream) []interface{} {
 	if len(apiObjects) == 0 {
 		return nil
@@ -1209,6 +1257,7 @@ func flattenCloudWatchLogsLogStreams(apiObjects []*opsworks.CloudWatchLogsLogStr
 
 	return tfList
 }
+
 
 func expandVolumeConfiguration(tfMap map[string]interface{}) *opsworks.VolumeConfiguration {
 	if tfMap == nil {
@@ -1250,6 +1299,7 @@ func expandVolumeConfiguration(tfMap map[string]interface{}) *opsworks.VolumeCon
 	return apiObject
 }
 
+
 func expandVolumeConfigurations(tfList []interface{}) []*opsworks.VolumeConfiguration {
 	if len(tfList) == 0 {
 		return nil
@@ -1275,6 +1325,7 @@ func expandVolumeConfigurations(tfList []interface{}) []*opsworks.VolumeConfigur
 
 	return apiObjects
 }
+
 
 func flattenVolumeConfiguration(apiObject *opsworks.VolumeConfiguration) map[string]interface{} {
 	if apiObject == nil {
@@ -1314,6 +1365,7 @@ func flattenVolumeConfiguration(apiObject *opsworks.VolumeConfiguration) map[str
 	return tfMap
 }
 
+
 func flattenVolumeConfigurations(apiObjects []*opsworks.VolumeConfiguration) []interface{} {
 	if len(apiObjects) == 0 {
 		return nil
@@ -1331,6 +1383,7 @@ func flattenVolumeConfigurations(apiObjects []*opsworks.VolumeConfiguration) []i
 
 	return tfList
 }
+
 
 func expandSetLoadBasedAutoScalingInput(tfMap map[string]interface{}) *opsworks.SetLoadBasedAutoScalingInput {
 	if tfMap == nil {
@@ -1353,6 +1406,7 @@ func expandSetLoadBasedAutoScalingInput(tfMap map[string]interface{}) *opsworks.
 
 	return apiObject
 }
+
 
 func expandAutoScalingThresholds(tfMap map[string]interface{}) *opsworks.AutoScalingThresholds {
 	if tfMap == nil {
@@ -1392,6 +1446,7 @@ func expandAutoScalingThresholds(tfMap map[string]interface{}) *opsworks.AutoSca
 	return apiObject
 }
 
+
 func flattenLoadBasedAutoScalingConfiguration(apiObject *opsworks.LoadBasedAutoScalingConfiguration) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -1413,6 +1468,7 @@ func flattenLoadBasedAutoScalingConfiguration(apiObject *opsworks.LoadBasedAutoS
 
 	return tfMap
 }
+
 
 func flattenAutoScalingThresholds(apiObject *opsworks.AutoScalingThresholds) map[string]interface{} {
 	if apiObject == nil {

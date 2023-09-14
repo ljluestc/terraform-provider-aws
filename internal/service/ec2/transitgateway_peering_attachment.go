@@ -22,6 +22,7 @@ import (
 
 // @SDKResource("aws_ec2_transit_gateway_peering_attachment", name="Transit Gateway Peering Attachment")
 // @Tags(identifierAttribute="id")
+
 func ResourceTransitGatewayPeeringAttachment() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceTransitGatewayPeeringAttachmentCreate,
@@ -41,7 +42,8 @@ func ResourceTransitGatewayPeeringAttachment() *schema.Resource {
 				Optional:     true,
 				ForceNew:     true,
 				Computed:     true,
-				ValidateFunc: verify.ValidAccountID,
+				Validate
+func: verify.ValidAccountID,
 			},
 			"peer_region": {
 				Type:     schema.TypeString,
@@ -63,6 +65,7 @@ func ResourceTransitGatewayPeeringAttachment() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceTransitGatewayPeeringAttachmentCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -96,6 +99,7 @@ func resourceTransitGatewayPeeringAttachmentCreate(ctx context.Context, d *schem
 	return append(diags, resourceTransitGatewayPeeringAttachmentRead(ctx, d, meta)...)
 }
 
+
 func resourceTransitGatewayPeeringAttachmentRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -122,6 +126,7 @@ func resourceTransitGatewayPeeringAttachmentRead(ctx context.Context, d *schema.
 	return diags
 }
 
+
 func resourceTransitGatewayPeeringAttachmentUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 
@@ -129,6 +134,7 @@ func resourceTransitGatewayPeeringAttachmentUpdate(ctx context.Context, d *schem
 
 	return append(diags, resourceTransitGatewayPeeringAttachmentRead(ctx, d, meta)...)
 }
+
 
 func resourceTransitGatewayPeeringAttachmentDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

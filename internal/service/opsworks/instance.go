@@ -24,6 +24,7 @@ import (
 )
 
 // @SDKResource("aws_opsworks_instance")
+
 func ResourceInstance() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceInstanceCreate,
@@ -58,13 +59,15 @@ func ResourceInstance() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				Default:      "x86_64",
-				ValidateFunc: validation.StringInSlice(opsworks.Architecture_Values(), false),
+				Validate
+func: validation.StringInSlice(opsworks.Architecture_Values(), false),
 			},
 
 			"auto_scaling_type": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				ValidateFunc: validation.StringInSlice(opsworks.AutoScalingType_Values(), false),
+				Validate
+func: validation.StringInSlice(opsworks.AutoScalingType_Values(), false),
 			},
 
 			"availability_zone": {
@@ -219,7 +222,8 @@ func ResourceInstance() *schema.Resource {
 				Optional:     true,
 				ForceNew:     true,
 				Computed:     true,
-				ValidateFunc: validation.StringInSlice(opsworks.RootDeviceType_Values(), false),
+				Validate
+func: validation.StringInSlice(opsworks.RootDeviceType_Values(), false),
 			},
 
 			"root_device_volume_id": {
@@ -259,7 +263,8 @@ func ResourceInstance() *schema.Resource {
 			"state": {
 				Type:     schema.TypeString,
 				Optional: true,
-				ValidateFunc: validation.StringInSlice([]string{
+				Validate
+func: validation.StringInSlice([]string{
 					"running",
 					"stopped",
 				}, false),
@@ -283,7 +288,8 @@ func ResourceInstance() *schema.Resource {
 				Optional: true,
 				Computed: true,
 				ForceNew: true,
-				ValidateFunc: validation.StringInSlice([]string{
+				Validate
+func: validation.StringInSlice([]string{
 					"dedicated",
 					"default",
 					"host",
@@ -295,7 +301,8 @@ func ResourceInstance() *schema.Resource {
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringInSlice(opsworks.VirtualizationType_Values(), false),
+				Validate
+func: validation.StringInSlice(opsworks.VirtualizationType_Values(), false),
 			},
 
 			"ebs_block_device": {
@@ -347,7 +354,8 @@ func ResourceInstance() *schema.Resource {
 						},
 					},
 				},
-				Set: func(v interface{}) int {
+				Set: 
+func(v interface{}) int {
 					var buf bytes.Buffer
 					m := v.(map[string]interface{})
 					buf.WriteString(fmt.Sprintf("%s-", m["device_name"].(string)))
@@ -373,7 +381,8 @@ func ResourceInstance() *schema.Resource {
 						},
 					},
 				},
-				Set: func(v interface{}) int {
+				Set: 
+func(v interface{}) int {
 					var buf bytes.Buffer
 					m := v.(map[string]interface{})
 					buf.WriteString(fmt.Sprintf("%s-", m["device_name"].(string)))
@@ -425,7 +434,8 @@ func ResourceInstance() *schema.Resource {
 						},
 					},
 				},
-				Set: func(v interface{}) int {
+				Set: 
+func(v interface{}) int {
 					// there can be only one root device; no need to hash anything
 					return 0
 				},
@@ -433,6 +443,7 @@ func ResourceInstance() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceInstanceValidate(d *schema.ResourceData) error {
 	if d.HasChange("ami_id") {
@@ -456,6 +467,7 @@ func resourceInstanceValidate(d *schema.ResourceData) error {
 	}
 	return nil
 }
+
 
 func resourceInstanceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -567,6 +579,7 @@ func resourceInstanceRead(ctx context.Context, d *schema.ResourceData, meta inte
 	}
 	return diags
 }
+
 
 func resourceInstanceCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -732,6 +745,7 @@ func resourceInstanceCreate(ctx context.Context, d *schema.ResourceData, meta in
 	return append(diags, resourceInstanceRead(ctx, d, meta)...)
 }
 
+
 func resourceInstanceUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).OpsWorksConn(ctx)
@@ -814,6 +828,7 @@ func resourceInstanceUpdate(ctx context.Context, d *schema.ResourceData, meta in
 	return append(diags, resourceInstanceRead(ctx, d, meta)...)
 }
 
+
 func resourceInstanceDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).OpsWorksConn(ctx)
@@ -850,6 +865,7 @@ func resourceInstanceDelete(ctx context.Context, d *schema.ResourceData, meta in
 	return diags
 }
 
+
 func resourceInstanceImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	// Neither delete_eip nor delete_ebs can be fetched
 	// from any API call, so we need to default to the values
@@ -858,6 +874,7 @@ func resourceInstanceImport(ctx context.Context, d *schema.ResourceData, meta in
 	d.Set("delete_eip", true)
 	return []*schema.ResourceData{d}, nil
 }
+
 
 func startInstance(ctx context.Context, d *schema.ResourceData, meta interface{}, wait bool, timeout time.Duration) error {
 	conn := meta.(*conns.AWSClient).OpsWorksConn(ctx)
@@ -885,6 +902,7 @@ func startInstance(ctx context.Context, d *schema.ResourceData, meta interface{}
 	return nil
 }
 
+
 func stopInstance(ctx context.Context, d *schema.ResourceData, meta interface{}, timeout time.Duration) error {
 	conn := meta.(*conns.AWSClient).OpsWorksConn(ctx)
 
@@ -909,6 +927,7 @@ func stopInstance(ctx context.Context, d *schema.ResourceData, meta interface{},
 	return nil
 }
 
+
 func waitInstanceDeleted(ctx context.Context, conn *opsworks.OpsWorks, instanceId string) error {
 	stateConf := &retry.StateChangeConf{
 		Pending:    []string{instanceStatusStopped, instanceStatusTerminating, instanceStatusTerminated},
@@ -923,6 +942,7 @@ func waitInstanceDeleted(ctx context.Context, conn *opsworks.OpsWorks, instanceI
 	return err
 }
 
+
 func waitInstanceStarted(ctx context.Context, conn *opsworks.OpsWorks, instanceId string, timeout time.Duration) error {
 	stateConf := &retry.StateChangeConf{
 		Pending:    []string{instanceStatusRequested, instanceStatusPending, instanceStatusBooting, instanceStatusRunningSetup},
@@ -935,6 +955,7 @@ func waitInstanceStarted(ctx context.Context, conn *opsworks.OpsWorks, instanceI
 	_, err := stateConf.WaitForStateContext(ctx)
 	return err
 }
+
 
 func waitInstanceStopped(ctx context.Context, conn *opsworks.OpsWorks, instanceId string, timeout time.Duration) error {
 	stateConf := &retry.StateChangeConf{
@@ -949,8 +970,11 @@ func waitInstanceStopped(ctx context.Context, conn *opsworks.OpsWorks, instanceI
 	return err
 }
 
-func instanceStatus(ctx context.Context, conn *opsworks.OpsWorks, instanceID string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+
+func instanceStatus(ctx context.Context, conn *opsworks.OpsWorks, instanceID string) retry.StateRefresh
+func {
+	return 
+func() (interface{}, string, error) {
 		resp, err := conn.DescribeInstancesWithContext(ctx, &opsworks.DescribeInstancesInput{
 			InstanceIds: []*string{aws.String(instanceID)},
 		})
@@ -973,6 +997,7 @@ func instanceStatus(ctx context.Context, conn *opsworks.OpsWorks, instanceID str
 		return i, aws.StringValue(i.Status), nil
 	}
 }
+
 
 func readBlockDevices(instance *opsworks.Instance) map[string]interface{} {
 	blockDevices := make(map[string]interface{})

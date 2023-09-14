@@ -24,6 +24,7 @@ import (
 
 // @SDKResource("aws_ami_from_instance", name="AMI")
 // @Tags(identifierAttribute="id")
+
 func ResourceAMIFromInstance() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceAMIFromInstanceCreate,
@@ -56,8 +57,10 @@ func ResourceAMIFromInstance() *schema.Resource {
 			"deprecation_time": {
 				Type:                  schema.TypeString,
 				Optional:              true,
-				ValidateFunc:          validation.IsRFC3339Time,
-				DiffSuppressFunc:      verify.SuppressEquivalentRoundedTime(time.RFC3339, time.Minute),
+				Validate
+func:          validation.IsRFC3339Time,
+				DiffSuppress
+func:      verify.SuppressEquivalentRoundedTime(time.RFC3339, time.Minute),
 				DiffSuppressOnRefresh: true,
 			},
 			"description": {
@@ -114,7 +117,8 @@ func ResourceAMIFromInstance() *schema.Resource {
 						},
 					},
 				},
-				Set: func(v interface{}) int {
+				Set: 
+func(v interface{}) int {
 					var buf bytes.Buffer
 					m := v.(map[string]interface{})
 					buf.WriteString(fmt.Sprintf("%s-", m["device_name"].(string)))
@@ -143,7 +147,8 @@ func ResourceAMIFromInstance() *schema.Resource {
 						},
 					},
 				},
-				Set: func(v interface{}) int {
+				Set: 
+func(v interface{}) int {
 					var buf bytes.Buffer
 					m := v.(map[string]interface{})
 					buf.WriteString(fmt.Sprintf("%s-", m["device_name"].(string)))
@@ -249,6 +254,7 @@ func ResourceAMIFromInstance() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
+
 
 func resourceAMIFromInstanceCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

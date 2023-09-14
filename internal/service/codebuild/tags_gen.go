@@ -13,6 +13,7 @@ import (
 // []*SERVICE.Tag handling
 
 // Tags returns codebuild service tags.
+
 func Tags(tags tftags.KeyValueTags) []*codebuild.Tag {
 	result := make([]*codebuild.Tag, 0, len(tags))
 
@@ -29,6 +30,7 @@ func Tags(tags tftags.KeyValueTags) []*codebuild.Tag {
 }
 
 // KeyValueTags creates tftags.KeyValueTags from codebuild service tags.
+
 func KeyValueTags(ctx context.Context, tags []*codebuild.Tag) tftags.KeyValueTags {
 	m := make(map[string]*string, len(tags))
 
@@ -41,6 +43,7 @@ func KeyValueTags(ctx context.Context, tags []*codebuild.Tag) tftags.KeyValueTag
 
 // getTagsIn returns codebuild service tags from Context.
 // nil is returned if there are no input tags.
+
 func getTagsIn(ctx context.Context) []*codebuild.Tag {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		if tags := Tags(inContext.TagsIn.UnwrapOrDefault()); len(tags) > 0 {
@@ -52,6 +55,7 @@ func getTagsIn(ctx context.Context) []*codebuild.Tag {
 }
 
 // setTagsOut sets codebuild service tags in Context.
+
 func setTagsOut(ctx context.Context, tags []*codebuild.Tag) {
 	if inContext, ok := tftags.FromContext(ctx); ok {
 		inContext.TagsOut = types.Some(KeyValueTags(ctx, tags))

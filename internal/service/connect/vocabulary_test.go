@@ -19,6 +19,7 @@ import (
 	tfconnect "github.com/hashicorp/terraform-provider-aws/internal/service/connect"
 )
 
+
 func testAccVocabulary_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -34,14 +35,16 @@ func testAccVocabulary_basic(t *testing.T) {
 	resourceName := "aws_connect_vocabulary.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVocabularyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVocabularyConfig_basic(rName, rName2, content, languageCode),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckVocabularyExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttrSet(resourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "content", content),
@@ -64,6 +67,7 @@ func testAccVocabulary_basic(t *testing.T) {
 	})
 }
 
+
 func testAccVocabulary_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	if testing.Short() {
@@ -79,14 +83,16 @@ func testAccVocabulary_disappears(t *testing.T) {
 	resourceName := "aws_connect_vocabulary.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVocabularyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVocabularyConfig_basic(rName, rName2, content, languageCode),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckVocabularyExists(ctx, resourceName, &v),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfconnect.ResourceVocabulary(), resourceName),
 				),
@@ -95,6 +101,7 @@ func testAccVocabulary_disappears(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccVocabulary_updateTags(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -111,14 +118,16 @@ func testAccVocabulary_updateTags(t *testing.T) {
 	resourceName := "aws_connect_vocabulary.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVocabularyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVocabularyConfig_basic(rName, rName2, content, languageCode),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckVocabularyExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.Key1", "Value1"),
@@ -131,7 +140,8 @@ func testAccVocabulary_updateTags(t *testing.T) {
 			},
 			{
 				Config: testAccVocabularyConfig_tags(rName, rName2, content, languageCode),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckVocabularyExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
 					resource.TestCheckResourceAttr(resourceName, "tags.Key1", "Value1"),
@@ -140,7 +150,8 @@ func testAccVocabulary_updateTags(t *testing.T) {
 			},
 			{
 				Config: testAccVocabularyConfig_tagsUpdate(rName, rName2, content, languageCode),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckVocabularyExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "3"),
 					resource.TestCheckResourceAttr(resourceName, "tags.Key1", "Value1"),
@@ -152,8 +163,12 @@ func testAccVocabulary_updateTags(t *testing.T) {
 	})
 }
 
-func testAccCheckVocabularyExists(ctx context.Context, resourceName string, function *connect.DescribeVocabularyOutput) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckVocabularyExists(ctx context.Context, resourceName string, 
+function *connect.DescribeVocabularyOutput) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("Connect Vocabulary not found: %s", resourceName)
@@ -175,19 +190,25 @@ func testAccCheckVocabularyExists(ctx context.Context, resourceName string, func
 			VocabularyId: aws.String(vocabularyID),
 		}
 
-		getFunction, err := conn.DescribeVocabularyWithContext(ctx, params)
+		get
+function, err := conn.DescribeVocabularyWithContext(ctx, params)
 		if err != nil {
 			return err
 		}
 
-		*function = *getFunction
+		*
+function = *get
+function
 
 		return nil
 	}
 }
 
-func testAccCheckVocabularyDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckVocabularyDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_connect_vocabulary" {
 				continue
@@ -226,6 +247,7 @@ func testAccCheckVocabularyDestroy(ctx context.Context) resource.TestCheckFunc {
 	}
 }
 
+
 func testAccVocabularyConfig_base(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_connect_instance" "test" {
@@ -236,6 +258,7 @@ resource "aws_connect_instance" "test" {
 }
 `, rName)
 }
+
 
 func testAccVocabularyConfig_basic(rName, rName2, content, languageCode string) string {
 	return acctest.ConfigCompose(
@@ -254,6 +277,7 @@ resource "aws_connect_vocabulary" "test" {
 `, rName2, content, languageCode))
 }
 
+
 func testAccVocabularyConfig_tags(rName, rName2, content, languageCode string) string {
 	return acctest.ConfigCompose(
 		testAccVocabularyConfig_base(rName),
@@ -271,6 +295,7 @@ resource "aws_connect_vocabulary" "test" {
 }
 `, rName2, content, languageCode))
 }
+
 
 func testAccVocabularyConfig_tagsUpdate(rName, rName2, content, languageCode string) string {
 	return acctest.ConfigCompose(

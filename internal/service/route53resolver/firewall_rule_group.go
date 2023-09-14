@@ -23,6 +23,7 @@ import (
 
 // @SDKResource("aws_route53_resolver_firewall_rule_group", name="Firewall Rule Group")
 // @Tags(identifierAttribute="arn")
+
 func ResourceFirewallRuleGroup() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceFirewallRuleGroupCreate,
@@ -43,7 +44,8 @@ func ResourceFirewallRuleGroup() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validResolverName,
+				Validate
+func: validResolverName,
 			},
 			"owner_id": {
 				Type:     schema.TypeString,
@@ -60,6 +62,7 @@ func ResourceFirewallRuleGroup() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
+
 
 func resourceFirewallRuleGroupCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
@@ -81,6 +84,7 @@ func resourceFirewallRuleGroupCreate(ctx context.Context, d *schema.ResourceData
 
 	return resourceFirewallRuleGroupRead(ctx, d, meta)
 }
+
 
 func resourceFirewallRuleGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
@@ -106,10 +110,12 @@ func resourceFirewallRuleGroupRead(ctx context.Context, d *schema.ResourceData, 
 	return nil
 }
 
+
 func resourceFirewallRuleGroupUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	// Tags only.
 	return resourceFirewallRuleGroupRead(ctx, d, meta)
 }
+
 
 func resourceFirewallRuleGroupDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
@@ -129,6 +135,7 @@ func resourceFirewallRuleGroupDelete(ctx context.Context, d *schema.ResourceData
 
 	return nil
 }
+
 
 func FindFirewallRuleGroupByID(ctx context.Context, conn *route53resolver.Route53Resolver, id string) (*route53resolver.FirewallRuleGroup, error) {
 	input := &route53resolver.GetFirewallRuleGroupInput{

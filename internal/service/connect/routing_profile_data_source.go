@@ -17,6 +17,7 @@ import (
 )
 
 // @SDKDataSource("aws_connect_routing_profile")
+
 func DataSourceRoutingProfile() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceRoutingProfileRead,
@@ -36,7 +37,8 @@ func DataSourceRoutingProfile() *schema.Resource {
 			"instance_id": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: validation.StringLenBetween(1, 100),
+				Validate
+func: validation.StringLenBetween(1, 100),
 			},
 			"media_concurrencies": {
 				Type:     schema.TypeSet,
@@ -102,6 +104,7 @@ func DataSourceRoutingProfile() *schema.Resource {
 		},
 	}
 }
+
 
 func dataSourceRoutingProfileRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -171,6 +174,7 @@ func dataSourceRoutingProfileRead(ctx context.Context, d *schema.ResourceData, m
 	return nil
 }
 
+
 func dataSourceGetRoutingProfileSummaryByName(ctx context.Context, conn *connect.Connect, instanceID, name string) (*connect.RoutingProfileSummary, error) {
 	var result *connect.RoutingProfileSummary
 
@@ -179,7 +183,8 @@ func dataSourceGetRoutingProfileSummaryByName(ctx context.Context, conn *connect
 		MaxResults: aws.Int64(ListRoutingProfilesMaxResults),
 	}
 
-	err := conn.ListRoutingProfilesPagesWithContext(ctx, input, func(page *connect.ListRoutingProfilesOutput, lastPage bool) bool {
+	err := conn.ListRoutingProfilesPagesWithContext(ctx, input, 
+func(page *connect.ListRoutingProfilesOutput, lastPage bool) bool {
 		if page == nil {
 			return !lastPage
 		}

@@ -17,6 +17,7 @@ import (
 )
 
 // @FrameworkDataSource
+
 func newDataSourceSecurityGroupRules(context.Context) (datasource.DataSourceWithConfigure, error) {
 	return &dataSourceSecurityGroupRules{}, nil
 }

@@ -20,15 +20,19 @@ import (
 // represents exact matches for all of the tag key/value pairs given in
 // the tag set.
 //
-// The purpose of this function is to create values to pass in for
-// the "Filters" attribute on most of the "Describe..." API functions
+// The purpose of this 
+function is to create values to pass in for
+// the "Filters" attribute on most of the "Describe..." API 
+functions
 // in the EC2 API, to implement filtering by tag values e.g. in Terraform
 // data sources that retrieve data about EC2 objects.
 //
 // It is conventional for an EC2 data source to include an attribute called
-// "tags" which conforms to the schema returned by the tftags.TagsSchema() function.
+// "tags" which conforms to the schema returned by the tftags.TagsSchema() 
+function.
 // The value of this can then be converted to a tags slice using tagsFromMap,
-// and the result finally passed in to this function.
+// and the result finally passed in to this 
+function.
 //
 // In Terraform configuration this would then look like this, to constrain
 // results by name:
@@ -36,6 +40,7 @@ import (
 //	tags {
 //	  Name = "my-awesome-subnet"
 //	}
+
 func BuildTagFilterList(tags []*ec2.Tag) []*ec2.Filter {
 	filters := make([]*ec2.Filter, len(tags))
 
@@ -57,6 +62,7 @@ func BuildTagFilterList(tags []*ec2.Tag) []*ec2.Filter {
 // The values of the specified map are lists of resource attribute values used in the filter. The resource can
 // match any of the filter values to be included in the result.
 // See https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/Using_Filtering.html#Filtering_Resources_CLI for more details.
+
 func attributeFiltersFromMultimap(m map[string][]string) []*ec2.Filter {
 	if len(m) == 0 {
 		return nil
@@ -74,6 +80,7 @@ func attributeFiltersFromMultimap(m map[string][]string) []*ec2.Filter {
 }
 
 // tagFilters returns an array of EC2 Filter objects to be used when listing resources by tag.
+
 func tagFilters(ctx context.Context) []*ec2.Filter {
 	tags := getTagsIn(ctx)
 	filters := make([]*ec2.Filter, len(tags))
@@ -103,6 +110,7 @@ func tagFilters(ctx context.Context) []*ec2.Filter {
 //	  name   = "availabilityZone"
 //	  values = ["us-west-2a", "us-west-2b"]
 //	}
+
 func CustomFiltersSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeSet,
@@ -124,6 +132,7 @@ func CustomFiltersSchema() *schema.Schema {
 		},
 	}
 }
+
 
 func CustomRequiredFiltersSchema() *schema.Schema {
 	return &schema.Schema{
@@ -148,6 +157,7 @@ func CustomRequiredFiltersSchema() *schema.Schema {
 }
 
 // CustomFiltersBlock is the Plugin Framework variant of CustomFiltersSchema.
+
 func CustomFiltersBlock() datasourceschema.Block {
 	return datasourceschema.SetNestedBlock{
 		NestedObject: datasourceschema.NestedBlockObject{
@@ -174,11 +184,15 @@ type customFilterData struct {
 // attribute conforming to the schema returned by CustomFiltersSchema,
 // and transforms it into a []*ec2.Filter representing the same filter
 // expressions which is ready to pass into the "Filters" attribute on most
-// of the "Describe..." functions in the EC2 API.
+// of the "Describe..." 
+functions in the EC2 API.
 //
-// This function is intended only to be used in conjunction with
-// CustomFiltersSchema. See the docs on that function for more details
+// This 
+function is intended only to be used in conjunction with
+// CustomFiltersSchema. See the docs on that 
+function for more details
 // on the configuration pattern this is intended to support.
+
 func BuildCustomFilterList(filterSet *schema.Set) []*ec2.Filter {
 	if filterSet == nil {
 		return []*ec2.Filter{}
@@ -204,6 +218,7 @@ func BuildCustomFilterList(filterSet *schema.Set) []*ec2.Filter {
 
 	return filters
 }
+
 
 func BuildCustomFilters(ctx context.Context, filterSet types.Set) []*ec2.Filter {
 	if filterSet.IsNull() || filterSet.IsUnknown() {

@@ -13,6 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccVPCNetworkInsightsAnalysisDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_ec2_network_insights_analysis.test"
@@ -20,13 +21,15 @@ func TestAccVPCNetworkInsightsAnalysisDataSource_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCNetworkInsightsAnalysisDataSourceConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrPair(datasourceName, "alternate_path_hints.#", resourceName, "alternate_path_hints.#"),
 					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(datasourceName, "explanations.#", resourceName, "explanations.#"),
@@ -46,6 +49,7 @@ func TestAccVPCNetworkInsightsAnalysisDataSource_basic(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccVPCNetworkInsightsAnalysisDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccVPCNetworkInsightsAnalysisConfig_base(rName), fmt.Sprintf(`

@@ -14,6 +14,7 @@ import (
 )
 
 // @SDKDataSource("aws_route53_resolver_firewall_rules")
+
 func DataSourceResolverFirewallRules() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceResolverFirewallFirewallRulesRead,
@@ -95,17 +96,18 @@ func dataSourceResolverFirewallFirewallRulesRead(ctx context.Context, d *schema.
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
 
 	firewallRuleGroupID := d.Get("firewall_rule_group_id").(string)
-	rules, err := findFirewallRules(ctx, conn, firewallRuleGroupID, func(rule *route53resolver.FirewallRule) bool {
-		if v, ok := d.GetOk("action"); ok && aws.StringValue(rule.Action) != v.(string) {
-			return false
-		}
+	rules, err := findFirewallRules(ctx, conn, firewallRuleGroupID,
+		func(rule *route53resolver.FirewallRule) bool {
+			if v, ok := d.GetOk("action"); ok && aws.StringValue(rule.Action) != v.(string) {
+				return false
+			}
 
-		if v, ok := d.GetOk("priority"); ok && aws.Int64Value(rule.Priority) != int64(v.(int)) {
-			return false
-		}
+			if v, ok := d.GetOk("priority"); ok && aws.Int64Value(rule.Priority) != int64(v.(int)) {
+				return false
+			}
 
-		return true
-	})
+			return true
+		})
 
 	if err != nil {
 		return diag.Errorf("reading Route53 Resolver Firewall Rules (%s): %s", firewallRuleGroupID, err)

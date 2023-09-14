@@ -13,6 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func testAccTransitGatewayAttachmentDataSource_Filter(t *testing.T) {
 	ctx := acctest.Context(t)
 	dataSourceName := "data.aws_ec2_transit_gateway_attachment.test"
@@ -20,13 +21,15 @@ func testAccTransitGatewayAttachmentDataSource_Filter(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayAttachmentDataSourceConfig_filter(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrSet(dataSourceName, "arn"),
 					resource.TestCheckResourceAttrPair(resourceName, "vpc_id", dataSourceName, "resource_id"),
 					acctest.CheckResourceAttrAccountID(dataSourceName, "resource_owner_id"),
@@ -43,6 +46,7 @@ func testAccTransitGatewayAttachmentDataSource_Filter(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccTransitGatewayAttachmentDataSource_ID(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -51,13 +55,15 @@ func testAccTransitGatewayAttachmentDataSource_ID(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayAttachmentDataSourceConfig_id(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrSet(dataSourceName, "arn"),
 					resource.TestCheckResourceAttrPair(resourceName, "vpc_id", dataSourceName, "resource_id"),
 					acctest.CheckResourceAttrAccountID(dataSourceName, "resource_owner_id"),
@@ -74,6 +80,7 @@ func testAccTransitGatewayAttachmentDataSource_ID(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccTransitGatewayAttachmentDataSourceConfig_filter(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
@@ -113,6 +120,7 @@ data "aws_ec2_transit_gateway_attachment" "test" {
 }
 `, rName))
 }
+
 
 func testAccTransitGatewayAttachmentDataSourceConfig_id(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`

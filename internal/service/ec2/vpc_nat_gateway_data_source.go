@@ -17,6 +17,7 @@ import (
 )
 
 // @SDKDataSource("aws_nat_gateway")
+
 func DataSourceNATGateway() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceNATGatewayRead,

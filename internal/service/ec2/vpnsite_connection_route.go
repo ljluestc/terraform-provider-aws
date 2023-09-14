@@ -20,6 +20,7 @@ import (
 )
 
 // @SDKResource("aws_vpn_connection_route")
+
 func ResourceVPNConnectionRoute() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceVPNConnectionRouteCreate,

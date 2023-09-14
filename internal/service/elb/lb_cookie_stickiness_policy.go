@@ -21,6 +21,7 @@ import (
 )
 
 // @SDKResource("aws_lb_cookie_stickiness_policy")
+
 func ResourceCookieStickinessPolicy() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceCookieStickinessPolicyCreate,
@@ -32,7 +33,8 @@ func ResourceCookieStickinessPolicy() *schema.Resource {
 				Type:         schema.TypeInt,
 				Optional:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.IntAtLeast(0),
+				Validate
+func: validation.IntAtLeast(0),
 			},
 			"lb_port": {
 				Type:     schema.TypeInt,
@@ -52,6 +54,7 @@ func ResourceCookieStickinessPolicy() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceCookieStickinessPolicyCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -97,6 +100,7 @@ func resourceCookieStickinessPolicyCreate(ctx context.Context, d *schema.Resourc
 	return append(diags, resourceCookieStickinessPolicyRead(ctx, d, meta)...)
 }
 
+
 func resourceCookieStickinessPolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).ELBConn(ctx)
@@ -133,6 +137,7 @@ func resourceCookieStickinessPolicyRead(ctx context.Context, d *schema.ResourceD
 
 	return diags
 }
+
 
 func resourceCookieStickinessPolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -174,12 +179,14 @@ func resourceCookieStickinessPolicyDelete(ctx context.Context, d *schema.Resourc
 
 const lbCookieStickinessPolicyResourceIDSeparator = ":"
 
+
 func LBCookieStickinessPolicyCreateResourceID(lbName string, lbPort int, policyName string) string {
 	parts := []string{lbName, strconv.Itoa(lbPort), policyName}
 	id := strings.Join(parts, lbCookieStickinessPolicyResourceIDSeparator)
 
 	return id
 }
+
 
 func LBCookieStickinessPolicyParseResourceID(id string) (string, int, string, error) {
 	parts := strings.Split(id, lbCookieStickinessPolicyResourceIDSeparator)

@@ -12,6 +12,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func testAccTransitGatewayPeeringAttachmentDataSource_Filter_sameAccount(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -19,7 +20,8 @@ func testAccTransitGatewayPeeringAttachmentDataSource_Filter_sameAccount(t *test
 	resourceName := "aws_ec2_transit_gateway_peering_attachment.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckTransitGateway(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
@@ -30,7 +32,8 @@ func testAccTransitGatewayPeeringAttachmentDataSource_Filter_sameAccount(t *test
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayPeeringAttachmentDataSourceConfig_filterSameAccount(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttrPair(resourceName, "peer_account_id", dataSourceName, "peer_account_id"),
 					resource.TestCheckResourceAttrPair(resourceName, "peer_region", dataSourceName, "peer_region"),
 					resource.TestCheckResourceAttrPair(resourceName, "peer_transit_gateway_id", dataSourceName, "peer_transit_gateway_id"),
@@ -42,6 +45,7 @@ func testAccTransitGatewayPeeringAttachmentDataSource_Filter_sameAccount(t *test
 	})
 }
 
+
 func testAccTransitGatewayPeeringAttachmentDataSource_Filter_differentAccount(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -50,7 +54,8 @@ func testAccTransitGatewayPeeringAttachmentDataSource_Filter_differentAccount(t 
 	transitGatewayResourceName := "aws_ec2_transit_gateway.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckTransitGateway(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
@@ -62,7 +67,8 @@ func testAccTransitGatewayPeeringAttachmentDataSource_Filter_differentAccount(t 
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayPeeringAttachmentDataSourceConfig_filterDifferentAccount(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttr(dataSourceName, "peer_region", acctest.Region()),
 					resource.TestCheckResourceAttrPair(transitGatewayResourceName, "owner_id", dataSourceName, "peer_account_id"),
 					resource.TestCheckResourceAttrPair(resourceName, "transit_gateway_id", dataSourceName, "peer_transit_gateway_id"),
@@ -73,6 +79,7 @@ func testAccTransitGatewayPeeringAttachmentDataSource_Filter_differentAccount(t 
 	})
 }
 
+
 func testAccTransitGatewayPeeringAttachmentDataSource_ID_sameAccount(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -80,7 +87,8 @@ func testAccTransitGatewayPeeringAttachmentDataSource_ID_sameAccount(t *testing.
 	resourceName := "aws_ec2_transit_gateway_peering_attachment.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckTransitGateway(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
@@ -91,7 +99,8 @@ func testAccTransitGatewayPeeringAttachmentDataSource_ID_sameAccount(t *testing.
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayPeeringAttachmentDataSourceConfig_idSameAccount(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttrPair(resourceName, "peer_account_id", dataSourceName, "peer_account_id"),
 					resource.TestCheckResourceAttrPair(resourceName, "peer_region", dataSourceName, "peer_region"),
 					resource.TestCheckResourceAttrPair(resourceName, "peer_transit_gateway_id", dataSourceName, "peer_transit_gateway_id"),
@@ -103,6 +112,7 @@ func testAccTransitGatewayPeeringAttachmentDataSource_ID_sameAccount(t *testing.
 	})
 }
 
+
 func testAccTransitGatewayPeeringAttachmentDataSource_ID_differentAccount(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -111,7 +121,8 @@ func testAccTransitGatewayPeeringAttachmentDataSource_ID_differentAccount(t *tes
 	transitGatewayResourceName := "aws_ec2_transit_gateway.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckTransitGateway(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
@@ -123,7 +134,8 @@ func testAccTransitGatewayPeeringAttachmentDataSource_ID_differentAccount(t *tes
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayPeeringAttachmentDataSourceConfig_iDDifferentAccount(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttr(dataSourceName, "peer_region", acctest.Region()),
 					resource.TestCheckResourceAttrPair(transitGatewayResourceName, "owner_id", dataSourceName, "peer_account_id"),
 					resource.TestCheckResourceAttrPair(resourceName, "transit_gateway_id", dataSourceName, "peer_transit_gateway_id"),
@@ -134,6 +146,7 @@ func testAccTransitGatewayPeeringAttachmentDataSource_ID_differentAccount(t *tes
 	})
 }
 
+
 func testAccTransitGatewayPeeringAttachmentDataSource_Tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -141,7 +154,8 @@ func testAccTransitGatewayPeeringAttachmentDataSource_Tags(t *testing.T) {
 	resourceName := "aws_ec2_transit_gateway_peering_attachment.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckTransitGateway(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
@@ -152,7 +166,8 @@ func testAccTransitGatewayPeeringAttachmentDataSource_Tags(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayPeeringAttachmentDataSourceConfig_tagsSameAccount(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttrPair(resourceName, "peer_account_id", dataSourceName, "peer_account_id"),
 					resource.TestCheckResourceAttrPair(resourceName, "peer_region", dataSourceName, "peer_region"),
 					resource.TestCheckResourceAttrPair(resourceName, "peer_transit_gateway_id", dataSourceName, "peer_transit_gateway_id"),
@@ -163,6 +178,7 @@ func testAccTransitGatewayPeeringAttachmentDataSource_Tags(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccTransitGatewayPeeringAttachmentDataSourceConfig_filterSameAccount(rName string) string {
 	return acctest.ConfigCompose(testAccTransitGatewayPeeringAttachmentConfig_sameAccount(rName), `
@@ -175,6 +191,7 @@ data "aws_ec2_transit_gateway_peering_attachment" "test" {
 `)
 }
 
+
 func testAccTransitGatewayPeeringAttachmentDataSourceConfig_idSameAccount(rName string) string {
 	return acctest.ConfigCompose(testAccTransitGatewayPeeringAttachmentConfig_sameAccount(rName), `
 data "aws_ec2_transit_gateway_peering_attachment" "test" {
@@ -182,6 +199,7 @@ data "aws_ec2_transit_gateway_peering_attachment" "test" {
 }
 `)
 }
+
 
 func testAccTransitGatewayPeeringAttachmentDataSourceConfig_tagsSameAccount(rName string) string {
 	return acctest.ConfigCompose(testAccTransitGatewayPeeringAttachmentConfig_tags1(rName, "Name", rName), `
@@ -192,6 +210,7 @@ data "aws_ec2_transit_gateway_peering_attachment" "test" {
 }
 `)
 }
+
 
 func testAccTransitGatewayPeeringAttachmentDataSourceConfig_filterDifferentAccount(rName string) string {
 	return acctest.ConfigCompose(testAccTransitGatewayPeeringAttachmentConfig_differentAccount(rName), `
@@ -205,6 +224,7 @@ data "aws_ec2_transit_gateway_peering_attachment" "test" {
 }
 `)
 }
+
 
 func testAccTransitGatewayPeeringAttachmentDataSourceConfig_iDDifferentAccount(rName string) string {
 	return acctest.ConfigCompose(testAccTransitGatewayPeeringAttachmentConfig_differentAccount(rName), `

@@ -11,6 +11,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 )
 
+
 func comboChartVisualSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ComboChartVisual.html
 		Type:     schema.TypeList,
@@ -69,7 +70,8 @@ func comboChartVisualSchema() *schema.Schema {
 								Optional:         true,
 								MinItems:         1,
 								MaxItems:         1,
-								DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
+								DiffSuppress
+func: verify.SuppressMissingOptionalConfigurationBlock,
 								Elem: &schema.Resource{
 									Schema: map[string]*schema.Schema{
 										"category_items_limit": itemsLimitConfigurationSchema(),                     // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ItemsLimitConfiguration.html
@@ -91,6 +93,7 @@ func comboChartVisualSchema() *schema.Schema {
 		},
 	}
 }
+
 
 func expandComboChartVisual(tfList []interface{}) *quicksight.ComboChartVisual {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -125,6 +128,7 @@ func expandComboChartVisual(tfList []interface{}) *quicksight.ComboChartVisual {
 
 	return visual
 }
+
 
 func expandComboChartConfiguration(tfList []interface{}) *quicksight.ComboChartConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -190,6 +194,7 @@ func expandComboChartConfiguration(tfList []interface{}) *quicksight.ComboChartC
 	return config
 }
 
+
 func expandComboChartFieldWells(tfList []interface{}) *quicksight.ComboChartFieldWells {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -208,6 +213,7 @@ func expandComboChartFieldWells(tfList []interface{}) *quicksight.ComboChartFiel
 
 	return config
 }
+
 
 func expandComboChartAggregatedFieldWells(tfList []interface{}) *quicksight.ComboChartAggregatedFieldWells {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -237,6 +243,7 @@ func expandComboChartAggregatedFieldWells(tfList []interface{}) *quicksight.Comb
 	return config
 }
 
+
 func expandComboChartSortConfiguration(tfList []interface{}) *quicksight.ComboChartSortConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -265,6 +272,7 @@ func expandComboChartSortConfiguration(tfList []interface{}) *quicksight.ComboCh
 	return config
 }
 
+
 func flattenComboChartVisual(apiObject *quicksight.ComboChartVisual) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -291,6 +299,7 @@ func flattenComboChartVisual(apiObject *quicksight.ComboChartVisual) []interface
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenComboChartConfiguration(apiObject *quicksight.ComboChartConfiguration) []interface{} {
 	if apiObject == nil {
@@ -350,6 +359,7 @@ func flattenComboChartConfiguration(apiObject *quicksight.ComboChartConfiguratio
 	return []interface{}{tfMap}
 }
 
+
 func flattenComboChartFieldWells(apiObject *quicksight.ComboChartFieldWells) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -362,6 +372,7 @@ func flattenComboChartFieldWells(apiObject *quicksight.ComboChartFieldWells) []i
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenComboChartAggregatedFieldWells(apiObject *quicksight.ComboChartAggregatedFieldWells) []interface{} {
 	if apiObject == nil {
@@ -384,6 +395,7 @@ func flattenComboChartAggregatedFieldWells(apiObject *quicksight.ComboChartAggre
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenComboChartSortConfiguration(apiObject *quicksight.ComboChartSortConfiguration) []interface{} {
 	if apiObject == nil {

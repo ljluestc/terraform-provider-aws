@@ -21,6 +21,7 @@ import (
 )
 
 // @SDKResource("aws_emr_studio_session_mapping")
+
 func ResourceStudioSessionMapping() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceStudioSessionMappingCreate,
@@ -50,12 +51,14 @@ func ResourceStudioSessionMapping() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringInSlice(emr.IdentityType_Values(), false),
+				Validate
+func: validation.StringInSlice(emr.IdentityType_Values(), false),
 			},
 			"session_policy_arn": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			"studio_id": {
 				Type:     schema.TypeString,
@@ -65,6 +68,7 @@ func ResourceStudioSessionMapping() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceStudioSessionMappingCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -99,6 +103,7 @@ func resourceStudioSessionMappingCreate(ctx context.Context, d *schema.ResourceD
 	return append(diags, resourceStudioSessionMappingRead(ctx, d, meta)...)
 }
 
+
 func resourceStudioSessionMappingUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EMRConn(ctx)
@@ -128,6 +133,7 @@ func resourceStudioSessionMappingUpdate(ctx context.Context, d *schema.ResourceD
 	return append(diags, resourceStudioSessionMappingRead(ctx, d, meta)...)
 }
 
+
 func resourceStudioSessionMappingRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EMRConn(ctx)
@@ -151,6 +157,7 @@ func resourceStudioSessionMappingRead(ctx context.Context, d *schema.ResourceDat
 
 	return diags
 }
+
 
 func resourceStudioSessionMappingDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

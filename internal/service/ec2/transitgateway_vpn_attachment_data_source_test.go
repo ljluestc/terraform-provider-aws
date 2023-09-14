@@ -13,6 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func testAccTransitGatewayVPNAttachmentDataSource_idAndVPNConnectionID(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -22,7 +23,8 @@ func testAccTransitGatewayVPNAttachmentDataSource_idAndVPNConnectionID(t *testin
 	vpnConnectionResourceName := "aws_vpn_connection.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckTransitGateway(ctx, t)
 		},
@@ -32,7 +34,8 @@ func testAccTransitGatewayVPNAttachmentDataSource_idAndVPNConnectionID(t *testin
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayVPNAttachmentDataSourceConfig_idAndVPNConnectionID(rName, rBgpAsn),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttr(dataSourceName, "tags.%", "0"),
 					resource.TestCheckResourceAttrPair(dataSourceName, "transit_gateway_id", transitGatewayResourceName, "id"),
 					resource.TestCheckResourceAttrPair(dataSourceName, "vpn_connection_id", vpnConnectionResourceName, "id"),
@@ -41,6 +44,7 @@ func testAccTransitGatewayVPNAttachmentDataSource_idAndVPNConnectionID(t *testin
 		},
 	})
 }
+
 
 func testAccTransitGatewayVPNAttachmentDataSource_filter(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -51,7 +55,8 @@ func testAccTransitGatewayVPNAttachmentDataSource_filter(t *testing.T) {
 	vpnConnectionResourceName := "aws_vpn_connection.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckTransitGateway(ctx, t)
 		},
@@ -61,7 +66,8 @@ func testAccTransitGatewayVPNAttachmentDataSource_filter(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayVPNAttachmentDataSourceConfig_filter(rName, rBgpAsn),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttr(dataSourceName, "tags.%", "0"),
 					resource.TestCheckResourceAttrPair(dataSourceName, "transit_gateway_id", transitGatewayResourceName, "id"),
 					resource.TestCheckResourceAttrPair(dataSourceName, "vpn_connection_id", vpnConnectionResourceName, "id"),
@@ -70,6 +76,7 @@ func testAccTransitGatewayVPNAttachmentDataSource_filter(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccTransitGatewayVPNAttachmentDataSourceConfig_base(rName string, rBgpAsn int) string {
 	return fmt.Sprintf(`
@@ -101,6 +108,7 @@ resource "aws_vpn_connection" "test" {
 `, rName, rBgpAsn)
 }
 
+
 func testAccTransitGatewayVPNAttachmentDataSourceConfig_idAndVPNConnectionID(rName string, rBgpAsn int) string {
 	return acctest.ConfigCompose(testAccTransitGatewayVPNAttachmentDataSourceConfig_base(rName, rBgpAsn), `
 data "aws_ec2_transit_gateway_vpn_attachment" "test" {
@@ -109,6 +117,7 @@ data "aws_ec2_transit_gateway_vpn_attachment" "test" {
 }
 `)
 }
+
 
 func testAccTransitGatewayVPNAttachmentDataSourceConfig_filter(rName string, rBgpAsn int) string {
 	return acctest.ConfigCompose(testAccTransitGatewayVPNAttachmentDataSourceConfig_base(rName, rBgpAsn), `

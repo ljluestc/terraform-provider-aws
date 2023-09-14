@@ -18,20 +18,23 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccELBListenerPolicy_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_load_balancer_listener_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, elb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckListenerPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccListenerPolicyConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckListenerPolicyExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "load_balancer_port", "80"),
 					resource.TestCheckResourceAttr(resourceName, "policy_names.#", "1"),
@@ -42,6 +45,7 @@ func TestAccELBListenerPolicy_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccELBListenerPolicy_update(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -50,14 +54,16 @@ func TestAccELBListenerPolicy_update(t *testing.T) {
 	resourceName := "aws_load_balancer_listener_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, elb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckListenerPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccListenerPolicyConfig_update(rName, key, certificate, 0),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckListenerPolicyExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "load_balancer_port", "443"),
 					resource.TestCheckResourceAttr(resourceName, "policy_names.#", "1"),
@@ -66,7 +72,8 @@ func TestAccELBListenerPolicy_update(t *testing.T) {
 			},
 			{
 				Config: testAccListenerPolicyConfig_update(rName, key, certificate, 1),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckListenerPolicyExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "load_balancer_port", "443"),
 					resource.TestCheckResourceAttr(resourceName, "policy_names.#", "1"),
@@ -81,20 +88,23 @@ func TestAccELBListenerPolicy_update(t *testing.T) {
 	})
 }
 
+
 func TestAccELBListenerPolicy_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_load_balancer_listener_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, elb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckListenerPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccListenerPolicyConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckListenerPolicyExists(ctx, resourceName),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfelb.ResourceListenerPolicy(), resourceName),
 				),
@@ -104,8 +114,11 @@ func TestAccELBListenerPolicy_disappears(t *testing.T) {
 	})
 }
 
-func testAccCheckListenerPolicyDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckListenerPolicyDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).ELBConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -136,8 +149,11 @@ func testAccCheckListenerPolicyDestroy(ctx context.Context) resource.TestCheckFu
 	}
 }
 
-func testAccCheckListenerPolicyExists(ctx context.Context, n string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckListenerPolicyExists(ctx context.Context, n string) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -160,6 +176,7 @@ func testAccCheckListenerPolicyExists(ctx context.Context, n string) resource.Te
 		return err
 	}
 }
+
 
 func testAccListenerPolicyConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
@@ -196,6 +213,7 @@ resource "aws_load_balancer_listener_policy" "test" {
 }
 `, rName))
 }
+
 
 func testAccListenerPolicyConfig_update(rName, key, certificate string, certToUse int) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`

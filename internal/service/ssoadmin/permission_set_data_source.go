@@ -20,6 +20,7 @@ import (
 )
 
 // @SDKDataSource("aws_ssoadmin_permission_set")
+
 func DataSourcePermissionSet() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourcePermissionSetRead,
@@ -29,7 +30,8 @@ func DataSourcePermissionSet() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				Computed:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 				ExactlyOneOf: []string{"arn", "name"},
 			},
 
@@ -46,14 +48,16 @@ func DataSourcePermissionSet() *schema.Resource {
 			"instance_arn": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 
 			"name": {
 				Type:     schema.TypeString,
 				Optional: true,
 				Computed: true,
-				ValidateFunc: validation.All(
+				Validate
+func: validation.All(
 					validation.StringLenBetween(1, 32),
 					validation.StringMatch(regexache.MustCompile(`[\w+=,.@-]+`), "must match [\\w+=,.@-]"),
 				),
@@ -74,6 +78,7 @@ func DataSourcePermissionSet() *schema.Resource {
 		},
 	}
 }
+
 
 func dataSourcePermissionSetRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -110,7 +115,8 @@ func dataSourcePermissionSetRead(ctx context.Context, d *schema.ResourceData, me
 			InstanceArn: aws.String(instanceArn),
 		}
 
-		err := conn.ListPermissionSetsPagesWithContext(ctx, input, func(page *ssoadmin.ListPermissionSetsOutput, lastPage bool) bool {
+		err := conn.ListPermissionSetsPagesWithContext(ctx, input, 
+func(page *ssoadmin.ListPermissionSetsOutput, lastPage bool) bool {
 			if page == nil {
 				return !lastPage
 			}

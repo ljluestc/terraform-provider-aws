@@ -17,20 +17,23 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccIPAMPool_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var pool ec2.IpamPool
 	resourceName := "aws_vpc_ipam_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckIPAMPoolDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIPAMPoolConfig_basic,
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckIPAMPoolExists(ctx, resourceName, &pool),
 					resource.TestCheckResourceAttr(resourceName, "address_family", "ipv4"),
 					resource.TestCheckNoResourceAttr(resourceName, "allocation_default_netmask_length"),
@@ -55,7 +58,8 @@ func TestAccIPAMPool_basic(t *testing.T) {
 			},
 			{
 				Config: testAccIPAMPoolConfig_updated,
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckIPAMPoolExists(ctx, resourceName, &pool),
 					resource.TestCheckResourceAttr(resourceName, "address_family", "ipv4"),
 					resource.TestCheckResourceAttr(resourceName, "allocation_default_netmask_length", "32"),
@@ -78,20 +82,23 @@ func TestAccIPAMPool_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccIPAMPool_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var pool ec2.IpamPool
 	resourceName := "aws_vpc_ipam_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckIPAMPoolDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIPAMPoolConfig_basic,
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckIPAMPoolExists(ctx, resourceName, &pool),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceIPAMPool(), resourceName),
 				),
@@ -101,20 +108,23 @@ func TestAccIPAMPool_disappears(t *testing.T) {
 	})
 }
 
+
 func TestAccIPAMPool_ipv6Basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var pool ec2.IpamPool
 	resourceName := "aws_vpc_ipam_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckIPAMPoolDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIPAMPoolConfig_ipv6,
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckIPAMPoolExists(ctx, resourceName, &pool),
 					resource.TestCheckResourceAttr(resourceName, "address_family", "ipv6"),
 					resource.TestCheckResourceAttr(resourceName, "publicly_advertisable", "false"),
@@ -129,20 +139,23 @@ func TestAccIPAMPool_ipv6Basic(t *testing.T) {
 	})
 }
 
+
 func TestAccIPAMPool_ipv6Contiguous(t *testing.T) {
 	ctx := acctest.Context(t)
 	var pool ec2.IpamPool
 	resourceName := "aws_vpc_ipam_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckIPAMPoolDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIPAMPoolConfig_ipv6Contiguous,
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckIPAMPoolExists(ctx, resourceName, &pool),
 					resource.TestCheckResourceAttr(resourceName, "address_family", "ipv6"),
 					resource.TestCheckResourceAttr(resourceName, "public_ip_source", "byoip"),
@@ -158,20 +171,23 @@ func TestAccIPAMPool_ipv6Contiguous(t *testing.T) {
 	})
 }
 
+
 func TestAccIPAMPool_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var pool ec2.IpamPool
 	resourceName := "aws_vpc_ipam_pool.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckIPAMPoolDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIPAMPoolConfig_tags("key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckIPAMPoolExists(ctx, resourceName, &pool),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
@@ -184,7 +200,8 @@ func TestAccIPAMPool_tags(t *testing.T) {
 			},
 			{
 				Config: testAccIPAMPoolConfig_tags2("key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckIPAMPoolExists(ctx, resourceName, &pool),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
@@ -193,7 +210,8 @@ func TestAccIPAMPool_tags(t *testing.T) {
 			},
 			{
 				Config: testAccIPAMPoolConfig_tags("key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckIPAMPoolExists(ctx, resourceName, &pool),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
@@ -203,8 +221,11 @@ func TestAccIPAMPool_tags(t *testing.T) {
 	})
 }
 
-func testAccCheckIPAMPoolExists(ctx context.Context, n string, v *ec2.IpamPool) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckIPAMPoolExists(ctx context.Context, n string, v *ec2.IpamPool) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -228,8 +249,11 @@ func testAccCheckIPAMPoolExists(ctx context.Context, n string, v *ec2.IpamPool) 
 	}
 }
 
-func testAccCheckIPAMPoolDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckIPAMPoolDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -306,6 +330,7 @@ resource "aws_vpc_ipam_pool" "test" {
 }
 `)
 
+
 func testAccIPAMPoolConfig_tags(tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccIPAMPoolConfig_base, fmt.Sprintf(`
 resource "aws_vpc_ipam_pool" "test" {
@@ -318,6 +343,7 @@ resource "aws_vpc_ipam_pool" "test" {
 }
 `, tagKey1, tagValue1))
 }
+
 
 func testAccIPAMPoolConfig_tags2(tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccIPAMPoolConfig_base, fmt.Sprintf(`

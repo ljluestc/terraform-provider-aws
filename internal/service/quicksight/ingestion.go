@@ -29,6 +29,7 @@ import (
 )
 
 // @FrameworkResource(name="Ingestion")
+
 func newResourceIngestion(_ context.Context) (resource.ResourceWithConfigure, error) {
 	return &resourceIngestion{}, nil
 }
@@ -173,6 +174,7 @@ func (r *resourceIngestion) Read(ctx context.Context, req resource.ReadRequest, 
 }
 
 // There is no update API, so this method is a no-op
+
 func (r *resourceIngestion) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
 }
 

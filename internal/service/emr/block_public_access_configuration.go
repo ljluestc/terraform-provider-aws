@@ -18,6 +18,7 @@ import (
 )
 
 // @SDKResource("aws_emr_block_public_access_configuration")
+
 func ResourceBlockPublicAccessConfiguration() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceBlockPublicAccessConfigurationCreate,
@@ -43,12 +44,16 @@ func ResourceBlockPublicAccessConfiguration() *schema.Resource {
 						"min_range": {
 							Type:             schema.TypeInt,
 							Required:         true,
-							ValidateDiagFunc: validation.ToDiagFunc(validation.IsPortNumber),
+							ValidateDiag
+func: validation.ToDiag
+func(validation.IsPortNumber),
 						},
 						"max_range": {
 							Type:             schema.TypeInt,
 							Required:         true,
-							ValidateDiagFunc: validation.ToDiagFunc(validation.IsPortNumber),
+							ValidateDiag
+func: validation.ToDiag
+func(validation.IsPortNumber),
 						},
 					},
 				},
@@ -62,6 +67,7 @@ const (
 	dummyIDBlockPublicAccessConfiguration       = "emr-block-public-access-configuration"
 	defaultPermittedPublicSecurityGroupRulePort = 22
 )
+
 
 func resourceBlockPublicAccessConfigurationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EMRConn(ctx)
@@ -87,6 +93,7 @@ func resourceBlockPublicAccessConfigurationCreate(ctx context.Context, d *schema
 	return resourceBlockPublicAccessConfigurationRead(ctx, d, meta)
 }
 
+
 func resourceBlockPublicAccessConfigurationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EMRConn(ctx)
 
@@ -103,6 +110,7 @@ func resourceBlockPublicAccessConfigurationRead(ctx context.Context, d *schema.R
 
 	return nil
 }
+
 
 func resourceBlockPublicAccessConfigurationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EMRConn(ctx)
@@ -122,6 +130,7 @@ func resourceBlockPublicAccessConfigurationDelete(ctx context.Context, d *schema
 	return nil
 }
 
+
 func findDefaultBlockPublicAccessConfiguration() *emr.BlockPublicAccessConfiguration {
 	defaultPort := int64(defaultPermittedPublicSecurityGroupRulePort)
 	defaultPortPointer := &defaultPort
@@ -133,6 +142,7 @@ func findDefaultBlockPublicAccessConfiguration() *emr.BlockPublicAccessConfigura
 	}
 	return blockPublicAccessConfiguration
 }
+
 
 func flattenPermittedPublicSecurityGroupRuleRange(apiObject *emr.PortRange) map[string]interface{} {
 	if apiObject == nil {
@@ -152,6 +162,7 @@ func flattenPermittedPublicSecurityGroupRuleRange(apiObject *emr.PortRange) map[
 	return m
 }
 
+
 func flattenPermittedPublicSecurityGroupRuleRanges(apiObjects []*emr.PortRange) []interface{} {
 	if len(apiObjects) == 0 {
 		return nil
@@ -170,6 +181,7 @@ func flattenPermittedPublicSecurityGroupRuleRanges(apiObjects []*emr.PortRange) 
 	return l
 }
 
+
 func expandPermittedPublicSecurityGroupRuleRange(tfMap map[string]interface{}) *emr.PortRange {
 	a := &emr.PortRange{}
 
@@ -179,6 +191,7 @@ func expandPermittedPublicSecurityGroupRuleRange(tfMap map[string]interface{}) *
 
 	return a
 }
+
 
 func expandPermittedPublicSecurityGroupRuleRanges(tfList []interface{}) []*emr.PortRange {
 	if len(tfList) == 0 {

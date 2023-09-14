@@ -19,6 +19,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func testAccInstance_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v connect.Instance
@@ -26,14 +27,16 @@ func testAccInstance_basic(t *testing.T) {
 	resourceName := "aws_connect_instance.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckInstanceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstanceConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInstanceExists(ctx, resourceName, &v),
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "connect", regexache.MustCompile(`instance/.+`)),
 					resource.TestCheckResourceAttr(resourceName, "auto_resolve_best_voices_enabled", "true"), //verified default result from ListInstanceAttributes()
@@ -57,7 +60,8 @@ func testAccInstance_basic(t *testing.T) {
 			},
 			{
 				Config: testAccInstanceConfig_basicFlipped(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInstanceExists(ctx, resourceName, &v),
 					acctest.MatchResourceAttrRegionalARN(resourceName, "arn", "connect", regexache.MustCompile(`instance/.+`)),
 					resource.TestCheckResourceAttr(resourceName, "auto_resolve_best_voices_enabled", "false"),
@@ -76,6 +80,7 @@ func testAccInstance_basic(t *testing.T) {
 	})
 }
 
+
 func testAccInstance_directory(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v connect.Instance
@@ -85,14 +90,16 @@ func testAccInstance_directory(t *testing.T) {
 	domainName := acctest.RandomDomainName()
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckInstanceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstanceConfig_directory(rName, domainName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckInstanceExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "identity_management_type", connect.DirectoryTypeExistingDirectory),
 					resource.TestCheckResourceAttr(resourceName, "status", connect.InstanceStatusActive),
@@ -108,6 +115,7 @@ func testAccInstance_directory(t *testing.T) {
 	})
 }
 
+
 func testAccInstance_saml(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v connect.Instance
@@ -115,14 +123,16 @@ func testAccInstance_saml(t *testing.T) {
 	resourceName := "aws_connect_instance.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckInstanceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstanceConfig_saml(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttr(resourceName, "identity_management_type", connect.DirectoryTypeSaml),
 					testAccCheckInstanceExists(ctx, resourceName, &v),
 				),
@@ -136,8 +146,11 @@ func testAccInstance_saml(t *testing.T) {
 	})
 }
 
-func testAccCheckInstanceExists(ctx context.Context, n string, v *connect.Instance) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckInstanceExists(ctx context.Context, n string, v *connect.Instance) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -161,8 +174,11 @@ func testAccCheckInstanceExists(ctx context.Context, n string, v *connect.Instan
 	}
 }
 
-func testAccCheckInstanceDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckInstanceDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_connect_instance" {
 				continue
@@ -187,6 +203,7 @@ func testAccCheckInstanceDestroy(ctx context.Context) resource.TestCheckFunc {
 	}
 }
 
+
 func testAccInstanceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_connect_instance" "test" {
@@ -197,6 +214,7 @@ resource "aws_connect_instance" "test" {
 }
 `, rName)
 }
+
 
 func testAccInstanceConfig_basicFlipped(rName string) string {
 	return fmt.Sprintf(`
@@ -213,6 +231,7 @@ resource "aws_connect_instance" "test" {
 }
 `, rName)
 }
+
 
 func testAccInstanceConfig_directory(rName, domain string) string {
 	return fmt.Sprintf(`
@@ -270,6 +289,7 @@ resource "aws_connect_instance" "test" {
 }
 `, rName, domain)
 }
+
 
 func testAccInstanceConfig_saml(rName string) string {
 	return fmt.Sprintf(`

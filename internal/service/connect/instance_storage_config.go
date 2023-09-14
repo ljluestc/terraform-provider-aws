@@ -20,6 +20,7 @@ import (
 )
 
 // @SDKResource("aws_connect_instance_storage_config")
+
 func ResourceInstanceStorageConfig() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceInstanceStorageConfigCreate,
@@ -38,13 +39,15 @@ func ResourceInstanceStorageConfig() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringLenBetween(1, 100),
+				Validate
+func: validation.StringLenBetween(1, 100),
 			},
 			"resource_type": {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringInSlice(connect.InstanceStorageResourceType_Values(), false),
+				Validate
+func: validation.StringInSlice(connect.InstanceStorageResourceType_Values(), false),
 			},
 			"storage_config": {
 				Type:     schema.TypeList,
@@ -61,7 +64,8 @@ func ResourceInstanceStorageConfig() *schema.Resource {
 									"firehose_arn": {
 										Type:         schema.TypeString,
 										Required:     true,
-										ValidateFunc: verify.ValidARN,
+										Validate
+func: verify.ValidARN,
 									},
 								},
 							},
@@ -75,7 +79,8 @@ func ResourceInstanceStorageConfig() *schema.Resource {
 									"stream_arn": {
 										Type:         schema.TypeString,
 										Required:     true,
-										ValidateFunc: verify.ValidARN,
+										Validate
+func: verify.ValidARN,
 									},
 								},
 							},
@@ -95,12 +100,14 @@ func ResourceInstanceStorageConfig() *schema.Resource {
 												"encryption_type": {
 													Type:         schema.TypeString,
 													Required:     true,
-													ValidateFunc: validation.StringInSlice(connect.EncryptionType_Values(), false),
+													Validate
+func: validation.StringInSlice(connect.EncryptionType_Values(), false),
 												},
 												"key_id": {
 													Type:         schema.TypeString,
 													Required:     true,
-													ValidateFunc: verify.ValidARN,
+													Validate
+func: verify.ValidARN,
 												},
 											},
 										},
@@ -108,9 +115,12 @@ func ResourceInstanceStorageConfig() *schema.Resource {
 									"prefix": {
 										Type:         schema.TypeString,
 										Required:     true,
-										ValidateFunc: validation.StringLenBetween(1, 128),
+										Validate
+func: validation.StringLenBetween(1, 128),
 										// API returns <prefix>-connect-<connect_instance_alias>-contact-
-										DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+										DiffSuppress
+func: 
+func(k, old, new string, d *schema.ResourceData) bool {
 											// API returns <prefix>-connect-<connect_instance_alias>-contact-
 											// case 1: API appends to prefix. User-defined string (old) is prefix of API-returned string (new). Check non-empty old in resoure creation scenario
 											// case 2: after setting API-returned string.  User-defined string (new) is prefix of API-returned string (old)
@@ -121,7 +131,8 @@ func ResourceInstanceStorageConfig() *schema.Resource {
 									"retention_period_hours": {
 										Type:         schema.TypeInt,
 										Required:     true,
-										ValidateFunc: validation.IntBetween(0, 87600),
+										Validate
+func: validation.IntBetween(0, 87600),
 									},
 								},
 							},
@@ -135,12 +146,14 @@ func ResourceInstanceStorageConfig() *schema.Resource {
 									"bucket_name": {
 										Type:         schema.TypeString,
 										Required:     true,
-										ValidateFunc: validation.StringLenBetween(1, 128),
+										Validate
+func: validation.StringLenBetween(1, 128),
 									},
 									"bucket_prefix": {
 										Type:         schema.TypeString,
 										Required:     true,
-										ValidateFunc: validation.StringLenBetween(1, 128),
+										Validate
+func: validation.StringLenBetween(1, 128),
 									},
 									"encryption_config": {
 										Type:     schema.TypeList,
@@ -151,12 +164,14 @@ func ResourceInstanceStorageConfig() *schema.Resource {
 												"encryption_type": {
 													Type:         schema.TypeString,
 													Required:     true,
-													ValidateFunc: validation.StringInSlice(connect.EncryptionType_Values(), false),
+													Validate
+func: validation.StringInSlice(connect.EncryptionType_Values(), false),
 												},
 												"key_id": {
 													Type:         schema.TypeString,
 													Required:     true,
-													ValidateFunc: verify.ValidARN,
+													Validate
+func: verify.ValidARN,
 												},
 											},
 										},
@@ -167,7 +182,8 @@ func ResourceInstanceStorageConfig() *schema.Resource {
 						"storage_type": {
 							Type:         schema.TypeString,
 							Required:     true,
-							ValidateFunc: validation.StringInSlice(connect.StorageType_Values(), false),
+							Validate
+func: validation.StringInSlice(connect.StorageType_Values(), false),
 						},
 					},
 				},
@@ -175,6 +191,7 @@ func ResourceInstanceStorageConfig() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceInstanceStorageConfigCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -203,6 +220,7 @@ func resourceInstanceStorageConfigCreate(ctx context.Context, d *schema.Resource
 
 	return resourceInstanceStorageConfigRead(ctx, d, meta)
 }
+
 
 func resourceInstanceStorageConfigRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -246,6 +264,7 @@ func resourceInstanceStorageConfigRead(ctx context.Context, d *schema.ResourceDa
 	return nil
 }
 
+
 func resourceInstanceStorageConfigUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
@@ -274,6 +293,7 @@ func resourceInstanceStorageConfigUpdate(ctx context.Context, d *schema.Resource
 	return resourceInstanceStorageConfigRead(ctx, d, meta)
 }
 
+
 func resourceInstanceStorageConfigDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
@@ -296,6 +316,7 @@ func resourceInstanceStorageConfigDelete(ctx context.Context, d *schema.Resource
 	return nil
 }
 
+
 func InstanceStorageConfigParseId(id string) (string, string, string, error) {
 	parts := strings.SplitN(id, ":", 3)
 
@@ -305,6 +326,7 @@ func InstanceStorageConfigParseId(id string) (string, string, string, error) {
 
 	return parts[0], parts[1], parts[2], nil
 }
+
 
 func expandStorageConfig(tfList []interface{}) *connect.InstanceStorageConfig {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -339,6 +361,7 @@ func expandStorageConfig(tfList []interface{}) *connect.InstanceStorageConfig {
 	return result
 }
 
+
 func expandKinesisFirehoseConfig(tfList []interface{}) *connect.KinesisFirehoseConfig {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -356,6 +379,7 @@ func expandKinesisFirehoseConfig(tfList []interface{}) *connect.KinesisFirehoseC
 	return result
 }
 
+
 func expandKinesisStreamConfig(tfList []interface{}) *connect.KinesisStreamConfig {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -372,6 +396,7 @@ func expandKinesisStreamConfig(tfList []interface{}) *connect.KinesisStreamConfi
 
 	return result
 }
+
 
 func expandKinesisVideoStreamConfig(tfList []interface{}) *connect.KinesisVideoStreamConfig {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -391,6 +416,7 @@ func expandKinesisVideoStreamConfig(tfList []interface{}) *connect.KinesisVideoS
 
 	return result
 }
+
 
 func exapandS3Config(tfList []interface{}) *connect.S3Config {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -414,6 +440,7 @@ func exapandS3Config(tfList []interface{}) *connect.S3Config {
 	return result
 }
 
+
 func expandEncryptionConfig(tfList []interface{}) *connect.EncryptionConfig {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -431,6 +458,7 @@ func expandEncryptionConfig(tfList []interface{}) *connect.EncryptionConfig {
 
 	return result
 }
+
 
 func flattenStorageConfig(apiObject *connect.InstanceStorageConfig) []interface{} {
 	if apiObject == nil {
@@ -460,6 +488,7 @@ func flattenStorageConfig(apiObject *connect.InstanceStorageConfig) []interface{
 	return []interface{}{values}
 }
 
+
 func flattenKinesisFirehoseConfig(apiObject *connect.KinesisFirehoseConfig) []interface{} {
 	if apiObject == nil {
 		return []interface{}{}
@@ -471,6 +500,7 @@ func flattenKinesisFirehoseConfig(apiObject *connect.KinesisFirehoseConfig) []in
 
 	return []interface{}{values}
 }
+
 
 func flattenKinesisStreamConfig(apiObject *connect.KinesisStreamConfig) []interface{} {
 	if apiObject == nil {
@@ -484,6 +514,7 @@ func flattenKinesisStreamConfig(apiObject *connect.KinesisStreamConfig) []interf
 	return []interface{}{values}
 }
 
+
 func flattenKinesisVideoStreamConfig(apiObject *connect.KinesisVideoStreamConfig) []interface{} {
 	if apiObject == nil {
 		return []interface{}{}
@@ -492,13 +523,15 @@ func flattenKinesisVideoStreamConfig(apiObject *connect.KinesisVideoStreamConfig
 	values := map[string]interface{}{
 		"encryption_config": flattenEncryptionConfig(apiObject.EncryptionConfig),
 		// API returns <prefix>-connect-<connect_instance_alias>-contact-
-		// DiffSuppressFunc used
+		// DiffSuppress
+func used
 		"prefix":                 aws.StringValue(apiObject.Prefix),
 		"retention_period_hours": aws.Int64Value(apiObject.RetentionPeriodHours),
 	}
 
 	return []interface{}{values}
 }
+
 
 func flattenS3Config(apiObject *connect.S3Config) []interface{} {
 	if apiObject == nil {
@@ -516,6 +549,7 @@ func flattenS3Config(apiObject *connect.S3Config) []interface{} {
 
 	return []interface{}{values}
 }
+
 
 func flattenEncryptionConfig(apiObject *connect.EncryptionConfig) []interface{} {
 	if apiObject == nil {

@@ -10,10 +10,12 @@ import (
 )
 
 // Serialized acceptance tests due to Connect account limits (max 2 parallel tests)
+
 func TestAccConnect_serial(t *testing.T) {
 	t.Parallel()
 
-	testCases := map[string]map[string]func(t *testing.T){
+	testCases := map[string]map[string]
+func(t *testing.T){
 		"BotAssociation": {
 			"basic":            testAccBotAssociation_basic,
 			"disappears":       testAccBotAssociation_disappears,
@@ -63,10 +65,14 @@ func TestAccConnect_serial(t *testing.T) {
 			"dataSource_KinesisVideoStreamConfig":       testAccInstanceStorageConfigDataSource_KinesisVideoStreamConfig,
 			"dataSource_S3Config":                       testAccInstanceStorageConfigDataSource_S3Config,
 		},
-		"LambdaFunctionAssociation": {
-			"basic":            testAccLambdaFunctionAssociation_basic,
-			"disappears":       testAccLambdaFunctionAssociation_disappears,
-			"dataSource_basic": testAccLambdaFunctionAssociationDataSource_basic,
+		"Lambda
+functionAssociation": {
+			"basic":            testAccLambda
+functionAssociation_basic,
+			"disappears":       testAccLambda
+functionAssociation_disappears,
+			"dataSource_basic": testAccLambda
+functionAssociationDataSource_basic,
 		},
 		"PhoneNumber": {
 			"basic":       testAccPhoneNumber_basic,

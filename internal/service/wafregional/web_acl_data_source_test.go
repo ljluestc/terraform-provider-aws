@@ -14,6 +14,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccWAFRegionalWebACLDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	name := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -21,7 +22,8 @@ func TestAccWAFRegionalWebACLDataSource_basic(t *testing.T) {
 	datasourceName := "data.aws_wafregional_web_acl.web_acl"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
 		ErrorCheck:               acctest.ErrorCheck(t, wafregional.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
@@ -31,7 +33,8 @@ func TestAccWAFRegionalWebACLDataSource_basic(t *testing.T) {
 			},
 			{
 				Config: testAccWebACLDataSourceConfig_name(name),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttrPair(datasourceName, "id", resourceName, "id"),
 					resource.TestCheckResourceAttrPair(datasourceName, "name", resourceName, "name"),
 				),
@@ -39,6 +42,7 @@ func TestAccWAFRegionalWebACLDataSource_basic(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccWebACLDataSourceConfig_name(name string) string {
 	return fmt.Sprintf(`

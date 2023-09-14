@@ -13,6 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 )
 
+
 func tableVisualSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TableVisual.html
 		Type:     schema.TypeList,
@@ -42,7 +43,8 @@ func tableVisualSchema() *schema.Schema {
 											Optional: true,
 											MinItems: 1,
 											MaxItems: 100,
-											Elem:     &schema.Schema{Type: schema.TypeString, ValidateFunc: validation.StringLenBetween(1, 512)},
+											Elem:     &schema.Schema{Type: schema.TypeString, Validate
+func: validation.StringLenBetween(1, 512)},
 										},
 										"selected_field_options": { // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_TableFieldOption.html
 											Type:     schema.TypeList,
@@ -204,7 +206,8 @@ func tableVisualSchema() *schema.Schema {
 								Optional:         true,
 								MinItems:         1,
 								MaxItems:         1,
-								DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
+								DiffSuppress
+func: verify.SuppressMissingOptionalConfigurationBlock,
 								Elem: &schema.Resource{
 									Schema: map[string]*schema.Schema{
 										"pagination_configuration": { // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_PaginationConfiguration.html
@@ -335,6 +338,7 @@ func tableVisualSchema() *schema.Schema {
 	}
 }
 
+
 func expandTableVisual(tfList []interface{}) *quicksight.TableVisual {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -368,6 +372,7 @@ func expandTableVisual(tfList []interface{}) *quicksight.TableVisual {
 
 	return visual
 }
+
 
 func expandTableConfiguration(tfList []interface{}) *quicksight.TableConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -406,6 +411,7 @@ func expandTableConfiguration(tfList []interface{}) *quicksight.TableConfigurati
 	return config
 }
 
+
 func expandTableFieldWells(tfList []interface{}) *quicksight.TableFieldWells {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -427,6 +433,7 @@ func expandTableFieldWells(tfList []interface{}) *quicksight.TableFieldWells {
 
 	return config
 }
+
 
 func expandTableAggregatedFieldWells(tfList []interface{}) *quicksight.TableAggregatedFieldWells {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -450,6 +457,7 @@ func expandTableAggregatedFieldWells(tfList []interface{}) *quicksight.TableAggr
 	return config
 }
 
+
 func expandTableUnaggregatedFieldWells(tfList []interface{}) *quicksight.TableUnaggregatedFieldWells {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -468,6 +476,7 @@ func expandTableUnaggregatedFieldWells(tfList []interface{}) *quicksight.TableUn
 
 	return config
 }
+
 
 func expandUnaggregatedFields(tfList []interface{}) []*quicksight.UnaggregatedField {
 	if len(tfList) == 0 {
@@ -492,6 +501,7 @@ func expandUnaggregatedFields(tfList []interface{}) []*quicksight.UnaggregatedFi
 	return options
 }
 
+
 func expandUnaggregatedField(tfMap map[string]interface{}) *quicksight.UnaggregatedField {
 	if tfMap == nil {
 		return nil
@@ -511,6 +521,7 @@ func expandUnaggregatedField(tfMap map[string]interface{}) *quicksight.Unaggrega
 
 	return options
 }
+
 
 func expandTableSortConfiguration(tfList []interface{}) *quicksight.TableSortConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -534,6 +545,7 @@ func expandTableSortConfiguration(tfList []interface{}) *quicksight.TableSortCon
 	return config
 }
 
+
 func expandTableFieldOptions(tfList []interface{}) *quicksight.TableFieldOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -555,6 +567,7 @@ func expandTableFieldOptions(tfList []interface{}) *quicksight.TableFieldOptions
 
 	return options
 }
+
 
 func expandTableFieldOptionsList(tfList []interface{}) []*quicksight.TableFieldOption {
 	if len(tfList) == 0 {
@@ -578,6 +591,7 @@ func expandTableFieldOptionsList(tfList []interface{}) []*quicksight.TableFieldO
 
 	return options
 }
+
 
 func expandTableFieldOption(tfMap map[string]interface{}) *quicksight.TableFieldOption {
 	if tfMap == nil {
@@ -605,6 +619,7 @@ func expandTableFieldOption(tfMap map[string]interface{}) *quicksight.TableField
 	return options
 }
 
+
 func expandTableFieldURLConfiguration(tfList []interface{}) *quicksight.TableFieldURLConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -627,6 +642,7 @@ func expandTableFieldURLConfiguration(tfList []interface{}) *quicksight.TableFie
 	return options
 }
 
+
 func expandTableFieldImageConfiguration(tfList []interface{}) *quicksight.TableFieldImageConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -646,6 +662,7 @@ func expandTableFieldImageConfiguration(tfList []interface{}) *quicksight.TableF
 	return options
 }
 
+
 func expandTableCellImageSizingConfiguration(tfList []interface{}) *quicksight.TableCellImageSizingConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -664,6 +681,7 @@ func expandTableCellImageSizingConfiguration(tfList []interface{}) *quicksight.T
 
 	return options
 }
+
 
 func expandTableFieldLinkConfiguration(tfList []interface{}) *quicksight.TableFieldLinkConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -687,6 +705,7 @@ func expandTableFieldLinkConfiguration(tfList []interface{}) *quicksight.TableFi
 	return options
 }
 
+
 func expandTableFieldLinkContentConfiguration(tfList []interface{}) *quicksight.TableFieldLinkContentConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -709,6 +728,7 @@ func expandTableFieldLinkContentConfiguration(tfList []interface{}) *quicksight.
 	return options
 }
 
+
 func expandTableFieldCustomIconContent(tfList []interface{}) *quicksight.TableFieldCustomIconContent {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -727,6 +747,7 @@ func expandTableFieldCustomIconContent(tfList []interface{}) *quicksight.TableFi
 
 	return options
 }
+
 
 func expandTableFieldCustomTextContent(tfList []interface{}) *quicksight.TableFieldCustomTextContent {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -750,6 +771,7 @@ func expandTableFieldCustomTextContent(tfList []interface{}) *quicksight.TableFi
 	return options
 }
 
+
 func expandTablePaginatedReportOptions(tfList []interface{}) *quicksight.TablePaginatedReportOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -771,6 +793,7 @@ func expandTablePaginatedReportOptions(tfList []interface{}) *quicksight.TablePa
 
 	return options
 }
+
 
 func expandTableOptions(tfList []interface{}) *quicksight.TableOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -799,6 +822,7 @@ func expandTableOptions(tfList []interface{}) *quicksight.TableOptions {
 
 	return options
 }
+
 
 func expandTableTotalOptions(tfList []interface{}) *quicksight.TotalOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -831,6 +855,7 @@ func expandTableTotalOptions(tfList []interface{}) *quicksight.TotalOptions {
 	return options
 }
 
+
 func expandTableConditionalFormatting(tfList []interface{}) *quicksight.TableConditionalFormatting {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -849,6 +874,7 @@ func expandTableConditionalFormatting(tfList []interface{}) *quicksight.TableCon
 
 	return options
 }
+
 
 func expandTableConditionalFormattingOptions(tfList []interface{}) []*quicksight.TableConditionalFormattingOption {
 	if len(tfList) == 0 {
@@ -873,6 +899,7 @@ func expandTableConditionalFormattingOptions(tfList []interface{}) []*quicksight
 	return options
 }
 
+
 func expandTableConditionalFormattingOption(tfMap map[string]interface{}) *quicksight.TableConditionalFormattingOption {
 	if tfMap == nil {
 		return nil
@@ -889,6 +916,7 @@ func expandTableConditionalFormattingOption(tfMap map[string]interface{}) *quick
 
 	return options
 }
+
 
 func expandTableCellConditionalFormatting(tfList []interface{}) *quicksight.TableCellConditionalFormatting {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -912,6 +940,7 @@ func expandTableCellConditionalFormatting(tfList []interface{}) *quicksight.Tabl
 	return options
 }
 
+
 func expandTableRowConditionalFormatting(tfList []interface{}) *quicksight.TableRowConditionalFormatting {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -933,6 +962,7 @@ func expandTableRowConditionalFormatting(tfList []interface{}) *quicksight.Table
 
 	return options
 }
+
 
 func expandTableInlineVisualizations(tfList []interface{}) []*quicksight.TableInlineVisualization {
 	if len(tfList) == 0 {
@@ -957,6 +987,7 @@ func expandTableInlineVisualizations(tfList []interface{}) []*quicksight.TableIn
 	return options
 }
 
+
 func expandTableInlineVisualization(tfMap map[string]interface{}) *quicksight.TableInlineVisualization {
 	if tfMap == nil {
 		return nil
@@ -970,6 +1001,7 @@ func expandTableInlineVisualization(tfMap map[string]interface{}) *quicksight.Ta
 
 	return options
 }
+
 
 func expandDataBarsOptions(tfList []interface{}) *quicksight.DataBarsOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -994,6 +1026,7 @@ func expandDataBarsOptions(tfList []interface{}) *quicksight.DataBarsOptions {
 	}
 	return options
 }
+
 
 func flattenTableVisual(apiObject *quicksight.TableVisual) []interface{} {
 	if apiObject == nil {
@@ -1021,6 +1054,7 @@ func flattenTableVisual(apiObject *quicksight.TableVisual) []interface{} {
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenTableConfiguration(apiObject *quicksight.TableConfiguration) []interface{} {
 	if apiObject == nil {
@@ -1053,6 +1087,7 @@ func flattenTableConfiguration(apiObject *quicksight.TableConfiguration) []inter
 	return []interface{}{tfMap}
 }
 
+
 func flattenTableFieldOptions(apiObject *quicksight.TableFieldOptions) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1068,6 +1103,7 @@ func flattenTableFieldOptions(apiObject *quicksight.TableFieldOptions) []interfa
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenTableFieldOption(apiObject []*quicksight.TableFieldOption) []interface{} {
 	if len(apiObject) == 0 {
@@ -1103,6 +1139,7 @@ func flattenTableFieldOption(apiObject []*quicksight.TableFieldOption) []interfa
 	return tfList
 }
 
+
 func flattenTableFieldURLConfiguration(apiObject *quicksight.TableFieldURLConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1119,6 +1156,7 @@ func flattenTableFieldURLConfiguration(apiObject *quicksight.TableFieldURLConfig
 	return []interface{}{tfMap}
 }
 
+
 func flattenTableFieldImageConfiguration(apiObject *quicksight.TableFieldImageConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1132,6 +1170,7 @@ func flattenTableFieldImageConfiguration(apiObject *quicksight.TableFieldImageCo
 	return []interface{}{tfMap}
 }
 
+
 func flattenTableCellImageSizingConfiguration(apiObject *quicksight.TableCellImageSizingConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1144,6 +1183,7 @@ func flattenTableCellImageSizingConfiguration(apiObject *quicksight.TableCellIma
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenTableFieldLinkConfiguration(apiObject *quicksight.TableFieldLinkConfiguration) []interface{} {
 	if apiObject == nil {
@@ -1161,6 +1201,7 @@ func flattenTableFieldLinkConfiguration(apiObject *quicksight.TableFieldLinkConf
 	return []interface{}{tfMap}
 }
 
+
 func flattenTableFieldLinkContentConfiguration(apiObject *quicksight.TableFieldLinkContentConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1177,6 +1218,7 @@ func flattenTableFieldLinkContentConfiguration(apiObject *quicksight.TableFieldL
 	return []interface{}{tfMap}
 }
 
+
 func flattenTableFieldCustomIconContent(apiObject *quicksight.TableFieldCustomIconContent) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1189,6 +1231,7 @@ func flattenTableFieldCustomIconContent(apiObject *quicksight.TableFieldCustomIc
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenTableFieldCustomTextContent(apiObject *quicksight.TableFieldCustomTextContent) []interface{} {
 	if apiObject == nil {
@@ -1206,6 +1249,7 @@ func flattenTableFieldCustomTextContent(apiObject *quicksight.TableFieldCustomTe
 	return []interface{}{tfMap}
 }
 
+
 func flattenTableFieldWells(apiObject *quicksight.TableFieldWells) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1221,6 +1265,7 @@ func flattenTableFieldWells(apiObject *quicksight.TableFieldWells) []interface{}
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenTableAggregatedFieldWells(apiObject *quicksight.TableAggregatedFieldWells) []interface{} {
 	if apiObject == nil {
@@ -1238,6 +1283,7 @@ func flattenTableAggregatedFieldWells(apiObject *quicksight.TableAggregatedField
 	return []interface{}{tfMap}
 }
 
+
 func flattenTableUnaggregatedFieldWells(apiObject *quicksight.TableUnaggregatedFieldWells) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1250,6 +1296,7 @@ func flattenTableUnaggregatedFieldWells(apiObject *quicksight.TableUnaggregatedF
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenUnaggregatedField(apiObject []*quicksight.UnaggregatedField) []interface{} {
 	if len(apiObject) == 0 {
@@ -1279,6 +1326,7 @@ func flattenUnaggregatedField(apiObject []*quicksight.UnaggregatedField) []inter
 	return tfList
 }
 
+
 func flattenTablePaginatedReportOptions(apiObject *quicksight.TablePaginatedReportOptions) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1295,6 +1343,7 @@ func flattenTablePaginatedReportOptions(apiObject *quicksight.TablePaginatedRepo
 	return []interface{}{tfMap}
 }
 
+
 func flattenTableSortConfiguration(apiObject *quicksight.TableSortConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1310,6 +1359,7 @@ func flattenTableSortConfiguration(apiObject *quicksight.TableSortConfiguration)
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenTableInlineVisualization(apiObject []*quicksight.TableInlineVisualization) []interface{} {
 	if len(apiObject) == 0 {
@@ -1333,6 +1383,7 @@ func flattenTableInlineVisualization(apiObject []*quicksight.TableInlineVisualiz
 	return tfList
 }
 
+
 func flattenDataBarsOptions(apiObject *quicksight.DataBarsOptions) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1351,6 +1402,7 @@ func flattenDataBarsOptions(apiObject *quicksight.DataBarsOptions) []interface{}
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenTableOptions(apiObject *quicksight.TableOptions) []interface{} {
 	if apiObject == nil {
@@ -1373,6 +1425,7 @@ func flattenTableOptions(apiObject *quicksight.TableOptions) []interface{} {
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenTotalOptions(apiObject *quicksight.TotalOptions) []interface{} {
 	if apiObject == nil {
@@ -1399,6 +1452,7 @@ func flattenTotalOptions(apiObject *quicksight.TotalOptions) []interface{} {
 	return []interface{}{tfMap}
 }
 
+
 func flattenTableConditionalFormatting(apiObject *quicksight.TableConditionalFormatting) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1411,6 +1465,7 @@ func flattenTableConditionalFormatting(apiObject *quicksight.TableConditionalFor
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenTableConditionalFormattingOption(apiObject []*quicksight.TableConditionalFormattingOption) []interface{} {
 	if len(apiObject) == 0 {
@@ -1437,6 +1492,7 @@ func flattenTableConditionalFormattingOption(apiObject []*quicksight.TableCondit
 	return tfList
 }
 
+
 func flattenTableCellConditionalFormatting(apiObject *quicksight.TableCellConditionalFormatting) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -1452,6 +1508,7 @@ func flattenTableCellConditionalFormatting(apiObject *quicksight.TableCellCondit
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenTableRowConditionalFormatting(apiObject *quicksight.TableRowConditionalFormatting) []interface{} {
 	if apiObject == nil {

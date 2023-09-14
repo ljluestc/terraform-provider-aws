@@ -13,6 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func testAccBotAssociationDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandStringFromCharSet(8, sdkacctest.CharSetAlpha)
@@ -21,13 +22,15 @@ func testAccBotAssociationDataSource_basic(t *testing.T) {
 	datasourceName := "data.aws_connect_bot_association.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBotAssociationDataSourceConfig_basic(rName, rName2),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrPair(datasourceName, "instance_id", resourceName, "instance_id"),
 					resource.TestCheckResourceAttrPair(datasourceName, "lex_bot", resourceName, "lex_bot"),
 				),
@@ -35,6 +38,7 @@ func testAccBotAssociationDataSource_basic(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccBotAssociationDataSourceConfig_base(rName string, rName2 string) string {
 	return fmt.Sprintf(`
@@ -90,6 +94,7 @@ resource "aws_connect_bot_association" "test" {
 }
 `, rName, rName2)
 }
+
 
 func testAccBotAssociationDataSourceConfig_basic(rName string, rName2 string) string {
 	return fmt.Sprintf(testAccBotAssociationDataSourceConfig_base(rName, rName2) + `

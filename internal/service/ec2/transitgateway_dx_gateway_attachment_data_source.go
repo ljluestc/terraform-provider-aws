@@ -18,6 +18,7 @@ import (
 )
 
 // @SDKDataSource("aws_ec2_transit_gateway_dx_gateway_attachment")
+
 func DataSourceTransitGatewayDxGatewayAttachment() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceTransitGatewayDxGatewayAttachmentRead,
@@ -62,7 +63,8 @@ func dataSourceTransitGatewayDxGatewayAttachmentRead(ctx context.Context, d *sch
 		)...)
 	}
 
-	// to preserve original functionality
+	// to preserve original
+	functionality
 	if v, ok := d.GetOk("dx_gateway_id"); ok {
 		input.Filters = append(input.Filters, BuildAttributeFilterList(map[string]string{
 			"resource-id": v.(string),

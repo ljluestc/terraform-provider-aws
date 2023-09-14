@@ -16,19 +16,22 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )
 
+
 func TestAccEC2EBSEncryptionByDefault_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_ebs_encryption_by_default.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEncryptionByDefaultDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEBSEncryptionByDefaultConfig_basic(false),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEBSEncryptionByDefault(ctx, resourceName, false),
 					resource.TestCheckResourceAttr(resourceName, "enabled", "false"),
 				),
@@ -40,7 +43,8 @@ func TestAccEC2EBSEncryptionByDefault_basic(t *testing.T) {
 			},
 			{
 				Config: testAccEBSEncryptionByDefaultConfig_basic(true),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEBSEncryptionByDefault(ctx, resourceName, true),
 					resource.TestCheckResourceAttr(resourceName, "enabled", "true"),
 				),
@@ -49,8 +53,11 @@ func TestAccEC2EBSEncryptionByDefault_basic(t *testing.T) {
 	})
 }
 
-func testAccCheckEncryptionByDefaultDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckEncryptionByDefaultDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 		response, err := conn.GetEbsEncryptionByDefaultWithContext(ctx, &ec2.GetEbsEncryptionByDefaultInput{})
@@ -66,8 +73,11 @@ func testAccCheckEncryptionByDefaultDestroy(ctx context.Context) resource.TestCh
 	}
 }
 
-func testAccCheckEBSEncryptionByDefault(ctx context.Context, n string, enabled bool) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckEBSEncryptionByDefault(ctx context.Context, n string, enabled bool) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -91,6 +101,7 @@ func testAccCheckEBSEncryptionByDefault(ctx context.Context, n string, enabled b
 		return nil
 	}
 }
+
 
 func testAccEBSEncryptionByDefaultConfig_basic(enabled bool) string {
 	return fmt.Sprintf(`

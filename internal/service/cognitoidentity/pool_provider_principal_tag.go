@@ -24,6 +24,7 @@ import (
 )
 
 // @SDKResource("aws_cognito_identity_pool_provider_principal_tag")
+
 func ResourcePoolProviderPrincipalTag() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourcePoolProviderPrincipalTagCreate,
@@ -40,7 +41,8 @@ func ResourcePoolProviderPrincipalTag() *schema.Resource {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
-				ValidateFunc: validation.All(
+				Validate
+func: validation.All(
 					validation.StringLenBetween(1, 55),
 					validation.StringMatch(regexache.MustCompile(`^[\w-]+:[0-9a-f-]+$`), "see https://docs.aws.amazon.com/cognitoidentity/latest/APIReference/API_SetPrincipalTagAttributeMap.html#API_SetPrincipalTagAttributeMap_ResponseSyntax"),
 				),
@@ -49,7 +51,8 @@ func ResourcePoolProviderPrincipalTag() *schema.Resource {
 				Type:     schema.TypeString,
 				Required: true,
 				ForceNew: true,
-				ValidateFunc: validation.All(
+				Validate
+func: validation.All(
 					validation.StringLenBetween(1, 128),
 				),
 			},
@@ -62,6 +65,7 @@ func ResourcePoolProviderPrincipalTag() *schema.Resource {
 		},
 	}
 }
+
 
 func resourcePoolProviderPrincipalTagCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -93,6 +97,7 @@ func resourcePoolProviderPrincipalTagCreate(ctx context.Context, d *schema.Resou
 
 	return append(diags, resourcePoolProviderPrincipalTagRead(ctx, d, meta)...)
 }
+
 
 func resourcePoolProviderPrincipalTagRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -131,6 +136,7 @@ func resourcePoolProviderPrincipalTagRead(ctx context.Context, d *schema.Resourc
 	return diags
 }
 
+
 func resourcePoolProviderPrincipalTagUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CognitoIdentityConn(ctx)
@@ -159,6 +165,7 @@ func resourcePoolProviderPrincipalTagUpdate(ctx context.Context, d *schema.Resou
 	return append(diags, resourcePoolProviderPrincipalTagRead(ctx, d, meta)...)
 }
 
+
 func resourcePoolProviderPrincipalTagDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CognitoIdentityConn(ctx)
@@ -186,6 +193,7 @@ func resourcePoolProviderPrincipalTagDelete(ctx context.Context, d *schema.Resou
 	}
 	return diags
 }
+
 
 func DecodePoolProviderPrincipalTagsID(id string) (string, string, error) {
 	r := regexache.MustCompile(`(?P<ProviderID>[\w-]+:[0-9a-f-]+):(?P<ProviderName>[[:graph:]]+)`)

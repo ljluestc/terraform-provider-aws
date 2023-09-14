@@ -32,6 +32,7 @@ const (
 
 // @SDKResource("aws_mwaa_environment", name="Environment")
 // @Tags(identifierAttribute="arn")
+
 func ResourceEnvironment() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceEnvironmentCreate,
@@ -81,12 +82,14 @@ func ResourceEnvironment() *schema.Resource {
 			"execution_role_arn": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			"kms_key": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 				ForceNew:     true,
 			},
 			"last_updated": {
@@ -170,13 +173,15 @@ func ResourceEnvironment() *schema.Resource {
 				Type:         schema.TypeInt,
 				Optional:     true,
 				Computed:     true,
-				ValidateFunc: validation.IntAtLeast(1),
+				Validate
+func: validation.IntAtLeast(1),
 			},
 			"min_workers": {
 				Type:         schema.TypeInt,
 				Optional:     true,
 				Computed:     true,
-				ValidateFunc: validation.IntAtLeast(1),
+				Validate
+func: validation.IntAtLeast(1),
 			},
 			"name": {
 				Type:     schema.TypeString,
@@ -235,7 +240,8 @@ func ResourceEnvironment() *schema.Resource {
 			"source_bucket_arn": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			"startup_script_s3_object_version": {
 				Type:     schema.TypeString,
@@ -256,7 +262,8 @@ func ResourceEnvironment() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				Computed:     true,
-				ValidateFunc: validation.StringInSlice(mwaa.WebserverAccessMode_Values(), false),
+				Validate
+func: validation.StringInSlice(mwaa.WebserverAccessMode_Values(), false),
 			},
 			"webserver_url": {
 				Type:     schema.TypeString,
@@ -270,7 +277,8 @@ func ResourceEnvironment() *schema.Resource {
 		},
 
 		CustomizeDiff: customdiff.Sequence(
-			customdiff.ForceNewIf("airflow_version", func(ctx context.Context, d *schema.ResourceDiff, meta interface{}) bool {
+			customdiff.ForceNewIf("airflow_version", 
+func(ctx context.Context, d *schema.ResourceDiff, meta interface{}) bool {
 				o, n := d.GetChange("airflow_version")
 
 				if oldVersion, err := gversion.NewVersion(o.(string)); err == nil {
@@ -290,6 +298,7 @@ func ResourceEnvironment() *schema.Resource {
 		),
 	}
 }
+
 
 func resourceEnvironmentCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).MWAAConn(ctx)
@@ -373,7 +382,8 @@ func resourceEnvironmentCreate(ctx context.Context, d *schema.ResourceData, meta
 		Execution roles created just before the MWAA Environment may result in ValidationExceptions
 		due to IAM permission propagation delays.
 	*/
-	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, propagationTimeout, func() (interface{}, error) {
+	_, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, propagationTimeout, 
+func() (interface{}, error) {
 		return conn.CreateEnvironmentWithContext(ctx, input)
 	}, mwaa.ErrCodeValidationException, mwaa.ErrCodeInternalServerException)
 
@@ -389,6 +399,7 @@ func resourceEnvironmentCreate(ctx context.Context, d *schema.ResourceData, meta
 
 	return resourceEnvironmentRead(ctx, d, meta)
 }
+
 
 func resourceEnvironmentRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).MWAAConn(ctx)
@@ -443,6 +454,7 @@ func resourceEnvironmentRead(ctx context.Context, d *schema.ResourceData, meta i
 
 	return nil
 }
+
 
 func resourceEnvironmentUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).MWAAConn(ctx)
@@ -547,6 +559,7 @@ func resourceEnvironmentUpdate(ctx context.Context, d *schema.ResourceData, meta
 	return resourceEnvironmentRead(ctx, d, meta)
 }
 
+
 func resourceEnvironmentDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).MWAAConn(ctx)
 
@@ -570,6 +583,7 @@ func resourceEnvironmentDelete(ctx context.Context, d *schema.ResourceData, meta
 	return nil
 }
 
+
 func environmentModuleLoggingConfigurationSchema() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
@@ -586,11 +600,13 @@ func environmentModuleLoggingConfigurationSchema() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				Computed:     true,
-				ValidateFunc: validation.StringInSlice(mwaa.LoggingLevel_Values(), false),
+				Validate
+func: validation.StringInSlice(mwaa.LoggingLevel_Values(), false),
 			},
 		},
 	}
 }
+
 
 func FindEnvironmentByName(ctx context.Context, conn *mwaa.MWAA, name string) (*mwaa.Environment, error) {
 	input := &mwaa.GetEnvironmentInput{
@@ -617,8 +633,11 @@ func FindEnvironmentByName(ctx context.Context, conn *mwaa.MWAA, name string) (*
 	return output.Environment, nil
 }
 
-func statusEnvironment(ctx context.Context, conn *mwaa.MWAA, name string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+
+func statusEnvironment(ctx context.Context, conn *mwaa.MWAA, name string) retry.StateRefresh
+func {
+	return 
+func() (interface{}, string, error) {
 		environment, err := FindEnvironmentByName(ctx, conn, name)
 
 		if tfresource.NotFound(err) {
@@ -632,6 +651,7 @@ func statusEnvironment(ctx context.Context, conn *mwaa.MWAA, name string) retry.
 		return environment, aws.StringValue(environment.Status), nil
 	}
 }
+
 
 func waitEnvironmentCreated(ctx context.Context, conn *mwaa.MWAA, name string, timeout time.Duration) (*mwaa.Environment, error) {
 	stateConf := &retry.StateChangeConf{
@@ -654,6 +674,7 @@ func waitEnvironmentCreated(ctx context.Context, conn *mwaa.MWAA, name string, t
 	return nil, err
 }
 
+
 func waitEnvironmentUpdated(ctx context.Context, conn *mwaa.MWAA, name string, timeout time.Duration) (*mwaa.Environment, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{mwaa.EnvironmentStatusUpdating, mwaa.EnvironmentStatusCreatingSnapshot},
@@ -675,6 +696,7 @@ func waitEnvironmentUpdated(ctx context.Context, conn *mwaa.MWAA, name string, t
 	return nil, err
 }
 
+
 func waitEnvironmentDeleted(ctx context.Context, conn *mwaa.MWAA, name string, timeout time.Duration) (*mwaa.Environment, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{mwaa.EnvironmentStatusDeleting},
@@ -695,6 +717,7 @@ func waitEnvironmentDeleted(ctx context.Context, conn *mwaa.MWAA, name string, t
 
 	return nil, err
 }
+
 
 func expandEnvironmentLoggingConfiguration(l []interface{}) *mwaa.LoggingConfigurationInput {
 	if len(l) == 0 || l[0] == nil {
@@ -728,6 +751,7 @@ func expandEnvironmentLoggingConfiguration(l []interface{}) *mwaa.LoggingConfigu
 	return input
 }
 
+
 func expandEnvironmentModuleLoggingConfiguration(l []interface{}) *mwaa.ModuleLoggingConfigurationInput {
 	if len(l) == 0 || l[0] == nil {
 		return nil
@@ -742,6 +766,7 @@ func expandEnvironmentModuleLoggingConfiguration(l []interface{}) *mwaa.ModuleLo
 	return input
 }
 
+
 func expandEnvironmentNetworkConfigurationCreate(l []interface{}) *mwaa.NetworkConfiguration {
 	m := l[0].(map[string]interface{})
 
@@ -751,6 +776,7 @@ func expandEnvironmentNetworkConfigurationCreate(l []interface{}) *mwaa.NetworkC
 	}
 }
 
+
 func expandEnvironmentNetworkConfigurationUpdate(l []interface{}) *mwaa.UpdateNetworkConfigurationInput {
 	m := l[0].(map[string]interface{})
 
@@ -758,6 +784,7 @@ func expandEnvironmentNetworkConfigurationUpdate(l []interface{}) *mwaa.UpdateNe
 		SecurityGroupIds: flex.ExpandStringSet(m["security_group_ids"].(*schema.Set)),
 	}
 }
+
 
 func flattenLastUpdate(lastUpdate *mwaa.LastUpdate) []interface{} {
 	if lastUpdate == nil {
@@ -781,6 +808,7 @@ func flattenLastUpdate(lastUpdate *mwaa.LastUpdate) []interface{} {
 	return []interface{}{m}
 }
 
+
 func flattenLastUpdateError(apiObject *mwaa.UpdateError) []interface{} {
 	if apiObject == nil {
 		return []interface{}{}
@@ -798,6 +826,7 @@ func flattenLastUpdateError(apiObject *mwaa.UpdateError) []interface{} {
 
 	return []interface{}{m}
 }
+
 
 func flattenLoggingConfiguration(loggingConfiguration *mwaa.LoggingConfiguration) []interface{} {
 	if loggingConfiguration == nil {
@@ -829,6 +858,7 @@ func flattenLoggingConfiguration(loggingConfiguration *mwaa.LoggingConfiguration
 	return []interface{}{m}
 }
 
+
 func flattenModuleLoggingConfiguration(moduleLoggingConfiguration *mwaa.ModuleLoggingConfiguration) []interface{} {
 	if moduleLoggingConfiguration == nil {
 		return []interface{}{}
@@ -842,6 +872,7 @@ func flattenModuleLoggingConfiguration(moduleLoggingConfiguration *mwaa.ModuleLo
 
 	return []interface{}{m}
 }
+
 
 func flattenNetworkConfiguration(networkConfiguration *mwaa.NetworkConfiguration) []interface{} {
 	if networkConfiguration == nil {

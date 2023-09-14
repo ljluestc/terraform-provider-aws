@@ -19,6 +19,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func testAccClientVPNNetworkAssociation_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var assoc ec2.TargetNetwork
@@ -29,14 +30,16 @@ func testAccClientVPNNetworkAssociation_basic(t *testing.T) {
 	vpcResourceName := "aws_vpc.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { testAccPreCheckClientVPNSyncronize(t); acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { testAccPreCheckClientVPNSyncronize(t); acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckClientVPNNetworkAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClientVPNNetworkAssociationConfig_basic(t, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckClientVPNNetworkAssociationExists(ctx, resourceName, &assoc),
 					resource.TestMatchResourceAttr(resourceName, "association_id", regexache.MustCompile("^cvpn-assoc-[0-9a-z]+$")),
 					resource.TestCheckResourceAttrPair(resourceName, "id", resourceName, "association_id"),
@@ -49,11 +52,14 @@ func testAccClientVPNNetworkAssociation_basic(t *testing.T) {
 				ResourceName:      resourceName,
 				ImportState:       true,
 				ImportStateVerify: true,
-				ImportStateIdFunc: testAccClientVPNNetworkAssociationImportStateIdFunc(resourceName),
+				ImportStateId
+func: testAccClientVPNNetworkAssociationImportStateId
+func(resourceName),
 			},
 		},
 	})
 }
+
 
 func testAccClientVPNNetworkAssociation_multipleSubnets(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -65,14 +71,16 @@ func testAccClientVPNNetworkAssociation_multipleSubnets(t *testing.T) {
 	vpcResourceName := "aws_vpc.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { testAccPreCheckClientVPNSyncronize(t); acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { testAccPreCheckClientVPNSyncronize(t); acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckClientVPNNetworkAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClientVPNNetworkAssociationConfig_multipleSubnets(t, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckClientVPNNetworkAssociationExists(ctx, resourceNames[0], &assoc),
 					resource.TestMatchResourceAttr(resourceNames[0], "association_id", regexache.MustCompile("^cvpn-assoc-[0-9a-z]+$")),
 					resource.TestMatchResourceAttr(resourceNames[1], "association_id", regexache.MustCompile("^cvpn-assoc-[0-9a-z]+$")),
@@ -87,6 +95,7 @@ func testAccClientVPNNetworkAssociation_multipleSubnets(t *testing.T) {
 	})
 }
 
+
 func testAccClientVPNNetworkAssociation_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var assoc ec2.TargetNetwork
@@ -94,14 +103,16 @@ func testAccClientVPNNetworkAssociation_disappears(t *testing.T) {
 	resourceName := "aws_ec2_client_vpn_network_association.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { testAccPreCheckClientVPNSyncronize(t); acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { testAccPreCheckClientVPNSyncronize(t); acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckClientVPNNetworkAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccClientVPNNetworkAssociationConfig_basic(t, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckClientVPNNetworkAssociationExists(ctx, resourceName, &assoc),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceClientVPNNetworkAssociation(), resourceName),
 				),
@@ -111,8 +122,11 @@ func testAccClientVPNNetworkAssociation_disappears(t *testing.T) {
 	})
 }
 
-func testAccCheckClientVPNNetworkAssociationDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckClientVPNNetworkAssociationDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -137,8 +151,11 @@ func testAccCheckClientVPNNetworkAssociationDestroy(ctx context.Context) resourc
 	}
 }
 
-func testAccCheckClientVPNNetworkAssociationExists(ctx context.Context, name string, v *ec2.TargetNetwork) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckClientVPNNetworkAssociationExists(ctx context.Context, name string, v *ec2.TargetNetwork) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
 		if !ok {
 			return fmt.Errorf("Not found: %s", name)
@@ -162,8 +179,12 @@ func testAccCheckClientVPNNetworkAssociationExists(ctx context.Context, name str
 	}
 }
 
-func testAccClientVPNNetworkAssociationImportStateIdFunc(resourceName string) resource.ImportStateIdFunc {
-	return func(s *terraform.State) (string, error) {
+
+func testAccClientVPNNetworkAssociationImportStateId
+func(resourceName string) resource.ImportStateId
+func {
+	return 
+func(s *terraform.State) (string, error) {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return "", fmt.Errorf("Not found: %s", resourceName)
@@ -172,6 +193,7 @@ func testAccClientVPNNetworkAssociationImportStateIdFunc(resourceName string) re
 		return fmt.Sprintf("%s,%s", rs.Primary.Attributes["client_vpn_endpoint_id"], rs.Primary.ID), nil
 	}
 }
+
 
 func testAccClientVPNNetworkAssociationConfig_base(t *testing.T, rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), testAccClientVPNEndpointConfig_basic(t, rName), fmt.Sprintf(`
@@ -198,6 +220,7 @@ resource "aws_subnet" "test" {
 `, rName))
 }
 
+
 func testAccClientVPNNetworkAssociationConfig_basic(t *testing.T, rName string) string {
 	return acctest.ConfigCompose(testAccClientVPNNetworkAssociationConfig_base(t, rName), `
 resource "aws_ec2_client_vpn_network_association" "test" {
@@ -206,6 +229,7 @@ resource "aws_ec2_client_vpn_network_association" "test" {
 }
 `)
 }
+
 
 func testAccClientVPNNetworkAssociationConfig_multipleSubnets(t *testing.T, rName string) string {
 	return acctest.ConfigCompose(testAccClientVPNNetworkAssociationConfig_base(t, rName), `

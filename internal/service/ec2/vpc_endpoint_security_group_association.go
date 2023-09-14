@@ -19,6 +19,7 @@ import (
 )
 
 // @SDKResource("aws_vpc_endpoint_security_group_association")
+
 func ResourceVPCEndpointSecurityGroupAssociation() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceVPCEndpointSecurityGroupAssociationCreate,
@@ -170,6 +171,7 @@ func resourceVPCEndpointSecurityGroupAssociationDelete(ctx context.Context, d *s
 }
 
 // createVPCEndpointSecurityGroupAssociation creates the specified VPC endpoint/security group association.
+
 func createVPCEndpointSecurityGroupAssociation(ctx context.Context, conn *ec2.EC2, vpcEndpointID, securityGroupID string) error {
 	input := &ec2.ModifyVpcEndpointInput{
 		VpcEndpointId:       aws.String(vpcEndpointID),
@@ -187,6 +189,7 @@ func createVPCEndpointSecurityGroupAssociation(ctx context.Context, conn *ec2.EC
 }
 
 // deleteVPCEndpointSecurityGroupAssociation deletes the specified VPC endpoint/security group association.
+
 func deleteVPCEndpointSecurityGroupAssociation(ctx context.Context, conn *ec2.EC2, vpcEndpointID, securityGroupID string) error {
 	input := &ec2.ModifyVpcEndpointInput{
 		VpcEndpointId:          aws.String(vpcEndpointID),

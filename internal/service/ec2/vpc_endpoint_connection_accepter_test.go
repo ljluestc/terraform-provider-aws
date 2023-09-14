@@ -18,13 +18,15 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccVPCEndpointConnectionAccepter_crossAccount(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_vpc_endpoint_connection_accepter.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
 		},
@@ -34,7 +36,8 @@ func TestAccVPCEndpointConnectionAccepter_crossAccount(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCEndpointConnectionAccepterConfig_crossAccount(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttr(resourceName, "vpc_endpoint_state", "available"),
 				),
 			},
@@ -48,8 +51,11 @@ func TestAccVPCEndpointConnectionAccepter_crossAccount(t *testing.T) {
 	})
 }
 
-func testAccCheckVPCEndpointConnectionAccepterDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckVPCEndpointConnectionAccepterDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -79,6 +85,7 @@ func testAccCheckVPCEndpointConnectionAccepterDestroy(ctx context.Context) resou
 		return nil
 	}
 }
+
 
 func testAccVPCEndpointConnectionAccepterConfig_crossAccount(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAlternateAccountProvider(), fmt.Sprintf(`

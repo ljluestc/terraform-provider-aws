@@ -18,6 +18,7 @@ const dimensionsFieldMaxItems10 = 10
 const dimensionsFieldMaxItems40 = 40
 const dimensionsFieldMaxItems200 = 200
 
+
 func dimensionFieldSchema(maxItems int) *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DimensionField.html
 		Type:     schema.TypeList,
@@ -74,6 +75,7 @@ func dimensionFieldSchema(maxItems int) *schema.Schema {
 	}
 }
 
+
 func measureFieldSchema(maxItems int) *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_MeasureField.html
 		Type:     schema.TypeList,
@@ -103,7 +105,9 @@ func measureFieldSchema(maxItems int) *schema.Schema {
 						Schema: map[string]*schema.Schema{
 							"column":               columnSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnIdentifier.html
 							"field_id":             stringSchema(true, validation.StringLenBetween(1, 512)),
-							"aggregation_function": stringSchema(false, validation.StringInSlice(quicksight.CategoricalAggregationFunction_Values(), false)),
+							"aggregation_
+function": stringSchema(false, validation.StringInSlice(quicksight.CategoricalAggregation
+function_Values(), false)),
 							"format_configuration": stringFormatConfigurationSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_StringFormatConfiguration.html
 						},
 					},
@@ -117,7 +121,9 @@ func measureFieldSchema(maxItems int) *schema.Schema {
 						Schema: map[string]*schema.Schema{
 							"column":               columnSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnIdentifier.html
 							"field_id":             stringSchema(true, validation.StringLenBetween(1, 512)),
-							"aggregation_function": stringSchema(false, validation.StringInSlice(quicksight.DateAggregationFunction_Values(), false)),
+							"aggregation_
+function": stringSchema(false, validation.StringInSlice(quicksight.DateAggregation
+function_Values(), false)),
 							"format_configuration": dateTimeFormatConfigurationSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DateTimeFormatConfiguration.html
 						},
 					},
@@ -131,7 +137,10 @@ func measureFieldSchema(maxItems int) *schema.Schema {
 						Schema: map[string]*schema.Schema{
 							"column":               columnSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnIdentifier.html
 							"field_id":             stringSchema(true, validation.StringLenBetween(1, 512)),
-							"aggregation_function": numericalAggregationFunctionSchema(false), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_NumericalAggregationFunction.html
+							"aggregation_
+function": numericalAggregation
+functionSchema(false), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_NumericalAggregation
+function.html
 							"format_configuration": numberFormatConfigurationSchema(),         // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_NumberFormatConfiguration.html
 						},
 					},
@@ -140,6 +149,7 @@ func measureFieldSchema(maxItems int) *schema.Schema {
 		},
 	}
 }
+
 
 func expandDimensionFields(tfList []interface{}) []*quicksight.DimensionField {
 	if len(tfList) == 0 {
@@ -164,6 +174,7 @@ func expandDimensionFields(tfList []interface{}) []*quicksight.DimensionField {
 	return fields
 }
 
+
 func expandDimensionInternal(tfMap map[string]interface{}) *quicksight.DimensionField {
 	if tfMap == nil {
 		return nil
@@ -184,6 +195,7 @@ func expandDimensionInternal(tfMap map[string]interface{}) *quicksight.Dimension
 	return field
 }
 
+
 func expandDimensionField(tfList []interface{}) *quicksight.DimensionField {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -200,6 +212,7 @@ func expandDimensionField(tfList []interface{}) *quicksight.DimensionField {
 
 	return expandDimensionInternal(tfMap)
 }
+
 
 func expandCategoricalDimensionField(tfList []interface{}) *quicksight.CategoricalDimensionField {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -228,6 +241,7 @@ func expandCategoricalDimensionField(tfList []interface{}) *quicksight.Categoric
 
 	return field
 }
+
 
 func expandDateDimensionField(tfList []interface{}) *quicksight.DateDimensionField {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -260,6 +274,7 @@ func expandDateDimensionField(tfList []interface{}) *quicksight.DateDimensionFie
 	return field
 }
 
+
 func expandNumericalDimensionField(tfList []interface{}) *quicksight.NumericalDimensionField {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -288,6 +303,7 @@ func expandNumericalDimensionField(tfList []interface{}) *quicksight.NumericalDi
 	return field
 }
 
+
 func expandMeasureFields(tfList []interface{}) []*quicksight.MeasureField {
 	if len(tfList) == 0 {
 		return nil
@@ -310,6 +326,7 @@ func expandMeasureFields(tfList []interface{}) []*quicksight.MeasureField {
 
 	return fields
 }
+
 
 func expandMeasureFieldInternal(tfMap map[string]interface{}) *quicksight.MeasureField {
 	if tfMap == nil {
@@ -334,6 +351,7 @@ func expandMeasureFieldInternal(tfMap map[string]interface{}) *quicksight.Measur
 	return field
 }
 
+
 func expandMeasureField(tfList []interface{}) *quicksight.MeasureField {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -346,6 +364,7 @@ func expandMeasureField(tfList []interface{}) *quicksight.MeasureField {
 
 	return expandMeasureFieldInternal(tfMap)
 }
+
 
 func expandCalculatedMeasureField(tfList []interface{}) *quicksight.CalculatedMeasureField {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -369,6 +388,7 @@ func expandCalculatedMeasureField(tfList []interface{}) *quicksight.CalculatedMe
 	return field
 }
 
+
 func expandCategoricalMeasureField(tfList []interface{}) *quicksight.CategoricalMeasureField {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -384,8 +404,10 @@ func expandCategoricalMeasureField(tfList []interface{}) *quicksight.Categorical
 	if v, ok := tfMap["field_id"].(string); ok && v != "" {
 		field.FieldId = aws.String(v)
 	}
-	if v, ok := tfMap["aggregation_function"].(string); ok && v != "" {
-		field.AggregationFunction = aws.String(v)
+	if v, ok := tfMap["aggregation_
+function"].(string); ok && v != "" {
+		field.Aggregation
+function = aws.String(v)
 	}
 	if v, ok := tfMap["column"].([]interface{}); ok && len(v) > 0 {
 		field.Column = expandColumnIdentifier(v)
@@ -396,6 +418,7 @@ func expandCategoricalMeasureField(tfList []interface{}) *quicksight.Categorical
 
 	return field
 }
+
 
 func expandDateMeasureField(tfList []interface{}) *quicksight.DateMeasureField {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -412,8 +435,10 @@ func expandDateMeasureField(tfList []interface{}) *quicksight.DateMeasureField {
 	if v, ok := tfMap["field_id"].(string); ok && v != "" {
 		field.FieldId = aws.String(v)
 	}
-	if v, ok := tfMap["aggregation_function"].(string); ok && v != "" {
-		field.AggregationFunction = aws.String(v)
+	if v, ok := tfMap["aggregation_
+function"].(string); ok && v != "" {
+		field.Aggregation
+function = aws.String(v)
 	}
 	if v, ok := tfMap["column"].([]interface{}); ok && len(v) > 0 {
 		field.Column = expandColumnIdentifier(v)
@@ -424,6 +449,7 @@ func expandDateMeasureField(tfList []interface{}) *quicksight.DateMeasureField {
 
 	return field
 }
+
 
 func expandNumericalMeasureField(tfList []interface{}) *quicksight.NumericalMeasureField {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -443,8 +469,11 @@ func expandNumericalMeasureField(tfList []interface{}) *quicksight.NumericalMeas
 	if v, ok := tfMap["column"].([]interface{}); ok && len(v) > 0 {
 		field.Column = expandColumnIdentifier(v)
 	}
-	if v, ok := tfMap["aggregation_function"].([]interface{}); ok && len(v) > 0 {
-		field.AggregationFunction = expandNumericalAggregationFunction(v)
+	if v, ok := tfMap["aggregation_
+function"].([]interface{}); ok && len(v) > 0 {
+		field.Aggregation
+function = expandNumericalAggregation
+function(v)
 	}
 	if v, ok := tfMap["format_configuration"].([]interface{}); ok && len(v) > 0 {
 		field.FormatConfiguration = expandNumberFormatConfiguration(v)
@@ -452,6 +481,7 @@ func expandNumericalMeasureField(tfList []interface{}) *quicksight.NumericalMeas
 
 	return field
 }
+
 
 func flattenDimensionField(apiObject *quicksight.DimensionField) []interface{} {
 	if apiObject == nil {
@@ -471,6 +501,7 @@ func flattenDimensionField(apiObject *quicksight.DimensionField) []interface{} {
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenDimensionFields(apiObject []*quicksight.DimensionField) []interface{} {
 	if len(apiObject) == 0 {
@@ -500,6 +531,7 @@ func flattenDimensionFields(apiObject []*quicksight.DimensionField) []interface{
 	return tfList
 }
 
+
 func flattenCategoricalDimensionField(apiObject *quicksight.CategoricalDimensionField) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -521,6 +553,7 @@ func flattenCategoricalDimensionField(apiObject *quicksight.CategoricalDimension
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenDateDimensionField(apiObject *quicksight.DateDimensionField) []interface{} {
 	if apiObject == nil {
@@ -547,6 +580,7 @@ func flattenDateDimensionField(apiObject *quicksight.DateDimensionField) []inter
 	return []interface{}{tfMap}
 }
 
+
 func flattenNumericalDimensionField(apiObject *quicksight.NumericalDimensionField) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -569,6 +603,7 @@ func flattenNumericalDimensionField(apiObject *quicksight.NumericalDimensionFiel
 	return []interface{}{tfMap}
 }
 
+
 func flattenMeasureField(apiObject *quicksight.MeasureField) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -590,6 +625,7 @@ func flattenMeasureField(apiObject *quicksight.MeasureField) []interface{} {
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenMeasureFields(apiObject []*quicksight.MeasureField) []interface{} {
 	if len(apiObject) == 0 {
@@ -622,6 +658,7 @@ func flattenMeasureFields(apiObject []*quicksight.MeasureField) []interface{} {
 	return tfList
 }
 
+
 func flattenCalculatedMeasureField(apiObject *quicksight.CalculatedMeasureField) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -638,14 +675,18 @@ func flattenCalculatedMeasureField(apiObject *quicksight.CalculatedMeasureField)
 	return []interface{}{tfMap}
 }
 
+
 func flattenCategoricalMeasureField(apiObject *quicksight.CategoricalMeasureField) []interface{} {
 	if apiObject == nil {
 		return nil
 	}
 
 	tfMap := map[string]interface{}{}
-	if apiObject.AggregationFunction != nil {
-		tfMap["aggregation_function"] = aws.StringValue(apiObject.AggregationFunction)
+	if apiObject.Aggregation
+function != nil {
+		tfMap["aggregation_
+function"] = aws.StringValue(apiObject.Aggregation
+function)
 	}
 	if apiObject.Column != nil {
 		tfMap["column"] = flattenColumnIdentifier(apiObject.Column)
@@ -660,14 +701,18 @@ func flattenCategoricalMeasureField(apiObject *quicksight.CategoricalMeasureFiel
 	return []interface{}{tfMap}
 }
 
+
 func flattenDateMeasureField(apiObject *quicksight.DateMeasureField) []interface{} {
 	if apiObject == nil {
 		return nil
 	}
 
 	tfMap := map[string]interface{}{}
-	if apiObject.AggregationFunction != nil {
-		tfMap["aggregation_function"] = aws.StringValue(apiObject.AggregationFunction)
+	if apiObject.Aggregation
+function != nil {
+		tfMap["aggregation_
+function"] = aws.StringValue(apiObject.Aggregation
+function)
 	}
 	if apiObject.Column != nil {
 		tfMap["column"] = flattenColumnIdentifier(apiObject.Column)
@@ -682,14 +727,19 @@ func flattenDateMeasureField(apiObject *quicksight.DateMeasureField) []interface
 	return []interface{}{tfMap}
 }
 
+
 func flattenNumericalMeasureField(apiObject *quicksight.NumericalMeasureField) []interface{} {
 	if apiObject == nil {
 		return nil
 	}
 
 	tfMap := map[string]interface{}{}
-	if apiObject.AggregationFunction != nil {
-		tfMap["aggregation_function"] = flattenNumericalAggregationFunction(apiObject.AggregationFunction)
+	if apiObject.Aggregation
+function != nil {
+		tfMap["aggregation_
+function"] = flattenNumericalAggregation
+function(apiObject.Aggregation
+function)
 	}
 	if apiObject.Column != nil {
 		tfMap["column"] = flattenColumnIdentifier(apiObject.Column)

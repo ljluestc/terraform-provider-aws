@@ -18,6 +18,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccOpsWorksUserProfile_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName1 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -25,14 +26,16 @@ func TestAccOpsWorksUserProfile_basic(t *testing.T) {
 	resourceName := "aws_opsworks_user_profile.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
 		ErrorCheck:               acctest.ErrorCheck(t, opsworks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckUserProfileDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserProfileConfig_create(rName1),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckUserProfileExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "ssh_public_key", ""),
 					resource.TestCheckResourceAttr(resourceName, "ssh_username", rName1),
@@ -41,7 +44,8 @@ func TestAccOpsWorksUserProfile_basic(t *testing.T) {
 			},
 			{
 				Config: testAccUserProfileConfig_update(rName1, rName2),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckUserProfileExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "ssh_public_key", ""),
 					resource.TestCheckResourceAttr(resourceName, "ssh_username", rName2),
@@ -52,20 +56,23 @@ func TestAccOpsWorksUserProfile_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccOpsWorksUserProfile_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	resourceName := "aws_opsworks_user_profile.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
 		ErrorCheck:               acctest.ErrorCheck(t, opsworks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckUserProfileDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserProfileConfig_create(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckUserProfileExists(ctx, resourceName),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfopsworks.ResourceUserProfile(), resourceName),
 				),
@@ -75,8 +82,11 @@ func TestAccOpsWorksUserProfile_disappears(t *testing.T) {
 	})
 }
 
-func testAccCheckUserProfileExists(ctx context.Context, n string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckUserProfileExists(ctx context.Context, n string) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -94,8 +104,11 @@ func testAccCheckUserProfileExists(ctx context.Context, n string) resource.TestC
 	}
 }
 
-func testAccCheckUserProfileDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckUserProfileDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).OpsWorksConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -120,6 +133,7 @@ func testAccCheckUserProfileDestroy(ctx context.Context) resource.TestCheckFunc 
 	}
 }
 
+
 func testAccUserProfileConfig_create(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_opsworks_user_profile" "test" {
@@ -133,6 +147,7 @@ resource "aws_iam_user" "test1" {
 }
 `, rName)
 }
+
 
 func testAccUserProfileConfig_update(rName1, rName2 string) string {
 	return fmt.Sprintf(`

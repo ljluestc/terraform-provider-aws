@@ -17,21 +17,29 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 )
 
-// @SDKResource("aws_connect_lambda_function_association")
-func ResourceLambdaFunctionAssociation() *schema.Resource {
+// @SDKResource("aws_connect_lambda_
+function_association")
+
+func ResourceLambda
+functionAssociation() *schema.Resource {
 	return &schema.Resource{
-		CreateWithoutTimeout: resourceLambdaFunctionAssociationCreate,
-		ReadWithoutTimeout:   resourceLambdaFunctionAssociationRead,
-		DeleteWithoutTimeout: resourceLambdaFunctionAssociationDelete,
+		CreateWithoutTimeout: resourceLambda
+functionAssociationCreate,
+		ReadWithoutTimeout:   resourceLambda
+functionAssociationRead,
+		DeleteWithoutTimeout: resourceLambda
+functionAssociationDelete,
 		Importer: &schema.ResourceImporter{
 			StateContext: schema.ImportStatePassthroughContext,
 		},
 		Schema: map[string]*schema.Schema{
-			"function_arn": {
+			"
+function_arn": {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			"instance_id": {
 				Type:     schema.TypeString,
@@ -42,75 +50,108 @@ func ResourceLambdaFunctionAssociation() *schema.Resource {
 	}
 }
 
-func resourceLambdaFunctionAssociationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+
+func resourceLambda
+functionAssociationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
 	instanceId := d.Get("instance_id").(string)
-	functionArn := d.Get("function_arn").(string)
+	
+functionArn := d.Get("
+function_arn").(string)
 
-	input := &connect.AssociateLambdaFunctionInput{
+	input := &connect.AssociateLambda
+functionInput{
 		InstanceId:  aws.String(instanceId),
-		FunctionArn: aws.String(functionArn),
+		
+functionArn: aws.String(
+functionArn),
 	}
 
-	_, err := conn.AssociateLambdaFunctionWithContext(ctx, input)
+	_, err := conn.AssociateLambda
+functionWithContext(ctx, input)
 	if err != nil {
-		return diag.Errorf("creating Connect Lambda Function Association (%s,%s): %s", instanceId, functionArn, err)
+		return diag.Errorf("creating Connect Lambda 
+function Association (%s,%s): %s", instanceId, 
+functionArn, err)
 	}
 
-	d.SetId(LambdaFunctionAssociationCreateResourceID(instanceId, functionArn))
+	d.SetId(Lambda
+functionAssociationCreateResourceID(instanceId, 
+functionArn))
 
-	return resourceLambdaFunctionAssociationRead(ctx, d, meta)
+	return resourceLambda
+functionAssociationRead(ctx, d, meta)
 }
 
-func resourceLambdaFunctionAssociationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+
+func resourceLambda
+functionAssociationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
-	instanceID, functionArn, err := LambdaFunctionAssociationParseResourceID(d.Id())
+	instanceID, 
+functionArn, err := Lambda
+functionAssociationParseResourceID(d.Id())
 
 	if err != nil {
 		return diag.FromErr(err)
 	}
 
-	lfaArn, err := FindLambdaFunctionAssociationByARNWithContext(ctx, conn, instanceID, functionArn)
+	lfaArn, err := FindLambda
+functionAssociationByARNWithContext(ctx, conn, instanceID, 
+functionArn)
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
-		log.Printf("[WARN] Connect Lambda Function Association (%s) not found, removing from state", d.Id())
+		log.Printf("[WARN] Connect Lambda 
+function Association (%s) not found, removing from state", d.Id())
 		d.SetId("")
 		return nil
 	}
 
 	if err != nil {
-		return diag.Errorf("finding Connect Lambda Function Association by Function ARN (%s): %s", functionArn, err)
+		return diag.Errorf("finding Connect Lambda 
+function Association by 
+function ARN (%s): %s", 
+functionArn, err)
 	}
 
-	d.Set("function_arn", lfaArn)
+	d.Set("
+function_arn", lfaArn)
 	d.Set("instance_id", instanceID)
 
 	return nil
 }
 
-func resourceLambdaFunctionAssociationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
+
+func resourceLambda
+functionAssociationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
-	instanceID, functionArn, err := LambdaFunctionAssociationParseResourceID(d.Id())
+	instanceID, 
+functionArn, err := Lambda
+functionAssociationParseResourceID(d.Id())
 	if err != nil {
 		return diag.FromErr(err)
 	}
 
-	input := &connect.DisassociateLambdaFunctionInput{
+	input := &connect.DisassociateLambda
+functionInput{
 		InstanceId:  aws.String(instanceID),
-		FunctionArn: aws.String(functionArn),
+		
+functionArn: aws.String(
+functionArn),
 	}
 
-	_, err = conn.DisassociateLambdaFunctionWithContext(ctx, input)
+	_, err = conn.DisassociateLambda
+functionWithContext(ctx, input)
 
 	if tfawserr.ErrCodeEquals(err, connect.ErrCodeResourceNotFoundException) {
 		return nil
 	}
 
 	if err != nil {
-		return diag.Errorf("deleting Connect Lambda Function Association (%s): %s", d.Id(), err)
+		return diag.Errorf("deleting Connect Lambda 
+function Association (%s): %s", d.Id(), err)
 	}
 
 	return nil

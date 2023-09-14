@@ -13,19 +13,22 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func testAccTransitGatewayRouteTableAssociationsDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_ec2_transit_gateway_route_table_associations.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayRouteTableAssociationsDataSourceConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					acctest.CheckResourceAttrGreaterThanValue(dataSourceName, "ids.#", 0),
 				),
 			},
@@ -33,25 +36,29 @@ func testAccTransitGatewayRouteTableAssociationsDataSource_basic(t *testing.T) {
 	})
 }
 
+
 func testAccTransitGatewayRouteTableAssociationsDataSource_filter(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	dataSourceName := "data.aws_ec2_transit_gateway_route_table_associations.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayRouteTableAssociationsDataSourceConfig_filter(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttr(dataSourceName, "ids.#", "1"),
 				),
 			},
 		},
 	})
 }
+
 
 func testAccTransitGatewayRouteTableAssociationsDataSourceConfig_base(rName string) string {
 	return acctest.ConfigCompose(testAccTransitGatewayRouteTableAssociationConfig_base(rName), fmt.Sprintf(`
@@ -74,6 +81,7 @@ resource "aws_ec2_transit_gateway_route_table_association" "test" {
 `, rName))
 }
 
+
 func testAccTransitGatewayRouteTableAssociationsDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccTransitGatewayRouteTableAssociationsDataSourceConfig_base(rName), `
 data "aws_ec2_transit_gateway_route_table_associations" "test" {
@@ -83,6 +91,7 @@ data "aws_ec2_transit_gateway_route_table_associations" "test" {
 }
 `)
 }
+
 
 func testAccTransitGatewayRouteTableAssociationsDataSourceConfig_filter(rName string) string {
 	return acctest.ConfigCompose(testAccTransitGatewayRouteTableAssociationsDataSourceConfig_base(rName), `

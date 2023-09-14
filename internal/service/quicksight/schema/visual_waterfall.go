@@ -10,6 +10,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/verify"
 )
 
+
 func waterfallVisualSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_WaterfallVisual.html
 		Type:     schema.TypeList,
@@ -61,7 +62,8 @@ func waterfallVisualSchema() *schema.Schema {
 								Optional:         true,
 								MinItems:         1,
 								MaxItems:         1,
-								DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
+								DiffSuppress
+func: verify.SuppressMissingOptionalConfigurationBlock,
 								Elem: &schema.Resource{
 									Schema: map[string]*schema.Schema{
 										"breakdown_items_limit": itemsLimitConfigurationSchema(),                     // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ItemsLimitConfiguration.html
@@ -94,6 +96,7 @@ func waterfallVisualSchema() *schema.Schema {
 		},
 	}
 }
+
 
 func expandWaterfallVisual(tfList []interface{}) *quicksight.WaterfallVisual {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -128,6 +131,7 @@ func expandWaterfallVisual(tfList []interface{}) *quicksight.WaterfallVisual {
 
 	return visual
 }
+
 
 func expandWaterfallChartConfiguration(tfList []interface{}) *quicksight.WaterfallChartConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -175,6 +179,7 @@ func expandWaterfallChartConfiguration(tfList []interface{}) *quicksight.Waterfa
 	return config
 }
 
+
 func expandWaterfallChartFieldWells(tfList []interface{}) *quicksight.WaterfallChartFieldWells {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -193,6 +198,7 @@ func expandWaterfallChartFieldWells(tfList []interface{}) *quicksight.WaterfallC
 
 	return config
 }
+
 
 func expandWaterfallChartAggregatedFieldWells(tfList []interface{}) *quicksight.WaterfallChartAggregatedFieldWells {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -219,6 +225,7 @@ func expandWaterfallChartAggregatedFieldWells(tfList []interface{}) *quicksight.
 	return config
 }
 
+
 func expandWaterfallChartSortConfiguration(tfList []interface{}) *quicksight.WaterfallChartSortConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -241,6 +248,7 @@ func expandWaterfallChartSortConfiguration(tfList []interface{}) *quicksight.Wat
 	return config
 }
 
+
 func expandWaterfallChartOptions(tfList []interface{}) *quicksight.WaterfallChartOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -259,6 +267,7 @@ func expandWaterfallChartOptions(tfList []interface{}) *quicksight.WaterfallChar
 
 	return options
 }
+
 
 func flattenWaterfallVisual(apiObject *quicksight.WaterfallVisual) []interface{} {
 	if apiObject == nil {
@@ -286,6 +295,7 @@ func flattenWaterfallVisual(apiObject *quicksight.WaterfallVisual) []interface{}
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenWaterfallChartConfiguration(apiObject *quicksight.WaterfallChartConfiguration) []interface{} {
 	if apiObject == nil {
@@ -327,6 +337,7 @@ func flattenWaterfallChartConfiguration(apiObject *quicksight.WaterfallChartConf
 	return []interface{}{tfMap}
 }
 
+
 func flattenWaterfallChartFieldWells(apiObject *quicksight.WaterfallChartFieldWells) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -339,6 +350,7 @@ func flattenWaterfallChartFieldWells(apiObject *quicksight.WaterfallChartFieldWe
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenWaterfallChartAggregatedFieldWells(apiObject *quicksight.WaterfallChartAggregatedFieldWells) []interface{} {
 	if apiObject == nil {
@@ -359,6 +371,7 @@ func flattenWaterfallChartAggregatedFieldWells(apiObject *quicksight.WaterfallCh
 	return []interface{}{tfMap}
 }
 
+
 func flattenWaterfallChartSortConfiguration(apiObject *quicksight.WaterfallChartSortConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -374,6 +387,7 @@ func flattenWaterfallChartSortConfiguration(apiObject *quicksight.WaterfallChart
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenWaterfallChartOptions(apiObject *quicksight.WaterfallChartOptions) []interface{} {
 	if apiObject == nil {

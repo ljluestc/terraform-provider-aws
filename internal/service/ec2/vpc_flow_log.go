@@ -27,6 +27,7 @@ import (
 
 // @SDKResource("aws_flow_log", name="Flow Log")
 // @Tags(identifierAttribute="id")
+
 func ResourceFlowLog() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceLogFlowCreate,
@@ -47,19 +48,22 @@ func ResourceFlowLog() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			"destination_options": {
 				Type:             schema.TypeList,
 				Optional:         true,
 				ForceNew:         true,
 				MaxItems:         1,
-				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
+				DiffSuppress
+func: verify.SuppressMissingOptionalConfigurationBlock,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"file_format": {
 							Type:         schema.TypeString,
-							ValidateFunc: validation.StringInSlice(ec2.DestinationFileFormat_Values(), false),
+							Validate
+func: validation.StringInSlice(ec2.DestinationFileFormat_Values(), false),
 							Optional:     true,
 							Default:      ec2.DestinationFileFormatPlainText,
 							ForceNew:     true,
@@ -89,14 +93,16 @@ func ResourceFlowLog() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			"log_destination": {
 				Type:          schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
-				ValidateFunc:  verify.ValidARN,
+				Validate
+func:  verify.ValidARN,
 				ConflictsWith: []string{"log_group_name"},
 			},
 			"log_destination_type": {
@@ -104,7 +110,8 @@ func ResourceFlowLog() *schema.Resource {
 				Optional:     true,
 				ForceNew:     true,
 				Default:      ec2.LogDestinationTypeCloudWatchLogs,
-				ValidateFunc: validation.StringInSlice(ec2.LogDestinationType_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.LogDestinationType_Values(), false),
 			},
 			"log_format": {
 				Type:     schema.TypeString,
@@ -125,7 +132,8 @@ func ResourceFlowLog() *schema.Resource {
 				Optional:     true,
 				ForceNew:     true,
 				Default:      600,
-				ValidateFunc: validation.IntInSlice([]int{60, 600}),
+				Validate
+func: validation.IntInSlice([]int{60, 600}),
 			},
 			"subnet_id": {
 				Type:         schema.TypeString,
@@ -139,7 +147,8 @@ func ResourceFlowLog() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringInSlice(ec2.TrafficType_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.TrafficType_Values(), false),
 			},
 			"transit_gateway_attachment_id": {
 				Type:         schema.TypeString,
@@ -164,6 +173,7 @@ func ResourceFlowLog() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
+
 
 func resourceLogFlowCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -245,7 +255,8 @@ func resourceLogFlowCreate(ctx context.Context, d *schema.ResourceData, meta int
 		input.MaxAggregationInterval = aws.Int64(int64(v.(int)))
 	}
 
-	outputRaw, err := tfresource.RetryWhenAWSErrMessageContains(ctx, iamPropagationTimeout, func() (interface{}, error) {
+	outputRaw, err := tfresource.RetryWhenAWSErrMessageContains(ctx, iamPropagationTimeout, 
+func() (interface{}, error) {
 		return conn.CreateFlowLogsWithContext(ctx, input)
 	}, errCodeInvalidParameter, "Unable to assume given IAM role")
 
@@ -261,6 +272,7 @@ func resourceLogFlowCreate(ctx context.Context, d *schema.ResourceData, meta int
 
 	return append(diags, resourceLogFlowRead(ctx, d, meta)...)
 }
+
 
 func resourceLogFlowRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -323,6 +335,7 @@ func resourceLogFlowRead(ctx context.Context, d *schema.ResourceData, meta inter
 	return diags
 }
 
+
 func resourceLogFlowUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 
@@ -330,6 +343,7 @@ func resourceLogFlowUpdate(ctx context.Context, d *schema.ResourceData, meta int
 
 	return append(diags, resourceLogFlowRead(ctx, d, meta)...)
 }
+
 
 func resourceLogFlowDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -355,6 +369,7 @@ func resourceLogFlowDelete(ctx context.Context, d *schema.ResourceData, meta int
 	return diags
 }
 
+
 func expandDestinationOptionsRequest(tfMap map[string]interface{}) *ec2.DestinationOptionsRequest {
 	if tfMap == nil {
 		return nil
@@ -376,6 +391,7 @@ func expandDestinationOptionsRequest(tfMap map[string]interface{}) *ec2.Destinat
 
 	return apiObject
 }
+
 
 func flattenDestinationOptionsResponse(apiObject *ec2.DestinationOptionsResponse) map[string]interface{} {
 	tfMap := map[string]interface{}{}

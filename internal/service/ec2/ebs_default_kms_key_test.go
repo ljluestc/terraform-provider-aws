@@ -18,20 +18,23 @@ import (
 	tfkms "github.com/hashicorp/terraform-provider-aws/internal/service/kms"
 )
 
+
 func TestAccEC2EBSDefaultKMSKey_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	resourceName := "aws_ebs_default_kms_key.test"
 	resourceNameKey := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEBSDefaultKMSKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEBSDefaultKMSKeyConfig_basic,
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckEBSDefaultKMSKey(ctx, resourceName),
 					resource.TestCheckResourceAttrPair(resourceName, "key_arn", resourceNameKey, "arn"),
 				),
@@ -45,8 +48,11 @@ func TestAccEC2EBSDefaultKMSKey_basic(t *testing.T) {
 	})
 }
 
-func testAccCheckEBSDefaultKMSKeyDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckEBSDefaultKMSKeyDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		arn, err := testAccEBSManagedDefaultKey(ctx)
 		if err != nil {
 			return err
@@ -68,8 +74,11 @@ func testAccCheckEBSDefaultKMSKeyDestroy(ctx context.Context) resource.TestCheck
 	}
 }
 
-func testAccCheckEBSDefaultKMSKey(ctx context.Context, name string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckEBSDefaultKMSKey(ctx context.Context, name string) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[name]
 		if !ok {
 			return fmt.Errorf("Not found: %s", name)
@@ -101,6 +110,7 @@ func testAccCheckEBSDefaultKMSKey(ctx context.Context, name string) resource.Tes
 }
 
 // testAccEBSManagedDefaultKey returns' the account's AWS-managed default CMK.
+
 func testAccEBSManagedDefaultKey(ctx context.Context) (*arn.ARN, error) {
 	conn := acctest.Provider.Meta().(*conns.AWSClient).KMSConn(ctx)
 

@@ -25,6 +25,7 @@ import (
 
 // @SDKResource("aws_wafregional_rule_group", name="Rule Group")
 // @Tags(identifierAttribute="arn")
+
 func ResourceRuleGroup() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceRuleGroupCreate,
@@ -45,7 +46,8 @@ func ResourceRuleGroup() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validMetricName,
+				Validate
+func: validMetricName,
 			},
 			"activated_rule": {
 				Type:     schema.TypeSet,
@@ -93,13 +95,15 @@ func ResourceRuleGroup() *schema.Resource {
 	}
 }
 
+
 func resourceRuleGroupCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).WAFRegionalConn(ctx)
 	region := meta.(*conns.AWSClient).Region
 
 	wr := NewRetryer(conn, region)
-	out, err := wr.RetryWithToken(ctx, func(token *string) (interface{}, error) {
+	out, err := wr.RetryWithToken(ctx, 
+func(token *string) (interface{}, error) {
 		input := &waf.CreateRuleGroupInput{
 			ChangeToken: token,
 			MetricName:  aws.String(d.Get("metric_name").(string)),
@@ -127,6 +131,7 @@ func resourceRuleGroupCreate(ctx context.Context, d *schema.ResourceData, meta i
 
 	return append(diags, resourceRuleGroupRead(ctx, d, meta)...)
 }
+
 
 func resourceRuleGroupRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -169,6 +174,7 @@ func resourceRuleGroupRead(ctx context.Context, d *schema.ResourceData, meta int
 	return diags
 }
 
+
 func resourceRuleGroupUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).WAFRegionalConn(ctx)
@@ -187,6 +193,7 @@ func resourceRuleGroupUpdate(ctx context.Context, d *schema.ResourceData, meta i
 	return append(diags, resourceRuleGroupRead(ctx, d, meta)...)
 }
 
+
 func resourceRuleGroupDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).WAFRegionalConn(ctx)
@@ -202,6 +209,7 @@ func resourceRuleGroupDelete(ctx context.Context, d *schema.ResourceData, meta i
 	return diags
 }
 
+
 func DeleteRuleGroup(ctx context.Context, id string, oldRules []interface{}, conn *wafregional.WAFRegional, region string) error {
 	if len(oldRules) > 0 {
 		noRules := []interface{}{}
@@ -212,7 +220,8 @@ func DeleteRuleGroup(ctx context.Context, id string, oldRules []interface{}, con
 	}
 
 	wr := NewRetryer(conn, region)
-	_, err := wr.RetryWithToken(ctx, func(token *string) (interface{}, error) {
+	_, err := wr.RetryWithToken(ctx, 
+func(token *string) (interface{}, error) {
 		req := &waf.DeleteRuleGroupInput{
 			ChangeToken: token,
 			RuleGroupId: aws.String(id),
@@ -226,9 +235,11 @@ func DeleteRuleGroup(ctx context.Context, id string, oldRules []interface{}, con
 	return nil
 }
 
+
 func updateRuleGroupResourceWR(ctx context.Context, id string, oldRules, newRules []interface{}, conn *wafregional.WAFRegional, region string) error {
 	wr := NewRetryer(conn, region)
-	_, err := wr.RetryWithToken(ctx, func(token *string) (interface{}, error) {
+	_, err := wr.RetryWithToken(ctx, 
+func(token *string) (interface{}, error) {
 		req := &waf.UpdateRuleGroupInput{
 			ChangeToken: token,
 			RuleGroupId: aws.String(id),

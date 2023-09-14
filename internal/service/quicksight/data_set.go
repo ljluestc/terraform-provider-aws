@@ -27,6 +27,7 @@ import (
 
 // @SDKResource("aws_quicksight_data_set", name="Data Set")
 // @Tags(identifierAttribute="arn")
+
 func ResourceDataSet() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceDataSetCreate,
@@ -38,7 +39,9 @@ func ResourceDataSet() *schema.Resource {
 			StateContext: schema.ImportStatePassthroughContext,
 		},
 
-		SchemaFunc: func() map[string]*schema.Schema {
+		Schema
+func: 
+func() map[string]*schema.Schema {
 			return map[string]*schema.Schema{
 				"arn": {
 					Type:     schema.TypeString,
@@ -49,7 +52,8 @@ func ResourceDataSet() *schema.Resource {
 					Optional:     true,
 					Computed:     true,
 					ForceNew:     true,
-					ValidateFunc: verify.ValidAccountID,
+					Validate
+func: verify.ValidAccountID,
 				},
 				"column_groups": {
 					Type:     schema.TypeList,
@@ -71,18 +75,21 @@ func ResourceDataSet() *schema.Resource {
 											MaxItems: 16,
 											Elem: &schema.Schema{
 												Type:         schema.TypeString,
-												ValidateFunc: validation.StringLenBetween(1, 128),
+												Validate
+func: validation.StringLenBetween(1, 128),
 											},
 										},
 										"country_code": {
 											Type:         schema.TypeString,
 											Required:     true,
-											ValidateFunc: validation.StringInSlice(quicksight.GeoSpatialCountryCode_Values(), false),
+											Validate
+func: validation.StringInSlice(quicksight.GeoSpatialCountryCode_Values(), false),
 										},
 										"name": {
 											Type:         schema.TypeString,
 											Required:     true,
-											ValidateFunc: validation.StringLenBetween(1, 64),
+											Validate
+func: validation.StringLenBetween(1, 64),
 										},
 									},
 								},
@@ -156,7 +163,8 @@ func ResourceDataSet() *schema.Resource {
 							"description": {
 								Type:         schema.TypeString,
 								Optional:     true,
-								ValidateFunc: validation.StringLenBetween(0, 500),
+								Validate
+func: validation.StringLenBetween(0, 500),
 							},
 						},
 					},
@@ -164,7 +172,8 @@ func ResourceDataSet() *schema.Resource {
 				"import_mode": {
 					Type:         schema.TypeString,
 					Required:     true,
-					ValidateFunc: validation.StringInSlice(quicksight.DataSetImportMode_Values(), false),
+					Validate
+func: validation.StringInSlice(quicksight.DataSetImportMode_Values(), false),
 				},
 				"logical_table_map": {
 					Type:     schema.TypeSet,
@@ -176,7 +185,8 @@ func ResourceDataSet() *schema.Resource {
 				"name": {
 					Type:         schema.TypeString,
 					Required:     true,
-					ValidateFunc: validation.StringLenBetween(1, 128),
+					Validate
+func: validation.StringLenBetween(1, 128),
 				},
 				"output_columns": {
 					Type:     schema.TypeList,
@@ -215,7 +225,8 @@ func ResourceDataSet() *schema.Resource {
 							"principal": {
 								Type:         schema.TypeString,
 								Required:     true,
-								ValidateFunc: validation.StringLenBetween(1, 256),
+								Validate
+func: validation.StringLenBetween(1, 256),
 							},
 						},
 					},
@@ -235,27 +246,32 @@ func ResourceDataSet() *schema.Resource {
 							"arn": {
 								Type:         schema.TypeString,
 								Required:     true,
-								ValidateFunc: verify.ValidARN,
+								Validate
+func: verify.ValidARN,
 							},
 							"format_version": {
 								Type:         schema.TypeString,
 								Optional:     true,
-								ValidateFunc: validation.StringInSlice(quicksight.RowLevelPermissionFormatVersion_Values(), false),
+								Validate
+func: validation.StringInSlice(quicksight.RowLevelPermissionFormatVersion_Values(), false),
 							},
 							"namespace": {
 								Type:         schema.TypeString,
 								Optional:     true,
-								ValidateFunc: validation.StringLenBetween(0, 64),
+								Validate
+func: validation.StringLenBetween(0, 64),
 							},
 							"permission_policy": {
 								Type:         schema.TypeString,
 								Required:     true,
-								ValidateFunc: validation.StringInSlice(quicksight.RowLevelPermissionPolicy_Values(), false),
+								Validate
+func: validation.StringInSlice(quicksight.RowLevelPermissionPolicy_Values(), false),
 							},
 							"status": {
 								Type:         schema.TypeString,
 								Optional:     true,
-								ValidateFunc: validation.StringInSlice(quicksight.Status_Values(), false),
+								Validate
+func: validation.StringInSlice(quicksight.Status_Values(), false),
 							},
 						},
 					},
@@ -269,7 +285,8 @@ func ResourceDataSet() *schema.Resource {
 							"status": {
 								Type:         schema.TypeString,
 								Optional:     true,
-								ValidateFunc: validation.StringInSlice(quicksight.Status_Values(), false),
+								Validate
+func: validation.StringInSlice(quicksight.Status_Values(), false),
 							},
 							"tag_rules": {
 								Type:     schema.TypeList,
@@ -281,22 +298,26 @@ func ResourceDataSet() *schema.Resource {
 										"column_name": {
 											Type:         schema.TypeString,
 											Required:     true,
-											ValidateFunc: validation.NoZeroValues,
+											Validate
+func: validation.NoZeroValues,
 										},
 										"match_all_value": {
 											Type:         schema.TypeString,
 											Optional:     true,
-											ValidateFunc: validation.StringLenBetween(1, 256),
+											Validate
+func: validation.StringLenBetween(1, 256),
 										},
 										"tag_key": {
 											Type:         schema.TypeString,
 											Required:     true,
-											ValidateFunc: validation.StringLenBetween(1, 128),
+											Validate
+func: validation.StringLenBetween(1, 128),
 										},
 										"tag_multi_value_delimiter": {
 											Type:         schema.TypeString,
 											Optional:     true,
-											ValidateFunc: validation.StringLenBetween(1, 10),
+											Validate
+func: validation.StringLenBetween(1, 10),
 										},
 									},
 								},
@@ -339,7 +360,8 @@ func ResourceDataSet() *schema.Resource {
 																"size_unit": {
 																	Type:         schema.TypeString,
 																	Required:     true,
-																	ValidateFunc: validation.StringInSlice(quicksight.LookbackWindowSizeUnit_Values(), false),
+																	Validate
+func: validation.StringInSlice(quicksight.LookbackWindowSizeUnit_Values(), false),
 																},
 															},
 														},
@@ -359,7 +381,8 @@ func ResourceDataSet() *schema.Resource {
 		},
 
 		CustomizeDiff: customdiff.All(
-			func(_ context.Context, diff *schema.ResourceDiff, _ interface{}) error {
+			
+func(_ context.Context, diff *schema.ResourceDiff, _ interface{}) error {
 				mode := diff.Get("import_mode").(string)
 				if v, ok := diff.Get("refresh_properties").([]interface{}); ok && v != nil && len(v) > 0 && mode == "DIRECT_QUERY" {
 					return fmt.Errorf("refresh_properties cannot be set when import_mode is 'DIRECT_QUERY'")
@@ -371,13 +394,15 @@ func ResourceDataSet() *schema.Resource {
 	}
 }
 
+
 func logicalTableMapSchema() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"alias": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: validation.StringLenBetween(1, 64),
+				Validate
+func: validation.StringLenBetween(1, 64),
 			},
 			"data_transforms": {
 				Type:     schema.TypeList,
@@ -397,18 +422,21 @@ func logicalTableMapSchema() *schema.Resource {
 									"column_name": {
 										Type:         schema.TypeString,
 										Required:     true,
-										ValidateFunc: validation.StringLenBetween(1, 128),
+										Validate
+func: validation.StringLenBetween(1, 128),
 									},
 									"format": {
 										Type:         schema.TypeString,
 										Computed:     true,
 										Optional:     true,
-										ValidateFunc: validation.StringLenBetween(0, 32),
+										Validate
+func: validation.StringLenBetween(0, 32),
 									},
 									"new_column_type": {
 										Type:         schema.TypeString,
 										Required:     true,
-										ValidateFunc: validation.StringInSlice(quicksight.ColumnDataType_Values(), false),
+										Validate
+func: validation.StringInSlice(quicksight.ColumnDataType_Values(), false),
 									},
 								},
 							},
@@ -430,17 +458,20 @@ func logicalTableMapSchema() *schema.Resource {
 												"column_id": {
 													Type:         schema.TypeString,
 													Required:     true,
-													ValidateFunc: validation.StringLenBetween(1, 64),
+													Validate
+func: validation.StringLenBetween(1, 64),
 												},
 												"column_name": {
 													Type:         schema.TypeString,
 													Required:     true,
-													ValidateFunc: validation.StringLenBetween(1, 128),
+													Validate
+func: validation.StringLenBetween(1, 128),
 												},
 												"expression": {
 													Type:         schema.TypeString,
 													Required:     true,
-													ValidateFunc: validation.StringLenBetween(1, 4096),
+													Validate
+func: validation.StringLenBetween(1, 4096),
 												},
 											},
 										},
@@ -458,7 +489,8 @@ func logicalTableMapSchema() *schema.Resource {
 									"condition_expression": {
 										Type:         schema.TypeString,
 										Required:     true,
-										ValidateFunc: validation.StringLenBetween(1, 4096),
+										Validate
+func: validation.StringLenBetween(1, 4096),
 									},
 								},
 							},
@@ -490,12 +522,14 @@ func logicalTableMapSchema() *schema.Resource {
 									"column_name": {
 										Type:         schema.TypeString,
 										Required:     true,
-										ValidateFunc: validation.StringLenBetween(1, 128),
+										Validate
+func: validation.StringLenBetween(1, 128),
 									},
 									"new_column_name": {
 										Type:         schema.TypeString,
 										Required:     true,
-										ValidateFunc: validation.StringLenBetween(1, 128),
+										Validate
+func: validation.StringLenBetween(1, 128),
 									},
 								},
 							},
@@ -510,7 +544,8 @@ func logicalTableMapSchema() *schema.Resource {
 									"column_name": {
 										Type:         schema.TypeString,
 										Required:     true,
-										ValidateFunc: validation.StringLenBetween(1, 128),
+										Validate
+func: validation.StringLenBetween(1, 128),
 									},
 									"tags": {
 										Type:     schema.TypeList,
@@ -530,7 +565,8 @@ func logicalTableMapSchema() *schema.Resource {
 																Type:         schema.TypeString,
 																Computed:     true,
 																Optional:     true,
-																ValidateFunc: validation.StringLenBetween(0, 500),
+																Validate
+func: validation.StringLenBetween(0, 500),
 															},
 														},
 													},
@@ -539,7 +575,8 @@ func logicalTableMapSchema() *schema.Resource {
 													Type:         schema.TypeString,
 													Computed:     true,
 													Optional:     true,
-													ValidateFunc: validation.StringInSlice(quicksight.GeoSpatialDataRole_Values(), false),
+													Validate
+func: validation.StringInSlice(quicksight.GeoSpatialDataRole_Values(), false),
 												},
 											},
 										},
@@ -557,14 +594,16 @@ func logicalTableMapSchema() *schema.Resource {
 									"column_name": {
 										Type:         schema.TypeString,
 										Required:     true,
-										ValidateFunc: validation.StringLenBetween(1, 128),
+										Validate
+func: validation.StringLenBetween(1, 128),
 									},
 									"tag_names": {
 										Type:     schema.TypeList,
 										Required: true,
 										Elem: &schema.Schema{
 											Type:         schema.TypeString,
-											ValidateFunc: validation.StringInSlice(quicksight.ColumnTagName_Values(), false),
+											Validate
+func: validation.StringInSlice(quicksight.ColumnTagName_Values(), false),
 										},
 									},
 								},
@@ -613,12 +652,14 @@ func logicalTableMapSchema() *schema.Resource {
 									"left_operand": {
 										Type:         schema.TypeString,
 										Required:     true,
-										ValidateFunc: validation.StringLenBetween(1, 64),
+										Validate
+func: validation.StringLenBetween(1, 64),
 									},
 									"on_clause": {
 										Type:         schema.TypeString,
 										Required:     true,
-										ValidateFunc: validation.StringLenBetween(1, 512),
+										Validate
+func: validation.StringLenBetween(1, 512),
 									},
 									"right_join_key_properties": {
 										Type:     schema.TypeList,
@@ -638,12 +679,14 @@ func logicalTableMapSchema() *schema.Resource {
 									"right_operand": {
 										Type:         schema.TypeString,
 										Required:     true,
-										ValidateFunc: validation.StringLenBetween(1, 64),
+										Validate
+func: validation.StringLenBetween(1, 64),
 									},
 									"type": {
 										Type:         schema.TypeString,
 										Required:     true,
-										ValidateFunc: validation.StringInSlice(quicksight.JoinType_Values(), false),
+										Validate
+func: validation.StringInSlice(quicksight.JoinType_Values(), false),
 									},
 								},
 							},
@@ -652,7 +695,8 @@ func logicalTableMapSchema() *schema.Resource {
 							Type:         schema.TypeString,
 							Computed:     true,
 							Optional:     true,
-							ValidateFunc: validation.StringLenBetween(1, 64),
+							Validate
+func: validation.StringLenBetween(1, 64),
 						},
 					},
 				},
@@ -660,6 +704,7 @@ func logicalTableMapSchema() *schema.Resource {
 		},
 	}
 }
+
 
 func physicalTableMapSchema() *schema.Resource {
 	return &schema.Resource{
@@ -680,12 +725,14 @@ func physicalTableMapSchema() *schema.Resource {
 									"name": {
 										Type:         schema.TypeString,
 										Required:     true,
-										ValidateFunc: validation.StringLenBetween(1, 128),
+										Validate
+func: validation.StringLenBetween(1, 128),
 									},
 									"type": {
 										Type:         schema.TypeString,
 										Required:     true,
-										ValidateFunc: validation.StringInSlice(quicksight.InputColumnDataType_Values(), false),
+										Validate
+func: validation.StringInSlice(quicksight.InputColumnDataType_Values(), false),
 									},
 								},
 							},
@@ -693,17 +740,20 @@ func physicalTableMapSchema() *schema.Resource {
 						"data_source_arn": {
 							Type:         schema.TypeString,
 							Required:     true,
-							ValidateFunc: verify.ValidARN,
+							Validate
+func: verify.ValidARN,
 						},
 						"name": {
 							Type:         schema.TypeString,
 							Required:     true,
-							ValidateFunc: validation.StringLenBetween(1, 64),
+							Validate
+func: validation.StringLenBetween(1, 64),
 						},
 						"sql_query": {
 							Type:         schema.TypeString,
 							Required:     true,
-							ValidateFunc: validation.StringLenBetween(1, 65536),
+							Validate
+func: validation.StringLenBetween(1, 65536),
 						},
 					},
 				},
@@ -721,12 +771,14 @@ func physicalTableMapSchema() *schema.Resource {
 						"catalog": {
 							Type:         schema.TypeString,
 							Optional:     true,
-							ValidateFunc: validation.StringLenBetween(0, 256),
+							Validate
+func: validation.StringLenBetween(0, 256),
 						},
 						"data_source_arn": {
 							Type:         schema.TypeString,
 							Required:     true,
-							ValidateFunc: verify.ValidARN,
+							Validate
+func: verify.ValidARN,
 						},
 						"input_columns": {
 							Type:     schema.TypeList,
@@ -738,12 +790,14 @@ func physicalTableMapSchema() *schema.Resource {
 									"name": {
 										Type:         schema.TypeString,
 										Required:     true,
-										ValidateFunc: validation.StringLenBetween(1, 128),
+										Validate
+func: validation.StringLenBetween(1, 128),
 									},
 									"type": {
 										Type:         schema.TypeString,
 										Required:     true,
-										ValidateFunc: validation.StringInSlice(quicksight.InputColumnDataType_Values(), false),
+										Validate
+func: validation.StringInSlice(quicksight.InputColumnDataType_Values(), false),
 									},
 								},
 							},
@@ -751,7 +805,8 @@ func physicalTableMapSchema() *schema.Resource {
 						"name": {
 							Type:         schema.TypeString,
 							Required:     true,
-							ValidateFunc: validation.StringLenBetween(1, 64),
+							Validate
+func: validation.StringLenBetween(1, 64),
 						},
 						"schema": {
 							Type:     schema.TypeString,
@@ -770,7 +825,8 @@ func physicalTableMapSchema() *schema.Resource {
 						"data_source_arn": {
 							Type:         schema.TypeString,
 							Required:     true,
-							ValidateFunc: verify.ValidARN,
+							Validate
+func: verify.ValidARN,
 						},
 						"input_columns": {
 							Type:     schema.TypeList,
@@ -782,12 +838,14 @@ func physicalTableMapSchema() *schema.Resource {
 									"name": {
 										Type:         schema.TypeString,
 										Required:     true,
-										ValidateFunc: validation.StringLenBetween(1, 128),
+										Validate
+func: validation.StringLenBetween(1, 128),
 									},
 									"type": {
 										Type:         schema.TypeString,
 										Required:     true,
-										ValidateFunc: validation.StringInSlice(quicksight.InputColumnDataType_Values(), false),
+										Validate
+func: validation.StringInSlice(quicksight.InputColumnDataType_Values(), false),
 									},
 								},
 							},
@@ -807,25 +865,29 @@ func physicalTableMapSchema() *schema.Resource {
 										Type:         schema.TypeString,
 										Computed:     true,
 										Optional:     true,
-										ValidateFunc: validation.StringLenBetween(1, 1),
+										Validate
+func: validation.StringLenBetween(1, 1),
 									},
 									"format": {
 										Type:         schema.TypeString,
 										Computed:     true,
 										Optional:     true,
-										ValidateFunc: validation.StringInSlice(quicksight.FileFormat_Values(), false),
+										Validate
+func: validation.StringInSlice(quicksight.FileFormat_Values(), false),
 									},
 									"start_from_row": {
 										Type:         schema.TypeInt,
 										Computed:     true,
 										Optional:     true,
-										ValidateFunc: validation.IntAtLeast(1),
+										Validate
+func: validation.IntAtLeast(1),
 									},
 									"text_qualifier": {
 										Type:         schema.TypeString,
 										Computed:     true,
 										Optional:     true,
-										ValidateFunc: validation.StringInSlice(quicksight.TextQualifier_Values(), false),
+										Validate
+func: validation.StringInSlice(quicksight.TextQualifier_Values(), false),
 									},
 								},
 							},
@@ -836,6 +898,7 @@ func physicalTableMapSchema() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceDataSetCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
@@ -909,6 +972,7 @@ func resourceDataSetCreate(ctx context.Context, d *schema.ResourceData, meta int
 
 	return resourceDataSetRead(ctx, d, meta)
 }
+
 
 func resourceDataSetRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
@@ -1014,6 +1078,7 @@ func resourceDataSetRead(ctx context.Context, d *schema.ResourceData, meta inter
 	return nil
 }
 
+
 func resourceDataSetUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
 
@@ -1115,6 +1180,7 @@ func resourceDataSetUpdate(ctx context.Context, d *schema.ResourceData, meta int
 	return resourceDataSetRead(ctx, d, meta)
 }
 
+
 func resourceDataSetDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
 
@@ -1142,6 +1208,7 @@ func resourceDataSetDelete(ctx context.Context, d *schema.ResourceData, meta int
 	return nil
 }
 
+
 func expandDataSetColumnGroups(tfList []interface{}) []*quicksight.ColumnGroup {
 	if len(tfList) == 0 {
 		return nil
@@ -1166,6 +1233,7 @@ func expandDataSetColumnGroups(tfList []interface{}) []*quicksight.ColumnGroup {
 	return columnGroups
 }
 
+
 func expandDataSetColumnGroup(tfMap map[string]interface{}) *quicksight.ColumnGroup {
 	if len(tfMap) == 0 {
 		return nil
@@ -1178,6 +1246,7 @@ func expandDataSetColumnGroup(tfMap map[string]interface{}) *quicksight.ColumnGr
 
 	return columnGroup
 }
+
 
 func expandDataSetGeoSpatialColumnGroup(tfMap map[string]interface{}) *quicksight.GeoSpatialColumnGroup {
 	if tfMap == nil {
@@ -1197,6 +1266,7 @@ func expandDataSetGeoSpatialColumnGroup(tfMap map[string]interface{}) *quicksigh
 
 	return geoSpatialColumnGroup
 }
+
 
 func expandDataSetColumnLevelPermissionRules(tfList []interface{}) []*quicksight.ColumnLevelPermissionRule {
 	if len(tfList) == 0 {
@@ -1223,6 +1293,7 @@ func expandDataSetColumnLevelPermissionRules(tfList []interface{}) []*quicksight
 	return apiObject
 }
 
+
 func expandDataSetUsageConfiguration(tfList []interface{}) *quicksight.DataSetUsageConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -1243,6 +1314,7 @@ func expandDataSetUsageConfiguration(tfList []interface{}) *quicksight.DataSetUs
 
 	return usageConfiguration
 }
+
 
 func expandDataSetFieldFolders(tfList []interface{}) map[string]*quicksight.FieldFolder {
 	if len(tfList) == 0 {
@@ -1276,6 +1348,7 @@ func expandDataSetFieldFolders(tfList []interface{}) map[string]*quicksight.Fiel
 	return fieldFolderMap
 }
 
+
 func expandDataSetLogicalTableMap(tfSet *schema.Set) map[string]*quicksight.LogicalTable {
 	if tfSet.Len() == 0 {
 		return nil
@@ -1307,6 +1380,7 @@ func expandDataSetLogicalTableMap(tfSet *schema.Set) map[string]*quicksight.Logi
 	return logicalTableMap
 }
 
+
 func expandDataSetLogicalTableSource(tfMap map[string]interface{}) *quicksight.LogicalTableSource {
 	if tfMap == nil {
 		return nil
@@ -1325,6 +1399,7 @@ func expandDataSetLogicalTableSource(tfMap map[string]interface{}) *quicksight.L
 
 	return logicalTableSource
 }
+
 
 func expandDataSetJoinInstruction(tfMap map[string]interface{}) *quicksight.JoinInstruction {
 	if tfMap == nil {
@@ -1354,6 +1429,7 @@ func expandDataSetJoinInstruction(tfMap map[string]interface{}) *quicksight.Join
 	return joinInstruction
 }
 
+
 func expandDataSetJoinKeyProperties(tfMap map[string]interface{}) *quicksight.JoinKeyProperties {
 	if tfMap == nil {
 		return nil
@@ -1366,6 +1442,7 @@ func expandDataSetJoinKeyProperties(tfMap map[string]interface{}) *quicksight.Jo
 
 	return joinKeyProperties
 }
+
 
 func expandDataSetDataTransforms(tfList []interface{}) []*quicksight.TransformOperation {
 	if len(tfList) == 0 {
@@ -1389,6 +1466,7 @@ func expandDataSetDataTransforms(tfList []interface{}) []*quicksight.TransformOp
 
 	return transformOperations
 }
+
 
 func expandDataSetDataTransform(tfMap map[string]interface{}) *quicksight.TransformOperation {
 	if tfMap == nil {
@@ -1421,6 +1499,7 @@ func expandDataSetDataTransform(tfMap map[string]interface{}) *quicksight.Transf
 	return transformOperation
 }
 
+
 func expandDataSetCastColumnTypeOperation(tfList []interface{}) *quicksight.CastColumnTypeOperation {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -1444,6 +1523,7 @@ func expandDataSetCastColumnTypeOperation(tfList []interface{}) *quicksight.Cast
 	return castColumnTypeOperation
 }
 
+
 func expandDataSetCreateColumnsOperation(tfList []interface{}) *quicksight.CreateColumnsOperation {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -1460,6 +1540,7 @@ func expandDataSetCreateColumnsOperation(tfList []interface{}) *quicksight.Creat
 
 	return createColumnsOperation
 }
+
 
 func expandDataSetCalculatedColumns(tfList []interface{}) []*quicksight.CalculatedColumn {
 	if len(tfList) == 0 {
@@ -1484,6 +1565,7 @@ func expandDataSetCalculatedColumns(tfList []interface{}) []*quicksight.Calculat
 	return calculatedColumns
 }
 
+
 func expandDataSetCalculatedColumn(tfMap map[string]interface{}) *quicksight.CalculatedColumn {
 	if tfMap == nil {
 		return nil
@@ -1503,6 +1585,7 @@ func expandDataSetCalculatedColumn(tfMap map[string]interface{}) *quicksight.Cal
 	return calculatedColumn
 }
 
+
 func expandDataSetFilterOperation(tfList []interface{}) *quicksight.FilterOperation {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -1520,6 +1603,7 @@ func expandDataSetFilterOperation(tfList []interface{}) *quicksight.FilterOperat
 	return filterOperation
 }
 
+
 func expandDataSetProjectOperation(tfList []interface{}) *quicksight.ProjectOperation {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -1536,6 +1620,7 @@ func expandDataSetProjectOperation(tfList []interface{}) *quicksight.ProjectOper
 
 	return projectOperation
 }
+
 
 func expandDataSetRenameColumnOperation(tfList []interface{}) *quicksight.RenameColumnOperation {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -1557,6 +1642,7 @@ func expandDataSetRenameColumnOperation(tfList []interface{}) *quicksight.Rename
 	return renameColumnOperation
 }
 
+
 func expandDataSetTagColumnOperation(tfList []interface{}) *quicksight.TagColumnOperation {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -1576,6 +1662,7 @@ func expandDataSetTagColumnOperation(tfList []interface{}) *quicksight.TagColumn
 
 	return tagColumnOperation
 }
+
 
 func expandDataSetTags(tfList []interface{}) []*quicksight.ColumnTag {
 	if len(tfList) == 0 {
@@ -1600,6 +1687,7 @@ func expandDataSetTags(tfList []interface{}) []*quicksight.ColumnTag {
 	return tags
 }
 
+
 func expandDataSetTag(tfMap map[string]interface{}) *quicksight.ColumnTag {
 	if tfMap == nil {
 		return nil
@@ -1616,6 +1704,7 @@ func expandDataSetTag(tfMap map[string]interface{}) *quicksight.ColumnTag {
 	return tag
 }
 
+
 func expandDataSetColumnDescription(tfMap map[string]interface{}) *quicksight.ColumnDescription {
 	if tfMap == nil {
 		return nil
@@ -1628,6 +1717,7 @@ func expandDataSetColumnDescription(tfMap map[string]interface{}) *quicksight.Co
 
 	return columnDescription
 }
+
 
 func expandDataSetUntagColumnOperation(tfList []interface{}) *quicksight.UntagColumnOperation {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -1648,6 +1738,7 @@ func expandDataSetUntagColumnOperation(tfList []interface{}) *quicksight.UntagCo
 
 	return untagColumnOperation
 }
+
 
 func expandDataSetPhysicalTableMap(tfSet *schema.Set) map[string]*quicksight.PhysicalTable {
 	physicalTableMap := make(map[string]*quicksight.PhysicalTable)
@@ -1682,6 +1773,7 @@ func expandDataSetPhysicalTableMap(tfSet *schema.Set) map[string]*quicksight.Phy
 	return physicalTableMap
 }
 
+
 func expandDataSetCustomSQL(tfMap map[string]interface{}) *quicksight.CustomSql {
 	if tfMap == nil {
 		return nil
@@ -1703,6 +1795,7 @@ func expandDataSetCustomSQL(tfMap map[string]interface{}) *quicksight.CustomSql 
 
 	return customSQL
 }
+
 
 func expandDataSetInputColumns(tfList []interface{}) []*quicksight.InputColumn {
 	if len(tfList) == 0 {
@@ -1726,6 +1819,7 @@ func expandDataSetInputColumns(tfList []interface{}) []*quicksight.InputColumn {
 	return inputColumns
 }
 
+
 func expandDataSetInputColumn(tfMap map[string]interface{}) *quicksight.InputColumn {
 	if tfMap == nil {
 		return nil
@@ -1741,6 +1835,7 @@ func expandDataSetInputColumn(tfMap map[string]interface{}) *quicksight.InputCol
 
 	return inputColumn
 }
+
 
 func expandDataSetRelationalTable(tfMap map[string]interface{}) *quicksight.RelationalTable {
 	if tfMap == nil {
@@ -1767,6 +1862,7 @@ func expandDataSetRelationalTable(tfMap map[string]interface{}) *quicksight.Rela
 	return relationalTable
 }
 
+
 func expandDataSetS3Source(tfMap map[string]interface{}) *quicksight.S3Source {
 	if tfMap == nil {
 		return nil
@@ -1785,6 +1881,7 @@ func expandDataSetS3Source(tfMap map[string]interface{}) *quicksight.S3Source {
 
 	return s3Source
 }
+
 
 func expandDataSetUploadSettings(tfMap map[string]interface{}) *quicksight.UploadSettings {
 	if tfMap == nil {
@@ -1810,6 +1907,7 @@ func expandDataSetUploadSettings(tfMap map[string]interface{}) *quicksight.Uploa
 
 	return uploadSettings
 }
+
 
 func expandDataSetRowLevelPermissionDataSet(tfList []interface{}) *quicksight.RowLevelPermissionDataSet {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -1840,6 +1938,7 @@ func expandDataSetRowLevelPermissionDataSet(tfList []interface{}) *quicksight.Ro
 	return rowLevelPermission
 }
 
+
 func expandDataSetRowLevelPermissionTagConfigurations(tfList []interface{}) *quicksight.RowLevelPermissionTagConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -1860,6 +1959,7 @@ func expandDataSetRowLevelPermissionTagConfigurations(tfList []interface{}) *qui
 	return rowLevelPermissionTagConfiguration
 }
 
+
 func expandDataSetRefreshProperties(tfList []interface{}) *quicksight.DataSetRefreshProperties {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -1875,6 +1975,7 @@ func expandDataSetRefreshProperties(tfList []interface{}) *quicksight.DataSetRef
 	}
 	return props
 }
+
 
 func expandDataSetRefreshConfiguration(tfList []interface{}) *quicksight.RefreshConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -1892,6 +1993,7 @@ func expandDataSetRefreshConfiguration(tfList []interface{}) *quicksight.Refresh
 	return config
 }
 
+
 func expandIncrementalRefresh(tfList []interface{}) *quicksight.IncrementalRefresh {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -1907,6 +2009,7 @@ func expandIncrementalRefresh(tfList []interface{}) *quicksight.IncrementalRefre
 	}
 	return refresh
 }
+
 
 func expandLookbackWindow(tfList []interface{}) *quicksight.LookbackWindow {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -1929,6 +2032,7 @@ func expandLookbackWindow(tfList []interface{}) *quicksight.LookbackWindow {
 	}
 	return window
 }
+
 
 func expandDataSetTagRules(tfList []interface{}) []*quicksight.RowLevelPermissionTagRule {
 	if len(tfList) == 0 {
@@ -1954,6 +2058,7 @@ func expandDataSetTagRules(tfList []interface{}) []*quicksight.RowLevelPermissio
 	return tagRules
 }
 
+
 func expandDataSetTagRule(tfMap map[string]interface{}) *quicksight.RowLevelPermissionTagRule {
 	if tfMap == nil {
 		return nil
@@ -1976,6 +2081,7 @@ func expandDataSetTagRule(tfMap map[string]interface{}) *quicksight.RowLevelPerm
 	return tagRules
 }
 
+
 func flattenColumnGroups(apiObject []*quicksight.ColumnGroup) []interface{} {
 	if len(apiObject) == 0 {
 		return nil
@@ -1996,6 +2102,7 @@ func flattenColumnGroups(apiObject []*quicksight.ColumnGroup) []interface{} {
 
 	return tfList
 }
+
 
 func flattenOutputColumns(apiObject []*quicksight.OutputColumn) []interface{} {
 	if len(apiObject) == 0 {
@@ -2026,6 +2133,7 @@ func flattenOutputColumns(apiObject []*quicksight.OutputColumn) []interface{} {
 	return tfList
 }
 
+
 func flattenGeoSpatialColumnGroup(apiObject *quicksight.GeoSpatialColumnGroup) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -2044,6 +2152,7 @@ func flattenGeoSpatialColumnGroup(apiObject *quicksight.GeoSpatialColumnGroup) [
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenColumnLevelPermissionRules(apiObject []*quicksight.ColumnLevelPermissionRule) []interface{} {
 	if len(apiObject) == 0 {
@@ -2069,6 +2178,7 @@ func flattenColumnLevelPermissionRules(apiObject []*quicksight.ColumnLevelPermis
 	return tfList
 }
 
+
 func flattenDataSetUsageConfiguration(apiObject *quicksight.DataSetUsageConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -2084,6 +2194,7 @@ func flattenDataSetUsageConfiguration(apiObject *quicksight.DataSetUsageConfigur
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenFieldFolders(apiObject map[string]*quicksight.FieldFolder) *schema.Set {
 	if len(apiObject) == 0 {
@@ -2111,6 +2222,7 @@ func flattenFieldFolders(apiObject map[string]*quicksight.FieldFolder) *schema.S
 	return schema.NewSet(fieldFoldersHash, tfList)
 }
 
+
 func fieldFoldersHash(v interface{}) int {
 	var buf bytes.Buffer
 	m := v.(map[string]interface{})
@@ -2126,6 +2238,7 @@ func fieldFoldersHash(v interface{}) int {
 
 	return create.StringHashcode(buf.String())
 }
+
 
 func flattenLogicalTableMap(apiObject map[string]*quicksight.LogicalTable, resourceSchema *schema.Resource) *schema.Set {
 	if len(apiObject) == 0 {
@@ -2155,6 +2268,7 @@ func flattenLogicalTableMap(apiObject map[string]*quicksight.LogicalTable, resou
 
 	return schema.NewSet(schema.HashResource(resourceSchema), tfList)
 }
+
 
 func flattenDataTransforms(apiObject []*quicksight.TransformOperation) []interface{} {
 	if len(apiObject) == 0 {
@@ -2195,6 +2309,7 @@ func flattenDataTransforms(apiObject []*quicksight.TransformOperation) []interfa
 	return tfList
 }
 
+
 func flattenCastColumnTypeOperation(apiObject *quicksight.CastColumnTypeOperation) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -2214,6 +2329,7 @@ func flattenCastColumnTypeOperation(apiObject *quicksight.CastColumnTypeOperatio
 	return []interface{}{tfMap}
 }
 
+
 func flattenCreateColumnsOperation(apiObject *quicksight.CreateColumnsOperation) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -2226,6 +2342,7 @@ func flattenCreateColumnsOperation(apiObject *quicksight.CreateColumnsOperation)
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenCalculatedColumns(apiObject []*quicksight.CalculatedColumn) interface{} {
 	if len(apiObject) == 0 {
@@ -2255,6 +2372,7 @@ func flattenCalculatedColumns(apiObject []*quicksight.CalculatedColumn) interfac
 	return tfList
 }
 
+
 func flattenFilterOperation(apiObject *quicksight.FilterOperation) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -2268,6 +2386,7 @@ func flattenFilterOperation(apiObject *quicksight.FilterOperation) []interface{}
 	return []interface{}{tfMap}
 }
 
+
 func flattenProjectOperation(apiObject *quicksight.ProjectOperation) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -2280,6 +2399,7 @@ func flattenProjectOperation(apiObject *quicksight.ProjectOperation) []interface
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenRenameColumnOperation(apiObject *quicksight.RenameColumnOperation) []interface{} {
 	if apiObject == nil {
@@ -2297,6 +2417,7 @@ func flattenRenameColumnOperation(apiObject *quicksight.RenameColumnOperation) [
 	return []interface{}{tfMap}
 }
 
+
 func flattenTagColumnOperation(apiObject *quicksight.TagColumnOperation) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -2312,6 +2433,7 @@ func flattenTagColumnOperation(apiObject *quicksight.TagColumnOperation) []inter
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenTags(apiObject []*quicksight.ColumnTag) []interface{} {
 	if len(apiObject) == 0 {
@@ -2338,6 +2460,7 @@ func flattenTags(apiObject []*quicksight.ColumnTag) []interface{} {
 	return tfList
 }
 
+
 func flattenColumnDescription(apiObject *quicksight.ColumnDescription) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -2350,6 +2473,7 @@ func flattenColumnDescription(apiObject *quicksight.ColumnDescription) []interfa
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenUntagColumnOperation(apiObject *quicksight.UntagColumnOperation) []interface{} {
 	if apiObject == nil {
@@ -2366,6 +2490,7 @@ func flattenUntagColumnOperation(apiObject *quicksight.UntagColumnOperation) []i
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenLogicalTableSource(apiObject *quicksight.LogicalTableSource) []interface{} {
 	if apiObject == nil {
@@ -2385,6 +2510,7 @@ func flattenLogicalTableSource(apiObject *quicksight.LogicalTableSource) []inter
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenJoinInstruction(apiObject *quicksight.JoinInstruction) []interface{} {
 	if apiObject == nil {
@@ -2414,6 +2540,7 @@ func flattenJoinInstruction(apiObject *quicksight.JoinInstruction) []interface{}
 	return []interface{}{tfMap}
 }
 
+
 func flattenJoinKeyProperties(apiObject *quicksight.JoinKeyProperties) map[string]interface{} {
 	if apiObject == nil {
 		return nil
@@ -2426,6 +2553,7 @@ func flattenJoinKeyProperties(apiObject *quicksight.JoinKeyProperties) map[strin
 
 	return tfMap
 }
+
 
 func flattenPhysicalTableMap(apiObject map[string]*quicksight.PhysicalTable, resourceSchema *schema.Resource) *schema.Set {
 	var tfList []interface{}
@@ -2452,6 +2580,7 @@ func flattenPhysicalTableMap(apiObject map[string]*quicksight.PhysicalTable, res
 	return schema.NewSet(schema.HashResource(resourceSchema), tfList)
 }
 
+
 func flattenCustomSQL(apiObject *quicksight.CustomSql) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -2473,6 +2602,7 @@ func flattenCustomSQL(apiObject *quicksight.CustomSql) []interface{} {
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenInputColumns(apiObject []*quicksight.InputColumn) []interface{} {
 	if len(apiObject) == 0 {
@@ -2497,6 +2627,7 @@ func flattenInputColumns(apiObject []*quicksight.InputColumn) []interface{} {
 
 	return tfList
 }
+
 
 func flattenRelationalTable(apiObject *quicksight.RelationalTable) []interface{} {
 	if apiObject == nil {
@@ -2523,6 +2654,7 @@ func flattenRelationalTable(apiObject *quicksight.RelationalTable) []interface{}
 	return []interface{}{tfMap}
 }
 
+
 func flattenS3Source(apiObject *quicksight.S3Source) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -2542,6 +2674,7 @@ func flattenS3Source(apiObject *quicksight.S3Source) []interface{} {
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenUploadSettings(apiObject *quicksight.UploadSettings) []interface{} {
 	if apiObject == nil {
@@ -2568,6 +2701,7 @@ func flattenUploadSettings(apiObject *quicksight.UploadSettings) []interface{} {
 	return []interface{}{tfMap}
 }
 
+
 func flattenRowLevelPermissionDataSet(apiObject *quicksight.RowLevelPermissionDataSet) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -2593,6 +2727,7 @@ func flattenRowLevelPermissionDataSet(apiObject *quicksight.RowLevelPermissionDa
 	return []interface{}{tfMap}
 }
 
+
 func flattenRowLevelPermissionTagConfiguration(apiObject *quicksight.RowLevelPermissionTagConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -2609,6 +2744,7 @@ func flattenRowLevelPermissionTagConfiguration(apiObject *quicksight.RowLevelPer
 	return []interface{}{tfMap}
 }
 
+
 func flattenRefreshProperties(apiObject *quicksight.DataSetRefreshProperties) interface{} {
 	if apiObject == nil {
 		return nil
@@ -2621,6 +2757,7 @@ func flattenRefreshProperties(apiObject *quicksight.DataSetRefreshProperties) in
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenRefreshConfiguration(apiObject *quicksight.RefreshConfiguration) interface{} {
 	if apiObject == nil {
@@ -2635,6 +2772,7 @@ func flattenRefreshConfiguration(apiObject *quicksight.RefreshConfiguration) int
 	return []interface{}{tfMap}
 }
 
+
 func flattenIncrementalRefresh(apiObject *quicksight.IncrementalRefresh) interface{} {
 	if apiObject == nil {
 		return nil
@@ -2647,6 +2785,7 @@ func flattenIncrementalRefresh(apiObject *quicksight.IncrementalRefresh) interfa
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenLookbackWindow(apiObject *quicksight.LookbackWindow) interface{} {
 	if apiObject == nil {
@@ -2666,6 +2805,7 @@ func flattenLookbackWindow(apiObject *quicksight.LookbackWindow) interface{} {
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenTagRules(apiObject []*quicksight.RowLevelPermissionTagRule) []interface{} {
 	if len(apiObject) == 0 {
@@ -2697,6 +2837,7 @@ func flattenTagRules(apiObject []*quicksight.RowLevelPermissionTagRule) []interf
 	return tfList
 }
 
+
 func ParseDataSetID(id string) (string, string, error) {
 	parts := strings.SplitN(id, ",", 2)
 	if len(parts) != 2 || parts[0] == "" || parts[1] == "" {
@@ -2704,6 +2845,7 @@ func ParseDataSetID(id string) (string, string, error) {
 	}
 	return parts[0], parts[1], nil
 }
+
 
 func createDataSetID(awsAccountID, dataSetID string) string {
 	return fmt.Sprintf("%s,%s", awsAccountID, dataSetID)

@@ -30,6 +30,7 @@ import (
 
 // @SDKResource("aws_backup_plan", name="Plan")
 // @Tags(identifierAttribute="arn")
+
 func ResourcePlan() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourcePlanCreate,
@@ -54,7 +55,8 @@ func ResourcePlan() *schema.Resource {
 						"rule_name": {
 							Type:     schema.TypeString,
 							Required: true,
-							ValidateFunc: validation.All(
+							Validate
+func: validation.All(
 								validation.StringLenBetween(1, 50),
 								validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_.-]+$`), "must contain only alphanumeric characters, hyphens, underscores, and periods"),
 							),
@@ -62,7 +64,8 @@ func ResourcePlan() *schema.Resource {
 						"target_vault_name": {
 							Type:     schema.TypeString,
 							Required: true,
-							ValidateFunc: validation.All(
+							Validate
+func: validation.All(
 								validation.StringLenBetween(2, 50),
 								validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_-]+$`), "must contain only alphanumeric characters, hyphens, and underscores"),
 							),
@@ -128,7 +131,8 @@ func ResourcePlan() *schema.Resource {
 									"destination_vault_arn": {
 										Type:         schema.TypeString,
 										Required:     true,
-										ValidateFunc: verify.ValidARN,
+										Validate
+func: verify.ValidARN,
 									},
 								},
 							},
@@ -151,7 +155,8 @@ func ResourcePlan() *schema.Resource {
 						"resource_type": {
 							Type:     schema.TypeString,
 							Required: true,
-							ValidateFunc: validation.StringInSlice([]string{
+							Validate
+func: validation.StringInSlice([]string{
 								"EC2",
 							}, false),
 						},
@@ -173,6 +178,7 @@ func ResourcePlan() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
+
 
 func resourcePlanCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -196,6 +202,7 @@ func resourcePlanCreate(ctx context.Context, d *schema.ResourceData, meta interf
 
 	return append(diags, resourcePlanRead(ctx, d, meta)...)
 }
+
 
 func resourcePlanRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -230,6 +237,7 @@ func resourcePlanRead(ctx context.Context, d *schema.ResourceData, meta interfac
 	return diags
 }
 
+
 func resourcePlanUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).BackupConn(ctx)
@@ -254,6 +262,7 @@ func resourcePlanUpdate(ctx context.Context, d *schema.ResourceData, meta interf
 	return append(diags, resourcePlanRead(ctx, d, meta)...)
 }
 
+
 func resourcePlanDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).BackupConn(ctx)
@@ -263,7 +272,8 @@ func resourcePlanDelete(ctx context.Context, d *schema.ResourceData, meta interf
 	}
 
 	log.Printf("[DEBUG] Deleting Backup Plan: %s", d.Id())
-	err := retry.RetryContext(ctx, 2*time.Minute, func() *retry.RetryError {
+	err := retry.RetryContext(ctx, 2*time.Minute, 
+func() *retry.RetryError {
 		_, err := conn.DeleteBackupPlanWithContext(ctx, input)
 
 		if tfawserr.ErrMessageContains(err, backup.ErrCodeInvalidRequestException, "Related backup plan selections must be deleted prior to backup") {
@@ -290,6 +300,7 @@ func resourcePlanDelete(ctx context.Context, d *schema.ResourceData, meta interf
 
 	return diags
 }
+
 
 func expandPlanRules(ctx context.Context, vRules *schema.Set) []*backup.RuleInput {
 	rules := []*backup.RuleInput{}
@@ -338,6 +349,7 @@ func expandPlanRules(ctx context.Context, vRules *schema.Set) []*backup.RuleInpu
 	return rules
 }
 
+
 func expandPlanAdvancedSettings(vAdvancedBackupSettings *schema.Set) []*backup.AdvancedBackupSetting {
 	advancedBackupSettings := []*backup.AdvancedBackupSetting{}
 
@@ -365,6 +377,7 @@ func expandPlanAdvancedSettings(vAdvancedBackupSettings *schema.Set) []*backup.A
 	return advancedBackupSettings
 }
 
+
 func expandPlanCopyActions(actionList []interface{}) []*backup.CopyAction {
 	actions := []*backup.CopyAction{}
 
@@ -384,6 +397,7 @@ func expandPlanCopyActions(actionList []interface{}) []*backup.CopyAction {
 	return actions
 }
 
+
 func expandPlanLifecycle(l []interface{}) *backup.Lifecycle {
 	lifecycle := new(backup.Lifecycle)
 
@@ -399,6 +413,7 @@ func expandPlanLifecycle(l []interface{}) *backup.Lifecycle {
 
 	return lifecycle
 }
+
 
 func flattenPlanRules(ctx context.Context, rules []*backup.Rule) *schema.Set {
 	vRules := []interface{}{}
@@ -426,6 +441,7 @@ func flattenPlanRules(ctx context.Context, rules []*backup.Rule) *schema.Set {
 	return schema.NewSet(planHash, vRules)
 }
 
+
 func flattenPlanAdvancedSettings(advancedBackupSettings []*backup.AdvancedBackupSetting) *schema.Set {
 	vAdvancedBackupSettings := []interface{}{}
 
@@ -440,6 +456,7 @@ func flattenPlanAdvancedSettings(advancedBackupSettings []*backup.AdvancedBackup
 
 	return schema.NewSet(planHash, vAdvancedBackupSettings)
 }
+
 
 func flattenPlanCopyActions(copyActions []*backup.CopyAction) []interface{} {
 	if len(copyActions) == 0 {
@@ -467,6 +484,7 @@ func flattenPlanCopyActions(copyActions []*backup.CopyAction) []interface{} {
 	return tfList
 }
 
+
 func flattenPlanCopyActionLifecycle(copyActionLifecycle *backup.Lifecycle) []interface{} {
 	if copyActionLifecycle == nil {
 		return []interface{}{}
@@ -479,6 +497,7 @@ func flattenPlanCopyActionLifecycle(copyActionLifecycle *backup.Lifecycle) []int
 
 	return []interface{}{m}
 }
+
 
 func planHash(vRule interface{}) int {
 	var buf bytes.Buffer

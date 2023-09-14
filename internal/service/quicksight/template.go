@@ -28,6 +28,7 @@ import (
 
 // @SDKResource("aws_quicksight_template", name="Template")
 // @Tags(identifierAttribute="arn")
+
 func ResourceTemplate() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceTemplateCreate,
@@ -45,7 +46,9 @@ func ResourceTemplate() *schema.Resource {
 			StateContext: schema.ImportStatePassthroughContext,
 		},
 
-		SchemaFunc: func() map[string]*schema.Schema {
+		Schema
+func: 
+func() map[string]*schema.Schema {
 			return map[string]*schema.Schema{
 				"arn": {
 					Type:     schema.TypeString,
@@ -56,7 +59,8 @@ func ResourceTemplate() *schema.Resource {
 					Optional:     true,
 					Computed:     true,
 					ForceNew:     true,
-					ValidateFunc: verify.ValidAccountID,
+					Validate
+func: verify.ValidAccountID,
 				},
 				"created_time": {
 					Type:     schema.TypeString,
@@ -70,7 +74,8 @@ func ResourceTemplate() *schema.Resource {
 				"name": {
 					Type:         schema.TypeString,
 					Required:     true,
-					ValidateFunc: validation.StringLenBetween(1, 2048),
+					Validate
+func: validation.StringLenBetween(1, 2048),
 				},
 				"permissions": {
 					Type:     schema.TypeSet,
@@ -89,7 +94,8 @@ func ResourceTemplate() *schema.Resource {
 							"principal": {
 								Type:         schema.TypeString,
 								Required:     true,
-								ValidateFunc: validation.StringLenBetween(1, 256),
+								Validate
+func: validation.StringLenBetween(1, 256),
 							},
 						},
 					},
@@ -113,7 +119,8 @@ func ResourceTemplate() *schema.Resource {
 				"version_description": {
 					Type:         schema.TypeString,
 					Required:     true,
-					ValidateFunc: validation.StringLenBetween(1, 512),
+					Validate
+func: validation.StringLenBetween(1, 512),
 				},
 				"version_number": {
 					Type:     schema.TypeInt,
@@ -129,6 +136,7 @@ func ResourceTemplate() *schema.Resource {
 const (
 	ResNameTemplate = "Template"
 )
+
 
 func resourceTemplateCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
@@ -175,6 +183,7 @@ func resourceTemplateCreate(ctx context.Context, d *schema.ResourceData, meta in
 
 	return resourceTemplateRead(ctx, d, meta)
 }
+
 
 func resourceTemplateRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
@@ -236,6 +245,7 @@ func resourceTemplateRead(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return nil
 }
+
 
 func resourceTemplateUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
@@ -301,6 +311,7 @@ func resourceTemplateUpdate(ctx context.Context, d *schema.ResourceData, meta in
 	return resourceTemplateRead(ctx, d, meta)
 }
 
+
 func resourceTemplateDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
 
@@ -325,6 +336,7 @@ func resourceTemplateDelete(ctx context.Context, d *schema.ResourceData, meta in
 
 	return nil
 }
+
 
 func FindTemplateByID(ctx context.Context, conn *quicksight.QuickSight, id string) (*quicksight.Template, error) {
 	awsAccountId, templateId, err := ParseTemplateId(id)
@@ -357,6 +369,7 @@ func FindTemplateByID(ctx context.Context, conn *quicksight.QuickSight, id strin
 	return out.Template, nil
 }
 
+
 func ParseTemplateId(id string) (string, string, error) {
 	parts := strings.SplitN(id, ",", 2)
 	if len(parts) != 2 || parts[0] == "" || parts[1] == "" {
@@ -364,6 +377,7 @@ func ParseTemplateId(id string) (string, string, error) {
 	}
 	return parts[0], parts[1], nil
 }
+
 
 func createTemplateId(awsAccountID, templateId string) string {
 	return fmt.Sprintf("%s,%s", awsAccountID, templateId)

@@ -20,6 +20,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func testAccTransitGatewayConnect_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.TransitGatewayConnect
@@ -29,14 +30,16 @@ func testAccTransitGatewayConnect_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGatewayVPCAttachment(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGatewayVPCAttachment(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayConnectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayConnectConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayConnectExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "protocol", "gre"),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
@@ -55,6 +58,7 @@ func testAccTransitGatewayConnect_basic(t *testing.T) {
 	})
 }
 
+
 func testAccTransitGatewayConnect_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.TransitGatewayConnect
@@ -62,14 +66,16 @@ func testAccTransitGatewayConnect_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGatewayVPCAttachment(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGatewayVPCAttachment(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayConnectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayConnectConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayConnectExists(ctx, resourceName, &v),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceTransitGatewayConnect(), resourceName),
 				),
@@ -79,6 +85,7 @@ func testAccTransitGatewayConnect_disappears(t *testing.T) {
 	})
 }
 
+
 func testAccTransitGatewayConnect_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.TransitGatewayConnect
@@ -86,14 +93,16 @@ func testAccTransitGatewayConnect_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGatewayVPCAttachment(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGatewayVPCAttachment(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayConnectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayConnectConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayConnectExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
@@ -106,7 +115,8 @@ func testAccTransitGatewayConnect_tags(t *testing.T) {
 			},
 			{
 				Config: testAccTransitGatewayConnectConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayConnectExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
@@ -115,7 +125,8 @@ func testAccTransitGatewayConnect_tags(t *testing.T) {
 			},
 			{
 				Config: testAccTransitGatewayConnectConfig_tags1(rName, "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayConnectExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
@@ -124,6 +135,7 @@ func testAccTransitGatewayConnect_tags(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccTransitGatewayConnect_TransitGatewayDefaultRouteTableAssociationAndPropagationDisabled(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -134,14 +146,16 @@ func testAccTransitGatewayConnect_TransitGatewayDefaultRouteTableAssociationAndP
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGatewayVPCAttachment(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGatewayVPCAttachment(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayConnectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayConnectConfig_defaultRouteTableAssociationAndPropagationDisabled(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayExists(ctx, transitGatewayResourceName, &transitGateway1),
 					testAccCheckTransitGatewayConnectExists(ctx, resourceName, &transitGatewayConnect1),
 					testAccCheckTransitGatewayAssociationDefaultRouteTableAttachmentNotAssociated(ctx, &transitGateway1, &transitGatewayConnect1),
@@ -159,6 +173,7 @@ func testAccTransitGatewayConnect_TransitGatewayDefaultRouteTableAssociationAndP
 	})
 }
 
+
 func testAccTransitGatewayConnect_TransitGatewayDefaultRouteTableAssociation(t *testing.T) {
 	ctx := acctest.Context(t)
 	var transitGateway1, transitGateway2, transitGateway3 ec2.TransitGateway
@@ -168,14 +183,16 @@ func testAccTransitGatewayConnect_TransitGatewayDefaultRouteTableAssociation(t *
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGatewayVPCAttachment(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGatewayVPCAttachment(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayConnectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayConnectConfig_defaultRouteTableAssociation(rName, false),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayExists(ctx, transitGatewayResourceName, &transitGateway1),
 					testAccCheckTransitGatewayConnectExists(ctx, resourceName, &transitGatewayConnect1),
 					testAccCheckTransitGatewayAssociationDefaultRouteTableAttachmentNotAssociated(ctx, &transitGateway1, &transitGatewayConnect1),
@@ -189,7 +206,8 @@ func testAccTransitGatewayConnect_TransitGatewayDefaultRouteTableAssociation(t *
 			},
 			{
 				Config: testAccTransitGatewayConnectConfig_defaultRouteTableAssociation(rName, true),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayExists(ctx, transitGatewayResourceName, &transitGateway2),
 					testAccCheckTransitGatewayConnectExists(ctx, resourceName, &transitGatewayConnect2),
 					testAccCheckTransitGatewayConnectNotRecreated(&transitGatewayConnect1, &transitGatewayConnect2),
@@ -199,7 +217,8 @@ func testAccTransitGatewayConnect_TransitGatewayDefaultRouteTableAssociation(t *
 			},
 			{
 				Config: testAccTransitGatewayConnectConfig_defaultRouteTableAssociation(rName, false),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayExists(ctx, transitGatewayResourceName, &transitGateway3),
 					testAccCheckTransitGatewayConnectExists(ctx, resourceName, &transitGatewayConnect3),
 					testAccCheckTransitGatewayConnectNotRecreated(&transitGatewayConnect2, &transitGatewayConnect3),
@@ -211,6 +230,7 @@ func testAccTransitGatewayConnect_TransitGatewayDefaultRouteTableAssociation(t *
 	})
 }
 
+
 func testAccTransitGatewayConnect_TransitGatewayDefaultRouteTablePropagation(t *testing.T) {
 	ctx := acctest.Context(t)
 	var transitGateway1, transitGateway2, transitGateway3 ec2.TransitGateway
@@ -220,14 +240,16 @@ func testAccTransitGatewayConnect_TransitGatewayDefaultRouteTablePropagation(t *
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGatewayVPCAttachment(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGatewayVPCAttachment(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayConnectDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTransitGatewayConnectConfig_defaultRouteTablePropagation(rName, false),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayExists(ctx, transitGatewayResourceName, &transitGateway1),
 					testAccCheckTransitGatewayConnectExists(ctx, resourceName, &transitGatewayConnect1),
 					testAccCheckTransitGatewayPropagationDefaultRouteTableAttachmentNotPropagated(ctx, &transitGateway1, &transitGatewayConnect1),
@@ -241,7 +263,8 @@ func testAccTransitGatewayConnect_TransitGatewayDefaultRouteTablePropagation(t *
 			},
 			{
 				Config: testAccTransitGatewayConnectConfig_defaultRouteTablePropagation(rName, true),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayExists(ctx, transitGatewayResourceName, &transitGateway2),
 					testAccCheckTransitGatewayConnectExists(ctx, resourceName, &transitGatewayConnect2),
 					testAccCheckTransitGatewayConnectNotRecreated(&transitGatewayConnect1, &transitGatewayConnect2),
@@ -251,7 +274,8 @@ func testAccTransitGatewayConnect_TransitGatewayDefaultRouteTablePropagation(t *
 			},
 			{
 				Config: testAccTransitGatewayConnectConfig_defaultRouteTablePropagation(rName, false),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckTransitGatewayExists(ctx, transitGatewayResourceName, &transitGateway3),
 					testAccCheckTransitGatewayConnectExists(ctx, resourceName, &transitGatewayConnect3),
 					testAccCheckTransitGatewayConnectNotRecreated(&transitGatewayConnect2, &transitGatewayConnect3),
@@ -263,8 +287,11 @@ func testAccTransitGatewayConnect_TransitGatewayDefaultRouteTablePropagation(t *
 	})
 }
 
-func testAccCheckTransitGatewayConnectExists(ctx context.Context, n string, v *ec2.TransitGatewayConnect) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckTransitGatewayConnectExists(ctx context.Context, n string, v *ec2.TransitGatewayConnect) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -288,8 +315,11 @@ func testAccCheckTransitGatewayConnectExists(ctx context.Context, n string, v *e
 	}
 }
 
-func testAccCheckTransitGatewayConnectDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckTransitGatewayConnectDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -314,8 +344,11 @@ func testAccCheckTransitGatewayConnectDestroy(ctx context.Context) resource.Test
 	}
 }
 
-func testAccCheckTransitGatewayConnectNotRecreated(i, j *ec2.TransitGatewayConnect) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckTransitGatewayConnectNotRecreated(i, j *ec2.TransitGatewayConnect) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		if aws.StringValue(i.TransitGatewayAttachmentId) != aws.StringValue(j.TransitGatewayAttachmentId) {
 			return errors.New("EC2 Transit Gateway Connect was recreated")
 		}
@@ -323,6 +356,7 @@ func testAccCheckTransitGatewayConnectNotRecreated(i, j *ec2.TransitGatewayConne
 		return nil
 	}
 }
+
 
 func testAccTransitGatewayConnectConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInDefaultExclude(), fmt.Sprintf(`
@@ -366,6 +400,7 @@ resource "aws_ec2_transit_gateway_connect" "test" {
 }
 `, rName))
 }
+
 
 func testAccTransitGatewayConnectConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInDefaultExclude(), fmt.Sprintf(`
@@ -414,6 +449,7 @@ resource "aws_ec2_transit_gateway_connect" "test" {
 `, rName, tagKey1, tagValue1))
 }
 
+
 func testAccTransitGatewayConnectConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInDefaultExclude(), fmt.Sprintf(`
 resource "aws_vpc" "test" {
@@ -461,6 +497,7 @@ resource "aws_ec2_transit_gateway_connect" "test" {
 }
 `, rName, tagKey1, tagValue1, tagKey2, tagValue2))
 }
+
 
 func testAccTransitGatewayConnectConfig_defaultRouteTableAssociationAndPropagationDisabled(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInDefaultExclude(), fmt.Sprintf(`
@@ -516,6 +553,7 @@ resource "aws_ec2_transit_gateway_connect" "test" {
 `, rName))
 }
 
+
 func testAccTransitGatewayConnectConfig_defaultRouteTableAssociation(rName string, transitGatewayDefaultRouteTableAssociation bool) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInDefaultExclude(), fmt.Sprintf(`
 resource "aws_vpc" "test" {
@@ -564,6 +602,7 @@ resource "aws_ec2_transit_gateway_connect" "test" {
 }
 `, rName, transitGatewayDefaultRouteTableAssociation))
 }
+
 
 func testAccTransitGatewayConnectConfig_defaultRouteTablePropagation(rName string, transitGatewayDefaultRouteTablePropagation bool) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptInDefaultExclude(), fmt.Sprintf(`

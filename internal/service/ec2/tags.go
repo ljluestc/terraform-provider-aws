@@ -21,6 +21,7 @@ import (
 const eventualConsistencyTimeout = 5 * time.Minute
 
 // createTags creates ec2 service tags for new resources.
+
 func createTags(ctx context.Context, conn ec2iface.EC2API, identifier string, tags []*ec2.Tag) error {
 	if len(tags) == 0 {
 		return nil
@@ -29,9 +30,11 @@ func createTags(ctx context.Context, conn ec2iface.EC2API, identifier string, ta
 	newTagsMap := KeyValueTags(ctx, tags)
 
 	_, err := tfresource.RetryWhen(ctx, eventualConsistencyTimeout,
+
 		func() (interface{}, error) {
 			return nil, updateTags(ctx, conn, identifier, nil, newTagsMap)
 		},
+
 		func(err error) (bool, error) {
 			if tfawserr.ErrCodeContains(err, ".NotFound") {
 				return true, err
@@ -48,6 +51,7 @@ func createTags(ctx context.Context, conn ec2iface.EC2API, identifier string, ta
 }
 
 // tagSpecificationsFromMap returns the tag specifications for the given tag key/value map and resource type.
+
 func tagSpecificationsFromMap(ctx context.Context, m map[string]interface{}, t string) []*ec2.TagSpecification {
 	if len(m) == 0 {
 		return nil
@@ -63,6 +67,7 @@ func tagSpecificationsFromMap(ctx context.Context, m map[string]interface{}, t s
 
 // getTagSpecificationsIn returns AWS SDK for Go v1 EC2 service tags from Context.
 // nil is returned if there are no input tags.
+
 func getTagSpecificationsIn(ctx context.Context, resourceType string) []*ec2.TagSpecification {
 	tags := getTagsIn(ctx)
 
@@ -80,6 +85,7 @@ func getTagSpecificationsIn(ctx context.Context, resourceType string) []*ec2.Tag
 
 // getTagSpecificationsInV2 returns AWS SDK for Go v2 EC2 service tags from Context.
 // nil is returned if there are no input tags.
+
 func getTagSpecificationsInV2(ctx context.Context, resourceType awstypes.ResourceType) []awstypes.TagSpecification {
 	tags := getTagsInV2(ctx)
 
@@ -97,6 +103,7 @@ func getTagSpecificationsInV2(ctx context.Context, resourceType awstypes.Resourc
 
 // tagsFromTagDescriptions returns the tags from the given tag descriptions.
 // No attempt is made to remove duplicates.
+
 func tagsFromTagDescriptions(tds []*ec2.TagDescription) []*ec2.Tag {
 	if len(tds) == 0 {
 		return nil

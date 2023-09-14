@@ -21,6 +21,7 @@ import (
 )
 
 // @SDKResource("aws_vpc_ipam_preview_next_cidr")
+
 func ResourceIPAMPreviewNextCIDR() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceIPAMPreviewNextCIDRCreate,
@@ -37,7 +38,8 @@ func ResourceIPAMPreviewNextCIDR() *schema.Resource {
 				ForceNew: true,
 				Elem: &schema.Schema{
 					Type: schema.TypeString,
-					ValidateFunc: validation.Any(
+					Validate
+func: validation.Any(
 						verify.ValidIPv4CIDRNetworkAddress,
 						// Follow the numbers used for netmask_length
 						validation.IsCIDRNetwork(0, 32),
@@ -60,11 +62,13 @@ func ResourceIPAMPreviewNextCIDR() *schema.Resource {
 				Type:         schema.TypeInt,
 				Optional:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.IntBetween(0, 32),
+				Validate
+func: validation.IntBetween(0, 32),
 			},
 		},
 	}
 }
+
 
 func resourceIPAMPreviewNextCIDRCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -103,6 +107,7 @@ func resourceIPAMPreviewNextCIDRCreate(ctx context.Context, d *schema.ResourceDa
 	return append(diags, resourceIPAMPreviewNextCIDRRead(ctx, d, meta)...)
 }
 
+
 func resourceIPAMPreviewNextCIDRRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	cidr, poolId, err := decodeIPAMPreviewNextCIDRID(d.Id())
@@ -117,9 +122,11 @@ func resourceIPAMPreviewNextCIDRRead(ctx context.Context, d *schema.ResourceData
 	return diags
 }
 
+
 func encodeIPAMPreviewNextCIDRID(cidr, poolId string) string {
 	return fmt.Sprintf("%s_%s", cidr, poolId)
 }
+
 
 func decodeIPAMPreviewNextCIDRID(id string) (string, string, error) {
 	idParts := strings.Split(id, "_")

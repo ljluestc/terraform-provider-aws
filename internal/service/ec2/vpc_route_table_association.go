@@ -21,6 +21,7 @@ import (
 )
 
 // @SDKResource("aws_route_table_association")
+
 func ResourceRouteTableAssociation() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceRouteTableAssociationCreate,
@@ -76,6 +77,7 @@ func resourceRouteTableAssociationCreate(ctx context.Context, d *schema.Resource
 	}
 
 	output, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, ec2PropagationTimeout,
+
 		func() (interface{}, error) {
 			return conn.AssociateRouteTableWithContext(ctx, input)
 		},
@@ -99,9 +101,10 @@ func resourceRouteTableAssociationRead(ctx context.Context, d *schema.ResourceDa
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
-	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout, func() (interface{}, error) {
-		return FindRouteTableAssociationByID(ctx, conn, d.Id())
-	}, d.IsNewResource())
+	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout,
+		func() (interface{}, error) {
+			return FindRouteTableAssociationByID(ctx, conn, d.Id())
+		}, d.IsNewResource())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] Route Table Association (%s) not found, removing from state", d.Id())
@@ -216,6 +219,7 @@ func resourceRouteTableAssociationImport(ctx context.Context, d *schema.Resource
 }
 
 // routeTableAssociationDelete attempts to delete a route table association.
+
 func routeTableAssociationDelete(ctx context.Context, conn *ec2.EC2, associationID string, timeout time.Duration) error {
 	log.Printf("[INFO] Deleting Route Table Association: %s", associationID)
 	_, err := conn.DisassociateRouteTableWithContext(ctx, &ec2.DisassociateRouteTableInput{

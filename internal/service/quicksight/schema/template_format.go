@@ -11,6 +11,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
 )
 
+
 func numericFormatConfigurationSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -44,6 +45,7 @@ func numericFormatConfigurationSchema() *schema.Schema {
 	}
 }
 
+
 func dateTimeFormatConfigurationSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -59,6 +61,7 @@ func dateTimeFormatConfigurationSchema() *schema.Schema {
 		},
 	}
 }
+
 
 func numberDisplayFormatConfigurationSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_NumberDisplayFormatConfiguration.html
@@ -80,6 +83,7 @@ func numberDisplayFormatConfigurationSchema() *schema.Schema {
 	}
 }
 
+
 func percentageDisplayFormatConfigurationSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_PercentageDisplayFormatConfiguration.html
 		Type:     schema.TypeList,
@@ -99,6 +103,7 @@ func percentageDisplayFormatConfigurationSchema() *schema.Schema {
 	}
 }
 
+
 func numberFormatConfigurationSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_NumberFormatConfiguration.html
 		Type:     schema.TypeList,
@@ -112,6 +117,7 @@ func numberFormatConfigurationSchema() *schema.Schema {
 		},
 	}
 }
+
 
 func stringFormatConfigurationSchema() *schema.Schema {
 	return &schema.Schema{
@@ -128,6 +134,7 @@ func stringFormatConfigurationSchema() *schema.Schema {
 	}
 }
 
+
 func decimalPlacesConfigurationSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DecimalPlacesConfiguration.html
 		Type:     schema.TypeList,
@@ -139,12 +146,14 @@ func decimalPlacesConfigurationSchema() *schema.Schema {
 				"decimal_places": {
 					Type:         schema.TypeInt,
 					Required:     true,
-					ValidateFunc: validation.IntBetween(0, 20),
+					Validate
+func: validation.IntBetween(0, 20),
 				},
 			},
 		},
 	}
 }
+
 
 func negativeValueConfigurationSchema() *schema.Schema {
 	return &schema.Schema{
@@ -160,6 +169,7 @@ func negativeValueConfigurationSchema() *schema.Schema {
 	}
 }
 
+
 func nullValueConfigurationSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -173,6 +183,7 @@ func nullValueConfigurationSchema() *schema.Schema {
 		},
 	}
 }
+
 
 func separatorConfigurationSchema() *schema.Schema {
 	return &schema.Schema{
@@ -200,6 +211,7 @@ func separatorConfigurationSchema() *schema.Schema {
 	}
 }
 
+
 func labelOptionsSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_LabelOptions.html
 		Type:     schema.TypeList,
@@ -218,6 +230,7 @@ func labelOptionsSchema() *schema.Schema {
 		},
 	}
 }
+
 
 func fontConfigurationSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FontConfiguration.html
@@ -255,6 +268,7 @@ func fontConfigurationSchema() *schema.Schema {
 	}
 }
 
+
 func formatConfigurationSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FormatConfiguration.html
 		Type:     schema.TypeList,
@@ -270,6 +284,7 @@ func formatConfigurationSchema() *schema.Schema {
 		},
 	}
 }
+
 
 func expandFormatConfiguration(tfList []interface{}) *quicksight.FormatConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -296,6 +311,7 @@ func expandFormatConfiguration(tfList []interface{}) *quicksight.FormatConfigura
 	return config
 }
 
+
 func expandDateTimeFormatConfiguration(tfList []interface{}) *quicksight.DateTimeFormatConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -321,6 +337,7 @@ func expandDateTimeFormatConfiguration(tfList []interface{}) *quicksight.DateTim
 	return config
 }
 
+
 func expandNullValueFormatConfiguration(tfList []interface{}) *quicksight.NullValueFormatConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -340,6 +357,7 @@ func expandNullValueFormatConfiguration(tfList []interface{}) *quicksight.NullVa
 	return config
 }
 
+
 func expandNumericFormatConfiguration(tfList []interface{}) *quicksight.NumericFormatConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -358,6 +376,7 @@ func expandNumericFormatConfiguration(tfList []interface{}) *quicksight.NumericF
 
 	return config
 }
+
 
 func expandCurrencyDisplayFormatConfiguration(tfList []interface{}) *quicksight.CurrencyDisplayFormatConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -399,6 +418,7 @@ func expandCurrencyDisplayFormatConfiguration(tfList []interface{}) *quicksight.
 	return config
 }
 
+
 func expandDecimalPlacesConfiguration(tfList []interface{}) *quicksight.DecimalPlacesConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -418,6 +438,7 @@ func expandDecimalPlacesConfiguration(tfList []interface{}) *quicksight.DecimalP
 	return config
 }
 
+
 func expandNegativeValueConfiguration(tfList []interface{}) *quicksight.NegativeValueConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -436,6 +457,7 @@ func expandNegativeValueConfiguration(tfList []interface{}) *quicksight.Negative
 
 	return config
 }
+
 
 func expandNumericSeparatorConfiguration(tfList []interface{}) *quicksight.NumericSeparatorConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -459,6 +481,7 @@ func expandNumericSeparatorConfiguration(tfList []interface{}) *quicksight.Numer
 	return config
 }
 
+
 func expandThousandSeparatorOptions(tfList []interface{}) *quicksight.ThousandSeparatorOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -481,6 +504,7 @@ func expandThousandSeparatorOptions(tfList []interface{}) *quicksight.ThousandSe
 	return config
 }
 
+
 func expandNumberFormatConfiguration(tfList []interface{}) *quicksight.NumberFormatConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -499,6 +523,7 @@ func expandNumberFormatConfiguration(tfList []interface{}) *quicksight.NumberFor
 
 	return config
 }
+
 
 func expandStringFormatConfiguration(tfList []interface{}) *quicksight.StringFormatConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -521,6 +546,7 @@ func expandStringFormatConfiguration(tfList []interface{}) *quicksight.StringFor
 
 	return config
 }
+
 
 func expandLabelOptions(tfList []interface{}) *quicksight.LabelOptions {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -546,6 +572,7 @@ func expandLabelOptions(tfList []interface{}) *quicksight.LabelOptions {
 
 	return options
 }
+
 
 func expandFontConfiguration(tfList []interface{}) *quicksight.FontConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -578,6 +605,7 @@ func expandFontConfiguration(tfList []interface{}) *quicksight.FontConfiguration
 	return config
 }
 
+
 func expandFontSize(tfList []interface{}) *quicksight.FontSize {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -597,6 +625,7 @@ func expandFontSize(tfList []interface{}) *quicksight.FontSize {
 	return config
 }
 
+
 func expandFontWeight(tfList []interface{}) *quicksight.FontWeight {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -615,6 +644,7 @@ func expandFontWeight(tfList []interface{}) *quicksight.FontWeight {
 
 	return config
 }
+
 
 func expandComparisonFormatConfiguration(tfList []interface{}) *quicksight.ComparisonFormatConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -637,6 +667,7 @@ func expandComparisonFormatConfiguration(tfList []interface{}) *quicksight.Compa
 
 	return config
 }
+
 
 func expandNumberDisplayFormatConfiguration(tfList []interface{}) *quicksight.NumberDisplayFormatConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -675,6 +706,7 @@ func expandNumberDisplayFormatConfiguration(tfList []interface{}) *quicksight.Nu
 	return config
 }
 
+
 func expandPercentageDisplayFormatConfiguration(tfList []interface{}) *quicksight.PercentageDisplayFormatConfiguration {
 	if len(tfList) == 0 || tfList[0] == nil {
 		return nil
@@ -709,6 +741,7 @@ func expandPercentageDisplayFormatConfiguration(tfList []interface{}) *quicksigh
 	return config
 }
 
+
 func flattenFormatConfiguration(apiObject *quicksight.FormatConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -727,6 +760,7 @@ func flattenFormatConfiguration(apiObject *quicksight.FormatConfiguration) []int
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenDateTimeFormatConfiguration(apiObject *quicksight.DateTimeFormatConfiguration) []interface{} {
 	if apiObject == nil {
@@ -747,6 +781,7 @@ func flattenDateTimeFormatConfiguration(apiObject *quicksight.DateTimeFormatConf
 	return []interface{}{tfMap}
 }
 
+
 func flattenNullValueFormatConfiguration(apiObject *quicksight.NullValueFormatConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -759,6 +794,7 @@ func flattenNullValueFormatConfiguration(apiObject *quicksight.NullValueFormatCo
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenNumericFormatConfiguration(apiObject *quicksight.NumericFormatConfiguration) []interface{} {
 	if apiObject == nil {
@@ -778,6 +814,7 @@ func flattenNumericFormatConfiguration(apiObject *quicksight.NumericFormatConfig
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenCurrencyDisplayFormatConfiguration(apiObject *quicksight.CurrencyDisplayFormatConfiguration) []interface{} {
 	if apiObject == nil {
@@ -813,6 +850,7 @@ func flattenCurrencyDisplayFormatConfiguration(apiObject *quicksight.CurrencyDis
 	return []interface{}{tfMap}
 }
 
+
 func flattenDecimalPlacesConfiguration(apiObject *quicksight.DecimalPlacesConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -826,6 +864,7 @@ func flattenDecimalPlacesConfiguration(apiObject *quicksight.DecimalPlacesConfig
 	return []interface{}{tfMap}
 }
 
+
 func flattenNegativeValueConfiguration(apiObject *quicksight.NegativeValueConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -838,6 +877,7 @@ func flattenNegativeValueConfiguration(apiObject *quicksight.NegativeValueConfig
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenNumericSeparatorConfiguration(apiObject *quicksight.NumericSeparatorConfiguration) []interface{} {
 	if apiObject == nil {
@@ -854,6 +894,7 @@ func flattenNumericSeparatorConfiguration(apiObject *quicksight.NumericSeparator
 
 	return []interface{}{tfMap}
 }
+
 func flattenThousandSeparatorOptions(apiObject *quicksight.ThousandSeparatorOptions) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -869,6 +910,7 @@ func flattenThousandSeparatorOptions(apiObject *quicksight.ThousandSeparatorOpti
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenNumberDisplayFormatConfiguration(apiObject *quicksight.NumberDisplayFormatConfiguration) []interface{} {
 	if apiObject == nil {
@@ -901,6 +943,7 @@ func flattenNumberDisplayFormatConfiguration(apiObject *quicksight.NumberDisplay
 	return []interface{}{tfMap}
 }
 
+
 func flattenPercentageDisplayFormatConfiguration(apiObject *quicksight.PercentageDisplayFormatConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -929,6 +972,7 @@ func flattenPercentageDisplayFormatConfiguration(apiObject *quicksight.Percentag
 	return []interface{}{tfMap}
 }
 
+
 func flattenNumberFormatConfiguration(apiObject *quicksight.NumberFormatConfiguration) []interface{} {
 	if apiObject == nil {
 		return nil
@@ -941,6 +985,7 @@ func flattenNumberFormatConfiguration(apiObject *quicksight.NumberFormatConfigur
 
 	return []interface{}{tfMap}
 }
+
 
 func flattenStringFormatConfiguration(apiObject *quicksight.StringFormatConfiguration) []interface{} {
 	if apiObject == nil {

@@ -28,6 +28,7 @@ import (
 
 // @SDKResource("aws_route53_resolver_rule", name="Rule")
 // @Tags(identifierAttribute="arn")
+
 func ResourceRule() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceRuleCreate,
@@ -54,13 +55,16 @@ func ResourceRule() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringLenBetween(1, 256),
-				StateFunc:    trimTrailingPeriod,
+				Validate
+func: validation.StringLenBetween(1, 256),
+				State
+func:    trimTrailingPeriod,
 			},
 			"name": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				ValidateFunc: validResolverName,
+				Validate
+func: validResolverName,
 			},
 			"owner_id": {
 				Type:     schema.TypeString,
@@ -74,7 +78,8 @@ func ResourceRule() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringInSlice(route53resolver.RuleTypeOption_Values(), false),
+				Validate
+func: validation.StringInSlice(route53resolver.RuleTypeOption_Values(), false),
 			},
 			"share_status": {
 				Type:     schema.TypeString,
@@ -90,13 +95,15 @@ func ResourceRule() *schema.Resource {
 						"ip": {
 							Type:         schema.TypeString,
 							Required:     true,
-							ValidateFunc: validation.IsIPAddress,
+							Validate
+func: validation.IsIPAddress,
 						},
 						"port": {
 							Type:         schema.TypeInt,
 							Optional:     true,
 							Default:      53,
-							ValidateFunc: validation.IntBetween(1, 65535),
+							Validate
+func: validation.IntBetween(1, 65535),
 						},
 					},
 				},
@@ -109,6 +116,7 @@ func ResourceRule() *schema.Resource {
 		),
 	}
 }
+
 
 func resourceRuleCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
@@ -147,6 +155,7 @@ func resourceRuleCreate(ctx context.Context, d *schema.ResourceData, meta interf
 	return resourceRuleRead(ctx, d, meta)
 }
 
+
 func resourceRuleRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
 
@@ -178,6 +187,7 @@ func resourceRuleRead(ctx context.Context, d *schema.ResourceData, meta interfac
 
 	return nil
 }
+
 
 func resourceRuleUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
@@ -214,6 +224,7 @@ func resourceRuleUpdate(ctx context.Context, d *schema.ResourceData, meta interf
 	return resourceRuleRead(ctx, d, meta)
 }
 
+
 func resourceRuleDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
 
@@ -237,6 +248,7 @@ func resourceRuleDelete(ctx context.Context, d *schema.ResourceData, meta interf
 	return nil
 }
 
+
 func resourceRuleCustomizeDiff(_ context.Context, diff *schema.ResourceDiff, v interface{}) error {
 	if diff.Id() != "" {
 		if diff.HasChange("resolver_endpoint_id") {
@@ -250,6 +262,7 @@ func resourceRuleCustomizeDiff(_ context.Context, diff *schema.ResourceDiff, v i
 
 	return nil
 }
+
 
 func FindResolverRuleByID(ctx context.Context, conn *route53resolver.Route53Resolver, id string) (*route53resolver.ResolverRule, error) {
 	input := &route53resolver.GetResolverRuleInput{
@@ -276,8 +289,11 @@ func FindResolverRuleByID(ctx context.Context, conn *route53resolver.Route53Reso
 	return output.ResolverRule, nil
 }
 
-func statusRule(ctx context.Context, conn *route53resolver.Route53Resolver, id string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+
+func statusRule(ctx context.Context, conn *route53resolver.Route53Resolver, id string) retry.StateRefresh
+func {
+	return 
+func() (interface{}, string, error) {
 		output, err := FindResolverRuleByID(ctx, conn, id)
 
 		if tfresource.NotFound(err) {
@@ -291,6 +307,7 @@ func statusRule(ctx context.Context, conn *route53resolver.Route53Resolver, id s
 		return output, aws.StringValue(output.Status), nil
 	}
 }
+
 
 func waitRuleCreated(ctx context.Context, conn *route53resolver.Route53Resolver, id string, timeout time.Duration) (*route53resolver.ResolverRule, error) {
 	stateConf := &retry.StateChangeConf{
@@ -311,6 +328,7 @@ func waitRuleCreated(ctx context.Context, conn *route53resolver.Route53Resolver,
 
 	return nil, err
 }
+
 
 func waitRuleUpdated(ctx context.Context, conn *route53resolver.Route53Resolver, id string, timeout time.Duration) (*route53resolver.ResolverRule, error) {
 	stateConf := &retry.StateChangeConf{
@@ -333,6 +351,7 @@ func waitRuleUpdated(ctx context.Context, conn *route53resolver.Route53Resolver,
 	return nil, err
 }
 
+
 func waitRuleDeleted(ctx context.Context, conn *route53resolver.Route53Resolver, id string, timeout time.Duration) (*route53resolver.ResolverRule, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{route53resolver.ResolverRuleStatusDeleting},
@@ -354,6 +373,7 @@ func waitRuleDeleted(ctx context.Context, conn *route53resolver.Route53Resolver,
 	return nil, err
 }
 
+
 func expandRuleTargetIPs(vTargetIps *schema.Set) []*route53resolver.TargetAddress {
 	targetAddresses := []*route53resolver.TargetAddress{}
 
@@ -374,6 +394,7 @@ func expandRuleTargetIPs(vTargetIps *schema.Set) []*route53resolver.TargetAddres
 
 	return targetAddresses
 }
+
 
 func flattenRuleTargetIPs(targetAddresses []*route53resolver.TargetAddress) []interface{} {
 	if targetAddresses == nil {
@@ -398,6 +419,7 @@ func flattenRuleTargetIPs(targetAddresses []*route53resolver.TargetAddress) []in
 // of "name" or "domain name" attributes often returned from
 // the Route53 API or provided as user input.
 // The single dot (".") domain name is returned as-is.
+
 func trimTrailingPeriod(v interface{}) string {
 	var str string
 	switch value := v.(type) {

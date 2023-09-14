@@ -13,6 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccVPCSecurityGroupRuleDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -20,13 +21,15 @@ func TestAccVPCSecurityGroupRuleDataSource_basic(t *testing.T) {
 	resourceName := "aws_vpc_security_group_ingress_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCSecurityGroupRuleDataSourceConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(dataSourceName, "cidr_ipv4", resourceName, "cidr_ipv4"),
 					resource.TestCheckResourceAttrPair(dataSourceName, "cidr_ipv6", resourceName, "cidr_ipv6"),
@@ -46,6 +49,7 @@ func TestAccVPCSecurityGroupRuleDataSource_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCSecurityGroupRuleDataSource_filter(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -53,13 +57,15 @@ func TestAccVPCSecurityGroupRuleDataSource_filter(t *testing.T) {
 	resourceName := "aws_vpc_security_group_egress_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCSecurityGroupRuleDataSourceConfig_filter(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttrPair(dataSourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(dataSourceName, "cidr_ipv4", resourceName, "cidr_ipv4"),
 					resource.TestCheckResourceAttrPair(dataSourceName, "cidr_ipv6", resourceName, "cidr_ipv6"),
@@ -79,6 +85,7 @@ func TestAccVPCSecurityGroupRuleDataSource_filter(t *testing.T) {
 	})
 }
 
+
 func testAccVPCSecurityGroupRuleDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccVPCSecurityGroupRuleConfig_base(rName), `
 resource "aws_vpc_security_group_ingress_rule" "test" {
@@ -95,6 +102,7 @@ data "aws_vpc_security_group_rule" "test" {
 }
 `)
 }
+
 
 func testAccVPCSecurityGroupRuleDataSourceConfig_filter(rName string) string {
 	return acctest.ConfigCompose(testAccVPCSecurityGroupRuleConfig_base(rName), fmt.Sprintf(`

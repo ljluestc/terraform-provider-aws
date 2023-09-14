@@ -12,6 +12,7 @@ import (
 
 const fieldSortOptionsMaxItems100 = 100
 
+
 func fieldSortOptionsSchema(maxItems int) *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FieldSortOptions.html
 		Type:     schema.TypeList,
@@ -27,6 +28,7 @@ func fieldSortOptionsSchema(maxItems int) *schema.Schema {
 	}
 }
 
+
 func columnSortSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnSort.html
 		Type:     schema.TypeList,
@@ -37,11 +39,15 @@ func columnSortSchema() *schema.Schema {
 			Schema: map[string]*schema.Schema{
 				"direction":            stringSchema(true, validation.StringInSlice(quicksight.SortDirection_Values(), false)),
 				"sort_by":              columnSchema(),                   // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnIdentifier.html
-				"aggregation_function": aggregationFunctionSchema(false), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_AggregationFunction.html
+				"aggregation_
+function": aggregation
+functionSchema(false), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_Aggregation
+function.html
 			},
 		},
 	}
 }
+
 
 func fieldSortSchema() *schema.Schema {
 	return &schema.Schema{ // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FieldSort.html
@@ -57,6 +63,7 @@ func fieldSortSchema() *schema.Schema {
 		},
 	}
 }
+
 
 func expandFieldSortOptionsList(tfList []interface{}) []*quicksight.FieldSortOptions {
 	if len(tfList) == 0 {
@@ -81,6 +88,7 @@ func expandFieldSortOptionsList(tfList []interface{}) []*quicksight.FieldSortOpt
 	return options
 }
 
+
 func expandFieldSortOptions(tfMap map[string]interface{}) *quicksight.FieldSortOptions {
 	if tfMap == nil {
 		return nil
@@ -97,6 +105,7 @@ func expandFieldSortOptions(tfMap map[string]interface{}) *quicksight.FieldSortO
 
 	return options
 }
+
 
 func expandColumnSort(tfList []interface{}) *quicksight.ColumnSort {
 	if len(tfList) == 0 || tfList[0] == nil {
@@ -116,12 +125,16 @@ func expandColumnSort(tfList []interface{}) *quicksight.ColumnSort {
 	if v, ok := tfMap["sort_by"].([]interface{}); ok && len(v) > 0 {
 		config.SortBy = expandColumnIdentifier(v)
 	}
-	if v, ok := tfMap["aggregation_function"].([]interface{}); ok && len(v) > 0 {
-		config.AggregationFunction = expandAggregationFunction(v)
+	if v, ok := tfMap["aggregation_
+function"].([]interface{}); ok && len(v) > 0 {
+		config.Aggregation
+function = expandAggregation
+function(v)
 	}
 
 	return config
 }
+
 
 func expandFieldSort(tfList []interface{}) *quicksight.FieldSort {
 	if len(tfList) == 0 || tfList[0] == nil {

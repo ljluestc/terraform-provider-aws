@@ -41,32 +41,33 @@ func sweepClusters(region string) error {
 	}
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.ListClustersPagesWithContext(ctx, input, func(page *emr.ListClustersOutput, lastPage bool) bool {
-		if page == nil {
-			return !lastPage
-		}
-
-		for _, v := range page.Clusters {
-			id := aws.StringValue(v.Id)
-
-			_, err := conn.SetTerminationProtectionWithContext(ctx, &emr.SetTerminationProtectionInput{
-				JobFlowIds:           aws.StringSlice([]string{id}),
-				TerminationProtected: aws.Bool(false),
-			})
-
-			if err != nil {
-				log.Printf("[ERROR] unsetting EMR Cluster (%s) termination protection: %s", id, err)
+	err = conn.ListClustersPagesWithContext(ctx, input,
+		func(page *emr.ListClustersOutput, lastPage bool) bool {
+			if page == nil {
+				return !lastPage
 			}
 
-			r := ResourceCluster()
-			d := r.Data(nil)
-			d.SetId(id)
+			for _, v := range page.Clusters {
+				id := aws.StringValue(v.Id)
 
-			sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
-		}
+				_, err := conn.SetTerminationProtectionWithContext(ctx, &emr.SetTerminationProtectionInput{
+					JobFlowIds:           aws.StringSlice([]string{id}),
+					TerminationProtected: aws.Bool(false),
+				})
 
-		return !lastPage
-	})
+				if err != nil {
+					log.Printf("[ERROR] unsetting EMR Cluster (%s) termination protection: %s", id, err)
+				}
+
+				r := ResourceCluster()
+				d := r.Data(nil)
+				d.SetId(id)
+
+				sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
+			}
+
+			return !lastPage
+		})
 
 	if sweep.SkipSweepError(err) {
 		log.Printf("[WARN] Skipping EMR Clusters sweep for %s: %s", region, err)
@@ -99,21 +100,22 @@ func sweepStudios(region string) error {
 	var sweeperErrs *multierror.Error
 	input := &emr.ListStudiosInput{}
 
-	err = conn.ListStudiosPagesWithContext(ctx, input, func(page *emr.ListStudiosOutput, lastPage bool) bool {
-		if page == nil {
+	err = conn.ListStudiosPagesWithContext(ctx, input,
+		func(page *emr.ListStudiosOutput, lastPage bool) bool {
+			if page == nil {
+				return !lastPage
+			}
+
+			for _, studio := range page.Studios {
+				r := ResourceStudio()
+				d := r.Data(nil)
+				d.SetId(aws.StringValue(studio.StudioId))
+
+				sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
+			}
+
 			return !lastPage
-		}
-
-		for _, studio := range page.Studios {
-			r := ResourceStudio()
-			d := r.Data(nil)
-			d.SetId(aws.StringValue(studio.StudioId))
-
-			sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
-		}
-
-		return !lastPage
-	})
+		})
 
 	if sweep.SkipSweepError(err) {
 		log.Printf("[WARN] Skipping EMR Studios sweep for %s: %s", region, sweeperErrs)

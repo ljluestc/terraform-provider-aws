@@ -13,18 +13,21 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccEC2AMIDataSource_natInstance(t *testing.T) {
 	ctx := acctest.Context(t)
 	datasourceName := "data.aws_ami.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAMIDataSourceConfig_basic,
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					// Check attributes. Some attributes are tough to test - any not contained here should not be considered
 					// stable and should not be used in interpolation. Exception to block_device_mappings which should both
 					// show up consistently and break if certain references are not available. However modification of the
@@ -67,18 +70,21 @@ func TestAccEC2AMIDataSource_natInstance(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2AMIDataSource_windowsInstance(t *testing.T) {
 	ctx := acctest.Context(t)
 	datasourceName := "data.aws_ami.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAMIDataSourceConfig_windows,
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttr(datasourceName, "architecture", "x86_64"),
 					resource.TestCheckResourceAttr(datasourceName, "block_device_mappings.#", "27"),
 					resource.TestMatchResourceAttr(datasourceName, "creation_date", regexache.MustCompile("^20[0-9]{2}-")),
@@ -114,18 +120,21 @@ func TestAccEC2AMIDataSource_windowsInstance(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2AMIDataSource_instanceStore(t *testing.T) {
 	ctx := acctest.Context(t)
 	datasourceName := "data.aws_ami.amzn-ami-minimal-hvm-instance-store"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAMIDataSourceConfig_latestAmazonLinuxHVMInstanceStore(),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					resource.TestCheckResourceAttr(datasourceName, "architecture", "x86_64"),
 					resource.TestCheckResourceAttr(datasourceName, "block_device_mappings.#", "0"),
 					resource.TestMatchResourceAttr(datasourceName, "creation_date", regexache.MustCompile("^20[0-9]{2}-")),
@@ -157,24 +166,28 @@ func TestAccEC2AMIDataSource_instanceStore(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2AMIDataSource_localNameFilter(t *testing.T) {
 	ctx := acctest.Context(t)
 	datasourceName := "data.aws_ami.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAMIDataSourceConfig_nameRegex,
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestMatchResourceAttr(datasourceName, "image_id", regexache.MustCompile("^ami-")),
 				),
 			},
 		},
 	})
 }
+
 
 func TestAccEC2AMIDataSource_gp3BlockDevice(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -183,13 +196,15 @@ func TestAccEC2AMIDataSource_gp3BlockDevice(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAMIDataSourceConfig_gp3BlockDevice(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttrPair(datasourceName, "architecture", resourceName, "architecture"),
 					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(datasourceName, "block_device_mappings.#", resourceName, "ebs_block_device.#"),
@@ -211,6 +226,7 @@ func TestAccEC2AMIDataSource_gp3BlockDevice(t *testing.T) {
 // testAccAMIDataSourceConfig_latestAmazonLinuxHVMInstanceStore returns the configuration for a data source that
 // describes the latest Amazon Linux AMI using HVM virtualization and an instance store root device.
 // The data source is named 'amzn-ami-minimal-hvm-instance-store'.
+
 func testAccAMIDataSourceConfig_latestAmazonLinuxHVMInstanceStore() string {
 	return `
 data "aws_ami" "amzn-ami-minimal-hvm-instance-store" {
@@ -302,6 +318,7 @@ data "aws_ami" "test" {
   name_regex = "^amzn-ami-min[a-z]{4}-hvm"
 }
 `
+
 
 func testAccAMIDataSourceConfig_gp3BlockDevice(rName string) string {
 	return acctest.ConfigCompose(

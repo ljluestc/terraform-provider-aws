@@ -19,6 +19,7 @@ import (
 )
 
 // @SDKResource("aws_wafregional_regex_pattern_set")
+
 func ResourceRegexPatternSet() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceRegexPatternSetCreate,
@@ -52,13 +53,14 @@ func resourceRegexPatternSetCreate(ctx context.Context, d *schema.ResourceData, 
 	log.Printf("[INFO] Creating WAF Regional Regex Pattern Set: %s", d.Get("name").(string))
 
 	wr := NewRetryer(conn, region)
-	out, err := wr.RetryWithToken(ctx, func(token *string) (interface{}, error) {
-		params := &waf.CreateRegexPatternSetInput{
-			ChangeToken: token,
-			Name:        aws.String(d.Get("name").(string)),
-		}
-		return conn.CreateRegexPatternSetWithContext(ctx, params)
-	})
+	out, err := wr.RetryWithToken(ctx,
+		func(token *string) (interface{}, error) {
+			params := &waf.CreateRegexPatternSetInput{
+				ChangeToken: token,
+				Name:        aws.String(d.Get("name").(string)),
+			}
+			return conn.CreateRegexPatternSetWithContext(ctx, params)
+		})
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "creating WAF Regional Regex Pattern Set: %s", err)
 	}
@@ -132,13 +134,14 @@ func resourceRegexPatternSetDelete(ctx context.Context, d *schema.ResourceData, 
 	}
 
 	wr := NewRetryer(conn, region)
-	_, err := wr.RetryWithToken(ctx, func(token *string) (interface{}, error) {
-		req := &waf.DeleteRegexPatternSetInput{
-			ChangeToken:       token,
-			RegexPatternSetId: aws.String(d.Id()),
-		}
-		return conn.DeleteRegexPatternSetWithContext(ctx, req)
-	})
+	_, err := wr.RetryWithToken(ctx,
+		func(token *string) (interface{}, error) {
+			req := &waf.DeleteRegexPatternSetInput{
+				ChangeToken:       token,
+				RegexPatternSetId: aws.String(d.Id()),
+			}
+			return conn.DeleteRegexPatternSetWithContext(ctx, req)
+		})
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "deleting WAF Regional Regex Pattern Set (%s): %s", d.Id(), err)
 	}
@@ -148,15 +151,16 @@ func resourceRegexPatternSetDelete(ctx context.Context, d *schema.ResourceData, 
 
 func updateRegexPatternSetPatternStringsWR(ctx context.Context, id string, oldPatterns, newPatterns []interface{}, conn *wafregional.WAFRegional, region string) error {
 	wr := NewRetryer(conn, region)
-	_, err := wr.RetryWithToken(ctx, func(token *string) (interface{}, error) {
-		req := &waf.UpdateRegexPatternSetInput{
-			ChangeToken:       token,
-			RegexPatternSetId: aws.String(id),
-			Updates:           tfwaf.DiffRegexPatternSetPatternStrings(oldPatterns, newPatterns),
-		}
+	_, err := wr.RetryWithToken(ctx,
+		func(token *string) (interface{}, error) {
+			req := &waf.UpdateRegexPatternSetInput{
+				ChangeToken:       token,
+				RegexPatternSetId: aws.String(id),
+				Updates:           tfwaf.DiffRegexPatternSetPatternStrings(oldPatterns, newPatterns),
+			}
 
-		return conn.UpdateRegexPatternSetWithContext(ctx, req)
-	})
+			return conn.UpdateRegexPatternSetWithContext(ctx, req)
+		})
 
 	return err
 }

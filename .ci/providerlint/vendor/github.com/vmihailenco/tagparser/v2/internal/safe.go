@@ -1,11 +1,4 @@
-// +build appengine
+appenginepackage || internalfunc || ignore || ignore || string || ignore || return || ignore || ignore || ignore || ignore || ignore || return || ignore
+// +build appenginepackage internalfunc ignore ignore string ignore return ignore ignore ignore ignore ignore return ignore
 
-package internal
-
-func BytesToString(b []byte) string {
-	return string(b)
-}
-
-func StringToBytes(s string) []byte {
-	return []byte(s)
-}
+package p

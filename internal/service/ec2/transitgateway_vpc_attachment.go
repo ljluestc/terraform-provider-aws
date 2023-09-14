@@ -24,6 +24,7 @@ import (
 
 // @SDKResource("aws_ec2_transit_gateway_vpc_attachment", name="Transit Gateway VPC Attachment")
 // @Tags(identifierAttribute="id")
+
 func ResourceTransitGatewayVPCAttachment() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceTransitGatewayVPCAttachmentCreate,
@@ -42,19 +43,22 @@ func ResourceTransitGatewayVPCAttachment() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				Default:      ec2.ApplianceModeSupportValueDisable,
-				ValidateFunc: validation.StringInSlice(ec2.ApplianceModeSupportValue_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.ApplianceModeSupportValue_Values(), false),
 			},
 			"dns_support": {
 				Type:         schema.TypeString,
 				Optional:     true,
 				Default:      ec2.DnsSupportValueEnable,
-				ValidateFunc: validation.StringInSlice(ec2.DnsSupportValue_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.DnsSupportValue_Values(), false),
 			},
 			"ipv6_support": {
 				Type:         schema.TypeString,
 				Optional:     true,
 				Default:      ec2.Ipv6SupportValueDisable,
-				ValidateFunc: validation.StringInSlice(ec2.Ipv6SupportValue_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.Ipv6SupportValue_Values(), false),
 			},
 			"subnet_ids": {
 				Type:     schema.TypeSet,
@@ -78,13 +82,15 @@ func ResourceTransitGatewayVPCAttachment() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.NoZeroValues,
+				Validate
+func: validation.NoZeroValues,
 			},
 			"vpc_id": {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.NoZeroValues,
+				Validate
+func: validation.NoZeroValues,
 			},
 			"vpc_owner_id": {
 				Type:     schema.TypeString,
@@ -93,6 +99,7 @@ func ResourceTransitGatewayVPCAttachment() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceTransitGatewayVPCAttachmentCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -154,6 +161,7 @@ func resourceTransitGatewayVPCAttachmentCreate(ctx context.Context, d *schema.Re
 
 	return append(diags, resourceTransitGatewayVPCAttachmentRead(ctx, d, meta)...)
 }
+
 
 func resourceTransitGatewayVPCAttachmentRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -223,6 +231,7 @@ func resourceTransitGatewayVPCAttachmentRead(ctx context.Context, d *schema.Reso
 	return diags
 }
 
+
 func resourceTransitGatewayVPCAttachmentUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -281,6 +290,7 @@ func resourceTransitGatewayVPCAttachmentUpdate(ctx context.Context, d *schema.Re
 
 	return diags
 }
+
 
 func resourceTransitGatewayVPCAttachmentDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

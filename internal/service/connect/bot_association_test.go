@@ -18,6 +18,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func testAccBotAssociation_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandStringFromCharSet(8, sdkacctest.CharSetAlpha)
@@ -25,14 +26,16 @@ func testAccBotAssociation_basic(t *testing.T) {
 	resourceName := "aws_connect_bot_association.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckBotAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBotAssociationConfig_v1Basic(rName, rName2),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckBotAssociationExists(ctx, resourceName),
 					resource.TestCheckResourceAttrSet(resourceName, "instance_id"),
 					resource.TestCheckResourceAttr(resourceName, "lex_bot.#", "1"),
@@ -49,6 +52,7 @@ func testAccBotAssociation_basic(t *testing.T) {
 	})
 }
 
+
 func testAccBotAssociation_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandStringFromCharSet(8, sdkacctest.CharSetAlpha)
@@ -57,14 +61,16 @@ func testAccBotAssociation_disappears(t *testing.T) {
 	instanceResourceName := "aws_connect_bot_association.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckBotAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBotAssociationConfig_v1Basic(rName, rName2),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckBotAssociationExists(ctx, resourceName),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfconnect.ResourceBotAssociation(), instanceResourceName),
 				),
@@ -74,8 +80,11 @@ func testAccBotAssociation_disappears(t *testing.T) {
 	})
 }
 
-func testAccCheckBotAssociationExists(ctx context.Context, resourceName string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckBotAssociationExists(ctx context.Context, resourceName string) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("Connect Bot Association not found: %s", resourceName)
@@ -106,8 +115,11 @@ func testAccCheckBotAssociationExists(ctx context.Context, resourceName string) 
 	}
 }
 
-func testAccCheckBotAssociationDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckBotAssociationDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_connect_bot_association" {
 				continue
@@ -141,6 +153,7 @@ func testAccCheckBotAssociationDestroy(ctx context.Context) resource.TestCheckFu
 		return nil
 	}
 }
+
 
 func testAccBotV1AssociationConfigBase(rName, rName2 string) string {
 	return fmt.Sprintf(`
@@ -186,6 +199,7 @@ resource "aws_connect_instance" "test" {
 }
   `, rName, rName2)
 }
+
 
 func testAccBotAssociationConfig_v1Basic(rName, rName2 string) string {
 	return acctest.ConfigCompose(

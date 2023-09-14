@@ -20,6 +20,7 @@ import (
 )
 
 // @SDKResource("aws_vpc_endpoint_connection_notification")
+
 func ResourceVPCEndpointConnectionNotification() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceVPCEndpointConnectionNotificationCreate,
@@ -41,7 +42,8 @@ func ResourceVPCEndpointConnectionNotification() *schema.Resource {
 			"connection_notification_arn": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			"notification_type": {
 				Type:     schema.TypeString,
@@ -66,6 +68,7 @@ func ResourceVPCEndpointConnectionNotification() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceVPCEndpointConnectionNotificationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -95,6 +98,7 @@ func resourceVPCEndpointConnectionNotificationCreate(ctx context.Context, d *sch
 	return append(diags, resourceVPCEndpointConnectionNotificationRead(ctx, d, meta)...)
 }
 
+
 func resourceVPCEndpointConnectionNotificationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -121,6 +125,7 @@ func resourceVPCEndpointConnectionNotificationRead(ctx context.Context, d *schem
 	return diags
 }
 
+
 func resourceVPCEndpointConnectionNotificationUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -145,6 +150,7 @@ func resourceVPCEndpointConnectionNotificationUpdate(ctx context.Context, d *sch
 
 	return append(diags, resourceVPCEndpointConnectionNotificationRead(ctx, d, meta)...)
 }
+
 
 func resourceVPCEndpointConnectionNotificationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

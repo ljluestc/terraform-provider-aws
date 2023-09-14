@@ -27,6 +27,7 @@ import (
 
 // @SDKResource("aws_vpc_endpoint_service", name="VPC Endpoint Service")
 // @Tags(identifierAttribute="id")
+
 func ResourceVPCEndpointService() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceVPCEndpointServiceCreate,
@@ -69,7 +70,8 @@ func ResourceVPCEndpointService() *schema.Resource {
 				MinItems: 1,
 				Elem: &schema.Schema{
 					Type:         schema.TypeString,
-					ValidateFunc: verify.ValidARN,
+					Validate
+func: verify.ValidARN,
 				},
 			},
 			"manages_vpc_endpoints": {
@@ -82,7 +84,8 @@ func ResourceVPCEndpointService() *schema.Resource {
 				MinItems: 1,
 				Elem: &schema.Schema{
 					Type:         schema.TypeString,
-					ValidateFunc: verify.ValidARN,
+					Validate
+func: verify.ValidARN,
 				},
 			},
 			"private_dns_name": {
@@ -132,7 +135,8 @@ func ResourceVPCEndpointService() *schema.Resource {
 				Computed: true,
 				Elem: &schema.Schema{
 					Type:         schema.TypeString,
-					ValidateFunc: validation.StringInSlice(ec2.ServiceConnectivityType_Values(), false),
+					Validate
+func: validation.StringInSlice(ec2.ServiceConnectivityType_Values(), false),
 				},
 			},
 			names.AttrTags:    tftags.TagsSchema(),
@@ -148,6 +152,7 @@ func ResourceVPCEndpointService() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
+
 
 func resourceVPCEndpointServiceCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -200,6 +205,7 @@ func resourceVPCEndpointServiceCreate(ctx context.Context, d *schema.ResourceDat
 
 	return append(diags, resourceVPCEndpointServiceRead(ctx, d, meta)...)
 }
+
 
 func resourceVPCEndpointServiceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -262,6 +268,7 @@ func resourceVPCEndpointServiceRead(ctx context.Context, d *schema.ResourceData,
 	return diags
 }
 
+
 func resourceVPCEndpointServiceUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -311,6 +318,7 @@ func resourceVPCEndpointServiceUpdate(ctx context.Context, d *schema.ResourceDat
 	return append(diags, resourceVPCEndpointServiceRead(ctx, d, meta)...)
 }
 
+
 func resourceVPCEndpointServiceDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -339,6 +347,7 @@ func resourceVPCEndpointServiceDelete(ctx context.Context, d *schema.ResourceDat
 	return diags
 }
 
+
 func flattenAllowedPrincipal(apiObject *ec2.AllowedPrincipal) *string {
 	if apiObject == nil {
 		return nil
@@ -346,6 +355,7 @@ func flattenAllowedPrincipal(apiObject *ec2.AllowedPrincipal) *string {
 
 	return apiObject.Principal
 }
+
 
 func flattenAllowedPrincipals(apiObjects []*ec2.AllowedPrincipal) []*string {
 	if len(apiObjects) == 0 {
@@ -364,6 +374,7 @@ func flattenAllowedPrincipals(apiObjects []*ec2.AllowedPrincipal) []*string {
 
 	return tfList
 }
+
 
 func flattenPrivateDNSNameConfiguration(apiObject *ec2.PrivateDnsNameConfiguration) map[string]interface{} {
 	if apiObject == nil {

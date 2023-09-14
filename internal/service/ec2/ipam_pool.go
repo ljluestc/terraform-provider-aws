@@ -26,6 +26,7 @@ import (
 
 // @SDKResource("aws_vpc_ipam_pool", name="IPAM Pool")
 // @Tags(identifierAttribute="id")
+
 func ResourceIPAMPool() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceIPAMPoolCreate,
@@ -48,22 +49,26 @@ func ResourceIPAMPool() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringInSlice(ec2.AddressFamily_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.AddressFamily_Values(), false),
 			},
 			"allocation_default_netmask_length": {
 				Type:         schema.TypeInt,
 				Optional:     true,
-				ValidateFunc: validation.IntBetween(0, 128),
+				Validate
+func: validation.IntBetween(0, 128),
 			},
 			"allocation_max_netmask_length": {
 				Type:         schema.TypeInt,
 				Optional:     true,
-				ValidateFunc: validation.IntBetween(0, 128),
+				Validate
+func: validation.IntBetween(0, 128),
 			},
 			"allocation_min_netmask_length": {
 				Type:         schema.TypeInt,
 				Optional:     true,
-				ValidateFunc: validation.IntBetween(0, 128),
+				Validate
+func: validation.IntBetween(0, 128),
 			},
 			"allocation_resource_tags": tftags.TagsSchema(),
 			"arn": {
@@ -79,7 +84,8 @@ func ResourceIPAMPool() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringInSlice(ec2.IpamPoolAwsService_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.IpamPoolAwsService_Values(), false),
 			},
 			"description": {
 				Type:     schema.TypeString,
@@ -98,7 +104,8 @@ func ResourceIPAMPool() *schema.Resource {
 				Type:     schema.TypeString,
 				Optional: true,
 				ForceNew: true,
-				ValidateFunc: validation.Any(
+				Validate
+func: validation.Any(
 					validation.StringInSlice([]string{"None"}, false),
 					verify.ValidRegionName,
 				),
@@ -112,9 +119,12 @@ func ResourceIPAMPool() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringInSlice(ec2.IpamPoolPublicIpSource_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.IpamPoolPublicIpSource_Values(), false),
 				// default is byoip when AddressFamily = ipv6
-				DiffSuppressFunc: func(k, o, n string, d *schema.ResourceData) bool {
+				DiffSuppress
+func: 
+func(k, o, n string, d *schema.ResourceData) bool {
 					if o == "byoip" && n == "" {
 						return true
 					}
@@ -141,6 +151,7 @@ func ResourceIPAMPool() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
+
 
 func resourceIPAMPoolCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -217,6 +228,7 @@ func resourceIPAMPoolCreate(ctx context.Context, d *schema.ResourceData, meta in
 	return append(diags, resourceIPAMPoolRead(ctx, d, meta)...)
 }
 
+
 func resourceIPAMPoolRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -253,6 +265,7 @@ func resourceIPAMPoolRead(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return diags
 }
+
 
 func resourceIPAMPoolUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -311,6 +324,7 @@ func resourceIPAMPoolUpdate(ctx context.Context, d *schema.ResourceData, meta in
 	return append(diags, resourceIPAMPoolRead(ctx, d, meta)...)
 }
 
+
 func resourceIPAMPoolDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -335,6 +349,7 @@ func resourceIPAMPoolDelete(ctx context.Context, d *schema.ResourceData, meta in
 	return diags
 }
 
+
 func ipamResourceTags(tags tftags.KeyValueTags) []*ec2.RequestIpamResourceTag {
 	result := make([]*ec2.RequestIpamResourceTag, 0, len(tags))
 
@@ -349,6 +364,7 @@ func ipamResourceTags(tags tftags.KeyValueTags) []*ec2.RequestIpamResourceTag {
 
 	return result
 }
+
 
 func tagsFromIPAMAllocationTags(rts []*ec2.IpamResourceTag) []*ec2.Tag {
 	if len(rts) == 0 {

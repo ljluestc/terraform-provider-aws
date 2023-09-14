@@ -35,6 +35,7 @@ import (
 )
 
 // @FrameworkResource(name="Refresh Schedule")
+
 func newResourceRefreshSchedule(_ context.Context) (resource.ResourceWithConfigure, error) {
 	return &resourceRefreshSchedule{}, nil
 }

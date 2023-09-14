@@ -39,24 +39,25 @@ func sweepClusters(region string) error {
 	input := &cloudhsmv2.DescribeClustersInput{}
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeClustersPagesWithContext(ctx, input, func(page *cloudhsmv2.DescribeClustersOutput, lastPage bool) bool {
-		if page == nil {
-			return !lastPage
-		}
-
-		for _, cluster := range page.Clusters {
-			if cluster == nil {
-				continue
+	err = conn.DescribeClustersPagesWithContext(ctx, input,
+		func(page *cloudhsmv2.DescribeClustersOutput, lastPage bool) bool {
+			if page == nil {
+				return !lastPage
 			}
 
-			r := ResourceCluster()
-			d := r.Data(nil)
-			d.SetId(aws.StringValue(cluster.ClusterId))
-			sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
-		}
+			for _, cluster := range page.Clusters {
+				if cluster == nil {
+					continue
+				}
 
-		return !lastPage
-	})
+				r := ResourceCluster()
+				d := r.Data(nil)
+				d.SetId(aws.StringValue(cluster.ClusterId))
+				sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
+			}
+
+			return !lastPage
+		})
 
 	if sweep.SkipSweepError(err) {
 		log.Printf("[WARN] Skipping CloudHSMv2 Cluster sweep for %s: %s", region, err)
@@ -86,27 +87,28 @@ func sweepHSMs(region string) error {
 	input := &cloudhsmv2.DescribeClustersInput{}
 	sweepResources := make([]sweep.Sweepable, 0)
 
-	err = conn.DescribeClustersPagesWithContext(ctx, input, func(page *cloudhsmv2.DescribeClustersOutput, lastPage bool) bool {
-		if page == nil {
+	err = conn.DescribeClustersPagesWithContext(ctx, input,
+		func(page *cloudhsmv2.DescribeClustersOutput, lastPage bool) bool {
+			if page == nil {
+				return !lastPage
+			}
+
+			for _, cluster := range page.Clusters {
+				if cluster == nil {
+					continue
+				}
+
+				for _, hsm := range cluster.Hsms {
+					r := ResourceHSM()
+					d := r.Data(nil)
+					d.SetId(aws.StringValue(hsm.HsmId))
+					d.Set("cluster_id", cluster.ClusterId)
+					sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
+				}
+			}
+
 			return !lastPage
-		}
-
-		for _, cluster := range page.Clusters {
-			if cluster == nil {
-				continue
-			}
-
-			for _, hsm := range cluster.Hsms {
-				r := ResourceHSM()
-				d := r.Data(nil)
-				d.SetId(aws.StringValue(hsm.HsmId))
-				d.Set("cluster_id", cluster.ClusterId)
-				sweepResources = append(sweepResources, sweep.NewSweepResource(r, d, client))
-			}
-		}
-
-		return !lastPage
-	})
+		})
 
 	if sweep.SkipSweepError(err) {
 		log.Printf("[WARN] Skipping CloudHSMv2 HSM sweep for %s: %s", region, err)

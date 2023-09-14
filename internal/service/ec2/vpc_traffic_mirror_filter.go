@@ -26,6 +26,7 @@ import (
 
 // @SDKResource("aws_ec2_traffic_mirror_filter", name="Traffic Mirror Filter")
 // @Tags(identifierAttribute="id")
+
 func ResourceTrafficMirrorFilter() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceTrafficMirrorFilterCreate,
@@ -52,7 +53,8 @@ func ResourceTrafficMirrorFilter() *schema.Resource {
 				Optional: true,
 				Elem: &schema.Schema{
 					Type: schema.TypeString,
-					ValidateFunc: validation.StringInSlice([]string{
+					Validate
+func: validation.StringInSlice([]string{
 						"amazon-dns",
 					}, false),
 				},
@@ -62,6 +64,7 @@ func ResourceTrafficMirrorFilter() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceTrafficMirrorFilterCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -99,6 +102,7 @@ func resourceTrafficMirrorFilterCreate(ctx context.Context, d *schema.ResourceDa
 	return append(diags, resourceTrafficMirrorFilterRead(ctx, d, meta)...)
 }
 
+
 func resourceTrafficMirrorFilterRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -131,6 +135,7 @@ func resourceTrafficMirrorFilterRead(ctx context.Context, d *schema.ResourceData
 	return diags
 }
 
+
 func resourceTrafficMirrorFilterUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -159,6 +164,7 @@ func resourceTrafficMirrorFilterUpdate(ctx context.Context, d *schema.ResourceDa
 
 	return append(diags, resourceTrafficMirrorFilterRead(ctx, d, meta)...)
 }
+
 
 func resourceTrafficMirrorFilterDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

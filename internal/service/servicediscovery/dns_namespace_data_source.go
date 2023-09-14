@@ -16,6 +16,7 @@ import (
 )
 
 // @SDKDataSource("aws_service_discovery_dns_namespace")
+
 func DataSourceDNSNamespace() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceDNSNamespaceRead,
@@ -42,7 +43,8 @@ func DataSourceDNSNamespace() *schema.Resource {
 				Type:     schema.TypeString,
 				Required: true,
 				// HTTP namespaces are handled via the aws_service_discovery_http_namespace data source.
-				ValidateFunc: validation.StringInSlice([]string{
+				Validate
+func: validation.StringInSlice([]string{
 					servicediscovery.NamespaceTypeDnsPublic,
 					servicediscovery.NamespaceTypeDnsPrivate,
 				}, false),
@@ -50,6 +52,7 @@ func DataSourceDNSNamespace() *schema.Resource {
 		},
 	}
 }
+
 
 func dataSourceDNSNamespaceRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ServiceDiscoveryConn(ctx)

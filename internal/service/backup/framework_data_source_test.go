@@ -13,6 +13,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func testAccFrameworkDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	datasourceName := "data.aws_backup_framework.test"
@@ -20,13 +21,15 @@ func testAccFrameworkDataSource_basic(t *testing.T) {
 	rName := fmt.Sprintf("tf_acc_test_%s", sdkacctest.RandString(7))
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccFrameworkPreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccFrameworkPreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, backup.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFrameworkDataSourceConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(datasourceName, "control.#", resourceName, "control.#"),
 					resource.TestCheckTypeSetElemNestedAttrs(datasourceName, "control.*", map[string]string{
@@ -66,6 +69,7 @@ func testAccFrameworkDataSource_basic(t *testing.T) {
 	})
 }
 
+
 func testAccFrameworkDataSource_controlScopeTag(t *testing.T) {
 	ctx := acctest.Context(t)
 	datasourceName := "data.aws_backup_framework.test"
@@ -73,13 +77,15 @@ func testAccFrameworkDataSource_controlScopeTag(t *testing.T) {
 	rName := fmt.Sprintf("tf_acc_test_%s", sdkacctest.RandString(7))
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccFrameworkPreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t); testAccFrameworkPreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, backup.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFrameworkDataSourceConfig_controlScopeTag(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(datasourceName, "control.#", resourceName, "control.#"),
 					resource.TestCheckResourceAttrPair(datasourceName, "control.0.name", resourceName, "control.0.name"),
@@ -98,6 +104,7 @@ func testAccFrameworkDataSource_controlScopeTag(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccFrameworkDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
@@ -180,6 +187,7 @@ data "aws_backup_framework" "test" {
 }
 `, rName)
 }
+
 
 func testAccFrameworkDataSourceConfig_controlScopeTag(rName string) string {
 	return fmt.Sprintf(`

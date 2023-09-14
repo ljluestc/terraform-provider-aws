@@ -27,6 +27,7 @@ import (
 )
 
 // @SDKResource("aws_security_group_rule")
+
 func ResourceSecurityGroupRule() *schema.Resource {
 	//lintignore:R011
 	return &schema.Resource{
@@ -53,7 +54,8 @@ func ResourceSecurityGroupRule() *schema.Resource {
 				ForceNew: true,
 				Elem: &schema.Schema{
 					Type:         schema.TypeString,
-					ValidateFunc: verify.ValidIPv4CIDRNetworkAddress,
+					Validate
+func: verify.ValidIPv4CIDRNetworkAddress,
 				},
 				ConflictsWith: []string{"source_security_group_id", "self"},
 				AtLeastOneOf:  []string{"cidr_blocks", "ipv6_cidr_blocks", "prefix_list_ids", "self", "source_security_group_id"},
@@ -61,14 +63,17 @@ func ResourceSecurityGroupRule() *schema.Resource {
 			"description": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				ValidateFunc: validSecurityGroupRuleDescription,
+				Validate
+func: validSecurityGroupRuleDescription,
 			},
 			"from_port": {
 				Type:     schema.TypeInt,
 				Required: true,
 				ForceNew: true,
 				// Support existing configurations that have non-zero from_port and to_port defined with all protocols
-				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+				DiffSuppress
+func: 
+func(k, old, new string, d *schema.ResourceData) bool {
 					protocol := ProtocolForValue(d.Get("protocol").(string))
 					if protocol == "-1" && old == "0" {
 						return true
@@ -82,7 +87,8 @@ func ResourceSecurityGroupRule() *schema.Resource {
 				ForceNew: true,
 				Elem: &schema.Schema{
 					Type:         schema.TypeString,
-					ValidateFunc: verify.ValidIPv6CIDRNetworkAddress,
+					Validate
+func: verify.ValidIPv6CIDRNetworkAddress,
 				},
 				ConflictsWith: []string{"source_security_group_id", "self"},
 				AtLeastOneOf:  []string{"cidr_blocks", "ipv6_cidr_blocks", "prefix_list_ids", "self", "source_security_group_id"},
@@ -93,7 +99,8 @@ func ResourceSecurityGroupRule() *schema.Resource {
 				ForceNew: true,
 				Elem: &schema.Schema{
 					Type:         schema.TypeString,
-					ValidateFunc: validation.NoZeroValues,
+					Validate
+func: validation.NoZeroValues,
 				},
 				AtLeastOneOf: []string{"cidr_blocks", "ipv6_cidr_blocks", "prefix_list_ids", "self", "source_security_group_id"},
 			},
@@ -101,7 +108,9 @@ func ResourceSecurityGroupRule() *schema.Resource {
 				Type:      schema.TypeString,
 				Required:  true,
 				ForceNew:  true,
-				StateFunc: ProtocolStateFunc,
+				State
+func: ProtocolState
+func,
 			},
 			"security_group_id": {
 				Type:     schema.TypeString,
@@ -133,7 +142,9 @@ func ResourceSecurityGroupRule() *schema.Resource {
 				Required: true,
 				ForceNew: true,
 				// Support existing configurations that have non-zero from_port and to_port defined with all protocols
-				DiffSuppressFunc: func(k, old, new string, d *schema.ResourceData) bool {
+				DiffSuppress
+func: 
+func(k, old, new string, d *schema.ResourceData) bool {
 					protocol := ProtocolForValue(d.Get("protocol").(string))
 					if protocol == "-1" && old == "0" {
 						return true
@@ -145,11 +156,13 @@ func ResourceSecurityGroupRule() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringInSlice(securityGroupRuleType_Values(), false),
+				Validate
+func: validation.StringInSlice(securityGroupRuleType_Values(), false),
 			},
 		},
 	}
 }
+
 
 func resourceSecurityGroupRuleCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -216,7 +229,8 @@ information and instructions for recovery. Error: %s`, securityGroupID, err)
 		return diag.Errorf("authorizing Security Group (%s) Rule (%s): %s", securityGroupID, id, err)
 	}
 
-	_, err = tfresource.RetryWhenNotFound(ctx, d.Timeout(schema.TimeoutCreate), func() (interface{}, error) {
+	_, err = tfresource.RetryWhenNotFound(ctx, d.Timeout(schema.TimeoutCreate), 
+func() (interface{}, error) {
 		sg, err := FindSecurityGroupByID(ctx, conn, securityGroupID)
 
 		if err != nil {
@@ -248,6 +262,7 @@ information and instructions for recovery. Error: %s`, securityGroupID, err)
 
 	return nil
 }
+
 
 func resourceSecurityGroupRuleRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -311,6 +326,7 @@ func resourceSecurityGroupRuleRead(ctx context.Context, d *schema.ResourceData, 
 	return nil
 }
 
+
 func resourceSecurityGroupRuleUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
@@ -354,6 +370,7 @@ func resourceSecurityGroupRuleUpdate(ctx context.Context, d *schema.ResourceData
 
 	return resourceSecurityGroupRuleRead(ctx, d, meta)
 }
+
 
 func resourceSecurityGroupRuleDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -400,8 +417,10 @@ func resourceSecurityGroupRuleDelete(ctx context.Context, d *schema.ResourceData
 	return nil
 }
 
+
 func resourceSecurityGroupRuleImport(_ context.Context, d *schema.ResourceData, _ interface{}) ([]*schema.ResourceData, error) {
-	invalidIDError := func(msg string) error {
+	invalidIDError := 
+func(msg string) error {
 		return fmt.Errorf("unexpected format for ID (%q), expected SECURITYGROUPID_TYPE_PROTOCOL_FROMPORT_TOPORT_SOURCE[_SOURCE]*: %s", d.Id(), msg)
 	}
 
@@ -496,6 +515,7 @@ func resourceSecurityGroupRuleImport(_ context.Context, d *schema.ResourceData, 
 
 	return []*schema.ResourceData{d}, nil
 }
+
 
 func findRuleMatch(p *ec2.IpPermission, rules []*ec2.IpPermission) (*ec2.IpPermission, string) {
 	var rule *ec2.IpPermission
@@ -602,6 +622,7 @@ func findRuleMatch(p *ec2.IpPermission, rules []*ec2.IpPermission) (*ec2.IpPermi
 	return rule, description
 }
 
+
 func findSecurityGroupRuleMatch(p *ec2.IpPermission, securityGroupRules []*ec2.SecurityGroupRule, ruleType string) string {
 	for _, r := range securityGroupRules {
 		if ruleType == securityGroupRuleTypeIngress && aws.BoolValue(r.IsEgress) {
@@ -657,8 +678,11 @@ const securityGroupRuleIDSeparator = "_"
 // GroupID or GroupName field (only one should be set).
 type byGroupPair []*ec2.UserIdGroupPair
 
+
 func (b byGroupPair) Len() int      { return len(b) }
+
 func (b byGroupPair) Swap(i, j int) { b[i], b[j] = b[j], b[i] }
+
 func (b byGroupPair) Less(i, j int) bool {
 	if b[i].GroupId != nil && b[j].GroupId != nil {
 		return aws.StringValue(b[i].GroupId) < aws.StringValue(b[j].GroupId)
@@ -670,6 +694,7 @@ func (b byGroupPair) Less(i, j int) bool {
 	//lintignore:R009
 	panic("mismatched security group rules, may be a terraform bug")
 }
+
 
 func SecurityGroupRuleCreateID(securityGroupID, ruleType string, ip *ec2.IpPermission) string {
 	var buf bytes.Buffer
@@ -741,7 +766,9 @@ func SecurityGroupRuleCreateID(securityGroupID, ruleType string, ip *ec2.IpPermi
 	return fmt.Sprintf("sgrule-%d", create.StringHashcode(buf.String()))
 }
 
-func expandIPPermission(d *schema.ResourceData, sg *ec2.SecurityGroup) *ec2.IpPermission { // nosemgrep:ci.caps5-in-func-name
+
+func expandIPPermission(d *schema.ResourceData, sg *ec2.SecurityGroup) *ec2.IpPermission { // nosemgrep:ci.caps5-in-
+func-name
 	apiObject := &ec2.IpPermission{
 		IpProtocol: aws.String(ProtocolForValue(d.Get("protocol").(string))),
 	}
@@ -824,7 +851,9 @@ func expandIPPermission(d *schema.ResourceData, sg *ec2.SecurityGroup) *ec2.IpPe
 	return apiObject
 }
 
-func flattenIpPermission(d *schema.ResourceData, apiObject *ec2.IpPermission) { // nosemgrep:ci.caps5-in-func-name
+
+func flattenIpPermission(d *schema.ResourceData, apiObject *ec2.IpPermission) { // nosemgrep:ci.caps5-in-
+func-name
 	if apiObject == nil {
 		return
 	}

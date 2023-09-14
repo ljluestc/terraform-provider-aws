@@ -20,6 +20,7 @@ import (
 )
 
 // @SDKResource("aws_lb_ssl_negotiation_policy")
+
 func ResourceSSLNegotiationPolicy() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceSSLNegotiationPolicyCreate,

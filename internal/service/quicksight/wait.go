@@ -23,6 +23,7 @@ const (
 )
 
 // waitCreated waits for a DataSource to return CREATION_SUCCESSFUL
+
 func waitCreated(ctx context.Context, conn *quicksight.QuickSight, accountId, dataSourceId string) (*quicksight.DataSource, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{quicksight.ResourceStatusCreationInProgress},
@@ -45,6 +46,7 @@ func waitCreated(ctx context.Context, conn *quicksight.QuickSight, accountId, da
 }
 
 // waitUpdated waits for a DataSource to return UPDATE_SUCCESSFUL
+
 func waitUpdated(ctx context.Context, conn *quicksight.QuickSight, accountId, dataSourceId string) (*quicksight.DataSource, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{quicksight.ResourceStatusUpdateInProgress},

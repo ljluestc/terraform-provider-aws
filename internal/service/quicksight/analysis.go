@@ -34,6 +34,7 @@ const (
 
 // @SDKResource("aws_quicksight_analysis", name="Analysis")
 // @Tags(identifierAttribute="arn")
+
 func ResourceAnalysis() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceAnalysisCreate,
@@ -42,7 +43,8 @@ func ResourceAnalysis() *schema.Resource {
 		DeleteWithoutTimeout: resourceAnalysisDelete,
 
 		Importer: &schema.ResourceImporter{
-			StateContext: func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+			StateContext: 
+func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 				d.Set("recovery_window_in_days", recoveryWindowInDaysDefault)
 				return []*schema.ResourceData{d}, nil
 			},
@@ -54,7 +56,9 @@ func ResourceAnalysis() *schema.Resource {
 			Delete: schema.DefaultTimeout(5 * time.Minute),
 		},
 
-		SchemaFunc: func() map[string]*schema.Schema {
+		Schema
+func: 
+func() map[string]*schema.Schema {
 			return map[string]*schema.Schema{
 				"arn": {
 					Type:     schema.TypeString,
@@ -65,7 +69,8 @@ func ResourceAnalysis() *schema.Resource {
 					Optional:     true,
 					Computed:     true,
 					ForceNew:     true,
-					ValidateFunc: verify.ValidAccountID,
+					Validate
+func: verify.ValidAccountID,
 				},
 				"created_time": {
 					Type:     schema.TypeString,
@@ -88,7 +93,8 @@ func ResourceAnalysis() *schema.Resource {
 				"name": {
 					Type:         schema.TypeString,
 					Required:     true,
-					ValidateFunc: validation.StringLenBetween(1, 2048),
+					Validate
+func: validation.StringLenBetween(1, 2048),
 				},
 				"parameters": quicksightschema.ParametersSchema(),
 				"permissions": {
@@ -108,7 +114,8 @@ func ResourceAnalysis() *schema.Resource {
 							"principal": {
 								Type:         schema.TypeString,
 								Required:     true,
-								ValidateFunc: validation.StringLenBetween(1, 256),
+								Validate
+func: validation.StringLenBetween(1, 256),
 							},
 						},
 					},
@@ -117,7 +124,8 @@ func ResourceAnalysis() *schema.Resource {
 					Type:     schema.TypeInt,
 					Optional: true,
 					Default:  30,
-					ValidateFunc: validation.Any(
+					Validate
+func: validation.Any(
 						validation.IntBetween(recoveryWindowInDaysMin, recoveryWindowInDaysMax),
 						validation.IntInSlice([]int{0}),
 					),
@@ -143,6 +151,7 @@ func ResourceAnalysis() *schema.Resource {
 const (
 	ResNameAnalysis = "Analysis"
 )
+
 
 func resourceAnalysisCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
@@ -189,6 +198,7 @@ func resourceAnalysisCreate(ctx context.Context, d *schema.ResourceData, meta in
 
 	return resourceAnalysisRead(ctx, d, meta)
 }
+
 
 func resourceAnalysisRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
@@ -253,6 +263,7 @@ func resourceAnalysisRead(ctx context.Context, d *schema.ResourceData, meta inte
 
 	return nil
 }
+
 
 func resourceAnalysisUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
@@ -321,6 +332,7 @@ func resourceAnalysisUpdate(ctx context.Context, d *schema.ResourceData, meta in
 	return resourceAnalysisRead(ctx, d, meta)
 }
 
+
 func resourceAnalysisDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
 
@@ -355,6 +367,7 @@ func resourceAnalysisDelete(ctx context.Context, d *schema.ResourceData, meta in
 	return nil
 }
 
+
 func FindAnalysisByID(ctx context.Context, conn *quicksight.QuickSight, id string) (*quicksight.Analysis, error) {
 	awsAccountId, analysisId, err := ParseAnalysisId(id)
 	if err != nil {
@@ -386,6 +399,7 @@ func FindAnalysisByID(ctx context.Context, conn *quicksight.QuickSight, id strin
 	return out.Analysis, nil
 }
 
+
 func ParseAnalysisId(id string) (string, string, error) {
 	parts := strings.SplitN(id, ",", 2)
 	if len(parts) != 2 || parts[0] == "" || parts[1] == "" {
@@ -393,6 +407,7 @@ func ParseAnalysisId(id string) (string, string, error) {
 	}
 	return parts[0], parts[1], nil
 }
+
 
 func createAnalysisId(awsAccountID, analysisId string) string {
 	return fmt.Sprintf("%s,%s", awsAccountID, analysisId)

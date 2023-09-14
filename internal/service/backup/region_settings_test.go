@@ -15,13 +15,15 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/conns"
 )
 
+
 func TestAccBackupRegionSettings_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var settings backup.DescribeRegionSettingsOutput
 	resourceName := "aws_backup_region_settings.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, fsx.EndpointsID)
 			testAccPreCheck(ctx, t)
@@ -32,7 +34,8 @@ func TestAccBackupRegionSettings_basic(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRegionSettingsConfig_1(),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckRegionSettingsExists(ctx, &settings),
 					resource.TestCheckResourceAttr(resourceName, "resource_type_opt_in_preference.%", "12"),
 					resource.TestCheckResourceAttr(resourceName, "resource_type_opt_in_preference.Aurora", "true"),
@@ -59,7 +62,8 @@ func TestAccBackupRegionSettings_basic(t *testing.T) {
 			},
 			{
 				Config: testAccRegionSettingsConfig_2(),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckRegionSettingsExists(ctx, &settings),
 					resource.TestCheckResourceAttr(resourceName, "resource_type_opt_in_preference.%", "12"),
 					resource.TestCheckResourceAttr(resourceName, "resource_type_opt_in_preference.Aurora", "false"),
@@ -81,7 +85,8 @@ func TestAccBackupRegionSettings_basic(t *testing.T) {
 			},
 			{
 				Config: testAccRegionSettingsConfig_3(),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckRegionSettingsExists(ctx, &settings),
 					resource.TestCheckResourceAttr(resourceName, "resource_type_opt_in_preference.%", "12"),
 					resource.TestCheckResourceAttr(resourceName, "resource_type_opt_in_preference.Aurora", "false"),
@@ -105,8 +110,11 @@ func TestAccBackupRegionSettings_basic(t *testing.T) {
 	})
 }
 
-func testAccCheckRegionSettingsExists(ctx context.Context, v *backup.DescribeRegionSettingsOutput) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckRegionSettingsExists(ctx context.Context, v *backup.DescribeRegionSettingsOutput) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).BackupConn(ctx)
 
 		output, err := conn.DescribeRegionSettingsWithContext(ctx, &backup.DescribeRegionSettingsInput{})
@@ -120,6 +128,7 @@ func testAccCheckRegionSettingsExists(ctx context.Context, v *backup.DescribeReg
 		return nil
 	}
 }
+
 
 func testAccRegionSettingsConfig_1() string {
 	return `
@@ -141,6 +150,7 @@ resource "aws_backup_region_settings" "test" {
 }
 `
 }
+
 
 func testAccRegionSettingsConfig_2() string {
 	return `
@@ -167,6 +177,7 @@ resource "aws_backup_region_settings" "test" {
 }
 `
 }
+
 
 func testAccRegionSettingsConfig_3() string {
 	return `

@@ -22,6 +22,7 @@ import (
 
 // @SDKResource("aws_default_route_table", name="Route Table")
 // @Tags(identifierAttribute="id")
+
 func ResourceDefaultRouteTable() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceDefaultRouteTableCreate,
@@ -73,7 +74,8 @@ func ResourceDefaultRouteTable() *schema.Resource {
 						"cidr_block": {
 							Type:         schema.TypeString,
 							Optional:     true,
-							ValidateFunc: verify.ValidIPv4CIDRNetworkAddress,
+							Validate
+func: verify.ValidIPv4CIDRNetworkAddress,
 						},
 						"destination_prefix_list_id": {
 							Type:     schema.TypeString,
@@ -82,7 +84,8 @@ func ResourceDefaultRouteTable() *schema.Resource {
 						"ipv6_cidr_block": {
 							Type:         schema.TypeString,
 							Optional:     true,
-							ValidateFunc: verify.ValidIPv6CIDRNetworkAddress,
+							Validate
+func: verify.ValidIPv6CIDRNetworkAddress,
 						},
 						//
 						// Targets.
@@ -140,6 +143,7 @@ func ResourceDefaultRouteTable() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
+
 
 func resourceDefaultRouteTableCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -243,6 +247,7 @@ func resourceDefaultRouteTableCreate(ctx context.Context, d *schema.ResourceData
 	return append(diags, resourceDefaultRouteTableRead(ctx, d, meta)...)
 }
 
+
 func resourceDefaultRouteTableRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	d.Set("default_route_table_id", d.Id())
 
@@ -250,6 +255,7 @@ func resourceDefaultRouteTableRead(ctx context.Context, d *schema.ResourceData, 
 	// This is an extra API call but saves us from trying to manually keep parity.
 	return resourceRouteTableRead(ctx, d, meta)
 }
+
 
 func resourceDefaultRouteTableImport(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)

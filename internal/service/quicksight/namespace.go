@@ -32,6 +32,7 @@ import (
 
 // @FrameworkResource(name="Namespace")
 // @Tags(identifierAttribute="arn")
+
 func newResourceNamespace(_ context.Context) (resource.ResourceWithConfigure, error) {
 	r := &resourceNamespace{}
 	r.SetDefaultCreateTimeout(2 * time.Minute)
@@ -49,9 +50,11 @@ type resourceNamespace struct {
 	framework.WithTimeouts
 }
 
+
 func (r *resourceNamespace) Metadata(_ context.Context, request resource.MetadataRequest, response *resource.MetadataResponse) {
 	response.TypeName = "aws_quicksight_namespace"
 }
+
 
 func (r *resourceNamespace) Schema(ctx context.Context, req resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
@@ -103,6 +106,7 @@ func (r *resourceNamespace) Schema(ctx context.Context, req resource.SchemaReque
 		},
 	}
 }
+
 
 func (r *resourceNamespace) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
 	conn := r.Meta().QuickSightConn(ctx)
@@ -158,6 +162,7 @@ func (r *resourceNamespace) Create(ctx context.Context, req resource.CreateReque
 	resp.Diagnostics.Append(resp.State.Set(ctx, plan)...)
 }
 
+
 func (r *resourceNamespace) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
 	conn := r.Meta().QuickSightConn(ctx)
 
@@ -201,6 +206,7 @@ func (r *resourceNamespace) Read(ctx context.Context, req resource.ReadRequest, 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &state)...)
 }
 
+
 func (r *resourceNamespace) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
 	// There is no update API, and tag updates are handled via a "before"
 	// interceptor. Copy the planned tag attributes to state to ensure
@@ -213,6 +219,7 @@ func (r *resourceNamespace) Update(ctx context.Context, req resource.UpdateReque
 
 	resp.Diagnostics.Append(resp.State.Set(ctx, &plan)...)
 }
+
 
 func (r *resourceNamespace) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
 	conn := r.Meta().QuickSightConn(ctx)
@@ -248,13 +255,16 @@ func (r *resourceNamespace) Delete(ctx context.Context, req resource.DeleteReque
 	}
 }
 
+
 func (r *resourceNamespace) ImportState(ctx context.Context, req resource.ImportStateRequest, resp *resource.ImportStateResponse) {
 	resource.ImportStatePassthroughID(ctx, path.Root("id"), req, resp)
 }
 
+
 func (r *resourceNamespace) ModifyPlan(ctx context.Context, req resource.ModifyPlanRequest, resp *resource.ModifyPlanResponse) {
 	r.SetTagsAll(ctx, req, resp)
 }
+
 
 func FindNamespaceByID(ctx context.Context, conn *quicksight.QuickSight, id string) (*quicksight.NamespaceInfoV2, error) {
 	awsAccountID, namespace, err := ParseNamespaceID(id)
@@ -286,6 +296,7 @@ func FindNamespaceByID(ctx context.Context, conn *quicksight.QuickSight, id stri
 	return out.Namespace, nil
 }
 
+
 func ParseNamespaceID(id string) (string, string, error) {
 	parts := strings.SplitN(id, ",", 3)
 	if len(parts) != 2 || parts[0] == "" || parts[1] == "" {
@@ -293,6 +304,7 @@ func ParseNamespaceID(id string) (string, string, error) {
 	}
 	return parts[0], parts[1], nil
 }
+
 
 func createNamespaceID(awsAccountID, namespace string) string {
 	return fmt.Sprintf("%s,%s", awsAccountID, namespace)
@@ -310,6 +322,7 @@ type resourceNamespaceData struct {
 	TagsAll        types.Map      `tfsdk:"tags_all"`
 	Timeouts       timeouts.Value `tfsdk:"timeouts"`
 }
+
 
 func waitNamespaceCreated(ctx context.Context, conn *quicksight.QuickSight, id string, timeout time.Duration) (*quicksight.NamespaceInfoV2, error) {
 	stateConf := &retry.StateChangeConf{
@@ -332,6 +345,7 @@ func waitNamespaceCreated(ctx context.Context, conn *quicksight.QuickSight, id s
 	return nil, err
 }
 
+
 func waitNamespaceDeleted(ctx context.Context, conn *quicksight.QuickSight, id string, timeout time.Duration) (*quicksight.NamespaceInfoV2, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{
@@ -351,8 +365,11 @@ func waitNamespaceDeleted(ctx context.Context, conn *quicksight.QuickSight, id s
 	return nil, err
 }
 
-func statusNamespace(ctx context.Context, conn *quicksight.QuickSight, id string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+
+func statusNamespace(ctx context.Context, conn *quicksight.QuickSight, id string) retry.StateRefresh
+func {
+	return 
+func() (interface{}, string, error) {
 		output, err := FindNamespaceByID(ctx, conn, id)
 
 		if tfresource.NotFound(err) {

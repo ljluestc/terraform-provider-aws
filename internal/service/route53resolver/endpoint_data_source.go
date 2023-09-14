@@ -14,6 +14,7 @@ import (
 )
 
 // @SDKDataSource("aws_route53_resolver_endpoint")
+
 func DataSourceEndpoint() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceEndpointRead,
@@ -82,23 +83,24 @@ func dataSourceEndpointRead(ctx context.Context, d *schema.ResourceData, meta in
 
 	var endpoints []*route53resolver.ResolverEndpoint
 
-	err := conn.ListResolverEndpointsPagesWithContext(ctx, input, func(page *route53resolver.ListResolverEndpointsOutput, lastPage bool) bool {
-		if page == nil {
-			return !lastPage
-		}
+	err := conn.ListResolverEndpointsPagesWithContext(ctx, input,
+		func(page *route53resolver.ListResolverEndpointsOutput, lastPage bool) bool {
+			if page == nil {
+				return !lastPage
+			}
 
-		for _, v := range page.ResolverEndpoints {
-			if endpointID != "" {
-				if aws.StringValue(v.Id) == endpointID {
+			for _, v := range page.ResolverEndpoints {
+				if endpointID != "" {
+					if aws.StringValue(v.Id) == endpointID {
+						endpoints = append(endpoints, v)
+					}
+				} else {
 					endpoints = append(endpoints, v)
 				}
-			} else {
-				endpoints = append(endpoints, v)
 			}
-		}
 
-		return !lastPage
-	})
+			return !lastPage
+		})
 
 	if err != nil {
 		return diag.Errorf("listing Route53 Resolver Endpoints: %s", err)

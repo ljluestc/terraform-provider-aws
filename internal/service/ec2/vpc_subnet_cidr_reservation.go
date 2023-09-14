@@ -22,13 +22,15 @@ import (
 )
 
 // @SDKResource("aws_ec2_subnet_cidr_reservation")
+
 func ResourceSubnetCIDRReservation() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceSubnetCIDRReservationCreate,
 		ReadWithoutTimeout:   resourceSubnetCIDRReservationRead,
 		DeleteWithoutTimeout: resourceSubnetCIDRReservationDelete,
 		Importer: &schema.ResourceImporter{
-			StateContext: func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
+			StateContext: 
+func(ctx context.Context, d *schema.ResourceData, meta interface{}) ([]*schema.ResourceData, error) {
 				parts := strings.Split(d.Id(), ":")
 				if len(parts) != 2 || parts[0] == "" || parts[1] == "" {
 					return nil, fmt.Errorf("unexpected format of ID (%q), expected SUBNET_ID:RESERVATION_ID", d.Id())
@@ -47,8 +49,10 @@ func ResourceSubnetCIDRReservation() *schema.Resource {
 				Type:             schema.TypeString,
 				Required:         true,
 				ForceNew:         true,
-				ValidateFunc:     verify.ValidCIDRNetworkAddress,
-				DiffSuppressFunc: suppressEqualCIDRBlockDiffs,
+				Validate
+func:     verify.ValidCIDRNetworkAddress,
+				DiffSuppress
+func: suppressEqualCIDRBlockDiffs,
 			},
 			"description": {
 				Type:     schema.TypeString,
@@ -63,7 +67,8 @@ func ResourceSubnetCIDRReservation() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringInSlice(ec2.SubnetCidrReservationType_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.SubnetCidrReservationType_Values(), false),
 			},
 			"subnet_id": {
 				Type:     schema.TypeString,
@@ -73,6 +78,7 @@ func ResourceSubnetCIDRReservation() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceSubnetCIDRReservationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -100,6 +106,7 @@ func resourceSubnetCIDRReservationCreate(ctx context.Context, d *schema.Resource
 	return append(diags, resourceSubnetCIDRReservationRead(ctx, d, meta)...)
 }
 
+
 func resourceSubnetCIDRReservationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -124,6 +131,7 @@ func resourceSubnetCIDRReservationRead(ctx context.Context, d *schema.ResourceDa
 
 	return diags
 }
+
 
 func resourceSubnetCIDRReservationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

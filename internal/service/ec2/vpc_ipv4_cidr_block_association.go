@@ -20,6 +20,7 @@ import (
 )
 
 // @SDKResource("aws_vpc_ipv4_cidr_block_association")
+
 func ResourceVPCIPv4CIDRBlockAssociation() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceVPCIPv4CIDRBlockAssociationCreate,
@@ -30,7 +31,8 @@ func ResourceVPCIPv4CIDRBlockAssociation() *schema.Resource {
 			StateContext: schema.ImportStatePassthroughContext,
 		},
 
-		CustomizeDiff: func(_ context.Context, diff *schema.ResourceDiff, v interface{}) error {
+		CustomizeDiff: 
+func(_ context.Context, diff *schema.ResourceDiff, v interface{}) error {
 			// cidr_block can be set by a value returned from IPAM or explicitly in config.
 			if diff.Id() != "" && diff.HasChange("cidr_block") {
 				// If netmask is set then cidr_block is derived from IPAM, ignore changes.
@@ -48,7 +50,8 @@ func ResourceVPCIPv4CIDRBlockAssociation() *schema.Resource {
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.IsCIDRNetwork(VPCCIDRMinIPv4, VPCCIDRMaxIPv4),
+				Validate
+func: validation.IsCIDRNetwork(VPCCIDRMinIPv4, VPCCIDRMaxIPv4),
 			},
 			"ipv4_ipam_pool_id": {
 				Type:     schema.TypeString,
@@ -59,7 +62,8 @@ func ResourceVPCIPv4CIDRBlockAssociation() *schema.Resource {
 				Type:         schema.TypeInt,
 				Optional:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.IntBetween(VPCCIDRMinIPv4, VPCCIDRMaxIPv4),
+				Validate
+func: validation.IntBetween(VPCCIDRMinIPv4, VPCCIDRMaxIPv4),
 			},
 			"vpc_id": {
 				Type:     schema.TypeString,
@@ -74,6 +78,7 @@ func ResourceVPCIPv4CIDRBlockAssociation() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceVPCIPv4CIDRBlockAssociationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -114,6 +119,7 @@ func resourceVPCIPv4CIDRBlockAssociationCreate(ctx context.Context, d *schema.Re
 	return append(diags, resourceVPCIPv4CIDRBlockAssociationRead(ctx, d, meta)...)
 }
 
+
 func resourceVPCIPv4CIDRBlockAssociationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -135,6 +141,7 @@ func resourceVPCIPv4CIDRBlockAssociationRead(ctx context.Context, d *schema.Reso
 
 	return diags
 }
+
 
 func resourceVPCIPv4CIDRBlockAssociationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

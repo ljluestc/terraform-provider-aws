@@ -15,6 +15,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/acctest"
 )
 
+
 func TestAccVPCRouteTableDataSource_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rtResourceName := "aws_route_table.test"
@@ -29,13 +30,15 @@ func TestAccVPCRouteTableDataSource_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCRouteTableDataSourceConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					// By tags.
 					acctest.MatchResourceAttrRegionalARN(datasource1Name, "arn", "ec2", regexache.MustCompile(`route-table/.+$`)),
 					resource.TestCheckResourceAttrPair(datasource1Name, "id", rtResourceName, "id"),
@@ -102,19 +105,22 @@ func TestAccVPCRouteTableDataSource_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCRouteTableDataSource_main(t *testing.T) {
 	ctx := acctest.Context(t)
 	datasourceName := "data.aws_route_table.test"
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCRouteTableDataSourceConfig_main(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					resource.TestCheckResourceAttrSet(datasourceName, "id"),
 					resource.TestCheckResourceAttrSet(datasourceName, "vpc_id"),
 					resource.TestCheckResourceAttr(datasourceName, "associations.0.main", "true"),
@@ -124,11 +130,15 @@ func TestAccVPCRouteTableDataSource_main(t *testing.T) {
 	})
 }
 
-// testAccCheckListHasSomeElementAttrPair is a TestCheckFunc which validates that the collection on the left has an element with an attribute value
+// testAccCheckListHasSomeElementAttrPair is a TestCheck
+func which validates that the collection on the left has an element with an attribute value
 // matching the value on the left
 // Based on TestCheckResourceAttrPair from the Terraform SDK testing framework
-func testAccCheckListHasSomeElementAttrPair(nameFirst string, resourceAttr string, elementAttr string, nameSecond string, keySecond string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckListHasSomeElementAttrPair(nameFirst string, resourceAttr string, elementAttr string, nameSecond string, keySecond string) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		isFirst, err := acctest.PrimaryInstanceState(s, nameFirst)
 		if err != nil {
 			return err
@@ -169,6 +179,7 @@ func testAccCheckListHasSomeElementAttrPair(nameFirst string, resourceAttr strin
 		return nil
 	}
 }
+
 
 func testAccVPCRouteTableDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
@@ -251,6 +262,7 @@ data "aws_route_table" "by_id" {
 }
 `, rName)
 }
+
 
 func testAccVPCRouteTableDataSourceConfig_main(rName string) string {
 	return fmt.Sprintf(`

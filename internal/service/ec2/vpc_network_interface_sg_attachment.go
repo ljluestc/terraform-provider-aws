@@ -20,6 +20,7 @@ import (
 )
 
 // @SDKResource("aws_network_interface_sg_attachment")
+
 func ResourceNetworkInterfaceSGAttachment() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceNetworkInterfaceSGAttachmentCreate,
@@ -99,9 +100,10 @@ func resourceNetworkInterfaceSGAttachmentRead(ctx context.Context, d *schema.Res
 
 	networkInterfaceID := d.Get("network_interface_id").(string)
 	sgID := d.Get("security_group_id").(string)
-	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout, func() (interface{}, error) {
-		return FindNetworkInterfaceSecurityGroup(ctx, conn, networkInterfaceID, sgID)
-	}, d.IsNewResource())
+	outputRaw, err := tfresource.RetryWhenNewResourceNotFound(ctx, ec2PropagationTimeout,
+		func() (interface{}, error) {
+			return FindNetworkInterfaceSecurityGroup(ctx, conn, networkInterfaceID, sgID)
+		}, d.IsNewResource())
 
 	if !d.IsNewResource() && tfresource.NotFound(err) {
 		log.Printf("[WARN] EC2 Network Interface (%s) Security Group (%s) Attachment not found, removing from state", networkInterfaceID, sgID)

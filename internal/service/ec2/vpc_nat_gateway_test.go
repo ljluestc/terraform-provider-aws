@@ -19,6 +19,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccVPCNATGateway_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var natGateway ec2.NatGateway
@@ -26,14 +27,16 @@ func TestAccVPCNATGateway_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckNATGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCNATGatewayConfig_basic(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckNATGatewayExists(ctx, resourceName, &natGateway),
 					resource.TestCheckResourceAttrSet(resourceName, "allocation_id"),
 					resource.TestCheckResourceAttrSet(resourceName, "association_id"),
@@ -56,6 +59,7 @@ func TestAccVPCNATGateway_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCNATGateway_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var natGateway ec2.NatGateway
@@ -63,14 +67,16 @@ func TestAccVPCNATGateway_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckNATGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCNATGatewayConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckNATGatewayExists(ctx, resourceName, &natGateway),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceNATGateway(), resourceName),
 				),
@@ -80,6 +86,7 @@ func TestAccVPCNATGateway_disappears(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCNATGateway_ConnectivityType_private(t *testing.T) {
 	ctx := acctest.Context(t)
 	var natGateway ec2.NatGateway
@@ -87,14 +94,16 @@ func TestAccVPCNATGateway_ConnectivityType_private(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckNATGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCNATGatewayConfig_connectivityType(rName, "private"),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckNATGatewayExists(ctx, resourceName, &natGateway),
 					resource.TestCheckResourceAttr(resourceName, "allocation_id", ""),
 					resource.TestCheckResourceAttr(resourceName, "association_id", ""),
@@ -116,6 +125,7 @@ func TestAccVPCNATGateway_ConnectivityType_private(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCNATGateway_privateIP(t *testing.T) {
 	ctx := acctest.Context(t)
 	var natGateway ec2.NatGateway
@@ -123,14 +133,16 @@ func TestAccVPCNATGateway_privateIP(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckNATGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCNATGatewayConfig_privateIP(rName),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckNATGatewayExists(ctx, resourceName, &natGateway),
 					resource.TestCheckResourceAttr(resourceName, "allocation_id", ""),
 					resource.TestCheckResourceAttr(resourceName, "association_id", ""),
@@ -152,6 +164,7 @@ func TestAccVPCNATGateway_privateIP(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCNATGateway_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var natGateway ec2.NatGateway
@@ -159,14 +172,16 @@ func TestAccVPCNATGateway_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckNATGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCNATGatewayConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckNATGatewayExists(ctx, resourceName, &natGateway),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
@@ -179,7 +194,8 @@ func TestAccVPCNATGateway_tags(t *testing.T) {
 			},
 			{
 				Config: testAccVPCNATGatewayConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckNATGatewayExists(ctx, resourceName, &natGateway),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
@@ -188,7 +204,8 @@ func TestAccVPCNATGateway_tags(t *testing.T) {
 			},
 			{
 				Config: testAccVPCNATGatewayConfig_tags1(rName, "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckNATGatewayExists(ctx, resourceName, &natGateway),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
@@ -198,6 +215,7 @@ func TestAccVPCNATGateway_tags(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCNATGateway_secondaryAllocationIDs(t *testing.T) {
 	ctx := acctest.Context(t)
 	var natGateway ec2.NatGateway
@@ -206,14 +224,16 @@ func TestAccVPCNATGateway_secondaryAllocationIDs(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckNATGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCNATGatewayConfig_secondaryAllocationIDs(rName, true),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckNATGatewayExists(ctx, resourceName, &natGateway),
 					resource.TestCheckResourceAttr(resourceName, "secondary_allocation_ids.#", "1"),
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "secondary_allocation_ids.*", eipResourceName, "id"),
@@ -228,7 +248,8 @@ func TestAccVPCNATGateway_secondaryAllocationIDs(t *testing.T) {
 			},
 			{
 				Config: testAccVPCNATGatewayConfig_secondaryAllocationIDs(rName, false),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckNATGatewayExists(ctx, resourceName, &natGateway),
 					resource.TestCheckResourceAttr(resourceName, "secondary_allocation_ids.#", "0"),
 					resource.TestCheckResourceAttr(resourceName, "secondary_private_ip_address_count", "0"),
@@ -237,7 +258,8 @@ func TestAccVPCNATGateway_secondaryAllocationIDs(t *testing.T) {
 			},
 			{
 				Config: testAccVPCNATGatewayConfig_secondaryAllocationIDs(rName, true),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckNATGatewayExists(ctx, resourceName, &natGateway),
 					resource.TestCheckResourceAttr(resourceName, "secondary_allocation_ids.#", "1"),
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "secondary_allocation_ids.*", eipResourceName, "id"),
@@ -249,6 +271,7 @@ func TestAccVPCNATGateway_secondaryAllocationIDs(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCNATGateway_secondaryPrivateIPAddressCount(t *testing.T) {
 	ctx := acctest.Context(t)
 	var natGateway ec2.NatGateway
@@ -258,14 +281,16 @@ func TestAccVPCNATGateway_secondaryPrivateIPAddressCount(t *testing.T) {
 	secondaryPrivateIpAddressCount := 3
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckNATGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCNATGatewayConfig_secondaryPrivateIPAddressCount(rName, secondaryPrivateIpAddressCount),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckNATGatewayExists(ctx, resourceName, &natGateway),
 					resource.TestCheckResourceAttr(resourceName, "secondary_allocation_ids.#", "0"),
 					resource.TestCheckResourceAttr(resourceName, "secondary_private_ip_address_count", strconv.Itoa(secondaryPrivateIpAddressCount)),
@@ -281,6 +306,7 @@ func TestAccVPCNATGateway_secondaryPrivateIPAddressCount(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCNATGateway_secondaryPrivateIPAddresses(t *testing.T) {
 	ctx := acctest.Context(t)
 	var natGateway ec2.NatGateway
@@ -289,14 +315,16 @@ func TestAccVPCNATGateway_secondaryPrivateIPAddresses(t *testing.T) {
 	eipResourceName := "aws_eip.secondary"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckNATGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCNATGatewayConfig_secondaryPrivateIPAddresses(rName, true),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckNATGatewayExists(ctx, resourceName, &natGateway),
 					resource.TestCheckResourceAttr(resourceName, "secondary_allocation_ids.#", "1"),
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "secondary_allocation_ids.*", eipResourceName, "id"),
@@ -312,7 +340,8 @@ func TestAccVPCNATGateway_secondaryPrivateIPAddresses(t *testing.T) {
 			},
 			{
 				Config: testAccVPCNATGatewayConfig_secondaryPrivateIPAddresses(rName, false),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckNATGatewayExists(ctx, resourceName, &natGateway),
 					resource.TestCheckResourceAttr(resourceName, "secondary_allocation_ids.#", "0"),
 					resource.TestCheckResourceAttr(resourceName, "secondary_private_ip_address_count", "0"),
@@ -321,7 +350,8 @@ func TestAccVPCNATGateway_secondaryPrivateIPAddresses(t *testing.T) {
 			},
 			{
 				Config: testAccVPCNATGatewayConfig_secondaryPrivateIPAddresses(rName, true),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckNATGatewayExists(ctx, resourceName, &natGateway),
 					resource.TestCheckResourceAttr(resourceName, "secondary_allocation_ids.#", "1"),
 					resource.TestCheckTypeSetElemAttrPair(resourceName, "secondary_allocation_ids.*", eipResourceName, "id"),
@@ -334,6 +364,7 @@ func TestAccVPCNATGateway_secondaryPrivateIPAddresses(t *testing.T) {
 	})
 }
 
+
 func TestAccVPCNATGateway_SecondaryPrivateIPAddresses_private(t *testing.T) {
 	ctx := acctest.Context(t)
 	var natGateway ec2.NatGateway
@@ -341,14 +372,16 @@ func TestAccVPCNATGateway_SecondaryPrivateIPAddresses_private(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckNATGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCNATGatewayConfig_secondaryPrivateIPAddresses_private(rName, 5),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckNATGatewayExists(ctx, resourceName, &natGateway),
 					resource.TestCheckResourceAttr(resourceName, "secondary_allocation_ids.#", "0"),
 					resource.TestCheckResourceAttr(resourceName, "secondary_private_ip_address_count", "5"),
@@ -367,7 +400,8 @@ func TestAccVPCNATGateway_SecondaryPrivateIPAddresses_private(t *testing.T) {
 			},
 			{
 				Config: testAccVPCNATGatewayConfig_secondaryPrivateIPAddresses_private(rName, 7),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckNATGatewayExists(ctx, resourceName, &natGateway),
 					resource.TestCheckResourceAttr(resourceName, "secondary_allocation_ids.#", "0"),
 					resource.TestCheckResourceAttr(resourceName, "secondary_private_ip_address_count", "7"),
@@ -383,7 +417,8 @@ func TestAccVPCNATGateway_SecondaryPrivateIPAddresses_private(t *testing.T) {
 			},
 			{
 				Config: testAccVPCNATGatewayConfig_secondaryPrivateIPAddresses_private(rName, 4),
-				Check: resource.ComposeAggregateTestCheckFunc(
+				Check: resource.ComposeAggregateTestCheck
+func(
 					testAccCheckNATGatewayExists(ctx, resourceName, &natGateway),
 					resource.TestCheckResourceAttr(resourceName, "secondary_allocation_ids.#", "0"),
 					resource.TestCheckResourceAttr(resourceName, "secondary_private_ip_address_count", "4"),
@@ -398,8 +433,11 @@ func TestAccVPCNATGateway_SecondaryPrivateIPAddresses_private(t *testing.T) {
 	})
 }
 
-func testAccCheckNATGatewayDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckNATGatewayDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).EC2Conn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -424,8 +462,11 @@ func testAccCheckNATGatewayDestroy(ctx context.Context) resource.TestCheckFunc {
 	}
 }
 
-func testAccCheckNATGatewayExists(ctx context.Context, n string, v *ec2.NatGateway) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckNATGatewayExists(ctx context.Context, n string, v *ec2.NatGateway) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -448,6 +489,7 @@ func testAccCheckNATGatewayExists(ctx context.Context, n string, v *ec2.NatGatew
 		return nil
 	}
 }
+
 
 func testAccNATGatewayConfig_base(rName string) string {
 	return fmt.Sprintf(`
@@ -497,6 +539,7 @@ resource "aws_eip" "test" {
 `, rName)
 }
 
+
 func testAccVPCNATGatewayConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccNATGatewayConfig_base(rName), `
 resource "aws_nat_gateway" "test" {
@@ -507,6 +550,7 @@ resource "aws_nat_gateway" "test" {
 }
 `)
 }
+
 
 func testAccVPCNATGatewayConfig_connectivityType(rName, connectivityType string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
@@ -521,6 +565,7 @@ resource "aws_nat_gateway" "test" {
 `, rName, connectivityType))
 }
 
+
 func testAccVPCNATGatewayConfig_privateIP(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
 resource "aws_nat_gateway" "test" {
@@ -534,6 +579,7 @@ resource "aws_nat_gateway" "test" {
 }
 `, rName))
 }
+
 
 func testAccVPCNATGatewayConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccNATGatewayConfig_base(rName), fmt.Sprintf(`
@@ -550,6 +596,7 @@ resource "aws_nat_gateway" "test" {
 `, tagKey1, tagValue1))
 }
 
+
 func testAccVPCNATGatewayConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccNATGatewayConfig_base(rName), fmt.Sprintf(`
 resource "aws_nat_gateway" "test" {
@@ -565,6 +612,7 @@ resource "aws_nat_gateway" "test" {
 }
 `, tagKey1, tagValue1, tagKey2, tagValue2))
 }
+
 
 func testAccVPCNATGatewayConfig_secondaryAllocationIDs(rName string, hasSecondary bool) string {
 	return acctest.ConfigCompose(testAccNATGatewayConfig_base(rName), fmt.Sprintf(`
@@ -590,6 +638,7 @@ resource "aws_nat_gateway" "test" {
 `, rName, hasSecondary))
 }
 
+
 func testAccVPCNATGatewayConfig_secondaryPrivateIPAddressCount(rName string, secondaryPrivateIpAddressCount int) string {
 	return acctest.ConfigCompose(testAccNATGatewayConfig_base(rName), fmt.Sprintf(`
 resource "aws_nat_gateway" "test" {
@@ -605,6 +654,7 @@ resource "aws_nat_gateway" "test" {
 }
 `, rName, secondaryPrivateIpAddressCount))
 }
+
 
 func testAccVPCNATGatewayConfig_secondaryPrivateIPAddresses(rName string, hasSecondary bool) string {
 	return acctest.ConfigCompose(testAccNATGatewayConfig_base(rName), fmt.Sprintf(`
@@ -630,6 +680,7 @@ resource "aws_nat_gateway" "test" {
 }
 `, rName, hasSecondary))
 }
+
 
 func testAccVPCNATGatewayConfig_secondaryPrivateIPAddresses_private(rName string, n int) string {
 	return acctest.ConfigCompose(testAccNATGatewayConfig_base(rName), fmt.Sprintf(`

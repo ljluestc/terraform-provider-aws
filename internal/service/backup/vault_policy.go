@@ -21,6 +21,7 @@ import (
 )
 
 // @SDKResource("aws_backup_vault_policy")
+
 func ResourceVaultPolicy() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceVaultPolicyPut,
@@ -44,10 +45,14 @@ func ResourceVaultPolicy() *schema.Resource {
 			"policy": {
 				Type:                  schema.TypeString,
 				Required:              true,
-				ValidateFunc:          validation.StringIsJSON,
-				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
+				Validate
+func:          validation.StringIsJSON,
+				DiffSuppress
+func:      verify.SuppressEquivalentPolicyDiffs,
 				DiffSuppressOnRefresh: true,
-				StateFunc: func(v interface{}) string {
+				State
+func: 
+func(v interface{}) string {
 					json, _ := structure.NormalizeJsonString(v)
 					return json
 				},
@@ -55,6 +60,7 @@ func ResourceVaultPolicy() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceVaultPolicyPut(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -82,6 +88,7 @@ func resourceVaultPolicyPut(ctx context.Context, d *schema.ResourceData, meta in
 
 	return append(diags, resourceVaultPolicyRead(ctx, d, meta)...)
 }
+
 
 func resourceVaultPolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -118,6 +125,7 @@ func resourceVaultPolicyRead(ctx context.Context, d *schema.ResourceData, meta i
 
 	return diags
 }
+
 
 func resourceVaultPolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

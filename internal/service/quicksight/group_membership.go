@@ -20,6 +20,7 @@ import (
 )
 
 // @SDKResource("aws_quicksight_group_membership", name="Group Membership")
+
 func ResourceGroupMembership() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceGroupMembershipCreate,
@@ -30,7 +31,9 @@ func ResourceGroupMembership() *schema.Resource {
 			StateContext: schema.ImportStatePassthroughContext,
 		},
 
-		SchemaFunc: func() map[string]*schema.Schema {
+		Schema
+func: 
+func() map[string]*schema.Schema {
 			return map[string]*schema.Schema{
 				"arn": {
 					Type:     schema.TypeString,
@@ -57,7 +60,8 @@ func ResourceGroupMembership() *schema.Resource {
 					Optional: true,
 					ForceNew: true,
 					Default:  "default",
-					ValidateFunc: validation.All(
+					Validate
+func: validation.All(
 						validation.StringLenBetween(1, 63),
 						validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_.-]*$`), "must contain only alphanumeric characters, hyphens, underscores, and periods"),
 					),
@@ -66,6 +70,7 @@ func ResourceGroupMembership() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceGroupMembershipCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
@@ -95,6 +100,7 @@ func resourceGroupMembershipCreate(ctx context.Context, d *schema.ResourceData, 
 
 	return resourceGroupMembershipRead(ctx, d, meta)
 }
+
 
 func resourceGroupMembershipRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
@@ -129,6 +135,7 @@ func resourceGroupMembershipRead(ctx context.Context, d *schema.ResourceData, me
 	return nil
 }
 
+
 func resourceGroupMembershipDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
 
@@ -153,6 +160,7 @@ func resourceGroupMembershipDelete(ctx context.Context, d *schema.ResourceData, 
 
 	return nil
 }
+
 
 func GroupMembershipParseID(id string) (string, string, string, string, error) {
 	parts := strings.SplitN(id, "/", 4)

@@ -22,6 +22,7 @@ import (
 	tfquicksight "github.com/hashicorp/terraform-provider-aws/internal/service/quicksight"
 )
 
+
 func TestAccQuickSightDataSet_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var dataSet quicksight.DataSet
@@ -30,14 +31,16 @@ func TestAccQuickSightDataSet_basic(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDataSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSetConfigBasic(rId, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckDataSetExists(ctx, resourceName, &dataSet),
 					resource.TestCheckResourceAttr(resourceName, "data_set_id", rId),
 					acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "quicksight", fmt.Sprintf("dataset/%s", rId)),
@@ -59,6 +62,7 @@ func TestAccQuickSightDataSet_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccQuickSightDataSet_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var dataSet quicksight.DataSet
@@ -67,14 +71,16 @@ func TestAccQuickSightDataSet_disappears(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDataSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSetConfigBasic(rId, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckDataSetExists(ctx, resourceName, &dataSet),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfquicksight.ResourceDataSet(), resourceName),
 				),
@@ -84,6 +90,7 @@ func TestAccQuickSightDataSet_disappears(t *testing.T) {
 	})
 }
 
+
 func TestAccQuickSightDataSet_columnGroups(t *testing.T) {
 	ctx := acctest.Context(t)
 	var dataSet quicksight.DataSet
@@ -92,14 +99,16 @@ func TestAccQuickSightDataSet_columnGroups(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDataSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSetConfigColumnGroups(rId, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckDataSetExists(ctx, resourceName, &dataSet),
 					resource.TestCheckResourceAttr(resourceName, "column_groups.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "column_groups.0.geo_spatial_column_group.#", "1"),
@@ -118,6 +127,7 @@ func TestAccQuickSightDataSet_columnGroups(t *testing.T) {
 	})
 }
 
+
 func TestAccQuickSightDataSet_columnLevelPermissionRules(t *testing.T) {
 	ctx := acctest.Context(t)
 	var dataSet quicksight.DataSet
@@ -126,14 +136,16 @@ func TestAccQuickSightDataSet_columnLevelPermissionRules(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDataSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSetConfigColumnLevelPermissionRules(rId, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckDataSetExists(ctx, resourceName, &dataSet),
 				),
 			},
@@ -146,6 +158,7 @@ func TestAccQuickSightDataSet_columnLevelPermissionRules(t *testing.T) {
 	})
 }
 
+
 func TestAccQuickSightDataSet_dataSetUsageConfiguration(t *testing.T) {
 	ctx := acctest.Context(t)
 	var dataSet quicksight.DataSet
@@ -154,14 +167,16 @@ func TestAccQuickSightDataSet_dataSetUsageConfiguration(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDataSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSetConfigDataSetUsageConfiguration(rId, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckDataSetExists(ctx, resourceName, &dataSet),
 					resource.TestCheckResourceAttr(resourceName, "data_set_usage_configuration.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "data_set_usage_configuration.0.disable_use_as_direct_query_source", "false"),
@@ -177,6 +192,7 @@ func TestAccQuickSightDataSet_dataSetUsageConfiguration(t *testing.T) {
 	})
 }
 
+
 func TestAccQuickSightDataSet_fieldFolders(t *testing.T) {
 	ctx := acctest.Context(t)
 	var dataSet quicksight.DataSet
@@ -185,14 +201,16 @@ func TestAccQuickSightDataSet_fieldFolders(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDataSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSetConfigFieldFolders(rId, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckDataSetExists(ctx, resourceName, &dataSet),
 					resource.TestCheckResourceAttr(resourceName, "field_folders.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "field_folders.0.columns.#", "1"),
@@ -209,6 +227,7 @@ func TestAccQuickSightDataSet_fieldFolders(t *testing.T) {
 	})
 }
 
+
 func TestAccQuickSightDataSet_logicalTableMap(t *testing.T) {
 	ctx := acctest.Context(t)
 	var dataSet quicksight.DataSet
@@ -217,14 +236,16 @@ func TestAccQuickSightDataSet_logicalTableMap(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDataSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSetConfigLogicalTableMap(rId, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckDataSetExists(ctx, resourceName, &dataSet),
 					resource.TestCheckResourceAttr(resourceName, "logical_table_map.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "logical_table_map.0.alias", "Group1"),
@@ -241,7 +262,8 @@ func TestAccQuickSightDataSet_logicalTableMap(t *testing.T) {
 			},
 			{
 				Config: testAccDataSetConfigUpdateLogicalTableMap(rId, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckDataSetExists(ctx, resourceName, &dataSet),
 					resource.TestCheckResourceAttr(resourceName, "logical_table_map.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "logical_table_map.0.alias", "Group1"),
@@ -261,6 +283,7 @@ func TestAccQuickSightDataSet_logicalTableMap(t *testing.T) {
 	})
 }
 
+
 func TestAccQuickSightDataSet_permissions(t *testing.T) {
 	ctx := acctest.Context(t)
 	var dataSet quicksight.DataSet
@@ -269,14 +292,16 @@ func TestAccQuickSightDataSet_permissions(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDataSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSetConfigPermissions(rId, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckDataSetExists(ctx, resourceName, &dataSet),
 					resource.TestCheckResourceAttr(resourceName, "permissions.#", "1"),
 					resource.TestMatchTypeSetElemNestedAttrs(resourceName, "permissions.*", map[string]*regexp.Regexp{
@@ -296,7 +321,8 @@ func TestAccQuickSightDataSet_permissions(t *testing.T) {
 			},
 			{
 				Config: testAccDataSetConfigUpdatePermissions(rId, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckDataSetExists(ctx, resourceName, &dataSet),
 					resource.TestCheckResourceAttr(resourceName, "permissions.#", "1"),
 					resource.TestMatchTypeSetElemNestedAttrs(resourceName, "permissions.*", map[string]*regexp.Regexp{
@@ -321,7 +347,8 @@ func TestAccQuickSightDataSet_permissions(t *testing.T) {
 			},
 			{
 				Config: testAccDataSetConfigBasic(rId, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckDataSetExists(ctx, resourceName, &dataSet),
 					resource.TestCheckResourceAttr(resourceName, "permission.#", "0"),
 				),
@@ -329,6 +356,7 @@ func TestAccQuickSightDataSet_permissions(t *testing.T) {
 		},
 	})
 }
+
 
 func TestAccQuickSightDataSet_permissionsMultiple(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -338,14 +366,16 @@ func TestAccQuickSightDataSet_permissionsMultiple(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDataSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSetConfigPermissionsMultiple(rId, rName, 3),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckDataSetExists(ctx, resourceName, &dataSet),
 					resource.TestCheckResourceAttr(resourceName, "permissions.#", "3"),
 					resource.TestMatchTypeSetElemNestedAttrs(resourceName, "permissions.*", map[string]*regexp.Regexp{
@@ -367,6 +397,7 @@ func TestAccQuickSightDataSet_permissionsMultiple(t *testing.T) {
 	})
 }
 
+
 func TestAccQuickSightDataSet_rowLevelPermissionTagConfiguration(t *testing.T) {
 	ctx := acctest.Context(t)
 	var dataSet quicksight.DataSet
@@ -375,14 +406,16 @@ func TestAccQuickSightDataSet_rowLevelPermissionTagConfiguration(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDataSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSetConfigRowLevelPermissionTagConfiguration(rId, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckDataSetExists(ctx, resourceName, &dataSet),
 					resource.TestCheckResourceAttr(resourceName, "row_level_permission_tag_configuration.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "row_level_permission_tag_configuration.0.tag_rules.#", "1"),
@@ -402,6 +435,7 @@ func TestAccQuickSightDataSet_rowLevelPermissionTagConfiguration(t *testing.T) {
 	})
 }
 
+
 func TestAccQuickSightDataSet_refreshProperties(t *testing.T) {
 	ctx := acctest.Context(t)
 	// This test requires additional configuration of the QuickSight service role. Ensure
@@ -420,14 +454,16 @@ func TestAccQuickSightDataSet_refreshProperties(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDataSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSetConfigRefreshProperties(rId, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckDataSetExists(ctx, resourceName, &dataSet),
 					resource.TestCheckResourceAttr(resourceName, "refresh_properties.#", "1"),
 					resource.TestCheckResourceAttr(resourceName, "refresh_properties.0.refresh_configuration.#", "1"),
@@ -447,6 +483,7 @@ func TestAccQuickSightDataSet_refreshProperties(t *testing.T) {
 	})
 }
 
+
 func TestAccQuickSightDataSet_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var dataSet quicksight.DataSet
@@ -455,14 +492,16 @@ func TestAccQuickSightDataSet_tags(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDataSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSetConfigTags1(rId, rName, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckDataSetExists(ctx, resourceName, &dataSet),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
@@ -475,7 +514,8 @@ func TestAccQuickSightDataSet_tags(t *testing.T) {
 			},
 			{
 				Config: testAccDataSetConfigTags2(rId, rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckDataSetExists(ctx, resourceName, &dataSet),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
@@ -484,7 +524,8 @@ func TestAccQuickSightDataSet_tags(t *testing.T) {
 			},
 			{
 				Config: testAccDataSetConfigTags1(rId, rName, "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckDataSetExists(ctx, resourceName, &dataSet),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
@@ -494,6 +535,7 @@ func TestAccQuickSightDataSet_tags(t *testing.T) {
 	})
 }
 
+
 func TestAccQuickSightDataSet_noPhysicalTableMap(t *testing.T) {
 	ctx := acctest.Context(t)
 	var dataSet quicksight.DataSet
@@ -502,14 +544,16 @@ func TestAccQuickSightDataSet_noPhysicalTableMap(t *testing.T) {
 	rId := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDataSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSetConfigNoPhysicalTableMap(rId, rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckDataSetExists(ctx, resourceName, &dataSet),
 					resource.TestCheckResourceAttr(resourceName, "data_set_id", rId),
 					acctest.CheckResourceAttrRegionalARN(resourceName, "arn", "quicksight", fmt.Sprintf("dataset/%s", rId)),
@@ -534,8 +578,11 @@ func TestAccQuickSightDataSet_noPhysicalTableMap(t *testing.T) {
 	})
 }
 
-func testAccCheckDataSetExists(ctx context.Context, resourceName string, dataSet *quicksight.DataSet) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckDataSetExists(ctx context.Context, resourceName string, dataSet *quicksight.DataSet) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[resourceName]
 		if !ok {
 			return fmt.Errorf("Not found: %s", resourceName)
@@ -567,8 +614,11 @@ func testAccCheckDataSetExists(ctx context.Context, resourceName string, dataSet
 	}
 }
 
-func testAccCheckDataSetDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckDataSetDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
 		for _, rs := range s.RootModule().Resources {
 			if rs.Type != "aws_quicksight_data_set" {
@@ -599,6 +649,7 @@ func testAccCheckDataSetDestroy(ctx context.Context) resource.TestCheckFunc {
 	}
 }
 
+
 func testAccDataSetConfigBase(rId string, rName string) string {
 	return acctest.ConfigCompose(
 		testAccBaseDataSourceConfig(rName),
@@ -620,6 +671,7 @@ resource "aws_quicksight_data_source" "test" {
 }
 `, rId, rName))
 }
+
 
 func testAccDataSetConfigBasic(rId, rName string) string {
 	return acctest.ConfigCompose(
@@ -646,6 +698,7 @@ resource "aws_quicksight_data_set" "test" {
 }
 `, rId, rName))
 }
+
 
 func testAccDataSetConfigColumnGroups(rId, rName string) string {
 	return acctest.ConfigCompose(
@@ -695,6 +748,7 @@ resource "aws_quicksight_data_set" "test" {
 `, rId, rName))
 }
 
+
 func testAccDataSetConfigColumnLevelPermissionRules(rId, rName string) string {
 	return acctest.ConfigCompose(
 		testAccDataSetConfigBase(rId, rName),
@@ -726,6 +780,7 @@ resource "aws_quicksight_data_set" "test" {
 `, rId, rName))
 }
 
+
 func testAccDataSetConfigDataSetUsageConfiguration(rId, rName string) string {
 	return acctest.ConfigCompose(
 		testAccDataSetConfigBase(rId, rName),
@@ -755,6 +810,7 @@ resource "aws_quicksight_data_set" "test" {
 }
 `, rId, rName))
 }
+
 
 func testAccDataSetConfigFieldFolders(rId, rName string) string {
 	return acctest.ConfigCompose(
@@ -787,6 +843,7 @@ resource "aws_quicksight_data_set" "test" {
 `, rId, rName))
 }
 
+
 func testAccDataSetConfigLogicalTableMap(rId, rName string) string {
 	return acctest.ConfigCompose(
 		testAccDataSetConfigBase(rId, rName),
@@ -817,6 +874,7 @@ resource "aws_quicksight_data_set" "test" {
 }
 `, rId, rName))
 }
+
 
 func testAccDataSetConfigUpdateLogicalTableMap(rId, rName string) string {
 	return acctest.ConfigCompose(
@@ -858,6 +916,7 @@ resource "aws_quicksight_data_set" "test" {
 `, rId, rName))
 }
 
+
 func testAccDataSetConfigPermissions(rId, rName string) string {
 	return acctest.ConfigCompose(
 		testAccDataSetConfigBase(rId, rName),
@@ -894,6 +953,7 @@ resource "aws_quicksight_data_set" "test" {
 }
 `, rId, rName))
 }
+
 
 func testAccDataSetConfigUpdatePermissions(rId, rName string) string {
 	return acctest.ConfigCompose(
@@ -937,6 +997,7 @@ resource "aws_quicksight_data_set" "test" {
 `, rId, rName))
 }
 
+
 func testAccDataSetConfigPermissionsMultiple(rId, rName string, count int) string {
 	return acctest.ConfigCompose(
 		testAccDataSetConfigBase(rId, rName),
@@ -978,6 +1039,7 @@ resource "aws_quicksight_data_set" "test" {
 `, rId, rName))
 }
 
+
 func testAccDataSetConfigRowLevelPermissionTagConfiguration(rId, rName string) string {
 	return acctest.ConfigCompose(
 		testAccDataSetConfigBase(rId, rName),
@@ -1012,6 +1074,7 @@ resource "aws_quicksight_data_set" "test" {
 }
 `, rId, rName))
 }
+
 
 func testAccDataSetConfigRefreshProperties(rId, rName string) string {
 	// NOTE: Must use Athena data source here as incremental refresh is not supported by S3
@@ -1098,6 +1161,7 @@ resource "aws_quicksight_data_set" "test" {
 `, rId, rName))
 }
 
+
 func testAccDataSetConfigTags1(rId, rName, key1, value1 string) string {
 	return acctest.ConfigCompose(
 		testAccDataSetConfigBase(rId, rName),
@@ -1126,6 +1190,7 @@ resource "aws_quicksight_data_set" "test" {
 }
 `, rId, rName, key1, value1))
 }
+
 
 func testAccDataSetConfigTags2(rId, rName, key1, value1, key2, value2 string) string {
 	return acctest.ConfigCompose(
@@ -1156,6 +1221,7 @@ resource "aws_quicksight_data_set" "test" {
 }
 `, rId, rName, key1, value1, key2, value2))
 }
+
 
 func testAccDataSetConfigNoPhysicalTableMap(rId, rName string) string {
 	return acctest.ConfigCompose(

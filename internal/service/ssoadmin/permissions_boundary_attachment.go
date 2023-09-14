@@ -24,6 +24,7 @@ import (
 )
 
 // @SDKResource("aws_ssoadmin_permissions_boundary_attachment")
+
 func ResourcePermissionsBoundaryAttachment() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourcePermissionsBoundaryAttachmentCreate,
@@ -44,13 +45,15 @@ func ResourcePermissionsBoundaryAttachment() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			"permission_set_arn": {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			"permissions_boundary": {
 				Type:     schema.TypeList,
@@ -70,14 +73,16 @@ func ResourcePermissionsBoundaryAttachment() *schema.Resource {
 										Type:         schema.TypeString,
 										Required:     true,
 										ForceNew:     true,
-										ValidateFunc: validation.StringLenBetween(0, 128),
+										Validate
+func: validation.StringLenBetween(0, 128),
 									},
 									"path": {
 										Type:         schema.TypeString,
 										Optional:     true,
 										Default:      "/",
 										ForceNew:     true,
-										ValidateFunc: validation.StringLenBetween(0, 512),
+										Validate
+func: validation.StringLenBetween(0, 512),
 									},
 								},
 							},
@@ -87,7 +92,8 @@ func ResourcePermissionsBoundaryAttachment() *schema.Resource {
 							Optional:     true,
 							Default:      "",
 							ForceNew:     true,
-							ValidateFunc: validation.StringLenBetween(0, 2048),
+							Validate
+func: validation.StringLenBetween(0, 2048),
 						},
 					},
 				},
@@ -95,6 +101,7 @@ func ResourcePermissionsBoundaryAttachment() *schema.Resource {
 		},
 	}
 }
+
 
 func resourcePermissionsBoundaryAttachmentCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -126,6 +133,7 @@ func resourcePermissionsBoundaryAttachmentCreate(ctx context.Context, d *schema.
 	return append(diags, resourcePermissionsBoundaryAttachmentRead(ctx, d, meta)...)
 }
 
+
 func resourcePermissionsBoundaryAttachmentRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).SSOAdminConn(ctx)
@@ -155,6 +163,7 @@ func resourcePermissionsBoundaryAttachmentRead(ctx context.Context, d *schema.Re
 
 	return diags
 }
+
 
 func resourcePermissionsBoundaryAttachmentDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -190,12 +199,14 @@ func resourcePermissionsBoundaryAttachmentDelete(ctx context.Context, d *schema.
 
 const permissionsBoundaryAttachmentIDSeparator = ","
 
+
 func PermissionsBoundaryAttachmentCreateResourceID(permissionSetARN, instanceARN string) string {
 	parts := []string{permissionSetARN, instanceARN}
 	id := strings.Join(parts, permissionsBoundaryAttachmentIDSeparator)
 
 	return id
 }
+
 
 func PermissionsBoundaryAttachmentParseResourceID(id string) (string, string, error) {
 	parts := strings.Split(id, permissionsBoundaryAttachmentIDSeparator)
@@ -206,6 +217,7 @@ func PermissionsBoundaryAttachmentParseResourceID(id string) (string, string, er
 
 	return "", "", fmt.Errorf("unexpected format for ID (%[1]s), expected PERMISSION_SET_ARN%[2]sINSTANCE_ARN", id, permissionsBoundaryAttachmentIDSeparator)
 }
+
 
 func FindPermissionsBoundary(ctx context.Context, conn *ssoadmin.SSOAdmin, permissionSetARN, instanceARN string) (*ssoadmin.PermissionsBoundary, error) {
 	input := &ssoadmin.GetPermissionsBoundaryForPermissionSetInput{
@@ -233,6 +245,7 @@ func FindPermissionsBoundary(ctx context.Context, conn *ssoadmin.SSOAdmin, permi
 	return output.PermissionsBoundary, nil
 }
 
+
 func expandPermissionsBoundary(tfMap map[string]interface{}) *ssoadmin.PermissionsBoundary {
 	if tfMap == nil {
 		return nil
@@ -251,6 +264,7 @@ func expandPermissionsBoundary(tfMap map[string]interface{}) *ssoadmin.Permissio
 
 	return apiObject
 }
+
 
 func flattenPermissionsBoundary(apiObject *ssoadmin.PermissionsBoundary) map[string]interface{} {
 	if apiObject == nil {

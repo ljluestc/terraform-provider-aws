@@ -33,6 +33,7 @@ import (
 
 // @FrameworkResource(name="Instance Connect Endpoint")
 // @Tags(identifierAttribute="id")
+
 func newResourceInstanceConnectEndpoint(context.Context) (resource.ResourceWithConfigure, error) {
 	r := &resourceInstanceConnectEndpoint{}
 	r.SetDefaultCreateTimeout(10 * time.Minute)

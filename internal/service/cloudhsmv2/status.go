@@ -12,8 +12,11 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func statusCluster(ctx context.Context, conn *cloudhsmv2.CloudHSMV2, id string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+
+func statusCluster(ctx context.Context, conn *cloudhsmv2.CloudHSMV2, id string) retry.StateRefresh
+func {
+	return 
+func() (interface{}, string, error) {
 		output, err := FindClusterByID(ctx, conn, id)
 
 		if tfresource.NotFound(err) {
@@ -28,8 +31,11 @@ func statusCluster(ctx context.Context, conn *cloudhsmv2.CloudHSMV2, id string) 
 	}
 }
 
-func statusHSM(ctx context.Context, conn *cloudhsmv2.CloudHSMV2, id string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+
+func statusHSM(ctx context.Context, conn *cloudhsmv2.CloudHSMV2, id string) retry.StateRefresh
+func {
+	return 
+func() (interface{}, string, error) {
 		output, err := FindHSMByTwoPartKey(ctx, conn, id, "")
 
 		if tfresource.NotFound(err) {

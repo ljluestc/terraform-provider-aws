@@ -14,6 +14,7 @@ import (
 )
 
 // FindReportGroupByARN returns the Report Group corresponding to the specified Arn.
+
 func FindReportGroupByARN(ctx context.Context, conn *codebuild.CodeBuild, arn string) (*codebuild.ReportGroup, error) {
 	output, err := conn.BatchGetReportGroupsWithContext(ctx, &codebuild.BatchGetReportGroupsInput{
 		ReportGroupArns: aws.StringSlice([]string{arn}),

@@ -13,8 +13,11 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
-func statusVPCStateV2(ctx context.Context, conn *ec2.Client, id string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+
+func statusVPCStateV2(ctx context.Context, conn *ec2.Client, id string) retry.StateRefresh
+func {
+	return 
+func() (interface{}, string, error) {
 		output, err := findVPCByIDV2(ctx, conn, id)
 
 		if tfresource.NotFound(err) {
@@ -29,8 +32,11 @@ func statusVPCStateV2(ctx context.Context, conn *ec2.Client, id string) retry.St
 	}
 }
 
-func statusVPCIPv6CIDRBlockAssociationStateV2(ctx context.Context, conn *ec2.Client, id string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+
+func statusVPCIPv6CIDRBlockAssociationStateV2(ctx context.Context, conn *ec2.Client, id string) retry.StateRefresh
+func {
+	return 
+func() (interface{}, string, error) {
 		output, _, err := findVPCIPv6CIDRBlockAssociationByIDV2(ctx, conn, id)
 
 		if tfresource.NotFound(err) {
@@ -45,8 +51,11 @@ func statusVPCIPv6CIDRBlockAssociationStateV2(ctx context.Context, conn *ec2.Cli
 	}
 }
 
-func statusVPCAttributeValueV2(ctx context.Context, conn *ec2.Client, id string, attribute awstypes.VpcAttributeName) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+
+func statusVPCAttributeValueV2(ctx context.Context, conn *ec2.Client, id string, attribute awstypes.VpcAttributeName) retry.StateRefresh
+func {
+	return 
+func() (interface{}, string, error) {
 		attributeValue, err := findVPCAttributeV2(ctx, conn, id, attribute)
 
 		if tfresource.NotFound(err) {

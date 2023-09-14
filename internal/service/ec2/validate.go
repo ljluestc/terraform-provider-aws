@@ -30,6 +30,7 @@ func validSecurityGroupRuleDescription(v interface{}, k string) (ws []string, er
 
 // validNestedExactlyOneOf is called on the map representing a nested schema element
 // Once ExactlyOneOf is supported for nested elements, this should be deprecated.
+
 func validNestedExactlyOneOf(m map[string]interface{}, valid []string) error {
 	specified := make([]string, 0)
 	for _, k := range valid {

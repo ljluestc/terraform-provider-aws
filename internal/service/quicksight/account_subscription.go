@@ -24,8 +24,10 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
-// Function annotations are used for resource registration to the Provider. DO NOT EDIT.
+// 
+function annotations are used for resource registration to the Provider. DO NOT EDIT.
 // @SDKResource("aws_quicksight_account_subscription", name="Account Subscription")
+
 func ResourceAccountSubscription() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceAccountSubscriptionCreate,
@@ -38,7 +40,9 @@ func ResourceAccountSubscription() *schema.Resource {
 			Delete: schema.DefaultTimeout(10 * time.Minute),
 		},
 
-		SchemaFunc: func() map[string]*schema.Schema {
+		Schema
+func: 
+func() map[string]*schema.Schema {
 			return map[string]*schema.Schema{
 				"account_name": {
 					Type:     schema.TypeString,
@@ -65,7 +69,8 @@ func ResourceAccountSubscription() *schema.Resource {
 					Type:         schema.TypeString,
 					Required:     true,
 					ForceNew:     true,
-					ValidateFunc: validation.StringInSlice(quicksight.AuthenticationMethodOption_Values(), false),
+					Validate
+func: validation.StringInSlice(quicksight.AuthenticationMethodOption_Values(), false),
 				},
 				"author_group": {
 					Type:     schema.TypeList,
@@ -79,7 +84,8 @@ func ResourceAccountSubscription() *schema.Resource {
 					Optional:     true,
 					Computed:     true,
 					ForceNew:     true,
-					ValidateFunc: verify.ValidAccountID,
+					Validate
+func: verify.ValidAccountID,
 				},
 				"contact_number": {
 					Type:     schema.TypeString,
@@ -95,7 +101,8 @@ func ResourceAccountSubscription() *schema.Resource {
 					Type:         schema.TypeString,
 					Required:     true,
 					ForceNew:     true,
-					ValidateFunc: validation.StringInSlice(quicksight.Edition_Values(), false),
+					Validate
+func: validation.StringInSlice(quicksight.Edition_Values(), false),
 				},
 				"email_address": {
 					Type:     schema.TypeString,
@@ -137,6 +144,7 @@ func ResourceAccountSubscription() *schema.Resource {
 const (
 	ResNameAccountSubscription = "Account Subscription"
 )
+
 
 func resourceAccountSubscriptionCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
@@ -212,6 +220,7 @@ func resourceAccountSubscriptionCreate(ctx context.Context, d *schema.ResourceDa
 	return resourceAccountSubscriptionRead(ctx, d, meta)
 }
 
+
 func resourceAccountSubscriptionRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
 
@@ -240,6 +249,7 @@ func resourceAccountSubscriptionRead(ctx context.Context, d *schema.ResourceData
 
 	return nil
 }
+
 
 func resourceAccountSubscriptionDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).QuickSightConn(ctx)
@@ -274,6 +284,7 @@ const (
 	statusUnsuscribed             = "UNSUBSCRIBED"
 )
 
+
 func waitAccountSubscriptionCreated(ctx context.Context, conn *quicksight.QuickSight, id string, timeout time.Duration) (*quicksight.AccountInfo, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending:                   []string{statusSignupAttemptInProgress},
@@ -292,6 +303,7 @@ func waitAccountSubscriptionCreated(ctx context.Context, conn *quicksight.QuickS
 	return nil, err
 }
 
+
 func waitAccountSubscriptionDeleted(ctx context.Context, conn *quicksight.QuickSight, id string, timeout time.Duration) (*quicksight.AccountInfo, error) {
 	stateConf := &retry.StateChangeConf{
 		Pending: []string{statusCreated, statusOk, statusUnsuscribeInProgress},
@@ -308,8 +320,11 @@ func waitAccountSubscriptionDeleted(ctx context.Context, conn *quicksight.QuickS
 	return nil, err
 }
 
-func statusAccountSubscription(ctx context.Context, conn *quicksight.QuickSight, id string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+
+func statusAccountSubscription(ctx context.Context, conn *quicksight.QuickSight, id string) retry.StateRefresh
+func {
+	return 
+func() (interface{}, string, error) {
 		out, err := FindAccountSubscriptionByID(ctx, conn, id)
 		if tfresource.NotFound(err) {
 			return nil, "", nil
@@ -322,6 +337,7 @@ func statusAccountSubscription(ctx context.Context, conn *quicksight.QuickSight,
 		return out, *out.AccountSubscriptionStatus, nil
 	}
 }
+
 
 func FindAccountSubscriptionByID(ctx context.Context, conn *quicksight.QuickSight, id string) (*quicksight.AccountInfo, error) {
 	in := &quicksight.DescribeAccountSubscriptionInput{

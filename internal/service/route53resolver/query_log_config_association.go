@@ -20,6 +20,7 @@ import (
 )
 
 // @SDKResource("aws_route53_resolver_query_log_config_association")
+
 func ResourceQueryLogConfigAssociation() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceQueryLogConfigAssociationCreate,
@@ -45,6 +46,7 @@ func ResourceQueryLogConfigAssociation() *schema.Resource {
 	}
 }
 
+
 func resourceQueryLogConfigAssociationCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
 
@@ -68,6 +70,7 @@ func resourceQueryLogConfigAssociationCreate(ctx context.Context, d *schema.Reso
 	return resourceQueryLogConfigAssociationRead(ctx, d, meta)
 }
 
+
 func resourceQueryLogConfigAssociationRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
 
@@ -88,6 +91,7 @@ func resourceQueryLogConfigAssociationRead(ctx context.Context, d *schema.Resour
 
 	return nil
 }
+
 
 func resourceQueryLogConfigAssociationDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).Route53ResolverConn(ctx)
@@ -112,6 +116,7 @@ func resourceQueryLogConfigAssociationDelete(ctx context.Context, d *schema.Reso
 
 	return nil
 }
+
 
 func FindResolverQueryLogConfigAssociationByID(ctx context.Context, conn *route53resolver.Route53Resolver, id string) (*route53resolver.ResolverQueryLogConfigAssociation, error) {
 	input := &route53resolver.GetResolverQueryLogConfigAssociationInput{
@@ -138,8 +143,11 @@ func FindResolverQueryLogConfigAssociationByID(ctx context.Context, conn *route5
 	return output.ResolverQueryLogConfigAssociation, nil
 }
 
-func statusQueryLogConfigAssociation(ctx context.Context, conn *route53resolver.Route53Resolver, id string) retry.StateRefreshFunc {
-	return func() (interface{}, string, error) {
+
+func statusQueryLogConfigAssociation(ctx context.Context, conn *route53resolver.Route53Resolver, id string) retry.StateRefresh
+func {
+	return 
+func() (interface{}, string, error) {
 		output, err := FindResolverQueryLogConfigAssociationByID(ctx, conn, id)
 
 		if tfresource.NotFound(err) {
@@ -158,6 +166,7 @@ const (
 	queryLogConfigAssociationCreatedTimeout = 5 * time.Minute
 	queryLogConfigAssociationDeletedTimeout = 5 * time.Minute
 )
+
 
 func waitQueryLogConfigAssociationCreated(ctx context.Context, conn *route53resolver.Route53Resolver, id string) (*route53resolver.ResolverQueryLogConfigAssociation, error) {
 	stateConf := &retry.StateChangeConf{
@@ -179,6 +188,7 @@ func waitQueryLogConfigAssociationCreated(ctx context.Context, conn *route53reso
 
 	return nil, err
 }
+
 
 func waitQueryLogConfigAssociationDeleted(ctx context.Context, conn *route53resolver.Route53Resolver, id string) (*route53resolver.ResolverQueryLogConfigAssociation, error) {
 	stateConf := &retry.StateChangeConf{

@@ -18,6 +18,7 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/internal/tfresource"
 )
 
+
 func TestAccELBBackendServerPolicy_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -29,14 +30,16 @@ func TestAccELBBackendServerPolicy_basic(t *testing.T) {
 	resourceName := "aws_load_balancer_backend_server_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, elb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckBackendServerPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBackendServerPolicyConfig_basic(rName, privateKey1, certificate, publicKey1, publicKey2),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckBackendServerPolicyExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "instance_port", "443"),
 					resource.TestCheckResourceAttr(resourceName, "policy_names.#", "1"),
@@ -46,6 +49,7 @@ func TestAccELBBackendServerPolicy_basic(t *testing.T) {
 		},
 	})
 }
+
 
 func TestAccELBBackendServerPolicy_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -58,14 +62,16 @@ func TestAccELBBackendServerPolicy_disappears(t *testing.T) {
 	resourceName := "aws_load_balancer_backend_server_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, elb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckBackendServerPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBackendServerPolicyConfig_basic(rName, privateKey1, certificate, publicKey1, publicKey2),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckBackendServerPolicyExists(ctx, resourceName),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfelb.ResourceBackendServerPolicy(), resourceName),
 				),
@@ -74,6 +80,7 @@ func TestAccELBBackendServerPolicy_disappears(t *testing.T) {
 		},
 	})
 }
+
 
 func TestAccELBBackendServerPolicy_update(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -86,14 +93,16 @@ func TestAccELBBackendServerPolicy_update(t *testing.T) {
 	resourceName := "aws_load_balancer_backend_server_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, elb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckBackendServerPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBackendServerPolicyConfig_basic(rName, privateKey1, certificate, publicKey1, publicKey2),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckBackendServerPolicyExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "instance_port", "443"),
 					resource.TestCheckResourceAttr(resourceName, "policy_names.#", "1"),
@@ -102,7 +111,8 @@ func TestAccELBBackendServerPolicy_update(t *testing.T) {
 			},
 			{
 				Config: testAccBackendServerPolicyConfig_update(rName, privateKey1, certificate, publicKey1, publicKey2),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckBackendServerPolicyExists(ctx, resourceName),
 					resource.TestCheckResourceAttr(resourceName, "instance_port", "443"),
 					resource.TestCheckResourceAttr(resourceName, "policy_names.#", "1"),
@@ -113,8 +123,11 @@ func TestAccELBBackendServerPolicy_update(t *testing.T) {
 	})
 }
 
-func testAccCheckBackendServerPolicyDestroy(ctx context.Context) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckBackendServerPolicyDestroy(ctx context.Context) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).ELBConn(ctx)
 
 		for _, rs := range s.RootModule().Resources {
@@ -145,8 +158,11 @@ func testAccCheckBackendServerPolicyDestroy(ctx context.Context) resource.TestCh
 	}
 }
 
-func testAccCheckBackendServerPolicyExists(ctx context.Context, n string) resource.TestCheckFunc {
-	return func(s *terraform.State) error {
+
+func testAccCheckBackendServerPolicyExists(ctx context.Context, n string) resource.TestCheck
+func {
+	return 
+func(s *terraform.State) error {
 		rs, ok := s.RootModule().Resources[n]
 		if !ok {
 			return fmt.Errorf("Not found: %s", n)
@@ -169,6 +185,7 @@ func testAccCheckBackendServerPolicyExists(ctx context.Context, n string) resour
 		return err
 	}
 }
+
 
 func testAccBackendServerPolicyConfig_base(rName, privateKey, certificate, publicKey1, publicKey2 string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
@@ -243,6 +260,7 @@ resource "aws_load_balancer_policy" "test3" {
 	))
 }
 
+
 func testAccBackendServerPolicyConfig_basic(rName, privateKey, certificate, publicKey1, publicKey2 string) string {
 	return acctest.ConfigCompose(testAccBackendServerPolicyConfig_base(rName, privateKey, certificate, publicKey1, publicKey2), `
 resource "aws_load_balancer_backend_server_policy" "test" {
@@ -255,6 +273,7 @@ resource "aws_load_balancer_backend_server_policy" "test" {
 }
 `)
 }
+
 
 func testAccBackendServerPolicyConfig_update(rName, privateKey, certificate, publicKey1, publicKey2 string) string {
 	return acctest.ConfigCompose(testAccBackendServerPolicyConfig_base(rName, privateKey, certificate, publicKey1, publicKey2), `

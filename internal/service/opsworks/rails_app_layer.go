@@ -10,6 +10,7 @@ import (
 
 // @SDKResource("aws_opsworks_rails_app_layer", name="Rails App Layer")
 // @Tags(identifierAttribute="arn")
+
 func ResourceRailsAppLayer() *schema.Resource {
 	layerType := &opsworksLayerType{
 		TypeName:         opsworks.LayerTypeRailsApp,

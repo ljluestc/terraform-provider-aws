@@ -16,6 +16,7 @@ import (
 )
 
 // @SDKDataSource("aws_ec2_network_insights_path")
+
 func DataSourceNetworkInsightsPath() *schema.Resource {
 	return &schema.Resource{
 		ReadWithoutTimeout: dataSourceNetworkInsightsPathRead,

@@ -25,6 +25,7 @@ import (
 
 // @SDKResource("aws_cognito_identity_pool", name="Pool")
 // @Tags(identifierAttribute="arn")
+
 func ResourcePool() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourcePoolCreate,
@@ -40,7 +41,8 @@ func ResourcePool() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validIdentityPoolName,
+				Validate
+func: validIdentityPoolName,
 			},
 
 			"arn": {
@@ -56,12 +58,14 @@ func ResourcePool() *schema.Resource {
 						"client_id": {
 							Type:         schema.TypeString,
 							Optional:     true,
-							ValidateFunc: validIdentityProvidersClientID,
+							Validate
+func: validIdentityProvidersClientID,
 						},
 						"provider_name": {
 							Type:         schema.TypeString,
 							Optional:     true,
-							ValidateFunc: validIdentityProvidersProviderName,
+							Validate
+func: validIdentityProvidersProviderName,
 						},
 						"server_side_token_check": {
 							Type:     schema.TypeBool,
@@ -76,7 +80,8 @@ func ResourcePool() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				ForceNew:     true, // Forcing a new resource since it cannot be edited afterwards
-				ValidateFunc: validProviderDeveloperName,
+				Validate
+func: validProviderDeveloperName,
 			},
 
 			"allow_unauthenticated_identities": {
@@ -96,7 +101,8 @@ func ResourcePool() *schema.Resource {
 				Optional: true,
 				Elem: &schema.Schema{
 					Type:         schema.TypeString,
-					ValidateFunc: verify.ValidARN,
+					Validate
+func: verify.ValidARN,
 				},
 			},
 
@@ -105,7 +111,8 @@ func ResourcePool() *schema.Resource {
 				Optional: true,
 				Elem: &schema.Schema{
 					Type:         schema.TypeString,
-					ValidateFunc: verify.ValidARN,
+					Validate
+func: verify.ValidARN,
 				},
 			},
 
@@ -114,7 +121,8 @@ func ResourcePool() *schema.Resource {
 				Optional: true,
 				Elem: &schema.Schema{
 					Type:         schema.TypeString,
-					ValidateFunc: validSupportedLoginProviders,
+					Validate
+func: validSupportedLoginProviders,
 				},
 			},
 
@@ -125,6 +133,7 @@ func ResourcePool() *schema.Resource {
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
+
 
 func resourcePoolCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -166,6 +175,7 @@ func resourcePoolCreate(ctx context.Context, d *schema.ResourceData, meta interf
 
 	return append(diags, resourcePoolRead(ctx, d, meta)...)
 }
+
 
 func resourcePoolRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -218,6 +228,7 @@ func resourcePoolRead(ctx context.Context, d *schema.ResourceData, meta interfac
 	return diags
 }
 
+
 func resourcePoolUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).CognitoIdentityConn(ctx)
@@ -243,6 +254,7 @@ func resourcePoolUpdate(ctx context.Context, d *schema.ResourceData, meta interf
 
 	return append(diags, resourcePoolRead(ctx, d, meta)...)
 }
+
 
 func resourcePoolDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics

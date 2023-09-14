@@ -25,6 +25,7 @@ import (
 
 // @SDKResource("aws_customer_gateway", name="Customer Gateway")
 // @Tags(identifierAttribute="id")
+
 func ResourceCustomerGateway() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceCustomerGatewayCreate,
@@ -45,25 +46,29 @@ func ResourceCustomerGateway() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.Valid4ByteASN,
+				Validate
+func: verify.Valid4ByteASN,
 			},
 			"certificate_arn": {
 				Type:         schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
-				ValidateFunc: verify.ValidARN,
+				Validate
+func: verify.ValidARN,
 			},
 			"device_name": {
 				Type:         schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringLenBetween(1, 255),
+				Validate
+func: validation.StringLenBetween(1, 255),
 			},
 			"ip_address": {
 				Type:         schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.IsIPv4Address,
+				Validate
+func: validation.IsIPv4Address,
 			},
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
@@ -71,13 +76,15 @@ func ResourceCustomerGateway() *schema.Resource {
 				Type:         schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
-				ValidateFunc: validation.StringInSlice(ec2.GatewayType_Values(), false),
+				Validate
+func: validation.StringInSlice(ec2.GatewayType_Values(), false),
 			},
 		},
 
 		CustomizeDiff: verify.SetTagsDiff,
 	}
 }
+
 
 func resourceCustomerGatewayCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -124,6 +131,7 @@ func resourceCustomerGatewayCreate(ctx context.Context, d *schema.ResourceData, 
 	return resourceCustomerGatewayRead(ctx, d, meta)
 }
 
+
 func resourceCustomerGatewayRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
@@ -158,10 +166,12 @@ func resourceCustomerGatewayRead(ctx context.Context, d *schema.ResourceData, me
 	return nil
 }
 
+
 func resourceCustomerGatewayUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	// Tags only.
 	return resourceCustomerGatewayRead(ctx, d, meta)
 }
+
 
 func resourceCustomerGatewayDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)

@@ -26,6 +26,7 @@ import (
 
 // @SDKResource("aws_ebs_snapshot_import", name="EBS Snapshot")
 // @Tags(identifierAttribute="id")
+
 func ResourceEBSSnapshotImport() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceEBSSnapshotImportCreate,
@@ -61,7 +62,8 @@ func ResourceEBSSnapshotImport() *schema.Resource {
 							Type:         schema.TypeString,
 							Optional:     true,
 							Computed:     true,
-							ValidateFunc: validation.IsRFC3339Time,
+							Validate
+func: validation.IsRFC3339Time,
 						},
 						"upload_size": {
 							Type:     schema.TypeFloat,
@@ -72,7 +74,8 @@ func ResourceEBSSnapshotImport() *schema.Resource {
 							Type:         schema.TypeString,
 							Optional:     true,
 							Computed:     true,
-							ValidateFunc: validation.IsRFC3339Time,
+							Validate
+func: validation.IsRFC3339Time,
 						},
 					},
 				},
@@ -103,7 +106,8 @@ func ResourceEBSSnapshotImport() *schema.Resource {
 							Type:         schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
-							ValidateFunc: validation.StringInSlice(ec2.DiskImageFormat_Values(), false),
+							Validate
+func: validation.StringInSlice(ec2.DiskImageFormat_Values(), false),
 						},
 						"url": {
 							Type:         schema.TypeString,
@@ -171,7 +175,8 @@ func ResourceEBSSnapshotImport() *schema.Resource {
 				Type:         schema.TypeString,
 				Optional:     true,
 				Computed:     true,
-				ValidateFunc: validation.StringInSlice(append(ec2.TargetStorageTier_Values(), TargetStorageTierStandard), false),
+				Validate
+func: validation.StringInSlice(append(ec2.TargetStorageTier_Values(), TargetStorageTierStandard), false),
 			},
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
@@ -190,6 +195,7 @@ func ResourceEBSSnapshotImport() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceEBSSnapshotImportCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -225,7 +231,8 @@ func resourceEBSSnapshotImportCreate(ctx context.Context, d *schema.ResourceData
 	}
 
 	outputRaw, err := tfresource.RetryWhenAWSErrMessageContains(ctx, iamPropagationTimeout,
-		func() (interface{}, error) {
+		
+func() (interface{}, error) {
 			return conn.ImportSnapshotWithContext(ctx, input)
 		},
 		errCodeInvalidParameter, "provided does not exist or does not have sufficient permissions")
@@ -267,6 +274,7 @@ func resourceEBSSnapshotImportCreate(ctx context.Context, d *schema.ResourceData
 	return append(diags, resourceEBSSnapshotImportRead(ctx, d, meta)...)
 }
 
+
 func resourceEBSSnapshotImportRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
@@ -304,6 +312,7 @@ func resourceEBSSnapshotImportRead(ctx context.Context, d *schema.ResourceData, 
 	return diags
 }
 
+
 func expandClientData(tfMap map[string]interface{}) *ec2.ClientData {
 	if tfMap == nil {
 		return nil
@@ -334,6 +343,7 @@ func expandClientData(tfMap map[string]interface{}) *ec2.ClientData {
 	return apiObject
 }
 
+
 func expandSnapshotDiskContainer(tfMap map[string]interface{}) *ec2.SnapshotDiskContainer {
 	if tfMap == nil {
 		return nil
@@ -359,6 +369,7 @@ func expandSnapshotDiskContainer(tfMap map[string]interface{}) *ec2.SnapshotDisk
 
 	return apiObject
 }
+
 
 func expandUserBucket(tfMap map[string]interface{}) *ec2.UserBucket {
 	if tfMap == nil {

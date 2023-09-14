@@ -15,6 +15,7 @@ import (
 	tfec2 "github.com/hashicorp/terraform-provider-aws/internal/service/ec2"
 )
 
+
 func TestAccEC2EBSSnapshotCopy_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	var snapshot ec2.Snapshot
@@ -22,14 +23,16 @@ func TestAccEC2EBSSnapshotCopy_basic(t *testing.T) {
 	resourceName := "aws_ebs_snapshot_copy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEBSSnapshotDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEBSSnapshotCopyConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSnapshotExists(ctx, resourceName, &snapshot),
 					acctest.MatchResourceAttrRegionalARNNoAccount(resourceName, "arn", "ec2", regexache.MustCompile(`snapshot/snap-.+`)),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
@@ -39,6 +42,7 @@ func TestAccEC2EBSSnapshotCopy_basic(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2EBSSnapshotCopy_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	var snapshot ec2.Snapshot
@@ -46,14 +50,16 @@ func TestAccEC2EBSSnapshotCopy_disappears(t *testing.T) {
 	resourceName := "aws_ebs_snapshot_copy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEBSSnapshotDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEBSSnapshotCopyConfig_basic(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSnapshotExists(ctx, resourceName, &snapshot),
 					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfec2.ResourceEBSSnapshotCopy(), resourceName),
 				),
@@ -63,6 +69,7 @@ func TestAccEC2EBSSnapshotCopy_disappears(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2EBSSnapshotCopy_tags(t *testing.T) {
 	ctx := acctest.Context(t)
 	var snapshot ec2.Snapshot
@@ -70,14 +77,16 @@ func TestAccEC2EBSSnapshotCopy_tags(t *testing.T) {
 	resourceName := "aws_ebs_snapshot_copy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEBSSnapshotDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEBSSnapshotCopyConfig_tags1(rName, "key1", "value1"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSnapshotExists(ctx, resourceName, &snapshot),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1"),
@@ -85,7 +94,8 @@ func TestAccEC2EBSSnapshotCopy_tags(t *testing.T) {
 			},
 			{
 				Config: testAccEBSSnapshotCopyConfig_tags2(rName, "key1", "value1updated", "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSnapshotExists(ctx, resourceName, &snapshot),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "2"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key1", "value1updated"),
@@ -94,7 +104,8 @@ func TestAccEC2EBSSnapshotCopy_tags(t *testing.T) {
 			},
 			{
 				Config: testAccEBSSnapshotCopyConfig_tags1(rName, "key2", "value2"),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSnapshotExists(ctx, resourceName, &snapshot),
 					resource.TestCheckResourceAttr(resourceName, "tags.%", "1"),
 					resource.TestCheckResourceAttr(resourceName, "tags.key2", "value2"),
@@ -104,6 +115,7 @@ func TestAccEC2EBSSnapshotCopy_tags(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2EBSSnapshotCopy_withDescription(t *testing.T) {
 	ctx := acctest.Context(t)
 	var snapshot ec2.Snapshot
@@ -111,14 +123,16 @@ func TestAccEC2EBSSnapshotCopy_withDescription(t *testing.T) {
 	resourceName := "aws_ebs_snapshot_copy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEBSSnapshotDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEBSSnapshotCopyConfig_description(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSnapshotExists(ctx, resourceName, &snapshot),
 					resource.TestCheckResourceAttr(resourceName, "description", "Copy Snapshot Acceptance Test"),
 				),
@@ -127,6 +141,7 @@ func TestAccEC2EBSSnapshotCopy_withDescription(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2EBSSnapshotCopy_withRegions(t *testing.T) {
 	ctx := acctest.Context(t)
 	var snapshot ec2.Snapshot
@@ -134,7 +149,8 @@ func TestAccEC2EBSSnapshotCopy_withRegions(t *testing.T) {
 	resourceName := "aws_ebs_snapshot_copy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: func() {
+		PreCheck: 
+func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
 		},
@@ -144,13 +160,15 @@ func TestAccEC2EBSSnapshotCopy_withRegions(t *testing.T) {
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEBSSnapshotCopyConfig_regions(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSnapshotExists(ctx, resourceName, &snapshot),
 				),
 			},
 		},
 	})
 }
+
 
 func TestAccEC2EBSSnapshotCopy_withKMS(t *testing.T) {
 	ctx := acctest.Context(t)
@@ -160,14 +178,16 @@ func TestAccEC2EBSSnapshotCopy_withKMS(t *testing.T) {
 	resourceName := "aws_ebs_snapshot_copy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEBSSnapshotDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEBSSnapshotCopyConfig_kms(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSnapshotExists(ctx, resourceName, &snapshot),
 					resource.TestCheckResourceAttrPair(resourceName, "kms_key_id", kmsKeyResourceName, "arn"),
 				),
@@ -176,6 +196,7 @@ func TestAccEC2EBSSnapshotCopy_withKMS(t *testing.T) {
 	})
 }
 
+
 func TestAccEC2EBSSnapshotCopy_storageTier(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.Snapshot
@@ -183,14 +204,16 @@ func TestAccEC2EBSSnapshotCopy_storageTier(t *testing.T) {
 	resourceName := "aws_ebs_snapshot_copy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 
+func() { acctest.PreCheck(ctx, t) },
 		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEBSSnapshotDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccEBSSnapshotCopyConfig_storageTier(rName),
-				Check: resource.ComposeTestCheckFunc(
+				Check: resource.ComposeTestCheck
+func(
 					testAccCheckSnapshotExists(ctx, resourceName, &v),
 					resource.TestCheckResourceAttr(resourceName, "storage_tier", "archive"),
 				),
@@ -198,6 +221,7 @@ func TestAccEC2EBSSnapshotCopy_storageTier(t *testing.T) {
 		},
 	})
 }
+
 
 func testAccEBSSnapshotCopyBaseConfig(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
@@ -218,6 +242,7 @@ resource "aws_ebs_snapshot" "test" {
 `, rName))
 }
 
+
 func testAccEBSSnapshotCopyConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccEBSSnapshotCopyBaseConfig(rName), `
 resource "aws_ebs_snapshot_copy" "test" {
@@ -226,6 +251,7 @@ resource "aws_ebs_snapshot_copy" "test" {
 }
 `)
 }
+
 
 func testAccEBSSnapshotCopyConfig_storageTier(rName string) string {
 	return acctest.ConfigCompose(testAccEBSSnapshotCopyBaseConfig(rName), fmt.Sprintf(`
@@ -241,6 +267,7 @@ resource "aws_ebs_snapshot_copy" "test" {
 `, rName))
 }
 
+
 func testAccEBSSnapshotCopyConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccEBSSnapshotCopyBaseConfig(rName), fmt.Sprintf(`
 resource "aws_ebs_snapshot_copy" "test" {
@@ -253,6 +280,7 @@ resource "aws_ebs_snapshot_copy" "test" {
 }
 `, tagKey1, tagValue1))
 }
+
 
 func testAccEBSSnapshotCopyConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccEBSSnapshotCopyBaseConfig(rName), fmt.Sprintf(`
@@ -268,6 +296,7 @@ resource "aws_ebs_snapshot_copy" "test" {
 `, tagKey1, tagValue1, tagKey2, tagValue2))
 }
 
+
 func testAccEBSSnapshotCopyConfig_description(rName string) string {
 	return acctest.ConfigCompose(testAccEBSSnapshotCopyBaseConfig(rName), fmt.Sprintf(`
 resource "aws_ebs_snapshot_copy" "test" {
@@ -281,6 +310,7 @@ resource "aws_ebs_snapshot_copy" "test" {
 }
 `, rName))
 }
+
 
 func testAccEBSSnapshotCopyConfig_regions(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAlternateRegionProvider(), fmt.Sprintf(`
@@ -328,6 +358,7 @@ resource "aws_ebs_snapshot_copy" "test" {
 }
 `, rName))
 }
+
 
 func testAccEBSSnapshotCopyConfig_kms(rName string) string {
 	return acctest.ConfigCompose(testAccEBSSnapshotCopyBaseConfig(rName), fmt.Sprintf(`

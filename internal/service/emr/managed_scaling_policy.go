@@ -18,6 +18,7 @@ import (
 )
 
 // @SDKResource("aws_emr_managed_scaling_policy")
+
 func ResourceManagedScalingPolicy() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceManagedScalingPolicyCreate,
@@ -43,7 +44,8 @@ func ResourceManagedScalingPolicy() *schema.Resource {
 							Type:         schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
-							ValidateFunc: validation.StringInSlice(emr.ComputeLimitsUnitType_Values(), false),
+							Validate
+func: validation.StringInSlice(emr.ComputeLimitsUnitType_Values(), false),
 						},
 						"minimum_capacity_units": {
 							Type:     schema.TypeInt,
@@ -71,6 +73,7 @@ func ResourceManagedScalingPolicy() *schema.Resource {
 		},
 	}
 }
+
 
 func resourceManagedScalingPolicyCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -110,6 +113,7 @@ func resourceManagedScalingPolicyCreate(ctx context.Context, d *schema.ResourceD
 	d.SetId(d.Get("cluster_id").(string))
 	return diags
 }
+
 
 func resourceManagedScalingPolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
@@ -151,6 +155,7 @@ func resourceManagedScalingPolicyRead(ctx context.Context, d *schema.ResourceDat
 	return diags
 }
 
+
 func resourceManagedScalingPolicyDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
 	conn := meta.(*conns.AWSClient).EMRConn(ctx)
@@ -175,6 +180,7 @@ func resourceManagedScalingPolicyDelete(ctx context.Context, d *schema.ResourceD
 
 	return diags
 }
+
 
 func flattenComputeLimits(apiObject *emr.ComputeLimits) []interface{} {
 	if apiObject == nil {

@@ -10,7 +10,9 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 )
 
-// This function sorts List A to look like a list found in the tf file.
+// This 
+function sorts List A to look like a list found in the tf file.
+
 func sortListBasedonTFFile(in []string, d *schema.ResourceData) ([]string, error) {
 	listName := "layer_ids"
 	if attributeCount, ok := d.Get(listName + ".#").(int); ok {

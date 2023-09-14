@@ -17,6 +17,7 @@ import (
 )
 
 // @SDKResource("aws_connect_user_hierarchy_structure")
+
 func ResourceUserHierarchyStructure() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceUserHierarchyStructureCreate,
@@ -33,23 +34,28 @@ func ResourceUserHierarchyStructure() *schema.Resource {
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
-						"level_one": func() *schema.Schema {
+						"level_one": 
+func() *schema.Schema {
 							schema := userHierarchyLevelSchema()
 							return schema
 						}(),
-						"level_two": func() *schema.Schema {
+						"level_two": 
+func() *schema.Schema {
 							schema := userHierarchyLevelSchema()
 							return schema
 						}(),
-						"level_three": func() *schema.Schema {
+						"level_three": 
+func() *schema.Schema {
 							schema := userHierarchyLevelSchema()
 							return schema
 						}(),
-						"level_four": func() *schema.Schema {
+						"level_four": 
+func() *schema.Schema {
 							schema := userHierarchyLevelSchema()
 							return schema
 						}(),
-						"level_five": func() *schema.Schema {
+						"level_five": 
+func() *schema.Schema {
 							schema := userHierarchyLevelSchema()
 							return schema
 						}(),
@@ -59,13 +65,15 @@ func ResourceUserHierarchyStructure() *schema.Resource {
 			"instance_id": {
 				Type:         schema.TypeString,
 				Required:     true,
-				ValidateFunc: validation.StringLenBetween(1, 100),
+				Validate
+func: validation.StringLenBetween(1, 100),
 			},
 		},
 	}
 }
 
 // Each level shares the same schema
+
 func userHierarchyLevelSchema() *schema.Schema {
 	return &schema.Schema{
 		Type:     schema.TypeList,
@@ -85,12 +93,14 @@ func userHierarchyLevelSchema() *schema.Schema {
 				"name": {
 					Type:         schema.TypeString,
 					Required:     true,
-					ValidateFunc: validation.StringLenBetween(1, 50),
+					Validate
+func: validation.StringLenBetween(1, 50),
 				},
 			},
 		},
 	}
 }
+
 
 func resourceUserHierarchyStructureCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -113,6 +123,7 @@ func resourceUserHierarchyStructureCreate(ctx context.Context, d *schema.Resourc
 
 	return resourceUserHierarchyStructureRead(ctx, d, meta)
 }
+
 
 func resourceUserHierarchyStructureRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
@@ -146,6 +157,7 @@ func resourceUserHierarchyStructureRead(ctx context.Context, d *schema.ResourceD
 	return nil
 }
 
+
 func resourceUserHierarchyStructureUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
@@ -165,6 +177,7 @@ func resourceUserHierarchyStructureUpdate(ctx context.Context, d *schema.Resourc
 	return resourceUserHierarchyStructureRead(ctx, d, meta)
 }
 
+
 func resourceUserHierarchyStructureDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
@@ -181,6 +194,7 @@ func resourceUserHierarchyStructureDelete(ctx context.Context, d *schema.Resourc
 
 	return nil
 }
+
 
 func expandUserHierarchyStructure(userHierarchyStructure []interface{}) *connect.HierarchyStructureUpdate {
 	if len(userHierarchyStructure) == 0 {
@@ -204,6 +218,7 @@ func expandUserHierarchyStructure(userHierarchyStructure []interface{}) *connect
 	return result
 }
 
+
 func expandUserHierarchyStructureLevel(userHierarchyStructureLevel []interface{}) *connect.HierarchyLevelUpdate {
 	if len(userHierarchyStructureLevel) == 0 {
 		return nil
@@ -221,6 +236,7 @@ func expandUserHierarchyStructureLevel(userHierarchyStructureLevel []interface{}
 
 	return result
 }
+
 
 func flattenUserHierarchyStructure(userHierarchyStructure *connect.HierarchyStructure) []interface{} {
 	if userHierarchyStructure == nil {
@@ -251,6 +267,7 @@ func flattenUserHierarchyStructure(userHierarchyStructure *connect.HierarchyStru
 
 	return []interface{}{values}
 }
+
 
 func flattenUserHierarchyStructureLevel(userHierarchyStructureLevel *connect.HierarchyLevel) []interface{} {
 	if userHierarchyStructureLevel == nil {
