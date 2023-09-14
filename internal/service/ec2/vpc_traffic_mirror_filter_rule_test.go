@@ -42,7 +42,7 @@ func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckTrafficMirrorFilterRule(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTrafficMirrorFilterRuleDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -155,7 +155,7 @@ func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckTrafficMirrorFilterRule(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTrafficMirrorFilterRuleDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -283,7 +283,7 @@ resource "aws_ec2_traffic_mirror_filter_rule" "test" {
   source_cidr_block        = %[4]q
   traffic_direction        = %[5]q
   description              = %[6]q
-  protocol                 = %[7]d
+  protocol  = %[7]d
   source_port_range {
     from_port = %[8]d
     to_port   = %[9]d

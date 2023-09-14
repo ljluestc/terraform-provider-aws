@@ -22,8 +22,8 @@ func TestAccAutoScalingGroupsDataSource_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -57,7 +57,7 @@ resource "aws_launch_configuration" "test" {
 
 resource "aws_autoscaling_group" "test1" {
   availability_zones = [data.aws_availability_zones.available.names[0]]
-  name               = "%[1]s-1"
+  name= "%[1]s-1"
   max_size           = 1
   min_size           = 0
   health_check_type  = "EC2"
@@ -67,21 +67,21 @@ resource "aws_autoscaling_group" "test1" {
   launch_configuration = aws_launch_configuration.test.name
 
   tag {
-    key                 = "MetaGroup"
-    value               = %[1]q
+    key  = "MetaGroup"
+    value= %[1]q
     propagate_at_launch = true
   }
 
   tag {
-    key                 = "Name"
-    value               = "%[1]s-1"
+    key  = "Name"
+    value= "%[1]s-1"
     propagate_at_launch = true
   }
 }
 
 resource "aws_autoscaling_group" "test2" {
   availability_zones = [data.aws_availability_zones.available.names[1]]
-  name               = "%[1]s-2"
+  name= "%[1]s-2"
   max_size           = 1
   min_size           = 0
   health_check_type  = "EC2"
@@ -91,21 +91,21 @@ resource "aws_autoscaling_group" "test2" {
   launch_configuration = aws_launch_configuration.test.name
 
   tag {
-    key                 = "MetaGroup"
-    value               = %[1]q
+    key  = "MetaGroup"
+    value= %[1]q
     propagate_at_launch = true
   }
 
   tag {
-    key                 = "Name"
-    value               = "%[1]s-2"
+    key  = "Name"
+    value= "%[1]s-2"
     propagate_at_launch = true
   }
 }
 
 resource "aws_autoscaling_group" "test3" {
   availability_zones = [data.aws_availability_zones.available.names[2]]
-  name               = "%[1]s-3"
+  name= "%[1]s-3"
   max_size           = 1
   min_size           = 0
   health_check_type  = "EC2"
@@ -115,14 +115,14 @@ resource "aws_autoscaling_group" "test3" {
   launch_configuration = aws_launch_configuration.test.name
 
   tag {
-    key                 = "MetaGroup"
-    value               = %[1]q
+    key  = "MetaGroup"
+    value= %[1]q
     propagate_at_launch = true
   }
 
   tag {
-    key                 = "Name"
-    value               = "%[1]s-3"
+    key  = "Name"
+    value= "%[1]s-3"
     propagate_at_launch = true
   }
 }

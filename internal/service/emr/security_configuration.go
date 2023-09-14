@@ -82,7 +82,7 @@ func resourceSecurityConfigurationCreate(ctx context.Context, d *schema.Resource
 	}
 
 	resp, err := conn.CreateSecurityConfigurationWithContext(ctx, &emr.CreateSecurityConfigurationInput{
-		Name:                  aws.String(emrSCName),
+		Name:   aws.String(emrSCName),
 		SecurityConfiguration: aws.String(d.Get("configuration").(string)),
 	})
 

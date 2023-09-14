@@ -202,7 +202,7 @@ func dataSourceRouteTableRead(ctx context.Context, d *schema.ResourceData, meta 
 	req.Filters = BuildAttributeFilterList(
 		map[string]string{
 			"route-table-id":         rtbId.(string),
-			"vpc-id":                 vpcId.(string),
+			"vpc-id":  vpcId.(string),
 			"association.subnet-id":  subnetId.(string),
 			"association.gateway-id": gatewayId.(string),
 		},

@@ -29,7 +29,7 @@ func TestAccMQConfiguration_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, mq.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, mq.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, mq.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
@@ -78,7 +78,7 @@ func TestAccMQConfiguration_withData(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, mq.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, mq.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, mq.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
@@ -114,7 +114,7 @@ func TestAccMQConfiguration_withLdapData(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, mq.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, mq.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, mq.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
@@ -151,7 +151,7 @@ func TestAccMQConfiguration_tags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, mq.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, mq.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, mq.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
@@ -212,7 +212,7 @@ func testAccConfigurationConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_mq_configuration" "test" {
   description             = "TfAccTest MQ Configuration"
-  name                    = %[1]q
+  name     = %[1]q
   engine_type             = "ActiveMQ"
   engine_version          = "5.15.0"
   authentication_strategy = "simple"
@@ -282,7 +282,7 @@ func testAccConfigurationConfig_ldapData(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_mq_configuration" "test" {
   description             = "TfAccTest MQ Configuration"
-  name                    = %[1]q
+  name     = %[1]q
   engine_type             = "ActiveMQ"
   engine_version          = "5.15.0"
   authentication_strategy = "ldap"
@@ -310,7 +310,7 @@ func testAccConfigurationConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_mq_configuration" "test" {
   description             = "TfAccTest MQ Configuration"
-  name                    = %[1]q
+  name     = %[1]q
   engine_type             = "ActiveMQ"
   engine_version          = "5.15.0"
   authentication_strategy = "simple"
@@ -332,7 +332,7 @@ func testAccConfigurationConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagVal
 	return fmt.Sprintf(`
 resource "aws_mq_configuration" "test" {
   description             = "TfAccTest MQ Configuration"
-  name                    = %[1]q
+  name     = %[1]q
   engine_type             = "ActiveMQ"
   engine_version          = "5.15.0"
   authentication_strategy = "simple"

@@ -246,7 +246,7 @@ func flattenDefaultActionForwardTargetGroupsDataSource(groups []types.WeightedTa
 	for _, targetGroup := range groups {
 		m := map[string]interface{}{
 			"target_group_identifier": aws.ToString(targetGroup.TargetGroupIdentifier),
-			"weight":                  aws.ToInt32(targetGroup.Weight),
+			"weight":   aws.ToInt32(targetGroup.Weight),
 		}
 		targetGroups = append(targetGroups, m)
 	}

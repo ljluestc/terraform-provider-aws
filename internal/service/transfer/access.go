@@ -73,7 +73,7 @@ func ResourceAccess() *schema.Resource {
 			},
 
 			"policy": {
-				Type:                  schema.TypeString,
+				Type:   schema.TypeString,
 				Optional:              true,
 				ValidateFunc:          verify.ValidIAMPolicyJSON,
 				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,

@@ -25,9 +25,9 @@ func TestAccELBListenerPolicy_basic(t *testing.T) {
 	resourceName := "aws_load_balancer_listener_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elb.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckListenerPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -54,9 +54,9 @@ func TestAccELBListenerPolicy_update(t *testing.T) {
 	resourceName := "aws_load_balancer_listener_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elb.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckListenerPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -95,9 +95,9 @@ func TestAccELBListenerPolicy_disappears(t *testing.T) {
 	resourceName := "aws_load_balancer_listener_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elb.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckListenerPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -181,7 +181,7 @@ func(s *terraform.State) error {
 func testAccListenerPolicyConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_elb" "test" {
-  name               = %[1]q
+  name= %[1]q
   availability_zones = [data.aws_availability_zones.available.names[0]]
 
   listener {
@@ -225,7 +225,7 @@ resource "aws_iam_server_certificate" "test" {
 }
 
 resource "aws_elb" "test" {
-  name               = %[1]q
+  name= %[1]q
   availability_zones = [data.aws_availability_zones.available.names[0]]
 
   listener {

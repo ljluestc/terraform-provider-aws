@@ -37,7 +37,7 @@ func TestAccMediaLiveInput_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.MediaLiveEndpointID)
 			testAccInputsPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.MediaLiveEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckInputDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -77,7 +77,7 @@ func TestAccMediaLiveInput_update(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.MediaLiveEndpointID)
 			testAccInputsPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.MediaLiveEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckInputDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -121,7 +121,7 @@ func TestAccMediaLiveInput_updateTags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.MediaLiveEndpointID)
 			testAccInputsPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.MediaLiveEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckInputDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -170,7 +170,7 @@ func TestAccMediaLiveInput_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.MediaLiveEndpointID)
 			testAccInputsPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.MediaLiveEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckInputDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -269,9 +269,9 @@ func testAccInputConfig_basic(rName string) string {
 		testAccInputBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_medialive_input" "test" {
-  name                  = %[1]q
+  name   = %[1]q
   input_security_groups = [aws_medialive_input_security_group.test.id]
-  type                  = "UDP_PUSH"
+  type   = "UDP_PUSH"
 
   tags = {
     Name = %[1]q
@@ -285,9 +285,9 @@ func testAccInputConfig_tags1(rName, key1, value1 string) string {
 		testAccInputBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_medialive_input" "test" {
-  name                  = %[1]q
+  name   = %[1]q
   input_security_groups = [aws_medialive_input_security_group.test.id]
-  type                  = "UDP_PUSH"
+  type   = "UDP_PUSH"
 
   tags = {
     %[2]q = %[3]q
@@ -301,9 +301,9 @@ func testAccInputConfig_tags2(rName, key1, value1, key2, value2 string) string {
 		testAccInputBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_medialive_input" "test" {
-  name                  = %[1]q
+  name   = %[1]q
   input_security_groups = [aws_medialive_input_security_group.test.id]
-  type                  = "UDP_PUSH"
+  type   = "UDP_PUSH"
 
   tags = {
     %[2]q = %[3]q

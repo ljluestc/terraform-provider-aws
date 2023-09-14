@@ -348,7 +348,7 @@ func expandLogPublishingOptions(m *schema.Set) map[string]*opensearchservice.Log
 		lo := vv.(map[string]interface{})
 		options[lo["log_type"].(string)] = &opensearchservice.LogPublishingOption{
 			CloudWatchLogsLogGroupArn: aws.String(lo["cloudwatch_log_group_arn"].(string)),
-			Enabled:                   aws.Bool(lo["enabled"].(bool)),
+			Enabled:    aws.Bool(lo["enabled"].(bool)),
 		}
 	}
 

@@ -25,9 +25,9 @@ func TestAccELBAppCookieStickinessPolicy_basic(t *testing.T) {
 	resourceName := "aws_app_cookie_stickiness_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elb.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAppCookieStickinessPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -65,9 +65,9 @@ func TestAccELBAppCookieStickinessPolicy_disappears(t *testing.T) {
 	resourceName := "aws_app_cookie_stickiness_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elb.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAppCookieStickinessPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -92,9 +92,9 @@ func TestAccELBAppCookieStickinessPolicy_Disappears_elb(t *testing.T) {
 	elbResourceName := "aws_elb.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elb.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAppCookieStickinessPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -178,7 +178,7 @@ func(s *terraform.State) error {
 func testAccAppCookieStickinessPolicyConfig_basic(rName, cookieName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_elb" "test" {
-  name               = %[1]q
+  name= %[1]q
   availability_zones = [data.aws_availability_zones.available.names[0]]
 
   listener {

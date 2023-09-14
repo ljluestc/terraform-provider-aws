@@ -24,9 +24,9 @@ func TestAccEC2AMICopy_basic(t *testing.T) {
 	resourceName := "aws_ami_copy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAMIDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -56,9 +56,9 @@ func TestAccEC2AMICopy_description(t *testing.T) {
 	resourceName := "aws_ami_copy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAMIDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -90,9 +90,9 @@ func TestAccEC2AMICopy_enaSupport(t *testing.T) {
 	resourceName := "aws_ami_copy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAMIDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -117,9 +117,9 @@ func TestAccEC2AMICopy_destinationOutpost(t *testing.T) {
 	resourceName := "aws_ami_copy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAMIDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -143,9 +143,9 @@ func TestAccEC2AMICopy_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAMIDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -254,7 +254,7 @@ resource "aws_ebs_snapshot" "test" {
 func testAccAMICopyConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccAMICopyBaseConfig(rName), fmt.Sprintf(`
 resource "aws_ami" "test" {
-  name                = %[1]q
+  name = %[1]q
   virtualization_type = "hvm"
   root_device_name    = "/dev/sda1"
 
@@ -280,7 +280,7 @@ resource "aws_ami_copy" "test" {
 func testAccAMICopyConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccAMICopyBaseConfig(rName), fmt.Sprintf(`
 resource "aws_ami" "test" {
-  name                = %[1]q
+  name = %[1]q
   virtualization_type = "hvm"
   root_device_name    = "/dev/sda1"
 
@@ -307,7 +307,7 @@ resource "aws_ami_copy" "test" {
 func testAccAMICopyConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccAMICopyBaseConfig(rName), fmt.Sprintf(`
 resource "aws_ami" "test" {
-  name                = "%s-source"
+  name = "%s-source"
   virtualization_type = "hvm"
   root_device_name    = "/dev/sda1"
 
@@ -329,7 +329,7 @@ resource "aws_ami_copy" "test" {
 func testAccAMICopyConfig_description(rName, description string) string {
 	return acctest.ConfigCompose(testAccAMICopyBaseConfig(rName), fmt.Sprintf(`
 resource "aws_ami" "test" {
-  name                = "%s-source"
+  name = "%s-source"
   virtualization_type = "hvm"
   root_device_name    = "/dev/sda1"
 
@@ -353,7 +353,7 @@ func testAccAMICopyConfig_enaSupport(rName string) string {
 	return acctest.ConfigCompose(testAccAMICopyBaseConfig(rName), fmt.Sprintf(`
 resource "aws_ami" "test" {
   ena_support         = true
-  name                = "%s-source"
+  name = "%s-source"
   virtualization_type = "hvm"
   root_device_name    = "/dev/sda1"
 
@@ -382,7 +382,7 @@ data "aws_outposts_outpost" "test" {
 
 resource "aws_ami" "test" {
   ena_support         = true
-  name                = "%s-source"
+  name = "%s-source"
   virtualization_type = "hvm"
   root_device_name    = "/dev/sda1"
 
@@ -393,7 +393,7 @@ resource "aws_ami" "test" {
 }
 
 resource "aws_ami_copy" "test" {
-  name                    = "%s-copy"
+  name     = "%s-copy"
   source_ami_id           = aws_ami.test.id
   source_ami_region       = data.aws_region.current.name
   destination_outpost_arn = data.aws_outposts_outpost.test.arn

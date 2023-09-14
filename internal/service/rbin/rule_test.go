@@ -33,7 +33,7 @@ func TestAccRBinRule_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, rbin.ServiceID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, rbin.ServiceID),
+		ErrorCheck:acctest.ErrorCheck(t, rbin.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckRuleDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -94,7 +94,7 @@ func TestAccRBinRule_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, rbin.ServiceID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, rbin.ServiceID),
+		ErrorCheck:acctest.ErrorCheck(t, rbin.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckRuleDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -121,7 +121,7 @@ func TestAccRBinRule_tags(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.RBin)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.RBin),
+		ErrorCheck:acctest.ErrorCheck(t, names.RBin),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckRuleDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -170,7 +170,7 @@ func TestAccRBinRule_lock_config(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, rbin.ServiceID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, rbin.ServiceID),
+		ErrorCheck:acctest.ErrorCheck(t, rbin.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckRuleDestroy(ctx),
 		Steps: []resource.TestStep{

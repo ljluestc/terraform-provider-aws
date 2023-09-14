@@ -439,7 +439,7 @@ func resourceDocumentUpdate(ctx context.Context, d *schema.ResourceData, meta in
 		for _, chunk := range slices.Chunks(oldAccountIDs.Difference(newAccountIDs), documentPermissionsBatchLimit) {
 			input := &ssm.ModifyDocumentPermissionInput{
 				AccountIdsToRemove: aws.StringSlice(chunk),
-				Name:               aws.String(d.Id()),
+				Name:aws.String(d.Id()),
 				PermissionType:     aws.String(ssm.DocumentPermissionTypeShare),
 			}
 
@@ -518,7 +518,7 @@ func resourceDocumentDelete(ctx context.Context, d *schema.ResourceData, meta in
 			for _, chunk := range chunks {
 				input := &ssm.ModifyDocumentPermissionInput{
 					AccountIdsToRemove: aws.StringSlice(chunk),
-					Name:               aws.String(d.Id()),
+					Name:aws.String(d.Id()),
 					PermissionType:     aws.String(ssm.DocumentPermissionTypeShare),
 				}
 

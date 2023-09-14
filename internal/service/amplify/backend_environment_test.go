@@ -28,8 +28,8 @@ func testAccBackendEnvironment_basic(t *testing.T) {
 	environmentName := sdkacctest.RandStringFromCharSet(10, sdkacctest.CharSetAlpha)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, amplify.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckBackendEnvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -61,8 +61,8 @@ func testAccBackendEnvironment_disappears(t *testing.T) {
 	environmentName := sdkacctest.RandStringFromCharSet(10, sdkacctest.CharSetAlpha)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, amplify.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckBackendEnvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -87,8 +87,8 @@ func testAccBackendEnvironment_DeploymentArtifacts_StackName(t *testing.T) {
 	environmentName := sdkacctest.RandStringFromCharSet(10, sdkacctest.CharSetAlpha)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, amplify.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:acctest.ErrorCheck(t, amplify.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckBackendEnvironmentDestroy(ctx),
 		Steps: []resource.TestStep{

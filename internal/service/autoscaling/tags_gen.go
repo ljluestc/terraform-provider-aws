@@ -122,7 +122,7 @@ func Tags(tags tftags.KeyValueTags) []*autoscaling.Tag {
 
 	for _, key := range tags.Keys() {
 		tag := &autoscaling.Tag{
-			Key:               aws.String(key),
+			Key:aws.String(key),
 			Value:             tags.KeyValue(key),
 			ResourceId:        tags.KeyAdditionalStringValue(key, "ResourceId"),
 			ResourceType:      tags.KeyAdditionalStringValue(key, "ResourceType"),

@@ -307,10 +307,10 @@ func resourceEnvironmentCreate(ctx context.Context, d *schema.ResourceData, meta
 	input := &mwaa.CreateEnvironmentInput{
 		DagS3Path:            aws.String(d.Get("dag_s3_path").(string)),
 		ExecutionRoleArn:     aws.String(d.Get("execution_role_arn").(string)),
-		Name:                 aws.String(name),
+		Name:  aws.String(name),
 		NetworkConfiguration: expandEnvironmentNetworkConfigurationCreate(d.Get("network_configuration").([]interface{})),
 		SourceBucketArn:      aws.String(d.Get("source_bucket_arn").(string)),
-		Tags:                 getTagsIn(ctx),
+		Tags:  getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("airflow_configuration_options"); ok {
@@ -866,8 +866,8 @@ func flattenModuleLoggingConfiguration(moduleLoggingConfiguration *mwaa.ModuleLo
 
 	m := map[string]interface{}{
 		"cloud_watch_log_group_arn": aws.StringValue(moduleLoggingConfiguration.CloudWatchLogGroupArn),
-		"enabled":                   aws.BoolValue(moduleLoggingConfiguration.Enabled),
-		"log_level":                 aws.StringValue(moduleLoggingConfiguration.LogLevel),
+		"enabled":    aws.BoolValue(moduleLoggingConfiguration.Enabled),
+		"log_level":  aws.StringValue(moduleLoggingConfiguration.LogLevel),
 	}
 
 	return []interface{}{m}

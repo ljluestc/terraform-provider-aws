@@ -53,9 +53,9 @@ func TestAccIPAM_byoipIPv6(t *testing.T) {
 	netmaskLength := 56
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPCIPv6CIDRBlockAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -206,11 +206,11 @@ resource "aws_vpc_ipam" "test" {
 }
 
 resource "aws_vpc_ipam_pool" "test" {
-  address_family                    = "ipv6"
-  ipam_scope_id                     = aws_vpc_ipam.test.public_default_scope_id
-  locale                            = data.aws_region.current.name
+  address_family     = "ipv6"
+  ipam_scope_id      = aws_vpc_ipam.test.public_default_scope_id
+  locale             = data.aws_region.current.name
   publicly_advertisable             = false
-  aws_service                       = "ec2"
+  aws_service        = "ec2"
   allocation_default_netmask_length = 56
 }
 
@@ -242,11 +242,11 @@ resource "aws_vpc_ipam" "test" {
 }
 
 resource "aws_vpc_ipam_pool" "test" {
-  address_family                    = "ipv6"
-  ipam_scope_id                     = aws_vpc_ipam.test.public_default_scope_id
-  locale                            = data.aws_region.current.name
+  address_family     = "ipv6"
+  ipam_scope_id      = aws_vpc_ipam.test.public_default_scope_id
+  locale             = data.aws_region.current.name
   publicly_advertisable             = false
-  aws_service                       = "ec2"
+  aws_service        = "ec2"
   allocation_default_netmask_length = 56
 }
 
@@ -282,11 +282,11 @@ resource "aws_vpc_ipam" "test" {
 }
 
 resource "aws_vpc_ipam_pool" "test" {
-  address_family                    = "ipv6"
-  ipam_scope_id                     = aws_vpc_ipam.test.public_default_scope_id
-  locale                            = data.aws_region.current.name
+  address_family     = "ipv6"
+  ipam_scope_id      = aws_vpc_ipam.test.public_default_scope_id
+  locale             = data.aws_region.current.name
   publicly_advertisable             = false
-  aws_service                       = "ec2"
+  aws_service        = "ec2"
   allocation_default_netmask_length = 56
 }
 
@@ -323,11 +323,11 @@ resource "aws_vpc_ipam" "test" {
 }
 
 resource "aws_vpc_ipam_pool" "test" {
-  address_family                    = "ipv6"
-  ipam_scope_id                     = aws_vpc_ipam.test.public_default_scope_id
-  locale                            = data.aws_region.current.name
+  address_family     = "ipv6"
+  ipam_scope_id      = aws_vpc_ipam.test.public_default_scope_id
+  locale             = data.aws_region.current.name
   publicly_advertisable             = false
-  aws_service                       = "ec2"
+  aws_service        = "ec2"
   allocation_default_netmask_length = 56
 }
 
@@ -364,11 +364,11 @@ resource "aws_vpc_ipam" "test" {
 }
 
 resource "aws_vpc_ipam_pool" "test" {
-  address_family                    = "ipv6"
-  ipam_scope_id                     = aws_vpc_ipam.test.public_default_scope_id
-  locale                            = data.aws_region.current.name
+  address_family     = "ipv6"
+  ipam_scope_id      = aws_vpc_ipam.test.public_default_scope_id
+  locale             = data.aws_region.current.name
   publicly_advertisable             = false
-  aws_service                       = "ec2"
+  aws_service        = "ec2"
   allocation_default_netmask_length = 56
 }
 
@@ -408,11 +408,11 @@ resource "aws_vpc_ipam" "test" {
 }
 
 resource "aws_vpc_ipam_pool" "test" {
-  address_family                    = "ipv6"
-  ipam_scope_id                     = aws_vpc_ipam.test.public_default_scope_id
-  locale                            = data.aws_region.current.name
+  address_family     = "ipv6"
+  ipam_scope_id      = aws_vpc_ipam.test.public_default_scope_id
+  locale             = data.aws_region.current.name
   publicly_advertisable             = false
-  aws_service                       = "ec2"
+  aws_service        = "ec2"
   allocation_default_netmask_length = 56
 }
 
@@ -453,11 +453,11 @@ resource "aws_vpc_ipam" "test" {
 }
 
 resource "aws_vpc_ipam_pool" "test" {
-  address_family                    = "ipv6"
-  ipam_scope_id                     = aws_vpc_ipam.test.public_default_scope_id
-  locale                            = data.aws_region.current.name
+  address_family     = "ipv6"
+  ipam_scope_id      = aws_vpc_ipam.test.public_default_scope_id
+  locale             = data.aws_region.current.name
   publicly_advertisable             = false
-  aws_service                       = "ec2"
+  aws_service        = "ec2"
   allocation_default_netmask_length = 56
 }
 

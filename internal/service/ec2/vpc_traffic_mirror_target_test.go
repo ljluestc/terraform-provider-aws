@@ -33,7 +33,7 @@ func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckTrafficMirrorTarget(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTrafficMirrorTargetDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -72,7 +72,7 @@ func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckTrafficMirrorTarget(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTrafficMirrorTargetDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -108,7 +108,7 @@ func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckTrafficMirrorTarget(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTrafficMirrorTargetDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -163,7 +163,7 @@ func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckTrafficMirrorTarget(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTrafficMirrorTargetDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -193,7 +193,7 @@ func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckTrafficMirrorTarget(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTrafficMirrorTargetDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -275,7 +275,7 @@ func(s *terraform.State) error {
 func testAccVPCTrafficMirrorTargetConfig_nlb(rName, description string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_lb" "test" {
-  name               = %[1]q
+  name= %[1]q
   internal           = true
   load_balancer_type = "network"
   subnets            = aws_subnet.test[*].id
@@ -284,7 +284,7 @@ resource "aws_lb" "test" {
 }
 
 resource "aws_ec2_traffic_mirror_target" "test" {
-  description               = %[2]q
+  description= %[2]q
   network_load_balancer_arn = aws_lb.test.arn
 }
 `, rName, description))
@@ -321,7 +321,7 @@ resource "aws_ec2_traffic_mirror_target" "test" {
 func testAccVPCTrafficMirrorTargetConfig_tags1(rName, description, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_lb" "test" {
-  name               = %[1]q
+  name= %[1]q
   internal           = true
   load_balancer_type = "network"
   subnets            = aws_subnet.test[*].id
@@ -330,7 +330,7 @@ resource "aws_lb" "test" {
 }
 
 resource "aws_ec2_traffic_mirror_target" "test" {
-  description               = %[2]q
+  description= %[2]q
   network_load_balancer_arn = aws_lb.test.arn
 
   tags = {
@@ -344,7 +344,7 @@ resource "aws_ec2_traffic_mirror_target" "test" {
 func testAccVPCTrafficMirrorTargetConfig_tags2(rName, description, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_lb" "test" {
-  name               = %[1]q
+  name= %[1]q
   internal           = true
   load_balancer_type = "network"
   subnets            = aws_subnet.test[*].id
@@ -353,7 +353,7 @@ resource "aws_lb" "test" {
 }
 
 resource "aws_ec2_traffic_mirror_target" "test" {
-  description               = %[2]q
+  description= %[2]q
   network_load_balancer_arn = aws_lb.test.arn
 
   tags = {
@@ -370,7 +370,7 @@ func testAccVPCTrafficMirrorTargetConfig_gwlb(rName, description string) string 
 		testAccVPCEndpointConfig_gatewayLoadBalancer(rName),
 		fmt.Sprintf(`
 resource "aws_ec2_traffic_mirror_target" "test" {
-  description                       = %[2]q
+  description        = %[2]q
   gateway_load_balancer_endpoint_id = aws_vpc_endpoint.test.id
 
   tags = {

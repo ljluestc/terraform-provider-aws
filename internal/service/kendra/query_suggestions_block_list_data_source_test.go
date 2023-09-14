@@ -26,8 +26,8 @@ func TestAccKendraQuerySuggestionsBlockListDataSource_basic(t *testing.T) {
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, backup.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, backup.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -61,7 +61,7 @@ func TestAccKendraQuerySuggestionsBlockListDataSource_basic(t *testing.T) {
 
 const testAccQuerySuggestionsBlockListDataSourceConfig_nonExistent = `
 data "aws_kendra_query_suggestions_block_list" "test" {
-  index_id                        = "tf-acc-test-does-not-exist-kendra-id"
+  index_id         = "tf-acc-test-does-not-exist-kendra-id"
   query_suggestions_block_list_id = "tf-acc-test-does-not-exist-kendra-id"
 }
 `
@@ -87,7 +87,7 @@ resource "aws_kendra_query_suggestions_block_list" "test" {
 }
 
 data "aws_kendra_query_suggestions_block_list" "test" {
-  index_id                        = aws_kendra_index.test.id
+  index_id         = aws_kendra_index.test.id
   query_suggestions_block_list_id = aws_kendra_query_suggestions_block_list.test.query_suggestions_block_list_id
 }
 `, rName2))

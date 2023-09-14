@@ -58,7 +58,7 @@ func ResourceRole() *schema.Resource {
 				Computed: true,
 			},
 			"assume_role_policy": {
-				Type:                  schema.TypeString,
+				Type:   schema.TypeString,
 				Required:              true,
 				ValidateFunc:          validation.StringIsJSON,
 				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
@@ -101,7 +101,7 @@ func ResourceRole() *schema.Resource {
 							),
 						},
 						"policy": {
-							Type:                  schema.TypeString,
+							Type:   schema.TypeString,
 							Optional:              true, // semantically required but syntactically optional to allow empty inline_policy
 							ValidateFunc:          verify.ValidIAMPolicyJSON,
 							DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
@@ -193,9 +193,9 @@ func resourceRoleCreate(ctx context.Context, d *schema.ResourceData, meta interf
 	name := create.Name(d.Get("name").(string), d.Get("name_prefix").(string))
 	input := &iam.CreateRoleInput{
 		AssumeRolePolicyDocument: aws.String(assumeRolePolicy),
-		Path:                     aws.String(d.Get("path").(string)),
-		RoleName:                 aws.String(name),
-		Tags:                     getTagsIn(ctx),
+		Path:      aws.String(d.Get("path").(string)),
+		RoleName:  aws.String(name),
+		Tags:      getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {

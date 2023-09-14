@@ -168,7 +168,7 @@ func resourceUserCreate(ctx context.Context, d *schema.ResourceData, meta interf
 		PhoneConfig:        expandPhoneConfig(d.Get("phone_config").([]interface{})),
 		RoutingProfileId:   aws.String(d.Get("routing_profile_id").(string)),
 		SecurityProfileIds: flex.ExpandStringSet(d.Get("security_profile_ids").(*schema.Set)),
-		Tags:               getTagsIn(ctx),
+		Tags:getTagsIn(ctx),
 		Username:           aws.String(name),
 	}
 

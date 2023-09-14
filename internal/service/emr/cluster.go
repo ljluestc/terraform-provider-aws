@@ -1615,10 +1615,10 @@ func flattenCoreInstanceGroup(instanceGroup *emr.InstanceGroup) ([]interface{}, 
 		"autoscaling_policy": autoscalingPolicy,
 		"bid_price":          aws.StringValue(instanceGroup.BidPrice),
 		"ebs_config":         flattenEBSConfig(instanceGroup.EbsBlockDevices),
-		"id":                 aws.StringValue(instanceGroup.Id),
+		"id":  aws.StringValue(instanceGroup.Id),
 		"instance_count":     aws.Int64Value(instanceGroup.RequestedInstanceCount),
 		"instance_type":      aws.StringValue(instanceGroup.InstanceType),
-		"name":               aws.StringValue(instanceGroup.Name),
+		"name":aws.StringValue(instanceGroup.Name),
 	}
 
 	return []interface{}{m}, nil
@@ -2049,7 +2049,7 @@ func(page *emr.ListInstanceGroupsOutput, lastPage bool) bool {
 func readInstanceFleetConfig(data map[string]interface{}, InstanceFleetType string) *emr.InstanceFleetConfig {
 	config := &emr.InstanceFleetConfig{
 		InstanceFleetType:      &InstanceFleetType,
-		Name:                   aws.String(data["name"].(string)),
+		Name:    aws.String(data["name"].(string)),
 		TargetOnDemandCapacity: aws.Int64(int64(data["target_on_demand_capacity"].(int))),
 		TargetSpotCapacity:     aws.Int64(int64(data["target_spot_capacity"].(int))),
 	}
@@ -2101,8 +2101,8 @@ func flattenInstanceFleet(instanceFleet *emr.InstanceFleet) []interface{} {
 	}
 
 	m := map[string]interface{}{
-		"id":                             aws.StringValue(instanceFleet.Id),
-		"name":                           aws.StringValue(instanceFleet.Name),
+		"id":              aws.StringValue(instanceFleet.Id),
+		"name":            aws.StringValue(instanceFleet.Name),
 		"target_on_demand_capacity":      aws.Int64Value(instanceFleet.TargetOnDemandCapacity),
 		"target_spot_capacity":           aws.Int64Value(instanceFleet.TargetSpotCapacity),
 		"provisioned_on_demand_capacity": aws.Int64Value(instanceFleet.ProvisionedOnDemandCapacity),

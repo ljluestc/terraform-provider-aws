@@ -28,9 +28,9 @@ func TestAccRoute53ResolverQueryLogConfigAssociation_basic(t *testing.T) {
 	vpcResourceName := "aws_vpc.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, route53resolver.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckQueryLogConfigAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -60,9 +60,9 @@ func TestAccRoute53ResolverQueryLogConfigAssociation_disappears(t *testing.T) {
 	resourceName := "aws_route53_resolver_query_log_config_association.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, route53resolver.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckQueryLogConfigAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -158,7 +158,7 @@ resource "aws_route53_resolver_query_log_config" "test" {
 
 resource "aws_route53_resolver_query_log_config_association" "test" {
   resolver_query_log_config_id = aws_route53_resolver_query_log_config.test.id
-  resource_id                  = aws_vpc.test.id
+  resource_id   = aws_vpc.test.id
 }
 `, rName)
 }

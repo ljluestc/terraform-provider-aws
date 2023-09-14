@@ -85,7 +85,7 @@ func resourceHostedConfigurationVersionCreate(ctx context.Context, d *schema.Res
 	input := &appconfig.CreateHostedConfigurationVersionInput{
 		ApplicationId:          aws.String(appID),
 		ConfigurationProfileId: aws.String(profileID),
-		Content:                []byte(d.Get("content").(string)),
+		Content: []byte(d.Get("content").(string)),
 		ContentType:            aws.String(d.Get("content_type").(string)),
 	}
 

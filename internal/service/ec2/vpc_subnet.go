@@ -537,7 +537,7 @@ func modifySubnetEnableDNS64(ctx context.Context, conn *ec2.EC2, subnetID string
 func modifySubnetEnableLniAtDeviceIndex(ctx context.Context, conn *ec2.EC2, subnetID string, deviceIndex int64) error {
 	input := &ec2.ModifySubnetAttributeInput{
 		EnableLniAtDeviceIndex: aws.Int64(deviceIndex),
-		SubnetId:               aws.String(subnetID),
+		SubnetId:aws.String(subnetID),
 	}
 
 	if _, err := conn.ModifySubnetAttributeWithContext(ctx, input); err != nil {
@@ -688,7 +688,7 @@ func modifySubnetOutpostRackAttributes(ctx context.Context, conn *ec2.EC2, subne
 func modifySubnetPrivateDNSHostnameTypeOnLaunch(ctx context.Context, conn *ec2.EC2, subnetID string, v string) error {
 	input := &ec2.ModifySubnetAttributeInput{
 		PrivateDnsHostnameTypeOnLaunch: aws.String(v),
-		SubnetId:                       aws.String(subnetID),
+		SubnetId:        aws.String(subnetID),
 	}
 
 	if _, err := conn.ModifySubnetAttributeWithContext(ctx, input); err != nil {

@@ -34,8 +34,8 @@ func TestAccDMSReplicationTask_basic(t *testing.T) {
 `
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dms.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckReplicationTaskDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -73,8 +73,8 @@ func TestAccDMSReplicationTask_update(t *testing.T) {
 	resourceName := "aws_dms_replication_task.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dms.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckReplicationTaskDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -160,8 +160,8 @@ func TestAccDMSReplicationTask_cdcStartPosition(t *testing.T) {
 	resourceName := "aws_dms_replication_task.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dms.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckReplicationTaskDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -192,8 +192,8 @@ func TestAccDMSReplicationTask_startReplicationTask(t *testing.T) {
 	resourceName := "aws_dms_replication_task.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dms.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckReplicationTaskDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -236,8 +236,8 @@ func TestAccDMSReplicationTask_s3ToRDS(t *testing.T) {
 	//https://github.com/hashicorp/terraform-provider-aws/issues/28277
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dms.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckReplicationTaskDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -267,8 +267,8 @@ func TestAccDMSReplicationTask_disappears(t *testing.T) {
 `
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dms.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, dms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckReplicationTaskDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -390,7 +390,7 @@ resource "aws_dms_endpoint" "target" {
 resource "aws_dms_replication_subnet_group" "test" {
   replication_subnet_group_id          = %[1]q
   replication_subnet_group_description = "terraform test for replication subnet group"
-  subnet_ids                           = [aws_subnet.test1.id, aws_subnet.test2.id]
+  subnet_ids            = [aws_subnet.test1.id, aws_subnet.test2.id]
 }
 
 resource "aws_dms_replication_instance" "test" {
@@ -554,11 +554,11 @@ resource "aws_rds_cluster_parameter_group" "test" {
 
 resource "aws_rds_cluster" "test1" {
   cluster_identifier              = "%[1]s-aurora-cluster-source"
-  engine                          = "aurora-mysql"
-  engine_version                  = "5.7.mysql_aurora.2.11.2"
-  database_name                   = "tftest"
-  master_username                 = "tftest"
-  master_password                 = "mustbeeightcharaters"
+  engine           = "aurora-mysql"
+  engine_version   = "5.7.mysql_aurora.2.11.2"
+  database_name    = "tftest"
+  master_username  = "tftest"
+  master_password  = "mustbeeightcharaters"
   skip_final_snapshot             = true
   vpc_security_group_ids          = [aws_security_group.test.id]
   db_subnet_group_name            = aws_db_subnet_group.test.name
@@ -569,14 +569,14 @@ resource "aws_rds_cluster_instance" "test1" {
   identifier           = "%[1]s-test1-primary"
   cluster_identifier   = aws_rds_cluster.test1.id
   instance_class       = "db.t2.small"
-  engine               = aws_rds_cluster.test1.engine
+  engine= aws_rds_cluster.test1.engine
   engine_version       = aws_rds_cluster.test1.engine_version
   db_subnet_group_name = aws_db_subnet_group.test.name
 }
 
 resource "aws_rds_cluster" "test2" {
   cluster_identifier     = "%[1]s-aurora-cluster-target"
-  engine                 = "aurora-mysql"
+  engine  = "aurora-mysql"
   engine_version         = "5.7.mysql_aurora.2.11.2"
   database_name          = "tftest"
   master_username        = "tftest"
@@ -590,7 +590,7 @@ resource "aws_rds_cluster_instance" "test2" {
   identifier           = "%[1]s-test2-primary"
   cluster_identifier   = aws_rds_cluster.test2.id
   instance_class       = "db.t2.small"
-  engine               = aws_rds_cluster.test2.engine
+  engine= aws_rds_cluster.test2.engine
   engine_version       = aws_rds_cluster.test2.engine_version
   db_subnet_group_name = aws_db_subnet_group.test.name
 }
@@ -620,7 +620,7 @@ resource "aws_dms_endpoint" "target" {
 resource "aws_dms_replication_subnet_group" "test" {
   replication_subnet_group_id          = %[1]q
   replication_subnet_group_description = "terraform test for replication subnet group"
-  subnet_ids                           = [aws_subnet.test1.id, aws_subnet.test2.id]
+  subnet_ids            = [aws_subnet.test1.id, aws_subnet.test2.id]
 }
 
 resource "aws_dms_replication_instance" "test" {
@@ -718,7 +718,7 @@ resource "aws_db_subnet_group" "test" {
 resource "aws_dms_replication_subnet_group" "test" {
   replication_subnet_group_id          = %[1]q
   replication_subnet_group_description = "terraform test for replication subnet group"
-  subnet_ids                           = [aws_subnet.test1.id, aws_subnet.test2.id]
+  subnet_ids            = [aws_subnet.test1.id, aws_subnet.test2.id]
 }
 
 resource "aws_s3_bucket" "test" {
@@ -740,7 +740,7 @@ data "aws_rds_orderable_db_instance" "test" {
 
 resource "aws_rds_cluster" "test" {
   cluster_identifier     = "%[1]s-aurora-cluster-target"
-  engine                 = "aurora-mysql"
+  engine  = "aurora-mysql"
   engine_version         = data.aws_rds_orderable_db_instance.test.engine_version
   database_name          = "tftest"
   master_username        = "tftest"
@@ -754,7 +754,7 @@ resource "aws_rds_cluster_instance" "test" {
   identifier           = "%[1]s-test-primary"
   cluster_identifier   = aws_rds_cluster.test.id
   instance_class       = "db.t2.small"
-  engine               = aws_rds_cluster.test.engine
+  engine= aws_rds_cluster.test.engine
   engine_version       = aws_rds_cluster.test.engine_version
   db_subnet_group_name = aws_db_subnet_group.test.name
 }
@@ -762,7 +762,7 @@ resource "aws_rds_cluster_instance" "test" {
 resource "aws_dms_s3_endpoint" "source" {
   bucket_folder           = "folder"
   bucket_name             = aws_s3_bucket.test.id
-  cdc_path                = "cdc-files"
+  cdc_path = "cdc-files"
   csv_delimiter           = ";"
   csv_row_delimiter       = "\\n"
   date_partition_enabled  = false
@@ -770,9 +770,9 @@ resource "aws_dms_s3_endpoint" "source" {
   endpoint_type           = "source"
   expected_bucket_owner   = data.aws_caller_identity.current.account_id
   ignore_header_rows      = 1
-  rfc_4180                = false
+  rfc_4180 = false
   service_access_role_arn = aws_iam_role.test.arn
-  ssl_mode                = "none"
+  ssl_mode = "none"
 
   external_table_definition = jsonencode({
     TableCount = 1

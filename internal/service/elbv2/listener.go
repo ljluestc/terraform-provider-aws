@@ -753,9 +753,9 @@ func expandLbListenerAuthenticateCognitoConfig(l []interface{}) *elbv2.Authentic
 
 	config := &elbv2.AuthenticateCognitoActionConfig{
 		AuthenticationRequestExtraParams: flex.ExpandStringMap(tfMap["authentication_request_extra_params"].(map[string]interface{})),
-		UserPoolArn:                      aws.String(tfMap["user_pool_arn"].(string)),
-		UserPoolClientId:                 aws.String(tfMap["user_pool_client_id"].(string)),
-		UserPoolDomain:                   aws.String(tfMap["user_pool_domain"].(string)),
+		UserPoolArn:       aws.String(tfMap["user_pool_arn"].(string)),
+		UserPoolClientId:  aws.String(tfMap["user_pool_client_id"].(string)),
+		UserPoolDomain:    aws.String(tfMap["user_pool_domain"].(string)),
 	}
 
 	if v, ok := tfMap["on_unauthenticated_request"].(string); ok && v != "" {
@@ -791,11 +791,11 @@ func expandAuthenticateOIDCConfig(l []interface{}) *elbv2.AuthenticateOidcAction
 	config := &elbv2.AuthenticateOidcActionConfig{
 		AuthenticationRequestExtraParams: flex.ExpandStringMap(tfMap["authentication_request_extra_params"].(map[string]interface{})),
 		AuthorizationEndpoint:            aws.String(tfMap["authorization_endpoint"].(string)),
-		ClientId:                         aws.String(tfMap["client_id"].(string)),
-		ClientSecret:                     aws.String(tfMap["client_secret"].(string)),
-		Issuer:                           aws.String(tfMap["issuer"].(string)),
-		TokenEndpoint:                    aws.String(tfMap["token_endpoint"].(string)),
-		UserInfoEndpoint:                 aws.String(tfMap["user_info_endpoint"].(string)),
+		ClientId:          aws.String(tfMap["client_id"].(string)),
+		ClientSecret:      aws.String(tfMap["client_secret"].(string)),
+		Issuer:            aws.String(tfMap["issuer"].(string)),
+		TokenEndpoint:     aws.String(tfMap["token_endpoint"].(string)),
+		UserInfoEndpoint:  aws.String(tfMap["user_info_endpoint"].(string)),
 	}
 
 	if v, ok := tfMap["on_unauthenticated_request"].(string); ok && v != "" {
@@ -974,15 +974,15 @@ func flattenAuthenticateOIDCActionConfig(config *elbv2.AuthenticateOidcActionCon
 	m := map[string]interface{}{
 		"authentication_request_extra_params": aws.StringValueMap(config.AuthenticationRequestExtraParams),
 		"authorization_endpoint":              aws.StringValue(config.AuthorizationEndpoint),
-		"client_id":                           aws.StringValue(config.ClientId),
-		"client_secret":                       clientSecret,
-		"issuer":                              aws.StringValue(config.Issuer),
+		"client_id":            aws.StringValue(config.ClientId),
+		"client_secret":        clientSecret,
+		"issuer":aws.StringValue(config.Issuer),
 		"on_unauthenticated_request":          aws.StringValue(config.OnUnauthenticatedRequest),
-		"scope":                               aws.StringValue(config.Scope),
-		"session_cookie_name":                 aws.StringValue(config.SessionCookieName),
-		"session_timeout":                     aws.Int64Value(config.SessionTimeout),
-		"token_endpoint":                      aws.StringValue(config.TokenEndpoint),
-		"user_info_endpoint":                  aws.StringValue(config.UserInfoEndpoint),
+		"scope": aws.StringValue(config.Scope),
+		"session_cookie_name":  aws.StringValue(config.SessionCookieName),
+		"session_timeout":      aws.Int64Value(config.SessionTimeout),
+		"token_endpoint":       aws.StringValue(config.TokenEndpoint),
+		"user_info_endpoint":   aws.StringValue(config.UserInfoEndpoint),
 	}
 
 	return []interface{}{m}
@@ -996,12 +996,12 @@ func flattenLbListenerActionAuthenticateCognitoConfig(config *elbv2.Authenticate
 	m := map[string]interface{}{
 		"authentication_request_extra_params": aws.StringValueMap(config.AuthenticationRequestExtraParams),
 		"on_unauthenticated_request":          aws.StringValue(config.OnUnauthenticatedRequest),
-		"scope":                               aws.StringValue(config.Scope),
-		"session_cookie_name":                 aws.StringValue(config.SessionCookieName),
-		"session_timeout":                     aws.Int64Value(config.SessionTimeout),
-		"user_pool_arn":                       aws.StringValue(config.UserPoolArn),
-		"user_pool_client_id":                 aws.StringValue(config.UserPoolClientId),
-		"user_pool_domain":                    aws.StringValue(config.UserPoolDomain),
+		"scope": aws.StringValue(config.Scope),
+		"session_cookie_name":  aws.StringValue(config.SessionCookieName),
+		"session_timeout":      aws.Int64Value(config.SessionTimeout),
+		"user_pool_arn":        aws.StringValue(config.UserPoolArn),
+		"user_pool_client_id":  aws.StringValue(config.UserPoolClientId),
+		"user_pool_domain":     aws.StringValue(config.UserPoolDomain),
 	}
 
 	return []interface{}{m}

@@ -39,7 +39,7 @@ func ResourceTopicDataProtectionPolicy() *schema.Resource {
 				ValidateFunc: verify.ValidARN,
 			},
 			"policy": {
-				Type:                  schema.TypeString,
+				Type:   schema.TypeString,
 				Required:              true,
 				ValidateFunc:          validation.StringIsJSON,
 				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,

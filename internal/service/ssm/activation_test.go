@@ -27,8 +27,8 @@ func TestAccSSMActivation_basic(t *testing.T) {
 	resourceName := "aws_ssm_activation.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckActivationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -61,8 +61,8 @@ func TestAccSSMActivation_tags(t *testing.T) {
 	resourceName := "aws_ssm_activation.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckActivationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -97,8 +97,8 @@ func TestAccSSMActivation_expirationDate(t *testing.T) {
 	resourceName := "aws_ssm_activation.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckActivationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -129,8 +129,8 @@ func TestAccSSMActivation_disappears(t *testing.T) {
 	resourceName := "aws_ssm_activation.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckActivationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -231,7 +231,7 @@ resource "aws_iam_role_policy_attachment" "test" {
 func testAccActivationConfig_basic(rName string, roleName string) string {
 	return acctest.ConfigCompose(testAccActivationConfig_base(roleName), fmt.Sprintf(`
 resource "aws_ssm_activation" "test" {
-  name               = %[1]q
+  name= %[1]q
   description        = "Test"
   iam_role           = aws_iam_role.test.name
   registration_limit = "5"
@@ -244,7 +244,7 @@ resource "aws_ssm_activation" "test" {
 func testAccActivationConfig_tags(rName string, roleName string) string {
 	return acctest.ConfigCompose(testAccActivationConfig_base(roleName), fmt.Sprintf(`
 resource "aws_ssm_activation" "test" {
-  name               = %[1]q
+  name= %[1]q
   description        = "Test"
   iam_role           = aws_iam_role.test.name
   registration_limit = "5"
@@ -261,7 +261,7 @@ resource "aws_ssm_activation" "test" {
 func testAccActivationConfig_expirationDate(rName string, expirationDate string, roleName string) string {
 	return acctest.ConfigCompose(testAccActivationConfig_base(roleName), fmt.Sprintf(`
 resource "aws_ssm_activation" "test" {
-  name               = %[1]q
+  name= %[1]q
   description        = "Test"
   expiration_date    = "%[2]s"
   iam_role           = aws_iam_role.test.name

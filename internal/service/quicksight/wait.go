@@ -70,10 +70,10 @@ func waitUpdated(ctx context.Context, conn *quicksight.QuickSight, accountId, da
 
 func waitTemplateCreated(ctx context.Context, conn *quicksight.QuickSight, id string, timeout time.Duration) (*quicksight.Template, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   []string{quicksight.ResourceStatusCreationInProgress},
-		Target:                    []string{quicksight.ResourceStatusCreationSuccessful},
-		Refresh:                   statusTemplate(ctx, conn, id),
-		Timeout:                   timeout,
+		Pending:    []string{quicksight.ResourceStatusCreationInProgress},
+		Target:     []string{quicksight.ResourceStatusCreationSuccessful},
+		Refresh:    statusTemplate(ctx, conn, id),
+		Timeout:    timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}
@@ -100,10 +100,10 @@ func waitTemplateCreated(ctx context.Context, conn *quicksight.QuickSight, id st
 
 func waitTemplateUpdated(ctx context.Context, conn *quicksight.QuickSight, id string, timeout time.Duration) (*quicksight.Template, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   []string{quicksight.ResourceStatusUpdateInProgress, quicksight.ResourceStatusCreationInProgress},
-		Target:                    []string{quicksight.ResourceStatusUpdateSuccessful, quicksight.ResourceStatusCreationSuccessful},
-		Refresh:                   statusTemplate(ctx, conn, id),
-		Timeout:                   timeout,
+		Pending:    []string{quicksight.ResourceStatusUpdateInProgress, quicksight.ResourceStatusCreationInProgress},
+		Target:     []string{quicksight.ResourceStatusUpdateSuccessful, quicksight.ResourceStatusCreationSuccessful},
+		Refresh:    statusTemplate(ctx, conn, id),
+		Timeout:    timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}
@@ -130,10 +130,10 @@ func waitTemplateUpdated(ctx context.Context, conn *quicksight.QuickSight, id st
 
 func waitDashboardCreated(ctx context.Context, conn *quicksight.QuickSight, id string, timeout time.Duration) (*quicksight.Dashboard, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   []string{quicksight.ResourceStatusCreationInProgress},
-		Target:                    []string{quicksight.ResourceStatusCreationSuccessful},
-		Refresh:                   statusDashboard(ctx, conn, id),
-		Timeout:                   timeout,
+		Pending:    []string{quicksight.ResourceStatusCreationInProgress},
+		Target:     []string{quicksight.ResourceStatusCreationSuccessful},
+		Refresh:    statusDashboard(ctx, conn, id),
+		Timeout:    timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}
@@ -160,10 +160,10 @@ func waitDashboardCreated(ctx context.Context, conn *quicksight.QuickSight, id s
 
 func waitDashboardUpdated(ctx context.Context, conn *quicksight.QuickSight, id string, timeout time.Duration) (*quicksight.Dashboard, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   []string{quicksight.ResourceStatusUpdateInProgress, quicksight.ResourceStatusCreationInProgress},
-		Target:                    []string{quicksight.ResourceStatusUpdateSuccessful, quicksight.ResourceStatusCreationSuccessful},
-		Refresh:                   statusDashboard(ctx, conn, id),
-		Timeout:                   timeout,
+		Pending:    []string{quicksight.ResourceStatusUpdateInProgress, quicksight.ResourceStatusCreationInProgress},
+		Target:     []string{quicksight.ResourceStatusUpdateSuccessful, quicksight.ResourceStatusCreationSuccessful},
+		Refresh:    statusDashboard(ctx, conn, id),
+		Timeout:    timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}
@@ -190,10 +190,10 @@ func waitDashboardUpdated(ctx context.Context, conn *quicksight.QuickSight, id s
 
 func waitAnalysisCreated(ctx context.Context, conn *quicksight.QuickSight, id string, timeout time.Duration) (*quicksight.Analysis, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   []string{quicksight.ResourceStatusCreationInProgress},
-		Target:                    []string{quicksight.ResourceStatusCreationSuccessful},
-		Refresh:                   statusAnalysis(ctx, conn, id),
-		Timeout:                   timeout,
+		Pending:    []string{quicksight.ResourceStatusCreationInProgress},
+		Target:     []string{quicksight.ResourceStatusCreationSuccessful},
+		Refresh:    statusAnalysis(ctx, conn, id),
+		Timeout:    timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}
@@ -220,10 +220,10 @@ func waitAnalysisCreated(ctx context.Context, conn *quicksight.QuickSight, id st
 
 func waitAnalysisUpdated(ctx context.Context, conn *quicksight.QuickSight, id string, timeout time.Duration) (*quicksight.Analysis, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   []string{quicksight.ResourceStatusUpdateInProgress, quicksight.ResourceStatusCreationInProgress},
-		Target:                    []string{quicksight.ResourceStatusUpdateSuccessful, quicksight.ResourceStatusCreationSuccessful},
-		Refresh:                   statusAnalysis(ctx, conn, id),
-		Timeout:                   timeout,
+		Pending:    []string{quicksight.ResourceStatusUpdateInProgress, quicksight.ResourceStatusCreationInProgress},
+		Target:     []string{quicksight.ResourceStatusUpdateSuccessful, quicksight.ResourceStatusCreationSuccessful},
+		Refresh:    statusAnalysis(ctx, conn, id),
+		Timeout:    timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}
@@ -250,10 +250,10 @@ func waitAnalysisUpdated(ctx context.Context, conn *quicksight.QuickSight, id st
 
 func waitThemeCreated(ctx context.Context, conn *quicksight.QuickSight, id string, timeout time.Duration) (*quicksight.Theme, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   []string{quicksight.ResourceStatusCreationInProgress},
-		Target:                    []string{quicksight.ResourceStatusCreationSuccessful},
-		Refresh:                   statusTheme(ctx, conn, id),
-		Timeout:                   timeout,
+		Pending:    []string{quicksight.ResourceStatusCreationInProgress},
+		Target:     []string{quicksight.ResourceStatusCreationSuccessful},
+		Refresh:    statusTheme(ctx, conn, id),
+		Timeout:    timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}
@@ -280,10 +280,10 @@ func waitThemeCreated(ctx context.Context, conn *quicksight.QuickSight, id strin
 
 func waitThemeUpdated(ctx context.Context, conn *quicksight.QuickSight, id string, timeout time.Duration) (*quicksight.Theme, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   []string{quicksight.ResourceStatusUpdateInProgress, quicksight.ResourceStatusCreationInProgress},
-		Target:                    []string{quicksight.ResourceStatusUpdateSuccessful, quicksight.ResourceStatusCreationSuccessful},
-		Refresh:                   statusTheme(ctx, conn, id),
-		Timeout:                   timeout,
+		Pending:    []string{quicksight.ResourceStatusUpdateInProgress, quicksight.ResourceStatusCreationInProgress},
+		Target:     []string{quicksight.ResourceStatusUpdateSuccessful, quicksight.ResourceStatusCreationSuccessful},
+		Refresh:    statusTheme(ctx, conn, id),
+		Timeout:    timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}

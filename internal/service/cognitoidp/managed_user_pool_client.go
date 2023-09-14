@@ -728,57 +728,57 @@ func (r *resourceManagedUserPoolClient) ConfigValidators(ctx context.Context) []
 }
 
 type resourceManagedUserPoolClientData struct {
-	AccessTokenValidity                      types.Int64    `tfsdk:"access_token_validity"`
-	AllowedOauthFlows                        types.Set      `tfsdk:"allowed_oauth_flows"`
+	AccessTokenValidity       types.Int64    `tfsdk:"access_token_validity"`
+	AllowedOauthFlows         types.Set      `tfsdk:"allowed_oauth_flows"`
 	AllowedOauthFlowsUserPoolClient          types.Bool     `tfsdk:"allowed_oauth_flows_user_pool_client"`
-	AllowedOauthScopes                       types.Set      `tfsdk:"allowed_oauth_scopes"`
-	AnalyticsConfiguration                   types.List     `tfsdk:"analytics_configuration"`
-	AuthSessionValidity                      types.Int64    `tfsdk:"auth_session_validity"`
-	CallbackUrls                             types.Set      `tfsdk:"callback_urls"`
-	ClientSecret                             types.String   `tfsdk:"client_secret"`
-	DefaultRedirectUri                       types.String   `tfsdk:"default_redirect_uri"`
+	AllowedOauthScopes        types.Set      `tfsdk:"allowed_oauth_scopes"`
+	AnalyticsConfiguration    types.List     `tfsdk:"analytics_configuration"`
+	AuthSessionValidity       types.Int64    `tfsdk:"auth_session_validity"`
+	CallbackUrls              types.Set      `tfsdk:"callback_urls"`
+	ClientSecret              types.String   `tfsdk:"client_secret"`
+	DefaultRedirectUri        types.String   `tfsdk:"default_redirect_uri"`
 	EnablePropagateAdditionalUserContextData types.Bool     `tfsdk:"enable_propagate_additional_user_context_data"`
-	EnableTokenRevocation                    types.Bool     `tfsdk:"enable_token_revocation"`
-	ExplicitAuthFlows                        types.Set      `tfsdk:"explicit_auth_flows"`
-	ID                                       types.String   `tfsdk:"id"`
-	IdTokenValidity                          types.Int64    `tfsdk:"id_token_validity"`
-	LogoutUrls                               types.Set      `tfsdk:"logout_urls"`
-	Name                                     types.String   `tfsdk:"name"`
-	NamePattern                              fwtypes.Regexp `tfsdk:"name_pattern"`
-	NamePrefix                               types.String   `tfsdk:"name_prefix"`
-	PreventUserExistenceErrors               types.String   `tfsdk:"prevent_user_existence_errors"`
-	ReadAttributes                           types.Set      `tfsdk:"read_attributes"`
-	RefreshTokenValidity                     types.Int64    `tfsdk:"refresh_token_validity"`
-	SupportedIdentityProviders               types.Set      `tfsdk:"supported_identity_providers"`
-	TokenValidityUnits                       types.List     `tfsdk:"token_validity_units"`
-	UserPoolID                               types.String   `tfsdk:"user_pool_id"`
-	WriteAttributes                          types.Set      `tfsdk:"write_attributes"`
+	EnableTokenRevocation     types.Bool     `tfsdk:"enable_token_revocation"`
+	ExplicitAuthFlows         types.Set      `tfsdk:"explicit_auth_flows"`
+	ID         types.String   `tfsdk:"id"`
+	IdTokenValidity           types.Int64    `tfsdk:"id_token_validity"`
+	LogoutUrls types.Set      `tfsdk:"logout_urls"`
+	Name       types.String   `tfsdk:"name"`
+	NamePatternfwtypes.Regexp `tfsdk:"name_pattern"`
+	NamePrefix types.String   `tfsdk:"name_prefix"`
+	PreventUserExistenceErrorstypes.String   `tfsdk:"prevent_user_existence_errors"`
+	ReadAttributes            types.Set      `tfsdk:"read_attributes"`
+	RefreshTokenValidity      types.Int64    `tfsdk:"refresh_token_validity"`
+	SupportedIdentityProviderstypes.Set      `tfsdk:"supported_identity_providers"`
+	TokenValidityUnits        types.List     `tfsdk:"token_validity_units"`
+	UserPoolID types.String   `tfsdk:"user_pool_id"`
+	WriteAttributes           types.Set      `tfsdk:"write_attributes"`
 }
 
 func (data resourceManagedUserPoolClientData) updateInput(ctx context.Context, diags *diag.Diagnostics) *cognitoidentityprovider.UpdateUserPoolClientInput {
 	return &cognitoidentityprovider.UpdateUserPoolClientInput{
-		AccessTokenValidity:                      flex.Int64FromFrameworkLegacy(ctx, data.AccessTokenValidity),
-		AllowedOAuthFlows:                        flex.ExpandFrameworkStringSet(ctx, data.AllowedOauthFlows),
+		AccessTokenValidity:       flex.Int64FromFrameworkLegacy(ctx, data.AccessTokenValidity),
+		AllowedOAuthFlows:         flex.ExpandFrameworkStringSet(ctx, data.AllowedOauthFlows),
 		AllowedOAuthFlowsUserPoolClient:          flex.BoolFromFramework(ctx, data.AllowedOauthFlowsUserPoolClient),
-		AllowedOAuthScopes:                       flex.ExpandFrameworkStringSet(ctx, data.AllowedOauthScopes),
-		AnalyticsConfiguration:                   expandAnaylticsConfiguration(ctx, data.AnalyticsConfiguration, diags),
-		AuthSessionValidity:                      flex.Int64FromFramework(ctx, data.AuthSessionValidity),
-		CallbackURLs:                             flex.ExpandFrameworkStringSet(ctx, data.CallbackUrls),
-		ClientId:                                 flex.StringFromFramework(ctx, data.ID),
-		ClientName:                               flex.StringFromFramework(ctx, data.Name),
-		DefaultRedirectURI:                       flex.StringFromFrameworkLegacy(ctx, data.DefaultRedirectUri),
+		AllowedOAuthScopes:        flex.ExpandFrameworkStringSet(ctx, data.AllowedOauthScopes),
+		AnalyticsConfiguration:    expandAnaylticsConfiguration(ctx, data.AnalyticsConfiguration, diags),
+		AuthSessionValidity:       flex.Int64FromFramework(ctx, data.AuthSessionValidity),
+		CallbackURLs:              flex.ExpandFrameworkStringSet(ctx, data.CallbackUrls),
+		ClientId:   flex.StringFromFramework(ctx, data.ID),
+		ClientName: flex.StringFromFramework(ctx, data.Name),
+		DefaultRedirectURI:        flex.StringFromFrameworkLegacy(ctx, data.DefaultRedirectUri),
 		EnablePropagateAdditionalUserContextData: flex.BoolFromFramework(ctx, data.EnablePropagateAdditionalUserContextData),
-		EnableTokenRevocation:                    flex.BoolFromFramework(ctx, data.EnableTokenRevocation),
-		ExplicitAuthFlows:                        flex.ExpandFrameworkStringSet(ctx, data.ExplicitAuthFlows),
-		IdTokenValidity:                          flex.Int64FromFrameworkLegacy(ctx, data.IdTokenValidity),
-		LogoutURLs:                               flex.ExpandFrameworkStringSet(ctx, data.LogoutUrls),
-		PreventUserExistenceErrors:               flex.StringFromFrameworkLegacy(ctx, data.PreventUserExistenceErrors),
-		ReadAttributes:                           flex.ExpandFrameworkStringSet(ctx, data.ReadAttributes),
-		RefreshTokenValidity:                     flex.Int64FromFramework(ctx, data.RefreshTokenValidity),
-		SupportedIdentityProviders:               flex.ExpandFrameworkStringSet(ctx, data.SupportedIdentityProviders),
-		TokenValidityUnits:                       expandTokenValidityUnits(ctx, data.TokenValidityUnits, diags),
-		UserPoolId:                               flex.StringFromFramework(ctx, data.UserPoolID),
-		WriteAttributes:                          flex.ExpandFrameworkStringSet(ctx, data.WriteAttributes),
+		EnableTokenRevocation:     flex.BoolFromFramework(ctx, data.EnableTokenRevocation),
+		ExplicitAuthFlows:         flex.ExpandFrameworkStringSet(ctx, data.ExplicitAuthFlows),
+		IdTokenValidity:           flex.Int64FromFrameworkLegacy(ctx, data.IdTokenValidity),
+		LogoutURLs: flex.ExpandFrameworkStringSet(ctx, data.LogoutUrls),
+		PreventUserExistenceErrors:flex.StringFromFrameworkLegacy(ctx, data.PreventUserExistenceErrors),
+		ReadAttributes:            flex.ExpandFrameworkStringSet(ctx, data.ReadAttributes),
+		RefreshTokenValidity:      flex.Int64FromFramework(ctx, data.RefreshTokenValidity),
+		SupportedIdentityProviders:flex.ExpandFrameworkStringSet(ctx, data.SupportedIdentityProviders),
+		TokenValidityUnits:        expandTokenValidityUnits(ctx, data.TokenValidityUnits, diags),
+		UserPoolId: flex.StringFromFramework(ctx, data.UserPoolID),
+		WriteAttributes:           flex.ExpandFrameworkStringSet(ctx, data.WriteAttributes),
 	}
 }
 

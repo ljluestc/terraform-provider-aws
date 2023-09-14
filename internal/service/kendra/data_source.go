@@ -820,10 +820,10 @@ func resourceDataSourceDelete(ctx context.Context, d *schema.ResourceData, meta 
 
 func waitDataSourceCreated(ctx context.Context, conn *kendra.Client, id, indexId string, timeout time.Duration) (*kendra.DescribeDataSourceOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   enum.Slice(types.DataSourceStatusCreating),
-		Target:                    enum.Slice(types.DataSourceStatusActive),
-		Timeout:                   timeout,
-		Refresh:                   statusDataSource(ctx, conn, id, indexId),
+		Pending:    enum.Slice(types.DataSourceStatusCreating),
+		Target:     enum.Slice(types.DataSourceStatusActive),
+		Timeout:    timeout,
+		Refresh:    statusDataSource(ctx, conn, id, indexId),
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}
@@ -842,10 +842,10 @@ func waitDataSourceCreated(ctx context.Context, conn *kendra.Client, id, indexId
 
 func waitDataSourceUpdated(ctx context.Context, conn *kendra.Client, id, indexId string, timeout time.Duration) (*kendra.DescribeDataSourceOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   enum.Slice(types.DataSourceStatusUpdating),
-		Target:                    enum.Slice(types.DataSourceStatusActive),
-		Timeout:                   timeout,
-		Refresh:                   statusDataSource(ctx, conn, id, indexId),
+		Pending:    enum.Slice(types.DataSourceStatusUpdating),
+		Target:     enum.Slice(types.DataSourceStatusActive),
+		Timeout:    timeout,
+		Refresh:    statusDataSource(ctx, conn, id, indexId),
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}
@@ -1291,7 +1291,7 @@ func expandDocumentAttributeCondition(tfList []interface{}) *types.DocumentAttri
 
 	result := &types.DocumentAttributeCondition{
 		ConditionDocumentAttributeKey: aws.String(tfMap["condition_document_attribute_key"].(string)),
-		Operator:                      types.ConditionOperator(tfMap["operator"].(string)),
+		Operator:       types.ConditionOperator(tfMap["operator"].(string)),
 	}
 
 	if v, ok := tfMap["condition_on_value"].([]interface{}); ok && len(v) > 0 {
@@ -1636,7 +1636,7 @@ func flattenDocumentAttributeCondition(apiObject *types.DocumentAttributeConditi
 
 	m := map[string]interface{}{
 		"condition_document_attribute_key": aws.ToString(apiObject.ConditionDocumentAttributeKey),
-		"operator":                         string(apiObject.Operator),
+		"operator":          string(apiObject.Operator),
 	}
 
 	if v := apiObject.ConditionOnValue; v != nil {

@@ -26,8 +26,8 @@ func TestAccAPIGatewayV2Integration_basicWebSocket(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckIntegrationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -73,8 +73,8 @@ func TestAccAPIGatewayV2Integration_basicHTTP(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckIntegrationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -120,8 +120,8 @@ func TestAccAPIGatewayV2Integration_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckIntegrationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -145,8 +145,8 @@ func TestAccAPIGatewayV2Integration_dataMappingHTTP(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckIntegrationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -172,14 +172,14 @@ func TestAccAPIGatewayV2Integration_dataMappingHTTP(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "request_templates.%", "0"),
 					resource.TestCheckResourceAttr(resourceName, "response_parameters.#", "2"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "response_parameters.*", map[string]string{
-						"status_code":                    "500",
-						"mappings.%":                     "2",
+						"status_code":     "500",
+						"mappings.%":      "2",
 						"mappings.append:header.header1": "$context.requestId",
 						"mappings.overwrite:statuscode":  "403",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "response_parameters.*", map[string]string{
-						"status_code":                  "404",
-						"mappings.%":                   "1",
+						"status_code":   "404",
+						"mappings.%":    "1",
 						"mappings.append:header.error": "$stageVariables.environmentId",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "template_selection_expression", ""),
@@ -209,8 +209,8 @@ func TestAccAPIGatewayV2Integration_dataMappingHTTP(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "request_templates.%", "0"),
 					resource.TestCheckResourceAttr(resourceName, "response_parameters.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "response_parameters.*", map[string]string{
-						"status_code":                    "500",
-						"mappings.%":                     "2",
+						"status_code":     "500",
+						"mappings.%":      "2",
 						"mappings.append:header.header1": "$context.requestId",
 						"mappings.overwrite:statuscode":  "403",
 					}),
@@ -237,8 +237,8 @@ func TestAccAPIGatewayV2Integration_integrationTypeHTTP(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckIntegrationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -315,8 +315,8 @@ func TestAccAPIGatewayV2Integration_lambdaWebSocket(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckIntegrationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -362,8 +362,8 @@ func TestAccAPIGatewayV2Integration_lambdaHTTP(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckIntegrationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -409,8 +409,8 @@ func TestAccAPIGatewayV2Integration_vpcLinkWebSocket(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckIntegrationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -458,8 +458,8 @@ func TestAccAPIGatewayV2Integration_vpcLinkHTTP(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckIntegrationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -540,8 +540,8 @@ func TestAccAPIGatewayV2Integration_serviceIntegration(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckIntegrationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -690,7 +690,7 @@ func testAccIntegrationImportStateIdFunc(resourceName string) resource.ImportSta
 func testAccIntegrationConfig_apiWebSocket(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_apigatewayv2_api" "test" {
-  name                       = %[1]q
+  name        = %[1]q
   protocol_type              = "WEBSOCKET"
   route_selection_expression = "$request.body.action"
 }
@@ -709,7 +709,7 @@ resource "aws_apigatewayv2_api" "test" {
 func testAccIntegrationConfig_lambdaBase(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_iam_role" "test" {
-  name               = %[1]q
+  name= %[1]q
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -881,11 +881,11 @@ resource "aws_apigatewayv2_integration" "test" {
   api_id           = aws_apigatewayv2_api.test.id
   integration_type = "HTTP"
 
-  connection_type               = "INTERNET"
+  connection_type= "INTERNET"
   content_handling_strategy     = "CONVERT_TO_TEXT"
-  description                   = "Test HTTP"
+  description    = "Test HTTP"
   integration_method            = "GET"
-  integration_uri               = "http://www.example.com"
+  integration_uri= "http://www.example.com"
   passthrough_behavior          = "WHEN_NO_MATCH"
   template_selection_expression = "$request.body.name"
   timeout_milliseconds          = 28999
@@ -907,11 +907,11 @@ resource "aws_apigatewayv2_integration" "test" {
   api_id           = aws_apigatewayv2_api.test.id
   integration_type = "HTTP"
 
-  connection_type               = "INTERNET"
+  connection_type= "INTERNET"
   content_handling_strategy     = "CONVERT_TO_BINARY"
-  description                   = "Test HTTP updated"
+  description    = "Test HTTP updated"
   integration_method            = "POST"
-  integration_uri               = "http://www.example.org"
+  integration_uri= "http://www.example.org"
   passthrough_behavior          = "WHEN_NO_TEMPLATES"
   template_selection_expression = "$request.body.id"
   timeout_milliseconds          = 51
@@ -940,7 +940,7 @@ resource "aws_apigatewayv2_integration" "test" {
 
   connection_type           = "INTERNET"
   content_handling_strategy = "CONVERT_TO_TEXT"
-  description               = "Test Lambda"
+  description= "Test Lambda"
   integration_uri           = aws_lambda_function.test.invoke_arn
   passthrough_behavior      = "WHEN_NO_MATCH"
 
@@ -1056,7 +1056,7 @@ resource "aws_subnet" "test" {
 }
 
 resource "aws_lb" "test" {
-  name               = %[1]q
+  name= %[1]q
   internal           = true
   load_balancer_type = "network"
   subnets            = [aws_subnet.test.id]
@@ -1078,7 +1078,7 @@ resource "aws_apigatewayv2_integration" "test" {
   connection_id             = aws_api_gateway_vpc_link.test.id
   connection_type           = "VPC_LINK"
   content_handling_strategy = "CONVERT_TO_TEXT"
-  description               = "Test VPC Link"
+  description= "Test VPC Link"
   integration_method        = "PUT"
   integration_uri           = "http://www.example.net"
   passthrough_behavior      = "NEVER"

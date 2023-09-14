@@ -42,9 +42,9 @@ func TestAccEMRManagedScalingPolicy_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, emr.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckManagedScalingPolicyDestroy(ctx),
 
@@ -72,9 +72,9 @@ func TestAccEMRManagedScalingPolicy_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, emr.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckManagedScalingPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -98,9 +98,9 @@ func TestAccEMRManagedScalingPolicy_ComputeLimits_maximumCoreCapacityUnits(t *te
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, emr.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckManagedScalingPolicyDestroy(ctx),
 
@@ -128,9 +128,9 @@ func TestAccEMRManagedScalingPolicy_ComputeLimits_maximumOnDemandCapacityUnits(t
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, emr.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckManagedScalingPolicyDestroy(ctx),
 
@@ -158,9 +158,9 @@ func TestAccEMRManagedScalingPolicy_ComputeLimits_maximumOnDemandCapacityUnitsSp
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, emr.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckManagedScalingPolicyDestroy(ctx),
 
@@ -298,7 +298,7 @@ resource "aws_subnet" "test" {
   availability_zone       = data.aws_availability_zones.available.names[0]
   cidr_block              = "10.0.0.0/24"
   map_public_ip_on_launch = false
-  vpc_id                  = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
 
   tags = {
     Name = %[1]q
@@ -483,12 +483,12 @@ EOT
 }
 
 resource "aws_emr_cluster" "test" {
-  applications                      = ["Hadoop", "Hive"]
+  applications       = ["Hadoop", "Hive"]
   keep_job_flow_alive_when_no_steps = true
-  log_uri                           = "s3n://terraform/testlog/"
-  name                              = %[1]q
-  release_label                     = "emr-5.30.1"
-  service_role                      = aws_iam_role.emr_service.arn
+  log_uri            = "s3n://terraform/testlog/"
+  name= %[1]q
+  release_label      = "emr-5.30.1"
+  service_role       = aws_iam_role.emr_service.arn
 
   master_instance_group {
     instance_type = "c4.large"
@@ -506,10 +506,10 @@ resource "aws_emr_cluster" "test" {
   ]
 
   ec2_attributes {
-    subnet_id                         = aws_subnet.test.id
+    subnet_id          = aws_subnet.test.id
     emr_managed_master_security_group = aws_security_group.test.id
     emr_managed_slave_security_group  = aws_security_group.test.id
-    instance_profile                  = aws_iam_instance_profile.emr_instance_profile.arn
+    instance_profile   = aws_iam_instance_profile.emr_instance_profile.arn
   }
 
 }
@@ -536,7 +536,7 @@ func testAccManagedScalingPolicyConfig_computeLimitsMaximumCoreCapacityUnits(rNa
 resource "aws_emr_managed_scaling_policy" "test" {
   cluster_id = aws_emr_cluster.test.id
   compute_limits {
-    unit_type                   = "Instances"
+    unit_type    = "Instances"
     minimum_capacity_units      = 1
     maximum_capacity_units      = 2
     maximum_core_capacity_units = %[1]d
@@ -551,7 +551,7 @@ func testAccManagedScalingPolicyConfig_computeLimitsMaximumOnDemandCapacityUnits
 resource "aws_emr_managed_scaling_policy" "test" {
   cluster_id = aws_emr_cluster.test.id
   compute_limits {
-    unit_type                       = "Instances"
+    unit_type        = "Instances"
     minimum_capacity_units          = 1
     maximum_capacity_units          = 2
     maximum_ondemand_capacity_units = %[1]d

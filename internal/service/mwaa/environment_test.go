@@ -28,9 +28,9 @@ func TestAccMWAAEnvironment_basic(t *testing.T) {
 	resourceName := "aws_mwaa_environment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, mwaa.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, mwaa.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEnvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -94,9 +94,9 @@ func TestAccMWAAEnvironment_disappears(t *testing.T) {
 	resourceName := "aws_mwaa_environment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, mwaa.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, mwaa.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEnvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -121,9 +121,9 @@ func TestAccMWAAEnvironment_airflowOptions(t *testing.T) {
 	resourceName := "aws_mwaa_environment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, mwaa.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, mwaa.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEnvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -172,9 +172,9 @@ func TestAccMWAAEnvironment_log(t *testing.T) {
 	resourceName := "aws_mwaa_environment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, mwaa.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, mwaa.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEnvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -262,9 +262,9 @@ func TestAccMWAAEnvironment_full(t *testing.T) {
 	resourceName := "aws_mwaa_environment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, mwaa.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, mwaa.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEnvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -342,9 +342,9 @@ func TestAccMWAAEnvironment_pluginsS3ObjectVersion(t *testing.T) {
 	s3ObjectResourceName := "aws_s3_object.plugins"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, mwaa.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, mwaa.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEnvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -387,9 +387,9 @@ func TestAccMWAAEnvironment_updateAirflowVersionMinor(t *testing.T) {
 	resourceName := "aws_mwaa_environment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, mwaa.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, mwaa.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEnvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -696,7 +696,7 @@ func testAccEnvironmentConfig_basic(rName string) string {
 resource "aws_mwaa_environment" "test" {
   dag_s3_path        = aws_s3_object.dags.key
   execution_role_arn = aws_iam_role.test.arn
-  name               = %[1]q
+  name= %[1]q
 
   network_configuration {
     security_group_ids = [aws_security_group.test.id]
@@ -719,7 +719,7 @@ resource "aws_mwaa_environment" "test" {
 
   dag_s3_path        = aws_s3_object.dags.key
   execution_role_arn = aws_iam_role.test.arn
-  name               = %[1]q
+  name= %[1]q
 
   network_configuration {
     security_group_ids = [aws_security_group.test.id]
@@ -828,10 +828,10 @@ resource "aws_mwaa_environment" "test" {
     subnet_ids         = aws_subnet.private[*].id
   }
 
-  plugins_s3_path                 = aws_s3_object.plugins.key
+  plugins_s3_path  = aws_s3_object.plugins.key
   requirements_s3_path            = aws_s3_object.requirements.key
-  schedulers                      = 2
-  source_bucket_arn               = aws_s3_bucket.test.arn
+  schedulers       = 2
+  source_bucket_arn= aws_s3_bucket.test.arn
   startup_script_s3_path          = aws_s3_object.startup_script.key
   webserver_access_mode           = "PUBLIC_ONLY"
   weekly_maintenance_window_start = "SAT:03:00"
@@ -903,7 +903,7 @@ func testAccEnvironmentConfig_pluginsS3ObjectVersion(rName, content string) stri
 resource "aws_mwaa_environment" "test" {
   dag_s3_path        = aws_s3_object.dags.key
   execution_role_arn = aws_iam_role.test.arn
-  name               = %[1]q
+  name= %[1]q
 
   network_configuration {
     security_group_ids = [aws_security_group.test.id]
@@ -934,7 +934,7 @@ func testAccEnvironmentConfig_airflowVersion(rName, airflowVersion string) strin
 resource "aws_mwaa_environment" "test" {
   dag_s3_path        = aws_s3_object.dags.key
   execution_role_arn = aws_iam_role.test.arn
-  name               = %[1]q
+  name= %[1]q
 
   network_configuration {
     security_group_ids = [aws_security_group.test.id]

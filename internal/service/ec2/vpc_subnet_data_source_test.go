@@ -30,9 +30,9 @@ func TestAccVPCSubnetDataSource_basic(t *testing.T) {
 	ds6ResourceName := "data.aws_subnet.by_az_id"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPCDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -151,9 +151,9 @@ func TestAccVPCSubnetDataSource_ipv6ByIPv6Filter(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -178,9 +178,9 @@ func TestAccVPCSubnetDataSource_ipv6ByIPv6CIDRBlock(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -204,9 +204,9 @@ func TestAccVPCSubnetDataSource_enableLniAtDeviceIndex(t *testing.T) {
 	dsResourceName := "data.aws_subnet.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -279,7 +279,7 @@ data "aws_subnet" "by_filter" {
 }
 
 data "aws_subnet" "by_az_id" {
-  vpc_id               = aws_subnet.test.vpc_id
+  vpc_id= aws_subnet.test.vpc_id
   availability_zone_id = aws_subnet.test.availability_zone_id
 }
 `, rName, rInt)
@@ -304,10 +304,10 @@ resource "aws_vpc" "test" {
 
 resource "aws_subnet" "test" {
   availability_zone          = data.aws_outposts_outpost.test.availability_zone
-  cidr_block                 = cidrsubnet(aws_vpc.test.cidr_block, 8, 0)
+  cidr_block  = cidrsubnet(aws_vpc.test.cidr_block, 8, 0)
   enable_lni_at_device_index = %[2]d
-  outpost_arn                = data.aws_outposts_outpost.test.arn
-  vpc_id                     = aws_vpc.test.id
+  outpost_arn = data.aws_outposts_outpost.test.arn
+  vpc_id      = aws_vpc.test.id
 
   tags = {
     Name = %[1]q
@@ -333,7 +333,7 @@ data "aws_availability_zones" "available" {
 }
 
 resource "aws_vpc" "test" {
-  cidr_block                       = "172.%[2]d.0.0/16"
+  cidr_block        = "172.%[2]d.0.0/16"
   assign_generated_ipv6_cidr_block = true
 
   tags = {
@@ -367,7 +367,7 @@ data "aws_availability_zones" "available" {
 }
 
 resource "aws_vpc" "test" {
-  cidr_block                       = "172.%[2]d.0.0/16"
+  cidr_block        = "172.%[2]d.0.0/16"
   assign_generated_ipv6_cidr_block = true
 
   tags = {
@@ -408,7 +408,7 @@ data "aws_availability_zones" "available" {
 }
 
 resource "aws_vpc" "test" {
-  cidr_block                       = "172.%[2]d.0.0/16"
+  cidr_block        = "172.%[2]d.0.0/16"
   assign_generated_ipv6_cidr_block = true
 
   tags = {

@@ -38,7 +38,7 @@ func TestAccSSMContacts_serial(t *testing.T) {
 			"basic": testContactChannelDataSource_basic,
 		},
 		"Plan Resource Tests": {
-			"basic":                   testPlan_basic,
+			"basic":    testPlan_basic,
 			"disappears":              testPlan_disappears,
 			"updateChannelTargetInfo": testPlan_updateChannelTargetInfo,
 			"updateContactId":         testPlan_updateContactId,

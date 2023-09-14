@@ -98,7 +98,7 @@ func resourceDomainAssociationCreate(ctx context.Context, d *schema.ResourceData
 	domainName := d.Get("domain_name").(string)
 	id := DomainAssociationCreateResourceID(appID, domainName)
 	input := &amplify.CreateDomainAssociationInput{
-		AppId:               aws.String(appID),
+		AppId:aws.String(appID),
 		DomainName:          aws.String(domainName),
 		EnableAutoSubDomain: aws.Bool(d.Get("enable_auto_sub_domain").(bool)),
 		SubDomainSettings:   expandSubDomainSettings(d.Get("sub_domain").(*schema.Set).List()),

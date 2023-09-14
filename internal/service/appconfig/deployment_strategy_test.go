@@ -26,8 +26,8 @@ func TestAccAppConfigDeploymentStrategy_basic(t *testing.T) {
 	resourceName := "aws_appconfig_deployment_strategy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, appconfig.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDeploymentStrategyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -59,8 +59,8 @@ func TestAccAppConfigDeploymentStrategy_updateDescription(t *testing.T) {
 	resourceName := "aws_appconfig_deployment_strategy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, appconfig.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDeploymentStrategyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -93,8 +93,8 @@ func TestAccAppConfigDeploymentStrategy_updateFinalBakeTime(t *testing.T) {
 	resourceName := "aws_appconfig_deployment_strategy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, appconfig.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDeploymentStrategyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -139,8 +139,8 @@ func TestAccAppConfigDeploymentStrategy_disappears(t *testing.T) {
 	resourceName := "aws_appconfig_deployment_strategy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, appconfig.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDeploymentStrategyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -162,8 +162,8 @@ func TestAccAppConfigDeploymentStrategy_tags(t *testing.T) {
 	resourceName := "aws_appconfig_deployment_strategy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, appconfig.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDeploymentStrategyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -267,10 +267,10 @@ func testAccCheckDeploymentStrategyExists(ctx context.Context, resourceName stri
 func testAccDeploymentStrategyConfig_name(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_appconfig_deployment_strategy" "test" {
-  name                           = %[1]q
+  name            = %[1]q
   deployment_duration_in_minutes = 3
-  growth_factor                  = 10
-  replicate_to                   = "NONE"
+  growth_factor   = 10
+  replicate_to    = "NONE"
 }
 `, rName)
 }
@@ -278,11 +278,11 @@ resource "aws_appconfig_deployment_strategy" "test" {
 func testAccDeploymentStrategyConfig_description(rName, description string) string {
 	return fmt.Sprintf(`
 resource "aws_appconfig_deployment_strategy" "test" {
-  name                           = %[1]q
+  name            = %[1]q
   deployment_duration_in_minutes = 3
-  description                    = %[2]q
-  growth_factor                  = 10
-  replicate_to                   = "NONE"
+  description     = %[2]q
+  growth_factor   = 10
+  replicate_to    = "NONE"
 }
 `, rName, description)
 }
@@ -290,11 +290,11 @@ resource "aws_appconfig_deployment_strategy" "test" {
 func testAccDeploymentStrategyConfig_finalBakeTime(rName string, time int) string {
 	return fmt.Sprintf(`
 resource "aws_appconfig_deployment_strategy" "test" {
-  name                           = %[1]q
+  name            = %[1]q
   deployment_duration_in_minutes = 3
   final_bake_time_in_minutes     = %[2]d
-  growth_factor                  = 10
-  replicate_to                   = "NONE"
+  growth_factor   = 10
+  replicate_to    = "NONE"
 }
 `, rName, time)
 }
@@ -302,10 +302,10 @@ resource "aws_appconfig_deployment_strategy" "test" {
 func testAccDeploymentStrategyConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_appconfig_deployment_strategy" "test" {
-  name                           = %[1]q
+  name            = %[1]q
   deployment_duration_in_minutes = 3
-  growth_factor                  = 10
-  replicate_to                   = "NONE"
+  growth_factor   = 10
+  replicate_to    = "NONE"
 
   tags = {
     %[2]q = %[3]q
@@ -317,10 +317,10 @@ resource "aws_appconfig_deployment_strategy" "test" {
 func testAccDeploymentStrategyConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_appconfig_deployment_strategy" "test" {
-  name                           = %[1]q
+  name            = %[1]q
   deployment_duration_in_minutes = 3
-  growth_factor                  = 10
-  replicate_to                   = "NONE"
+  growth_factor   = 10
+  replicate_to    = "NONE"
 
   tags = {
     %[2]q = %[3]q

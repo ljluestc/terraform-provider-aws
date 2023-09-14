@@ -68,7 +68,7 @@ func resourceLocalGatewayRouteCreate(ctx context.Context, d *schema.ResourceData
 	localGatewayRouteTableID := d.Get("local_gateway_route_table_id").(string)
 
 	input := &ec2.CreateLocalGatewayRouteInput{
-		DestinationCidrBlock:                aws.String(destination),
+		DestinationCidrBlock: aws.String(destination),
 		LocalGatewayRouteTableId:            aws.String(localGatewayRouteTableID),
 		LocalGatewayVirtualInterfaceGroupId: aws.String(d.Get("local_gateway_virtual_interface_group_id").(string)),
 	}

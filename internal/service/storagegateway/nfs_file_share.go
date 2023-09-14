@@ -239,9 +239,9 @@ func resourceNFSFileShareCreate(ctx context.Context, d *schema.ResourceData, met
 		ObjectACL:            aws.String(d.Get("object_acl").(string)),
 		ReadOnly:             aws.Bool(d.Get("read_only").(bool)),
 		RequesterPays:        aws.Bool(d.Get("requester_pays").(bool)),
-		Role:                 aws.String(d.Get("role_arn").(string)),
-		Squash:               aws.String(d.Get("squash").(string)),
-		Tags:                 getTagsIn(ctx),
+		Role:  aws.String(d.Get("role_arn").(string)),
+		Squash:aws.String(d.Get("squash").(string)),
+		Tags:  getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("audit_destination_arn"); ok {
@@ -359,7 +359,7 @@ func resourceNFSFileShareUpdate(ctx context.Context, d *schema.ResourceData, met
 			ObjectACL:            aws.String(d.Get("object_acl").(string)),
 			ReadOnly:             aws.Bool(d.Get("read_only").(bool)),
 			RequesterPays:        aws.Bool(d.Get("requester_pays").(bool)),
-			Squash:               aws.String(d.Get("squash").(string)),
+			Squash:aws.String(d.Get("squash").(string)),
 		}
 
 		if v, ok := d.GetOk("audit_destination_arn"); ok {

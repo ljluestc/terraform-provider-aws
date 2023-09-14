@@ -97,7 +97,7 @@ func ResourceExternalKey() *schema.Resource {
 				ForceNew: true,
 			},
 			"policy": {
-				Type:                  schema.TypeString,
+				Type:   schema.TypeString,
 				Optional:              true,
 				Computed:              true,
 				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
@@ -128,9 +128,9 @@ func resourceExternalKeyCreate(ctx context.Context, d *schema.ResourceData, meta
 
 	input := &kms.CreateKeyInput{
 		BypassPolicyLockoutSafetyCheck: aws.Bool(d.Get("bypass_policy_lockout_safety_check").(bool)),
-		KeyUsage:                       aws.String(kms.KeyUsageTypeEncryptDecrypt),
-		Origin:                         aws.String(kms.OriginTypeExternal),
-		Tags:                           getTagsIn(ctx),
+		KeyUsage:        aws.String(kms.KeyUsageTypeEncryptDecrypt),
+		Origin:          aws.String(kms.OriginTypeExternal),
+		Tags:            getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -389,7 +389,7 @@ func importExternalKeyMaterial(ctx context.Context, conn *kms.KMS, keyID, keyMat
 		EncryptedKeyMaterial: encryptedKeyMaterial,
 		ExpirationModel:      aws.String(kms.ExpirationModelTypeKeyMaterialDoesNotExpire),
 		ImportToken:          output.ImportToken,
-		KeyId:                aws.String(keyID),
+		KeyId: aws.String(keyID),
 	}
 
 	if validTo != "" {

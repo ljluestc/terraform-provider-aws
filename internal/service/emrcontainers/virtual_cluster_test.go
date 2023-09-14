@@ -35,7 +35,7 @@ func TestAccEMRContainersVirtualCluster_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckIAMServiceLinkedRole(ctx, t, "/aws-service-role/emr-containers.amazonaws.com")
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, emrcontainers.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, emrcontainers.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		ExternalProviders:        testExternalProviders,
 		CheckDestroy:             testAccCheckVirtualClusterDestroy(ctx),
@@ -91,7 +91,7 @@ func TestAccEMRContainersVirtualCluster_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckIAMServiceLinkedRole(ctx, t, "/aws-service-role/emr-containers.amazonaws.com")
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, emrcontainers.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, emrcontainers.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		ExternalProviders:        testExternalProviders,
 		CheckDestroy:             testAccCheckVirtualClusterDestroy(ctx),
@@ -125,7 +125,7 @@ func TestAccEMRContainersVirtualCluster_tags(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckIAMServiceLinkedRole(ctx, t, "/aws-service-role/emr-containers.amazonaws.com")
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, emrcontainers.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, emrcontainers.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		ExternalProviders:        testExternalProviders,
 		CheckDestroy:             testAccCheckVirtualClusterDestroy(ctx),
@@ -276,7 +276,7 @@ resource "aws_vpc" "test" {
   enable_dns_support   = true
 
   tags = {
-    Name                          = %[1]q
+    Name           = %[1]q
     "kubernetes.io/cluster/%[1]s" = "shared"
   }
 }
@@ -336,10 +336,10 @@ resource "aws_subnet" "test" {
   availability_zone       = data.aws_availability_zones.available.names[count.index]
   cidr_block              = cidrsubnet(aws_vpc.test.cidr_block, 8, count.index)
   map_public_ip_on_launch = true
-  vpc_id                  = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
 
   tags = {
-    Name                          = %[1]q
+    Name           = %[1]q
     "kubernetes.io/cluster/%[1]s" = "shared"
   }
 }
@@ -383,9 +383,9 @@ data "aws_eks_cluster_auth" "cluster" {
 }
 
 provider "kubernetes" {
-  host                   = aws_eks_cluster.test.endpoint
+  host    = aws_eks_cluster.test.endpoint
   cluster_ca_certificate = base64decode(aws_eks_cluster.test.certificate_authority[0].data)
-  token                  = data.aws_eks_cluster_auth.cluster.token
+  token   = data.aws_eks_cluster_auth.cluster.token
 }
 
 resource "kubernetes_role" "emrcontainers_role" {

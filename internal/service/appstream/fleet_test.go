@@ -45,7 +45,7 @@ func TestAccAppStreamFleet_basic(t *testing.T) {
 		},
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		ErrorCheck:               acctest.ErrorCheck(t, appstream.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, appstream.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFleetConfig_basic(rName, instanceType),
@@ -81,7 +81,7 @@ func TestAccAppStreamFleet_disappears(t *testing.T) {
 		},
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		ErrorCheck:               acctest.ErrorCheck(t, appstream.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, appstream.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFleetConfig_basic(rName, instanceType),
@@ -113,7 +113,7 @@ func TestAccAppStreamFleet_completeWithStop(t *testing.T) {
 		},
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		ErrorCheck:               acctest.ErrorCheck(t, appstream.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, appstream.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFleetConfig_complete(rName, description, fleetType, instanceType),
@@ -166,7 +166,7 @@ func TestAccAppStreamFleet_completeWithoutStop(t *testing.T) {
 		},
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		ErrorCheck:               acctest.ErrorCheck(t, appstream.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, appstream.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFleetConfig_completeNoStopping(rName, description, fleetType, instanceType, displayName),
@@ -220,7 +220,7 @@ func TestAccAppStreamFleet_withTags(t *testing.T) {
 		},
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		ErrorCheck:               acctest.ErrorCheck(t, appstream.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, appstream.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFleetConfig_tags(rName, description, fleetType, instanceType, displayName),
@@ -275,7 +275,7 @@ func TestAccAppStreamFleet_emptyDomainJoin(t *testing.T) {
 		},
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFleetDestroy(ctx),
-		ErrorCheck:               acctest.ErrorCheck(t, appstream.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, appstream.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFleetConfig_emptyDomainJoin(rName, instanceType, `""`),
@@ -401,13 +401,13 @@ resource "aws_appstream_fleet" "test" {
     desired_instances = 1
   }
 
-  description                        = %[2]q
+  description         = %[2]q
   idle_disconnect_timeout_in_seconds = 70
   enable_default_internet_access     = false
-  fleet_type                         = %[3]q
-  instance_type                      = %[4]q
+  fleet_type          = %[3]q
+  instance_type       = %[4]q
   max_user_duration_in_seconds       = 1000
-  stream_view                        = "DESKTOP"
+  stream_view         = "DESKTOP"
 
   vpc_config {
     subnet_ids = aws_subnet.test[*].id
@@ -439,12 +439,12 @@ resource "aws_appstream_fleet" "test" {
     desired_instances = 1
   }
 
-  description                        = %[2]q
-  display_name                       = %[5]q
+  description         = %[2]q
+  display_name        = %[5]q
   idle_disconnect_timeout_in_seconds = 70
   enable_default_internet_access     = false
-  fleet_type                         = %[3]q
-  instance_type                      = %[4]q
+  fleet_type          = %[3]q
+  instance_type       = %[4]q
   max_user_duration_in_seconds       = 1000
 
   vpc_config {
@@ -477,12 +477,12 @@ resource "aws_appstream_fleet" "test" {
     desired_instances = 1
   }
 
-  description                        = %[2]q
-  display_name                       = %[5]q
+  description         = %[2]q
+  display_name        = %[5]q
   idle_disconnect_timeout_in_seconds = 70
   enable_default_internet_access     = false
-  fleet_type                         = %[3]q
-  instance_type                      = %[4]q
+  fleet_type          = %[3]q
+  instance_type       = %[4]q
   max_user_duration_in_seconds       = 1000
 
   tags = {
@@ -509,7 +509,7 @@ resource "aws_appstream_fleet" "test" {
   }
 
   domain_join_info {
-    directory_name                         = %[3]s
+    directory_name          = %[3]s
     organizational_unit_distinguished_name = %[3]s
   }
 }

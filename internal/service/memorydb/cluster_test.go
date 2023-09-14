@@ -25,8 +25,8 @@ func TestAccMemoryDBCluster_basic(t *testing.T) {
 	resourceName := "aws_memorydb_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -87,8 +87,8 @@ func TestAccMemoryDBCluster_defaults(t *testing.T) {
 	resourceName := "aws_memorydb_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -137,8 +137,8 @@ func TestAccMemoryDBCluster_disappears(t *testing.T) {
 	resourceName := "aws_memorydb_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -160,8 +160,8 @@ func TestAccMemoryDBCluster_nameGenerated(t *testing.T) {
 	resourceName := "aws_memorydb_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -183,8 +183,8 @@ func TestAccMemoryDBCluster_namePrefix(t *testing.T) {
 	resourceName := "aws_memorydb_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -208,8 +208,8 @@ func TestAccMemoryDBCluster_create_noTLS(t *testing.T) {
 	resourceName := "aws_memorydb_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -235,8 +235,8 @@ func TestAccMemoryDBCluster_create_withDataTiering(t *testing.T) {
 	resourceName := "aws_memorydb_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -262,8 +262,8 @@ func TestAccMemoryDBCluster_create_withKMS(t *testing.T) {
 	resourceName := "aws_memorydb_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -289,8 +289,8 @@ func TestAccMemoryDBCluster_create_withPort(t *testing.T) {
 	resourceName := "aws_memorydb_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -317,8 +317,8 @@ func TestAccMemoryDBCluster_create_fromSnapshot(t *testing.T) {
 	rName2 := "tf-test-" + sdkacctest.RandString(8)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -339,8 +339,8 @@ func TestAccMemoryDBCluster_delete_withFinalSnapshot(t *testing.T) {
 	resourceName := "aws_memorydb_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -386,8 +386,8 @@ func TestAccMemoryDBCluster_Update_aclName(t *testing.T) {
 	resourceName := "aws_memorydb_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -425,8 +425,8 @@ func TestAccMemoryDBCluster_Update_description(t *testing.T) {
 	resourceName := "aws_memorydb_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -482,8 +482,8 @@ func TestAccMemoryDBCluster_Update_engineVersion(t *testing.T) {
 	resourceName := "aws_memorydb_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -521,8 +521,8 @@ func TestAccMemoryDBCluster_Update_maintenanceWindow(t *testing.T) {
 	resourceName := "aws_memorydb_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -560,8 +560,8 @@ func TestAccMemoryDBCluster_Update_nodeType(t *testing.T) {
 	resourceName := "aws_memorydb_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -602,8 +602,8 @@ func TestAccMemoryDBCluster_Update_numShards_scaleUp(t *testing.T) {
 	resourceName := "aws_memorydb_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -639,8 +639,8 @@ func TestAccMemoryDBCluster_Update_numShards_scaleDown(t *testing.T) {
 	resourceName := "aws_memorydb_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -676,8 +676,8 @@ func TestAccMemoryDBCluster_Update_numReplicasPerShard_scaleUp(t *testing.T) {
 	resourceName := "aws_memorydb_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -713,8 +713,8 @@ func TestAccMemoryDBCluster_Update_numReplicasPerShard_scaleDown(t *testing.T) {
 	resourceName := "aws_memorydb_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -747,8 +747,8 @@ func TestAccMemoryDBCluster_Update_parameterGroup(t *testing.T) {
 	resourceName := "aws_memorydb_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -793,8 +793,8 @@ func TestAccMemoryDBCluster_Update_securityGroupIds(t *testing.T) {
 	resourceName := "aws_memorydb_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -852,8 +852,8 @@ func TestAccMemoryDBCluster_Update_snapshotRetentionLimit(t *testing.T) {
 	resourceName := "aws_memorydb_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -903,8 +903,8 @@ func TestAccMemoryDBCluster_Update_snapshotWindow(t *testing.T) {
 	resourceName := "aws_memorydb_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -942,8 +942,8 @@ func TestAccMemoryDBCluster_Update_snsTopicARN(t *testing.T) {
 	resourceName := "aws_memorydb_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -993,8 +993,8 @@ func TestAccMemoryDBCluster_Update_tags(t *testing.T) {
 	resourceName := "aws_memorydb_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckClusterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -1161,11 +1161,11 @@ resource "aws_security_group" "test" {
 }
 
 resource "aws_memorydb_cluster" "test" {
-  acl_name                   = aws_memorydb_acl.test.id
+  acl_name    = aws_memorydb_acl.test.id
   auto_minor_version_upgrade = false
-  name                       = %[1]q
-  node_type                  = "db.t4g.small"
-  num_shards                 = 2
+  name        = %[1]q
+  node_type   = "db.t4g.small"
+  num_shards  = 2
   security_group_ids         = [aws_security_group.test.id]
   snapshot_retention_limit   = 7
   subnet_group_name          = aws_memorydb_subnet_group.test.id
@@ -1195,7 +1195,7 @@ func testAccClusterConfig_noName(rName string) string {
 		testAccClusterConfig_baseNetwork(rName),
 		`
 resource "aws_memorydb_cluster" "test" {
-  acl_name               = "open-access"
+  acl_name= "open-access"
   node_type              = "db.t4g.small"
   num_replicas_per_shard = 0
   num_shards             = 1
@@ -1210,7 +1210,7 @@ func testAccClusterConfig_namePrefix(rName, prefix string) string {
 		testAccClusterConfig_baseNetwork(rName),
 		fmt.Sprintf(`
 resource "aws_memorydb_cluster" "test" {
-  acl_name               = "open-access"
+  acl_name= "open-access"
   name_prefix            = %[1]q
   node_type              = "db.t4g.small"
   num_replicas_per_shard = 0
@@ -1226,8 +1226,8 @@ func testAccClusterConfig_noTLS(rName string) string {
 		testAccClusterConfig_baseNetwork(rName),
 		fmt.Sprintf(`
 resource "aws_memorydb_cluster" "test" {
-  acl_name               = "open-access"
-  name                   = %[1]q
+  acl_name= "open-access"
+  name    = %[1]q
   node_type              = "db.t4g.small"
   num_replicas_per_shard = 0
   num_shards             = 1
@@ -1245,8 +1245,8 @@ func testAccClusterConfig_aclName(rName, aclName string) string {
 		fmt.Sprintf(`
 resource "aws_memorydb_cluster" "test" {
   depends_on             = [aws_memorydb_acl.test]
-  acl_name               = %[2]q
-  name                   = %[1]q
+  acl_name= %[2]q
+  name    = %[1]q
   node_type              = "db.t4g.small"
   num_replicas_per_shard = 0
   num_shards             = 1
@@ -1291,8 +1291,8 @@ func testAccClusterConfig_engineVersionNull(rName string) string {
 		testAccClusterConfig_baseNetwork(rName),
 		fmt.Sprintf(`
 resource "aws_memorydb_cluster" "test" {
-  acl_name               = "open-access"
-  name                   = %[1]q
+  acl_name= "open-access"
+  name    = %[1]q
   node_type              = "db.t4g.small"
   num_replicas_per_shard = 0
   num_shards             = 1
@@ -1307,9 +1307,9 @@ func testAccClusterConfig_engineVersion(rName, engineVersion string) string {
 		testAccClusterConfig_baseNetwork(rName),
 		fmt.Sprintf(`
 resource "aws_memorydb_cluster" "test" {
-  acl_name               = "open-access"
+  acl_name= "open-access"
   engine_version         = %[2]q
-  name                   = %[1]q
+  name    = %[1]q
   node_type              = "db.t4g.small"
   num_replicas_per_shard = 0
   num_shards             = 1
@@ -1324,9 +1324,9 @@ func testAccClusterConfig_finalSnapshotName(rName, finalSnapshotName string) str
 		testAccClusterConfig_baseNetwork(rName),
 		fmt.Sprintf(`
 resource "aws_memorydb_cluster" "test" {
-  acl_name               = "open-access"
+  acl_name= "open-access"
   final_snapshot_name    = %[2]q
-  name                   = %[1]q
+  name    = %[1]q
   node_type              = "db.t4g.small"
   num_replicas_per_shard = 0
   num_shards             = 1
@@ -1343,9 +1343,9 @@ func testAccClusterConfig_kms(rName string) string {
 resource "aws_kms_key" "test" {}
 
 resource "aws_memorydb_cluster" "test" {
-  acl_name               = "open-access"
+  acl_name= "open-access"
   kms_key_arn            = aws_kms_key.test.arn
-  name                   = %[1]q
+  name    = %[1]q
   node_type              = "db.t4g.small"
   num_replicas_per_shard = 0
   num_shards             = 1
@@ -1360,9 +1360,9 @@ func testAccClusterConfig_maintenanceWindow(rName, maintenanceWindow string) str
 		testAccClusterConfig_baseNetwork(rName),
 		fmt.Sprintf(`
 resource "aws_memorydb_cluster" "test" {
-  acl_name               = "open-access"
+  acl_name= "open-access"
   maintenance_window     = %[2]q
-  name                   = %[1]q
+  name    = %[1]q
   node_type              = "db.t4g.small"
   num_replicas_per_shard = 0
   num_shards             = 1
@@ -1377,8 +1377,8 @@ func testAccClusterConfig_nodeType(rName, nodeType string) string {
 		testAccClusterConfig_baseNetwork(rName),
 		fmt.Sprintf(`
 resource "aws_memorydb_cluster" "test" {
-  acl_name               = "open-access"
-  name                   = %[1]q
+  acl_name= "open-access"
+  name    = %[1]q
   node_type              = %[2]q
   num_replicas_per_shard = 0
   num_shards             = 1
@@ -1393,8 +1393,8 @@ func testAccClusterConfig_numReplicasPerShard(rName string, numReplicasPerShard 
 		testAccClusterConfig_baseNetwork(rName),
 		fmt.Sprintf(`
 resource "aws_memorydb_cluster" "test" {
-  acl_name               = "open-access"
-  name                   = %[1]q
+  acl_name= "open-access"
+  name    = %[1]q
   node_type              = "db.t4g.small"
   num_replicas_per_shard = %[2]d
   subnet_group_name      = aws_memorydb_subnet_group.test.id
@@ -1439,8 +1439,8 @@ resource "aws_memorydb_parameter_group" "test" {
 
 resource "aws_memorydb_cluster" "test" {
   depends_on             = [aws_memorydb_parameter_group.test]
-  acl_name               = "open-access"
-  name                   = %[1]q
+  acl_name= "open-access"
+  name    = %[1]q
   node_type              = "db.t4g.small"
   num_replicas_per_shard = 0
   num_shards             = 1
@@ -1456,12 +1456,12 @@ func testAccClusterConfig_port(rName string, port int) string {
 		testAccClusterConfig_baseNetwork(rName),
 		fmt.Sprintf(`
 resource "aws_memorydb_cluster" "test" {
-  acl_name               = "open-access"
-  name                   = %[1]q
+  acl_name= "open-access"
+  name    = %[1]q
   node_type              = "db.t4g.small"
   num_replicas_per_shard = 0
   num_shards             = 1
-  port                   = %[2]d
+  port    = %[2]d
   subnet_group_name      = aws_memorydb_subnet_group.test.id
 }
 `, rName, port),
@@ -1478,8 +1478,8 @@ resource "aws_security_group" "test" {
 }
 
 resource "aws_memorydb_cluster" "test" {
-  acl_name               = "open-access"
-  name                   = %[1]q
+  acl_name= "open-access"
+  name    = %[1]q
   node_type              = "db.t4g.small"
   num_replicas_per_shard = 0
   num_shards             = 1
@@ -1495,11 +1495,11 @@ func testAccClusterConfig_snapshotRetentionLimit(rName string, retentionLimit in
 		testAccClusterConfig_baseNetwork(rName),
 		fmt.Sprintf(`
 resource "aws_memorydb_cluster" "test" {
-  acl_name                 = "open-access"
-  name                     = %[1]q
-  node_type                = "db.t4g.small"
+  acl_name  = "open-access"
+  name      = %[1]q
+  node_type = "db.t4g.small"
   num_replicas_per_shard   = 0
-  num_shards               = 1
+  num_shards= 1
   snapshot_retention_limit = %[2]d
   subnet_group_name        = aws_memorydb_subnet_group.test.id
 }
@@ -1512,8 +1512,8 @@ func testAccClusterConfig_snapshotFrom(rName1, rName2 string) string {
 		testAccClusterConfig_baseNetwork(rName1),
 		fmt.Sprintf(`
 resource "aws_memorydb_cluster" "test1" {
-  acl_name               = "open-access"
-  name                   = %[1]q
+  acl_name= "open-access"
+  name    = %[1]q
   node_type              = "db.t4g.small"
   num_replicas_per_shard = 0
   num_shards             = 1
@@ -1525,8 +1525,8 @@ resource "aws_memorydb_snapshot" "test" {
 }
 
 resource "aws_memorydb_cluster" "test2" {
-  acl_name               = "open-access"
-  name                   = %[2]q
+  acl_name= "open-access"
+  name    = %[2]q
   node_type              = "db.t4g.small"
   num_replicas_per_shard = 0
   num_shards             = 1
@@ -1542,11 +1542,11 @@ func testAccClusterConfig_snapshotWindow(rName, snapshotWindow string) string {
 		testAccClusterConfig_baseNetwork(rName),
 		fmt.Sprintf(`
 resource "aws_memorydb_cluster" "test" {
-  acl_name                 = "open-access"
-  name                     = %[1]q
-  node_type                = "db.t4g.small"
+  acl_name  = "open-access"
+  name      = %[1]q
+  node_type = "db.t4g.small"
   num_replicas_per_shard   = 0
-  num_shards               = 1
+  num_shards= 1
   snapshot_retention_limit = 1
   snapshot_window          = %[2]q
   subnet_group_name        = aws_memorydb_subnet_group.test.id
@@ -1564,12 +1564,12 @@ resource "aws_sns_topic" "test" {
 }
 
 resource "aws_memorydb_cluster" "test" {
-  depends_on               = [aws_sns_topic.test]
-  acl_name                 = "open-access"
-  name                     = %[1]q
-  node_type                = "db.t4g.small"
+  depends_on= [aws_sns_topic.test]
+  acl_name  = "open-access"
+  name      = %[1]q
+  node_type = "db.t4g.small"
   num_replicas_per_shard   = 0
-  num_shards               = 1
+  num_shards= 1
   snapshot_retention_limit = 1
   subnet_group_name        = aws_memorydb_subnet_group.test.id
 }
@@ -1586,12 +1586,12 @@ resource "aws_sns_topic" "test" {
 }
 
 resource "aws_memorydb_cluster" "test" {
-  depends_on               = [aws_sns_topic.test]
-  acl_name                 = "open-access"
-  name                     = %[1]q
-  node_type                = "db.t4g.small"
+  depends_on= [aws_sns_topic.test]
+  acl_name  = "open-access"
+  name      = %[1]q
+  node_type = "db.t4g.small"
   num_replicas_per_shard   = 0
-  num_shards               = 1
+  num_shards= 1
   snapshot_retention_limit = 1
   sns_topic_arn            = aws_sns_topic.test.arn
   subnet_group_name        = aws_memorydb_subnet_group.test.id
@@ -1605,8 +1605,8 @@ func testAccClusterConfig_tags0(rName string) string {
 		testAccClusterConfig_baseNetwork(rName),
 		fmt.Sprintf(`
 resource "aws_memorydb_cluster" "test" {
-  acl_name               = "open-access"
-  name                   = %[1]q
+  acl_name= "open-access"
+  name    = %[1]q
   node_type              = "db.t4g.small"
   num_replicas_per_shard = 0
   num_shards             = 1
@@ -1621,8 +1621,8 @@ func testAccClusterConfig_tags1(rName, tag1Key, tag1Value string) string {
 		testAccClusterConfig_baseNetwork(rName),
 		fmt.Sprintf(`
 resource "aws_memorydb_cluster" "test" {
-  acl_name               = "open-access"
-  name                   = %[1]q
+  acl_name= "open-access"
+  name    = %[1]q
   node_type              = "db.t4g.small"
   num_replicas_per_shard = 0
   num_shards             = 1
@@ -1641,8 +1641,8 @@ func testAccClusterConfig_tags2(rName, tag1Key, tag1Value, tag2Key, tag2Value st
 		testAccClusterConfig_baseNetwork(rName),
 		fmt.Sprintf(`
 resource "aws_memorydb_cluster" "test" {
-  acl_name               = "open-access"
-  name                   = %[1]q
+  acl_name= "open-access"
+  name    = %[1]q
   node_type              = "db.t4g.small"
   num_replicas_per_shard = 0
   num_shards             = 1

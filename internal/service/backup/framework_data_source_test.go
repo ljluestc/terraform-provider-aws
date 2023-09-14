@@ -21,9 +21,9 @@ func testAccFrameworkDataSource_basic(t *testing.T) {
 	rName := fmt.Sprintf("tf_acc_test_%s", sdkacctest.RandString(7))
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccFrameworkPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, backup.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, backup.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -33,7 +33,7 @@ func(
 					resource.TestCheckResourceAttrPair(datasourceName, "arn", resourceName, "arn"),
 					resource.TestCheckResourceAttrPair(datasourceName, "control.#", resourceName, "control.#"),
 					resource.TestCheckTypeSetElemNestedAttrs(datasourceName, "control.*", map[string]string{
-						"name":                    "BACKUP_RECOVERY_POINT_MINIMUM_RETENTION_CHECK",
+						"name":     "BACKUP_RECOVERY_POINT_MINIMUM_RETENTION_CHECK",
 						"input_parameter.#":       "1",
 						"input_parameter.0.name":  "requiredRetentionDays",
 						"input_parameter.0.value": "35",
@@ -46,8 +46,8 @@ func(
 						"name": "BACKUP_RECOVERY_POINT_ENCRYPTED",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(datasourceName, "control.*", map[string]string{
-						"name":                                "BACKUP_RESOURCES_PROTECTED_BY_BACKUP_PLAN",
-						"scope.#":                             "1",
+						"name":  "BACKUP_RESOURCES_PROTECTED_BY_BACKUP_PLAN",
+						"scope.#":              "1",
 						"scope.0.compliance_resource_ids.#":   "1",
 						"scope.0.compliance_resource_types.#": "1",
 						"scope.0.compliance_resource_types.0": "EBS",
@@ -77,9 +77,9 @@ func testAccFrameworkDataSource_controlScopeTag(t *testing.T) {
 	rName := fmt.Sprintf("tf_acc_test_%s", sdkacctest.RandString(7))
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccFrameworkPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, backup.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, backup.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{

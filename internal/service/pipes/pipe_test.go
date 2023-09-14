@@ -36,7 +36,7 @@ func TestAccPipesPipe_basicSQS(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.PipesEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.PipesEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.PipesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPipeDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -89,7 +89,7 @@ func TestAccPipesPipe_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.PipesEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.PipesEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.PipesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPipeDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -117,7 +117,7 @@ func TestAccPipesPipe_description(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.PipesEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.PipesEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.PipesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPipeDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -170,7 +170,7 @@ func TestAccPipesPipe_desiredState(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.PipesEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.PipesEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.PipesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPipeDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -223,7 +223,7 @@ func TestAccPipesPipe_enrichment(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.PipesEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.PipesEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.PipesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPipeDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -269,7 +269,7 @@ func TestAccPipesPipe_enrichmentParameters(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.PipesEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.PipesEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.PipesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPipeDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -324,7 +324,7 @@ func TestAccPipesPipe_sourceParameters_filterCriteria(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.PipesEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.PipesEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.PipesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPipeDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -411,7 +411,7 @@ func TestAccPipesPipe_nameGenerated(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.PipesEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.PipesEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.PipesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPipeDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -444,7 +444,7 @@ func TestAccPipesPipe_namePrefix(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.PipesEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.PipesEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.PipesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPipeDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -477,7 +477,7 @@ func TestAccPipesPipe_roleARN(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.PipesEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.PipesEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.PipesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPipeDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -516,7 +516,7 @@ func TestAccPipesPipe_tags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.PipesEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.PipesEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.PipesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPipeDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -566,7 +566,7 @@ func TestAccPipesPipe_targetUpdate(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.PipesEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.PipesEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.PipesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPipeDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -605,7 +605,7 @@ func TestAccPipesPipe_targetParameters_inputTemplate(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.PipesEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.PipesEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.PipesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPipeDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -651,7 +651,7 @@ func TestAccPipesPipe_kinesisSourceAndTarget(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.PipesEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.PipesEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.PipesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPipeDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -724,7 +724,7 @@ func TestAccPipesPipe_dynamoDBSourceCloudWatchLogsTarget(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.PipesEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.PipesEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.PipesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPipeDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -796,7 +796,7 @@ func TestAccPipesPipe_activeMQSourceStepFunctionTarget(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.PipesEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.PipesEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.PipesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPipeDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -864,7 +864,7 @@ func TestAccPipesPipe_rabbitMQSourceEventBusTarget(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.PipesEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.PipesEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.PipesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPipeDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -922,7 +922,7 @@ func TestAccPipesPipe_mskSourceHTTPTarget(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.PipesEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.PipesEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.PipesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPipeDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -998,7 +998,7 @@ func TestAccPipesPipe_selfManagedKafkaSourceLambdaFunctionTarget(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.PipesEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.PipesEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.PipesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPipeDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -1073,7 +1073,7 @@ func TestAccPipesPipe_sqsSourceRedshiftTarget(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.PipesEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.PipesEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.PipesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPipeDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -1145,7 +1145,7 @@ func TestAccPipesPipe_SourceSageMakerTarget(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.PipesEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.PipesEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.PipesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPipeDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -1212,7 +1212,7 @@ func TestAccPipesPipe_sqsSourceBatchJobTarget(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.PipesEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.PipesEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.PipesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPipeDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -1296,7 +1296,7 @@ func TestAccPipesPipe_sqsSourceECSTaskTarget(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.PipesEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.PipesEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.PipesEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPipeDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -1671,7 +1671,7 @@ func testAccPipeConfig_enrichment(rName string, i int) string {
 		testAccPipeConfig_baseSQSTarget(rName),
 		fmt.Sprintf(`
 resource "aws_cloudwatch_event_connection" "test" {
-  name               = %[1]q
+  name= %[1]q
   authorization_type = "API_KEY"
 
   auth_parameters {
@@ -1683,8 +1683,8 @@ resource "aws_cloudwatch_event_connection" "test" {
 }
 
 resource "aws_cloudwatch_event_api_destination" "test" {
-  count               = 2
-  name                = "%[1]s-${count.index}"
+  count= 2
+  name = "%[1]s-${count.index}"
   invocation_endpoint = "https://example.com/${count.index}"
   http_method         = "POST"
   connection_arn      = aws_cloudwatch_event_connection.test.arn
@@ -1710,7 +1710,7 @@ func testAccPipeConfig_enrichmentParameters(rName string) string {
 		testAccPipeConfig_baseSQSTarget(rName),
 		fmt.Sprintf(`
 resource "aws_cloudwatch_event_connection" "test" {
-  name               = %[1]q
+  name= %[1]q
   authorization_type = "API_KEY"
 
   auth_parameters {
@@ -1722,7 +1722,7 @@ resource "aws_cloudwatch_event_connection" "test" {
 }
 
 resource "aws_cloudwatch_event_api_destination" "test" {
-  name                = %[1]q
+  name = %[1]q
   invocation_endpoint = "https://example.com/"
   http_method         = "POST"
   connection_arn      = aws_cloudwatch_event_connection.test.arn
@@ -1762,7 +1762,7 @@ func testAccPipeConfig_enrichmentParametersUpdated(rName string) string {
 		testAccPipeConfig_baseSQSTarget(rName),
 		fmt.Sprintf(`
 resource "aws_cloudwatch_event_connection" "test" {
-  name               = %[1]q
+  name= %[1]q
   authorization_type = "API_KEY"
 
   auth_parameters {
@@ -1774,7 +1774,7 @@ resource "aws_cloudwatch_event_connection" "test" {
 }
 
 resource "aws_cloudwatch_event_api_destination" "test" {
-  name                = %[1]q
+  name = %[1]q
   invocation_endpoint = "https://example.com/"
   http_method         = "POST"
   connection_arn      = aws_cloudwatch_event_connection.test.arn
@@ -2544,8 +2544,8 @@ resource "aws_api_gateway_rest_api" "target" {
           x-amazon-apigateway-integration = {
             httpMethod           = "GET"
             payloadFormatVersion = "1.0"
-            type                 = "HTTP_PROXY"
-            uri                  = "https://ip-ranges.amazonaws.com"
+            type  = "HTTP_PROXY"
+            uri   = "https://ip-ranges.amazonaws.com"
           }
         }
       }
@@ -2684,7 +2684,7 @@ resource "aws_pipes_pipe" "test" {
     self_managed_kafka_parameters {
       additional_bootstrap_servers = ["testing:1234"]
       consumer_group_id            = "self-managed-test-group-id"
-      topic_name                   = "test"
+      topic_name    = "test"
 
       vpc {
         security_groups = [aws_security_group.source.id]
@@ -2709,15 +2709,15 @@ func testAccPipeConfig_basicSQSSourceRedshiftTarget(rName string) string {
 		acctest.ConfigAvailableAZsNoOptInExclude("usw2-az2"),
 		fmt.Sprintf(`
 resource "aws_redshift_cluster" "target" {
-  cluster_identifier                  = "%[1]s-target"
-  availability_zone                   = data.aws_availability_zones.available.names[0]
-  database_name                       = "test"
-  master_username                     = "tfacctest"
-  master_password                     = "Mustbe8characters"
-  node_type                           = "dc2.large"
+  cluster_identifier   = "%[1]s-target"
+  availability_zone    = data.aws_availability_zones.available.names[0]
+  database_name        = "test"
+  master_username      = "tfacctest"
+  master_password      = "Mustbe8characters"
+  node_type            = "dc2.large"
   automated_snapshot_retention_period = 0
-  allow_version_upgrade               = false
-  skip_final_snapshot                 = true
+  allow_version_upgrade= false
+  skip_final_snapshot  = true
 }
 
 resource "aws_pipes_pipe" "test" {
@@ -2730,7 +2730,7 @@ resource "aws_pipes_pipe" "test" {
 
   source_parameters {
     sqs_queue_parameters {
-      batch_size                         = 1
+      batch_size          = 1
       maximum_batching_window_in_seconds = 90
     }
   }
@@ -2786,7 +2786,7 @@ func testAccPipeConfig_basicSQSSourceBatchJobTarget(rName string) string {
 		acctest.ConfigVPCWithSubnets(rName, 2),
 		fmt.Sprintf(`
 resource "aws_iam_role" "target" {
-  name               = "%[1]s-target"
+  name= "%[1]s-target"
   assume_role_policy = <<EOF
 {
     "Version": "2012-10-17",
@@ -2849,7 +2849,7 @@ resource "aws_security_group" "target" {
 resource "aws_batch_compute_environment" "target" {
   compute_environment_name = "%[1]s-target"
   service_role             = aws_iam_role.target.arn
-  type                     = "MANAGED"
+  type      = "MANAGED"
 
   compute_resources {
     instance_role      = aws_iam_instance_profile.ecs_instance_role.arn
@@ -2858,7 +2858,7 @@ resource "aws_batch_compute_environment" "target" {
     min_vcpus          = 0
     security_group_ids = [aws_security_group.target.id]
     subnets            = aws_subnet.test[*].id
-    type               = "EC2"
+    type= "EC2"
   }
 
   depends_on = [aws_iam_role_policy_attachment.target]
@@ -2866,9 +2866,9 @@ resource "aws_batch_compute_environment" "target" {
 
 resource "aws_batch_job_queue" "target" {
   compute_environments = [aws_batch_compute_environment.target.arn]
-  name                 = "%[1]s-target"
+  name  = "%[1]s-target"
   priority             = 1
-  state                = "ENABLED"
+  state = "ENABLED"
 }
 
 resource "aws_batch_job_definition" "target" {
@@ -2954,9 +2954,9 @@ resource "aws_ecs_cluster_capacity_providers" "target" {
 }
 
 resource "aws_ecs_task_definition" "target" {
-  family                   = "%[1]s-target"
-  cpu                      = 256
-  memory                   = 512
+  family    = "%[1]s-target"
+  cpu       = 256
+  memory    = 512
   requires_compatibilities = ["FARGATE"]
   network_mode             = "awsvpc"
 
@@ -2993,7 +2993,7 @@ resource "aws_pipes_pipe" "test" {
       task_definition_arn = aws_ecs_task_definition.target.arn
 
       enable_ecs_managed_tags = true
-      group                   = "g1"
+      group    = "g1"
       launch_type             = "FARGATE"
 
       network_configuration {
@@ -3010,7 +3010,7 @@ resource "aws_pipes_pipe" "test" {
           }
 
           memory_reservation = 1024
-          name               = "first"
+          name= "first"
 
           resource_requirement {
             type  = "GPU"

@@ -114,19 +114,19 @@ var (
 	}
 
 	subscriptionAttributeMap = attrmap.New(map[string]string{
-		"arn":                            SubscriptionAttributeNameSubscriptionARN,
+		"arn":             SubscriptionAttributeNameSubscriptionARN,
 		"confirmation_was_authenticated": SubscriptionAttributeNameConfirmationWasAuthenticated,
-		"delivery_policy":                SubscriptionAttributeNameDeliveryPolicy,
-		"endpoint":                       SubscriptionAttributeNameEndpoint,
-		"filter_policy":                  SubscriptionAttributeNameFilterPolicy,
+		"delivery_policy": SubscriptionAttributeNameDeliveryPolicy,
+		"endpoint":        SubscriptionAttributeNameEndpoint,
+		"filter_policy":   SubscriptionAttributeNameFilterPolicy,
 		"filter_policy_scope":            SubscriptionAttributeNameFilterPolicyScope,
-		"owner_id":                       SubscriptionAttributeNameOwner,
+		"owner_id":        SubscriptionAttributeNameOwner,
 		"pending_confirmation":           SubscriptionAttributeNamePendingConfirmation,
-		"protocol":                       SubscriptionAttributeNameProtocol,
+		"protocol":        SubscriptionAttributeNameProtocol,
 		"raw_message_delivery":           SubscriptionAttributeNameRawMessageDelivery,
-		"redrive_policy":                 SubscriptionAttributeNameRedrivePolicy,
+		"redrive_policy":  SubscriptionAttributeNameRedrivePolicy,
 		"subscription_role_arn":          SubscriptionAttributeNameSubscriptionRoleARN,
-		"topic_arn":                      SubscriptionAttributeNameTopicARN,
+		"topic_arn":       SubscriptionAttributeNameTopicARN,
 	}, subscriptionSchema).WithMissingSetToNil("*")
 )
 
@@ -412,7 +412,7 @@ func waitSubscriptionDeleted(ctx context.Context, conn *sns.SNS, arn string, tim
 }
 
 type TopicSubscriptionDeliveryPolicy struct {
-	Guaranteed         bool                                                 `json:"guaranteed,omitempty"`
+	Guaranteed         bool    `json:"guaranteed,omitempty"`
 	HealthyRetryPolicy *TopicSubscriptionDeliveryPolicyHealthyRetryPolicy   `json:"healthyRetryPolicy,omitempty"`
 	SicklyRetryPolicy  *snsTopicSubscriptionDeliveryPolicySicklyRetryPolicy `json:"sicklyRetryPolicy,omitempty"`
 	ThrottlePolicy     *snsTopicSubscriptionDeliveryPolicyThrottlePolicy    `json:"throttlePolicy,omitempty"`

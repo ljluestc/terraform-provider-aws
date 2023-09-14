@@ -27,8 +27,8 @@ func TestAccKMSSecretsDataSource_basic(t *testing.T) {
 
 	// Run a resource test to setup our KMS key
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -54,8 +54,8 @@ func TestAccKMSSecretsDataSource_asymmetric(t *testing.T) {
 
 	// Run a resource test to setup our KMS key
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -100,7 +100,7 @@ func testAccSecretsEncryptDataSourceAsymmetric(ctx context.Context, key *kms.Key
 		conn := acctest.Provider.Meta().(*conns.AWSClient).KMSConn(ctx)
 
 		input := &kms.EncryptInput{
-			KeyId:               key.Arn,
+			KeyId:key.Arn,
 			Plaintext:           []byte(plaintext),
 			EncryptionAlgorithm: aws.String("RSAES_OAEP_SHA_1"),
 		}
@@ -122,8 +122,8 @@ func testAccSecretsDecryptDataSource(ctx context.Context, t *testing.T, plaintex
 		dataSourceName := "data.aws_kms_secrets.test"
 
 		resource.Test(t, resource.TestCase{
-			PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-			ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+			PreCheck:  func() { acctest.PreCheck(ctx, t) },
+			ErrorCheck:acctest.ErrorCheck(t, kms.EndpointsID),
 			ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 			Steps: []resource.TestStep{
 				{
@@ -146,8 +146,8 @@ func testAccSecretsDecryptDataSourceAsym(ctx context.Context, t *testing.T, key 
 		keyid := key.Arn
 
 		resource.Test(t, resource.TestCase{
-			PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-			ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+			PreCheck:  func() { acctest.PreCheck(ctx, t) },
+			ErrorCheck:acctest.ErrorCheck(t, kms.EndpointsID),
 			ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 			Steps: []resource.TestStep{
 				{
@@ -198,10 +198,10 @@ func testAccSecretsDataSourceConfig_asymmetricSecret(payload string, keyid strin
 	return acctest.ConfigCompose(testAccSecretsDataSourceConfig_asymmetricKey, fmt.Sprintf(`
 data "aws_kms_secrets" "test" {
   secret {
-    name                 = "secret1"
+    name  = "secret1"
     payload              = %[1]q
     encryption_algorithm = "RSAES_OAEP_SHA_1"
-    key_id               = %[2]q
+    key_id= %[2]q
   }
 }
 `, payload, keyid))

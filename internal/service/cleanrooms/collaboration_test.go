@@ -31,8 +31,8 @@ func TestAccCleanRoomsCollaboration_basic(t *testing.T) {
 	resourceName := "aws_cleanrooms_collaboration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.CleanRoomsEndpointID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, names.CleanRoomsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckCollaborationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -73,8 +73,8 @@ func TestAccCleanRoomsCollaboration_disappears(t *testing.T) {
 	resourceName := "aws_cleanrooms_collaboration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.CleanRoomsEndpointID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, names.CleanRoomsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckCollaborationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -98,8 +98,8 @@ func TestAccCleanRoomsCollaboration_mutableProperties(t *testing.T) {
 	resourceName := "aws_cleanrooms_collaboration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.CleanRoomsEndpointID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, names.CleanRoomsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckCollaborationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -137,8 +137,8 @@ func TestAccCleanRoomsCollaboration_updateCreatorDisplayName(t *testing.T) {
 	resourceName := "aws_cleanrooms_collaboration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.CleanRoomsEndpointID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, names.CleanRoomsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckCollaborationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -171,8 +171,8 @@ func TestAccCleanRoomsCollaboration_updateQueryLogStatus(t *testing.T) {
 	resourceName := "aws_cleanrooms_collaboration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.CleanRoomsEndpointID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, names.CleanRoomsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckCollaborationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -205,8 +205,8 @@ func TestAccCleanRoomsCollaboration_dataEncryptionSettings(t *testing.T) {
 	resourceName := "aws_cleanrooms_collaboration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.CleanRoomsEndpointID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, names.CleanRoomsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckCollaborationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -252,8 +252,8 @@ func TestAccCleanRoomsCollaboration_updateMemberAbilities(t *testing.T) {
 	resourceName := "aws_cleanrooms_collaboration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.CleanRoomsEndpointID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, names.CleanRoomsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckCollaborationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -518,7 +518,7 @@ func testAccCollaboration_configurable(name string, description string, tagValue
 	dataEncryptionMetadata string, additionalMember string) string {
 	return fmt.Sprintf(`
 resource "aws_cleanrooms_collaboration" "test" {
-  name                     = %[1]q
+  name      = %[1]q
   creator_member_abilities = %[4]s
   creator_display_name     = %[5]q
   description              = %[2]q

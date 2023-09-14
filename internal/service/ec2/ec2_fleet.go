@@ -766,7 +766,7 @@ func resourceFleetCreate(ctx context.Context, d *schema.ResourceData, meta inter
 		LaunchTemplateConfigs:       expandFleetLaunchTemplateConfigRequests(d.Get("launch_template_config").([]interface{})),
 		TargetCapacitySpecification: expandTargetCapacitySpecificationRequest(d.Get("target_capacity_specification").([]interface{})[0].(map[string]interface{})),
 		TagSpecifications:           getTagSpecificationsIn(ctx, ec2.ResourceTypeFleet),
-		Type:                        aws.String(fleetType),
+		Type:         aws.String(fleetType),
 	}
 
 	if v, ok := d.GetOk("context"); ok {

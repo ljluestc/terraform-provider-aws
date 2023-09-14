@@ -27,8 +27,8 @@ func TestAccAPIGatewayV2IntegrationResponse_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckIntegrationResponseDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -61,8 +61,8 @@ func TestAccAPIGatewayV2IntegrationResponse_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckIntegrationResponseDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -87,8 +87,8 @@ func TestAccAPIGatewayV2IntegrationResponse_allAttributes(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, apigatewayv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckIntegrationResponseDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -137,7 +137,7 @@ func testAccCheckIntegrationResponseDestroy(ctx context.Context) resource.TestCh
 			}
 
 			_, err := conn.GetIntegrationResponseWithContext(ctx, &apigatewayv2.GetIntegrationResponseInput{
-				ApiId:                 aws.String(rs.Primary.Attributes["api_id"]),
+				ApiId:  aws.String(rs.Primary.Attributes["api_id"]),
 				IntegrationId:         aws.String(rs.Primary.Attributes["integration_id"]),
 				IntegrationResponseId: aws.String(rs.Primary.ID),
 			})
@@ -160,7 +160,7 @@ func testAccCheckIntegrationResponseDisappears(ctx context.Context, apiId, integ
 		conn := acctest.Provider.Meta().(*conns.AWSClient).APIGatewayV2Conn(ctx)
 
 		_, err := conn.DeleteIntegrationResponseWithContext(ctx, &apigatewayv2.DeleteIntegrationResponseInput{
-			ApiId:                 apiId,
+			ApiId:  apiId,
 			IntegrationId:         integrationId,
 			IntegrationResponseId: v.IntegrationResponseId,
 		})
@@ -185,7 +185,7 @@ func testAccCheckIntegrationResponseExists(ctx context.Context, n string, vApiId
 		apiId := aws.String(rs.Primary.Attributes["api_id"])
 		integrationId := aws.String(rs.Primary.Attributes["integration_id"])
 		resp, err := conn.GetIntegrationResponseWithContext(ctx, &apigatewayv2.GetIntegrationResponseInput{
-			ApiId:                 apiId,
+			ApiId:  apiId,
 			IntegrationId:         integrationId,
 			IntegrationResponseId: aws.String(rs.Primary.ID),
 		})
@@ -215,7 +215,7 @@ func testAccIntegrationResponseImportStateIdFunc(resourceName string) resource.I
 func testAccIntegrationResponseConfig_basic(rName string) string {
 	return testAccIntegrationConfig_basic(rName) + `
 resource "aws_apigatewayv2_integration_response" "test" {
-  api_id                   = aws_apigatewayv2_api.test.id
+  api_id    = aws_apigatewayv2_api.test.id
   integration_id           = aws_apigatewayv2_integration.test.id
   integration_response_key = "/200/"
 }
@@ -225,7 +225,7 @@ resource "aws_apigatewayv2_integration_response" "test" {
 func testAccIntegrationResponseConfig_allAttributes(rName string) string {
 	return testAccIntegrationConfig_basic(rName) + `
 resource "aws_apigatewayv2_integration_response" "test" {
-  api_id                   = aws_apigatewayv2_api.test.id
+  api_id    = aws_apigatewayv2_api.test.id
   integration_id           = aws_apigatewayv2_integration.test.id
   integration_response_key = "$default"
 
@@ -242,7 +242,7 @@ resource "aws_apigatewayv2_integration_response" "test" {
 func testAccIntegrationResponseConfig_allAttributesUpdated(rName string) string {
 	return testAccIntegrationConfig_basic(rName) + `
 resource "aws_apigatewayv2_integration_response" "test" {
-  api_id                   = aws_apigatewayv2_api.test.id
+  api_id    = aws_apigatewayv2_api.test.id
   integration_id           = aws_apigatewayv2_integration.test.id
   integration_response_key = "/404/"
 

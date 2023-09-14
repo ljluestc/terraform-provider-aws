@@ -72,10 +72,10 @@ func resourceTrafficPolicyInstanceCreate(ctx context.Context, d *schema.Resource
 	name := d.Get("name").(string)
 	input := &route53.CreateTrafficPolicyInstanceInput{
 		HostedZoneId:         aws.String(d.Get("hosted_zone_id").(string)),
-		Name:                 aws.String(name),
+		Name:  aws.String(name),
 		TrafficPolicyId:      aws.String(d.Get("traffic_policy_id").(string)),
 		TrafficPolicyVersion: aws.Int64(int64(d.Get("traffic_policy_version").(int))),
-		TTL:                  aws.Int64(int64(d.Get("ttl").(int))),
+		TTL:   aws.Int64(int64(d.Get("ttl").(int))),
 	}
 
 	log.Printf("[INFO] Creating Route53 Traffic Policy Instance: %s", input)
@@ -124,10 +124,10 @@ func resourceTrafficPolicyInstanceUpdate(ctx context.Context, d *schema.Resource
 	conn := meta.(*conns.AWSClient).Route53Conn(ctx)
 
 	input := &route53.UpdateTrafficPolicyInstanceInput{
-		Id:                   aws.String(d.Id()),
+		Id:    aws.String(d.Id()),
 		TrafficPolicyId:      aws.String(d.Get("traffic_policy_id").(string)),
 		TrafficPolicyVersion: aws.Int64(int64(d.Get("traffic_policy_version").(int))),
-		TTL:                  aws.Int64(int64(d.Get("ttl").(int))),
+		TTL:   aws.Int64(int64(d.Get("ttl").(int))),
 	}
 
 	log.Printf("[INFO] Updating Route53 Traffic Policy Instance: %s", input)

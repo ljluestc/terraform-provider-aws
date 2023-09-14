@@ -336,10 +336,10 @@ func resourceExperienceDelete(ctx context.Context, d *schema.ResourceData, meta 
 
 func waitExperienceCreated(ctx context.Context, conn *kendra.Client, id, indexId string, timeout time.Duration) error {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   enum.Slice(types.ExperienceStatusCreating),
-		Target:                    enum.Slice(types.ExperienceStatusActive),
-		Refresh:                   statusExperience(ctx, conn, id, indexId),
-		Timeout:                   timeout,
+		Pending:    enum.Slice(types.ExperienceStatusCreating),
+		Target:     enum.Slice(types.ExperienceStatusActive),
+		Refresh:    statusExperience(ctx, conn, id, indexId),
+		Timeout:    timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}
@@ -356,10 +356,10 @@ func waitExperienceCreated(ctx context.Context, conn *kendra.Client, id, indexId
 
 func waitExperienceUpdated(ctx context.Context, conn *kendra.Client, id, indexId string, timeout time.Duration) error {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   []string{},
-		Target:                    enum.Slice(types.ExperienceStatusActive),
-		Refresh:                   statusExperience(ctx, conn, id, indexId),
-		Timeout:                   timeout,
+		Pending:    []string{},
+		Target:     enum.Slice(types.ExperienceStatusActive),
+		Refresh:    statusExperience(ctx, conn, id, indexId),
+		Timeout:    timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}

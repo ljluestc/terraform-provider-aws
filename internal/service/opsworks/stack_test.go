@@ -35,7 +35,7 @@ func() {
 			acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID)
 			testAccPreCheckStacks(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, opsworks.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckStackDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -93,7 +93,7 @@ func() {
 			acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID)
 			testAccPreCheckStacks(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, opsworks.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckStackDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -124,7 +124,7 @@ func() {
 			acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID)
 			testAccPreCheckStacks(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, opsworks.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckStackDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -169,7 +169,7 @@ func() {
 			acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID)
 			testAccPreCheckStacks(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, opsworks.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckStackDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -206,7 +206,7 @@ func() {
 			acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID)
 			testAccPreCheckStacks(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, opsworks.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckStackDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -267,7 +267,7 @@ functionality.
 			acctest.PreCheckRegion(t, endpoints.UsEast1RegionID)
 			acctest.PreCheckAlternateRegionIs(t, endpoints.UsWest1RegionID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, opsworks.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 2),
 		CheckDestroy:             testAccCheckStackDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -339,7 +339,7 @@ func() {
 			acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID)
 			testAccPreCheckStacks(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, opsworks.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckStackDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -480,7 +480,7 @@ func() {
 			acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID)
 			testAccPreCheckStacks(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, opsworks.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckStackDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -711,12 +711,12 @@ resource "aws_subnet" "test" {
 func testAccStackConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccStackConfig_baseVPC(rName), fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
-  name                         = %[1]q
-  region                       = %[2]q
+  name          = %[1]q
+  region        = %[2]q
   service_role_arn             = aws_iam_role.opsworks_service.arn
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
   default_subnet_id            = aws_subnet.test[0].id
-  vpc_id                       = aws_vpc.test.id
+  vpc_id        = aws_vpc.test.id
   use_opsworks_security_groups = false
 }
 `, rName, acctest.Region()))
@@ -728,8 +728,8 @@ func testAccStackConfig_noVPC(rName string) string {
 		testAccStackConfig_baseIAM(rName),
 		fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
-  name                         = %[1]q
-  region                       = %[2]q
+  name          = %[1]q
+  region        = %[2]q
   service_role_arn             = aws_iam_role.opsworks_service.arn
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
   use_opsworks_security_groups = false
@@ -747,12 +747,12 @@ func testAccStackConfig_defaultVPC(rName string) string {
 		testAccStackConfig_baseIAM(rName),
 		fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
-  name                         = %[1]q
-  region                       = %[2]q
+  name          = %[1]q
+  region        = %[2]q
   service_role_arn             = aws_iam_role.opsworks_service.arn
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
   use_opsworks_security_groups = false
-  vpc_id                       = data.aws_vpc.default.id
+  vpc_id        = data.aws_vpc.default.id
 }
 
 data "aws_vpc" "default" {
@@ -768,8 +768,8 @@ func testAccStackConfig_noVPCDefaultAZ(rName string) string {
 		acctest.ConfigAvailableAZsNoOptInDefaultExclude(),
 		fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
-  name                         = %[1]q
-  region                       = %[2]q
+  name          = %[1]q
+  region        = %[2]q
   service_role_arn             = aws_iam_role.opsworks_service.arn
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
   use_opsworks_security_groups = false
@@ -786,12 +786,12 @@ data "aws_vpc" "default" {
 func testAccStackConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccStackConfig_baseVPC(rName), fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
-  name                         = %[1]q
-  region                       = %[2]q
+  name          = %[1]q
+  region        = %[2]q
   service_role_arn             = aws_iam_role.opsworks_service.arn
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
   default_subnet_id            = aws_subnet.test[0].id
-  vpc_id                       = aws_vpc.test.id
+  vpc_id        = aws_vpc.test.id
   use_opsworks_security_groups = false
 
   tags = {
@@ -805,12 +805,12 @@ resource "aws_opsworks_stack" "test" {
 func testAccStackConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccStackConfig_baseVPC(rName), fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
-  name                         = %[1]q
-  region                       = %[2]q
+  name          = %[1]q
+  region        = %[2]q
   service_role_arn             = aws_iam_role.opsworks_service.arn
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
   default_subnet_id            = aws_subnet.test[0].id
-  vpc_id                       = aws_vpc.test.id
+  vpc_id        = aws_vpc.test.id
   use_opsworks_security_groups = false
 
   tags = {
@@ -825,12 +825,12 @@ resource "aws_opsworks_stack" "test" {
 func testAccStackConfig_tags1AlternateRegion(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccStackConfig_baseVPCAlternateRegion(rName), fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
-  name                         = %[1]q
-  region                       = %[2]q
+  name          = %[1]q
+  region        = %[2]q
   service_role_arn             = aws_iam_role.opsworks_service.arn
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
   default_subnet_id            = aws_subnet.test[0].id
-  vpc_id                       = aws_vpc.test.id
+  vpc_id        = aws_vpc.test.id
   use_opsworks_security_groups = false
 
   tags = {
@@ -844,12 +844,12 @@ resource "aws_opsworks_stack" "test" {
 func testAccStackConfig_tags2AlternateRegion(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccStackConfig_baseVPCAlternateRegion(rName), fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
-  name                         = %[1]q
-  region                       = %[2]q
+  name          = %[1]q
+  region        = %[2]q
   service_role_arn             = aws_iam_role.opsworks_service.arn
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
   default_subnet_id            = aws_subnet.test[0].id
-  vpc_id                       = aws_vpc.test.id
+  vpc_id        = aws_vpc.test.id
   use_opsworks_security_groups = false
 
   tags = {
@@ -864,23 +864,23 @@ resource "aws_opsworks_stack" "test" {
 func testAccStackConfig_allAttributes(rName, agentVersion, color, customCookbookRevision, customJSON, defaultSSHKeyName, hostnameTheme string) string {
 	return acctest.ConfigCompose(testAccStackConfig_baseVPC(rName), fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
-  name                         = %[1]q
-  region                       = %[2]q
+  name          = %[1]q
+  region        = %[2]q
   service_role_arn             = aws_iam_role.opsworks_service.arn
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
   default_subnet_id            = aws_subnet.test[0].id
-  vpc_id                       = aws_vpc.test.id
+  vpc_id        = aws_vpc.test.id
   use_opsworks_security_groups = false
 
-  agent_version                 = %[3]q
-  color                         = %[4]q
+  agent_version  = %[3]q
+  color          = %[4]q
   configuration_manager_name    = "Chef"
   configuration_manager_version = "12"
-  custom_json                   = %[6]q
-  default_os                    = "Amazon Linux 2"
+  custom_json    = %[6]q
+  default_os     = "Amazon Linux 2"
   default_root_device_type      = "ebs"
   default_ssh_key_name          = %[7]q
-  hostname_theme                = %[8]q
+  hostname_theme = %[8]q
   manage_berkshelf              = false
 
   use_custom_cookbooks = true
@@ -899,15 +899,15 @@ resource "aws_opsworks_stack" "test" {
 func testAccStackConfig_windows(rName, defaultOS string) string {
 	return acctest.ConfigCompose(testAccStackConfig_baseVPC(rName), fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
-  name                         = %[1]q
-  region                       = %[2]q
+  name          = %[1]q
+  region        = %[2]q
   service_role_arn             = aws_iam_role.opsworks_service.arn
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
   default_subnet_id            = aws_subnet.test[0].id
-  vpc_id                       = aws_vpc.test.id
+  vpc_id        = aws_vpc.test.id
   use_opsworks_security_groups = false
 
-  default_os                    = %[3]q
+  default_os     = %[3]q
   configuration_manager_version = "12.2"
 }
 `, rName, acctest.Region(), defaultOS))
@@ -942,13 +942,13 @@ resource "aws_subnet" "test" {
 }
 
 resource "aws_opsworks_stack" "test" {
-  name                         = %[1]q
-  region                       = data.aws_region.current.name
-  vpc_id                       = aws_vpc.test.id
+  name          = %[1]q
+  region        = data.aws_region.current.name
+  vpc_id        = aws_vpc.test.id
   default_subnet_id            = aws_subnet.test.id
   service_role_arn             = aws_iam_role.opsworks_service.arn
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
-  default_os                   = "Amazon Linux 2016.09"
+  default_os    = "Amazon Linux 2016.09"
   default_root_device_type     = "ebs"
 
   custom_json = <<EOF

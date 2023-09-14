@@ -21,8 +21,8 @@ func TestAccServiceCatalogProvisioningArtifactsDataSource_basic(t *testing.T) {
 	domain := fmt.Sprintf("http://%s", acctest.RandomDomainName())
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -79,19 +79,19 @@ resource "aws_s3_object" "test" {
 resource "aws_servicecatalog_product" "test" {
   description         = %[1]q
   distributor         = "distributör"
-  name                = %[1]q
-  owner               = "ägare"
-  type                = "CLOUD_FORMATION_TEMPLATE"
+  name = %[1]q
+  owner= "ägare"
+  type = "CLOUD_FORMATION_TEMPLATE"
   support_description = %[1]q
   support_email       = %[3]q
   support_url         = %[2]q
 
   provisioning_artifact_parameters {
-    description                 = "artefaktbeskrivning"
+    description  = "artefaktbeskrivning"
     disable_template_validation = true
-    name                        = %[1]q
-    template_url                = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/${aws_s3_object.test.key}"
-    type                        = "CLOUD_FORMATION_TEMPLATE"
+    name         = %[1]q
+    template_url = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/${aws_s3_object.test.key}"
+    type         = "CLOUD_FORMATION_TEMPLATE"
   }
 
   tags = {
@@ -101,14 +101,14 @@ resource "aws_servicecatalog_product" "test" {
 
 resource "aws_servicecatalog_provisioning_artifact" "test" {
   accept_language             = "en"
-  active                      = true
-  description                 = %[1]q
+  active       = true
+  description  = %[1]q
   disable_template_validation = true
-  guidance                    = "DEFAULT"
-  name                        = "%[1]s-2"
-  product_id                  = aws_servicecatalog_product.test.id
-  template_url                = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/${aws_s3_object.test.key}"
-  type                        = "CLOUD_FORMATION_TEMPLATE"
+  guidance     = "DEFAULT"
+  name         = "%[1]s-2"
+  product_id   = aws_servicecatalog_product.test.id
+  template_url = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/${aws_s3_object.test.key}"
+  type         = "CLOUD_FORMATION_TEMPLATE"
 }
 `, rName, domain, acctest.DefaultEmailAddress)
 }

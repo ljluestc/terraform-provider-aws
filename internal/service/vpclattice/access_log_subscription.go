@@ -78,7 +78,7 @@ func resourceAccessLogSubscriptionCreate(ctx context.Context, d *schema.Resource
 		ClientToken:        aws.String(id.UniqueId()),
 		DestinationArn:     aws.String(d.Get("destination_arn").(string)),
 		ResourceIdentifier: aws.String(d.Get("resource_identifier").(string)),
-		Tags:               getTagsIn(ctx),
+		Tags:getTagsIn(ctx),
 	}
 
 	out, err := conn.CreateAccessLogSubscription(ctx, in)

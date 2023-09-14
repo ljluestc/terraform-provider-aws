@@ -90,7 +90,7 @@ func resourceSecurityProfileCreate(ctx context.Context, d *schema.ResourceData, 
 	input := &connect.CreateSecurityProfileInput{
 		InstanceId:          aws.String(instanceID),
 		SecurityProfileName: aws.String(securityProfileName),
-		Tags:                getTagsIn(ctx),
+		Tags: getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {

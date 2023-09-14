@@ -44,7 +44,7 @@ func ResourceFileSystemPolicy() *schema.Resource {
 				ForceNew: true,
 			},
 			"policy": {
-				Type:                  schema.TypeString,
+				Type:   schema.TypeString,
 				Required:              true,
 				ValidateFunc:          validation.StringIsJSON,
 				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
@@ -70,8 +70,8 @@ func resourceFileSystemPolicyPut(ctx context.Context, d *schema.ResourceData, me
 	fsID := d.Get("file_system_id").(string)
 	input := &efs.PutFileSystemPolicyInput{
 		BypassPolicyLockoutSafetyCheck: aws.Bool(d.Get("bypass_policy_lockout_safety_check").(bool)),
-		FileSystemId:                   aws.String(fsID),
-		Policy:                         aws.String(policy),
+		FileSystemId:    aws.String(fsID),
+		Policy:          aws.String(policy),
 	}
 
 	_, err = tfresource.RetryWhenAWSErrMessageContains(ctx, propagationTimeout, func() (interface{}, error) {

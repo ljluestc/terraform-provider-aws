@@ -58,7 +58,7 @@ func resourceTransitGatewayMulticastGroupMemberCreate(ctx context.Context, d *sc
 	eniID := d.Get("network_interface_id").(string)
 	id := TransitGatewayMulticastGroupMemberCreateResourceID(multicastDomainID, groupIPAddress, eniID)
 	input := &ec2.RegisterTransitGatewayMulticastGroupMembersInput{
-		GroupIpAddress:                  aws.String(groupIPAddress),
+		GroupIpAddress:   aws.String(groupIPAddress),
 		NetworkInterfaceIds:             aws.StringSlice([]string{eniID}),
 		TransitGatewayMulticastDomainId: aws.String(multicastDomainID),
 	}
@@ -134,7 +134,7 @@ func deregisterTransitGatewayMulticastGroupMember(ctx context.Context, conn *ec2
 
 	log.Printf("[DEBUG] Deleting EC2 Transit Gateway Multicast Group Member: %s", id)
 	_, err := conn.DeregisterTransitGatewayMulticastGroupMembersWithContext(ctx, &ec2.DeregisterTransitGatewayMulticastGroupMembersInput{
-		GroupIpAddress:                  aws.String(groupIPAddress),
+		GroupIpAddress:   aws.String(groupIPAddress),
 		NetworkInterfaceIds:             aws.StringSlice([]string{eniID}),
 		TransitGatewayMulticastDomainId: aws.String(multicastDomainID),
 	})

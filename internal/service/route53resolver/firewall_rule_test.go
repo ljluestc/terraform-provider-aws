@@ -26,9 +26,9 @@ func TestAccRoute53ResolverFirewallRule_basic(t *testing.T) {
 	resourceName := "aws_route53_resolver_firewall_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, route53resolver.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFirewallRuleDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -61,9 +61,9 @@ func TestAccRoute53ResolverFirewallRule_block(t *testing.T) {
 	resourceName := "aws_route53_resolver_firewall_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, route53resolver.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFirewallRuleDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -94,9 +94,9 @@ func TestAccRoute53ResolverFirewallRule_blockOverride(t *testing.T) {
 	resourceName := "aws_route53_resolver_firewall_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, route53resolver.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFirewallRuleDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -130,9 +130,9 @@ func TestAccRoute53ResolverFirewallRule_disappears(t *testing.T) {
 	resourceName := "aws_route53_resolver_firewall_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, route53resolver.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFirewallRuleDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -230,11 +230,11 @@ resource "aws_route53_resolver_firewall_domain_list" "test" {
 }
 
 resource "aws_route53_resolver_firewall_rule" "test" {
-  name                    = %[1]q
-  action                  = "ALLOW"
+  name     = %[1]q
+  action   = "ALLOW"
   firewall_rule_group_id  = aws_route53_resolver_firewall_rule_group.test.id
   firewall_domain_list_id = aws_route53_resolver_firewall_domain_list.test.id
-  priority                = 100
+  priority = 100
 }
 `, rName)
 }
@@ -251,12 +251,12 @@ resource "aws_route53_resolver_firewall_domain_list" "test" {
 }
 
 resource "aws_route53_resolver_firewall_rule" "test" {
-  name                    = %[1]q
-  action                  = "BLOCK"
+  name     = %[1]q
+  action   = "BLOCK"
   block_response          = %[2]q
   firewall_rule_group_id  = aws_route53_resolver_firewall_rule_group.test.id
   firewall_domain_list_id = aws_route53_resolver_firewall_domain_list.test.id
-  priority                = 100
+  priority = 100
 }
 `, rName, blockResponse)
 }
@@ -273,15 +273,15 @@ resource "aws_route53_resolver_firewall_domain_list" "test" {
 }
 
 resource "aws_route53_resolver_firewall_rule" "test" {
-  name                    = %[1]q
-  action                  = "BLOCK"
+  name     = %[1]q
+  action   = "BLOCK"
   block_override_dns_type = "CNAME"
   block_override_domain   = "example.com."
   block_override_ttl      = 60
   block_response          = "OVERRIDE"
   firewall_rule_group_id  = aws_route53_resolver_firewall_rule_group.test.id
   firewall_domain_list_id = aws_route53_resolver_firewall_domain_list.test.id
-  priority                = 100
+  priority = 100
 }
 `, rName)
 }

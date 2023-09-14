@@ -25,8 +25,8 @@ func TestAccInternetMonitorMonitor_basic(t *testing.T) {
 	resourceName := "aws_internetmonitor_monitor.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.InternetMonitorEndpointID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, names.InternetMonitorEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckMonitorDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -67,8 +67,8 @@ func TestAccInternetMonitorMonitor_disappears(t *testing.T) {
 	resourceName := "aws_internetmonitor_monitor.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.InternetMonitorEndpointID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, names.InternetMonitorEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckMonitorDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -90,8 +90,8 @@ func TestAccInternetMonitorMonitor_tags(t *testing.T) {
 	resourceName := "aws_internetmonitor_monitor.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.InternetMonitorEndpointID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, names.InternetMonitorEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckMonitorDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -135,8 +135,8 @@ func TestAccInternetMonitorMonitor_healthEventsConfig(t *testing.T) {
 	resourceName := "aws_internetmonitor_monitor.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.InternetMonitorEndpointID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, names.InternetMonitorEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckMonitorDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -173,8 +173,8 @@ func TestAccInternetMonitorMonitor_log(t *testing.T) {
 	resourceName := "aws_internetmonitor_monitor.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.InternetMonitorEndpointID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, names.InternetMonitorEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckMonitorDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -240,7 +240,7 @@ func testAccCheckMonitorExists(ctx context.Context, n string) resource.TestCheck
 func testAccMonitorConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_internetmonitor_monitor" "test" {
-  monitor_name                  = %[1]q
+  monitor_name   = %[1]q
   traffic_percentage_to_monitor = 1
 }
 `, rName)
@@ -249,9 +249,9 @@ resource "aws_internetmonitor_monitor" "test" {
 func testAccMonitorConfig_status(rName, status string) string {
 	return fmt.Sprintf(`
 resource "aws_internetmonitor_monitor" "test" {
-  monitor_name                  = %[1]q
+  monitor_name   = %[1]q
   traffic_percentage_to_monitor = 1
-  status                        = %[2]q
+  status         = %[2]q
 }
 `, rName, status)
 }
@@ -259,7 +259,7 @@ resource "aws_internetmonitor_monitor" "test" {
 func testAccMonitorConfig_healthEventsConfig(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_internetmonitor_monitor" "test" {
-  monitor_name                 = %[1]q
+  monitor_name  = %[1]q
   max_city_networks_to_monitor = 2
 
   health_events_config {
@@ -272,7 +272,7 @@ resource "aws_internetmonitor_monitor" "test" {
 func testAccMonitorConfig_healthEventsConfigUpdated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_internetmonitor_monitor" "test" {
-  monitor_name                 = %[1]q
+  monitor_name  = %[1]q
   max_city_networks_to_monitor = 2
 
   health_events_config {
@@ -320,7 +320,7 @@ resource "aws_s3_bucket_policy" "test" {
 }
 
 resource "aws_internetmonitor_monitor" "test" {
-  monitor_name                  = %[1]q
+  monitor_name   = %[1]q
   traffic_percentage_to_monitor = 1
 
   internet_measurements_log_delivery {
@@ -335,7 +335,7 @@ resource "aws_internetmonitor_monitor" "test" {
 func testAccMonitorConfig_tags1(rName string, tagKey1 string, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_internetmonitor_monitor" "test" {
-  monitor_name                  = %[1]q
+  monitor_name   = %[1]q
   traffic_percentage_to_monitor = 1
 
   tags = {
@@ -348,7 +348,7 @@ resource "aws_internetmonitor_monitor" "test" {
 func testAccMonitorConfig_tags2(rName string, tagKey1 string, tagValue1 string, tagKey2 string, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_internetmonitor_monitor" "test" {
-  monitor_name                  = %[1]q
+  monitor_name   = %[1]q
   traffic_percentage_to_monitor = 1
 
   tags = {

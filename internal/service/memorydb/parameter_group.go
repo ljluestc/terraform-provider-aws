@@ -104,7 +104,7 @@ func resourceParameterGroupCreate(ctx context.Context, d *schema.ResourceData, m
 		Description:        aws.String(d.Get("description").(string)),
 		Family:             aws.String(d.Get("family").(string)),
 		ParameterGroupName: aws.String(name),
-		Tags:               getTagsIn(ctx),
+		Tags:getTagsIn(ctx),
 	}
 
 	log.Printf("[DEBUG] Creating MemoryDB Parameter Group: %s", input)

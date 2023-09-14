@@ -24,8 +24,8 @@ func TestAccLicenseManagerAssociation_basic(t *testing.T) {
 	resourceName := "aws_licensemanager_association.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, licensemanager.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, licensemanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -52,8 +52,8 @@ func TestAccLicenseManagerAssociation_disappears(t *testing.T) {
 	resourceName := "aws_licensemanager_association.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, licensemanager.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, licensemanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -136,7 +136,7 @@ resource "aws_instance" "test" {
 }
 
 resource "aws_licensemanager_license_configuration" "test" {
-  name                  = %[1]q
+  name   = %[1]q
   license_counting_type = "vCPU"
 }
 

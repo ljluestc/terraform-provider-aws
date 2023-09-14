@@ -35,8 +35,8 @@ func TestAccFSxFileCache_serial(t *testing.T) {
 			"data_repository_association_multiple":      testAccFileCache_dataRepositoryAssociation_multiple,
 			"data_repository_association_nfs":           testAccFileCache_dataRepositoryAssociation_nfs,
 			"data_repository_association_s3":            testAccFileCache_dataRepositoryAssociation_s3,
-			"security_group_id":                         testAccFileCache_securityGroupId,
-			"tags":                                      testAccFileCache_tags,
+			"security_group_id":          testAccFileCache_securityGroupId,
+			"tags":        testAccFileCache_tags,
 		},
 	}
 
@@ -57,7 +57,7 @@ func testAccFileCache_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, fsx.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFileCacheDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -102,7 +102,7 @@ func testAccFileCache_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, fsx.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFileCacheDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -130,8 +130,8 @@ func testAccFileCache_copyTagsToDataRepositoryAssociations(t *testing.T) {
 	resourceName := "aws_fsx_file_cache.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFileCacheDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -163,8 +163,8 @@ func testAccFileCache_dataRepositoryAssociation_multiple(t *testing.T) {
 	resourceName := "aws_fsx_file_cache.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFileCacheDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -195,8 +195,8 @@ func testAccFileCache_dataRepositoryAssociation_nfs(t *testing.T) {
 	resourceName := "aws_fsx_file_cache.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFileCacheDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -232,8 +232,8 @@ func testAccFileCache_dataRepositoryAssociation_s3(t *testing.T) {
 	bucketName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFileCacheDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -268,8 +268,8 @@ func testAccFileCache_kmsKeyID(t *testing.T) {
 	resourceName := "aws_fsx_file_cache.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFileCacheDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -314,8 +314,8 @@ func testAccFileCache_securityGroupId(t *testing.T) {
 	resourceName := "aws_fsx_file_cache.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFileCacheDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -346,8 +346,8 @@ func testAccFileCache_tags(t *testing.T) {
 	resourceName := "aws_fsx_file_cache.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFileCacheDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -513,7 +513,7 @@ resource "aws_fsx_file_cache" "test" {
   data_repository_association {
     data_repository_path           = "nfs://filer.domain.com/"
     data_repository_subdirectories = ["test5", "test3", "test2", "test4", "test1"]
-    file_cache_path                = "/ns1"
+    file_cache_path = "/ns1"
 
     nfs {
       dns_ips = ["192.168.0.1", "192.168.0.2"]
@@ -575,7 +575,7 @@ resource "aws_fsx_file_cache" "test" {
   data_repository_association {
     data_repository_path           = "nfs://filer2.domain.com/"
     data_repository_subdirectories = ["test5", "test3", "test2", "test4", "test1"]
-    file_cache_path                = "/ns2"
+    file_cache_path = "/ns2"
 
     nfs {
       dns_ips = ["192.168.0.1", "192.168.0.2"]
@@ -586,7 +586,7 @@ resource "aws_fsx_file_cache" "test" {
   data_repository_association {
     data_repository_path           = "nfs://filer.domain.com/"
     data_repository_subdirectories = ["test5", "test3", "test2", "test4", "test1"]
-    file_cache_path                = "/ns1"
+    file_cache_path = "/ns1"
 
     nfs {
       dns_ips = ["192.168.0.1", "192.168.0.2"]
@@ -623,7 +623,7 @@ resource "aws_fsx_file_cache" "test" {
   data_repository_association {
     data_repository_path           = "nfs://filer.domain.com/"
     data_repository_subdirectories = ["test", "test2"]
-    file_cache_path                = "/ns1"
+    file_cache_path = "/ns1"
 
     nfs {
       dns_ips = ["192.168.0.1", "192.168.0.2"]

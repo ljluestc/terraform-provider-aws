@@ -93,9 +93,9 @@ func dataSourceRuleRead(ctx context.Context, d *schema.ResourceData, meta interf
 		input := &route53resolver.ListResolverRulesInput{
 			Filters: buildAttributeFilterList(map[string]string{
 				"DOMAIN_NAME":          d.Get("domain_name").(string),
-				"NAME":                 d.Get("name").(string),
+				"NAME":  d.Get("name").(string),
 				"RESOLVER_ENDPOINT_ID": d.Get("resolver_endpoint_id").(string),
-				"TYPE":                 d.Get("rule_type").(string),
+				"TYPE":  d.Get("rule_type").(string),
 			}),
 		}
 

@@ -26,7 +26,7 @@ func TestAccAppConfigEnvironmentDataSource_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, appconfig.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, appconfig.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, appconfig.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckEnvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -85,7 +85,7 @@ resource "aws_iam_role_policy" "test" {
         {
             "Effect": "Allow",
             "Action": [
-                "cloudwatch:DescribeAlarms"
+ "cloudwatch:DescribeAlarms"
             ],
             "Resource": "*"
         }
@@ -95,14 +95,14 @@ POLICY
 }
 
 resource "aws_cloudwatch_metric_alarm" "test" {
-  alarm_name                = "%[1]s"
+  alarm_name = "%[1]s"
   comparison_operator       = "GreaterThanOrEqualToThreshold"
   evaluation_periods        = "2"
-  metric_name               = "CPUUtilization"
-  namespace                 = "AWS/EC2"
-  period                    = "120"
-  statistic                 = "Average"
-  threshold                 = "80"
+  metric_name= "CPUUtilization"
+  namespace  = "AWS/EC2"
+  period     = "120"
+  statistic  = "Average"
+  threshold  = "80"
   alarm_description         = "This metric monitors ec2 cpu utilization"
   insufficient_data_actions = []
 

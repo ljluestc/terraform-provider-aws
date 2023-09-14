@@ -36,12 +36,12 @@ const (
 	// See https://docs.aws.amazon.com/AWSEC2/latest/APIReference/query-api-troubleshooting.html#eventual-consistency.
 	ec2PropagationTimeout = 5 * time.Minute // nosemgrep:ci.ec2-in-const-name, ci.ec2-in-var-name
 
-	RouteNotFoundChecks                        = 1000 // Should exceed any reasonable custom timeout value.
-	RouteTableNotFoundChecks                   = 1000 // Should exceed any reasonable custom timeout value.
+	RouteNotFoundChecks         = 1000 // Should exceed any reasonable custom timeout value.
+	RouteTableNotFoundChecks    = 1000 // Should exceed any reasonable custom timeout value.
 	RouteTableAssociationCreatedNotFoundChecks = 1000 // Should exceed any reasonable custom timeout value.
-	SecurityGroupNotFoundChecks                = 1000 // Should exceed any reasonable custom timeout value.
+	SecurityGroupNotFoundChecks = 1000 // Should exceed any reasonable custom timeout value.
 	InternetGatewayNotFoundChecks              = 1000 // Should exceed any reasonable custom timeout value.
-	IPAMPoolCIDRNotFoundChecks                 = 1000 // Should exceed any reasonable custom timeout value.
+	IPAMPoolCIDRNotFoundChecks  = 1000 // Should exceed any reasonable custom timeout value.
 )
 
 const (
@@ -667,10 +667,10 @@ const ManagedPrefixListEntryCreateTimeout = 5 * time.Minute
 
 func WaitRouteDeleted(ctx context.Context, conn *ec2.EC2, routeFinder RouteFinder, routeTableID, destination string, timeout time.Duration) (*ec2.Route, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   []string{RouteStatusReady},
-		Target:                    []string{},
-		Refresh:                   StatusRoute(ctx, conn, routeFinder, routeTableID, destination),
-		Timeout:                   timeout,
+		Pending:    []string{RouteStatusReady},
+		Target:     []string{},
+		Refresh:    StatusRoute(ctx, conn, routeFinder, routeTableID, destination),
+		Timeout:    timeout,
 		ContinuousTargetOccurence: 2,
 	}
 
@@ -685,10 +685,10 @@ func WaitRouteDeleted(ctx context.Context, conn *ec2.EC2, routeFinder RouteFinde
 
 func WaitRouteReady(ctx context.Context, conn *ec2.EC2, routeFinder RouteFinder, routeTableID, destination string, timeout time.Duration) (*ec2.Route, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   []string{},
-		Target:                    []string{RouteStatusReady},
-		Refresh:                   StatusRoute(ctx, conn, routeFinder, routeTableID, destination),
-		Timeout:                   timeout,
+		Pending:    []string{},
+		Target:     []string{RouteStatusReady},
+		Refresh:    StatusRoute(ctx, conn, routeFinder, routeTableID, destination),
+		Timeout:    timeout,
 		NotFoundChecks:            RouteNotFoundChecks,
 		ContinuousTargetOccurence: 2,
 	}
@@ -710,10 +710,10 @@ const (
 
 func WaitRouteTableReady(ctx context.Context, conn *ec2.EC2, id string, timeout time.Duration) (*ec2.RouteTable, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   []string{},
-		Target:                    []string{RouteTableStatusReady},
-		Refresh:                   StatusRouteTable(ctx, conn, id),
-		Timeout:                   timeout,
+		Pending:    []string{},
+		Target:     []string{RouteTableStatusReady},
+		Refresh:    StatusRouteTable(ctx, conn, id),
+		Timeout:    timeout,
 		NotFoundChecks:            RouteTableNotFoundChecks,
 		ContinuousTargetOccurence: 2,
 	}
@@ -729,10 +729,10 @@ func WaitRouteTableReady(ctx context.Context, conn *ec2.EC2, id string, timeout 
 
 func WaitRouteTableDeleted(ctx context.Context, conn *ec2.EC2, id string, timeout time.Duration) (*ec2.RouteTable, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   []string{RouteTableStatusReady},
-		Target:                    []string{},
-		Refresh:                   StatusRouteTable(ctx, conn, id),
-		Timeout:                   timeout,
+		Pending:    []string{RouteTableStatusReady},
+		Target:     []string{},
+		Refresh:    StatusRouteTable(ctx, conn, id),
+		Timeout:    timeout,
 		ContinuousTargetOccurence: 2,
 	}
 
@@ -811,10 +811,10 @@ func WaitRouteTableAssociationUpdated(ctx context.Context, conn *ec2.EC2, id str
 
 func WaitSecurityGroupCreated(ctx context.Context, conn *ec2.EC2, id string, timeout time.Duration) (*ec2.SecurityGroup, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   []string{},
-		Target:                    []string{SecurityGroupStatusCreated},
-		Refresh:                   StatusSecurityGroup(ctx, conn, id),
-		Timeout:                   timeout,
+		Pending:    []string{},
+		Target:     []string{SecurityGroupStatusCreated},
+		Refresh:    StatusSecurityGroup(ctx, conn, id),
+		Timeout:    timeout,
 		NotFoundChecks:            SecurityGroupNotFoundChecks,
 		ContinuousTargetOccurence: 3,
 	}
@@ -2791,10 +2791,10 @@ func WaitVPCEndpointServiceDeleted(ctx context.Context, conn *ec2.EC2, id string
 
 func WaitVPCEndpointRouteTableAssociationDeleted(ctx context.Context, conn *ec2.EC2, vpcEndpointID, routeTableID string) error {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   []string{VPCEndpointRouteTableAssociationStatusReady},
-		Target:                    []string{},
-		Refresh:                   StatusVPCEndpointRouteTableAssociation(ctx, conn, vpcEndpointID, routeTableID),
-		Timeout:                   ec2PropagationTimeout,
+		Pending:    []string{VPCEndpointRouteTableAssociationStatusReady},
+		Target:     []string{},
+		Refresh:    StatusVPCEndpointRouteTableAssociation(ctx, conn, vpcEndpointID, routeTableID),
+		Timeout:    ec2PropagationTimeout,
 		ContinuousTargetOccurence: 2,
 	}
 
@@ -2805,10 +2805,10 @@ func WaitVPCEndpointRouteTableAssociationDeleted(ctx context.Context, conn *ec2.
 
 func WaitVPCEndpointRouteTableAssociationReady(ctx context.Context, conn *ec2.EC2, vpcEndpointID, routeTableID string) error {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   []string{},
-		Target:                    []string{VPCEndpointRouteTableAssociationStatusReady},
-		Refresh:                   StatusVPCEndpointRouteTableAssociation(ctx, conn, vpcEndpointID, routeTableID),
-		Timeout:                   ec2PropagationTimeout,
+		Pending:    []string{},
+		Target:     []string{VPCEndpointRouteTableAssociationStatusReady},
+		Refresh:    StatusVPCEndpointRouteTableAssociation(ctx, conn, vpcEndpointID, routeTableID),
+		Timeout:    ec2PropagationTimeout,
 		ContinuousTargetOccurence: 2,
 	}
 

@@ -234,8 +234,8 @@ func resourceBotCreate(ctx context.Context, d *schema.ResourceData, meta interfa
 		Description:             aws.String(d.Get("description").(string)),
 		EnableModelImprovements: aws.Bool(d.Get("enable_model_improvements").(bool)),
 		IdleSessionTTLInSeconds: aws.Int64(int64(d.Get("idle_session_ttl_in_seconds").(int))),
-		Intents:                 expandIntents(d.Get("intent").(*schema.Set).List()),
-		Name:                    aws.String(name),
+		Intents:  expandIntents(d.Get("intent").(*schema.Set).List()),
+		Name:     aws.String(name),
 	}
 
 	if v, ok := d.GetOk("clarification_prompt"); ok {
@@ -352,16 +352,16 @@ func resourceBotUpdate(ctx context.Context, d *schema.ResourceData, meta interfa
 	conn := meta.(*conns.AWSClient).LexModelsConn(ctx)
 
 	input := &lexmodelbuildingservice.PutBotInput{
-		Checksum:                     aws.String(d.Get("checksum").(string)),
-		ChildDirected:                aws.Bool(d.Get("child_directed").(bool)),
-		CreateVersion:                aws.Bool(d.Get("create_version").(bool)),
-		Description:                  aws.String(d.Get("description").(string)),
+		Checksum:      aws.String(d.Get("checksum").(string)),
+		ChildDirected: aws.Bool(d.Get("child_directed").(bool)),
+		CreateVersion: aws.Bool(d.Get("create_version").(bool)),
+		Description:   aws.String(d.Get("description").(string)),
 		DetectSentiment:              aws.Bool(d.Get("detect_sentiment").(bool)),
 		EnableModelImprovements:      aws.Bool(d.Get("enable_model_improvements").(bool)),
 		IdleSessionTTLInSeconds:      aws.Int64(int64(d.Get("idle_session_ttl_in_seconds").(int))),
-		Intents:                      expandIntents(d.Get("intent").(*schema.Set).List()),
-		Locale:                       aws.String(d.Get("locale").(string)),
-		Name:                         aws.String(d.Id()),
+		Intents:       expandIntents(d.Get("intent").(*schema.Set).List()),
+		Locale:        aws.String(d.Get("locale").(string)),
+		Name:          aws.String(d.Id()),
 		NluIntentConfidenceThreshold: aws.Float64(d.Get("nlu_intent_confidence_threshold").(float64)),
 		ProcessBehavior:              aws.String(d.Get("process_behavior").(string)),
 	}

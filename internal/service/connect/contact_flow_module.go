@@ -199,7 +199,7 @@ func resourceContactFlowModuleUpdate(ctx context.Context, d *schema.ResourceData
 			ContactFlowModuleId: aws.String(contactFlowModuleID),
 			Description:         aws.String(d.Get("description").(string)),
 			InstanceId:          aws.String(instanceID),
-			Name:                aws.String(d.Get("name").(string)),
+			Name: aws.String(d.Get("name").(string)),
 		}
 
 		_, updateMetadataInputErr := conn.UpdateContactFlowModuleMetadataWithContext(ctx, updateMetadataInput)

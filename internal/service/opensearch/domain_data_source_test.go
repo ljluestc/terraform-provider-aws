@@ -24,8 +24,8 @@ func TestAccOpenSearchDomainDataSource_Data_basic(t *testing.T) {
 	resourceName := "aws_opensearch_domain.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, opensearchservice.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -71,8 +71,8 @@ func TestAccOpenSearchDomainDataSource_Data_advanced(t *testing.T) {
 	resourceName := "aws_opensearch_domain.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, opensearchservice.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIAMServiceLinkedRole(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -308,7 +308,7 @@ POLICY
 
   log_publishing_options {
     cloudwatch_log_group_arn = aws_cloudwatch_log_group.test.arn
-    log_type                 = "INDEX_SLOW_LOGS"
+    log_type  = "INDEX_SLOW_LOGS"
   }
 
   vpc_options {
@@ -317,7 +317,7 @@ POLICY
   }
 
   advanced_security_options {
-    enabled                        = false
+    enabled         = false
     internal_user_database_enabled = false
   }
 

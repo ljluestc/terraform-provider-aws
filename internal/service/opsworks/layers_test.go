@@ -96,12 +96,12 @@ resource "aws_security_group" "test" {
 func testAccLayerConfig_baseAlternateRegion(rName string) string {
 	return acctest.ConfigCompose(testAccStackConfig_baseVPCAlternateRegion(rName), fmt.Sprintf(`
 resource "aws_opsworks_stack" "test" {
-  name                         = %[1]q
-  region                       = %[2]q
+  name          = %[1]q
+  region        = %[2]q
   service_role_arn             = aws_iam_role.opsworks_service.arn
   default_instance_profile_arn = aws_iam_instance_profile.opsworks_instance.arn
   default_subnet_id            = aws_subnet.test[0].id
-  vpc_id                       = aws_vpc.test.id
+  vpc_id        = aws_vpc.test.id
   use_opsworks_security_groups = false
 }
 

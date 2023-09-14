@@ -39,9 +39,9 @@ func(s *terraform.State) error {
 	priority := "100"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, route53resolver.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -133,11 +133,11 @@ resource "aws_route53_resolver_firewall_domain_list" "test" {
 }
 
 resource "aws_route53_resolver_firewall_rule" "test" {
-  name                    = %[1]q
-  action                  = %[3]q
+  name     = %[1]q
+  action   = %[3]q
   firewall_domain_list_id = aws_route53_resolver_firewall_domain_list.test.id
   firewall_rule_group_id  = aws_route53_resolver_firewall_rule_group.test.id
-  priority                = %[4]q
+  priority = %[4]q
 }
 `, rName, domain, action, priority)
 }
@@ -156,8 +156,8 @@ func testAccFirewallRulesDataSourceConfig_filter(rName, fqdn, action, priority s
 	return acctest.ConfigCompose(testAccFirewallRulesDataSourceConfig_base(rName, fqdn, action, priority), fmt.Sprintf(`
 data "aws_route53_resolver_firewall_rules" "test" {
   firewall_rule_group_id = aws_route53_resolver_firewall_rule_group.test.id
-  action                 = %[1]q
-  priority               = %[2]q
+  action  = %[1]q
+  priority= %[2]q
 }
 `, action, priority))
 }
@@ -167,7 +167,7 @@ func testAccFirewallRulesDataSourceConfig_filter_action(rName, fqdn, action, pri
 	return acctest.ConfigCompose(testAccFirewallRulesDataSourceConfig_base(rName, fqdn, action, priority), fmt.Sprintf(`
 data "aws_route53_resolver_firewall_rules" "test" {
   firewall_rule_group_id = aws_route53_resolver_firewall_rule_group.test.id
-  action                 = %[1]q
+  action  = %[1]q
 }
 `, action))
 }
@@ -177,7 +177,7 @@ func testAccFirewallRulesDataSourceConfig_filter_priority(rName, fqdn, action, p
 	return acctest.ConfigCompose(testAccFirewallRulesDataSourceConfig_base(rName, fqdn, action, priority), fmt.Sprintf(`
 data "aws_route53_resolver_firewall_rules" "test" {
   firewall_rule_group_id = aws_route53_resolver_firewall_rule_group.test.id
-  priority               = %[1]q
+  priority= %[1]q
 }
 `, priority))
 }

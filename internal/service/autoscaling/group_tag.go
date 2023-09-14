@@ -99,8 +99,8 @@ func resourceGroupTagRead(ctx context.Context, d *schema.ResourceData, meta inte
 	d.Set("autoscaling_group_name", identifier)
 
 	if err := d.Set("tag", []map[string]interface{}{{
-		"key":                 key,
-		"value":               value.Value,
+		"key":  key,
+		"value":value.Value,
 		"propagate_at_launch": value.AdditionalBoolFields["PropagateAtLaunch"],
 	}}); err != nil {
 		return sdkdiag.AppendErrorf(diags, "setting tag: %s", err)

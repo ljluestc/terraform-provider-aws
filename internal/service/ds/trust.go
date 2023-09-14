@@ -357,30 +357,30 @@ func (r *resourceTrust) ImportState(ctx context.Context, req resource.ImportStat
 
 type resourceTrustData struct {
 	ConditionalForwarderIpAddrs          types.Set    `tfsdk:"conditional_forwarder_ip_addrs"`
-	CreatedDateTime                      types.String `tfsdk:"created_date_time"`
+	CreatedDateTime       types.String `tfsdk:"created_date_time"`
 	DeleteAssociatedConditionalForwarder types.Bool   `tfsdk:"delete_associated_conditional_forwarder"`
-	DirectoryID                          types.String `tfsdk:"directory_id"`
-	ID                                   types.String `tfsdk:"id"`
-	LastUpdatedDateTime                  types.String `tfsdk:"last_updated_date_time"`
-	RemoteDomainName                     types.String `tfsdk:"remote_domain_name"`
-	SelectiveAuth                        types.String `tfsdk:"selective_auth"`
+	DirectoryID           types.String `tfsdk:"directory_id"`
+	ID     types.String `tfsdk:"id"`
+	LastUpdatedDateTime   types.String `tfsdk:"last_updated_date_time"`
+	RemoteDomainName      types.String `tfsdk:"remote_domain_name"`
+	SelectiveAuth         types.String `tfsdk:"selective_auth"`
 	StateLastUpdatedDateTime             types.String `tfsdk:"state_last_updated_date_time"`
-	TrustDirection                       types.String `tfsdk:"trust_direction"`
-	TrustPassword                        types.String `tfsdk:"trust_password"`
-	TrustState                           types.String `tfsdk:"trust_state"`
-	TrustStateReason                     types.String `tfsdk:"trust_state_reason"`
-	TrustType                            types.String `tfsdk:"trust_type"`
+	TrustDirection        types.String `tfsdk:"trust_direction"`
+	TrustPassword         types.String `tfsdk:"trust_password"`
+	TrustState            types.String `tfsdk:"trust_state"`
+	TrustStateReason      types.String `tfsdk:"trust_state_reason"`
+	TrustType             types.String `tfsdk:"trust_type"`
 }
 
 func (data resourceTrustData) createInput(ctx context.Context) *directoryservice.CreateTrustInput {
 	return &directoryservice.CreateTrustInput{
 		ConditionalForwarderIpAddrs: flex.ExpandFrameworkStringValueSet(ctx, data.ConditionalForwarderIpAddrs),
-		DirectoryId:                 flex.StringFromFramework(ctx, data.DirectoryID),
+		DirectoryId:  flex.StringFromFramework(ctx, data.DirectoryID),
 		RemoteDomainName:            flex.StringFromFramework(ctx, data.RemoteDomainName),
-		SelectiveAuth:               stringlikeValueFromFramework[awstypes.SelectiveAuth](ctx, data.SelectiveAuth),
+		SelectiveAuth:stringlikeValueFromFramework[awstypes.SelectiveAuth](ctx, data.SelectiveAuth),
 		TrustDirection:              stringlikeValueFromFramework[awstypes.TrustDirection](ctx, data.TrustDirection),
-		TrustPassword:               flex.StringFromFramework(ctx, data.TrustPassword),
-		TrustType:                   stringlikeValueFromFramework[awstypes.TrustType](ctx, data.TrustType),
+		TrustPassword:flex.StringFromFramework(ctx, data.TrustPassword),
+		TrustType:    stringlikeValueFromFramework[awstypes.TrustType](ctx, data.TrustType),
 	}
 }
 
@@ -401,7 +401,7 @@ func (data resourceTrustData) updateConditionalForwarderInput(ctx context.Contex
 
 func (data resourceTrustData) deleteInput(ctx context.Context) *directoryservice.DeleteTrustInput {
 	return &directoryservice.DeleteTrustInput{
-		TrustId:                              flex.StringFromFramework(ctx, data.ID),
+		TrustId:flex.StringFromFramework(ctx, data.ID),
 		DeleteAssociatedConditionalForwarder: data.DeleteAssociatedConditionalForwarder.ValueBool(),
 	}
 }

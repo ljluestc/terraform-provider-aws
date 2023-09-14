@@ -10,10 +10,10 @@ const (
 	errCodeNoSuchAccessPoint            = "NoSuchAccessPoint"
 	errCodeNoSuchAccessPointPolicy      = "NoSuchAccessPointPolicy"
 	errCodeNoSuchAsyncRequest           = "NoSuchAsyncRequest"
-	errCodeNoSuchBucket                 = "NoSuchBucket"
+	errCodeNoSuchBucket  = "NoSuchBucket"
 	errCodeNoSuchBucketPolicy           = "NoSuchBucketPolicy"
 	errCodeNoSuchLifecycleConfiguration = "NoSuchLifecycleConfiguration"
 	errCodeNoSuchMultiRegionAccessPoint = "NoSuchMultiRegionAccessPoint"
-	errCodeNoSuchOutpost                = "NoSuchOutpost"
-	errCodeNoSuchTagSet                 = "NoSuchTagSet"
+	errCodeNoSuchOutpost = "NoSuchOutpost"
+	errCodeNoSuchTagSet  = "NoSuchTagSet"
 )

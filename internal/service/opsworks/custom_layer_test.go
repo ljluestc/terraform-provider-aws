@@ -24,9 +24,9 @@ func TestAccOpsWorksCustomLayer_basic(t *testing.T) {
 	resourceName := "aws_opsworks_custom_layer.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, opsworks.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckCustomLayerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -90,9 +90,9 @@ func TestAccOpsWorksCustomLayer_update(t *testing.T) {
 	resourceName := "aws_opsworks_custom_layer.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, opsworks.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckCustomLayerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -168,9 +168,9 @@ func TestAccOpsWorksCustomLayer_cloudWatch(t *testing.T) {
 	logGroupResourceName := "aws_cloudwatch_log_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, opsworks.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckCustomLayerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -255,9 +255,9 @@ func TestAccOpsWorksCustomLayer_loadBasedAutoScaling(t *testing.T) {
 	resourceName := "aws_opsworks_custom_layer.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, opsworks.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckCustomLayerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -333,8 +333,8 @@ func(s *terraform.State) error { return testAccCheckLayerDestroy(ctx, "aws_opswo
 func testAccCustomLayerConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccLayerConfig_base(rName), fmt.Sprintf(`
 resource "aws_opsworks_custom_layer" "test" {
-  stack_id               = aws_opsworks_stack.test.id
-  name                   = %[1]q
+  stack_id= aws_opsworks_stack.test.id
+  name    = %[1]q
   short_name             = "tf-ops-acc-custom-layer"
   auto_assign_public_ips = false
 
@@ -379,8 +379,8 @@ resource "aws_security_group" "extra" {
 }
 
 resource "aws_opsworks_custom_layer" "test" {
-  stack_id               = aws_opsworks_stack.test.id
-  name                   = %[1]q
+  stack_id= aws_opsworks_stack.test.id
+  name    = %[1]q
   short_name             = "tf-ops-acc-custom-layer"
   auto_assign_public_ips = true
 
@@ -427,8 +427,8 @@ resource "aws_cloudwatch_log_group" "test" {
 }
 
 resource "aws_opsworks_custom_layer" "test" {
-  stack_id               = aws_opsworks_stack.test.id
-  name                   = %[1]q
+  stack_id= aws_opsworks_stack.test.id
+  name    = %[1]q
   short_name             = "tf-ops-acc-custom-layer"
   auto_assign_public_ips = true
 
@@ -457,8 +457,8 @@ resource "aws_cloudwatch_log_group" "test" {
 }
 
 resource "aws_opsworks_custom_layer" "test" {
-  stack_id               = aws_opsworks_stack.test.id
-  name                   = %[1]q
+  stack_id= aws_opsworks_stack.test.id
+  name    = %[1]q
   short_name             = "tf-ops-acc-custom-layer"
   auto_assign_public_ips = true
 
@@ -472,15 +472,15 @@ resource "aws_opsworks_custom_layer" "test" {
 
     log_streams {
       log_group_name          = aws_cloudwatch_log_group.test.name
-      file                    = "/var/log/system.lo*"
+      file     = "/var/log/system.lo*"
       batch_count             = 2000
       batch_size              = 50000
       buffer_duration         = 6000
-      encoding                = "mac_turkish"
+      encoding = "mac_turkish"
       file_fingerprint_lines  = "2"
       initial_position        = "end_of_file"
       multiline_start_pattern = "test*"
-      time_zone               = "LOCAL"
+      time_zone= "LOCAL"
     }
   }
 }
@@ -491,8 +491,8 @@ resource "aws_opsworks_custom_layer" "test" {
 func testAccCustomLayerConfig_loadBasedAutoScaling(rName string, enable bool) string {
 	return acctest.ConfigCompose(testAccLayerConfig_base(rName), fmt.Sprintf(`
 resource "aws_opsworks_custom_layer" "test" {
-  stack_id               = aws_opsworks_stack.test.id
-  name                   = %[1]q
+  stack_id= aws_opsworks_stack.test.id
+  name    = %[1]q
   short_name             = "tf-ops-acc-custom-layer"
   auto_assign_public_ips = true
 

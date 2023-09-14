@@ -29,8 +29,8 @@ func TestAccELBV2Listener_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elbv2.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckListenerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -67,8 +67,8 @@ func TestAccELBV2Listener_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elbv2.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckListenerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -114,8 +114,8 @@ func TestAccELBV2Listener_forwardWeighted(t *testing.T) {
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elbv2.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckListenerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -194,8 +194,8 @@ func TestAccELBV2Listener_Protocol_upd(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elbv2.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckListenerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -231,8 +231,8 @@ func TestAccELBV2Listener_backwardsCompatibility(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elbv2.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckListenerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -270,8 +270,8 @@ func TestAccELBV2Listener_Protocol_https(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elbv2.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckListenerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -314,8 +314,8 @@ func TestAccELBV2Listener_LoadBalancerARN_gatewayLoadBalancer(t *testing.T) {
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elbv2.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckListenerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -346,8 +346,8 @@ func TestAccELBV2Listener_Protocol_tls(t *testing.T) {
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elbv2.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckListenerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -375,8 +375,8 @@ func TestAccELBV2Listener_redirect(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elbv2.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckListenerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -418,8 +418,8 @@ func TestAccELBV2Listener_fixedResponse(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elbv2.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckListenerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -460,8 +460,8 @@ func TestAccELBV2Listener_cognito(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elbv2.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckListenerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -505,8 +505,8 @@ func TestAccELBV2Listener_oidc(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elbv2.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckListenerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -554,8 +554,8 @@ func TestAccELBV2Listener_DefaultAction_order(t *testing.T) {
 	resourceName := "aws_lb_listener.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elbv2.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckListenerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -588,8 +588,8 @@ func TestAccELBV2Listener_DefaultAction_orderRecreates(t *testing.T) {
 	resourceName := "aws_lb_listener.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elbv2.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckListenerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -761,7 +761,7 @@ resource "aws_lb" "test" {
   security_groups = [aws_security_group.test.id]
   subnets         = aws_subnet.test[*].id
 
-  idle_timeout               = 30
+  idle_timeout= 30
   enable_deletion_protection = false
 
   tags = {
@@ -776,9 +776,9 @@ resource "aws_lb_target_group" "test" {
   vpc_id   = aws_vpc.test.id
 
   health_check {
-    path                = "/health"
+    path = "/health"
     interval            = 60
-    port                = 8081
+    port = 8081
     protocol            = "HTTP"
     timeout             = 3
     healthy_threshold   = 3
@@ -823,7 +823,7 @@ resource "aws_lb" "test" {
   security_groups = [aws_security_group.test.id]
   subnets         = aws_subnet.test[*].id
 
-  idle_timeout               = 30
+  idle_timeout= 30
   enable_deletion_protection = false
 
   tags = {
@@ -838,9 +838,9 @@ resource "aws_lb_target_group" "test1" {
   vpc_id   = aws_vpc.test.id
 
   health_check {
-    path                = "/health"
+    path = "/health"
     interval            = 60
-    port                = 8081
+    port = 8081
     protocol            = "HTTP"
     timeout             = 3
     healthy_threshold   = 3
@@ -860,9 +860,9 @@ resource "aws_lb_target_group" "test2" {
   vpc_id   = aws_vpc.test.id
 
   health_check {
-    path                = "/health"
+    path = "/health"
     interval            = 60
-    port                = 8081
+    port = 8081
     protocol            = "HTTP"
     timeout             = 3
     healthy_threshold   = 3
@@ -912,7 +912,7 @@ resource "aws_lb" "test" {
   security_groups = [aws_security_group.test.id]
   subnets         = aws_subnet.test[*].id
 
-  idle_timeout               = 30
+  idle_timeout= 30
   enable_deletion_protection = false
 
   tags = {
@@ -927,9 +927,9 @@ resource "aws_lb_target_group" "test1" {
   vpc_id   = aws_vpc.test.id
 
   health_check {
-    path                = "/health"
+    path = "/health"
     interval            = 60
-    port                = 8081
+    port = 8081
     protocol            = "HTTP"
     timeout             = 3
     healthy_threshold   = 3
@@ -949,9 +949,9 @@ resource "aws_lb_target_group" "test2" {
   vpc_id   = aws_vpc.test.id
 
   health_check {
-    path                = "/health"
+    path = "/health"
     interval            = 60
-    port                = 8081
+    port = 8081
     protocol            = "HTTP"
     timeout             = 3
     healthy_threshold   = 3
@@ -985,7 +985,7 @@ resource "aws_lb" "test" {
   security_groups = [aws_security_group.test.id]
   subnets         = aws_subnet.test[*].id
 
-  idle_timeout               = 30
+  idle_timeout= 30
   enable_deletion_protection = false
 
   tags = {
@@ -1000,9 +1000,9 @@ resource "aws_lb_target_group" "test1" {
   vpc_id   = aws_vpc.test.id
 
   health_check {
-    path                = "/health"
+    path = "/health"
     interval            = 60
-    port                = 8081
+    port = 8081
     protocol            = "HTTP"
     timeout             = 3
     healthy_threshold   = 3
@@ -1022,9 +1022,9 @@ resource "aws_lb_target_group" "test2" {
   vpc_id   = aws_vpc.test.id
 
   health_check {
-    path                = "/health"
+    path = "/health"
     interval            = 60
-    port                = 8081
+    port = 8081
     protocol            = "HTTP"
     timeout             = 3
     healthy_threshold   = 3
@@ -1053,12 +1053,12 @@ resource "aws_lb_listener" "test" {
 }
 
 resource "aws_lb" "test" {
-  name               = %[1]q
+  name= %[1]q
   internal           = false
   load_balancer_type = "network"
   subnets            = aws_subnet.test[*].id
 
-  idle_timeout               = 30
+  idle_timeout= 30
   enable_deletion_protection = false
 
   tags = {
@@ -1111,7 +1111,7 @@ resource "aws_alb" "test" {
   security_groups = [aws_security_group.test.id]
   subnets         = aws_subnet.test[*].id
 
-  idle_timeout               = 30
+  idle_timeout= 30
   enable_deletion_protection = false
 
   tags = {
@@ -1126,9 +1126,9 @@ resource "aws_alb_target_group" "test" {
   vpc_id   = aws_vpc.test.id
 
   health_check {
-    path                = "/health"
+    path = "/health"
     interval            = 60
-    port                = 8081
+    port = 8081
     protocol            = "HTTP"
     timeout             = 3
     healthy_threshold   = 3
@@ -1164,7 +1164,7 @@ resource "aws_lb" "test" {
   security_groups = [aws_security_group.test.id]
   subnets         = aws_subnet.test[*].id
 
-  idle_timeout               = 30
+  idle_timeout= 30
   enable_deletion_protection = false
 
   tags = {
@@ -1179,9 +1179,9 @@ resource "aws_lb_target_group" "test" {
   vpc_id   = aws_vpc.test.id
 
   health_check {
-    path                = "/health"
+    path = "/health"
     interval            = 60
-    port                = 8081
+    port = 8081
     protocol            = "HTTP"
     timeout             = 3
     healthy_threshold   = 3
@@ -1234,7 +1234,7 @@ resource "aws_subnet" "test" {
 
 resource "aws_lb" "test" {
   load_balancer_type = "gateway"
-  name               = %[1]q
+  name= %[1]q
 
   subnet_mapping {
     subnet_id = aws_subnet.test.id
@@ -1282,7 +1282,7 @@ resource "aws_acm_certificate" "test" {
 resource "aws_lb" "test" {
   internal           = true
   load_balancer_type = "network"
-  name               = %[1]q
+  name= %[1]q
   subnets            = aws_subnet.test[*].id
 
   tags = {
@@ -1298,7 +1298,7 @@ resource "aws_lb_target_group" "test" {
 
   health_check {
     interval            = 10
-    port                = "traffic-port"
+    port = "traffic-port"
     protocol            = "TCP"
     healthy_threshold   = 3
     unhealthy_threshold = 3
@@ -1349,7 +1349,7 @@ resource "aws_lb" "test" {
   security_groups = [aws_security_group.test.id]
   subnets         = aws_subnet.test[*].id
 
-  idle_timeout               = 30
+  idle_timeout= 30
   enable_deletion_protection = false
 
   tags = {
@@ -1383,7 +1383,7 @@ resource "aws_lb" "test" {
   security_groups = [aws_security_group.test.id]
   subnets         = aws_subnet.test[*].id
 
-  idle_timeout               = 30
+  idle_timeout= 30
   enable_deletion_protection = false
 
   tags = {
@@ -1396,10 +1396,10 @@ resource "aws_lb" "test" {
 func testAccListenerConfig_cognito(rName, key, certificate string) string {
 	return acctest.ConfigCompose(testAccListenerConfig_base(rName), fmt.Sprintf(`
 resource "aws_lb" "test" {
-  name                       = %[1]q
-  internal                   = false
+  name        = %[1]q
+  internal    = false
   security_groups            = [aws_security_group.test.id]
-  subnets                    = aws_subnet.test[*].id
+  subnets     = aws_subnet.test[*].id
   enable_deletion_protection = false
 
   tags = {
@@ -1414,9 +1414,9 @@ resource "aws_lb_target_group" "test" {
   vpc_id   = aws_vpc.test.id
 
   health_check {
-    path                = "/health"
+    path = "/health"
     interval            = 60
-    port                = 8081
+    port = 8081
     protocol            = "HTTP"
     timeout             = 3
     healthy_threshold   = 3
@@ -1446,15 +1446,15 @@ resource "aws_cognito_user_pool" "test" {
 }
 
 resource "aws_cognito_user_pool_client" "test" {
-  name                                 = %[1]q
-  user_pool_id                         = aws_cognito_user_pool.test.id
-  generate_secret                      = true
+  name   = %[1]q
+  user_pool_id          = aws_cognito_user_pool.test.id
+  generate_secret       = true
   allowed_oauth_flows_user_pool_client = true
-  allowed_oauth_flows                  = ["code", "implicit"]
-  allowed_oauth_scopes                 = ["phone", "email", "openid", "profile", "aws.cognito.signin.user.admin"]
-  callback_urls                        = ["https://www.example.com/callback", "https://www.example.com/redirect"]
-  default_redirect_uri                 = "https://www.example.com/redirect"
-  logout_urls                          = ["https://www.example.com/login"]
+  allowed_oauth_flows   = ["code", "implicit"]
+  allowed_oauth_scopes  = ["phone", "email", "openid", "profile", "aws.cognito.signin.user.admin"]
+  callback_urls         = ["https://www.example.com/callback", "https://www.example.com/redirect"]
+  default_redirect_uri  = "https://www.example.com/redirect"
+  logout_urls           = ["https://www.example.com/login"]
 }
 
 resource "aws_cognito_user_pool_domain" "test" {
@@ -1500,10 +1500,10 @@ resource "aws_lb_listener" "test" {
 func testAccListenerConfig_oidc(rName, key, certificate string) string {
 	return acctest.ConfigCompose(testAccListenerConfig_base(rName), fmt.Sprintf(`
 resource "aws_lb" "test" {
-  name                       = %[1]q
-  internal                   = false
+  name        = %[1]q
+  internal    = false
   security_groups            = [aws_security_group.test.id]
-  subnets                    = aws_subnet.test[*].id
+  subnets     = aws_subnet.test[*].id
   enable_deletion_protection = false
 
   tags = {
@@ -1518,9 +1518,9 @@ resource "aws_lb_target_group" "test" {
   vpc_id   = aws_vpc.test.id
 
   health_check {
-    path                = "/health"
+    path = "/health"
     interval            = 60
-    port                = 8081
+    port = 8081
     protocol            = "HTTP"
     timeout             = 3
     healthy_threshold   = 3
@@ -1561,7 +1561,7 @@ resource "aws_lb_listener" "test" {
       authorization_endpoint = "https://example.com/authorization_endpoint"
       client_id              = "s6BhdRkqt3"
       client_secret          = "7Fjfp0ZBr1KtDRbnfVdmIw"
-      issuer                 = "https://example.com"
+      issuer  = "https://example.com"
       token_endpoint         = "https://example.com/token_endpoint"
       user_info_endpoint     = "https://example.com/user_info_endpoint"
 
@@ -1596,7 +1596,7 @@ resource "aws_lb_listener" "test" {
       authorization_endpoint = "https://example.com/authorization_endpoint"
       client_id              = "s6BhdRkqt3"
       client_secret          = "7Fjfp0ZBr1KtDRbnfVdmIw"
-      issuer                 = "https://example.com"
+      issuer  = "https://example.com"
       token_endpoint         = "https://example.com/token_endpoint"
       user_info_endpoint     = "https://example.com/user_info_endpoint"
 
@@ -1637,9 +1637,9 @@ resource "aws_lb_target_group" "test" {
   vpc_id   = aws_vpc.test.id
 
   health_check {
-    path                = "/health"
+    path = "/health"
     interval            = 60
-    port                = 8081
+    port = 8081
     protocol            = "HTTP"
     timeout             = 3
     healthy_threshold   = 3
@@ -1677,7 +1677,7 @@ resource "aws_lb" "test" {
   security_groups = [aws_security_group.test.id]
   subnets         = aws_subnet.test[*].id
 
-  idle_timeout               = 30
+  idle_timeout= 30
   enable_deletion_protection = false
 
   tags = {
@@ -1692,9 +1692,9 @@ resource "aws_lb_target_group" "test" {
   vpc_id   = aws_vpc.test.id
 
   health_check {
-    path                = "/health"
+    path = "/health"
     interval            = 60
-    port                = 8081
+    port = 8081
     protocol            = "HTTP"
     timeout             = 3
     healthy_threshold   = 3
@@ -1733,7 +1733,7 @@ resource "aws_lb" "test" {
   security_groups = [aws_security_group.test.id]
   subnets         = aws_subnet.test[*].id
 
-  idle_timeout               = 30
+  idle_timeout= 30
   enable_deletion_protection = false
 
   tags = {
@@ -1748,9 +1748,9 @@ resource "aws_lb_target_group" "test" {
   vpc_id   = aws_vpc.test.id
 
   health_check {
-    path                = "/health"
+    path = "/health"
     interval            = 60
-    port                = 8081
+    port = 8081
     protocol            = "HTTP"
     timeout             = 3
     healthy_threshold   = 3

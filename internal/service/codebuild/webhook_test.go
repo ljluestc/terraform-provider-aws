@@ -29,9 +29,9 @@ func TestAccCodeBuildWebhook_bitbucket(t *testing.T) {
 	sourceLocation := testAccBitbucketSourceLocationFromEnv()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codebuild.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckWebhookDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -65,9 +65,9 @@ func TestAccCodeBuildWebhook_gitHub(t *testing.T) {
 	resourceName := "aws_codebuild_webhook.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codebuild.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckWebhookDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -101,9 +101,9 @@ func TestAccCodeBuildWebhook_gitHubEnterprise(t *testing.T) {
 	resourceName := "aws_codebuild_webhook.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codebuild.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckWebhookDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -155,9 +155,9 @@ func TestAccCodeBuildWebhook_buildType(t *testing.T) {
 	resourceName := "aws_codebuild_webhook.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codebuild.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckWebhookDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -203,9 +203,9 @@ func TestAccCodeBuildWebhook_branchFilter(t *testing.T) {
 	resourceName := "aws_codebuild_webhook.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codebuild.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckWebhookDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -243,9 +243,9 @@ func TestAccCodeBuildWebhook_filterGroup(t *testing.T) {
 	resourceName := "aws_codebuild_webhook.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codebuild.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckWebhookDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -257,20 +257,20 @@ func(
 					testAccCheckWebhookFilter(&webhook, [][]*codebuild.WebhookFilter{
 						{
 							{
-								Type:                  aws.String("EVENT"),
-								Pattern:               aws.String("PUSH"),
+								Type:   aws.String("EVENT"),
+								Pattern:aws.String("PUSH"),
 								ExcludeMatchedPattern: aws.Bool(false),
 							},
 							{
-								Type:                  aws.String("HEAD_REF"),
-								Pattern:               aws.String("refs/heads/master"),
+								Type:   aws.String("HEAD_REF"),
+								Pattern:aws.String("refs/heads/master"),
 								ExcludeMatchedPattern: aws.Bool(true),
 							},
 						},
 						{
 							{
-								Type:                  aws.String("EVENT"),
-								Pattern:               aws.String("PULL_REQUEST_UPDATED"),
+								Type:   aws.String("EVENT"),
+								Pattern:aws.String("PULL_REQUEST_UPDATED"),
 								ExcludeMatchedPattern: aws.Bool(false),
 							},
 						},
@@ -463,8 +463,8 @@ resource "aws_codebuild_webhook" "test" {
     }
 
     filter {
-      type                    = "HEAD_REF"
-      pattern                 = "refs/heads/master"
+      type     = "HEAD_REF"
+      pattern  = "refs/heads/master"
       exclude_matched_pattern = true
     }
   }

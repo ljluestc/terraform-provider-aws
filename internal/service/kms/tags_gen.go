@@ -202,7 +202,7 @@ func waitTagsPropagated(ctx context.Context, conn kmsiface.KMSAPI, id string, ta
 	}
 	opts := tfresource.WaitOpts{
 		ContinuousTargetOccurence: 5,
-		MinTimeout:                1 * time.Second,
+		MinTimeout: 1 * time.Second,
 	}
 
 	return tfresource.WaitUntil(ctx, 10*time.Minute, checkFunc, opts)

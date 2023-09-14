@@ -22,8 +22,8 @@ func TestAccACMPCAPolicy_basic(t *testing.T) {
 	resourceName := "aws_acmpca_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, acmpca.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, acmpca.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -110,22 +110,22 @@ resource "aws_acmpca_certificate_authority" "test" {
 resource "aws_acmpca_policy" "test" {
   resource_arn = aws_acmpca_certificate_authority.test.arn
   policy       = <<EOF
-{                        
+{         
    "Version":"2012-10-17",
    "Statement":[
       {    
          "Sid":"1",
          "Effect":"Allow",         
-         "Principal":{                                                                                                                                               
-            "AWS":"${data.aws_caller_identity.current.account_id}"                                                                                
+         "Principal":{        
+            "AWS":"${data.aws_caller_identity.current.account_id}"     
          },
          "Action":[
             "acm-pca:DescribeCertificateAuthority",
             "acm-pca:GetCertificate",
             "acm-pca:GetCertificateAuthorityCertificate",
             "acm-pca:ListPermissions",
-            "acm-pca:ListTags"                                                                                   
-         ],                                                                                              
+            "acm-pca:ListTags"        
+         ],    
          "Resource":"${aws_acmpca_certificate_authority.test.arn}"
       },
       {
@@ -140,7 +140,7 @@ resource "aws_acmpca_policy" "test" {
          "Resource":"${aws_acmpca_certificate_authority.test.arn}",
          "Condition":{
             "StringEquals":{
-               "acm-pca:TemplateArn":"arn:${data.aws_partition.current.partition}:acm-pca:::template/EndEntityCertificate/V1"
+"acm-pca:TemplateArn":"arn:${data.aws_partition.current.partition}:acm-pca:::template/EndEntityCertificate/V1"
             }
          }
       }

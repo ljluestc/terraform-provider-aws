@@ -72,9 +72,9 @@ func resourceSAMLProviderCreate(ctx context.Context, d *schema.ResourceData, met
 
 	name := d.Get("name").(string)
 	input := &iam.CreateSAMLProviderInput{
-		Name:                 aws.String(name),
+		Name:  aws.String(name),
 		SAMLMetadataDocument: aws.String(d.Get("saml_metadata_document").(string)),
-		Tags:                 getTagsIn(ctx),
+		Tags:  getTagsIn(ctx),
 	}
 
 	output, err := conn.CreateSAMLProviderWithContext(ctx, input)

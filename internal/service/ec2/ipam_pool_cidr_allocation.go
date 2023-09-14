@@ -188,7 +188,7 @@ func resourceIPAMPoolCIDRAllocationDelete(ctx context.Context, d *schema.Resourc
 
 	log.Printf("[DEBUG] Deleting IPAM Pool CIDR Allocation: %s", d.Id())
 	_, err = conn.ReleaseIpamPoolAllocationWithContext(ctx, &ec2.ReleaseIpamPoolAllocationInput{
-		Cidr:                 aws.String(d.Get("cidr").(string)),
+		Cidr:  aws.String(d.Get("cidr").(string)),
 		IpamPoolAllocationId: aws.String(allocationID),
 		IpamPoolId:           aws.String(poolID),
 	})

@@ -102,11 +102,11 @@ func resourceFirewallRuleCreate(ctx context.Context, d *schema.ResourceData, met
 	ruleID := FirewallRuleCreateResourceID(firewallRuleGroupID, firewallDomainListID)
 	name := d.Get("name").(string)
 	input := &route53resolver.CreateFirewallRuleInput{
-		Action:               aws.String(d.Get("action").(string)),
+		Action:aws.String(d.Get("action").(string)),
 		CreatorRequestId:     aws.String(id.PrefixedUniqueId("tf-r53-resolver-firewall-rule-")),
 		FirewallRuleGroupId:  aws.String(firewallRuleGroupID),
 		FirewallDomainListId: aws.String(firewallDomainListID),
-		Name:                 aws.String(name),
+		Name:  aws.String(name),
 		Priority:             aws.Int64(int64(d.Get("priority").(int))),
 	}
 
@@ -183,10 +183,10 @@ func resourceFirewallRuleUpdate(ctx context.Context, d *schema.ResourceData, met
 	}
 
 	input := &route53resolver.UpdateFirewallRuleInput{
-		Action:               aws.String(d.Get("action").(string)),
+		Action:aws.String(d.Get("action").(string)),
 		FirewallDomainListId: aws.String(firewallDomainListID),
 		FirewallRuleGroupId:  aws.String(firewallRuleGroupID),
-		Name:                 aws.String(d.Get("name").(string)),
+		Name:  aws.String(d.Get("name").(string)),
 		Priority:             aws.Int64(int64(d.Get("priority").(int))),
 	}
 

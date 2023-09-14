@@ -1012,7 +1012,7 @@ func expandHudiTargets(targets []interface{}) []*glue.HudiTarget {
 
 func expandHudiTarget(cfg map[string]interface{}) *glue.HudiTarget {
 	target := &glue.HudiTarget{
-		Paths:                 flex.ExpandStringSet(cfg["paths"].(*schema.Set)),
+		Paths:  flex.ExpandStringSet(cfg["paths"].(*schema.Set)),
 		MaximumTraversalDepth: aws.Int64(int64(cfg["maximum_traversal_depth"].(int))),
 	}
 
@@ -1042,7 +1042,7 @@ func expandIcebergTargets(targets []interface{}) []*glue.IcebergTarget {
 
 func expandIcebergTarget(cfg map[string]interface{}) *glue.IcebergTarget {
 	target := &glue.IcebergTarget{
-		Paths:                 flex.ExpandStringSet(cfg["paths"].(*schema.Set)),
+		Paths:  flex.ExpandStringSet(cfg["paths"].(*schema.Set)),
 		MaximumTraversalDepth: aws.Int64(int64(cfg["maximum_traversal_depth"].(int))),
 	}
 
@@ -1238,7 +1238,7 @@ func flattenLakeFormationConfiguration(cfg *glue.LakeFormationConfiguration) []m
 	}
 
 	m := map[string]interface{}{
-		"account_id":                     aws.StringValue(cfg.AccountId),
+		"account_id":      aws.StringValue(cfg.AccountId),
 		"use_lake_formation_credentials": aws.BoolValue(cfg.UseLakeFormationCredentials),
 	}
 

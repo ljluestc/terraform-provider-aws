@@ -36,7 +36,7 @@ func TestAccQuickSightTemplate_basic(t *testing.T) {
 func() {
 			acctest.PreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -73,7 +73,7 @@ func TestAccQuickSightTemplate_disappears(t *testing.T) {
 func() {
 			acctest.PreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -104,7 +104,7 @@ func TestAccQuickSightTemplate_barChart(t *testing.T) {
 func() {
 			acctest.PreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -141,7 +141,7 @@ func TestAccQuickSightTemplate_table(t *testing.T) {
 func() {
 			acctest.PreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -195,7 +195,7 @@ func TestAccQuickSightTemplate_sourceEntity(t *testing.T) {
 func() {
 			acctest.PreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -234,7 +234,7 @@ func TestAccQuickSightTemplate_tags(t *testing.T) {
 func() {
 			acctest.PreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -301,7 +301,7 @@ func TestAccQuickSightTemplate_update(t *testing.T) {
 func() {
 			acctest.PreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -436,7 +436,7 @@ resource "aws_quicksight_data_set" "test" {
   }
   logical_table_map {
     logical_table_map_id = %[1]q
-    alias                = "Group1"
+    alias = "Group1"
     source {
       physical_table_id = %[1]q
     }
@@ -464,7 +464,7 @@ func testAccTemplateConfig_basic(rId, rName string) string {
 		fmt.Sprintf(`
 resource "aws_quicksight_template" "test" {
   template_id         = %[1]q
-  name                = %[2]q
+  name = %[2]q
   version_description = "test"
   definition {
     data_set_configuration {
@@ -505,26 +505,26 @@ resource "aws_quicksight_template" "test" {
           chart_configuration {
             field_wells {
               line_chart_aggregated_field_wells {
-                category {
-                  categorical_dimension_field {
-                    field_id = "1"
-                    column {
-                      data_set_identifier = "1"
-                      column_name         = "Column1"
-                    }
-                  }
-                }
-                values {
-                  categorical_measure_field {
-                    field_id = "2"
-                    column {
-                      data_set_identifier = "1"
-                      column_name         = "Column1"
-                    }
-                    aggregation_
+ category {
+   categorical_dimension_field {
+     field_id = "1"
+     column {
+       data_set_identifier = "1"
+       column_name         = "Column1"
+     }
+   }
+ }
+ values {
+   categorical_measure_field {
+     field_id = "2"
+     column {
+       data_set_identifier = "1"
+       column_name         = "Column1"
+     }
+     aggregation_
 function = "COUNT"
-                  }
-                }
+   }
+ }
               }
             }
           }
@@ -544,7 +544,7 @@ func testAccTemplateConfig_BarChart(rId, rName string) string {
 		fmt.Sprintf(`
 resource "aws_quicksight_template" "test" {
   template_id         = %[1]q
-  name                = %[2]q
+  name = %[2]q
   version_description = "test"
   definition {
     data_set_configuration {
@@ -569,28 +569,28 @@ resource "aws_quicksight_template" "test" {
           chart_configuration {
             field_wells {
               bar_chart_aggregated_field_wells {
-                category {
-                  categorical_dimension_field {
-                    field_id = "1"
-                    column {
-                      column_name         = "Column1"
-                      data_set_identifier = "1"
-                    }
-                  }
-                }
-                values {
-                  numerical_measure_field {
-                    field_id = "2"
-                    column {
-                      column_name         = "Column2"
-                      data_set_identifier = "1"
-                    }
-                    aggregation_
+ category {
+   categorical_dimension_field {
+     field_id = "1"
+     column {
+       column_name         = "Column1"
+       data_set_identifier = "1"
+     }
+   }
+ }
+ values {
+   numerical_measure_field {
+     field_id = "2"
+     column {
+       column_name         = "Column2"
+       data_set_identifier = "1"
+     }
+     aggregation_
 function {
-                      simple_numerical_aggregation = "SUM"
-                    }
-                  }
-                }
+       simple_numerical_aggregation = "SUM"
+     }
+   }
+ }
               }
             }
           }
@@ -609,7 +609,7 @@ func testAccTemplateConfig_Table(rId, rName, sortDirection, totalPlacement strin
 		fmt.Sprintf(`
 resource "aws_quicksight_template" "test" {
   template_id         = %[1]q
-  name                = %[2]q
+  name = %[2]q
   version_description = "test"
   definition {
     data_set_configuration {
@@ -634,40 +634,40 @@ resource "aws_quicksight_template" "test" {
           chart_configuration {
             field_wells {
               table_unaggregated_field_wells {
-                values {
-                  field_id = "1"
-                  column {
-                    column_name         = "Column1"
-                    data_set_identifier = "1"
-                  }
-                }
-                values {
-                  field_id = "2"
-                  column {
-                    column_name         = "Column2"
-                    data_set_identifier = "1"
-                  }
-                }
+ values {
+   field_id = "1"
+   column {
+     column_name         = "Column1"
+     data_set_identifier = "1"
+   }
+ }
+ values {
+   field_id = "2"
+   column {
+     column_name         = "Column2"
+     data_set_identifier = "1"
+   }
+ }
               }
             }
             table_options {
               header_style {
-                background_color = "#99CCFF"
-                height           = 20
-                font_configuration {
-                  font_color = "#212121"
-                  font_size {
-                    relative = "LARGE"
-                  }
-                }
+ background_color = "#99CCFF"
+ height           = 20
+ font_configuration {
+   font_color = "#212121"
+   font_size {
+     relative = "LARGE"
+   }
+ }
               }
             }
             sort_configuration {
               row_sort {
-                field_sort {
-                  field_id  = "1"
-                  direction = %[3]q
-                }
+ field_sort {
+   field_id  = "1"
+   direction = %[3]q
+ }
               }
             }
             total_options {
@@ -691,7 +691,7 @@ func testAccTemplateConfig_TemplateSourceEntity(rId, rName, sourceId, sourceName
 		fmt.Sprintf(`
 resource "aws_quicksight_template" "copy" {
   template_id         = %[1]q
-  name                = %[2]q
+  name = %[2]q
   version_description = "test"
   source_entity {
     source_template {
@@ -709,7 +709,7 @@ func testAccTemplateConfig_tags1(rId, rName, key1, value1 string) string {
 		fmt.Sprintf(`
 resource "aws_quicksight_template" "test" {
   template_id         = %[1]q
-  name                = %[2]q
+  name = %[2]q
   version_description = "test"
   definition {
     data_set_configuration {
@@ -734,28 +734,28 @@ resource "aws_quicksight_template" "test" {
           chart_configuration {
             field_wells {
               bar_chart_aggregated_field_wells {
-                category {
-                  categorical_dimension_field {
-                    field_id = "1"
-                    column {
-                      column_name         = "Column1"
-                      data_set_identifier = "1"
-                    }
-                  }
-                }
-                values {
-                  numerical_measure_field {
-                    field_id = "2"
-                    column {
-                      column_name         = "Column2"
-                      data_set_identifier = "1"
-                    }
-                    aggregation_
+ category {
+   categorical_dimension_field {
+     field_id = "1"
+     column {
+       column_name         = "Column1"
+       data_set_identifier = "1"
+     }
+   }
+ }
+ values {
+   numerical_measure_field {
+     field_id = "2"
+     column {
+       column_name         = "Column2"
+       data_set_identifier = "1"
+     }
+     aggregation_
 function {
-                      simple_numerical_aggregation = "SUM"
-                    }
-                  }
-                }
+       simple_numerical_aggregation = "SUM"
+     }
+   }
+ }
               }
             }
           }
@@ -778,7 +778,7 @@ func testAccTemplateConfig_tags2(rId, rName, key1, value1, key2, value2 string) 
 		fmt.Sprintf(`
 resource "aws_quicksight_template" "test" {
   template_id         = %[1]q
-  name                = %[2]q
+  name = %[2]q
   version_description = "test"
   definition {
     data_set_configuration {
@@ -803,28 +803,28 @@ resource "aws_quicksight_template" "test" {
           chart_configuration {
             field_wells {
               bar_chart_aggregated_field_wells {
-                category {
-                  categorical_dimension_field {
-                    field_id = "1"
-                    column {
-                      column_name         = "Column1"
-                      data_set_identifier = "1"
-                    }
-                  }
-                }
-                values {
-                  numerical_measure_field {
-                    field_id = "2"
-                    column {
-                      column_name         = "Column2"
-                      data_set_identifier = "1"
-                    }
-                    aggregation_
+ category {
+   categorical_dimension_field {
+     field_id = "1"
+     column {
+       column_name         = "Column1"
+       data_set_identifier = "1"
+     }
+   }
+ }
+ values {
+   numerical_measure_field {
+     field_id = "2"
+     column {
+       column_name         = "Column2"
+       data_set_identifier = "1"
+     }
+     aggregation_
 function {
-                      simple_numerical_aggregation = "SUM"
-                    }
-                  }
-                }
+       simple_numerical_aggregation = "SUM"
+     }
+   }
+ }
               }
             }
           }

@@ -23,9 +23,9 @@ func TestUserPoolSchemaAttributeMatchesStandardAttribute(t *testing.T) {
 			Input: &cognitoidentityprovider.SchemaAttributeType{
 				AttributeDataType:      aws.String(cognitoidentityprovider.AttributeDataTypeString),
 				DeveloperOnlyAttribute: aws.Bool(false),
-				Mutable:                aws.Bool(true),
-				Name:                   aws.String("birthdate"),
-				Required:               aws.Bool(false),
+				Mutable: aws.Bool(true),
+				Name:    aws.String("birthdate"),
+				Required:aws.Bool(false),
 				StringAttributeConstraints: &cognitoidentityprovider.StringAttributeConstraintsType{
 					MaxLength: aws.String("10"),
 					MinLength: aws.String("10"),
@@ -38,9 +38,9 @@ func TestUserPoolSchemaAttributeMatchesStandardAttribute(t *testing.T) {
 			Input: &cognitoidentityprovider.SchemaAttributeType{
 				AttributeDataType:      aws.String(cognitoidentityprovider.AttributeDataTypeString),
 				DeveloperOnlyAttribute: aws.Bool(true),
-				Mutable:                aws.Bool(true),
-				Name:                   aws.String("birthdate"),
-				Required:               aws.Bool(false),
+				Mutable: aws.Bool(true),
+				Name:    aws.String("birthdate"),
+				Required:aws.Bool(false),
 				StringAttributeConstraints: &cognitoidentityprovider.StringAttributeConstraintsType{
 					MaxLength: aws.String("10"),
 					MinLength: aws.String("10"),
@@ -53,9 +53,9 @@ func TestUserPoolSchemaAttributeMatchesStandardAttribute(t *testing.T) {
 			Input: &cognitoidentityprovider.SchemaAttributeType{
 				AttributeDataType:      aws.String(cognitoidentityprovider.AttributeDataTypeString),
 				DeveloperOnlyAttribute: aws.Bool(false),
-				Mutable:                aws.Bool(false),
-				Name:                   aws.String("birthdate"),
-				Required:               aws.Bool(false),
+				Mutable: aws.Bool(false),
+				Name:    aws.String("birthdate"),
+				Required:aws.Bool(false),
 				StringAttributeConstraints: &cognitoidentityprovider.StringAttributeConstraintsType{
 					MaxLength: aws.String("10"),
 					MinLength: aws.String("10"),
@@ -68,9 +68,9 @@ func TestUserPoolSchemaAttributeMatchesStandardAttribute(t *testing.T) {
 			Input: &cognitoidentityprovider.SchemaAttributeType{
 				AttributeDataType:      aws.String(cognitoidentityprovider.AttributeDataTypeString),
 				DeveloperOnlyAttribute: aws.Bool(false),
-				Mutable:                aws.Bool(true),
-				Name:                   aws.String("non-existent"),
-				Required:               aws.Bool(false),
+				Mutable: aws.Bool(true),
+				Name:    aws.String("non-existent"),
+				Required:aws.Bool(false),
 				StringAttributeConstraints: &cognitoidentityprovider.StringAttributeConstraintsType{
 					MaxLength: aws.String("10"),
 					MinLength: aws.String("10"),
@@ -83,9 +83,9 @@ func TestUserPoolSchemaAttributeMatchesStandardAttribute(t *testing.T) {
 			Input: &cognitoidentityprovider.SchemaAttributeType{
 				AttributeDataType:      aws.String(cognitoidentityprovider.AttributeDataTypeString),
 				DeveloperOnlyAttribute: aws.Bool(false),
-				Mutable:                aws.Bool(true),
-				Name:                   aws.String("birthdate"),
-				Required:               aws.Bool(true),
+				Mutable: aws.Bool(true),
+				Name:    aws.String("birthdate"),
+				Required:aws.Bool(true),
 				StringAttributeConstraints: &cognitoidentityprovider.StringAttributeConstraintsType{
 					MaxLength: aws.String("10"),
 					MinLength: aws.String("10"),
@@ -98,9 +98,9 @@ func TestUserPoolSchemaAttributeMatchesStandardAttribute(t *testing.T) {
 			Input: &cognitoidentityprovider.SchemaAttributeType{
 				AttributeDataType:      aws.String(cognitoidentityprovider.AttributeDataTypeString),
 				DeveloperOnlyAttribute: aws.Bool(false),
-				Mutable:                aws.Bool(true),
-				Name:                   aws.String("birthdate"),
-				Required:               aws.Bool(false),
+				Mutable: aws.Bool(true),
+				Name:    aws.String("birthdate"),
+				Required:aws.Bool(false),
 				StringAttributeConstraints: &cognitoidentityprovider.StringAttributeConstraintsType{
 					MaxLength: aws.String("999"),
 					MinLength: aws.String("10"),
@@ -113,9 +113,9 @@ func TestUserPoolSchemaAttributeMatchesStandardAttribute(t *testing.T) {
 			Input: &cognitoidentityprovider.SchemaAttributeType{
 				AttributeDataType:      aws.String(cognitoidentityprovider.AttributeDataTypeString),
 				DeveloperOnlyAttribute: aws.Bool(false),
-				Mutable:                aws.Bool(true),
-				Name:                   aws.String("birthdate"),
-				Required:               aws.Bool(false),
+				Mutable: aws.Bool(true),
+				Name:    aws.String("birthdate"),
+				Required:aws.Bool(false),
 				StringAttributeConstraints: &cognitoidentityprovider.StringAttributeConstraintsType{
 					MaxLength: aws.String("10"),
 					MinLength: aws.String("999"),
@@ -128,9 +128,9 @@ func TestUserPoolSchemaAttributeMatchesStandardAttribute(t *testing.T) {
 			Input: &cognitoidentityprovider.SchemaAttributeType{
 				AttributeDataType:      aws.String(cognitoidentityprovider.AttributeDataTypeBoolean),
 				DeveloperOnlyAttribute: aws.Bool(false),
-				Mutable:                aws.Bool(true),
-				Name:                   aws.String("email_verified"),
-				Required:               aws.Bool(false),
+				Mutable: aws.Bool(true),
+				Name:    aws.String("email_verified"),
+				Required:aws.Bool(false),
 			},
 			Expected: true,
 		},
@@ -139,8 +139,8 @@ func TestUserPoolSchemaAttributeMatchesStandardAttribute(t *testing.T) {
 			Input: &cognitoidentityprovider.SchemaAttributeType{
 				AttributeDataType:      aws.String(cognitoidentityprovider.AttributeDataTypeNumber),
 				DeveloperOnlyAttribute: aws.Bool(false),
-				Mutable:                aws.Bool(true),
-				Name:                   aws.String("updated_at"),
+				Mutable: aws.Bool(true),
+				Name:    aws.String("updated_at"),
 				NumberAttributeConstraints: &cognitoidentityprovider.NumberAttributeConstraintsType{
 					MinValue: aws.String("0"),
 				},
@@ -177,17 +177,17 @@ func TestSkipFlatteningStringAttributeContraints(t *testing.T) {
 				{
 					AttributeDataType:      aws.String(cognitoidentityprovider.AttributeDataTypeString),
 					DeveloperOnlyAttribute: aws.Bool(false),
-					Mutable:                aws.Bool(false),
-					Name:                   aws.String("email"),
-					Required:               aws.Bool(true),
+					Mutable: aws.Bool(false),
+					Name:    aws.String("email"),
+					Required:aws.Bool(true),
 				},
 			},
 			input: &cognitoidentityprovider.SchemaAttributeType{
 				AttributeDataType:      aws.String(cognitoidentityprovider.AttributeDataTypeString),
 				DeveloperOnlyAttribute: aws.Bool(false),
-				Mutable:                aws.Bool(false),
-				Name:                   aws.String("email"),
-				Required:               aws.Bool(true),
+				Mutable: aws.Bool(false),
+				Name:    aws.String("email"),
+				Required:aws.Bool(true),
 				StringAttributeConstraints: &cognitoidentityprovider.StringAttributeConstraintsType{
 					MaxLength: aws.String("2048"),
 					MinLength: aws.String("0"),
@@ -201,9 +201,9 @@ func TestSkipFlatteningStringAttributeContraints(t *testing.T) {
 				{
 					AttributeDataType:      aws.String(cognitoidentityprovider.AttributeDataTypeString),
 					DeveloperOnlyAttribute: aws.Bool(false),
-					Mutable:                aws.Bool(false),
-					Name:                   aws.String("email"),
-					Required:               aws.Bool(true),
+					Mutable: aws.Bool(false),
+					Name:    aws.String("email"),
+					Required:aws.Bool(true),
 					StringAttributeConstraints: &cognitoidentityprovider.StringAttributeConstraintsType{
 						MaxLength: aws.String("2048"),
 						MinLength: aws.String("0"),
@@ -213,9 +213,9 @@ func TestSkipFlatteningStringAttributeContraints(t *testing.T) {
 			input: &cognitoidentityprovider.SchemaAttributeType{
 				AttributeDataType:      aws.String(cognitoidentityprovider.AttributeDataTypeString),
 				DeveloperOnlyAttribute: aws.Bool(false),
-				Mutable:                aws.Bool(false),
-				Name:                   aws.String("email"),
-				Required:               aws.Bool(true),
+				Mutable: aws.Bool(false),
+				Name:    aws.String("email"),
+				Required:aws.Bool(true),
 				StringAttributeConstraints: &cognitoidentityprovider.StringAttributeConstraintsType{
 					MaxLength: aws.String("2048"),
 					MinLength: aws.String("0"),
@@ -229,9 +229,9 @@ func TestSkipFlatteningStringAttributeContraints(t *testing.T) {
 				{
 					AttributeDataType:      aws.String(cognitoidentityprovider.AttributeDataTypeString),
 					DeveloperOnlyAttribute: aws.Bool(false),
-					Mutable:                aws.Bool(false),
-					Name:                   aws.String("email"),
-					Required:               aws.Bool(true),
+					Mutable: aws.Bool(false),
+					Name:    aws.String("email"),
+					Required:aws.Bool(true),
 					StringAttributeConstraints: &cognitoidentityprovider.StringAttributeConstraintsType{
 						MaxLength: aws.String("1024"),
 						MinLength: aws.String("5"),
@@ -241,9 +241,9 @@ func TestSkipFlatteningStringAttributeContraints(t *testing.T) {
 			input: &cognitoidentityprovider.SchemaAttributeType{
 				AttributeDataType:      aws.String(cognitoidentityprovider.AttributeDataTypeString),
 				DeveloperOnlyAttribute: aws.Bool(false),
-				Mutable:                aws.Bool(false),
-				Name:                   aws.String("email"),
-				Required:               aws.Bool(true),
+				Mutable: aws.Bool(false),
+				Name:    aws.String("email"),
+				Required:aws.Bool(true),
 				StringAttributeConstraints: &cognitoidentityprovider.StringAttributeConstraintsType{
 					MaxLength: aws.String("2048"),
 					MinLength: aws.String("0"),

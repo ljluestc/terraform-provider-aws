@@ -146,7 +146,7 @@ func numericEqualityFilterSchema() *schema.Schema {
 		MaxItems: 1,
 		Elem: &schema.Resource{
 			Schema: map[string]*schema.Schema{
-				"column":               columnSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnIdentifier.html
+				"column":columnSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnIdentifier.html
 				"filter_id":            idSchema(),
 				"match_operator":       stringSchema(true, validation.StringInSlice(quicksight.CategoryFilterMatchOperator_Values(), false)),
 				"null_option":          stringSchema(true, validation.StringInSlice(quicksight.FilterNullOption_Values(), false)),
@@ -174,7 +174,7 @@ func numericRangeFilterSchema() *schema.Schema {
 		MaxItems: 1,
 		Elem: &schema.Resource{
 			Schema: map[string]*schema.Schema{
-				"column":               columnSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnIdentifier.html
+				"column":columnSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnIdentifier.html
 				"filter_id":            idSchema(),
 				"null_option":          stringSchema(true, validation.StringInSlice(quicksight.FilterNullOption_Values(), false)),
 				"aggregation_
@@ -218,14 +218,14 @@ func relativeDatesFilterSchema() *schema.Schema {
 						},
 					},
 				},
-				"column":                       columnSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnIdentifier.html
-				"filter_id":                    idSchema(),
-				"null_option":                  stringSchema(true, validation.StringInSlice(quicksight.FilterNullOption_Values(), false)),
+				"column":        columnSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnIdentifier.html
+				"filter_id":     idSchema(),
+				"null_option":   stringSchema(true, validation.StringInSlice(quicksight.FilterNullOption_Values(), false)),
 				"relative_date_type":           stringSchema(true, validation.StringInSlice(quicksight.RelativeDateType_Values(), false)),
 				"time_granularity":             stringSchema(true, validation.StringInSlice(quicksight.TimeGranularity_Values(), false)),
 				"exclude_period_configuration": excludePeriodConfigurationSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ExcludePeriodConfiguration.html
 				"minimum_granularity":          stringSchema(true, validation.StringInSlice(quicksight.TimeGranularity_Values(), false)),
-				"parameter_name":               parameterNameSchema(false),
+				"parameter_name":parameterNameSchema(false),
 				"relative_date_value": {
 					Type:     schema.TypeInt,
 					Optional: true,
@@ -268,9 +268,9 @@ func timeRangeFilterSchema() *schema.Schema {
 		MaxItems: 1,
 		Elem: &schema.Resource{
 			Schema: map[string]*schema.Schema{
-				"column":                       columnSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnIdentifier.html
-				"filter_id":                    idSchema(),
-				"null_option":                  stringSchema(true, validation.StringInSlice(quicksight.FilterNullOption_Values(), false)),
+				"column":        columnSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnIdentifier.html
+				"filter_id":     idSchema(),
+				"null_option":   stringSchema(true, validation.StringInSlice(quicksight.FilterNullOption_Values(), false)),
 				"exclude_period_configuration": excludePeriodConfigurationSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ExcludePeriodConfiguration.html
 				"include_maximum": {
 					Type:     schema.TypeBool,
@@ -308,7 +308,7 @@ func topBottomFilterSchema() *schema.Schema {
 function": aggregation
 functionSchema(true), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_Aggregation
 function.html
-							"column":               columnSchema(),                  // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnIdentifier.html
+							"column":columnSchema(),   // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnIdentifier.html
 							"sort_direction":       stringSchema(true, validation.StringInSlice(quicksight.SortDirection_Values(), false)),
 						},
 					},

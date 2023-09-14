@@ -28,8 +28,8 @@ func TestAccCognitoIDPUserInGroup_basic(t *testing.T) {
 	userResourceName := "aws_cognito_user.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckUserInGroupDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -52,8 +52,8 @@ func TestAccCognitoIDPUserInGroup_disappears(t *testing.T) {
 	resourceName := "aws_cognito_user_in_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckUserInGroupDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -75,10 +75,10 @@ resource "aws_cognito_user_pool" "test" {
   name = %[1]q
   password_policy {
     temporary_password_validity_days = 7
-    minimum_length                   = 6
-    require_uppercase                = false
-    require_symbols                  = false
-    require_numbers                  = false
+    minimum_length    = 6
+    require_uppercase = false
+    require_symbols   = false
+    require_numbers   = false
   }
 }
 

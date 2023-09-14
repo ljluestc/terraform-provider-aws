@@ -351,7 +351,7 @@ func flattenDKIMAttributes(apiObject *types.DkimAttributes) map[string]interface
 		"current_signing_key_length": string(apiObject.CurrentSigningKeyLength),
 		"next_signing_key_length":    string(apiObject.NextSigningKeyLength),
 		"signing_attributes_origin":  string(apiObject.SigningAttributesOrigin),
-		"status":                     string(apiObject.Status),
+		"status":      string(apiObject.Status),
 	}
 
 	if v := apiObject.LastKeyGenerationTimestamp; v != nil {

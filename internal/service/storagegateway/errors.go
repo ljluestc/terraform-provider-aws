@@ -15,7 +15,7 @@ import (
 const (
 	operationErrCodeFileShareNotFound             = "FileShareNotFound"
 	operationErrCodeFileSystemAssociationNotFound = "FileSystemAssociationNotFound"
-	operationErrCodeGatewayNotFound               = "GatewayNotFound"
+	operationErrCodeGatewayNotFound= "GatewayNotFound"
 )
 
 // operationErrorCode returns the operation error code from the specified error:

@@ -35,7 +35,7 @@ func TestAccVPCLatticeListenerRule_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccChecklistenerRuleDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -68,7 +68,7 @@ func TestAccVPCLatticeListenerRule_fixedResponse(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccChecklistenerRuleDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -97,8 +97,8 @@ func TestAccVPCLatticeListenerRule_methodMatch(t *testing.T) {
 	resourceName := "aws_vpclattice_listener_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccChecklistenerRuleDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -126,8 +126,8 @@ func TestAccVPCLatticeListenerRule_tags(t *testing.T) {
 	resourceName := "aws_vpclattice_listener_rule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccChecklistenerRuleDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -240,7 +240,7 @@ resource "aws_vpclattice_target_group" "test" {
 }
 
 resource "aws_vpclattice_listener" "test" {
-  name               = %[1]q
+  name= %[1]q
   protocol           = "HTTP"
   service_identifier = aws_vpclattice_service.test.id
   default_action {
@@ -255,7 +255,7 @@ resource "aws_vpclattice_listener" "test" {
 func testAccListenerRuleConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccListenerRuleConfig_base(rName), fmt.Sprintf(`
 resource "aws_vpclattice_listener_rule" "test" {
-  name                = %[1]q
+  name = %[1]q
   listener_identifier = aws_vpclattice_listener.test.listener_id
   service_identifier  = aws_vpclattice_service.test.id
   priority            = 20
@@ -283,11 +283,11 @@ resource "aws_vpclattice_listener_rule" "test" {
     forward {
       target_groups {
         target_group_identifier = aws_vpclattice_target_group.test[0].id
-        weight                  = 1
+        weight   = 1
       }
       target_groups {
         target_group_identifier = aws_vpclattice_target_group.test[1].id
-        weight                  = 2
+        weight   = 2
       }
     }
   }
@@ -298,7 +298,7 @@ resource "aws_vpclattice_listener_rule" "test" {
 func testAccListenerRuleConfig_fixedResponse(rName string) string {
 	return acctest.ConfigCompose(testAccListenerRuleConfig_base(rName), fmt.Sprintf(`
 resource "aws_vpclattice_listener_rule" "test" {
-  name                = %[1]q
+  name = %[1]q
   listener_identifier = aws_vpclattice_listener.test.listener_id
   service_identifier  = aws_vpclattice_service.test.id
   priority            = 10
@@ -324,7 +324,7 @@ resource "aws_vpclattice_listener_rule" "test" {
 func testAccListenerRuleConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccListenerRuleConfig_base(rName), fmt.Sprintf(`
 resource "aws_vpclattice_listener_rule" "test" {
-  name                = %[1]q
+  name = %[1]q
   listener_identifier = aws_vpclattice_listener.test.listener_id
   service_identifier  = aws_vpclattice_service.test.id
   priority            = 30
@@ -353,7 +353,7 @@ resource "aws_vpclattice_listener_rule" "test" {
 func testAccListenerRuleConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccListenerRuleConfig_base(rName), fmt.Sprintf(`
 resource "aws_vpclattice_listener_rule" "test" {
-  name                = %[1]q
+  name = %[1]q
   listener_identifier = aws_vpclattice_listener.test.listener_id
   service_identifier  = aws_vpclattice_service.test.id
   priority            = 30
@@ -383,7 +383,7 @@ resource "aws_vpclattice_listener_rule" "test" {
 func testAccListenerRuleConfig_methodMatch(rName string) string {
 	return acctest.ConfigCompose(testAccListenerRuleConfig_base(rName), fmt.Sprintf(`
 resource "aws_vpclattice_listener_rule" "test" {
-  name                = %[1]q
+  name = %[1]q
   listener_identifier = aws_vpclattice_listener.test.listener_id
   service_identifier  = aws_vpclattice_service.test.id
   priority            = 40
@@ -414,11 +414,11 @@ resource "aws_vpclattice_listener_rule" "test" {
     forward {
       target_groups {
         target_group_identifier = aws_vpclattice_target_group.test[0].id
-        weight                  = 1
+        weight   = 1
       }
       target_groups {
         target_group_identifier = aws_vpclattice_target_group.test[1].id
-        weight                  = 2
+        weight   = 2
       }
     }
   }

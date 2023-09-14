@@ -894,7 +894,7 @@ func expandPredictiveScalingConfig(predictiveScalingConfigSlice []interface{}) *
 	predictiveScalingConfig := &autoscaling.PredictiveScalingConfiguration{
 		MetricSpecifications:      expandPredictiveScalingMetricSpecifications(predictiveScalingConfigFlat["metric_specification"].([]interface{})),
 		MaxCapacityBreachBehavior: aws.String(predictiveScalingConfigFlat["max_capacity_breach_behavior"].(string)),
-		Mode:                      aws.String(predictiveScalingConfigFlat["mode"].(string)),
+		Mode:       aws.String(predictiveScalingConfigFlat["mode"].(string)),
 	}
 	if v, null, _ := nullable.Int(predictiveScalingConfigFlat["max_capacity_buffer"].(string)).Value(); !null {
 		predictiveScalingConfig.MaxCapacityBuffer = aws.Int64(v)
@@ -917,7 +917,7 @@ func expandPredictiveScalingMetricSpecifications(metricSpecificationsSlice []int
 		PredefinedLoadMetricSpecification:     expandPredefinedLoadMetricSpecification(metricSpecificationsFlat["predefined_load_metric_specification"].([]interface{})),
 		PredefinedMetricPairSpecification:     expandPredefinedMetricPairSpecification(metricSpecificationsFlat["predefined_metric_pair_specification"].([]interface{})),
 		PredefinedScalingMetricSpecification:  expandPredefinedScalingMetricSpecification(metricSpecificationsFlat["predefined_scaling_metric_specification"].([]interface{})),
-		TargetValue:                           aws.Float64(metricSpecificationsFlat["target_value"].(float64)),
+		TargetValue:            aws.Float64(metricSpecificationsFlat["target_value"].(float64)),
 	}
 	return []*autoscaling.PredictiveScalingMetricSpecification{metricSpecification}
 }

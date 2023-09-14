@@ -109,7 +109,7 @@ func resourceServiceNetworkServiceAssociationCreate(ctx context.Context, d *sche
 		ClientToken:              aws.String(id.UniqueId()),
 		ServiceIdentifier:        aws.String(d.Get("service_identifier").(string)),
 		ServiceNetworkIdentifier: aws.String(d.Get("service_network_identifier").(string)),
-		Tags:                     getTagsIn(ctx),
+		Tags:      getTagsIn(ctx),
 	}
 
 	out, err := conn.CreateServiceNetworkServiceAssociation(ctx, in)
@@ -217,10 +217,10 @@ func findServiceNetworkServiceAssociationByID(ctx context.Context, conn *vpclatt
 
 func waitServiceNetworkServiceAssociationCreated(ctx context.Context, conn *vpclattice.Client, id string, timeout time.Duration) (*vpclattice.GetServiceNetworkServiceAssociationOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   enum.Slice(types.ServiceNetworkVpcAssociationStatusCreateInProgress),
-		Target:                    enum.Slice(types.ServiceNetworkVpcAssociationStatusActive),
-		Refresh:                   statusServiceNetworkServiceAssociation(ctx, conn, id),
-		Timeout:                   timeout,
+		Pending:    enum.Slice(types.ServiceNetworkVpcAssociationStatusCreateInProgress),
+		Target:     enum.Slice(types.ServiceNetworkVpcAssociationStatusActive),
+		Refresh:    statusServiceNetworkServiceAssociation(ctx, conn, id),
+		Timeout:    timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}

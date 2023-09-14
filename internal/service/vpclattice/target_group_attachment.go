@@ -80,7 +80,7 @@ func resourceTargetGroupAttachmentCreate(ctx context.Context, d *schema.Resource
 	id := strings.Join([]string{targetGroupID, targetID, strconv.Itoa(targetPort)}, "/")
 	input := &vpclattice.RegisterTargetsInput{
 		TargetGroupIdentifier: aws.String(targetGroupID),
-		Targets:               []types.Target{target},
+		Targets:[]types.Target{target},
 	}
 
 	_, err := conn.RegisterTargets(ctx, input)
@@ -137,7 +137,7 @@ func resourceTargetGroupAttachmentDelete(ctx context.Context, d *schema.Resource
 	log.Printf("[INFO] Deleting VPC Lattice Target Group Attachment: %s", d.Id())
 	_, err := conn.DeregisterTargets(ctx, &vpclattice.DeregisterTargetsInput{
 		TargetGroupIdentifier: aws.String(targetGroupID),
-		Targets:               []types.Target{target},
+		Targets:[]types.Target{target},
 	})
 
 	if errs.IsA[*types.ResourceNotFoundException](err) {
@@ -207,10 +207,10 @@ func statusTarget(ctx context.Context, conn *vpclattice.Client, targetGroupID, t
 
 func waitTargetGroupAttachmentCreated(ctx context.Context, conn *vpclattice.Client, targetGroupID, targetID string, targetPort int, timeout time.Duration) (*types.TargetSummary, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   enum.Slice(types.TargetStatusInitial),
-		Target:                    enum.Slice(types.TargetStatusHealthy, types.TargetStatusUnhealthy, types.TargetStatusUnused, types.TargetStatusUnavailable),
-		Refresh:                   statusTarget(ctx, conn, targetGroupID, targetID, targetPort),
-		Timeout:                   timeout,
+		Pending:    enum.Slice(types.TargetStatusInitial),
+		Target:     enum.Slice(types.TargetStatusHealthy, types.TargetStatusUnhealthy, types.TargetStatusUnused, types.TargetStatusUnavailable),
+		Refresh:    statusTarget(ctx, conn, targetGroupID, targetID, targetPort),
+		Timeout:    timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}

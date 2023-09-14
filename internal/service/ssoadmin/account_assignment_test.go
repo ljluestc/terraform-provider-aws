@@ -34,7 +34,7 @@ func() {
 			testAccPreCheckInstances(ctx, t)
 			testAccPreCheckIdentityStoreGroupName(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ssoadmin.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ssoadmin.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAccountAssignmentDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -71,7 +71,7 @@ func() {
 			testAccPreCheckInstances(ctx, t)
 			testAccPreCheckIdentityStoreUserName(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ssoadmin.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ssoadmin.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAccountAssignmentDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -107,7 +107,7 @@ func() {
 			testAccPreCheckInstances(ctx, t)
 			testAccPreCheckIdentityStoreUserName(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ssoadmin.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ssoadmin.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAccountAssignmentDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -134,7 +134,7 @@ func() {
 			testAccPreCheckInstances(ctx, t)
 			testAccPreCheckIdentityStoreGroupName(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ssoadmin.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ssoadmin.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAccountAssignmentDestroy(ctx),
 		Steps: []resource.TestStep{

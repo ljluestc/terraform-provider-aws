@@ -1743,7 +1743,7 @@ func FindNetworkInterfacesByAttachmentInstanceOwnerIDAndDescription(ctx context.
 	input := &ec2.DescribeNetworkInterfacesInput{
 		Filters: BuildAttributeFilterList(map[string]string{
 			"attachment.instance-owner-id": attachmentInstanceOwnerID,
-			"description":                  description,
+			"description":   description,
 		}),
 	}
 
@@ -4546,7 +4546,7 @@ func(page *ec2.GetTransitGatewayMulticastDomainAssociationsOutput, lastPage bool
 func FindTransitGatewayMulticastDomainAssociationByThreePartKey(ctx context.Context, conn *ec2.EC2, multicastDomainID, attachmentID, subnetID string) (*ec2.TransitGatewayMulticastDomainAssociation, error) {
 	input := &ec2.GetTransitGatewayMulticastDomainAssociationsInput{
 		Filters: BuildAttributeFilterList(map[string]string{
-			"subnet-id":                     subnetID,
+			"subnet-id":      subnetID,
 			"transit-gateway-attachment-id": attachmentID,
 		}),
 		TransitGatewayMulticastDomainId: aws.String(multicastDomainID),

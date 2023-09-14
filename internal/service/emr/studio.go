@@ -128,14 +128,14 @@ func resourceStudioCreate(ctx context.Context, d *schema.ResourceData, meta inte
 	conn := meta.(*conns.AWSClient).EMRConn(ctx)
 
 	input := &emr.CreateStudioInput{
-		AuthMode:                 aws.String(d.Get("auth_mode").(string)),
+		AuthMode:  aws.String(d.Get("auth_mode").(string)),
 		DefaultS3Location:        aws.String(d.Get("default_s3_location").(string)),
 		EngineSecurityGroupId:    aws.String(d.Get("engine_security_group_id").(string)),
-		Name:                     aws.String(d.Get("name").(string)),
+		Name:      aws.String(d.Get("name").(string)),
 		ServiceRole:              aws.String(d.Get("service_role").(string)),
-		SubnetIds:                flex.ExpandStringSet(d.Get("subnet_ids").(*schema.Set)),
-		Tags:                     getTagsIn(ctx),
-		VpcId:                    aws.String(d.Get("vpc_id").(string)),
+		SubnetIds: flex.ExpandStringSet(d.Get("subnet_ids").(*schema.Set)),
+		Tags:      getTagsIn(ctx),
+		VpcId:     aws.String(d.Get("vpc_id").(string)),
 		WorkspaceSecurityGroupId: aws.String(d.Get("workspace_security_group_id").(string)),
 	}
 

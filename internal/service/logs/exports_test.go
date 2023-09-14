@@ -8,10 +8,10 @@ var (
 	ResourceDataProtectionPolicy = resourceDataProtectionPolicy
 	ResourceDestination          = resourceDestination
 	ResourceDestinationPolicy    = resourceDestinationPolicy
-	ResourceGroup                = resourceGroup
+	ResourceGroup = resourceGroup
 	ResourceMetricFilter         = resourceMetricFilter
 	ResourceQueryDefinition      = resourceQueryDefinition
 	ResourceResourcePolicy       = resourceResourcePolicy
-	ResourceStream               = resourceStream
+	ResourceStream= resourceStream
 	ResourceSubscriptionFilter   = resourceSubscriptionFilter
 )

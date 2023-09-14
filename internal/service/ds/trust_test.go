@@ -33,7 +33,7 @@ func TestAccDSTrust_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckDirectoryService(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.DSEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.DSEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTrustDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -84,7 +84,7 @@ func TestAccDSTrust_Domain_TrailingPeriod(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckDirectoryService(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.DSEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.DSEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTrustDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -123,7 +123,7 @@ func TestAccDSTrust_twoWayBasic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckDirectoryService(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.DSEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.DSEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTrustDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -167,7 +167,7 @@ func TestAccDSTrust_oneWayBasic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckDirectoryService(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.DSEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.DSEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTrustDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -210,7 +210,7 @@ func TestAccDSTrust_SelectiveAuth(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckDirectoryService(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.DSEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.DSEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTrustDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -267,7 +267,7 @@ func TestAccDSTrust_twoWaySelectiveAuth(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckDirectoryService(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.DSEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.DSEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTrustDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -324,7 +324,7 @@ func TestAccDSTrust_TrustType(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckDirectoryService(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.DSEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.DSEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTrustDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -363,7 +363,7 @@ func TestAccDSTrust_TrustTypeSpecifyDefault(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckDirectoryService(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.DSEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.DSEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTrustDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -395,7 +395,7 @@ func TestAccDSTrust_ConditionalForwarderIPs(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckDirectoryService(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.DSEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.DSEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTrustDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -450,7 +450,7 @@ func TestAccDSTrust_deleteAssociatedConditionalForwarder(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckDirectoryService(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.DSEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.DSEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTrustDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -580,20 +580,20 @@ resource "aws_directory_service_directory" "other" {
 resource "aws_security_group_rule" "test" {
   security_group_id = aws_directory_service_directory.test.security_group_id
 
-  type                     = "egress"
-  protocol                 = "all"
-  from_port                = 0
-  to_port                  = 65535
+  type      = "egress"
+  protocol  = "all"
+  from_port = 0
+  to_port   = 65535
   source_security_group_id = aws_directory_service_directory.other.security_group_id
 }
 
 resource "aws_security_group_rule" "other" {
   security_group_id = aws_directory_service_directory.other.security_group_id
 
-  type                     = "egress"
-  protocol                 = "all"
-  from_port                = 0
-  to_port                  = 65535
+  type      = "egress"
+  protocol  = "all"
+  from_port = 0
+  to_port   = 65535
   source_security_group_id = aws_directory_service_directory.test.security_group_id
 }
 `, domain, domainOther),
@@ -641,20 +641,20 @@ resource "aws_directory_service_directory" "other" {
 resource "aws_security_group_rule" "test" {
   security_group_id = aws_directory_service_directory.test.security_group_id
 
-  type                     = "egress"
-  protocol                 = "all"
-  from_port                = 0
-  to_port                  = 65535
+  type      = "egress"
+  protocol  = "all"
+  from_port = 0
+  to_port   = 65535
   source_security_group_id = aws_directory_service_directory.other.security_group_id
 }
 
 resource "aws_security_group_rule" "other" {
   security_group_id = aws_directory_service_directory.other.security_group_id
 
-  type                     = "egress"
-  protocol                 = "all"
-  from_port                = 0
-  to_port                  = 65535
+  type      = "egress"
+  protocol  = "all"
+  from_port = 0
+  to_port   = 65535
   source_security_group_id = aws_directory_service_directory.test.security_group_id
 }
 `, domain, domainOther),
@@ -712,20 +712,20 @@ resource "aws_directory_service_directory" "other" {
 resource "aws_security_group_rule" "test" {
   security_group_id = aws_directory_service_directory.test.security_group_id
 
-  type                     = "egress"
-  protocol                 = "all"
-  from_port                = 0
-  to_port                  = 65535
+  type      = "egress"
+  protocol  = "all"
+  from_port = 0
+  to_port   = 65535
   source_security_group_id = aws_directory_service_directory.other.security_group_id
 }
 
 resource "aws_security_group_rule" "other" {
   security_group_id = aws_directory_service_directory.other.security_group_id
 
-  type                     = "egress"
-  protocol                 = "all"
-  from_port                = 0
-  to_port                  = 65535
+  type      = "egress"
+  protocol  = "all"
+  from_port = 0
+  to_port   = 65535
   source_security_group_id = aws_directory_service_directory.test.security_group_id
 }
 `, domain, domainOther),
@@ -783,20 +783,20 @@ resource "aws_directory_service_directory" "other" {
 resource "aws_security_group_rule" "test" {
   security_group_id = aws_directory_service_directory.test.security_group_id
 
-  type                     = "egress"
-  protocol                 = "all"
-  from_port                = 0
-  to_port                  = 65535
+  type      = "egress"
+  protocol  = "all"
+  from_port = 0
+  to_port   = 65535
   source_security_group_id = aws_directory_service_directory.other.security_group_id
 }
 
 resource "aws_security_group_rule" "other" {
   security_group_id = aws_directory_service_directory.other.security_group_id
 
-  type                     = "egress"
-  protocol                 = "all"
-  from_port                = 0
-  to_port                  = 65535
+  type      = "egress"
+  protocol  = "all"
+  from_port = 0
+  to_port   = 65535
   source_security_group_id = aws_directory_service_directory.test.security_group_id
 }
 `, domain, domainOther),
@@ -846,20 +846,20 @@ resource "aws_directory_service_directory" "other" {
 resource "aws_security_group_rule" "test" {
   security_group_id = aws_directory_service_directory.test.security_group_id
 
-  type                     = "egress"
-  protocol                 = "all"
-  from_port                = 0
-  to_port                  = 65535
+  type      = "egress"
+  protocol  = "all"
+  from_port = 0
+  to_port   = 65535
   source_security_group_id = aws_directory_service_directory.other.security_group_id
 }
 
 resource "aws_security_group_rule" "other" {
   security_group_id = aws_directory_service_directory.other.security_group_id
 
-  type                     = "egress"
-  protocol                 = "all"
-  from_port                = 0
-  to_port                  = 65535
+  type      = "egress"
+  protocol  = "all"
+  from_port = 0
+  to_port   = 65535
   source_security_group_id = aws_directory_service_directory.test.security_group_id
 }
 `, domain, domainOther, selectiveAuth),
@@ -919,20 +919,20 @@ resource "aws_directory_service_directory" "other" {
 resource "aws_security_group_rule" "test" {
   security_group_id = aws_directory_service_directory.test.security_group_id
 
-  type                     = "egress"
-  protocol                 = "all"
-  from_port                = 0
-  to_port                  = 65535
+  type      = "egress"
+  protocol  = "all"
+  from_port = 0
+  to_port   = 65535
   source_security_group_id = aws_directory_service_directory.other.security_group_id
 }
 
 resource "aws_security_group_rule" "other" {
   security_group_id = aws_directory_service_directory.other.security_group_id
 
-  type                     = "egress"
-  protocol                 = "all"
-  from_port                = 0
-  to_port                  = 65535
+  type      = "egress"
+  protocol  = "all"
+  from_port = 0
+  to_port   = 65535
   source_security_group_id = aws_directory_service_directory.test.security_group_id
 }
 `, domain, domainOther, selectiveAuth),
@@ -982,20 +982,20 @@ resource "aws_directory_service_directory" "other" {
 resource "aws_security_group_rule" "test" {
   security_group_id = aws_directory_service_directory.test.security_group_id
 
-  type                     = "egress"
-  protocol                 = "all"
-  from_port                = 0
-  to_port                  = 65535
+  type      = "egress"
+  protocol  = "all"
+  from_port = 0
+  to_port   = 65535
   source_security_group_id = aws_directory_service_directory.other.security_group_id
 }
 
 resource "aws_security_group_rule" "other" {
   security_group_id = aws_directory_service_directory.other.security_group_id
 
-  type                     = "egress"
-  protocol                 = "all"
-  from_port                = 0
-  to_port                  = 65535
+  type      = "egress"
+  protocol  = "all"
+  from_port = 0
+  to_port   = 65535
   source_security_group_id = aws_directory_service_directory.test.security_group_id
 }
 `, domain, domainOther, trustType),
@@ -1043,20 +1043,20 @@ resource "aws_directory_service_directory" "other" {
 resource "aws_security_group_rule" "test" {
   security_group_id = aws_directory_service_directory.test.security_group_id
 
-  type                     = "egress"
-  protocol                 = "all"
-  from_port                = 0
-  to_port                  = 65535
+  type      = "egress"
+  protocol  = "all"
+  from_port = 0
+  to_port   = 65535
   source_security_group_id = aws_directory_service_directory.other.security_group_id
 }
 
 resource "aws_security_group_rule" "other" {
   security_group_id = aws_directory_service_directory.other.security_group_id
 
-  type                     = "egress"
-  protocol                 = "all"
-  from_port                = 0
-  to_port                  = 65535
+  type      = "egress"
+  protocol  = "all"
+  from_port = 0
+  to_port   = 65535
   source_security_group_id = aws_directory_service_directory.test.security_group_id
 }
 `, domain, domainOther),
@@ -1105,20 +1105,20 @@ resource "aws_directory_service_directory" "other" {
 resource "aws_security_group_rule" "test" {
   security_group_id = aws_directory_service_directory.test.security_group_id
 
-  type                     = "egress"
-  protocol                 = "all"
-  from_port                = 0
-  to_port                  = 65535
+  type      = "egress"
+  protocol  = "all"
+  from_port = 0
+  to_port   = 65535
   source_security_group_id = aws_directory_service_directory.other.security_group_id
 }
 
 resource "aws_security_group_rule" "other" {
   security_group_id = aws_directory_service_directory.other.security_group_id
 
-  type                     = "egress"
-  protocol                 = "all"
-  from_port                = 0
-  to_port                  = 65535
+  type      = "egress"
+  protocol  = "all"
+  from_port = 0
+  to_port   = 65535
   source_security_group_id = aws_directory_service_directory.test.security_group_id
 }
 `, domain, domainOther),

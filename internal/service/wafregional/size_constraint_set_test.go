@@ -28,9 +28,9 @@ func TestAccWAFRegionalSizeConstraintSet_basic(t *testing.T) {
 	resourceName := "aws_wafregional_size_constraint_set.size_constraint_set"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafregional.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckSizeConstraintSetDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -46,7 +46,7 @@ func(
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "size_constraints.*", map[string]string{
 						"comparison_operator": "EQ",
 						"field_to_match.#":    "1",
-						"size":                "4096",
+						"size": "4096",
 						"text_transformation": "NONE",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "size_constraints.*.field_to_match.*", map[string]string{
@@ -73,9 +73,9 @@ func TestAccWAFRegionalSizeConstraintSet_changeNameForceNew(t *testing.T) {
 	resourceName := "aws_wafregional_size_constraint_set.size_constraint_set"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafregional.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckSizeConstraintSetDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -118,9 +118,9 @@ func TestAccWAFRegionalSizeConstraintSet_disappears(t *testing.T) {
 	resourceName := "aws_wafregional_size_constraint_set.size_constraint_set"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafregional.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckSizeConstraintSetDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -145,9 +145,9 @@ func TestAccWAFRegionalSizeConstraintSet_changeConstraints(t *testing.T) {
 	resourceName := "aws_wafregional_size_constraint_set.size_constraint_set"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafregional.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckSizeConstraintSetDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -163,7 +163,7 @@ func(
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "size_constraints.*", map[string]string{
 						"comparison_operator": "EQ",
 						"field_to_match.#":    "1",
-						"size":                "4096",
+						"size": "4096",
 						"text_transformation": "NONE",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "size_constraints.*.field_to_match.*", map[string]string{
@@ -184,7 +184,7 @@ func(
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "size_constraints.*", map[string]string{
 						"comparison_operator": "GE",
 						"field_to_match.#":    "1",
-						"size":                "1024",
+						"size": "1024",
 						"text_transformation": "NONE",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "size_constraints.*.field_to_match.*", map[string]string{
@@ -210,9 +210,9 @@ func TestAccWAFRegionalSizeConstraintSet_noConstraints(t *testing.T) {
 	resourceName := "aws_wafregional_size_constraint_set.size_constraint_set"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, wafregional.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, wafregional.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, wafregional.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckSizeConstraintSetDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -258,7 +258,7 @@ func(token *string) (interface{}, error) {
 					SizeConstraint: &waf.SizeConstraint{
 						FieldToMatch:       sizeConstraint.FieldToMatch,
 						ComparisonOperator: sizeConstraint.ComparisonOperator,
-						Size:               sizeConstraint.Size,
+						Size:sizeConstraint.Size,
 						TextTransformation: sizeConstraint.TextTransformation,
 					},
 				}
@@ -357,7 +357,7 @@ resource "aws_wafregional_size_constraint_set" "size_constraint_set" {
   size_constraints {
     text_transformation = "NONE"
     comparison_operator = "EQ"
-    size                = "4096"
+    size = "4096"
 
     field_to_match {
       type = "BODY"
@@ -376,7 +376,7 @@ resource "aws_wafregional_size_constraint_set" "size_constraint_set" {
   size_constraints {
     text_transformation = "NONE"
     comparison_operator = "EQ"
-    size                = "4096"
+    size = "4096"
 
     field_to_match {
       type = "BODY"
@@ -395,7 +395,7 @@ resource "aws_wafregional_size_constraint_set" "size_constraint_set" {
   size_constraints {
     text_transformation = "NONE"
     comparison_operator = "GE"
-    size                = "1024"
+    size = "1024"
 
     field_to_match {
       type = "BODY"

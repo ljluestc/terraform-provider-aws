@@ -33,9 +33,9 @@ func testAccUser_basic(t *testing.T) {
 	resourceName := "aws_connect_user.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckUserDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -80,9 +80,9 @@ func testAccUser_updateHierarchyGroupId(t *testing.T) {
 	resourceName := "aws_connect_user.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckUserDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -132,9 +132,9 @@ func testAccUser_updateIdentityInfo(t *testing.T) {
 	resourceName := "aws_connect_user.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckUserDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -189,9 +189,9 @@ func testAccUser_updatePhoneConfig(t *testing.T) {
 	resourceName := "aws_connect_user.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckUserDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -258,9 +258,9 @@ func testAccUser_updateSecurityProfileIds(t *testing.T) {
 	resourceName := "aws_connect_user.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckUserDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -321,8 +321,8 @@ func testAccUser_updateRoutingProfileId(t *testing.T) {
 	resourceName := "aws_connect_user.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckUserDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -362,8 +362,8 @@ func testAccUser_updateTags(t *testing.T) {
 	resourceName := "aws_connect_user.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckUserDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -415,8 +415,8 @@ func testAccUser_disappears(t *testing.T) {
 	resourceName := "aws_connect_user.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckUserDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -516,10 +516,10 @@ data "aws_connect_queue" "test" {
 }
 
 resource "aws_connect_routing_profile" "test" {
-  instance_id               = aws_connect_instance.test.id
-  name                      = %[2]q
+  instance_id= aws_connect_instance.test.id
+  name       = %[2]q
   default_outbound_queue_id = data.aws_connect_queue.test.queue_id
-  description               = "test routing profile"
+  description= "test routing profile"
 
   media_concurrencies {
     channel     = "VOICE"
@@ -592,7 +592,7 @@ func testAccUserConfig_basic(rName, rName2, rName3, rName4, rName5 string) strin
 		fmt.Sprintf(`
 resource "aws_connect_user" "test" {
   instance_id        = aws_connect_instance.test.id
-  name               = %[1]q
+  name= %[1]q
   password           = "Password123"
   routing_profile_id = data.aws_connect_routing_profile.test.routing_profile_id
 
@@ -607,7 +607,7 @@ resource "aws_connect_user" "test" {
 
   phone_config {
     after_contact_work_time_limit = 0
-    phone_type                    = "SOFT_PHONE"
+    phone_type     = "SOFT_PHONE"
   }
 
   tags = {
@@ -627,7 +627,7 @@ locals {
 
 resource "aws_connect_user" "test" {
   instance_id        = aws_connect_instance.test.id
-  name               = %[1]q
+  name= %[1]q
   password           = "Password123"
   routing_profile_id = data.aws_connect_routing_profile.test.routing_profile_id
   hierarchy_group_id = local.select_hierarchy_group_id == "first" ? aws_connect_user_hierarchy_group.parent.hierarchy_group_id : aws_connect_user_hierarchy_group.child.hierarchy_group_id
@@ -643,7 +643,7 @@ resource "aws_connect_user" "test" {
 
   phone_config {
     after_contact_work_time_limit = 0
-    phone_type                    = "SOFT_PHONE"
+    phone_type     = "SOFT_PHONE"
   }
 }
 `, rName5, selectHierarchyGroupId))
@@ -655,7 +655,7 @@ func testAccUserConfig_identityInfo(rName, rName2, rName3, rName4, rName5, email
 		fmt.Sprintf(`
 resource "aws_connect_user" "test" {
   instance_id        = aws_connect_instance.test.id
-  name               = %[1]q
+  name= %[1]q
   password           = "Password123"
   routing_profile_id = data.aws_connect_routing_profile.test.routing_profile_id
 
@@ -671,7 +671,7 @@ resource "aws_connect_user" "test" {
 
   phone_config {
     after_contact_work_time_limit = 0
-    phone_type                    = "SOFT_PHONE"
+    phone_type     = "SOFT_PHONE"
   }
 }
 `, rName5, email, first_name, last_name))
@@ -683,7 +683,7 @@ func testAccUserConfig_phoneDeskPhone(rName, rName2, rName3, rName4, rName5 stri
 		fmt.Sprintf(`
 resource "aws_connect_user" "test" {
   instance_id        = aws_connect_instance.test.id
-  name               = %[1]q
+  name= %[1]q
   password           = "Password123"
   routing_profile_id = data.aws_connect_routing_profile.test.routing_profile_id
 
@@ -698,9 +698,9 @@ resource "aws_connect_user" "test" {
 
   phone_config {
     after_contact_work_time_limit = %[2]d
-    auto_accept                   = %[3]t
+    auto_accept    = %[3]t
     desk_phone_number             = %[4]q
-    phone_type                    = "DESK_PHONE"
+    phone_type     = "DESK_PHONE"
   }
 
   tags = {
@@ -720,7 +720,7 @@ locals {
 
 resource "aws_connect_user" "test" {
   instance_id        = aws_connect_instance.test.id
-  name               = %[1]q
+  name= %[1]q
   password           = "Password123"
   routing_profile_id = local.selectRoutingProfileId == "first" ? aws_connect_routing_profile.test.routing_profile_id : data.aws_connect_routing_profile.test.routing_profile_id
 
@@ -735,7 +735,7 @@ resource "aws_connect_user" "test" {
 
   phone_config {
     after_contact_work_time_limit = 0
-    phone_type                    = "SOFT_PHONE"
+    phone_type     = "SOFT_PHONE"
   }
 }
 `, rName5, selectRoutingProfileId))
@@ -762,7 +762,7 @@ locals {
 
 resource "aws_connect_user" "test" {
   instance_id        = aws_connect_instance.test.id
-  name               = %[1]q
+  name= %[1]q
   password           = "Password123"
   routing_profile_id = data.aws_connect_routing_profile.test.routing_profile_id
 
@@ -775,7 +775,7 @@ resource "aws_connect_user" "test" {
 
   phone_config {
     after_contact_work_time_limit = 0
-    phone_type                    = "SOFT_PHONE"
+    phone_type     = "SOFT_PHONE"
   }
 }
 `, rName5, selectSecurityProfileIds))
@@ -787,7 +787,7 @@ func testAccUserConfig_tags(rName, rName2, rName3, rName4, rName5 string) string
 		fmt.Sprintf(`
 resource "aws_connect_user" "test" {
   instance_id        = aws_connect_instance.test.id
-  name               = %[1]q
+  name= %[1]q
   password           = "Password123"
   routing_profile_id = data.aws_connect_routing_profile.test.routing_profile_id
 
@@ -802,7 +802,7 @@ resource "aws_connect_user" "test" {
 
   phone_config {
     after_contact_work_time_limit = 0
-    phone_type                    = "SOFT_PHONE"
+    phone_type     = "SOFT_PHONE"
   }
 
   tags = {
@@ -819,7 +819,7 @@ func testAccUserConfig_tagsUpdated(rName, rName2, rName3, rName4, rName5 string)
 		fmt.Sprintf(`
 resource "aws_connect_user" "test" {
   instance_id        = aws_connect_instance.test.id
-  name               = %[1]q
+  name= %[1]q
   password           = "Password123"
   routing_profile_id = data.aws_connect_routing_profile.test.routing_profile_id
 
@@ -834,7 +834,7 @@ resource "aws_connect_user" "test" {
 
   phone_config {
     after_contact_work_time_limit = 0
-    phone_type                    = "SOFT_PHONE"
+    phone_type     = "SOFT_PHONE"
   }
 
   tags = {

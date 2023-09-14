@@ -525,9 +525,9 @@ func (lt *opsworksLayerType) Create(ctx context.Context, d *schema.ResourceData,
 				DelayUntilElbConnectionsDrained: aws.Bool(d.Get("drain_elb_on_shutdown").(bool)),
 			},
 		},
-		Name:                     aws.String(name),
-		Type:                     aws.String(lt.TypeName),
-		StackId:                  aws.String(d.Get("stack_id").(string)),
+		Name:      aws.String(name),
+		Type:      aws.String(lt.TypeName),
+		StackId:   aws.String(d.Get("stack_id").(string)),
 		UseEbsOptimizedInstances: aws.Bool(d.Get("use_ebs_optimized_instances").(bool)),
 	}
 
@@ -610,7 +610,7 @@ func (lt *opsworksLayerType) Create(ctx context.Context, d *schema.ResourceData,
 		v := v.(string)
 		_, err := conn.AttachElasticLoadBalancerWithContext(ctx, &opsworks.AttachElasticLoadBalancerInput{
 			ElasticLoadBalancerName: aws.String(v),
-			LayerId:                 aws.String(d.Id()),
+			LayerId:  aws.String(d.Id()),
 		})
 
 		if err != nil {
@@ -824,7 +824,7 @@ func (lt *opsworksLayerType) Update(ctx context.Context, d *schema.ResourceData,
 			input.LifecycleEventConfiguration = &opsworks.LifecycleEventConfiguration{
 				Shutdown: &opsworks.ShutdownEventConfiguration{
 					DelayUntilElbConnectionsDrained: aws.Bool(d.Get("drain_elb_on_shutdown").(bool)),
-					ExecutionTimeout:                aws.Int64(int64(d.Get("instance_shutdown_timeout").(int))),
+					ExecutionTimeout: aws.Int64(int64(d.Get("instance_shutdown_timeout").(int))),
 				},
 			}
 		}
@@ -869,7 +869,7 @@ func (lt *opsworksLayerType) Update(ctx context.Context, d *schema.ResourceData,
 		if v := o.(string); v != "" {
 			_, err := conn.DetachElasticLoadBalancerWithContext(ctx, &opsworks.DetachElasticLoadBalancerInput{
 				ElasticLoadBalancerName: aws.String(v),
-				LayerId:                 aws.String(d.Id()),
+				LayerId:  aws.String(d.Id()),
 			})
 
 			if err != nil {
@@ -880,7 +880,7 @@ func (lt *opsworksLayerType) Update(ctx context.Context, d *schema.ResourceData,
 		if v := n.(string); v != "" {
 			_, err := conn.AttachElasticLoadBalancerWithContext(ctx, &opsworks.AttachElasticLoadBalancerInput{
 				ElasticLoadBalancerName: aws.String(v),
-				LayerId:                 aws.String(d.Id()),
+				LayerId:  aws.String(d.Id()),
 			})
 
 			if err != nil {

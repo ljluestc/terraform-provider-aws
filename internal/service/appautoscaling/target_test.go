@@ -26,8 +26,8 @@ func TestAccAppAutoScalingTarget_basic(t *testing.T) {
 	resourceName := "aws_appautoscaling_target.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTargetDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -70,8 +70,8 @@ func TestAccAppAutoScalingTarget_disappears(t *testing.T) {
 	resourceName := "aws_appautoscaling_target.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTargetDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -94,8 +94,8 @@ func TestAccAppAutoScalingTarget_tags(t *testing.T) {
 	resourceName := "aws_appautoscaling_target.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTargetDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -142,8 +142,8 @@ func TestAccAppAutoScalingTarget_spotFleetRequest(t *testing.T) {
 	resourceName := "aws_appautoscaling_target.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTargetDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -172,8 +172,8 @@ func TestAccAppAutoScalingTarget_emrCluster(t *testing.T) {
 	resourceName := "aws_appautoscaling_target.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTargetDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -204,8 +204,8 @@ func TestAccAppAutoScalingTarget_multipleTargets(t *testing.T) {
 	writeResourceName := "aws_appautoscaling_target.write"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTargetDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -238,8 +238,8 @@ func TestAccAppAutoScalingTarget_optionalRoleARN(t *testing.T) {
 	resourceName := "aws_appautoscaling_target.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTargetDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -452,10 +452,10 @@ resource "aws_iam_role_policy_attachment" "test" {
 }
 
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_role                      = aws_iam_role.test.arn
-  spot_price                          = "0.005"
-  target_capacity                     = 2
-  valid_until                         = %[2]q
+  iam_fleet_role       = aws_iam_role.test.arn
+  spot_price           = "0.005"
+  target_capacity      = 2
+  valid_until          = %[2]q
   terminate_instances_with_expiration = true
 
   launch_specification {
@@ -516,7 +516,7 @@ resource "aws_security_group" "test" {
   }
 
   tags = {
-    Name                                     = %[1]q
+    Name       = %[1]q
     for-use-with-amazon-emr-managed-policies = true
   }
 
@@ -532,7 +532,7 @@ resource "aws_subnet" "test" {
   vpc_id            = aws_vpc.test.id
 
   tags = {
-    Name                                     = %[1]q
+    Name       = %[1]q
     for-use-with-amazon-emr-managed-policies = true
   }
 }
@@ -563,10 +563,10 @@ resource "aws_emr_cluster" "test" {
   applications  = ["Spark"]
 
   ec2_attributes {
-    subnet_id                         = aws_subnet.test.id
+    subnet_id          = aws_subnet.test.id
     emr_managed_master_security_group = aws_security_group.test.id
     emr_managed_slave_security_group  = aws_security_group.test.id
-    instance_profile                  = aws_iam_instance_profile.emr_instance_profile.arn
+    instance_profile   = aws_iam_instance_profile.emr_instance_profile.arn
   }
 
   master_instance_group {
@@ -706,7 +706,7 @@ EOT
 }
 
 resource "aws_iam_role" "emr_autoscaling" {
-  name               = "%[1]s_autoscaling_role"
+  name= "%[1]s_autoscaling_role"
   assume_role_policy = data.aws_iam_policy_document.emr_autoscaling_role_policy.json
 }
 

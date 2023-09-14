@@ -211,10 +211,10 @@ func resourceLanguageModelDelete(ctx context.Context, d *schema.ResourceData, me
 
 func waitLanguageModelCreated(ctx context.Context, conn *transcribe.Client, id string, timeout time.Duration) (*types.LanguageModel, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   enum.Slice(types.ModelStatusInProgress),
-		Target:                    enum.Slice(types.ModelStatusCompleted),
-		Refresh:                   statusLanguageModel(ctx, conn, id),
-		Timeout:                   timeout,
+		Pending:    enum.Slice(types.ModelStatusInProgress),
+		Target:     enum.Slice(types.ModelStatusCompleted),
+		Refresh:    statusLanguageModel(ctx, conn, id),
+		Timeout:    timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}
@@ -275,7 +275,7 @@ func flattenInputDataConfig(apiObjects *types.InputDataConfig) []interface{} {
 
 	m := map[string]interface{}{
 		"data_access_role_arn": apiObjects.DataAccessRoleArn,
-		"s3_uri":               apiObjects.S3Uri,
+		"s3_uri":apiObjects.S3Uri,
 	}
 
 	if aws.ToString(apiObjects.TuningDataS3Uri) != "" {

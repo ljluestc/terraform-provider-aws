@@ -277,8 +277,8 @@ func resourceAccountSubscriptionDelete(ctx context.Context, d *schema.ResourceDa
 
 // Not documented on AWS
 const (
-	statusCreated                 = "ACCOUNT_CREATED"
-	statusOk                      = "OK"
+	statusCreated  = "ACCOUNT_CREATED"
+	statusOk       = "OK"
 	statusSignupAttemptInProgress = "SIGNUP_ATTEMPT_IN_PROGRESS"
 	statusUnsuscribeInProgress    = "UNSUBSCRIBE_IN_PROGRESS"
 	statusUnsuscribed             = "UNSUBSCRIBED"
@@ -287,10 +287,10 @@ const (
 
 func waitAccountSubscriptionCreated(ctx context.Context, conn *quicksight.QuickSight, id string, timeout time.Duration) (*quicksight.AccountInfo, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   []string{statusSignupAttemptInProgress},
-		Target:                    []string{statusCreated, statusOk},
-		Refresh:                   statusAccountSubscription(ctx, conn, id),
-		Timeout:                   timeout,
+		Pending:    []string{statusSignupAttemptInProgress},
+		Target:     []string{statusCreated, statusOk},
+		Refresh:    statusAccountSubscription(ctx, conn, id),
+		Timeout:    timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}

@@ -30,8 +30,8 @@ func TestAccAutoScalingSchedule_basic(t *testing.T) {
 	resourceName := "aws_autoscaling_schedule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckScheduleDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -61,8 +61,8 @@ func TestAccAutoScalingSchedule_disappears(t *testing.T) {
 	resourceName := "aws_autoscaling_schedule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckScheduleDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -85,8 +85,8 @@ func TestAccAutoScalingSchedule_recurrence(t *testing.T) {
 	resourceName := "aws_autoscaling_schedule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckScheduleDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -116,8 +116,8 @@ func TestAccAutoScalingSchedule_zeroValues(t *testing.T) {
 	resourceName := "aws_autoscaling_schedule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckScheduleDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -146,8 +146,8 @@ func TestAccAutoScalingSchedule_negativeOne(t *testing.T) {
 	resourceName := "aws_autoscaling_schedule.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckScheduleDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -251,9 +251,9 @@ func testAccScheduleConfig_base(rName string) string {
 	return acctest.ConfigCompose(testAccGroupConfig_launchConfigurationBase(rName, "t2.micro"), fmt.Sprintf(`
 resource "aws_autoscaling_group" "test" {
   availability_zones        = [data.aws_availability_zones.available.names[1]]
-  name                      = %[1]q
-  max_size                  = 1
-  min_size                  = 1
+  name       = %[1]q
+  max_size   = 1
+  min_size   = 1
   health_check_grace_period = 300
   health_check_type         = "ELB"
   force_delete              = true
@@ -261,8 +261,8 @@ resource "aws_autoscaling_group" "test" {
   launch_configuration      = aws_launch_configuration.test.name
 
   tag {
-    key                 = "Name"
-    value               = %[1]q
+    key  = "Name"
+    value= %[1]q
     propagate_at_launch = true
   }
 }
@@ -273,11 +273,11 @@ func testAccScheduleConfig_basic(rName1, rName2, startTime, endTime string) stri
 	return acctest.ConfigCompose(testAccScheduleConfig_base(rName1), fmt.Sprintf(`
 resource "aws_autoscaling_schedule" "test" {
   scheduled_action_name  = %[1]q
-  min_size               = 0
-  max_size               = 1
+  min_size= 0
+  max_size= 1
   desired_capacity       = 0
   start_time             = %[2]q
-  end_time               = %[3]q
+  end_time= %[3]q
   autoscaling_group_name = aws_autoscaling_group.test.name
 }
 `, rName2, startTime, endTime))
@@ -287,8 +287,8 @@ func testAccScheduleConfig_recurrence(rName string) string {
 	return acctest.ConfigCompose(testAccScheduleConfig_base(rName), fmt.Sprintf(`
 resource "aws_autoscaling_schedule" "test" {
   scheduled_action_name  = %[1]q
-  min_size               = 0
-  max_size               = 1
+  min_size= 0
+  max_size= 1
   desired_capacity       = 0
   recurrence             = "0 8 * * *"
   time_zone              = "Pacific/Tahiti"
@@ -301,11 +301,11 @@ func testAccScheduleConfig_zeroValues(rName, startTime, endTime string) string {
 	return acctest.ConfigCompose(testAccScheduleConfig_base(rName), fmt.Sprintf(`
 resource "aws_autoscaling_schedule" "test" {
   scheduled_action_name  = %[1]q
-  max_size               = 0
-  min_size               = 0
+  max_size= 0
+  min_size= 0
   desired_capacity       = 0
   start_time             = %[2]q
-  end_time               = %[3]q
+  end_time= %[3]q
   autoscaling_group_name = aws_autoscaling_group.test.name
 }
 `, rName, startTime, endTime))
@@ -315,11 +315,11 @@ func testAccScheduleConfig_negativeOne(rName, startTime, endTime string) string 
 	return acctest.ConfigCompose(testAccScheduleConfig_base(rName), fmt.Sprintf(`
 resource "aws_autoscaling_schedule" "test" {
   scheduled_action_name  = %[1]q
-  max_size               = 3
-  min_size               = 1
+  max_size= 3
+  min_size= 1
   desired_capacity       = -1
   start_time             = "%s"
-  end_time               = "%s"
+  end_time= "%s"
   autoscaling_group_name = aws_autoscaling_group.test.name
 }
 `, rName, startTime, endTime))

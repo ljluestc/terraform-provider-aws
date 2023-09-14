@@ -106,7 +106,7 @@ func resourceStreamCreate(ctx context.Context, d *schema.ResourceData, meta inte
 	input := &kinesisvideo.CreateStreamInput{
 		StreamName:           aws.String(d.Get("name").(string)),
 		DataRetentionInHours: aws.Int64(int64(d.Get("data_retention_in_hours").(int))),
-		Tags:                 getTagsIn(ctx),
+		Tags:  getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("device_name"); ok {

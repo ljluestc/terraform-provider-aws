@@ -673,12 +673,12 @@ func resourceListenerRuleRead(ctx context.Context, d *schema.ResourceData, meta 
 				{
 					"authentication_request_extra_params": authenticationRequestExtraParams,
 					"on_unauthenticated_request":          aws.StringValue(action.AuthenticateCognitoConfig.OnUnauthenticatedRequest),
-					"scope":                               aws.StringValue(action.AuthenticateCognitoConfig.Scope),
-					"session_cookie_name":                 aws.StringValue(action.AuthenticateCognitoConfig.SessionCookieName),
-					"session_timeout":                     aws.Int64Value(action.AuthenticateCognitoConfig.SessionTimeout),
-					"user_pool_arn":                       aws.StringValue(action.AuthenticateCognitoConfig.UserPoolArn),
-					"user_pool_client_id":                 aws.StringValue(action.AuthenticateCognitoConfig.UserPoolClientId),
-					"user_pool_domain":                    aws.StringValue(action.AuthenticateCognitoConfig.UserPoolDomain),
+					"scope": aws.StringValue(action.AuthenticateCognitoConfig.Scope),
+					"session_cookie_name":  aws.StringValue(action.AuthenticateCognitoConfig.SessionCookieName),
+					"session_timeout":      aws.Int64Value(action.AuthenticateCognitoConfig.SessionTimeout),
+					"user_pool_arn":        aws.StringValue(action.AuthenticateCognitoConfig.UserPoolArn),
+					"user_pool_client_id":  aws.StringValue(action.AuthenticateCognitoConfig.UserPoolClientId),
+					"user_pool_domain":     aws.StringValue(action.AuthenticateCognitoConfig.UserPoolDomain),
 				},
 			}
 
@@ -696,15 +696,15 @@ func resourceListenerRuleRead(ctx context.Context, d *schema.ResourceData, meta 
 				{
 					"authentication_request_extra_params": authenticationRequestExtraParams,
 					"authorization_endpoint":              aws.StringValue(action.AuthenticateOidcConfig.AuthorizationEndpoint),
-					"client_id":                           aws.StringValue(action.AuthenticateOidcConfig.ClientId),
-					"client_secret":                       clientSecret,
-					"issuer":                              aws.StringValue(action.AuthenticateOidcConfig.Issuer),
+					"client_id":            aws.StringValue(action.AuthenticateOidcConfig.ClientId),
+					"client_secret":        clientSecret,
+					"issuer":aws.StringValue(action.AuthenticateOidcConfig.Issuer),
 					"on_unauthenticated_request":          aws.StringValue(action.AuthenticateOidcConfig.OnUnauthenticatedRequest),
-					"scope":                               aws.StringValue(action.AuthenticateOidcConfig.Scope),
-					"session_cookie_name":                 aws.StringValue(action.AuthenticateOidcConfig.SessionCookieName),
-					"session_timeout":                     aws.Int64Value(action.AuthenticateOidcConfig.SessionTimeout),
-					"token_endpoint":                      aws.StringValue(action.AuthenticateOidcConfig.TokenEndpoint),
-					"user_info_endpoint":                  aws.StringValue(action.AuthenticateOidcConfig.UserInfoEndpoint),
+					"scope": aws.StringValue(action.AuthenticateOidcConfig.Scope),
+					"session_cookie_name":  aws.StringValue(action.AuthenticateOidcConfig.SessionCookieName),
+					"session_timeout":      aws.Int64Value(action.AuthenticateOidcConfig.SessionTimeout),
+					"token_endpoint":       aws.StringValue(action.AuthenticateOidcConfig.TokenEndpoint),
+					"user_info_endpoint":   aws.StringValue(action.AuthenticateOidcConfig.UserInfoEndpoint),
 				},
 			}
 		}

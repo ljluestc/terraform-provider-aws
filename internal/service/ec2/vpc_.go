@@ -249,9 +249,9 @@ func() (interface{}, error) {
 	}
 
 	vpcInfo := vpcInfo{
-		vpc:                              vpc,
-		enableDnsHostnames:               false,
-		enableDnsSupport:                 true,
+		vpc:vpc,
+		enableDnsHostnames:false,
+		enableDnsSupport:  true,
 		enableNetworkAddressUsageMetrics: false,
 	}
 
@@ -578,9 +578,9 @@ func defaultIPv6CIDRBlockAssociation(vpc *types.Vpc, associationID string) *type
 }
 
 type vpcInfo struct {
-	vpc                              *types.Vpc
-	enableDnsHostnames               bool
-	enableDnsSupport                 bool
+	vpc*types.Vpc
+	enableDnsHostnamesbool
+	enableDnsSupport  bool
 	enableNetworkAddressUsageMetrics bool
 }
 

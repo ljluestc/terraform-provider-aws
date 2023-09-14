@@ -36,8 +36,8 @@ func TestAccLicenseManagerLicenseConfiguration_basic(t *testing.T) {
 	resourceName := "aws_licensemanager_license_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, licensemanager.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, licensemanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLicenseConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -72,8 +72,8 @@ func TestAccLicenseManagerLicenseConfiguration_disappears(t *testing.T) {
 	resourceName := "aws_licensemanager_license_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, licensemanager.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, licensemanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLicenseConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -96,8 +96,8 @@ func TestAccLicenseManagerLicenseConfiguration_tags(t *testing.T) {
 	resourceName := "aws_licensemanager_license_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, licensemanager.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, licensemanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLicenseConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -143,8 +143,8 @@ func TestAccLicenseManagerLicenseConfiguration_update(t *testing.T) {
 	resourceName := "aws_licensemanager_license_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, licensemanager.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, licensemanager.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLicenseConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -243,7 +243,7 @@ func testAccCheckLicenseConfigurationDestroy(ctx context.Context) resource.TestC
 func testAccLicenseConfigurationConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_licensemanager_license_configuration" "test" {
-  name                  = %[1]q
+  name   = %[1]q
   license_counting_type = "Instance"
 }
 `, rName)
@@ -252,7 +252,7 @@ resource "aws_licensemanager_license_configuration" "test" {
 func testAccLicenseConfigurationConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_licensemanager_license_configuration" "test" {
-  name                  = %[1]q
+  name   = %[1]q
   license_counting_type = "Instance"
 
   tags = {
@@ -265,7 +265,7 @@ resource "aws_licensemanager_license_configuration" "test" {
 func testAccLicenseConfigurationConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_licensemanager_license_configuration" "test" {
-  name                  = %[1]q
+  name   = %[1]q
   license_counting_type = "Instance"
 
   tags = {
@@ -279,7 +279,7 @@ resource "aws_licensemanager_license_configuration" "test" {
 func testAccLicenseConfigurationConfig_allAttributes(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_licensemanager_license_configuration" "test" {
-  name                     = %[1]q
+  name      = %[1]q
   description              = "test1"
   license_count            = 10
   license_count_hard_limit = true
@@ -295,7 +295,7 @@ resource "aws_licensemanager_license_configuration" "test" {
 func testAccLicenseConfigurationConfig_allAttributesUpdated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_licensemanager_license_configuration" "test" {
-  name                  = %[1]q
+  name   = %[1]q
   description           = "test2"
   license_count         = 99
   license_counting_type = "Socket"

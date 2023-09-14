@@ -35,7 +35,7 @@ func TestAccQuickSightDashboard_basic(t *testing.T) {
 func() {
 			acctest.PreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDashboardDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -72,7 +72,7 @@ func TestAccQuickSightDashboard_disappears(t *testing.T) {
 func() {
 			acctest.PreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDashboardDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -105,7 +105,7 @@ func TestAccQuickSightDashboard_sourceEntity(t *testing.T) {
 func() {
 			acctest.PreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDashboardDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -145,7 +145,7 @@ func TestAccQuickSightDashboard_updateVersionNumber(t *testing.T) {
 func() {
 			acctest.PreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDashboardDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -189,7 +189,7 @@ func TestAccQuickSightDashboard_dashboardSpecificConfig(t *testing.T) {
 func() {
 			acctest.PreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDashboardDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -296,7 +296,7 @@ resource "aws_quicksight_data_set" "test" {
   }
   logical_table_map {
     logical_table_map_id = %[1]q
-    alias                = "Group1"
+    alias = "Group1"
     source {
       physical_table_id = %[1]q
     }
@@ -324,7 +324,7 @@ func testAccDashboardConfig_basic(rId, rName string) string {
 		fmt.Sprintf(`
 resource "aws_quicksight_dashboard" "test" {
   dashboard_id        = %[1]q
-  name                = %[2]q
+  name = %[2]q
   version_description = "test"
   definition {
     data_set_identifiers_declarations {
@@ -356,26 +356,26 @@ resource "aws_quicksight_dashboard" "test" {
           chart_configuration {
             field_wells {
               line_chart_aggregated_field_wells {
-                category {
-                  categorical_dimension_field {
-                    field_id = "1"
-                    column {
-                      data_set_identifier = "1"
-                      column_name         = "Column1"
-                    }
-                  }
-                }
-                values {
-                  categorical_measure_field {
-                    field_id = "2"
-                    column {
-                      data_set_identifier = "1"
-                      column_name         = "Column1"
-                    }
-                    aggregation_
+ category {
+   categorical_dimension_field {
+     field_id = "1"
+     column {
+       data_set_identifier = "1"
+       column_name         = "Column1"
+     }
+   }
+ }
+ values {
+   categorical_measure_field {
+     field_id = "2"
+     column {
+       data_set_identifier = "1"
+       column_name         = "Column1"
+     }
+     aggregation_
 function = "COUNT"
-                  }
-                }
+   }
+ }
               }
             }
           }
@@ -394,7 +394,7 @@ func testAccDashboardConfig_TemplateSourceEntity(rId, rName, sourceId, sourceNam
 		fmt.Sprintf(`
 resource "aws_quicksight_template" "test" {
   template_id         = %[3]q
-  name                = %[4]q
+  name = %[4]q
   version_description = "test"
   definition {
     data_set_configuration {
@@ -435,26 +435,26 @@ resource "aws_quicksight_template" "test" {
           chart_configuration {
             field_wells {
               line_chart_aggregated_field_wells {
-                category {
-                  categorical_dimension_field {
-                    field_id = "1"
-                    column {
-                      data_set_identifier = "1"
-                      column_name         = "Column1"
-                    }
-                  }
-                }
-                values {
-                  categorical_measure_field {
-                    field_id = "2"
-                    column {
-                      data_set_identifier = "1"
-                      column_name         = "Column1"
-                    }
-                    aggregation_
+ category {
+   categorical_dimension_field {
+     field_id = "1"
+     column {
+       data_set_identifier = "1"
+       column_name         = "Column1"
+     }
+   }
+ }
+ values {
+   categorical_measure_field {
+     field_id = "2"
+     column {
+       data_set_identifier = "1"
+       column_name         = "Column1"
+     }
+     aggregation_
 function = "COUNT"
-                  }
-                }
+   }
+ }
               }
             }
           }
@@ -466,7 +466,7 @@ function = "COUNT"
 
 resource "aws_quicksight_dashboard" "test" {
   dashboard_id        = %[1]q
-  name                = %[2]q
+  name = %[2]q
   version_description = "test"
   source_entity {
     source_template {
@@ -488,7 +488,7 @@ func testAccDashboardConfig_DashboardSpecificConfig(rId, rName string) string {
 		fmt.Sprintf(`
 resource "aws_quicksight_dashboard" "test" {
   dashboard_id        = %[1]q
-  name                = %[2]q
+  name = %[2]q
   version_description = "test"
   parameters {
     string_parameters {
@@ -535,7 +535,7 @@ resource "aws_quicksight_dashboard" "test" {
     }
     parameter_declarations {
       string_parameter_declaration {
-        name                 = "test"
+        name  = "test"
         parameter_value_type = "SINGLE_VALUED"
         default_values {
           static_values = ["value"]
@@ -559,26 +559,26 @@ resource "aws_quicksight_dashboard" "test" {
           chart_configuration {
             field_wells {
               line_chart_aggregated_field_wells {
-                category {
-                  categorical_dimension_field {
-                    field_id = "1"
-                    column {
-                      data_set_identifier = "1"
-                      column_name         = "Column1"
-                    }
-                  }
-                }
-                values {
-                  categorical_measure_field {
-                    field_id = "2"
-                    column {
-                      data_set_identifier = "1"
-                      column_name         = "Column1"
-                    }
-                    aggregation_
+ category {
+   categorical_dimension_field {
+     field_id = "1"
+     column {
+       data_set_identifier = "1"
+       column_name         = "Column1"
+     }
+   }
+ }
+ values {
+   categorical_measure_field {
+     field_id = "2"
+     column {
+       data_set_identifier = "1"
+       column_name         = "Column1"
+     }
+     aggregation_
 function = "COUNT"
-                  }
-                }
+   }
+ }
               }
             }
           }

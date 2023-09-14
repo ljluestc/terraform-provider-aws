@@ -12,25 +12,25 @@ import (
 )
 
 const (
-	gatewayConnectedMinTimeout                = 10 * time.Second
+	gatewayConnectedMinTimeout = 10 * time.Second
 	gatewayConnectedContinuousTargetOccurence = 6
 	gatewayJoinDomainJoinedTimeout            = 5 * time.Minute
 	storediSCSIVolumeAvailableTimeout         = 5 * time.Minute
-	nfsFileShareAvailableDelay                = 5 * time.Second
-	nfsFileShareDeletedDelay                  = 5 * time.Second
-	smbFileShareAvailableDelay                = 5 * time.Second
-	smbFileShareDeletedDelay                  = 5 * time.Second
+	nfsFileShareAvailableDelay = 5 * time.Second
+	nfsFileShareDeletedDelay   = 5 * time.Second
+	smbFileShareAvailableDelay = 5 * time.Second
+	smbFileShareDeletedDelay   = 5 * time.Second
 	fileSystemAssociationAvailableDelay       = 5 * time.Second
 	fileSystemAssociationDeletedDelay         = 5 * time.Second
 )
 
 func waitGatewayConnected(ctx context.Context, conn *storagegateway.StorageGateway, gatewayARN string, timeout time.Duration) (*storagegateway.DescribeGatewayInformationOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   []string{storagegateway.ErrorCodeGatewayNotConnected},
-		Target:                    []string{gatewayStatusConnected},
-		Refresh:                   statusGateway(ctx, conn, gatewayARN),
-		Timeout:                   timeout,
-		MinTimeout:                gatewayConnectedMinTimeout,
+		Pending:    []string{storagegateway.ErrorCodeGatewayNotConnected},
+		Target:     []string{gatewayStatusConnected},
+		Refresh:    statusGateway(ctx, conn, gatewayARN),
+		Timeout:    timeout,
+		MinTimeout: gatewayConnectedMinTimeout,
 		ContinuousTargetOccurence: gatewayConnectedContinuousTargetOccurence, // Gateway activations can take a few seconds and can trigger a reboot of the Gateway
 	}
 

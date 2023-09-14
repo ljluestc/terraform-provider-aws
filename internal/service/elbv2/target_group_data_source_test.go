@@ -20,8 +20,8 @@ func TestAccELBV2TargetGroupDataSource_basic(t *testing.T) {
 	datasourceNameByName := "data.aws_lb_target_group.alb_tg_test_with_name"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elbv2.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -83,8 +83,8 @@ func TestAccELBV2TargetGroupDataSource_appCookie(t *testing.T) {
 	resourceNameArn := "data.aws_lb_target_group.alb_tg_test_with_arn"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elbv2.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -127,8 +127,8 @@ func TestAccELBV2TargetGroupDataSource_backwardsCompatibility(t *testing.T) {
 	resourceName := "data.aws_alb_target_group.alb_tg_test_with_name"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elbv2.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -193,8 +193,8 @@ func TestAccELBV2TargetGroupDataSource_tags(t *testing.T) {
 	dataSourceMatchFirstTagAndName := "data.aws_lb_target_group.tag_and_arn_match_first"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elbv2.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -269,7 +269,7 @@ resource "aws_lb" "test" {
   security_groups = [aws_security_group.test.id]
   subnets         = aws_subnet.test[*].id
 
-  idle_timeout               = 30
+  idle_timeout= 30
   enable_deletion_protection = false
 
   tags = {
@@ -312,9 +312,9 @@ resource "aws_lb_target_group" "test" {
   vpc_id   = aws_vpc.test.id
 
   health_check {
-    path                = "/health"
+    path = "/health"
     interval            = 60
-    port                = 8081
+    port = 8081
     protocol            = "HTTP"
     timeout             = 3
     healthy_threshold   = 3
@@ -346,9 +346,9 @@ resource "aws_lb_target_group" "test" {
   vpc_id   = aws_vpc.test.id
 
   health_check {
-    path                = "/health"
+    path = "/health"
     interval            = 60
-    port                = 8081
+    port = 8081
     protocol            = "HTTP"
     timeout             = 3
     healthy_threshold   = 3
@@ -382,9 +382,9 @@ resource "aws_alb_target_group" "test" {
   vpc_id   = aws_vpc.test.id
 
   health_check {
-    path                = "/health"
+    path = "/health"
     interval            = 60
-    port                = 8081
+    port = 8081
     protocol            = "HTTP"
     timeout             = 3
     healthy_threshold   = 3

@@ -728,17 +728,17 @@ func flattenScalingInstructions(scalingInstructions []*autoscalingplans.ScalingI
 
 	for _, scalingInstruction := range scalingInstructions {
 		mScalingInstruction := map[string]interface{}{
-			"disable_dynamic_scaling":                  aws.BoolValue(scalingInstruction.DisableDynamicScaling),
-			"max_capacity":                             int(aws.Int64Value(scalingInstruction.MaxCapacity)),
-			"min_capacity":                             int(aws.Int64Value(scalingInstruction.MinCapacity)),
+			"disable_dynamic_scaling":   aws.BoolValue(scalingInstruction.DisableDynamicScaling),
+			"max_capacity":              int(aws.Int64Value(scalingInstruction.MaxCapacity)),
+			"min_capacity":              int(aws.Int64Value(scalingInstruction.MinCapacity)),
 			"predictive_scaling_max_capacity_behavior": aws.StringValue(scalingInstruction.PredictiveScalingMaxCapacityBehavior),
 			"predictive_scaling_max_capacity_buffer":   int(aws.Int64Value(scalingInstruction.PredictiveScalingMaxCapacityBuffer)),
-			"predictive_scaling_mode":                  aws.StringValue(scalingInstruction.PredictiveScalingMode),
-			"resource_id":                              aws.StringValue(scalingInstruction.ResourceId),
-			"scalable_dimension":                       aws.StringValue(scalingInstruction.ScalableDimension),
+			"predictive_scaling_mode":   aws.StringValue(scalingInstruction.PredictiveScalingMode),
+			"resource_id":aws.StringValue(scalingInstruction.ResourceId),
+			"scalable_dimension":        aws.StringValue(scalingInstruction.ScalableDimension),
 			"scaling_policy_update_behavior":           aws.StringValue(scalingInstruction.ScalingPolicyUpdateBehavior),
 			"scheduled_action_buffer_time":             int(aws.Int64Value(scalingInstruction.ScheduledActionBufferTime)),
-			"service_namespace":                        aws.StringValue(scalingInstruction.ServiceNamespace),
+			"service_namespace":         aws.StringValue(scalingInstruction.ServiceNamespace),
 		}
 
 		if customizedLoadMetricSpecification := scalingInstruction.CustomizedLoadMetricSpecification; customizedLoadMetricSpecification != nil {
@@ -800,7 +800,7 @@ func flattenScalingInstructions(scalingInstructions []*autoscalingplans.ScalingI
 					mTargetTrackingConfiguration["predefined_scaling_metric_specification"] = []interface{}{
 						map[string]interface{}{
 							"predefined_scaling_metric_type": aws.StringValue(predefinedScalingMetricSpecification.PredefinedScalingMetricType),
-							"resource_label":                 aws.StringValue(predefinedScalingMetricSpecification.ResourceLabel),
+							"resource_label":  aws.StringValue(predefinedScalingMetricSpecification.ResourceLabel),
 						},
 					}
 				}

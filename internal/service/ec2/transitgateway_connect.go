@@ -91,7 +91,7 @@ func resourceTransitGatewayConnectCreate(ctx context.Context, d *schema.Resource
 		Options: &ec2.CreateTransitGatewayConnectRequestOptions{
 			Protocol: aws.String(d.Get("protocol").(string)),
 		},
-		TagSpecifications:                   getTagSpecificationsIn(ctx, ec2.ResourceTypeTransitGatewayAttachment),
+		TagSpecifications:    getTagSpecificationsIn(ctx, ec2.ResourceTypeTransitGatewayAttachment),
 		TransportTransitGatewayAttachmentId: aws.String(transportAttachmentID),
 	}
 

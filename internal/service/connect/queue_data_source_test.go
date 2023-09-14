@@ -23,9 +23,9 @@ func testAccQueueDataSource_queueID(t *testing.T) {
 	outboundCallerConfigName := "exampleOutboundCallerConfigName"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -59,9 +59,9 @@ func testAccQueueDataSource_name(t *testing.T) {
 	outboundCallerConfigName := "exampleOutboundCallerConfigName"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -102,7 +102,7 @@ data "aws_connect_hours_of_operation" "test" {
 
 resource "aws_connect_queue" "test" {
   instance_id           = aws_connect_instance.test.id
-  name                  = %[2]q
+  name   = %[2]q
   description           = "Used to test queue data source"
   hours_of_operation_id = data.aws_connect_hours_of_operation.test.hours_of_operation_id
 

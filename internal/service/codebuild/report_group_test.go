@@ -25,9 +25,9 @@ func TestAccCodeBuildReportGroup_basic(t *testing.T) {
 	resourceName := "aws_codebuild_report_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckReportGroup(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codebuild.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckReportGroupDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -61,9 +61,9 @@ func TestAccCodeBuildReportGroup_Export_s3(t *testing.T) {
 	resourceName := "aws_codebuild_report_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckReportGroup(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codebuild.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckReportGroupDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -116,9 +116,9 @@ func TestAccCodeBuildReportGroup_tags(t *testing.T) {
 	resourceName := "aws_codebuild_report_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckReportGroup(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codebuild.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckReportGroupDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -168,9 +168,9 @@ func TestAccCodeBuildReportGroup_deleteReports(t *testing.T) {
 	resourceName := "aws_codebuild_report_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckReportGroup(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codebuild.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckReportGroupDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -200,9 +200,9 @@ func TestAccCodeBuildReportGroup_disappears(t *testing.T) {
 	resourceName := "aws_codebuild_report_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckReportGroup(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, codebuild.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckReportGroupDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -350,7 +350,7 @@ resource "aws_codebuild_report_group" "test" {
       encryption_disabled = false
       encryption_key      = aws_kms_key.test.arn
       packaging           = "NONE"
-      path                = "/some"
+      path = "/some"
     }
   }
 }
@@ -373,7 +373,7 @@ resource "aws_codebuild_report_group" "test" {
       encryption_key      = aws_kms_key.test.arn
       encryption_disabled = false
       packaging           = "ZIP"
-      path                = "/some2"
+      path = "/some2"
     }
   }
 }

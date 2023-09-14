@@ -25,8 +25,8 @@ func TestAccAutoScalingNotification_ASG_basic(t *testing.T) {
 	rName := sdkacctest.RandString(5)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckASGNDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -48,8 +48,8 @@ func TestAccAutoScalingNotification_ASG_update(t *testing.T) {
 	rName := sdkacctest.RandString(5)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckASGNDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -79,8 +79,8 @@ func TestAccAutoScalingNotification_ASG_pagination(t *testing.T) {
 	resourceName := "aws_autoscaling_notification.example"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckASGNDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -248,9 +248,9 @@ data "aws_availability_zones" "available" {
 
 resource "aws_autoscaling_group" "bar" {
   availability_zones        = [data.aws_availability_zones.available.names[1]]
-  name                      = "foobar1-terraform-test-%s"
-  max_size                  = 1
-  min_size                  = 1
+  name       = "foobar1-terraform-test-%s"
+  max_size   = 1
+  min_size   = 1
   health_check_grace_period = 100
   health_check_type         = "ELB"
   desired_capacity          = 1
@@ -295,9 +295,9 @@ data "aws_availability_zones" "available" {
 
 resource "aws_autoscaling_group" "bar" {
   availability_zones        = [data.aws_availability_zones.available.names[1]]
-  name                      = "foobar1-terraform-test-%s"
-  max_size                  = 1
-  min_size                  = 1
+  name       = "foobar1-terraform-test-%s"
+  max_size   = 1
+  min_size   = 1
   health_check_grace_period = 100
   health_check_type         = "ELB"
   desired_capacity          = 1
@@ -308,9 +308,9 @@ resource "aws_autoscaling_group" "bar" {
 
 resource "aws_autoscaling_group" "foo" {
   availability_zones        = [data.aws_availability_zones.available.names[2]]
-  name                      = "barfoo-terraform-test-%s"
-  max_size                  = 1
-  min_size                  = 1
+  name       = "barfoo-terraform-test-%s"
+  max_size   = 1
+  min_size   = 1
   health_check_grace_period = 200
   health_check_type         = "ELB"
   desired_capacity          = 1
@@ -358,10 +358,10 @@ data "aws_availability_zones" "available" {
 
 resource "aws_autoscaling_group" "bar" {
   availability_zones        = [data.aws_availability_zones.available.names[1]]
-  count                     = 20
-  name                      = "foobar3-terraform-test-${count.index}"
-  max_size                  = 1
-  min_size                  = 0
+  count      = 20
+  name       = "foobar3-terraform-test-${count.index}"
+  max_size   = 1
+  min_size   = 0
   health_check_grace_period = 300
   health_check_type         = "ELB"
   desired_capacity          = 0

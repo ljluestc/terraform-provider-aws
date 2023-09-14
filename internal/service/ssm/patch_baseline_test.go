@@ -25,8 +25,8 @@ func TestAccSSMPatchBaseline_basic(t *testing.T) {
 	name := sdkacctest.RandString(10)
 	resourceName := "aws_ssm_patch_baseline.test"
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPatchBaselineDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -79,8 +79,8 @@ func TestAccSSMPatchBaseline_tags(t *testing.T) {
 	name := sdkacctest.RandString(10)
 	resourceName := "aws_ssm_patch_baseline.test"
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPatchBaselineDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -125,8 +125,8 @@ func TestAccSSMPatchBaseline_disappears(t *testing.T) {
 	resourceName := "aws_ssm_patch_baseline.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPatchBaselineDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -148,8 +148,8 @@ func TestAccSSMPatchBaseline_operatingSystem(t *testing.T) {
 	name := sdkacctest.RandString(10)
 	resourceName := "aws_ssm_patch_baseline.test"
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPatchBaselineDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -193,8 +193,8 @@ func TestAccSSMPatchBaseline_approveUntilDateParam(t *testing.T) {
 	resourceName := "aws_ssm_patch_baseline.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPatchBaselineDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -243,8 +243,8 @@ func TestAccSSMPatchBaseline_sources(t *testing.T) {
 	resourceName := "aws_ssm_patch_baseline.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPatchBaselineDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -296,8 +296,8 @@ func TestAccSSMPatchBaseline_approvedPatchesNonSec(t *testing.T) {
 	resourceName := "aws_ssm_patch_baseline.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPatchBaselineDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -324,8 +324,8 @@ func TestAccSSMPatchBaseline_rejectPatchesAction(t *testing.T) {
 	resourceName := "aws_ssm_patch_baseline.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPatchBaselineDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -354,8 +354,8 @@ func testAccSSMPatchBaseline_deleteDefault(t *testing.T) {
 	resourceName := "aws_ssm_patch_baseline.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPatchBaselineDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -464,9 +464,9 @@ func testAccCheckPatchBaselineDestroy(ctx context.Context) resource.TestCheckFun
 func testAccPatchBaselineConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_patch_baseline" "test" {
-  name                              = "patch-baseline-%s"
-  description                       = "Baseline containing all updates approved for production systems"
-  approved_patches                  = ["KB123456"]
+  name= "patch-baseline-%s"
+  description        = "Baseline containing all updates approved for production systems"
+  approved_patches   = ["KB123456"]
   approved_patches_compliance_level = "CRITICAL"
 }
 `, rName)
@@ -475,9 +475,9 @@ resource "aws_ssm_patch_baseline" "test" {
 func testAccPatchBaselineConfig_basicTags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_patch_baseline" "test" {
-  name                              = %[1]q
-  description                       = "Baseline containing all updates approved for production systems"
-  approved_patches                  = ["KB123456"]
+  name= %[1]q
+  description        = "Baseline containing all updates approved for production systems"
+  approved_patches   = ["KB123456"]
   approved_patches_compliance_level = "CRITICAL"
 
   tags = {
@@ -490,9 +490,9 @@ resource "aws_ssm_patch_baseline" "test" {
 func testAccPatchBaselineConfig_basicTags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_patch_baseline" "test" {
-  name                              = %[1]q
-  description                       = "Baseline containing all updates approved for production systems"
-  approved_patches                  = ["KB123456"]
+  name= %[1]q
+  description        = "Baseline containing all updates approved for production systems"
+  approved_patches   = ["KB123456"]
   approved_patches_compliance_level = "CRITICAL"
 
   tags = {
@@ -506,9 +506,9 @@ resource "aws_ssm_patch_baseline" "test" {
 func testAccPatchBaselineConfig_basicUpdated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_patch_baseline" "test" {
-  name                              = "updated-patch-baseline-%s"
-  description                       = "Baseline containing all updates approved for production systems - August 2017"
-  approved_patches                  = ["KB123456", "KB456789"]
+  name= "updated-patch-baseline-%s"
+  description        = "Baseline containing all updates approved for production systems - August 2017"
+  approved_patches   = ["KB123456", "KB456789"]
   approved_patches_compliance_level = "HIGH"
 }
 `, rName)
@@ -636,11 +636,11 @@ resource "aws_ssm_patch_baseline" "test" {
 func testAccPatchBaselineConfig_source(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_patch_baseline" "test" {
-  name                              = %[1]q
-  description                       = "Baseline containing all updates approved for production systems"
+  name= %[1]q
+  description        = "Baseline containing all updates approved for production systems"
   approved_patches_compliance_level = "CRITICAL"
-  approved_patches                  = ["test123"]
-  operating_system                  = "AMAZON_LINUX"
+  approved_patches   = ["test123"]
+  operating_system   = "AMAZON_LINUX"
 
   source {
     name          = "My-AL2017.09"
@@ -654,11 +654,11 @@ resource "aws_ssm_patch_baseline" "test" {
 func testAccPatchBaselineConfig_sourceUpdated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_patch_baseline" "test" {
-  name                              = %[1]q
-  description                       = "Baseline containing all updates approved for production systems"
+  name= %[1]q
+  description        = "Baseline containing all updates approved for production systems"
   approved_patches_compliance_level = "CRITICAL"
-  approved_patches                  = ["test123"]
-  operating_system                  = "AMAZON_LINUX"
+  approved_patches   = ["test123"]
+  operating_system   = "AMAZON_LINUX"
 
   source {
     name          = "My-AL2017.09"
@@ -678,10 +678,10 @@ resource "aws_ssm_patch_baseline" "test" {
 func testAccPatchBaselineConfig_basicApprovedPatchesNonSec(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_patch_baseline" "test" {
-  name                                 = %q
-  operating_system                     = "AMAZON_LINUX"
-  description                          = "Baseline containing all updates approved for production systems"
-  approved_patches                     = ["KB123456"]
+  name   = %q
+  operating_system      = "AMAZON_LINUX"
+  description           = "Baseline containing all updates approved for production systems"
+  approved_patches      = ["KB123456"]
   approved_patches_compliance_level    = "CRITICAL"
   approved_patches_enable_non_security = true
 }
@@ -691,9 +691,9 @@ resource "aws_ssm_patch_baseline" "test" {
 func testAccPatchBaselineConfig_basicRejectPatchesAction(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_ssm_patch_baseline" "test" {
-  name                              = "patch-baseline-%s"
-  description                       = "Baseline containing all updates approved for production systems"
-  approved_patches                  = ["KB123456"]
+  name= "patch-baseline-%s"
+  description        = "Baseline containing all updates approved for production systems"
+  approved_patches   = ["KB123456"]
   approved_patches_compliance_level = "CRITICAL"
   rejected_patches_action           = "ALLOW_AS_DEPENDENCY"
 }

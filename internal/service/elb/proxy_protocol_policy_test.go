@@ -23,9 +23,9 @@ func TestAccELBProxyProtocolPolicy_basic(t *testing.T) {
 	ctx := acctest.Context(t)
 	lbName := fmt.Sprintf("tf-test-lb-%s", sdkacctest.RandString(5))
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elb.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckProxyProtocolPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -89,7 +89,7 @@ func(s *terraform.State) error {
 func testAccProxyProtocolPolicyConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_elb" "lb" {
-  name               = "%s"
+  name= "%s"
   availability_zones = [data.aws_availability_zones.available.names[0]]
 
   listener {
@@ -118,7 +118,7 @@ resource "aws_proxy_protocol_policy" "smtp" {
 func testAccProxyProtocolPolicyConfig_update(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_elb" "lb" {
-  name               = "%s"
+  name= "%s"
   availability_zones = [data.aws_availability_zones.available.names[0]]
 
   listener {

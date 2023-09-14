@@ -27,8 +27,8 @@ func TestAccStorageGatewayStorediSCSIVolume_basic(t *testing.T) {
 	resourceName := "aws_storagegateway_stored_iscsi_volume.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, storagegateway.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, storagegateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckStorediSCSIVolumeDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -70,8 +70,8 @@ func TestAccStorageGatewayStorediSCSIVolume_kms(t *testing.T) {
 	keyResourceName := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, storagegateway.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, storagegateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckStorediSCSIVolumeDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -99,8 +99,8 @@ func TestAccStorageGatewayStorediSCSIVolume_tags(t *testing.T) {
 	resourceName := "aws_storagegateway_stored_iscsi_volume.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, storagegateway.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, storagegateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckStorediSCSIVolumeDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -148,8 +148,8 @@ func TestAccStorageGatewayStorediSCSIVolume_snapshotID(t *testing.T) {
 	resourceName := "aws_storagegateway_stored_iscsi_volume.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, storagegateway.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, storagegateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckStorediSCSIVolumeDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -186,8 +186,8 @@ func TestAccStorageGatewayStorediSCSIVolume_disappears(t *testing.T) {
 	resourceName := "aws_storagegateway_stored_iscsi_volume.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, storagegateway.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, storagegateway.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckStorediSCSIVolumeDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -329,7 +329,7 @@ resource "aws_storagegateway_stored_iscsi_volume" "test" {
   network_interface_id   = aws_instance.test.private_ip
   target_name            = %[1]q
   preserve_existing_data = false
-  disk_id                = data.aws_storagegateway_local_disk.test.disk_id
+  disk_id = data.aws_storagegateway_local_disk.test.disk_id
 
   depends_on = [aws_storagegateway_working_storage.buffer]
 }
@@ -364,9 +364,9 @@ resource "aws_storagegateway_stored_iscsi_volume" "test" {
   network_interface_id   = aws_instance.test.private_ip
   target_name            = %[1]q
   preserve_existing_data = false
-  disk_id                = data.aws_storagegateway_local_disk.test.id
+  disk_id = data.aws_storagegateway_local_disk.test.id
   kms_encrypted          = true
-  kms_key                = aws_kms_key.test.arn
+  kms_key = aws_kms_key.test.arn
 
   depends_on = [aws_storagegateway_working_storage.buffer]
 }
@@ -380,7 +380,7 @@ resource "aws_storagegateway_stored_iscsi_volume" "test" {
   network_interface_id   = aws_instance.test.private_ip
   target_name            = %[1]q
   preserve_existing_data = false
-  disk_id                = data.aws_storagegateway_local_disk.test.id
+  disk_id = data.aws_storagegateway_local_disk.test.id
 
   tags = {
     %[2]q = %[3]q
@@ -398,7 +398,7 @@ resource "aws_storagegateway_stored_iscsi_volume" "test" {
   network_interface_id   = aws_instance.test.private_ip
   target_name            = %[1]q
   preserve_existing_data = false
-  disk_id                = data.aws_storagegateway_local_disk.test.id
+  disk_id = data.aws_storagegateway_local_disk.test.id
 
   tags = {
     %[2]q = %[3]q
@@ -436,7 +436,7 @@ resource "aws_storagegateway_stored_iscsi_volume" "test" {
   snapshot_id            = aws_ebs_snapshot.test.id
   target_name            = %[1]q
   preserve_existing_data = false
-  disk_id                = data.aws_storagegateway_local_disk.test.id
+  disk_id = data.aws_storagegateway_local_disk.test.id
 
   depends_on = [aws_storagegateway_working_storage.buffer]
 }

@@ -123,7 +123,7 @@ func resourceSipMediaApplicationUpdate(ctx context.Context, d *schema.ResourceDa
 	if d.HasChanges("name", "endpoints") {
 		updateInput := &chimesdkvoice.UpdateSipMediaApplicationInput{
 			SipMediaApplicationId: aws.String(d.Id()),
-			Name:                  aws.String(d.Get("name").(string)),
+			Name:   aws.String(d.Get("name").(string)),
 			Endpoints:             expandSipMediaApplicationEndpoints(d.Get("endpoints").([]interface{})),
 		}
 

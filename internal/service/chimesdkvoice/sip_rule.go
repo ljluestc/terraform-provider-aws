@@ -82,7 +82,7 @@ func resourceSipRuleCreate(ctx context.Context, d *schema.ResourceData, meta int
 	conn := meta.(*conns.AWSClient).ChimeSDKVoiceConn(ctx)
 
 	input := &chimesdkvoice.CreateSipRuleInput{
-		Name:               aws.String(d.Get("name").(string)),
+		Name:aws.String(d.Get("name").(string)),
 		TriggerType:        aws.String(d.Get("trigger_type").(string)),
 		TriggerValue:       aws.String(d.Get("trigger_value").(string)),
 		TargetApplications: expandSipRuleTargetApplications(d.Get("target_applications").(*schema.Set).List()),
@@ -196,8 +196,8 @@ func flattenSipRuleTargetApplications(apiObject []*chimesdkvoice.SipRuleTargetAp
 	for _, e := range apiObject {
 		rawTargetApplication := map[string]interface{}{
 			"sip_media_application_id": aws.StringValue(e.SipMediaApplicationId),
-			"priority":                 aws.Int64Value(e.Priority),
-			"aws_region":               aws.StringValue(e.AwsRegion),
+			"priority":  aws.Int64Value(e.Priority),
+			"aws_region":aws.StringValue(e.AwsRegion),
 		}
 
 		rawSipRuleTargetApplications = append(rawSipRuleTargetApplications, rawTargetApplication)

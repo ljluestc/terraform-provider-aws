@@ -24,8 +24,8 @@ func TestAccAutoScalingLifecycleHook_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLifecycleHookDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -55,8 +55,8 @@ func TestAccAutoScalingLifecycleHook_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLifecycleHookDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -78,8 +78,8 @@ func TestAccAutoScalingLifecycleHook_omitDefaultResult(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLifecycleHookDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -162,7 +162,7 @@ resource "aws_launch_configuration" "test" {
 }
 
 resource "aws_sqs_queue" "test" {
-  name                      = %[1]q
+  name       = %[1]q
   delay_seconds             = 90
   max_message_size          = 2048
   message_retention_seconds = 86400
@@ -202,9 +202,9 @@ EOF
 
 resource "aws_autoscaling_group" "test" {
   availability_zones        = [data.aws_availability_zones.available.names[1]]
-  name                      = %[1]q
-  max_size                  = 5
-  min_size                  = 2
+  name       = %[1]q
+  max_size   = 5
+  min_size   = 2
   health_check_grace_period = 300
   health_check_type         = "ELB"
   force_delete              = true
@@ -213,7 +213,7 @@ resource "aws_autoscaling_group" "test" {
 }
 
 resource "aws_autoscaling_lifecycle_hook" "test" {
-  name                   = %[1]q
+  name    = %[1]q
   autoscaling_group_name = aws_autoscaling_group.test.name
   default_result         = "CONTINUE"
   heartbeat_timeout      = 2000
@@ -226,7 +226,7 @@ resource "aws_autoscaling_lifecycle_hook" "test" {
 EOF
 
   notification_target_arn = aws_sqs_queue.test.arn
-  role_arn                = aws_iam_role.test.arn
+  role_arn = aws_iam_role.test.arn
 }
 `, rName))
 }
@@ -243,7 +243,7 @@ resource "aws_launch_configuration" "test" {
 }
 
 resource "aws_sqs_queue" "test" {
-  name                      = %[1]q
+  name       = %[1]q
   delay_seconds             = 90
   max_message_size          = 2048
   message_retention_seconds = 86400
@@ -283,9 +283,9 @@ EOF
 
 resource "aws_autoscaling_group" "test" {
   availability_zones        = [data.aws_availability_zones.available.names[1]]
-  name                      = %[1]q
-  max_size                  = 5
-  min_size                  = 2
+  name       = %[1]q
+  max_size   = 5
+  min_size   = 2
   health_check_grace_period = 300
   health_check_type         = "ELB"
   force_delete              = true
@@ -294,7 +294,7 @@ resource "aws_autoscaling_group" "test" {
 }
 
 resource "aws_autoscaling_lifecycle_hook" "test" {
-  name                   = %[1]q
+  name    = %[1]q
   autoscaling_group_name = aws_autoscaling_group.test.name
   heartbeat_timeout      = 2000
   lifecycle_transition   = "autoscaling:EC2_INSTANCE_LAUNCHING"
@@ -306,7 +306,7 @@ resource "aws_autoscaling_lifecycle_hook" "test" {
 EOF
 
   notification_target_arn = aws_sqs_queue.test.arn
-  role_arn                = aws_iam_role.test.arn
+  role_arn = aws_iam_role.test.arn
 }
 `, rName))
 }

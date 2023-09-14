@@ -111,7 +111,7 @@ func updateTags(ctx context.Context, conn acmpcaiface.ACMPCAAPI, identifier stri
 	if len(removedTags) > 0 {
 		input := &acmpca.UntagCertificateAuthorityInput{
 			CertificateAuthorityArn: aws.String(identifier),
-			Tags:                    Tags(removedTags),
+			Tags:     Tags(removedTags),
 		}
 
 		_, err := conn.UntagCertificateAuthorityWithContext(ctx, input)
@@ -126,7 +126,7 @@ func updateTags(ctx context.Context, conn acmpcaiface.ACMPCAAPI, identifier stri
 	if len(updatedTags) > 0 {
 		input := &acmpca.TagCertificateAuthorityInput{
 			CertificateAuthorityArn: aws.String(identifier),
-			Tags:                    Tags(updatedTags),
+			Tags:     Tags(updatedTags),
 		}
 
 		_, err := conn.TagCertificateAuthorityWithContext(ctx, input)

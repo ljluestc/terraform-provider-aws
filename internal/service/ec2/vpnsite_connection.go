@@ -716,7 +716,7 @@ var (
 	defaultVPNTunnelOptionsDPDTimeoutAction             = vpnTunnelOptionsDPDTimeoutActionClear
 	defaultVPNTunnelOptionsDPDTimeoutSeconds            = 30
 	defaultVPNTunnelOptionsEnableTunnelLifecycleControl = false
-	defaultVPNTunnelOptionsIKEVersions                  = []string{vpnTunnelOptionsIKEVersion1, vpnTunnelOptionsIKEVersion2}
+	defaultVPNTunnelOptionsIKEVersions   = []string{vpnTunnelOptionsIKEVersion1, vpnTunnelOptionsIKEVersion2}
 	defaultVPNTunnelOptionsPhase1DHGroupNumbers         = []int{2, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24}
 	defaultVPNTunnelOptionsPhase1EncryptionAlgorithms   = []string{
 		vpnTunnelOptionsPhase1EncryptionAlgorithmAES128,

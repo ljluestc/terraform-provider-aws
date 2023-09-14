@@ -102,14 +102,14 @@ func flattenDelegatedAdministrators(apiObjects []*organizations.DelegatedAdminis
 
 	for _, apiObject := range apiObjects {
 		tfList = append(tfList, map[string]interface{}{
-			"arn":                     aws.StringValue(apiObject.Arn),
+			"arn":      aws.StringValue(apiObject.Arn),
 			"delegation_enabled_date": aws.TimeValue(apiObject.DelegationEnabledDate).Format(time.RFC3339),
-			"email":                   aws.StringValue(apiObject.Email),
-			"id":                      aws.StringValue(apiObject.Id),
+			"email":    aws.StringValue(apiObject.Email),
+			"id":       aws.StringValue(apiObject.Id),
 			"joined_method":           aws.StringValue(apiObject.JoinedMethod),
 			"joined_timestamp":        aws.TimeValue(apiObject.JoinedTimestamp).Format(time.RFC3339),
-			"name":                    aws.StringValue(apiObject.Name),
-			"status":                  aws.StringValue(apiObject.Status),
+			"name":     aws.StringValue(apiObject.Name),
+			"status":   aws.StringValue(apiObject.Status),
 		})
 	}
 

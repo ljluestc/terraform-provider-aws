@@ -30,9 +30,9 @@ func testAccTransitGatewayConnect_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGatewayVPCAttachment(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayConnectDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -66,9 +66,9 @@ func testAccTransitGatewayConnect_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGatewayVPCAttachment(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayConnectDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -93,9 +93,9 @@ func testAccTransitGatewayConnect_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGatewayVPCAttachment(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayConnectDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -146,9 +146,9 @@ func testAccTransitGatewayConnect_TransitGatewayDefaultRouteTableAssociationAndP
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGatewayVPCAttachment(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayConnectDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -183,9 +183,9 @@ func testAccTransitGatewayConnect_TransitGatewayDefaultRouteTableAssociation(t *
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGatewayVPCAttachment(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayConnectDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -240,9 +240,9 @@ func testAccTransitGatewayConnect_TransitGatewayDefaultRouteTablePropagation(t *
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGatewayVPCAttachment(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayConnectDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -529,9 +529,9 @@ resource "aws_ec2_transit_gateway" "test" {
 }
 
 resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
-  subnet_ids                                      = [aws_subnet.test.id]
-  transit_gateway_id                              = aws_ec2_transit_gateway.test.id
-  vpc_id                                          = aws_vpc.test.id
+  subnet_ids        = [aws_subnet.test.id]
+  transit_gateway_id= aws_ec2_transit_gateway.test.id
+  vpc_id            = aws_vpc.test.id
   transit_gateway_default_route_table_association = false
   transit_gateway_default_route_table_propagation = false
 
@@ -541,8 +541,8 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
 }
 
 resource "aws_ec2_transit_gateway_connect" "test" {
-  transit_gateway_id                              = aws_ec2_transit_gateway.test.id
-  transport_attachment_id                         = aws_ec2_transit_gateway_vpc_attachment.test.id
+  transit_gateway_id= aws_ec2_transit_gateway.test.id
+  transport_attachment_id          = aws_ec2_transit_gateway_vpc_attachment.test.id
   transit_gateway_default_route_table_association = false
   transit_gateway_default_route_table_propagation = false
 
@@ -581,9 +581,9 @@ resource "aws_ec2_transit_gateway" "test" {
 }
 
 resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
-  subnet_ids                                      = [aws_subnet.test.id]
-  transit_gateway_id                              = aws_ec2_transit_gateway.test.id
-  vpc_id                                          = aws_vpc.test.id
+  subnet_ids        = [aws_subnet.test.id]
+  transit_gateway_id= aws_ec2_transit_gateway.test.id
+  vpc_id            = aws_vpc.test.id
   transit_gateway_default_route_table_association = %[2]t
 
   tags = {
@@ -592,8 +592,8 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
 }
 
 resource "aws_ec2_transit_gateway_connect" "test" {
-  transit_gateway_id                              = aws_ec2_transit_gateway.test.id
-  transport_attachment_id                         = aws_ec2_transit_gateway_vpc_attachment.test.id
+  transit_gateway_id= aws_ec2_transit_gateway.test.id
+  transport_attachment_id          = aws_ec2_transit_gateway_vpc_attachment.test.id
   transit_gateway_default_route_table_association = %[2]t
 
   tags = {
@@ -631,9 +631,9 @@ resource "aws_ec2_transit_gateway" "test" {
 }
 
 resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
-  subnet_ids                                      = [aws_subnet.test.id]
-  transit_gateway_id                              = aws_ec2_transit_gateway.test.id
-  vpc_id                                          = aws_vpc.test.id
+  subnet_ids        = [aws_subnet.test.id]
+  transit_gateway_id= aws_ec2_transit_gateway.test.id
+  vpc_id            = aws_vpc.test.id
   transit_gateway_default_route_table_propagation = %[2]t
 
   tags = {
@@ -642,8 +642,8 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
 }
 
 resource "aws_ec2_transit_gateway_connect" "test" {
-  transit_gateway_id                              = aws_ec2_transit_gateway.test.id
-  transport_attachment_id                         = aws_ec2_transit_gateway_vpc_attachment.test.id
+  transit_gateway_id= aws_ec2_transit_gateway.test.id
+  transport_attachment_id          = aws_ec2_transit_gateway_vpc_attachment.test.id
   transit_gateway_default_route_table_propagation = %[2]t
 
   tags = {

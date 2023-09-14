@@ -98,8 +98,8 @@ func resourceCustomerManagedPolicyAttachmentCreate(ctx context.Context, d *schem
 	id := CustomerManagedPolicyAttachmentCreateResourceID(policyName, policyPath, permissionSetARN, instanceARN)
 	input := &ssoadmin.AttachCustomerManagedPolicyReferenceToPermissionSetInput{
 		CustomerManagedPolicyReference: expandCustomerManagedPolicyReference(tfMap),
-		InstanceArn:                    aws.String(instanceARN),
-		PermissionSetArn:               aws.String(permissionSetARN),
+		InstanceArn:     aws.String(instanceARN),
+		PermissionSetArn:aws.String(permissionSetARN),
 	}
 
 	_, err := conn.AttachCustomerManagedPolicyReferenceToPermissionSetWithContext(ctx, input)

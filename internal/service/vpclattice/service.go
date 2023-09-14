@@ -225,10 +225,10 @@ func resourceServiceDelete(ctx context.Context, d *schema.ResourceData, meta int
 
 func waitServiceCreated(ctx context.Context, conn *vpclattice.Client, id string, timeout time.Duration) (*vpclattice.GetServiceOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   enum.Slice(types.ServiceStatusCreateInProgress),
-		Target:                    enum.Slice(types.ServiceStatusActive),
-		Refresh:                   statusService(ctx, conn, id),
-		Timeout:                   timeout,
+		Pending:    enum.Slice(types.ServiceStatusCreateInProgress),
+		Target:     enum.Slice(types.ServiceStatusActive),
+		Refresh:    statusService(ctx, conn, id),
+		Timeout:    timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}

@@ -19,18 +19,18 @@ const (
 )
 
 type IAMPolicyDoc struct {
-	Version    string                `json:",omitempty"`
-	Id         string                `json:",omitempty"`
+	Version    string `json:",omitempty"`
+	Id         string `json:",omitempty"`
 	Statements []*IAMPolicyStatement `json:"Statement,omitempty"`
 }
 
 type IAMPolicyStatement struct {
-	Sid           string                         `json:",omitempty"`
-	Effect        string                         `json:",omitempty"`
-	Actions       interface{}                    `json:"Action,omitempty"`
-	NotActions    interface{}                    `json:"NotAction,omitempty"`
-	Resources     interface{}                    `json:"Resource,omitempty"`
-	NotResources  interface{}                    `json:"NotResource,omitempty"`
+	Sid           string          `json:",omitempty"`
+	Effect        string          `json:",omitempty"`
+	Actions       interface{}     `json:"Action,omitempty"`
+	NotActions    interface{}     `json:"NotAction,omitempty"`
+	Resources     interface{}     `json:"Resource,omitempty"`
+	NotResources  interface{}     `json:"NotResource,omitempty"`
 	Principals    IAMPolicyStatementPrincipalSet `json:"Principal,omitempty"`
 	NotPrincipals IAMPolicyStatementPrincipalSet `json:"NotPrincipal,omitempty"`
 	Conditions    IAMPolicyStatementConditionSet `json:"Condition,omitempty"`

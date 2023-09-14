@@ -50,7 +50,7 @@ func testAccVoiceProfileDomain_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, chimesdkvoice.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, chimesdkvoice.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, chimesdkvoice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVoiceProfileDomainDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -85,7 +85,7 @@ func testAccVoiceProfileDomain_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, chimesdkvoice.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, chimesdkvoice.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, chimesdkvoice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVoiceProfileDomainDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -115,7 +115,7 @@ func testAccVoiceProfileDomain_update(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, chimesdkvoice.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, chimesdkvoice.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, chimesdkvoice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVoiceProfileDomainDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -155,7 +155,7 @@ func testAccVoiceProfileDomain_tags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, chimesdkvoice.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, chimesdkvoice.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, chimesdkvoice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVoiceProfileDomainDestroy(ctx),
 		Steps: []resource.TestStep{

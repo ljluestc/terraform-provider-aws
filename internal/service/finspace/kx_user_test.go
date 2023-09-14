@@ -38,7 +38,7 @@ func TestAccFinSpaceKxUser_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckKxUserDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -74,7 +74,7 @@ func TestAccFinSpaceKxUser_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckKxUserDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -106,7 +106,7 @@ func TestAccFinSpaceKxUser_updateRole(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckKxUserDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -142,7 +142,7 @@ func TestAccFinSpaceKxUser_tags(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckKxUserDestroy(ctx),
 		Steps: []resource.TestStep{

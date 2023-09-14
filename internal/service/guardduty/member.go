@@ -104,10 +104,10 @@ func resourceMemberCreate(ctx context.Context, d *schema.ResourceData, meta inte
 	}
 
 	imi := &guardduty.InviteMembersInput{
-		DetectorId:               aws.String(detectorID),
-		AccountIds:               []*string{aws.String(accountID)},
+		DetectorId:aws.String(detectorID),
+		AccountIds:[]*string{aws.String(accountID)},
 		DisableEmailNotification: aws.Bool(d.Get("disable_email_notification").(bool)),
-		Message:                  aws.String(d.Get("invitation_message").(string)),
+		Message:   aws.String(d.Get("invitation_message").(string)),
 	}
 
 	log.Printf("[INFO] Inviting GuardDuty Member: %s", input)
@@ -184,10 +184,10 @@ func resourceMemberUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 	if d.HasChange("invite") {
 		if d.Get("invite").(bool) {
 			input := &guardduty.InviteMembersInput{
-				DetectorId:               aws.String(detectorID),
-				AccountIds:               []*string{aws.String(accountID)},
+				DetectorId:aws.String(detectorID),
+				AccountIds:[]*string{aws.String(accountID)},
 				DisableEmailNotification: aws.Bool(d.Get("disable_email_notification").(bool)),
-				Message:                  aws.String(d.Get("invitation_message").(string)),
+				Message:   aws.String(d.Get("invitation_message").(string)),
 			}
 
 			log.Printf("[INFO] Inviting GuardDuty Member: %s", input)

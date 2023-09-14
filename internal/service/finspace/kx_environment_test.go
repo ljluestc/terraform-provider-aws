@@ -38,7 +38,7 @@ func TestAccFinSpaceKxEnvironment_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckKxEnvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -74,7 +74,7 @@ func TestAccFinSpaceKxEnvironment_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckKxEnvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -106,7 +106,7 @@ func TestAccFinSpaceKxEnvironment_updateName(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckKxEnvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -143,7 +143,7 @@ func TestAccFinSpaceKxEnvironment_description(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckKxEnvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -180,7 +180,7 @@ func TestAccFinSpaceKxEnvironment_customDNS(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckKxEnvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -223,7 +223,7 @@ func TestAccFinSpaceKxEnvironment_transitGateway(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckKxEnvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -255,7 +255,7 @@ func TestAccFinSpaceKxEnvironment_attachmentNetworkACLConfiguration(t *testing.T
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckKxEnvironmentDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -332,7 +332,7 @@ func TestAccFinSpaceKxEnvironment_tags(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckKxEnvironmentDestroy(ctx),
 		Steps: []resource.TestStep{

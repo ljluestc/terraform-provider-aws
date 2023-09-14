@@ -90,7 +90,7 @@ func resourceActivationCreate(ctx context.Context, d *schema.ResourceData, meta 
 	input := &ssm.CreateActivationInput{
 		DefaultInstanceName: aws.String(name),
 		IamRole:             aws.String(d.Get("iam_role").(string)),
-		Tags:                getTagsIn(ctx),
+		Tags: getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {

@@ -302,10 +302,10 @@ func referenceLineSchema(maxItems int) *schema.Schema {
 								MaxItems: 1,
 								Elem: &schema.Resource{
 									Schema: map[string]*schema.Schema{
-										"calculation":                  numericalAggregation
+										"calculation":   numericalAggregation
 functionSchema(true), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_NumericalAggregation
 function.html
-										"column":                       columnSchema(),                           // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnIdentifier.html
+										"column":        columnSchema(),            // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnIdentifier.html
 										"measure_aggregation_
 function": aggregation
 functionSchema(true),          // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_Aggregation
@@ -436,7 +436,7 @@ func: validation.IntBetween(1, 10),
 									Schema: map[string]*schema.Schema{
 										"font_configuration":        fontConfigurationSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FontConfiguration.html
 										"horizontal_text_alignment": stringSchema(false, validation.StringInSlice(quicksight.HorizontalTextAlignment_Values(), false)),
-										"visibility":                stringSchema(false, validation.StringInSlice(quicksight.Visibility_Values(), false)),
+										"visibility": stringSchema(false, validation.StringInSlice(quicksight.Visibility_Values(), false)),
 									},
 								},
 							},

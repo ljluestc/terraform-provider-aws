@@ -36,7 +36,7 @@ func TestAccTranscribeLanguageModel_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.TranscribeEndpointID)
 			testAccLanguageModelsPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.TranscribeEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.TranscribeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLanguageModelDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -74,7 +74,7 @@ func TestAccTranscribeLanguageModel_updateTags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.TranscribeEndpointID)
 			testAccLanguageModelsPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.TranscribeEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.TranscribeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLanguageModelDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -123,7 +123,7 @@ func TestAccTranscribeLanguageModel_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.TranscribeEndpointID)
 			testAccLanguageModelsPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.TranscribeEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.TranscribeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLanguageModelDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -217,7 +217,7 @@ data "aws_iam_policy_document" "test" {
 }
 
 resource "aws_iam_role" "test" {
-  name               = %[1]q
+  name= %[1]q
   assume_role_policy = data.aws_iam_policy_document.test.json
 }
 
@@ -263,7 +263,7 @@ resource "aws_transcribe_language_model" "test" {
 
   input_data_config {
     data_access_role_arn = aws_iam_role.test.arn
-    s3_uri               = "s3://${aws_s3_bucket.test.id}/transcribe/"
+    s3_uri= "s3://${aws_s3_bucket.test.id}/transcribe/"
   }
 
   language_code = "en-US"
@@ -285,7 +285,7 @@ resource "aws_transcribe_language_model" "test" {
 
   input_data_config {
     data_access_role_arn = aws_iam_role.test.arn
-    s3_uri               = "s3://${aws_s3_bucket.test.id}/transcribe/"
+    s3_uri= "s3://${aws_s3_bucket.test.id}/transcribe/"
   }
 
   language_code = "en-US"
@@ -307,7 +307,7 @@ resource "aws_transcribe_language_model" "test" {
 
   input_data_config {
     data_access_role_arn = aws_iam_role.test.arn
-    s3_uri               = "s3://${aws_s3_bucket.test.id}/transcribe/"
+    s3_uri= "s3://${aws_s3_bucket.test.id}/transcribe/"
   }
 
   language_code = "en-US"

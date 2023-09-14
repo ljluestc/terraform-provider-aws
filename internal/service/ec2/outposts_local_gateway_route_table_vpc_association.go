@@ -63,7 +63,7 @@ func resourceLocalGatewayRouteTableVPCAssociationCreate(ctx context.Context, d *
 	req := &ec2.CreateLocalGatewayRouteTableVpcAssociationInput{
 		LocalGatewayRouteTableId: aws.String(d.Get("local_gateway_route_table_id").(string)),
 		TagSpecifications:        getTagSpecificationsIn(ctx, ec2.ResourceTypeLocalGatewayRouteTableVpcAssociation),
-		VpcId:                    aws.String(d.Get("vpc_id").(string)),
+		VpcId:     aws.String(d.Get("vpc_id").(string)),
 	}
 
 	output, err := conn.CreateLocalGatewayRouteTableVpcAssociationWithContext(ctx, req)

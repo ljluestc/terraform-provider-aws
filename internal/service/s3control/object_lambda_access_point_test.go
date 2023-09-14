@@ -27,8 +27,8 @@ func TestAccS3ControlObjectLambdaAccessPoint_basic(t *testing.T) {
 	lambdaFunctionResourceName := "aws_lambda_function.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3control.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckObjectLambdaAccessPointDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -44,7 +44,7 @@ func TestAccS3ControlObjectLambdaAccessPoint_basic(t *testing.T) {
 					resource.TestCheckResourceAttrPair(resourceName, "configuration.0.supporting_access_point", accessPointResourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "configuration.0.transformation_configuration.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "configuration.0.transformation_configuration.*", map[string]string{
-						"actions.#":                             "1",
+						"actions.#":              "1",
 						"content_transformation.#":              "1",
 						"content_transformation.0.aws_lambda.#": "1",
 						"content_transformation.0.aws_lambda.0.function_payload": "",
@@ -69,8 +69,8 @@ func TestAccS3ControlObjectLambdaAccessPoint_disappears(t *testing.T) {
 	resourceName := "aws_s3control_object_lambda_access_point.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3control.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckObjectLambdaAccessPointDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -95,8 +95,8 @@ func TestAccS3ControlObjectLambdaAccessPoint_update(t *testing.T) {
 	lambdaFunctionResourceName := "aws_lambda_function.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3control.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckObjectLambdaAccessPointDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -114,7 +114,7 @@ func TestAccS3ControlObjectLambdaAccessPoint_update(t *testing.T) {
 					resource.TestCheckResourceAttrPair(resourceName, "configuration.0.supporting_access_point", accessPointResourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "configuration.0.transformation_configuration.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "configuration.0.transformation_configuration.*", map[string]string{
-						"actions.#":                             "1",
+						"actions.#":              "1",
 						"content_transformation.#":              "1",
 						"content_transformation.0.aws_lambda.#": "1",
 						"content_transformation.0.aws_lambda.0.function_payload": "{\"res-x\": \"100\",\"res-y\": \"100\"}",
@@ -140,7 +140,7 @@ func TestAccS3ControlObjectLambdaAccessPoint_update(t *testing.T) {
 					resource.TestCheckResourceAttrPair(resourceName, "configuration.0.supporting_access_point", accessPointResourceName, "arn"),
 					resource.TestCheckResourceAttr(resourceName, "configuration.0.transformation_configuration.#", "1"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "configuration.0.transformation_configuration.*", map[string]string{
-						"actions.#":                             "1",
+						"actions.#":              "1",
 						"content_transformation.#":              "1",
 						"content_transformation.0.aws_lambda.#": "1",
 						"content_transformation.0.aws_lambda.0.function_payload": "",

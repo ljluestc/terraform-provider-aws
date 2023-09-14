@@ -31,7 +31,7 @@ func TestAccChimeVoiceConnectorStreaming_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, chime.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, chime.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVoiceConnectorStreamingDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -63,7 +63,7 @@ func TestAccChimeVoiceConnectorStreaming_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, chime.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, chime.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVoiceConnectorStreamingDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -89,7 +89,7 @@ func TestAccChimeVoiceConnectorStreaming_update(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, chime.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, chime.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVoiceConnectorStreamingDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -126,15 +126,15 @@ func TestAccChimeVoiceConnectorStreaming_update(t *testing.T) {
 func testAccVoiceConnectorStreamingConfig_basic(name string) string {
 	return fmt.Sprintf(`
 resource "aws_chime_voice_connector" "chime" {
-  name               = "vc-%[1]s"
+  name= "vc-%[1]s"
   require_encryption = true
 }
 
 resource "aws_chime_voice_connector_streaming" "test" {
   voice_connector_id = aws_chime_voice_connector.chime.id
 
-  disabled                       = false
-  data_retention                 = 5
+  disabled        = false
+  data_retention  = 5
   streaming_notification_targets = ["SQS"]
 }
 `, name)
@@ -143,15 +143,15 @@ resource "aws_chime_voice_connector_streaming" "test" {
 func testAccVoiceConnectorStreamingConfig_updated(name string) string {
 	return fmt.Sprintf(`
 resource "aws_chime_voice_connector" "chime" {
-  name               = "vc-%[1]s"
+  name= "vc-%[1]s"
   require_encryption = true
 }
 
 resource "aws_chime_voice_connector_streaming" "test" {
   voice_connector_id = aws_chime_voice_connector.chime.id
 
-  disabled                       = false
-  data_retention                 = 2
+  disabled        = false
+  data_retention  = 2
   streaming_notification_targets = ["SQS", "SNS"]
   media_insights_configuration {
     disabled          = false
@@ -160,7 +160,7 @@ resource "aws_chime_voice_connector_streaming" "test" {
 }
 
 resource "aws_chimesdkmediapipelines_media_insights_pipeline_configuration" "test" {
-  name                     = "test-config-%[1]s"
+  name      = "test-config-%[1]s"
   resource_access_role_arn = aws_iam_role.test.arn
   elements {
     type = "AmazonTranscribeCallAnalyticsProcessor"
@@ -191,7 +191,7 @@ data "aws_iam_policy_document" "assume_role" {
 }
 
 resource "aws_iam_role" "test" {
-  name               = "resource_access_role-%[1]s"
+  name= "resource_access_role-%[1]s"
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 

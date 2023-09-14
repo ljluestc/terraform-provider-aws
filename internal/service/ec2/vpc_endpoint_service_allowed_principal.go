@@ -98,7 +98,7 @@ func resourceVPCEndpointServiceAllowedPrincipalDelete(ctx context.Context, d *sc
 
 	_, err := conn.ModifyVpcEndpointServicePermissionsWithContext(ctx, &ec2.ModifyVpcEndpointServicePermissionsInput{
 		RemoveAllowedPrincipals: aws.StringSlice([]string{principalARN}),
-		ServiceId:               aws.String(serviceID),
+		ServiceId:aws.String(serviceID),
 	})
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidVPCEndpointServiceIdNotFound) {

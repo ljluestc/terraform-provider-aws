@@ -28,9 +28,9 @@ func TestAccEC2LaunchTemplate_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -95,9 +95,9 @@ func TestAccEC2LaunchTemplate_Name_generated(t *testing.T) {
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -126,9 +126,9 @@ func TestAccEC2LaunchTemplate_Name_prefix(t *testing.T) {
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -158,9 +158,9 @@ func TestAccEC2LaunchTemplate_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -185,9 +185,9 @@ func TestAccEC2LaunchTemplate_BlockDeviceMappings_ebs(t *testing.T) {
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -223,9 +223,9 @@ func TestAccEC2LaunchTemplate_BlockDeviceMappingsEBS_deleteOnTermination(t *test
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -270,9 +270,9 @@ func TestAccEC2LaunchTemplate_BlockDeviceMappingsEBS_gp3(t *testing.T) {
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -307,9 +307,9 @@ func TestAccEC2LaunchTemplate_ebsOptimized(t *testing.T) {
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -370,9 +370,9 @@ func TestAccEC2LaunchTemplate_elasticInferenceAccelerator(t *testing.T) {
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -411,9 +411,9 @@ func TestAccEC2LaunchTemplate_NetworkInterfaces_deleteOnTermination(t *testing.T
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -474,9 +474,9 @@ func TestAccEC2LaunchTemplate_data(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -525,9 +525,9 @@ func TestAccEC2LaunchTemplate_description(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -565,9 +565,9 @@ func TestAccEC2LaunchTemplate_update(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -610,9 +610,9 @@ func TestAccEC2LaunchTemplate_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -661,9 +661,9 @@ func TestAccEC2LaunchTemplate_CapacityReservation_preference(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -694,9 +694,9 @@ func TestAccEC2LaunchTemplate_CapacityReservation_target(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -734,9 +734,9 @@ func TestAccEC2LaunchTemplate_cpuOptions(t *testing.T) {
 	updatedThreadsPerCore := 1
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -777,9 +777,9 @@ func TestAccEC2LaunchTemplate_CreditSpecification_nonBurstable(t *testing.T) {
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -808,9 +808,9 @@ func TestAccEC2LaunchTemplate_CreditSpecification_t2(t *testing.T) {
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -840,9 +840,9 @@ func TestAccEC2LaunchTemplate_CreditSpecification_t3(t *testing.T) {
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -872,9 +872,9 @@ func TestAccEC2LaunchTemplate_CreditSpecification_t4g(t *testing.T) {
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -905,9 +905,9 @@ func TestAccEC2LaunchTemplate_IAMInstanceProfile_emptyBlock(t *testing.T) {
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -931,9 +931,9 @@ func TestAccEC2LaunchTemplate_networkInterface(t *testing.T) {
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -981,9 +981,9 @@ func TestAccEC2LaunchTemplate_networkInterfaceAddresses(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -1015,9 +1015,9 @@ func TestAccEC2LaunchTemplate_networkInterfaceType(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -1047,9 +1047,9 @@ func TestAccEC2LaunchTemplate_networkInterfaceCardIndex(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -1080,9 +1080,9 @@ func TestAccEC2LaunchTemplate_networkInterfaceIPv4PrefixCount(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -1112,9 +1112,9 @@ func TestAccEC2LaunchTemplate_networkInterfaceIPv4Prefixes(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -1144,9 +1144,9 @@ func TestAccEC2LaunchTemplate_networkInterfaceIPv6PrefixCount(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -1176,9 +1176,9 @@ func TestAccEC2LaunchTemplate_networkInterfaceIPv6Prefixes(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -1208,9 +1208,9 @@ func TestAccEC2LaunchTemplate_associatePublicIPAddress(t *testing.T) {
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -1264,9 +1264,9 @@ func TestAccEC2LaunchTemplate_associateCarrierIPAddress(t *testing.T) {
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -1320,9 +1320,9 @@ func TestAccEC2LaunchTemplate_Placement_hostResourceGroupARN(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -1351,9 +1351,9 @@ func TestAccEC2LaunchTemplate_Placement_partitionNum(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -1390,9 +1390,9 @@ func TestAccEC2LaunchTemplate_privateDNSNameOptions(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -1424,9 +1424,9 @@ func TestAccEC2LaunchTemplate_NetworkInterface_ipv6Addresses(t *testing.T) {
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -1456,9 +1456,9 @@ func TestAccEC2LaunchTemplate_NetworkInterface_ipv6AddressCount(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -1489,9 +1489,9 @@ func TestAccEC2LaunchTemplate_instanceMarketOptions(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -1533,20 +1533,20 @@ func TestAccEC2LaunchTemplate_instanceRequirements_memoryMiBAndVCPUCount(t *test
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -1565,13 +1565,13 @@ func(
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`memory_mib {
-                       min = 500
-                       max = 4000
-                     }
-                     vcpu_count {
-                       min = 1
-                       max = 8
-                     }`),
+        min = 500
+        max = 4000
+      }
+      vcpu_count {
+        min = 1
+        max = 8
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -1600,23 +1600,23 @@ func TestAccEC2LaunchTemplate_instanceRequirements_acceleratorCount(t *testing.T
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`accelerator_count {
-                       min = 1
-                     }
-                     memory_mib {
-                      min = 500
-                     }
-                     vcpu_count {
-                      min = 1
-                     }`),
+        min = 1
+      }
+      memory_mib {
+       min = 500
+      }
+      vcpu_count {
+       min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -1633,15 +1633,15 @@ func(
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`accelerator_count {
-                       min = 1
-                       max = 4
-                     }
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+        min = 1
+        max = 4
+      }
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -1659,14 +1659,14 @@ func(
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`accelerator_count {
-                       max = 0
-                     }
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+        max = 0
+      }
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -1691,21 +1691,21 @@ func TestAccEC2LaunchTemplate_instanceRequirements_acceleratorManufacturers(t *t
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`accelerator_manufacturers = ["amd"]
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -1722,12 +1722,12 @@ func(
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`accelerator_manufacturers = ["amazon-web-services", "amd", "nvidia", "xilinx"]
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -1755,21 +1755,21 @@ func TestAccEC2LaunchTemplate_instanceRequirements_acceleratorNames(t *testing.T
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`accelerator_names = ["a100"]
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -1786,12 +1786,12 @@ func(
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`accelerator_names = ["a100", "v100", "k80", "t4", "m60", "radeon-pro-v520", "vu9p"]
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -1822,23 +1822,23 @@ func TestAccEC2LaunchTemplate_instanceRequirements_acceleratorTotalMemoryMiB(t *
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`accelerator_total_memory_mib {
-                       min = 1000
-                     }
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+        min = 1000
+      }
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -1855,14 +1855,14 @@ func(
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`accelerator_total_memory_mib {
-                       max = 24000
-                     }
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+        max = 24000
+      }
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -1879,15 +1879,15 @@ func(
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`accelerator_total_memory_mib {
-                       min = 1000
-                       max = 24000
-                     }
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+        min = 1000
+        max = 24000
+      }
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -1913,21 +1913,21 @@ func TestAccEC2LaunchTemplate_instanceRequirements_acceleratorTypes(t *testing.T
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`accelerator_types = ["fpga"]
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -1944,12 +1944,12 @@ func(
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`accelerator_types = ["fpga", "gpu", "inference"]
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -1976,21 +1976,21 @@ func TestAccEC2LaunchTemplate_instanceRequirements_allowedInstanceTypes(t *testi
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`allowed_instance_types = ["m4.large"]
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -2007,12 +2007,12 @@ func(
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`allowed_instance_types = ["m4.large", "m5.*", "m6*"]
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -2039,21 +2039,21 @@ func TestAccEC2LaunchTemplate_instanceRequirements_bareMetal(t *testing.T) {
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`bare_metal = "excluded"
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -2069,12 +2069,12 @@ func(
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`bare_metal = "included"
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -2090,12 +2090,12 @@ func(
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`bare_metal = "required"
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -2119,23 +2119,23 @@ func TestAccEC2LaunchTemplate_instanceRequirements_baselineEBSBandwidthMbps(t *t
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`baseline_ebs_bandwidth_mbps {
-                       min = 10
-                     }
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+        min = 10
+      }
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -2152,14 +2152,14 @@ func(
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`baseline_ebs_bandwidth_mbps {
-                       max = 20000
-                     }
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+        max = 20000
+      }
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -2176,15 +2176,15 @@ func(
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`baseline_ebs_bandwidth_mbps {
-                       min = 10
-                       max = 20000
-                     }
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+        min = 10
+        max = 20000
+      }
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -2210,21 +2210,21 @@ func TestAccEC2LaunchTemplate_instanceRequirements_burstablePerformance(t *testi
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`burstable_performance = "excluded"
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -2240,12 +2240,12 @@ func(
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`burstable_performance = "included"
-                     memory_mib {
-                       min = 1000
-                     }
-                     vcpu_count {
-                       min = 2
-                     }`),
+      memory_mib {
+        min = 1000
+      }
+      vcpu_count {
+        min = 2
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -2261,12 +2261,12 @@ func(
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`burstable_performance = "required"
-                     memory_mib {
-                       min = 1000
-                     }
-                     vcpu_count {
-                       min = 2
-                     }`),
+      memory_mib {
+        min = 1000
+      }
+      vcpu_count {
+        min = 2
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -2290,21 +2290,21 @@ func TestAccEC2LaunchTemplate_instanceRequirements_cpuManufacturers(t *testing.T
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`cpu_manufacturers = ["amd"]
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -2321,12 +2321,12 @@ func(
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`cpu_manufacturers = ["amazon-web-services", "amd", "intel"]
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -2353,21 +2353,21 @@ func TestAccEC2LaunchTemplate_instanceRequirements_excludedInstanceTypes(t *test
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`excluded_instance_types = ["t2.nano"]
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -2384,12 +2384,12 @@ func(
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`excluded_instance_types = ["t2.nano", "t3*", "t4g.*"]
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -2416,21 +2416,21 @@ func TestAccEC2LaunchTemplate_instanceRequirements_instanceGenerations(t *testin
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`instance_generations = ["current"]
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -2447,12 +2447,12 @@ func(
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`instance_generations = ["current", "previous"]
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -2478,21 +2478,21 @@ func TestAccEC2LaunchTemplate_instanceRequirements_localStorage(t *testing.T) {
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`local_storage = "excluded"
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -2508,12 +2508,12 @@ func(
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`local_storage = "included"
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -2529,12 +2529,12 @@ func(
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`local_storage = "required"
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -2558,21 +2558,21 @@ func TestAccEC2LaunchTemplate_instanceRequirements_localStorageTypes(t *testing.
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`local_storage_types = ["hdd"]
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -2589,12 +2589,12 @@ func(
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`local_storage_types = ["hdd", "ssd"]
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -2620,23 +2620,23 @@ func TestAccEC2LaunchTemplate_instanceRequirements_memoryGiBPerVCPU(t *testing.T
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`memory_gib_per_vcpu {
-                       min = 0.5
-                     }
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+        min = 0.5
+      }
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -2653,14 +2653,14 @@ func(
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`memory_gib_per_vcpu {
-                       max = 9.5
-                     }
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+        max = 9.5
+      }
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -2677,15 +2677,15 @@ func(
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`memory_gib_per_vcpu {
-                       min = 0.5
-                       max = 9.5
-                     }
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+        min = 0.5
+        max = 9.5
+      }
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -2711,23 +2711,23 @@ func TestAccEC2LaunchTemplate_instanceRequirements_networkBandwidthGbps(t *testi
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`network_bandwidth_gbps {
-                       min = 1.5
-                     }
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+        min = 1.5
+      }
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -2744,14 +2744,14 @@ func(
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`network_bandwidth_gbps {
-                       max = 200
-                     }
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+        max = 200
+      }
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -2768,15 +2768,15 @@ func(
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`network_bandwidth_gbps {
-                       min = 2.5
-                       max = 250
-                     }
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+        min = 2.5
+        max = 250
+      }
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -2802,23 +2802,23 @@ func TestAccEC2LaunchTemplate_instanceRequirements_networkInterfaceCount(t *test
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`network_interface_count {
-                       min = 1
-                     }
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+        min = 1
+      }
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -2835,14 +2835,14 @@ func(
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`network_interface_count {
-                       max = 10
-                     }
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+        max = 10
+      }
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -2859,15 +2859,15 @@ func(
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`network_interface_count {
-                       min = 1
-                       max = 10
-                     }
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+        min = 1
+        max = 10
+      }
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -2893,21 +2893,21 @@ func TestAccEC2LaunchTemplate_instanceRequirements_onDemandMaxPricePercentageOve
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`on_demand_max_price_percentage_over_lowest_price = 50
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -2931,21 +2931,21 @@ func TestAccEC2LaunchTemplate_instanceRequirements_requireHibernateSupport(t *te
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`require_hibernate_support = false
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -2961,12 +2961,12 @@ func(
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`require_hibernate_support = true
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -2990,21 +2990,21 @@ func TestAccEC2LaunchTemplate_instanceRequirements_spotMaxPricePercentageOverLow
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`spot_max_price_percentage_over_lowest_price = 75
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -3028,23 +3028,23 @@ func TestAccEC2LaunchTemplate_instanceRequirements_totalLocalStorageGB(t *testin
 	resourceName := "aws_launch_template.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`total_local_storage_gb {
-                       min = 0.5
-                     }
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+        min = 0.5
+      }
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -3061,14 +3061,14 @@ func(
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`total_local_storage_gb {
-                       max = 20.5
-                     }
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+        max = 20.5
+      }
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -3085,15 +3085,15 @@ func(
 			{
 				Config: testAccLaunchTemplateConfig_instanceRequirements(sdkacctest.RandomWithPrefix(acctest.ResourcePrefix),
 					`total_local_storage_gb {
-                       min = 0.5
-                       max = 20.5
-                     }
-                     memory_mib {
-                       min = 500
-                     }
-                     vcpu_count {
-                       min = 1
-                     }`),
+        min = 0.5
+        max = 20.5
+      }
+      memory_mib {
+        min = 500
+      }
+      vcpu_count {
+        min = 1
+      }`),
 				Check: resource.ComposeTestCheck
 func(
 					testAccCheckLaunchTemplateExists(ctx, resourceName, &template),
@@ -3125,7 +3125,7 @@ func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckIAMServiceLinkedRole(ctx, t, "/aws-service-role/license-manager.amazonaws.com")
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -3154,9 +3154,9 @@ func TestAccEC2LaunchTemplate_metadataOptions(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -3239,9 +3239,9 @@ func TestAccEC2LaunchTemplate_enclaveOptions(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -3286,9 +3286,9 @@ func TestAccEC2LaunchTemplate_hibernation(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -3334,9 +3334,9 @@ func TestAccEC2LaunchTemplate_defaultVersion(t *testing.T) {
 	descriptionNew := "Test Description 2"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -3386,9 +3386,9 @@ func TestAccEC2LaunchTemplate_updateDefaultVersion(t *testing.T) {
 	descriptionNew := "Test Description 2"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLaunchTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -3565,7 +3565,7 @@ resource "aws_autoscaling_group" "test" {
   desired_capacity   = 0
   max_size           = 0
   min_size           = 0
-  name               = %[1]q
+  name= %[1]q
 
   launch_template {
     id      = aws_launch_template.test.id
@@ -3604,7 +3604,7 @@ resource "aws_autoscaling_group" "test" {
   desired_capacity   = 0
   max_size           = 0
   min_size           = 0
-  name               = %[1]q
+  name= %[1]q
 
   launch_template {
     id      = aws_launch_template.test.id
@@ -3645,7 +3645,7 @@ resource "aws_autoscaling_group" "test" {
   desired_capacity   = 0
   max_size           = 0
   min_size           = 0
-  name               = %[1]q
+  name= %[1]q
 
   launch_template {
     id      = aws_launch_template.test.id
@@ -3719,7 +3719,7 @@ resource "aws_launch_template" "test" {
     name = "test"
   }
 
-  image_id                             = "ami-12a3b456"
+  image_id              = "ami-12a3b456"
   instance_initiated_shutdown_behavior = "terminate"
 
   instance_market_options {
@@ -3899,7 +3899,7 @@ resource "aws_launch_template" "test" {
 func testAccLaunchTemplateConfig_licenseSpecification(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_licensemanager_license_configuration" "test" {
-  name                  = "Test"
+  name   = "Test"
   license_counting_type = "vCPU"
 }
 
@@ -4019,7 +4019,7 @@ resource "aws_launch_template" "test" {
   private_dns_name_options {
     enable_resource_name_dns_aaaa_record = true
     enable_resource_name_dns_a_record    = false
-    hostname_type                        = "resource-name"
+    hostname_type         = "resource-name"
   }
 }
 `, rName)
@@ -4257,7 +4257,7 @@ resource "aws_autoscaling_group" "test" {
   desired_capacity   = 0
   max_size           = 0
   min_size           = 0
-  name               = %[1]q
+  name= %[1]q
 
   launch_template {
     id      = aws_launch_template.test.id
@@ -4285,7 +4285,7 @@ resource "aws_autoscaling_group" "test" {
   desired_capacity   = 0
   max_size           = 0
   min_size           = 0
-  name               = %[1]q
+  name= %[1]q
 
   launch_template {
     id      = aws_launch_template.test.id
@@ -4321,7 +4321,7 @@ resource "aws_autoscaling_group" "test" {
   desired_capacity   = 0
   min_size           = 0
   max_size           = 0
-  name               = %[1]q
+  name= %[1]q
 
   launch_template {
     id      = aws_launch_template.test.id
@@ -4358,7 +4358,7 @@ resource "aws_autoscaling_group" "test" {
   desired_capacity   = 0
   min_size           = 0
   max_size           = 0
-  name               = %[1]q
+  name= %[1]q
 
   launch_template {
     id      = aws_launch_template.test.id
@@ -4399,8 +4399,8 @@ resource "aws_launch_template" "test" {
   name = %[1]q
 
   metadata_options {
-    http_endpoint               = "enabled"
-    http_tokens                 = "required"
+    http_endpoint= "enabled"
+    http_tokens  = "required"
     http_put_response_hop_limit = 2
   }
 }
@@ -4414,8 +4414,8 @@ resource "aws_launch_template" "test" {
   name = %[1]q
 
   metadata_options {
-    http_endpoint               = "enabled"
-    http_tokens                 = "required"
+    http_endpoint= "enabled"
+    http_tokens  = "required"
     http_put_response_hop_limit = 2
     http_protocol_ipv6          = "enabled"
   }
@@ -4430,8 +4430,8 @@ resource "aws_launch_template" "test" {
   name = %[1]q
 
   metadata_options {
-    http_endpoint               = "enabled"
-    http_tokens                 = "required"
+    http_endpoint= "enabled"
+    http_tokens  = "required"
     http_put_response_hop_limit = 2
     http_protocol_ipv6          = "enabled"
     instance_metadata_tags      = "enabled"
@@ -4446,7 +4446,7 @@ resource "aws_launch_template" "test" {
   name = %[1]q
 
   metadata_options {
-    http_tokens                 = "required"
+    http_tokens  = "required"
     http_put_response_hop_limit = 2
     instance_metadata_tags      = "enabled"
   }
@@ -4494,7 +4494,7 @@ resource "aws_launch_template" "test" {
 func testAccLaunchTemplateConfig_configDescriptionUpdateDefaultVersion(rName, description string, update bool) string {
 	return fmt.Sprintf(`
 resource "aws_launch_template" "test" {
-  name                   = %[1]q
+  name    = %[1]q
   description            = %[2]q
   update_default_version = %[3]t
 }

@@ -158,8 +158,8 @@ func resourceInfrastructureConfigurationCreate(ctx context.Context, d *schema.Re
 	conn := meta.(*conns.AWSClient).ImageBuilderConn(ctx)
 
 	input := &imagebuilder.CreateInfrastructureConfigurationInput{
-		ClientToken:                aws.String(id.UniqueId()),
-		Tags:                       getTagsIn(ctx),
+		ClientToken: aws.String(id.UniqueId()),
+		Tags:        getTagsIn(ctx),
 		TerminateInstanceOnFailure: aws.Bool(d.Get("terminate_instance_on_failure").(bool)),
 	}
 

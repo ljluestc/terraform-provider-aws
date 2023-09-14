@@ -101,7 +101,7 @@ var (
 			ConflictsWith: []string{"name"},
 		},
 		"policy": {
-			Type:                  schema.TypeString,
+			Type:   schema.TypeString,
 			Optional:              true,
 			Computed:              true,
 			ValidateFunc:          validation.StringIsJSON,
@@ -158,20 +158,20 @@ var (
 	}
 
 	queueAttributeMap = attrmap.New(map[string]string{
-		"arn":                               sqs.QueueAttributeNameQueueArn,
+		"arn": sqs.QueueAttributeNameQueueArn,
 		"content_based_deduplication":       sqs.QueueAttributeNameContentBasedDeduplication,
-		"deduplication_scope":               sqs.QueueAttributeNameDeduplicationScope,
-		"delay_seconds":                     sqs.QueueAttributeNameDelaySeconds,
-		"fifo_queue":                        sqs.QueueAttributeNameFifoQueue,
+		"deduplication_scope":sqs.QueueAttributeNameDeduplicationScope,
+		"delay_seconds":      sqs.QueueAttributeNameDelaySeconds,
+		"fifo_queue":         sqs.QueueAttributeNameFifoQueue,
 		"fifo_throughput_limit":             sqs.QueueAttributeNameFifoThroughputLimit,
 		"kms_data_key_reuse_period_seconds": sqs.QueueAttributeNameKmsDataKeyReusePeriodSeconds,
-		"kms_master_key_id":                 sqs.QueueAttributeNameKmsMasterKeyId,
-		"max_message_size":                  sqs.QueueAttributeNameMaximumMessageSize,
+		"kms_master_key_id":  sqs.QueueAttributeNameKmsMasterKeyId,
+		"max_message_size":   sqs.QueueAttributeNameMaximumMessageSize,
 		"message_retention_seconds":         sqs.QueueAttributeNameMessageRetentionPeriod,
-		"policy":                            sqs.QueueAttributeNamePolicy,
+		"policy":             sqs.QueueAttributeNamePolicy,
 		"receive_wait_time_seconds":         sqs.QueueAttributeNameReceiveMessageWaitTimeSeconds,
 		"redrive_allow_policy":              sqs.QueueAttributeNameRedriveAllowPolicy,
-		"redrive_policy":                    sqs.QueueAttributeNameRedrivePolicy,
+		"redrive_policy":     sqs.QueueAttributeNameRedrivePolicy,
 		"sqs_managed_sse_enabled":           sqs.QueueAttributeNameSqsManagedSseEnabled,
 		"visibility_timeout_seconds":        sqs.QueueAttributeNameVisibilityTimeout,
 	}, queueSchema).WithIAMPolicyAttribute("policy").WithMissingSetToNil("*").WithAlwaysSendConfiguredBooleanValueOnCreate("sqs_managed_sse_enabled")

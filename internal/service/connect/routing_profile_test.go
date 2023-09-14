@@ -31,9 +31,9 @@ func testAccRoutingProfile_basic(t *testing.T) {
 	updatedDescription := "Updated"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckRoutingProfileDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -91,9 +91,9 @@ func testAccRoutingProfile_disappears(t *testing.T) {
 	resourceName := "aws_connect_routing_profile.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckRoutingProfileDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -121,9 +121,9 @@ func testAccRoutingProfile_updateConcurrency(t *testing.T) {
 	description := "testMediaConcurrencies"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckRoutingProfileDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -179,9 +179,9 @@ func testAccRoutingProfile_updateDefaultOutboundQueue(t *testing.T) {
 	resourceName := "aws_connect_routing_profile.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckRoutingProfileDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -240,9 +240,9 @@ func testAccRoutingProfile_updateQueues(t *testing.T) {
 	description := "testQueueConfigs"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckRoutingProfileDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -368,9 +368,9 @@ func testAccRoutingProfile_updateTags(t *testing.T) {
 	resourceName := "aws_connect_routing_profile.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckRoutingProfileDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -423,9 +423,9 @@ func testAccRoutingProfile_createQueueConfigsBatchedAssociateDisassociate(t *tes
 	resourceName := "aws_connect_routing_profile.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckRoutingProfileDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -553,9 +553,9 @@ func testAccRoutingProfile_updateQueueConfigsBatchedAssociateDisassociate(t *tes
 	resourceName := "aws_connect_routing_profile.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckRoutingProfileDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -787,7 +787,7 @@ data "aws_connect_hours_of_operation" "test" {
 
 resource "aws_connect_queue" "default_outbound_queue" {
   instance_id           = aws_connect_instance.test.id
-  name                  = %[2]q
+  name   = %[2]q
   description           = "Default Outbound Queue for Routing Profiles"
   hours_of_operation_id = data.aws_connect_hours_of_operation.test.hours_of_operation_id
 }
@@ -800,10 +800,10 @@ func testAccRoutingProfileConfig_basic(rName, rName2, rName3, label string) stri
 		testAccRoutingProfileConfig_base(rName, rName2),
 		fmt.Sprintf(`
 resource "aws_connect_routing_profile" "test" {
-  instance_id               = aws_connect_instance.test.id
-  name                      = %[1]q
+  instance_id= aws_connect_instance.test.id
+  name       = %[1]q
   default_outbound_queue_id = aws_connect_queue.default_outbound_queue.queue_id
-  description               = %[2]q
+  description= %[2]q
 
   media_concurrencies {
     channel     = "VOICE"
@@ -823,10 +823,10 @@ func testAccRoutingProfileConfig_mediaConcurrencies(rName, rName2, rName3, label
 		testAccRoutingProfileConfig_base(rName, rName2),
 		fmt.Sprintf(`
 resource "aws_connect_routing_profile" "test" {
-  instance_id               = aws_connect_instance.test.id
-  name                      = %[1]q
+  instance_id= aws_connect_instance.test.id
+  name       = %[1]q
   default_outbound_queue_id = aws_connect_queue.default_outbound_queue.queue_id
-  description               = %[2]q
+  description= %[2]q
 
   media_concurrencies {
     channel     = "VOICE"
@@ -856,16 +856,16 @@ locals {
 
 resource "aws_connect_queue" "default_outbound_queue_update" {
   instance_id           = aws_connect_instance.test.id
-  name                  = %[2]q
+  name   = %[2]q
   description           = "Default Outbound Queue for Routing Profiles"
   hours_of_operation_id = data.aws_connect_hours_of_operation.test.hours_of_operation_id
 }
 
 resource "aws_connect_routing_profile" "test" {
-  instance_id               = aws_connect_instance.test.id
-  name                      = %[1]q
+  instance_id= aws_connect_instance.test.id
+  name       = %[1]q
   default_outbound_queue_id = local.select_default_outbound_queue_id == "first" ? aws_connect_queue.default_outbound_queue.queue_id : aws_connect_queue.default_outbound_queue_update.queue_id
-  description               = "Test updating the default outbound queue id"
+  description= "Test updating the default outbound queue id"
 
   media_concurrencies {
     channel     = "VOICE"
@@ -885,10 +885,10 @@ func testAccRoutingProfileConfig_queue1(rName, rName2, rName3, label string) str
 		testAccRoutingProfileConfig_base(rName, rName2),
 		fmt.Sprintf(`
 resource "aws_connect_routing_profile" "test" {
-  instance_id               = aws_connect_instance.test.id
-  name                      = %[1]q
+  instance_id= aws_connect_instance.test.id
+  name       = %[1]q
   default_outbound_queue_id = aws_connect_queue.default_outbound_queue.queue_id
-  description               = %[2]q
+  description= %[2]q
 
   media_concurrencies {
     channel     = "VOICE"
@@ -916,16 +916,16 @@ func testAccRoutingProfileConfig_queue2(rName, rName2, rName3, rName4, label str
 		fmt.Sprintf(`
 resource "aws_connect_queue" "test" {
   instance_id           = aws_connect_instance.test.id
-  name                  = %[2]q
+  name   = %[2]q
   description           = "Additional queue to routing profile queue config"
   hours_of_operation_id = data.aws_connect_hours_of_operation.test.hours_of_operation_id
 }
 
 resource "aws_connect_routing_profile" "test" {
-  instance_id               = aws_connect_instance.test.id
-  name                      = %[1]q
+  instance_id= aws_connect_instance.test.id
+  name       = %[1]q
   default_outbound_queue_id = aws_connect_queue.default_outbound_queue.queue_id
-  description               = %[3]q
+  description= %[3]q
 
   media_concurrencies {
     channel     = "VOICE"
@@ -959,10 +959,10 @@ func testAccRoutingProfileConfig_tags(rName, rName2, rName3, label string) strin
 		testAccRoutingProfileConfig_base(rName, rName2),
 		fmt.Sprintf(`
 resource "aws_connect_routing_profile" "test" {
-  instance_id               = aws_connect_instance.test.id
-  name                      = %[1]q
+  instance_id= aws_connect_instance.test.id
+  name       = %[1]q
   default_outbound_queue_id = aws_connect_queue.default_outbound_queue.queue_id
-  description               = %[2]q
+  description= %[2]q
 
   media_concurrencies {
     channel     = "VOICE"
@@ -983,10 +983,10 @@ func testAccRoutingProfileConfig_tagsUpdated(rName, rName2, rName3, label string
 		testAccRoutingProfileConfig_base(rName, rName2),
 		fmt.Sprintf(`
 resource "aws_connect_routing_profile" "test" {
-  instance_id               = aws_connect_instance.test.id
-  name                      = %[1]q
+  instance_id= aws_connect_instance.test.id
+  name       = %[1]q
   default_outbound_queue_id = aws_connect_queue.default_outbound_queue.queue_id
-  description               = %[2]q
+  description= %[2]q
 
   media_concurrencies {
     channel     = "VOICE"
@@ -1009,7 +1009,7 @@ resource "aws_connect_queue" "test" {
   count = 16
 
   instance_id           = aws_connect_instance.test.id
-  name                  = "test-${count.index}"
+  name   = "test-${count.index}"
   hours_of_operation_id = data.aws_connect_hours_of_operation.test.hours_of_operation_id
 }
 `
@@ -1022,10 +1022,10 @@ func testAccRoutingProfileConfig_TwoQueues(rName, rName2, rName3 string) string 
 		testAccRoutingProfileConfig_queueBase(),
 		fmt.Sprintf(`
 resource "aws_connect_routing_profile" "test" {
-  instance_id               = aws_connect_instance.test.id
-  name                      = %[1]q
+  instance_id= aws_connect_instance.test.id
+  name       = %[1]q
   default_outbound_queue_id = aws_connect_queue.default_outbound_queue.queue_id
-  description               = "test queue batched associations"
+  description= "test queue batched associations"
 
   media_concurrencies {
     channel     = "VOICE"
@@ -1053,10 +1053,10 @@ func testAccRoutingProfileConfig_SixteenQueues(rName, rName2, rName3 string) str
 		testAccRoutingProfileConfig_queueBase(),
 		fmt.Sprintf(`
 resource "aws_connect_routing_profile" "test" {
-  instance_id               = aws_connect_instance.test.id
-  name                      = %[1]q
+  instance_id= aws_connect_instance.test.id
+  name       = %[1]q
   default_outbound_queue_id = aws_connect_queue.default_outbound_queue.queue_id
-  description               = "test queue batched associations"
+  description= "test queue batched associations"
 
   media_concurrencies {
     channel     = "VOICE"

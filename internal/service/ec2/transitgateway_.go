@@ -160,9 +160,9 @@ func resourceTransitGatewayCreate(ctx context.Context, d *schema.ResourceData, m
 			AutoAcceptSharedAttachments:  aws.String(d.Get("auto_accept_shared_attachments").(string)),
 			DefaultRouteTableAssociation: aws.String(d.Get("default_route_table_association").(string)),
 			DefaultRouteTablePropagation: aws.String(d.Get("default_route_table_propagation").(string)),
-			DnsSupport:                   aws.String(d.Get("dns_support").(string)),
+			DnsSupport:    aws.String(d.Get("dns_support").(string)),
 			MulticastSupport:             aws.String(d.Get("multicast_support").(string)),
-			VpnEcmpSupport:               aws.String(d.Get("vpn_ecmp_support").(string)),
+			VpnEcmpSupport:aws.String(d.Get("vpn_ecmp_support").(string)),
 		},
 		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeTransitGateway),
 	}

@@ -140,10 +140,10 @@ func resourcePoolCreate(ctx context.Context, d *schema.ResourceData, meta interf
 	conn := meta.(*conns.AWSClient).CognitoIdentityConn(ctx)
 
 	input := &cognitoidentity.CreateIdentityPoolInput{
-		IdentityPoolName:               aws.String(d.Get("identity_pool_name").(string)),
+		IdentityPoolName:aws.String(d.Get("identity_pool_name").(string)),
 		AllowUnauthenticatedIdentities: aws.Bool(d.Get("allow_unauthenticated_identities").(bool)),
-		AllowClassicFlow:               aws.Bool(d.Get("allow_classic_flow").(bool)),
-		IdentityPoolTags:               getTagsIn(ctx),
+		AllowClassicFlow:aws.Bool(d.Get("allow_classic_flow").(bool)),
+		IdentityPoolTags:getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("developer_provider_name"); ok {
@@ -236,14 +236,14 @@ func resourcePoolUpdate(ctx context.Context, d *schema.ResourceData, meta interf
 
 	if d.HasChangesExcept("tags_all", "tags") {
 		params := &cognitoidentity.IdentityPool{
-			IdentityPoolId:                 aws.String(d.Id()),
+			IdentityPoolId:  aws.String(d.Id()),
 			AllowUnauthenticatedIdentities: aws.Bool(d.Get("allow_unauthenticated_identities").(bool)),
-			AllowClassicFlow:               aws.Bool(d.Get("allow_classic_flow").(bool)),
-			IdentityPoolName:               aws.String(d.Get("identity_pool_name").(string)),
+			AllowClassicFlow:aws.Bool(d.Get("allow_classic_flow").(bool)),
+			IdentityPoolName:aws.String(d.Get("identity_pool_name").(string)),
 			CognitoIdentityProviders:       expandIdentityProviders(d.Get("cognito_identity_providers").(*schema.Set)),
 			SupportedLoginProviders:        expandSupportedLoginProviders(d.Get("supported_login_providers").(map[string]interface{})),
 			OpenIdConnectProviderARNs:      flex.ExpandStringSet(d.Get("openid_connect_provider_arns").(*schema.Set)),
-			SamlProviderARNs:               flex.ExpandStringList(d.Get("saml_provider_arns").([]interface{})),
+			SamlProviderARNs:flex.ExpandStringList(d.Get("saml_provider_arns").([]interface{})),
 		}
 
 		_, err := conn.UpdateIdentityPoolWithContext(ctx, params)

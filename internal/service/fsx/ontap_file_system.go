@@ -244,7 +244,7 @@ func resourceOntapFileSystemCreate(ctx context.Context, d *schema.ResourceData, 
 		StorageType:        aws.String(d.Get("storage_type").(string)),
 		SubnetIds:          flex.ExpandStringList(d.Get("subnet_ids").([]interface{})),
 		OntapConfiguration: &fsx.CreateFileSystemOntapConfiguration{
-			DeploymentType:               aws.String(d.Get("deployment_type").(string)),
+			DeploymentType:aws.String(d.Get("deployment_type").(string)),
 			AutomaticBackupRetentionDays: aws.Int64(int64(d.Get("automatic_backup_retention_days").(int))),
 			ThroughputCapacity:           aws.Int64(int64(d.Get("throughput_capacity").(int))),
 			PreferredSubnetId:            aws.String(d.Get("preferred_subnet_id").(string)),

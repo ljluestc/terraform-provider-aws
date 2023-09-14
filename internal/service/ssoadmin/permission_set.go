@@ -323,7 +323,7 @@ func provisionPermissionSet(ctx context.Context, conn *ssoadmin.SSOAdmin, permis
 
 func findPermissionSetProvisioningStatus(ctx context.Context, conn *ssoadmin.SSOAdmin, instanceARN, requestID string) (*ssoadmin.PermissionSetProvisioningStatus, error) {
 	input := &ssoadmin.DescribePermissionSetProvisioningStatusInput{
-		InstanceArn:                     aws.String(instanceARN),
+		InstanceArn:      aws.String(instanceARN),
 		ProvisionPermissionSetRequestId: aws.String(requestID),
 	}
 

@@ -960,7 +960,7 @@ func resourceDataSetCreate(ctx context.Context, d *schema.ResourceData, meta int
 	if v, ok := d.GetOk("refresh_properties"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
 		input := &quicksight.PutDataSetRefreshPropertiesInput{
 			AwsAccountId:             aws.String(awsAccountId),
-			DataSetId:                aws.String(dataSetID),
+			DataSetId: aws.String(dataSetID),
 			DataSetRefreshProperties: expandDataSetRefreshProperties(v.([]interface{})),
 		}
 
@@ -1168,7 +1168,7 @@ func resourceDataSetUpdate(ctx context.Context, d *schema.ResourceData, meta int
 		} else {
 			_, err = conn.PutDataSetRefreshPropertiesWithContext(ctx, &quicksight.PutDataSetRefreshPropertiesInput{
 				AwsAccountId:             aws.String(awsAccountId),
-				DataSetId:                aws.String(dataSetId),
+				DataSetId: aws.String(dataSetId),
 				DataSetRefreshProperties: expandDataSetRefreshProperties(d.Get("refresh_properties").([]interface{})),
 			})
 			if err != nil {

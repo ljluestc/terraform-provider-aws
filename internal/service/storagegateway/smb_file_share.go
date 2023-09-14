@@ -219,11 +219,11 @@ func resourceSMBFileShareCreate(ctx context.Context, d *schema.ResourceData, met
 		GuessMIMETypeEnabled:   aws.Bool(d.Get("guess_mime_type_enabled").(bool)),
 		KMSEncrypted:           aws.Bool(d.Get("kms_encrypted").(bool)),
 		LocationARN:            aws.String(d.Get("location_arn").(string)),
-		ReadOnly:               aws.Bool(d.Get("read_only").(bool)),
+		ReadOnly:aws.Bool(d.Get("read_only").(bool)),
 		RequesterPays:          aws.Bool(d.Get("requester_pays").(bool)),
-		Role:                   aws.String(d.Get("role_arn").(string)),
+		Role:    aws.String(d.Get("role_arn").(string)),
 		SMBACLEnabled:          aws.Bool(d.Get("smb_acl_enabled").(bool)),
-		Tags:                   getTagsIn(ctx),
+		Tags:    getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("admin_user_list"); ok && v.(*schema.Set).Len() > 0 {
@@ -369,7 +369,7 @@ func resourceSMBFileShareUpdate(ctx context.Context, d *schema.ResourceData, met
 			FileShareARN:           aws.String(d.Id()),
 			GuessMIMETypeEnabled:   aws.Bool(d.Get("guess_mime_type_enabled").(bool)),
 			KMSEncrypted:           aws.Bool(d.Get("kms_encrypted").(bool)),
-			ReadOnly:               aws.Bool(d.Get("read_only").(bool)),
+			ReadOnly:aws.Bool(d.Get("read_only").(bool)),
 			RequesterPays:          aws.Bool(d.Get("requester_pays").(bool)),
 			SMBACLEnabled:          aws.Bool(d.Get("smb_acl_enabled").(bool)),
 		}

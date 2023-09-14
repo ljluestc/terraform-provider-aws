@@ -32,7 +32,7 @@ func TestAccChimeSDKVoiceSipRule_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckRegion(t, endpoints.UsEast1RegionID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, chimesdkvoice.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, chimesdkvoice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckSipRuleDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -70,7 +70,7 @@ func TestAccChimeSDKVoiceSipRule_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckRegion(t, endpoints.UsEast1RegionID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, chime.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, chime.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckSipRuleDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -99,7 +99,7 @@ func TestAccChimeSDKVoiceSipRule_update(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckRegion(t, endpoints.UsEast1RegionID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, chimesdkvoice.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, chimesdkvoice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckSipRuleDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -206,7 +206,7 @@ EOF
 }
 
 resource "aws_chime_voice_connector" "test" {
-  name               = %[1]q
+  name= %[1]q
   require_encryption = true
 }
 
@@ -240,9 +240,9 @@ resource "aws_chimesdkvoice_sip_rule" "test" {
   trigger_type  = "RequestUriHostname"
   trigger_value = aws_chime_voice_connector.test.outbound_host_name
   target_applications {
-    priority                 = 1
+    priority  = 1
     sip_media_application_id = aws_chimesdkvoice_sip_media_application.test.id
-    aws_region               = data.aws_region.current.name
+    aws_region= data.aws_region.current.name
   }
 }
 `, rName))
@@ -258,9 +258,9 @@ resource "aws_chimesdkvoice_sip_rule" "test" {
   trigger_type  = "RequestUriHostname"
   trigger_value = aws_chime_voice_connector.test.outbound_host_name
   target_applications {
-    priority                 = 1
+    priority  = 1
     sip_media_application_id = aws_chimesdkvoice_sip_media_application.test.id
-    aws_region               = data.aws_region.current.name
+    aws_region= data.aws_region.current.name
   }
 }
 `, rName))

@@ -233,7 +233,7 @@ func resourceInstanceFleetCreate(ctx context.Context, d *schema.ResourceData, me
 	conn := meta.(*conns.AWSClient).EMRConn(ctx)
 
 	taskFleet := map[string]interface{}{
-		"name":                      d.Get("name"),
+		"name":       d.Get("name"),
 		"target_on_demand_capacity": d.Get("target_on_demand_capacity"),
 		"target_spot_capacity":      d.Get("target_spot_capacity"),
 		"instance_type_configs":     d.Get("instance_type_configs"),

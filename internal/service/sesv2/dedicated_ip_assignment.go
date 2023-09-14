@@ -64,7 +64,7 @@ func resourceDedicatedIPAssignmentCreate(ctx context.Context, d *schema.Resource
 	conn := meta.(*conns.AWSClient).SESV2Client(ctx)
 
 	in := &sesv2.PutDedicatedIpInPoolInput{
-		Ip:                  aws.String(d.Get("ip").(string)),
+		Ip:   aws.String(d.Get("ip").(string)),
 		DestinationPoolName: aws.String(d.Get("destination_pool_name").(string)),
 	}
 
@@ -104,7 +104,7 @@ func resourceDedicatedIPAssignmentDelete(ctx context.Context, d *schema.Resource
 
 	log.Printf("[INFO] Deleting SESV2 DedicatedIPAssignment %s", d.Id())
 	_, err := conn.PutDedicatedIpInPool(ctx, &sesv2.PutDedicatedIpInPoolInput{
-		Ip:                  aws.String(ip),
+		Ip:   aws.String(ip),
 		DestinationPoolName: aws.String(defaultDedicatedPoolName),
 	})
 

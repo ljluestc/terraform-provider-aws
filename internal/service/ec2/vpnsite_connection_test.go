@@ -22,12 +22,12 @@ import (
 )
 
 type TunnelOptions struct {
-	psk                          string
-	tunnelCidr                   string
+	psk           string
+	tunnelCidr    string
 	dpdTimeoutAction             string
 	dpdTimeoutSeconds            int
 	enableTunnelLifecycleControl bool
-	ikeVersions                  string
+	ikeVersions   string
 	phase1DhGroupNumbers         string
 	phase1EncryptionAlgorithms   string
 	phase1IntegrityAlgorithms    string
@@ -39,7 +39,7 @@ type TunnelOptions struct {
 	rekeyFuzzPercentage          int
 	rekeyMarginTimeSeconds       int
 	replayWindowSize             int
-	startupAction                string
+	startupAction string
 }
 
 
@@ -47,8 +47,8 @@ func TestXmlConfigToTunnelInfo(t *testing.T) {
 	t.Parallel()
 
 	testCases := []struct {
-		Name                  string
-		XML                   string
+		Name   string
+		XML    string
 		Tunnel1PreSharedKey   string
 		Tunnel1InsideCidr     string
 		Tunnel1InsideIpv6Cidr string
@@ -74,8 +74,8 @@ func TestXmlConfigToTunnelInfo(t *testing.T) {
 			},
 		},
 		{
-			Name:                "Tunnel1PreSharedKey",
-			XML:                 testAccVPNTunnelInfoXML,
+			Name: "Tunnel1PreSharedKey",
+			XML:  testAccVPNTunnelInfoXML,
 			Tunnel1PreSharedKey: "SECOND_KEY",
 			ExpectTunnelInfo: tfec2.TunnelInfo{
 				Tunnel1Address:          "2.2.2.2",
@@ -94,7 +94,7 @@ func TestXmlConfigToTunnelInfo(t *testing.T) {
 		},
 		{
 			Name:              "Tunnel1InsideCidr",
-			XML:               testAccVPNTunnelInfoXML,
+			XML:testAccVPNTunnelInfoXML,
 			Tunnel1InsideCidr: "169.254.12.0/30",
 			ExpectTunnelInfo: tfec2.TunnelInfo{
 				Tunnel1Address:          "2.2.2.2",
@@ -113,8 +113,8 @@ func TestXmlConfigToTunnelInfo(t *testing.T) {
 		},
 		// IPv6 logic is equivalent to IPv4, so we can reuse configuration, expected, etc.
 		{
-			Name:                  "Tunnel1InsideIpv6Cidr",
-			XML:                   testAccVPNTunnelInfoXML,
+			Name:   "Tunnel1InsideIpv6Cidr",
+			XML:    testAccVPNTunnelInfoXML,
 			Tunnel1InsideIpv6Cidr: "169.254.12.1",
 			ExpectTunnelInfo: tfec2.TunnelInfo{
 				Tunnel1Address:          "2.2.2.2",
@@ -165,9 +165,9 @@ func TestAccSiteVPNConnection_basic(t *testing.T) {
 	var vpn ec2.VpnConnection
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPNConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -264,9 +264,9 @@ func TestAccSiteVPNConnection_withoutTGWorVGW(t *testing.T) {
 	var vpn ec2.VpnConnection
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPNConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -361,9 +361,9 @@ func TestAccSiteVPNConnection_cloudWatchLogOptions(t *testing.T) {
 	var vpn ec2.VpnConnection
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPNConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -415,9 +415,9 @@ func TestAccSiteVPNConnection_transitGatewayID(t *testing.T) {
 	resourceName := "aws_vpn_connection.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPNConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -448,9 +448,9 @@ func TestAccSiteVPNConnection_tunnel1InsideCIDR(t *testing.T) {
 	var vpn ec2.VpnConnection
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPNConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -481,9 +481,9 @@ func TestAccSiteVPNConnection_tunnel1InsideIPv6CIDR(t *testing.T) {
 	var vpn ec2.VpnConnection
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPNConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -514,9 +514,9 @@ func TestAccSiteVPNConnection_tunnel1PreSharedKey(t *testing.T) {
 	var vpn ec2.VpnConnection
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPNConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -548,12 +548,12 @@ func TestAccSiteVPNConnection_tunnelOptions(t *testing.T) {
 	var vpn ec2.VpnConnection
 
 	tunnel1 := TunnelOptions{
-		psk:                          "12345678",
-		tunnelCidr:                   "169.254.8.0/30",
+		psk:           "12345678",
+		tunnelCidr:    "169.254.8.0/30",
 		dpdTimeoutAction:             "clear",
 		dpdTimeoutSeconds:            30,
 		enableTunnelLifecycleControl: false,
-		ikeVersions:                  "\"ikev1\", \"ikev2\"",
+		ikeVersions:   "\"ikev1\", \"ikev2\"",
 		phase1DhGroupNumbers:         "2, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24",
 		phase1EncryptionAlgorithms:   "\"AES128\", \"AES256\", \"AES128-GCM-16\", \"AES256-GCM-16\"",
 		phase1IntegrityAlgorithms:    "\"SHA1\", \"SHA2-256\", \"SHA2-384\", \"SHA2-512\"",
@@ -565,16 +565,16 @@ func TestAccSiteVPNConnection_tunnelOptions(t *testing.T) {
 		rekeyFuzzPercentage:          100,
 		rekeyMarginTimeSeconds:       540,
 		replayWindowSize:             1024,
-		startupAction:                "add",
+		startupAction: "add",
 	}
 
 	tunnel2 := TunnelOptions{
-		psk:                          "abcdefgh",
-		tunnelCidr:                   "169.254.9.0/30",
+		psk:           "abcdefgh",
+		tunnelCidr:    "169.254.9.0/30",
 		dpdTimeoutAction:             "clear",
 		dpdTimeoutSeconds:            30,
 		enableTunnelLifecycleControl: false,
-		ikeVersions:                  "\"ikev1\", \"ikev2\"",
+		ikeVersions:   "\"ikev1\", \"ikev2\"",
 		phase1DhGroupNumbers:         "2, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24",
 		phase1EncryptionAlgorithms:   "\"AES128\", \"AES256\", \"AES128-GCM-16\", \"AES256-GCM-16\"",
 		phase1IntegrityAlgorithms:    "\"SHA1\", \"SHA2-256\", \"SHA2-384\", \"SHA2-512\"",
@@ -586,13 +586,13 @@ func TestAccSiteVPNConnection_tunnelOptions(t *testing.T) {
 		rekeyFuzzPercentage:          100,
 		rekeyMarginTimeSeconds:       540,
 		replayWindowSize:             1024,
-		startupAction:                "add",
+		startupAction: "add",
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPNConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -685,12 +685,12 @@ func TestAccSiteVPNConnection_tunnelOptionsLesser(t *testing.T) {
 	var vpn1, vpn2, vpn3, vpn4, vpn5 ec2.VpnConnection
 
 	tunnel1 := TunnelOptions{
-		psk:                          "12345678",
-		tunnelCidr:                   "169.254.8.0/30",
+		psk:           "12345678",
+		tunnelCidr:    "169.254.8.0/30",
 		dpdTimeoutAction:             "clear",
 		dpdTimeoutSeconds:            30,
 		enableTunnelLifecycleControl: false,
-		ikeVersions:                  "\"ikev1\", \"ikev2\"",
+		ikeVersions:   "\"ikev1\", \"ikev2\"",
 		phase1DhGroupNumbers:         "14, 15, 16, 17, 18, 19, 20, 21",
 		phase1EncryptionAlgorithms:   "\"AES128\", \"AES256\", \"AES128-GCM-16\", \"AES256-GCM-16\"",
 		phase1IntegrityAlgorithms:    "\"SHA2-256\", \"SHA2-384\", \"SHA2-512\"",
@@ -702,16 +702,16 @@ func TestAccSiteVPNConnection_tunnelOptionsLesser(t *testing.T) {
 		rekeyFuzzPercentage:          100,
 		rekeyMarginTimeSeconds:       540,
 		replayWindowSize:             1024,
-		startupAction:                "add",
+		startupAction: "add",
 	}
 
 	tunnel2 := TunnelOptions{
-		psk:                          "abcdefgh",
-		tunnelCidr:                   "169.254.9.0/30",
+		psk:           "abcdefgh",
+		tunnelCidr:    "169.254.9.0/30",
 		dpdTimeoutAction:             "none",
 		dpdTimeoutSeconds:            45,
 		enableTunnelLifecycleControl: true,
-		ikeVersions:                  "\"ikev2\"",
+		ikeVersions:   "\"ikev2\"",
 		phase1DhGroupNumbers:         "18, 19, 20, 21, 22, 23, 24",
 		phase1EncryptionAlgorithms:   "\"AES128\", \"AES256\"",
 		phase1IntegrityAlgorithms:    "\"SHA2-384\", \"SHA2-512\"",
@@ -723,7 +723,7 @@ func TestAccSiteVPNConnection_tunnelOptionsLesser(t *testing.T) {
 		rekeyFuzzPercentage:          90,
 		rekeyMarginTimeSeconds:       360,
 		replayWindowSize:             512,
-		startupAction:                "start",
+		startupAction: "start",
 	}
 
 	// inside_cidr can't be updated in-place.
@@ -734,9 +734,9 @@ func TestAccSiteVPNConnection_tunnelOptionsLesser(t *testing.T) {
 	tunnel2Updated.tunnelCidr = tunnel2.tunnelCidr
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPNConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -1251,9 +1251,9 @@ func TestAccSiteVPNConnection_staticRoutes(t *testing.T) {
 	var vpn ec2.VpnConnection
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPNConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -1283,9 +1283,9 @@ func TestAccSiteVPNConnection_outsideAddressTypePrivate(t *testing.T) {
 	var vpn ec2.VpnConnection
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPNConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -1315,9 +1315,9 @@ func TestAccSiteVPNConnection_outsideAddressTypePublic(t *testing.T) {
 	var vpn ec2.VpnConnection
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPNConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -1347,9 +1347,9 @@ func TestAccSiteVPNConnection_enableAcceleration(t *testing.T) {
 	var vpn ec2.VpnConnection
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPNConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -1379,9 +1379,9 @@ func TestAccSiteVPNConnection_ipv6(t *testing.T) {
 	var vpn ec2.VpnConnection
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPNConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -1410,9 +1410,9 @@ func TestAccSiteVPNConnection_tags(t *testing.T) {
 	var vpn ec2.VpnConnection
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPNConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -1462,9 +1462,9 @@ func TestAccSiteVPNConnection_specifyIPv4(t *testing.T) {
 	var vpn ec2.VpnConnection
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPNConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -1504,9 +1504,9 @@ func TestAccSiteVPNConnection_specifyIPv6(t *testing.T) {
 	var vpn ec2.VpnConnection
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPNConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -1532,9 +1532,9 @@ func TestAccSiteVPNConnection_disappears(t *testing.T) {
 	var vpn ec2.VpnConnection
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPNConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -1561,9 +1561,9 @@ func TestAccSiteVPNConnection_updateCustomerGatewayID(t *testing.T) {
 	var vpn1, vpn2 ec2.VpnConnection
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPNConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -1602,9 +1602,9 @@ func TestAccSiteVPNConnection_updateVPNGatewayID(t *testing.T) {
 	var vpn1, vpn2 ec2.VpnConnection
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPNConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -1643,9 +1643,9 @@ func TestAccSiteVPNConnection_updateTransitGatewayID(t *testing.T) {
 	var vpn1, vpn2 ec2.VpnConnection
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPNConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -1686,9 +1686,9 @@ func TestAccSiteVPNConnection_vpnGatewayIDToTransitGatewayID(t *testing.T) {
 	var vpn1, vpn2 ec2.VpnConnection
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPNConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -1729,9 +1729,9 @@ func TestAccSiteVPNConnection_transitGatewayIDToVPNGatewayID(t *testing.T) {
 	var vpn1, vpn2 ec2.VpnConnection
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPNConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -1855,7 +1855,7 @@ resource "aws_customer_gateway" "test" {
 resource "aws_vpn_connection" "test" {
   vpn_gateway_id      = aws_vpn_gateway.test.id
   customer_gateway_id = aws_customer_gateway.test.id
-  type                = "ipsec.1"
+  type = "ipsec.1"
 }
 `, rName, rBgpAsn)
 }
@@ -1875,7 +1875,7 @@ resource "aws_customer_gateway" "test" {
 
 resource "aws_vpn_connection" "test" {
   customer_gateway_id = aws_customer_gateway.test.id
-  type                = "ipsec.1"
+  type = "ipsec.1"
 }
 `, rName, rBgpAsn)
 }
@@ -1906,7 +1906,7 @@ resource "aws_cloudwatch_log_group" "test" {
 resource "aws_vpn_connection" "test" {
   vpn_gateway_id      = aws_vpn_gateway.test.id
   customer_gateway_id = aws_customer_gateway.test.id
-  type                = "ipsec.1"
+  type = "ipsec.1"
 
   tunnel1_log_options {
     cloudwatch_log_options {
@@ -1945,7 +1945,7 @@ resource "aws_cloudwatch_log_group" "test" {
 resource "aws_vpn_connection" "test" {
   vpn_gateway_id      = aws_vpn_gateway.test.id
   customer_gateway_id = aws_customer_gateway.test.id
-  type                = "ipsec.1"
+  type = "ipsec.1"
 
   tunnel1_log_options {
     cloudwatch_log_options {
@@ -1996,7 +1996,7 @@ resource "aws_customer_gateway" "test2" {
 resource "aws_vpn_connection" "test" {
   vpn_gateway_id      = aws_vpn_gateway.test.id
   customer_gateway_id = aws_customer_gateway.test1.id
-  type                = "ipsec.1"
+  type = "ipsec.1"
 }
 `, rName, rBgpAsn1, rBgpAsn2)
 }
@@ -2033,7 +2033,7 @@ resource "aws_customer_gateway" "test2" {
 resource "aws_vpn_connection" "test" {
   vpn_gateway_id      = aws_vpn_gateway.test.id
   customer_gateway_id = aws_customer_gateway.test2.id
-  type                = "ipsec.1"
+  type = "ipsec.1"
 }
 `, rName, rBgpAsn1, rBgpAsn2)
 }
@@ -2066,7 +2066,7 @@ resource "aws_customer_gateway" "test" {
 resource "aws_vpn_connection" "test" {
   vpn_gateway_id      = aws_vpn_gateway.test1.id
   customer_gateway_id = aws_customer_gateway.test.id
-  type                = "ipsec.1"
+  type = "ipsec.1"
 }
 `, rName, rBgpAsn)
 }
@@ -2099,7 +2099,7 @@ resource "aws_customer_gateway" "test" {
 resource "aws_vpn_connection" "test" {
   vpn_gateway_id      = aws_vpn_gateway.test2.id
   customer_gateway_id = aws_customer_gateway.test.id
-  type                = "ipsec.1"
+  type = "ipsec.1"
 }
 `, rName, rBgpAsn)
 }
@@ -2149,11 +2149,11 @@ data "aws_ec2_transit_gateway_dx_gateway_attachment" "test" {
 }
 
 resource "aws_vpn_connection" "test" {
-  customer_gateway_id                     = aws_customer_gateway.test.id
-  outside_ip_address_type                 = "PrivateIpv4"
-  transit_gateway_id                      = aws_ec2_transit_gateway.test.id
+  customer_gateway_id      = aws_customer_gateway.test.id
+  outside_ip_address_type  = "PrivateIpv4"
+  transit_gateway_id       = aws_ec2_transit_gateway.test.id
   transport_transit_gateway_attachment_id = data.aws_ec2_transit_gateway_dx_gateway_attachment.test.id
-  type                                    = "ipsec.1"
+  type      = "ipsec.1"
 
   tags = {
     Name = %[1]q
@@ -2184,7 +2184,7 @@ resource "aws_customer_gateway" "test" {
 resource "aws_vpn_connection" "test" {
   customer_gateway_id     = aws_customer_gateway.test.id
   outside_ip_address_type = "PublicIpv4"
-  type                    = "ipsec.1"
+  type     = "ipsec.1"
   vpn_gateway_id          = aws_vpn_gateway.test.id
 
   tags = {
@@ -2216,7 +2216,7 @@ resource "aws_customer_gateway" "test" {
 resource "aws_vpn_connection" "test" {
   vpn_gateway_id      = aws_vpn_gateway.test.id
   customer_gateway_id = aws_customer_gateway.test.id
-  type                = "ipsec.1"
+  type = "ipsec.1"
   static_routes_only  = true
 
   tags = {
@@ -2246,7 +2246,7 @@ resource "aws_customer_gateway" "test" {
 resource "aws_vpn_connection" "test" {
   customer_gateway_id = aws_customer_gateway.test.id
   transit_gateway_id  = aws_ec2_transit_gateway.test.id
-  type                = "ipsec.1"
+  type = "ipsec.1"
   static_routes_only  = false
   enable_acceleration = true
 
@@ -2277,7 +2277,7 @@ resource "aws_customer_gateway" "test" {
 resource "aws_vpn_connection" "test" {
   customer_gateway_id = aws_customer_gateway.test.id
   transit_gateway_id  = aws_ec2_transit_gateway.test.id
-  type                = "ipsec.1"
+  type = "ipsec.1"
   static_routes_only  = false
   enable_acceleration = false
 
@@ -2317,7 +2317,7 @@ resource "aws_customer_gateway" "test" {
 resource "aws_vpn_connection" "test" {
   vpn_gateway_id      = aws_vpn_gateway.test.id
   customer_gateway_id = aws_customer_gateway.test.id
-  type                = "ipsec.1"
+  type = "ipsec.1"
   static_routes_only  = false
 
   tunnel1_inside_cidr   = %[3]q
@@ -2350,7 +2350,7 @@ resource "aws_customer_gateway" "test" {
 resource "aws_vpn_connection" "test" {
   customer_gateway_id = aws_customer_gateway.test.id
   transit_gateway_id  = aws_ec2_transit_gateway.test.id
-  type                = aws_customer_gateway.test.type
+  type = aws_customer_gateway.test.type
 
   tags = {
     Name = %[1]q
@@ -2383,7 +2383,7 @@ resource "aws_customer_gateway" "test" {
 resource "aws_vpn_connection" "test" {
   customer_gateway_id = aws_customer_gateway.test.id
   transit_gateway_id  = aws_ec2_transit_gateway.test1.id
-  type                = "ipsec.1"
+  type = "ipsec.1"
 
   tags = {
     Name = %[1]q
@@ -2416,7 +2416,7 @@ resource "aws_customer_gateway" "test" {
 resource "aws_vpn_connection" "test" {
   customer_gateway_id = aws_customer_gateway.test.id
   transit_gateway_id  = aws_ec2_transit_gateway.test2.id
-  type                = "ipsec.1"
+  type = "ipsec.1"
 
   tags = {
     Name = %[1]q
@@ -2448,7 +2448,7 @@ resource "aws_vpn_connection" "test" {
   customer_gateway_id = aws_customer_gateway.test.id
   tunnel1_inside_cidr = %[3]q
   tunnel2_inside_cidr = %[4]q
-  type                = "ipsec.1"
+  type = "ipsec.1"
   vpn_gateway_id      = aws_vpn_gateway.test.id
 
   tags = {
@@ -2481,7 +2481,7 @@ resource "aws_vpn_connection" "test" {
   tunnel_inside_ip_version = "ipv6"
   tunnel1_inside_ipv6_cidr = %[3]q
   tunnel2_inside_ipv6_cidr = %[4]q
-  type                     = "ipsec.1"
+  type      = "ipsec.1"
 
   tags = {
     Name = %[1]q
@@ -2513,7 +2513,7 @@ resource "aws_vpn_connection" "test" {
   customer_gateway_id   = aws_customer_gateway.test.id
   tunnel1_preshared_key = %[3]q
   tunnel2_preshared_key = %[4]q
-  type                  = "ipsec.1"
+  type   = "ipsec.1"
   vpn_gateway_id        = aws_vpn_gateway.test.id
 
   tags = {
@@ -2552,17 +2552,17 @@ resource "aws_customer_gateway" "test" {
 resource "aws_vpn_connection" "test" {
   vpn_gateway_id      = aws_vpn_gateway.test.id
   customer_gateway_id = aws_customer_gateway.test.id
-  type                = "ipsec.1"
+  type = "ipsec.1"
 
   local_ipv4_network_cidr  = %[3]q
   remote_ipv4_network_cidr = %[4]q
 
-  tunnel1_inside_cidr                     = %[5]q
-  tunnel1_preshared_key                   = %[6]q
+  tunnel1_inside_cidr      = %[5]q
+  tunnel1_preshared_key    = %[6]q
   tunnel1_dpd_timeout_action              = %[7]q
   tunnel1_dpd_timeout_seconds             = %[8]d
   tunnel1_enable_tunnel_lifecycle_control = %[9]t
-  tunnel1_ike_versions                    = [%[10]s]
+  tunnel1_ike_versions     = [%[10]s]
   tunnel1_phase1_dh_group_numbers         = [%[11]s]
   tunnel1_phase1_encryption_algorithms    = [%[12]s]
   tunnel1_phase1_integrity_algorithms     = [%[13]s]
@@ -2574,14 +2574,14 @@ resource "aws_vpn_connection" "test" {
   tunnel1_rekey_fuzz_percentage           = %[19]d
   tunnel1_rekey_margin_time_seconds       = %[20]d
   tunnel1_replay_window_size              = %[21]d
-  tunnel1_startup_action                  = %[22]q
+  tunnel1_startup_action   = %[22]q
 
-  tunnel2_inside_cidr                     = %[23]q
-  tunnel2_preshared_key                   = %[24]q
+  tunnel2_inside_cidr      = %[23]q
+  tunnel2_preshared_key    = %[24]q
   tunnel2_dpd_timeout_action              = %[25]q
   tunnel2_dpd_timeout_seconds             = %[26]d
   tunnel2_enable_tunnel_lifecycle_control = %[27]t
-  tunnel2_ike_versions                    = [%[28]s]
+  tunnel2_ike_versions     = [%[28]s]
   tunnel2_phase1_dh_group_numbers         = [%[29]s]
   tunnel2_phase1_encryption_algorithms    = [%[30]s]
   tunnel2_phase1_integrity_algorithms     = [%[31]s]
@@ -2593,7 +2593,7 @@ resource "aws_vpn_connection" "test" {
   tunnel2_rekey_fuzz_percentage           = %[37]d
   tunnel2_rekey_margin_time_seconds       = %[38]d
   tunnel2_replay_window_size              = %[39]d
-  tunnel2_startup_action                  = %[40]q
+  tunnel2_startup_action   = %[40]q
 
   tags = {
     Name = %[1]q
@@ -2664,7 +2664,7 @@ resource "aws_customer_gateway" "test" {
 resource "aws_vpn_connection" "test" {
   vpn_gateway_id      = aws_vpn_gateway.test.id
   customer_gateway_id = aws_customer_gateway.test.id
-  type                = "ipsec.1"
+  type = "ipsec.1"
   static_routes_only  = true
 
   tags = {
@@ -2696,7 +2696,7 @@ resource "aws_customer_gateway" "test" {
 resource "aws_vpn_connection" "test" {
   vpn_gateway_id      = aws_vpn_gateway.test.id
   customer_gateway_id = aws_customer_gateway.test.id
-  type                = "ipsec.1"
+  type = "ipsec.1"
   static_routes_only  = true
 
   tags = {
@@ -2729,7 +2729,7 @@ resource "aws_customer_gateway" "test" {
 resource "aws_vpn_connection" "test" {
   vpn_gateway_id      = aws_vpn_gateway.test.id
   customer_gateway_id = aws_customer_gateway.test.id
-  type                = "ipsec.1"
+  type = "ipsec.1"
   static_routes_only  = false
 
   local_ipv4_network_cidr  = %[3]q
@@ -2769,7 +2769,7 @@ resource "aws_vpn_connection" "test" {
   customer_gateway_id = aws_customer_gateway.test.id
   transit_gateway_id  = %[3]t ? aws_ec2_transit_gateway.test.id : null
   vpn_gateway_id      = %[3]t ? null : aws_vpn_gateway.test.id
-  type                = "ipsec.1"
+  type = "ipsec.1"
 
   tags = {
     Name = %[1]q

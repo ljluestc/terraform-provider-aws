@@ -275,13 +275,13 @@ func resourceClusterCreate(ctx context.Context, d *schema.ResourceData, meta int
 
 	name := create.Name(d.Get("name").(string), d.Get("name_prefix").(string))
 	input := &memorydb.CreateClusterInput{
-		ACLName:                 aws.String(d.Get("acl_name").(string)),
+		ACLName:  aws.String(d.Get("acl_name").(string)),
 		AutoMinorVersionUpgrade: aws.Bool(d.Get("auto_minor_version_upgrade").(bool)),
 		ClusterName:             aws.String(name),
-		NodeType:                aws.String(d.Get("node_type").(string)),
+		NodeType: aws.String(d.Get("node_type").(string)),
 		NumReplicasPerShard:     aws.Int64(int64(d.Get("num_replicas_per_shard").(int))),
-		NumShards:               aws.Int64(int64(d.Get("num_shards").(int))),
-		Tags:                    getTagsIn(ctx),
+		NumShards:aws.Int64(int64(d.Get("num_shards").(int))),
+		Tags:     getTagsIn(ctx),
 		TLSEnabled:              aws.Bool(d.Get("tls_enabled").(bool)),
 	}
 

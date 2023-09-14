@@ -29,8 +29,8 @@ func testAccDataCatalogEncryptionSettings_basic(t *testing.T) {
 	keyResourceName := "aws_kms_key.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, glue.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, glue.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             nil,
 		Steps: []resource.TestStep{
@@ -135,7 +135,7 @@ POLICY
 resource "aws_glue_data_catalog_encryption_settings" "test" {
   data_catalog_encryption_settings {
     connection_password_encryption {
-      aws_kms_key_id                       = aws_kms_key.test.arn
+      aws_kms_key_id        = aws_kms_key.test.arn
       return_connection_password_encrypted = true
     }
 

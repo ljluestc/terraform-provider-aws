@@ -7,6 +7,6 @@ package organizations
 var (
 	FindDelegatedAdministratorByTwoPartKey = findDelegatedAdministratorByTwoPartKey
 	FindOrganizationalUnitByID             = findOrganizationalUnitByID
-	FindPolicyByID                         = findPolicyByID
-	FindResourcePolicy                     = findResourcePolicy
+	FindPolicyByID          = findPolicyByID
+	FindResourcePolicy      = findResourcePolicy
 )

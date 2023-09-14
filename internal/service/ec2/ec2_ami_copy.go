@@ -56,7 +56,7 @@ func ResourceAMICopy() *schema.Resource {
 				Computed: true,
 			},
 			"deprecation_time": {
-				Type:                  schema.TypeString,
+				Type:   schema.TypeString,
 				Optional:              true,
 				Validate
 func:          validation.IsRFC3339Time,

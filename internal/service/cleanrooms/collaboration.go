@@ -161,11 +161,11 @@ func resourceCollaborationCreate(ctx context.Context, d *schema.ResourceData, me
 	creatorAbilities := d.Get("creator_member_abilities").([]interface{})
 
 	input := &cleanrooms.CreateCollaborationInput{
-		Name:                   aws.String(d.Get(names.AttrName).(string)),
+		Name:    aws.String(d.Get(names.AttrName).(string)),
 		CreatorDisplayName:     aws.String(d.Get("creator_display_name").(string)),
 		CreatorMemberAbilities: expandMemberAbilities(creatorAbilities),
-		Members:                *expandMembers(d.Get("member").(*schema.Set).List()),
-		Tags:                   getTagsIn(ctx),
+		Members: *expandMembers(d.Get("member").(*schema.Set).List()),
+		Tags:    getTagsIn(ctx),
 	}
 
 	queryLogStatus, err := expandQueryLogStatus(d.Get("query_log_status").(string))

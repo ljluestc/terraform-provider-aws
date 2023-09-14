@@ -25,9 +25,9 @@ func TestAccELBCookieStickinessPolicy_basic(t *testing.T) {
 	resourceName := "aws_lb_cookie_stickiness_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elb.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLBCookieStickinessPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -60,9 +60,9 @@ func TestAccELBCookieStickinessPolicy_disappears(t *testing.T) {
 	resourceName := "aws_lb_cookie_stickiness_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elb.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLBCookieStickinessPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -87,9 +87,9 @@ func TestAccELBCookieStickinessPolicy_Disappears_elb(t *testing.T) {
 	elbResourceName := "aws_elb.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elb.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLBCookieStickinessPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -173,7 +173,7 @@ func(s *terraform.State) error {
 func testAccLBCookieStickinessPolicyConfig_basic(rName string, expirationPeriod int) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_elb" "test" {
-  name               = %[1]q
+  name= %[1]q
   availability_zones = [data.aws_availability_zones.available.names[0]]
 
   listener {
@@ -185,9 +185,9 @@ resource "aws_elb" "test" {
 }
 
 resource "aws_lb_cookie_stickiness_policy" "test" {
-  name                     = %[1]q
+  name      = %[1]q
   load_balancer            = aws_elb.test.id
-  lb_port                  = 80
+  lb_port   = 80
   cookie_expiration_period = %[2]d
 }
 `, rName, expirationPeriod))

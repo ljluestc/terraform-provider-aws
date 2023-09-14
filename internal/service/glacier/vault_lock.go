@@ -48,7 +48,7 @@ func resourceVaultLock() *schema.Resource {
 				Default:  false,
 			},
 			"policy": {
-				Type:                  schema.TypeString,
+				Type:   schema.TypeString,
 				Required:              true,
 				ForceNew:              true,
 				DiffSuppress

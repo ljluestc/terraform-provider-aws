@@ -158,8 +158,8 @@ func resourceQuickConnectCreate(ctx context.Context, d *schema.ResourceData, met
 	input := &connect.CreateQuickConnectInput{
 		QuickConnectConfig: quickConnectConfig,
 		InstanceId:         aws.String(instanceID),
-		Name:               aws.String(name),
-		Tags:               getTagsIn(ctx),
+		Name:aws.String(name),
+		Tags:getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {

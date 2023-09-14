@@ -63,8 +63,8 @@ func testAccRegisteredDomain_tags(t *testing.T) {
 	resourceName := "aws_route53domains_registered_domain.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.Route53DomainsEndpointID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, names.Route53DomainsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckRegisteredDomainDestroy,
 		Steps: []resource.TestStep{
@@ -105,8 +105,8 @@ func testAccRegisteredDomain_autoRenew(t *testing.T) {
 	resourceName := "aws_route53domains_registered_domain.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.Route53DomainsEndpointID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, names.Route53DomainsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckRegisteredDomainDestroy,
 		Steps: []resource.TestStep{
@@ -137,8 +137,8 @@ func testAccRegisteredDomain_contacts(t *testing.T) {
 	resourceName := "aws_route53domains_registered_domain.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.Route53DomainsEndpointID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, names.Route53DomainsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckRegisteredDomainDestroy,
 		Steps: []resource.TestStep{
@@ -241,8 +241,8 @@ func testAccRegisteredDomain_contactPrivacy(t *testing.T) {
 	resourceName := "aws_route53domains_registered_domain.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.Route53DomainsEndpointID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, names.Route53DomainsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckRegisteredDomainDestroy,
 		Steps: []resource.TestStep{
@@ -277,8 +277,8 @@ func testAccRegisteredDomain_nameservers(t *testing.T) {
 	resourceName := "aws_route53domains_registered_domain.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.Route53DomainsEndpointID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, names.Route53DomainsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckRegisteredDomainDestroy,
 		Steps: []resource.TestStep{
@@ -322,8 +322,8 @@ func testAccRegisteredDomain_transferLock(t *testing.T) {
 	resourceName := "aws_route53domains_registered_domain.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.Route53DomainsEndpointID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, names.Route53DomainsEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckRegisteredDomainDestroy,
 		Steps: []resource.TestStep{
@@ -393,7 +393,7 @@ resource "aws_route53domains_registered_domain" "test" {
     contact_type      = "ASSOCIATION"
     country_code      = "GB"
     email             = "test1@example.com"
-    fax               = "+44.123456788"
+    fax= "+44.123456788"
     first_name        = "Sys"
     last_name         = "Admin"
     organization_name = "Support"
@@ -441,7 +441,7 @@ resource "aws_route53domains_registered_domain" "test" {
     contact_type      = "COMPANY"
     country_code      = "US"
     email             = "terraform-acctest+aws@hashicorp.com"
-    fax               = "+1.4155551234"
+    fax= "+1.4155551234"
     first_name        = "Terraform"
     last_name         = "Team"
     organization_name = "HashiCorp"
@@ -456,7 +456,7 @@ resource "aws_route53domains_registered_domain" "test" {
     contact_type      = "COMPANY"
     country_code      = "US"
     email             = "terraform-acctest+aws@hashicorp.com"
-    fax               = "+1.4155551234"
+    fax= "+1.4155551234"
     first_name        = "Terraform"
     last_name         = "Team"
     organization_name = "HashiCorp"
@@ -471,7 +471,7 @@ resource "aws_route53domains_registered_domain" "test" {
     contact_type      = "COMPANY"
     country_code      = "US"
     email             = "terraform-acctest+aws@hashicorp.com"
-    fax               = "+1.4155551234"
+    fax= "+1.4155551234"
     first_name        = "Terraform"
     last_name         = "Team"
     organization_name = "HashiCorp"

@@ -770,7 +770,7 @@ func resourceProjectCreate(ctx context.Context, d *schema.ResourceData, meta int
 
 	input := &codebuild.CreateProjectInput{
 		Environment:         projectEnv,
-		Name:                aws.String(d.Get("name").(string)),
+		Name: aws.String(d.Get("name").(string)),
 		Source:              &projectSource,
 		Artifacts:           &projectArtifacts,
 		SecondaryArtifacts:  projectSecondaryArtifacts,
@@ -778,7 +778,7 @@ func resourceProjectCreate(ctx context.Context, d *schema.ResourceData, meta int
 		LogsConfig:          projectLogsConfig,
 		BuildBatchConfig:    projectBatchConfig,
 		FileSystemLocations: projectFileSystemLocations,
-		Tags:                getTagsIn(ctx),
+		Tags: getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("cache"); ok {
@@ -1861,7 +1861,7 @@ func flattenProjectSourceData(source *codebuild.ProjectSource) interface{} {
 		"git_clone_depth":     int(aws.Int64Value(source.GitCloneDepth)),
 		"insecure_ssl":        aws.BoolValue(source.InsecureSsl),
 		"report_build_status": aws.BoolValue(source.ReportBuildStatus),
-		"type":                aws.StringValue(source.Type),
+		"type": aws.StringValue(source.Type),
 	}
 
 	m["git_submodules_config"] = flattenProjectGitSubmodulesConfig(source.GitSubmodulesConfig)

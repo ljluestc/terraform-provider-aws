@@ -285,7 +285,7 @@ func resourceProvisionedProductCreate(ctx context.Context, d *schema.ResourceDat
 	input := &servicecatalog.ProvisionProductInput{
 		ProvisionToken:         aws.String(id.UniqueId()),
 		ProvisionedProductName: aws.String(d.Get("name").(string)),
-		Tags:                   getTagsIn(ctx),
+		Tags:    getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("accept_language"); ok {

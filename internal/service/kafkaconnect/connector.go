@@ -390,14 +390,14 @@ func resourceConnectorCreate(ctx context.Context, d *schema.ResourceData, meta i
 
 	name := d.Get("name").(string)
 	input := &kafkaconnect.CreateConnectorInput{
-		Capacity:                         expandCapacity(d.Get("capacity").([]interface{})[0].(map[string]interface{})),
+		Capacity:          expandCapacity(d.Get("capacity").([]interface{})[0].(map[string]interface{})),
 		ConnectorConfiguration:           flex.ExpandStringMap(d.Get("connector_configuration").(map[string]interface{})),
-		ConnectorName:                    aws.String(name),
-		KafkaCluster:                     expandCluster(d.Get("kafka_cluster").([]interface{})[0].(map[string]interface{})),
+		ConnectorName:     aws.String(name),
+		KafkaCluster:      expandCluster(d.Get("kafka_cluster").([]interface{})[0].(map[string]interface{})),
 		KafkaClusterClientAuthentication: expandClusterClientAuthentication(d.Get("kafka_cluster_client_authentication").([]interface{})[0].(map[string]interface{})),
 		KafkaClusterEncryptionInTransit:  expandClusterEncryptionInTransit(d.Get("kafka_cluster_encryption_in_transit").([]interface{})[0].(map[string]interface{})),
 		KafkaConnectVersion:              aws.String(d.Get("kafkaconnect_version").(string)),
-		Plugins:                          expandPlugins(d.Get("plugin").(*schema.Set).List()),
+		Plugins:           expandPlugins(d.Get("plugin").(*schema.Set).List()),
 		ServiceExecutionRoleArn:          aws.String(d.Get("service_execution_role_arn").(string)),
 	}
 

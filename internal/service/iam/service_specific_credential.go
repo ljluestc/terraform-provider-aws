@@ -88,8 +88,8 @@ func resourceServiceSpecificCredentialCreate(ctx context.Context, d *schema.Reso
 	if v, ok := d.GetOk("status"); ok && v.(string) != iam.StatusTypeActive {
 		updateInput := &iam.UpdateServiceSpecificCredentialInput{
 			ServiceSpecificCredentialId: cred.ServiceSpecificCredentialId,
-			UserName:                    cred.UserName,
-			Status:                      aws.String(v.(string)),
+			UserName:     cred.UserName,
+			Status:       aws.String(v.(string)),
 		}
 
 		_, err := conn.UpdateServiceSpecificCredentialWithContext(ctx, updateInput)
@@ -141,8 +141,8 @@ func resourceServiceSpecificCredentialUpdate(ctx context.Context, d *schema.Reso
 
 	request := &iam.UpdateServiceSpecificCredentialInput{
 		ServiceSpecificCredentialId: aws.String(d.Get("service_specific_credential_id").(string)),
-		UserName:                    aws.String(d.Get("user_name").(string)),
-		Status:                      aws.String(d.Get("status").(string)),
+		UserName:     aws.String(d.Get("user_name").(string)),
+		Status:       aws.String(d.Get("status").(string)),
 	}
 	_, err := conn.UpdateServiceSpecificCredentialWithContext(ctx, request)
 	if err != nil {
@@ -158,7 +158,7 @@ func resourceServiceSpecificCredentialDelete(ctx context.Context, d *schema.Reso
 
 	request := &iam.DeleteServiceSpecificCredentialInput{
 		ServiceSpecificCredentialId: aws.String(d.Get("service_specific_credential_id").(string)),
-		UserName:                    aws.String(d.Get("user_name").(string)),
+		UserName:     aws.String(d.Get("user_name").(string)),
 	}
 
 	if _, err := conn.DeleteServiceSpecificCredentialWithContext(ctx, request); err != nil {

@@ -139,7 +139,7 @@ func resourceDataCatalogEncryptionSettingsDelete(ctx context.Context, d *schema.
 	conn := meta.(*conns.AWSClient).GlueConn(ctx)
 
 	input := &glue.PutDataCatalogEncryptionSettingsInput{
-		CatalogId:                     aws.String(d.Id()),
+		CatalogId:      aws.String(d.Id()),
 		DataCatalogEncryptionSettings: &glue.DataCatalogEncryptionSettings{},
 	}
 

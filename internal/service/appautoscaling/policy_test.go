@@ -94,8 +94,8 @@ func TestAccAppAutoScalingPolicy_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -136,8 +136,8 @@ func TestAccAppAutoScalingPolicy_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -161,8 +161,8 @@ func TestAccAppAutoScalingPolicy_scaleOutAndIn(t *testing.T) {
 	randPolicyNamePrefix := fmt.Sprintf("terraform-test-foobar-%s", sdkacctest.RandString(5))
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -243,8 +243,8 @@ func TestAccAppAutoScalingPolicy_spotFleetRequest(t *testing.T) {
 	validUntil := time.Now().UTC().Add(24 * time.Hour).Format(time.RFC3339)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -276,8 +276,8 @@ func TestAccAppAutoScalingPolicy_DynamoDB_table(t *testing.T) {
 	randPolicyName := fmt.Sprintf("test-appautoscaling-policy-%s", sdkacctest.RandString(5))
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -309,8 +309,8 @@ func TestAccAppAutoScalingPolicy_DynamoDB_index(t *testing.T) {
 	resourceName := "aws_appautoscaling_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -344,8 +344,8 @@ func TestAccAppAutoScalingPolicy_multiplePoliciesSameName(t *testing.T) {
 	namePrefix := fmt.Sprintf("tf-appautoscaling-policy-%s", sdkacctest.RandString(5))
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -378,8 +378,8 @@ func TestAccAppAutoScalingPolicy_multiplePoliciesSameResource(t *testing.T) {
 	namePrefix := fmt.Sprintf("tf-appautoscaling-policy-%s", sdkacctest.RandString(5))
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -424,8 +424,8 @@ func TestAccAppAutoScalingPolicy_ResourceID_forceNew(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -459,8 +459,8 @@ func TestAccAppAutoScalingPolicy_TargetTrack_metricMath(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -487,7 +487,7 @@ func TestAccAppAutoScalingPolicy_TargetTrack_metricMath(t *testing.T) {
 func testAccPolicyConfig_targetTrackingMetricMath(rName string) string {
 	return acctest.ConfigCompose(testAccPolicyConfig_basic(rName), fmt.Sprintf(`
 resource "aws_appautoscaling_policy" "metric_math_test" {
-  name               = "%[1]s-tracking"
+  name= "%[1]s-tracking"
   policy_type        = "TargetTrackingScaling"
   resource_id        = aws_appautoscaling_target.test.resource_id
   scalable_dimension = aws_appautoscaling_target.test.scalable_dimension
@@ -619,12 +619,12 @@ EOF
 }
 
 resource "aws_ecs_service" "test" {
-  cluster                            = aws_ecs_cluster.test.id
+  cluster             = aws_ecs_cluster.test.id
   deployment_maximum_percent         = 200
   deployment_minimum_healthy_percent = 50
-  desired_count                      = 0
-  name                               = %[1]q
-  task_definition                    = aws_ecs_task_definition.test.arn
+  desired_count       = 0
+  name = %[1]q
+  task_definition     = aws_ecs_task_definition.test.arn
 }
 
 resource "aws_appautoscaling_target" "test" {
@@ -636,14 +636,14 @@ resource "aws_appautoscaling_target" "test" {
 }
 
 resource "aws_appautoscaling_policy" "test" {
-  name               = %[1]q
+  name= %[1]q
   resource_id        = aws_appautoscaling_target.test.resource_id
   scalable_dimension = aws_appautoscaling_target.test.scalable_dimension
   service_namespace  = aws_appautoscaling_target.test.service_namespace
 
   step_scaling_policy_configuration {
     adjustment_type         = "ChangeInCapacity"
-    cooldown                = 60
+    cooldown = 60
     metric_aggregation_type = "Average"
 
     step_adjustment {
@@ -700,10 +700,10 @@ resource "aws_iam_role_policy_attachment" "fleet_role_policy" {
 }
 
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_role                      = aws_iam_role.fleet_role.arn
-  spot_price                          = "0.005"
-  target_capacity                     = 2
-  valid_until                         = %[2]q
+  iam_fleet_role       = aws_iam_role.fleet_role.arn
+  spot_price           = "0.005"
+  target_capacity      = 2
+  valid_until          = %[2]q
   terminate_instances_with_expiration = true
 
   launch_specification {
@@ -721,14 +721,14 @@ resource "aws_appautoscaling_target" "test" {
 }
 
 resource "aws_appautoscaling_policy" "test" {
-  name               = %[1]q
+  name= %[1]q
   resource_id        = aws_appautoscaling_target.test.resource_id
   scalable_dimension = aws_appautoscaling_target.test.scalable_dimension
   service_namespace  = aws_appautoscaling_target.test.service_namespace
 
   step_scaling_policy_configuration {
     adjustment_type         = "ChangeInCapacity"
-    cooldown                = 60
+    cooldown = 60
     metric_aggregation_type = "Average"
 
     step_adjustment {
@@ -764,7 +764,7 @@ resource "aws_appautoscaling_target" "dynamo_test" {
 }
 
 resource "aws_appautoscaling_policy" "dynamo_test" {
-  name               = "DynamoDBWriteCapacityUtilization:${aws_appautoscaling_target.dynamo_test.resource_id}"
+  name= "DynamoDBWriteCapacityUtilization:${aws_appautoscaling_target.dynamo_test.resource_id}"
   policy_type        = "TargetTrackingScaling"
   service_namespace  = "dynamodb"
   resource_id        = "table/${aws_dynamodb_table.dynamodb_table_test.name}"
@@ -810,7 +810,7 @@ resource "aws_dynamodb_table" "test" {
   }
 
   global_secondary_index {
-    name               = "GameTitleIndex"
+    name= "GameTitleIndex"
     hash_key           = "GameTitle"
     range_key          = "TopScore"
     write_capacity     = 1
@@ -829,7 +829,7 @@ resource "aws_appautoscaling_target" "test" {
 }
 
 resource "aws_appautoscaling_policy" "test" {
-  name               = "DynamoDBWriteCapacityUtilization:${aws_appautoscaling_target.test.resource_id}"
+  name= "DynamoDBWriteCapacityUtilization:${aws_appautoscaling_target.test.resource_id}"
   policy_type        = "TargetTrackingScaling"
   service_namespace  = aws_appautoscaling_target.test.service_namespace
   resource_id        = aws_appautoscaling_target.test.resource_id
@@ -883,7 +883,7 @@ resource "aws_appautoscaling_target" "read1" {
 }
 
 resource "aws_appautoscaling_policy" "read1" {
-  name               = "%[3]s-read"
+  name= "%[3]s-read"
   policy_type        = "TargetTrackingScaling"
   service_namespace  = "dynamodb"
   resource_id        = aws_appautoscaling_target.read1.resource_id
@@ -909,7 +909,7 @@ resource "aws_appautoscaling_target" "read2" {
 }
 
 resource "aws_appautoscaling_policy" "read2" {
-  name               = "%[3]s-read"
+  name= "%[3]s-read"
   policy_type        = "TargetTrackingScaling"
   service_namespace  = "dynamodb"
   resource_id        = "table/${aws_dynamodb_table.dynamodb_table_test2.name}"
@@ -951,7 +951,7 @@ resource "aws_appautoscaling_target" "write" {
 }
 
 resource "aws_appautoscaling_policy" "write" {
-  name               = "%s-write"
+  name= "%s-write"
   policy_type        = "TargetTrackingScaling"
   service_namespace  = "dynamodb"
   resource_id        = "table/${aws_dynamodb_table.dynamodb_table_test.name}"
@@ -979,7 +979,7 @@ resource "aws_appautoscaling_target" "read" {
 }
 
 resource "aws_appautoscaling_policy" "read" {
-  name               = "%s-read"
+  name= "%s-read"
   policy_type        = "TargetTrackingScaling"
   service_namespace  = "dynamodb"
   resource_id        = "table/${aws_dynamodb_table.dynamodb_table_test.name}"
@@ -1025,10 +1025,10 @@ EOF
 }
 
 resource "aws_ecs_service" "service" {
-  name                               = "foobar"
-  cluster                            = aws_ecs_cluster.foo.id
-  task_definition                    = aws_ecs_task_definition.task.arn
-  desired_count                      = 1
+  name = "foobar"
+  cluster             = aws_ecs_cluster.foo.id
+  task_definition     = aws_ecs_task_definition.task.arn
+  desired_count       = 1
   deployment_maximum_percent         = 200
   deployment_minimum_healthy_percent = 50
 }
@@ -1042,14 +1042,14 @@ resource "aws_appautoscaling_target" "tgt" {
 }
 
 resource "aws_appautoscaling_policy" "foobar_out" {
-  name               = "%s-out"
+  name= "%s-out"
   service_namespace  = "ecs"
   resource_id        = "service/${aws_ecs_cluster.foo.name}/${aws_ecs_service.service.name}"
   scalable_dimension = "ecs:service:DesiredCount"
 
   step_scaling_policy_configuration {
     adjustment_type         = "PercentChangeInCapacity"
-    cooldown                = 60
+    cooldown = 60
     metric_aggregation_type = "Average"
 
     step_adjustment {
@@ -1074,14 +1074,14 @@ resource "aws_appautoscaling_policy" "foobar_out" {
 }
 
 resource "aws_appautoscaling_policy" "foobar_in" {
-  name               = "%s-in"
+  name= "%s-in"
   service_namespace  = "ecs"
   resource_id        = "service/${aws_ecs_cluster.foo.name}/${aws_ecs_service.service.name}"
   scalable_dimension = "ecs:service:DesiredCount"
 
   step_scaling_policy_configuration {
     adjustment_type         = "PercentChangeInCapacity"
-    cooldown                = 60
+    cooldown = 60
     metric_aggregation_type = "Average"
 
     step_adjustment {
@@ -1130,21 +1130,21 @@ EOF
 }
 
 resource "aws_ecs_service" "test1" {
-  cluster                            = aws_ecs_cluster.test.id
+  cluster             = aws_ecs_cluster.test.id
   deployment_maximum_percent         = 200
   deployment_minimum_healthy_percent = 50
-  desired_count                      = 0
-  name                               = "%[1]s-1"
-  task_definition                    = aws_ecs_task_definition.test.arn
+  desired_count       = 0
+  name = "%[1]s-1"
+  task_definition     = aws_ecs_task_definition.test.arn
 }
 
 resource "aws_ecs_service" "test2" {
-  cluster                            = aws_ecs_cluster.test.id
+  cluster             = aws_ecs_cluster.test.id
   deployment_maximum_percent         = 200
   deployment_minimum_healthy_percent = 50
-  desired_count                      = 0
-  name                               = "%[1]s-2"
-  task_definition                    = aws_ecs_task_definition.test.arn
+  desired_count       = 0
+  name = "%[1]s-2"
+  task_definition     = aws_ecs_task_definition.test.arn
 }
 `, rName)
 }
@@ -1163,14 +1163,14 @@ resource "aws_appautoscaling_policy" "test" {
   # The usage of depends_on here is intentional as this used to be a documented example
   depends_on = [aws_appautoscaling_target.test]
 
-  name               = %[1]q
+  name= %[1]q
   resource_id        = "service/${aws_ecs_cluster.test.name}/${aws_ecs_service.test1.name}"
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
 
   step_scaling_policy_configuration {
     adjustment_type         = "ChangeInCapacity"
-    cooldown                = 60
+    cooldown = 60
     metric_aggregation_type = "Average"
 
     step_adjustment {
@@ -1212,14 +1212,14 @@ resource "aws_appautoscaling_policy" "test" {
   # The usage of depends_on here is intentional as this used to be a documented example
   depends_on = [aws_appautoscaling_target.test]
 
-  name               = %[1]q
+  name= %[1]q
   resource_id        = "service/${aws_ecs_cluster.test.name}/${aws_ecs_service.test2.name}"
   scalable_dimension = "ecs:service:DesiredCount"
   service_namespace  = "ecs"
 
   step_scaling_policy_configuration {
     adjustment_type         = "ChangeInCapacity"
-    cooldown                = 60
+    cooldown = 60
     metric_aggregation_type = "Average"
 
     step_adjustment {

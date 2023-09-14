@@ -86,10 +86,10 @@ func resourceFirewallRuleGroupAssociationCreate(ctx context.Context, d *schema.R
 	input := &route53resolver.AssociateFirewallRuleGroupInput{
 		CreatorRequestId:    aws.String(id.PrefixedUniqueId("tf-r53-rslvr-frgassoc-")),
 		FirewallRuleGroupId: aws.String(d.Get("firewall_rule_group_id").(string)),
-		Name:                aws.String(name),
+		Name: aws.String(name),
 		Priority:            aws.Int64(int64(d.Get("priority").(int))),
-		Tags:                getTagsIn(ctx),
-		VpcId:               aws.String(d.Get("vpc_id").(string)),
+		Tags: getTagsIn(ctx),
+		VpcId:aws.String(d.Get("vpc_id").(string)),
 	}
 
 	if v, ok := d.GetOk("mutation_protection"); ok {
@@ -145,8 +145,8 @@ func resourceFirewallRuleGroupAssociationUpdate(ctx context.Context, d *schema.R
 	if d.HasChanges("name", "mutation_protection", "priority") {
 		input := &route53resolver.UpdateFirewallRuleGroupAssociationInput{
 			FirewallRuleGroupAssociationId: aws.String(d.Id()),
-			Name:                           aws.String(d.Get("name").(string)),
-			Priority:                       aws.Int64(int64(d.Get("priority").(int))),
+			Name:            aws.String(d.Get("name").(string)),
+			Priority:        aws.Int64(int64(d.Get("priority").(int))),
 		}
 
 		if v, ok := d.GetOk("mutation_protection"); ok {

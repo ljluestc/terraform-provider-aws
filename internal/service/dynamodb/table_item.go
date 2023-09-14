@@ -48,7 +48,7 @@ func ResourceTableItem() *schema.Resource {
 				Optional: true,
 			},
 			"item": {
-				Type:                  schema.TypeString,
+				Type:   schema.TypeString,
 				Required:              true,
 				ValidateFunc:          validateTableItem,
 				DiffSuppressFunc:      verify.SuppressEquivalentJSONDiffs,
@@ -85,7 +85,7 @@ func resourceTableItemCreate(ctx context.Context, d *schema.ResourceData, meta i
 		// Explode if item exists. We didn't create it.
 		ConditionExpression:      aws.String("attribute_not_exists(#hk)"),
 		ExpressionAttributeNames: aws.StringMap(map[string]string{"#hk": hashKey}),
-		TableName:                aws.String(tableName),
+		TableName: aws.String(tableName),
 	})
 	if err != nil {
 		return sdkdiag.AppendErrorf(diags, "creating DynamoDB Table Item: %s", err)

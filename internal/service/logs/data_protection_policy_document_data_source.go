@@ -273,15 +273,15 @@ func dataSourceDataProtectionPolicyDocumentRead(_ context.Context, d *schema.Res
 }
 
 type DataProtectionPolicyDocument struct {
-	Description string                           `json:",omitempty"`
-	Version     string                           `json:",omitempty"`
-	Name        string                           `json:",omitempty"`
+	Description string            `json:",omitempty"`
+	Version     string            `json:",omitempty"`
+	Name        string            `json:",omitempty"`
 	Statements  []*DataProtectionPolicyStatement `json:"Statement,omitempty"`
 }
 
 type DataProtectionPolicyStatement struct {
-	Sid             string                                  `json:",omitempty"`
-	DataIdentifiers []string                                `json:"DataIdentifier,omitempty"`
+	Sid             string    `json:",omitempty"`
+	DataIdentifiers []string  `json:"DataIdentifier,omitempty"`
 	Operation       *DataProtectionPolicyStatementOperation `json:",omitempty"`
 }
 

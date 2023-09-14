@@ -126,7 +126,7 @@ func (r *resourceView) Create(ctx context.Context, request resource.CreateReques
 		ClientToken:        aws.String(id.UniqueId()),
 		Filters:            flex.ExpandFrameworkListNestedBlockPtr(ctx, data.Filters, r.expandSearchFilter),
 		IncludedProperties: flex.ExpandFrameworkListNestedBlock(ctx, data.IncludedProperties, r.expandIncludedProperty),
-		Tags:               getTagsIn(ctx),
+		Tags:getTagsIn(ctx),
 		ViewName:           aws.String(data.ViewName.ValueString()),
 	}
 
@@ -367,10 +367,10 @@ type resourceViewData struct {
 	ViewArn            types.String `tfsdk:"arn"`
 	DefaultView        types.Bool   `tfsdk:"default_view"`
 	Filters            types.List   `tfsdk:"filters"`
-	ID                 types.String `tfsdk:"id"`
+	ID  types.String `tfsdk:"id"`
 	IncludedProperties types.List   `tfsdk:"included_property"`
 	ViewName           types.String `tfsdk:"name"`
-	Tags               types.Map    `tfsdk:"tags"`
+	Tagstypes.Map    `tfsdk:"tags"`
 	TagsAll            types.Map    `tfsdk:"tags_all"`
 }
 

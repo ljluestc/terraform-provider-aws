@@ -25,9 +25,9 @@ func TestAccVPCEndpointConnectionNotification_basic(t *testing.T) {
 	resourceName := "aws_vpc_endpoint_connection_notification.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPCEndpointConnectionNotificationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -122,8 +122,8 @@ resource "aws_lb" "nlb_test" {
   subnets = aws_subnet.test[*].id
 
   load_balancer_type         = "network"
-  internal                   = true
-  idle_timeout               = 60
+  internal    = true
+  idle_timeout= 60
   enable_deletion_protection = false
 }
 

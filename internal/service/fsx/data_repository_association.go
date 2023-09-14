@@ -169,7 +169,7 @@ func resourceDataRepositoryAssociationCreate(ctx context.Context, d *schema.Reso
 		DataRepositoryPath: aws.String(d.Get("data_repository_path").(string)),
 		FileSystemId:       aws.String(d.Get("file_system_id").(string)),
 		FileSystemPath:     aws.String(d.Get("file_system_path").(string)),
-		Tags:               getTagsIn(ctx),
+		Tags:getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("batch_import_meta_data_on_create"); ok {

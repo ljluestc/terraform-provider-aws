@@ -935,14 +935,14 @@ func resourceSpotFleetRequestCreate(ctx context.Context, d *schema.ResourceData,
 
 	// http://docs.aws.amazon.com/sdk-for-go/api/service/ec2.html#type-SpotFleetRequestConfigData
 	spotFleetConfig := &ec2.SpotFleetRequestConfigData{
-		ClientToken:                      aws.String(id.UniqueId()),
-		IamFleetRole:                     aws.String(d.Get("iam_fleet_role").(string)),
+		ClientToken:       aws.String(id.UniqueId()),
+		IamFleetRole:      aws.String(d.Get("iam_fleet_role").(string)),
 		InstanceInterruptionBehavior:     aws.String(d.Get("instance_interruption_behaviour").(string)),
 		ReplaceUnhealthyInstances:        aws.Bool(d.Get("replace_unhealthy_instances").(bool)),
-		TagSpecifications:                getTagSpecificationsIn(ctx, ec2.ResourceTypeSpotFleetRequest),
-		TargetCapacity:                   aws.Int64(int64(d.Get("target_capacity").(int))),
+		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeSpotFleetRequest),
+		TargetCapacity:    aws.Int64(int64(d.Get("target_capacity").(int))),
 		TerminateInstancesWithExpiration: aws.Bool(d.Get("terminate_instances_with_expiration").(bool)),
-		Type:                             aws.String(d.Get("fleet_type").(string)),
+		Type:              aws.String(d.Get("fleet_type").(string)),
 	}
 
 	if v, ok := d.GetOk("context"); ok {
@@ -1373,8 +1373,8 @@ func buildSpotFleetLaunchSpecification(ctx context.Context, d map[string]interfa
 			AssociatePublicIpAddress: aws.Bool(true),
 			DeleteOnTermination:      aws.Bool(true),
 			DeviceIndex:              aws.Int64(0),
-			SubnetId:                 aws.String(subnetId.(string)),
-			Groups:                   securityGroupIds,
+			SubnetId:  aws.String(subnetId.(string)),
+			Groups:    securityGroupIds,
 		}
 
 		opts.NetworkInterfaces = []*ec2.InstanceNetworkInterfaceSpecification{ni}

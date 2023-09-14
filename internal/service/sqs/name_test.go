@@ -14,7 +14,7 @@ func TestQueueNameFromURL(t *testing.T) {
 
 	testCases := []struct {
 		Name              string
-		URL               string
+		URLstring
 		ExpectedQueueName string
 		ExpectError       bool
 	}{
@@ -39,7 +39,7 @@ func TestQueueNameFromURL(t *testing.T) {
 		},
 		{
 			Name:              "valid URL",
-			URL:               "http://sqs.us-west-2.amazonaws.com/123456789012/queueName", //lintignore:AWSAT003
+			URL:"http://sqs.us-west-2.amazonaws.com/123456789012/queueName", //lintignore:AWSAT003
 			ExpectedQueueName: "queueName",
 		},
 	}

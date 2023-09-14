@@ -24,8 +24,8 @@ func TestAccS3ControlStorageLensConfiguration_basic(t *testing.T) {
 	resourceName := "aws_s3control_storage_lens_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3control.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckStorageLensConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -70,8 +70,8 @@ func TestAccS3ControlStorageLensConfiguration_disappears(t *testing.T) {
 	resourceName := "aws_s3control_storage_lens_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3control.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckStorageLensConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -93,8 +93,8 @@ func TestAccS3ControlStorageLensConfiguration_tags(t *testing.T) {
 	resourceName := "aws_s3control_storage_lens_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3control.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckStorageLensConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -138,8 +138,8 @@ func TestAccS3ControlStorageLensConfiguration_update(t *testing.T) {
 	resourceName := "aws_s3control_storage_lens_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3control.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckStorageLensConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -244,8 +244,8 @@ func TestAccS3ControlStorageLensConfiguration_advancedMetrics(t *testing.T) {
 	resourceName := "aws_s3control_storage_lens_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, s3control.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, s3control.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckStorageLensConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -468,8 +468,8 @@ resource "aws_s3control_storage_lens_configuration" "test" {
             enabled = true
 
             selection_criteria {
-              delimiter                    = ","
-              max_depth                    = 3
+              delimiter     = ","
+              max_depth     = 3
               min_storage_bytes_percentage = 49.5
             }
           }
@@ -484,10 +484,10 @@ resource "aws_s3control_storage_lens_configuration" "test" {
 
       s3_bucket_destination {
         account_id            = data.aws_caller_identity.current.account_id
-        arn                   = aws_s3_bucket.test[0].arn
-        format                = "CSV"
+        arn    = aws_s3_bucket.test[0].arn
+        format = "CSV"
         output_schema_version = "V_1"
-        prefix                = "p1"
+        prefix = "p1"
       }
     }
 
@@ -533,8 +533,8 @@ resource "aws_s3control_storage_lens_configuration" "test" {
 
       s3_bucket_destination {
         account_id            = data.aws_caller_identity.current.account_id
-        arn                   = aws_s3_bucket.test[0].arn
-        format                = "Parquet"
+        arn    = aws_s3_bucket.test[0].arn
+        format = "Parquet"
         output_schema_version = "V_1"
 
         encryption {

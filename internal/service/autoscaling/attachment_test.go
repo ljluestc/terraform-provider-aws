@@ -24,8 +24,8 @@ func TestAccAutoScalingAttachment_elb(t *testing.T) {
 	resourceName := "aws_autoscaling_attachment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -45,8 +45,8 @@ func TestAccAutoScalingAttachment_albTargetGroup(t *testing.T) {
 	resourceName := "aws_autoscaling_attachment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -67,8 +67,8 @@ func TestAccAutoScalingAttachment_multipleELBs(t *testing.T) {
 	resource11Name := "aws_autoscaling_attachment.test.10"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -97,8 +97,8 @@ func TestAccAutoScalingAttachment_multipleALBTargetGroups(t *testing.T) {
 	resource11Name := "aws_autoscaling_attachment.test.10"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -184,7 +184,7 @@ resource "aws_elb" "test" {
   count = %[2]d
 
   # "name" cannot be longer than 32 characters.
-  name               = format("%%s-%%d", substr(%[1]q, 0, 28), count.index)
+  name= format("%%s-%%d", substr(%[1]q, 0, 28), count.index)
   availability_zones = data.aws_availability_zones.available.names
 
   listener {
@@ -197,17 +197,17 @@ resource "aws_elb" "test" {
 
 resource "aws_autoscaling_group" "test" {
   availability_zones        = data.aws_availability_zones.available.names
-  max_size                  = 1
-  min_size                  = 0
+  max_size   = 1
+  min_size   = 0
   desired_capacity          = 0
   health_check_grace_period = 300
   force_delete              = true
-  name                      = %[1]q
+  name       = %[1]q
   launch_configuration      = aws_launch_configuration.test.name
 
   tag {
-    key                 = "Name"
-    value               = %[1]q
+    key  = "Name"
+    value= %[1]q
     propagate_at_launch = true
   }
 }
@@ -237,17 +237,17 @@ resource "aws_launch_configuration" "test" {
 
 resource "aws_autoscaling_group" "test" {
   vpc_zone_identifier       = aws_subnet.test[*].id
-  max_size                  = 1
-  min_size                  = 0
+  max_size   = 1
+  min_size   = 0
   desired_capacity          = 0
   health_check_grace_period = 300
   force_delete              = true
-  name                      = %[1]q
+  name       = %[1]q
   launch_configuration      = aws_launch_configuration.test.name
 
   tag {
-    key                 = "Name"
-    value               = %[1]q
+    key  = "Name"
+    value= %[1]q
     propagate_at_launch = true
   }
 }
@@ -258,7 +258,7 @@ func testAccAttachmentConfig_elb(rName string) string {
 	return acctest.ConfigCompose(testAccAttachmentConfig_elbBase(rName, 1), `
 resource "aws_autoscaling_attachment" "test" {
   autoscaling_group_name = aws_autoscaling_group.test.id
-  elb                    = aws_elb.test[0].id
+  elb     = aws_elb.test[0].id
 }
 `)
 }
@@ -269,7 +269,7 @@ resource "aws_autoscaling_attachment" "test" {
   count = %[1]d
 
   autoscaling_group_name = aws_autoscaling_group.test.id
-  elb                    = aws_elb.test[count.index].id
+  elb     = aws_elb.test[count.index].id
 }
 `, n))
 }

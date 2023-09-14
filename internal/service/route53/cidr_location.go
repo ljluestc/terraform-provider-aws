@@ -101,7 +101,7 @@ func (r *resourceCIDRLocation) Create(ctx context.Context, request resource.Crea
 			LocationName: aws.String(name),
 		}},
 		CollectionVersion: collection.Version,
-		Id:                aws.String(collectionID),
+		Id: aws.String(collectionID),
 	}
 
 	_, err = conn.ChangeCidrCollectionWithContext(ctx, input)
@@ -213,7 +213,7 @@ func (r *resourceCIDRLocation) Update(ctx context.Context, request resource.Upda
 				LocationName: aws.String(name),
 			}},
 			CollectionVersion: collectionVersion,
-			Id:                aws.String(collectionID),
+			Id: aws.String(collectionID),
 		}
 
 		_, err = conn.ChangeCidrCollectionWithContext(ctx, input)
@@ -235,7 +235,7 @@ func (r *resourceCIDRLocation) Update(ctx context.Context, request resource.Upda
 				LocationName: aws.String(name),
 			}},
 			CollectionVersion: collectionVersion,
-			Id:                aws.String(collectionID),
+			Id: aws.String(collectionID),
 		}
 
 		_, err = conn.ChangeCidrCollectionWithContext(ctx, input)
@@ -288,7 +288,7 @@ func (r *resourceCIDRLocation) Delete(ctx context.Context, request resource.Dele
 			LocationName: aws.String(name),
 		}},
 		CollectionVersion: collection.Version,
-		Id:                aws.String(collectionID),
+		Id: aws.String(collectionID),
 	}
 
 	_, err = conn.ChangeCidrCollectionWithContext(ctx, input)
@@ -307,7 +307,7 @@ func (r *resourceCIDRLocation) ImportState(ctx context.Context, request resource
 type resourceCIDRLocationData struct {
 	CIDRBlocks       types.Set    `tfsdk:"cidr_blocks"`
 	CIDRCollectionID types.String `tfsdk:"cidr_collection_id"`
-	ID               types.String `tfsdk:"id"`
+	IDtypes.String `tfsdk:"id"`
 	Name             types.String `tfsdk:"name"`
 }
 

@@ -35,7 +35,7 @@ func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, quicksight.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAccountSubscriptionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -70,7 +70,7 @@ func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, quicksight.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAccountSubscriptionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -136,7 +136,7 @@ func(s *terraform.State) error {
 		conn := acctest.Provider.Meta().(*conns.AWSClient).QuickSightConn(ctx)
 		defaultNs := "default"
 		_, err := conn.UpdateAccountSettingsWithContext(ctx, &quicksight.UpdateAccountSettingsInput{
-			AwsAccountId:                 aws.String(rs.Primary.ID),
+			AwsAccountId:  aws.String(rs.Primary.ID),
 			DefaultNamespace:             aws.String(defaultNs),
 			TerminationProtectionEnabled: aws.Bool(false),
 		})
@@ -181,7 +181,7 @@ func testAccAccountSubscriptionConfig_basic(rName string) string {
 resource "aws_quicksight_account_subscription" "test" {
   account_name          = %[1]q
   authentication_method = "IAM_AND_QUICKSIGHT"
-  edition               = "ENTERPRISE"
+  edition= "ENTERPRISE"
   notification_email    = %[2]q
 }
 `, rName, acctest.DefaultEmailAddress)

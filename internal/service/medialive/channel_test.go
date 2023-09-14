@@ -38,7 +38,7 @@ func TestAccMediaLiveChannel_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.MediaLiveEndpointID)
 			testAccChannelsPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.MediaLiveEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckChannelDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -62,7 +62,7 @@ func TestAccMediaLiveChannel_basic(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "encoder_settings.0.timecode_config.0.source", "EMBEDDED"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "encoder_settings.0.audio_descriptions.*", map[string]string{
 						"audio_selector_name": rName,
-						"name":                rName,
+						"name": rName,
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "encoder_settings.0.video_descriptions.*", map[string]string{
 						"name": "test-video-name",
@@ -95,7 +95,7 @@ func TestAccMediaLiveChannel_captionDescriptions(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.MediaLiveEndpointID)
 			testAccChannelsPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.MediaLiveEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckChannelDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -119,7 +119,7 @@ func TestAccMediaLiveChannel_captionDescriptions(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "encoder_settings.0.timecode_config.0.source", "EMBEDDED"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "encoder_settings.0.caption_descriptions.*", map[string]string{
 						"caption_selector_name": rName,
-						"name":                  "test-caption-name",
+						"name":   "test-caption-name",
 						"destination_settings.0.dvb_sub_destination_settings.0.font_resolution": "100",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "encoder_settings.0.video_descriptions.*", map[string]string{
@@ -153,7 +153,7 @@ func TestAccMediaLiveChannel_M2TS_settings(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.MediaLiveEndpointID)
 			testAccChannelsPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.MediaLiveEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckChannelDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -177,7 +177,7 @@ func TestAccMediaLiveChannel_M2TS_settings(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "encoder_settings.0.timecode_config.0.source", "EMBEDDED"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "encoder_settings.0.audio_descriptions.*", map[string]string{
 						"audio_selector_name": rName,
-						"name":                rName,
+						"name": rName,
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "encoder_settings.0.video_descriptions.*", map[string]string{
 						"name": "test-video-name",
@@ -185,14 +185,14 @@ func TestAccMediaLiveChannel_M2TS_settings(t *testing.T) {
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "encoder_settings.0.output_groups.0.outputs.0.output_settings.0.archive_output_settings.0.container_settings.0.m2ts_settings.*", map[string]string{
 						"audio_buffer_model":        "ATSC",
 						"buffer_model":              "MULTIPLEX",
-						"rate_mode":                 "CBR",
-						"audio_pids":                "200",
+						"rate_mode":  "CBR",
+						"audio_pids": "200",
 						"dvb_sub_pids":              "300",
 						"arib_captions_pid":         "100",
 						"arib_captions_pid_control": "AUTO",
-						"video_pid":                 "101",
+						"video_pid":  "101",
 						"fragment_time":             "1.92",
-						"program_num":               "1",
+						"program_num":"1",
 						"segmentation_time":         "1.92",
 					}),
 				),
@@ -223,7 +223,7 @@ func TestAccMediaLiveChannel_UDP_outputSettings(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.MediaLiveEndpointID)
 			testAccChannelsPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.MediaLiveEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckChannelDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -247,7 +247,7 @@ func TestAccMediaLiveChannel_UDP_outputSettings(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "encoder_settings.0.timecode_config.0.source", "EMBEDDED"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "encoder_settings.0.audio_descriptions.*", map[string]string{
 						"audio_selector_name": rName,
-						"name":                rName,
+						"name": rName,
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "encoder_settings.0.video_descriptions.*", map[string]string{
 						"name": "test-video-name",
@@ -285,7 +285,7 @@ func TestAccMediaLiveChannel_MsSmooth_outputSettings(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.MediaLiveEndpointID)
 			testAccChannelsPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.MediaLiveEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckChannelDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -309,7 +309,7 @@ func TestAccMediaLiveChannel_MsSmooth_outputSettings(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "encoder_settings.0.timecode_config.0.source", "EMBEDDED"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "encoder_settings.0.audio_descriptions.*", map[string]string{
 						"audio_selector_name": rName,
-						"name":                rName,
+						"name": rName,
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "encoder_settings.0.video_descriptions.*", map[string]string{
 						"name": "test-video-name",
@@ -345,7 +345,7 @@ func TestAccMediaLiveChannel_AudioDescriptions_codecSettings(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.MediaLiveEndpointID)
 			testAccChannelsPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.MediaLiveEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckChannelDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -369,14 +369,14 @@ func TestAccMediaLiveChannel_AudioDescriptions_codecSettings(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "encoder_settings.0.timecode_config.0.source", "EMBEDDED"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "encoder_settings.0.audio_descriptions.*", map[string]string{
 						"audio_selector_name": "audio_1",
-						"name":                "audio_1",
+						"name": "audio_1",
 						"codec_settings.0.aac_settings.0.rate_control_mode": string(types.AacRateControlModeCbr),
 						"codec_settings.0.aac_settings.0.bitrate":           "192000",
 						"codec_settings.0.aac_settings.0.sample_rate":       "48000",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "encoder_settings.0.audio_descriptions.*", map[string]string{
 						"audio_selector_name": "audio_2",
-						"name":                "audio_2",
+						"name": "audio_2",
 						"codec_settings.0.ac3_settings.0.bitrate": "384000",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "encoder_settings.0.video_descriptions.*", map[string]string{
@@ -404,7 +404,7 @@ func TestAccMediaLiveChannel_VideoDescriptions_CodecSettings_h264Settings(t *tes
 			acctest.PreCheckPartitionHasService(t, names.MediaLiveEndpointID)
 			testAccChannelsPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.MediaLiveEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckChannelDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -428,7 +428,7 @@ func TestAccMediaLiveChannel_VideoDescriptions_CodecSettings_h264Settings(t *tes
 					resource.TestCheckResourceAttr(resourceName, "encoder_settings.0.timecode_config.0.source", "EMBEDDED"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "encoder_settings.0.audio_descriptions.*", map[string]string{
 						"audio_selector_name": rName,
-						"name":                rName,
+						"name": rName,
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "encoder_settings.0.video_descriptions.*", map[string]string{
 						"name":             "test-video-name",
@@ -441,13 +441,13 @@ func TestAccMediaLiveChannel_VideoDescriptions_CodecSettings_h264Settings(t *tes
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "encoder_settings.0.video_descriptions.0.codec_settings.0.h264_settings.*", map[string]string{
 						"adaptive_quantization":   "LOW",
 						"afd_signaling":           "NONE",
-						"bitrate":                 "5400000",
+						"bitrate":  "5400000",
 						"buf_fill_pct":            "90",
-						"buf_size":                "10800000",
+						"buf_size": "10800000",
 						"color_metadata":          "IGNORE",
 						"entropy_encoding":        "CABAC",
 						"filter_settings":         "",
-						"fixed_afd":               "",
+						"fixed_afd":"",
 						"flicker_aq":              "ENABLED",
 						"force_field_pictures":    "DISABLED",
 						"framerate_control":       "SPECIFIED",
@@ -456,9 +456,9 @@ func TestAccMediaLiveChannel_VideoDescriptions_CodecSettings_h264Settings(t *tes
 						"gop_b_reference":         "DISABLED",
 						"gop_closed_cadence":      "1",
 						"gop_num_b_frames":        "1",
-						"gop_size":                "1.92",
+						"gop_size": "1.92",
 						"gop_size_units":          "SECONDS",
-						"level":                   "H264_LEVEL_AUTO",
+						"level":    "H264_LEVEL_AUTO",
 						"look_ahead_rate_control": "HIGH",
 						"max_bitrate":             "0",
 						"min_i_interval":          "0",
@@ -466,16 +466,16 @@ func TestAccMediaLiveChannel_VideoDescriptions_CodecSettings_h264Settings(t *tes
 						"par_control":             "INITIALIZE_FROM_SOURCE",
 						"par_denominator":         "0",
 						"par_numerator":           "0",
-						"profile":                 "HIGH",
+						"profile":  "HIGH",
 						"quality_level":           "",
 						"qvbr_quality_level":      "0",
 						"rate_control_mode":       "CBR",
-						"scan_type":               "PROGRESSIVE",
+						"scan_type":"PROGRESSIVE",
 						"scene_change_detect":     "DISABLED",
-						"slices":                  "1",
+						"slices":   "1",
 						"spatial_aq":              "0",
 						"subgop_length":           "FIXED",
-						"syntax":                  "DEFAULT",
+						"syntax":   "DEFAULT",
 						"temporal_aq":             "ENABLED",
 						"timecode_insertion":      "PIC_TIMING_SEI",
 					}),
@@ -507,7 +507,7 @@ func TestAccMediaLiveChannel_VideoDescriptions_CodecSettings_h265Settings(t *tes
 			acctest.PreCheckPartitionHasService(t, names.MediaLiveEndpointID)
 			testAccChannelsPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.MediaLiveEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckChannelDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -531,7 +531,7 @@ func TestAccMediaLiveChannel_VideoDescriptions_CodecSettings_h265Settings(t *tes
 					resource.TestCheckResourceAttr(resourceName, "encoder_settings.0.timecode_config.0.source", "EMBEDDED"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "encoder_settings.0.audio_descriptions.*", map[string]string{
 						"audio_selector_name": rName,
-						"name":                rName,
+						"name": rName,
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "encoder_settings.0.video_descriptions.*", map[string]string{
 						"name":             "test-video-name",
@@ -544,25 +544,25 @@ func TestAccMediaLiveChannel_VideoDescriptions_CodecSettings_h265Settings(t *tes
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "encoder_settings.0.video_descriptions.0.codec_settings.0.h265_settings.*", map[string]string{
 						"adaptive_quantization":   "LOW",
 						"afd_signaling":           "FIXED",
-						"bitrate":                 "5400000",
-						"buf_size":                "20000000",
+						"bitrate":  "5400000",
+						"buf_size": "20000000",
 						"color_metadata":          "IGNORE",
-						"fixed_afd":               "AFD_0000",
+						"fixed_afd":"AFD_0000",
 						"flicker_aq":              "ENABLED",
 						"framerate_denominator":   "1",
 						"framerate_numerator":     "50",
 						"gop_closed_cadence":      "1",
-						"gop_size":                "1.92",
+						"gop_size": "1.92",
 						"gop_size_units":          "SECONDS",
-						"level":                   "H265_LEVEL_AUTO",
+						"level":    "H265_LEVEL_AUTO",
 						"look_ahead_rate_control": "HIGH",
 						"min_i_interval":          "6",
-						"profile":                 "MAIN_10BIT",
+						"profile":  "MAIN_10BIT",
 						"rate_control_mode":       "CBR",
-						"scan_type":               "PROGRESSIVE",
+						"scan_type":"PROGRESSIVE",
 						"scene_change_detect":     "ENABLED",
-						"slices":                  "2",
-						"tier":                    "HIGH",
+						"slices":   "2",
+						"tier":     "HIGH",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "encoder_settings.0.video_descriptions.0.codec_settings.0.h265_settings.0.color_space_settings.0.hdr10_settings.*", map[string]string{
 						"max_cll":  "16",
@@ -570,12 +570,12 @@ func TestAccMediaLiveChannel_VideoDescriptions_CodecSettings_h265Settings(t *tes
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "encoder_settings.0.video_descriptions.0.codec_settings.0.h265_settings.0.filter_settings.0.temporal_filter_settings.*", map[string]string{
 						"post_filter_sharpening": "AUTO",
-						"strength":               "STRENGTH_1",
+						"strength":"STRENGTH_1",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "encoder_settings.0.video_descriptions.0.codec_settings.0.h265_settings.0.timecode_burnin_settings.*", map[string]string{
 						"timecode_burnin_font_size": "SMALL_16",
 						"timecode_burnin_position":  "BOTTOM_CENTER",
-						"prefix":                    "terraform-test",
+						"prefix":     "terraform-test",
 					}),
 				),
 			},
@@ -605,7 +605,7 @@ func TestAccMediaLiveChannel_hls(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.MediaLiveEndpointID)
 			testAccChannelsPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.MediaLiveEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckChannelDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -629,7 +629,7 @@ func TestAccMediaLiveChannel_hls(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "encoder_settings.0.timecode_config.0.source", "EMBEDDED"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "encoder_settings.0.audio_descriptions.*", map[string]string{
 						"audio_selector_name": rName,
-						"name":                rName,
+						"name": rName,
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "encoder_settings.0.video_descriptions.*", map[string]string{
 						"name": "test-video-name",
@@ -657,7 +657,7 @@ func TestAccMediaLiveChannel_status(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.MediaLiveEndpointID)
 			testAccChannelsPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.MediaLiveEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckChannelDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -696,7 +696,7 @@ func TestAccMediaLiveChannel_update(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.MediaLiveEndpointID)
 			testAccChannelsPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.MediaLiveEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckChannelDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -720,7 +720,7 @@ func TestAccMediaLiveChannel_update(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "encoder_settings.0.timecode_config.0.source", "EMBEDDED"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "encoder_settings.0.audio_descriptions.*", map[string]string{
 						"audio_selector_name": "test-audio-selector",
-						"name":                "test-audio-description",
+						"name": "test-audio-description",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "encoder_settings.0.video_descriptions.*", map[string]string{
 						"name": "test-video-name",
@@ -747,7 +747,7 @@ func TestAccMediaLiveChannel_update(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "encoder_settings.0.timecode_config.0.source", "EMBEDDED"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "encoder_settings.0.audio_descriptions.*", map[string]string{
 						"audio_selector_name": "test-audio-selector",
-						"name":                "test-audio-description",
+						"name": "test-audio-description",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "encoder_settings.0.video_descriptions.*", map[string]string{
 						"name": "test-video-name",
@@ -774,7 +774,7 @@ func TestAccMediaLiveChannel_updateTags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.MediaLiveEndpointID)
 			testAccChannelsPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.MediaLiveEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckChannelDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -823,7 +823,7 @@ func TestAccMediaLiveChannel_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.MediaLiveEndpointID)
 			testAccChannelsPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.MediaLiveEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckChannelDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -1003,9 +1003,9 @@ resource "aws_medialive_input_security_group" "test" {
 }
 
 resource "aws_medialive_input" "test" {
-  name                  = %[1]q
+  name   = %[1]q
   input_security_groups = [aws_medialive_input_security_group.test.id]
-  type                  = "UDP_PUSH"
+  type   = "UDP_PUSH"
 
   tags = {
     Name = %[1]q
@@ -1056,7 +1056,7 @@ resource "aws_medialive_channel" "test" {
 
     audio_descriptions {
       audio_selector_name = %[1]q
-      name                = %[1]q
+      name = %[1]q
     }
 
     video_descriptions {
@@ -1082,9 +1082,9 @@ resource "aws_medialive_channel" "test" {
             extension     = "m2ts"
             container_settings {
               m2ts_settings {
-                audio_buffer_model = "ATSC"
-                buffer_model       = "MULTIPLEX"
-                rate_mode          = "CBR"
+ audio_buffer_model = "ATSC"
+ buffer_model       = "MULTIPLEX"
+ rate_mode          = "CBR"
               }
             }
           }
@@ -1140,7 +1140,7 @@ resource "aws_medialive_channel" "test" {
 
     audio_descriptions {
       audio_selector_name = %[1]q
-      name                = %[1]q
+      name = %[1]q
     }
 
     output_groups {
@@ -1168,9 +1168,9 @@ resource "aws_medialive_channel" "test" {
 
             container_settings {
               m2ts_settings {
-                audio_buffer_model = "ATSC"
-                buffer_model       = "MULTIPLEX"
-                rate_mode          = "CBR"
+ audio_buffer_model = "ATSC"
+ buffer_model       = "MULTIPLEX"
+ rate_mode          = "CBR"
               }
             }
           }
@@ -1226,7 +1226,7 @@ resource "aws_medialive_channel" "test" {
 
     audio_descriptions {
       audio_selector_name = %[1]q
-      name                = %[1]q
+      name = %[1]q
     }
 
     output_groups {
@@ -1296,7 +1296,7 @@ resource "aws_medialive_channel" "test" {
 
     audio_descriptions {
       audio_selector_name = %[1]q
-      name                = %[1]q
+      name = %[1]q
       codec_settings {
         aac_settings {
           rate_control_mode = "CBR"
@@ -1327,17 +1327,17 @@ resource "aws_medialive_channel" "test" {
             extension     = "m2ts"
             container_settings {
               m2ts_settings {
-                audio_buffer_model        = "ATSC"
-                buffer_model              = "MULTIPLEX"
-                rate_mode                 = "CBR"
-                audio_pids                = 200
-                dvb_sub_pids              = 300
-                arib_captions_pid         = 100
-                arib_captions_pid_control = "AUTO"
-                video_pid                 = 101
-                fragment_time             = 1.92
-                program_num               = 1
-                segmentation_time         = 1.92
+ audio_buffer_model        = "ATSC"
+ buffer_model              = "MULTIPLEX"
+ rate_mode  = "CBR"
+ audio_pids = 200
+ dvb_sub_pids              = 300
+ arib_captions_pid         = 100
+ arib_captions_pid_control = "AUTO"
+ video_pid  = 101
+ fragment_time             = 1.92
+ program_num= 1
+ segmentation_time         = 1.92
               }
             }
           }
@@ -1390,7 +1390,7 @@ resource "aws_medialive_channel" "test" {
 
     audio_descriptions {
       audio_selector_name = "audio_1"
-      name                = "audio_1"
+      name = "audio_1"
       codec_settings {
         aac_settings {
           rate_control_mode = "CBR"
@@ -1402,7 +1402,7 @@ resource "aws_medialive_channel" "test" {
 
     audio_descriptions {
       audio_selector_name = "audio_2"
-      name                = "audio_2"
+      name = "audio_2"
 
       codec_settings {
         ac3_settings {
@@ -1434,9 +1434,9 @@ resource "aws_medialive_channel" "test" {
             extension     = "m2ts"
             container_settings {
               m2ts_settings {
-                audio_buffer_model = "ATSC"
-                buffer_model       = "MULTIPLEX"
-                rate_mode          = "CBR"
+ audio_buffer_model = "ATSC"
+ buffer_model       = "MULTIPLEX"
+ rate_mode          = "CBR"
               }
             }
           }
@@ -1489,7 +1489,7 @@ resource "aws_medialive_channel" "test" {
 
     audio_descriptions {
       audio_selector_name = %[1]q
-      name                = %[1]q
+      name = %[1]q
       codec_settings {
         aac_settings {
           rate_control_mode = "CBR"
@@ -1509,8 +1509,8 @@ resource "aws_medialive_channel" "test" {
           afd_signaling           = "NONE"
           color_metadata          = "IGNORE"
           adaptive_quantization   = "LOW"
-          bitrate                 = "5400000"
-          buf_size                = "10800000"
+          bitrate  = "5400000"
+          buf_size = "10800000"
           buf_fill_pct            = 90
           entropy_encoding        = "CABAC"
           flicker_aq              = "ENABLED"
@@ -1521,19 +1521,19 @@ resource "aws_medialive_channel" "test" {
           gop_b_reference         = "DISABLED"
           gop_closed_cadence      = 1
           gop_num_b_frames        = 1
-          gop_size                = 1.92
+          gop_size = 1.92
           gop_size_units          = "SECONDS"
           subgop_length           = "FIXED"
-          scan_type               = "PROGRESSIVE"
-          level                   = "H264_LEVEL_AUTO"
+          scan_type= "PROGRESSIVE"
+          level    = "H264_LEVEL_AUTO"
           look_ahead_rate_control = "HIGH"
           num_ref_frames          = 3
           par_control             = "INITIALIZE_FROM_SOURCE"
-          profile                 = "HIGH"
+          profile  = "HIGH"
           rate_control_mode       = "CBR"
-          syntax                  = "DEFAULT"
+          syntax   = "DEFAULT"
           scene_change_detect     = "ENABLED"
-          slices                  = 1
+          slices   = 1
           spatial_aq              = "ENABLED"
           temporal_aq             = "ENABLED"
           timecode_insertion      = "PIC_TIMING_SEI"
@@ -1560,9 +1560,9 @@ resource "aws_medialive_channel" "test" {
             extension     = "m2ts"
             container_settings {
               m2ts_settings {
-                audio_buffer_model = "ATSC"
-                buffer_model       = "MULTIPLEX"
-                rate_mode          = "CBR"
+ audio_buffer_model = "ATSC"
+ buffer_model       = "MULTIPLEX"
+ rate_mode          = "CBR"
               }
             }
           }
@@ -1615,7 +1615,7 @@ resource "aws_medialive_channel" "test" {
 
     audio_descriptions {
       audio_selector_name = %[1]q
-      name                = %[1]q
+      name = %[1]q
       codec_settings {
         aac_settings {
           rate_control_mode = "CBR"
@@ -1652,9 +1652,9 @@ resource "aws_medialive_channel" "test" {
           min_i_interval     = 6
           scan_type          = "PROGRESSIVE"
 
-          level                   = "H265_LEVEL_AUTO"
+          level    = "H265_LEVEL_AUTO"
           look_ahead_rate_control = "HIGH"
-          profile                 = "MAIN_10BIT"
+          profile  = "MAIN_10BIT"
 
           rate_control_mode   = "CBR"
           scene_change_detect = "ENABLED"
@@ -1674,14 +1674,14 @@ resource "aws_medialive_channel" "test" {
           filter_settings {
             temporal_filter_settings {
               post_filter_sharpening = "AUTO"
-              strength               = "STRENGTH_1"
+              strength= "STRENGTH_1"
             }
           }
 
           timecode_burnin_settings {
             timecode_burnin_font_size = "SMALL_16"
             timecode_burnin_position  = "BOTTOM_CENTER"
-            prefix                    = "terraform-test"
+            prefix     = "terraform-test"
           }
         }
       }
@@ -1706,9 +1706,9 @@ resource "aws_medialive_channel" "test" {
             extension     = "m2ts"
             container_settings {
               m2ts_settings {
-                audio_buffer_model = "ATSC"
-                buffer_model       = "MULTIPLEX"
-                rate_mode          = "CBR"
+ audio_buffer_model = "ATSC"
+ buffer_model       = "MULTIPLEX"
+ rate_mode          = "CBR"
               }
             }
           }
@@ -1761,7 +1761,7 @@ resource "aws_medialive_channel" "test" {
 
     audio_descriptions {
       audio_selector_name = %[1]q
-      name                = %[1]q
+      name = %[1]q
     }
 
     video_descriptions {
@@ -1787,9 +1787,9 @@ resource "aws_medialive_channel" "test" {
             h265_packaging_type = "HVC1"
             hls_settings {
               standard_hls_settings {
-                m3u8_settings {
-                  audio_frames_per_pes = 4
-                }
+ m3u8_settings {
+   audio_frames_per_pes = 4
+ }
               }
             }
           }
@@ -1851,7 +1851,7 @@ resource "aws_medialive_channel" "test" {
     }
 
     audio_descriptions {
-      name                = "test-audio-name"
+      name = "test-audio-name"
       audio_selector_name = "test-audio-selector"
     }
 
@@ -1861,7 +1861,7 @@ resource "aws_medialive_channel" "test" {
     }
 
     caption_descriptions {
-      name                  = "test-caption-name"
+      name   = "test-caption-name"
       caption_selector_name = aws_medialive_input.test.name
 
       destination_settings {
@@ -1881,7 +1881,7 @@ resource "aws_medialive_channel" "test" {
       }
 
       outputs {
-        output_name               = "test-output-name"
+        output_name= "test-output-name"
         video_description_name    = "test-video-name"
         audio_description_names   = ["test-audio-name"]
         caption_description_names = ["test-caption-name"]
@@ -1891,9 +1891,9 @@ resource "aws_medialive_channel" "test" {
             extension     = "m2ts"
             container_settings {
               m2ts_settings {
-                audio_buffer_model = "ATSC"
-                buffer_model       = "MULTIPLEX"
-                rate_mode          = "CBR"
+ audio_buffer_model = "ATSC"
+ buffer_model       = "MULTIPLEX"
+ rate_mode          = "CBR"
               }
             }
           }
@@ -1947,7 +1947,7 @@ resource "aws_medialive_channel" "test" {
 
     audio_descriptions {
       audio_selector_name = %[1]q
-      name                = %[1]q
+      name = %[1]q
     }
 
     video_descriptions {
@@ -1973,9 +1973,9 @@ resource "aws_medialive_channel" "test" {
             extension     = "m2ts"
             container_settings {
               m2ts_settings {
-                audio_buffer_model = "ATSC"
-                buffer_model       = "MULTIPLEX"
-                rate_mode          = "CBR"
+ audio_buffer_model = "ATSC"
+ buffer_model       = "MULTIPLEX"
+ rate_mode          = "CBR"
               }
             }
           }
@@ -2028,7 +2028,7 @@ resource "aws_medialive_channel" "test" {
 
     audio_descriptions {
       audio_selector_name = "test-audio-selector"
-      name                = "test-audio-description"
+      name = "test-audio-description"
     }
 
     video_descriptions {
@@ -2054,9 +2054,9 @@ resource "aws_medialive_channel" "test" {
             extension     = "m2ts"
             container_settings {
               m2ts_settings {
-                audio_buffer_model = "ATSC"
-                buffer_model       = "MULTIPLEX"
-                rate_mode          = "CBR"
+ audio_buffer_model = "ATSC"
+ buffer_model       = "MULTIPLEX"
+ rate_mode          = "CBR"
               }
             }
           }
@@ -2109,7 +2109,7 @@ resource "aws_medialive_channel" "test" {
 
     audio_descriptions {
       audio_selector_name = %[1]q
-      name                = %[1]q
+      name = %[1]q
     }
 
     video_descriptions {
@@ -2135,9 +2135,9 @@ resource "aws_medialive_channel" "test" {
             extension     = "m2ts"
             container_settings {
               m2ts_settings {
-                audio_buffer_model = "ATSC"
-                buffer_model       = "MULTIPLEX"
-                rate_mode          = "CBR"
+ audio_buffer_model = "ATSC"
+ buffer_model       = "MULTIPLEX"
+ rate_mode          = "CBR"
               }
             }
           }
@@ -2194,7 +2194,7 @@ resource "aws_medialive_channel" "test" {
 
     audio_descriptions {
       audio_selector_name = %[1]q
-      name                = %[1]q
+      name = %[1]q
     }
 
     video_descriptions {
@@ -2220,9 +2220,9 @@ resource "aws_medialive_channel" "test" {
             extension     = "m2ts"
             container_settings {
               m2ts_settings {
-                audio_buffer_model = "ATSC"
-                buffer_model       = "MULTIPLEX"
-                rate_mode          = "CBR"
+ audio_buffer_model = "ATSC"
+ buffer_model       = "MULTIPLEX"
+ rate_mode          = "CBR"
               }
             }
           }

@@ -109,10 +109,10 @@ func waitReplicationConfigurationCreated(ctx context.Context, conn *efs.EFS, id 
 
 func waitReplicationConfigurationDeleted(ctx context.Context, conn *efs.EFS, id string, timeout time.Duration) (*efs.ReplicationConfigurationDescription, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   []string{efs.ReplicationStatusDeleting},
-		Target:                    []string{},
-		Refresh:                   statusReplicationConfiguration(ctx, conn, id),
-		Timeout:                   timeout,
+		Pending:    []string{efs.ReplicationStatusDeleting},
+		Target:     []string{},
+		Refresh:    statusReplicationConfiguration(ctx, conn, id),
+		Timeout:    timeout,
 		ContinuousTargetOccurence: 2,
 	}
 

@@ -30,9 +30,9 @@ func TestAccOpsWorksRDSDBInstance_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, opsworks.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckRDSDBInstanceDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -79,9 +79,9 @@ func TestAccOpsWorksRDSDBInstance_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, opsworks.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, opsworks.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, opsworks.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckRDSDBInstanceDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -175,15 +175,15 @@ resource "aws_db_instance" "test" {
   identifier              = %[1]q
   allocated_storage       = 10
   backup_retention_period = 0
-  db_name                 = "test"
-  engine                  = data.aws_rds_orderable_db_instance.test.engine
+  db_name  = "test"
+  engine   = data.aws_rds_orderable_db_instance.test.engine
   engine_version          = data.aws_rds_orderable_db_instance.test.engine_version
   instance_class          = data.aws_rds_orderable_db_instance.test.instance_class
   maintenance_window      = "Fri:09:00-Fri:09:30"
   parameter_group_name    = "default.mysql8.0"
   skip_final_snapshot     = true
-  password                = "avoid-plaintext-passwords"
-  username                = "tfacctest"
+  password = "avoid-plaintext-passwords"
+  username = "tfacctest"
 }
 
 resource "aws_opsworks_rds_db_instance" "test" {

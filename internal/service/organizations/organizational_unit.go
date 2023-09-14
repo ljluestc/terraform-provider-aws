@@ -153,7 +153,7 @@ func resourceOrganizationalUnitUpdate(ctx context.Context, d *schema.ResourceDat
 
 	if d.HasChange("name") {
 		input := &organizations.UpdateOrganizationalUnitInput{
-			Name:                 aws.String(d.Get("name").(string)),
+			Name:  aws.String(d.Get("name").(string)),
 			OrganizationalUnitId: aws.String(d.Id()),
 		}
 

@@ -293,7 +293,7 @@ func(page *ssoadmin.ListAccountAssignmentsOutput, lastPage bool) bool {
 func findAccountAssignmentCreationStatus(ctx context.Context, conn *ssoadmin.SSOAdmin, instanceARN, requestID string) (*ssoadmin.AccountAssignmentOperationStatus, error) {
 	input := &ssoadmin.DescribeAccountAssignmentCreationStatusInput{
 		AccountAssignmentCreationRequestId: aws.String(requestID),
-		InstanceArn:                        aws.String(instanceARN),
+		InstanceArn:         aws.String(instanceARN),
 	}
 
 	output, err := conn.DescribeAccountAssignmentCreationStatusWithContext(ctx, input)
@@ -339,7 +339,7 @@ func() (interface{}, string, error) {
 func findAccountAssignmentDeletionStatus(ctx context.Context, conn *ssoadmin.SSOAdmin, instanceARN, requestID string) (*ssoadmin.AccountAssignmentOperationStatus, error) {
 	input := &ssoadmin.DescribeAccountAssignmentDeletionStatusInput{
 		AccountAssignmentDeletionRequestId: aws.String(requestID),
-		InstanceArn:                        aws.String(instanceARN),
+		InstanceArn:         aws.String(instanceARN),
 	}
 
 	output, err := conn.DescribeAccountAssignmentDeletionStatusWithContext(ctx, input)

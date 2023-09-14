@@ -216,13 +216,13 @@ func resourceVocabularyDelete(ctx context.Context, d *schema.ResourceData, meta 
 
 func waitVocabularyCreated(ctx context.Context, conn *transcribe.Client, id string, timeout time.Duration) (*transcribe.GetVocabularyOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   vocabularyStatus(types.VocabularyStatePending),
-		Target:                    vocabularyStatus(types.VocabularyStateReady),
-		Refresh:                   statusVocabulary(ctx, conn, id),
-		Timeout:                   timeout,
+		Pending:    vocabularyStatus(types.VocabularyStatePending),
+		Target:     vocabularyStatus(types.VocabularyStateReady),
+		Refresh:    statusVocabulary(ctx, conn, id),
+		Timeout:    timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
-		Delay:                     30 * time.Second,
+		Delay:      30 * time.Second,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
@@ -238,13 +238,13 @@ func waitVocabularyCreated(ctx context.Context, conn *transcribe.Client, id stri
 
 func waitVocabularyUpdated(ctx context.Context, conn *transcribe.Client, id string, timeout time.Duration) (*transcribe.GetVocabularyOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   vocabularyStatus(types.VocabularyStatePending),
-		Target:                    vocabularyStatus(types.VocabularyStateReady),
-		Refresh:                   statusVocabulary(ctx, conn, id),
-		Timeout:                   timeout,
+		Pending:    vocabularyStatus(types.VocabularyStatePending),
+		Target:     vocabularyStatus(types.VocabularyStateReady),
+		Refresh:    statusVocabulary(ctx, conn, id),
+		Timeout:    timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
-		Delay:                     30 * time.Second,
+		Delay:      30 * time.Second,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)

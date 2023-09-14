@@ -135,7 +135,7 @@ func resourceAccountPublicAccessBlockUpdate(ctx context.Context, d *schema.Resou
 		RestrictPublicBuckets: aws.Bool(d.Get("restrict_public_buckets").(bool)),
 	}
 	input := &s3control.PutPublicAccessBlockInput{
-		AccountId:                      aws.String(d.Id()),
+		AccountId:       aws.String(d.Id()),
 		PublicAccessBlockConfiguration: publicAccessBlockConfiguration,
 	}
 
@@ -214,11 +214,11 @@ func statusPublicAccessBlockEqual(ctx context.Context, conn *s3control.S3Control
 
 func waitPublicAccessBlockEqual(ctx context.Context, conn *s3control.S3Control, accountID string, target *s3control.PublicAccessBlockConfiguration) (*s3control.PublicAccessBlockConfiguration, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   []string{strconv.FormatBool(false)},
-		Target:                    []string{strconv.FormatBool(true)},
-		Refresh:                   statusPublicAccessBlockEqual(ctx, conn, accountID, target),
-		Timeout:                   propagationTimeout,
-		MinTimeout:                propagationMinTimeout,
+		Pending:    []string{strconv.FormatBool(false)},
+		Target:     []string{strconv.FormatBool(true)},
+		Refresh:    statusPublicAccessBlockEqual(ctx, conn, accountID, target),
+		Timeout:    propagationTimeout,
+		MinTimeout: propagationMinTimeout,
 		ContinuousTargetOccurence: propagationContinuousTargetOccurence,
 	}
 

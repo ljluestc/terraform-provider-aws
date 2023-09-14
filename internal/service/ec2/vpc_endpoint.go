@@ -118,7 +118,7 @@ func: validation.StringInSlice(ec2.IpAddressType_Values(), false),
 				Computed: true,
 			},
 			"policy": {
-				Type:                  schema.TypeString,
+				Type:   schema.TypeString,
 				Optional:              true,
 				Computed:              true,
 				Validate

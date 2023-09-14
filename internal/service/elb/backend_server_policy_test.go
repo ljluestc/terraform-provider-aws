@@ -30,9 +30,9 @@ func TestAccELBBackendServerPolicy_basic(t *testing.T) {
 	resourceName := "aws_load_balancer_backend_server_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elb.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckBackendServerPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -62,9 +62,9 @@ func TestAccELBBackendServerPolicy_disappears(t *testing.T) {
 	resourceName := "aws_load_balancer_backend_server_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elb.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckBackendServerPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -93,9 +93,9 @@ func TestAccELBBackendServerPolicy_update(t *testing.T) {
 	resourceName := "aws_load_balancer_backend_server_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elb.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, elb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckBackendServerPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -190,7 +190,7 @@ func(s *terraform.State) error {
 func testAccBackendServerPolicyConfig_base(rName, privateKey, certificate, publicKey1, publicKey2 string) string {
 	return acctest.ConfigCompose(acctest.ConfigAvailableAZsNoOptIn(), fmt.Sprintf(`
 resource "aws_elb" "test" {
-  name               = %[1]q
+  name= %[1]q
   availability_zones = [data.aws_availability_zones.available.names[0]]
 
   listener {

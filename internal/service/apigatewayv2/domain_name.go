@@ -133,10 +133,10 @@ func resourceDomainNameCreate(ctx context.Context, d *schema.ResourceData, meta 
 
 	domainName := d.Get("domain_name").(string)
 	input := &apigatewayv2.CreateDomainNameInput{
-		DomainName:               aws.String(domainName),
+		DomainName:aws.String(domainName),
 		DomainNameConfigurations: expandDomainNameConfigurations(d.Get("domain_name_configuration").([]interface{})),
 		MutualTlsAuthentication:  expandMutualTLSAuthentication(d.Get("mutual_tls_authentication").([]interface{})),
-		Tags:                     getTagsIn(ctx),
+		Tags:      getTagsIn(ctx),
 	}
 
 	output, err := conn.CreateDomainNameWithContext(ctx, input)
@@ -197,7 +197,7 @@ func resourceDomainNameUpdate(ctx context.Context, d *schema.ResourceData, meta 
 
 	if d.HasChanges("domain_name_configuration", "mutual_tls_authentication") {
 		input := &apigatewayv2.UpdateDomainNameInput{
-			DomainName:               aws.String(d.Id()),
+			DomainName:aws.String(d.Id()),
 			DomainNameConfigurations: expandDomainNameConfigurations(d.Get("domain_name_configuration").([]interface{})),
 		}
 

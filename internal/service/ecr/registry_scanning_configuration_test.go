@@ -32,8 +32,8 @@ func testAccRegistryScanningConfiguration_basic(t *testing.T) {
 	resourceName := "aws_ecr_registry_scanning_configuration.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ecr.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, ecr.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckRegistryScanningConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -61,8 +61,8 @@ func testAccRegistryScanningConfiguration_update(t *testing.T) {
 	resourceName := "aws_ecr_registry_scanning_configuration.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ecr.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, ecr.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckRegistryScanningConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{

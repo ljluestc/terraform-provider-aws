@@ -30,9 +30,9 @@ func testAccQueue_basic(t *testing.T) {
 	updatedDescription := "Updated"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckQueueDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -87,9 +87,9 @@ func testAccQueue_disappears(t *testing.T) {
 	resourceName := "aws_connect_queue.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckQueueDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -115,9 +115,9 @@ func testAccQueue_updateHoursOfOperationId(t *testing.T) {
 	resourceName := "aws_connect_queue.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckQueueDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -197,9 +197,9 @@ func testAccQueue_updateMaxContacts(t *testing.T) {
 	updatedMaxContacts := "2"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckQueueDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -257,9 +257,9 @@ func testAccQueue_updateOutboundCallerConfig(t *testing.T) {
 	updatedOutboundCallerIdName := "updated"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckQueueDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -319,9 +319,9 @@ func testAccQueue_updateStatus(t *testing.T) {
 	updatedStatus := connect.QueueStatusDisabled
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckQueueDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -378,9 +378,9 @@ func testAccQueue_updateQuickConnectIds(t *testing.T) {
 	description := "test queue integrations with quick connects"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckQueueDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -484,9 +484,9 @@ func testAccQueue_updateTags(t *testing.T) {
 	resourceName := "aws_connect_queue.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckQueueDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -639,7 +639,7 @@ func testAccQueueConfig_basic(rName, rName2, label string) string {
 		fmt.Sprintf(`
 resource "aws_connect_queue" "test" {
   instance_id           = aws_connect_instance.test.id
-  name                  = %[1]q
+  name   = %[1]q
   description           = %[2]q
   hours_of_operation_id = data.aws_connect_hours_of_operation.test.hours_of_operation_id
 
@@ -682,7 +682,7 @@ resource "aws_connect_hours_of_operation" "test" {
 
 resource "aws_connect_queue" "test" {
   instance_id           = aws_connect_instance.test.id
-  name                  = %[1]q
+  name   = %[1]q
   description           = "Test update hours_of_operation_id"
   hours_of_operation_id = local.select_hours_of_operation_id == "first" ? data.aws_connect_hours_of_operation.test.hours_of_operation_id : aws_connect_hours_of_operation.test.hours_of_operation_id
 
@@ -702,7 +702,7 @@ func testAccQueueConfig_maxContacts(rName, rName2, maxContacts string) string {
 		fmt.Sprintf(`
 resource "aws_connect_queue" "test" {
   instance_id           = aws_connect_instance.test.id
-  name                  = %[1]q
+  name   = %[1]q
   description           = "Test update max contacts"
   hours_of_operation_id = data.aws_connect_hours_of_operation.test.hours_of_operation_id
   max_contacts          = %[2]q
@@ -721,7 +721,7 @@ func testAccQueueConfig_outboundCaller(rName, rName2, OutboundCallerIdName strin
 		fmt.Sprintf(`
 resource "aws_connect_queue" "test" {
   instance_id           = aws_connect_instance.test.id
-  name                  = %[1]q
+  name   = %[1]q
   description           = "Test update outbound caller config"
   hours_of_operation_id = data.aws_connect_hours_of_operation.test.hours_of_operation_id
 
@@ -743,10 +743,10 @@ func testAccQueueConfig_status(rName, rName2, status string) string {
 		fmt.Sprintf(`
 resource "aws_connect_queue" "test" {
   instance_id           = aws_connect_instance.test.id
-  name                  = %[1]q
+  name   = %[1]q
   description           = "Test update status"
   hours_of_operation_id = data.aws_connect_hours_of_operation.test.hours_of_operation_id
-  status                = %[2]q
+  status = %[2]q
 
   tags = {
     "Name" = "Test Queue",
@@ -804,7 +804,7 @@ func testAccQueueConfig_quickConnect1(rName, rName2, rName3, rName4, label strin
 		fmt.Sprintf(`
 resource "aws_connect_queue" "test" {
   instance_id           = aws_connect_instance.test.id
-  name                  = %[1]q
+  name   = %[1]q
   description           = %[2]q
   hours_of_operation_id = data.aws_connect_hours_of_operation.test.hours_of_operation_id
 
@@ -827,7 +827,7 @@ func testAccQueueConfig_quickConnect2(rName, rName2, rName3, rName4, label strin
 		fmt.Sprintf(`
 resource "aws_connect_queue" "test" {
   instance_id           = aws_connect_instance.test.id
-  name                  = %[1]q
+  name   = %[1]q
   description           = %[2]q
   hours_of_operation_id = data.aws_connect_hours_of_operation.test.hours_of_operation_id
 
@@ -850,7 +850,7 @@ func testAccQueueConfig_tags(rName, rName2, label string) string {
 		fmt.Sprintf(`
 resource "aws_connect_queue" "test" {
   instance_id           = aws_connect_instance.test.id
-  name                  = %[1]q
+  name   = %[1]q
   description           = %[2]q
   hours_of_operation_id = data.aws_connect_hours_of_operation.test.hours_of_operation_id
 
@@ -869,7 +869,7 @@ func testAccQueueConfig_tagsUpdated(rName, rName2, label string) string {
 		fmt.Sprintf(`
 resource "aws_connect_queue" "test" {
   instance_id           = aws_connect_instance.test.id
-  name                  = %[1]q
+  name   = %[1]q
   description           = %[2]q
   hours_of_operation_id = data.aws_connect_hours_of_operation.test.hours_of_operation_id
 

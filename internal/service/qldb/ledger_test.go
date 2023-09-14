@@ -27,8 +27,8 @@ func TestAccQLDBLedger_basic(t *testing.T) {
 	resourceName := "aws_qldb_ledger.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.QLDBEndpointID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
+		ErrorCheck:acctest.ErrorCheck(t, names.QLDBEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLedgerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -60,8 +60,8 @@ func TestAccQLDBLedger_disappears(t *testing.T) {
 	resourceName := "aws_qldb_ledger.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.QLDBEndpointID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
+		ErrorCheck:acctest.ErrorCheck(t, names.QLDBEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLedgerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -83,8 +83,8 @@ func TestAccQLDBLedger_nameGenerated(t *testing.T) {
 	resourceName := "aws_qldb_ledger.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.QLDBEndpointID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
+		ErrorCheck:acctest.ErrorCheck(t, names.QLDBEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLedgerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -111,8 +111,8 @@ func TestAccQLDBLedger_update(t *testing.T) {
 	resourceName := "aws_qldb_ledger.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.QLDBEndpointID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
+		ErrorCheck:acctest.ErrorCheck(t, names.QLDBEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLedgerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -157,8 +157,8 @@ func TestAccQLDBLedger_kmsKey(t *testing.T) {
 	kmsKeyResourceName := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.QLDBEndpointID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
+		ErrorCheck:acctest.ErrorCheck(t, names.QLDBEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLedgerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -192,8 +192,8 @@ func TestAccQLDBLedger_tags(t *testing.T) {
 	resourceName := "aws_qldb_ledger.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.QLDBEndpointID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, names.QLDBEndpointID) },
+		ErrorCheck:acctest.ErrorCheck(t, names.QLDBEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckLedgerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -285,7 +285,7 @@ func testAccCheckLedgerExists(ctx context.Context, n string, v *qldb.DescribeLed
 func testAccLedgerConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_qldb_ledger" "test" {
-  name                = %[1]q
+  name = %[1]q
   permissions_mode    = "ALLOW_ALL"
   deletion_protection = false
 }
@@ -295,7 +295,7 @@ resource "aws_qldb_ledger" "test" {
 func testAccLedgerConfig_updated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_qldb_ledger" "test" {
-  name                = %[1]q
+  name = %[1]q
   permissions_mode    = "STANDARD"
   deletion_protection = true
 }
@@ -319,7 +319,7 @@ resource "aws_kms_key" "test" {
 }
 
 resource "aws_qldb_ledger" "test" {
-  name                = %[1]q
+  name = %[1]q
   permissions_mode    = "ALLOW_ALL"
   deletion_protection = false
   kms_key             = aws_kms_key.test.arn
@@ -335,7 +335,7 @@ resource "aws_kms_key" "test" {
 }
 
 resource "aws_qldb_ledger" "test" {
-  name                = %[1]q
+  name = %[1]q
   permissions_mode    = "ALLOW_ALL"
   deletion_protection = false
   kms_key             = "AWS_OWNED_KMS_KEY"
@@ -346,7 +346,7 @@ resource "aws_qldb_ledger" "test" {
 func testAccLedgerConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_qldb_ledger" "test" {
-  name                = %[1]q
+  name = %[1]q
   permissions_mode    = "ALLOW_ALL"
   deletion_protection = false
 
@@ -360,7 +360,7 @@ resource "aws_qldb_ledger" "test" {
 func testAccLedgerConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_qldb_ledger" "test" {
-  name                = %[1]q
+  name = %[1]q
   permissions_mode    = "ALLOW_ALL"
   deletion_protection = false
 

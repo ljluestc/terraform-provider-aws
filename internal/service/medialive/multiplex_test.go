@@ -37,7 +37,7 @@ func testAccMultiplex_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.MediaLiveEndpointID)
 			testAccMultiplexesPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.MediaLiveEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckMultiplexDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -79,7 +79,7 @@ func testAccMultiplex_start(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.MediaLiveEndpointID)
 			testAccMultiplexesPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.MediaLiveEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckMultiplexDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -119,7 +119,7 @@ func testAccMultiplex_update(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.MediaLiveEndpointID)
 			testAccMultiplexesPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.MediaLiveEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckMultiplexDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -167,7 +167,7 @@ func testAccMultiplex_updateTags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.MediaLiveEndpointID)
 			testAccMultiplexesPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.MediaLiveEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckMultiplexDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -216,7 +216,7 @@ func testAccMultiplex_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.MediaLiveEndpointID)
 			testAccMultiplexesPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.MediaLiveEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckMultiplexDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -301,12 +301,12 @@ func testAccMultiplexConfig_basic(rName string, start bool) string {
 		acctest.ConfigAvailableAZsNoOptInExclude("usw2-las1-az1"),
 		fmt.Sprintf(`
 resource "aws_medialive_multiplex" "test" {
-  name               = %[1]q
+  name= %[1]q
   availability_zones = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1]]
 
   multiplex_settings {
-    transport_stream_bitrate                = 1000000
-    transport_stream_id                     = 1
+    transport_stream_bitrate = 1000000
+    transport_stream_id      = 1
     transport_stream_reserved_bitrate       = 1
     maximum_video_buffer_delay_milliseconds = 1000
   }
@@ -325,12 +325,12 @@ func testAccMultiplexConfig_update(rName string, start bool) string {
 		acctest.ConfigAvailableAZsNoOptInExclude("usw2-las1-az1"),
 		fmt.Sprintf(`
 resource "aws_medialive_multiplex" "test" {
-  name               = %[1]q
+  name= %[1]q
   availability_zones = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1]]
 
   multiplex_settings {
-    transport_stream_bitrate                = 1000001
-    transport_stream_id                     = 2
+    transport_stream_bitrate = 1000001
+    transport_stream_id      = 2
     transport_stream_reserved_bitrate       = 1
     maximum_video_buffer_delay_milliseconds = 1000
   }
@@ -349,12 +349,12 @@ func testAccMultiplexConfig_tags1(rName, key1, value1 string) string {
 		acctest.ConfigAvailableAZsNoOptInExclude("usw2-las1-az1"),
 		fmt.Sprintf(`
 resource "aws_medialive_multiplex" "test" {
-  name               = %[1]q
+  name= %[1]q
   availability_zones = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1]]
 
   multiplex_settings {
-    transport_stream_bitrate                = 1000000
-    transport_stream_id                     = 1
+    transport_stream_bitrate = 1000000
+    transport_stream_id      = 1
     transport_stream_reserved_bitrate       = 1
     maximum_video_buffer_delay_milliseconds = 1000
   }
@@ -371,12 +371,12 @@ func testAccMultiplexConfig_tags2(rName, key1, value1, key2, value2 string) stri
 		acctest.ConfigAvailableAZsNoOptInExclude("usw2-las1-az1"),
 		fmt.Sprintf(`
 resource "aws_medialive_multiplex" "test" {
-  name               = %[1]q
+  name= %[1]q
   availability_zones = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1]]
 
   multiplex_settings {
-    transport_stream_bitrate                = 1000000
-    transport_stream_id                     = 1
+    transport_stream_bitrate = 1000000
+    transport_stream_id      = 1
     transport_stream_reserved_bitrate       = 1
     maximum_video_buffer_delay_milliseconds = 1000
   }

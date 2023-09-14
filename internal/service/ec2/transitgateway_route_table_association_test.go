@@ -28,9 +28,9 @@ func testAccTransitGatewayRouteTableAssociation_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayRouteTableAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -64,9 +64,9 @@ func testAccTransitGatewayRouteTableAssociation_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayRouteTableAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -93,9 +93,9 @@ func testAccTransitGatewayRouteTableAssociation_replaceExistingAssociation(t *te
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayRouteTableAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -216,10 +216,10 @@ resource "aws_ec2_transit_gateway_route_table" "test" {
 func testAccTransitGatewayRouteTableAssociationConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccTransitGatewayRouteTableAssociationConfig_base(rName), fmt.Sprintf(`
 resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
-  subnet_ids                                      = aws_subnet.test[*].id
+  subnet_ids        = aws_subnet.test[*].id
   transit_gateway_default_route_table_association = false
-  transit_gateway_id                              = aws_ec2_transit_gateway.test.id
-  vpc_id                                          = aws_vpc.test.id
+  transit_gateway_id= aws_ec2_transit_gateway.test.id
+  vpc_id            = aws_vpc.test.id
 
   tags = {
     Name = %[1]q

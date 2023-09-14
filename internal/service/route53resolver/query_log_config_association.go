@@ -52,7 +52,7 @@ func resourceQueryLogConfigAssociationCreate(ctx context.Context, d *schema.Reso
 
 	input := &route53resolver.AssociateResolverQueryLogConfigInput{
 		ResolverQueryLogConfigId: aws.String(d.Get("resolver_query_log_config_id").(string)),
-		ResourceId:               aws.String(d.Get("resource_id").(string)),
+		ResourceId:aws.String(d.Get("resource_id").(string)),
 	}
 
 	output, err := conn.AssociateResolverQueryLogConfigWithContext(ctx, input)
@@ -99,7 +99,7 @@ func resourceQueryLogConfigAssociationDelete(ctx context.Context, d *schema.Reso
 	log.Printf("[DEBUG] Deleting Route53 Resolver Query Log Config Association: %s", d.Id())
 	_, err := conn.DisassociateResolverQueryLogConfigWithContext(ctx, &route53resolver.DisassociateResolverQueryLogConfigInput{
 		ResolverQueryLogConfigId: aws.String(d.Get("resolver_query_log_config_id").(string)),
-		ResourceId:               aws.String(d.Get("resource_id").(string)),
+		ResourceId:aws.String(d.Get("resource_id").(string)),
 	})
 
 	if tfawserr.ErrCodeEquals(err, route53resolver.ErrCodeResourceNotFoundException) {

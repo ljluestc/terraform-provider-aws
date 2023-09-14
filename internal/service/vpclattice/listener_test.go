@@ -38,7 +38,7 @@ func TestAccVPCLatticeListener_defaultActionUpdate(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckListenerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -90,7 +90,7 @@ func TestAccVPCLatticeListener_fixedResponseHTTP(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckListenerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -129,7 +129,7 @@ func TestAccVPCLatticeListener_fixedResponseHTTPS(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckListenerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -169,7 +169,7 @@ func TestAccVPCLatticeListener_forwardHTTPTargetGroup(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckListenerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -210,7 +210,7 @@ func TestAccVPCLatticeListener_forwardHTTPTargetGroupCustomPort(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckListenerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -251,7 +251,7 @@ func TestAccVPCLatticeListener_forwardHTTPSTargetGroupARN(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckListenerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -293,7 +293,7 @@ func TestAccVPCLatticeListener_forwardHTTPSTargetGroupCustomPort(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckListenerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -337,7 +337,7 @@ func TestAccVPCLatticeListener_forwardHTTPMultipleTargetGroups(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckListenerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -381,7 +381,7 @@ func TestAccVPCLatticeListener_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckListenerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -410,7 +410,7 @@ func TestAccVPCLatticeListener_tags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckListenerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -526,7 +526,7 @@ resource "aws_vpclattice_target_group" "test" {
 func testAccListenerConfig_fixedResponseHTTP(rName string) string {
 	return acctest.ConfigCompose(testAccListenerConfig_basic(rName), fmt.Sprintf(`
 resource "aws_vpclattice_listener" "test" {
-  name               = %[1]q
+  name= %[1]q
   protocol           = "HTTP"
   service_identifier = aws_vpclattice_service.test.id
   default_action {
@@ -541,7 +541,7 @@ resource "aws_vpclattice_listener" "test" {
 func testAccListenerConfig_fixedResponseHTTPS(rName string) string {
 	return acctest.ConfigCompose(testAccListenerConfig_basic(rName), fmt.Sprintf(`
 resource "aws_vpclattice_listener" "test" {
-  name               = %[1]q
+  name= %[1]q
   protocol           = "HTTPS"
   service_identifier = aws_vpclattice_service.test.id
   default_action {
@@ -567,18 +567,18 @@ resource "aws_vpclattice_target_group" "test1" {
 }
 
 resource "aws_vpclattice_listener" "test" {
-  name               = %[1]q
+  name= %[1]q
   protocol           = "HTTP"
   service_identifier = aws_vpclattice_service.test.id
   default_action {
     forward {
       target_groups {
         target_group_identifier = aws_vpclattice_target_group.test.id
-        weight                  = 80
+        weight   = 80
       }
       target_groups {
         target_group_identifier = aws_vpclattice_target_group.test1.id
-        weight                  = 20
+        weight   = 20
       }
     }
   }
@@ -589,14 +589,14 @@ resource "aws_vpclattice_listener" "test" {
 func testAccListenerConfig_forwardTargetGroupHTTPServiceID(rName string) string {
 	return acctest.ConfigCompose(testAccListenerConfig_basic(rName), fmt.Sprintf(`
 resource "aws_vpclattice_listener" "test" {
-  name               = %[1]q
+  name= %[1]q
   protocol           = "HTTP"
   service_identifier = aws_vpclattice_service.test.id
   default_action {
     forward {
       target_groups {
         target_group_identifier = aws_vpclattice_target_group.test.id
-        weight                  = 100
+        weight   = 100
       }
     }
   }
@@ -607,15 +607,15 @@ resource "aws_vpclattice_listener" "test" {
 func testAccListenerConfig_forwardTargetGroupHTTPServiceIDCustomPort(rName string) string {
 	return acctest.ConfigCompose(testAccListenerConfig_basic(rName), fmt.Sprintf(`
 resource "aws_vpclattice_listener" "test" {
-  name               = %[1]q
-  port               = 8080
+  name= %[1]q
+  port= 8080
   protocol           = "HTTP"
   service_identifier = aws_vpclattice_service.test.id
   default_action {
     forward {
       target_groups {
         target_group_identifier = aws_vpclattice_target_group.test.id
-        weight                  = 100
+        weight   = 100
       }
     }
   }
@@ -633,7 +633,7 @@ resource "aws_vpclattice_listener" "test" {
     forward {
       target_groups {
         target_group_identifier = aws_vpclattice_target_group.test.id
-        weight                  = 100
+        weight   = 100
       }
     }
   }
@@ -643,14 +643,14 @@ resource "aws_vpclattice_listener" "test" {
 func testAccListenerConfig_forwardTargetGroupHTTPSServiceID(rName string) string {
 	return acctest.ConfigCompose(testAccListenerConfig_basic(rName), fmt.Sprintf(`
 resource "aws_vpclattice_listener" "test" {
-  name               = %[1]q
+  name= %[1]q
   protocol           = "HTTPS"
   service_identifier = aws_vpclattice_service.test.id
   default_action {
     forward {
       target_groups {
         target_group_identifier = aws_vpclattice_target_group.test.id
-        weight                  = 100
+        weight   = 100
       }
     }
   }
@@ -660,15 +660,15 @@ resource "aws_vpclattice_listener" "test" {
 func testAccListenerConfig_forwardTargetGroupHTTPSServiceIDCustomPort(rName string) string {
 	return acctest.ConfigCompose(testAccListenerConfig_basic(rName), fmt.Sprintf(`
 resource "aws_vpclattice_listener" "test" {
-  name               = %[1]q
-  port               = 8443
+  name= %[1]q
+  port= 8443
   protocol           = "HTTPS"
   service_identifier = aws_vpclattice_service.test.id
   default_action {
     forward {
       target_groups {
         target_group_identifier = aws_vpclattice_target_group.test.id
-        weight                  = 100
+        weight   = 100
       }
     }
   }
@@ -678,14 +678,14 @@ resource "aws_vpclattice_listener" "test" {
 func testAccListenerConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccListenerConfig_basic(rName), fmt.Sprintf(`
 resource "aws_vpclattice_listener" "test" {
-  name               = %[1]q
+  name= %[1]q
   protocol           = "HTTP"
   service_identifier = aws_vpclattice_service.test.id
   default_action {
     forward {
       target_groups {
         target_group_identifier = aws_vpclattice_target_group.test.id
-        weight                  = 100
+        weight   = 100
       }
     }
   }
@@ -699,14 +699,14 @@ resource "aws_vpclattice_listener" "test" {
 func testAccListenerConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccListenerConfig_basic(rName), fmt.Sprintf(`
 resource "aws_vpclattice_listener" "test" {
-  name               = %[1]q
+  name= %[1]q
   protocol           = "HTTP"
   service_identifier = aws_vpclattice_service.test.id
   default_action {
     forward {
       target_groups {
         target_group_identifier = aws_vpclattice_target_group.test.id
-        weight                  = 100
+        weight   = 100
       }
     }
   }

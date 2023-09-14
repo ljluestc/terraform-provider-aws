@@ -26,9 +26,9 @@ func testAccTransitGatewayMulticastDomainAssociation_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayMulticastDomainAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -51,9 +51,9 @@ func testAccTransitGatewayMulticastDomainAssociation_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayMulticastDomainAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -79,9 +79,9 @@ func testAccTransitGatewayMulticastDomainAssociation_Disappears_domain(t *testin
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayMulticastDomainAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -107,9 +107,9 @@ func testAccTransitGatewayMulticastDomainAssociation_twoAssociations(t *testing.
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayMulticastDomainAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -242,7 +242,7 @@ resource "aws_ec2_transit_gateway_multicast_domain" "test" {
 }
 
 resource "aws_ec2_transit_gateway_multicast_domain_association" "test" {
-  subnet_id                           = aws_subnet.test.id
+  subnet_id            = aws_subnet.test.id
   transit_gateway_attachment_id       = aws_ec2_transit_gateway_vpc_attachment.test.id
   transit_gateway_multicast_domain_id = aws_ec2_transit_gateway_multicast_domain.test.id
 }
@@ -307,13 +307,13 @@ resource "aws_ec2_transit_gateway_multicast_domain" "test" {
 }
 
 resource "aws_ec2_transit_gateway_multicast_domain_association" "test1" {
-  subnet_id                           = aws_subnet.test1.id
+  subnet_id            = aws_subnet.test1.id
   transit_gateway_attachment_id       = aws_ec2_transit_gateway_vpc_attachment.test.id
   transit_gateway_multicast_domain_id = aws_ec2_transit_gateway_multicast_domain.test.id
 }
 
 resource "aws_ec2_transit_gateway_multicast_domain_association" "test2" {
-  subnet_id                           = aws_subnet.test2.id
+  subnet_id            = aws_subnet.test2.id
   transit_gateway_attachment_id       = aws_ec2_transit_gateway_vpc_attachment.test.id
   transit_gateway_multicast_domain_id = aws_ec2_transit_gateway_multicast_domain.test.id
 }

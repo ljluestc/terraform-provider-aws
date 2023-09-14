@@ -461,20 +461,20 @@ func (r *resourceSecurityGroupRule) flattenReferencedSecurityGroup(ctx context.C
 }
 
 type resourceSecurityGroupRuleData struct {
-	ARN                       types.String `tfsdk:"arn"`
-	CIDRIPv4                  types.String `tfsdk:"cidr_ipv4"`
-	CIDRIPv6                  types.String `tfsdk:"cidr_ipv6"`
-	Description               types.String `tfsdk:"description"`
-	FromPort                  types.Int64  `tfsdk:"from_port"`
-	ID                        types.String `tfsdk:"id"`
-	IPProtocol                types.String `tfsdk:"ip_protocol"`
+	ARN        types.String `tfsdk:"arn"`
+	CIDRIPv4   types.String `tfsdk:"cidr_ipv4"`
+	CIDRIPv6   types.String `tfsdk:"cidr_ipv6"`
+	Descriptiontypes.String `tfsdk:"description"`
+	FromPort   types.Int64  `tfsdk:"from_port"`
+	ID         types.String `tfsdk:"id"`
+	IPProtocol types.String `tfsdk:"ip_protocol"`
 	PrefixListID              types.String `tfsdk:"prefix_list_id"`
 	ReferencedSecurityGroupID types.String `tfsdk:"referenced_security_group_id"`
 	SecurityGroupID           types.String `tfsdk:"security_group_id"`
 	SecurityGroupRuleID       types.String `tfsdk:"security_group_rule_id"`
-	Tags                      types.Map    `tfsdk:"tags"`
-	TagsAll                   types.Map    `tfsdk:"tags_all"`
-	ToPort                    types.Int64  `tfsdk:"to_port"`
+	Tags       types.Map    `tfsdk:"tags"`
+	TagsAll    types.Map    `tfsdk:"tags_all"`
+	ToPort     types.Int64  `tfsdk:"to_port"`
 }
 
 

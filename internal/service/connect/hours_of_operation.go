@@ -228,7 +228,7 @@ func resourceHoursOfOperationUpdate(ctx context.Context, d *schema.ResourceData,
 			Description:        aws.String(d.Get("description").(string)),
 			HoursOfOperationId: aws.String(hoursOfOperationID),
 			InstanceId:         aws.String(instanceID),
-			Name:               aws.String(d.Get("name").(string)),
+			Name:aws.String(d.Get("name").(string)),
 			TimeZone:           aws.String(d.Get("time_zone").(string)),
 		})
 		if err != nil {

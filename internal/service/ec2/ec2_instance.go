@@ -999,38 +999,38 @@ func resourceInstanceCreate(ctx context.Context, d *schema.ResourceData, meta in
 	tagSpecifications := getTagSpecificationsIn(ctx, ec2.ResourceTypeInstance)
 	tagSpecifications = append(tagSpecifications, tagSpecificationsFromMap(ctx, d.Get("volume_tags").(map[string]interface{}), ec2.ResourceTypeVolume)...)
 	input := &ec2.RunInstancesInput{
-		BlockDeviceMappings:               instanceOpts.BlockDeviceMappings,
+		BlockDeviceMappings:instanceOpts.BlockDeviceMappings,
 		CapacityReservationSpecification:  instanceOpts.CapacityReservationSpecification,
-		ClientToken:                       aws.String(id.UniqueId()),
-		CpuOptions:                        instanceOpts.CpuOptions,
-		CreditSpecification:               instanceOpts.CreditSpecification,
+		ClientToken:        aws.String(id.UniqueId()),
+		CpuOptions:         instanceOpts.CpuOptions,
+		CreditSpecification:instanceOpts.CreditSpecification,
 		DisableApiTermination:             instanceOpts.DisableAPITermination,
-		EbsOptimized:                      instanceOpts.EBSOptimized,
-		EnclaveOptions:                    instanceOpts.EnclaveOptions,
-		HibernationOptions:                instanceOpts.HibernationOptions,
-		IamInstanceProfile:                instanceOpts.IAMInstanceProfile,
-		ImageId:                           instanceOpts.ImageID,
+		EbsOptimized:       instanceOpts.EBSOptimized,
+		EnclaveOptions:     instanceOpts.EnclaveOptions,
+		HibernationOptions: instanceOpts.HibernationOptions,
+		IamInstanceProfile: instanceOpts.IAMInstanceProfile,
+		ImageId:            instanceOpts.ImageID,
 		InstanceInitiatedShutdownBehavior: instanceOpts.InstanceInitiatedShutdownBehavior,
 		InstanceMarketOptions:             instanceOpts.InstanceMarketOptions,
-		InstanceType:                      instanceOpts.InstanceType,
-		Ipv6AddressCount:                  instanceOpts.Ipv6AddressCount,
-		Ipv6Addresses:                     instanceOpts.Ipv6Addresses,
-		KeyName:                           instanceOpts.KeyName,
-		LaunchTemplate:                    instanceOpts.LaunchTemplate,
-		MaintenanceOptions:                instanceOpts.MaintenanceOptions,
-		MaxCount:                          aws.Int64(1),
-		MetadataOptions:                   instanceOpts.MetadataOptions,
-		MinCount:                          aws.Int64(1),
-		Monitoring:                        instanceOpts.Monitoring,
-		NetworkInterfaces:                 instanceOpts.NetworkInterfaces,
-		Placement:                         instanceOpts.Placement,
+		InstanceType:       instanceOpts.InstanceType,
+		Ipv6AddressCount:   instanceOpts.Ipv6AddressCount,
+		Ipv6Addresses:      instanceOpts.Ipv6Addresses,
+		KeyName:            instanceOpts.KeyName,
+		LaunchTemplate:     instanceOpts.LaunchTemplate,
+		MaintenanceOptions: instanceOpts.MaintenanceOptions,
+		MaxCount:           aws.Int64(1),
+		MetadataOptions:    instanceOpts.MetadataOptions,
+		MinCount:           aws.Int64(1),
+		Monitoring:         instanceOpts.Monitoring,
+		NetworkInterfaces:  instanceOpts.NetworkInterfaces,
+		Placement:          instanceOpts.Placement,
 		PrivateDnsNameOptions:             instanceOpts.PrivateDNSNameOptions,
-		PrivateIpAddress:                  instanceOpts.PrivateIPAddress,
-		SecurityGroupIds:                  instanceOpts.SecurityGroupIDs,
-		SecurityGroups:                    instanceOpts.SecurityGroups,
-		SubnetId:                          instanceOpts.SubnetID,
-		TagSpecifications:                 tagSpecifications,
-		UserData:                          instanceOpts.UserData64,
+		PrivateIpAddress:   instanceOpts.PrivateIPAddress,
+		SecurityGroupIds:   instanceOpts.SecurityGroupIDs,
+		SecurityGroups:     instanceOpts.SecurityGroups,
+		SubnetId:           instanceOpts.SubnetID,
+		TagSpecifications:  tagSpecifications,
+		UserData:           instanceOpts.UserData64,
 	}
 
 	if instanceOpts.DisableAPIStop != nil {
@@ -2012,7 +2012,7 @@ func() *retry.RetryError {
 			if v := expandCapacityReservationSpecification(v.([]interface{})[0].(map[string]interface{})); v != nil && (v.CapacityReservationPreference != nil || v.CapacityReservationTarget != nil) {
 				input := &ec2.ModifyInstanceCapacityReservationAttributesInput{
 					CapacityReservationSpecification: v,
-					InstanceId:                       aws.String(d.Id()),
+					InstanceId:        aws.String(d.Id()),
 				}
 
 				log.Printf("[DEBUG] Modifying EC2 Instance capacity reservation attributes: %s", input)
@@ -2790,36 +2790,36 @@ func() *retry.RetryError {
 }
 
 type instanceOpts struct {
-	BlockDeviceMappings               []*ec2.BlockDeviceMapping
+	BlockDeviceMappings[]*ec2.BlockDeviceMapping
 	CapacityReservationSpecification  *ec2.CapacityReservationSpecification
-	CpuOptions                        *ec2.CpuOptionsRequest
-	CreditSpecification               *ec2.CreditSpecificationRequest
-	DisableAPIStop                    *bool
+	CpuOptions         *ec2.CpuOptionsRequest
+	CreditSpecification*ec2.CreditSpecificationRequest
+	DisableAPIStop     *bool
 	DisableAPITermination             *bool
-	EBSOptimized                      *bool
-	EnclaveOptions                    *ec2.EnclaveOptionsRequest
-	HibernationOptions                *ec2.HibernationOptionsRequest
-	IAMInstanceProfile                *ec2.IamInstanceProfileSpecification
-	ImageID                           *string
+	EBSOptimized       *bool
+	EnclaveOptions     *ec2.EnclaveOptionsRequest
+	HibernationOptions *ec2.HibernationOptionsRequest
+	IAMInstanceProfile *ec2.IamInstanceProfileSpecification
+	ImageID            *string
 	InstanceInitiatedShutdownBehavior *string
 	InstanceMarketOptions             *ec2.InstanceMarketOptionsRequest
-	InstanceType                      *string
-	Ipv6AddressCount                  *int64
-	Ipv6Addresses                     []*ec2.InstanceIpv6Address
-	KeyName                           *string
-	LaunchTemplate                    *ec2.LaunchTemplateSpecification
-	MaintenanceOptions                *ec2.InstanceMaintenanceOptionsRequest
-	MetadataOptions                   *ec2.InstanceMetadataOptionsRequest
-	Monitoring                        *ec2.RunInstancesMonitoringEnabled
-	NetworkInterfaces                 []*ec2.InstanceNetworkInterfaceSpecification
-	Placement                         *ec2.Placement
+	InstanceType       *string
+	Ipv6AddressCount   *int64
+	Ipv6Addresses      []*ec2.InstanceIpv6Address
+	KeyName            *string
+	LaunchTemplate     *ec2.LaunchTemplateSpecification
+	MaintenanceOptions *ec2.InstanceMaintenanceOptionsRequest
+	MetadataOptions    *ec2.InstanceMetadataOptionsRequest
+	Monitoring         *ec2.RunInstancesMonitoringEnabled
+	NetworkInterfaces  []*ec2.InstanceNetworkInterfaceSpecification
+	Placement          *ec2.Placement
 	PrivateDNSNameOptions             *ec2.PrivateDnsNameOptionsRequest
-	PrivateIPAddress                  *string
-	SecurityGroupIDs                  []*string
-	SecurityGroups                    []*string
-	SpotPlacement                     *ec2.SpotPlacement
-	SubnetID                          *string
-	UserData64                        *string
+	PrivateIPAddress   *string
+	SecurityGroupIDs   []*string
+	SecurityGroups     []*string
+	SpotPlacement      *ec2.SpotPlacement
+	SubnetID           *string
+	UserData64         *string
 }
 
 
@@ -3288,10 +3288,10 @@ func flattenInstanceMetadataOptions(opts *ec2.InstanceMetadataOptionsResponse) [
 	}
 
 	m := map[string]interface{}{
-		"http_endpoint":               aws.StringValue(opts.HttpEndpoint),
+		"http_endpoint":aws.StringValue(opts.HttpEndpoint),
 		"http_protocol_ipv6":          aws.StringValue(opts.HttpProtocolIpv6),
 		"http_put_response_hop_limit": aws.Int64Value(opts.HttpPutResponseHopLimit),
-		"http_tokens":                 aws.StringValue(opts.HttpTokens),
+		"http_tokens":  aws.StringValue(opts.HttpTokens),
 		"instance_metadata_tags":      aws.StringValue(opts.InstanceMetadataTags),
 	}
 
@@ -3831,10 +3831,10 @@ func ParseInstanceType(s string) (*InstanceType, error) {
 	}
 
 	return &InstanceType{
-		Type:                   matches[1],
-		Family:                 matches[2],
+		Type:    matches[1],
+		Family:  matches[2],
 		Generation:             generation,
 		AdditionalCapabilities: matches[4],
-		Size:                   matches[5],
+		Size:    matches[5],
 	}, nil
 }

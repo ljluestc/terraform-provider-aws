@@ -25,8 +25,8 @@ func TestAccRoute53CIDRLocation_basic(t *testing.T) {
 	locationName := sdkacctest.RandString(16)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, route53.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, route53.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckCIDRLocationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -66,8 +66,8 @@ func TestAccRoute53CIDRLocation_disappears(t *testing.T) {
 	locationName := sdkacctest.RandString(16)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, route53.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, route53.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckCIDRLocationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -91,8 +91,8 @@ func TestAccRoute53CIDRLocation_update(t *testing.T) {
 	locationName := sdkacctest.RandString(16)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, route53.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, route53.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckCIDRLocationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -191,7 +191,7 @@ resource "aws_route53_cidr_collection" "test" {
 
 resource "aws_route53_cidr_location" "test" {
   cidr_collection_id = aws_route53_cidr_collection.test.id
-  name               = %[2]q
+  name= %[2]q
   cidr_blocks        = ["200.5.3.0/24", "200.6.3.0/24"]
 }
 `, rName, locationName)
@@ -205,7 +205,7 @@ resource "aws_route53_cidr_collection" "test" {
 
 resource "aws_route53_cidr_location" "test" {
   cidr_collection_id = aws_route53_cidr_collection.test.id
-  name               = %[2]q
+  name= %[2]q
   cidr_blocks        = ["200.5.2.0/24", "200.6.3.0/24", "200.6.5.0/24"]
 }
 `, rName, locationName)

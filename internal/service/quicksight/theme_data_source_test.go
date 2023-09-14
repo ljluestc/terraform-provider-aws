@@ -27,7 +27,7 @@ func TestAccQuickSightThemeDataSource_basic(t *testing.T) {
 func() {
 			acctest.PreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -61,7 +61,7 @@ func TestAccQuickSightThemeDataSource_fullConfig(t *testing.T) {
 func() {
 			acctest.PreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -178,9 +178,9 @@ resource "aws_quicksight_theme" "test" {
       }
     }
     ui_color_palette {
-      accent               = "#202020"
+      accent= "#202020"
       accent_foreground    = "#FFFFFF"
-      danger               = "#202020"
+      danger= "#202020"
       danger_foreground    = "#FFFFFF"
       dimension            = "#202020"
       dimension_foreground = "#FFFFFF"

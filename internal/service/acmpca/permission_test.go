@@ -24,8 +24,8 @@ func TestAccACMPCAPermission_basic(t *testing.T) {
 	commonName := acctest.RandomDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, acmpca.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, acmpca.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPermissionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -53,8 +53,8 @@ func TestAccACMPCAPermission_disappears(t *testing.T) {
 	commonName := acctest.RandomDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, acmpca.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, acmpca.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPermissionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -77,8 +77,8 @@ func TestAccACMPCAPermission_sourceAccount(t *testing.T) {
 	commonName := acctest.RandomDomainName()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, acmpca.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, acmpca.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPermissionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -173,8 +173,8 @@ resource "aws_acmpca_certificate_authority" "test" {
 
 resource "aws_acmpca_permission" "test" {
   certificate_authority_arn = aws_acmpca_certificate_authority.test.arn
-  principal                 = "acm.amazonaws.com"
-  actions                   = ["IssueCertificate", "GetCertificate", "ListPermissions"]
+  principal  = "acm.amazonaws.com"
+  actions    = ["IssueCertificate", "GetCertificate", "ListPermissions"]
 }
 `, commonName)
 }
@@ -198,8 +198,8 @@ data "aws_caller_identity" "current" {}
 
 resource "aws_acmpca_permission" "test" {
   certificate_authority_arn = aws_acmpca_certificate_authority.test.arn
-  principal                 = "acm.amazonaws.com"
-  actions                   = ["IssueCertificate", "GetCertificate", "ListPermissions"]
+  principal  = "acm.amazonaws.com"
+  actions    = ["IssueCertificate", "GetCertificate", "ListPermissions"]
   source_account            = data.aws_caller_identity.current.account_id
 }
 `, commonName)

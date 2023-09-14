@@ -103,7 +103,7 @@ func ResourceKey() *schema.Resource {
 				ForceNew: true,
 			},
 			"policy": {
-				Type:                  schema.TypeString,
+				Type:   schema.TypeString,
 				Optional:              true,
 				Computed:              true,
 				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
@@ -127,8 +127,8 @@ func resourceKeyCreate(ctx context.Context, d *schema.ResourceData, meta interfa
 	input := &kms.CreateKeyInput{
 		BypassPolicyLockoutSafetyCheck: aws.Bool(d.Get("bypass_policy_lockout_safety_check").(bool)),
 		CustomerMasterKeySpec:          aws.String(d.Get("customer_master_key_spec").(string)),
-		KeyUsage:                       aws.String(d.Get("key_usage").(string)),
-		Tags:                           getTagsIn(ctx),
+		KeyUsage:        aws.String(d.Get("key_usage").(string)),
+		Tags:            getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -448,9 +448,9 @@ func updateKeyPolicy(ctx context.Context, conn *kms.KMS, keyID string, policy st
 
 		input := &kms.PutKeyPolicyInput{
 			BypassPolicyLockoutSafetyCheck: aws.Bool(bypassPolicyLockoutSafetyCheck),
-			KeyId:                          aws.String(keyID),
-			Policy:                         aws.String(policy),
-			PolicyName:                     aws.String(PolicyNameDefault),
+			KeyId:           aws.String(keyID),
+			Policy:          aws.String(policy),
+			PolicyName:      aws.String(PolicyNameDefault),
 		}
 
 		_, err = conn.PutKeyPolicyWithContext(ctx, input)

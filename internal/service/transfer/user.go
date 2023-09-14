@@ -78,7 +78,7 @@ func ResourceUser() *schema.Resource {
 				ValidateFunc: validation.StringInSlice(transfer.HomeDirectoryType_Values(), false),
 			},
 			"policy": {
-				Type:                  schema.TypeString,
+				Type:   schema.TypeString,
 				Optional:              true,
 				ValidateFunc:          verify.ValidIAMPolicyJSON,
 				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,

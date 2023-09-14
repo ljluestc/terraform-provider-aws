@@ -24,8 +24,8 @@ func TestAccAutoScalingTrafficSourceAttachment_elb(t *testing.T) {
 	resourceName := "aws_autoscaling_traffic_source_attachment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTrafficSourceAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -45,8 +45,8 @@ func TestAccAutoScalingTrafficSourceAttachment_albTargetGroup(t *testing.T) {
 	resourceName := "aws_autoscaling_traffic_source_attachment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTrafficSourceAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -66,8 +66,8 @@ func TestAccAutoScalingTrafficSourceAttachment_vpcLatticeTargetGroup(t *testing.
 	resourceName := "aws_autoscaling_traffic_source_attachment.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTrafficSourceAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -88,8 +88,8 @@ func TestAccAutoScalingTrafficSourceAttachment_multipleELBs(t *testing.T) {
 	resource5Name := "aws_autoscaling_traffic_source_attachment.test.4"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTrafficSourceAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -118,8 +118,8 @@ func TestAccAutoScalingTrafficSourceAttachment_multipleVPCLatticeTargetGroups(t 
 	resource4Name := "aws_autoscaling_traffic_source_attachment.test.4"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTrafficSourceAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -147,8 +147,8 @@ func TestAccAutoScalingTrafficSourceAttachment_multipleALBTargetGroups(t *testin
 	resource5Name := "aws_autoscaling_traffic_source_attachment.test.4"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTrafficSourceAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -229,7 +229,7 @@ resource "aws_elb" "test" {
   count = %[2]d
 
   # "name" cannot be longer than 32 characters.
-  name               = format("%%s-%%d", substr(%[1]q, 0, 28), count.index)
+  name= format("%%s-%%d", substr(%[1]q, 0, 28), count.index)
   availability_zones = data.aws_availability_zones.available.names
 
   listener {
@@ -242,17 +242,17 @@ resource "aws_elb" "test" {
 
 resource "aws_autoscaling_group" "test" {
   availability_zones        = data.aws_availability_zones.available.names
-  max_size                  = 1
-  min_size                  = 0
+  max_size   = 1
+  min_size   = 0
   desired_capacity          = 0
   health_check_grace_period = 300
   force_delete              = true
-  name                      = %[1]q
+  name       = %[1]q
   launch_configuration      = aws_launch_configuration.test.name
 
   tag {
-    key                 = "Name"
-    value               = %[1]q
+    key  = "Name"
+    value= %[1]q
     propagate_at_launch = true
   }
 }
@@ -282,17 +282,17 @@ resource "aws_launch_configuration" "test" {
 
 resource "aws_autoscaling_group" "test" {
   vpc_zone_identifier       = aws_subnet.test[*].id
-  max_size                  = 1
-  min_size                  = 0
+  max_size   = 1
+  min_size   = 0
   desired_capacity          = 0
   health_check_grace_period = 300
   force_delete              = true
-  name                      = %[1]q
+  name       = %[1]q
   launch_configuration      = aws_launch_configuration.test.name
 
   tag {
-    key                 = "Name"
-    value               = %[1]q
+    key  = "Name"
+    value= %[1]q
     propagate_at_launch = true
   }
 }
@@ -325,17 +325,17 @@ resource "aws_launch_configuration" "test" {
 
 resource "aws_autoscaling_group" "test" {
   vpc_zone_identifier       = aws_subnet.test[*].id
-  max_size                  = 1
-  min_size                  = 0
+  max_size   = 1
+  min_size   = 0
   desired_capacity          = 0
   health_check_grace_period = 300
   force_delete              = true
-  name                      = %[1]q
+  name       = %[1]q
   launch_configuration      = aws_launch_configuration.test.name
 
   tag {
-    key                 = "Name"
-    value               = %[1]q
+    key  = "Name"
+    value= %[1]q
     propagate_at_launch = true
   }
 }

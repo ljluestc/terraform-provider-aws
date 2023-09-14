@@ -166,10 +166,10 @@ func resourceVPCConnectionDelete(ctx context.Context, d *schema.ResourceData, me
 
 func waitVPCConnectionCreated(ctx context.Context, conn *kafka.Client, id string, timeout time.Duration) (*kafka.DescribeVpcConnectionOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   enum.Slice(types.VpcConnectionStateCreating),
-		Target:                    enum.Slice(types.VpcConnectionStateAvailable),
-		Refresh:                   statusVPCConnection(ctx, conn, id),
-		Timeout:                   timeout,
+		Pending:    enum.Slice(types.VpcConnectionStateCreating),
+		Target:     enum.Slice(types.VpcConnectionStateAvailable),
+		Refresh:    statusVPCConnection(ctx, conn, id),
+		Timeout:    timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}

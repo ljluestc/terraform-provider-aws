@@ -31,7 +31,7 @@ func testAccPortfolioShare_basic(t *testing.T) {
 			acctest.PreCheckAlternateAccount(t)
 			acctest.PreCheckPartitionHasService(t, servicecatalog.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
 		CheckDestroy:             testAccCheckPortfolioShareDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -85,7 +85,7 @@ func testAccPortfolioShare_sharePrincipals(t *testing.T) {
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 			acctest.PreCheckPartitionHasService(t, servicecatalog.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
 		CheckDestroy:             testAccCheckPortfolioShareDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -128,7 +128,7 @@ func testAccPortfolioShare_organizationalUnit(t *testing.T) {
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 			acctest.PreCheckPartitionHasService(t, servicecatalog.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPortfolioShareDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -167,7 +167,7 @@ func testAccPortfolioShare_disappears(t *testing.T) {
 			acctest.PreCheckAlternateAccount(t)
 			acctest.PreCheckPartitionHasService(t, servicecatalog.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
 		CheckDestroy:             testAccCheckPortfolioShareDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -252,7 +252,7 @@ resource "aws_servicecatalog_portfolio_share" "test" {
   accept_language     = "en"
   portfolio_id        = aws_servicecatalog_portfolio.test.id
   share_tag_options   = %[2]t
-  type                = "ACCOUNT"
+  type = "ACCOUNT"
   principal_id        = data.aws_caller_identity.alternate.account_id
   wait_for_acceptance = false
 }
@@ -308,7 +308,7 @@ resource "aws_servicecatalog_portfolio_share" "test" {
   accept_language     = "en"
   portfolio_id        = aws_servicecatalog_portfolio.test.id
   share_principals    = %[2]t
-  type                = "ORGANIZATION"
+  type = "ORGANIZATION"
   principal_id        = data.aws_organizations_organization.current.arn
   wait_for_acceptance = false
 

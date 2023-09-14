@@ -181,10 +181,10 @@ func resourceInputSecurityGroupDelete(ctx context.Context, d *schema.ResourceDat
 
 func waitInputSecurityGroupCreated(ctx context.Context, conn *medialive.Client, id string, timeout time.Duration) (*medialive.DescribeInputSecurityGroupOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   []string{},
-		Target:                    enum.Slice(types.InputSecurityGroupStateIdle, types.InputSecurityGroupStateInUse),
-		Refresh:                   statusInputSecurityGroup(ctx, conn, id),
-		Timeout:                   timeout,
+		Pending:    []string{},
+		Target:     enum.Slice(types.InputSecurityGroupStateIdle, types.InputSecurityGroupStateInUse),
+		Refresh:    statusInputSecurityGroup(ctx, conn, id),
+		Timeout:    timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}
@@ -199,10 +199,10 @@ func waitInputSecurityGroupCreated(ctx context.Context, conn *medialive.Client, 
 
 func waitInputSecurityGroupUpdated(ctx context.Context, conn *medialive.Client, id string, timeout time.Duration) (*medialive.DescribeInputSecurityGroupOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   enum.Slice(types.InputSecurityGroupStateUpdating),
-		Target:                    enum.Slice(types.InputSecurityGroupStateIdle, types.InputSecurityGroupStateInUse),
-		Refresh:                   statusInputSecurityGroup(ctx, conn, id),
-		Timeout:                   timeout,
+		Pending:    enum.Slice(types.InputSecurityGroupStateUpdating),
+		Target:     enum.Slice(types.InputSecurityGroupStateIdle, types.InputSecurityGroupStateInUse),
+		Refresh:    statusInputSecurityGroup(ctx, conn, id),
+		Timeout:    timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}

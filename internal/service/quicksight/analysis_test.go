@@ -36,7 +36,7 @@ func TestAccQuickSightAnalysis_basic(t *testing.T) {
 func() {
 			acctest.PreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAnalysisDestroy(ctx, false),
 		Steps: []resource.TestStep{
@@ -73,7 +73,7 @@ func TestAccQuickSightAnalysis_disappears(t *testing.T) {
 func() {
 			acctest.PreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAnalysisDestroy(ctx, false),
 		Steps: []resource.TestStep{
@@ -106,7 +106,7 @@ func TestAccQuickSightAnalysis_sourceEntity(t *testing.T) {
 func() {
 			acctest.PreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAnalysisDestroy(ctx, false),
 		Steps: []resource.TestStep{
@@ -146,7 +146,7 @@ func TestAccQuickSightAnalysis_update(t *testing.T) {
 func() {
 			acctest.PreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAnalysisDestroy(ctx, false),
 		Steps: []resource.TestStep{
@@ -188,7 +188,7 @@ func TestAccQuickSightAnalysis_parametersConfig(t *testing.T) {
 func() {
 			acctest.PreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAnalysisDestroy(ctx, false),
 		Steps: []resource.TestStep{
@@ -226,7 +226,7 @@ func TestAccQuickSightAnalysis_forceDelete(t *testing.T) {
 func() {
 			acctest.PreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAnalysisDestroy(ctx, true),
 		Steps: []resource.TestStep{
@@ -258,7 +258,7 @@ func TestAccQuickSightAnalysis_Definition_calculatedFields(t *testing.T) {
 func() {
 			acctest.PreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, quicksight.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, quicksight.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAnalysisDestroy(ctx, false),
 		Steps: []resource.TestStep{
@@ -275,12 +275,12 @@ func(
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "definition.0.calculated_fields.*", map[string]string{
 						"data_set_identifier": "1",
 						"expression":          "1",
-						"name":                "test1",
+						"name": "test1",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "definition.0.calculated_fields.*", map[string]string{
 						"data_set_identifier": "1",
 						"expression":          "2",
-						"name":                "test2",
+						"name": "test2",
 					}),
 				),
 			},
@@ -376,7 +376,7 @@ resource "aws_quicksight_data_set" "test" {
   }
   logical_table_map {
     logical_table_map_id = %[1]q
-    alias                = "Group1"
+    alias = "Group1"
     source {
       physical_table_id = %[1]q
     }
@@ -435,26 +435,26 @@ resource "aws_quicksight_analysis" "test" {
           chart_configuration {
             field_wells {
               line_chart_aggregated_field_wells {
-                category {
-                  categorical_dimension_field {
-                    field_id = "1"
-                    column {
-                      data_set_identifier = "1"
-                      column_name         = "Column1"
-                    }
-                  }
-                }
-                values {
-                  categorical_measure_field {
-                    field_id = "2"
-                    column {
-                      data_set_identifier = "1"
-                      column_name         = "Column1"
-                    }
-                    aggregation_
+ category {
+   categorical_dimension_field {
+     field_id = "1"
+     column {
+       data_set_identifier = "1"
+       column_name         = "Column1"
+     }
+   }
+ }
+ values {
+   categorical_measure_field {
+     field_id = "2"
+     column {
+       data_set_identifier = "1"
+       column_name         = "Column1"
+     }
+     aggregation_
 function = "COUNT"
-                  }
-                }
+   }
+ }
               }
             }
           }
@@ -473,7 +473,7 @@ func testAccAnalysisConfig_TemplateSourceEntity(rId, rName, sourceId, sourceName
 		fmt.Sprintf(`
 resource "aws_quicksight_template" "test" {
   template_id         = %[3]q
-  name                = %[4]q
+  name = %[4]q
   version_description = "test"
   definition {
     data_set_configuration {
@@ -514,26 +514,26 @@ resource "aws_quicksight_template" "test" {
           chart_configuration {
             field_wells {
               line_chart_aggregated_field_wells {
-                category {
-                  categorical_dimension_field {
-                    field_id = "1"
-                    column {
-                      data_set_identifier = "1"
-                      column_name         = "Column1"
-                    }
-                  }
-                }
-                values {
-                  categorical_measure_field {
-                    field_id = "2"
-                    column {
-                      data_set_identifier = "1"
-                      column_name         = "Column1"
-                    }
-                    aggregation_
+ category {
+   categorical_dimension_field {
+     field_id = "1"
+     column {
+       data_set_identifier = "1"
+       column_name         = "Column1"
+     }
+   }
+ }
+ values {
+   categorical_measure_field {
+     field_id = "2"
+     column {
+       data_set_identifier = "1"
+       column_name         = "Column1"
+     }
+     aggregation_
 function = "COUNT"
-                  }
-                }
+   }
+ }
               }
             }
           }
@@ -580,7 +580,7 @@ resource "aws_quicksight_analysis" "test" {
     }
     parameter_declarations {
       string_parameter_declaration {
-        name                 = "test"
+        name  = "test"
         parameter_value_type = "SINGLE_VALUED"
         default_values {
           static_values = ["value"]
@@ -604,26 +604,26 @@ resource "aws_quicksight_analysis" "test" {
           chart_configuration {
             field_wells {
               line_chart_aggregated_field_wells {
-                category {
-                  categorical_dimension_field {
-                    field_id = "1"
-                    column {
-                      data_set_identifier = "1"
-                      column_name         = "Column1"
-                    }
-                  }
-                }
-                values {
-                  categorical_measure_field {
-                    field_id = "2"
-                    column {
-                      data_set_identifier = "1"
-                      column_name         = "Column1"
-                    }
-                    aggregation_
+ category {
+   categorical_dimension_field {
+     field_id = "1"
+     column {
+       data_set_identifier = "1"
+       column_name         = "Column1"
+     }
+   }
+ }
+ values {
+   categorical_measure_field {
+     field_id = "2"
+     column {
+       data_set_identifier = "1"
+       column_name         = "Column1"
+     }
+     aggregation_
 function = "COUNT"
-                  }
-                }
+   }
+ }
               }
             }
           }
@@ -665,26 +665,26 @@ resource "aws_quicksight_analysis" "test" {
           chart_configuration {
             field_wells {
               line_chart_aggregated_field_wells {
-                category {
-                  categorical_dimension_field {
-                    field_id = "1"
-                    column {
-                      data_set_identifier = "1"
-                      column_name         = "Column1"
-                    }
-                  }
-                }
-                values {
-                  categorical_measure_field {
-                    field_id = "2"
-                    column {
-                      data_set_identifier = "1"
-                      column_name         = "Column1"
-                    }
-                    aggregation_
+ category {
+   categorical_dimension_field {
+     field_id = "1"
+     column {
+       data_set_identifier = "1"
+       column_name         = "Column1"
+     }
+   }
+ }
+ values {
+   categorical_measure_field {
+     field_id = "2"
+     column {
+       data_set_identifier = "1"
+       column_name         = "Column1"
+     }
+     aggregation_
 function = "COUNT"
-                  }
-                }
+   }
+ }
               }
             }
           }
@@ -712,12 +712,12 @@ resource "aws_quicksight_analysis" "test" {
     calculated_fields {
       data_set_identifier = "1"
       expression          = "1"
-      name                = "test1"
+      name = "test1"
     }
     calculated_fields {
       data_set_identifier = "1"
       expression          = "2"
-      name                = "test2"
+      name = "test2"
     }
     sheets {
       title    = "Test"
@@ -744,26 +744,26 @@ resource "aws_quicksight_analysis" "test" {
           chart_configuration {
             field_wells {
               line_chart_aggregated_field_wells {
-                category {
-                  categorical_dimension_field {
-                    field_id = "1"
-                    column {
-                      data_set_identifier = "1"
-                      column_name         = "Column1"
-                    }
-                  }
-                }
-                values {
-                  categorical_measure_field {
-                    field_id = "2"
-                    column {
-                      data_set_identifier = "1"
-                      column_name         = "Column1"
-                    }
-                    aggregation_
+ category {
+   categorical_dimension_field {
+     field_id = "1"
+     column {
+       data_set_identifier = "1"
+       column_name         = "Column1"
+     }
+   }
+ }
+ values {
+   categorical_measure_field {
+     field_id = "2"
+     column {
+       data_set_identifier = "1"
+       column_name         = "Column1"
+     }
+     aggregation_
 function = "COUNT"
-                  }
-                }
+   }
+ }
               }
             }
           }

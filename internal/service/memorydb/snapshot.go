@@ -242,16 +242,16 @@ func flattenClusterConfiguration(v *memorydb.ClusterConfiguration) []interface{}
 		"description":              aws.StringValue(v.Description),
 		"engine_version":           aws.StringValue(v.EngineVersion),
 		"maintenance_window":       aws.StringValue(v.MaintenanceWindow),
-		"name":                     aws.StringValue(v.Name),
-		"node_type":                aws.StringValue(v.NodeType),
-		"num_shards":               aws.Int64Value(v.NumShards),
+		"name":      aws.StringValue(v.Name),
+		"node_type": aws.StringValue(v.NodeType),
+		"num_shards":aws.Int64Value(v.NumShards),
 		"parameter_group_name":     aws.StringValue(v.ParameterGroupName),
-		"port":                     aws.Int64Value(v.Port),
+		"port":      aws.Int64Value(v.Port),
 		"snapshot_retention_limit": aws.Int64Value(v.SnapshotRetentionLimit),
 		"snapshot_window":          aws.StringValue(v.SnapshotWindow),
 		"subnet_group_name":        aws.StringValue(v.SubnetGroupName),
-		"topic_arn":                aws.StringValue(v.TopicArn),
-		"vpc_id":                   aws.StringValue(v.VpcId),
+		"topic_arn": aws.StringValue(v.TopicArn),
+		"vpc_id":    aws.StringValue(v.VpcId),
 	}
 
 	return []interface{}{m}

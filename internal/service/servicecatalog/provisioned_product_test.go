@@ -29,8 +29,8 @@ func TestAccServiceCatalogProvisionedProduct_basic(t *testing.T) {
 	var pprod servicecatalog.ProvisionedProductDetail
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckProvisionedProductDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -90,8 +90,8 @@ func TestAccServiceCatalogProvisionedProduct_update(t *testing.T) {
 	var pprod servicecatalog.ProvisionedProductDetail
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckProvisionedProductDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -154,8 +154,8 @@ func TestAccServiceCatalogProvisionedProduct_stackSetProvisioningPreferences(t *
 	var pprod servicecatalog.ProvisionedProductDetail
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckProvisionedProductDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -219,8 +219,8 @@ func TestAccServiceCatalogProvisionedProduct_ProductName_update(t *testing.T) {
 	var pprod servicecatalog.ProvisionedProductDetail
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckProvisionedProductDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -271,8 +271,8 @@ func TestAccServiceCatalogProvisionedProduct_ProvisioningArtifactName_update(t *
 	var pprod1, pprod2 servicecatalog.ProvisionedProductDetail
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckProvisionedProductDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -305,8 +305,8 @@ func TestAccServiceCatalogProvisionedProduct_computedOutputs(t *testing.T) {
 	var pprod servicecatalog.ProvisionedProductDetail
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckProvisionedProductDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -355,8 +355,8 @@ func TestAccServiceCatalogProvisionedProduct_disappears(t *testing.T) {
 	var pprod servicecatalog.ProvisionedProductDetail
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckProvisionedProductDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -381,8 +381,8 @@ func TestAccServiceCatalogProvisionedProduct_tags(t *testing.T) {
 	var pprod servicecatalog.ProvisionedProductDetail
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckProvisionedProductDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -413,8 +413,8 @@ func TestAccServiceCatalogProvisionedProduct_errorOnCreate(t *testing.T) {
 	domain := fmt.Sprintf("http://%s", acctest.RandomDomainName())
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckProvisionedProductDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -434,8 +434,8 @@ func TestAccServiceCatalogProvisionedProduct_errorOnUpdate(t *testing.T) {
 	var pprod servicecatalog.ProvisionedProductDetail
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckProvisionedProductDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -634,19 +634,19 @@ resource "aws_s3_object" "test" {
 resource "aws_servicecatalog_product" "test" {
   description         = %[1]q
   distributor         = "distributör"
-  name                = %[1]q
-  owner               = "ägare"
-  type                = "CLOUD_FORMATION_TEMPLATE"
+  name = %[1]q
+  owner= "ägare"
+  type = "CLOUD_FORMATION_TEMPLATE"
   support_description = %[1]q
   support_email       = %[3]q
   support_url         = %[2]q
 
   provisioning_artifact_parameters {
-    description                 = "artefaktbeskrivning"
+    description  = "artefaktbeskrivning"
     disable_template_validation = true
-    name                        = %[1]q
-    template_url                = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/${aws_s3_object.test.key}"
-    type                        = "CLOUD_FORMATION_TEMPLATE"
+    name         = %[1]q
+    template_url = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/${aws_s3_object.test.key}"
+    type         = "CLOUD_FORMATION_TEMPLATE"
   }
 
   tags = {
@@ -720,19 +720,19 @@ resource "aws_cloudformation_stack" "test" {
 resource "aws_servicecatalog_product" "test" {
   description         = %[1]q
   distributor         = "distributör"
-  name                = %[1]q
-  owner               = "ägare"
-  type                = "CLOUD_FORMATION_TEMPLATE"
+  name = %[1]q
+  owner= "ägare"
+  type = "CLOUD_FORMATION_TEMPLATE"
   support_description = %[1]q
   support_email       = %[3]q
   support_url         = %[2]q
 
   provisioning_artifact_parameters {
-    description                 = "artefaktbeskrivning"
+    description  = "artefaktbeskrivning"
     disable_template_validation = true
-    name                        = %[1]q
+    name         = %[1]q
     template_physical_id        = aws_cloudformation_stack.test.id
-    type                        = "CLOUD_FORMATION_TEMPLATE"
+    type         = "CLOUD_FORMATION_TEMPLATE"
   }
 
   tags = {
@@ -746,10 +746,10 @@ func testAccProvisionedProductConfig_basic(rName, domain, email, vpcCidr string)
 	return acctest.ConfigCompose(testAccProvisionedProductTemplateURLBaseConfig(rName, domain, email),
 		fmt.Sprintf(`
 resource "aws_servicecatalog_provisioned_product" "test" {
-  name                       = %[1]q
-  product_id                 = aws_servicecatalog_product.test.id
+  name        = %[1]q
+  product_id  = aws_servicecatalog_product.test.id
   provisioning_artifact_name = %[1]q
-  path_id                    = data.aws_servicecatalog_launch_paths.test.summaries[0].path_id
+  path_id     = data.aws_servicecatalog_launch_paths.test.summaries[0].path_id
 
   provisioning_parameters {
     key   = "VPCPrimaryCIDR"
@@ -768,10 +768,10 @@ func testAccProvisionedProductConfig_computedOutputs(rName, domain, email, vpcCi
 	return acctest.ConfigCompose(testAccProvisionedProductPhysicalTemplateIDBaseConfig(rName, domain, email),
 		fmt.Sprintf(`
 resource "aws_servicecatalog_provisioned_product" "test" {
-  name                       = %[1]q
-  product_id                 = aws_servicecatalog_product.test.id
+  name        = %[1]q
+  product_id  = aws_servicecatalog_product.test.id
   provisioning_artifact_name = %[1]q
-  path_id                    = data.aws_servicecatalog_launch_paths.test.summaries[0].path_id
+  path_id     = data.aws_servicecatalog_launch_paths.test.summaries[0].path_id
 
   provisioning_parameters {
     key   = "VPCPrimaryCIDR"
@@ -792,14 +792,14 @@ func testAccProvisionedProductConfig_stackSetprovisioningPreferences(rName, doma
 data "aws_region" "current" {}
 
 resource "aws_servicecatalog_provisioned_product" "test" {
-  name                       = %[1]q
-  product_id                 = aws_servicecatalog_product.test.id
+  name        = %[1]q
+  product_id  = aws_servicecatalog_product.test.id
   provisioning_artifact_name = %[1]q
-  path_id                    = data.aws_servicecatalog_launch_paths.test.summaries[0].path_id
+  path_id     = data.aws_servicecatalog_launch_paths.test.summaries[0].path_id
 
   stack_set_provisioning_preferences {
-    accounts                = [data.aws_caller_identity.current.account_id]
-    regions                 = [data.aws_region.current.name]
+    accounts = [data.aws_caller_identity.current.account_id]
+    regions  = [data.aws_region.current.name]
     failure_tolerance_count = %[3]d
     max_concurrency_count   = %[4]d
   }
@@ -821,10 +821,10 @@ func testAccProvisionedProductConfig_productName(rName, domain, email, vpcCidr, 
 	return acctest.ConfigCompose(testAccProvisionedProductTemplateURLBaseConfig(productName, domain, email),
 		fmt.Sprintf(`
 resource "aws_servicecatalog_provisioned_product" "test" {
-  name                       = %[1]q
-  product_name               = aws_servicecatalog_product.test.name
+  name        = %[1]q
+  product_name= aws_servicecatalog_product.test.name
   provisioning_artifact_name = aws_servicecatalog_product.test.provisioning_artifact_parameters[0].name
-  path_id                    = data.aws_servicecatalog_launch_paths.test.summaries[0].path_id
+  path_id     = data.aws_servicecatalog_launch_paths.test.summaries[0].path_id
 
   provisioning_parameters {
     key   = "VPCPrimaryCIDR"
@@ -850,10 +850,10 @@ resource "aws_servicecatalog_provisioning_artifact" "test" {
 }
 
 resource "aws_servicecatalog_provisioned_product" "test" {
-  name                       = %[1]q
-  product_id                 = aws_servicecatalog_product.test.id
+  name        = %[1]q
+  product_id  = aws_servicecatalog_product.test.id
   provisioning_artifact_name = aws_servicecatalog_provisioning_artifact.test.name
-  path_id                    = data.aws_servicecatalog_launch_paths.test.summaries[0].path_id
+  path_id     = data.aws_servicecatalog_launch_paths.test.summaries[0].path_id
 
   provisioning_parameters {
     key   = "VPCPrimaryCIDR"
@@ -875,10 +875,10 @@ func testAccProvisionedProductConfig_error(rName, domain, email, vpcCidr string)
 	return acctest.ConfigCompose(testAccProvisionedProductTemplateURLBaseConfig(rName, domain, email),
 		fmt.Sprintf(`
 resource "aws_servicecatalog_provisioned_product" "test" {
-  name                       = %[1]q
-  product_id                 = aws_servicecatalog_product.test.id
+  name        = %[1]q
+  product_id  = aws_servicecatalog_product.test.id
   provisioning_artifact_name = %[1]q
-  path_id                    = data.aws_servicecatalog_launch_paths.test.summaries[0].path_id
+  path_id     = data.aws_servicecatalog_launch_paths.test.summaries[0].path_id
 
   provisioning_parameters {
     key   = "VPCPrimaryCIDR"
@@ -897,10 +897,10 @@ func testAccProvisionedProductConfig_tags(rName, tagKey, tagValue, domain, email
 	return acctest.ConfigCompose(testAccProvisionedProductTemplateURLBaseConfig(rName, domain, email),
 		fmt.Sprintf(`
 resource "aws_servicecatalog_provisioned_product" "test" {
-  name                       = %[1]q
-  product_id                 = aws_servicecatalog_constraint.test.product_id
+  name        = %[1]q
+  product_id  = aws_servicecatalog_constraint.test.product_id
   provisioning_artifact_name = %[1]q
-  path_id                    = data.aws_servicecatalog_launch_paths.test.summaries[0].path_id
+  path_id     = data.aws_servicecatalog_launch_paths.test.summaries[0].path_id
 
   provisioning_parameters {
     key   = "VPCPrimaryCIDR"

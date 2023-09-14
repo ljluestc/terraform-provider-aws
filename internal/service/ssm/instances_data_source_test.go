@@ -31,8 +31,8 @@ func TestAccSSMInstancesDataSource_filter(t *testing.T) {
 	}
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ssm.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, ssm.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -62,7 +62,7 @@ data "aws_iam_policy" "test" {
 }
 
 resource "aws_iam_role" "test" {
-  name                = %[1]q
+  name = %[1]q
   managed_policy_arns = [data.aws_iam_policy.test.arn]
 
   assume_role_policy = <<EOF
@@ -147,14 +147,14 @@ data "aws_ami" "test" {
 }
 
 resource "aws_instance" "test" {
-  ami                  = data.aws_ami.test.id
+  ami   = data.aws_ami.test.id
   instance_type        = data.aws_ec2_instance_type_offering.available.instance_type
   iam_instance_profile = aws_iam_instance_profile.test.name
 
   vpc_security_group_ids      = [aws_vpc.test.default_security_group_id]
-  subnet_id                   = aws_subnet.test.id
+  subnet_id    = aws_subnet.test.id
   associate_public_ip_address = true
-  depends_on                  = [aws_main_route_table_association.test]
+  depends_on   = [aws_main_route_table_association.test]
 
   tags = {
     Name = %[1]q

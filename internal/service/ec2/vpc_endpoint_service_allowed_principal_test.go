@@ -27,9 +27,9 @@ func TestAccVPCEndpointServiceAllowedPrincipal_basic(t *testing.T) {
 	resourceName := "aws_vpc_endpoint_service_allowed_principal.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPCEndpointServiceAllowedPrincipalDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -56,9 +56,9 @@ func TestAccVPCEndpointServiceAllowedPrincipal_multiple(t *testing.T) {
 	serviceResourceName := "aws_vpc_endpoint_service.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPCEndpointServiceAllowedPrincipalDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -86,9 +86,9 @@ func TestAccVPCEndpointServiceAllowedPrincipal_tags(t *testing.T) {
 	tagResourceName := "aws_ec2_tag.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPCEndpointServiceAllowedPrincipalDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -134,8 +134,8 @@ func(
 			},
 			{
 				ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-				Config:                   testAccVPCEndpointServiceAllowedPrincipalConfig_basic(rName),
-				PlanOnly:                 true,
+				Config:    testAccVPCEndpointServiceAllowedPrincipalConfig_basic(rName),
+				PlanOnly:  true,
 			},
 		},
 	})
@@ -171,7 +171,7 @@ func(
 			},
 			{
 				ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-				Config:                   testAccVPCEndpointServiceAllowedPrincipalConfig_tag(rName),
+				Config:    testAccVPCEndpointServiceAllowedPrincipalConfig_tag(rName),
 				Check: resource.ComposeAggregateTestCheck
 func(
 					testAccCheckVPCEndpointServiceAllowedPrincipalExists(ctx, resourceName),

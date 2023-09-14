@@ -236,7 +236,7 @@ func resourceProvisioningArtifactUpdate(ctx context.Context, d *schema.ResourceD
 		input := &servicecatalog.UpdateProvisioningArtifactInput{
 			ProductId:              aws.String(productID),
 			ProvisioningArtifactId: aws.String(artifactID),
-			Active:                 aws.Bool(d.Get("active").(bool)),
+			Active:  aws.Bool(d.Get("active").(bool)),
 		}
 
 		if v, ok := d.GetOk("accept_language"); ok {

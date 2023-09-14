@@ -680,9 +680,9 @@ func resourceDataSourceCreate(ctx context.Context, d *schema.ResourceData, meta 
 		AwsAccountId:         aws.String(awsAccountId),
 		DataSourceId:         aws.String(id),
 		DataSourceParameters: expandDataSourceParameters(d.Get("parameters").([]interface{})),
-		Name:                 aws.String(d.Get("name").(string)),
-		Tags:                 getTagsIn(ctx),
-		Type:                 aws.String(d.Get("type").(string)),
+		Name:  aws.String(d.Get("name").(string)),
+		Tags:  getTagsIn(ctx),
+		Type:  aws.String(d.Get("type").(string)),
 	}
 
 	if v, ok := d.GetOk("credentials"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {

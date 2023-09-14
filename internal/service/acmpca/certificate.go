@@ -138,7 +138,7 @@ func resourceCertificateCreate(ctx context.Context, d *schema.ResourceData, meta
 	certificateAuthorityARN := d.Get("certificate_authority_arn").(string)
 	input := &acmpca.IssueCertificateInput{
 		CertificateAuthorityArn: aws.String(certificateAuthorityARN),
-		Csr:                     []byte(d.Get("certificate_signing_request").(string)),
+		Csr:      []byte(d.Get("certificate_signing_request").(string)),
 		IdempotencyToken:        aws.String(id.UniqueId()),
 		SigningAlgorithm:        aws.String(d.Get("signing_algorithm").(string)),
 	}

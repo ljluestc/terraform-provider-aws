@@ -240,9 +240,9 @@ func resourcePatchBaselineCreate(ctx context.Context, d *schema.ResourceData, me
 	name := d.Get("name").(string)
 	input := &ssm.CreatePatchBaselineInput{
 		ApprovedPatchesComplianceLevel: aws.String(d.Get("approved_patches_compliance_level").(string)),
-		Name:                           aws.String(name),
-		OperatingSystem:                aws.String(d.Get("operating_system").(string)),
-		Tags:                           getTagsIn(ctx),
+		Name:            aws.String(name),
+		OperatingSystem: aws.String(d.Get("operating_system").(string)),
+		Tags:            getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {

@@ -33,7 +33,7 @@ func TestAccDynamoDBTableItemDataSource_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, dynamodb.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -74,7 +74,7 @@ func TestAccDynamoDBTableItemDataSource_projectionExpression(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, dynamodb.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -112,7 +112,7 @@ func TestAccDynamoDBTableItemDataSource_expressionAttributeNames(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, dynamodb.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, dynamodb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -187,7 +187,7 @@ ITEM
 data "aws_dynamodb_table_item" "test" {
   table_name            = aws_dynamodb_table.test.name
   projection_expression = %[5]q
-  key                   = <<KEY
+  key    = <<KEY
 %[6]s
 KEY
   depends_on            = [aws_dynamodb_table_item.test]
@@ -224,7 +224,7 @@ data "aws_dynamodb_table_item" "test" {
     "#P" = "Percentile"
   }
   projection_expression = "#P"
-  key                   = <<KEY
+  key    = <<KEY
 %[5]s
 KEY
   depends_on            = [aws_dynamodb_table_item.test]

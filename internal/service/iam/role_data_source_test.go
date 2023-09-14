@@ -20,8 +20,8 @@ func TestAccIAMRoleDataSource_basic(t *testing.T) {
 	resourceName := "aws_iam_role.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -49,8 +49,8 @@ func TestAccIAMRoleDataSource_tags(t *testing.T) {
 	resourceName := "aws_iam_role.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -105,8 +105,8 @@ func testAccRoleDataSourceConfig_basic(roleName string) string {
 		testAccRoleDataSourceConfigBase(),
 		fmt.Sprintf(`
 resource "aws_iam_role" "test" {
-  name               = %[1]q
-  path               = "/testpath/"
+  name= %[1]q
+  path= "/testpath/"
   assume_role_policy = data.aws_iam_policy_document.test.json
 }
 
@@ -121,7 +121,7 @@ func testAccRoleDataSourceConfig_tags(roleName string) string {
 		testAccRoleDataSourceConfigBase(),
 		fmt.Sprintf(`
 resource "aws_iam_role" "test" {
-  name               = %[1]q
+  name= %[1]q
   assume_role_policy = data.aws_iam_policy_document.test.json
   tags = {
     tag1 = "test-value1"

@@ -93,7 +93,7 @@ func resourceTransitGatewayMulticastDomainCreate(ctx context.Context, d *schema.
 	input := &ec2.CreateTransitGatewayMulticastDomainInput{
 		Options: &ec2.CreateTransitGatewayMulticastDomainRequestOptions{
 			AutoAcceptSharedAssociations: aws.String(d.Get("auto_accept_shared_associations").(string)),
-			Igmpv2Support:                aws.String(d.Get("igmpv2_support").(string)),
+			Igmpv2Support: aws.String(d.Get("igmpv2_support").(string)),
 			StaticSourcesSupport:         aws.String(d.Get("static_sources_support").(string)),
 		},
 		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeTransitGatewayMulticastDomain),

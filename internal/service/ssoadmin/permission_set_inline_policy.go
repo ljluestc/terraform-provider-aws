@@ -42,7 +42,7 @@ func ResourcePermissionSetInlinePolicy() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"inline_policy": {
-				Type:                  schema.TypeString,
+				Type:   schema.TypeString,
 				Required:              true,
 				Validate
 func:          verify.ValidIAMPolicyJSON,

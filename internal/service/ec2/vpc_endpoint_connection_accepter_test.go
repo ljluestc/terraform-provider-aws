@@ -30,7 +30,7 @@ func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
 		CheckDestroy:             testAccCheckVPCEndpointConnectionAccepterDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -221,8 +221,8 @@ resource "aws_lb" "test" {
   ]
 
   load_balancer_type         = "network"
-  internal                   = true
-  idle_timeout               = 60
+  internal    = true
+  idle_timeout= 60
   enable_deletion_protection = false
 
   tags = {

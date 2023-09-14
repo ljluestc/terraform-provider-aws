@@ -26,9 +26,9 @@ func TestAccRoute53ResolverFirewallRuleGroupAssociation_basic(t *testing.T) {
 	resourceName := "aws_route53_resolver_firewall_rule_group_association.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, route53resolver.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFirewallRuleGroupAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -63,9 +63,9 @@ func TestAccRoute53ResolverFirewallRuleGroupAssociation_name(t *testing.T) {
 	resourceName := "aws_route53_resolver_firewall_rule_group_association.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, route53resolver.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFirewallRuleGroupAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -102,9 +102,9 @@ func TestAccRoute53ResolverFirewallRuleGroupAssociation_mutationProtection(t *te
 	resourceName := "aws_route53_resolver_firewall_rule_group_association.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, route53resolver.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFirewallRuleGroupAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -141,9 +141,9 @@ func TestAccRoute53ResolverFirewallRuleGroupAssociation_priority(t *testing.T) {
 	resourceName := "aws_route53_resolver_firewall_rule_group_association.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, route53resolver.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFirewallRuleGroupAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -180,9 +180,9 @@ func TestAccRoute53ResolverFirewallRuleGroupAssociation_disappears(t *testing.T)
 	resourceName := "aws_route53_resolver_firewall_rule_group_association.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, route53resolver.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFirewallRuleGroupAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -207,9 +207,9 @@ func TestAccRoute53ResolverFirewallRuleGroupAssociation_tags(t *testing.T) {
 	resourceName := "aws_route53_resolver_firewall_rule_group_association.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, route53resolver.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, route53resolver.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFirewallRuleGroupAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -320,11 +320,11 @@ resource "aws_route53_resolver_firewall_rule_group" "test" {
 func testAccFirewallRuleGroupAssociationConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccFirewallRuleGroupAssociationConfig_base(rName), fmt.Sprintf(`
 resource "aws_route53_resolver_firewall_rule_group_association" "test" {
-  name                   = %[1]q
+  name    = %[1]q
   firewall_rule_group_id = aws_route53_resolver_firewall_rule_group.test.id
   mutation_protection    = "DISABLED"
-  priority               = 101
-  vpc_id                 = aws_vpc.test.id
+  priority= 101
+  vpc_id  = aws_vpc.test.id
 }
 `, rName))
 }
@@ -333,11 +333,11 @@ resource "aws_route53_resolver_firewall_rule_group_association" "test" {
 func testAccFirewallRuleGroupAssociationConfig_mutationProtection(rName, mutationProtection string) string {
 	return acctest.ConfigCompose(testAccFirewallRuleGroupAssociationConfig_base(rName), fmt.Sprintf(`
 resource "aws_route53_resolver_firewall_rule_group_association" "test" {
-  name                   = %[1]q
+  name    = %[1]q
   firewall_rule_group_id = aws_route53_resolver_firewall_rule_group.test.id
   mutation_protection    = %[2]q
-  priority               = 101
-  vpc_id                 = aws_vpc.test.id
+  priority= 101
+  vpc_id  = aws_vpc.test.id
 }
 `, rName, mutationProtection))
 }
@@ -346,10 +346,10 @@ resource "aws_route53_resolver_firewall_rule_group_association" "test" {
 func testAccFirewallRuleGroupAssociationConfig_priority(rName string, priority int) string {
 	return acctest.ConfigCompose(testAccFirewallRuleGroupAssociationConfig_base(rName), fmt.Sprintf(`
 resource "aws_route53_resolver_firewall_rule_group_association" "test" {
-  name                   = %[1]q
+  name    = %[1]q
   firewall_rule_group_id = aws_route53_resolver_firewall_rule_group.test.id
-  priority               = %[2]d
-  vpc_id                 = aws_vpc.test.id
+  priority= %[2]d
+  vpc_id  = aws_vpc.test.id
 }
 `, rName, priority))
 }
@@ -358,10 +358,10 @@ resource "aws_route53_resolver_firewall_rule_group_association" "test" {
 func testAccFirewallRuleGroupAssociationConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccFirewallRuleGroupAssociationConfig_base(rName), fmt.Sprintf(`
 resource "aws_route53_resolver_firewall_rule_group_association" "test" {
-  name                   = %[1]q
+  name    = %[1]q
   firewall_rule_group_id = aws_route53_resolver_firewall_rule_group.test.id
-  priority               = 101
-  vpc_id                 = aws_vpc.test.id
+  priority= 101
+  vpc_id  = aws_vpc.test.id
 
   tags = {
     %[2]q = %[3]q
@@ -374,10 +374,10 @@ resource "aws_route53_resolver_firewall_rule_group_association" "test" {
 func testAccFirewallRuleGroupAssociationConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccFirewallRuleGroupAssociationConfig_base(rName), fmt.Sprintf(`
 resource "aws_route53_resolver_firewall_rule_group_association" "test" {
-  name                   = %[1]q
+  name    = %[1]q
   firewall_rule_group_id = aws_route53_resolver_firewall_rule_group.test.id
-  priority               = 101
-  vpc_id                 = aws_vpc.test.id
+  priority= 101
+  vpc_id  = aws_vpc.test.id
 
   tags = {
     %[2]q = %[3]q

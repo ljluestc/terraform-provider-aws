@@ -192,13 +192,13 @@ func resourceMedicalVocabularyDelete(ctx context.Context, d *schema.ResourceData
 
 func waitMedicalVocabularyCreated(ctx context.Context, conn *transcribe.Client, id string, timeout time.Duration) (*transcribe.GetMedicalVocabularyOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   medicalVocabularyStatus(types.VocabularyStatePending),
-		Target:                    medicalVocabularyStatus(types.VocabularyStateReady),
-		Refresh:                   statusMedicalVocabulary(ctx, conn, id),
-		Timeout:                   timeout,
+		Pending:    medicalVocabularyStatus(types.VocabularyStatePending),
+		Target:     medicalVocabularyStatus(types.VocabularyStateReady),
+		Refresh:    statusMedicalVocabulary(ctx, conn, id),
+		Timeout:    timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
-		Delay:                     30 * time.Second,
+		Delay:      30 * time.Second,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
@@ -211,13 +211,13 @@ func waitMedicalVocabularyCreated(ctx context.Context, conn *transcribe.Client, 
 
 func waitMedicalVocabularyUpdated(ctx context.Context, conn *transcribe.Client, id string, timeout time.Duration) (*transcribe.GetMedicalVocabularyOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   medicalVocabularyStatus(types.VocabularyStatePending),
-		Target:                    medicalVocabularyStatus(types.VocabularyStateReady),
-		Refresh:                   statusMedicalVocabulary(ctx, conn, id),
-		Timeout:                   timeout,
+		Pending:    medicalVocabularyStatus(types.VocabularyStatePending),
+		Target:     medicalVocabularyStatus(types.VocabularyStateReady),
+		Refresh:    statusMedicalVocabulary(ctx, conn, id),
+		Timeout:    timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
-		Delay:                     30 * time.Second,
+		Delay:      30 * time.Second,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)

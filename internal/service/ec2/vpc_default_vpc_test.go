@@ -28,21 +28,21 @@ func TestAccVPCDefaultVPCAndSubnet_serial(t *testing.T) {
 	testCases := map[string]map[string]
 func(t *testing.T){
 		"VPC": {
-			"existing.basic":                                testAccDefaultVPC_Existing_basic,
+			"existing.basic":  testAccDefaultVPC_Existing_basic,
 			"existing.assignGeneratedIPv6CIDRBlock":         testAccDefaultVPC_Existing_assignGeneratedIPv6CIDRBlock,
-			"existing.forceDestroy":                         testAccDefaultVPC_Existing_forceDestroy,
-			"notFound.basic":                                testAccDefaultVPC_NotFound_basic,
+			"existing.forceDestroy":          testAccDefaultVPC_Existing_forceDestroy,
+			"notFound.basic":  testAccDefaultVPC_NotFound_basic,
 			"notFound.assignGeneratedIPv6CIDRBlock":         testAccDefaultVPC_NotFound_assignGeneratedIPv6CIDRBlock,
-			"notFound.forceDestroy":                         testAccDefaultVPC_NotFound_forceDestroy,
+			"notFound.forceDestroy":          testAccDefaultVPC_NotFound_forceDestroy,
 			"notFound.assignGeneratedIPv6CIDRBlockAdoption": testAccDefaultVPC_NotFound_assignGeneratedIPv6CIDRBlockAdoption,
 		},
 		"Subnet": {
-			"existing.basic":                         testAccDefaultSubnet_Existing_basic,
-			"existing.forceDestroy":                  testAccDefaultSubnet_Existing_forceDestroy,
-			"existing.ipv6":                          testAccDefaultSubnet_Existing_ipv6,
+			"existing.basic":          testAccDefaultSubnet_Existing_basic,
+			"existing.forceDestroy":   testAccDefaultSubnet_Existing_forceDestroy,
+			"existing.ipv6":           testAccDefaultSubnet_Existing_ipv6,
 			"existing.privateDnsNameOptionsOnLaunch": testAccDefaultSubnet_Existing_privateDNSNameOptionsOnLaunch,
-			"notFound.basic":                         testAccDefaultSubnet_NotFound_basic,
-			"notFound.ipv6Native":                    testAccDefaultSubnet_NotFound_ipv6Native,
+			"notFound.basic":          testAccDefaultSubnet_NotFound_basic,
+			"notFound.ipv6Native":     testAccDefaultSubnet_NotFound_ipv6Native,
 		},
 	}
 
@@ -92,7 +92,7 @@ func() {
 			acctest.PreCheckRegionNot(t, endpoints.UsWest2RegionID, endpoints.UsGovWest1RegionID)
 			testAccPreCheckDefaultVPCExists(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDefaultVPCDestroyExists(ctx),
 		Steps: []resource.TestStep{
@@ -142,7 +142,7 @@ func() {
 			acctest.PreCheckRegionNot(t, endpoints.UsWest2RegionID, endpoints.UsGovWest1RegionID)
 			testAccPreCheckDefaultVPCExists(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDefaultVPCDestroyExists(ctx),
 		Steps: []resource.TestStep{
@@ -192,7 +192,7 @@ func() {
 			acctest.PreCheckRegionNot(t, endpoints.UsWest2RegionID, endpoints.UsGovWest1RegionID)
 			testAccPreCheckDefaultVPCExists(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDefaultVPCDestroyNotFound(ctx),
 		Steps: []resource.TestStep{
@@ -223,7 +223,7 @@ func() {
 			acctest.PreCheckRegionNot(t, endpoints.UsWest2RegionID, endpoints.UsGovWest1RegionID)
 			testAccPreCheckDefaultVPCNotFound(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDefaultVPCDestroyExists(ctx),
 		Steps: []resource.TestStep{
@@ -273,7 +273,7 @@ func() {
 			acctest.PreCheckRegionNot(t, endpoints.UsWest2RegionID, endpoints.UsGovWest1RegionID)
 			testAccPreCheckDefaultVPCNotFound(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDefaultVPCDestroyExists(ctx),
 		Steps: []resource.TestStep{
@@ -323,7 +323,7 @@ func() {
 			acctest.PreCheckRegionNot(t, endpoints.UsWest2RegionID, endpoints.UsGovWest1RegionID)
 			testAccPreCheckDefaultVPCNotFound(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDefaultVPCDestroyNotFound(ctx),
 		Steps: []resource.TestStep{
@@ -355,7 +355,7 @@ func() {
 			acctest.PreCheckRegionNot(t, endpoints.UsWest2RegionID, endpoints.UsGovWest1RegionID)
 			testAccPreCheckDefaultVPCNotFound(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDefaultVPCDestroyExists(ctx),
 		Steps: []resource.TestStep{
@@ -611,9 +611,9 @@ data "aws_vpc" "test" {
 }
 
 resource "aws_subnet" "test" {
-  cidr_block                      = "172.31.96.0/20"
-  vpc_id                          = data.aws_vpc.test.id
-  ipv6_cidr_block                 = cidrsubnet(data.aws_vpc.test.ipv6_cidr_block, 8, 1)
+  cidr_block       = "172.31.96.0/20"
+  vpc_id           = data.aws_vpc.test.id
+  ipv6_cidr_block  = cidrsubnet(data.aws_vpc.test.ipv6_cidr_block, 8, 1)
   assign_ipv6_address_on_creation = true
 
   tags = {
@@ -632,9 +632,9 @@ data "aws_vpc" "test" {
 }
 
 resource "aws_subnet" "test" {
-  cidr_block                      = "172.31.96.0/20"
-  vpc_id                          = data.aws_vpc.test.id
-  ipv6_cidr_block                 = cidrsubnet(data.aws_vpc.test.ipv6_cidr_block, 8, 1)
+  cidr_block       = "172.31.96.0/20"
+  vpc_id           = data.aws_vpc.test.id
+  ipv6_cidr_block  = cidrsubnet(data.aws_vpc.test.ipv6_cidr_block, 8, 1)
   assign_ipv6_address_on_creation = true
 
   tags = {
@@ -661,9 +661,9 @@ data "aws_vpc" "test" {
 }
 
 resource "aws_subnet" "test" {
-  cidr_block                      = "172.31.96.0/20"
-  vpc_id                          = data.aws_vpc.test.id
-  ipv6_cidr_block                 = cidrsubnet(data.aws_vpc.test.ipv6_cidr_block, 8, 1)
+  cidr_block       = "172.31.96.0/20"
+  vpc_id           = data.aws_vpc.test.id
+  ipv6_cidr_block  = cidrsubnet(data.aws_vpc.test.ipv6_cidr_block, 8, 1)
   assign_ipv6_address_on_creation = true
 
   tags = {

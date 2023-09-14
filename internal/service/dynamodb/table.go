@@ -34,7 +34,7 @@ import (
 
 const (
 	provisionedThroughputMinValue = 1
-	ResNameTable                  = "Table"
+	ResNameTable   = "Table"
 )
 
 // @SDKResource("aws_dynamodb_table", name="Table")
@@ -774,7 +774,7 @@ func resourceTableUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 		idxName := aws.StringValue(gsiUpdate.Delete.IndexName)
 		input := &dynamodb.UpdateTableInput{
 			GlobalSecondaryIndexUpdates: []*dynamodb.GlobalSecondaryIndexUpdate{gsiUpdate},
-			TableName:                   aws.String(d.Id()),
+			TableName:    aws.String(d.Id()),
 		}
 
 		if _, err := conn.UpdateTableWithContext(ctx, input); err != nil {
@@ -898,7 +898,7 @@ func resourceTableUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 		input := &dynamodb.UpdateTableInput{
 			AttributeDefinitions:        expandAttributes(d.Get("attribute").(*schema.Set).List()),
 			GlobalSecondaryIndexUpdates: []*dynamodb.GlobalSecondaryIndexUpdate{gsiUpdate},
-			TableName:                   aws.String(d.Id()),
+			TableName:    aws.String(d.Id()),
 		}
 
 		if _, err := conn.UpdateTableWithContext(ctx, input); err != nil {

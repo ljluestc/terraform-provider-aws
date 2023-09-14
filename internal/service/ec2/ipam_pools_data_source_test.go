@@ -19,9 +19,9 @@ func TestAccIPAMPoolsDataSource_basic(t *testing.T) {
 	resourceName := "aws_vpc_ipam_pool.testthree"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -68,9 +68,9 @@ func TestAccIPAMPoolsDataSource_empty(t *testing.T) {
 	dataSourceName := "data.aws_vpc_ipam_pools.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -86,9 +86,9 @@ func(
 
 var testAccIPAMPoolsDataSourceConfig_basic = acctest.ConfigCompose(testAccIPAMPoolConfig_base, `
 resource "aws_vpc_ipam_pool" "test" {
-  address_family                    = "ipv4"
-  ipam_scope_id                     = aws_vpc_ipam.test.private_default_scope_id
-  auto_import                       = true
+  address_family     = "ipv4"
+  ipam_scope_id      = aws_vpc_ipam.test.private_default_scope_id
+  auto_import        = true
   allocation_default_netmask_length = 32
   allocation_max_netmask_length     = 32
   allocation_min_netmask_length     = 32
@@ -107,9 +107,9 @@ data "aws_vpc_ipam_pools" "test" {
 
 var testAccIPAMPoolsDataSourceConfig_basicTwoPools = acctest.ConfigCompose(testAccIPAMPoolConfig_base, `
 resource "aws_vpc_ipam_pool" "test" {
-  address_family                    = "ipv4"
-  ipam_scope_id                     = aws_vpc_ipam.test.private_default_scope_id
-  auto_import                       = true
+  address_family     = "ipv4"
+  ipam_scope_id      = aws_vpc_ipam.test.private_default_scope_id
+  auto_import        = true
   allocation_default_netmask_length = 32
   allocation_max_netmask_length     = 32
   allocation_min_netmask_length     = 32
@@ -129,12 +129,12 @@ resource "aws_vpc_ipam_pool" "testtwo" {
 }
 
 resource "aws_vpc_ipam_pool" "testthree" {
-  address_family                    = "ipv4"
-  ipam_scope_id                     = aws_vpc_ipam.test.private_default_scope_id
+  address_family     = "ipv4"
+  ipam_scope_id      = aws_vpc_ipam.test.private_default_scope_id
   allocation_default_netmask_length = 32
   allocation_max_netmask_length     = 32
   allocation_min_netmask_length     = 32
-  auto_import                       = true
+  auto_import        = true
   allocation_resource_tags = {
     test = "3"
   }

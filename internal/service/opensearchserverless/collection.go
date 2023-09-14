@@ -44,17 +44,17 @@ func newResourceCollection(_ context.Context) (resource.ResourceWithConfigure, e
 }
 
 type resourceCollectionData struct {
-	ARN                types.String   `tfsdk:"arn"`
+	ARN types.String   `tfsdk:"arn"`
 	CollectionEndpoint types.String   `tfsdk:"collection_endpoint"`
 	DashboardEndpoint  types.String   `tfsdk:"dashboard_endpoint"`
 	Description        types.String   `tfsdk:"description"`
-	ID                 types.String   `tfsdk:"id"`
+	ID  types.String   `tfsdk:"id"`
 	KmsKeyARN          types.String   `tfsdk:"kms_key_arn"`
-	Name               types.String   `tfsdk:"name"`
-	Tags               types.Map      `tfsdk:"tags"`
+	Nametypes.String   `tfsdk:"name"`
+	Tagstypes.Map      `tfsdk:"tags"`
 	TagsAll            types.Map      `tfsdk:"tags_all"`
 	Timeouts           timeouts.Value `tfsdk:"timeouts"`
-	Type               types.String   `tfsdk:"type"`
+	Typetypes.String   `tfsdk:"type"`
 }
 
 const (

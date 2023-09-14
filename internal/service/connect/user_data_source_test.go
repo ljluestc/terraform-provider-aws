@@ -26,8 +26,8 @@ func testAccUserDataSource_userID(t *testing.T) {
 	datasourceName := "data.aws_connect_user.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -73,8 +73,8 @@ func testAccUserDataSource_name(t *testing.T) {
 	datasourceName := "data.aws_connect_user.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -113,7 +113,7 @@ func testAccUserBaseDataSourceConfig(rName, rName2, rName3, rName4, rName5, emai
 		fmt.Sprintf(`
 resource "aws_connect_user" "test" {
   instance_id        = aws_connect_instance.test.id
-  name               = %[1]q
+  name= %[1]q
   password           = "Password123"
   routing_profile_id = data.aws_connect_routing_profile.test.routing_profile_id
   hierarchy_group_id = aws_connect_user_hierarchy_group.parent.hierarchy_group_id
@@ -131,9 +131,9 @@ resource "aws_connect_user" "test" {
 
   phone_config {
     after_contact_work_time_limit = 0
-    auto_accept                   = true
+    auto_accept    = true
     desk_phone_number             = "+112345678913"
-    phone_type                    = "DESK_PHONE"
+    phone_type     = "DESK_PHONE"
   }
 
   tags = {

@@ -37,8 +37,8 @@ func TestAccFSxOpenZFSFileSystem_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckOpenZFSFileSystemDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -102,8 +102,8 @@ func TestAccFSxOpenZFSFileSystem_diskIops(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckOpenZFSFileSystemDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -142,8 +142,8 @@ func TestAccFSxOpenZFSFileSystem_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckOpenZFSFileSystemDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -166,8 +166,8 @@ func TestAccFSxOpenZFSFileSystem_rootVolume(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckOpenZFSFileSystemDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -187,19 +187,19 @@ func TestAccFSxOpenZFSFileSystem_rootVolume(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "root_volume_configuration.0.record_size_kib", "128"),
 					resource.TestCheckResourceAttr(resourceName, "root_volume_configuration.0.user_and_group_quotas.#", "3"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_volume_configuration.0.user_and_group_quotas.*", map[string]string{
-						"id":                         "10",
+						"id":          "10",
 						"storage_capacity_quota_gib": "128",
-						"type":                       "USER",
+						"type":        "USER",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_volume_configuration.0.user_and_group_quotas.*", map[string]string{
-						"id":                         "0",
+						"id":          "0",
 						"storage_capacity_quota_gib": "0",
-						"type":                       "USER",
+						"type":        "USER",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_volume_configuration.0.user_and_group_quotas.*", map[string]string{
-						"id":                         "0",
+						"id":          "0",
 						"storage_capacity_quota_gib": "0",
-						"type":                       "GROUP",
+						"type":        "GROUP",
 					}),
 				),
 			},
@@ -226,19 +226,19 @@ func TestAccFSxOpenZFSFileSystem_rootVolume(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "root_volume_configuration.0.record_size_kib", "8"),
 					resource.TestCheckResourceAttr(resourceName, "root_volume_configuration.0.user_and_group_quotas.#", "3"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_volume_configuration.0.user_and_group_quotas.*", map[string]string{
-						"id":                         "10",
+						"id":          "10",
 						"storage_capacity_quota_gib": "256",
-						"type":                       "USER",
+						"type":        "USER",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_volume_configuration.0.user_and_group_quotas.*", map[string]string{
-						"id":                         "0",
+						"id":          "0",
 						"storage_capacity_quota_gib": "0",
-						"type":                       "USER",
+						"type":        "USER",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_volume_configuration.0.user_and_group_quotas.*", map[string]string{
-						"id":                         "0",
+						"id":          "0",
 						"storage_capacity_quota_gib": "0",
-						"type":                       "GROUP",
+						"type":        "GROUP",
 					}),
 				),
 			},
@@ -265,34 +265,34 @@ func TestAccFSxOpenZFSFileSystem_rootVolume(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "root_volume_configuration.0.record_size_kib", "512"),
 					resource.TestCheckResourceAttr(resourceName, "root_volume_configuration.0.user_and_group_quotas.#", "6"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_volume_configuration.0.user_and_group_quotas.*", map[string]string{
-						"id":                         "10",
+						"id":          "10",
 						"storage_capacity_quota_gib": "128",
-						"type":                       "USER",
+						"type":        "USER",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_volume_configuration.0.user_and_group_quotas.*", map[string]string{
-						"id":                         "20",
+						"id":          "20",
 						"storage_capacity_quota_gib": "1024",
-						"type":                       "GROUP",
+						"type":        "GROUP",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_volume_configuration.0.user_and_group_quotas.*", map[string]string{
-						"id":                         "5",
+						"id":          "5",
 						"storage_capacity_quota_gib": "1024",
-						"type":                       "GROUP",
+						"type":        "GROUP",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_volume_configuration.0.user_and_group_quotas.*", map[string]string{
-						"id":                         "100",
+						"id":          "100",
 						"storage_capacity_quota_gib": "128",
-						"type":                       "USER",
+						"type":        "USER",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_volume_configuration.0.user_and_group_quotas.*", map[string]string{
-						"id":                         "0",
+						"id":          "0",
 						"storage_capacity_quota_gib": "0",
-						"type":                       "USER",
+						"type":        "USER",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_volume_configuration.0.user_and_group_quotas.*", map[string]string{
-						"id":                         "0",
+						"id":          "0",
 						"storage_capacity_quota_gib": "0",
-						"type":                       "GROUP",
+						"type":        "GROUP",
 					}),
 				),
 			},
@@ -307,34 +307,34 @@ func TestAccFSxOpenZFSFileSystem_rootVolume(t *testing.T) {
 					resource.TestCheckResourceAttr(resourceName, "root_volume_configuration.0.record_size_kib", "128"),
 					resource.TestCheckResourceAttr(resourceName, "root_volume_configuration.0.user_and_group_quotas.#", "6"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_volume_configuration.0.user_and_group_quotas.*", map[string]string{
-						"id":                         "10",
+						"id":          "10",
 						"storage_capacity_quota_gib": "128",
-						"type":                       "USER",
+						"type":        "USER",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_volume_configuration.0.user_and_group_quotas.*", map[string]string{
-						"id":                         "20",
+						"id":          "20",
 						"storage_capacity_quota_gib": "1024",
-						"type":                       "GROUP",
+						"type":        "GROUP",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_volume_configuration.0.user_and_group_quotas.*", map[string]string{
-						"id":                         "5",
+						"id":          "5",
 						"storage_capacity_quota_gib": "1024",
-						"type":                       "GROUP",
+						"type":        "GROUP",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_volume_configuration.0.user_and_group_quotas.*", map[string]string{
-						"id":                         "100",
+						"id":          "100",
 						"storage_capacity_quota_gib": "128",
-						"type":                       "USER",
+						"type":        "USER",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_volume_configuration.0.user_and_group_quotas.*", map[string]string{
-						"id":                         "0",
+						"id":          "0",
 						"storage_capacity_quota_gib": "0",
-						"type":                       "USER",
+						"type":        "USER",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "root_volume_configuration.0.user_and_group_quotas.*", map[string]string{
-						"id":                         "0",
+						"id":          "0",
 						"storage_capacity_quota_gib": "0",
-						"type":                       "GROUP",
+						"type":        "GROUP",
 					}),
 				),
 			},
@@ -349,8 +349,8 @@ func TestAccFSxOpenZFSFileSystem_securityGroupIDs(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckOpenZFSFileSystemDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -386,8 +386,8 @@ func TestAccFSxOpenZFSFileSystem_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckOpenZFSFileSystemDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -435,8 +435,8 @@ func TestAccFSxOpenZFSFileSystem_copyTags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckOpenZFSFileSystemDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -477,8 +477,8 @@ func TestAccFSxOpenZFSFileSystem_throughput(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckOpenZFSFileSystemDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -514,8 +514,8 @@ func TestAccFSxOpenZFSFileSystem_storageType(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckOpenZFSFileSystemDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -543,8 +543,8 @@ func TestAccFSxOpenZFSFileSystem_weeklyMaintenanceStartTime(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckOpenZFSFileSystemDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -580,8 +580,8 @@ func TestAccFSxOpenZFSFileSystem_automaticBackupRetentionDays(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckOpenZFSFileSystemDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -624,8 +624,8 @@ func TestAccFSxOpenZFSFileSystem_kmsKeyID(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckOpenZFSFileSystemDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -653,8 +653,8 @@ func TestAccFSxOpenZFSFileSystem_dailyAutomaticBackupStartTime(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckOpenZFSFileSystemDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -690,8 +690,8 @@ func TestAccFSxOpenZFSFileSystem_throughputCapacity(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckOpenZFSFileSystemDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -727,8 +727,8 @@ func TestAccFSxOpenZFSFileSystem_storageCapacity(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckOpenZFSFileSystemDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -764,8 +764,8 @@ func TestAccFSxOpenZFSFileSystem_deploymentType(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckOpenZFSFileSystemDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -803,8 +803,8 @@ func TestAccFSxOpenZFSFileSystem_multiAZ(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckOpenZFSFileSystemDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -870,8 +870,8 @@ func TestAccFSxOpenZFSFileSystem_routeTableIDs(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, fsx.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, fsx.EndpointsID) },
+		ErrorCheck:acctest.ErrorCheck(t, fsx.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckOpenZFSFileSystemDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -1173,10 +1173,10 @@ func testAccOpenZFSFileSystemConfig_weeklyMaintenanceStartTime(rName, weeklyMain
 	return acctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_file_system" "test" {
   storage_capacity              = 64
-  subnet_ids                    = aws_subnet.test[*].id
-  deployment_type               = "SINGLE_AZ_1"
+  subnet_ids     = aws_subnet.test[*].id
+  deployment_type= "SINGLE_AZ_1"
   throughput_capacity           = 512
-  storage_type                  = "SSD"
+  storage_type   = "SSD"
   weekly_maintenance_start_time = %[2]q
 
   tags = {
@@ -1189,11 +1189,11 @@ resource "aws_fsx_openzfs_file_system" "test" {
 func testAccOpenZFSFileSystemConfig_dailyAutomaticBackupStartTime(rName, dailyAutomaticBackupStartTime string) string {
 	return acctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_file_system" "test" {
-  storage_capacity                  = 64
-  subnet_ids                        = aws_subnet.test[*].id
-  deployment_type                   = "SINGLE_AZ_1"
-  throughput_capacity               = 512
-  storage_type                      = "SSD"
+  storage_capacity   = 64
+  subnet_ids         = aws_subnet.test[*].id
+  deployment_type    = "SINGLE_AZ_1"
+  throughput_capacity= 512
+  storage_type       = "SSD"
   daily_automatic_backup_start_time = %[2]q
   automatic_backup_retention_days   = 1
 
@@ -1207,11 +1207,11 @@ resource "aws_fsx_openzfs_file_system" "test" {
 func testAccOpenZFSFileSystemConfig_automaticBackupRetentionDays(rName string, retention int) string {
 	return acctest.ConfigCompose(testAccOpenZFSFileSystemConfig_baseSingleAZ(rName), fmt.Sprintf(`
 resource "aws_fsx_openzfs_file_system" "test" {
-  storage_capacity                = 64
-  subnet_ids                      = aws_subnet.test[*].id
-  deployment_type                 = "SINGLE_AZ_1"
+  storage_capacity = 64
+  subnet_ids       = aws_subnet.test[*].id
+  deployment_type  = "SINGLE_AZ_1"
   throughput_capacity             = 512
-  storage_type                    = "SSD"
+  storage_type     = "SSD"
   automatic_backup_retention_days = %[2]d
 
   tags = {
@@ -1296,19 +1296,19 @@ resource "aws_fsx_openzfs_file_system" "test" {
     read_only = %[3]s
 
     user_and_group_quotas {
-      id                         = 10
+      id          = 10
       storage_capacity_quota_gib = %[4]d
-      type                       = "USER"
+      type        = "USER"
     }
     user_and_group_quotas {
-      id                         = 0
+      id          = 0
       storage_capacity_quota_gib = 0
-      type                       = "USER"
+      type        = "USER"
     }
     user_and_group_quotas {
-      id                         = 0
+      id          = 0
       storage_capacity_quota_gib = 0
-      type                       = "GROUP"
+      type        = "GROUP"
     }
   }
 
@@ -1342,19 +1342,19 @@ resource "aws_fsx_openzfs_file_system" "test" {
     record_size_kib = %[5]d
 
     user_and_group_quotas {
-      id                         = 10
+      id          = 10
       storage_capacity_quota_gib = %[4]d
-      type                       = "USER"
+      type        = "USER"
     }
     user_and_group_quotas {
-      id                         = 0
+      id          = 0
       storage_capacity_quota_gib = 0
-      type                       = "USER"
+      type        = "USER"
     }
     user_and_group_quotas {
-      id                         = 0
+      id          = 0
       storage_capacity_quota_gib = 0
-      type                       = "GROUP"
+      type        = "GROUP"
     }
   }
 
@@ -1392,34 +1392,34 @@ resource "aws_fsx_openzfs_file_system" "test" {
     record_size_kib = %[6]d
 
     user_and_group_quotas {
-      id                         = 10
+      id          = 10
       storage_capacity_quota_gib = %[4]d
-      type                       = "USER"
+      type        = "USER"
     }
     user_and_group_quotas {
-      id                         = 20
+      id          = 20
       storage_capacity_quota_gib = %[5]d
-      type                       = "GROUP"
+      type        = "GROUP"
     }
     user_and_group_quotas {
-      id                         = 5
+      id          = 5
       storage_capacity_quota_gib = %[5]d
-      type                       = "GROUP"
+      type        = "GROUP"
     }
     user_and_group_quotas {
-      id                         = 100
+      id          = 100
       storage_capacity_quota_gib = %[4]d
-      type                       = "USER"
+      type        = "USER"
     }
     user_and_group_quotas {
-      id                         = 0
+      id          = 0
       storage_capacity_quota_gib = 0
-      type                       = "USER"
+      type        = "USER"
     }
     user_and_group_quotas {
-      id                         = 0
+      id          = 0
       storage_capacity_quota_gib = 0
-      type                       = "GROUP"
+      type        = "GROUP"
     }
   }
 
@@ -1443,34 +1443,34 @@ resource "aws_fsx_openzfs_file_system" "test" {
     data_compression_type  = %[2]q
 
     user_and_group_quotas {
-      id                         = 10
+      id          = 10
       storage_capacity_quota_gib = %[4]d
-      type                       = "USER"
+      type        = "USER"
     }
     user_and_group_quotas {
-      id                         = 20
+      id          = 20
       storage_capacity_quota_gib = %[5]d
-      type                       = "GROUP"
+      type        = "GROUP"
     }
     user_and_group_quotas {
-      id                         = 5
+      id          = 5
       storage_capacity_quota_gib = %[5]d
-      type                       = "GROUP"
+      type        = "GROUP"
     }
     user_and_group_quotas {
-      id                         = 100
+      id          = 100
       storage_capacity_quota_gib = %[4]d
-      type                       = "USER"
+      type        = "USER"
     }
     user_and_group_quotas {
-      id                         = 0
+      id          = 0
       storage_capacity_quota_gib = 0
-      type                       = "USER"
+      type        = "USER"
     }
     user_and_group_quotas {
-      id                         = 0
+      id          = 0
       storage_capacity_quota_gib = 0
-      type                       = "GROUP"
+      type        = "GROUP"
     }
   }
 

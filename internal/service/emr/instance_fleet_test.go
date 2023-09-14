@@ -25,9 +25,9 @@ func TestAccEMRInstanceFleet_basic(t *testing.T) {
 	resourceName := "aws_emr_instance_fleet.task"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, emr.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
@@ -60,9 +60,9 @@ func TestAccEMRInstanceFleet_Zero_count(t *testing.T) {
 	resourceName := "aws_emr_instance_fleet.task"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, emr.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
@@ -104,9 +104,9 @@ func TestAccEMRInstanceFleet_ebsBasic(t *testing.T) {
 	resourceName := "aws_emr_instance_fleet.task"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, emr.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
@@ -139,9 +139,9 @@ func TestAccEMRInstanceFleet_full(t *testing.T) {
 	resourceName := "aws_emr_instance_fleet.task"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, emr.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
@@ -261,7 +261,7 @@ resource "aws_subnet" "test" {
   availability_zone       = data.aws_availability_zones.available.names[0]
   cidr_block              = "10.0.0.0/24"
   map_public_ip_on_launch = false
-  vpc_id                  = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
 
   tags = {
     Name = %[1]q
@@ -289,7 +289,7 @@ resource "aws_route_table_association" "test" {
 data "aws_partition" "current" {}
 
 resource "aws_iam_role" "emr_service" {
-  name               = "%[1]s_default_role"
+  name= "%[1]s_default_role"
   assume_role_policy = <<EOT
 {
   "Version": "2008-10-17",
@@ -318,7 +318,7 @@ resource "aws_iam_instance_profile" "emr_instance_profile" {
 }
 
 resource "aws_iam_role" "emr_instance_profile" {
-  name               = "%[1]s_profile_role"
+  name= "%[1]s_profile_role"
   assume_role_policy = <<EOT
 {
   "Version": "2008-10-17",
@@ -397,15 +397,15 @@ resource "aws_emr_cluster" "test" {
       bid_price_as_percentage_of_on_demand_price = 100
 
       ebs_config {
-        size                 = 100
-        type                 = "gp2"
+        size  = 100
+        type  = "gp2"
         volumes_per_instance = 1
       }
 
       instance_type     = "m4.xlarge"
       weighted_capacity = 1
     }
-    name                      = "core fleet"
+    name       = "core fleet"
     target_on_demand_capacity = 1
     target_spot_capacity      = 0
   }
@@ -418,10 +418,10 @@ resource "aws_emr_cluster" "test" {
   ]
 
   ec2_attributes {
-    subnet_id                         = aws_subnet.test.id
+    subnet_id          = aws_subnet.test.id
     emr_managed_master_security_group = aws_security_group.test.id
     emr_managed_slave_security_group  = aws_security_group.test.id
-    instance_profile                  = aws_iam_instance_profile.emr_instance_profile.arn
+    instance_profile   = aws_iam_instance_profile.emr_instance_profile.arn
   }
 }
 `, rName))
@@ -444,7 +444,7 @@ resource "aws_emr_instance_fleet" "task" {
     }
   }
 
-  name                      = "emr_instance_fleet_%[1]s"
+  name       = "emr_instance_fleet_%[1]s"
   target_on_demand_capacity = 1
   target_spot_capacity      = 0
 }
@@ -468,7 +468,7 @@ resource "aws_emr_instance_fleet" "task" {
     }
   }
 
-  name                      = "emr_instance_fleet_%[1]s"
+  name       = "emr_instance_fleet_%[1]s"
   target_on_demand_capacity = 0
   target_spot_capacity      = 0
 }
@@ -484,8 +484,8 @@ resource "aws_emr_instance_fleet" "task" {
   instance_type_configs {
     bid_price_as_percentage_of_on_demand_price = 100
     ebs_config {
-      size                 = 10
-      type                 = "gp2"
+      size  = 10
+      type  = "gp2"
       volumes_per_instance = 1
     }
     instance_type     = "m4.xlarge"
@@ -501,7 +501,7 @@ resource "aws_emr_instance_fleet" "task" {
     }
   }
 
-  name                      = "emr_instance_fleet_%[1]s"
+  name       = "emr_instance_fleet_%[1]s"
   target_on_demand_capacity = 0
   target_spot_capacity      = 1
 }
@@ -517,14 +517,14 @@ resource "aws_emr_instance_fleet" "task" {
   instance_type_configs {
     bid_price_as_percentage_of_on_demand_price = 100
     ebs_config {
-      size                 = 10
-      type                 = "gp2"
+      size  = 10
+      type  = "gp2"
       volumes_per_instance = 1
     }
 
     ebs_config {
-      size                 = 20
-      type                 = "gp2"
+      size  = 20
+      type  = "gp2"
       volumes_per_instance = 2
     }
 
@@ -536,8 +536,8 @@ resource "aws_emr_instance_fleet" "task" {
     bid_price_as_percentage_of_on_demand_price = 80
 
     ebs_config {
-      size                 = 10
-      type                 = "gp2"
+      size  = 10
+      type  = "gp2"
       volumes_per_instance = 1
     }
 
@@ -554,7 +554,7 @@ resource "aws_emr_instance_fleet" "task" {
     }
   }
 
-  name                      = "emr_instance_fleet_%[1]s"
+  name       = "emr_instance_fleet_%[1]s"
   target_on_demand_capacity = 2
   target_spot_capacity      = 2
 }

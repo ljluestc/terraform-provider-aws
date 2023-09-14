@@ -26,9 +26,9 @@ func testAccTransitGatewayMulticastGroupMember_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayMulticastGroupMemberDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -51,9 +51,9 @@ func testAccTransitGatewayMulticastGroupMember_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayMulticastGroupMemberDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -79,9 +79,9 @@ func testAccTransitGatewayMulticastGroupMember_Disappears_domain(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayMulticastGroupMemberDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -107,9 +107,9 @@ func testAccTransitGatewayMulticastGroupMember_twoMembers(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayMulticastGroupMemberDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -242,7 +242,7 @@ resource "aws_ec2_transit_gateway_multicast_domain" "test" {
 }
 
 resource "aws_ec2_transit_gateway_multicast_domain_association" "test" {
-  subnet_id                           = aws_subnet.test.id
+  subnet_id            = aws_subnet.test.id
   transit_gateway_attachment_id       = aws_ec2_transit_gateway_vpc_attachment.test.id
   transit_gateway_multicast_domain_id = aws_ec2_transit_gateway_multicast_domain.test.id
 }
@@ -256,8 +256,8 @@ resource "aws_network_interface" "test" {
 }
 
 resource "aws_ec2_transit_gateway_multicast_group_member" "test" {
-  group_ip_address                    = "224.0.0.1"
-  network_interface_id                = aws_network_interface.test.id
+  group_ip_address     = "224.0.0.1"
+  network_interface_id = aws_network_interface.test.id
   transit_gateway_multicast_domain_id = aws_ec2_transit_gateway_multicast_domain_association.test.transit_gateway_multicast_domain_id
 }
 `, rName))
@@ -311,7 +311,7 @@ resource "aws_ec2_transit_gateway_multicast_domain" "test" {
 }
 
 resource "aws_ec2_transit_gateway_multicast_domain_association" "test" {
-  subnet_id                           = aws_subnet.test.id
+  subnet_id            = aws_subnet.test.id
   transit_gateway_attachment_id       = aws_ec2_transit_gateway_vpc_attachment.test.id
   transit_gateway_multicast_domain_id = aws_ec2_transit_gateway_multicast_domain.test.id
 }
@@ -333,14 +333,14 @@ resource "aws_network_interface" "test2" {
 }
 
 resource "aws_ec2_transit_gateway_multicast_group_member" "test1" {
-  group_ip_address                    = "224.0.0.1"
-  network_interface_id                = aws_network_interface.test1.id
+  group_ip_address     = "224.0.0.1"
+  network_interface_id = aws_network_interface.test1.id
   transit_gateway_multicast_domain_id = aws_ec2_transit_gateway_multicast_domain_association.test.transit_gateway_multicast_domain_id
 }
 
 resource "aws_ec2_transit_gateway_multicast_group_member" "test2" {
-  group_ip_address                    = "224.0.0.1"
-  network_interface_id                = aws_network_interface.test2.id
+  group_ip_address     = "224.0.0.1"
+  network_interface_id = aws_network_interface.test2.id
   transit_gateway_multicast_domain_id = aws_ec2_transit_gateway_multicast_domain_association.test.transit_gateway_multicast_domain_id
 }
 `, rName))

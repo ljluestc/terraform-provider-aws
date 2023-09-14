@@ -161,19 +161,19 @@ func (d *dataSourceSecurityGroupRule) flattenReferencedSecurityGroup(ctx context
 }
 
 type dataSourceSecurityGroupRuleData struct {
-	ARN                       types.String `tfsdk:"arn"`
-	CIDRIPv4                  types.String `tfsdk:"cidr_ipv4"`
-	CIDRIPv6                  types.String `tfsdk:"cidr_ipv6"`
-	Description               types.String `tfsdk:"description"`
-	Filters                   types.Set    `tfsdk:"filter"`
-	FromPort                  types.Int64  `tfsdk:"from_port"`
-	ID                        types.String `tfsdk:"id"`
-	IPProtocol                types.String `tfsdk:"ip_protocol"`
-	IsEgress                  types.Bool   `tfsdk:"is_egress"`
+	ARN        types.String `tfsdk:"arn"`
+	CIDRIPv4   types.String `tfsdk:"cidr_ipv4"`
+	CIDRIPv6   types.String `tfsdk:"cidr_ipv6"`
+	Descriptiontypes.String `tfsdk:"description"`
+	Filters    types.Set    `tfsdk:"filter"`
+	FromPort   types.Int64  `tfsdk:"from_port"`
+	ID         types.String `tfsdk:"id"`
+	IPProtocol types.String `tfsdk:"ip_protocol"`
+	IsEgress   types.Bool   `tfsdk:"is_egress"`
 	PrefixListID              types.String `tfsdk:"prefix_list_id"`
 	ReferencedSecurityGroupID types.String `tfsdk:"referenced_security_group_id"`
 	SecurityGroupID           types.String `tfsdk:"security_group_id"`
 	SecurityGroupRuleID       types.String `tfsdk:"security_group_rule_id"`
-	Tags                      types.Map    `tfsdk:"tags"`
-	ToPort                    types.Int64  `tfsdk:"to_port"`
+	Tags       types.Map    `tfsdk:"tags"`
+	ToPort     types.Int64  `tfsdk:"to_port"`
 }

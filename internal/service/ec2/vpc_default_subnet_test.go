@@ -92,7 +92,7 @@ func() {
 			acctest.PreCheckRegionNot(t, endpoints.UsWest2RegionID, endpoints.UsGovWest1RegionID)
 			testAccPreCheckDefaultSubnetExists(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDefaultSubnetDestroyExists(ctx),
 		Steps: []resource.TestStep{
@@ -141,7 +141,7 @@ func() {
 			acctest.PreCheckRegionNot(t, endpoints.UsWest2RegionID, endpoints.UsGovWest1RegionID)
 			testAccPreCheckDefaultSubnetExists(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDefaultSubnetDestroyNotFound(ctx),
 		Steps: []resource.TestStep{
@@ -171,7 +171,7 @@ func() {
 			acctest.PreCheckRegionNot(t, endpoints.UsWest2RegionID, endpoints.UsGovWest1RegionID)
 			testAccPreCheckDefaultSubnetExists(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDefaultSubnetDestroyNotFound(ctx),
 		Steps: []resource.TestStep{
@@ -221,7 +221,7 @@ func() {
 			acctest.PreCheckRegionNot(t, endpoints.UsWest2RegionID, endpoints.UsGovWest1RegionID)
 			testAccPreCheckDefaultSubnetExists(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDefaultSubnetDestroyExists(ctx),
 		Steps: []resource.TestStep{
@@ -271,7 +271,7 @@ func() {
 			acctest.PreCheckRegionNot(t, endpoints.UsWest2RegionID, endpoints.UsGovWest1RegionID)
 			testAccPreCheckDefaultSubnetNotFound(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDefaultSubnetDestroyExists(ctx),
 		Steps: []resource.TestStep{
@@ -320,7 +320,7 @@ func() {
 			acctest.PreCheckRegionNot(t, endpoints.UsWest2RegionID, endpoints.UsGovWest1RegionID)
 			testAccPreCheckDefaultSubnetNotFound(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDefaultSubnetDestroyNotFound(ctx),
 		Steps: []resource.TestStep{
@@ -501,9 +501,9 @@ resource "aws_default_vpc" "test" {
 resource "aws_default_subnet" "test" {
   availability_zone = data.aws_subnet.test.availability_zone
 
-  ipv6_cidr_block                 = cidrsubnet(aws_default_vpc.test.ipv6_cidr_block, 8, 1)
+  ipv6_cidr_block  = cidrsubnet(aws_default_vpc.test.ipv6_cidr_block, 8, 1)
   assign_ipv6_address_on_creation = true
-  enable_dns64                    = true
+  enable_dns64     = true
 
   private_dns_hostname_type_on_launch = "ip-name"
 
@@ -526,7 +526,7 @@ resource "aws_default_subnet" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
 
   assign_ipv6_address_on_creation = true
-  ipv6_native                     = true
+  ipv6_native      = true
   map_public_ip_on_launch         = false
 
   enable_resource_name_dns_aaaa_record_on_launch = true

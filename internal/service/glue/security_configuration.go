@@ -131,7 +131,7 @@ func resourceSecurityConfigurationCreate(ctx context.Context, d *schema.Resource
 
 	input := &glue.CreateSecurityConfigurationInput{
 		EncryptionConfiguration: expandEncryptionConfiguration(d.Get("encryption_configuration").([]interface{})),
-		Name:                    aws.String(name),
+		Name:     aws.String(name),
 	}
 
 	log.Printf("[DEBUG] Creating Glue Security Configuration: %s", input)
@@ -293,7 +293,7 @@ func flattenCloudWatchEncryption(cloudwatchEncryption *glue.CloudWatchEncryption
 
 	m := map[string]interface{}{
 		"cloudwatch_encryption_mode": aws.StringValue(cloudwatchEncryption.CloudWatchEncryptionMode),
-		"kms_key_arn":                aws.StringValue(cloudwatchEncryption.KmsKeyArn),
+		"kms_key_arn": aws.StringValue(cloudwatchEncryption.KmsKeyArn),
 	}
 
 	return []interface{}{m}
@@ -320,7 +320,7 @@ func flattenJobBookmarksEncryption(jobBookmarksEncryption *glue.JobBookmarksEncr
 
 	m := map[string]interface{}{
 		"job_bookmarks_encryption_mode": aws.StringValue(jobBookmarksEncryption.JobBookmarksEncryptionMode),
-		"kms_key_arn":                   aws.StringValue(jobBookmarksEncryption.KmsKeyArn),
+		"kms_key_arn":    aws.StringValue(jobBookmarksEncryption.KmsKeyArn),
 	}
 
 	return []interface{}{m}

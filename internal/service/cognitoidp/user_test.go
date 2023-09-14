@@ -27,8 +27,8 @@ func TestAccCognitoIDPUser_basic(t *testing.T) {
 	resourceName := "aws_cognito_user.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckUserDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -69,8 +69,8 @@ func TestAccCognitoIDPUser_disappears(t *testing.T) {
 	resourceName := "aws_cognito_user.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckUserDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -97,8 +97,8 @@ func TestAccCognitoIDPUser_temporaryPassword(t *testing.T) {
 	clientResourceName := "aws_cognito_user_pool_client.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckUserDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -154,8 +154,8 @@ func TestAccCognitoIDPUser_password(t *testing.T) {
 	clientResourceName := "aws_cognito_user_pool_client.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckUserDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -207,8 +207,8 @@ func TestAccCognitoIDPUser_attributes(t *testing.T) {
 	resourceName := "aws_cognito_user.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckUserDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -256,8 +256,8 @@ func TestAccCognitoIDPUser_enabled(t *testing.T) {
 	resourceName := "aws_cognito_user.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckUserDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -436,15 +436,15 @@ resource "aws_cognito_user_pool" "test" {
   name = %[1]q
   password_policy {
     temporary_password_validity_days = 7
-    minimum_length                   = 6
-    require_uppercase                = false
-    require_symbols                  = false
-    require_numbers                  = false
+    minimum_length    = 6
+    require_uppercase = false
+    require_symbols   = false
+    require_numbers   = false
   }
 }
 
 resource "aws_cognito_user_pool_client" "test" {
-  name                = %[2]q
+  name = %[2]q
   user_pool_id        = aws_cognito_user_pool.test.id
   explicit_auth_flows = ["ALLOW_USER_PASSWORD_AUTH", "ALLOW_REFRESH_TOKEN_AUTH"]
 }
@@ -463,15 +463,15 @@ resource "aws_cognito_user_pool" "test" {
   name = %[1]q
   password_policy {
     temporary_password_validity_days = 7
-    minimum_length                   = 6
-    require_uppercase                = false
-    require_symbols                  = false
-    require_numbers                  = false
+    minimum_length    = 6
+    require_uppercase = false
+    require_symbols   = false
+    require_numbers   = false
   }
 }
 
 resource "aws_cognito_user_pool_client" "test" {
-  name                = %[2]q
+  name = %[2]q
   user_pool_id        = aws_cognito_user_pool.test.id
   explicit_auth_flows = ["ALLOW_USER_PASSWORD_AUTH", "ALLOW_REFRESH_TOKEN_AUTH"]
 }
@@ -490,15 +490,15 @@ resource "aws_cognito_user_pool" "test" {
   name = %[1]q
   password_policy {
     temporary_password_validity_days = 7
-    minimum_length                   = 6
-    require_uppercase                = false
-    require_symbols                  = false
-    require_numbers                  = false
+    minimum_length    = 6
+    require_uppercase = false
+    require_symbols   = false
+    require_numbers   = false
   }
 }
 
 resource "aws_cognito_user_pool_client" "test" {
-  name                = %[2]q
+  name = %[2]q
   user_pool_id        = aws_cognito_user_pool.test.id
   explicit_auth_flows = ["ALLOW_USER_PASSWORD_AUTH", "ALLOW_REFRESH_TOKEN_AUTH"]
 }
@@ -516,34 +516,34 @@ resource "aws_cognito_user_pool" "test" {
   name = %[1]q
 
   schema {
-    name                     = "one"
+    name      = "one"
     attribute_data_type      = "String"
-    mutable                  = true
-    required                 = false
+    mutable   = true
+    required  = false
     developer_only_attribute = false
     string_attribute_constraints {}
   }
   schema {
-    name                     = "two"
+    name      = "two"
     attribute_data_type      = "String"
-    mutable                  = true
-    required                 = false
+    mutable   = true
+    required  = false
     developer_only_attribute = false
     string_attribute_constraints {}
   }
   schema {
-    name                     = "three"
+    name      = "three"
     attribute_data_type      = "String"
-    mutable                  = true
-    required                 = false
+    mutable   = true
+    required  = false
     developer_only_attribute = false
     string_attribute_constraints {}
   }
   schema {
-    name                     = "four"
+    name      = "four"
     attribute_data_type      = "String"
-    mutable                  = true
-    required                 = false
+    mutable   = true
+    required  = false
     developer_only_attribute = false
     string_attribute_constraints {}
   }
@@ -568,34 +568,34 @@ resource "aws_cognito_user_pool" "test" {
   name = %[1]q
 
   schema {
-    name                     = "one"
+    name      = "one"
     attribute_data_type      = "String"
-    mutable                  = true
-    required                 = false
+    mutable   = true
+    required  = false
     developer_only_attribute = false
     string_attribute_constraints {}
   }
   schema {
-    name                     = "two"
+    name      = "two"
     attribute_data_type      = "String"
-    mutable                  = true
-    required                 = false
+    mutable   = true
+    required  = false
     developer_only_attribute = false
     string_attribute_constraints {}
   }
   schema {
-    name                     = "three"
+    name      = "three"
     attribute_data_type      = "String"
-    mutable                  = true
-    required                 = false
+    mutable   = true
+    required  = false
     developer_only_attribute = false
     string_attribute_constraints {}
   }
   schema {
-    name                     = "four"
+    name      = "four"
     attribute_data_type      = "String"
-    mutable                  = true
-    required                 = false
+    mutable   = true
+    required  = false
     developer_only_attribute = false
     string_attribute_constraints {}
   }

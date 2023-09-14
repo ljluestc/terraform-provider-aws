@@ -43,7 +43,7 @@ func ResourceVaultPolicy() *schema.Resource {
 				ForceNew: true,
 			},
 			"policy": {
-				Type:                  schema.TypeString,
+				Type:   schema.TypeString,
 				Required:              true,
 				Validate
 func:          validation.StringIsJSON,

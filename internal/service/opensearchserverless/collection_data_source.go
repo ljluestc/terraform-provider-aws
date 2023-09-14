@@ -159,15 +159,15 @@ func (d *dataSourceCollection) Read(ctx context.Context, req datasource.ReadRequ
 }
 
 type dataSourceCollectionData struct {
-	ARN                types.String `tfsdk:"arn"`
+	ARN types.String `tfsdk:"arn"`
 	CollectionEndpoint types.String `tfsdk:"collection_endpoint"`
 	CreatedDate        types.String `tfsdk:"created_date"`
 	DashboardEndpoint  types.String `tfsdk:"dashboard_endpoint"`
 	Description        types.String `tfsdk:"description"`
-	ID                 types.String `tfsdk:"id"`
+	ID  types.String `tfsdk:"id"`
 	KmsKeyARN          types.String `tfsdk:"kms_key_arn"`
 	LastModifiedDate   types.String `tfsdk:"last_modified_date"`
-	Name               types.String `tfsdk:"name"`
-	Tags               types.Map    `tfsdk:"tags"`
-	Type               types.String `tfsdk:"type"`
+	Nametypes.String `tfsdk:"name"`
+	Tagstypes.Map    `tfsdk:"tags"`
+	Typetypes.String `tfsdk:"type"`
 }

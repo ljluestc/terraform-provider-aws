@@ -88,7 +88,7 @@ func resourceAccessPoint() *schema.Resource {
 				Computed: true,
 			},
 			"policy": {
-				Type:                  schema.TypeString,
+				Type:   schema.TypeString,
 				Optional:              true,
 				Computed:              true,
 				ValidateFunc:          validation.StringIsJSON,

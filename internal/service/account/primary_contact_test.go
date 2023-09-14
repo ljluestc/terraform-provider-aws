@@ -24,8 +24,8 @@ func testAccPrimaryContact_basic(t *testing.T) {
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.AccountEndpointID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, names.AccountEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
@@ -95,7 +95,7 @@ func testAccPrimaryConfig_basic(name string) string {
 	return fmt.Sprintf(`
 resource "aws_account_primary_contact" "test" {
   address_line_1     = "123 Any Street"
-  city               = "Seattle"
+  city= "Seattle"
   company_name       = "Example Corp, Inc."
   country_code       = "US"
   district_or_county = "King"

@@ -32,7 +32,7 @@ func TestAccKafkaClusterPolicy_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.Kafka)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.Kafka),
+		ErrorCheck:acctest.ErrorCheck(t, names.Kafka),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckClusterPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -65,7 +65,7 @@ func TestAccKafkaClusterPolicy_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.Kafka)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.Kafka),
+		ErrorCheck:acctest.ErrorCheck(t, names.Kafka),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckClusterPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -93,7 +93,7 @@ func TestAccKafkaClusterPolicy_update(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.Kafka)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.Kafka),
+		ErrorCheck:acctest.ErrorCheck(t, names.Kafka),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckClusterPolicyDestroy(ctx),
 		Steps: []resource.TestStep{

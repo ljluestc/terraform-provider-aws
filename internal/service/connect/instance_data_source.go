@@ -117,9 +117,9 @@ func dataSourceInstanceRead(ctx context.Context, d *schema.ResourceData, meta in
 		}
 
 		matchedInstance = &connect.Instance{
-			Arn:                    instanceSummary.Arn,
+			Arn:     instanceSummary.Arn,
 			CreatedTime:            instanceSummary.CreatedTime,
-			Id:                     instanceSummary.Id,
+			Id:      instanceSummary.Id,
 			IdentityManagementType: instanceSummary.IdentityManagementType,
 			InboundCallsEnabled:    instanceSummary.InboundCallsEnabled,
 			InstanceAlias:          instanceSummary.InstanceAlias,

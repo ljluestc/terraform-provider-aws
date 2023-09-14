@@ -368,8 +368,8 @@ func resourceRecordRead(ctx context.Context, d *schema.ResourceData, meta interf
 	if alias := record.AliasTarget; alias != nil {
 		name := NormalizeAliasName(aws.StringValue(alias.DNSName))
 		v := []map[string]interface{}{{
-			"zone_id":                aws.StringValue(alias.HostedZoneId),
-			"name":                   name,
+			"zone_id": aws.StringValue(alias.HostedZoneId),
+			"name":    name,
 			"evaluate_target_health": aws.BoolValue(alias.EvaluateTargetHealth),
 		}}
 		if err := d.Set("alias", v); err != nil {

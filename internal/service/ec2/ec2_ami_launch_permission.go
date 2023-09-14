@@ -232,7 +232,7 @@ func expandLaunchPermissions(accountID, group, organizationARN, organizationalUn
 }
 
 const (
-	amiLaunchPermissionIDSeparator                   = "-"
+	amiLaunchPermissionIDSeparator    = "-"
 	amiLaunchPermissionIDGroupIndicator              = "group"
 	amiLaunchPermissionIDOrganizationIndicator       = "org"
 	amiLaunchPermissionIDOrganizationalUnitIndicator = "ou"

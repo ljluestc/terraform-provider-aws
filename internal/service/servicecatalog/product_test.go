@@ -30,8 +30,8 @@ func TestAccServiceCatalogProduct_basic(t *testing.T) {
 	domain := fmt.Sprintf("http://%s", acctest.RandomDomainName())
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckProductDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -83,8 +83,8 @@ func TestAccServiceCatalogProduct_disappears(t *testing.T) {
 	domain := fmt.Sprintf("http://%s", acctest.RandomDomainName())
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckProductDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -108,8 +108,8 @@ func TestAccServiceCatalogProduct_update(t *testing.T) {
 	domain := fmt.Sprintf("http://%s", acctest.RandomDomainName())
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckProductDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -145,8 +145,8 @@ func TestAccServiceCatalogProduct_updateTags(t *testing.T) {
 	domain := fmt.Sprintf("http://%s", acctest.RandomDomainName())
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckProductDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -179,8 +179,8 @@ func TestAccServiceCatalogProduct_physicalID(t *testing.T) {
 	domain := fmt.Sprintf("http://%s", acctest.RandomDomainName())
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckProductDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -314,19 +314,19 @@ data "aws_partition" "current" {}
 resource "aws_servicecatalog_product" "test" {
   description         = %[2]q
   distributor         = "distributör"
-  name                = %[1]q
-  owner               = "ägare"
-  type                = "CLOUD_FORMATION_TEMPLATE"
+  name = %[1]q
+  owner= "ägare"
+  type = "CLOUD_FORMATION_TEMPLATE"
   support_description = %[3]q
   support_email       = %[5]q
   support_url         = %[4]q
 
   provisioning_artifact_parameters {
-    description                 = "artefaktbeskrivning"
+    description  = "artefaktbeskrivning"
     disable_template_validation = true
-    name                        = %[1]q
-    template_url                = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/${aws_s3_object.test.key}"
-    type                        = "CLOUD_FORMATION_TEMPLATE"
+    name         = %[1]q
+    template_url = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/${aws_s3_object.test.key}"
+    type         = "CLOUD_FORMATION_TEMPLATE"
   }
 
   tags = {
@@ -343,19 +343,19 @@ data "aws_partition" "current" {}
 resource "aws_servicecatalog_product" "test" {
   description         = %[2]q
   distributor         = "distributör"
-  name                = %[1]q
-  owner               = "ägare"
-  type                = "CLOUD_FORMATION_TEMPLATE"
+  name = %[1]q
+  owner= "ägare"
+  type = "CLOUD_FORMATION_TEMPLATE"
   support_description = %[3]q
   support_email       = %[5]q
   support_url         = %[4]q
 
   provisioning_artifact_parameters {
-    description                 = "artefaktbeskrivning"
+    description  = "artefaktbeskrivning"
     disable_template_validation = true
-    name                        = %[1]q
-    template_url                = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/${aws_s3_object.test.key}"
-    type                        = "CLOUD_FORMATION_TEMPLATE"
+    name         = %[1]q
+    template_url = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/${aws_s3_object.test.key}"
+    type         = "CLOUD_FORMATION_TEMPLATE"
   }
 
   tags = {
@@ -397,18 +397,18 @@ resource "aws_cloudformation_stack" "test" {
 resource "aws_servicecatalog_product" "test" {
   description         = "beskrivning"
   distributor         = "distributör"
-  name                = %[1]q
-  owner               = "ägare"
-  type                = "CLOUD_FORMATION_TEMPLATE"
+  name = %[1]q
+  owner= "ägare"
+  type = "CLOUD_FORMATION_TEMPLATE"
   support_description = "supportbeskrivning"
   support_email       = %[3]q
   support_url         = %[2]q
 
   provisioning_artifact_parameters {
     description          = "artefaktbeskrivning"
-    name                 = %[1]q
+    name  = %[1]q
     template_physical_id = aws_cloudformation_stack.test.id
-    type                 = "CLOUD_FORMATION_TEMPLATE"
+    type  = "CLOUD_FORMATION_TEMPLATE"
   }
 
   tags = {

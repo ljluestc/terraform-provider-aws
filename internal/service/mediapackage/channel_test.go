@@ -32,7 +32,7 @@ func TestAccMediaPackageChannel_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(mediapackage.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(mediapackage.ServiceID)),
+		ErrorCheck:acctest.ErrorCheck(t, strings.ToLower(mediapackage.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckChannelDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -69,7 +69,7 @@ func TestAccMediaPackageChannel_description(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(mediapackage.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(mediapackage.ServiceID)),
+		ErrorCheck:acctest.ErrorCheck(t, strings.ToLower(mediapackage.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckChannelDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -107,7 +107,7 @@ func TestAccMediaPackageChannel_tags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(mediapackage.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(mediapackage.ServiceID)),
+		ErrorCheck:acctest.ErrorCheck(t, strings.ToLower(mediapackage.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckChannelDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -156,7 +156,7 @@ func TestAccMediaPackageChannel_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, strings.ToLower(mediapackage.ServiceID))
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, strings.ToLower(mediapackage.ServiceID)),
+		ErrorCheck:acctest.ErrorCheck(t, strings.ToLower(mediapackage.ServiceID)),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckChannelDestroy(ctx),
 		Steps: []resource.TestStep{

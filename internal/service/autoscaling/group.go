@@ -1786,7 +1786,7 @@ func drainWarmPool(ctx context.Context, conn *autoscaling.AutoScaling, name stri
 	input := &autoscaling.PutWarmPoolInput{
 		AutoScalingGroupName:     aws.String(name),
 		MaxGroupPreparedCapacity: aws.Int64(0),
-		MinSize:                  aws.Int64(0),
+		MinSize:   aws.Int64(0),
 	}
 
 	log.Printf("[DEBUG] Draining Auto Scaling Warm Pool: %s", name)

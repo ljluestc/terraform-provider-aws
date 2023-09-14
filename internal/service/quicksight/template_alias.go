@@ -279,9 +279,9 @@ func createTemplateAliasID(awsAccountID, templateID, aliasName string) string {
 
 type resourceTemplateAliasData struct {
 	AliasName             types.String `tfsdk:"alias_name"`
-	ARN                   types.String `tfsdk:"arn"`
+	ARN    types.String `tfsdk:"arn"`
 	AWSAccountID          types.String `tfsdk:"aws_account_id"`
-	ID                    types.String `tfsdk:"id"`
+	ID     types.String `tfsdk:"id"`
 	TemplateID            types.String `tfsdk:"template_id"`
 	TemplateVersionNumber types.Int64  `tfsdk:"template_version_number"`
 }

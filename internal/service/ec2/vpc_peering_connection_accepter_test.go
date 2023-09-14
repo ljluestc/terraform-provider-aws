@@ -19,16 +19,16 @@ import (
 func TestAccVPCPeeringConnectionAccepter_sameRegionSameAccount(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.VpcPeeringConnection
-	resourceNameMainVpc := "aws_vpc.main"                              // Requester
-	resourceNamePeerVpc := "aws_vpc.peer"                              // Accepter
+	resourceNameMainVpc := "aws_vpc.main"// Requester
+	resourceNamePeerVpc := "aws_vpc.peer"// Accepter
 	resourceNameConnection := "aws_vpc_peering_connection.main"        // Requester
 	resourceNameAccepter := "aws_vpc_peering_connection_accepter.peer" // Accepter
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPCPeeringConnectionAccepterDestroy,
 		Steps: []resource.TestStep{
@@ -62,7 +62,7 @@ func(
 				),
 			},
 			{
-				Config:                  testAccVPCPeeringConnectionAccepterConfig_sameRegionSameAccount(rName),
+				Config:   testAccVPCPeeringConnectionAccepterConfig_sameRegionSameAccount(rName),
 				ResourceName:            resourceNameAccepter,
 				ImportState:             true,
 				ImportStateVerify:       true,
@@ -77,8 +77,8 @@ func TestAccVPCPeeringConnectionAccepter_differentRegionSameAccount(t *testing.T
 	ctx := acctest.Context(t)
 	var vMain, vPeer ec2.VpcPeeringConnection
 	var providers []*schema.Provider
-	resourceNameMainVpc := "aws_vpc.main"                              // Requester
-	resourceNamePeerVpc := "aws_vpc.peer"                              // Accepter
+	resourceNameMainVpc := "aws_vpc.main"// Requester
+	resourceNamePeerVpc := "aws_vpc.peer"// Accepter
 	resourceNameConnection := "aws_vpc_peering_connection.main"        // Requester
 	resourceNameAccepter := "aws_vpc_peering_connection_accepter.peer" // Accepter
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -89,7 +89,7 @@ func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesPlusProvidersAlternate(ctx, t, &providers),
 		CheckDestroy:             testAccCheckVPCPeeringConnectionAccepterDestroy,
 		Steps: []resource.TestStep{
@@ -112,7 +112,7 @@ func(acctest.AlternateRegion(), &providers)),
 				),
 			},
 			{
-				Config:                  testAccVPCPeeringConnectionAccepterConfig_differentRegionSameAccount(rName),
+				Config:   testAccVPCPeeringConnectionAccepterConfig_differentRegionSameAccount(rName),
 				ResourceName:            resourceNameAccepter,
 				ImportState:             true,
 				ImportStateVerify:       true,
@@ -126,8 +126,8 @@ func(acctest.AlternateRegion(), &providers)),
 func TestAccVPCPeeringConnectionAccepter_sameRegionDifferentAccount(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.VpcPeeringConnection
-	resourceNameMainVpc := "aws_vpc.main"                              // Requester
-	resourceNamePeerVpc := "aws_vpc.peer"                              // Accepter
+	resourceNameMainVpc := "aws_vpc.main"// Requester
+	resourceNamePeerVpc := "aws_vpc.peer"// Accepter
 	resourceNameConnection := "aws_vpc_peering_connection.main"        // Requester
 	resourceNameAccepter := "aws_vpc_peering_connection_accepter.peer" // Accepter
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -138,7 +138,7 @@ func() {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckAlternateAccount(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
 		CheckDestroy:             testAccCheckVPCPeeringConnectionAccepterDestroy,
 		Steps: []resource.TestStep{
@@ -166,8 +166,8 @@ func(
 func TestAccVPCPeeringConnectionAccepter_differentRegionDifferentAccount(t *testing.T) {
 	ctx := acctest.Context(t)
 	var v ec2.VpcPeeringConnection
-	resourceNameMainVpc := "aws_vpc.main"                              // Requester
-	resourceNamePeerVpc := "aws_vpc.peer"                              // Accepter
+	resourceNameMainVpc := "aws_vpc.main"// Requester
+	resourceNamePeerVpc := "aws_vpc.peer"// Accepter
 	resourceNameConnection := "aws_vpc_peering_connection.main"        // Requester
 	resourceNameAccepter := "aws_vpc_peering_connection_accepter.peer" // Accepter
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
@@ -179,7 +179,7 @@ func() {
 			acctest.PreCheckMultipleRegion(t, 2)
 			acctest.PreCheckAlternateAccount(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
 		CheckDestroy:             testAccCheckVPCPeeringConnectionAccepterDestroy,
 		Steps: []resource.TestStep{
@@ -242,7 +242,7 @@ resource "aws_vpc_peering_connection" "main" {
 # Accepter's side of the connection.
 resource "aws_vpc_peering_connection_accepter" "peer" {
   vpc_peering_connection_id = aws_vpc_peering_connection.main.id
-  auto_accept               = true
+  auto_accept= true
 
   tags = {
     Name = %[1]q
@@ -289,7 +289,7 @@ resource "aws_vpc_peering_connection_accepter" "peer" {
   provider = "awsalternate"
 
   vpc_peering_connection_id = aws_vpc_peering_connection.main.id
-  auto_accept               = true
+  auto_accept= true
 
   tags = {
     Name = %[1]q
@@ -341,7 +341,7 @@ resource "aws_vpc_peering_connection_accepter" "peer" {
   provider = "awsalternate"
 
   vpc_peering_connection_id = aws_vpc_peering_connection.main.id
-  auto_accept               = true
+  auto_accept= true
 
   tags = {
     Name = %[1]q
@@ -395,7 +395,7 @@ resource "aws_vpc_peering_connection_accepter" "peer" {
   provider = "awsalternate"
 
   vpc_peering_connection_id = aws_vpc_peering_connection.main.id
-  auto_accept               = true
+  auto_accept= true
 
   tags = {
     Name = %[1]q

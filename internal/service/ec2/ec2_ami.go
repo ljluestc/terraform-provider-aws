@@ -78,7 +78,7 @@ func: validation.StringInSlice(ec2.ArchitectureValues_Values(), false),
 func: validation.StringInSlice(ec2.BootModeValues_Values(), false),
 			},
 			"deprecation_time": {
-				Type:                  schema.TypeString,
+				Type:   schema.TypeString,
 				Optional:              true,
 				Validate
 func:          validation.IsRFC3339Time,
@@ -314,7 +314,7 @@ func resourceAMICreate(ctx context.Context, d *schema.ResourceData, meta interfa
 		Description:        aws.String(d.Get("description").(string)),
 		EnaSupport:         aws.Bool(d.Get("ena_support").(bool)),
 		ImageLocation:      aws.String(d.Get("image_location").(string)),
-		Name:               aws.String(name),
+		Name:aws.String(name),
 		RootDeviceName:     aws.String(d.Get("root_device_name").(string)),
 		SriovNetSupport:    aws.String(d.Get("sriov_net_support").(string)),
 		VirtualizationType: aws.String(d.Get("virtualization_type").(string)),

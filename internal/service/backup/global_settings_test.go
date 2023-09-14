@@ -22,49 +22,49 @@ func TestAccBackupGlobalSettings_basic(t *testing.T) {
 
 	resourceName := "aws_backup_global_settings.test"
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck: 
+PreCheck: 
 func() {
-			acctest.PreCheck(ctx, t)
-			acctest.PreCheckOrganizationManagementAccount(ctx, t)
-			testAccPreCheck(ctx, t)
-		},
-		ErrorCheck:               acctest.ErrorCheck(t, backup.EndpointsID),
-		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             nil,
-		Steps: []resource.TestStep{
-			{
-				Config: testAccGlobalSettingsConfig_basic("true"),
-				Check: resource.ComposeTestCheck
+	acctest.PreCheck(ctx, t)
+	acctest.PreCheckOrganizationManagementAccount(ctx, t)
+	testAccPreCheck(ctx, t)
+},
+ErrorCheck:acctest.ErrorCheck(t, backup.EndpointsID),
+ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+CheckDestroy:             nil,
+Steps: []resource.TestStep{
+	{
+Config: testAccGlobalSettingsConfig_basic("true"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckGlobalSettingsExists(ctx, &settings),
-					resource.TestCheckResourceAttr(resourceName, "global_settings.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "global_settings.isCrossAccountBackupEnabled", "true"),
-				),
-			},
-			{
-				ResourceName:      resourceName,
-				ImportState:       true,
-				ImportStateVerify: true,
-			},
-			{
-				Config: testAccGlobalSettingsConfig_basic("false"),
-				Check: resource.ComposeTestCheck
+	testAccCheckGlobalSettingsExists(ctx, &settings),
+	resource.TestCheckResourceAttr(resourceName, "global_settings.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "global_settings.isCrossAccountBackupEnabled", "true"),
+),
+	},
+	{
+ResourceName:      resourceName,
+ImportState:       true,
+ImportStateVerify: true,
+	},
+	{
+Config: testAccGlobalSettingsConfig_basic("false"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckGlobalSettingsExists(ctx, &settings),
-					resource.TestCheckResourceAttr(resourceName, "global_settings.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "global_settings.isCrossAccountBackupEnabled", "false"),
-				),
-			},
-			{
-				Config: testAccGlobalSettingsConfig_basic("true"),
-				Check: resource.ComposeTestCheck
+	testAccCheckGlobalSettingsExists(ctx, &settings),
+	resource.TestCheckResourceAttr(resourceName, "global_settings.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "global_settings.isCrossAccountBackupEnabled", "false"),
+),
+	},
+	{
+Config: testAccGlobalSettingsConfig_basic("true"),
+Check: resource.ComposeTestCheck
 func(
-					testAccCheckGlobalSettingsExists(ctx, &settings),
-					resource.TestCheckResourceAttr(resourceName, "global_settings.%", "1"),
-					resource.TestCheckResourceAttr(resourceName, "global_settings.isCrossAccountBackupEnabled", "true"),
-				),
-			},
-		},
+	testAccCheckGlobalSettingsExists(ctx, &settings),
+	resource.TestCheckResourceAttr(resourceName, "global_settings.%", "1"),
+	resource.TestCheckResourceAttr(resourceName, "global_settings.isCrossAccountBackupEnabled", "true"),
+),
+	},
+},
 	})
 }
 
@@ -73,15 +73,15 @@ func testAccCheckGlobalSettingsExists(ctx context.Context, settings *backup.Desc
 func {
 	return 
 func(s *terraform.State) error {
-		conn := acctest.Provider.Meta().(*conns.AWSClient).BackupConn(ctx)
-		resp, err := conn.DescribeGlobalSettingsWithContext(ctx, &backup.DescribeGlobalSettingsInput{})
-		if err != nil {
-			return err
-		}
+conn := acctest.Provider.Meta().(*conns.AWSClient).BackupConn(ctx)
+resp, err := conn.DescribeGlobalSettingsWithContext(ctx, &backup.DescribeGlobalSettingsInput{})
+if err != nil {
+	return err
+}
 
-		*settings = *resp
+*settings = *resp
 
-		return nil
+return nil
 	}
 }
 

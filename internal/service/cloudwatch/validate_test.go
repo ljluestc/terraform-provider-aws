@@ -56,14 +56,14 @@ func TestValidEC2AutomateARN(t *testing.T) {
 	invalidNames := []string{
 		"",
 		"arn:aws:elasticbeanstalk:us-east-1:123456789012:environment/My App/MyEnvironment", // lintignore:AWSAT003,AWSAT005 // Beanstalk
-		"arn:aws:iam::123456789012:user/David",                                             // lintignore:AWSAT005          // IAM User
-		"arn:aws:rds:eu-west-1:123456789012:db:mysql-db",                                   // lintignore:AWSAT003,AWSAT005 // RDS
-		"arn:aws:s3:::my_corporate_bucket/exampleobject.png",                               // lintignore:AWSAT005          // S3 object
-		"arn:aws:events:us-east-1:319201112229:rule/rule_name",                             // lintignore:AWSAT003,AWSAT005 // CloudWatch Rule
-		"arn:aws:lambda:eu-west-1:319201112229:function:myCustomFunction",                  // lintignore:AWSAT003,AWSAT005 // Lambda function
+		"arn:aws:iam::123456789012:user/David",// lintignore:AWSAT005          // IAM User
+		"arn:aws:rds:eu-west-1:123456789012:db:mysql-db",     // lintignore:AWSAT003,AWSAT005 // RDS
+		"arn:aws:s3:::my_corporate_bucket/exampleobject.png", // lintignore:AWSAT005          // S3 object
+		"arn:aws:events:us-east-1:319201112229:rule/rule_name",              // lintignore:AWSAT003,AWSAT005 // CloudWatch Rule
+		"arn:aws:lambda:eu-west-1:319201112229:function:myCustomFunction",   // lintignore:AWSAT003,AWSAT005 // Lambda function
 		"arn:aws:lambda:eu-west-1:319201112229:function:myCustomFunction:Qualifier",        // lintignore:AWSAT003,AWSAT005 // Lambda func qualifier
-		"arn:aws-us-gov:s3:::corp_bucket/object.png",                                       // lintignore:AWSAT005          // GovCloud ARN
-		"arn:aws-us-gov:kms:us-gov-west-1:123456789012:key/some-uuid-abc123",               // lintignore:AWSAT003,AWSAT005 // GovCloud KMS ARN
+		"arn:aws-us-gov:s3:::corp_bucket/object.png",         // lintignore:AWSAT005          // GovCloud ARN
+		"arn:aws-us-gov:kms:us-gov-west-1:123456789012:key/some-uuid-abc123",// lintignore:AWSAT003,AWSAT005 // GovCloud KMS ARN
 	}
 	for _, v := range invalidNames {
 		_, errors := validEC2AutomateARN(v, "test_property")

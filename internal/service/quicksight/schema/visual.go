@@ -111,7 +111,7 @@ func tooltipOptionsSchema() *schema.Schema {
 											MaxItems: 1,
 											Elem: &schema.Resource{
 												Schema: map[string]*schema.Schema{
-													"column":      columnSchema(),                   // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnIdentifier.html
+													"column":      columnSchema(),    // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_ColumnIdentifier.html
 													"aggregation": aggregation
 functionSchema(false), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_Aggregation
 function.html
@@ -511,9 +511,9 @@ func dataLabelOptionsSchema() *schema.Schema {
 				"label_content":            stringSchema(false, validation.StringInSlice(quicksight.DataLabelContent_Values(), false)),
 				"label_font_configuration": fontConfigurationSchema(), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_FontConfiguration.html
 				"measure_label_visibility": stringSchema(false, validation.StringInSlice(quicksight.Visibility_Values(), false)),
-				"overlap":                  stringSchema(false, validation.StringInSlice(quicksight.DataLabelOverlap_Values(), false)),
-				"position":                 stringSchema(false, validation.StringInSlice(quicksight.DataLabelPosition_Values(), false)),
-				"visibility":               stringSchema(false, validation.StringInSlice(quicksight.Visibility_Values(), false)),
+				"overlap":   stringSchema(false, validation.StringInSlice(quicksight.DataLabelOverlap_Values(), false)),
+				"position":  stringSchema(false, validation.StringInSlice(quicksight.DataLabelPosition_Values(), false)),
+				"visibility":stringSchema(false, validation.StringInSlice(quicksight.Visibility_Values(), false)),
 			},
 		},
 	}

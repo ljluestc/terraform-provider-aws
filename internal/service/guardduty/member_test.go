@@ -24,8 +24,8 @@ func testAccMember_basic(t *testing.T) {
 	accountID := "111111111111"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, guardduty.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, guardduty.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckMemberDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -54,8 +54,8 @@ func testAccMember_invite_disassociate(t *testing.T) {
 	accountID, email := testAccMemberFromEnv(t)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, guardduty.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, guardduty.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckMemberDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -94,8 +94,8 @@ func testAccMember_invite_onUpdate(t *testing.T) {
 	accountID, email := testAccMemberFromEnv(t)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, guardduty.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, guardduty.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckMemberDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -135,8 +135,8 @@ func testAccMember_invitationMessage(t *testing.T) {
 	invitationMessage := "inviting"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, guardduty.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, guardduty.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckMemberDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -252,11 +252,11 @@ func testAccMemberConfig_invite(accountID, email string, invite bool) string {
 %[1]s
 
 resource "aws_guardduty_member" "test" {
-  account_id                 = "%[2]s"
-  detector_id                = aws_guardduty_detector.test.id
+  account_id  = "%[2]s"
+  detector_id = aws_guardduty_detector.test.id
   disable_email_notification = true
-  email                      = "%[3]s"
-  invite                     = %[4]t
+  email       = "%[3]s"
+  invite      = %[4]t
 }
 `, testAccDetectorConfig_basic, accountID, email, invite)
 }
@@ -266,12 +266,12 @@ func testAccMemberConfig_invitationMessage(accountID, email, invitationMessage s
 %[1]s
 
 resource "aws_guardduty_member" "test" {
-  account_id                 = "%[2]s"
-  detector_id                = aws_guardduty_detector.test.id
+  account_id  = "%[2]s"
+  detector_id = aws_guardduty_detector.test.id
   disable_email_notification = true
-  email                      = "%[3]s"
+  email       = "%[3]s"
   invitation_message         = "%[4]s"
-  invite                     = true
+  invite      = true
 }
 `, testAccDetectorConfig_basic, accountID, email, invitationMessage)
 }

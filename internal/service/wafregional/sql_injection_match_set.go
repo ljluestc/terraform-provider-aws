@@ -201,7 +201,7 @@ func(token *string) (interface{}, error) {
 		req := &waf.UpdateSqlInjectionMatchSetInput{
 			ChangeToken:            token,
 			SqlInjectionMatchSetId: aws.String(id),
-			Updates:                diffSQLInjectionMatchTuplesWR(oldT, newT),
+			Updates: diffSQLInjectionMatchTuplesWR(oldT, newT),
 		}
 
 		log.Printf("[INFO] Updating Regional WAF SQL Injection Match Set: %s", req)

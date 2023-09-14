@@ -187,7 +187,7 @@ func resourcePlanCreate(ctx context.Context, d *schema.ResourceData, meta interf
 	input := &backup.CreateBackupPlanInput{
 		BackupPlan: &backup.PlanInput{
 			BackupPlanName:         aws.String(d.Get("name").(string)),
-			Rules:                  expandPlanRules(ctx, d.Get("rule").(*schema.Set)),
+			Rules:   expandPlanRules(ctx, d.Get("rule").(*schema.Set)),
 			AdvancedBackupSettings: expandPlanAdvancedSettings(d.Get("advanced_backup_setting").(*schema.Set)),
 		},
 		BackupPlanTags: getTagsIn(ctx),
@@ -247,7 +247,7 @@ func resourcePlanUpdate(ctx context.Context, d *schema.ResourceData, meta interf
 			BackupPlanId: aws.String(d.Id()),
 			BackupPlan: &backup.PlanInput{
 				BackupPlanName:         aws.String(d.Get("name").(string)),
-				Rules:                  expandPlanRules(ctx, d.Get("rule").(*schema.Set)),
+				Rules:   expandPlanRules(ctx, d.Get("rule").(*schema.Set)),
 				AdvancedBackupSettings: expandPlanAdvancedSettings(d.Get("advanced_backup_setting").(*schema.Set)),
 			},
 		}
@@ -420,9 +420,9 @@ func flattenPlanRules(ctx context.Context, rules []*backup.Rule) *schema.Set {
 
 	for _, rule := range rules {
 		mRule := map[string]interface{}{
-			"rule_name":                aws.StringValue(rule.RuleName),
+			"rule_name": aws.StringValue(rule.RuleName),
 			"target_vault_name":        aws.StringValue(rule.TargetBackupVaultName),
-			"schedule":                 aws.StringValue(rule.ScheduleExpression),
+			"schedule":  aws.StringValue(rule.ScheduleExpression),
 			"enable_continuous_backup": aws.BoolValue(rule.EnableContinuousBackup),
 			"start_window":             int(aws.Int64Value(rule.StartWindowMinutes)),
 			"completion_window":        int(aws.Int64Value(rule.CompletionWindowMinutes)),

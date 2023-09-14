@@ -41,7 +41,7 @@ func instanceProfileUpdateTags(ctx context.Context, conn iamiface.IAMAPI, identi
 	if updatedTags := oldTags.Updated(newTags).IgnoreSystem(names.IAM); len(updatedTags) > 0 {
 		input := &iam.TagInstanceProfileInput{
 			InstanceProfileName: aws.String(identifier),
-			Tags:                Tags(updatedTags),
+			Tags: Tags(updatedTags),
 		}
 
 		_, err := conn.TagInstanceProfileWithContext(ctx, input)
@@ -71,7 +71,7 @@ func openIDConnectProviderUpdateTags(ctx context.Context, conn iamiface.IAMAPI, 
 	if removedTags := oldTags.Removed(newTags).IgnoreSystem(names.IAM); len(removedTags) > 0 {
 		input := &iam.UntagOpenIDConnectProviderInput{
 			OpenIDConnectProviderArn: aws.String(identifier),
-			TagKeys:                  aws.StringSlice(removedTags.Keys()),
+			TagKeys:   aws.StringSlice(removedTags.Keys()),
 		}
 
 		_, err := conn.UntagOpenIDConnectProviderWithContext(ctx, input)
@@ -84,7 +84,7 @@ func openIDConnectProviderUpdateTags(ctx context.Context, conn iamiface.IAMAPI, 
 	if updatedTags := oldTags.Updated(newTags).IgnoreSystem(names.IAM); len(updatedTags) > 0 {
 		input := &iam.TagOpenIDConnectProviderInput{
 			OpenIDConnectProviderArn: aws.String(identifier),
-			Tags:                     Tags(updatedTags),
+			Tags:      Tags(updatedTags),
 		}
 
 		_, err := conn.TagOpenIDConnectProviderWithContext(ctx, input)
@@ -243,7 +243,7 @@ func serverCertificateUpdateTags(ctx context.Context, conn iamiface.IAMAPI, iden
 	if removedTags := oldTags.Removed(newTags).IgnoreSystem(names.IAM); len(removedTags) > 0 {
 		input := &iam.UntagServerCertificateInput{
 			ServerCertificateName: aws.String(identifier),
-			TagKeys:               aws.StringSlice(removedTags.Keys()),
+			TagKeys:aws.StringSlice(removedTags.Keys()),
 		}
 
 		_, err := conn.UntagServerCertificateWithContext(ctx, input)
@@ -256,7 +256,7 @@ func serverCertificateUpdateTags(ctx context.Context, conn iamiface.IAMAPI, iden
 	if updatedTags := oldTags.Updated(newTags).IgnoreSystem(names.IAM); len(updatedTags) > 0 {
 		input := &iam.TagServerCertificateInput{
 			ServerCertificateName: aws.String(identifier),
-			Tags:                  Tags(updatedTags),
+			Tags:   Tags(updatedTags),
 		}
 
 		_, err := conn.TagServerCertificateWithContext(ctx, input)

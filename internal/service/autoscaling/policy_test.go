@@ -27,8 +27,8 @@ func TestAccAutoScalingPolicy_basic(t *testing.T) {
 	resourceTargetTrackingName := "aws_autoscaling_policy.test_tracking"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -123,8 +123,8 @@ func TestAccAutoScalingPolicy_disappears(t *testing.T) {
 	resourceName := "aws_autoscaling_policy.test_simple"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -147,8 +147,8 @@ func TestAccAutoScalingPolicy_predictiveScalingPredefined(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -184,8 +184,8 @@ func TestAccAutoScalingPolicy_predictiveScalingResourceLabel(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -221,8 +221,8 @@ func TestAccAutoScalingPolicy_predictiveScalingCustom(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -274,8 +274,8 @@ func TestAccAutoScalingPolicy_predictiveScalingRemoved(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -310,8 +310,8 @@ func TestAccAutoScalingPolicy_predictiveScalingUpdated(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -362,8 +362,8 @@ func TestAccAutoScalingPolicy_predictiveScalingFloatTargetValue(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -393,8 +393,8 @@ func TestAccAutoScalingPolicy_simpleScalingStepAdjustment(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -423,8 +423,8 @@ func TestAccAutoScalingPolicy_TargetTrack_predefined(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -451,8 +451,8 @@ func TestAccAutoScalingPolicy_TargetTrack_custom(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -479,8 +479,8 @@ func TestAccAutoScalingPolicy_TargetTrack_metricMath(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -508,8 +508,8 @@ func TestAccAutoScalingPolicy_zeroValue(t *testing.T) {
 	resourceStepName := "aws_autoscaling_policy.test_step"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -615,7 +615,7 @@ resource "aws_launch_configuration" "test" {
 
 resource "aws_autoscaling_group" "test" {
   availability_zones   = slice(data.aws_availability_zones.available.names, 0, 2)
-  name                 = %[1]q
+  name  = %[1]q
   max_size             = 0
   min_size             = 0
   force_delete         = true
@@ -627,21 +627,21 @@ resource "aws_autoscaling_group" "test" {
 func testAccPolicyConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccPolicyConfigBase(rName), fmt.Sprintf(`
 resource "aws_autoscaling_policy" "test_simple" {
-  name                   = "%[1]s-simple"
+  name    = "%[1]s-simple"
   adjustment_type        = "ChangeInCapacity"
-  cooldown               = 300
+  cooldown= 300
   policy_type            = "SimpleScaling"
   scaling_adjustment     = 2
   autoscaling_group_name = aws_autoscaling_group.test.name
 }
 
 resource "aws_autoscaling_policy" "test_step" {
-  name                      = "%[1]s-step"
+  name       = "%[1]s-step"
   adjustment_type           = "ChangeInCapacity"
-  policy_type               = "StepScaling"
+  policy_type= "StepScaling"
   estimated_instance_warmup = 200
   metric_aggregation_type   = "Minimum"
-  enabled                   = false
+  enabled    = false
 
   step_adjustment {
     scaling_adjustment          = 1
@@ -652,10 +652,10 @@ resource "aws_autoscaling_policy" "test_step" {
 }
 
 resource "aws_autoscaling_policy" "test_tracking" {
-  name                   = "%[1]s-tracking"
+  name    = "%[1]s-tracking"
   policy_type            = "TargetTrackingScaling"
   autoscaling_group_name = aws_autoscaling_group.test.name
-  enabled                = true
+  enabled = true
 
   target_tracking_configuration {
     predefined_metric_specification {
@@ -671,7 +671,7 @@ resource "aws_autoscaling_policy" "test_tracking" {
 func testAccPolicyConfig_predictiveScalingPredefined(rName string) string {
 	return acctest.ConfigCompose(testAccPolicyConfigBase(rName), fmt.Sprintf(`
 resource "aws_autoscaling_policy" "test" {
-  name                   = "%[1]s-predictive"
+  name    = "%[1]s-predictive"
   policy_type            = "PredictiveScaling"
   autoscaling_group_name = aws_autoscaling_group.test.name
   predictive_scaling_configuration {
@@ -686,7 +686,7 @@ resource "aws_autoscaling_policy" "test" {
         resource_label         = "testLabel"
       }
     }
-    mode                         = "ForecastAndScale"
+    mode          = "ForecastAndScale"
     scheduling_buffer_time       = 10
     max_capacity_breach_behavior = "IncreaseMaxCapacity"
     max_capacity_buffer          = 0
@@ -698,7 +698,7 @@ resource "aws_autoscaling_policy" "test" {
 func testAccPolicyConfig_predictiveScalingPredefined_resourceLabel(rName string) string {
 	return acctest.ConfigCompose(testAccPolicyConfigBase(rName), fmt.Sprintf(`
 resource "aws_autoscaling_policy" "test" {
-  name                   = "%[1]s-predictive"
+  name    = "%[1]s-predictive"
   policy_type            = "PredictiveScaling"
   autoscaling_group_name = aws_autoscaling_group.test.name
   predictive_scaling_configuration {
@@ -711,7 +711,7 @@ resource "aws_autoscaling_policy" "test" {
         predefined_metric_type = "ASGTotalCPUUtilization"
       }
     }
-    mode                         = "ForecastAndScale"
+    mode          = "ForecastAndScale"
     scheduling_buffer_time       = 10
     max_capacity_breach_behavior = "IncreaseMaxCapacity"
     max_capacity_buffer          = 0
@@ -723,7 +723,7 @@ resource "aws_autoscaling_policy" "test" {
 func testAccPolicyConfig_predictiveScalingCustom(rName string) string {
 	return acctest.ConfigCompose(testAccPolicyConfigBase(rName), fmt.Sprintf(`
 resource "aws_autoscaling_policy" "test" {
-  name                   = "%[1]s-predictive"
+  name    = "%[1]s-predictive"
   policy_type            = "PredictiveScaling"
   autoscaling_group_name = aws_autoscaling_group.test.name
   predictive_scaling_configuration {
@@ -748,12 +748,12 @@ resource "aws_autoscaling_policy" "test" {
               namespace   = "namespace_bar"
               metric_name = "metric_name_bar"
               dimensions {
-                name  = "foo"
-                value = "bar"
+ name  = "foo"
+ value = "bar"
               }
               dimensions {
-                name  = "bar"
-                value = "foo"
+ name  = "bar"
+ value = "foo"
               }
             }
             unit = "Percent"
@@ -781,7 +781,7 @@ resource "aws_autoscaling_policy" "test" {
         }
       }
     }
-    mode                         = "ForecastOnly"
+    mode          = "ForecastOnly"
     scheduling_buffer_time       = 10
     max_capacity_breach_behavior = "IncreaseMaxCapacity"
     max_capacity_buffer          = 0
@@ -793,9 +793,9 @@ resource "aws_autoscaling_policy" "test" {
 func testAccPolicyConfig_predictiveScalingRemoved(rName string) string {
 	return acctest.ConfigCompose(testAccPolicyConfigBase(rName), fmt.Sprintf(`
 resource "aws_autoscaling_policy" "test" {
-  name                   = "%[1]s-simple"
+  name    = "%[1]s-simple"
   adjustment_type        = "ChangeInCapacity"
-  cooldown               = 300
+  cooldown= 300
   policy_type            = "SimpleScaling"
   scaling_adjustment     = 2
   autoscaling_group_name = aws_autoscaling_group.test.name
@@ -806,7 +806,7 @@ resource "aws_autoscaling_policy" "test" {
 func testAccPolicyConfig_predictiveScalingUpdated(rName string) string {
 	return acctest.ConfigCompose(testAccPolicyConfigBase(rName), fmt.Sprintf(`
 resource "aws_autoscaling_policy" "test" {
-  name                   = "%[1]s-predictive"
+  name    = "%[1]s-predictive"
   policy_type            = "PredictiveScaling"
   autoscaling_group_name = aws_autoscaling_group.test.name
   predictive_scaling_configuration {
@@ -821,7 +821,7 @@ resource "aws_autoscaling_policy" "test" {
         resource_label         = "testLabel"
       }
     }
-    mode                         = "ForecastOnly"
+    mode          = "ForecastOnly"
     max_capacity_breach_behavior = "HonorMaxCapacity"
   }
 }
@@ -831,7 +831,7 @@ resource "aws_autoscaling_policy" "test" {
 func testAccPolicyConfig_predictiveScalingFloatTargetValue(rName string) string {
 	return acctest.ConfigCompose(testAccPolicyConfigBase(rName), fmt.Sprintf(`
 resource "aws_autoscaling_policy" "test" {
-  name                   = "%[1]s-predictive"
+  name    = "%[1]s-predictive"
   policy_type            = "PredictiveScaling"
   autoscaling_group_name = aws_autoscaling_group.test.name
   predictive_scaling_configuration {
@@ -850,21 +850,21 @@ resource "aws_autoscaling_policy" "test" {
 func testAccPolicyConfig_basicUpdate(rName string) string {
 	return acctest.ConfigCompose(testAccPolicyConfigBase(rName), fmt.Sprintf(`
 resource "aws_autoscaling_policy" "test_simple" {
-  name                   = "%[1]s-simple"
+  name    = "%[1]s-simple"
   adjustment_type        = "ChangeInCapacity"
-  cooldown               = 30
+  cooldown= 30
   policy_type            = "SimpleScaling"
   scaling_adjustment     = 2
   autoscaling_group_name = aws_autoscaling_group.test.name
 }
 
 resource "aws_autoscaling_policy" "test_step" {
-  name                      = "%[1]s-step"
+  name       = "%[1]s-step"
   adjustment_type           = "ChangeInCapacity"
-  policy_type               = "StepScaling"
+  policy_type= "StepScaling"
   estimated_instance_warmup = 20
   metric_aggregation_type   = "Minimum"
-  enabled                   = true
+  enabled    = true
 
   step_adjustment {
     scaling_adjustment          = 10
@@ -875,10 +875,10 @@ resource "aws_autoscaling_policy" "test_step" {
 }
 
 resource "aws_autoscaling_policy" "test_tracking" {
-  name                   = "%[1]s-tracking"
+  name    = "%[1]s-tracking"
   policy_type            = "TargetTrackingScaling"
   autoscaling_group_name = aws_autoscaling_group.test.name
-  enabled                = false
+  enabled = false
 
   target_tracking_configuration {
     customized_metric_specification {
@@ -901,9 +901,9 @@ resource "aws_autoscaling_policy" "test_tracking" {
 func testAccPolicyConfig_simpleScalingStepAdjustment(rName string) string {
 	return acctest.ConfigCompose(testAccPolicyConfigBase(rName), fmt.Sprintf(`
 resource "aws_autoscaling_policy" "test" {
-  name                   = "%[1]s-simple"
+  name    = "%[1]s-simple"
   adjustment_type        = "ExactCapacity"
-  cooldown               = 300
+  cooldown= 300
   policy_type            = "SimpleScaling"
   scaling_adjustment     = 0
   autoscaling_group_name = aws_autoscaling_group.test.name
@@ -914,7 +914,7 @@ resource "aws_autoscaling_policy" "test" {
 func testAccPolicyConfig_targetTrackingPredefined(rName string) string {
 	return acctest.ConfigCompose(testAccPolicyConfigBase(rName), fmt.Sprintf(`
 resource "aws_autoscaling_policy" "test" {
-  name                   = "%[1]s-tracking"
+  name    = "%[1]s-tracking"
   policy_type            = "TargetTrackingScaling"
   autoscaling_group_name = aws_autoscaling_group.test.name
 
@@ -932,7 +932,7 @@ resource "aws_autoscaling_policy" "test" {
 func testAccPolicyConfig_targetTrackingCustom(rName string) string {
 	return acctest.ConfigCompose(testAccPolicyConfigBase(rName), fmt.Sprintf(`
 resource "aws_autoscaling_policy" "test" {
-  name                   = "%[1]s-tracking"
+  name    = "%[1]s-tracking"
   policy_type            = "TargetTrackingScaling"
   autoscaling_group_name = aws_autoscaling_group.test.name
 
@@ -957,7 +957,7 @@ resource "aws_autoscaling_policy" "test" {
 func testAccPolicyConfig_targetTrackingMetricMath(rName string) string {
 	return acctest.ConfigCompose(testAccPolicyConfigBase(rName), fmt.Sprintf(`
 resource "aws_autoscaling_policy" "test" {
-  name                   = "%[1]s-tracking"
+  name    = "%[1]s-tracking"
   policy_type            = "TargetTrackingScaling"
   autoscaling_group_name = aws_autoscaling_group.test.name
 
@@ -1016,18 +1016,18 @@ resource "aws_autoscaling_policy" "test" {
 func testAccPolicyConfig_zeroValue(rName string) string {
 	return acctest.ConfigCompose(testAccPolicyConfigBase(rName), fmt.Sprintf(`
 resource "aws_autoscaling_policy" "test_simple" {
-  name                   = "%[1]s-simple"
+  name    = "%[1]s-simple"
   adjustment_type        = "ExactCapacity"
-  cooldown               = 0
+  cooldown= 0
   policy_type            = "SimpleScaling"
   scaling_adjustment     = 0
   autoscaling_group_name = aws_autoscaling_group.test.name
 }
 
 resource "aws_autoscaling_policy" "test_step" {
-  name                      = "%[1]s-step"
+  name       = "%[1]s-step"
   adjustment_type           = "PercentChangeInCapacity"
-  policy_type               = "StepScaling"
+  policy_type= "StepScaling"
   estimated_instance_warmup = 0
   metric_aggregation_type   = "Minimum"
 

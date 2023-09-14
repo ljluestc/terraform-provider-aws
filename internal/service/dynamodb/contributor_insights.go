@@ -119,7 +119,7 @@ func resourceContributorInsightsDelete(ctx context.Context, d *schema.ResourceDa
 
 	input := &dynamodb.UpdateContributorInsightsInput{
 		ContributorInsightsAction: aws.String(dynamodb.ContributorInsightsActionDisable),
-		TableName:                 aws.String(tableName),
+		TableName:  aws.String(tableName),
 	}
 
 	if indexName != "" {

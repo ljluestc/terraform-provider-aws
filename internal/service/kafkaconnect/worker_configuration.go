@@ -69,7 +69,7 @@ func resourceWorkerConfigurationCreate(ctx context.Context, d *schema.ResourceDa
 
 	name := d.Get("name").(string)
 	input := &kafkaconnect.CreateWorkerConfigurationInput{
-		Name:                  aws.String(name),
+		Name:   aws.String(name),
 		PropertiesFileContent: aws.String(verify.Base64Encode([]byte(d.Get("properties_file_content").(string)))),
 	}
 

@@ -28,8 +28,8 @@ func TestAccImageBuilderImage_basic(t *testing.T) {
 	resourceName := "aws_imagebuilder_image.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckImageDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -70,8 +70,8 @@ func TestAccImageBuilderImage_disappears(t *testing.T) {
 	resourceName := "aws_imagebuilder_image.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckImageDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -94,8 +94,8 @@ func TestAccImageBuilderImage_distributionARN(t *testing.T) {
 	resourceName := "aws_imagebuilder_image.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckImageDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -121,8 +121,8 @@ func TestAccImageBuilderImage_enhancedImageMetadataEnabled(t *testing.T) {
 	resourceName := "aws_imagebuilder_image.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckImageDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -148,8 +148,8 @@ func TestAccImageBuilderImage_ImageTests_imageTestsEnabled(t *testing.T) {
 	resourceName := "aws_imagebuilder_image.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckImageDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -176,8 +176,8 @@ func TestAccImageBuilderImage_ImageTests_timeoutMinutes(t *testing.T) {
 	resourceName := "aws_imagebuilder_image.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckImageDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -204,8 +204,8 @@ func TestAccImageBuilderImage_tags(t *testing.T) {
 	resourceName := "aws_imagebuilder_image.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckImageDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -250,8 +250,8 @@ func TestAccImageBuilderImage_containerRecipeARN(t *testing.T) {
 	containerRecipeResourceName := "aws_imagebuilder_container_recipe.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckImageDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -273,8 +273,8 @@ func TestAccImageBuilderImage_outputResources_containers(t *testing.T) {
 	regionDataSourceName := "data.aws_region.current"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckImageDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -430,7 +430,7 @@ resource "aws_internet_gateway" "test" {
 resource "aws_subnet" "test" {
   cidr_block              = cidrsubnet(aws_vpc.test.cidr_block, 8, 0)
   map_public_ip_on_launch = true
-  vpc_id                  = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
 }
 
 resource "aws_imagebuilder_image_recipe" "test" {
@@ -445,7 +445,7 @@ resource "aws_imagebuilder_image_recipe" "test" {
 
 resource "aws_imagebuilder_infrastructure_configuration" "test" {
   instance_profile_name = aws_iam_instance_profile.test.name
-  name                  = %[1]q
+  name   = %[1]q
   security_group_ids    = [aws_default_security_group.test.id]
   subnet_id             = aws_subnet.test.id
 
@@ -472,7 +472,7 @@ resource "aws_imagebuilder_distribution_configuration" "test" {
 
 resource "aws_imagebuilder_image" "test" {
   distribution_configuration_arn   = aws_imagebuilder_distribution_configuration.test.arn
-  image_recipe_arn                 = aws_imagebuilder_image_recipe.test.arn
+  image_recipe_arn  = aws_imagebuilder_image_recipe.test.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
 }
 `, rName))
@@ -484,7 +484,7 @@ func testAccImageConfig_enhancedMetadataEnabled(rName string, enhancedImageMetad
 		fmt.Sprintf(`
 resource "aws_imagebuilder_image" "test" {
   enhanced_image_metadata_enabled  = %[2]t
-  image_recipe_arn                 = aws_imagebuilder_image_recipe.test.arn
+  image_recipe_arn  = aws_imagebuilder_image_recipe.test.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
 }
 `, rName, enhancedImageMetadataEnabled))
@@ -495,7 +495,7 @@ func testAccImageConfig_testsConfigurationTestsEnabled(rName string, imageTestsE
 		testAccImageBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_imagebuilder_image" "test" {
-  image_recipe_arn                 = aws_imagebuilder_image_recipe.test.arn
+  image_recipe_arn  = aws_imagebuilder_image_recipe.test.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
 
   image_tests_configuration {
@@ -510,7 +510,7 @@ func testAccImageConfig_testsConfigurationTimeoutMinutes(rName string, timeoutMi
 		testAccImageBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_imagebuilder_image" "test" {
-  image_recipe_arn                 = aws_imagebuilder_image_recipe.test.arn
+  image_recipe_arn  = aws_imagebuilder_image_recipe.test.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
 
   image_tests_configuration {
@@ -525,7 +525,7 @@ func testAccImageConfig_required(rName string) string {
 		testAccImageBaseConfig(rName),
 		`
 resource "aws_imagebuilder_image" "test" {
-  image_recipe_arn                 = aws_imagebuilder_image_recipe.test.arn
+  image_recipe_arn  = aws_imagebuilder_image_recipe.test.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
 }
 `)
@@ -536,7 +536,7 @@ func testAccImageConfig_tags1(rName string, tagKey1 string, tagValue1 string) st
 		testAccImageBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_imagebuilder_image" "test" {
-  image_recipe_arn                 = aws_imagebuilder_image_recipe.test.arn
+  image_recipe_arn  = aws_imagebuilder_image_recipe.test.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
 
   tags = {
@@ -551,7 +551,7 @@ func testAccImageConfig_tags2(rName string, tagKey1 string, tagValue1 string, ta
 		testAccImageBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_imagebuilder_image" "test" {
-  image_recipe_arn                 = aws_imagebuilder_image_recipe.test.arn
+  image_recipe_arn  = aws_imagebuilder_image_recipe.test.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
 
   tags = {
@@ -606,7 +606,7 @@ resource "aws_internet_gateway" "test" {
 resource "aws_subnet" "test" {
   cidr_block              = cidrsubnet(aws_vpc.test.cidr_block, 8, 0)
   map_public_ip_on_launch = true
-  vpc_id                  = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
 }
 
 resource "aws_iam_role" "test" {
@@ -676,7 +676,7 @@ EOF
 
 resource "aws_imagebuilder_infrastructure_configuration" "test" {
   instance_profile_name = aws_iam_instance_profile.test.name
-  name                  = %[1]q
+  name   = %[1]q
   security_group_ids    = [aws_default_security_group.test.id]
   subnet_id             = aws_subnet.test.id
 

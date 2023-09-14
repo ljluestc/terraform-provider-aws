@@ -38,7 +38,7 @@ func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckTrafficMirrorSession(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTrafficMirrorSessionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -105,7 +105,7 @@ func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckTrafficMirrorSession(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTrafficMirrorSessionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -160,7 +160,7 @@ func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckTrafficMirrorSession(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTrafficMirrorSessionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -191,7 +191,7 @@ func() {
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckTrafficMirrorSession(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTrafficMirrorSessionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -313,7 +313,7 @@ resource "aws_instance" "test" {
 }
 
 resource "aws_lb" "test" {
-  name               = %[1]q
+  name= %[1]q
   internal           = true
   load_balancer_type = "network"
   subnets            = aws_subnet.test[*].id

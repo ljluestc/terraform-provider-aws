@@ -25,8 +25,8 @@ func TestAccEFSFileSystemPolicy_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, efs.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFileSystemPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -61,8 +61,8 @@ func TestAccEFSFileSystemPolicy_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, efs.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFileSystemPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -85,8 +85,8 @@ func TestAccEFSFileSystemPolicy_policyBypass(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, efs.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFileSystemPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -122,8 +122,8 @@ func TestAccEFSFileSystemPolicy_equivalentPolicies(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, efs.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFileSystemPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -150,8 +150,8 @@ func TestAccEFSFileSystemPolicy_equivalentPoliciesIAMPolicyDoc(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, efs.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, efs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckFileSystemPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -239,17 +239,17 @@ resource "aws_efs_file_system_policy" "test" {
             "Sid": "ExampleStatement01",
             "Effect": "Allow",
             "Principal": {
-                "AWS": "*"
+ "AWS": "*"
             },
             "Resource": "${aws_efs_file_system.test.arn}",
             "Action": [
-                "elasticfilesystem:ClientMount",
-                "elasticfilesystem:ClientWrite"
+ "elasticfilesystem:ClientMount",
+ "elasticfilesystem:ClientWrite"
             ],
             "Condition": {
-                "Bool": {
-                    "aws:SecureTransport": "true"
-                }
+ "Bool": {
+     "aws:SecureTransport": "true"
+ }
             }
         }
     ]
@@ -277,14 +277,14 @@ resource "aws_efs_file_system_policy" "test" {
             "Sid": "ExampleStatement01",
             "Effect": "Allow",
             "Principal": {
-                "AWS": "*"
+ "AWS": "*"
             },
             "Resource": "${aws_efs_file_system.test.arn}",
             "Action": "elasticfilesystem:ClientMount",
             "Condition": {
-                "Bool": {
-                    "aws:SecureTransport": "true"
-                }
+ "Bool": {
+     "aws:SecureTransport": "true"
+ }
             }
         }
     ]
@@ -314,17 +314,17 @@ resource "aws_efs_file_system_policy" "test" {
             "Sid": "ExampleStatement01",
             "Effect": "Allow",
             "Principal": {
-                "AWS": "*"
+ "AWS": "*"
             },
             "Resource": "${aws_efs_file_system.test.arn}",
             "Action": [
-                "elasticfilesystem:ClientMount",
-                "elasticfilesystem:ClientWrite"
+ "elasticfilesystem:ClientMount",
+ "elasticfilesystem:ClientWrite"
             ],
             "Condition": {
-                "Bool": {
-                    "aws:SecureTransport": "true"
-                }
+ "Bool": {
+     "aws:SecureTransport": "true"
+ }
             }
         }
     ]

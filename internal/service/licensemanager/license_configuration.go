@@ -91,8 +91,8 @@ func resourceLicenseConfigurationCreate(ctx context.Context, d *schema.ResourceD
 	name := d.Get("name").(string)
 	input := &licensemanager.CreateLicenseConfigurationInput{
 		LicenseCountingType: aws.String(d.Get("license_counting_type").(string)),
-		Name:                aws.String(name),
-		Tags:                getTagsIn(ctx),
+		Name: aws.String(name),
+		Tags: getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -159,7 +159,7 @@ func resourceLicenseConfigurationUpdate(ctx context.Context, d *schema.ResourceD
 			Description:             aws.String(d.Get("description").(string)),
 			LicenseConfigurationArn: aws.String(d.Id()),
 			LicenseCountHardLimit:   aws.Bool(d.Get("license_count_hard_limit").(bool)),
-			Name:                    aws.String(d.Get("name").(string)),
+			Name:     aws.String(d.Get("name").(string)),
 		}
 
 		if v, ok := d.GetOk("license_count"); ok {

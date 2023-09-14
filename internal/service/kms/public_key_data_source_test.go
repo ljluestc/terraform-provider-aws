@@ -21,8 +21,8 @@ func TestAccKMSPublicKeyDataSource_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -48,8 +48,8 @@ func TestAccKMSPublicKeyDataSource_encrypt(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -85,7 +85,7 @@ resource "aws_kms_key" "test" {
   description              = %[1]q
   deletion_window_in_days  = 7
   customer_master_key_spec = "RSA_2048"
-  key_usage                = "SIGN_VERIFY"
+  key_usage = "SIGN_VERIFY"
 }
 
 data "aws_kms_public_key" "test" {
@@ -100,7 +100,7 @@ resource "aws_kms_key" "test" {
   description              = %[1]q
   deletion_window_in_days  = 7
   customer_master_key_spec = "RSA_2048"
-  key_usage                = "ENCRYPT_DECRYPT"
+  key_usage = "ENCRYPT_DECRYPT"
 }
 
 data "aws_kms_public_key" "test" {

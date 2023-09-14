@@ -23,9 +23,9 @@ func TestAccEC2AMIFromInstance_basic(t *testing.T) {
 	resourceName := "aws_ami_from_instance.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAMIDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -56,9 +56,9 @@ func TestAccEC2AMIFromInstance_tags(t *testing.T) {
 	resourceName := "aws_ami_from_instance.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAMIDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -102,9 +102,9 @@ func TestAccEC2AMIFromInstance_disappears(t *testing.T) {
 	resourceName := "aws_ami_from_instance.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAMIDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -144,7 +144,7 @@ func testAccAMIFromInstanceConfig_basic(rName string) string {
 		testAccAMIFromInstanceBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_ami_from_instance" "test" {
-  name               = %[1]q
+  name= %[1]q
   description        = "Testing Terraform aws_ami_from_instance resource"
   source_instance_id = aws_instance.test.id
 }
@@ -157,7 +157,7 @@ func testAccAMIFromInstanceConfig_tags1(rName, tagKey1, tagValue1 string) string
 		testAccAMIFromInstanceBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_ami_from_instance" "test" {
-  name               = %[1]q
+  name= %[1]q
   description        = "Testing Terraform aws_ami_from_instance resource"
   source_instance_id = aws_instance.test.id
 
@@ -174,7 +174,7 @@ func testAccAMIFromInstanceConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagV
 		testAccAMIFromInstanceBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_ami_from_instance" "test" {
-  name               = %[1]q
+  name= %[1]q
   description        = "Testing Terraform aws_ami_from_instance resource"
   source_instance_id = aws_instance.test.id
 

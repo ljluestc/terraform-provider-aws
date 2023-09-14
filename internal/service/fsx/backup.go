@@ -83,7 +83,7 @@ func resourceBackupCreate(ctx context.Context, d *schema.ResourceData, meta inte
 
 	input := &fsx.CreateBackupInput{
 		ClientRequestToken: aws.String(id.UniqueId()),
-		Tags:               getTagsIn(ctx),
+		Tags:getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("file_system_id"); ok {

@@ -43,7 +43,7 @@ func insightVisualSchema() *schema.Schema {
 											Elem: &schema.Resource{
 												Schema: map[string]*schema.Schema{
 													"computation_id":           idSchema(),
-													"time":                     dimensionFieldSchema(1), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DimensionField.html
+													"time":      dimensionFieldSchema(1), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_DimensionField.html
 													"custom_seasonality_value": intSchema(false, validation.IntBetween(1, 180)),
 													"lower_boundary": {
 														Type:     schema.TypeFloat,
@@ -150,7 +150,7 @@ func insightVisualSchema() *schema.Schema {
 														Optional: true,
 													},
 													"period_time_granularity": stringSchema(true, validation.StringInSlice(quicksight.TimeGranularity_Values(), false)),
-													"value":                   measureFieldSchema(1), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_MeasureField.html
+													"value":    measureFieldSchema(1), // https://docs.aws.amazon.com/quicksight/latest/APIReference/API_MeasureField.html
 												},
 											},
 										},

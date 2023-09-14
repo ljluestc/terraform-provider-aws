@@ -259,7 +259,7 @@ func resourceTemplateUpdate(ctx context.Context, d *schema.ResourceData, meta in
 		in := &quicksight.UpdateTemplateInput{
 			AwsAccountId:       aws.String(awsAccountId),
 			TemplateId:         aws.String(templateId),
-			Name:               aws.String(d.Get("name").(string)),
+			Name:aws.String(d.Get("name").(string)),
 			VersionDescription: aws.String(d.Get("version_description").(string)),
 		}
 

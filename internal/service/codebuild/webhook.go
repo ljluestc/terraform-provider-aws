@@ -159,7 +159,7 @@ func expandWebhookFilterData(data map[string]interface{}) []*codebuild.WebhookFi
 	for i, filterConfig := range filterConfigs {
 		filter := filterConfig.(map[string]interface{})
 		filters = append(filters, &codebuild.WebhookFilter{
-			Type:                  aws.String(filter["type"].(string)),
+			Type:   aws.String(filter["type"].(string)),
 			ExcludeMatchedPattern: aws.Bool(filter["exclude_matched_pattern"].(bool)),
 		})
 		if v := filter["pattern"]; v != nil {
@@ -315,8 +315,8 @@ func flattenWebhookFilterData(filters []*codebuild.WebhookFilter) map[string]int
 
 	for _, f := range filters {
 		ff = append(ff, map[string]interface{}{
-			"type":                    *f.Type,
-			"pattern":                 *f.Pattern,
+			"type":     *f.Type,
+			"pattern":  *f.Pattern,
 			"exclude_matched_pattern": *f.ExcludeMatchedPattern,
 		})
 	}

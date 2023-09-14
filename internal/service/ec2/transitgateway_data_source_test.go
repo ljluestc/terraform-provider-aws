@@ -35,7 +35,7 @@ func(t *testing.T){
 			"ID":     testAccTransitGatewayConnectPeerDataSource_ID,
 		},
 		"DxGatewayAttachment": {
-			"Filter":                         testAccTransitGatewayDxGatewayAttachmentDataSource_filter,
+			"Filter":          testAccTransitGatewayDxGatewayAttachmentDataSource_filter,
 			"TransitGatewayIdAndDxGatewayId": testAccTransitGatewayDxGatewayAttachmentDataSource_TransitGatewayIdAndDxGatewayID,
 		},
 		"Gateway": {
@@ -51,7 +51,7 @@ func(t *testing.T){
 			"FilterDifferentAccount": testAccTransitGatewayPeeringAttachmentDataSource_Filter_differentAccount,
 			"IDSameAccount":          testAccTransitGatewayPeeringAttachmentDataSource_ID_sameAccount,
 			"IDDifferentAccount":     testAccTransitGatewayPeeringAttachmentDataSource_ID_differentAccount,
-			"Tags":                   testAccTransitGatewayPeeringAttachmentDataSource_Tags,
+			"Tags":    testAccTransitGatewayPeeringAttachmentDataSource_Tags,
 		},
 		"RouteTable": {
 			"Filter": testAccTransitGatewayRouteTableDataSource_Filter,
@@ -82,7 +82,7 @@ func(t *testing.T){
 			"Filter": testAccTransitGatewayVPCAttachmentsDataSource_Filter,
 		},
 		"VpnAttachment": {
-			"Filter":                             testAccTransitGatewayVPNAttachmentDataSource_filter,
+			"Filter":              testAccTransitGatewayVPNAttachmentDataSource_filter,
 			"TransitGatewayIdAndVpnConnectionId": testAccTransitGatewayVPNAttachmentDataSource_idAndVPNConnectionID,
 		},
 	}
@@ -98,9 +98,9 @@ func testAccTransitGatewayDataSource_Filter(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -136,9 +136,9 @@ func testAccTransitGatewayDataSource_ID(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayDestroy(ctx),
 		Steps: []resource.TestStep{

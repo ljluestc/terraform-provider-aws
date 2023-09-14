@@ -562,7 +562,7 @@ func resourceFunctionCreate(ctx context.Context, d *schema.ResourceData, meta in
 
 	if v, ok := d.Get("reserved_concurrent_executions").(int); ok && v >= 0 {
 		_, err := conn.PutFunctionConcurrency(ctx, &lambda.PutFunctionConcurrencyInput{
-			FunctionName:                 aws.String(d.Id()),
+			FunctionName:  aws.String(d.Id()),
 			ReservedConcurrentExecutions: aws.Int32(int32(v)),
 		})
 
@@ -939,7 +939,7 @@ func resourceFunctionUpdate(ctx context.Context, d *schema.ResourceData, meta in
 	if d.HasChange("reserved_concurrent_executions") {
 		if v, ok := d.Get("reserved_concurrent_executions").(int); ok && v >= 0 {
 			_, err := conn.PutFunctionConcurrency(ctx, &lambda.PutFunctionConcurrencyInput{
-				FunctionName:                 aws.String(d.Id()),
+				FunctionName:  aws.String(d.Id()),
 				ReservedConcurrentExecutions: aws.Int32(int32(v)),
 			})
 

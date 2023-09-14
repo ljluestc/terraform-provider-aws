@@ -39,18 +39,18 @@ func TestValidSharePrincipal(t *testing.T) {
 		"arn:aws:logs",            //lintignore:AWSAT005
 		"arn:aws:logs:region:*:*", //lintignore:AWSAT005
 		"arn:aws:elasticbeanstalk:us-east-1:123456789012:environment/My App/MyEnvironment", // lintignore:AWSAT003,AWSAT005 // not a user or role
-		"arn:aws:iam::aws:policy/CloudWatchReadOnlyAccess",                                 // lintignore:AWSAT005          // not a user or role
-		"arn:aws:rds:eu-west-1:123456789012:db:mysql-db",                                   // lintignore:AWSAT003,AWSAT005 // not a user or role
-		"arn:aws:s3:::my_corporate_bucket/exampleobject.png",                               // lintignore:AWSAT005          // not a user or role
-		"arn:aws:events:us-east-1:319201112229:rule/rule_name",                             // lintignore:AWSAT003,AWSAT005 // not a user or role
-		"arn:aws-us-gov:ec2:us-gov-west-1:123456789012:instance/i-12345678",                // lintignore:AWSAT003,AWSAT005 // not a user or role
-		"arn:aws-us-gov:s3:::bucket/object",                                                // lintignore:AWSAT005          // not a user or role
+		"arn:aws:iam::aws:policy/CloudWatchReadOnlyAccess",   // lintignore:AWSAT005          // not a user or role
+		"arn:aws:rds:eu-west-1:123456789012:db:mysql-db",     // lintignore:AWSAT003,AWSAT005 // not a user or role
+		"arn:aws:s3:::my_corporate_bucket/exampleobject.png", // lintignore:AWSAT005          // not a user or role
+		"arn:aws:events:us-east-1:319201112229:rule/rule_name",              // lintignore:AWSAT003,AWSAT005 // not a user or role
+		"arn:aws-us-gov:ec2:us-gov-west-1:123456789012:instance/i-12345678", // lintignore:AWSAT003,AWSAT005 // not a user or role
+		"arn:aws-us-gov:s3:::bucket/object",   // lintignore:AWSAT005          // not a user or role
 		"arn:aws-us-gov:iam::357342307427:role/tf-acc-test-3217321001347236965",            // lintignore:AWSAT005          // IAM Role
-		"arn:aws:iam::123456789012:user/David",                                             // lintignore:AWSAT005          // IAM User
+		"arn:aws:iam::123456789012:user/David",// lintignore:AWSAT005          // IAM User
 		"arn:aws-us-gov:iam:us-west-2:357342307427:role/tf-acc-test-3217321001347236965",   // lintignore:AWSAT003,AWSAT005 // Non-global IAM Role?
-		"arn:aws:iam:us-east-1:123456789012:user/David",                                    // lintignore:AWSAT003,AWSAT005 // Non-global IAM User?
-		"arn:aws:iam::111122223333:saml-provider/idp1:group/data-scientists",               // lintignore:AWSAT005          // SAML group
-		"arn:aws:iam::111122223333:saml-provider/idp1:user/Paul",                           // lintignore:AWSAT005          // SAML user
+		"arn:aws:iam:us-east-1:123456789012:user/David",      // lintignore:AWSAT003,AWSAT005 // Non-global IAM User?
+		"arn:aws:iam::111122223333:saml-provider/idp1:group/data-scientists",// lintignore:AWSAT005          // SAML group
+		"arn:aws:iam::111122223333:saml-provider/idp1:user/Paul",            // lintignore:AWSAT005          // SAML user
 		"arn:aws:quicksight:us-east-1:111122223333:group/default/data_scientists",          // lintignore:AWSAT003,AWSAT005 // quicksight group
 	}
 	for _, v := range invalidNames {

@@ -174,8 +174,8 @@ func resourceFileSystemAssociationUpdate(ctx context.Context, d *schema.Resource
 	if d.HasChangesExcept("tags_all") {
 		input := &storagegateway.UpdateFileSystemAssociationInput{
 			AuditDestinationARN:      aws.String(d.Get("audit_destination_arn").(string)),
-			Password:                 aws.String(d.Get("password").(string)),
-			UserName:                 aws.String(d.Get("username").(string)),
+			Password:  aws.String(d.Get("password").(string)),
+			UserName:  aws.String(d.Get("username").(string)),
 			FileSystemAssociationARN: aws.String(d.Id()),
 		}
 

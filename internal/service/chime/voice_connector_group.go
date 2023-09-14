@@ -107,7 +107,7 @@ func resourceVoiceConnectorGroupUpdate(ctx context.Context, d *schema.ResourceDa
 	conn := meta.(*conns.AWSClient).ChimeConn(ctx)
 
 	input := &chime.UpdateVoiceConnectorGroupInput{
-		Name:                  aws.String(d.Get("name").(string)),
+		Name:   aws.String(d.Get("name").(string)),
 		VoiceConnectorGroupId: aws.String(d.Id()),
 	}
 

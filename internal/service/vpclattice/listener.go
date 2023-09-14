@@ -381,7 +381,7 @@ func flattenDefaultActionForwardTargetGroups(groups []types.WeightedTargetGroup)
 	for _, targetGroup := range groups {
 		m := map[string]interface{}{
 			"target_group_identifier": aws.ToString(targetGroup.TargetGroupIdentifier),
-			"weight":                  aws.ToInt32(targetGroup.Weight),
+			"weight":   aws.ToInt32(targetGroup.Weight),
 		}
 		targetGroups = append(targetGroups, m)
 	}
@@ -434,7 +434,7 @@ func expandForwardTargetGroupList(tfList []interface{}) []types.WeightedTargetGr
 
 		targetGroup := &types.WeightedTargetGroup{
 			TargetGroupIdentifier: aws.String((tfMap["target_group_identifier"].(string))),
-			Weight:                aws.Int32(int32(tfMap["weight"].(int))),
+			Weight: aws.Int32(int32(tfMap["weight"].(int))),
 		}
 
 		targetGroups = append(targetGroups, *targetGroup)

@@ -29,9 +29,9 @@ func TestAccEC2AMI_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAMIDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -48,7 +48,7 @@ func(
 						"delete_on_termination": "true",
 						"device_name":           "/dev/sda1",
 						"encrypted":             "false",
-						"iops":                  "0",
+						"iops":   "0",
 						"throughput":            "0",
 						"volume_size":           "8",
 						"outpost_arn":           "",
@@ -97,9 +97,9 @@ func TestAccEC2AMI_deprecateAt(t *testing.T) {
 	deprecateAtUpdated := "2028-10-15T13:17:00.000Z"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAMIDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -117,7 +117,7 @@ func(
 						"delete_on_termination": "true",
 						"device_name":           "/dev/sda1",
 						"encrypted":             "false",
-						"iops":                  "0",
+						"iops":   "0",
 						"throughput":            "0",
 						"volume_size":           "8",
 						"outpost_arn":           "",
@@ -159,7 +159,7 @@ func(
 						"delete_on_termination": "true",
 						"device_name":           "/dev/sda1",
 						"encrypted":             "false",
-						"iops":                  "0",
+						"iops":   "0",
 						"throughput":            "0",
 						"volume_size":           "8",
 						"outpost_arn":           "",
@@ -194,9 +194,9 @@ func TestAccEC2AMI_description(t *testing.T) {
 	descUpdated := sdkacctest.RandomWithPrefix("desc-updated")
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAMIDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -213,7 +213,7 @@ func(
 						"delete_on_termination": "true",
 						"device_name":           "/dev/sda1",
 						"encrypted":             "false",
-						"iops":                  "0",
+						"iops":   "0",
 						"throughput":            "0",
 						"volume_size":           "8",
 						"outpost_arn":           "",
@@ -254,7 +254,7 @@ func(
 						"delete_on_termination": "true",
 						"device_name":           "/dev/sda1",
 						"encrypted":             "false",
-						"iops":                  "0",
+						"iops":   "0",
 						"throughput":            "0",
 						"volume_size":           "8",
 						"outpost_arn":           "",
@@ -286,9 +286,9 @@ func TestAccEC2AMI_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAMIDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -314,9 +314,9 @@ func TestAccEC2AMI_ephemeralBlockDevices(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAMIDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -333,7 +333,7 @@ func(
 						"delete_on_termination": "true",
 						"device_name":           "/dev/sda1",
 						"encrypted":             "false",
-						"iops":                  "0",
+						"iops":   "0",
 						"throughput":            "0",
 						"volume_size":           "8",
 						"outpost_arn":           "",
@@ -381,9 +381,9 @@ func TestAccEC2AMI_gp3BlockDevice(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAMIDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -400,7 +400,7 @@ func(
 						"delete_on_termination": "true",
 						"device_name":           "/dev/sda1",
 						"encrypted":             "false",
-						"iops":                  "0",
+						"iops":   "0",
 						"throughput":            "0",
 						"volume_size":           "8",
 						"outpost_arn":           "",
@@ -411,7 +411,7 @@ func(
 						"delete_on_termination": "false",
 						"device_name":           "/dev/sdb",
 						"encrypted":             "true",
-						"iops":                  "100",
+						"iops":   "100",
 						"throughput":            "500",
 						"volume_size":           "10",
 						"outpost_arn":           "",
@@ -450,9 +450,9 @@ func TestAccEC2AMI_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAMIDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -504,9 +504,9 @@ func TestAccEC2AMI_outpost(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAMIDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -538,9 +538,9 @@ func TestAccEC2AMI_boot(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAMIDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -572,9 +572,9 @@ func TestAccEC2AMI_tpmSupport(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAMIDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -606,9 +606,9 @@ func TestAccEC2AMI_imdsSupport(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckAMIDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -727,7 +727,7 @@ func testAccAMIConfig_basic(rName string) string {
 		fmt.Sprintf(`
 resource "aws_ami" "test" {
   ena_support         = true
-  name                = %[1]q
+  name = %[1]q
   root_device_name    = "/dev/sda1"
   virtualization_type = "hvm"
 
@@ -746,7 +746,7 @@ func testAccAMIConfig_deprecateAt(rName, deprecateAt string) string {
 		fmt.Sprintf(`
 resource "aws_ami" "test" {
   ena_support         = true
-  name                = %[1]q
+  name = %[1]q
   root_device_name    = "/dev/sda1"
   virtualization_type = "hvm"
   deprecation_time    = %[2]q
@@ -766,7 +766,7 @@ func testAccAMIConfig_desc(rName, desc string) string {
 		fmt.Sprintf(`
 resource "aws_ami" "test" {
   ena_support         = true
-  name                = %[1]q
+  name = %[1]q
   root_device_name    = "/dev/sda1"
   virtualization_type = "hvm"
   description         = %[2]q
@@ -786,7 +786,7 @@ func testAccAMIConfig_ephemeralBlockDevices(rName string) string {
 		fmt.Sprintf(`
 resource "aws_ami" "test" {
   ena_support         = true
-  name                = %[1]q
+  name = %[1]q
   root_device_name    = "/dev/sda1"
   virtualization_type = "hvm"
 
@@ -815,7 +815,7 @@ func testAccAMIConfig_gp3BlockDevice(rName string) string {
 		fmt.Sprintf(`
 resource "aws_ami" "test" {
   ena_support         = false
-  name                = %[1]q
+  name = %[1]q
   root_device_name    = "/dev/sda1"
   virtualization_type = "hvm"
 
@@ -828,7 +828,7 @@ resource "aws_ami" "test" {
     delete_on_termination = false
     device_name           = "/dev/sdb"
     encrypted             = true
-    iops                  = 100
+    iops   = 100
     throughput            = 500
     volume_size           = 10
     volume_type           = "gp3"
@@ -844,7 +844,7 @@ func testAccAMIConfig_tags1(rName, tagKey1, tagValue1 string) string {
 		fmt.Sprintf(`
 resource "aws_ami" "test" {
   ena_support         = true
-  name                = %[1]q
+  name = %[1]q
   root_device_name    = "/dev/sda1"
   virtualization_type = "hvm"
 
@@ -867,7 +867,7 @@ func testAccAMIConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string
 		fmt.Sprintf(`
 resource "aws_ami" "test" {
   ena_support         = true
-  name                = %[1]q
+  name = %[1]q
   root_device_name    = "/dev/sda1"
   virtualization_type = "hvm"
 
@@ -897,7 +897,7 @@ data "aws_outposts_outpost" "test" {
 
 resource "aws_ami" "test" {
   ena_support         = true
-  name                = %[1]q
+  name = %[1]q
   root_device_name    = "/dev/sda1"
   virtualization_type = "hvm"
 
@@ -917,7 +917,7 @@ func testAccAMIConfig_boot(rName string) string {
 		fmt.Sprintf(`
 resource "aws_ami" "test" {
   ena_support         = true
-  name                = %[1]q
+  name = %[1]q
   root_device_name    = "/dev/sda1"
   virtualization_type = "hvm"
   boot_mode           = "uefi"
@@ -937,7 +937,7 @@ func testAccAMIConfig_tpmSupport(rName string) string {
 		fmt.Sprintf(`
 resource "aws_ami" "test" {
   ena_support         = true
-  name                = %[1]q
+  name = %[1]q
   root_device_name    = "/dev/xvda"
   virtualization_type = "hvm"
   boot_mode           = "uefi"
@@ -957,7 +957,7 @@ func testAccAMIConfig_imdsSupport(rName string) string {
 		testAccAMIConfig_base(rName),
 		fmt.Sprintf(`
 resource "aws_ami" "test" {
-  name                = %[1]q
+  name = %[1]q
   root_device_name    = "/dev/xvda"
   virtualization_type = "hvm"
   boot_mode           = "uefi"

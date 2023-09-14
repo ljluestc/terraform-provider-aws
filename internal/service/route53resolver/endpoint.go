@@ -185,7 +185,7 @@ func resourceEndpointUpdate(ctx context.Context, d *schema.ResourceData, meta in
 
 	if d.HasChange("name") {
 		_, err := conn.UpdateResolverEndpointWithContext(ctx, &route53resolver.UpdateResolverEndpointInput{
-			Name:               aws.String(d.Get("name").(string)),
+			Name:aws.String(d.Get("name").(string)),
 			ResolverEndpointId: aws.String(d.Id()),
 		})
 

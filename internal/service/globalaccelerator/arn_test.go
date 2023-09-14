@@ -43,7 +43,7 @@ func TestEndpointGroupARNToListenerARN(t *testing.T) {
 		{
 			TestName:    "valid ARN",
 			InputARN:    "arn:aws:globalaccelerator::123456789012:accelerator/a-123/listener/l-456/endpoint-group/eg-789", //lintignore:AWSAT005
-			ExpectedARN: "arn:aws:globalaccelerator::123456789012:accelerator/a-123/listener/l-456",                       //lintignore:AWSAT005
+			ExpectedARN: "arn:aws:globalaccelerator::123456789012:accelerator/a-123/listener/l-456",        //lintignore:AWSAT005
 		},
 	}
 
@@ -105,12 +105,12 @@ func TestListenerOrEndpointGroupARNToAcceleratorARN(t *testing.T) {
 		{
 			TestName:    "valid listener ARN",
 			InputARN:    "arn:aws:globalaccelerator::123456789012:accelerator/a-123/listener/l-456", //lintignore:AWSAT005
-			ExpectedARN: "arn:aws:globalaccelerator::123456789012:accelerator/a-123",                //lintignore:AWSAT005
+			ExpectedARN: "arn:aws:globalaccelerator::123456789012:accelerator/a-123", //lintignore:AWSAT005
 		},
 		{
 			TestName:    "valid endpoint group ARN",
 			InputARN:    "arn:aws:globalaccelerator::123456789012:accelerator/a-123/listener/l-456/endpoint-group/eg-789", //lintignore:AWSAT005
-			ExpectedARN: "arn:aws:globalaccelerator::123456789012:accelerator/a-123",                                      //lintignore:AWSAT005
+			ExpectedARN: "arn:aws:globalaccelerator::123456789012:accelerator/a-123",        //lintignore:AWSAT005
 		},
 	}
 

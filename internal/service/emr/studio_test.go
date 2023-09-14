@@ -28,9 +28,9 @@ func TestAccEMRStudio_sso(t *testing.T) {
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, emr.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckStudioDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -87,9 +87,9 @@ func TestAccEMRStudio_iam(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, emr.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckStudioDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -126,9 +126,9 @@ func TestAccEMRStudio_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, emr.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckStudioDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -154,9 +154,9 @@ func TestAccEMRStudio_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, emr.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckStudioDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -262,8 +262,8 @@ resource "aws_s3_bucket" "test" {
 }
 
 resource "aws_iam_role" "test" {
-  name               = %[1]q
-  path               = "/"
+  name= %[1]q
+  path= "/"
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
@@ -316,14 +316,14 @@ resource "aws_security_group" "test" {
 func testAccStudioConfig_sso(rName, name string) string {
 	return acctest.ConfigCompose(testAccStudioConfig_base(rName), fmt.Sprintf(`
 resource "aws_emr_studio" "test" {
-  auth_mode                   = "SSO"
+  auth_mode    = "SSO"
   default_s3_location         = "s3://${aws_s3_bucket.test.bucket}/test"
   engine_security_group_id    = aws_security_group.test.id
-  name                        = %[1]q
-  service_role                = aws_iam_role.test.arn
-  subnet_ids                  = aws_subnet.test[*].id
-  user_role                   = aws_iam_role.test.arn
-  vpc_id                      = aws_vpc.test.id
+  name         = %[1]q
+  service_role = aws_iam_role.test.arn
+  subnet_ids   = aws_subnet.test[*].id
+  user_role    = aws_iam_role.test.arn
+  vpc_id       = aws_vpc.test.id
   workspace_security_group_id = aws_security_group.test.id
 }
 `, name))
@@ -333,13 +333,13 @@ resource "aws_emr_studio" "test" {
 func testAccStudioConfig_iam(rName string) string {
 	return acctest.ConfigCompose(testAccStudioConfig_base(rName), fmt.Sprintf(`
 resource "aws_emr_studio" "test" {
-  auth_mode                   = "IAM"
+  auth_mode    = "IAM"
   default_s3_location         = "s3://${aws_s3_bucket.test.bucket}/test"
   engine_security_group_id    = aws_security_group.test.id
-  name                        = %[1]q
-  service_role                = aws_iam_role.test.arn
-  subnet_ids                  = aws_subnet.test[*].id
-  vpc_id                      = aws_vpc.test.id
+  name         = %[1]q
+  service_role = aws_iam_role.test.arn
+  subnet_ids   = aws_subnet.test[*].id
+  vpc_id       = aws_vpc.test.id
   workspace_security_group_id = aws_security_group.test.id
 }
 `, rName))
@@ -349,14 +349,14 @@ resource "aws_emr_studio" "test" {
 func testAccStudioConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccStudioConfig_base(rName), fmt.Sprintf(`
 resource "aws_emr_studio" "test" {
-  auth_mode                   = "SSO"
+  auth_mode    = "SSO"
   default_s3_location         = "s3://${aws_s3_bucket.test.bucket}/test"
   engine_security_group_id    = aws_security_group.test.id
-  name                        = %[1]q
-  service_role                = aws_iam_role.test.arn
-  subnet_ids                  = aws_subnet.test[*].id
-  user_role                   = aws_iam_role.test.arn
-  vpc_id                      = aws_vpc.test.id
+  name         = %[1]q
+  service_role = aws_iam_role.test.arn
+  subnet_ids   = aws_subnet.test[*].id
+  user_role    = aws_iam_role.test.arn
+  vpc_id       = aws_vpc.test.id
   workspace_security_group_id = aws_security_group.test.id
 
   tags = {
@@ -370,14 +370,14 @@ resource "aws_emr_studio" "test" {
 func testAccStudioConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccStudioConfig_base(rName), fmt.Sprintf(`
 resource "aws_emr_studio" "test" {
-  auth_mode                   = "SSO"
+  auth_mode    = "SSO"
   default_s3_location         = "s3://${aws_s3_bucket.test.bucket}/test"
   engine_security_group_id    = aws_security_group.test.id
-  name                        = %[1]q
-  service_role                = aws_iam_role.test.arn
-  subnet_ids                  = aws_subnet.test[*].id
-  user_role                   = aws_iam_role.test.arn
-  vpc_id                      = aws_vpc.test.id
+  name         = %[1]q
+  service_role = aws_iam_role.test.arn
+  subnet_ids   = aws_subnet.test[*].id
+  user_role    = aws_iam_role.test.arn
+  vpc_id       = aws_vpc.test.id
   workspace_security_group_id = aws_security_group.test.id
 
   tags = {

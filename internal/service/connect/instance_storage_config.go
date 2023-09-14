@@ -410,7 +410,7 @@ func expandKinesisVideoStreamConfig(tfList []interface{}) *connect.KinesisVideoS
 
 	result := &connect.KinesisVideoStreamConfig{
 		EncryptionConfig:     expandEncryptionConfig(tfMap["encryption_config"].([]interface{})),
-		Prefix:               aws.String(tfMap["prefix"].(string)),
+		Prefix:aws.String(tfMap["prefix"].(string)),
 		RetentionPeriodHours: aws.Int64(int64(tfMap["retention_period_hours"].(int))),
 	}
 
@@ -525,7 +525,7 @@ func flattenKinesisVideoStreamConfig(apiObject *connect.KinesisVideoStreamConfig
 		// API returns <prefix>-connect-<connect_instance_alias>-contact-
 		// DiffSuppress
 func used
-		"prefix":                 aws.StringValue(apiObject.Prefix),
+		"prefix":  aws.StringValue(apiObject.Prefix),
 		"retention_period_hours": aws.Int64Value(apiObject.RetentionPeriodHours),
 	}
 

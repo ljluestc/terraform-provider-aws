@@ -31,7 +31,7 @@ func() {
 			acctest.PreCheckPartitionHasService(t, emr.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, emr.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckBlockPublicAccessConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -81,7 +81,7 @@ func() {
 			acctest.PreCheckPartitionHasService(t, emr.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, emr.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckBlockPublicAccessConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -116,7 +116,7 @@ func() {
 			acctest.PreCheckPartitionHasService(t, emr.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, emr.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckBlockPublicAccessConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -153,7 +153,7 @@ func() {
 			acctest.PreCheckPartitionHasService(t, emr.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, emr.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, emr.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckBlockPublicAccessConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{

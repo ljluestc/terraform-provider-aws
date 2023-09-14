@@ -13,7 +13,7 @@ import (
 var (
 	directoryIDRegex = regexache.MustCompile(`^d-[0-9a-f]{10}$`)
 
-	domain                = regexache.MustCompile(`^([0-9A-Za-z]+[\\.-])+([0-9A-Za-z])+$`)
+	domain = regexache.MustCompile(`^([0-9A-Za-z]+[\\.-])+([0-9A-Za-z])+$`)
 	domainWithTrailingDot = regexache.MustCompile(`^([0-9A-Za-z]+[\\.-])+([0-9A-Za-z])+[.]?$`)
 )
 

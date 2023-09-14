@@ -18,69 +18,69 @@ func TestAssumedRoleRoleSessionName(t *testing.T) {
 	t.Parallel()
 
 	testCases := []struct {
-		Name                string
-		ARN                 string
+		Name string
+		ARN  string
 		ExpectedRoleName    string
 		ExpectedSessionName string
 		ExpectedError       bool
 	}{
 		{
-			Name:                "not an ARN",
-			ARN:                 "abcd",
+			Name: "not an ARN",
+			ARN:  "abcd",
 			ExpectedRoleName:    "",
 			ExpectedSessionName: "",
 		},
 		{
-			Name:                "regular role ARN",
-			ARN:                 "arn:aws:iam::111122223333:role/role_name", //lintignore:AWSAT005
+			Name: "regular role ARN",
+			ARN:  "arn:aws:iam::111122223333:role/role_name", //lintignore:AWSAT005
 			ExpectedRoleName:    "",
 			ExpectedSessionName: "",
 		},
 		{
-			Name:                "assumed role ARN",
-			ARN:                 "arn:aws:sts::444433332222:assumed-role/something_something-admin/sessionIDNotPartOfRoleARN", //lintignore:AWSAT005
+			Name: "assumed role ARN",
+			ARN:  "arn:aws:sts::444433332222:assumed-role/something_something-admin/sessionIDNotPartOfRoleARN", //lintignore:AWSAT005
 			ExpectedRoleName:    "something_something-admin",
 			ExpectedSessionName: "sessionIDNotPartOfRoleARN",
 		},
 		{
-			Name:                "'assumed-role' part of ARN resource",
-			ARN:                 "arn:aws:iam::444433332222:user/assumed-role-but-not-really", //lintignore:AWSAT005
+			Name: "'assumed-role' part of ARN resource",
+			ARN:  "arn:aws:iam::444433332222:user/assumed-role-but-not-really", //lintignore:AWSAT005
 			ExpectedRoleName:    "",
 			ExpectedSessionName: "",
 		},
 		{
-			Name:                "user ARN",
-			ARN:                 "arn:aws:iam::123456789012:user/Bob", //lintignore:AWSAT005
+			Name: "user ARN",
+			ARN:  "arn:aws:iam::123456789012:user/Bob", //lintignore:AWSAT005
 			ExpectedRoleName:    "",
 			ExpectedSessionName: "",
 		},
 		{
-			Name:                "assumed role from AWS example",
-			ARN:                 "arn:aws:sts::123456789012:assumed-role/example-role/AWSCLI-Session", //lintignore:AWSAT005
+			Name: "assumed role from AWS example",
+			ARN:  "arn:aws:sts::123456789012:assumed-role/example-role/AWSCLI-Session", //lintignore:AWSAT005
 			ExpectedRoleName:    "example-role",
 			ExpectedSessionName: "AWSCLI-Session",
 		},
 		{
-			Name:                "multiple slashes in resource",                                         // not sure this is even valid
-			ARN:                 "arn:aws:sts::123456789012:assumed-role/path/role-name/AWSCLI-Session", //lintignore:AWSAT005
+			Name: "multiple slashes in resource",           // not sure this is even valid
+			ARN:  "arn:aws:sts::123456789012:assumed-role/path/role-name/AWSCLI-Session", //lintignore:AWSAT005
 			ExpectedRoleName:    "role-name",
 			ExpectedSessionName: "AWSCLI-Session",
 		},
 		{
-			Name:                "not an sts ARN",
-			ARN:                 "arn:aws:iam::123456789012:assumed-role/example-role/AWSCLI-Session", //lintignore:AWSAT005
+			Name: "not an sts ARN",
+			ARN:  "arn:aws:iam::123456789012:assumed-role/example-role/AWSCLI-Session", //lintignore:AWSAT005
 			ExpectedRoleName:    "",
 			ExpectedSessionName: "",
 		},
 		{
-			Name:                "role with path",
-			ARN:                 "arn:aws:iam::123456789012:role/this/is/the/path/role-name", //lintignore:AWSAT005
+			Name: "role with path",
+			ARN:  "arn:aws:iam::123456789012:role/this/is/the/path/role-name", //lintignore:AWSAT005
 			ExpectedRoleName:    "",
 			ExpectedSessionName: "",
 		},
 		{
-			Name:                "wrong service",
-			ARN:                 "arn:aws:ec2::123456789012:role/role-name", //lintignore:AWSAT005
+			Name: "wrong service",
+			ARN:  "arn:aws:ec2::123456789012:role/role-name", //lintignore:AWSAT005
 			ExpectedRoleName:    "",
 			ExpectedSessionName: "",
 		},
@@ -107,8 +107,8 @@ func TestAccIAMSessionContextDataSource_basic(t *testing.T) {
 	resourceName := "aws_iam_role.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -131,8 +131,8 @@ func TestAccIAMSessionContextDataSource_withPath(t *testing.T) {
 	resourceName := "aws_iam_role.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -154,8 +154,8 @@ func TestAccIAMSessionContextDataSource_notAssumedRole(t *testing.T) {
 	resourceName := "aws_iam_role.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -177,8 +177,8 @@ func TestAccIAMSessionContextDataSource_notAssumedRoleWithPath(t *testing.T) {
 	resourceName := "aws_iam_role.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -199,8 +199,8 @@ func TestAccIAMSessionContextDataSource_notAssumedRoleUser(t *testing.T) {
 	dataSourceName := "data.aws_iam_session_context.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, iam.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, iam.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{

@@ -405,10 +405,10 @@ func updateKxEnvironmentNetwork(ctx context.Context, d *schema.ResourceData, cli
 
 func waitKxEnvironmentCreated(ctx context.Context, conn *finspace.Client, id string, timeout time.Duration) (*finspace.GetKxEnvironmentOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   enum.Slice(types.EnvironmentStatusCreateRequested, types.EnvironmentStatusCreating),
-		Target:                    enum.Slice(types.EnvironmentStatusCreated),
-		Refresh:                   statusKxEnvironment(ctx, conn, id),
-		Timeout:                   timeout,
+		Pending:    enum.Slice(types.EnvironmentStatusCreateRequested, types.EnvironmentStatusCreating),
+		Target:     enum.Slice(types.EnvironmentStatusCreated),
+		Refresh:    statusKxEnvironment(ctx, conn, id),
+		Timeout:    timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
 	}

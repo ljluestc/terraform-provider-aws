@@ -76,9 +76,9 @@ func resourcePermissionCreate(ctx context.Context, d *schema.ResourceData, meta 
 	sourceAccount := d.Get("source_account").(string)
 	id := PermissionCreateResourceID(caARN, principal, sourceAccount)
 	input := &acmpca.CreatePermissionInput{
-		Actions:                 flex.ExpandStringSet(d.Get("actions").(*schema.Set)),
+		Actions:  flex.ExpandStringSet(d.Get("actions").(*schema.Set)),
 		CertificateAuthorityArn: aws.String(caARN),
-		Principal:               aws.String(principal),
+		Principal:aws.String(principal),
 	}
 
 	if sourceAccount != "" {
@@ -140,7 +140,7 @@ func resourcePermissionDelete(ctx context.Context, d *schema.ResourceData, meta 
 
 	input := &acmpca.DeletePermissionInput{
 		CertificateAuthorityArn: aws.String(caARN),
-		Principal:               aws.String(principal),
+		Principal:aws.String(principal),
 	}
 
 	if sourceAccount != "" {

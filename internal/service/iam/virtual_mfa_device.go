@@ -91,8 +91,8 @@ func resourceVirtualMFADeviceCreate(ctx context.Context, d *schema.ResourceData,
 
 	name := d.Get("virtual_mfa_device_name").(string)
 	input := &iam.CreateVirtualMFADeviceInput{
-		Path:                 aws.String(d.Get("path").(string)),
-		Tags:                 getTagsIn(ctx),
+		Path:  aws.String(d.Get("path").(string)),
+		Tags:  getTagsIn(ctx),
 		VirtualMFADeviceName: aws.String(name),
 	}
 

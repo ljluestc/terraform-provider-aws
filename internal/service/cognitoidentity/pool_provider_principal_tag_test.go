@@ -27,9 +27,9 @@ func TestAccCognitoIdentityPoolProviderPrincipalTags_basic(t *testing.T) {
 	name := sdkacctest.RandString(10)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentity.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, cognitoidentity.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPoolProviderPrincipalTagsDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -53,9 +53,9 @@ func TestAccCognitoIdentityPoolProviderPrincipalTags_updated(t *testing.T) {
 	name := sdkacctest.RandString(10)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentity.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, cognitoidentity.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPoolProviderPrincipalTagsDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -94,9 +94,9 @@ func TestAccCognitoIdentityPoolProviderPrincipalTags_disappears(t *testing.T) {
 	name := sdkacctest.RandString(10)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentity.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, cognitoidentity.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPoolProviderPrincipalTagsDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -120,9 +120,9 @@ func TestAccCognitoIdentityPoolProviderPrincipalTags_oidc(t *testing.T) {
 	name := sdkacctest.RandString(10)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentity.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, cognitoidentity.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckPoolProviderPrincipalTagsDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -197,7 +197,7 @@ func(s *terraform.State) error {
 func testAccPoolProviderPrincipalTagsConfig(name string) string {
 	return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
-  name                     = %[1]q
+  name      = %[1]q
   auto_verified_attributes = ["email"]
 }
 
@@ -210,10 +210,10 @@ resource "aws_cognito_user_pool_client" "test" {
 }
 
 resource "aws_cognito_identity_pool" "test" {
-  identity_pool_name               = %[1]q
+  identity_pool_name= %[1]q
   allow_unauthenticated_identities = false
   cognito_identity_providers {
-    client_id               = aws_cognito_user_pool_client.test.id
+    client_id= aws_cognito_user_pool_client.test.id
     provider_name           = aws_cognito_user_pool.test.endpoint
     server_side_token_check = false
   }
@@ -265,9 +265,9 @@ resource "aws_iam_openid_connect_provider" "idp" {
 }
 
 resource "aws_cognito_identity_pool" "pool" {
-  identity_pool_name               = "%s"
+  identity_pool_name= "%s"
   allow_unauthenticated_identities = false
-  allow_classic_flow               = false
+  allow_classic_flow= false
 
   openid_connect_provider_arns = [
     aws_iam_openid_connect_provider.idp.arn

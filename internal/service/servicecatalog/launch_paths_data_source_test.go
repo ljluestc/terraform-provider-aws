@@ -23,8 +23,8 @@ func TestAccServiceCatalogLaunchPathsDataSource_basic(t *testing.T) {
 	domain := fmt.Sprintf("http://%s", acctest.RandomDomainName())
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -72,18 +72,18 @@ resource "aws_cloudformation_stack" "test" {
 resource "aws_servicecatalog_product" "test" {
   description         = "beskrivning"
   distributor         = "distributör"
-  name                = %[1]q
-  owner               = "ägare"
-  type                = "CLOUD_FORMATION_TEMPLATE"
+  name = %[1]q
+  owner= "ägare"
+  type = "CLOUD_FORMATION_TEMPLATE"
   support_description = "supportbeskrivning"
   support_email       = %[3]q
   support_url         = %[2]q
 
   provisioning_artifact_parameters {
     description          = "artefaktbeskrivning"
-    name                 = %[1]q
+    name  = %[1]q
     template_physical_id = aws_cloudformation_stack.test.id
-    type                 = "CLOUD_FORMATION_TEMPLATE"
+    type  = "CLOUD_FORMATION_TEMPLATE"
   }
 
   tags = {

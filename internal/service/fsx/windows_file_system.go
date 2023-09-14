@@ -308,7 +308,7 @@ func resourceWindowsFileSystemCreate(ctx context.Context, d *schema.ResourceData
 		FileSystemType:     aws.String(fsx.FileSystemTypeWindows),
 		StorageCapacity:    aws.Int64(int64(d.Get("storage_capacity").(int))),
 		SubnetIds:          flex.ExpandStringList(d.Get("subnet_ids").([]interface{})),
-		Tags:               getTagsIn(ctx),
+		Tags:getTagsIn(ctx),
 		WindowsConfiguration: &fsx.CreateFileSystemWindowsConfiguration{
 			AutomaticBackupRetentionDays: aws.Int64(int64(d.Get("automatic_backup_retention_days").(int))),
 			CopyTagsToBackups:            aws.Bool(d.Get("copy_tags_to_backups").(bool)),
@@ -318,7 +318,7 @@ func resourceWindowsFileSystemCreate(ctx context.Context, d *schema.ResourceData
 	inputB := &fsx.CreateFileSystemFromBackupInput{
 		ClientRequestToken: aws.String(id.UniqueId()),
 		SubnetIds:          flex.ExpandStringList(d.Get("subnet_ids").([]interface{})),
-		Tags:               getTagsIn(ctx),
+		Tags:getTagsIn(ctx),
 		WindowsConfiguration: &fsx.CreateFileSystemWindowsConfiguration{
 			AutomaticBackupRetentionDays: aws.Int64(int64(d.Get("automatic_backup_retention_days").(int))),
 			CopyTagsToBackups:            aws.Bool(d.Get("copy_tags_to_backups").(bool)),
@@ -691,12 +691,12 @@ func flattenSelfManagedActiveDirectoryConfiguration(d *schema.ResourceData, adop
 	// See also: flattenEmrKerberosAttributes
 
 	m := map[string]interface{}{
-		"dns_ips":                                aws.StringValueSlice(adopts.DnsIps),
-		"domain_name":                            aws.StringValue(adopts.DomainName),
+		"dns_ips":  aws.StringValueSlice(adopts.DnsIps),
+		"domain_name":             aws.StringValue(adopts.DomainName),
 		"file_system_administrators_group":       aws.StringValue(adopts.FileSystemAdministratorsGroup),
 		"organizational_unit_distinguished_name": aws.StringValue(adopts.OrganizationalUnitDistinguishedName),
-		"password":                               d.Get("self_managed_active_directory.0.password").(string),
-		"username":                               aws.StringValue(adopts.UserName),
+		"password": d.Get("self_managed_active_directory.0.password").(string),
+		"username": aws.StringValue(adopts.UserName),
 	}
 
 	return []map[string]interface{}{m}

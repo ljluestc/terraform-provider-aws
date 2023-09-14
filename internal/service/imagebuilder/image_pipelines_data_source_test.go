@@ -20,8 +20,8 @@ func TestAccImageBuilderImagePipelinesDataSource_filter(t *testing.T) {
 	resourceName := "aws_imagebuilder_image_pipeline.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, imagebuilder.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, imagebuilder.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckImagePipelineDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -86,7 +86,7 @@ resource "aws_imagebuilder_component" "test" {
 
 resource "aws_imagebuilder_infrastructure_configuration" "test" {
   instance_profile_name = aws_iam_instance_profile.test.name
-  name                  = %[1]q
+  name   = %[1]q
 }
 
 resource "aws_imagebuilder_image_recipe" "test" {
@@ -100,9 +100,9 @@ resource "aws_imagebuilder_image_recipe" "test" {
 }
 
 resource "aws_imagebuilder_image_pipeline" "test" {
-  image_recipe_arn                 = aws_imagebuilder_image_recipe.test.arn
+  image_recipe_arn  = aws_imagebuilder_image_recipe.test.arn
   infrastructure_configuration_arn = aws_imagebuilder_infrastructure_configuration.test.arn
-  name                             = %[1]q
+  name              = %[1]q
 }
 
 data "aws_imagebuilder_image_pipelines" "test" {

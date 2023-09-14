@@ -22,8 +22,8 @@ func TestAccOpenSearchOutboundConnection_basic(t *testing.T) {
 	resourceName := "aws_opensearch_outbound_connection.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, opensearchservice.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDomainDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -52,8 +52,8 @@ func TestAccOpenSearchOutboundConnection_disappears(t *testing.T) {
 	resourceName := "aws_opensearch_outbound_connection.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, opensearchservice.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, opensearchservice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckDomainDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -91,7 +91,7 @@ resource "aws_opensearch_domain" "domain_1" {
   }
 
   advanced_security_options {
-    enabled                        = true
+    enabled         = true
     internal_user_database_enabled = true
 
     master_user_options {
@@ -127,7 +127,7 @@ resource "aws_opensearch_domain" "domain_2" {
   }
 
   advanced_security_options {
-    enabled                        = true
+    enabled         = true
     internal_user_database_enabled = true
 
     master_user_options {

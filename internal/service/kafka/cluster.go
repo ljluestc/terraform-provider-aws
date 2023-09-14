@@ -535,7 +535,7 @@ func resourceClusterCreate(ctx context.Context, d *schema.ResourceData, meta int
 		ClusterName:         aws.String(name),
 		KafkaVersion:        aws.String(d.Get("kafka_version").(string)),
 		NumberOfBrokerNodes: aws.Int64(int64(d.Get("number_of_broker_nodes").(int))),
-		Tags:                getTagsIn(ctx),
+		Tags: getTagsIn(ctx),
 	}
 
 	var vpcConnectivity *kafka.VpcConnectivity
@@ -795,7 +795,7 @@ func resourceClusterUpdate(ctx context.Context, d *schema.ResourceData, meta int
 
 	if d.HasChange("number_of_broker_nodes") {
 		input := &kafka.UpdateBrokerCountInput{
-			ClusterArn:                aws.String(d.Id()),
+			ClusterArn: aws.String(d.Id()),
 			CurrentVersion:            aws.String(d.Get("current_version").(string)),
 			TargetNumberOfBrokerNodes: aws.Int64(int64(d.Get("number_of_broker_nodes").(int))),
 		}

@@ -154,28 +154,28 @@ func TestValidRoleMappingsAmbiguousRoleResolutionAgainstType(t *testing.T) {
 
 	cases := []struct {
 		AmbiguousRoleResolution interface{}
-		Type                    string
-		ErrCount                int
+		Type     string
+		ErrCount int
 	}{
 		{
 			AmbiguousRoleResolution: nil,
-			Type:                    cognitoidentity.RoleMappingTypeToken,
-			ErrCount:                1,
+			Type:     cognitoidentity.RoleMappingTypeToken,
+			ErrCount: 1,
 		},
 		{
 			AmbiguousRoleResolution: "foo",
-			Type:                    cognitoidentity.RoleMappingTypeToken,
-			ErrCount:                0, // 0 as it should be defined, the value isn't validated here
+			Type:     cognitoidentity.RoleMappingTypeToken,
+			ErrCount: 0, // 0 as it should be defined, the value isn't validated here
 		},
 		{
 			AmbiguousRoleResolution: cognitoidentity.AmbiguousRoleResolutionTypeAuthenticatedRole,
-			Type:                    cognitoidentity.RoleMappingTypeToken,
-			ErrCount:                0,
+			Type:     cognitoidentity.RoleMappingTypeToken,
+			ErrCount: 0,
 		},
 		{
 			AmbiguousRoleResolution: cognitoidentity.AmbiguousRoleResolutionTypeDeny,
-			Type:                    cognitoidentity.RoleMappingTypeToken,
-			ErrCount:                0,
+			Type:     cognitoidentity.RoleMappingTypeToken,
+			ErrCount: 0,
 		},
 	}
 

@@ -43,7 +43,7 @@ func resourceVault() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"access_policy": {
-				Type:                  schema.TypeString,
+				Type:   schema.TypeString,
 				Optional:              true,
 				Validate
 func:          validation.StringIsJSON,
@@ -156,7 +156,7 @@ func resourceVaultCreate(ctx context.Context, d *schema.ResourceData, meta inter
 
 	if v, ok := d.GetOk("notification"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
 		input := &glacier.SetVaultNotificationsInput{
-			VaultName:               aws.String(d.Id()),
+			VaultName:aws.String(d.Id()),
 			VaultNotificationConfig: expandVaultNotificationConfig(v.([]interface{})[0].(map[string]interface{})),
 		}
 
@@ -278,7 +278,7 @@ func resourceVaultUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 	if d.HasChange("notification") {
 		if v, ok := d.GetOk("notification"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
 			input := &glacier.SetVaultNotificationsInput{
-				VaultName:               aws.String(d.Id()),
+				VaultName:aws.String(d.Id()),
 				VaultNotificationConfig: expandVaultNotificationConfig(v.([]interface{})[0].(map[string]interface{})),
 			}
 

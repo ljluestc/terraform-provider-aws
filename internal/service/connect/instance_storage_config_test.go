@@ -29,9 +29,9 @@ func testAccInstanceStorageConfig_basic(t *testing.T) {
 	resourceName := "aws_connect_instance_storage_config.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckInstanceStorageConfigDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -70,9 +70,9 @@ func testAccInstanceStorageConfig_KinesisFirehoseConfig_FirehoseARN(t *testing.T
 	resourceName := "aws_connect_instance_storage_config.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckInstanceStorageConfigDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -119,9 +119,9 @@ func testAccInstanceStorageConfig_KinesisStreamConfig_StreamARN(t *testing.T) {
 	resourceName := "aws_connect_instance_storage_config.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckInstanceStorageConfigDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -171,9 +171,9 @@ func testAccInstanceStorageConfig_KinesisVideoStreamConfig_Prefix(t *testing.T) 
 	retention := 1
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckInstanceStorageConfigDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -231,9 +231,9 @@ func testAccInstanceStorageConfig_KinesisVideoStreamConfig_Retention(t *testing.
 	updatedRetention := 87600
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckInstanceStorageConfigDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -286,9 +286,9 @@ func testAccInstanceStorageConfig_KinesisVideoStreamConfig_EncryptionConfig(t *t
 	resourceName := "aws_connect_instance_storage_config.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckInstanceStorageConfigDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -339,9 +339,9 @@ func testAccInstanceStorageConfig_S3Config_BucketName(t *testing.T) {
 	resourceName := "aws_connect_instance_storage_config.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckInstanceStorageConfigDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -390,9 +390,9 @@ func testAccInstanceStorageConfig_S3Config_BucketPrefix(t *testing.T) {
 	updatedBucketPrefix := "updatedBucketPrefix"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckInstanceStorageConfigDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -438,9 +438,9 @@ func testAccInstanceStorageConfig_S3Config_EncryptionConfig(t *testing.T) {
 	resourceName := "aws_connect_instance_storage_config.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckInstanceStorageConfigDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -492,9 +492,9 @@ func testAccInstanceStorageConfig_disappears(t *testing.T) {
 	resourceName := "aws_connect_instance_storage_config.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckInstanceStorageConfigDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -810,7 +810,7 @@ resource "aws_connect_instance_storage_config" "test" {
 
   storage_config {
     kinesis_video_stream_config {
-      prefix                 = %[1]q
+      prefix  = %[1]q
       retention_period_hours = %[2]d
 
       encryption_config {
@@ -849,7 +849,7 @@ resource "aws_connect_instance_storage_config" "test" {
 
   storage_config {
     kinesis_video_stream_config {
-      prefix                 = "tf-test-prefix"
+      prefix  = "tf-test-prefix"
       retention_period_hours = 1
 
       encryption_config {

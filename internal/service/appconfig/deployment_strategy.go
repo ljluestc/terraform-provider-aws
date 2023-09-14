@@ -91,11 +91,11 @@ func resourceDeploymentStrategyCreate(ctx context.Context, d *schema.ResourceDat
 	name := d.Get("name").(string)
 	input := &appconfig.CreateDeploymentStrategyInput{
 		DeploymentDurationInMinutes: aws.Int64(int64(d.Get("deployment_duration_in_minutes").(int))),
-		GrowthFactor:                aws.Float64(d.Get("growth_factor").(float64)),
-		GrowthType:                  aws.String(d.Get("growth_type").(string)),
-		Name:                        aws.String(name),
-		ReplicateTo:                 aws.String(d.Get("replicate_to").(string)),
-		Tags:                        getTagsIn(ctx),
+		GrowthFactor: aws.Float64(d.Get("growth_factor").(float64)),
+		GrowthType:   aws.String(d.Get("growth_type").(string)),
+		Name:         aws.String(name),
+		ReplicateTo:  aws.String(d.Get("replicate_to").(string)),
+		Tags:         getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {

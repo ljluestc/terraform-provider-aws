@@ -33,7 +33,7 @@ func() {
 			testAccPreCheckTransitGateway(ctx, t)
 			testAccPreCheckManagedPrefixList(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayPrefixListReferenceDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -71,7 +71,7 @@ func() {
 			testAccPreCheckTransitGateway(ctx, t)
 			testAccPreCheckManagedPrefixList(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayPrefixListReferenceDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -102,7 +102,7 @@ func() {
 			testAccPreCheckTransitGateway(ctx, t)
 			testAccPreCheckManagedPrefixList(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayPrefixListReferenceDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -134,7 +134,7 @@ func() {
 			testAccPreCheckTransitGateway(ctx, t)
 			testAccPreCheckManagedPrefixList(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayPrefixListReferenceDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -244,8 +244,8 @@ resource "aws_ec2_transit_gateway" "test" {
 }
 
 resource "aws_ec2_transit_gateway_prefix_list_reference" "test" {
-  blackhole                      = true
-  prefix_list_id                 = aws_ec2_managed_prefix_list.test.id
+  blackhole       = true
+  prefix_list_id  = aws_ec2_managed_prefix_list.test.id
   transit_gateway_route_table_id = aws_ec2_transit_gateway.test.association_default_route_table_id
 }
 `, rName)
@@ -304,7 +304,7 @@ resource "aws_ec2_transit_gateway_vpc_attachment" "test" {
 }
 
 resource "aws_ec2_transit_gateway_prefix_list_reference" "test" {
-  prefix_list_id                 = aws_ec2_managed_prefix_list.test.id
+  prefix_list_id  = aws_ec2_managed_prefix_list.test.id
   transit_gateway_attachment_id  = aws_ec2_transit_gateway_vpc_attachment.test[var.index].id
   transit_gateway_route_table_id = aws_ec2_transit_gateway.test.association_default_route_table_id
 }

@@ -32,31 +32,31 @@ func(t *testing.T){
 			"basic":      testAccTransitGatewayConnect_basic,
 			"disappears": testAccTransitGatewayConnect_disappears,
 			"tags":       testAccTransitGatewayConnect_tags,
-			"TransitGatewayDefaultRouteTableAssociation":                       testAccTransitGatewayConnect_TransitGatewayDefaultRouteTableAssociation,
+			"TransitGatewayDefaultRouteTableAssociation":        testAccTransitGatewayConnect_TransitGatewayDefaultRouteTableAssociation,
 			"TransitGatewayDefaultRouteTableAssociationAndPropagationDisabled": testAccTransitGatewayConnect_TransitGatewayDefaultRouteTableAssociationAndPropagationDisabled,
-			"TransitGatewayDefaultRouteTablePropagation":                       testAccTransitGatewayConnect_TransitGatewayDefaultRouteTablePropagation,
+			"TransitGatewayDefaultRouteTablePropagation":        testAccTransitGatewayConnect_TransitGatewayDefaultRouteTablePropagation,
 		},
 		"ConnectPeer": {
-			"basic":                 testAccTransitGatewayConnectPeer_basic,
+			"basic":  testAccTransitGatewayConnectPeer_basic,
 			"disappears":            testAccTransitGatewayConnectPeer_disappears,
-			"tags":                  testAccTransitGatewayConnectPeer_tags,
-			"BgpAsn":                testAccTransitGatewayConnectPeer_bgpASN,
+			"tags":   testAccTransitGatewayConnectPeer_tags,
+			"BgpAsn": testAccTransitGatewayConnectPeer_bgpASN,
 			"InsideCidrBlocks":      testAccTransitGatewayConnectPeer_insideCIDRBlocks,
 			"TransitGatewayAddress": testAccTransitGatewayConnectPeer_TransitGatewayAddress,
 		},
 		"Gateway": {
-			"basic":                       testAccTransitGateway_basic,
-			"disappears":                  testAccTransitGateway_disappears,
-			"tags":                        testAccTransitGateway_tags,
-			"AmazonSideASN":               testAccTransitGateway_AmazonSideASN,
+			"basic":        testAccTransitGateway_basic,
+			"disappears":   testAccTransitGateway_disappears,
+			"tags":         testAccTransitGateway_tags,
+			"AmazonSideASN":testAccTransitGateway_AmazonSideASN,
 			"AutoAcceptSharedAttachments": testAccTransitGateway_AutoAcceptSharedAttachments,
-			"CidrBlocks":                  testAccTransitGateway_cidrBlocks,
+			"CidrBlocks":   testAccTransitGateway_cidrBlocks,
 			"DefaultRouteTableAssociationAndPropagationDisabled": testAccTransitGateway_DefaultRouteTableAssociationAndPropagationDisabled,
-			"DefaultRouteTableAssociation":                       testAccTransitGateway_DefaultRouteTableAssociation,
-			"DefaultRouteTablePropagation":                       testAccTransitGateway_DefaultRouteTablePropagation,
-			"Description":                                        testAccTransitGateway_Description,
-			"DnsSupport":                                         testAccTransitGateway_DNSSupport,
-			"VpnEcmpSupport":                                     testAccTransitGateway_VPNECMPSupport,
+			"DefaultRouteTableAssociation":        testAccTransitGateway_DefaultRouteTableAssociation,
+			"DefaultRouteTablePropagation":        testAccTransitGateway_DefaultRouteTablePropagation,
+			"Description":          testAccTransitGateway_Description,
+			"DnsSupport":           testAccTransitGateway_DNSSupport,
+			"VpnEcmpSupport":       testAccTransitGateway_VPNECMPSupport,
 		},
 		"MulticastDomain": {
 			"basic":         testAccTransitGatewayMulticastDomain_basic,
@@ -93,37 +93,37 @@ func(t *testing.T){
 			"DifferentAccount": testAccTransitGatewayPeeringAttachmentAccepter_differentAccount,
 		},
 		"PolicyTable": {
-			"basic":                    testAccTransitGatewayPolicyTable_basic,
-			"disappears":               testAccTransitGatewayPolicyTable_disappears,
+			"basic":     testAccTransitGatewayPolicyTable_basic,
+			"disappears":testAccTransitGatewayPolicyTable_disappears,
 			"disappearsTransitGateway": testAccTransitGatewayPolicyTable_disappears_TransitGateway,
-			"tags":                     testAccTransitGatewayPolicyTable_tags,
+			"tags":      testAccTransitGatewayPolicyTable_tags,
 		},
 		"PolicyTableAssociation": {
 			"basic":      testAccTransitGatewayPolicyTableAssociation_basic,
 			"disappears": testAccTransitGatewayPolicyTableAssociation_disappears,
 		},
 		"PrefixListReference": {
-			"basic":                      testAccTransitGatewayPrefixListReference_basic,
-			"disappears":                 testAccTransitGatewayPrefixListReference_disappears,
+			"basic":       testAccTransitGatewayPrefixListReference_basic,
+			"disappears":  testAccTransitGatewayPrefixListReference_disappears,
 			"disappearsTransitGateway":   testAccTransitGatewayPrefixListReference_disappears_TransitGateway,
 			"TransitGatewayAttachmentId": testAccTransitGatewayPrefixListReference_TransitGatewayAttachmentID,
 		},
 		"Route": {
-			"basic":                              testAccTransitGatewayRoute_basic,
-			"basicIpv6":                          testAccTransitGatewayRoute_basic_ipv6,
-			"blackhole":                          testAccTransitGatewayRoute_blackhole,
-			"disappears":                         testAccTransitGatewayRoute_disappears,
+			"basic":testAccTransitGatewayRoute_basic,
+			"basicIpv6":           testAccTransitGatewayRoute_basic_ipv6,
+			"blackhole":           testAccTransitGatewayRoute_blackhole,
+			"disappears":          testAccTransitGatewayRoute_disappears,
 			"disappearsTransitGatewayAttachment": testAccTransitGatewayRoute_disappears_TransitGatewayAttachment,
 		},
 		"RouteTable": {
-			"basic":                    testAccTransitGatewayRouteTable_basic,
-			"disappears":               testAccTransitGatewayRouteTable_disappears,
+			"basic":     testAccTransitGatewayRouteTable_basic,
+			"disappears":testAccTransitGatewayRouteTable_disappears,
 			"disappearsTransitGateway": testAccTransitGatewayRouteTable_disappears_TransitGateway,
-			"tags":                     testAccTransitGatewayRouteTable_tags,
+			"tags":      testAccTransitGatewayRouteTable_tags,
 		},
 		"RouteTableAssociation": {
-			"basic":                      testAccTransitGatewayRouteTableAssociation_basic,
-			"disappears":                 testAccTransitGatewayRouteTableAssociation_disappears,
+			"basic":       testAccTransitGatewayRouteTableAssociation_basic,
+			"disappears":  testAccTransitGatewayRouteTableAssociation_disappears,
 			"ReplaceExistingAssociation": testAccTransitGatewayRouteTableAssociation_replaceExistingAssociation,
 		},
 		"RouteTablePropagation": {
@@ -131,17 +131,17 @@ func(t *testing.T){
 			"disappears": testAccTransitGatewayRouteTablePropagation_disappears,
 		},
 		"VpcAttachment": {
-			"basic":                testAccTransitGatewayVPCAttachment_basic,
+			"basic": testAccTransitGatewayVPCAttachment_basic,
 			"disappears":           testAccTransitGatewayVPCAttachment_disappears,
-			"tags":                 testAccTransitGatewayVPCAttachment_tags,
+			"tags":  testAccTransitGatewayVPCAttachment_tags,
 			"ApplianceModeSupport": testAccTransitGatewayVPCAttachment_ApplianceModeSupport,
 			"DnsSupport":           testAccTransitGatewayVPCAttachment_DNSSupport,
 			"Ipv6Support":          testAccTransitGatewayVPCAttachment_IPv6Support,
 			"SharedTransitGateway": testAccTransitGatewayVPCAttachment_SharedTransitGateway,
 			"SubnetIds":            testAccTransitGatewayVPCAttachment_SubnetIDs,
-			"TransitGatewayDefaultRouteTableAssociation":                       testAccTransitGatewayVPCAttachment_TransitGatewayDefaultRouteTableAssociation,
+			"TransitGatewayDefaultRouteTableAssociation":        testAccTransitGatewayVPCAttachment_TransitGatewayDefaultRouteTableAssociation,
 			"TransitGatewayDefaultRouteTableAssociationAndPropagationDisabled": testAccTransitGatewayVPCAttachment_TransitGatewayDefaultRouteTableAssociationAndPropagationDisabled,
-			"TransitGatewayDefaultRouteTablePropagation":                       testAccTransitGatewayVPCAttachment_TransitGatewayDefaultRouteTablePropagation,
+			"TransitGatewayDefaultRouteTablePropagation":        testAccTransitGatewayVPCAttachment_TransitGatewayDefaultRouteTablePropagation,
 		},
 		"VpcAttachmentAccepter": {
 			"basic": testAccTransitGatewayVPCAttachmentAccepter_basic,
@@ -160,9 +160,9 @@ func testAccTransitGateway_basic(t *testing.T) {
 	resourceName := "aws_ec2_transit_gateway.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -202,9 +202,9 @@ func testAccTransitGateway_disappears(t *testing.T) {
 	resourceName := "aws_ec2_transit_gateway.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -229,9 +229,9 @@ func testAccTransitGateway_AmazonSideASN(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -269,9 +269,9 @@ func testAccTransitGateway_AutoAcceptSharedAttachments(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -309,9 +309,9 @@ func testAccTransitGateway_cidrBlocks(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -363,9 +363,9 @@ func testAccTransitGateway_DefaultRouteTableAssociationAndPropagationDisabled(t 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -395,9 +395,9 @@ func testAccTransitGateway_DefaultRouteTableAssociation(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -444,9 +444,9 @@ func testAccTransitGateway_DefaultRouteTablePropagation(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -493,9 +493,9 @@ func testAccTransitGateway_DNSSupport(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -533,9 +533,9 @@ func testAccTransitGateway_VPNECMPSupport(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -573,9 +573,9 @@ func testAccTransitGateway_Description(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -612,9 +612,9 @@ func testAccTransitGateway_tags(t *testing.T) {
 	resourceName := "aws_ec2_transit_gateway.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGateway(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayDestroy(ctx),
 		Steps: []resource.TestStep{

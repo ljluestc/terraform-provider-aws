@@ -21,12 +21,12 @@ func TrafficPolicyDocEndpointType_values() []string {
 }
 
 type Route53TrafficPolicyDoc struct {
-	AWSPolicyFormatVersion string                            `json:",omitempty"`
-	RecordType             string                            `json:",omitempty"`
-	StartEndpoint          string                            `json:",omitempty"`
-	StartRule              string                            `json:",omitempty"`
+	AWSPolicyFormatVersion string             `json:",omitempty"`
+	RecordType             string             `json:",omitempty"`
+	StartEndpoint          string             `json:",omitempty"`
+	StartRule              string             `json:",omitempty"`
 	Endpoints              map[string]*TrafficPolicyEndpoint `json:",omitempty"`
-	Rules                  map[string]*TrafficPolicyRule     `json:",omitempty"`
+	Rules   map[string]*TrafficPolicyRule     `json:",omitempty"`
 }
 
 type TrafficPolicyEndpoint struct {
@@ -36,13 +36,13 @@ type TrafficPolicyEndpoint struct {
 }
 
 type TrafficPolicyRule struct {
-	RuleType              string                               `json:",omitempty"`
-	Primary               *TrafficPolicyFailoverRule           `json:",omitempty"`
+	RuleType              string `json:",omitempty"`
+	Primary*TrafficPolicyFailoverRule           `json:",omitempty"`
 	Secondary             *TrafficPolicyFailoverRule           `json:",omitempty"`
 	Locations             []*TrafficPolicyGeolocationRule      `json:",omitempty"`
 	GeoProximityLocations []*TrafficPolicyGeoproximityRule     `json:"GeoproximityLocations,omitempty"`
-	Regions               []*TrafficPolicyLatencyRule          `json:",omitempty"`
-	Items                 []*TrafficPolicyMultiValueAnswerRule `json:",omitempty"`
+	Regions[]*TrafficPolicyLatencyRule          `json:",omitempty"`
+	Items  []*TrafficPolicyMultiValueAnswerRule `json:",omitempty"`
 }
 
 type TrafficPolicyFailoverRule struct {
@@ -66,10 +66,10 @@ type TrafficPolicyGeolocationRule struct {
 type TrafficPolicyGeoproximityRule struct {
 	EndpointReference    string `json:",omitempty"`
 	RuleReference        string `json:",omitempty"`
-	Region               string `json:",omitempty"`
+	Regionstring `json:",omitempty"`
 	Latitude             string `json:",omitempty"`
 	Longitude            string `json:",omitempty"`
-	Bias                 string `json:",omitempty"`
+	Bias  string `json:",omitempty"`
 	EvaluateTargetHealth *bool  `json:",omitempty"`
 	HealthCheck          string `json:",omitempty"`
 }
@@ -77,7 +77,7 @@ type TrafficPolicyGeoproximityRule struct {
 type TrafficPolicyLatencyRule struct {
 	EndpointReference    string `json:",omitempty"`
 	RuleReference        string `json:",omitempty"`
-	Region               string `json:",omitempty"`
+	Regionstring `json:",omitempty"`
 	EvaluateTargetHealth *bool  `json:",omitempty"`
 	HealthCheck          string `json:",omitempty"`
 }

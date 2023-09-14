@@ -23,8 +23,8 @@ func testAccRoutingProfileDataSource_routingProfileID(t *testing.T) {
 	datasourceName := "data.aws_connect_routing_profile.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -76,8 +76,8 @@ func testAccRoutingProfileDataSource_name(t *testing.T) {
 	datasourceName := "data.aws_connect_routing_profile.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -135,23 +135,23 @@ data "aws_connect_hours_of_operation" "test" {
 
 resource "aws_connect_queue" "default_outbound_queue" {
   instance_id           = aws_connect_instance.test.id
-  name                  = %[2]q
+  name   = %[2]q
   description           = "Default Outbound Queue for Routing Profiles"
   hours_of_operation_id = data.aws_connect_hours_of_operation.test.hours_of_operation_id
 }
 
 resource "aws_connect_queue" "test" {
   instance_id           = aws_connect_instance.test.id
-  name                  = %[3]q
+  name   = %[3]q
   description           = "Additional queue to routing profile queue config"
   hours_of_operation_id = data.aws_connect_hours_of_operation.test.hours_of_operation_id
 }
 
 resource "aws_connect_routing_profile" "test" {
-  instance_id               = aws_connect_instance.test.id
-  name                      = %[4]q
+  instance_id= aws_connect_instance.test.id
+  name       = %[4]q
   default_outbound_queue_id = aws_connect_queue.default_outbound_queue.queue_id
-  description               = "Test Routing Profile Data Source"
+  description= "Test Routing Profile Data Source"
 
   media_concurrencies {
     channel     = "VOICE"

@@ -203,12 +203,12 @@ func resourceMetricStreamCreate(ctx context.Context, d *schema.ResourceData, met
 
 	name := create.Name(d.Get("name").(string), d.Get("name_prefix").(string))
 	input := &cloudwatch.PutMetricStreamInput{
-		FirehoseArn:                  aws.String(d.Get("firehose_arn").(string)),
+		FirehoseArn:   aws.String(d.Get("firehose_arn").(string)),
 		IncludeLinkedAccountsMetrics: aws.Bool(d.Get("include_linked_accounts_metrics").(bool)),
-		Name:                         aws.String(name),
-		OutputFormat:                 aws.String(d.Get("output_format").(string)),
-		RoleArn:                      aws.String(d.Get("role_arn").(string)),
-		Tags:                         getTagsIn(ctx),
+		Name:          aws.String(name),
+		OutputFormat:  aws.String(d.Get("output_format").(string)),
+		RoleArn:       aws.String(d.Get("role_arn").(string)),
+		Tags:          getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("exclude_filter"); ok && v.(*schema.Set).Len() > 0 {
@@ -311,11 +311,11 @@ func resourceMetricStreamUpdate(ctx context.Context, d *schema.ResourceData, met
 
 	if d.HasChangesExcept("tags", "tags_all") {
 		input := &cloudwatch.PutMetricStreamInput{
-			FirehoseArn:                  aws.String(d.Get("firehose_arn").(string)),
+			FirehoseArn:   aws.String(d.Get("firehose_arn").(string)),
 			IncludeLinkedAccountsMetrics: aws.Bool(d.Get("include_linked_accounts_metrics").(bool)),
-			Name:                         aws.String(d.Id()),
-			OutputFormat:                 aws.String(d.Get("output_format").(string)),
-			RoleArn:                      aws.String(d.Get("role_arn").(string)),
+			Name:          aws.String(d.Id()),
+			OutputFormat:  aws.String(d.Get("output_format").(string)),
+			RoleArn:       aws.String(d.Get("role_arn").(string)),
 		}
 
 		if v, ok := d.GetOk("exclude_filter"); ok && v.(*schema.Set).Len() > 0 {

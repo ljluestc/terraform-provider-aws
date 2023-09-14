@@ -371,13 +371,13 @@ func resourceInputDelete(ctx context.Context, d *schema.ResourceData, meta inter
 
 func waitInputCreated(ctx context.Context, conn *medialive.Client, id string, timeout time.Duration) (*medialive.DescribeInputOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   enum.Slice(types.InputStateCreating),
-		Target:                    enum.Slice(types.InputStateDetached, types.InputStateAttached),
-		Refresh:                   statusInput(ctx, conn, id),
-		Timeout:                   timeout,
+		Pending:    enum.Slice(types.InputStateCreating),
+		Target:     enum.Slice(types.InputStateDetached, types.InputStateAttached),
+		Refresh:    statusInput(ctx, conn, id),
+		Timeout:    timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
-		Delay:                     30 * time.Second,
+		Delay:      30 * time.Second,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
@@ -390,13 +390,13 @@ func waitInputCreated(ctx context.Context, conn *medialive.Client, id string, ti
 
 func waitInputUpdated(ctx context.Context, conn *medialive.Client, id string, timeout time.Duration) (*medialive.DescribeInputOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   []string{},
-		Target:                    enum.Slice(types.InputStateDetached, types.InputStateAttached),
-		Refresh:                   statusInput(ctx, conn, id),
-		Timeout:                   timeout,
+		Pending:    []string{},
+		Target:     enum.Slice(types.InputStateDetached, types.InputStateAttached),
+		Refresh:    statusInput(ctx, conn, id),
+		Timeout:    timeout,
 		NotFoundChecks:            20,
 		ContinuousTargetOccurence: 2,
-		Delay:                     30 * time.Second,
+		Delay:      30 * time.Second,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)

@@ -26,8 +26,8 @@ func TestAccTransferWorkflow_basic(t *testing.T) {
 	rName := sdkacctest.RandString(25)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, transfer.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckWorkflowDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -66,8 +66,8 @@ func TestAccTransferWorkflow_onExceptionSteps(t *testing.T) {
 	rName := sdkacctest.RandString(25)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, transfer.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckWorkflowDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -113,8 +113,8 @@ func TestAccTransferWorkflow_description(t *testing.T) {
 	rName := sdkacctest.RandString(25)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, transfer.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckWorkflowDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -141,8 +141,8 @@ func TestAccTransferWorkflow_tags(t *testing.T) {
 	rName := sdkacctest.RandString(25)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, transfer.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckWorkflowDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -187,8 +187,8 @@ func TestAccTransferWorkflow_disappears(t *testing.T) {
 	rName := sdkacctest.RandString(25)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, transfer.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckWorkflowDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -211,8 +211,8 @@ func TestAccTransferWorkflow_allSteps(t *testing.T) {
 	rName := sdkacctest.RandString(25)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, transfer.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckWorkflowDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -351,7 +351,7 @@ func testAccWorkflowConfig_basic(rName string) string {
 resource "aws_transfer_workflow" "test" {
   steps {
     delete_step_details {
-      name                 = %[1]q
+      name  = %[1]q
       source_file_location = "$${original.file}"
     }
     type = "DELETE"
@@ -367,7 +367,7 @@ resource "aws_transfer_workflow" "test" {
 
   steps {
     delete_step_details {
-      name                 = %[1]q
+      name  = %[1]q
       source_file_location = "$${original.file}"
     }
     type = "DELETE"
@@ -381,7 +381,7 @@ func testAccWorkflowConfig_onExceptionSteps(rName string) string {
 resource "aws_transfer_workflow" "test" {
   steps {
     delete_step_details {
-      name                 = %[1]q
+      name  = %[1]q
       source_file_location = "$${original.file}"
     }
     type = "DELETE"
@@ -389,7 +389,7 @@ resource "aws_transfer_workflow" "test" {
 
   on_exception_steps {
     delete_step_details {
-      name                 = %[1]q
+      name  = %[1]q
       source_file_location = "$${original.file}"
     }
     type = "DELETE"
@@ -403,7 +403,7 @@ func testAccWorkflowConfig_tags1(rName, tagKey1, tagValue1 string) string {
 resource "aws_transfer_workflow" "test" {
   steps {
     delete_step_details {
-      name                 = %[1]q
+      name  = %[1]q
       source_file_location = "$${original.file}"
     }
     type = "DELETE"
@@ -421,7 +421,7 @@ func testAccWorkflowConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 s
 resource "aws_transfer_workflow" "test" {
   steps {
     delete_step_details {
-      name                 = %[1]q
+      name  = %[1]q
       source_file_location = "$${original.file}"
     }
     type = "DELETE"
@@ -454,7 +454,7 @@ resource "aws_efs_file_system" "test" {
 resource "aws_transfer_workflow" "test" {
   steps {
     copy_step_details {
-      name                 = %[1]q
+      name  = %[1]q
       source_file_location = "$${original.file}"
       destination_file_location {
         s3_file_location {
@@ -469,9 +469,9 @@ resource "aws_transfer_workflow" "test" {
 
   steps {
     custom_step_details {
-      name                 = %[1]q
+      name  = %[1]q
       source_file_location = "$${original.file}"
-      target               = aws_lambda_function.test.arn
+      target= aws_lambda_function.test.arn
       timeout_seconds      = 1001
     }
     type = "CUSTOM"
@@ -479,7 +479,7 @@ resource "aws_transfer_workflow" "test" {
 
   steps {
     decrypt_step_details {
-      name                 = %[1]q
+      name  = %[1]q
       source_file_location = "$${original.file}"
       destination_file_location {
         efs_file_location {
@@ -494,7 +494,7 @@ resource "aws_transfer_workflow" "test" {
 
   steps {
     delete_step_details {
-      name                 = %[1]q
+      name  = %[1]q
       source_file_location = "$${original.file}"
     }
     type = "DELETE"
@@ -502,7 +502,7 @@ resource "aws_transfer_workflow" "test" {
 
   steps {
     tag_step_details {
-      name                 = %[1]q
+      name  = %[1]q
       source_file_location = "$${original.file}"
 
       tags {

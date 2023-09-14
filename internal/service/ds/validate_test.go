@@ -18,7 +18,7 @@ func TestDirectoryIDValidator(t *testing.T) {
 	t.Parallel()
 
 	type testCase struct {
-		val                 types.String
+		val  types.String
 		expectedDiagnostics diag.Diagnostics
 	}
 	tests := map[string]testCase{
@@ -79,7 +79,7 @@ func TestDomainWithTrailingDotValidatorValidator(t *testing.T) {
 	t.Parallel()
 
 	type testCase struct {
-		val                 types.String
+		val  types.String
 		expectedDiagnostics diag.Diagnostics
 	}
 	tests := map[string]testCase{
@@ -133,7 +133,7 @@ func TestTrustPasswordValidator(t *testing.T) {
 	t.Parallel()
 
 	type testCase struct {
-		val                 types.String
+		val  types.String
 		expectedDiagnostics diag.Diagnostics
 	}
 	tests := map[string]testCase{

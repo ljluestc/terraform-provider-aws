@@ -27,9 +27,9 @@ func testAccTransitGatewayConnectPeer_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGatewayConnect(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayConnectPeerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -65,9 +65,9 @@ func testAccTransitGatewayConnectPeer_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGatewayConnect(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayConnectPeerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -92,9 +92,9 @@ func testAccTransitGatewayConnectPeer_bgpASN(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGatewayConnect(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayConnectPeerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -118,9 +118,9 @@ func testAccTransitGatewayConnectPeer_insideCIDRBlocks(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGatewayConnect(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayConnectPeerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -151,9 +151,9 @@ func testAccTransitGatewayConnectPeer_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGatewayConnect(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayConnectPeerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -202,9 +202,9 @@ func testAccTransitGatewayConnectPeer_TransitGatewayAddress(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 
+		PreCheck:  
 func() { acctest.PreCheck(ctx, t); testAccPreCheckTransitGatewayConnect(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		ErrorCheck:acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckTransitGatewayConnectPeerDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -327,7 +327,7 @@ resource "aws_ec2_transit_gateway_connect" "test" {
 
 resource "aws_ec2_transit_gateway_connect_peer" "test" {
   inside_cidr_blocks            = ["169.254.200.0/29"]
-  peer_address                  = "1.1.1.1"
+  peer_address   = "1.1.1.1"
   transit_gateway_attachment_id = aws_ec2_transit_gateway_connect.test.id
 }
 `, rName))
@@ -382,9 +382,9 @@ resource "aws_ec2_transit_gateway_connect" "test" {
 }
 
 resource "aws_ec2_transit_gateway_connect_peer" "test" {
-  bgp_asn                       = %[2]q
+  bgp_asn        = %[2]q
   inside_cidr_blocks            = ["169.254.200.0/29"]
-  peer_address                  = "1.1.1.1"
+  peer_address   = "1.1.1.1"
   transit_gateway_attachment_id = aws_ec2_transit_gateway_connect.test.id
 
   tags = {
@@ -444,7 +444,7 @@ resource "aws_ec2_transit_gateway_connect" "test" {
 
 resource "aws_ec2_transit_gateway_connect_peer" "test" {
   inside_cidr_blocks            = ["169.254.200.0/29"]
-  peer_address                  = "1.1.1.1"
+  peer_address   = "1.1.1.1"
   transit_gateway_attachment_id = aws_ec2_transit_gateway_connect.test.id
 
   tags = {
@@ -504,7 +504,7 @@ resource "aws_ec2_transit_gateway_connect" "test" {
 
 resource "aws_ec2_transit_gateway_connect_peer" "test" {
   inside_cidr_blocks            = ["169.254.200.0/29"]
-  peer_address                  = "1.1.1.1"
+  peer_address   = "1.1.1.1"
   transit_gateway_attachment_id = aws_ec2_transit_gateway_connect.test.id
 
   tags = {
@@ -565,7 +565,7 @@ resource "aws_ec2_transit_gateway_connect" "test" {
 
 resource "aws_ec2_transit_gateway_connect_peer" "test" {
   inside_cidr_blocks            = ["169.254.200.0/29", "fd00::/125"]
-  peer_address                  = "1.1.1.1"
+  peer_address   = "1.1.1.1"
   transit_gateway_attachment_id = aws_ec2_transit_gateway_connect.test.id
 
   tags = {
@@ -626,7 +626,7 @@ resource "aws_ec2_transit_gateway_connect" "test" {
 resource "aws_ec2_transit_gateway_connect_peer" "test" {
   transit_gateway_address       = %[2]q
   inside_cidr_blocks            = ["169.254.200.0/29"]
-  peer_address                  = "1.1.1.1"
+  peer_address   = "1.1.1.1"
   transit_gateway_attachment_id = aws_ec2_transit_gateway_connect.test.id
 
   tags = {

@@ -219,11 +219,11 @@ func dataSourcePrincipalPolicySimulationRead(ctx context.Context, d *schema.Reso
 	}
 
 	input := &iam.SimulatePrincipalPolicyInput{
-		ActionNames:                        setAsAWSStringSlice(d.Get("action_names")),
+		ActionNames:         setAsAWSStringSlice(d.Get("action_names")),
 		PermissionsBoundaryPolicyInputList: setAsAWSStringSlice(d.Get("permissions_boundary_policies_json")),
-		PolicyInputList:                    setAsAWSStringSlice(d.Get("additional_policies_json")),
-		PolicySourceArn:                    aws.String(d.Get("policy_source_arn").(string)),
-		ResourceArns:                       setAsAWSStringSlice(d.Get("resource_arns")),
+		PolicyInputList:     setAsAWSStringSlice(d.Get("additional_policies_json")),
+		PolicySourceArn:     aws.String(d.Get("policy_source_arn").(string)),
+		ResourceArns:        setAsAWSStringSlice(d.Get("resource_arns")),
 	}
 
 	for _, entryRaw := range d.Get("context").(*schema.Set).List() {

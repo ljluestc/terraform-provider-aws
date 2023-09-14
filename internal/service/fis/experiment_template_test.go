@@ -28,8 +28,8 @@ func TestAccFISExperimentTemplate_basic(t *testing.T) {
 	var conf types.ExperimentTemplate
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, fis.ServiceID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, fis.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckExperimentTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -78,8 +78,8 @@ func TestAccFISExperimentTemplate_disappears(t *testing.T) {
 	var conf types.ExperimentTemplate
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, fis.ServiceID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, fis.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckExperimentTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -102,8 +102,8 @@ func TestAccFISExperimentTemplate_update(t *testing.T) {
 	var conf types.ExperimentTemplate
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, fis.ServiceID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, fis.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckExperimentTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -172,8 +172,8 @@ func TestAccFISExperimentTemplate_spot(t *testing.T) {
 	var conf types.ExperimentTemplate
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, fis.ServiceID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, fis.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckExperimentTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -222,8 +222,8 @@ func TestAccFISExperimentTemplate_eks(t *testing.T) {
 	var conf types.ExperimentTemplate
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, fis.ServiceID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, fis.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckExperimentTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -278,8 +278,8 @@ func TestAccFISExperimentTemplate_ebs(t *testing.T) {
 	var conf types.ExperimentTemplate
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, fis.ServiceID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, fis.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckExperimentTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -326,8 +326,8 @@ func TestAccFISExperimentTemplate_ebsParameters(t *testing.T) {
 	var conf types.ExperimentTemplate
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, fis.ServiceID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, fis.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckExperimentTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -374,8 +374,8 @@ func TestAccFISExperimentTemplate_loggingConfiguration(t *testing.T) {
 	var conf types.ExperimentTemplate
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, fis.ServiceID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, fis.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckExperimentTemplateDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -616,7 +616,7 @@ resource "aws_vpc" "test" {
   assign_generated_ipv6_cidr_block = true
 
   tags = {
-    Name                          = %[1]q
+    Name           = %[1]q
     "kubernetes.io/cluster/%[1]s" = "shared"
   }
 }
@@ -628,11 +628,11 @@ resource "aws_subnet" "test" {
   cidr_block        = "10.0.${count.index}.0/24"
   vpc_id            = aws_vpc.test.id
 
-  ipv6_cidr_block                 = cidrsubnet(aws_vpc.test.ipv6_cidr_block, 8, count.index)
+  ipv6_cidr_block  = cidrsubnet(aws_vpc.test.ipv6_cidr_block, 8, count.index)
   assign_ipv6_address_on_creation = true
 
   tags = {
-    Name                          = %[1]q
+    Name           = %[1]q
     "kubernetes.io/cluster/%[1]s" = "shared"
   }
 }

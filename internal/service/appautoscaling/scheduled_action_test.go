@@ -31,8 +31,8 @@ func TestAccAppAutoScalingScheduledAction_dynamoDB(t *testing.T) {
 	autoscalingTargetResourceName := "aws_appautoscaling_target.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckScheduledActionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -86,8 +86,8 @@ func TestAccAppAutoScalingScheduledAction_ecs(t *testing.T) {
 	autoscalingTargetResourceName := "aws_appautoscaling_target.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckScheduledActionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -120,8 +120,8 @@ func TestAccAppAutoScalingScheduledAction_emr(t *testing.T) {
 	autoscalingTargetResourceName := "aws_appautoscaling_target.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckScheduledActionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -153,8 +153,8 @@ func TestAccAppAutoScalingScheduledAction_Name_duplicate(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckScheduledActionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -179,8 +179,8 @@ func TestAccAppAutoScalingScheduledAction_spotFleet(t *testing.T) {
 	autoscalingTargetResourceName := "aws_appautoscaling_target.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckScheduledActionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -217,8 +217,8 @@ func TestAccAppAutoScalingScheduledAction_ScheduleAtExpression_timezone(t *testi
 	autoscalingTargetResourceName := "aws_appautoscaling_target.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckScheduledActionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -253,8 +253,8 @@ func TestAccAppAutoScalingScheduledAction_ScheduleCronExpression_basic(t *testin
 	autoscalingTargetResourceName := "aws_appautoscaling_target.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckScheduledActionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -292,8 +292,8 @@ func TestAccAppAutoScalingScheduledAction_ScheduleCronExpression_timezone(t *tes
 	autoscalingTargetResourceName := "aws_appautoscaling_target.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckScheduledActionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -324,7 +324,7 @@ func TestAccAppAutoScalingScheduledAction_ScheduleCronExpression_startEndTimeTim
 	var sa applicationautoscaling.ScheduledAction
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	cron := "cron(0 17 * * ? *)"
-	scheduleTimezone := "Etc/GMT+9"                                    // Z-09:00 (IANA and RFC3339 have inverted signs)
+	scheduleTimezone := "Etc/GMT+9"      // Z-09:00 (IANA and RFC3339 have inverted signs)
 	startTimezone, _ := time.LoadLocation("Antarctica/DumontDUrville") // Z+10:00
 	endTimezone, _ := time.LoadLocation("America/Vancouver")           // Z-08:00
 	startTime := time.Now().AddDate(0, 0, 2).In(startTimezone)
@@ -335,8 +335,8 @@ func TestAccAppAutoScalingScheduledAction_ScheduleCronExpression_startEndTimeTim
 	autoscalingTargetResourceName := "aws_appautoscaling_target.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckScheduledActionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -389,8 +389,8 @@ func TestAccAppAutoScalingScheduledAction_ScheduleRateExpression_basic(t *testin
 	autoscalingTargetResourceName := "aws_appautoscaling_target.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckScheduledActionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -428,8 +428,8 @@ func TestAccAppAutoScalingScheduledAction_ScheduleRateExpression_timezone(t *tes
 	autoscalingTargetResourceName := "aws_appautoscaling_target.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckScheduledActionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -464,8 +464,8 @@ func TestAccAppAutoScalingScheduledAction_minCapacity(t *testing.T) {
 	autoscalingTargetResourceName := "aws_appautoscaling_target.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckScheduledActionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -520,8 +520,8 @@ func TestAccAppAutoScalingScheduledAction_maxCapacity(t *testing.T) {
 	autoscalingTargetResourceName := "aws_appautoscaling_target.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
+		PreCheck:  func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:acctest.ErrorCheck(t, applicationautoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckScheduledActionDestroy(ctx),
 		Steps: []resource.TestStep{
@@ -630,7 +630,7 @@ func testAccCheckScheduledActionNotRecreated(i, j *applicationautoscaling.Schedu
 func testAccScheduledActionConfig_dynamoDB(rName, ts string) string {
 	return fmt.Sprintf(`
 resource "aws_appautoscaling_scheduled_action" "test" {
-  name               = %[1]q
+  name= %[1]q
   service_namespace  = aws_appautoscaling_target.test.service_namespace
   resource_id        = aws_appautoscaling_target.test.resource_id
   scalable_dimension = aws_appautoscaling_target.test.scalable_dimension
@@ -668,7 +668,7 @@ resource "aws_dynamodb_table" "test" {
 func testAccScheduledActionConfig_dynamoDBUpdated(rName, ts, timezone string) string {
 	return fmt.Sprintf(`
 resource "aws_appautoscaling_scheduled_action" "test" {
-  name               = %[1]q
+  name= %[1]q
   service_namespace  = aws_appautoscaling_target.test.service_namespace
   resource_id        = aws_appautoscaling_target.test.resource_id
   scalable_dimension = aws_appautoscaling_target.test.scalable_dimension
@@ -707,7 +707,7 @@ resource "aws_dynamodb_table" "test" {
 func testAccScheduledActionConfig_ecs(rName, ts string) string {
 	return fmt.Sprintf(`
 resource "aws_appautoscaling_scheduled_action" "test" {
-  name               = %[1]q
+  name= %[1]q
   service_namespace  = aws_appautoscaling_target.test.service_namespace
   resource_id        = aws_appautoscaling_target.test.resource_id
   scalable_dimension = aws_appautoscaling_target.test.scalable_dimension
@@ -762,7 +762,7 @@ resource "aws_ecs_service" "test" {
 func testAccScheduledActionConfig_emr(rName, ts string) string {
 	return fmt.Sprintf(`
 resource "aws_appautoscaling_scheduled_action" "test" {
-  name               = %[1]q
+  name= %[1]q
   service_namespace  = aws_appautoscaling_target.test.service_namespace
   resource_id        = aws_appautoscaling_target.test.resource_id
   scalable_dimension = aws_appautoscaling_target.test.scalable_dimension
@@ -802,10 +802,10 @@ resource "aws_emr_cluster" "test" {
   applications  = ["Spark"]
 
   ec2_attributes {
-    subnet_id                         = aws_subnet.test.id
+    subnet_id          = aws_subnet.test.id
     emr_managed_master_security_group = aws_security_group.test.id
     emr_managed_slave_security_group  = aws_security_group.test.id
-    instance_profile                  = aws_iam_instance_profile.instance_profile.arn
+    instance_profile   = aws_iam_instance_profile.instance_profile.arn
   }
 
   master_instance_group {
@@ -1114,7 +1114,7 @@ resource "aws_appautoscaling_target" "test2" {
 }
 
 resource "aws_appautoscaling_scheduled_action" "test2" {
-  name               = %[1]q
+  name= %[1]q
   service_namespace  = aws_appautoscaling_target.test2.service_namespace
   resource_id        = aws_appautoscaling_target.test2.resource_id
   scalable_dimension = aws_appautoscaling_target.test2.scalable_dimension
@@ -1147,7 +1147,7 @@ resource "aws_appautoscaling_target" "test" {
 }
 
 resource "aws_appautoscaling_scheduled_action" "test" {
-  name               = %[1]q
+  name= %[1]q
   service_namespace  = aws_appautoscaling_target.test.service_namespace
   resource_id        = aws_appautoscaling_target.test.resource_id
   scalable_dimension = aws_appautoscaling_target.test.scalable_dimension
@@ -1164,7 +1164,7 @@ resource "aws_appautoscaling_scheduled_action" "test" {
 func testAccScheduledActionConfig_spotFleet(rName, ts, validUntil string) string {
 	return fmt.Sprintf(`
 resource "aws_appautoscaling_scheduled_action" "test" {
-  name               = %[1]q
+  name= %[1]q
   service_namespace  = aws_appautoscaling_target.test.service_namespace
   resource_id        = aws_appautoscaling_target.test.resource_id
   scalable_dimension = aws_appautoscaling_target.test.scalable_dimension
@@ -1227,10 +1227,10 @@ resource "aws_iam_role_policy_attachment" "fleet_role_policy" {
 }
 
 resource "aws_spot_fleet_request" "test" {
-  iam_fleet_role                      = aws_iam_role.fleet_role.arn
-  spot_price                          = "0.005"
-  target_capacity                     = 2
-  valid_until                         = %[3]q
+  iam_fleet_role       = aws_iam_role.fleet_role.arn
+  spot_price           = "0.005"
+  target_capacity      = 2
+  valid_until          = %[3]q
   terminate_instances_with_expiration = true
 
   launch_specification {
@@ -1244,7 +1244,7 @@ resource "aws_spot_fleet_request" "test" {
 func testAccScheduledActionConfig_schedule(rName, schedule string) string {
 	return fmt.Sprintf(`
 resource "aws_appautoscaling_scheduled_action" "test" {
-  name               = %[1]q
+  name= %[1]q
   service_namespace  = aws_appautoscaling_target.test.service_namespace
   resource_id        = aws_appautoscaling_target.test.resource_id
   scalable_dimension = aws_appautoscaling_target.test.scalable_dimension
@@ -1281,7 +1281,7 @@ resource "aws_dynamodb_table" "test" {
 func testAccScheduledActionConfig_timezone(rName, schedule, timezone, startTime, endTime string) string {
 	return fmt.Sprintf(`
 resource "aws_appautoscaling_scheduled_action" "test" {
-  name               = %[1]q
+  name= %[1]q
   service_namespace  = aws_appautoscaling_target.test.service_namespace
   resource_id        = aws_appautoscaling_target.test.resource_id
   scalable_dimension = aws_appautoscaling_target.test.scalable_dimension
@@ -1322,7 +1322,7 @@ resource "aws_dynamodb_table" "test" {
 func testAccScheduledActionConfig_minCapacity(rName, ts string, minCapacity int) string {
 	return fmt.Sprintf(`
 resource "aws_appautoscaling_scheduled_action" "test" {
-  name               = %[1]q
+  name= %[1]q
   service_namespace  = aws_appautoscaling_target.test.service_namespace
   resource_id        = aws_appautoscaling_target.test.resource_id
   scalable_dimension = aws_appautoscaling_target.test.scalable_dimension
@@ -1359,7 +1359,7 @@ resource "aws_dynamodb_table" "test" {
 func testAccScheduledActionConfig_maxCapacity(rName, ts string, maxCapacity int) string {
 	return fmt.Sprintf(`
 resource "aws_appautoscaling_scheduled_action" "test" {
-  name               = %[1]q
+  name= %[1]q
   service_namespace  = aws_appautoscaling_target.test.service_namespace
   resource_id        = aws_appautoscaling_target.test.resource_id
   scalable_dimension = aws_appautoscaling_target.test.scalable_dimension
