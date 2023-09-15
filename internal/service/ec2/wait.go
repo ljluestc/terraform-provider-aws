@@ -36,11 +36,11 @@ const (
 	// See https://docs.aws.amazon.com/AWSEC2/latest/APIReference/query-api-troubleshooting.html#eventual-consistency.
 	ec2PropagationTimeout = 5 * time.Minute // nosemgrep:ci.ec2-in-const-name, ci.ec2-in-var-name
 
-	RouteNotFoundChecks         = 1000 // Should exceed any reasonable custom timeout value.
+	RouteNotFoundChecks= 1000 // Should exceed any reasonable custom timeout value.
 	RouteTableNotFoundChecks    = 1000 // Should exceed any reasonable custom timeout value.
 	RouteTableAssociationCreatedNotFoundChecks = 1000 // Should exceed any reasonable custom timeout value.
 	SecurityGroupNotFoundChecks = 1000 // Should exceed any reasonable custom timeout value.
-	InternetGatewayNotFoundChecks              = 1000 // Should exceed any reasonable custom timeout value.
+	InternetGatewayNotFoundChecks     = 1000 // Should exceed any reasonable custom timeout value.
 	IPAMPoolCIDRNotFoundChecks  = 1000 // Should exceed any reasonable custom timeout value.
 )
 
@@ -208,7 +208,7 @@ return output, err
 }
 
 const (
-	ClientVPNEndpointDeletedTimeout          = 5 * time.Minute
+	ClientVPNEndpointDeletedTimeout = 5 * time.Minute
 	ClientVPNEndpointAttributeUpdatedTimeout = 5 * time.Minute
 )
 
@@ -689,7 +689,7 @@ Pending:    []string{},
 Target:     []string{RouteStatusReady},
 Refresh:    StatusRoute(ctx, conn, routeFinder, routeTableID, destination),
 Timeout:    timeout,
-NotFoundChecks:            RouteNotFoundChecks,
+NotFoundChecks:   RouteNotFoundChecks,
 ContinuousTargetOccurence: 2,
 	}
 
@@ -714,7 +714,7 @@ Pending:    []string{},
 Target:     []string{RouteTableStatusReady},
 Refresh:    StatusRouteTable(ctx, conn, id),
 Timeout:    timeout,
-NotFoundChecks:            RouteTableNotFoundChecks,
+NotFoundChecks:   RouteTableNotFoundChecks,
 ContinuousTargetOccurence: 2,
 	}
 
@@ -748,7 +748,7 @@ return output, err
 func WaitRouteTableAssociationCreated(ctx context.Context, conn *ec2.EC2, id string, timeout time.Duration) (*ec2.RouteTableAssociationState, error) {
 	stateConf := &retry.StateChangeConf{
 Pending:        []string{ec2.RouteTableAssociationStateCodeAssociating},
-Target:         []string{ec2.RouteTableAssociationStateCodeAssociated},
+Target:[]string{ec2.RouteTableAssociationStateCodeAssociated},
 Refresh:        StatusRouteTableAssociationState(ctx, conn, id),
 Timeout:        timeout,
 NotFoundChecks: RouteTableAssociationCreatedNotFoundChecks,
@@ -815,7 +815,7 @@ Pending:    []string{},
 Target:     []string{SecurityGroupStatusCreated},
 Refresh:    StatusSecurityGroup(ctx, conn, id),
 Timeout:    timeout,
-NotFoundChecks:            SecurityGroupNotFoundChecks,
+NotFoundChecks:   SecurityGroupNotFoundChecks,
 ContinuousTargetOccurence: 3,
 	}
 
@@ -1060,7 +1060,7 @@ return output, err
 func WaitTransitGatewayDeleted(ctx context.Context, conn *ec2.EC2, id string, timeout time.Duration) (*ec2.TransitGateway, error) {
 	stateConf := &retry.StateChangeConf{
 Pending:        []string{ec2.TransitGatewayStateAvailable, ec2.TransitGatewayStateDeleting},
-Target:         []string{},
+Target:[]string{},
 Refresh:        StatusTransitGatewayState(ctx, conn, id),
 Timeout:        timeout,
 NotFoundChecks: 1,
@@ -1112,7 +1112,7 @@ return output, err
 func WaitTransitGatewayConnectDeleted(ctx context.Context, conn *ec2.EC2, id string, timeout time.Duration) (*ec2.TransitGatewayConnect, error) {
 	stateConf := &retry.StateChangeConf{
 Pending:        []string{ec2.TransitGatewayAttachmentStateAvailable, ec2.TransitGatewayAttachmentStateDeleting},
-Target:         []string{},
+Target:[]string{},
 Refresh:        StatusTransitGatewayConnectState(ctx, conn, id),
 Timeout:        timeout,
 NotFoundChecks: 1,
@@ -1499,7 +1499,7 @@ return output, err
 func WaitTransitGatewayPolicyTableAssociationDeleted(ctx context.Context, conn *ec2.EC2, transitGatewayPolicyTableID, transitGatewayAttachmentID string) (*ec2.TransitGatewayPolicyTableAssociation, error) {
 	stateConf := &retry.StateChangeConf{
 Pending:        []string{ec2.TransitGatewayAssociationStateAssociated, ec2.TransitGatewayAssociationStateDisassociating},
-Target:         []string{},
+Target:[]string{},
 Timeout:        TransitGatewayPolicyTableAssociationDeletedTimeout,
 Refresh:        StatusTransitGatewayPolicyTableAssociationState(ctx, conn, transitGatewayPolicyTableID, transitGatewayAttachmentID),
 NotFoundChecks: 1,
@@ -1534,7 +1534,7 @@ return output, err
 func WaitTransitGatewayRouteTableAssociationDeleted(ctx context.Context, conn *ec2.EC2, transitGatewayRouteTableID, transitGatewayAttachmentID string) (*ec2.TransitGatewayRouteTableAssociation, error) {
 	stateConf := &retry.StateChangeConf{
 Pending:        []string{ec2.TransitGatewayAssociationStateAssociated, ec2.TransitGatewayAssociationStateDisassociating},
-Target:         []string{},
+Target:[]string{},
 Timeout:        TransitGatewayRouteTableAssociationDeletedTimeout,
 Refresh:        StatusTransitGatewayRouteTableAssociationState(ctx, conn, transitGatewayRouteTableID, transitGatewayAttachmentID),
 NotFoundChecks: 1,
@@ -2345,7 +2345,7 @@ const (
 func WaitInternetGatewayAttached(ctx context.Context, conn *ec2.EC2, internetGatewayID, vpcID string, timeout time.Duration) (*ec2.InternetGatewayAttachment, error) {
 	stateConf := &retry.StateChangeConf{
 Pending:        []string{ec2.AttachmentStatusAttaching},
-Target:         []string{InternetGatewayAttachmentStateAvailable},
+Target:[]string{InternetGatewayAttachmentStateAvailable},
 Timeout:        timeout,
 NotFoundChecks: InternetGatewayNotFoundChecks,
 Refresh:        StatusInternetGatewayAttachmentState(ctx, conn, internetGatewayID, vpcID),
@@ -2499,7 +2499,7 @@ Delay:      10 * time.Second,
 MinTimeout: 10 * time.Second,
 // Handle EC2 ENI eventual consistency. It can take up to 3 minutes.
 ContinuousTargetOccurence: 18,
-NotFoundChecks:            1,
+NotFoundChecks:   1,
 	}
 
 	outputRaw, err := stateConf.WaitForStateContext(ctx)
@@ -2621,7 +2621,7 @@ if activityStatus := aws.StringValue(output.ActivityStatus); activityStatus == e
 
 	input := &ec2.DescribeSpotFleetRequestHistoryInput{
 SpotFleetRequestId: aws.String(id),
-StartTime:          aws.Time(time.UnixMilli(0)),
+StartTime: aws.Time(time.UnixMilli(0)),
 	}
 
 	if output, err := FindSpotFleetRequestHistoryRecords(ctx, conn, input); err == nil {
@@ -3009,10 +3009,10 @@ return output, err
 func WaitIPAMPoolCIDRIdCreated(ctx context.Context, conn *ec2.EC2, poolCidrId, poolID, cidrBlock string, timeout time.Duration) (*ec2.IpamPoolCidr, error) {
 	stateConf := &retry.StateChangeConf{
 Pending:        []string{ec2.IpamPoolCidrStatePendingProvision},
-Target:         []string{ec2.IpamPoolCidrStateProvisioned},
+Target:[]string{ec2.IpamPoolCidrStateProvisioned},
 Refresh:        StatusIPAMPoolCIDRState(ctx, conn, cidrBlock, poolID, poolCidrId),
 Timeout:        timeout,
-Delay:          5 * time.Second,
+Delay: 5 * time.Second,
 NotFoundChecks: IPAMPoolCIDRNotFoundChecks,
 	}
 

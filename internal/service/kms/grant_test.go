@@ -27,7 +27,7 @@ func TestAccKMSGrant_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, kms.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckGrantDestroy(ctx),
+CheckDestroy:    testAccCheckGrantDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGrantConfig_basic(rName, "\"Encrypt\", \"Decrypt\""),
@@ -42,8 +42,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"grant_token", "retire_on_delete"},
 	},
@@ -60,11 +60,11 @@ func TestAccKMSGrant_withConstraints(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, kms.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckGrantDestroy(ctx),
+CheckDestroy:    testAccCheckGrantDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGrantConfig_constraints(rName, "encryption_context_equals", `foo = "bar"
-         baz = "kaz"`),
+baz = "kaz"`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGrantExists(ctx, resourceName),
 	resource.TestCheckResourceAttr(resourceName, "name", rName),
@@ -77,14 +77,14 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"grant_token", "retire_on_delete"},
 	},
 	{
 Config: testAccGrantConfig_constraints(rName, "encryption_context_subset", `foo = "bar"
-	            baz = "kaz"`),
+	   baz = "kaz"`),
 Check: resource.ComposeTestCheckFunc(
 	testAccCheckGrantExists(ctx, resourceName),
 	resource.TestCheckResourceAttr(resourceName, "name", rName),
@@ -109,7 +109,7 @@ func TestAccKMSGrant_withRetiringPrincipal(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, kms.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckGrantDestroy(ctx),
+CheckDestroy:    testAccCheckGrantDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGrantConfig_retiringPrincipal(rName),
@@ -119,8 +119,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"grant_token", "retire_on_delete"},
 	},
@@ -137,7 +137,7 @@ func TestAccKMSGrant_bare(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, kms.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckGrantDestroy(ctx),
+CheckDestroy:    testAccCheckGrantDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGrantConfig_bare(rName),
@@ -149,8 +149,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"grant_token", "retire_on_delete"},
 	},
@@ -167,7 +167,7 @@ func TestAccKMSGrant_arn(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, kms.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckGrantDestroy(ctx),
+CheckDestroy:    testAccCheckGrantDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGrantConfig_arn(rName, "\"Encrypt\", \"Decrypt\""),
@@ -182,8 +182,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"grant_token", "retire_on_delete"},
 	},
@@ -200,7 +200,7 @@ func TestAccKMSGrant_asymmetricKey(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, kms.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckGrantDestroy(ctx),
+CheckDestroy:    testAccCheckGrantDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGrantConfig_asymmetricKey(rName),
@@ -209,8 +209,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"grant_token", "retire_on_delete"},
 	},
@@ -227,7 +227,7 @@ func TestAccKMSGrant_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, kms.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckGrantDestroy(ctx),
+CheckDestroy:    testAccCheckGrantDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGrantConfig_basic(rName, "\"Encrypt\", \"Decrypt\""),
@@ -253,7 +253,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, kms.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-CheckDestroy:             testAccCheckGrantDestroy(ctx),
+CheckDestroy:    testAccCheckGrantDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGrantConfig_crossAccountARN(rName, "\"Encrypt\", \"Decrypt\""),
@@ -268,8 +268,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"grant_token", "retire_on_delete"},
 	},
@@ -287,7 +287,7 @@ func TestAccKMSGrant_service(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, kms.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckGrantDestroy(ctx),
+CheckDestroy:    testAccCheckGrantDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccGrantConfig_service(rName, "\"Encrypt\", \"Decrypt\"", servicePrincipal),
@@ -303,8 +303,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"grant_token", "retire_on_delete"},
 	},
@@ -372,7 +372,7 @@ return err
 func testAccGrantConfig_base(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description    = %[1]q
   deletion_window_in_days = 7
 }
 
@@ -399,8 +399,8 @@ resource "aws_iam_role" "test" {
 func testAccGrantConfig_basic(rName string, operations string) string {
 	return acctest.ConfigCompose(testAccGrantConfig_base(rName), fmt.Sprintf(`
 resource "aws_kms_grant" "test" {
-  name              = %[1]q
-  key_id            = aws_kms_key.test.key_id
+  name     = %[1]q
+  key_id   = aws_kms_key.test.key_id
   grantee_principal = aws_iam_role.test.arn
   operations        = [%[2]s]
 }
@@ -410,8 +410,8 @@ resource "aws_kms_grant" "test" {
 func testAccGrantConfig_constraints(rName string, constraintName string, encryptionContext string) string {
 	return acctest.ConfigCompose(testAccGrantConfig_base(rName), fmt.Sprintf(`
 resource "aws_kms_grant" "test" {
-  name              = %[1]q
-  key_id            = aws_kms_key.test.key_id
+  name     = %[1]q
+  key_id   = aws_kms_key.test.key_id
   grantee_principal = aws_iam_role.test.arn
   operations        = ["RetireGrant", "DescribeKey"]
 
@@ -428,9 +428,9 @@ func testAccGrantConfig_retiringPrincipal(rName string) string {
 	return acctest.ConfigCompose(testAccGrantConfig_base(rName), fmt.Sprintf(`
 resource "aws_kms_grant" "test" {
   name= %[1]q
-  key_id             = aws_kms_key.test.key_id
+  key_id    = aws_kms_key.test.key_id
   grantee_principal  = aws_iam_role.test.arn
-  operations         = ["ReEncryptTo", "CreateGrant"]
+  operations= ["ReEncryptTo", "CreateGrant"]
   retiring_principal = aws_iam_role.test.arn
 }
 `, rName))
@@ -439,7 +439,7 @@ resource "aws_kms_grant" "test" {
 func testAccGrantConfig_bare(rName string) string {
 	return acctest.ConfigCompose(testAccGrantConfig_base(rName), `
 resource "aws_kms_grant" "test" {
-  key_id            = aws_kms_key.test.key_id
+  key_id   = aws_kms_key.test.key_id
   grantee_principal = aws_iam_role.test.arn
   operations        = ["ReEncryptTo", "CreateGrant"]
 }
@@ -449,8 +449,8 @@ resource "aws_kms_grant" "test" {
 func testAccGrantConfig_arn(rName string, operations string) string {
 	return acctest.ConfigCompose(testAccGrantConfig_base(rName), fmt.Sprintf(`
 resource "aws_kms_grant" "test" {
-  name              = %[1]q
-  key_id            = aws_kms_key.test.arn
+  name     = %[1]q
+  key_id   = aws_kms_key.test.arn
   grantee_principal = aws_iam_role.test.arn
   operations        = [%[2]s]
 }
@@ -460,14 +460,14 @@ resource "aws_kms_grant" "test" {
 func testAccGrantConfig_asymmetricKey(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_grant" "test" {
-  name              = %[1]q
-  key_id            = aws_kms_key.test.key_id
+  name     = %[1]q
+  key_id   = aws_kms_key.test.key_id
   grantee_principal = aws_iam_role.test.arn
   operations        = ["GetPublicKey", "Sign", "Verify"]
 }
 
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description    = %[1]q
   deletion_window_in_days = 7
 
   key_usage = "SIGN_VERIFY"
@@ -497,7 +497,7 @@ resource "aws_iam_role" "test" {
 func testAccGrantConfig_crossAccountARN(rName string, operations string) string {
 	return acctest.ConfigCompose(acctest.ConfigAlternateAccountProvider(), fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description    = %[1]q
   deletion_window_in_days = 7
 }
 
@@ -524,8 +524,8 @@ resource "aws_iam_role" "test" {
 }
 
 resource "aws_kms_grant" "test" {
-  name              = %[1]q
-  key_id            = aws_kms_key.test.arn
+  name     = %[1]q
+  key_id   = aws_kms_key.test.arn
   grantee_principal = aws_iam_role.test.arn
   operations        = [%[2]s]
 }
@@ -536,8 +536,8 @@ func testAccGrantConfig_service(rName string, operations string, servicePrincipa
 	return acctest.ConfigCompose(testAccGrantConfig_base(rName), fmt.Sprintf(`
 resource "aws_kms_grant" "test" {
   name= %[1]q
-  key_id             = aws_kms_key.test.key_id
-  operations         = [%[2]s]
+  key_id    = aws_kms_key.test.key_id
+  operations= [%[2]s]
   grantee_principal  = %[3]q
   retiring_principal = %[3]q
 }

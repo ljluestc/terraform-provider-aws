@@ -30,9 +30,9 @@ func TestAccTransferConnector_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, transfer.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, transfer.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, transfer.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectorDestroy(ctx),
+		CheckDestroy:    testAccCheckConnectorDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConnectorConfig_basic(rName, "http://www.example.com"),
@@ -72,9 +72,9 @@ func TestAccTransferConnector_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, transfer.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, transfer.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, transfer.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectorDestroy(ctx),
+		CheckDestroy:    testAccCheckConnectorDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConnectorConfig_basic(rName, "http://www.example.com"),
@@ -100,9 +100,9 @@ func TestAccTransferConnector_tags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, transfer.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, transfer.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, transfer.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConnectorDestroy(ctx),
+		CheckDestroy:    testAccCheckConnectorDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConnectorConfig_tags1(rName, "http://www.example.com", "key1", "value1"),
@@ -246,11 +246,11 @@ resource "aws_transfer_connector" "test" {
   access_role = aws_iam_role.test.arn
 
   as2_config {
-    compression           = "DISABLED"
+    compression  = "DISABLED"
     encryption_algorithm  = "AES128_CBC"
     message_subject       = %[1]q
     local_profile_id      = aws_transfer_profile.local.profile_id
-    mdn_response          = "NONE"
+    mdn_response = "NONE"
     mdn_signing_algorithm = "NONE"
     partner_profile_id    = aws_transfer_profile.partner.profile_id
     signing_algorithm     = "NONE"
@@ -267,11 +267,11 @@ resource "aws_transfer_connector" "test" {
   access_role = aws_iam_role.test.arn
 
   as2_config {
-    compression           = "DISABLED"
+    compression  = "DISABLED"
     encryption_algorithm  = "AES128_CBC"
     message_subject       = %[1]q
     local_profile_id      = aws_transfer_profile.local.profile_id
-    mdn_response          = "NONE"
+    mdn_response = "NONE"
     mdn_signing_algorithm = "NONE"
     partner_profile_id    = aws_transfer_profile.partner.profile_id
     signing_algorithm     = "NONE"
@@ -292,11 +292,11 @@ resource "aws_transfer_connector" "test" {
   access_role = aws_iam_role.test.arn
 
   as2_config {
-    compression           = "DISABLED"
+    compression  = "DISABLED"
     encryption_algorithm  = "AES128_CBC"
     message_subject       = %[1]q
     local_profile_id      = aws_transfer_profile.local.profile_id
-    mdn_response          = "NONE"
+    mdn_response = "NONE"
     mdn_signing_algorithm = "NONE"
     partner_profile_id    = aws_transfer_profile.partner.profile_id
     signing_algorithm     = "NONE"

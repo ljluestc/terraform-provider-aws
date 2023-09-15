@@ -45,7 +45,7 @@ func ResourceLicenseAssociation() *schema.Resource {
 				Computed: true,
 			},
 			"license_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringInSlice(managedgrafana.LicenseType_Values(), false),

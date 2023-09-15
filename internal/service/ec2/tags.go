@@ -60,7 +60,7 @@ func tagSpecificationsFromMap(ctx context.Context, m map[string]interface{}, t s
 	return []*ec2.TagSpecification{
 		{
 			ResourceType: aws.String(t),
-			Tags:         Tags(tftags.New(ctx, m).IgnoreAWS()),
+			Tags:Tags(tftags.New(ctx, m).IgnoreAWS()),
 		},
 	}
 }
@@ -78,7 +78,7 @@ func getTagSpecificationsIn(ctx context.Context, resourceType string) []*ec2.Tag
 	return []*ec2.TagSpecification{
 		{
 			ResourceType: aws.String(resourceType),
-			Tags:         tags,
+			Tags:tags,
 		},
 	}
 }
@@ -96,7 +96,7 @@ func getTagSpecificationsInV2(ctx context.Context, resourceType awstypes.Resourc
 	return []awstypes.TagSpecification{
 		{
 			ResourceType: resourceType,
-			Tags:         tags,
+			Tags:tags,
 		},
 	}
 }

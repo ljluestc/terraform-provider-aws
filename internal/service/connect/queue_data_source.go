@@ -35,7 +35,7 @@ func DataSourceQueue() *schema.Resource {
 				Computed: true,
 			},
 			"instance_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				Validate
 func: validation.StringLenBetween(1, 100),
@@ -45,7 +45,7 @@ func: validation.StringLenBetween(1, 100),
 				Computed: true,
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ExactlyOneOf: []string{"name", "queue_id"},
@@ -71,7 +71,7 @@ func: validation.StringLenBetween(1, 100),
 				},
 			},
 			"queue_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ExactlyOneOf: []string{"queue_id", "name"},

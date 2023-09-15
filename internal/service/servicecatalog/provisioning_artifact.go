@@ -41,7 +41,7 @@ Timeouts: &schema.ResourceTimeout{
 
 Schema: map[string]*schema.Schema{
 	"accept_language": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Default:      AcceptLanguageEnglish,
 ValidateFunc: validation.StringInSlice(AcceptLanguage_Values(), false),
@@ -67,7 +67,7 @@ Default:  false,
 ForceNew: true,
 	},
 	"guidance": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Default:      servicecatalog.ProvisioningArtifactGuidanceDefault,
 ValidateFunc: validation.StringInSlice(servicecatalog.ProvisioningArtifactGuidance_Values(), false),
@@ -104,7 +104,7 @@ ExactlyOneOf: []string{
 },
 	},
 	"type": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ForceNew:     true,
 ValidateFunc: validation.StringInSlice(servicecatalog.ProvisioningArtifactType_Values(), false),
@@ -234,7 +234,7 @@ if err != nil {
 }
 
 input := &servicecatalog.UpdateProvisioningArtifactInput{
-	ProductId:              aws.String(productID),
+	ProductId:     aws.String(productID),
 	ProvisioningArtifactId: aws.String(artifactID),
 	Active:  aws.Bool(d.Get("active").(bool)),
 }
@@ -292,7 +292,7 @@ return sdkdiag.AppendErrorf(diags, "parsing Service Catalog Provisioning Artifac
 	}
 
 	input := &servicecatalog.DeleteProvisioningArtifactInput{
-ProductId:              aws.String(productID),
+ProductId:     aws.String(productID),
 ProvisioningArtifactId: aws.String(artifactID),
 	}
 

@@ -25,10 +25,10 @@ func TestAccCloudWatchCompositeAlarm_basic(t *testing.T) {
 	resourceName := "aws_cloudwatch_composite_alarm.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudwatch.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cloudwatch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCompositeAlarmDestroy(ctx),
+		CheckDestroy:    testAccCheckCompositeAlarmDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCompositeAlarmConfig_basic(rName),
@@ -61,10 +61,10 @@ func TestAccCloudWatchCompositeAlarm_disappears(t *testing.T) {
 	resourceName := "aws_cloudwatch_composite_alarm.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudwatch.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cloudwatch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCompositeAlarmDestroy(ctx),
+		CheckDestroy:    testAccCheckCompositeAlarmDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCompositeAlarmConfig_basic(rName),
@@ -84,10 +84,10 @@ func TestAccCloudWatchCompositeAlarm_tags(t *testing.T) {
 	resourceName := "aws_cloudwatch_composite_alarm.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudwatch.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cloudwatch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCompositeAlarmDestroy(ctx),
+		CheckDestroy:    testAccCheckCompositeAlarmDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCompositeAlarmConfig_tags1(rName, "key1", "value1"),
@@ -129,10 +129,10 @@ func TestAccCloudWatchCompositeAlarm_actionsEnabled(t *testing.T) {
 	resourceName := "aws_cloudwatch_composite_alarm.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudwatch.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cloudwatch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCompositeAlarmDestroy(ctx),
+		CheckDestroy:    testAccCheckCompositeAlarmDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCompositeAlarmConfig_actionsEnabled(rName, false),
@@ -163,10 +163,10 @@ func TestAccCloudWatchCompositeAlarm_alarmActions(t *testing.T) {
 	resourceName := "aws_cloudwatch_composite_alarm.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudwatch.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cloudwatch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCompositeAlarmDestroy(ctx),
+		CheckDestroy:    testAccCheckCompositeAlarmDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCompositeAlarmConfig_actions(rName),
@@ -204,10 +204,10 @@ func TestAccCloudWatchCompositeAlarm_description(t *testing.T) {
 	resourceName := "aws_cloudwatch_composite_alarm.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudwatch.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cloudwatch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCompositeAlarmDestroy(ctx),
+		CheckDestroy:    testAccCheckCompositeAlarmDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCompositeAlarmConfig_description(rName, "Test 1"),
@@ -238,10 +238,10 @@ func TestAccCloudWatchCompositeAlarm_updateAlarmRule(t *testing.T) {
 	resourceName := "aws_cloudwatch_composite_alarm.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudwatch.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cloudwatch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCompositeAlarmDestroy(ctx),
+		CheckDestroy:    testAccCheckCompositeAlarmDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCompositeAlarmConfig_basic(rName),
@@ -271,10 +271,10 @@ func TestAccCloudWatchCompositeAlarm_insufficientDataActions(t *testing.T) {
 	resourceName := "aws_cloudwatch_composite_alarm.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudwatch.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cloudwatch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCompositeAlarmDestroy(ctx),
+		CheckDestroy:    testAccCheckCompositeAlarmDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCompositeAlarmConfig_insufficientDataActions(rName),
@@ -312,10 +312,10 @@ func TestAccCloudWatchCompositeAlarm_okActions(t *testing.T) {
 	resourceName := "aws_cloudwatch_composite_alarm.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudwatch.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cloudwatch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCompositeAlarmDestroy(ctx),
+		CheckDestroy:    testAccCheckCompositeAlarmDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCompositeAlarmConfig_okActions(rName),
@@ -358,10 +358,10 @@ func TestAccCloudWatchCompositeAlarm_allActions(t *testing.T) {
 	resourceName := "aws_cloudwatch_composite_alarm.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudwatch.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cloudwatch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCompositeAlarmDestroy(ctx),
+		CheckDestroy:    testAccCheckCompositeAlarmDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCompositeAlarmConfig_allActions(rName),
@@ -396,10 +396,10 @@ func TestAccCloudWatchCompositeAlarm_actionsSuppressor(t *testing.T) {
 	resourceName := "aws_cloudwatch_composite_alarm.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cloudwatch.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cloudwatch.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCompositeAlarmDestroy(ctx),
+		CheckDestroy:    testAccCheckCompositeAlarmDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCompositeAlarmConfig_actionSuppressor(rName),
@@ -470,14 +470,14 @@ func testAccCompositeAlarmConfig_base(rName string) string {
 resource "aws_cloudwatch_metric_alarm" "test" {
   count = 2
 
-  alarm_name          = "%[1]s-${count.index}"
+  alarm_name = "%[1]s-${count.index}"
   comparison_operator = "GreaterThanOrEqualToThreshold"
   evaluation_periods  = 2
-  metric_name         = "CPUUtilization"
-  namespace           = "AWS/EC2"
-  period              = 120
-  statistic           = "Average"
-  threshold           = 80
+  metric_name= "CPUUtilization"
+  namespace  = "AWS/EC2"
+  period     = 120
+  statistic  = "Average"
+  threshold  = 80
 
   dimensions = {
     InstanceId = "i-abcd1234"
@@ -649,7 +649,7 @@ resource "aws_sns_topic" "test" {
 }
 
 resource "aws_cloudwatch_composite_alarm" "test" {
-  alarm_actions             = [aws_sns_topic.test[0].arn]
+  alarm_actions    = [aws_sns_topic.test[0].arn]
   alarm_name = %[1]q
   alarm_rule = "ALARM(${aws_cloudwatch_metric_alarm.test[0].alarm_name})"
   insufficient_data_actions = [aws_sns_topic.test[1].arn]
@@ -666,14 +666,14 @@ resource "aws_sns_topic" "test" {
 }
 
 resource "aws_cloudwatch_composite_alarm" "test" {
-  alarm_actions             = [aws_sns_topic.test[0].arn]
+  alarm_actions    = [aws_sns_topic.test[0].arn]
   alarm_name = %[1]q
   alarm_rule = "ALARM(${aws_cloudwatch_metric_alarm.test[0].alarm_name})"
   insufficient_data_actions = [aws_sns_topic.test[1].arn]
   ok_actions = [aws_sns_topic.test[2].arn]
 
   actions_suppressor {
-    alarm            = aws_cloudwatch_metric_alarm.test[0].alarm_name
+    alarm   = aws_cloudwatch_metric_alarm.test[0].alarm_name
     extension_period = 10
     wait_period      = 20
   }

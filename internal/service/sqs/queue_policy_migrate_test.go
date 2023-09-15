@@ -15,14 +15,14 @@ func TestQueuePolicyMigrateState(t *testing.T) {
 
 	cases := map[string]struct {
 		StateVersion int
-		ID           string
+		ID  string
 		Attributes   map[string]string
 		Expected     string
-		Meta         interface{}
+		Metainterface{}
 	}{
 		"v0_1": {
 			StateVersion: 0,
-			ID:           "sqs-policy-https://queue.amazonaws.com/0123456789012/myqueue",
+			ID:  "sqs-policy-https://queue.amazonaws.com/0123456789012/myqueue",
 			Attributes: map[string]string{
 				"policy":    "{}",
 				"queue_url": "https://queue.amazonaws.com/0123456789012/myqueue",
@@ -33,7 +33,7 @@ func TestQueuePolicyMigrateState(t *testing.T) {
 
 	for tn, tc := range cases {
 		is := &terraform.InstanceState{
-			ID:         tc.ID,
+			ID:tc.ID,
 			Attributes: tc.Attributes,
 		}
 		is, err := tfsqs.QueuePolicyMigrateState(

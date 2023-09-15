@@ -53,7 +53,7 @@ func DataSourceLoadBalancer() *schema.Resource {
 				},
 			},
 			"arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: verify.ValidARN,

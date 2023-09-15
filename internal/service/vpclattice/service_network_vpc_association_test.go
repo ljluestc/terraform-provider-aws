@@ -37,7 +37,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckServiceNetworkVPCAssociationDestroy(ctx),
+CheckDestroy:    testAccCheckServiceNetworkVPCAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccServiceNetworkVPCAssociationConfig_basic(rName),
@@ -70,7 +70,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckServiceNetworkVPCAssociationDestroy(ctx),
+CheckDestroy:    testAccCheckServiceNetworkVPCAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccServiceNetworkVPCAssociationConfig_arn(rName),
@@ -104,7 +104,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckServiceNetworkVPCAssociationDestroy(ctx),
+CheckDestroy:    testAccCheckServiceNetworkVPCAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccServiceNetworkVPCAssociationConfig_basic(rName),
@@ -133,7 +133,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckServiceNetworkVPCAssociationDestroy(ctx),
+CheckDestroy:    testAccCheckServiceNetworkVPCAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccServiceNetworkVPCAssociationConfig_full(rName),
@@ -168,7 +168,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckServiceNetworkVPCAssociationDestroy(ctx),
+CheckDestroy:    testAccCheckServiceNetworkVPCAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccServiceNetworkVPCAssociationConfig_tags1(rName, "key1", "value1"),
@@ -265,7 +265,7 @@ resource "aws_vpclattice_service_network" "test" {
 func testAccServiceNetworkVPCAssociationConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccServiceNetworkVPCAssociationConfig_base(rName), `
 resource "aws_vpclattice_service_network_vpc_association" "test" {
-  vpc_identifier             = aws_vpc.test.id
+  vpc_identifier    = aws_vpc.test.id
   service_network_identifier = aws_vpclattice_service_network.test.id
 }
 `)
@@ -274,7 +274,7 @@ resource "aws_vpclattice_service_network_vpc_association" "test" {
 func testAccServiceNetworkVPCAssociationConfig_arn(rName string) string {
 	return acctest.ConfigCompose(testAccServiceNetworkVPCAssociationConfig_base(rName), `
 resource "aws_vpclattice_service_network_vpc_association" "test" {
-  vpc_identifier             = aws_vpc.test.id
+  vpc_identifier    = aws_vpc.test.id
   service_network_identifier = aws_vpclattice_service_network.test.arn
 }
 `)
@@ -292,8 +292,8 @@ resource "aws_security_group" "test" {
 }
 
 resource "aws_vpclattice_service_network_vpc_association" "test" {
-  vpc_identifier             = aws_vpc.test.id
-  security_group_ids         = [aws_security_group.test.id]
+  vpc_identifier    = aws_vpc.test.id
+  security_group_ids= [aws_security_group.test.id]
   service_network_identifier = aws_vpclattice_service_network.test.id
 }
 `, rName))
@@ -302,7 +302,7 @@ resource "aws_vpclattice_service_network_vpc_association" "test" {
 func testAccServiceNetworkVPCAssociationConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccServiceNetworkVPCAssociationConfig_base(rName), fmt.Sprintf(`
 resource "aws_vpclattice_service_network_vpc_association" "test" {
-  vpc_identifier             = aws_vpc.test.id
+  vpc_identifier    = aws_vpc.test.id
   service_network_identifier = aws_vpclattice_service_network.test.id
 
   tags = {
@@ -315,7 +315,7 @@ resource "aws_vpclattice_service_network_vpc_association" "test" {
 func testAccServiceNetworkVPCAssociationConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccServiceNetworkVPCAssociationConfig_base(rName), fmt.Sprintf(`
 resource "aws_vpclattice_service_network_vpc_association" "test" {
-  vpc_identifier             = aws_vpc.test.id
+  vpc_identifier    = aws_vpc.test.id
   service_network_identifier = aws_vpclattice_service_network.test.id
 
   tags = {

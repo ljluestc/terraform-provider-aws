@@ -36,9 +36,9 @@ func TestAccVPCLatticeAuthPolicy_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAuthPolicyDestroy(ctx),
+		CheckDestroy:    testAccCheckAuthPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAuthPolicyConfig_basic(rName),
@@ -70,9 +70,9 @@ func TestAccVPCLatticeAuthPolicy_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAuthPolicyDestroy(ctx),
+		CheckDestroy:    testAccCheckAuthPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAuthPolicyConfig_basic(rName),
@@ -150,7 +150,7 @@ data "aws_caller_identity" "current" {}
 
 resource "aws_vpclattice_service" "test" {
   name= %[1]q
-  auth_type          = "AWS_IAM"
+  auth_type = "AWS_IAM"
   custom_domain_name = "example.com"
 }
 
@@ -166,7 +166,7 @@ resource "aws_vpclattice_auth_policy" "test" {
       Resource  = "*"
       Condition = {
         StringNotEqualsIgnoreCase = {
-          "aws:PrincipalType" = "anonymous"
+ "aws:PrincipalType" = "anonymous"
         }
       }
     }]

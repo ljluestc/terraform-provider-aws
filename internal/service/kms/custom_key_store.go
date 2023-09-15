@@ -50,8 +50,8 @@ func ResourceCustomKeyStore() *schema.Resource {
 				Required: true,
 			},
 			"key_store_password": {
-				Type:             schema.TypeString,
-				Required:         true,
+				Type:    schema.TypeString,
+				Required:true,
 				ValidateDiagFunc: validation.ToDiagFunc(validation.StringLenBetween(7, 32)),
 			},
 			"trust_anchor_certificate": {

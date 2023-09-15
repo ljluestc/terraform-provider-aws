@@ -30,7 +30,7 @@ func TestAccKafkaScramSecretAssociation_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, kafka.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckScramSecretAssociationDestroy(ctx),
+CheckDestroy:    testAccCheckScramSecretAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccScramSecretAssociationConfig_basic(rName, 1),
@@ -62,7 +62,7 @@ func TestAccKafkaScramSecretAssociation_update(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, kafka.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckScramSecretAssociationDestroy(ctx),
+CheckDestroy:    testAccCheckScramSecretAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccScramSecretAssociationConfig_basic(rName, 1),
@@ -107,7 +107,7 @@ func TestAccKafkaScramSecretAssociation_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, kafka.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckScramSecretAssociationDestroy(ctx),
+CheckDestroy:    testAccCheckScramSecretAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccScramSecretAssociationConfig_basic(rName, 1),
@@ -131,7 +131,7 @@ func TestAccKafkaScramSecretAssociation_Disappears_cluster(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, kafka.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckScramSecretAssociationDestroy(ctx),
+CheckDestroy:    testAccCheckScramSecretAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccScramSecretAssociationConfig_basic(rName, 1),
@@ -192,8 +192,8 @@ func testAccScramSecretAssociationConfig_base(rName string, count int) string {
 data "aws_partition" "current" {}
 
 resource "aws_msk_cluster" "test" {
-  cluster_name           = %[1]q
-  kafka_version          = "2.8.1"
+  cluster_name  = %[1]q
+  kafka_version = "2.8.1"
   number_of_broker_nodes = 3
 
   broker_node_group_info {
@@ -227,7 +227,7 @@ resource "aws_secretsmanager_secret" "test" {
 }
 
 resource "aws_secretsmanager_secret_version" "test" {
-  count         = %[2]d
+  count= %[2]d
   secret_id     = aws_secretsmanager_secret.test[count.index].id
   secret_string = jsonencode({ username = "user", password = "pass" })
 }

@@ -30,12 +30,12 @@ func DataSourceQuickConnect() *schema.Resource {
 				Computed: true,
 			},
 			"instance_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringLenBetween(1, 100),
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ExactlyOneOf: []string{"name", "quick_connect_id"},
@@ -97,7 +97,7 @@ func DataSourceQuickConnect() *schema.Resource {
 				},
 			},
 			"quick_connect_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ExactlyOneOf: []string{"quick_connect_id", "name"},

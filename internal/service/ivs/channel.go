@@ -58,13 +58,13 @@ func ResourceChannel() *schema.Resource {
 				Computed: true,
 			},
 			"latency_mode": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: validation.StringInSlice(ivs.ChannelLatencyMode_Values(), false),
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`^[0-9A-Za-z_-]{0,128}$`), "must contain only alphanumeric characters, hyphen, or underscore and at most 128 characters"),
@@ -74,7 +74,7 @@ func ResourceChannel() *schema.Resource {
 				Computed: true,
 			},
 			"recording_configuration_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: verify.ValidARN,
@@ -82,7 +82,7 @@ func ResourceChannel() *schema.Resource {
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: validation.StringInSlice(ivs.ChannelType_Values(), false),

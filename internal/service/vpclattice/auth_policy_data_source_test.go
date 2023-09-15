@@ -32,7 +32,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAuthPolicyDestroy(ctx),
+CheckDestroy:    testAccCheckAuthPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAuthPolicyDataSourceConfig_basic(rName),
@@ -57,7 +57,7 @@ data "aws_vpclattice_auth_policy" "test" {
 
 resource "aws_vpclattice_service" "test" {
   name= %[1]q
-  auth_type          = "AWS_IAM"
+  auth_type = "AWS_IAM"
   custom_domain_name = "example.com"
 }
 
@@ -73,7 +73,7 @@ resource "aws_vpclattice_auth_policy" "test" {
       Resource  = "*"
       Condition = {
         StringNotEqualsIgnoreCase = {
-          "aws:PrincipalType" = "anonymous"
+ "aws:PrincipalType" = "anonymous"
         }
       }
     }]

@@ -54,7 +54,7 @@ func ResourceRepository() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"encryption_type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ForceNew:     true,
 							Default:      ecr.EncryptionTypeAes256,
@@ -69,7 +69,7 @@ func ResourceRepository() *schema.Resource {
 					},
 				},
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
-				ForceNew:         true,
+				ForceNew:true,
 			},
 			"force_delete": {
 				Type:     schema.TypeBool,
@@ -90,7 +90,7 @@ func ResourceRepository() *schema.Resource {
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 			},
 			"image_tag_mutability": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Default:      ecr.ImageTagMutabilityMutable,
 				ValidateFunc: validation.StringInSlice(ecr.ImageTagMutability_Values(), false),
@@ -122,8 +122,8 @@ func resourceRepositoryCreate(ctx context.Context, d *schema.ResourceData, meta 
 	input := &ecr.CreateRepositoryInput{
 		EncryptionConfiguration: expandRepositoryEncryptionConfiguration(d.Get("encryption_configuration").([]interface{})),
 		ImageTagMutability:      aws.String(d.Get("image_tag_mutability").(string)),
-		RepositoryName:          aws.String(name),
-		Tags:                    getTagsIn(ctx),
+		RepositoryName: aws.String(name),
+		Tags:  getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("image_scanning_configuration"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
@@ -207,7 +207,7 @@ func resourceRepositoryUpdate(ctx context.Context, d *schema.ResourceData, meta 
 	if d.HasChange("image_tag_mutability") {
 		input := &ecr.PutImageTagMutabilityInput{
 			ImageTagMutability: aws.String(d.Get("image_tag_mutability").(string)),
-			RegistryId:         aws.String(d.Get("registry_id").(string)),
+			RegistryId:aws.String(d.Get("registry_id").(string)),
 			RepositoryName:     aws.String(d.Id()),
 		}
 
@@ -221,8 +221,8 @@ func resourceRepositoryUpdate(ctx context.Context, d *schema.ResourceData, meta 
 	if d.HasChange("image_scanning_configuration") {
 		input := &ecr.PutImageScanningConfigurationInput{
 			ImageScanningConfiguration: &ecr.ImageScanningConfiguration{},
-			RegistryId:                 aws.String(d.Get("registry_id").(string)),
-			RepositoryName:             aws.String(d.Id()),
+			RegistryId:        aws.String(d.Get("registry_id").(string)),
+			RepositoryName:    aws.String(d.Id()),
 		}
 
 		if v, ok := d.GetOk("image_scanning_configuration"); ok && len(v.([]interface{})) > 0 && v.([]interface{})[0] != nil {
@@ -246,7 +246,7 @@ func resourceRepositoryDelete(ctx context.Context, d *schema.ResourceData, meta 
 
 	log.Printf("[DEBUG] Deleting ECR Repository: %s", d.Id())
 	_, err := conn.DeleteRepositoryWithContext(ctx, &ecr.DeleteRepositoryInput{
-		Force:          aws.Bool(d.Get("force_delete").(bool)),
+		Force: aws.Bool(d.Get("force_delete").(bool)),
 		RegistryId:     aws.String(d.Get("registry_id").(string)),
 		RepositoryName: aws.String(d.Id()),
 	})
@@ -357,7 +357,7 @@ func flattenRepositoryEncryptionConfiguration(ec *ecr.EncryptionConfiguration) [
 
 	config := map[string]interface{}{
 		"encryption_type": aws.StringValue(ec.EncryptionType),
-		"kms_key":         aws.StringValue(ec.KmsKey),
+		"kms_key":aws.StringValue(ec.KmsKey),
 	}
 
 	return []map[string]interface{}{

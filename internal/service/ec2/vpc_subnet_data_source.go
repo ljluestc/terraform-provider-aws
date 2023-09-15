@@ -159,8 +159,8 @@ func dataSourceSubnetRead(ctx context.Context, d *schema.ResourceData, meta inte
 		"availabilityZone":   d.Get("availability_zone").(string),
 		"availabilityZoneId": d.Get("availability_zone_id").(string),
 		"defaultForAz":       defaultForAzStr,
-		"state":              d.Get("state").(string),
-		"vpc-id":             d.Get("vpc_id").(string),
+		"state":     d.Get("state").(string),
+		"vpc-id":    d.Get("vpc_id").(string),
 	}
 
 	if v, ok := d.GetOk("cidr_block"); ok {

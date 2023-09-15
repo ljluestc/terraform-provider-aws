@@ -42,14 +42,14 @@ func ResourceReportGroup() *schema.Resource {
 				Computed: true,
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
 func: validation.StringLenBetween(2, 128),
 			},
 			"type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
@@ -62,7 +62,7 @@ func: validation.StringInSlice(codebuild.ReportType_Values(), false),
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							Validate
 func: validation.StringInSlice(codebuild.ReportExportConfigType_Values(), false),
@@ -82,13 +82,13 @@ func: validation.StringInSlice(codebuild.ReportExportConfigType_Values(), false)
 										Optional: true,
 									},
 									"encryption_key": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										Validate
 func: verify.ValidARN,
 									},
 									"packaging": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										Default:      codebuild.ReportPackagingTypeNone,
 										Validate
@@ -127,10 +127,10 @@ func resourceReportGroupCreate(ctx context.Context, d *schema.ResourceData, meta
 	conn := meta.(*conns.AWSClient).CodeBuildConn(ctx)
 
 	input := &codebuild.CreateReportGroupInput{
-		Name:         aws.String(d.Get("name").(string)),
-		Type:         aws.String(d.Get("type").(string)),
+		Name:aws.String(d.Get("name").(string)),
+		Type:aws.String(d.Get("type").(string)),
 		ExportConfig: expandReportGroupExportConfig(d.Get("export_config").([]interface{})),
-		Tags:         getTagsIn(ctx),
+		Tags:getTagsIn(ctx),
 	}
 
 	resp, err := conn.CreateReportGroupWithContext(ctx, input)
@@ -217,7 +217,7 @@ func resourceReportGroupDelete(ctx context.Context, d *schema.ResourceData, meta
 	conn := meta.(*conns.AWSClient).CodeBuildConn(ctx)
 
 	deleteOpts := &codebuild.DeleteReportGroupInput{
-		Arn:           aws.String(d.Id()),
+		Arn:  aws.String(d.Id()),
 		DeleteReports: aws.Bool(d.Get("delete_reports").(bool)),
 	}
 

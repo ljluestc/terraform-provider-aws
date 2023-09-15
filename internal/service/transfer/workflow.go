@@ -84,7 +84,7 @@ func ResourceWorkflow() *schema.Resource {
 																ForceNew: true,
 															},
 															"path": {
-																Type:         schema.TypeString,
+																Type:schema.TypeString,
 																Optional:     true,
 																ForceNew:     true,
 																ValidateFunc: validation.StringLenBetween(1, 65536),
@@ -105,7 +105,7 @@ func ResourceWorkflow() *schema.Resource {
 																ForceNew: true,
 															},
 															"key": {
-																Type:         schema.TypeString,
+																Type:schema.TypeString,
 																Optional:     true,
 																ForceNew:     true,
 																ValidateFunc: validation.StringLenBetween(0, 1024),
@@ -126,7 +126,7 @@ func ResourceWorkflow() *schema.Resource {
 										),
 									},
 									"overwrite_existing": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ForceNew:     true,
 										Default:      transfer.OverwriteExistingFalse,
@@ -170,13 +170,13 @@ func ResourceWorkflow() *schema.Resource {
 										),
 									},
 									"target": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ForceNew:     true,
 										ValidateFunc: verify.ValidARN,
 									},
 									"timeout_seconds": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										ForceNew:     true,
 										ValidateFunc: validation.IntBetween(1, 1800),
@@ -211,7 +211,7 @@ func ResourceWorkflow() *schema.Resource {
 																ForceNew: true,
 															},
 															"path": {
-																Type:         schema.TypeString,
+																Type:schema.TypeString,
 																Optional:     true,
 																ForceNew:     true,
 																ValidateFunc: validation.StringLenBetween(1, 65536),
@@ -231,7 +231,7 @@ func ResourceWorkflow() *schema.Resource {
 																ForceNew: true,
 															},
 															"key": {
-																Type:         schema.TypeString,
+																Type:schema.TypeString,
 																Optional:     true,
 																ForceNew:     true,
 																ValidateFunc: validation.StringLenBetween(0, 1024),
@@ -252,7 +252,7 @@ func ResourceWorkflow() *schema.Resource {
 										),
 									},
 									"overwrite_existing": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ForceNew:     true,
 										Default:      transfer.OverwriteExistingFalse,
@@ -268,7 +268,7 @@ func ResourceWorkflow() *schema.Resource {
 										),
 									},
 									"type": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ForceNew:     true,
 										ValidateFunc: validation.StringInSlice(transfer.EncryptionType_Values(), false),
@@ -337,13 +337,13 @@ func ResourceWorkflow() *schema.Resource {
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"key": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ForceNew:     true,
 													ValidateFunc: validation.StringLenBetween(0, 128),
 												},
 												"value": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ForceNew:     true,
 													ValidateFunc: validation.StringLenBetween(0, 256),
@@ -355,7 +355,7 @@ func ResourceWorkflow() *schema.Resource {
 							},
 						},
 						"type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.StringInSlice(transfer.WorkflowStepType_Values(), false),
@@ -397,7 +397,7 @@ func ResourceWorkflow() *schema.Resource {
 																ForceNew: true,
 															},
 															"path": {
-																Type:         schema.TypeString,
+																Type:schema.TypeString,
 																Optional:     true,
 																ForceNew:     true,
 																ValidateFunc: validation.StringLenBetween(1, 65536),
@@ -418,7 +418,7 @@ func ResourceWorkflow() *schema.Resource {
 																ForceNew: true,
 															},
 															"key": {
-																Type:         schema.TypeString,
+																Type:schema.TypeString,
 																Optional:     true,
 																ForceNew:     true,
 																ValidateFunc: validation.StringLenBetween(0, 1024),
@@ -439,7 +439,7 @@ func ResourceWorkflow() *schema.Resource {
 										),
 									},
 									"overwrite_existing": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ForceNew:     true,
 										Default:      transfer.OverwriteExistingFalse,
@@ -483,13 +483,13 @@ func ResourceWorkflow() *schema.Resource {
 										),
 									},
 									"target": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ForceNew:     true,
 										ValidateFunc: verify.ValidARN,
 									},
 									"timeout_seconds": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										ForceNew:     true,
 										ValidateFunc: validation.IntBetween(1, 1800),
@@ -524,7 +524,7 @@ func ResourceWorkflow() *schema.Resource {
 																ForceNew: true,
 															},
 															"path": {
-																Type:         schema.TypeString,
+																Type:schema.TypeString,
 																Optional:     true,
 																ForceNew:     true,
 																ValidateFunc: validation.StringLenBetween(1, 65536),
@@ -545,7 +545,7 @@ func ResourceWorkflow() *schema.Resource {
 																ForceNew: true,
 															},
 															"key": {
-																Type:         schema.TypeString,
+																Type:schema.TypeString,
 																Optional:     true,
 																ForceNew:     true,
 																ValidateFunc: validation.StringLenBetween(0, 1024),
@@ -566,7 +566,7 @@ func ResourceWorkflow() *schema.Resource {
 										),
 									},
 									"overwrite_existing": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ForceNew:     true,
 										Default:      transfer.OverwriteExistingFalse,
@@ -582,7 +582,7 @@ func ResourceWorkflow() *schema.Resource {
 										),
 									},
 									"type": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ForceNew:     true,
 										ValidateFunc: validation.StringInSlice(transfer.EncryptionType_Values(), false),
@@ -651,13 +651,13 @@ func ResourceWorkflow() *schema.Resource {
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"key": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ForceNew:     true,
 													ValidateFunc: validation.StringLenBetween(0, 128),
 												},
 												"value": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ForceNew:     true,
 													ValidateFunc: validation.StringLenBetween(0, 256),
@@ -669,7 +669,7 @@ func ResourceWorkflow() *schema.Resource {
 							},
 						},
 						"type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.StringInSlice(transfer.WorkflowStepType_Values(), false),

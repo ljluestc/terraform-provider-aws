@@ -40,7 +40,7 @@ func ResourceEventSourceMapping() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"amazon_managed_kafka_event_source_config": {
-				Type:          schema.TypeList,
+				Type: schema.TypeList,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -49,7 +49,7 @@ func ResourceEventSourceMapping() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"consumer_group_id": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Computed:     true,
 							ForceNew:     true,
@@ -110,7 +110,7 @@ func ResourceEventSourceMapping() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"destination_arn": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: verify.ValidARN,
 									},
@@ -136,7 +136,7 @@ func ResourceEventSourceMapping() *schema.Resource {
 							Required: true,
 						},
 						"full_document": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Default:      lambda.FullDocumentDefault,
 							ValidateFunc: validation.StringInSlice(lambda.FullDocument_Values(), false),
@@ -150,7 +150,7 @@ func ResourceEventSourceMapping() *schema.Resource {
 				Default:  true,
 			},
 			"event_source_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ExactlyOneOf: []string{"event_source_arn", "self_managed_event_source"},
@@ -168,7 +168,7 @@ func ResourceEventSourceMapping() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"pattern": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: validation.StringLenBetween(0, 4096),
 									},
@@ -197,7 +197,7 @@ func ResourceEventSourceMapping() *schema.Resource {
 				Type:     schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: validation.StringInSlice(lambda.FunctionResponseType_Values(), false),
 				},
 			},
@@ -223,13 +223,13 @@ func ResourceEventSourceMapping() *schema.Resource {
 				),
 			},
 			"maximum_retry_attempts": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: validation.IntBetween(-1, 10_000),
 			},
 			"parallelization_factor": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				ValidateFunc: validation.IntBetween(1, 10),
 				Computed:     true,
@@ -240,7 +240,7 @@ func ResourceEventSourceMapping() *schema.Resource {
 				ForceNew: true,
 				MaxItems: 1,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: validation.StringLenBetween(1, 1000),
 				},
 			},
@@ -251,7 +251,7 @@ func ResourceEventSourceMapping() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"maximum_concurrency": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							ValidateFunc: validation.IntBetween(2, 1000),
 						},
@@ -289,7 +289,7 @@ func ResourceEventSourceMapping() *schema.Resource {
 				ExactlyOneOf: []string{"event_source_arn", "self_managed_event_source"},
 			},
 			"self_managed_kafka_event_source_config": {
-				Type:          schema.TypeList,
+				Type: schema.TypeList,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -298,7 +298,7 @@ func ResourceEventSourceMapping() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"consumer_group_id": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Computed:     true,
 							ForceNew:     true,
@@ -314,7 +314,7 @@ func ResourceEventSourceMapping() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringInSlice(lambda.SourceAccessType_Values(), false),
 						},
@@ -326,13 +326,13 @@ func ResourceEventSourceMapping() *schema.Resource {
 				},
 			},
 			"starting_position": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringInSlice(lambda.EventSourcePosition_Values(), false),
 			},
 			"starting_position_timestamp": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.IsRFC3339Time,
@@ -350,12 +350,12 @@ func ResourceEventSourceMapping() *schema.Resource {
 				Optional: true,
 				ForceNew: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: validation.StringLenBetween(1, 249),
 				},
 			},
 			"tumbling_window_in_seconds": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				ValidateFunc: validation.IntBetween(0, 900),
 			},

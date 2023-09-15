@@ -35,7 +35,7 @@ func TestAccLambdaAlias_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAliasDestroy(ctx),
+CheckDestroy:    testAccCheckAliasDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAliasConfig_basic(roleName, policyName, attachmentName, funcName, aliasName),
@@ -72,7 +72,7 @@ func TestAccLambdaAlias_FunctionName_name(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAliasDestroy(ctx),
+CheckDestroy:    testAccCheckAliasDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAliasConfig_usingFunctionName(rName, rName, rName, rName, rName),
@@ -114,7 +114,7 @@ func TestAccLambdaAlias_nameUpdate(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAliasDestroy(ctx),
+CheckDestroy:    testAccCheckAliasDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAliasConfig_basic(roleName, policyName, attachmentName, funcName, aliasName),
@@ -160,7 +160,7 @@ func TestAccLambdaAlias_routing(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAliasDestroy(ctx),
+CheckDestroy:    testAccCheckAliasDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAliasConfig_basic(roleName, policyName, attachmentName, funcName, aliasName),
@@ -235,7 +235,7 @@ conn := acctest.Provider.Meta().(*conns.AWSClient).LambdaConn(ctx)
 
 params := &lambda.GetAliasInput{
 	FunctionName: aws.String(rs.Primary.ID),
-	Name:         aws.String(rs.Primary.Attributes["name"]),
+	Name:aws.String(rs.Primary.Attributes["name"]),
 }
 
 getAliasConfiguration, err := conn.GetAliasWithContext(ctx, params)
@@ -362,17 +362,17 @@ func testAccAliasConfig_basic(roleName, policyName, attachmentName, funcName, al
 testAccAliasConfig_base(roleName, policyName, attachmentName),
 fmt.Sprintf(`
 resource "aws_lambda_function" "test" {
-  filename         = "test-fixtures/lambdatest.zip"
+  filename= "test-fixtures/lambdatest.zip"
   function_name    = "%s"
-  role             = aws_iam_role.iam_for_lambda.arn
-  handler          = "exports.example"
-  runtime          = "nodejs16.x"
+  role    = aws_iam_role.iam_for_lambda.arn
+  handler = "exports.example"
+  runtime = "nodejs16.x"
   source_code_hash = filebase64sha256("test-fixtures/lambdatest.zip")
-  publish          = "true"
+  publish = "true"
 }
 
 resource "aws_lambda_alias" "test" {
-  name             = "%s"
+  name    = "%s"
   description      = "a sample description"
   function_name    = aws_lambda_function.test.arn
   function_version = "1"
@@ -385,17 +385,17 @@ func testAccAliasConfig_usingFunctionName(roleName, policyName, attachmentName, 
 testAccAliasConfig_base(roleName, policyName, attachmentName),
 fmt.Sprintf(`
 resource "aws_lambda_function" "test" {
-  filename         = "test-fixtures/lambdatest.zip"
+  filename= "test-fixtures/lambdatest.zip"
   function_name    = "%s"
-  role             = aws_iam_role.iam_for_lambda.arn
-  handler          = "exports.example"
-  runtime          = "nodejs16.x"
+  role    = aws_iam_role.iam_for_lambda.arn
+  handler = "exports.example"
+  runtime = "nodejs16.x"
   source_code_hash = filebase64sha256("test-fixtures/lambdatest.zip")
-  publish          = "true"
+  publish = "true"
 }
 
 resource "aws_lambda_alias" "test" {
-  name             = "%s"
+  name    = "%s"
   description      = "a sample description"
   function_name    = aws_lambda_function.test.function_name
   function_version = "1"
@@ -408,17 +408,17 @@ func testAccAliasConfig_routing(roleName, policyName, attachmentName, funcName, 
 testAccAliasConfig_base(roleName, policyName, attachmentName),
 fmt.Sprintf(`
 resource "aws_lambda_function" "test" {
-  filename         = "test-fixtures/lambdatest_modified.zip"
+  filename= "test-fixtures/lambdatest_modified.zip"
   function_name    = "%s"
-  role             = aws_iam_role.iam_for_lambda.arn
-  handler          = "exports.example"
-  runtime          = "nodejs16.x"
+  role    = aws_iam_role.iam_for_lambda.arn
+  handler = "exports.example"
+  runtime = "nodejs16.x"
   source_code_hash = filebase64sha256("test-fixtures/lambdatest_modified.zip")
-  publish          = "true"
+  publish = "true"
 }
 
 resource "aws_lambda_alias" "test" {
-  name             = "%s"
+  name    = "%s"
   description      = "a sample description"
   function_name    = aws_lambda_function.test.arn
   function_version = "1"

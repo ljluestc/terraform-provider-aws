@@ -52,12 +52,12 @@ Type:     schema.TypeString,
 Required: true,
 	},
 	"description": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ValidateFunc: validation.StringLenBetween(1, 250),
 	},
 	"instance_id": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ValidateFunc: validation.StringLenBetween(1, 100),
 	},
@@ -68,12 +68,12 @@ Required: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "channel": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Required:     true,
 	ValidateFunc: validation.StringInSlice(connect.Channel_Values(), false), // Valid values: VOICE | CHAT | TASK
 },
 "concurrency": {
-	Type:         schema.TypeInt,
+	Type:schema.TypeInt,
 	Required:     true,
 	ValidateFunc: validation.IntBetween(1, 10),
 },
@@ -81,7 +81,7 @@ Elem: &schema.Resource{
 },
 	},
 	"name": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ValidateFunc: validation.StringLenBetween(1, 127),
 	},
@@ -92,17 +92,17 @@ MinItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "channel": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Required:     true,
 	ValidateFunc: validation.StringInSlice(connect.Channel_Values(), false), // Valid values: VOICE | CHAT | TASK
 },
 "delay": {
-	Type:         schema.TypeInt,
+	Type:schema.TypeInt,
 	Required:     true,
 	ValidateFunc: validation.IntBetween(0, 9999),
 },
 "priority": {
-	Type:         schema.TypeInt,
+	Type:schema.TypeInt,
 	Required:     true,
 	ValidateFunc: validation.IntBetween(1, 99),
 },
@@ -138,8 +138,8 @@ func resourceRoutingProfileCreate(ctx context.Context, d *schema.ResourceData, m
 	name := d.Get("name").(string)
 	input := &connect.CreateRoutingProfileInput{
 DefaultOutboundQueueId: aws.String(d.Get("default_outbound_queue_id").(string)),
-Description:            aws.String(d.Get("description").(string)),
-InstanceId:             aws.String(instanceID),
+Description:   aws.String(d.Get("description").(string)),
+InstanceId:    aws.String(instanceID),
 MediaConcurrencies:     expandRoutingProfileMediaConcurrencies(d.Get("media_concurrencies").(*schema.Set).List()),
 Name:    aws.String(name),
 Tags:    getTagsIn(ctx),

@@ -36,12 +36,12 @@ Importer: &schema.ResourceImporter{
 Schema: map[string]*schema.Schema{
 	"policy": {
 Type:   schema.TypeString,
-Required:              true,
+Required:     true,
 DiffSuppress
 func:      verify.SuppressEquivalentPolicyDiffs,
 DiffSuppressOnRefresh: true,
 Validate
-func:          validation.StringIsJSON,
+func: validation.StringIsJSON,
 State
 func: 
 func(v interface{}) string {
@@ -50,7 +50,7 @@ func(v interface{}) string {
 },
 	},
 	"resource_arn": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ForceNew:     true,
 Validate

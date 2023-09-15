@@ -148,7 +148,7 @@ func expandTriggers(configured []interface{}) []*codecommit.RepositoryTrigger {
 		t := &codecommit.RepositoryTrigger{
 			CustomData:     aws.String(data["custom_data"].(string)),
 			DestinationArn: aws.String(data["destination_arn"].(string)),
-			Name:           aws.String(data["name"].(string)),
+			Name:  aws.String(data["name"].(string)),
 		}
 
 		branches := make([]*string, len(data["branches"].([]interface{})))

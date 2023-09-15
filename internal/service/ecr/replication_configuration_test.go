@@ -19,7 +19,7 @@ func TestAccECRReplicationConfiguration_serial(t *testing.T) {
 	t.Parallel()
 
 	testCases := map[string]func(t *testing.T){
-"basic":            testAccReplicationConfiguration_basic,
+"basic":   testAccReplicationConfiguration_basic,
 "repositoryFilter": testAccReplicationConfiguration_repositoryFilter,
 	}
 
@@ -34,7 +34,7 @@ func testAccReplicationConfiguration_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ecr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckReplicationConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckReplicationConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccReplicationConfigurationConfig_basic(acctest.AlternateRegion()),
@@ -94,7 +94,7 @@ func testAccReplicationConfiguration_repositoryFilter(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ecr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckReplicationConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckReplicationConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccReplicationConfigurationConfig_repositoryFilter(acctest.AlternateRegion()),

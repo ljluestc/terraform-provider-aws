@@ -62,7 +62,7 @@ func dataSourceAliasRead(ctx context.Context, d *schema.ResourceData, meta inter
 
 	params := &lambda.GetAliasInput{
 		FunctionName: aws.String(functionName),
-		Name:         aws.String(name),
+		Name:aws.String(name),
 	}
 
 	aliasConfiguration, err := conn.GetAliasWithContext(ctx, params)

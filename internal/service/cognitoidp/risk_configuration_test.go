@@ -25,10 +25,10 @@ func TestAccCognitoIDPRiskConfiguration_exception(t *testing.T) {
 	resourceName := "aws_cognito_risk_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRiskConfigurationDestroy(ctx),
+		CheckDestroy:    testAccCheckRiskConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRiskConfigurationConfig_riskException(rName),
@@ -75,10 +75,10 @@ func TestAccCognitoIDPRiskConfiguration_client(t *testing.T) {
 	resourceName := "aws_cognito_risk_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRiskConfigurationDestroy(ctx),
+		CheckDestroy:    testAccCheckRiskConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRiskConfigurationConfig_riskExceptionClient(rName),
@@ -109,10 +109,10 @@ func TestAccCognitoIDPRiskConfiguration_compromised(t *testing.T) {
 	resourceName := "aws_cognito_risk_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRiskConfigurationDestroy(ctx),
+		CheckDestroy:    testAccCheckRiskConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRiskConfigurationConfig_compromised(rName),
@@ -143,10 +143,10 @@ func TestAccCognitoIDPRiskConfiguration_disappears(t *testing.T) {
 	resourceName := "aws_cognito_risk_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRiskConfigurationDestroy(ctx),
+		CheckDestroy:    testAccCheckRiskConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRiskConfigurationConfig_riskException(rName),
@@ -166,10 +166,10 @@ func TestAccCognitoIDPRiskConfiguration_disappears_userPool(t *testing.T) {
 	resourceName := "aws_cognito_risk_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRiskConfigurationDestroy(ctx),
+		CheckDestroy:    testAccCheckRiskConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRiskConfigurationConfig_riskException(rName),
@@ -188,10 +188,10 @@ func TestAccCognitoIDPRiskConfiguration_empty(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRiskConfigurationDestroy(ctx),
+		CheckDestroy:    testAccCheckRiskConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRiskConfigurationConfig_empty(rName),
@@ -210,10 +210,10 @@ func TestAccCognitoIDPRiskConfiguration_nullRiskException(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRiskConfigurationDestroy(ctx),
+		CheckDestroy:    testAccCheckRiskConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRiskConfigurationConfig_nullRiskException(rName),
@@ -231,10 +231,10 @@ func TestAccCognitoIDPRiskConfiguration_emptyRiskException(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRiskConfigurationDestroy(ctx),
+		CheckDestroy:    testAccCheckRiskConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccRiskConfigurationConfig_emptyRiskException(rName),

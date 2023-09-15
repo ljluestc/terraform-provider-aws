@@ -43,7 +43,7 @@ func ResourceWebsiteCertificateAuthorityAssociation() *schema.Resource {
 				ForceNew: true,
 			},
 			"display_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(0, 100),

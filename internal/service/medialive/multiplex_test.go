@@ -39,7 +39,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckMultiplexDestroy(ctx),
+CheckDestroy:    testAccCheckMultiplexDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccMultiplexConfig_basic(rName, false),
@@ -54,8 +54,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"start_multiplex"},
 	},
@@ -81,7 +81,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckMultiplexDestroy(ctx),
+CheckDestroy:    testAccCheckMultiplexDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccMultiplexConfig_basic(rName, true),
@@ -121,7 +121,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckMultiplexDestroy(ctx),
+CheckDestroy:    testAccCheckMultiplexDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccMultiplexConfig_basic(rName, false),
@@ -169,7 +169,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckMultiplexDestroy(ctx),
+CheckDestroy:    testAccCheckMultiplexDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccMultiplexConfig_tags1(rName, "key1", "value1"),
@@ -218,7 +218,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckMultiplexDestroy(ctx),
+CheckDestroy:    testAccCheckMultiplexDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccMultiplexConfig_basic(rName, false),

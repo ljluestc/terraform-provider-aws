@@ -41,7 +41,7 @@ func ResourcePortfolioShare() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"accept_language": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Default:      AcceptLanguageEnglish,
 				ValidateFunc: validation.StringInSlice(AcceptLanguage_Values(), false),
@@ -58,7 +58,7 @@ func ResourcePortfolioShare() *schema.Resource {
 			// maintaining organization_node as a separate config block makes weird configs with duplicate types
 			// also, principal_id is true to API since describe gives "PrincipalId"
 			"principal_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validSharePrincipal,
@@ -85,7 +85,7 @@ func ResourcePortfolioShare() *schema.Resource {
 				Default:  false,
 			},
 			"type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringInSlice(servicecatalog.DescribePortfolioShareType_Values(), false),

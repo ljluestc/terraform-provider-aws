@@ -28,7 +28,7 @@ func TestAccECRPullThroughCacheRule_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ecr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPullThroughCacheRuleDestroy(ctx),
+CheckDestroy:    testAccCheckPullThroughCacheRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPullThroughCacheRuleConfig_basic(repositoryPrefix),
@@ -57,7 +57,7 @@ func TestAccECRPullThroughCacheRule_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ecr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPullThroughCacheRuleDestroy(ctx),
+CheckDestroy:    testAccCheckPullThroughCacheRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPullThroughCacheRuleConfig_basic(repositoryPrefix),
@@ -84,7 +84,7 @@ t.Skip("ECR Pull Through Cache Rule is not supported in GovCloud partition")
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ecr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPullThroughCacheRuleDestroy(ctx),
+CheckDestroy:    testAccCheckPullThroughCacheRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPullThroughCacheRuleConfig_failWhenAlreadyExist(repositoryPrefix),
@@ -166,7 +166,7 @@ resource "aws_ecr_pull_through_cache_rule" "test" {
 }
 
 resource "aws_ecr_pull_through_cache_rule" "duplicate" {
-  depends_on            = [aws_ecr_pull_through_cache_rule.test]
+  depends_on   = [aws_ecr_pull_through_cache_rule.test]
   ecr_repository_prefix = %[1]q
   upstream_registry_url = "public.ecr.aws"
 }

@@ -333,7 +333,7 @@ func dataSourceInstanceTypeRead(ctx context.Context, d *schema.ResourceData, met
 				"count":        aws.Int64Value(fpg.Count),
 				"manufacturer": aws.StringValue(fpg.Manufacturer),
 				"memory_size":  aws.Int64Value(fpg.MemoryInfo.SizeInMiB),
-				"name":         aws.StringValue(fpg.Name),
+				"name":aws.StringValue(fpg.Name),
 			}
 			fpgaList[i] = fpga
 		}
@@ -348,7 +348,7 @@ func dataSourceInstanceTypeRead(ctx context.Context, d *schema.ResourceData, met
 				"count":        aws.Int64Value(gp.Count),
 				"manufacturer": aws.StringValue(gp.Manufacturer),
 				"memory_size":  aws.Int64Value(gp.MemoryInfo.SizeInMiB),
-				"name":         aws.StringValue(gp.Name),
+				"name":aws.StringValue(gp.Name),
 			}
 			gpuList[i] = gpu
 		}
@@ -363,7 +363,7 @@ func dataSourceInstanceTypeRead(ctx context.Context, d *schema.ResourceData, met
 			accelerator := map[string]interface{}{
 				"count":        aws.Int64Value(accl.Count),
 				"manufacturer": aws.StringValue(accl.Manufacturer),
-				"name":         aws.StringValue(accl.Name),
+				"name":aws.StringValue(accl.Name),
 			}
 			acceleratorList[i] = accelerator
 		}

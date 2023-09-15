@@ -16,8 +16,8 @@ func TestAccLambdaCodeSigningConfigDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_lambda_code_signing_config.test"
 	resourceName := "aws_lambda_code_signing_config.test"
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, lambda.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, lambda.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -36,8 +36,8 @@ func TestAccLambdaCodeSigningConfigDataSource_policyID(t *testing.T) {
 	dataSourceName := "data.aws_lambda_code_signing_config.test"
 	resourceName := "aws_lambda_code_signing_config.test"
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, lambda.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, lambda.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -58,8 +58,8 @@ func TestAccLambdaCodeSigningConfigDataSource_description(t *testing.T) {
 	dataSourceName := "data.aws_lambda_code_signing_config.test"
 	resourceName := "aws_lambda_code_signing_config.test"
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, lambda.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, lambda.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{

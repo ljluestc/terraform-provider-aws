@@ -43,7 +43,7 @@ func ResourceDashboard() *schema.Resource {
 				Computed: true,
 			},
 			"dashboard_body": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringIsJSON,
 				StateFunc: func(v interface{}) string {
@@ -53,7 +53,7 @@ func ResourceDashboard() *schema.Resource {
 				DiffSuppressFunc: verify.SuppressEquivalentJSONDiffs,
 			},
 			"dashboard_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validDashboardName,

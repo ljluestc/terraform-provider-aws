@@ -13,31 +13,31 @@ import (
 )
 
 func Context(t *testing.T) context.Context {
-	helperlogging.SetOutput(t)
+helperlogging.SetOutput(t)
 
-	ctx := context.Background()
+ctx := context.Background()
 
-	ctx = tfsdklog.RegisterTestSink(ctx, t)
+ctx = tfsdklog.RegisterTestSink(ctx, t)
 
-	ctx = logger(ctx, t, "acctest")
+ctx = logger(ctx, t, "acctest")
 
-	return ctx
+return ctx
 }
 
 func logger(ctx context.Context, t *testing.T, name string) context.Context {
-	ctx = tfsdklog.NewRootProviderLogger(ctx,
-		tfsdklog.WithLevelFromEnv("TF_LOG"),
-		tfsdklog.WithLogName(name),
-		tfsdklog.WithoutLocation(),
-	)
-	ctx = testNameContext(ctx, t.Name())
+ctx = tfsdklog.NewRootProviderLogger(ctx,
+tfsdklog.WithLevelFromEnv("TF_LOG"),
+tfsdklog.WithLogName(name),
+tfsdklog.WithoutLocation(),
+)
+ctx = testNameContext(ctx, t.Name())
 
-	return ctx
+return ctx
 }
 
 // testNameContext adds the current test name to loggers.
 func testNameContext(ctx context.Context, testName string) context.Context {
-	ctx = tflog.SetField(ctx, "test_name", testName)
+ctx = tflog.SetField(ctx, "test_name", testName)
 
-	return ctx
+return ctx
 }

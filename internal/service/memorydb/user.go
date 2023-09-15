@@ -57,7 +57,7 @@ func ResourceUser() *schema.Resource {
 							MinItems: 1,
 							MaxItems: 2,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: validation.StringLenBetween(16, 128),
 							},
 							Set:       schema.HashString,
@@ -68,7 +68,7 @@ func ResourceUser() *schema.Resource {
 							Computed: true,
 						},
 						"type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringInSlice(memorydb.InputAuthenticationType_Values(), false),
 						},
@@ -82,7 +82,7 @@ func ResourceUser() *schema.Resource {
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"user_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validateResourceName(userNameMaxLength),
@@ -138,7 +138,7 @@ func resourceUserRead(ctx context.Context, d *schema.ResourceData, meta interfac
 		authenticationMode := map[string]interface{}{
 			"passwords":      d.Get("authentication_mode.0.passwords"),
 			"password_count": aws.Int64Value(v.PasswordCount),
-			"type":           aws.StringValue(v.Type),
+			"type":  aws.StringValue(v.Type),
 		}
 
 		if err := d.Set("authentication_mode", []interface{}{authenticationMode}); err != nil {

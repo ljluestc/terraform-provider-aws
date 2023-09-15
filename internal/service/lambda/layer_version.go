@@ -48,7 +48,7 @@ func ResourceLayerVersion() *schema.Resource {
 				ForceNew: true,
 				MaxItems: 2,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: validation.StringInSlice(lambda.Architecture_Values(), false),
 				},
 			},
@@ -59,7 +59,7 @@ func ResourceLayerVersion() *schema.Resource {
 				MinItems: 0,
 				MaxItems: 15,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: validation.StringInSlice(lambda.Runtime_Values(), false),
 				},
 			},
@@ -73,7 +73,7 @@ func ResourceLayerVersion() *schema.Resource {
 				ForceNew: true,
 			},
 			"filename": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ForceNew:      true,
 				ConflictsWith: []string{"s3_bucket", "s3_key", "s3_object_version"},
@@ -88,25 +88,25 @@ func ResourceLayerVersion() *schema.Resource {
 				ForceNew: true,
 			},
 			"license_info": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(0, 512),
 			},
 			"s3_bucket": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ForceNew:      true,
 				ConflictsWith: []string{"filename"},
 			},
 			"s3_key": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ForceNew:      true,
 				ConflictsWith: []string{"filename"},
 			},
 			"s3_object_version": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ForceNew:      true,
 				ConflictsWith: []string{"filename"},

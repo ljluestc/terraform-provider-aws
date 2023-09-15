@@ -192,7 +192,7 @@ func resourceInternetGatewayDelete(ctx context.Context, d *schema.ResourceData, 
 func attachInternetGateway(ctx context.Context, conn *ec2.EC2, internetGatewayID, vpcID string, timeout time.Duration) error {
 	input := &ec2.AttachInternetGatewayInput{
 		InternetGatewayId: aws.String(internetGatewayID),
-		VpcId:             aws.String(vpcID),
+		VpcId:    aws.String(vpcID),
 	}
 
 	log.Printf("[INFO] Attaching EC2 Internet Gateway: %s", input)
@@ -217,7 +217,7 @@ func attachInternetGateway(ctx context.Context, conn *ec2.EC2, internetGatewayID
 func detachInternetGateway(ctx context.Context, conn *ec2.EC2, internetGatewayID, vpcID string, timeout time.Duration) error {
 	input := &ec2.DetachInternetGatewayInput{
 		InternetGatewayId: aws.String(internetGatewayID),
-		VpcId:             aws.String(vpcID),
+		VpcId:    aws.String(vpcID),
 	}
 
 	log.Printf("[INFO] Detaching EC2 Internet Gateway: %s", input)

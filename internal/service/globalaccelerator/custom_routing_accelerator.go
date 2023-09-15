@@ -46,9 +46,9 @@ func ResourceCustomRoutingAccelerator() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"attributes": {
-				Type:             schema.TypeList,
-				Optional:         true,
-				MaxItems:         1,
+				Type:    schema.TypeList,
+				Optional:true,
+				MaxItems:1,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
@@ -58,12 +58,12 @@ func ResourceCustomRoutingAccelerator() *schema.Resource {
 							Default:  false,
 						},
 						"flow_logs_s3_bucket": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringLenBetween(0, 255),
 						},
 						"flow_logs_s3_prefix": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringLenBetween(0, 255),
 						},
@@ -84,7 +84,7 @@ func ResourceCustomRoutingAccelerator() *schema.Resource {
 				Computed: true,
 			},
 			"ip_address_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Default:      globalaccelerator.IpAddressTypeIpv4,
 				ValidateFunc: validation.StringInSlice(globalaccelerator.IpAddressType_Values(), false),
@@ -136,10 +136,10 @@ func resourceCustomRoutingAcceleratorCreate(ctx context.Context, d *schema.Resou
 
 	name := d.Get("name").(string)
 	input := &globalaccelerator.CreateCustomRoutingAcceleratorInput{
-		Name:             aws.String(name),
+		Name:    aws.String(name),
 		IdempotencyToken: aws.String(id.UniqueId()),
-		Enabled:          aws.Bool(d.Get("enabled").(bool)),
-		Tags:             getTagsIn(ctx),
+		Enabled: aws.Bool(d.Get("enabled").(bool)),
+		Tags:    getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("ip_address_type"); ok {
@@ -223,7 +223,7 @@ func resourceCustomRoutingAcceleratorUpdate(ctx context.Context, d *schema.Resou
 	if d.HasChanges("name", "ip_address_type", "enabled") {
 		input := &globalaccelerator.UpdateCustomRoutingAcceleratorInput{
 			AcceleratorArn: aws.String(d.Id()),
-			Name:           aws.String(d.Get("name").(string)),
+			Name:  aws.String(d.Get("name").(string)),
 			Enabled:        aws.Bool(d.Get("enabled").(bool)),
 		}
 

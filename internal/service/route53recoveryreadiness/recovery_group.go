@@ -71,7 +71,7 @@ func resourceRecoveryGroupCreate(ctx context.Context, d *schema.ResourceData, me
 
 	name := d.Get("recovery_group_name").(string)
 	input := &route53recoveryreadiness.CreateRecoveryGroupInput{
-		Cells:             flex.ExpandStringList(d.Get("cells").([]interface{})),
+		Cells:    flex.ExpandStringList(d.Get("cells").([]interface{})),
 		RecoveryGroupName: aws.String(name),
 	}
 
@@ -123,7 +123,7 @@ func resourceRecoveryGroupUpdate(ctx context.Context, d *schema.ResourceData, me
 	if d.HasChangesExcept("tags", "tags_all") {
 		input := &route53recoveryreadiness.UpdateRecoveryGroupInput{
 			RecoveryGroupName: aws.String(d.Id()),
-			Cells:             flex.ExpandStringList(d.Get("cells").([]interface{})),
+			Cells:    flex.ExpandStringList(d.Get("cells").([]interface{})),
 		}
 
 		_, err := conn.UpdateRecoveryGroupWithContext(ctx, input)

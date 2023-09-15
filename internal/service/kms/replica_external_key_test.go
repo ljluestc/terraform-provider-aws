@@ -28,7 +28,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, kms.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-CheckDestroy:             testAccCheckKeyDestroy(ctx),
+CheckDestroy:    testAccCheckKeyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccReplicaExternalKeyConfig_basic(rName),
@@ -79,7 +79,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, kms.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-CheckDestroy:             testAccCheckKeyDestroy(ctx),
+CheckDestroy:    testAccCheckKeyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccReplicaExternalKeyConfig_descriptionAndEnabled(rName1, rName2, false),
@@ -134,7 +134,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, kms.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-CheckDestroy:             testAccCheckKeyDestroy(ctx),
+CheckDestroy:    testAccCheckKeyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccReplicaExternalKeyConfig_policy(rName, policy1, false),
@@ -179,7 +179,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, kms.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-CheckDestroy:             testAccCheckKeyDestroy(ctx),
+CheckDestroy:    testAccCheckKeyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccReplicaExternalKeyConfig_tags1(rName, "key1", "value1"),
@@ -273,7 +273,7 @@ resource "aws_kms_external_key" "test" {
 
 resource "aws_kms_replica_external_key" "test" {
   description     = %[2]q
-  enabled         = %[3]t
+  enabled= %[3]t
   primary_key_arn = aws_kms_external_key.test.arn
 
   key_material_base64 = "Wblj06fduthWggmsT0cLVoIMOkeLbc2kVfMud77i/JY="
@@ -300,7 +300,7 @@ resource "aws_kms_external_key" "test" {
 
 resource "aws_kms_replica_external_key" "test" {
   description     = %[2]q
-  enabled         = true
+  enabled= true
   primary_key_arn = aws_kms_external_key.test.arn
 
   key_material_base64 = "Wblj06fduthWggmsT0cLVoIMOkeLbc2kVfMud77i/JY="
@@ -335,7 +335,7 @@ resource "aws_kms_external_key" "test" {
 
 resource "aws_kms_replica_external_key" "test" {
   description     = "%[1]s-Replica"
-  enabled         = true
+  enabled= true
   primary_key_arn = aws_kms_external_key.test.arn
 
   key_material_base64 = "Wblj06fduthWggmsT0cLVoIMOkeLbc2kVfMud77i/JY="
@@ -370,7 +370,7 @@ resource "aws_kms_external_key" "test" {
 
 resource "aws_kms_replica_external_key" "test" {
   description     = "%[1]s-Replica"
-  enabled         = true
+  enabled= true
   primary_key_arn = aws_kms_external_key.test.arn
 
   key_material_base64 = "Wblj06fduthWggmsT0cLVoIMOkeLbc2kVfMud77i/JY="
@@ -402,7 +402,7 @@ resource "aws_kms_external_key" "test" {
 
 resource "aws_kms_replica_external_key" "test" {
   description     = "%[1]s-Replica"
-  enabled         = true
+  enabled= true
   primary_key_arn = aws_kms_external_key.test.arn
 
   key_material_base64 = "Wblj06fduthWggmsT0cLVoIMOkeLbc2kVfMud77i/JY="

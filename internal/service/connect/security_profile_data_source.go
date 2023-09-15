@@ -32,13 +32,13 @@ func DataSourceSecurityProfile() *schema.Resource {
 				Computed: true,
 			},
 			"instance_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				Validate
 func: validation.StringLenBetween(1, 100),
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ExactlyOneOf: []string{"name", "security_profile_id"},
@@ -55,7 +55,7 @@ func: validation.StringLenBetween(1, 100),
 				},
 			},
 			"security_profile_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ExactlyOneOf: []string{"security_profile_id", "name"},

@@ -17,10 +17,10 @@ func TestAccServiceCatalog_serial(t *testing.T) {
 			"basic": testAccOrganizationsAccess_basic,
 		},
 		"PortfolioShare": {
-			"basic":              testAccPortfolioShare_basic,
+			"basic":     testAccPortfolioShare_basic,
 			"sharePrincipals":    testAccPortfolioShare_sharePrincipals,
 			"organizationalUnit": testAccPortfolioShare_organizationalUnit,
-			"disappears":         testAccPortfolioShare_disappears,
+			"disappears":testAccPortfolioShare_disappears,
 		},
 	}
 

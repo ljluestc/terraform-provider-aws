@@ -60,17 +60,17 @@ func ResourceChannel() *schema.Resource {
 					Elem: &schema.Resource{
 						Schema: map[string]*schema.Schema{
 							"resolution": {
-								Type:             schema.TypeString,
-								Required:         true,
+								Type:    schema.TypeString,
+								Required:true,
 								ValidateDiagFunc: enum.Validate[types.CdiInputResolution](),
 							},
 						},
 					},
 				},
 				"channel_class": {
-					Type:             schema.TypeString,
-					Required:         true,
-					ForceNew:         true,
+					Type:    schema.TypeString,
+					Required:true,
+					ForceNew:true,
 					ValidateDiagFunc: enum.Validate[types.ChannelClass](),
 				},
 				"channel_id": {
@@ -230,8 +230,8 @@ func ResourceChannel() *schema.Resource {
 											},
 										},
 										"input_preference": {
-											Type:             schema.TypeString,
-											Optional:         true,
+											Type:    schema.TypeString,
+											Optional:true,
 											ValidateDiagFunc: enum.Validate[types.InputPreference](),
 										},
 									},
@@ -295,8 +295,8 @@ func ResourceChannel() *schema.Resource {
 																				Required: true,
 																			},
 																			"language_selection_policy": {
-																				Type:             schema.TypeString,
-																				Optional:         true,
+																				Type:    schema.TypeString,
+																				Optional:true,
 																				ValidateDiagFunc: enum.Validate[types.AudioLanguageSelectionPolicy](),
 																			},
 																		},
@@ -328,8 +328,8 @@ func ResourceChannel() *schema.Resource {
 																				Elem: &schema.Resource{
 																					Schema: map[string]*schema.Schema{
 																						"program_selection": {
-																							Type:             schema.TypeString,
-																							Required:         true,
+																							Type:    schema.TypeString,
+																							Required:true,
 																							ValidateDiagFunc: enum.Validate[types.DolbyEProgramSelection](),
 																						},
 																					},
@@ -403,12 +403,12 @@ func ResourceChannel() *schema.Resource {
 																	Elem: &schema.Resource{
 																		Schema: map[string]*schema.Schema{
 																			"ocr_language": {
-																				Type:             schema.TypeString,
-																				Optional:         true,
+																				Type:    schema.TypeString,
+																				Optional:true,
 																				ValidateDiagFunc: enum.Validate[types.DvbSubOcrLanguage](),
 																			},
 																			"pid": {
-																				Type:         schema.TypeInt,
+																				Type:schema.TypeInt,
 																				Optional:     true,
 																				ValidateFunc: validation.IntAtLeast(1),
 																			},
@@ -422,13 +422,13 @@ func ResourceChannel() *schema.Resource {
 																	Elem: &schema.Resource{
 																		Schema: map[string]*schema.Schema{
 																			"convert_608_to_708": {
-																				Type:             schema.TypeString,
-																				Optional:         true,
+																				Type:    schema.TypeString,
+																				Optional:true,
 																				ValidateDiagFunc: enum.Validate[types.EmbeddedConvert608To708](),
 																			},
 																			"scte20_detection": {
-																				Type:             schema.TypeString,
-																				Optional:         true,
+																				Type:    schema.TypeString,
+																				Optional:true,
 																				ValidateDiagFunc: enum.Validate[types.EmbeddedScte20Detection](),
 																			},
 																			"source_608_channel_number": {
@@ -445,8 +445,8 @@ func ResourceChannel() *schema.Resource {
 																	Elem: &schema.Resource{
 																		Schema: map[string]*schema.Schema{
 																			"convert_608_to_708": {
-																				Type:             schema.TypeString,
-																				Optional:         true,
+																				Type:    schema.TypeString,
+																				Optional:true,
 																				ValidateDiagFunc: enum.Validate[types.Scte20Convert608To708](),
 																			},
 																			"source_608_channel_number": {
@@ -463,8 +463,8 @@ func ResourceChannel() *schema.Resource {
 																	Elem: &schema.Resource{
 																		Schema: map[string]*schema.Schema{
 																			"ocr_language": {
-																				Type:             schema.TypeString,
-																				Optional:         true,
+																				Type:    schema.TypeString,
+																				Optional:true,
 																				ValidateDiagFunc: enum.Validate[types.Scte27OcrLanguage](),
 																			},
 																			"pid": {
@@ -519,24 +519,24 @@ func ResourceChannel() *schema.Resource {
 											},
 										},
 										"deblock_filter": {
-											Type:             schema.TypeString,
-											Optional:         true,
+											Type:    schema.TypeString,
+											Optional:true,
 											ValidateDiagFunc: enum.Validate[types.InputDeblockFilter](),
 										},
 										"denoise_filter": {
-											Type:             schema.TypeString,
-											Optional:         true,
+											Type:    schema.TypeString,
+											Optional:true,
 											ValidateDiagFunc: enum.Validate[types.InputDenoiseFilter](),
 										},
 										"filter_strength": {
-											Type:             schema.TypeInt,
-											Optional:         true,
+											Type:    schema.TypeInt,
+											Optional:true,
 											ValidateDiagFunc: validation.ToDiagFunc(validation.IntBetween(1, 5)),
 										},
 										"input_filter": {
-											Type:             schema.TypeString,
-											Optional:         true,
-											Computed:         true,
+											Type:    schema.TypeString,
+											Optional:true,
+											Computed:true,
 											ValidateDiagFunc: enum.Validate[types.InputFilter](),
 										},
 										"network_input_settings": {
@@ -568,16 +568,16 @@ func ResourceChannel() *schema.Resource {
 																	Optional: true,
 																},
 																"scte35_source": {
-																	Type:             schema.TypeString,
-																	Optional:         true,
+																	Type:    schema.TypeString,
+																	Optional:true,
 																	ValidateDiagFunc: enum.Validate[types.HlsScte35SourceType](),
 																},
 															},
 														},
 													},
 													"server_validation": {
-														Type:             schema.TypeString,
-														Optional:         true,
+														Type:    schema.TypeString,
+														Optional:true,
 														ValidateDiagFunc: enum.Validate[types.NetworkInputServerValidation](),
 													},
 												},
@@ -588,13 +588,13 @@ func ResourceChannel() *schema.Resource {
 											Optional: true,
 										},
 										"smpte2038_data_preference": {
-											Type:             schema.TypeString,
-											Optional:         true,
+											Type:    schema.TypeString,
+											Optional:true,
 											ValidateDiagFunc: enum.Validate[types.Smpte2038DataPreference](),
 										},
 										"source_end_behavior": {
-											Type:             schema.TypeString,
-											Optional:         true,
+											Type:    schema.TypeString,
+											Optional:true,
 											ValidateDiagFunc: enum.Validate[types.InputSourceEndBehavior](),
 										},
 										"video_selector": {
@@ -604,14 +604,14 @@ func ResourceChannel() *schema.Resource {
 											Elem: &schema.Resource{
 												Schema: map[string]*schema.Schema{
 													"color_space": {
-														Type:             schema.TypeString,
-														Optional:         true,
+														Type:    schema.TypeString,
+														Optional:true,
 														ValidateDiagFunc: enum.Validate[types.VideoSelectorColorSpace](),
 													},
 													// TODO implement color_space_settings
 													"color_space_usage": {
-														Type:             schema.TypeString,
-														Optional:         true,
+														Type:    schema.TypeString,
+														Optional:true,
 														ValidateDiagFunc: enum.Validate[types.VideoSelectorColorSpaceUsage](),
 													},
 													// TODO implement selector_settings
@@ -631,27 +631,27 @@ func ResourceChannel() *schema.Resource {
 					Elem: &schema.Resource{
 						Schema: map[string]*schema.Schema{
 							"codec": {
-								Type:             schema.TypeString,
-								Required:         true,
+								Type:    schema.TypeString,
+								Required:true,
 								ValidateDiagFunc: enum.Validate[types.InputCodec](),
 							},
 							"maximum_bitrate": {
-								Type:             schema.TypeString,
-								Required:         true,
+								Type:    schema.TypeString,
+								Required:true,
 								ValidateDiagFunc: enum.Validate[types.InputMaximumBitrate](),
 							},
 							"input_resolution": {
-								Type:             schema.TypeString,
-								Required:         true,
+								Type:    schema.TypeString,
+								Required:true,
 								ValidateDiagFunc: enum.Validate[types.InputResolution](),
 							},
 						},
 					},
 				},
 				"log_level": {
-					Type:             schema.TypeString,
-					Optional:         true,
-					Computed:         true,
+					Type:    schema.TypeString,
+					Optional:true,
+					Computed:true,
 					ValidateDiagFunc: enum.Validate[types.LogLevel](),
 				},
 				"maintenance": {
@@ -662,8 +662,8 @@ func ResourceChannel() *schema.Resource {
 					Elem: &schema.Resource{
 						Schema: map[string]*schema.Schema{
 							"maintenance_day": {
-								Type:             schema.TypeString,
-								Required:         true,
+								Type:    schema.TypeString,
+								Required:true,
 								ValidateDiagFunc: enum.Validate[types.MaintenanceDay](),
 							},
 							"maintenance_start_time": {
@@ -678,8 +678,8 @@ func ResourceChannel() *schema.Resource {
 					Required: true,
 				},
 				"role_arn": {
-					Type:             schema.TypeString,
-					Optional:         true,
+					Type:    schema.TypeString,
+					Optional:true,
 					ValidateDiagFunc: validation.ToDiagFunc(verify.ValidARN),
 				},
 				"start_channel": {
@@ -1013,11 +1013,11 @@ func stopChannel(ctx context.Context, conn *medialive.Client, timeout time.Durat
 
 func waitChannelCreated(ctx context.Context, conn *medialive.Client, id string, timeout time.Duration) (*medialive.DescribeChannelOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   enum.Slice(types.ChannelStateCreating),
-		Target:                    enum.Slice(types.ChannelStateIdle),
-		Refresh:                   statusChannel(ctx, conn, id),
-		Timeout:                   timeout,
-		NotFoundChecks:            20,
+		Pending: enum.Slice(types.ChannelStateCreating),
+		Target:  enum.Slice(types.ChannelStateIdle),
+		Refresh: statusChannel(ctx, conn, id),
+		Timeout: timeout,
+		NotFoundChecks:   20,
 		ContinuousTargetOccurence: 2,
 	}
 
@@ -1031,11 +1031,11 @@ func waitChannelCreated(ctx context.Context, conn *medialive.Client, id string, 
 
 func waitChannelUpdated(ctx context.Context, conn *medialive.Client, id string, timeout time.Duration) (*medialive.DescribeChannelOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   enum.Slice(types.ChannelStateUpdating),
-		Target:                    enum.Slice(types.ChannelStateIdle),
-		Refresh:                   statusChannel(ctx, conn, id),
-		Timeout:                   timeout,
-		NotFoundChecks:            20,
+		Pending: enum.Slice(types.ChannelStateUpdating),
+		Target:  enum.Slice(types.ChannelStateIdle),
+		Refresh: statusChannel(ctx, conn, id),
+		Timeout: timeout,
+		NotFoundChecks:   20,
 		ContinuousTargetOccurence: 2,
 	}
 
@@ -1733,9 +1733,9 @@ func flattenChannelInputAttachments(tfList []types.InputAttachment) []interface{
 
 	for _, item := range tfList {
 		m := map[string]interface{}{
-			"input_id":                          aws.ToString(item.InputId),
-			"input_attachment_name":             aws.ToString(item.InputAttachmentName),
-			"input_settings":                    flattenInputAttachmentsInputSettings(item.InputSettings),
+			"input_id":        aws.ToString(item.InputId),
+			"input_attachment_name":    aws.ToString(item.InputAttachmentName),
+			"input_settings":  flattenInputAttachmentsInputSettings(item.InputSettings),
 			"automatic_input_failover_settings": flattenInputAttachmentAutomaticInputFailoverSettings(item.AutomaticInputFailoverSettings),
 		}
 
@@ -1751,14 +1751,14 @@ func flattenInputAttachmentsInputSettings(in *types.InputSettings) []interface{}
 	}
 
 	m := map[string]interface{}{
-		"audio_selector":            flattenInputAttachmentsInputSettingsAudioSelectors(in.AudioSelectors),
-		"caption_selector":          flattenInputAttachmentsInputSettingsCaptionSelectors(in.CaptionSelectors),
-		"deblock_filter":            string(in.DeblockFilter),
-		"denoise_filter":            string(in.DenoiseFilter),
-		"filter_strength":           int(in.FilterStrength),
-		"input_filter":              string(in.InputFilter),
+		"audio_selector":   flattenInputAttachmentsInputSettingsAudioSelectors(in.AudioSelectors),
+		"caption_selector": flattenInputAttachmentsInputSettingsCaptionSelectors(in.CaptionSelectors),
+		"deblock_filter":   string(in.DeblockFilter),
+		"denoise_filter":   string(in.DenoiseFilter),
+		"filter_strength":  int(in.FilterStrength),
+		"input_filter":     string(in.InputFilter),
 		"network_input_settings":    flattenInputAttachmentsInputSettingsNetworkInputSettings(in.NetworkInputSettings),
-		"scte35_pid":                int(in.Scte35Pid),
+		"scte35_pid":       int(in.Scte35Pid),
 		"smpte2038_data_preference": string(in.Smpte2038DataPreference),
 		"source_end_behavior":       string(in.SourceEndBehavior),
 	}
@@ -1775,7 +1775,7 @@ func flattenInputAttachmentsInputSettingsAudioSelectors(tfList []types.AudioSele
 
 	for _, v := range tfList {
 		m := map[string]interface{}{
-			"name":              aws.ToString(v.Name),
+			"name":     aws.ToString(v.Name),
 			"selector_settings": flattenInputAttachmentsInputSettingsAudioSelectorsSelectorSettings(v.SelectorSettings),
 		}
 
@@ -1793,8 +1793,8 @@ func flattenInputAttachmentsInputSettingsAudioSelectorsSelectorSettings(in *type
 	m := map[string]interface{}{
 		"audio_hls_rendition_selection": flattenInputAttachmentsInputSettingsAudioSelectorsSelectorSettingsAudioHlsRenditionSelection(in.AudioHlsRenditionSelection),
 		"audio_language_selection":      flattenInputAttachmentsInputSettingsAudioSelectorsSelectorSettingsAudioLanguageSelection(in.AudioLanguageSelection),
-		"audio_pid_selection":           flattenInputAttachmentsInputSettingsAudioSelectorsSelectorSettingsAudioPidSelection(in.AudioPidSelection),
-		"audio_track_selection":         flattenInputAttachmentsInputSettingsAudioSelectorsSelectorSettingsAudioTrackSelection(in.AudioTrackSelection),
+		"audio_pid_selection":  flattenInputAttachmentsInputSettingsAudioSelectorsSelectorSettingsAudioPidSelection(in.AudioPidSelection),
+		"audio_track_selection":flattenInputAttachmentsInputSettingsAudioSelectorsSelectorSettingsAudioTrackSelection(in.AudioTrackSelection),
 	}
 
 	return []interface{}{m}
@@ -1819,7 +1819,7 @@ func flattenInputAttachmentsInputSettingsAudioSelectorsSelectorSettingsAudioLang
 	}
 
 	m := map[string]interface{}{
-		"language_code":             aws.ToString(in.LanguageCode),
+		"language_code":    aws.ToString(in.LanguageCode),
 		"language_selection_policy": string(in.LanguageSelectionPolicy),
 	}
 
@@ -1845,7 +1845,7 @@ func flattenInputAttachmentsInputSettingsAudioSelectorsSelectorSettingsAudioTrac
 
 	m := map[string]interface{}{
 		"dolby_e_decode": flattenInputAttachmentsInputSettingsAudioSelectorsSelectorSettingsAudioTrackSelectionDolbyEDecode(in.DolbyEDecode),
-		"tracks":         flattenInputAttachmentsInputSettingsAudioSelectorsSelectorSettingsAudioTrackSelectionTracks(in.Tracks),
+		"tracks":flattenInputAttachmentsInputSettingsAudioSelectorsSelectorSettingsAudioTrackSelectionTracks(in.Tracks),
 	}
 
 	return []interface{}{m}
@@ -1890,7 +1890,7 @@ func flattenInputAttachmentsInputSettingsCaptionSelectors(tfList []types.Caption
 
 	for _, v := range tfList {
 		m := map[string]interface{}{
-			"name":              aws.ToString(v.Name),
+			"name":     aws.ToString(v.Name),
 			"language_code":     aws.ToString(v.LanguageCode),
 			"selector_settings": flattenInputAttachmentsInputSettingsCaptionSelectorsSelectorSettings(v.SelectorSettings),
 		}
@@ -1938,7 +1938,7 @@ func flattenInputAttachmentsInputSettingsCaptionSelectorsSelectorSettingsDvbSubS
 
 	m := map[string]interface{}{
 		"ocr_language": string(in.OcrLanguage),
-		"pid":          int(in.Pid),
+		"pid": int(in.Pid),
 	}
 
 	return []interface{}{m}
@@ -1951,7 +1951,7 @@ func flattenInputAttachmentsInputSettingsCaptionSelectorsSelectorSettingsEmbedde
 
 	m := map[string]interface{}{
 		"convert_608_to_708":        string(in.Convert608To708),
-		"scte20_detection":          string(in.Scte20Detection),
+		"scte20_detection": string(in.Scte20Detection),
 		"source_608_channel_number": int(in.Source608ChannelNumber),
 	}
 
@@ -1978,7 +1978,7 @@ func flattenInputAttachmentsInputSettingsCaptionSelectorsSelectorSettingsScte27S
 
 	m := map[string]interface{}{
 		"ocr_language": string(in.OcrLanguage),
-		"pid":          int(in.Pid),
+		"pid": int(in.Pid),
 	}
 
 	return []interface{}{m}
@@ -2033,7 +2033,7 @@ func flattenNetworkInputSettingsHLSInputSettings(in *types.HlsInputSettings) []i
 	m := map[string]interface{}{
 		"bandwidth":       int(in.Bandwidth),
 		"buffer_segments": int(in.BufferSegments),
-		"retries":         int(in.Retries),
+		"retries":int(in.Retries),
 		"retry_interval":  int(in.RetryInterval),
 		"scte35_source":   string(in.Scte35Source),
 	}
@@ -2093,7 +2093,7 @@ func flattenInputAttachmentAutomaticInputFailoverSettingsFailoverConditionsFailo
 	}
 
 	m := map[string]interface{}{
-		"audio_selector_name":          aws.ToString(in.AudioSelectorName),
+		"audio_selector_name": aws.ToString(in.AudioSelectorName),
 		"audio_silence_threshold_msec": int(in.AudioSilenceThresholdMsec),
 	}
 
@@ -2263,10 +2263,10 @@ func flattenChannelDestinations(apiObject []types.OutputDestination) []interface
 	var tfList []interface{}
 	for _, v := range apiObject {
 		m := map[string]interface{}{
-			"id":                     aws.ToString(v.Id),
+			"id":   aws.ToString(v.Id),
 			"media_package_settings": flattenChannelDestinationsMediaPackageSettings(v.MediaPackageSettings),
 			"multiplex_settings":     flattenChannelDestinationsMultiplexSettings(v.MultiplexSettings),
-			"settings":               flattenChannelDestinationsSettings(v.Settings),
+			"settings":      flattenChannelDestinationsSettings(v.Settings),
 		}
 
 		tfList = append(tfList, m)
@@ -2315,7 +2315,7 @@ func flattenChannelDestinationsSettings(apiObject []types.OutputDestinationSetti
 		m := map[string]interface{}{
 			"password_param": aws.ToString(v.PasswordParam),
 			"stream_name":    aws.ToString(v.StreamName),
-			"url":            aws.ToString(v.Url),
+			"url":   aws.ToString(v.Url),
 			"username":       aws.ToString(v.Username),
 		}
 
@@ -2351,7 +2351,7 @@ func flattenChannelInputSpecification(apiObject *types.InputSpecification) []int
 	}
 
 	m := map[string]interface{}{
-		"codec":            string(apiObject.Codec),
+		"codec":   string(apiObject.Codec),
 		"maximum_bitrate":  string(apiObject.MaximumBitrate),
 		"input_resolution": string(apiObject.Resolution),
 	}
@@ -2438,7 +2438,7 @@ func flattenChannelVPC(apiObject *types.VpcOutputSettingsDescription) []interfac
 
 	m := map[string]interface{}{
 		"security_group_ids": flex.FlattenStringValueList(apiObject.SecurityGroupIds),
-		"subnet_ids":         flex.FlattenStringValueList(apiObject.SubnetIds),
+		"subnet_ids":flex.FlattenStringValueList(apiObject.SubnetIds),
 		// public_address_allocation_ids is not included in the output struct
 	}
 

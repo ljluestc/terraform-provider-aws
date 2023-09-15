@@ -51,7 +51,7 @@ MinItems: 0,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "day": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Required:     true,
 	Validate
 func: validation.StringInSlice(connect.HoursOfOperationDays_Values(), false),
@@ -103,7 +103,7 @@ func(v interface{}) int {
 },
 	},
 	"description": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Validate
 func: validation.StringLenBetween(1, 250),
@@ -117,7 +117,7 @@ Type:     schema.TypeString,
 Required: true,
 	},
 	"name": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 Validate
 func: validation.StringLenBetween(1, 127),
@@ -179,7 +179,7 @@ return diag.FromErr(err)
 
 	resp, err := conn.DescribeHoursOfOperationWithContext(ctx, &connect.DescribeHoursOfOperationInput{
 HoursOfOperationId: aws.String(hoursOfOperationID),
-InstanceId:         aws.String(instanceID),
+InstanceId:aws.String(instanceID),
 	})
 
 	if !d.IsNewResource() && tfawserr.ErrCodeEquals(err, connect.ErrCodeResourceNotFoundException) {
@@ -224,12 +224,12 @@ return diag.FromErr(err)
 
 	if d.HasChanges("config", "description", "name", "time_zone") {
 _, err = conn.UpdateHoursOfOperationWithContext(ctx, &connect.UpdateHoursOfOperationInput{
-	Config:             expandConfigs(d.Get("config").(*schema.Set).List()),
+	Config:    expandConfigs(d.Get("config").(*schema.Set).List()),
 	Description:        aws.String(d.Get("description").(string)),
 	HoursOfOperationId: aws.String(hoursOfOperationID),
-	InstanceId:         aws.String(instanceID),
+	InstanceId:aws.String(instanceID),
 	Name:aws.String(d.Get("name").(string)),
-	TimeZone:           aws.String(d.Get("time_zone").(string)),
+	TimeZone:  aws.String(d.Get("time_zone").(string)),
 })
 if err != nil {
 	return diag.Errorf("updating HoursOfOperation (%s): %s", d.Id(), err)
@@ -251,7 +251,7 @@ return diag.FromErr(err)
 
 	_, err = conn.DeleteHoursOfOperationWithContext(ctx, &connect.DeleteHoursOfOperationInput{
 HoursOfOperationId: aws.String(hoursOfOperationID),
-InstanceId:         aws.String(instanceID),
+InstanceId:aws.String(instanceID),
 	})
 
 	if err != nil {

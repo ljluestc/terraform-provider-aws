@@ -50,7 +50,7 @@ Required: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "lambda_arn": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Required:     true,
 	ValidateFunc: verify.ValidARN,
 },
@@ -58,7 +58,7 @@ Elem: &schema.Resource{
 },
 	},
 	"name": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ValidateFunc: validation.NoZeroValues,
 	},
@@ -124,7 +124,7 @@ func resourceSipMediaApplicationUpdate(ctx context.Context, d *schema.ResourceDa
 updateInput := &chimesdkvoice.UpdateSipMediaApplicationInput{
 	SipMediaApplicationId: aws.String(d.Id()),
 	Name:   aws.String(d.Get("name").(string)),
-	Endpoints:             expandSipMediaApplicationEndpoints(d.Get("endpoints").([]interface{})),
+	Endpoints:    expandSipMediaApplicationEndpoints(d.Get("endpoints").([]interface{})),
 }
 
 if _, err := conn.UpdateSipMediaApplicationWithContext(ctx, updateInput); err != nil {

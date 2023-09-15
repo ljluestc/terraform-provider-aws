@@ -45,14 +45,14 @@ func ResourceCertificate() *schema.Resource {
 				Computed: true,
 			},
 			"certificate": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Sensitive:    true,
 				ValidateFunc: validation.StringLenBetween(0, 16384),
 			},
 			"certificate_chain": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Sensitive:    true,
@@ -63,7 +63,7 @@ func ResourceCertificate() *schema.Resource {
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 200),
 			},
@@ -72,7 +72,7 @@ func ResourceCertificate() *schema.Resource {
 				Computed: true,
 			},
 			"private_key": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Sensitive:    true,
@@ -82,7 +82,7 @@ func ResourceCertificate() *schema.Resource {
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"usage": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringInSlice(transfer.CertificateUsageType_Values(), false),

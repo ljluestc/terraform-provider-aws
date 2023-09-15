@@ -50,7 +50,7 @@ Timeouts: &schema.ResourceTimeout{
 
 Schema: map[string]*schema.Schema{
 	"accept_language": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Default:      "en",
 ValidateFunc: validation.StringInSlice(AcceptLanguage_Values(), false),
@@ -283,7 +283,7 @@ func resourceProvisionedProductCreate(ctx context.Context, d *schema.ResourceDat
 	conn := meta.(*conns.AWSClient).ServiceCatalogConn(ctx)
 
 	input := &servicecatalog.ProvisionProductInput{
-ProvisionToken:         aws.String(id.UniqueId()),
+ProvisionToken:aws.String(id.UniqueId()),
 ProvisionedProductName: aws.String(d.Get("name").(string)),
 Tags:    getTagsIn(ctx),
 	}
@@ -393,7 +393,7 @@ acceptLanguage = v.(string)
 	}
 
 	input := &servicecatalog.DescribeProvisionedProductInput{
-Id:             aws.String(d.Id()),
+Id:    aws.String(d.Id()),
 AcceptLanguage: aws.String(acceptLanguage),
 	}
 
@@ -440,7 +440,7 @@ d.Set("created_time", nil)
 	// or after an invalid update that returns a 'FAILED' record state. Thus, waiters are now present in the CREATE and UPDATE methods of this resource instead.
 	// Reference: https://github.com/hashicorp/terraform-provider-aws/issues/24574#issuecomment-1126339193
 	recordInput := &servicecatalog.DescribeRecordInput{
-Id:             detail.LastProvisioningRecordId,
+Id:    detail.LastProvisioningRecordId,
 AcceptLanguage: aws.String(acceptLanguage),
 	}
 
@@ -489,7 +489,7 @@ func resourceProvisionedProductUpdate(ctx context.Context, d *schema.ResourceDat
 	conn := meta.(*conns.AWSClient).ServiceCatalogConn(ctx)
 
 	input := &servicecatalog.UpdateProvisionedProductInput{
-UpdateToken:          aws.String(id.UniqueId()),
+UpdateToken: aws.String(id.UniqueId()),
 ProvisionedProductId: aws.String(d.Id()),
 	}
 

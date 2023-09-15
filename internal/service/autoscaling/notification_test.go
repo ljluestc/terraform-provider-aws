@@ -28,7 +28,7 @@ func TestAccAutoScalingNotification_ASG_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckASGNDestroy(ctx),
+CheckDestroy:    testAccCheckASGNDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccNotificationConfig_basic(rName),
@@ -51,7 +51,7 @@ func TestAccAutoScalingNotification_ASG_update(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckASGNDestroy(ctx),
+CheckDestroy:    testAccCheckASGNDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccNotificationConfig_basic(rName),
@@ -82,7 +82,7 @@ func TestAccAutoScalingNotification_ASG_pagination(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckASGNDestroy(ctx),
+CheckDestroy:    testAccCheckASGNDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccNotificationConfig_pagination(),
@@ -131,7 +131,7 @@ if rs.Primary.ID == "" {
 conn := acctest.Provider.Meta().(*conns.AWSClient).AutoScalingConn(ctx)
 opts := &autoscaling.DescribeNotificationConfigurationsInput{
 	AutoScalingGroupNames: aws.StringSlice(groups),
-	MaxRecords:            aws.Int64(100),
+	MaxRecords:   aws.Int64(100),
 }
 
 resp, err := conn.DescribeNotificationConfigurationsWithContext(ctx, opts)
@@ -232,7 +232,7 @@ resource "aws_sns_topic" "topic_example" {
 }
 
 resource "aws_launch_configuration" "foobar" {
-  name          = "foobarautoscaling-terraform-test-%s"
+  name = "foobarautoscaling-terraform-test-%s"
   image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t2.micro"
 }
@@ -252,9 +252,9 @@ resource "aws_autoscaling_group" "bar" {
   max_size   = 1
   min_size   = 1
   health_check_grace_period = 100
-  health_check_type         = "ELB"
-  desired_capacity          = 1
-  force_delete              = true
+  health_check_type= "ELB"
+  desired_capacity = 1
+  force_delete     = true
   termination_policies      = ["OldestInstance"]
   launch_configuration      = aws_launch_configuration.foobar.name
 }
@@ -279,7 +279,7 @@ resource "aws_sns_topic" "topic_example" {
 }
 
 resource "aws_launch_configuration" "foobar" {
-  name          = "foobarautoscaling-terraform-test-%s"
+  name = "foobarautoscaling-terraform-test-%s"
   image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t2.micro"
 }
@@ -299,9 +299,9 @@ resource "aws_autoscaling_group" "bar" {
   max_size   = 1
   min_size   = 1
   health_check_grace_period = 100
-  health_check_type         = "ELB"
-  desired_capacity          = 1
-  force_delete              = true
+  health_check_type= "ELB"
+  desired_capacity = 1
+  force_delete     = true
   termination_policies      = ["OldestInstance"]
   launch_configuration      = aws_launch_configuration.foobar.name
 }
@@ -312,9 +312,9 @@ resource "aws_autoscaling_group" "foo" {
   max_size   = 1
   min_size   = 1
   health_check_grace_period = 200
-  health_check_type         = "ELB"
-  desired_capacity          = 1
-  force_delete              = true
+  health_check_type= "ELB"
+  desired_capacity = 1
+  force_delete     = true
   termination_policies      = ["OldestInstance"]
   launch_configuration      = aws_launch_configuration.foobar.name
 }
@@ -363,9 +363,9 @@ resource "aws_autoscaling_group" "bar" {
   max_size   = 1
   min_size   = 0
   health_check_grace_period = 300
-  health_check_type         = "ELB"
-  desired_capacity          = 0
-  force_delete              = true
+  health_check_type= "ELB"
+  desired_capacity = 0
+  force_delete     = true
   termination_policies      = ["OldestInstance"]
   launch_configuration      = aws_launch_configuration.foobar.name
 }

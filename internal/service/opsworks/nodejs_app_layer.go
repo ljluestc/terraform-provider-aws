@@ -13,7 +13,7 @@ import (
 
 func ResourceNodejsAppLayer() *schema.Resource {
 	layerType := &opsworksLayerType{
-		TypeName:         opsworks.LayerTypeNodejsApp,
+		TypeName:opsworks.LayerTypeNodejsApp,
 		DefaultLayerName: "Node.js App Server",
 
 		Attributes: map[string]*opsworksLayerTypeAttribute{

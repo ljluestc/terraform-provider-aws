@@ -36,7 +36,7 @@ func ResourceHSM() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"availability_zone": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
@@ -66,7 +66,7 @@ func ResourceHSM() *schema.Resource {
 				ForceNew: true,
 			},
 			"subnet_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,

@@ -121,7 +121,7 @@ resource "aws_ram_resource_association" "test" {
 }
 
 resource "aws_ram_principal_association" "test" {
-  principal          = data.aws_caller_identity.target.arn
+  principal = data.aws_caller_identity.target.arn
   resource_share_arn = aws_ram_resource_share.test.arn
 }
 

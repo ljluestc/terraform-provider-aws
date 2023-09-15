@@ -26,10 +26,10 @@ func TestAccRolesAnywhereTrustAnchor_basic(t *testing.T) {
 	resourceName := "aws_rolesanywhere_trust_anchor.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.RolesAnywhereEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.RolesAnywhereEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTrustAnchorDestroy(ctx),
+		CheckDestroy:    testAccCheckTrustAnchorDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTrustAnchorConfig_basic(rName, caCommonName),
@@ -59,10 +59,10 @@ func TestAccRolesAnywhereTrustAnchor_tags(t *testing.T) {
 	resourceName := "aws_rolesanywhere_trust_anchor.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.RolesAnywhereEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.RolesAnywhereEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTrustAnchorDestroy(ctx),
+		CheckDestroy:    testAccCheckTrustAnchorDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTrustAnchorConfig_tags1(rName, caCommonName, "key1", "value1"),
@@ -105,10 +105,10 @@ func TestAccRolesAnywhereTrustAnchor_disappears(t *testing.T) {
 	resourceName := "aws_rolesanywhere_trust_anchor.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.RolesAnywhereEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.RolesAnywhereEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTrustAnchorDestroy(ctx),
+		CheckDestroy:    testAccCheckTrustAnchorDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTrustAnchorConfig_basic(rName, caCommonName),
@@ -128,10 +128,10 @@ func TestAccRolesAnywhereTrustAnchor_certificateBundle(t *testing.T) {
 	resourceName := "aws_rolesanywhere_trust_anchor.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.RolesAnywhereEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.RolesAnywhereEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTrustAnchorDestroy(ctx),
+		CheckDestroy:    testAccCheckTrustAnchorDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTrustAnchorConfig_certificateBundle(t, rName),
@@ -159,10 +159,10 @@ func TestAccRolesAnywhereTrustAnchor_enabled(t *testing.T) {
 	resourceName := "aws_rolesanywhere_trust_anchor.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.RolesAnywhereEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.RolesAnywhereEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTrustAnchorDestroy(ctx),
+		CheckDestroy:    testAccCheckTrustAnchorDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTrustAnchorConfig_enabled(t, rName, true),
@@ -244,7 +244,7 @@ func testAccTrustAnchorConfig_acmBase(caCommonName string) string {
 	return fmt.Sprintf(`
 resource "aws_acmpca_certificate_authority" "test" {
   permanent_deletion_time_in_days = 7
-  type             = "ROOT"
+  type    = "ROOT"
   certificate_authority_configuration {
     key_algorithm     = "RSA_4096"
     signing_algorithm = "SHA512WITHRSA"
@@ -259,7 +259,7 @@ data "aws_partition" "current" {}
 resource "aws_acmpca_certificate" "test" {
   certificate_authority_arn   = aws_acmpca_certificate_authority.test.arn
   certificate_signing_request = aws_acmpca_certificate_authority.test.certificate_signing_request
-  signing_algorithm           = "SHA512WITHRSA"
+  signing_algorithm  = "SHA512WITHRSA"
 
   template_arn = "arn:${data.aws_partition.current.partition}:acm-pca:::template/RootCACertificate/V1"
 
@@ -272,7 +272,7 @@ resource "aws_acmpca_certificate" "test" {
 resource "aws_acmpca_certificate_authority_certificate" "test" {
   certificate_authority_arn = aws_acmpca_certificate_authority.test.arn
   certificate= aws_acmpca_certificate.test.certificate
-  certificate_chain         = aws_acmpca_certificate.test.certificate_chain
+  certificate_chain= aws_acmpca_certificate.test.certificate_chain
 }
 `, caCommonName)
 }

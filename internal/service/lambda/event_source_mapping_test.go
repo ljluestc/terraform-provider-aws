@@ -39,7 +39,7 @@ func TestAccLambdaEventSourceMapping_Kinesis_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckEventSourceMappingDestroy(ctx),
+CheckDestroy:    testAccCheckEventSourceMappingDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEventSourceMappingConfig_kinesisBatchSize(rName, "100"),
@@ -63,8 +63,8 @@ PlanOnly: true,
 Config:   testAccEventSourceMappingConfig_kinesisBatchSize(rName, "null"),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"last_modified"},
 	},
@@ -96,7 +96,7 @@ func TestAccLambdaEventSourceMapping_SQS_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckEventSourceMappingDestroy(ctx),
+CheckDestroy:    testAccCheckEventSourceMappingDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEventSourceMappingConfig_sqsBatchSize(rName, "10"),
@@ -120,8 +120,8 @@ PlanOnly: true,
 Config:   testAccEventSourceMappingConfig_sqsBatchSize(rName, "null"),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"last_modified"},
 	},
@@ -153,7 +153,7 @@ func TestAccLambdaEventSourceMapping_DynamoDB_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckEventSourceMappingDestroy(ctx),
+CheckDestroy:    testAccCheckEventSourceMappingDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEventSourceMappingConfig_dynamoDBBatchSize(rName, "100"),
@@ -177,8 +177,8 @@ PlanOnly: true,
 Config:   testAccEventSourceMappingConfig_dynamoDBBatchSize(rName, "null"),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"last_modified"},
 	},
@@ -196,7 +196,7 @@ func TestAccLambdaEventSourceMapping_DynamoDB_functionResponseTypes(t *testing.T
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckEventSourceMappingDestroy(ctx),
+CheckDestroy:    testAccCheckEventSourceMappingDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEventSourceMappingConfig_dynamoDBFunctionResponseTypes(rName),
@@ -207,8 +207,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"last_modified"},
 	},
@@ -234,14 +234,14 @@ func TestAccLambdaEventSourceMapping_DynamoDB_streamAdded(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckEventSourceMappingDestroy(ctx),
+CheckDestroy:    testAccCheckEventSourceMappingDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEventSourceMappingConfig_dynamoDBStreamBase(rName, false),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"last_modified"},
 	},
@@ -267,7 +267,7 @@ func TestAccLambdaEventSourceMapping_SQS_batchWindow(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckEventSourceMappingDestroy(ctx),
+CheckDestroy:    testAccCheckEventSourceMappingDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEventSourceMappingConfig_sqsBatchWindow(rName, batchWindow),
@@ -277,8 +277,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"last_modified"},
 	},
@@ -303,7 +303,7 @@ func TestAccLambdaEventSourceMapping_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckEventSourceMappingDestroy(ctx),
+CheckDestroy:    testAccCheckEventSourceMappingDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEventSourceMappingConfig_sqsBatchSize(rName, "7"),
@@ -327,7 +327,7 @@ func TestAccLambdaEventSourceMapping_SQS_changesInEnabledAreDetected(t *testing.
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckEventSourceMappingDestroy(ctx),
+CheckDestroy:    testAccCheckEventSourceMappingDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEventSourceMappingConfig_sqsBatchSize(rName, "9"),
@@ -352,7 +352,7 @@ func TestAccLambdaEventSourceMapping_Kinesis_startingPositionTimestamp(t *testin
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckEventSourceMappingDestroy(ctx),
+CheckDestroy:    testAccCheckEventSourceMappingDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEventSourceMappingConfig_kinesisStartingPositionTimestamp(rName, startingPositionTimestamp),
@@ -363,8 +363,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"last_modified"},
 	},
@@ -384,7 +384,7 @@ func TestAccLambdaEventSourceMapping_Kinesis_batchWindow(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckEventSourceMappingDestroy(ctx),
+CheckDestroy:    testAccCheckEventSourceMappingDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEventSourceMappingConfig_kinesisBatchWindow(rName, batchWindow),
@@ -394,8 +394,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"last_modified"},
 	},
@@ -422,7 +422,7 @@ func TestAccLambdaEventSourceMapping_Kinesis_parallelizationFactor(t *testing.T)
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckEventSourceMappingDestroy(ctx),
+CheckDestroy:    testAccCheckEventSourceMappingDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEventSourceMappingConfig_kinesisParallelizationFactor(rName, parallelizationFactor),
@@ -432,8 +432,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"last_modified"},
 	},
@@ -460,7 +460,7 @@ func TestAccLambdaEventSourceMapping_Kinesis_tumblingWindowInSeconds(t *testing.
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckEventSourceMappingDestroy(ctx),
+CheckDestroy:    testAccCheckEventSourceMappingDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEventSourceMappingConfig_kinesisTumblingWindowInSeconds(rName, tumblingWindowInSeconds),
@@ -470,8 +470,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"last_modified"},
 	},
@@ -502,7 +502,7 @@ t.Skip("skipping long-running test in short mode")
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckEventSourceMappingDestroy(ctx),
+CheckDestroy:    testAccCheckEventSourceMappingDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEventSourceMappingConfig_kinesisMaximumRetryAttempts(rName, maximumRetryAttempts),
@@ -512,8 +512,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"last_modified"},
 	},
@@ -540,7 +540,7 @@ func TestAccLambdaEventSourceMapping_Kinesis_maximumRetryAttemptsZero(t *testing
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckEventSourceMappingDestroy(ctx),
+CheckDestroy:    testAccCheckEventSourceMappingDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEventSourceMappingConfig_kinesisMaximumRetryAttempts(rName, maximumRetryAttempts),
@@ -550,8 +550,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"last_modified"},
 	},
@@ -585,7 +585,7 @@ func TestAccLambdaEventSourceMapping_Kinesis_maximumRetryAttemptsNegativeOne(t *
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckEventSourceMappingDestroy(ctx),
+CheckDestroy:    testAccCheckEventSourceMappingDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEventSourceMappingConfig_kinesisMaximumRetryAttempts(rName, maximumRetryAttempts),
@@ -595,8 +595,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"last_modified"},
 	},
@@ -630,7 +630,7 @@ func TestAccLambdaEventSourceMapping_Kinesis_maximumRecordAgeInSeconds(t *testin
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckEventSourceMappingDestroy(ctx),
+CheckDestroy:    testAccCheckEventSourceMappingDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEventSourceMappingConfig_kinesisMaximumRecordAgeInSeconds(rName, maximumRecordAgeInSeconds),
@@ -640,8 +640,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"last_modified"},
 	},
@@ -668,7 +668,7 @@ func TestAccLambdaEventSourceMapping_Kinesis_maximumRecordAgeInSecondsNegativeOn
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckEventSourceMappingDestroy(ctx),
+CheckDestroy:    testAccCheckEventSourceMappingDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEventSourceMappingConfig_kinesisMaximumRecordAgeInSeconds(rName, maximumRecordAgeInSeconds),
@@ -678,8 +678,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"last_modified"},
 	},
@@ -706,7 +706,7 @@ func TestAccLambdaEventSourceMapping_Kinesis_bisectBatch(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckEventSourceMappingDestroy(ctx),
+CheckDestroy:    testAccCheckEventSourceMappingDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEventSourceMappingConfig_kinesisBisectBatch(rName, bisectBatch),
@@ -716,8 +716,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"last_modified"},
 	},
@@ -743,7 +743,7 @@ func TestAccLambdaEventSourceMapping_Kinesis_destination(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckEventSourceMappingDestroy(ctx),
+CheckDestroy:    testAccCheckEventSourceMappingDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEventSourceMappingConfig_kinesisDestination(rName, rName),
@@ -755,8 +755,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"last_modified"},
 	},
@@ -788,7 +788,7 @@ t.Skip("skipping long-running test in short mode")
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckMSK(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID, "kafka"),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckEventSourceMappingDestroy(ctx),
+CheckDestroy:    testAccCheckEventSourceMappingDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEventSourceMappingConfig_msk(rName, "100"),
@@ -810,8 +810,8 @@ PlanOnly: true,
 Config:   testAccEventSourceMappingConfig_msk(rName, "null"),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"last_modified"},
 	},
@@ -846,7 +846,7 @@ t.Skip("skipping long-running test in short mode")
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckMSK(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID, "kafka"),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckEventSourceMappingDestroy(ctx),
+CheckDestroy:    testAccCheckEventSourceMappingDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEventSourceMappingConfig_mskWithEventSourceConfig(rName, "100"),
@@ -862,8 +862,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"last_modified"},
 	},
@@ -881,7 +881,7 @@ func TestAccLambdaEventSourceMapping_selfManagedKafka(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckEventSourceMappingDestroy(ctx),
+CheckDestroy:    testAccCheckEventSourceMappingDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEventSourceMappingConfig_selfManagedKafka(rName, "100", "test1:9092,test2:9092"),
@@ -907,8 +907,8 @@ PlanOnly: true,
 Config:   testAccEventSourceMappingConfig_selfManagedKafka(rName, "null", "test2:9092,test1:9092"),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"last_modified"},
 	},
@@ -926,7 +926,7 @@ func TestAccLambdaEventSourceMapping_selfManagedKafkaWithEventSourceConfig(t *te
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckEventSourceMappingDestroy(ctx),
+CheckDestroy:    testAccCheckEventSourceMappingDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEventSourceMappingConfig_selfManagedKafkaWithEventSourceConfig(rName, "100", "test1:9092,test2:9092"),
@@ -945,8 +945,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"last_modified"},
 	},
@@ -973,7 +973,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID, "mq", "secretsmanager"),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckEventSourceMappingDestroy(ctx),
+CheckDestroy:    testAccCheckEventSourceMappingDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEventSourceMappingConfig_activeMQ(rName, "100"),
@@ -1016,7 +1016,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID, "mq", "secretsmanager"),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckEventSourceMappingDestroy(ctx),
+CheckDestroy:    testAccCheckEventSourceMappingDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEventSourceMappingConfig_rabbitMQ(rName, "100"),
@@ -1056,7 +1056,7 @@ t.Skip("skipping long-running test in short mode")
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckEventSourceMappingDestroy(ctx),
+CheckDestroy:    testAccCheckEventSourceMappingDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEventSourceMappingConfig_sqsFilterCriteria1(rName, pattern1),
@@ -1068,8 +1068,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"last_modified"},
 	},
@@ -1084,8 +1084,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"last_modified"},
 	},
@@ -1097,8 +1097,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"last_modified"},
 	},
@@ -1129,7 +1129,7 @@ t.Skip("skipping long-running test in short mode")
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckEventSourceMappingDestroy(ctx),
+CheckDestroy:    testAccCheckEventSourceMappingDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEventSourceMappingConfig_sqsScalingConfig1(rName, 10),
@@ -1139,8 +1139,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"last_modified"},
 	},
@@ -1152,8 +1152,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"last_modified"},
 	},
@@ -1165,8 +1165,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"last_modified"},
 	},
@@ -1184,7 +1184,7 @@ func TestAccLambdaEventSourceMapping_documentDB(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckSecretsManager(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckEventSourceMappingDestroy(ctx),
+CheckDestroy:    testAccCheckEventSourceMappingDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccEventSourceMappingConfig_documentDB(rName),
@@ -1200,8 +1200,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"last_modified"},
 	},
@@ -1412,7 +1412,7 @@ resource "aws_lambda_function" "test" {
   filename      = "test-fixtures/lambdatest.zip"
   function_name = %[1]q
   handler       = "exports.example"
-  role          = aws_iam_role.test.arn
+  role = aws_iam_role.test.arn
   runtime       = "nodejs16.x"
 }
 `, rName)
@@ -1464,7 +1464,7 @@ resource "aws_lambda_function" "test" {
   filename      = "test-fixtures/lambdatest.zip"
   function_name = %[1]q
   handler       = "exports.example"
-  role          = aws_iam_role.test.arn
+  role = aws_iam_role.test.arn
   runtime       = "nodejs16.x"
 }
 `, rName)
@@ -1509,7 +1509,7 @@ EOF
 }
 
 resource "aws_dynamodb_table" "test" {
-  name           = %[1]q
+  name  = %[1]q
   read_capacity  = 1
   write_capacity = 2
   hash_key       = "TestTableHashKey"
@@ -1527,7 +1527,7 @@ resource "aws_lambda_function" "test" {
   filename      = "test-fixtures/lambdatest.zip"
   function_name = %[1]q
   handler       = "exports.example"
-  role          = aws_iam_role.test.arn
+  role = aws_iam_role.test.arn
   runtime       = "nodejs16.x"
 }
 `, rName)
@@ -1582,7 +1582,7 @@ EOF
 }
 
 resource "aws_dynamodb_table" "test" {
-  name           = %[1]q
+  name  = %[1]q
   read_capacity  = 1
   write_capacity = 2
   hash_key       = "TestTableHashKey"
@@ -1599,7 +1599,7 @@ resource "aws_lambda_function" "test" {
   filename      = "test-fixtures/lambdatest.zip"
   function_name = %[1]q
   handler       = "exports.example"
-  role          = aws_iam_role.test.arn
+  role = aws_iam_role.test.arn
   runtime       = "nodejs18.x"
 }
 `, rName, streamStatus, streamViewType)
@@ -1672,7 +1672,7 @@ resource "aws_lambda_function" "test" {
   filename      = "test-fixtures/lambdatest.zip"
   function_name = %[1]q
   handler       = "exports.example"
-  role          = aws_iam_role.test.arn
+  role = aws_iam_role.test.arn
   runtime       = "nodejs16.x"
 }
 `, rName))
@@ -1730,7 +1730,7 @@ resource "aws_lambda_function" "test" {
   filename      = "test-fixtures/lambdatest.zip"
   function_name = %[1]q
   handler       = "exports.example"
-  role          = aws_iam_role.test.arn
+  role = aws_iam_role.test.arn
   runtime       = "nodejs16.x"
 }
 
@@ -1750,13 +1750,13 @@ resource "aws_security_group" "test" {
 }
 
 resource "aws_mq_broker" "test" {
-  broker_name             = %[1]q
-  engine_type             = "ActiveMQ"
-  engine_version          = "5.15.0"
+  broker_name    = %[1]q
+  engine_type    = "ActiveMQ"
+  engine_version = "5.15.0"
   host_instance_type      = "mq.t2.micro"
-  security_groups         = [aws_security_group.test.id]
+  security_groups= [aws_security_group.test.id]
   authentication_strategy = "simple"
-  storage_type            = "efs"
+  storage_type   = "efs"
 
   logs {
     general = true
@@ -1833,14 +1833,14 @@ resource "aws_lambda_function" "test" {
   filename      = "test-fixtures/lambdatest.zip"
   function_name = %[1]q
   handler       = "exports.example"
-  role          = aws_iam_role.test.arn
+  role = aws_iam_role.test.arn
   runtime       = "nodejs16.x"
 }
 
 resource "aws_mq_broker" "test" {
-  broker_name             = %[1]q
-  engine_type             = "RabbitMQ"
-  engine_version          = "3.8.11"
+  broker_name    = %[1]q
+  engine_type    = "RabbitMQ"
+  engine_version = "3.8.11"
   host_instance_type      = "mq.t3.micro"
   authentication_strategy = "simple"
 
@@ -1934,7 +1934,7 @@ resource "aws_lambda_function" "test" {
   filename      = "test-fixtures/lambdatest.zip"
   function_name = %[1]q
   handler       = "exports.example"
-  role          = aws_iam_role.test.arn
+  role = aws_iam_role.test.arn
   runtime       = "nodejs16.x"
 }
 
@@ -1946,11 +1946,11 @@ resource "aws_docdb_subnet_group" "test" {
 resource "aws_docdb_cluster" "test" {
   cluster_identifier = %[1]q
 
-  db_subnet_group_name            = aws_docdb_subnet_group.test.name
+  db_subnet_group_name   = aws_docdb_subnet_group.test.name
   master_username  = "tfacctest"
   master_password  = "avoid-plaintext-passwords"
   db_cluster_parameter_group_name = "default.docdb4.0"
-  skip_final_snapshot             = true
+  skip_final_snapshot    = true
 
   enabled_cloudwatch_logs_exports = [
     "audit",
@@ -1965,9 +1965,9 @@ func testAccEventSourceMappingConfig_kinesisStartingPositionTimestamp(rName, sta
 resource "aws_lambda_event_source_mapping" "test" {
   batch_size   = 100
   enabled      = true
-  event_source_arn            = aws_kinesis_stream.test.arn
+  event_source_arn   = aws_kinesis_stream.test.arn
   function_name= aws_lambda_function.test.arn
-  starting_position           = "AT_TIMESTAMP"
+  starting_position  = "AT_TIMESTAMP"
   starting_position_timestamp = %[1]q
 }
 `, startingPositionTimestamp))
@@ -1976,9 +1976,9 @@ resource "aws_lambda_event_source_mapping" "test" {
 func testAccEventSourceMappingConfig_kinesisBatchWindow(rName string, batchWindow int64) string {
 	return acctest.ConfigCompose(testAccEventSourceMappingConfig_kinesisBase(rName), fmt.Sprintf(`
 resource "aws_lambda_event_source_mapping" "test" {
-  batch_size          = 100
+  batch_size = 100
   maximum_batching_window_in_seconds = %[1]d
-  enabled             = true
+  enabled    = true
   event_source_arn    = aws_kinesis_stream.test.arn
   function_name       = aws_lambda_function.test.arn
   starting_position   = "TRIM_HORIZON"
@@ -1989,11 +1989,11 @@ resource "aws_lambda_event_source_mapping" "test" {
 func testAccEventSourceMappingConfig_kinesisParallelizationFactor(rName string, parallelizationFactor int64) string {
 	return acctest.ConfigCompose(testAccEventSourceMappingConfig_kinesisBase(rName), fmt.Sprintf(`
 resource "aws_lambda_event_source_mapping" "test" {
-  batch_size             = 100
+  batch_size    = 100
   parallelization_factor = %[1]d
   enabled = true
   event_source_arn       = aws_kinesis_stream.test.arn
-  function_name          = aws_lambda_function.test.arn
+  function_name = aws_lambda_function.test.arn
   starting_position      = "TRIM_HORIZON"
 }
 `, parallelizationFactor))
@@ -2005,9 +2005,9 @@ resource "aws_lambda_event_source_mapping" "test" {
   batch_size  = 100
   tumbling_window_in_seconds = %[1]d
   enabled     = true
-  event_source_arn           = aws_kinesis_stream.test.arn
-  function_name              = aws_lambda_function.test.arn
-  starting_position          = "TRIM_HORIZON"
+  event_source_arn  = aws_kinesis_stream.test.arn
+  function_name     = aws_lambda_function.test.arn
+  starting_position = "TRIM_HORIZON"
 }
 `, tumblingWindowInSeconds))
 }
@@ -2015,11 +2015,11 @@ resource "aws_lambda_event_source_mapping" "test" {
 func testAccEventSourceMappingConfig_kinesisMaximumRetryAttempts(rName string, maximumRetryAttempts int64) string {
 	return acctest.ConfigCompose(testAccEventSourceMappingConfig_kinesisBase(rName), fmt.Sprintf(`
 resource "aws_lambda_event_source_mapping" "test" {
-  batch_size             = 100
+  batch_size    = 100
   maximum_retry_attempts = %[1]d
   enabled = true
   event_source_arn       = aws_kinesis_stream.test.arn
-  function_name          = aws_lambda_function.test.arn
+  function_name = aws_lambda_function.test.arn
   starting_position      = "TRIM_HORIZON"
 }
 `, maximumRetryAttempts))
@@ -2030,10 +2030,10 @@ func testAccEventSourceMappingConfig_kinesisBisectBatch(rName string, bisectBatc
 resource "aws_lambda_event_source_mapping" "test" {
   batch_size      = 100
   bisect_batch_on_function_error = %[1]t
-  enabled         = true
+  enabled= true
   event_source_arn= aws_kinesis_stream.test.arn
   function_name   = aws_lambda_function.test.arn
-  starting_position              = "TRIM_HORIZON"
+  starting_position     = "TRIM_HORIZON"
 }
 `, bisectBatch))
 }
@@ -2044,9 +2044,9 @@ resource "aws_lambda_event_source_mapping" "test" {
   batch_size     = 100
   maximum_record_age_in_seconds = %[1]d
   enabled        = true
-  event_source_arn              = aws_kinesis_stream.test.arn
+  event_source_arn     = aws_kinesis_stream.test.arn
   function_name  = aws_lambda_function.test.arn
-  starting_position             = "TRIM_HORIZON"
+  starting_position    = "TRIM_HORIZON"
 }
 `, maximumRecordAgeInSeconds))
 }
@@ -2059,7 +2059,7 @@ resource "aws_sns_topic" "test" {
 
 resource "aws_lambda_event_source_mapping" "test" {
   batch_size        = 100
-  enabled           = true
+  enabled  = true
   event_source_arn  = aws_kinesis_stream.test.arn
   function_name     = aws_lambda_function.test.arn
   starting_position = "TRIM_HORIZON"
@@ -2081,7 +2081,7 @@ batchSize = "null"
 	return acctest.ConfigCompose(testAccEventSourceMappingConfig_kinesisBase(rName), fmt.Sprintf(`
 resource "aws_lambda_event_source_mapping" "test" {
   batch_size        = %[1]s
-  enabled           = true
+  enabled  = true
   event_source_arn  = aws_kinesis_stream.test.arn
   function_name     = aws_lambda_function.test.function_name
   starting_position = "TRIM_HORIZON"
@@ -2094,14 +2094,14 @@ func testAccEventSourceMappingConfig_kinesisUpdateFunctionName(rName string) str
 resource "aws_lambda_function" "test_update" {
   filename      = "test-fixtures/lambdatest.zip"
   function_name = "%[1]s-update"
-  role          = aws_iam_role.test.arn
+  role = aws_iam_role.test.arn
   handler       = "exports.example"
   runtime       = "nodejs16.x"
 }
 
 resource "aws_lambda_event_source_mapping" "test" {
   batch_size        = 200
-  enabled           = false
+  enabled  = false
   event_source_arn  = aws_kinesis_stream.test.arn
   function_name     = aws_lambda_function.test_update.arn
   starting_position = "TRIM_HORIZON"
@@ -2117,7 +2117,7 @@ batchSize = "null"
 	return acctest.ConfigCompose(testAccEventSourceMappingConfig_sqsBase(rName), fmt.Sprintf(`
 resource "aws_lambda_event_source_mapping" "test" {
   batch_size       = %[1]s
-  enabled          = true
+  enabled = true
   event_source_arn = aws_sqs_queue.test.arn
   function_name    = aws_lambda_function.test.function_name
 }
@@ -2163,14 +2163,14 @@ EOF
 resource "aws_lambda_function" "test_update" {
   filename      = "test-fixtures/lambdatest.zip"
   function_name = "%[1]s-update"
-  role          = aws_iam_role.test_update.arn
+  role = aws_iam_role.test_update.arn
   handler       = "exports.example"
   runtime       = "nodejs16.x"
 }
 
 resource "aws_lambda_event_source_mapping" "test" {
   batch_size       = 5
-  enabled          = false
+  enabled = false
   event_source_arn = aws_sqs_queue.test.arn
   function_name    = aws_lambda_function.test_update.arn
 }
@@ -2180,10 +2180,10 @@ resource "aws_lambda_event_source_mapping" "test" {
 func testAccEventSourceMappingConfig_sqsBatchWindow(rName string, batchWindow int64) string {
 	return acctest.ConfigCompose(testAccEventSourceMappingConfig_sqsBase(rName), fmt.Sprintf(`
 resource "aws_lambda_event_source_mapping" "test" {
-  batch_size          = 10
+  batch_size = 10
   maximum_batching_window_in_seconds = %[1]d
   event_source_arn    = aws_sqs_queue.test.arn
-  enabled             = false
+  enabled    = false
   function_name       = aws_lambda_function.test.arn
 }
 `, batchWindow))
@@ -2196,8 +2196,8 @@ batchSize = "null"
 
 	return acctest.ConfigCompose(testAccEventSourceMappingConfig_kafkaBase(rName), fmt.Sprintf(`
 resource "aws_msk_cluster" "test" {
-  cluster_name           = %[1]q
-  kafka_version          = "2.7.1"
+  cluster_name  = %[1]q
+  kafka_version = "2.7.1"
   number_of_broker_nodes = 2
 
   broker_node_group_info {
@@ -2216,9 +2216,9 @@ resource "aws_msk_cluster" "test" {
 resource "aws_lambda_event_source_mapping" "test" {
   batch_size        = %[2]s
   event_source_arn  = aws_msk_cluster.test.arn
-  enabled           = true
+  enabled  = true
   function_name     = aws_lambda_function.test.arn
-  topics            = ["test"]
+  topics   = ["test"]
   starting_position = "TRIM_HORIZON"
 
   depends_on = [aws_iam_policy_attachment.test]
@@ -2233,8 +2233,8 @@ batchSize = "null"
 
 	return acctest.ConfigCompose(testAccEventSourceMappingConfig_kafkaBase(rName), fmt.Sprintf(`
 resource "aws_msk_cluster" "test" {
-  cluster_name           = %[1]q
-  kafka_version          = "2.7.1"
+  cluster_name  = %[1]q
+  kafka_version = "2.7.1"
   number_of_broker_nodes = 2
 
   broker_node_group_info {
@@ -2253,9 +2253,9 @@ resource "aws_msk_cluster" "test" {
 resource "aws_lambda_event_source_mapping" "test" {
   batch_size        = %[2]s
   event_source_arn  = aws_msk_cluster.test.arn
-  enabled           = true
+  enabled  = true
   function_name     = aws_lambda_function.test.arn
-  topics            = ["test"]
+  topics   = ["test"]
   starting_position = "TRIM_HORIZON"
 
   amazon_managed_kafka_event_source_config {
@@ -2275,9 +2275,9 @@ batchSize = "null"
 	return acctest.ConfigCompose(testAccEventSourceMappingConfig_kafkaBase(rName), fmt.Sprintf(`
 resource "aws_lambda_event_source_mapping" "test" {
   batch_size        = %[2]s
-  enabled           = false
+  enabled  = false
   function_name     = aws_lambda_function.test.arn
-  topics            = ["test"]
+  topics   = ["test"]
   starting_position = "TRIM_HORIZON"
 
   self_managed_event_source {
@@ -2310,9 +2310,9 @@ batchSize = "null"
 	return acctest.ConfigCompose(testAccEventSourceMappingConfig_kafkaBase(rName), fmt.Sprintf(`
 resource "aws_lambda_event_source_mapping" "test" {
   batch_size        = %[2]s
-  enabled           = false
+  enabled  = false
   function_name     = aws_lambda_function.test.arn
-  topics            = ["test"]
+  topics   = ["test"]
   starting_position = "TRIM_HORIZON"
 
   self_managed_kafka_event_source_config {
@@ -2349,7 +2349,7 @@ batchSize = "null"
 	return acctest.ConfigCompose(testAccEventSourceMappingConfig_dynamoDBBase(rName), fmt.Sprintf(`
 resource "aws_lambda_event_source_mapping" "test" {
   batch_size        = %[1]s
-  enabled           = true
+  enabled  = true
   event_source_arn  = aws_dynamodb_table.test.stream_arn
   function_name     = aws_lambda_function.test.function_name
   starting_position = "LATEST"
@@ -2361,7 +2361,7 @@ func testAccEventSourceMappingConfig_dynamoDBFunctionResponseTypes(rName string)
 	return acctest.ConfigCompose(testAccEventSourceMappingConfig_dynamoDBBase(rName), `
 resource "aws_lambda_event_source_mapping" "test" {
   batch_size        = 150
-  enabled           = true
+  enabled  = true
   event_source_arn  = aws_dynamodb_table.test.stream_arn
   function_name     = aws_lambda_function.test.function_name
   starting_position = "LATEST"
@@ -2375,7 +2375,7 @@ func testAccEventSourceMappingConfig_dynamoDBNoFunctionResponseTypes(rName strin
 	return acctest.ConfigCompose(testAccEventSourceMappingConfig_dynamoDBBase(rName), `
 resource "aws_lambda_event_source_mapping" "test" {
   batch_size        = 150
-  enabled           = true
+  enabled  = true
   event_source_arn  = aws_dynamodb_table.test.stream_arn
   function_name     = aws_lambda_function.test.function_name
   starting_position = "LATEST"
@@ -2387,7 +2387,7 @@ func testAccEventSourceMappingConfig_dynamoDBStreamEnabled(rName string) string 
 	return acctest.ConfigCompose(testAccEventSourceMappingConfig_dynamoDBStreamBase(rName, true), `
 resource "aws_lambda_event_source_mapping" "test" {
   batch_size        = 150
-  enabled           = true
+  enabled  = true
   event_source_arn  = aws_dynamodb_table.test.stream_arn
   function_name     = aws_lambda_function.test.function_name
   starting_position = "LATEST"
@@ -2404,9 +2404,9 @@ batchSize = "null"
 resource "aws_lambda_event_source_mapping" "test" {
   batch_size       = %[1]s
   event_source_arn = aws_mq_broker.test.arn
-  enabled          = true
+  enabled = true
   function_name    = aws_lambda_function.test.arn
-  queues           = ["test"]
+  queues  = ["test"]
 
   source_access_configuration {
     type = "BASIC_AUTH"
@@ -2425,9 +2425,9 @@ batchSize = "null"
 resource "aws_lambda_event_source_mapping" "test" {
   batch_size       = %[1]s
   event_source_arn = aws_mq_broker.test.arn
-  enabled          = true
+  enabled = true
   function_name    = aws_lambda_function.test.arn
-  queues           = ["test"]
+  queues  = ["test"]
 
   source_access_configuration {
     type = "VIRTUAL_HOST"
@@ -2445,7 +2445,7 @@ resource "aws_lambda_event_source_mapping" "test" {
 func testAccEventSourceMappingConfig_documentDB(rName string) string {
 	return acctest.ConfigCompose(testAccEventSourceMappingConfig_documentDBBase(rName), `
 resource "aws_lambda_event_source_mapping" "test" {
-  enabled          = true
+  enabled = true
   event_source_arn = aws_docdb_cluster.test.arn
   function_name    = aws_lambda_function.test.arn
 

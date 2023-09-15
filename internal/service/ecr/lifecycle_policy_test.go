@@ -28,7 +28,7 @@ func TestAccECRLifecyclePolicy_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ecr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLifecyclePolicyDestroy(ctx),
+CheckDestroy:    testAccCheckLifecyclePolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLifecyclePolicyConfig_basic(rName),
@@ -54,7 +54,7 @@ func TestAccECRLifecyclePolicy_ignoreEquivalent(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ecr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLifecyclePolicyDestroy(ctx),
+CheckDestroy:    testAccCheckLifecyclePolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLifecyclePolicyConfig_order(rName),
@@ -79,7 +79,7 @@ func TestAccECRLifecyclePolicy_detectDiff(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ecr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLifecyclePolicyDestroy(ctx),
+CheckDestroy:    testAccCheckLifecyclePolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLifecyclePolicyConfig_basic(rName),
@@ -88,9 +88,9 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-Config:             testAccLifecyclePolicyConfig_changed(rName),
+Config:    testAccLifecyclePolicyConfig_changed(rName),
 ExpectNonEmptyPlan: true,
-PlanOnly:           true,
+PlanOnly:  true,
 	},
 },
 	})
@@ -222,31 +222,31 @@ resource "aws_ecr_lifecycle_policy" "test" {
         rulePriority = 1
         description  = "Expire images older than 14 days"
         selection = {
-          tagStatus   = "untagged"
-          countType   = "sinceImagePushed"
-          countUnit   = "days"
-          countNumber = 14
+ tagStatus   = "untagged"
+ countType   = "sinceImagePushed"
+ countUnit   = "days"
+ countNumber = 14
         }
         action = {
-          type = "expire"
+ type = "expire"
         }
       },
       {
         rulePriority = 2
         description  = "Expire tagged images older than 14 days"
         selection = {
-          tagStatus = "tagged"
-          tagPrefixList = [
-            "first",
-            "second",
-            "third",
-          ]
-          countType   = "sinceImagePushed"
-          countUnit   = "days"
-          countNumber = 14
+ tagStatus = "tagged"
+ tagPrefixList = [
+   "first",
+   "second",
+   "third",
+ ]
+ countType   = "sinceImagePushed"
+ countUnit   = "days"
+ countNumber = 14
         }
         action = {
-          type = "expire"
+ type = "expire"
         }
       },
     ]
@@ -270,31 +270,31 @@ resource "aws_ecr_lifecycle_policy" "test" {
         rulePriority = 2
         description  = "Expire tagged images older than 14 days"
         selection = {
-          tagStatus = "tagged"
-          tagPrefixList = [
-            "third",
-            "first",
-            "second",
-          ]
-          countType   = "sinceImagePushed"
-          countUnit   = "days"
-          countNumber = 14
+ tagStatus = "tagged"
+ tagPrefixList = [
+   "third",
+   "first",
+   "second",
+ ]
+ countType   = "sinceImagePushed"
+ countUnit   = "days"
+ countNumber = 14
         }
         action = {
-          type = "expire"
+ type = "expire"
         }
       },
       {
         rulePriority = 1
         description  = "Expire images older than 14 days"
         selection = {
-          tagStatus   = "untagged"
-          countType   = "sinceImagePushed"
-          countUnit   = "days"
-          countNumber = 14
+ tagStatus   = "untagged"
+ countType   = "sinceImagePushed"
+ countUnit   = "days"
+ countNumber = 14
         }
         action = {
-          type = "expire"
+ type = "expire"
         }
       },
     ]

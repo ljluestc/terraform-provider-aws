@@ -20,8 +20,8 @@ func TestAccLambdaLayerVersionDataSource_basic(t *testing.T) {
 	resourceName := "aws_lambda_layer_version.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, lambda.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, lambda.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -52,8 +52,8 @@ func TestAccLambdaLayerVersionDataSource_version(t *testing.T) {
 	resourceName := "aws_lambda_layer_version.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, lambda.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, lambda.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -74,8 +74,8 @@ func TestAccLambdaLayerVersionDataSource_runtime(t *testing.T) {
 	resourceName := "aws_lambda_layer_version.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, lambda.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, lambda.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -96,8 +96,8 @@ func TestAccLambdaLayerVersionDataSource_architectures(t *testing.T) {
 	resourceName := "aws_lambda_layer_version.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, lambda.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, lambda.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -135,8 +135,8 @@ func TestAccLambdaLayerVersionDataSource_architectures(t *testing.T) {
 func testAccLayerVersionDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_lambda_layer_version" "test" {
-  filename            = "test-fixtures/lambdatest.zip"
-  layer_name          = %[1]q
+  filename   = "test-fixtures/lambdatest.zip"
+  layer_name = %[1]q
   compatible_runtimes = ["nodejs16.x"]
 }
 
@@ -149,14 +149,14 @@ data "aws_lambda_layer_version" "test" {
 func testAccLayerVersionDataSourceConfig_version(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_lambda_layer_version" "test" {
-  filename            = "test-fixtures/lambdatest.zip"
-  layer_name          = %[1]q
+  filename   = "test-fixtures/lambdatest.zip"
+  layer_name = %[1]q
   compatible_runtimes = ["nodejs16.x"]
 }
 
 resource "aws_lambda_layer_version" "test_two" {
-  filename            = "test-fixtures/lambdatest_modified.zip"
-  layer_name          = %[1]q
+  filename   = "test-fixtures/lambdatest_modified.zip"
+  layer_name = %[1]q
   compatible_runtimes = ["nodejs16.x"]
 }
 
@@ -170,19 +170,19 @@ data "aws_lambda_layer_version" "test" {
 func testAccLayerVersionDataSourceConfig_runtimes(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_lambda_layer_version" "test" {
-  filename            = "test-fixtures/lambdatest.zip"
-  layer_name          = %[1]q
+  filename   = "test-fixtures/lambdatest.zip"
+  layer_name = %[1]q
   compatible_runtimes = ["go1.x"]
 }
 
 resource "aws_lambda_layer_version" "test_two" {
-  filename            = "test-fixtures/lambdatest_modified.zip"
-  layer_name          = aws_lambda_layer_version.test.layer_name
+  filename   = "test-fixtures/lambdatest_modified.zip"
+  layer_name = aws_lambda_layer_version.test.layer_name
   compatible_runtimes = ["nodejs16.x"]
 }
 
 data "aws_lambda_layer_version" "test" {
-  layer_name         = aws_lambda_layer_version.test_two.layer_name
+  layer_name= aws_lambda_layer_version.test_two.layer_name
   compatible_runtime = "go1.x"
 }
 `, rName)
@@ -198,7 +198,7 @@ resource "aws_lambda_layer_version" "test" {
 }
 
 data "aws_lambda_layer_version" "test" {
-  layer_name              = aws_lambda_layer_version.test.layer_name
+  layer_name     = aws_lambda_layer_version.test.layer_name
   compatible_architecture = "x86_64"
 }
 
@@ -215,7 +215,7 @@ resource "aws_lambda_layer_version" "test" {
 }
 
 data "aws_lambda_layer_version" "test" {
-  layer_name              = aws_lambda_layer_version.test.layer_name
+  layer_name     = aws_lambda_layer_version.test.layer_name
   compatible_architecture = "arm64"
 }
 `, rName)
@@ -231,7 +231,7 @@ resource "aws_lambda_layer_version" "test" {
 }
 
 data "aws_lambda_layer_version" "test" {
-  layer_name              = aws_lambda_layer_version.test.layer_name
+  layer_name     = aws_lambda_layer_version.test.layer_name
   compatible_architecture = "arm64"
 }
 `, rName)
@@ -240,8 +240,8 @@ data "aws_lambda_layer_version" "test" {
 func testAccLayerVersionDataSourceConfig_architecturesNone(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_lambda_layer_version" "test" {
-  filename            = "test-fixtures/lambdatest.zip"
-  layer_name          = %[1]q
+  filename   = "test-fixtures/lambdatest.zip"
+  layer_name = %[1]q
   compatible_runtimes = ["nodejs16.x"]
 }
 

@@ -35,10 +35,10 @@ func testAccRegistryPolicy_basic(t *testing.T) {
 	resourceName := "aws_ecr_registry_policy.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ecr.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ecr.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRegistryPolicyDestroy(ctx),
+		CheckDestroy:    testAccCheckRegistryPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRegistryPolicyConfig_basic(),
@@ -72,10 +72,10 @@ func testAccRegistryPolicy_disappears(t *testing.T) {
 	resourceName := "aws_ecr_registry_policy.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ecr.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ecr.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRegistryPolicyDestroy(ctx),
+		CheckDestroy:    testAccCheckRegistryPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccRegistryPolicyConfig_basic(),
@@ -154,7 +154,7 @@ resource "aws_ecr_registry_policy" "test" {
         "Sid" : "testpolicy",
         "Effect" : "Allow",
         "Principal" : {
-          "AWS" : "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"
+ "AWS" : "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"
         },
         "Action" : "ecr:ReplicateImage",
         "Resource" : "arn:${data.aws_partition.current.partition}:ecr:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:repository/*",
@@ -181,14 +181,14 @@ resource "aws_ecr_registry_policy" "test" {
         "Sid" : "testpolicy",
         "Effect" : "Allow",
         "Principal" : {
-          "AWS" : "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"
+ "AWS" : "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"
         },
         "Action" : [
-          "ecr:ReplicateImage",
-          "ecr:CreateRepository"
+ "ecr:ReplicateImage",
+ "ecr:CreateRepository"
         ],
         "Resource" : [
-          "arn:${data.aws_partition.current.partition}:ecr:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:repository/*"
+ "arn:${data.aws_partition.current.partition}:ecr:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:repository/*"
         ]
       }
     ]

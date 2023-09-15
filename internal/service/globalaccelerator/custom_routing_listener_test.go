@@ -28,7 +28,7 @@ func TestAccGlobalAcceleratorCustomRoutingListener_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCustomRoutingListenerDestroy(ctx),
+CheckDestroy:    testAccCheckCustomRoutingListenerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCustomRoutingListenerConfig_basic(rName),
@@ -64,7 +64,7 @@ func TestAccGlobalAcceleratorCustomRoutingListener_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCustomRoutingListenerDestroy(ctx),
+CheckDestroy:    testAccCheckCustomRoutingListenerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCustomRoutingListenerConfig_basic(rName),

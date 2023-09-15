@@ -623,7 +623,7 @@ resource "aws_kms_external_key" "test" {
 func testAccExternalKeyConfig_deletionWindowInDays(rName string, deletionWindowInDays int) string {
 	return fmt.Sprintf(`
 resource "aws_kms_external_key" "test" {
-  description             = %[1]q
+  description    = %[1]q
   deletion_window_in_days = %[2]d
 }
 `, rName, deletionWindowInDays)
@@ -632,7 +632,7 @@ resource "aws_kms_external_key" "test" {
 func testAccExternalKeyConfig_description(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_external_key" "test" {
-  description             = %[1]q
+  description    = %[1]q
   deletion_window_in_days = 7
 }
 `, rName)
@@ -642,7 +642,7 @@ func testAccExternalKeyConfig_enabled(rName string, enabled bool) string {
 	return fmt.Sprintf(`
 # ACCEPTANCE TESTING ONLY -- NEVER EXPOSE YOUR KEY MATERIAL
 resource "aws_kms_external_key" "test" {
-  description             = %[1]q
+  description    = %[1]q
   deletion_window_in_days = 7
   enabled  = %[2]t
   key_material_base64     = "Wblj06fduthWggmsT0cLVoIMOkeLbc2kVfMud77i/JY="
@@ -653,7 +653,7 @@ resource "aws_kms_external_key" "test" {
 func testAccExternalKeyConfig_materialBase64(rName, keyMaterialBase64 string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_external_key" "test" {
-  description             = %[1]q
+  description    = %[1]q
   deletion_window_in_days = 7
   key_material_base64     = %[2]q
 }
@@ -663,7 +663,7 @@ resource "aws_kms_external_key" "test" {
 func testAccExternalKeyConfig_policy(rName, policy string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_external_key" "test" {
-  description             = %[1]q
+  description    = %[1]q
   deletion_window_in_days = 7
 
   policy = %[2]q
@@ -674,7 +674,7 @@ resource "aws_kms_external_key" "test" {
 func testAccExternalKeyConfig_policyBypass(rName, policy string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_external_key" "test" {
-  description             = %[1]q
+  description    = %[1]q
   deletion_window_in_days = 7
 
   bypass_policy_lockout_safety_check = true
@@ -687,7 +687,7 @@ resource "aws_kms_external_key" "test" {
 func testAccExternalKeyConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_external_key" "test" {
-  description             = %[1]q
+  description    = %[1]q
   deletion_window_in_days = 7
 
   tags = {
@@ -700,7 +700,7 @@ resource "aws_kms_external_key" "test" {
 func testAccExternalKeyConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_external_key" "test" {
-  description             = %[1]q
+  description    = %[1]q
   deletion_window_in_days = 7
 
   tags = {
@@ -714,7 +714,7 @@ resource "aws_kms_external_key" "test" {
 func testAccExternalKeyConfig_tags0(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_external_key" "test" {
-  description             = %[1]q
+  description    = %[1]q
   deletion_window_in_days = 7
 }
 `, rName)
@@ -724,7 +724,7 @@ func testAccExternalKeyConfig_validTo(rName, validTo string) string {
 	return fmt.Sprintf(`
 # ACCEPTANCE TESTING ONLY -- NEVER EXPOSE YOUR KEY MATERIAL
 resource "aws_kms_external_key" "test" {
-  description             = %[1]q
+  description    = %[1]q
   deletion_window_in_days = 7
   key_material_base64     = "Wblj06fduthWggmsT0cLVoIMOkeLbc2kVfMud77i/JY="
   valid_to = %[2]q

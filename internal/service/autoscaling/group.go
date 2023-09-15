@@ -68,10 +68,10 @@ Type:     schema.TypeString,
 Computed: true,
 	},
 	"availability_zones": {
-Type:          schema.TypeSet,
+Type: schema.TypeSet,
 Optional:      true,
 Computed:      true,
-Elem:          &schema.Schema{Type: schema.TypeString},
+Elem: &schema.Schema{Type: schema.TypeString},
 ConflictsWith: []string{"vpc_zone_identifier"},
 	},
 	"capacity_rebalance": {
@@ -97,7 +97,7 @@ Optional: true,
 Computed: true,
 	},
 	"desired_capacity_type": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ValidateFunc: validation.StringInSlice(DesiredCapacityType_Values(), false),
 	},
@@ -186,7 +186,7 @@ Type:     schema.TypeBool,
 Optional: true,
 	},
 	"checkpoint_delay": {
-Type:         nullable.TypeNullableInt,
+Type:nullable.TypeNullableInt,
 Optional:     true,
 ValidateFunc: nullable.ValidateTypeStringNullableIntAtLeast(0),
 	},
@@ -198,18 +198,18 @@ Elem: &schema.Schema{
 },
 	},
 	"instance_warmup": {
-Type:         nullable.TypeNullableInt,
+Type:nullable.TypeNullableInt,
 Optional:     true,
 ValidateFunc: nullable.ValidateTypeStringNullableIntAtLeast(0),
 	},
 	"min_healthy_percentage": {
-Type:         schema.TypeInt,
+Type:schema.TypeInt,
 Optional:     true,
 Default:      90,
 ValidateFunc: validation.IntBetween(0, 100),
 	},
 	"scale_in_protected_instances": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ValidateFunc: validation.StringInSlice(autoscaling.ScaleInProtectedInstances_Values(), false),
 	},
@@ -219,7 +219,7 @@ Optional: true,
 Default:  false,
 	},
 	"standby_instances": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ValidateFunc: validation.StringInSlice(autoscaling.StandbyInstances_Values(), false),
 	},
@@ -227,7 +227,7 @@ ValidateFunc: validation.StringInSlice(autoscaling.StandbyInstances_Values(), fa
 	},
 },
 "strategy": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Required:     true,
 	ValidateFunc: validation.StringInSlice(autoscaling.RefreshStrategy_Values(), false),
 },
@@ -235,7 +235,7 @@ ValidateFunc: validation.StringInSlice(autoscaling.StandbyInstances_Values(), fa
 	Type:     schema.TypeSet,
 	Optional: true,
 	Elem: &schema.Schema{
-Type:             schema.TypeString,
+Type:    schema.TypeString,
 ValidateDiagFunc: validateGroupInstanceRefreshTriggerFields,
 	},
 },
@@ -243,7 +243,7 @@ ValidateDiagFunc: validateGroupInstanceRefreshTriggerFields,
 },
 	},
 	"launch_configuration": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ExactlyOneOf: []string{"launch_configuration", "launch_template", "mixed_instances_policy"},
 	},
@@ -254,21 +254,21 @@ Optional: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "id": {
-	Type:          schema.TypeString,
+	Type: schema.TypeString,
 	Optional:      true,
 	Computed:      true,
 	ValidateFunc:  verify.ValidLaunchTemplateID,
 	ConflictsWith: []string{"launch_template.0.name"},
 },
 "name": {
-	Type:          schema.TypeString,
+	Type: schema.TypeString,
 	Optional:      true,
 	Computed:      true,
 	ValidateFunc:  verify.ValidLaunchTemplateName,
 	ConflictsWith: []string{"launch_template.0.id"},
 },
 "version": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Optional:     true,
 	ValidateFunc: validation.StringLenBetween(1, 255),
 },
@@ -277,10 +277,10 @@ Elem: &schema.Resource{
 ExactlyOneOf: []string{"launch_configuration", "launch_template", "mixed_instances_policy"},
 	},
 	"load_balancers": {
-Type:          schema.TypeSet,
+Type: schema.TypeSet,
 Optional:      true,
 Computed:      true,
-Elem:          &schema.Schema{Type: schema.TypeString},
+Elem: &schema.Schema{Type: schema.TypeString},
 ConflictsWith: []string{"traffic_source"},
 	},
 	"max_instance_lifetime": {
@@ -330,13 +330,13 @@ Optional: true,
 Computed: true,
 	},
 	"on_demand_base_capacity": {
-Type:         schema.TypeInt,
+Type:schema.TypeInt,
 Optional:     true,
 Computed:     true,
 ValidateFunc: validation.IntAtLeast(0),
 	},
 	"on_demand_percentage_above_base_capacity": {
-Type:         schema.TypeInt,
+Type:schema.TypeInt,
 Optional:     true,
 Computed:     true,
 ValidateFunc: validation.IntBetween(0, 100),
@@ -347,7 +347,7 @@ Optional: true,
 Computed: true,
 	},
 	"spot_instance_pools": {
-Type:         schema.TypeInt,
+Type:schema.TypeInt,
 Optional:     true,
 Computed:     true,
 ValidateFunc: validation.IntAtLeast(0),
@@ -409,12 +409,12 @@ MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "max": {
-	Type:         schema.TypeInt,
+	Type:schema.TypeInt,
 	Optional:     true,
 	ValidateFunc: validation.IntAtLeast(0),
 },
 "min": {
-	Type:         schema.TypeInt,
+	Type:schema.TypeInt,
 	Optional:     true,
 	ValidateFunc: validation.IntAtLeast(1),
 },
@@ -425,7 +425,7 @@ Elem: &schema.Resource{
 Type:     schema.TypeSet,
 Optional: true,
 Elem: &schema.Schema{
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	ValidateFunc: validation.StringInSlice(autoscaling.AcceleratorManufacturer_Values(), false),
 },
 	},
@@ -433,7 +433,7 @@ Elem: &schema.Schema{
 Type:     schema.TypeSet,
 Optional: true,
 Elem: &schema.Schema{
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	ValidateFunc: validation.StringInSlice(autoscaling.AcceleratorName_Values(), false),
 },
 	},
@@ -444,12 +444,12 @@ MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "max": {
-	Type:         schema.TypeInt,
+	Type:schema.TypeInt,
 	Optional:     true,
 	ValidateFunc: validation.IntAtLeast(1),
 },
 "min": {
-	Type:         schema.TypeInt,
+	Type:schema.TypeInt,
 	Optional:     true,
 	ValidateFunc: validation.IntAtLeast(1),
 },
@@ -460,7 +460,7 @@ Elem: &schema.Resource{
 Type:     schema.TypeSet,
 Optional: true,
 Elem: &schema.Schema{
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	ValidateFunc: validation.StringInSlice(autoscaling.AcceleratorType_Values(), false),
 },
 	},
@@ -471,7 +471,7 @@ MaxItems: 400,
 Elem:     &schema.Schema{Type: schema.TypeString},
 	},
 	"bare_metal": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ValidateFunc: validation.StringInSlice(autoscaling.BareMetal_Values(), false),
 	},
@@ -482,12 +482,12 @@ MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "max": {
-	Type:         schema.TypeInt,
+	Type:schema.TypeInt,
 	Optional:     true,
 	ValidateFunc: validation.IntAtLeast(1),
 },
 "min": {
-	Type:         schema.TypeInt,
+	Type:schema.TypeInt,
 	Optional:     true,
 	ValidateFunc: validation.IntAtLeast(1),
 },
@@ -495,7 +495,7 @@ Elem: &schema.Resource{
 },
 	},
 	"burstable_performance": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ValidateFunc: validation.StringInSlice(autoscaling.BurstablePerformance_Values(), false),
 	},
@@ -503,7 +503,7 @@ ValidateFunc: validation.StringInSlice(autoscaling.BurstablePerformance_Values()
 Type:     schema.TypeSet,
 Optional: true,
 Elem: &schema.Schema{
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	ValidateFunc: validation.StringInSlice(autoscaling.CpuManufacturer_Values(), false),
 },
 	},
@@ -517,12 +517,12 @@ Elem:     &schema.Schema{Type: schema.TypeString},
 Type:     schema.TypeSet,
 Optional: true,
 Elem: &schema.Schema{
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	ValidateFunc: validation.StringInSlice(autoscaling.InstanceGeneration_Values(), false),
 },
 	},
 	"local_storage": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ValidateFunc: validation.StringInSlice(autoscaling.LocalStorage_Values(), false),
 	},
@@ -530,7 +530,7 @@ ValidateFunc: validation.StringInSlice(autoscaling.LocalStorage_Values(), false)
 Type:     schema.TypeSet,
 Optional: true,
 Elem: &schema.Schema{
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	ValidateFunc: validation.StringInSlice(autoscaling.LocalStorageType_Values(), false),
 },
 	},
@@ -541,12 +541,12 @@ MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "max": {
-	Type:         schema.TypeFloat,
+	Type:schema.TypeFloat,
 	Optional:     true,
 	ValidateFunc: verify.FloatGreaterThan(0.0),
 },
 "min": {
-	Type:         schema.TypeFloat,
+	Type:schema.TypeFloat,
 	Optional:     true,
 	ValidateFunc: verify.FloatGreaterThan(0.0),
 },
@@ -560,12 +560,12 @@ MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "max": {
-	Type:         schema.TypeInt,
+	Type:schema.TypeInt,
 	Optional:     true,
 	ValidateFunc: validation.IntAtLeast(1),
 },
 "min": {
-	Type:         schema.TypeInt,
+	Type:schema.TypeInt,
 	Optional:     true,
 	ValidateFunc: validation.IntAtLeast(1),
 },
@@ -579,12 +579,12 @@ MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "max": {
-	Type:         schema.TypeFloat,
+	Type:schema.TypeFloat,
 	Optional:     true,
 	ValidateFunc: verify.FloatGreaterThan(0.0),
 },
 "min": {
-	Type:         schema.TypeFloat,
+	Type:schema.TypeFloat,
 	Optional:     true,
 	ValidateFunc: verify.FloatGreaterThan(0.0),
 },
@@ -598,12 +598,12 @@ MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "max": {
-	Type:         schema.TypeInt,
+	Type:schema.TypeInt,
 	Optional:     true,
 	ValidateFunc: validation.IntAtLeast(1),
 },
 "min": {
-	Type:         schema.TypeInt,
+	Type:schema.TypeInt,
 	Optional:     true,
 	ValidateFunc: validation.IntAtLeast(1),
 },
@@ -611,7 +611,7 @@ Elem: &schema.Resource{
 },
 	},
 	"on_demand_max_price_percentage_over_lowest_price": {
-Type:         schema.TypeInt,
+Type:schema.TypeInt,
 Optional:     true,
 ValidateFunc: validation.IntAtLeast(1),
 	},
@@ -620,7 +620,7 @@ Type:     schema.TypeBool,
 Optional: true,
 	},
 	"spot_max_price_percentage_over_lowest_price": {
-Type:         schema.TypeInt,
+Type:schema.TypeInt,
 Optional:     true,
 ValidateFunc: validation.IntAtLeast(1),
 	},
@@ -631,12 +631,12 @@ MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "max": {
-	Type:         schema.TypeFloat,
+	Type:schema.TypeFloat,
 	Optional:     true,
 	ValidateFunc: verify.FloatGreaterThan(0.0),
 },
 "min": {
-	Type:         schema.TypeFloat,
+	Type:schema.TypeFloat,
 	Optional:     true,
 	ValidateFunc: verify.FloatGreaterThan(0.0),
 },
@@ -650,12 +650,12 @@ MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "max": {
-	Type:         schema.TypeInt,
+	Type:schema.TypeInt,
 	Optional:     true,
 	ValidateFunc: validation.IntAtLeast(1),
 },
 "min": {
-	Type:         schema.TypeInt,
+	Type:schema.TypeInt,
 	Optional:     true,
 	ValidateFunc: validation.IntAtLeast(1),
 },
@@ -695,7 +695,7 @@ Default:  "$Default",
 	},
 },
 "weighted_capacity": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Optional:     true,
 	ValidateFunc: validation.StringMatch(regexache.MustCompile(`^[1-9][0-9]{0,2}$`), "see https://docs.aws.amazon.com/autoscaling/ec2/APIReference/API_LaunchTemplateOverrides.html"),
 },
@@ -710,7 +710,7 @@ Default:  "$Default",
 ExactlyOneOf: []string{"launch_configuration", "launch_template", "mixed_instances_policy"},
 	},
 	"name": {
-Type:          schema.TypeString,
+Type: schema.TypeString,
 Optional:      true,
 Computed:      true,
 ForceNew:      true,
@@ -718,7 +718,7 @@ ValidateFunc:  validation.StringLenBetween(0, 255),
 ConflictsWith: []string{"name_prefix"},
 	},
 	"name_prefix": {
-Type:          schema.TypeString,
+Type: schema.TypeString,
 Optional:      true,
 Computed:      true,
 ForceNew:      true,
@@ -769,10 +769,10 @@ Elem: &schema.Resource{
 },
 	},
 	"target_group_arns": {
-Type:          schema.TypeSet,
+Type: schema.TypeSet,
 Optional:      true,
 Computed:      true,
-Elem:          &schema.Schema{Type: schema.TypeString},
+Elem: &schema.Schema{Type: schema.TypeString},
 ConflictsWith: []string{"traffic_source"},
 	},
 	"termination_policies": {
@@ -787,12 +787,12 @@ Computed: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "identifier": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Required:     true,
 	ValidateFunc: validation.StringLenBetween(1, 2048),
 },
 "type": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Optional:     true,
 	ValidateFunc: validation.StringLenBetween(1, 2048),
 },
@@ -801,14 +801,14 @@ Elem: &schema.Resource{
 ConflictsWith: []string{"load_balancers", "target_group_arns"},
 	},
 	"vpc_zone_identifier": {
-Type:          schema.TypeSet,
+Type: schema.TypeSet,
 Optional:      true,
 Computed:      true,
-Elem:          &schema.Schema{Type: schema.TypeString},
+Elem: &schema.Schema{Type: schema.TypeString},
 ConflictsWith: []string{"availability_zones"},
 	},
 	"wait_for_capacity_timeout": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Default:      "10m",
 ValidateFunc: verify.ValidDuration,
@@ -848,7 +848,7 @@ Default:  false,
 	Default:  0,
 },
 "pool_state": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Optional:     true,
 	Default:      autoscaling.WarmPoolStateStopped,
 	ValidateFunc: validation.StringInSlice(autoscaling.WarmPoolState_Values(), false),
@@ -881,7 +881,7 @@ func resourceGroupCreate(ctx context.Context, d *schema.ResourceData, meta inter
 
 	asgName := create.Name(d.Get("name").(string), d.Get("name_prefix").(string))
 	createInput := &autoscaling.CreateAutoScalingGroupInput{
-AutoScalingGroupName:             aws.String(asgName),
+AutoScalingGroupName:    aws.String(asgName),
 NewInstancesProtectedFromScaleIn: aws.Bool(d.Get("protect_from_scale_in").(bool)),
 	}
 	updateInput := &autoscaling.UpdateAutoScalingGroupInput{
@@ -1078,8 +1078,8 @@ if err != nil {
 	if v, ok := d.GetOk("enabled_metrics"); ok && v.(*schema.Set).Len() > 0 {
 input := &autoscaling.EnableMetricsCollectionInput{
 	AutoScalingGroupName: aws.String(d.Id()),
-	Granularity:          aws.String(d.Get("metrics_granularity").(string)),
-	Metrics:              flex.ExpandStringSet(v.(*schema.Set)),
+	Granularity: aws.String(d.Get("metrics_granularity").(string)),
+	Metrics:     flex.ExpandStringSet(v.(*schema.Set)),
 }
 
 _, err := conn.EnableMetricsCollectionWithContext(ctx, input)
@@ -1212,7 +1212,7 @@ func resourceGroupUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 "warm_pool",
 	) {
 input := &autoscaling.UpdateAutoScalingGroupInput{
-	AutoScalingGroupName:             aws.String(d.Id()),
+	AutoScalingGroupName:    aws.String(d.Id()),
 	NewInstancesProtectedFromScaleIn: aws.Bool(d.Get("protect_from_scale_in").(bool)),
 }
 
@@ -1569,7 +1569,7 @@ ns := n.(*schema.Set)
 if disableMetrics := os.Difference(ns); disableMetrics.Len() != 0 {
 	input := &autoscaling.DisableMetricsCollectionInput{
 AutoScalingGroupName: aws.String(d.Id()),
-Metrics:              flex.ExpandStringSet(disableMetrics),
+Metrics:     flex.ExpandStringSet(disableMetrics),
 	}
 
 	_, err := conn.DisableMetricsCollectionWithContext(ctx, input)
@@ -1582,8 +1582,8 @@ return sdkdiag.AppendErrorf(diags, "disabling Auto Scaling Group (%s) metrics co
 if enableMetrics := ns.Difference(os); enableMetrics.Len() != 0 {
 	input := &autoscaling.EnableMetricsCollectionInput{
 AutoScalingGroupName: aws.String(d.Id()),
-Granularity:          aws.String(d.Get("metrics_granularity").(string)),
-Metrics:              flex.ExpandStringSet(enableMetrics),
+Granularity: aws.String(d.Get("metrics_granularity").(string)),
+Metrics:     flex.ExpandStringSet(enableMetrics),
 	}
 
 	_, err := conn.EnableMetricsCollectionWithContext(ctx, input)
@@ -1673,7 +1673,7 @@ if err != nil {
 func() (interface{}, error) {
 	return conn.DeleteAutoScalingGroupWithContext(ctx, &autoscaling.DeleteAutoScalingGroupInput{
 AutoScalingGroupName: aws.String(d.Id()),
-ForceDelete:          aws.Bool(forceDeleteGroup),
+ForceDelete: aws.Bool(forceDeleteGroup),
 	})
 },
 autoscaling.ErrCodeResourceInUseFault, autoscaling.ErrCodeScalingActivityInProgressFault)
@@ -1702,8 +1702,8 @@ func drainGroup(ctx context.Context, conn *autoscaling.AutoScaling, name string,
 	input := &autoscaling.UpdateAutoScalingGroupInput{
 AutoScalingGroupName: aws.String(name),
 DesiredCapacity:      aws.Int64(0),
-MinSize:              aws.Int64(0),
-MaxSize:              aws.Int64(0),
+MinSize:     aws.Int64(0),
+MaxSize:     aws.Int64(0),
 	}
 
 	log.Printf("[DEBUG] Draining Auto Scaling Group: %s", name)
@@ -1734,7 +1734,7 @@ for k := i; k < j; k++ {
 
 input := &autoscaling.SetInstanceProtectionInput{
 	AutoScalingGroupName: aws.String(name),
-	InstanceIds:          aws.StringSlice(instanceIDs),
+	InstanceIds: aws.StringSlice(instanceIDs),
 	ProtectedFromScaleIn: aws.Bool(false),
 }
 
@@ -1762,7 +1762,7 @@ if err := drainWarmPool(ctx, conn, name, timeout); err != nil {
 func() (interface{}, error) {
 	return conn.DeleteWarmPoolWithContext(ctx, &autoscaling.DeleteWarmPoolInput{
 AutoScalingGroupName: aws.String(name),
-ForceDelete:          aws.Bool(force),
+ForceDelete: aws.Bool(force),
 	})
 },
 autoscaling.ErrCodeResourceInUseFault, autoscaling.ErrCodeScalingActivityInProgressFault)

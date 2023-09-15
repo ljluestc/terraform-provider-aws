@@ -33,7 +33,7 @@ func TestAccAutoScalingSchedule_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckScheduleDestroy(ctx),
+CheckDestroy:    testAccCheckScheduleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccScheduleConfig_basic(rName1, rName2, startTime, endTime),
@@ -64,7 +64,7 @@ func TestAccAutoScalingSchedule_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckScheduleDestroy(ctx),
+CheckDestroy:    testAccCheckScheduleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccScheduleConfig_basic(rName1, rName2, startTime, endTime),
@@ -88,7 +88,7 @@ func TestAccAutoScalingSchedule_recurrence(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckScheduleDestroy(ctx),
+CheckDestroy:    testAccCheckScheduleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccScheduleConfig_recurrence(rName),
@@ -119,7 +119,7 @@ func TestAccAutoScalingSchedule_zeroValues(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckScheduleDestroy(ctx),
+CheckDestroy:    testAccCheckScheduleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccScheduleConfig_zeroValues(rName, startTime, endTime),
@@ -149,7 +149,7 @@ func TestAccAutoScalingSchedule_negativeOne(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckScheduleDestroy(ctx),
+CheckDestroy:    testAccCheckScheduleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccScheduleConfig_negativeOne(rName, startTime, endTime),
@@ -255,8 +255,8 @@ resource "aws_autoscaling_group" "test" {
   max_size   = 1
   min_size   = 1
   health_check_grace_period = 300
-  health_check_type         = "ELB"
-  force_delete              = true
+  health_check_type= "ELB"
+  force_delete     = true
   termination_policies      = ["OldestInstance"]
   launch_configuration      = aws_launch_configuration.test.name
 
@@ -276,7 +276,7 @@ resource "aws_autoscaling_schedule" "test" {
   min_size= 0
   max_size= 1
   desired_capacity       = 0
-  start_time             = %[2]q
+  start_time    = %[2]q
   end_time= %[3]q
   autoscaling_group_name = aws_autoscaling_group.test.name
 }
@@ -290,8 +290,8 @@ resource "aws_autoscaling_schedule" "test" {
   min_size= 0
   max_size= 1
   desired_capacity       = 0
-  recurrence             = "0 8 * * *"
-  time_zone              = "Pacific/Tahiti"
+  recurrence    = "0 8 * * *"
+  time_zone     = "Pacific/Tahiti"
   autoscaling_group_name = aws_autoscaling_group.test.name
 }
 `, rName))
@@ -304,7 +304,7 @@ resource "aws_autoscaling_schedule" "test" {
   max_size= 0
   min_size= 0
   desired_capacity       = 0
-  start_time             = %[2]q
+  start_time    = %[2]q
   end_time= %[3]q
   autoscaling_group_name = aws_autoscaling_group.test.name
 }
@@ -318,7 +318,7 @@ resource "aws_autoscaling_schedule" "test" {
   max_size= 3
   min_size= 1
   desired_capacity       = -1
-  start_time             = "%s"
+  start_time    = "%s"
   end_time= "%s"
   autoscaling_group_name = aws_autoscaling_group.test.name
 }

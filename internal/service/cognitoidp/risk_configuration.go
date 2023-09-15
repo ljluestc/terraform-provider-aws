@@ -35,7 +35,7 @@ func ResourceRiskConfiguration() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"user_pool_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validUserPoolID,
@@ -69,7 +69,7 @@ func ResourceRiskConfiguration() *schema.Resource {
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"event_action": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ValidateFunc: validation.StringInSlice(cognitoidentityprovider.AccountTakeoverEventActionType_Values(), false),
 												},
@@ -87,7 +87,7 @@ func ResourceRiskConfiguration() *schema.Resource {
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"event_action": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ValidateFunc: validation.StringInSlice(cognitoidentityprovider.AccountTakeoverEventActionType_Values(), false),
 												},
@@ -105,7 +105,7 @@ func ResourceRiskConfiguration() *schema.Resource {
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"event_action": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ValidateFunc: validation.StringInSlice(cognitoidentityprovider.AccountTakeoverEventActionType_Values(), false),
 												},
@@ -132,17 +132,17 @@ func ResourceRiskConfiguration() *schema.Resource {
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"html_body": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ValidateFunc: validation.StringLenBetween(6, 20000),
 												},
 												"subject": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ValidateFunc: validation.StringLenBetween(1, 140),
 												},
 												"text_body": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ValidateFunc: validation.StringLenBetween(6, 20000),
 												},
@@ -160,17 +160,17 @@ func ResourceRiskConfiguration() *schema.Resource {
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"html_body": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ValidateFunc: validation.StringLenBetween(6, 20000),
 												},
 												"subject": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ValidateFunc: validation.StringLenBetween(1, 140),
 												},
 												"text_body": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ValidateFunc: validation.StringLenBetween(6, 20000),
 												},
@@ -184,17 +184,17 @@ func ResourceRiskConfiguration() *schema.Resource {
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"html_body": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ValidateFunc: validation.StringLenBetween(6, 20000),
 												},
 												"subject": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ValidateFunc: validation.StringLenBetween(1, 140),
 												},
 												"text_body": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ValidateFunc: validation.StringLenBetween(6, 20000),
 												},
@@ -206,7 +206,7 @@ func ResourceRiskConfiguration() *schema.Resource {
 										Optional: true,
 									},
 									"source_arn": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: verify.ValidARN,
 									},
@@ -227,7 +227,7 @@ func ResourceRiskConfiguration() *schema.Resource {
 							Optional: true,
 							Computed: true,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: validation.StringInSlice(cognitoidentityprovider.EventFilterType_Values(), false),
 							},
 						},
@@ -238,7 +238,7 @@ func ResourceRiskConfiguration() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"event_action": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: validation.StringInSlice(cognitoidentityprovider.CompromisedCredentialsEventActionType_Values(), false),
 									},

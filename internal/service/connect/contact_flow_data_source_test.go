@@ -20,8 +20,8 @@ func testAccContactFlowDataSource_contactFlowID(t *testing.T) {
 	datasourceName := "data.aws_connect_contact_flow.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -50,8 +50,8 @@ func testAccContactFlowDataSource_name(t *testing.T) {
 	datasourceName := "data.aws_connect_contact_flow.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, connect.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, connect.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -77,7 +77,7 @@ func testAccContactFlowBaseDataSourceConfig(rName, rName2 string) string {
 resource "aws_connect_instance" "test" {
   identity_management_type = "CONNECT_MANAGED"
   inbound_calls_enabled    = true
-  instance_alias           = %[1]q
+  instance_alias  = %[1]q
   outbound_calls_enabled   = true
 }
 

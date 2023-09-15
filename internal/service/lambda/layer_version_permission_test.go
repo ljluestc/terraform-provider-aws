@@ -28,7 +28,7 @@ func TestAccLambdaLayerVersionPermission_basic_byARN(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLayerVersionPermissionDestroy(ctx),
+CheckDestroy:    testAccCheckLayerVersionPermissionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLayerVersionPermissionConfig_basicARN(rName),
@@ -41,8 +41,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"skip_destroy"},
 	},
@@ -59,7 +59,7 @@ func TestAccLambdaLayerVersionPermission_basic_byName(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLayerVersionPermissionDestroy(ctx),
+CheckDestroy:    testAccCheckLayerVersionPermissionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLayerVersionPermissionConfig_basicName(rName),
@@ -72,8 +72,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"skip_destroy"},
 	},
@@ -90,7 +90,7 @@ func TestAccLambdaLayerVersionPermission_org(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLayerVersionPermissionDestroy(ctx),
+CheckDestroy:    testAccCheckLayerVersionPermissionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLayerVersionPermissionConfig_org(rName),
@@ -104,8 +104,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"skip_destroy"},
 	},
@@ -122,7 +122,7 @@ func TestAccLambdaLayerVersionPermission_account(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLayerVersionPermissionDestroy(ctx),
+CheckDestroy:    testAccCheckLayerVersionPermissionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLayerVersionPermissionConfig_account(rName),
@@ -135,8 +135,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"skip_destroy"},
 	},
@@ -153,7 +153,7 @@ func TestAccLambdaLayerVersionPermission_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLayerVersionPermissionDestroy(ctx),
+CheckDestroy:    testAccCheckLayerVersionPermissionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLayerVersionPermissionConfig_account(rName),
@@ -177,7 +177,7 @@ func TestAccLambdaLayerVersionPermission_skipDestroy(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             nil, // this purposely leaves dangling resources, since skip_destroy = true
+CheckDestroy:    nil, // this purposely leaves dangling resources, since skip_destroy = true
 Steps: []resource.TestStep{
 	{
 Config: testAccLayerVersionPermissionConfig_skipDestroy(rName),
@@ -209,7 +209,7 @@ resource "aws_lambda_layer_version" "test" {
 resource "aws_lambda_layer_version_permission" "test" {
   layer_name     = aws_lambda_layer_version.test.layer_arn
   version_number = aws_lambda_layer_version.test.version
-  action         = "lambda:GetLayerVersion"
+  action= "lambda:GetLayerVersion"
   statement_id   = "xaccount"
   principal      = "*"
 }
@@ -226,7 +226,7 @@ resource "aws_lambda_layer_version" "test" {
 resource "aws_lambda_layer_version_permission" "test" {
   layer_name     = aws_lambda_layer_version.test.layer_name
   version_number = aws_lambda_layer_version.test.version
-  action         = "lambda:GetLayerVersion"
+  action= "lambda:GetLayerVersion"
   statement_id   = "xaccount"
   principal      = "*"
 }
@@ -243,7 +243,7 @@ resource "aws_lambda_layer_version" "test" {
 resource "aws_lambda_layer_version_permission" "test" {
   layer_name      = aws_lambda_layer_version.test.layer_arn
   version_number  = aws_lambda_layer_version.test.version
-  action          = "lambda:GetLayerVersion"
+  action = "lambda:GetLayerVersion"
   statement_id    = "xaccount"
   principal       = "*"
   organization_id = "o-0123456789"
@@ -263,7 +263,7 @@ resource "aws_lambda_layer_version" "test" {
 resource "aws_lambda_layer_version_permission" "test" {
   layer_name     = aws_lambda_layer_version.test.layer_arn
   version_number = aws_lambda_layer_version.test.version
-  action         = "lambda:GetLayerVersion"
+  action= "lambda:GetLayerVersion"
   statement_id   = "xaccount"
   principal      = data.aws_caller_identity.current.account_id
 }
@@ -280,7 +280,7 @@ resource "aws_lambda_layer_version" "test" {
 resource "aws_lambda_layer_version_permission" "test" {
   layer_name     = aws_lambda_layer_version.test.layer_name
   version_number = aws_lambda_layer_version.test.version
-  action         = "lambda:GetLayerVersion"
+  action= "lambda:GetLayerVersion"
   statement_id   = "xaccount"
   principal      = "*"
   skip_destroy   = true

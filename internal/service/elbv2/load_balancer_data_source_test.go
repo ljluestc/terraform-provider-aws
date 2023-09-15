@@ -22,8 +22,8 @@ func TestAccELBV2LoadBalancerDataSource_basic(t *testing.T) {
 	resourceName := "aws_lb.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elbv2.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, elbv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -93,8 +93,8 @@ func TestAccELBV2LoadBalancerDataSource_outpost(t *testing.T) {
 	resourceName := "aws_lb.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elbv2.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckOutpostsOutposts(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, elbv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -131,8 +131,8 @@ func TestAccELBV2LoadBalancerDataSource_backwardsCompatibility(t *testing.T) {
 	resourceName := "aws_alb.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elbv2.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, elbv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -207,10 +207,10 @@ func TestAccELBV2LoadBalancerDataSource_backwardsCompatibility(t *testing.T) {
 func testAccLoadBalancerDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_lb" "test" {
-  name            = %[1]q
+  name   = %[1]q
   internal        = true
   security_groups = [aws_security_group.test.id]
-  subnets         = aws_subnet.test[*].id
+  subnets= aws_subnet.test[*].id
 
   idle_timeout= 30
   enable_deletion_protection = false
@@ -269,10 +269,10 @@ data "aws_outposts_outpost" "test" {
 }
 
 resource "aws_lb" "test" {
-  name            = %[1]q
+  name   = %[1]q
   internal        = true
   security_groups = [aws_security_group.test.id]
-  subnets         = [aws_subnet.test.id]
+  subnets= [aws_subnet.test.id]
 
   idle_timeout= 30
   enable_deletion_protection = false
@@ -292,7 +292,7 @@ resource "aws_vpc" "test" {
 }
 
 resource "aws_subnet" "test" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   cidr_block        = "10.0.0.0/24"
   availability_zone = data.aws_outposts_outpost.test.availability_zone
   outpost_arn       = data.aws_outposts_outpost.test.arn
@@ -335,10 +335,10 @@ data "aws_lb" "alb_test_with_arn" {
 func testAccLoadBalancerDataSourceConfig_backwardsCompatibility(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_alb" "test" {
-  name            = %[1]q
+  name   = %[1]q
   internal        = true
   security_groups = [aws_security_group.test.id]
-  subnets         = aws_subnet.test[*].id
+  subnets= aws_subnet.test[*].id
 
   idle_timeout= 30
   enable_deletion_protection = false

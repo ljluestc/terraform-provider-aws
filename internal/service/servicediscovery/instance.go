@@ -55,7 +55,7 @@ func ResourceInstance() *schema.Resource {
 				),
 			},
 			"service_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 64),

@@ -24,10 +24,10 @@ func TestAccKMSKeyPolicy_basic(t *testing.T) {
 	expectedPolicyText := fmt.Sprintf(`{"Version":"2012-10-17","Id":%[1]q,"Statement":[{"Sid":"Enable IAM User Permissions","Effect":"Allow","Principal":{"AWS":"*"},"Action":"kms:*","Resource":"*"}]}`, rName)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
+		CheckDestroy:    acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyPolicyConfig_policy(rName),
@@ -37,8 +37,8 @@ func TestAccKMSKeyPolicy_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            attachmentResourceName,
-				ImportState:             true,
+				ResourceName:   attachmentResourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"bypass_policy_lockout_safety_check"},
 			},
@@ -58,10 +58,10 @@ func TestAccKMSKeyPolicy_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 	attachmentResourceName := "aws_kms_key_policy.test"
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
+		CheckDestroy:    acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyPolicyConfig_policy(rName),
@@ -83,10 +83,10 @@ func TestAccKMSKeyPolicy_bypass(t *testing.T) {
 	attachmentResourceName := "aws_kms_key_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
+		CheckDestroy:    acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccKeyPolicyConfig_policyBypass(rName, false),
@@ -100,8 +100,8 @@ func TestAccKMSKeyPolicy_bypass(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            attachmentResourceName,
-				ImportState:             true,
+				ResourceName:   attachmentResourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"bypass_policy_lockout_safety_check"},
 			},
@@ -117,10 +117,10 @@ func TestAccKMSKeyPolicy_bypassUpdate(t *testing.T) {
 	attachmentResourceName := "aws_kms_key_policy.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
+		CheckDestroy:    acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyPolicyConfig_policy(rName),
@@ -147,10 +147,10 @@ func TestAccKMSKeyPolicy_keyIsEnabled(t *testing.T) {
 	keyResourceName := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
+		CheckDestroy:    acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyPolicyConfig_keyIsEnabled(rName, true),
@@ -175,10 +175,10 @@ func TestAccKMSKeyPolicy_iamRole(t *testing.T) {
 	keyResourceName := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
+		CheckDestroy:    acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyPolicyConfig_policyIAMRole(rName),
@@ -187,8 +187,8 @@ func TestAccKMSKeyPolicy_iamRole(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            keyResourceName,
-				ImportState:             true,
+				ResourceName:   keyResourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"deletion_window_in_days", "bypass_policy_lockout_safety_check"},
 			},
@@ -203,10 +203,10 @@ func TestAccKMSKeyPolicy_iamRoleUpdate(t *testing.T) {
 	keyResourceName := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
+		CheckDestroy:    acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyPolicyConfig_policy(rName),
@@ -232,10 +232,10 @@ func TestAccKMSKeyPolicy_iamRoleOrder(t *testing.T) {
 	keyResourceName := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
+		CheckDestroy:    acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyPolicyConfig_policyIAMMultiRole(rName),
@@ -276,10 +276,10 @@ func TestAccKMSKeyPolicy_iamServiceLinkedRole(t *testing.T) {
 	keyResourceName := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
+		CheckDestroy:    acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyPolicyConfig_policyIAMServiceLinkedRole(rName),
@@ -288,8 +288,8 @@ func TestAccKMSKeyPolicy_iamServiceLinkedRole(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            keyResourceName,
-				ImportState:             true,
+				ResourceName:   keyResourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"deletion_window_in_days", "bypass_policy_lockout_safety_check"},
 			},
@@ -304,10 +304,10 @@ func TestAccKMSKeyPolicy_booleanCondition(t *testing.T) {
 	keyResourceName := "aws_kms_key.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop,
+		CheckDestroy:    acctest.CheckDestroyNoop,
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKeyPolicyConfig_policyBooleanCondition(rName),
@@ -322,7 +322,7 @@ func TestAccKMSKeyPolicy_booleanCondition(t *testing.T) {
 func testAccKeyPolicyConfig_policy(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description    = %[1]q
   deletion_window_in_days = 7
 }
 resource "aws_kms_key_policy" "test" {
@@ -349,12 +349,12 @@ func testAccKeyPolicyConfig_policyBypass(rName string, bypassFlag bool) string {
 data "aws_caller_identity" "current" {}
 
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description    = %[1]q
   deletion_window_in_days = 7
 }
 
 resource "aws_kms_key_policy" "test" {
-  key_id              = aws_kms_key.test.id
+  key_id     = aws_kms_key.test.id
   bypass_policy_lockout_safety_check = %[2]t
 
   policy = jsonencode({
@@ -362,18 +362,18 @@ resource "aws_kms_key_policy" "test" {
     Statement = [
       {
         Action = [
-          "kms:CreateKey",
-          "kms:DescribeKey",
-          "kms:ScheduleKeyDeletion",
-          "kms:Describe*",
-          "kms:Get*",
-          "kms:List*",
-          "kms:TagResource",
-          "kms:UntagResource",
+ "kms:CreateKey",
+ "kms:DescribeKey",
+ "kms:ScheduleKeyDeletion",
+ "kms:Describe*",
+ "kms:Get*",
+ "kms:List*",
+ "kms:TagResource",
+ "kms:UntagResource",
         ]
         Effect = "Allow"
         Principal = {
-          AWS = data.aws_caller_identity.current.arn
+ AWS = data.aws_caller_identity.current.arn
         }
         Resource = "*"
         Sid      = "Enable IAM User Permissions"
@@ -407,7 +407,7 @@ resource "aws_iam_role" "test" {
 }
 
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description    = %[1]q
   deletion_window_in_days = 7
 }
 
@@ -420,7 +420,7 @@ resource "aws_kms_key_policy" "test" {
         Action = "kms:*"
         Effect = "Allow"
         Principal = {
-          AWS = data.aws_caller_identity.current.arn
+ AWS = data.aws_caller_identity.current.arn
         }
 
         Resource = "*"
@@ -428,15 +428,15 @@ resource "aws_kms_key_policy" "test" {
       },
       {
         Action = [
-          "kms:Encrypt",
-          "kms:Decrypt",
-          "kms:ReEncrypt*",
-          "kms:GenerateDataKey*",
-          "kms:DescribeKey",
+ "kms:Encrypt",
+ "kms:Decrypt",
+ "kms:ReEncrypt*",
+ "kms:GenerateDataKey*",
+ "kms:DescribeKey",
         ]
         Effect = "Allow"
         Principal = {
-          AWS = aws_iam_role.test.arn
+ AWS = aws_iam_role.test.arn
         }
 
         Resource = "*"
@@ -566,7 +566,7 @@ data "aws_iam_policy_document" "test" {
 }
 
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description    = %[1]q
   deletion_window_in_days = 7
 }
 
@@ -589,7 +589,7 @@ resource "aws_iam_service_linked_role" "test" {
 }
 
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description    = %[1]q
   deletion_window_in_days = 7
 }
 
@@ -602,7 +602,7 @@ resource "aws_kms_key_policy" "test" {
         Action = "kms:*"
         Effect = "Allow"
         Principal = {
-          AWS = data.aws_caller_identity.current.arn
+ AWS = data.aws_caller_identity.current.arn
         }
 
         Resource = "*"
@@ -610,15 +610,15 @@ resource "aws_kms_key_policy" "test" {
       },
       {
         Action = [
-          "kms:Encrypt",
-          "kms:Decrypt",
-          "kms:ReEncrypt*",
-          "kms:GenerateDataKey*",
-          "kms:DescribeKey",
+ "kms:Encrypt",
+ "kms:Decrypt",
+ "kms:ReEncrypt*",
+ "kms:GenerateDataKey*",
+ "kms:DescribeKey",
         ]
         Effect = "Allow"
         Principal = {
-          AWS = aws_iam_service_linked_role.test.arn
+ AWS = aws_iam_service_linked_role.test.arn
         }
 
         Resource = "*"
@@ -638,7 +638,7 @@ data "aws_caller_identity" "current" {}
 data "aws_partition" "current" {}
 
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description    = %[1]q
   deletion_window_in_days = 7
 }
 resource "aws_kms_key_policy" "test" {
@@ -650,7 +650,7 @@ resource "aws_kms_key_policy" "test" {
         Action = "kms:*"
         Effect = "Allow"
         Principal = {
-          AWS = data.aws_caller_identity.current.arn
+ AWS = data.aws_caller_identity.current.arn
         }
 
         Resource = "*"
@@ -658,24 +658,24 @@ resource "aws_kms_key_policy" "test" {
       },
       {
         Action = [
-          "kms:Encrypt",
-          "kms:Decrypt",
-          "kms:ReEncrypt*",
-          "kms:GenerateDataKey*",
-          "kms:DescribeKey",
+ "kms:Encrypt",
+ "kms:Decrypt",
+ "kms:ReEncrypt*",
+ "kms:GenerateDataKey*",
+ "kms:DescribeKey",
         ]
         Effect = "Allow"
         Principal = {
-          AWS = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"
+ AWS = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"
         }
 
         Resource = "*"
         Sid      = "Enable IAM User Permissions"
 
         Condition = {
-          Bool = {
-            "kms:GrantIsForAWSResource" = true
-          }
+ Bool = {
+   "kms:GrantIsForAWSResource" = true
+ }
         }
       },
     ]
@@ -688,7 +688,7 @@ resource "aws_kms_key_policy" "test" {
 func testAccKeyPolicyConfig_removedPolicy(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description    = %[1]q
   deletion_window_in_days = 7
 }
 `, rName)
@@ -698,9 +698,9 @@ func testAccKeyPolicyConfig_keyIsEnabled(rName string, isEnabled bool) string {
 	return fmt.Sprintf(`
 data "aws_caller_identity" "current" {}
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description    = %[1]q
   deletion_window_in_days = 7
-  is_enabled              = %[2]t
+  is_enabled     = %[2]t
 }
 resource "aws_kms_key_policy" "test" {
   key_id = aws_kms_key.test.id

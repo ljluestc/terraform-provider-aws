@@ -36,7 +36,7 @@ func TestAccLambdaFunctionURL_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccFunctionURLPreCheck(t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckFunctionURLDestroy(ctx),
+CheckDestroy:    testAccCheckFunctionURLDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccFunctionURLConfig_basic(funcName, policyName, roleName),
@@ -75,7 +75,7 @@ func TestAccLambdaFunctionURL_Cors(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccFunctionURLPreCheck(t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckFunctionURLDestroy(ctx),
+CheckDestroy:    testAccCheckFunctionURLDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccFunctionURLConfig_cors(funcName, policyName, roleName),
@@ -149,7 +149,7 @@ func TestAccLambdaFunctionURL_Alias(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccFunctionURLPreCheck(t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckFunctionURLDestroy(ctx),
+CheckDestroy:    testAccCheckFunctionURLDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccFunctionURLConfig_alias(funcName, aliasName, policyName, roleName),
@@ -183,7 +183,7 @@ func TestAccLambdaFunctionURL_TwoURLs(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccFunctionURLPreCheck(t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckFunctionURLDestroy(ctx),
+CheckDestroy:    testAccCheckFunctionURLDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccFunctionURLConfig_two(funcName, aliasName, policyName, roleName),
@@ -234,7 +234,7 @@ func TestAccLambdaFunctionURL_invokeMode(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccFunctionURLPreCheck(t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckFunctionURLDestroy(ctx),
+CheckDestroy:    testAccCheckFunctionURLDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccFunctionURLConfig_invokeMode(funcName, policyName, roleName, "BUFFERED"),
@@ -422,7 +422,7 @@ func testAccFunctionURLConfig_basic(funcName, policyName, roleName string) strin
 resource "aws_lambda_function" "test" {
   filename      = "test-fixtures/lambdatest.zip"
   function_name = %[1]q
-  role          = aws_iam_role.iam_for_lambda.arn
+  role = aws_iam_role.iam_for_lambda.arn
   handler       = "exports.example"
   runtime       = "nodejs14.x"
 }
@@ -439,7 +439,7 @@ func testAccFunctionURLConfig_cors(funcName, policyName, roleName string) string
 resource "aws_lambda_function" "test" {
   filename      = "test-fixtures/lambdatest.zip"
   function_name = %[1]q
-  role          = aws_iam_role.iam_for_lambda.arn
+  role = aws_iam_role.iam_for_lambda.arn
   handler       = "exports.example"
   runtime       = "nodejs14.x"
 }
@@ -454,7 +454,7 @@ resource "aws_lambda_function_url" "test" {
     allow_methods     = ["*"]
     allow_headers     = ["date", "keep-alive"]
     expose_headers    = ["keep-alive", "date"]
-    max_age           = 86400
+    max_age  = 86400
   }
 }
 `, funcName))
@@ -465,7 +465,7 @@ func testAccFunctionURLConfig_corsUpdated(funcName, policyName, roleName string)
 resource "aws_lambda_function" "test" {
   filename      = "test-fixtures/lambdatest.zip"
   function_name = %[1]q
-  role          = aws_iam_role.iam_for_lambda.arn
+  role = aws_iam_role.iam_for_lambda.arn
   handler       = "exports.example"
   runtime       = "nodejs14.x"
 }
@@ -480,7 +480,7 @@ resource "aws_lambda_function_url" "test" {
     allow_methods     = ["GET", "POST"]
     allow_headers     = ["x-custom-header"]
     expose_headers    = ["date"]
-    max_age           = 72000
+    max_age  = 72000
   }
 }
 `, funcName))
@@ -491,14 +491,14 @@ func testAccFunctionURLConfig_alias(funcName, aliasName, policyName, roleName st
 resource "aws_lambda_function" "test" {
   filename      = "test-fixtures/lambdatest.zip"
   function_name = %[1]q
-  role          = aws_iam_role.iam_for_lambda.arn
+  role = aws_iam_role.iam_for_lambda.arn
   handler       = "exports.example"
   runtime       = "nodejs14.x"
   publish       = true
 }
 
 resource "aws_lambda_alias" "live" {
-  name             = %[2]q
+  name    = %[2]q
   description      = "a sample description"
   function_name    = aws_lambda_function.test.function_name
   function_version = "1"
@@ -506,7 +506,7 @@ resource "aws_lambda_alias" "live" {
 
 resource "aws_lambda_function_url" "test" {
   function_name      = aws_lambda_function.test.function_name
-  qualifier          = aws_lambda_alias.live.name
+  qualifier = aws_lambda_alias.live.name
   authorization_type = "AWS_IAM"
 
   cors {
@@ -515,7 +515,7 @@ resource "aws_lambda_function_url" "test" {
     allow_methods     = ["*"]
     allow_headers     = ["date", "keep-alive"]
     expose_headers    = ["keep-alive", "date"]
-    max_age           = 86400
+    max_age  = 86400
   }
 }
 `, funcName, aliasName))
@@ -526,7 +526,7 @@ func testAccFunctionURLConfig_invokeMode(funcName, policyName, roleName, invokeM
 resource "aws_lambda_function" "test" {
   filename      = "test-fixtures/lambdatest.zip"
   function_name = %[1]q
-  role          = aws_iam_role.iam_for_lambda.arn
+  role = aws_iam_role.iam_for_lambda.arn
   handler       = "exports.example"
   runtime       = "nodejs14.x"
 }
@@ -544,7 +544,7 @@ func testAccFunctionURLConfig_two(funcName, aliasName, policyName, roleName stri
 resource "aws_lambda_function" "test" {
   filename      = "test-fixtures/lambdatest.zip"
   function_name = %[1]q
-  role          = aws_iam_role.iam_for_lambda.arn
+  role = aws_iam_role.iam_for_lambda.arn
   handler       = "exports.example"
   runtime       = "nodejs14.x"
   publish       = true
@@ -556,7 +556,7 @@ resource "aws_lambda_function_url" "latest" {
 }
 
 resource "aws_lambda_alias" "live" {
-  name             = %[2]q
+  name    = %[2]q
   description      = "a sample description"
   function_name    = aws_lambda_function.test.function_name
   function_version = aws_lambda_function.test.version
@@ -564,7 +564,7 @@ resource "aws_lambda_alias" "live" {
 
 resource "aws_lambda_function_url" "live" {
   function_name      = aws_lambda_function.test.function_name
-  qualifier          = aws_lambda_alias.live.name
+  qualifier = aws_lambda_alias.live.name
   authorization_type = "NONE"
 }
 `, funcName, aliasName))

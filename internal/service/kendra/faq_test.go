@@ -34,10 +34,10 @@ func TestAccKendraFaq_basic(t *testing.T) {
 	resourceName := "aws_kendra_faq.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFaqDestroy(ctx),
+		CheckDestroy:    testAccCheckFaqDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFaqConfig_basic(rName, rName2, rName3, rName4, rName5),
@@ -81,10 +81,10 @@ func TestAccKendraFaq_description(t *testing.T) {
 	resourceName := "aws_kendra_faq.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFaqDestroy(ctx),
+		CheckDestroy:    testAccCheckFaqDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFaqConfig_description(rName, rName2, rName3, rName4, rName5, description),
@@ -117,10 +117,10 @@ func TestAccKendraFaq_fileFormat(t *testing.T) {
 	resourceName := "aws_kendra_faq.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFaqDestroy(ctx),
+		CheckDestroy:    testAccCheckFaqDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFaqConfig_fileFormat(rName, rName2, rName3, rName4, rName5, fileFormat),
@@ -153,10 +153,10 @@ func TestAccKendraFaq_languageCode(t *testing.T) {
 	resourceName := "aws_kendra_faq.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFaqDestroy(ctx),
+		CheckDestroy:    testAccCheckFaqDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFaqConfig_languageCode(rName, rName2, rName3, rName4, rName5, languageCode),
@@ -188,10 +188,10 @@ func TestAccKendraFaq_tags(t *testing.T) {
 	resourceName := "aws_kendra_faq.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFaqDestroy(ctx),
+		CheckDestroy:    testAccCheckFaqDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFaqConfig_tags1(rName, rName2, rName3, rName4, rName5, "key1", "value1"),
@@ -241,10 +241,10 @@ func TestAccKendraFaq_disappears(t *testing.T) {
 	resourceName := "aws_kendra_faq.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckFaqDestroy(ctx),
+		CheckDestroy:    testAccCheckFaqDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccFaqConfig_basic(rName, rName2, rName3, rName4, rName5),
@@ -503,7 +503,7 @@ func testAccFaqConfig_languageCode(rName, rName2, rName3, rName4, rName5, langua
 		fmt.Sprintf(`
 resource "aws_kendra_faq" "test" {
   index_id      = aws_kendra_index.test.id
-  name          = %[1]q
+  name = %[1]q
   language_code = %[2]q
   role_arn      = aws_iam_role.test_faq.arn
 

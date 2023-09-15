@@ -61,13 +61,13 @@ Type:     schema.TypeString,
 Computed: true,
 	},
 	"listener_arn": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ForceNew:     true,
 ValidateFunc: verify.ValidARN,
 	},
 	"priority": {
-Type:         schema.TypeInt,
+Type:schema.TypeInt,
 Optional:     true,
 Computed:     true,
 ForceNew:     false,
@@ -79,29 +79,29 @@ Required: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "type": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Required:     true,
 	ValidateFunc: validation.StringInSlice(elbv2.ActionTypeEnum_Values(), true),
 },
 "order": {
-	Type:         schema.TypeInt,
+	Type:schema.TypeInt,
 	Optional:     true,
 	Computed:     true,
 	ValidateFunc: validation.IntBetween(listenerActionOrderMin, listenerActionOrderMax),
 },
 
 "target_group_arn": {
-	Type:             schema.TypeString,
-	Optional:         true,
+	Type:    schema.TypeString,
+	Optional:true,
 	DiffSuppressFunc: suppressIfActionTypeNot(elbv2.ActionTypeEnumForward),
 	ValidateFunc:     verify.ValidARN,
 },
 
 "forward": {
-	Type:             schema.TypeList,
-	Optional:         true,
+	Type:    schema.TypeList,
+	Optional:true,
 	DiffSuppressFunc: suppressIfActionTypeNot(elbv2.ActionTypeEnumForward),
-	MaxItems:         1,
+	MaxItems:1,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"target_group": {
@@ -112,12 +112,12 @@ Required: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "arn": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Required:     true,
 	ValidateFunc: verify.ValidARN,
 },
 "weight": {
-	Type:         schema.TypeInt,
+	Type:schema.TypeInt,
 	ValidateFunc: validation.IntBetween(0, 999),
 	Default:      1,
 	Optional:     true,
@@ -126,10 +126,10 @@ Elem: &schema.Resource{
 },
 	},
 	"stickiness": {
-Type:             schema.TypeList,
-Optional:         true,
+Type:    schema.TypeList,
+Optional:true,
 DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
-MaxItems:         1,
+MaxItems:1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "enabled": {
@@ -138,7 +138,7 @@ Elem: &schema.Resource{
 	Default:  false,
 },
 "duration": {
-	Type:         schema.TypeInt,
+	Type:schema.TypeInt,
 	Required:     true,
 	ValidateFunc: validation.IntBetween(1, 604800),
 },
@@ -150,21 +150,21 @@ Elem: &schema.Resource{
 },
 
 "redirect": {
-	Type:             schema.TypeList,
-	Optional:         true,
+	Type:    schema.TypeList,
+	Optional:true,
 	DiffSuppressFunc: suppressIfActionTypeNot(elbv2.ActionTypeEnumRedirect),
-	MaxItems:         1,
+	MaxItems:1,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"host": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Default:      "#{host}",
 ValidateFunc: validation.StringLenBetween(1, 128),
 	},
 
 	"path": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Default:      "/#{path}",
 ValidateFunc: validation.StringLenBetween(1, 128),
@@ -188,14 +188,14 @@ ValidateFunc: validation.StringInSlice([]string{
 	},
 
 	"query": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Default:      "#{query}",
 ValidateFunc: validation.StringLenBetween(0, 128),
 	},
 
 	"status_code": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ValidateFunc: validation.StringInSlice(elbv2.RedirectActionStatusCodeEnum_Values(), false),
 	},
@@ -204,10 +204,10 @@ ValidateFunc: validation.StringInSlice(elbv2.RedirectActionStatusCodeEnum_Values
 },
 
 "fixed_response": {
-	Type:             schema.TypeList,
-	Optional:         true,
+	Type:    schema.TypeList,
+	Optional:true,
 	DiffSuppressFunc: suppressIfActionTypeNot(elbv2.ActionTypeEnumFixedResponse),
-	MaxItems:         1,
+	MaxItems:1,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"content_type": {
@@ -223,13 +223,13 @@ ValidateFunc: validation.StringInSlice([]string{
 	},
 
 	"message_body": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ValidateFunc: validation.StringLenBetween(0, 1024),
 	},
 
 	"status_code": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Computed:     true,
 ValidateFunc: validation.StringMatch(regexache.MustCompile(`^[245]\d\d$`), ""),
@@ -239,10 +239,10 @@ ValidateFunc: validation.StringMatch(regexache.MustCompile(`^[245]\d\d$`), ""),
 },
 
 "authenticate_cognito": {
-	Type:             schema.TypeList,
-	Optional:         true,
+	Type:    schema.TypeList,
+	Optional:true,
 	DiffSuppressFunc: suppressIfActionTypeNot(elbv2.ActionTypeEnumAuthenticateCognito),
-	MaxItems:         1,
+	MaxItems:1,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"authentication_request_extra_params": {
@@ -251,7 +251,7 @@ Optional: true,
 Elem:     &schema.Schema{Type: schema.TypeString},
 	},
 	"on_unauthenticated_request": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Computed:     true,
 ValidateFunc: validation.StringInSlice(elbv2.AuthenticateCognitoActionConditionalBehaviorEnum_Values(), true),
@@ -272,7 +272,7 @@ Optional: true,
 Default:  604800,
 	},
 	"user_pool_arn": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ValidateFunc: verify.ValidARN,
 	},
@@ -289,10 +289,10 @@ Required: true,
 },
 
 "authenticate_oidc": {
-	Type:             schema.TypeList,
-	Optional:         true,
+	Type:    schema.TypeList,
+	Optional:true,
 	DiffSuppressFunc: suppressIfActionTypeNot(elbv2.ActionTypeEnumAuthenticateOidc),
-	MaxItems:         1,
+	MaxItems:1,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"authentication_request_extra_params": {
@@ -318,7 +318,7 @@ Type:     schema.TypeString,
 Required: true,
 	},
 	"on_unauthenticated_request": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Computed:     true,
 ValidateFunc: validation.StringInSlice(elbv2.AuthenticateOidcActionConditionalBehaviorEnum_Values(), true),
@@ -368,7 +368,7 @@ Type:     schema.TypeSet,
 Required: true,
 MinItems: 1,
 Elem: &schema.Schema{
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	ValidateFunc: validation.StringLenBetween(1, 128),
 },
 Set: schema.HashString,
@@ -383,14 +383,14 @@ Set: schema.HashString,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"http_header_name": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ValidateFunc: validation.StringMatch(regexache.MustCompile("^[0-9A-Za-z_!#$%&'*+,.^`|~-]{1,40}$"), ""), // was "," meant to be included? +-. creates a range including: +,-.
 	},
 	"values": {
 Type: schema.TypeSet,
 Elem: &schema.Schema{
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	ValidateFunc: validation.StringLenBetween(1, 128),
 },
 Required: true,
@@ -408,7 +408,7 @@ Schema: map[string]*schema.Schema{
 	"values": {
 Type: schema.TypeSet,
 Elem: &schema.Schema{
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	ValidateFunc: validation.StringMatch(regexache.MustCompile(`^[A-Za-z-_]{1,40}$`), ""),
 },
 Required: true,
@@ -428,7 +428,7 @@ Type:     schema.TypeSet,
 Required: true,
 MinItems: 1,
 Elem: &schema.Schema{
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	ValidateFunc: validation.StringLenBetween(1, 128),
 },
 Set: schema.HashString,
@@ -461,7 +461,7 @@ Schema: map[string]*schema.Schema{
 	"values": {
 Type: schema.TypeSet,
 Elem: &schema.Schema{
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	ValidateFunc: verify.ValidCIDRNetworkAddress,
 },
 Required: true,
@@ -672,7 +672,7 @@ authenticationRequestExtraParams[key] = aws.StringValue(value)
 	actionMap["authenticate_cognito"] = []map[string]interface{}{
 {
 	"authentication_request_extra_params": authenticationRequestExtraParams,
-	"on_unauthenticated_request":          aws.StringValue(action.AuthenticateCognitoConfig.OnUnauthenticatedRequest),
+	"on_unauthenticated_request": aws.StringValue(action.AuthenticateCognitoConfig.OnUnauthenticatedRequest),
 	"scope": aws.StringValue(action.AuthenticateCognitoConfig.Scope),
 	"session_cookie_name":  aws.StringValue(action.AuthenticateCognitoConfig.SessionCookieName),
 	"session_timeout":      aws.Int64Value(action.AuthenticateCognitoConfig.SessionTimeout),
@@ -695,11 +695,11 @@ authenticationRequestExtraParams[key] = aws.StringValue(value)
 	actionMap["authenticate_oidc"] = []map[string]interface{}{
 {
 	"authentication_request_extra_params": authenticationRequestExtraParams,
-	"authorization_endpoint":              aws.StringValue(action.AuthenticateOidcConfig.AuthorizationEndpoint),
-	"client_id":            aws.StringValue(action.AuthenticateOidcConfig.ClientId),
+	"authorization_endpoint":     aws.StringValue(action.AuthenticateOidcConfig.AuthorizationEndpoint),
+	"client_id":   aws.StringValue(action.AuthenticateOidcConfig.ClientId),
 	"client_secret":        clientSecret,
 	"issuer":aws.StringValue(action.AuthenticateOidcConfig.Issuer),
-	"on_unauthenticated_request":          aws.StringValue(action.AuthenticateOidcConfig.OnUnauthenticatedRequest),
+	"on_unauthenticated_request": aws.StringValue(action.AuthenticateOidcConfig.OnUnauthenticatedRequest),
 	"scope": aws.StringValue(action.AuthenticateOidcConfig.Scope),
 	"session_cookie_name":  aws.StringValue(action.AuthenticateOidcConfig.SessionCookieName),
 	"session_timeout":      aws.Int64Value(action.AuthenticateOidcConfig.SessionTimeout),
@@ -729,7 +729,7 @@ case "http-header":
 	conditionMap["http_header"] = []interface{}{
 map[string]interface{}{
 	"http_header_name": aws.StringValue(condition.HttpHeaderConfig.HttpHeaderName),
-	"values":           flex.FlattenStringSet(condition.HttpHeaderConfig.Values),
+	"values":  flex.FlattenStringSet(condition.HttpHeaderConfig.Values),
 },
 	}
 
@@ -982,7 +982,7 @@ if httpHeader, ok := conditionMap["http_header"].([]interface{}); ok && len(http
 
 	elbConditions[i].HttpHeaderConfig = &elbv2.HttpHeaderConditionConfig{
 HttpHeaderName: aws.String(httpHeaderMap["http_header_name"].(string)),
-Values:         flex.ExpandStringSet(values),
+Values:flex.ExpandStringSet(values),
 	}
 }
 

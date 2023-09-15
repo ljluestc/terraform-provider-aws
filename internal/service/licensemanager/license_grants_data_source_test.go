@@ -23,8 +23,8 @@ func testAccGrantsDataSource_basic(t *testing.T) {
 	homeRegion := envvar.SkipIfEmpty(t, homeRegionKey, envVarHomeRegionError)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
 		Steps: []resource.TestStep{
 			{
@@ -42,8 +42,8 @@ func testAccGrantsDataSource_noMatch(t *testing.T) {
 	datasourceName := "data.aws_licensemanager_grants.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ec2.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ec2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -73,7 +73,7 @@ resource "aws_licensemanager_grant" "test" {
   name= %[2]q
   allowed_operations = local.allowed_operations
   license_arn        = data.aws_licensemanager_received_license.test.license_arn
-  principal          = %[3]q
+  principal = %[3]q
 }
 
 data "aws_licensemanager_grants" "test" {}

@@ -20,8 +20,8 @@ func TestAccAutoScalingLaunchConfigurationDataSource_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -56,8 +56,8 @@ func TestAccAutoScalingLaunchConfigurationDataSource_securityGroups(t *testing.T
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -77,8 +77,8 @@ func TestAccAutoScalingLaunchConfigurationDataSource_ebsNoDevice(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -98,10 +98,10 @@ func TestAccAutoScalingLaunchConfigurationDataSource_metadataOptions(t *testing.
 	resourceName := "aws_launch_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+		CheckDestroy:    testAccCheckLaunchConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLaunchConfigurationDataSourceConfig_metaOptions(rName),
@@ -119,7 +119,7 @@ func TestAccAutoScalingLaunchConfigurationDataSource_metadataOptions(t *testing.
 func testAccLaunchConfigurationDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigLatestAmazonLinuxHVMEBSAMI(), fmt.Sprintf(`
 resource "aws_launch_configuration" "test" {
-  name         = %[1]q
+  name= %[1]q
   image_id     = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type= "m1.small"
   associate_public_ip_address = true
@@ -175,7 +175,7 @@ resource "aws_security_group" "test" {
 }
 
 resource "aws_launch_configuration" "test" {
-  name            = %[1]q
+  name   = %[1]q
   image_id        = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type   = "m1.small"
   security_groups = [aws_security_group.test.id]
@@ -192,7 +192,7 @@ func testAccLaunchConfigurationDataSourceConfig_metaOptions(rName string) string
 resource "aws_launch_configuration" "test" {
   image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t3.nano"
-  name          = %[1]q
+  name = %[1]q
 
   metadata_options {
     http_endpoint= "enabled"
@@ -210,7 +210,7 @@ data "aws_launch_configuration" "test" {
 func testAccLaunchConfigurationDataSourceConfig_ebsNoDevice(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigLatestAmazonLinuxHVMEBSAMI(), fmt.Sprintf(`
 resource "aws_launch_configuration" "test" {
-  name          = %[1]q
+  name = %[1]q
   image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "m1.small"
 

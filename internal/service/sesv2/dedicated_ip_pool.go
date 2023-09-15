@@ -29,148 +29,148 @@ import (
 // @SDKResource("aws_sesv2_dedicated_ip_pool", name="Dedicated IP Pool")
 // @Tags(identifierAttribute="arn")
 func ResourceDedicatedIPPool() *schema.Resource {
-	return &schema.Resource{
-		CreateWithoutTimeout: resourceDedicatedIPPoolCreate,
-		ReadWithoutTimeout:   resourceDedicatedIPPoolRead,
-		UpdateWithoutTimeout: resourceDedicatedIPPoolUpdate,
-		DeleteWithoutTimeout: resourceDedicatedIPPoolDelete,
+return &schema.Resource{
+CreateWithoutTimeout: resourceDedicatedIPPoolCreate,
+ReadWithoutTimeout:   resourceDedicatedIPPoolRead,
+UpdateWithoutTimeout: resourceDedicatedIPPoolUpdate,
+DeleteWithoutTimeout: resourceDedicatedIPPoolDelete,
 
-		Importer: &schema.ResourceImporter{
-			StateContext: schema.ImportStatePassthroughContext,
-		},
+Importer: &schema.ResourceImporter{
+StateContext: schema.ImportStatePassthroughContext,
+},
 
-		Timeouts: &schema.ResourceTimeout{
-			Create: schema.DefaultTimeout(30 * time.Minute),
-			Update: schema.DefaultTimeout(30 * time.Minute),
-			Delete: schema.DefaultTimeout(30 * time.Minute),
-		},
+Timeouts: &schema.ResourceTimeout{
+Create: schema.DefaultTimeout(30 * time.Minute),
+Update: schema.DefaultTimeout(30 * time.Minute),
+Delete: schema.DefaultTimeout(30 * time.Minute),
+},
 
-		Schema: map[string]*schema.Schema{
-			"arn": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"pool_name": {
-				Type:     schema.TypeString,
-				Required: true,
-				ForceNew: true,
-			},
-			"scaling_mode": {
-				Type:             schema.TypeString,
-				Optional:         true,
-				Computed:         true,
-				ForceNew:         true,
-				ValidateDiagFunc: enum.Validate[types.ScalingMode](),
-			},
-			names.AttrTags:    tftags.TagsSchema(),
-			names.AttrTagsAll: tftags.TagsSchemaComputed(),
-		},
+Schema: map[string]*schema.Schema{
+"arn": {
+Type:     schema.TypeString,
+Computed: true,
+},
+"pool_name": {
+Type:     schema.TypeString,
+Required: true,
+ForceNew: true,
+},
+"scaling_mode": {
+Type:             schema.TypeString,
+Optional:         true,
+Computed:         true,
+ForceNew:         true,
+ValidateDiagFunc: enum.Validate[types.ScalingMode](),
+},
+names.AttrTags:    tftags.TagsSchema(),
+names.AttrTagsAll: tftags.TagsSchemaComputed(),
+},
 
-		CustomizeDiff: verify.SetTagsDiff,
-	}
+CustomizeDiff: verify.SetTagsDiff,
+}
 }
 
 const (
-	ResNameDedicatedIPPool = "Dedicated IP Pool"
+ResNameDedicatedIPPool = "Dedicated IP Pool"
 )
 
 func resourceDedicatedIPPoolCreate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).SESV2Client(ctx)
+conn := meta.(*conns.AWSClient).SESV2Client(ctx)
 
-	in := &sesv2.CreateDedicatedIpPoolInput{
-		PoolName: aws.String(d.Get("pool_name").(string)),
-		Tags:     getTagsIn(ctx),
-	}
-	if v, ok := d.GetOk("scaling_mode"); ok {
-		in.ScalingMode = types.ScalingMode(v.(string))
-	}
+in := &sesv2.CreateDedicatedIpPoolInput{
+PoolName: aws.String(d.Get("pool_name").(string)),
+Tags:     getTagsIn(ctx),
+}
+if v, ok := d.GetOk("scaling_mode"); ok {
+in.ScalingMode = types.ScalingMode(v.(string))
+}
 
-	out, err := conn.CreateDedicatedIpPool(ctx, in)
-	if err != nil {
-		return create.DiagError(names.SESV2, create.ErrActionCreating, ResNameDedicatedIPPool, d.Get("pool_name").(string), err)
-	}
-	if out == nil {
-		return create.DiagError(names.SESV2, create.ErrActionCreating, ResNameDedicatedIPPool, d.Get("pool_name").(string), errors.New("empty output"))
-	}
+out, err := conn.CreateDedicatedIpPool(ctx, in)
+if err != nil {
+return create.DiagError(names.SESV2, create.ErrActionCreating, ResNameDedicatedIPPool, d.Get("pool_name").(string), err)
+}
+if out == nil {
+return create.DiagError(names.SESV2, create.ErrActionCreating, ResNameDedicatedIPPool, d.Get("pool_name").(string), errors.New("empty output"))
+}
 
-	d.SetId(d.Get("pool_name").(string))
-	return resourceDedicatedIPPoolRead(ctx, d, meta)
+d.SetId(d.Get("pool_name").(string))
+return resourceDedicatedIPPoolRead(ctx, d, meta)
 }
 
 func resourceDedicatedIPPoolRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).SESV2Client(ctx)
+conn := meta.(*conns.AWSClient).SESV2Client(ctx)
 
-	out, err := FindDedicatedIPPoolByID(ctx, conn, d.Id())
-	if !d.IsNewResource() && tfresource.NotFound(err) {
-		log.Printf("[WARN] SESV2 DedicatedIPPool (%s) not found, removing from state", d.Id())
-		d.SetId("")
-		return nil
-	}
-	if err != nil {
-		return create.DiagError(names.SESV2, create.ErrActionReading, ResNameDedicatedIPPool, d.Id(), err)
-	}
-	poolName := aws.ToString(out.DedicatedIpPool.PoolName)
-	d.Set("pool_name", poolName)
-	d.Set("scaling_mode", string(out.DedicatedIpPool.ScalingMode))
-	d.Set("arn", poolNameToARN(meta, poolName))
+out, err := FindDedicatedIPPoolByID(ctx, conn, d.Id())
+if !d.IsNewResource() && tfresource.NotFound(err) {
+log.Printf("[WARN] SESV2 DedicatedIPPool (%s) not found, removing from state", d.Id())
+d.SetId("")
+return nil
+}
+if err != nil {
+return create.DiagError(names.SESV2, create.ErrActionReading, ResNameDedicatedIPPool, d.Id(), err)
+}
+poolName := aws.ToString(out.DedicatedIpPool.PoolName)
+d.Set("pool_name", poolName)
+d.Set("scaling_mode", string(out.DedicatedIpPool.ScalingMode))
+d.Set("arn", poolNameToARN(meta, poolName))
 
-	return nil
+return nil
 }
 
 func resourceDedicatedIPPoolUpdate(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	// Tags only.
-	return resourceDedicatedIPPoolRead(ctx, d, meta)
+// Tags only.
+return resourceDedicatedIPPoolRead(ctx, d, meta)
 }
 
 func resourceDedicatedIPPoolDelete(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).SESV2Client(ctx)
+conn := meta.(*conns.AWSClient).SESV2Client(ctx)
 
-	log.Printf("[INFO] Deleting SESV2 DedicatedIPPool %s", d.Id())
-	_, err := conn.DeleteDedicatedIpPool(ctx, &sesv2.DeleteDedicatedIpPoolInput{
-		PoolName: aws.String(d.Id()),
-	})
+log.Printf("[INFO] Deleting SESV2 DedicatedIPPool %s", d.Id())
+_, err := conn.DeleteDedicatedIpPool(ctx, &sesv2.DeleteDedicatedIpPoolInput{
+PoolName: aws.String(d.Id()),
+})
 
-	if err != nil {
-		var nfe *types.NotFoundException
-		if errors.As(err, &nfe) {
-			return nil
-		}
-		return create.DiagError(names.SESV2, create.ErrActionDeleting, ResNameDedicatedIPPool, d.Id(), err)
-	}
+if err != nil {
+var nfe *types.NotFoundException
+if errors.As(err, &nfe) {
+return nil
+}
+return create.DiagError(names.SESV2, create.ErrActionDeleting, ResNameDedicatedIPPool, d.Id(), err)
+}
 
-	return nil
+return nil
 }
 
 func FindDedicatedIPPoolByID(ctx context.Context, conn *sesv2.Client, id string) (*sesv2.GetDedicatedIpPoolOutput, error) {
-	in := &sesv2.GetDedicatedIpPoolInput{
-		PoolName: aws.String(id),
-	}
-	out, err := conn.GetDedicatedIpPool(ctx, in)
-	if err != nil {
-		var nfe *types.NotFoundException
-		if errors.As(err, &nfe) {
-			return nil, &retry.NotFoundError{
-				LastError:   err,
-				LastRequest: in,
-			}
-		}
+in := &sesv2.GetDedicatedIpPoolInput{
+PoolName: aws.String(id),
+}
+out, err := conn.GetDedicatedIpPool(ctx, in)
+if err != nil {
+var nfe *types.NotFoundException
+if errors.As(err, &nfe) {
+return nil, &retry.NotFoundError{
+LastError:   err,
+LastRequest: in,
+}
+}
 
-		return nil, err
-	}
+return nil, err
+}
 
-	if out == nil || out.DedicatedIpPool == nil {
-		return nil, tfresource.NewEmptyResultError(in)
-	}
+if out == nil || out.DedicatedIpPool == nil {
+return nil, tfresource.NewEmptyResultError(in)
+}
 
-	return out, nil
+return out, nil
 }
 
 func poolNameToARN(meta interface{}, poolName string) string {
-	return arn.ARN{
-		Partition: meta.(*conns.AWSClient).Partition,
-		Service:   "ses",
-		Region:    meta.(*conns.AWSClient).Region,
-		AccountID: meta.(*conns.AWSClient).AccountID,
-		Resource:  fmt.Sprintf("dedicated-ip-pool/%s", poolName),
-	}.String()
+return arn.ARN{
+Partition: meta.(*conns.AWSClient).Partition,
+Service:   "ses",
+Region:    meta.(*conns.AWSClient).Region,
+AccountID: meta.(*conns.AWSClient).AccountID,
+Resource:  fmt.Sprintf("dedicated-ip-pool/%s", poolName),
+}.String()
 }

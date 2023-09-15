@@ -26,10 +26,10 @@ func TestAccKafkaServerlessCluster_basic(t *testing.T) {
 	resourceName := "aws_msk_serverless_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kafka.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, kafka.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckServerlessClusterDestroy(ctx),
+		CheckDestroy:    testAccCheckServerlessClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccServerlessClusterConfig_basic(rName),
@@ -63,10 +63,10 @@ func TestAccKafkaServerlessCluster_disappears(t *testing.T) {
 	resourceName := "aws_msk_serverless_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kafka.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, kafka.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckServerlessClusterDestroy(ctx),
+		CheckDestroy:    testAccCheckServerlessClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccServerlessClusterConfig_basic(rName),
@@ -87,10 +87,10 @@ func TestAccKafkaServerlessCluster_tags(t *testing.T) {
 	resourceName := "aws_msk_serverless_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kafka.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, kafka.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckServerlessClusterDestroy(ctx),
+		CheckDestroy:    testAccCheckServerlessClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccServerlessClusterConfig_tags1(rName, "key1", "value1"),
@@ -133,10 +133,10 @@ func TestAccKafkaServerlessCluster_securityGroup(t *testing.T) {
 	resourceName := "aws_msk_serverless_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kafka.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, kafka.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckServerlessClusterDestroy(ctx),
+		CheckDestroy:    testAccCheckServerlessClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccServerlessClusterConfig_securityGroup(rName),
@@ -222,7 +222,7 @@ resource "aws_vpc" "test" {
 resource "aws_subnet" "test" {
   count = 2
 
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[count.index]
   cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 8, count.index)
 
@@ -325,7 +325,7 @@ resource "aws_msk_serverless_cluster" "test" {
 
   vpc_config {
     security_group_ids = [aws_security_group.test.id]
-    subnet_ids         = aws_subnet.test[*].id
+    subnet_ids= aws_subnet.test[*].id
   }
 }
 `, rName))

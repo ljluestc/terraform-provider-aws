@@ -79,7 +79,7 @@ func dataSourceVPNGatewayRead(ctx context.Context, d *schema.ResourceData, meta 
 
 	input.Filters = BuildAttributeFilterList(
 		map[string]string{
-			"state":             d.Get("state").(string),
+			"state":    d.Get("state").(string),
 			"availability-zone": d.Get("availability_zone").(string),
 		},
 	)

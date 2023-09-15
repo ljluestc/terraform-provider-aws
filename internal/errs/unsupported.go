@@ -9,21 +9,21 @@ import (
 )
 
 const (
-	errCodeAccessDenied                = "AccessDenied"
-	errCodeAuthorizationError          = "AuthorizationError"
-	errCodeInternalException           = "InternalException"
-	errCodeInternalServiceError        = "InternalServiceError"
-	errCodeInvalidAction               = "InvalidAction"
-	errCodeInvalidParameterException   = "InvalidParameterException"
-	errCodeInvalidParameterValue       = "InvalidParameterValue"
-	errCodeInvalidRequest              = "InvalidRequest"
-	errCodeOperationDisabledException  = "OperationDisabledException"
-	errCodeOperationNotPermitted       = "OperationNotPermitted"
-	errCodeUnknownOperationException   = "UnknownOperationException"
-	errCodeUnsupportedFeatureException = "UnsupportedFeatureException"
-	errCodeUnsupportedOperation        = "UnsupportedOperation"
-	errCodeValidationError             = "ValidationError"
-	errCodeValidationException         = "ValidationException"
+errCodeAccessDenied                = "AccessDenied"
+errCodeAuthorizationError          = "AuthorizationError"
+errCodeInternalException           = "InternalException"
+errCodeInternalServiceError        = "InternalServiceError"
+errCodeInvalidAction               = "InvalidAction"
+errCodeInvalidParameterException   = "InvalidParameterException"
+errCodeInvalidParameterValue       = "InvalidParameterValue"
+errCodeInvalidRequest              = "InvalidRequest"
+errCodeOperationDisabledException  = "OperationDisabledException"
+errCodeOperationNotPermitted       = "OperationNotPermitted"
+errCodeUnknownOperationException   = "UnknownOperationException"
+errCodeUnsupportedFeatureException = "UnsupportedFeatureException"
+errCodeUnsupportedOperation        = "UnsupportedOperation"
+errCodeValidationError             = "ValidationError"
+errCodeValidationException         = "ValidationException"
 )
 
 // IsUnsupportedOperationInPartitionError checks the partition and specific error
@@ -33,73 +33,73 @@ const (
 // Be careful with a return value of `false“, which means either there is NO error
 // or there is an error but not one that suggests an unsupported feature in ISO.
 func IsUnsupportedOperationInPartitionError(partition string, err error) bool {
-	if partition == endpoints.AwsPartitionID {
-		return false
-	}
+if partition == endpoints.AwsPartitionID {
+return false
+}
 
-	if err == nil { // not strictly necessary but make logic clearer
-		return false
-	}
+if err == nil { // not strictly necessary but make logic clearer
+return false
+}
 
-	if tfawserr.ErrCodeContains(err, errCodeAccessDenied) {
-		return true
-	}
+if tfawserr.ErrCodeContains(err, errCodeAccessDenied) {
+return true
+}
 
-	if tfawserr.ErrCodeContains(err, errCodeAuthorizationError) {
-		return true
-	}
+if tfawserr.ErrCodeContains(err, errCodeAuthorizationError) {
+return true
+}
 
-	if tfawserr.ErrCodeContains(err, errCodeInternalException) {
-		return true
-	}
+if tfawserr.ErrCodeContains(err, errCodeInternalException) {
+return true
+}
 
-	if tfawserr.ErrCodeContains(err, errCodeInternalServiceError) {
-		return true
-	}
+if tfawserr.ErrCodeContains(err, errCodeInternalServiceError) {
+return true
+}
 
-	if tfawserr.ErrCodeContains(err, errCodeInvalidAction) {
-		return true
-	}
+if tfawserr.ErrCodeContains(err, errCodeInvalidAction) {
+return true
+}
 
-	if tfawserr.ErrCodeContains(err, errCodeInvalidParameterException) {
-		return true
-	}
+if tfawserr.ErrCodeContains(err, errCodeInvalidParameterException) {
+return true
+}
 
-	if tfawserr.ErrCodeContains(err, errCodeInvalidParameterValue) {
-		return true
-	}
+if tfawserr.ErrCodeContains(err, errCodeInvalidParameterValue) {
+return true
+}
 
-	if tfawserr.ErrCodeContains(err, errCodeInvalidRequest) {
-		return true
-	}
+if tfawserr.ErrCodeContains(err, errCodeInvalidRequest) {
+return true
+}
 
-	if tfawserr.ErrCodeContains(err, errCodeOperationDisabledException) {
-		return true
-	}
+if tfawserr.ErrCodeContains(err, errCodeOperationDisabledException) {
+return true
+}
 
-	if tfawserr.ErrCodeContains(err, errCodeOperationNotPermitted) {
-		return true
-	}
+if tfawserr.ErrCodeContains(err, errCodeOperationNotPermitted) {
+return true
+}
 
-	if tfawserr.ErrCodeContains(err, errCodeUnknownOperationException) {
-		return true
-	}
+if tfawserr.ErrCodeContains(err, errCodeUnknownOperationException) {
+return true
+}
 
-	if tfawserr.ErrCodeContains(err, errCodeUnsupportedFeatureException) {
-		return true
-	}
+if tfawserr.ErrCodeContains(err, errCodeUnsupportedFeatureException) {
+return true
+}
 
-	if tfawserr.ErrCodeContains(err, errCodeUnsupportedOperation) {
-		return true
-	}
+if tfawserr.ErrCodeContains(err, errCodeUnsupportedOperation) {
+return true
+}
 
-	if tfawserr.ErrMessageContains(err, errCodeValidationError, "not support tagging") {
-		return true
-	}
+if tfawserr.ErrMessageContains(err, errCodeValidationError, "not support tagging") {
+return true
+}
 
-	if tfawserr.ErrCodeContains(err, errCodeValidationException) {
-		return true
-	}
+if tfawserr.ErrCodeContains(err, errCodeValidationException) {
+return true
+}
 
-	return false
+return false
 }

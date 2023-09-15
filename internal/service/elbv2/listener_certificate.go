@@ -35,13 +35,13 @@ func ResourceListenerCertificate() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"listener_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"certificate_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,

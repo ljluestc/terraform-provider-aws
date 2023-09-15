@@ -50,10 +50,10 @@ func TestAccKendraIndex_basic(t *testing.T) {
 	resourceName := "aws_kendra_index.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIndexDestroy(ctx),
+		CheckDestroy:    testAccCheckIndexDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIndexConfig_basic(rName, rName2, rName3, description),
@@ -102,10 +102,10 @@ func TestAccKendraIndex_serverSideEncryption(t *testing.T) {
 	resourceName := "aws_kendra_index.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIndexDestroy(ctx),
+		CheckDestroy:    testAccCheckIndexDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIndexConfig_serverSideEncryption(rName, rName2, rName3),
@@ -138,10 +138,10 @@ func TestAccKendraIndex_updateCapacityUnits(t *testing.T) {
 	resourceName := "aws_kendra_index.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIndexDestroy(ctx),
+		CheckDestroy:    testAccCheckIndexDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIndexConfig_capacityUnits(rName, rName2, rName3, originalQueryCapacityUnits, originalStorageCapacityUnits),
@@ -182,10 +182,10 @@ func TestAccKendraIndex_updateDescription(t *testing.T) {
 	resourceName := "aws_kendra_index.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIndexDestroy(ctx),
+		CheckDestroy:    testAccCheckIndexDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIndexConfig_basic(rName, rName2, rName3, originalDescription),
@@ -222,10 +222,10 @@ func TestAccKendraIndex_updateName(t *testing.T) {
 	resourceName := "aws_kendra_index.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIndexDestroy(ctx),
+		CheckDestroy:    testAccCheckIndexDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIndexConfig_basic(rName, rName2, rName3, description),
@@ -264,10 +264,10 @@ func TestAccKendraIndex_updateUserTokenJSON(t *testing.T) {
 	resourceName := "aws_kendra_index.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIndexDestroy(ctx),
+		CheckDestroy:    testAccCheckIndexDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIndexConfig_userTokenJSON(rName, rName2, rName3, originalGroupAttributeField, originalUserNameAttributeField),
@@ -319,10 +319,10 @@ func TestAccKendraIndex_updateTags(t *testing.T) {
 	resourceName := "aws_kendra_index.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIndexDestroy(ctx),
+		CheckDestroy:    testAccCheckIndexDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIndexConfig_basic(rName, rName2, rName3, description),
@@ -371,10 +371,10 @@ func TestAccKendraIndex_updateRoleARN(t *testing.T) {
 	resourceName := "aws_kendra_index.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIndexDestroy(ctx),
+		CheckDestroy:    testAccCheckIndexDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIndexConfig_basic(rName, rName2, rName3, description),
@@ -411,10 +411,10 @@ func TestAccKendraIndex_updateUserGroupResolutionConfigurationMode(t *testing.T)
 	resourceName := "aws_kendra_index.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIndexDestroy(ctx),
+		CheckDestroy:    testAccCheckIndexDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIndexConfig_userGroupResolutionMode(rName, rName2, rName3, string(originalUserGroupResolutionMode)),
@@ -456,10 +456,10 @@ func TestAccKendraIndex_addDocumentMetadataConfigurationUpdates(t *testing.T) {
 	stringValImportance := 1
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIndexDestroy(ctx),
+		CheckDestroy:    testAccCheckIndexDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIndexConfig_documentMetadataConfigurationUpdatesBase(rName, rName2, rName3),
@@ -467,170 +467,170 @@ func TestAccKendraIndex_addDocumentMetadataConfigurationUpdates(t *testing.T) {
 					testAccCheckIndexExists(ctx, resourceName, &index),
 					resource.TestCheckResourceAttr(resourceName, "document_metadata_configuration_updates.#", "14"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                   "_authors",
-						"type":                   string(types.DocumentAttributeValueTypeStringListValue),
-						"relevance.#":            "1",
+						"name": "_authors",
+						"type": string(types.DocumentAttributeValueTypeStringListValue),
+						"relevance.#":   "1",
 						"relevance.0.importance": "1",
-						"search.#":               "1",
+						"search.#":      "1",
 						"search.0.displayable":   "false",
 						"search.0.facetable":     "false",
 						"search.0.searchable":    "false",
 						"search.0.sortable":      "false",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                                "_category",
-						"type":                                string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":                         "1",
-						"relevance.0.importance":              "1",
+						"name":     "_category",
+						"type":     string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":       "1",
+						"relevance.0.importance":     "1",
 						"relevance.0.values_importance_map.%": "0",
-						"search.#":                            "1",
-						"search.0.displayable":                "false",
-						"search.0.facetable":                  "false",
-						"search.0.searchable":                 "false",
-						"search.0.sortable":                   "true",
+						"search.#": "1",
+						"search.0.displayable":       "false",
+						"search.0.facetable":"false",
+						"search.0.searchable":        "false",
+						"search.0.sortable": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                   "_created_at",
-						"type":                   string(types.DocumentAttributeValueTypeDateValue),
-						"relevance.#":            "1",
+						"name": "_created_at",
+						"type": string(types.DocumentAttributeValueTypeDateValue),
+						"relevance.#":   "1",
 						"relevance.0.freshness":  "false",
 						"relevance.0.importance": "1",
 						"relevance.0.duration":   "25920000s",
 						"relevance.0.rank_order": "ASCENDING",
-						"search.#":               "1",
+						"search.#":      "1",
 						"search.0.displayable":   "false",
 						"search.0.facetable":     "false",
 						"search.0.searchable":    "false",
 						"search.0.sortable":      "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                                "_data_source_id",
-						"type":                                string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":                         "1",
-						"relevance.0.importance":              "1",
+						"name":     "_data_source_id",
+						"type":     string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":       "1",
+						"relevance.0.importance":     "1",
 						"relevance.0.values_importance_map.%": "0",
-						"search.#":                            "1",
-						"search.0.displayable":                "false",
-						"search.0.facetable":                  "false",
-						"search.0.searchable":                 "false",
-						"search.0.sortable":                   "true",
+						"search.#": "1",
+						"search.0.displayable":       "false",
+						"search.0.facetable":"false",
+						"search.0.searchable":        "false",
+						"search.0.sortable": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                                "_document_title",
-						"type":                                string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":                         "1",
-						"relevance.0.importance":              "2",
+						"name":     "_document_title",
+						"type":     string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":       "1",
+						"relevance.0.importance":     "2",
 						"relevance.0.values_importance_map.%": "0",
-						"search.#":                            "1",
-						"search.0.displayable":                "true",
-						"search.0.facetable":                  "false",
-						"search.0.searchable":                 "true",
-						"search.0.sortable":                   "true",
+						"search.#": "1",
+						"search.0.displayable":       "true",
+						"search.0.facetable":"false",
+						"search.0.searchable":        "true",
+						"search.0.sortable": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                   "_excerpt_page_number",
-						"type":                   string(types.DocumentAttributeValueTypeLongValue),
-						"relevance.#":            "1",
+						"name": "_excerpt_page_number",
+						"type": string(types.DocumentAttributeValueTypeLongValue),
+						"relevance.#":   "1",
 						"relevance.0.importance": "2",
 						"relevance.0.rank_order": "ASCENDING",
-						"search.#":               "1",
+						"search.#":      "1",
 						"search.0.displayable":   "false",
 						"search.0.facetable":     "false",
 						"search.0.searchable":    "false",
 						"search.0.sortable":      "false",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                                "_faq_id",
-						"type":                                string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":                         "1",
-						"relevance.0.importance":              "1",
+						"name":     "_faq_id",
+						"type":     string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":       "1",
+						"relevance.0.importance":     "1",
 						"relevance.0.values_importance_map.%": "0",
-						"search.#":                            "1",
-						"search.0.displayable":                "false",
-						"search.0.facetable":                  "false",
-						"search.0.searchable":                 "false",
-						"search.0.sortable":                   "true",
+						"search.#": "1",
+						"search.0.displayable":       "false",
+						"search.0.facetable":"false",
+						"search.0.searchable":        "false",
+						"search.0.sortable": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                   "_file_type",
-						"type":                   string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":            "1",
+						"name": "_file_type",
+						"type": string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":   "1",
 						"relevance.0.importance": "1",
-						"search.#":               "1",
+						"search.#":      "1",
 						"search.0.displayable":   "false",
 						"search.0.facetable":     "false",
 						"search.0.searchable":    "false",
 						"search.0.sortable":      "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                                "_language_code",
-						"type":                                string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":                         "1",
-						"relevance.0.importance":              "1",
+						"name":     "_language_code",
+						"type":     string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":       "1",
+						"relevance.0.importance":     "1",
 						"relevance.0.values_importance_map.%": "0",
-						"search.#":                            "1",
-						"search.0.displayable":                "false",
-						"search.0.facetable":                  "false",
-						"search.0.searchable":                 "false",
-						"search.0.sortable":                   "true",
+						"search.#": "1",
+						"search.0.displayable":       "false",
+						"search.0.facetable":"false",
+						"search.0.searchable":        "false",
+						"search.0.sortable": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                   "_last_updated_at",
-						"type":                   string(types.DocumentAttributeValueTypeDateValue),
-						"relevance.#":            "1",
+						"name": "_last_updated_at",
+						"type": string(types.DocumentAttributeValueTypeDateValue),
+						"relevance.#":   "1",
 						"relevance.0.freshness":  "false",
 						"relevance.0.importance": "1",
 						"relevance.0.duration":   "25920000s",
 						"relevance.0.rank_order": "ASCENDING",
-						"search.#":               "1",
+						"search.#":      "1",
 						"search.0.displayable":   "false",
 						"search.0.facetable":     "false",
 						"search.0.searchable":    "false",
 						"search.0.sortable":      "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                                "_source_uri",
-						"type":                                string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":                         "1",
-						"relevance.0.importance":              "1",
+						"name":     "_source_uri",
+						"type":     string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":       "1",
+						"relevance.0.importance":     "1",
 						"relevance.0.values_importance_map.%": "0",
-						"search.#":                            "1",
-						"search.0.displayable":                "true",
-						"search.0.facetable":                  "false",
-						"search.0.searchable":                 "false",
-						"search.0.sortable":                   "false",
+						"search.#": "1",
+						"search.0.displayable":       "true",
+						"search.0.facetable":"false",
+						"search.0.searchable":        "false",
+						"search.0.sortable": "false",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                                "_tenant_id",
-						"type":                                string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":                         "1",
-						"relevance.0.importance":              "1",
+						"name":     "_tenant_id",
+						"type":     string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":       "1",
+						"relevance.0.importance":     "1",
 						"relevance.0.values_importance_map.%": "0",
-						"search.#":                            "1",
-						"search.0.displayable":                "false",
-						"search.0.facetable":                  "false",
-						"search.0.searchable":                 "false",
-						"search.0.sortable":                   "true",
+						"search.#": "1",
+						"search.0.displayable":       "false",
+						"search.0.facetable":"false",
+						"search.0.searchable":        "false",
+						"search.0.sortable": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                                "_version",
-						"type":                                string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":                         "1",
-						"relevance.0.importance":              "1",
+						"name":     "_version",
+						"type":     string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":       "1",
+						"relevance.0.importance":     "1",
 						"relevance.0.values_importance_map.%": "0",
-						"search.#":                            "1",
-						"search.0.displayable":                "false",
-						"search.0.facetable":                  "false",
-						"search.0.searchable":                 "false",
-						"search.0.sortable":                   "true",
+						"search.#": "1",
+						"search.0.displayable":       "false",
+						"search.0.facetable":"false",
+						"search.0.searchable":        "false",
+						"search.0.sortable": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                   "_view_count",
-						"type":                   string(types.DocumentAttributeValueTypeLongValue),
-						"relevance.#":            "1",
+						"name": "_view_count",
+						"type": string(types.DocumentAttributeValueTypeLongValue),
+						"relevance.#":   "1",
 						"relevance.0.importance": "1",
 						"relevance.0.rank_order": "ASCENDING",
-						"search.#":               "1",
+						"search.#":      "1",
 						"search.0.displayable":   "false",
 						"search.0.facetable":     "false",
 						"search.0.searchable":    "false",
@@ -649,219 +649,219 @@ func TestAccKendraIndex_addDocumentMetadataConfigurationUpdates(t *testing.T) {
 					testAccCheckIndexExists(ctx, resourceName, &index),
 					resource.TestCheckResourceAttr(resourceName, "document_metadata_configuration_updates.#", "18"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                   "_authors",
-						"type":                   string(types.DocumentAttributeValueTypeStringListValue),
-						"relevance.#":            "1",
+						"name": "_authors",
+						"type": string(types.DocumentAttributeValueTypeStringListValue),
+						"relevance.#":   "1",
 						"relevance.0.importance": "1",
-						"search.#":               "1",
+						"search.#":      "1",
 						"search.0.displayable":   "false",
 						"search.0.facetable":     strconv.FormatBool(authorsFacetable),
 						"search.0.searchable":    "false",
 						"search.0.sortable":      "false",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                                "_category",
-						"type":                                string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":                         "1",
-						"relevance.0.importance":              "1",
+						"name":     "_category",
+						"type":     string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":       "1",
+						"relevance.0.importance":     "1",
 						"relevance.0.values_importance_map.%": "0",
-						"search.#":                            "1",
-						"search.0.displayable":                "false",
-						"search.0.facetable":                  "false",
-						"search.0.searchable":                 "false",
-						"search.0.sortable":                   "true",
+						"search.#": "1",
+						"search.0.displayable":       "false",
+						"search.0.facetable":"false",
+						"search.0.searchable":        "false",
+						"search.0.sortable": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                   "_created_at",
-						"type":                   string(types.DocumentAttributeValueTypeDateValue),
-						"relevance.#":            "1",
+						"name": "_created_at",
+						"type": string(types.DocumentAttributeValueTypeDateValue),
+						"relevance.#":   "1",
 						"relevance.0.freshness":  "false",
 						"relevance.0.importance": "1",
 						"relevance.0.duration":   "25920000s",
 						"relevance.0.rank_order": "ASCENDING",
-						"search.#":               "1",
+						"search.#":      "1",
 						"search.0.displayable":   "false",
 						"search.0.facetable":     "false",
 						"search.0.searchable":    "false",
 						"search.0.sortable":      "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                                "_data_source_id",
-						"type":                                string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":                         "1",
-						"relevance.0.importance":              "1",
+						"name":     "_data_source_id",
+						"type":     string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":       "1",
+						"relevance.0.importance":     "1",
 						"relevance.0.values_importance_map.%": "0",
-						"search.#":                            "1",
-						"search.0.displayable":                "false",
-						"search.0.facetable":                  "false",
-						"search.0.searchable":                 "false",
-						"search.0.sortable":                   "true",
+						"search.#": "1",
+						"search.0.displayable":       "false",
+						"search.0.facetable":"false",
+						"search.0.searchable":        "false",
+						"search.0.sortable": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                                "_document_title",
-						"type":                                string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":                         "1",
-						"relevance.0.importance":              "2",
+						"name":     "_document_title",
+						"type":     string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":       "1",
+						"relevance.0.importance":     "2",
 						"relevance.0.values_importance_map.%": "0",
-						"search.#":                            "1",
-						"search.0.displayable":                "true",
-						"search.0.facetable":                  "false",
-						"search.0.searchable":                 "true",
-						"search.0.sortable":                   "true",
+						"search.#": "1",
+						"search.0.displayable":       "true",
+						"search.0.facetable":"false",
+						"search.0.searchable":        "true",
+						"search.0.sortable": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                   "_excerpt_page_number",
-						"type":                   string(types.DocumentAttributeValueTypeLongValue),
-						"relevance.#":            "1",
+						"name": "_excerpt_page_number",
+						"type": string(types.DocumentAttributeValueTypeLongValue),
+						"relevance.#":   "1",
 						"relevance.0.importance": "2",
 						"relevance.0.rank_order": "ASCENDING",
-						"search.#":               "1",
+						"search.#":      "1",
 						"search.0.displayable":   "false",
 						"search.0.facetable":     "false",
 						"search.0.searchable":    "false",
 						"search.0.sortable":      "false",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                                "_faq_id",
-						"type":                                string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":                         "1",
-						"relevance.0.importance":              "1",
+						"name":     "_faq_id",
+						"type":     string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":       "1",
+						"relevance.0.importance":     "1",
 						"relevance.0.values_importance_map.%": "0",
-						"search.#":                            "1",
-						"search.0.displayable":                "false",
-						"search.0.facetable":                  "false",
-						"search.0.searchable":                 "false",
-						"search.0.sortable":                   "true",
+						"search.#": "1",
+						"search.0.displayable":       "false",
+						"search.0.facetable":"false",
+						"search.0.searchable":        "false",
+						"search.0.sortable": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                   "_file_type",
-						"type":                   string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":            "1",
+						"name": "_file_type",
+						"type": string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":   "1",
 						"relevance.0.importance": "1",
-						"search.#":               "1",
+						"search.#":      "1",
 						"search.0.displayable":   "false",
 						"search.0.facetable":     "false",
 						"search.0.searchable":    "false",
 						"search.0.sortable":      "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                                "_language_code",
-						"type":                                string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":                         "1",
-						"relevance.0.importance":              "1",
+						"name":     "_language_code",
+						"type":     string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":       "1",
+						"relevance.0.importance":     "1",
 						"relevance.0.values_importance_map.%": "0",
-						"search.#":                            "1",
-						"search.0.displayable":                "false",
-						"search.0.facetable":                  "false",
-						"search.0.searchable":                 "false",
-						"search.0.sortable":                   "true",
+						"search.#": "1",
+						"search.0.displayable":       "false",
+						"search.0.facetable":"false",
+						"search.0.searchable":        "false",
+						"search.0.sortable": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                   "_last_updated_at",
-						"type":                   string(types.DocumentAttributeValueTypeDateValue),
-						"relevance.#":            "1",
+						"name": "_last_updated_at",
+						"type": string(types.DocumentAttributeValueTypeDateValue),
+						"relevance.#":   "1",
 						"relevance.0.freshness":  "false",
 						"relevance.0.importance": "1",
 						"relevance.0.duration":   "25920000s",
 						"relevance.0.rank_order": "ASCENDING",
-						"search.#":               "1",
+						"search.#":      "1",
 						"search.0.displayable":   "false",
 						"search.0.facetable":     "false",
 						"search.0.searchable":    "false",
 						"search.0.sortable":      "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                                "_source_uri",
-						"type":                                string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":                         "1",
-						"relevance.0.importance":              "1",
+						"name":     "_source_uri",
+						"type":     string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":       "1",
+						"relevance.0.importance":     "1",
 						"relevance.0.values_importance_map.%": "0",
-						"search.#":                            "1",
-						"search.0.displayable":                "true",
-						"search.0.facetable":                  "false",
-						"search.0.searchable":                 "false",
-						"search.0.sortable":                   "false",
+						"search.#": "1",
+						"search.0.displayable":       "true",
+						"search.0.facetable":"false",
+						"search.0.searchable":        "false",
+						"search.0.sortable": "false",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                                "_tenant_id",
-						"type":                                string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":                         "1",
-						"relevance.0.importance":              "1",
+						"name":     "_tenant_id",
+						"type":     string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":       "1",
+						"relevance.0.importance":     "1",
 						"relevance.0.values_importance_map.%": "0",
-						"search.#":                            "1",
-						"search.0.displayable":                "false",
-						"search.0.facetable":                  "false",
-						"search.0.searchable":                 "false",
-						"search.0.sortable":                   "true",
+						"search.#": "1",
+						"search.0.displayable":       "false",
+						"search.0.facetable":"false",
+						"search.0.searchable":        "false",
+						"search.0.sortable": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                                "_version",
-						"type":                                string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":                         "1",
-						"relevance.0.importance":              "1",
+						"name":     "_version",
+						"type":     string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":       "1",
+						"relevance.0.importance":     "1",
 						"relevance.0.values_importance_map.%": "0",
-						"search.#":                            "1",
-						"search.0.displayable":                "false",
-						"search.0.facetable":                  "false",
-						"search.0.searchable":                 "false",
-						"search.0.sortable":                   "true",
+						"search.#": "1",
+						"search.0.displayable":       "false",
+						"search.0.facetable":"false",
+						"search.0.searchable":        "false",
+						"search.0.sortable": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                   "_view_count",
-						"type":                   string(types.DocumentAttributeValueTypeLongValue),
-						"relevance.#":            "1",
+						"name": "_view_count",
+						"type": string(types.DocumentAttributeValueTypeLongValue),
+						"relevance.#":   "1",
 						"relevance.0.importance": "1",
 						"relevance.0.rank_order": "ASCENDING",
-						"search.#":               "1",
+						"search.#":      "1",
 						"search.0.displayable":   "false",
 						"search.0.facetable":     "false",
 						"search.0.searchable":    "false",
 						"search.0.sortable":      "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                                "example-string-value",
-						"type":                                string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":                         "1",
-						"relevance.0.importance":              strconv.Itoa(stringValImportance),
+						"name":     "example-string-value",
+						"type":     string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":       "1",
+						"relevance.0.importance":     strconv.Itoa(stringValImportance),
 						"relevance.0.values_importance_map.%": "0",
-						"search.#":                            "1",
-						"search.0.displayable":                "true",
-						"search.0.facetable":                  "true",
-						"search.0.searchable":                 "true",
-						"search.0.sortable":                   "true",
+						"search.#": "1",
+						"search.0.displayable":       "true",
+						"search.0.facetable":"true",
+						"search.0.searchable":        "true",
+						"search.0.sortable": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                   "example-long-value",
-						"type":                   string(types.DocumentAttributeValueTypeLongValue),
-						"relevance.#":            "1",
+						"name": "example-long-value",
+						"type": string(types.DocumentAttributeValueTypeLongValue),
+						"relevance.#":   "1",
 						"relevance.0.importance": "1",
 						"relevance.0.rank_order": "ASCENDING",
-						"search.#":               "1",
+						"search.#":      "1",
 						"search.0.displayable":   strconv.FormatBool(longValDisplayable),
 						"search.0.facetable":     "true",
 						"search.0.searchable":    "false",
 						"search.0.sortable":      "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                   "example-string-list-value",
-						"type":                   string(types.DocumentAttributeValueTypeStringListValue),
-						"relevance.#":            "1",
+						"name": "example-string-list-value",
+						"type": string(types.DocumentAttributeValueTypeStringListValue),
+						"relevance.#":   "1",
 						"relevance.0.importance": "1",
-						"search.#":               "1",
+						"search.#":      "1",
 						"search.0.displayable":   "true",
 						"search.0.facetable":     "true",
 						"search.0.searchable":    strconv.FormatBool(stringListValSearchable),
 						"search.0.sortable":      "false",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                   "example-date-value",
-						"type":                   string(types.DocumentAttributeValueTypeDateValue),
-						"relevance.#":            "1",
+						"name": "example-date-value",
+						"type": string(types.DocumentAttributeValueTypeDateValue),
+						"relevance.#":   "1",
 						"relevance.0.freshness":  "false",
 						"relevance.0.importance": "1",
 						"relevance.0.duration":   "25920000s",
 						"relevance.0.rank_order": "ASCENDING",
-						"search.#":               "1",
+						"search.#":      "1",
 						"search.0.displayable":   "true",
 						"search.0.facetable":     "true",
 						"search.0.searchable":    "false",
@@ -894,10 +894,10 @@ func TestAccKendraIndex_inplaceUpdateDocumentMetadataConfigurationUpdates(t *tes
 	updatedStringValImportance := 2
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIndexDestroy(ctx),
+		CheckDestroy:    testAccCheckIndexDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIndexConfig_documentMetadataConfigurationUpdatesAddNewMetadata(rName, rName2, rName3, originalAuthorsFacetable, originalLongValDisplayable, originalStringListValSearchable, originalDateValSortable, originalStringValImportance),
@@ -905,219 +905,219 @@ func TestAccKendraIndex_inplaceUpdateDocumentMetadataConfigurationUpdates(t *tes
 					testAccCheckIndexExists(ctx, resourceName, &index),
 					resource.TestCheckResourceAttr(resourceName, "document_metadata_configuration_updates.#", "18"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                   "_authors",
-						"type":                   string(types.DocumentAttributeValueTypeStringListValue),
-						"relevance.#":            "1",
+						"name": "_authors",
+						"type": string(types.DocumentAttributeValueTypeStringListValue),
+						"relevance.#":   "1",
 						"relevance.0.importance": "1",
-						"search.#":               "1",
+						"search.#":      "1",
 						"search.0.displayable":   "false",
 						"search.0.facetable":     strconv.FormatBool(originalAuthorsFacetable),
 						"search.0.searchable":    "false",
 						"search.0.sortable":      "false",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                                "_category",
-						"type":                                string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":                         "1",
-						"relevance.0.importance":              "1",
+						"name":     "_category",
+						"type":     string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":       "1",
+						"relevance.0.importance":     "1",
 						"relevance.0.values_importance_map.%": "0",
-						"search.#":                            "1",
-						"search.0.displayable":                "false",
-						"search.0.facetable":                  "false",
-						"search.0.searchable":                 "false",
-						"search.0.sortable":                   "true",
+						"search.#": "1",
+						"search.0.displayable":       "false",
+						"search.0.facetable":"false",
+						"search.0.searchable":        "false",
+						"search.0.sortable": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                   "_created_at",
-						"type":                   string(types.DocumentAttributeValueTypeDateValue),
-						"relevance.#":            "1",
+						"name": "_created_at",
+						"type": string(types.DocumentAttributeValueTypeDateValue),
+						"relevance.#":   "1",
 						"relevance.0.freshness":  "false",
 						"relevance.0.importance": "1",
 						"relevance.0.duration":   "25920000s",
 						"relevance.0.rank_order": "ASCENDING",
-						"search.#":               "1",
+						"search.#":      "1",
 						"search.0.displayable":   "false",
 						"search.0.facetable":     "false",
 						"search.0.searchable":    "false",
 						"search.0.sortable":      "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                                "_data_source_id",
-						"type":                                string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":                         "1",
-						"relevance.0.importance":              "1",
+						"name":     "_data_source_id",
+						"type":     string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":       "1",
+						"relevance.0.importance":     "1",
 						"relevance.0.values_importance_map.%": "0",
-						"search.#":                            "1",
-						"search.0.displayable":                "false",
-						"search.0.facetable":                  "false",
-						"search.0.searchable":                 "false",
-						"search.0.sortable":                   "true",
+						"search.#": "1",
+						"search.0.displayable":       "false",
+						"search.0.facetable":"false",
+						"search.0.searchable":        "false",
+						"search.0.sortable": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                                "_document_title",
-						"type":                                string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":                         "1",
-						"relevance.0.importance":              "2",
+						"name":     "_document_title",
+						"type":     string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":       "1",
+						"relevance.0.importance":     "2",
 						"relevance.0.values_importance_map.%": "0",
-						"search.#":                            "1",
-						"search.0.displayable":                "true",
-						"search.0.facetable":                  "false",
-						"search.0.searchable":                 "true",
-						"search.0.sortable":                   "true",
+						"search.#": "1",
+						"search.0.displayable":       "true",
+						"search.0.facetable":"false",
+						"search.0.searchable":        "true",
+						"search.0.sortable": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                   "_excerpt_page_number",
-						"type":                   string(types.DocumentAttributeValueTypeLongValue),
-						"relevance.#":            "1",
+						"name": "_excerpt_page_number",
+						"type": string(types.DocumentAttributeValueTypeLongValue),
+						"relevance.#":   "1",
 						"relevance.0.importance": "2",
 						"relevance.0.rank_order": "ASCENDING",
-						"search.#":               "1",
+						"search.#":      "1",
 						"search.0.displayable":   "false",
 						"search.0.facetable":     "false",
 						"search.0.searchable":    "false",
 						"search.0.sortable":      "false",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                                "_faq_id",
-						"type":                                string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":                         "1",
-						"relevance.0.importance":              "1",
+						"name":     "_faq_id",
+						"type":     string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":       "1",
+						"relevance.0.importance":     "1",
 						"relevance.0.values_importance_map.%": "0",
-						"search.#":                            "1",
-						"search.0.displayable":                "false",
-						"search.0.facetable":                  "false",
-						"search.0.searchable":                 "false",
-						"search.0.sortable":                   "true",
+						"search.#": "1",
+						"search.0.displayable":       "false",
+						"search.0.facetable":"false",
+						"search.0.searchable":        "false",
+						"search.0.sortable": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                   "_file_type",
-						"type":                   string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":            "1",
+						"name": "_file_type",
+						"type": string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":   "1",
 						"relevance.0.importance": "1",
-						"search.#":               "1",
+						"search.#":      "1",
 						"search.0.displayable":   "false",
 						"search.0.facetable":     "false",
 						"search.0.searchable":    "false",
 						"search.0.sortable":      "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                                "_language_code",
-						"type":                                string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":                         "1",
-						"relevance.0.importance":              "1",
+						"name":     "_language_code",
+						"type":     string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":       "1",
+						"relevance.0.importance":     "1",
 						"relevance.0.values_importance_map.%": "0",
-						"search.#":                            "1",
-						"search.0.displayable":                "false",
-						"search.0.facetable":                  "false",
-						"search.0.searchable":                 "false",
-						"search.0.sortable":                   "true",
+						"search.#": "1",
+						"search.0.displayable":       "false",
+						"search.0.facetable":"false",
+						"search.0.searchable":        "false",
+						"search.0.sortable": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                   "_last_updated_at",
-						"type":                   string(types.DocumentAttributeValueTypeDateValue),
-						"relevance.#":            "1",
+						"name": "_last_updated_at",
+						"type": string(types.DocumentAttributeValueTypeDateValue),
+						"relevance.#":   "1",
 						"relevance.0.freshness":  "false",
 						"relevance.0.importance": "1",
 						"relevance.0.duration":   "25920000s",
 						"relevance.0.rank_order": "ASCENDING",
-						"search.#":               "1",
+						"search.#":      "1",
 						"search.0.displayable":   "false",
 						"search.0.facetable":     "false",
 						"search.0.searchable":    "false",
 						"search.0.sortable":      "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                                "_source_uri",
-						"type":                                string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":                         "1",
-						"relevance.0.importance":              "1",
+						"name":     "_source_uri",
+						"type":     string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":       "1",
+						"relevance.0.importance":     "1",
 						"relevance.0.values_importance_map.%": "0",
-						"search.#":                            "1",
-						"search.0.displayable":                "true",
-						"search.0.facetable":                  "false",
-						"search.0.searchable":                 "false",
-						"search.0.sortable":                   "false",
+						"search.#": "1",
+						"search.0.displayable":       "true",
+						"search.0.facetable":"false",
+						"search.0.searchable":        "false",
+						"search.0.sortable": "false",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                                "_tenant_id",
-						"type":                                string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":                         "1",
-						"relevance.0.importance":              "1",
+						"name":     "_tenant_id",
+						"type":     string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":       "1",
+						"relevance.0.importance":     "1",
 						"relevance.0.values_importance_map.%": "0",
-						"search.#":                            "1",
-						"search.0.displayable":                "false",
-						"search.0.facetable":                  "false",
-						"search.0.searchable":                 "false",
-						"search.0.sortable":                   "true",
+						"search.#": "1",
+						"search.0.displayable":       "false",
+						"search.0.facetable":"false",
+						"search.0.searchable":        "false",
+						"search.0.sortable": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                                "_version",
-						"type":                                string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":                         "1",
-						"relevance.0.importance":              "1",
+						"name":     "_version",
+						"type":     string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":       "1",
+						"relevance.0.importance":     "1",
 						"relevance.0.values_importance_map.%": "0",
-						"search.#":                            "1",
-						"search.0.displayable":                "false",
-						"search.0.facetable":                  "false",
-						"search.0.searchable":                 "false",
-						"search.0.sortable":                   "true",
+						"search.#": "1",
+						"search.0.displayable":       "false",
+						"search.0.facetable":"false",
+						"search.0.searchable":        "false",
+						"search.0.sortable": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                   "_view_count",
-						"type":                   string(types.DocumentAttributeValueTypeLongValue),
-						"relevance.#":            "1",
+						"name": "_view_count",
+						"type": string(types.DocumentAttributeValueTypeLongValue),
+						"relevance.#":   "1",
 						"relevance.0.importance": "1",
 						"relevance.0.rank_order": "ASCENDING",
-						"search.#":               "1",
+						"search.#":      "1",
 						"search.0.displayable":   "false",
 						"search.0.facetable":     "false",
 						"search.0.searchable":    "false",
 						"search.0.sortable":      "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                                "example-string-value",
-						"type":                                string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":                         "1",
-						"relevance.0.importance":              strconv.Itoa(originalStringValImportance),
+						"name":     "example-string-value",
+						"type":     string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":       "1",
+						"relevance.0.importance":     strconv.Itoa(originalStringValImportance),
 						"relevance.0.values_importance_map.%": "0",
-						"search.#":                            "1",
-						"search.0.displayable":                "true",
-						"search.0.facetable":                  "true",
-						"search.0.searchable":                 "true",
-						"search.0.sortable":                   "true",
+						"search.#": "1",
+						"search.0.displayable":       "true",
+						"search.0.facetable":"true",
+						"search.0.searchable":        "true",
+						"search.0.sortable": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                   "example-long-value",
-						"type":                   string(types.DocumentAttributeValueTypeLongValue),
-						"relevance.#":            "1",
+						"name": "example-long-value",
+						"type": string(types.DocumentAttributeValueTypeLongValue),
+						"relevance.#":   "1",
 						"relevance.0.importance": "1",
 						"relevance.0.rank_order": "ASCENDING",
-						"search.#":               "1",
+						"search.#":      "1",
 						"search.0.displayable":   strconv.FormatBool(originalLongValDisplayable),
 						"search.0.facetable":     "true",
 						"search.0.searchable":    "false",
 						"search.0.sortable":      "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                   "example-string-list-value",
-						"type":                   string(types.DocumentAttributeValueTypeStringListValue),
-						"relevance.#":            "1",
+						"name": "example-string-list-value",
+						"type": string(types.DocumentAttributeValueTypeStringListValue),
+						"relevance.#":   "1",
 						"relevance.0.importance": "1",
-						"search.#":               "1",
+						"search.#":      "1",
 						"search.0.displayable":   "true",
 						"search.0.facetable":     "true",
 						"search.0.searchable":    strconv.FormatBool(originalStringListValSearchable),
 						"search.0.sortable":      "false",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                   "example-date-value",
-						"type":                   string(types.DocumentAttributeValueTypeDateValue),
-						"relevance.#":            "1",
+						"name": "example-date-value",
+						"type": string(types.DocumentAttributeValueTypeDateValue),
+						"relevance.#":   "1",
 						"relevance.0.freshness":  "false",
 						"relevance.0.importance": "1",
 						"relevance.0.duration":   "25920000s",
 						"relevance.0.rank_order": "ASCENDING",
-						"search.#":               "1",
+						"search.#":      "1",
 						"search.0.displayable":   "true",
 						"search.0.facetable":     "true",
 						"search.0.searchable":    "false",
@@ -1136,219 +1136,219 @@ func TestAccKendraIndex_inplaceUpdateDocumentMetadataConfigurationUpdates(t *tes
 					testAccCheckIndexExists(ctx, resourceName, &index),
 					resource.TestCheckResourceAttr(resourceName, "document_metadata_configuration_updates.#", "18"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                   "_authors",
-						"type":                   string(types.DocumentAttributeValueTypeStringListValue),
-						"relevance.#":            "1",
+						"name": "_authors",
+						"type": string(types.DocumentAttributeValueTypeStringListValue),
+						"relevance.#":   "1",
 						"relevance.0.importance": "1",
-						"search.#":               "1",
+						"search.#":      "1",
 						"search.0.displayable":   "false",
 						"search.0.facetable":     strconv.FormatBool(updatedAuthorsFacetable),
 						"search.0.searchable":    "false",
 						"search.0.sortable":      "false",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                                "_category",
-						"type":                                string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":                         "1",
-						"relevance.0.importance":              "1",
+						"name":     "_category",
+						"type":     string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":       "1",
+						"relevance.0.importance":     "1",
 						"relevance.0.values_importance_map.%": "0",
-						"search.#":                            "1",
-						"search.0.displayable":                "false",
-						"search.0.facetable":                  "false",
-						"search.0.searchable":                 "false",
-						"search.0.sortable":                   "true",
+						"search.#": "1",
+						"search.0.displayable":       "false",
+						"search.0.facetable":"false",
+						"search.0.searchable":        "false",
+						"search.0.sortable": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                   "_created_at",
-						"type":                   string(types.DocumentAttributeValueTypeDateValue),
-						"relevance.#":            "1",
+						"name": "_created_at",
+						"type": string(types.DocumentAttributeValueTypeDateValue),
+						"relevance.#":   "1",
 						"relevance.0.freshness":  "false",
 						"relevance.0.importance": "1",
 						"relevance.0.duration":   "25920000s",
 						"relevance.0.rank_order": "ASCENDING",
-						"search.#":               "1",
+						"search.#":      "1",
 						"search.0.displayable":   "false",
 						"search.0.facetable":     "false",
 						"search.0.searchable":    "false",
 						"search.0.sortable":      "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                                "_data_source_id",
-						"type":                                string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":                         "1",
-						"relevance.0.importance":              "1",
+						"name":     "_data_source_id",
+						"type":     string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":       "1",
+						"relevance.0.importance":     "1",
 						"relevance.0.values_importance_map.%": "0",
-						"search.#":                            "1",
-						"search.0.displayable":                "false",
-						"search.0.facetable":                  "false",
-						"search.0.searchable":                 "false",
-						"search.0.sortable":                   "true",
+						"search.#": "1",
+						"search.0.displayable":       "false",
+						"search.0.facetable":"false",
+						"search.0.searchable":        "false",
+						"search.0.sortable": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                                "_document_title",
-						"type":                                string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":                         "1",
-						"relevance.0.importance":              "2",
+						"name":     "_document_title",
+						"type":     string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":       "1",
+						"relevance.0.importance":     "2",
 						"relevance.0.values_importance_map.%": "0",
-						"search.#":                            "1",
-						"search.0.displayable":                "true",
-						"search.0.facetable":                  "false",
-						"search.0.searchable":                 "true",
-						"search.0.sortable":                   "true",
+						"search.#": "1",
+						"search.0.displayable":       "true",
+						"search.0.facetable":"false",
+						"search.0.searchable":        "true",
+						"search.0.sortable": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                   "_excerpt_page_number",
-						"type":                   string(types.DocumentAttributeValueTypeLongValue),
-						"relevance.#":            "1",
+						"name": "_excerpt_page_number",
+						"type": string(types.DocumentAttributeValueTypeLongValue),
+						"relevance.#":   "1",
 						"relevance.0.importance": "2",
 						"relevance.0.rank_order": "ASCENDING",
-						"search.#":               "1",
+						"search.#":      "1",
 						"search.0.displayable":   "false",
 						"search.0.facetable":     "false",
 						"search.0.searchable":    "false",
 						"search.0.sortable":      "false",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                                "_faq_id",
-						"type":                                string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":                         "1",
-						"relevance.0.importance":              "1",
+						"name":     "_faq_id",
+						"type":     string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":       "1",
+						"relevance.0.importance":     "1",
 						"relevance.0.values_importance_map.%": "0",
-						"search.#":                            "1",
-						"search.0.displayable":                "false",
-						"search.0.facetable":                  "false",
-						"search.0.searchable":                 "false",
-						"search.0.sortable":                   "true",
+						"search.#": "1",
+						"search.0.displayable":       "false",
+						"search.0.facetable":"false",
+						"search.0.searchable":        "false",
+						"search.0.sortable": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                   "_file_type",
-						"type":                   string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":            "1",
+						"name": "_file_type",
+						"type": string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":   "1",
 						"relevance.0.importance": "1",
-						"search.#":               "1",
+						"search.#":      "1",
 						"search.0.displayable":   "false",
 						"search.0.facetable":     "false",
 						"search.0.searchable":    "false",
 						"search.0.sortable":      "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                                "_language_code",
-						"type":                                string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":                         "1",
-						"relevance.0.importance":              "1",
+						"name":     "_language_code",
+						"type":     string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":       "1",
+						"relevance.0.importance":     "1",
 						"relevance.0.values_importance_map.%": "0",
-						"search.#":                            "1",
-						"search.0.displayable":                "false",
-						"search.0.facetable":                  "false",
-						"search.0.searchable":                 "false",
-						"search.0.sortable":                   "true",
+						"search.#": "1",
+						"search.0.displayable":       "false",
+						"search.0.facetable":"false",
+						"search.0.searchable":        "false",
+						"search.0.sortable": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                   "_last_updated_at",
-						"type":                   string(types.DocumentAttributeValueTypeDateValue),
-						"relevance.#":            "1",
+						"name": "_last_updated_at",
+						"type": string(types.DocumentAttributeValueTypeDateValue),
+						"relevance.#":   "1",
 						"relevance.0.freshness":  "false",
 						"relevance.0.importance": "1",
 						"relevance.0.duration":   "25920000s",
 						"relevance.0.rank_order": "ASCENDING",
-						"search.#":               "1",
+						"search.#":      "1",
 						"search.0.displayable":   "false",
 						"search.0.facetable":     "false",
 						"search.0.searchable":    "false",
 						"search.0.sortable":      "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                                "_source_uri",
-						"type":                                string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":                         "1",
-						"relevance.0.importance":              "1",
+						"name":     "_source_uri",
+						"type":     string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":       "1",
+						"relevance.0.importance":     "1",
 						"relevance.0.values_importance_map.%": "0",
-						"search.#":                            "1",
-						"search.0.displayable":                "true",
-						"search.0.facetable":                  "false",
-						"search.0.searchable":                 "false",
-						"search.0.sortable":                   "false",
+						"search.#": "1",
+						"search.0.displayable":       "true",
+						"search.0.facetable":"false",
+						"search.0.searchable":        "false",
+						"search.0.sortable": "false",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                                "_tenant_id",
-						"type":                                string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":                         "1",
-						"relevance.0.importance":              "1",
+						"name":     "_tenant_id",
+						"type":     string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":       "1",
+						"relevance.0.importance":     "1",
 						"relevance.0.values_importance_map.%": "0",
-						"search.#":                            "1",
-						"search.0.displayable":                "false",
-						"search.0.facetable":                  "false",
-						"search.0.searchable":                 "false",
-						"search.0.sortable":                   "true",
+						"search.#": "1",
+						"search.0.displayable":       "false",
+						"search.0.facetable":"false",
+						"search.0.searchable":        "false",
+						"search.0.sortable": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                                "_version",
-						"type":                                string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":                         "1",
-						"relevance.0.importance":              "1",
+						"name":     "_version",
+						"type":     string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":       "1",
+						"relevance.0.importance":     "1",
 						"relevance.0.values_importance_map.%": "0",
-						"search.#":                            "1",
-						"search.0.displayable":                "false",
-						"search.0.facetable":                  "false",
-						"search.0.searchable":                 "false",
-						"search.0.sortable":                   "true",
+						"search.#": "1",
+						"search.0.displayable":       "false",
+						"search.0.facetable":"false",
+						"search.0.searchable":        "false",
+						"search.0.sortable": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                   "_view_count",
-						"type":                   string(types.DocumentAttributeValueTypeLongValue),
-						"relevance.#":            "1",
+						"name": "_view_count",
+						"type": string(types.DocumentAttributeValueTypeLongValue),
+						"relevance.#":   "1",
 						"relevance.0.importance": "1",
 						"relevance.0.rank_order": "ASCENDING",
-						"search.#":               "1",
+						"search.#":      "1",
 						"search.0.displayable":   "false",
 						"search.0.facetable":     "false",
 						"search.0.searchable":    "false",
 						"search.0.sortable":      "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                                "example-string-value",
-						"type":                                string(types.DocumentAttributeValueTypeStringValue),
-						"relevance.#":                         "1",
-						"relevance.0.importance":              strconv.Itoa(updatedStringValImportance),
+						"name":     "example-string-value",
+						"type":     string(types.DocumentAttributeValueTypeStringValue),
+						"relevance.#":       "1",
+						"relevance.0.importance":     strconv.Itoa(updatedStringValImportance),
 						"relevance.0.values_importance_map.%": "0",
-						"search.#":                            "1",
-						"search.0.displayable":                "true",
-						"search.0.facetable":                  "true",
-						"search.0.searchable":                 "true",
-						"search.0.sortable":                   "true",
+						"search.#": "1",
+						"search.0.displayable":       "true",
+						"search.0.facetable":"true",
+						"search.0.searchable":        "true",
+						"search.0.sortable": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                   "example-long-value",
-						"type":                   string(types.DocumentAttributeValueTypeLongValue),
-						"relevance.#":            "1",
+						"name": "example-long-value",
+						"type": string(types.DocumentAttributeValueTypeLongValue),
+						"relevance.#":   "1",
 						"relevance.0.importance": "1",
 						"relevance.0.rank_order": "ASCENDING",
-						"search.#":               "1",
+						"search.#":      "1",
 						"search.0.displayable":   strconv.FormatBool(updatedLongValDisplayable),
 						"search.0.facetable":     "true",
 						"search.0.searchable":    "false",
 						"search.0.sortable":      "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                   "example-string-list-value",
-						"type":                   string(types.DocumentAttributeValueTypeStringListValue),
-						"relevance.#":            "1",
+						"name": "example-string-list-value",
+						"type": string(types.DocumentAttributeValueTypeStringListValue),
+						"relevance.#":   "1",
 						"relevance.0.importance": "1",
-						"search.#":               "1",
+						"search.#":      "1",
 						"search.0.displayable":   "true",
 						"search.0.facetable":     "true",
 						"search.0.searchable":    strconv.FormatBool(updatedStringListValSearchable),
 						"search.0.sortable":      "false",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "document_metadata_configuration_updates.*", map[string]string{
-						"name":                   "example-date-value",
-						"type":                   string(types.DocumentAttributeValueTypeDateValue),
-						"relevance.#":            "1",
+						"name": "example-date-value",
+						"type": string(types.DocumentAttributeValueTypeDateValue),
+						"relevance.#":   "1",
 						"relevance.0.freshness":  "false",
 						"relevance.0.importance": "1",
 						"relevance.0.duration":   "25920000s",
 						"relevance.0.rank_order": "ASCENDING",
-						"search.#":               "1",
+						"search.#":      "1",
 						"search.0.displayable":   "true",
 						"search.0.facetable":     "true",
 						"search.0.searchable":    "false",
@@ -1371,10 +1371,10 @@ func TestAccKendraIndex_disappears(t *testing.T) {
 	resourceName := "aws_kendra_index.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIndexDestroy(ctx),
+		CheckDestroy:    testAccCheckIndexDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIndexConfig_basic(rName, rName2, rName3, description),
@@ -1469,33 +1469,33 @@ resource "aws_iam_role" "access_cw" {
       Version = "2012-10-17"
       Statement = [
         {
-          Action   = ["cloudwatch:PutMetricData"]
-          Effect   = "Allow"
-          Resource = "*"
-          Condition = {
-            StringEquals = {
-              "cloudwatch:namespace" = "Kendra"
-            }
-          }
+ Action   = ["cloudwatch:PutMetricData"]
+ Effect   = "Allow"
+ Resource = "*"
+ Condition = {
+   StringEquals = {
+     "cloudwatch:namespace" = "Kendra"
+   }
+ }
         },
         {
-          Action   = ["logs:DescribeLogGroups"]
-          Effect   = "Allow"
-          Resource = "*"
+ Action   = ["logs:DescribeLogGroups"]
+ Effect   = "Allow"
+ Resource = "*"
         },
         {
-          Action   = ["logs:CreateLogGroup"]
-          Effect   = "Allow"
-          Resource = "arn:${data.aws_partition.current.partition}:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:/aws/kendra/*"
+ Action   = ["logs:CreateLogGroup"]
+ Effect   = "Allow"
+ Resource = "arn:${data.aws_partition.current.partition}:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:/aws/kendra/*"
         },
         {
-          Action = [
-            "logs:DescribeLogStreams",
-            "logs:CreateLogStream",
-            "logs:PutLogEvents"
-          ]
-          Effect   = "Allow"
-          Resource = "arn:${data.aws_partition.current.partition}:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:/aws/kendra/*:log-stream:*"
+ Action = [
+   "logs:DescribeLogStreams",
+   "logs:CreateLogStream",
+   "logs:PutLogEvents"
+ ]
+ Effect   = "Allow"
+ Resource = "arn:${data.aws_partition.current.partition}:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:/aws/kendra/*:log-stream:*"
         },
       ]
     })
@@ -1513,48 +1513,48 @@ resource "aws_iam_role" "access_sm" {
       Version = "2012-10-17"
       Statement = [
         {
-          Action   = ["cloudwatch:PutMetricData"]
-          Effect   = "Allow"
-          Resource = "*"
-          Condition = {
-            StringEquals = {
-              "cloudwatch:namespace" = "Kendra"
-            }
-          }
+ Action   = ["cloudwatch:PutMetricData"]
+ Effect   = "Allow"
+ Resource = "*"
+ Condition = {
+   StringEquals = {
+     "cloudwatch:namespace" = "Kendra"
+   }
+ }
         },
         {
-          Action   = ["logs:DescribeLogGroups"]
-          Effect   = "Allow"
-          Resource = "*"
+ Action   = ["logs:DescribeLogGroups"]
+ Effect   = "Allow"
+ Resource = "*"
         },
         {
-          Action   = ["logs:CreateLogGroup"]
-          Effect   = "Allow"
-          Resource = "arn:${data.aws_partition.current.partition}:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:/aws/kendra/*"
+ Action   = ["logs:CreateLogGroup"]
+ Effect   = "Allow"
+ Resource = "arn:${data.aws_partition.current.partition}:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:/aws/kendra/*"
         },
         {
-          Action = [
-            "logs:DescribeLogStreams",
-            "logs:CreateLogStream",
-            "logs:PutLogEvents"
-          ]
-          Effect   = "Allow"
-          Resource = "arn:${data.aws_partition.current.partition}:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:/aws/kendra/*:log-stream:*"
+ Action = [
+   "logs:DescribeLogStreams",
+   "logs:CreateLogStream",
+   "logs:PutLogEvents"
+ ]
+ Effect   = "Allow"
+ Resource = "arn:${data.aws_partition.current.partition}:logs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:log-group:/aws/kendra/*:log-stream:*"
         },
         {
-          Action   = ["secretsmanager:GetSecretValue"]
-          Effect   = "Allow"
-          Resource = "arn:${data.aws_partition.current.partition}:secretsmanager:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:secret:example"
+ Action   = ["secretsmanager:GetSecretValue"]
+ Effect   = "Allow"
+ Resource = "arn:${data.aws_partition.current.partition}:secretsmanager:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:secret:example"
         },
         {
-          Action   = ["kms:Decrypt"]
-          Effect   = "Allow"
-          Resource = "arn:${data.aws_partition.current.partition}:kms:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:key/example"
-          Condition = {
-            StringLike = {
-              "kms:ViaService" = ["secretsmanager.*.amazonaws.com"]
-            }
-          }
+ Action   = ["kms:Decrypt"]
+ Effect   = "Allow"
+ Resource = "arn:${data.aws_partition.current.partition}:kms:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:key/example"
+ Condition = {
+   StringLike = {
+     "kms:ViaService" = ["secretsmanager.*.amazonaws.com"]
+   }
+ }
         }
       ]
     })
@@ -1729,7 +1729,7 @@ resource "aws_kendra_index" "test" {
       sortable    = true
     }
     relevance {
-      importance            = 1
+      importance   = 1
       values_importance_map = {}
     }
   }
@@ -1761,7 +1761,7 @@ resource "aws_kendra_index" "test" {
       sortable    = true
     }
     relevance {
-      importance            = 1
+      importance   = 1
       values_importance_map = {}
     }
   }
@@ -1776,7 +1776,7 @@ resource "aws_kendra_index" "test" {
       sortable    = true
     }
     relevance {
-      importance            = 2
+      importance   = 2
       values_importance_map = {}
     }
   }
@@ -1806,7 +1806,7 @@ resource "aws_kendra_index" "test" {
       sortable    = true
     }
     relevance {
-      importance            = 1
+      importance   = 1
       values_importance_map = {}
     }
   }
@@ -1821,7 +1821,7 @@ resource "aws_kendra_index" "test" {
       sortable    = true
     }
     relevance {
-      importance            = 1
+      importance   = 1
       values_importance_map = {}
     }
   }
@@ -1836,7 +1836,7 @@ resource "aws_kendra_index" "test" {
       sortable    = true
     }
     relevance {
-      importance            = 1
+      importance   = 1
       values_importance_map = {}
     }
   }
@@ -1868,7 +1868,7 @@ resource "aws_kendra_index" "test" {
       sortable    = false
     }
     relevance {
-      importance            = 1
+      importance   = 1
       values_importance_map = {}
     }
   }
@@ -1883,7 +1883,7 @@ resource "aws_kendra_index" "test" {
       sortable    = true
     }
     relevance {
-      importance            = 1
+      importance   = 1
       values_importance_map = {}
     }
   }
@@ -1898,7 +1898,7 @@ resource "aws_kendra_index" "test" {
       sortable    = true
     }
     relevance {
-      importance            = 1
+      importance   = 1
       values_importance_map = {}
     }
   }
@@ -1952,7 +1952,7 @@ resource "aws_kendra_index" "test" {
       sortable    = true
     }
     relevance {
-      importance            = 1
+      importance   = 1
       values_importance_map = {}
     }
   }
@@ -1984,7 +1984,7 @@ resource "aws_kendra_index" "test" {
       sortable    = true
     }
     relevance {
-      importance            = 1
+      importance   = 1
       values_importance_map = {}
     }
   }
@@ -1999,7 +1999,7 @@ resource "aws_kendra_index" "test" {
       sortable    = true
     }
     relevance {
-      importance            = 2
+      importance   = 2
       values_importance_map = {}
     }
   }
@@ -2029,7 +2029,7 @@ resource "aws_kendra_index" "test" {
       sortable    = true
     }
     relevance {
-      importance            = 1
+      importance   = 1
       values_importance_map = {}
     }
   }
@@ -2044,7 +2044,7 @@ resource "aws_kendra_index" "test" {
       sortable    = true
     }
     relevance {
-      importance            = 1
+      importance   = 1
       values_importance_map = {}
     }
   }
@@ -2059,7 +2059,7 @@ resource "aws_kendra_index" "test" {
       sortable    = true
     }
     relevance {
-      importance            = 1
+      importance   = 1
       values_importance_map = {}
     }
   }
@@ -2091,7 +2091,7 @@ resource "aws_kendra_index" "test" {
       sortable    = false
     }
     relevance {
-      importance            = 1
+      importance   = 1
       values_importance_map = {}
     }
   }
@@ -2106,7 +2106,7 @@ resource "aws_kendra_index" "test" {
       sortable    = true
     }
     relevance {
-      importance            = 1
+      importance   = 1
       values_importance_map = {}
     }
   }
@@ -2121,7 +2121,7 @@ resource "aws_kendra_index" "test" {
       sortable    = true
     }
     relevance {
-      importance            = 1
+      importance   = 1
       values_importance_map = {}
     }
   }
@@ -2151,7 +2151,7 @@ resource "aws_kendra_index" "test" {
       sortable    = true
     }
     relevance {
-      importance            = %[6]d
+      importance   = %[6]d
       values_importance_map = {}
     }
   }

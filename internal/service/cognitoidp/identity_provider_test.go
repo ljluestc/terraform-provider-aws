@@ -26,10 +26,10 @@ func TestAccCognitoIDPIdentityProvider_basic(t *testing.T) {
 	userPoolName := fmt.Sprintf("tf-acc-cognito-user-pool-%s", sdkacctest.RandString(7))
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIdentityProviderDestroy(ctx),
+		CheckDestroy:    testAccCheckIdentityProviderDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIdentityProviderConfig_basic(userPoolName),
@@ -88,10 +88,10 @@ func TestAccCognitoIDPIdentityProvider_idpIdentifiers(t *testing.T) {
 	userPoolName := fmt.Sprintf("tf-acc-cognito-user-pool-%s", sdkacctest.RandString(7))
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIdentityProviderDestroy(ctx),
+		CheckDestroy:    testAccCheckIdentityProviderDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIdentityProviderConfig_identifier(userPoolName, "test"),
@@ -125,10 +125,10 @@ func TestAccCognitoIDPIdentityProvider_disappears(t *testing.T) {
 	userPoolName := fmt.Sprintf("tf-acc-cognito-user-pool-%s", sdkacctest.RandString(7))
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIdentityProviderDestroy(ctx),
+		CheckDestroy:    testAccCheckIdentityProviderDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIdentityProviderConfig_basic(userPoolName),
@@ -149,10 +149,10 @@ func TestAccCognitoIDPIdentityProvider_Disappears_userPool(t *testing.T) {
 	userPoolName := fmt.Sprintf("tf-acc-cognito-user-pool-%s", sdkacctest.RandString(7))
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckIdentityProviderDestroy(ctx),
+		CheckDestroy:    testAccCheckIdentityProviderDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccIdentityProviderConfig_basic(userPoolName),
@@ -247,12 +247,12 @@ resource "aws_cognito_identity_provider" "test" {
   provider_details = {
     attributes_url = "https://people.googleapis.com/v1/people/me?personFields="
     attributes_url_add_attributes = "true"
-    authorize_scopes              = "email"
+    authorize_scopes     = "email"
     authorize_url  = "https://accounts.google.com/o/oauth2/v2/auth"
     client_id      = "test-url.apps.googleusercontent.com"
     client_secret  = "client_secret"
     oidc_issuer    = "https://accounts.google.com"
-    token_request_method          = "POST"
+    token_request_method = "POST"
     token_url      = "https://www.googleapis.com/oauth2/v4/token"
   }
 }
@@ -274,12 +274,12 @@ resource "aws_cognito_identity_provider" "test" {
   provider_details = {
     attributes_url = "https://people.googleapis.com/v1/people/me?personFields="
     attributes_url_add_attributes = "true"
-    authorize_scopes              = "email"
+    authorize_scopes     = "email"
     authorize_url  = "https://accounts.google.com/o/oauth2/v2/auth"
     client_id      = "new-client-id-url.apps.googleusercontent.com"
     client_secret  = "updated_client_secret"
     oidc_issuer    = "https://accounts.google.com"
-    token_request_method          = "POST"
+    token_request_method = "POST"
     token_url      = "https://www.googleapis.com/oauth2/v4/token"
   }
 
@@ -308,12 +308,12 @@ resource "aws_cognito_identity_provider" "test" {
   provider_details = {
     attributes_url = "https://people.googleapis.com/v1/people/me?personFields="
     attributes_url_add_attributes = "true"
-    authorize_scopes              = "email"
+    authorize_scopes     = "email"
     authorize_url  = "https://accounts.google.com/o/oauth2/v2/auth"
     client_id      = "test-url.apps.googleusercontent.com"
     client_secret  = "client_secret"
     oidc_issuer    = "https://accounts.google.com"
-    token_request_method          = "POST"
+    token_request_method = "POST"
     token_url      = "https://www.googleapis.com/oauth2/v4/token"
   }
 }

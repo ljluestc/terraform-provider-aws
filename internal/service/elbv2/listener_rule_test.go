@@ -78,7 +78,7 @@ func TestAccELBV2ListenerRule_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerRuleDestroy(ctx),
+CheckDestroy:    testAccCheckListenerRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerRuleConfig_basic(rName),
@@ -97,13 +97,13 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	resource.TestCheckResourceAttr(resourceName, "action.0.authenticate_oidc.#", "0"),
 	resource.TestCheckResourceAttr(resourceName, "condition.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "condition.*", map[string]string{
-"host_header.#":           "0",
-"http_header.#":           "0",
+"host_header.#":  "0",
+"http_header.#":  "0",
 "http_request_method.#":   "0",
-"path_pattern.#":          "1",
+"path_pattern.#": "1",
 "path_pattern.0.values.#": "1",
-"query_string.#":          "0",
-"source_ip.#":             "0",
+"query_string.#": "0",
+"source_ip.#":    "0",
 	}),
 	resource.TestCheckTypeSetElemAttr(resourceName, "condition.*.path_pattern.0.values.*", "/static/*"),
 	resource.TestCheckResourceAttr(resourceName, "tags.%", "0"),
@@ -123,7 +123,7 @@ func TestAccELBV2ListenerRule_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerRuleDestroy(ctx),
+CheckDestroy:    testAccCheckListenerRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerRuleConfig_basic(rName),
@@ -147,7 +147,7 @@ func TestAccELBV2ListenerRule_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerRuleDestroy(ctx),
+CheckDestroy:    testAccCheckListenerRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerRuleConfig_tags1(rName, "key1", "value1"),
@@ -193,7 +193,7 @@ func TestAccELBV2ListenerRule_forwardWeighted(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerRuleDestroy(ctx),
+CheckDestroy:    testAccCheckListenerRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerRuleConfig_forwardWeighted(lbName, targetGroupName1, targetGroupName2),
@@ -273,7 +273,7 @@ func TestAccELBV2ListenerRule_backwardsCompatibility(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerRuleDestroy(ctx),
+CheckDestroy:    testAccCheckListenerRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerRuleConfig_backwardsCompatibility(lbName, targetGroupName),
@@ -292,13 +292,13 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	resource.TestCheckResourceAttr(resourceName, "action.0.authenticate_oidc.#", "0"),
 	resource.TestCheckResourceAttr(resourceName, "condition.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "condition.*", map[string]string{
-"host_header.#":           "0",
-"http_header.#":           "0",
+"host_header.#":  "0",
+"http_header.#":  "0",
 "http_request_method.#":   "0",
-"path_pattern.#":          "1",
+"path_pattern.#": "1",
 "path_pattern.0.values.#": "1",
-"query_string.#":          "0",
-"source_ip.#":             "0",
+"query_string.#": "0",
+"source_ip.#":    "0",
 	}),
 	resource.TestCheckTypeSetElemAttr(resourceName, "condition.*.path_pattern.0.values.*", "/static/*"),
 ),
@@ -319,7 +319,7 @@ func TestAccELBV2ListenerRule_redirect(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerRuleDestroy(ctx),
+CheckDestroy:    testAccCheckListenerRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerRuleConfig_redirect(lbName, "null"),
@@ -409,7 +409,7 @@ func TestAccELBV2ListenerRule_fixedResponse(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerRuleDestroy(ctx),
+CheckDestroy:    testAccCheckListenerRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerRuleConfig_fixedResponse(lbName, "Fixed response content"),
@@ -448,7 +448,7 @@ func TestAccELBV2ListenerRule_updateFixedResponse(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerRuleDestroy(ctx),
+CheckDestroy:    testAccCheckListenerRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerRuleConfig_fixedResponse(lbName, "Fixed Response 1"),
@@ -478,7 +478,7 @@ func TestAccELBV2ListenerRule_updateRulePriority(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerRuleDestroy(ctx),
+CheckDestroy:    testAccCheckListenerRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerRuleConfig_basic(rName),
@@ -509,7 +509,7 @@ func TestAccELBV2ListenerRule_changeListenerRuleARNForcesNew(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerRuleDestroy(ctx),
+CheckDestroy:    testAccCheckListenerRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerRuleConfig_basic(rName),
@@ -541,7 +541,7 @@ t.Skip("skipping long-running test in short mode")
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerRuleDestroy(ctx),
+CheckDestroy:    testAccCheckListenerRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerRuleConfig_priorityFirst(rName),
@@ -632,7 +632,7 @@ func TestAccELBV2ListenerRule_cognito(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerRuleDestroy(ctx),
+CheckDestroy:    testAccCheckListenerRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerRuleConfig_cognito(rName, key, certificate),
@@ -673,7 +673,7 @@ func TestAccELBV2ListenerRule_oidc(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerRuleDestroy(ctx),
+CheckDestroy:    testAccCheckListenerRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerRuleConfig_oidc(rName, key, certificate),
@@ -715,7 +715,7 @@ func TestAccELBV2ListenerRule_Action_order(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerRuleDestroy(ctx),
+CheckDestroy:    testAccCheckListenerRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerRuleConfig_actionOrder(rName, key, certificate),
@@ -743,7 +743,7 @@ func TestAccELBV2ListenerRule_ActionOrder_recreates(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerRuleDestroy(ctx),
+CheckDestroy:    testAccCheckListenerRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerRuleConfig_actionOrder(rName, key, certificate),
@@ -768,7 +768,7 @@ func TestAccELBV2ListenerRule_conditionAttributesCount(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerRuleDestroy(ctx),
+CheckDestroy:    testAccCheckListenerRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config:      testAccListenerRuleConfig_conditionAttributesCountHTTPHeader(),
@@ -806,7 +806,7 @@ func TestAccELBV2ListenerRule_conditionHostHeader(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerRuleDestroy(ctx),
+CheckDestroy:    testAccCheckListenerRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerRuleConfig_conditionHostHeader(lbName),
@@ -818,13 +818,13 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	resource.TestCheckResourceAttr(resourceName, "action.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "condition.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "condition.*", map[string]string{
-"host_header.#":          "1",
+"host_header.#": "1",
 "host_header.0.values.#": "2",
-"http_header.#":          "0",
+"http_header.#": "0",
 "http_request_method.#":  "0",
-"path_pattern.#":         "0",
-"query_string.#":         "0",
-"source_ip.#":            "0",
+"path_pattern.#":"0",
+"query_string.#":"0",
+"source_ip.#":   "0",
 	}),
 	resource.TestCheckTypeSetElemAttr(resourceName, "condition.*.host_header.0.values.*", "example.com"),
 	resource.TestCheckTypeSetElemAttr(resourceName, "condition.*.host_header.0.values.*", "www.example.com"),
@@ -846,7 +846,7 @@ func TestAccELBV2ListenerRule_conditionHTTPHeader(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerRuleDestroy(ctx),
+CheckDestroy:    testAccCheckListenerRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerRuleConfig_conditionHTTPHeader(lbName),
@@ -861,8 +861,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 "host_header.#":   "0",
 "http_header.#":   "1",
 "http_header.0.http_header_name": "X-Forwarded-For",
-"http_header.0.values.#":         "2",
-"http_request_method.#":          "0",
+"http_header.0.values.#":"2",
+"http_request_method.#": "0",
 "path_pattern.#":  "0",
 "query_string.#":  "0",
 "source_ip.#":     "0",
@@ -873,8 +873,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 "host_header.#":   "0",
 "http_header.#":   "1",
 "http_header.0.http_header_name": "Zz9~|_^.-+*'&%$#!0aA",
-"http_header.0.values.#":         "1",
-"http_request_method.#":          "0",
+"http_header.0.values.#":"1",
+"http_request_method.#": "0",
 "path_pattern.#":  "0",
 "query_string.#":  "0",
 "source_ip.#":     "0",
@@ -892,7 +892,7 @@ func TestAccELBV2ListenerRule_ConditionHTTPHeader_invalid(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerRuleDestroy(ctx),
+CheckDestroy:    testAccCheckListenerRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config:      testAccListenerRuleConfig_conditionHTTPHeaderInvalid(),
@@ -914,7 +914,7 @@ func TestAccELBV2ListenerRule_conditionHTTPRequestMethod(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerRuleDestroy(ctx),
+CheckDestroy:    testAccCheckListenerRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerRuleConfig_conditionHTTPRequestMethod(lbName),
@@ -928,7 +928,7 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "condition.*", map[string]string{
 "host_header.#":   "0",
 "http_header.#":   "0",
-"http_request_method.#":          "1",
+"http_request_method.#": "1",
 "http_request_method.0.values.#": "2",
 "path_pattern.#":  "0",
 "query_string.#":  "0",
@@ -954,7 +954,7 @@ func TestAccELBV2ListenerRule_conditionPathPattern(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerRuleDestroy(ctx),
+CheckDestroy:    testAccCheckListenerRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerRuleConfig_conditionPathPattern(lbName),
@@ -966,13 +966,13 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	resource.TestCheckResourceAttr(resourceName, "action.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "condition.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "condition.*", map[string]string{
-"host_header.#":           "0",
-"http_header.#":           "0",
+"host_header.#":  "0",
+"http_header.#":  "0",
 "http_request_method.#":   "0",
-"path_pattern.#":          "1",
+"path_pattern.#": "1",
 "path_pattern.0.values.#": "2",
-"query_string.#":          "0",
-"source_ip.#":             "0",
+"query_string.#": "0",
+"source_ip.#":    "0",
 	}),
 	resource.TestCheckTypeSetElemAttr(resourceName, "condition.*.path_pattern.0.values.*", "/cgi-bin/*"),
 	resource.TestCheckTypeSetElemAttr(resourceName, "condition.*.path_pattern.0.values.*", "/public/*"),
@@ -994,7 +994,7 @@ func TestAccELBV2ListenerRule_conditionQueryString(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerRuleDestroy(ctx),
+CheckDestroy:    testAccCheckListenerRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerRuleConfig_conditionQueryString(lbName),
@@ -1006,12 +1006,12 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	resource.TestCheckResourceAttr(resourceName, "action.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "condition.#", "2"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "condition.*", map[string]string{
-"host_header.#":         "0",
-"http_header.#":         "0",
+"host_header.#":"0",
+"http_header.#":"0",
 "http_request_method.#": "0",
 "path_pattern.#":        "0",
 "query_string.#":        "2",
-"source_ip.#":           "0",
+"source_ip.#":  "0",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "condition.*.query_string.*", map[string]string{
 "key":   "",
@@ -1025,12 +1025,12 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	// because we had to write a new check for the "downstream" nested set
 	// a distinguishing attribute on the outer set would be solve this.
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "condition.*", map[string]string{
-"host_header.#":         "0",
-"http_header.#":         "0",
+"host_header.#":"0",
+"http_header.#":"0",
 "http_request_method.#": "0",
 "path_pattern.#":        "0",
 "query_string.#":        "2",
-"source_ip.#":           "0",
+"source_ip.#":  "0",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "condition.*.query_string.*", map[string]string{
 "key":   "foo",
@@ -1058,7 +1058,7 @@ func TestAccELBV2ListenerRule_conditionSourceIP(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerRuleDestroy(ctx),
+CheckDestroy:    testAccCheckListenerRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerRuleConfig_conditionSourceIP(lbName),
@@ -1070,12 +1070,12 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	resource.TestCheckResourceAttr(resourceName, "action.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "condition.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "condition.*", map[string]string{
-"host_header.#":         "0",
-"http_header.#":         "0",
+"host_header.#":"0",
+"http_header.#":"0",
 "http_request_method.#": "0",
 "path_pattern.#":        "0",
 "query_string.#":        "0",
-"source_ip.#":           "1",
+"source_ip.#":  "1",
 "source_ip.0.values.#":  "2",
 	}),
 	resource.TestCheckTypeSetElemAttr(resourceName, "condition.*.source_ip.0.values.*", "dead:cafe::/64"),
@@ -1102,7 +1102,7 @@ t.Skip("skipping long-running test in short mode")
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerRuleDestroy(ctx),
+CheckDestroy:    testAccCheckListenerRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerRuleConfig_conditionMixed(lbName),
@@ -1113,7 +1113,7 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	resource.TestCheckResourceAttr(resourceName, "action.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "condition.#", "2"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "condition.*", map[string]string{
-"path_pattern.#":          "1",
+"path_pattern.#": "1",
 "path_pattern.0.values.#": "1",
 	}),
 	resource.TestCheckTypeSetElemAttr(resourceName, "condition.*.path_pattern.0.values.*", "/public/*"),
@@ -1132,7 +1132,7 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	resource.TestCheckResourceAttr(resourceName, "action.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "condition.#", "2"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "condition.*", map[string]string{
-"path_pattern.#":          "1",
+"path_pattern.#": "1",
 "path_pattern.0.values.#": "1",
 	}),
 	resource.TestCheckTypeSetElemAttr(resourceName, "condition.*.path_pattern.0.values.*", "/public/*"),
@@ -1151,7 +1151,7 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	resource.TestCheckResourceAttr(resourceName, "action.#", "1"),
 	resource.TestCheckResourceAttr(resourceName, "condition.#", "2"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "condition.*", map[string]string{
-"path_pattern.#":          "1",
+"path_pattern.#": "1",
 "path_pattern.0.values.#": "1",
 	}),
 	resource.TestCheckTypeSetElemAttr(resourceName, "condition.*.path_pattern.0.values.*", "/cgi-bin/*"),
@@ -1177,7 +1177,7 @@ func TestAccELBV2ListenerRule_conditionMultiple(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerRuleDestroy(ctx),
+CheckDestroy:    testAccCheckListenerRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerRuleConfig_conditionMultiple(lbName),
@@ -1192,8 +1192,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 "host_header.#":   "0",
 "http_header.#":   "1",
 "http_header.0.http_header_name": "X-Forwarded-For",
-"http_header.0.values.#":         "1",
-"http_request_method.#":          "0",
+"http_header.0.values.#":"1",
+"http_request_method.#": "0",
 "path_pattern.#":  "0",
 "query_string.#":  "0",
 "source_ip.#":     "0",
@@ -1201,12 +1201,12 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	resource.TestCheckTypeSetElemAttr(resourceName, "condition.*.http_header.0.values.*", "192.168.1.*"),
 
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "condition.*", map[string]string{
-"host_header.#":         "0",
-"http_header.#":         "0",
+"host_header.#":"0",
+"http_header.#":"0",
 "http_request_method.#": "0",
 "path_pattern.#":        "0",
 "query_string.#":        "0",
-"source_ip.#":           "1",
+"source_ip.#":  "1",
 "source_ip.0.values.#":  "1",
 	}),
 	resource.TestCheckTypeSetElemAttr(resourceName, "condition.*.source_ip.0.values.*", "192.168.0.0/16"),
@@ -1214,7 +1214,7 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "condition.*", map[string]string{
 "host_header.#":   "0",
 "http_header.#":   "0",
-"http_request_method.#":          "1",
+"http_request_method.#": "1",
 "http_request_method.0.values.#": "1",
 "path_pattern.#":  "0",
 "query_string.#":  "0",
@@ -1223,24 +1223,24 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	resource.TestCheckTypeSetElemAttr(resourceName, "condition.*.http_request_method.0.values.*", "GET"),
 
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "condition.*", map[string]string{
-"host_header.#":           "0",
-"http_header.#":           "0",
+"host_header.#":  "0",
+"http_header.#":  "0",
 "http_request_method.#":   "0",
-"path_pattern.#":          "1",
+"path_pattern.#": "1",
 "path_pattern.0.values.#": "1",
-"query_string.#":          "0",
-"source_ip.#":             "0",
+"query_string.#": "0",
+"source_ip.#":    "0",
 	}),
 	resource.TestCheckTypeSetElemAttr(resourceName, "condition.*.path_pattern.0.values.*", "/public/*"),
 
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "condition.*", map[string]string{
-"host_header.#":          "1",
+"host_header.#": "1",
 "host_header.0.values.#": "1",
-"http_header.#":          "0",
+"http_header.#": "0",
 "http_request_method.#":  "0",
-"path_pattern.#":         "0",
-"query_string.#":         "0",
-"source_ip.#":            "0",
+"path_pattern.#":"0",
+"query_string.#":"0",
+"source_ip.#":   "0",
 	}),
 	resource.TestCheckTypeSetElemAttr(resourceName, "condition.*.host_header.0.values.*", "example.com"),
 ),
@@ -1261,7 +1261,7 @@ func TestAccELBV2ListenerRule_conditionUpdateMultiple(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerRuleDestroy(ctx),
+CheckDestroy:    testAccCheckListenerRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerRuleConfig_conditionMultiple(lbName),
@@ -1274,30 +1274,30 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "condition.*", map[string]string{
 "http_header.#":   "1",
 "http_header.0.http_header_name": "X-Forwarded-For",
-"http_header.0.values.#":         "1",
+"http_header.0.values.#":"1",
 	}),
 	resource.TestCheckTypeSetElemAttr(resourceName, "condition.*.http_header.0.values.*", "192.168.1.*"),
 
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "condition.*", map[string]string{
-"source_ip.#":          "1",
+"source_ip.#": "1",
 "source_ip.0.values.#": "1",
 	}),
 	resource.TestCheckTypeSetElemAttr(resourceName, "condition.*.source_ip.0.values.*", "192.168.0.0/16"),
 
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "condition.*", map[string]string{
-"http_request_method.#":          "1",
+"http_request_method.#": "1",
 "http_request_method.0.values.#": "1",
 	}),
 	resource.TestCheckTypeSetElemAttr(resourceName, "condition.*.http_request_method.0.values.*", "GET"),
 
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "condition.*", map[string]string{
-"path_pattern.#":          "1",
+"path_pattern.#": "1",
 "path_pattern.0.values.#": "1",
 	}),
 	resource.TestCheckTypeSetElemAttr(resourceName, "condition.*.path_pattern.0.values.*", "/public/*"),
 
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "condition.*", map[string]string{
-"host_header.#":          "1",
+"host_header.#": "1",
 "host_header.0.values.#": "1",
 	}),
 	resource.TestCheckTypeSetElemAttr(resourceName, "condition.*.host_header.0.values.*", "example.com"),
@@ -1314,30 +1314,30 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "condition.*", map[string]string{
 "http_header.#":   "1",
 "http_header.0.http_header_name": "X-Forwarded-For",
-"http_header.0.values.#":         "1",
+"http_header.0.values.#":"1",
 	}),
 	resource.TestCheckTypeSetElemAttr(resourceName, "condition.*.http_header.0.values.*", "192.168.2.*"),
 
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "condition.*", map[string]string{
-"source_ip.#":          "1",
+"source_ip.#": "1",
 "source_ip.0.values.#": "1",
 	}),
 	resource.TestCheckTypeSetElemAttr(resourceName, "condition.*.source_ip.0.values.*", "192.168.0.0/24"),
 
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "condition.*", map[string]string{
-"http_request_method.#":          "1",
+"http_request_method.#": "1",
 "http_request_method.0.values.#": "1",
 	}),
 	resource.TestCheckTypeSetElemAttr(resourceName, "condition.*.http_request_method.0.values.*", "POST"),
 
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "condition.*", map[string]string{
-"path_pattern.#":          "1",
+"path_pattern.#": "1",
 "path_pattern.0.values.#": "1",
 	}),
 	resource.TestCheckTypeSetElemAttr(resourceName, "condition.*.path_pattern.0.values.*", "/public/2/*"),
 
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "condition.*", map[string]string{
-"host_header.#":          "1",
+"host_header.#": "1",
 "host_header.0.values.#": "1",
 	}),
 	resource.TestCheckTypeSetElemAttr(resourceName, "condition.*.host_header.0.values.*", "example.com"),
@@ -1484,10 +1484,10 @@ resource "aws_security_group" "test" {
 }
 
 resource "aws_lb" "test" {
-  name            = %[1]q
+  name   = %[1]q
   internal        = true
   security_groups = [aws_security_group.test.id]
-  subnets         = aws_subnet.test[*].id
+  subnets= aws_subnet.test[*].id
 
   idle_timeout= 30
   enable_deletion_protection = false
@@ -1505,13 +1505,13 @@ resource "aws_lb_target_group" "test" {
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 
   tags = {
@@ -1525,12 +1525,12 @@ func testAccListenerRuleConfig_baseWithListener(rName string) string {
 	return acctest.ConfigCompose(testAccListenerRuleConfig_base(rName), fmt.Sprintf(`
 resource "aws_lb_listener" "test" {
   load_balancer_arn = aws_lb.test.id
-  protocol          = "HTTP"
-  port              = "80"
+  protocol = "HTTP"
+  port     = "80"
 
   default_action {
     target_group_arn = aws_lb_target_group.test.id
-    type             = "forward"
+    type    = "forward"
   }
 
   tags = {
@@ -1547,7 +1547,7 @@ resource "aws_lb_listener_rule" "test" {
   priority     = 100
 
   action {
-    type             = "forward"
+    type    = "forward"
     target_group_arn = aws_lb_target_group.test.arn
   }
 
@@ -1591,20 +1591,20 @@ resource "aws_lb_listener_rule" "weighted" {
 
 resource "aws_lb_listener" "front_end" {
   load_balancer_arn = aws_lb.alb_test.id
-  protocol          = "HTTP"
-  port              = "80"
+  protocol = "HTTP"
+  port     = "80"
 
   default_action {
     target_group_arn = aws_lb_target_group.test1.arn
-    type             = "forward"
+    type    = "forward"
   }
 }
 
 resource "aws_lb" "alb_test" {
-  name            = %[1]q
+  name   = %[1]q
   internal        = true
   security_groups = [aws_security_group.alb_test.id]
-  subnets         = aws_subnet.alb_test[*].id
+  subnets= aws_subnet.alb_test[*].id
 
   idle_timeout= 30
   enable_deletion_protection = false
@@ -1622,13 +1622,13 @@ resource "aws_lb_target_group" "test1" {
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 }
 
@@ -1640,13 +1640,13 @@ resource "aws_lb_target_group" "test2" {
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 }
 
@@ -1675,7 +1675,7 @@ resource "aws_vpc" "alb_test" {
 resource "aws_subnet" "alb_test" {
   count    = 2
   vpc_id   = aws_vpc.alb_test.id
-  cidr_block              = element(var.subnets, count.index)
+  cidr_block     = element(var.subnets, count.index)
   map_public_ip_on_launch = true
   availability_zone       = element(data.aws_availability_zones.available.names, count.index)
 
@@ -1746,20 +1746,20 @@ resource "aws_lb_listener_rule" "weighted" {
 
 resource "aws_lb_listener" "front_end" {
   load_balancer_arn = aws_lb.alb_test.id
-  protocol          = "HTTP"
-  port              = "80"
+  protocol = "HTTP"
+  port     = "80"
 
   default_action {
     target_group_arn = aws_lb_target_group.test1.arn
-    type             = "forward"
+    type    = "forward"
   }
 }
 
 resource "aws_lb" "alb_test" {
-  name            = %[1]q
+  name   = %[1]q
   internal        = true
   security_groups = [aws_security_group.alb_test.id]
-  subnets         = aws_subnet.alb_test[*].id
+  subnets= aws_subnet.alb_test[*].id
 
   idle_timeout= 30
   enable_deletion_protection = false
@@ -1777,13 +1777,13 @@ resource "aws_lb_target_group" "test1" {
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 }
 
@@ -1795,13 +1795,13 @@ resource "aws_lb_target_group" "test2" {
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 }
 
@@ -1830,7 +1830,7 @@ resource "aws_vpc" "alb_test" {
 resource "aws_subnet" "alb_test" {
   count    = 2
   vpc_id   = aws_vpc.alb_test.id
-  cidr_block              = element(var.subnets, count.index)
+  cidr_block     = element(var.subnets, count.index)
   map_public_ip_on_launch = true
   availability_zone       = element(data.aws_availability_zones.available.names, count.index)
 
@@ -1872,7 +1872,7 @@ resource "aws_lb_listener_rule" "weighted" {
   priority     = 100
 
   action {
-    type             = "forward"
+    type    = "forward"
     target_group_arn = aws_lb_target_group.test1.arn
   }
 
@@ -1885,20 +1885,20 @@ resource "aws_lb_listener_rule" "weighted" {
 
 resource "aws_lb_listener" "front_end" {
   load_balancer_arn = aws_lb.alb_test.id
-  protocol          = "HTTP"
-  port              = "80"
+  protocol = "HTTP"
+  port     = "80"
 
   default_action {
     target_group_arn = aws_lb_target_group.test1.arn
-    type             = "forward"
+    type    = "forward"
   }
 }
 
 resource "aws_lb" "alb_test" {
-  name            = %[1]q
+  name   = %[1]q
   internal        = true
   security_groups = [aws_security_group.alb_test.id]
-  subnets         = aws_subnet.alb_test[*].id
+  subnets= aws_subnet.alb_test[*].id
 
   idle_timeout= 30
   enable_deletion_protection = false
@@ -1916,13 +1916,13 @@ resource "aws_lb_target_group" "test1" {
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 }
 
@@ -1934,13 +1934,13 @@ resource "aws_lb_target_group" "test2" {
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 }
 
@@ -1969,7 +1969,7 @@ resource "aws_vpc" "alb_test" {
 resource "aws_subnet" "alb_test" {
   count    = 2
   vpc_id   = aws_vpc.alb_test.id
-  cidr_block              = element(var.subnets, count.index)
+  cidr_block     = element(var.subnets, count.index)
   map_public_ip_on_launch = true
   availability_zone       = element(data.aws_availability_zones.available.names, count.index)
 
@@ -2011,7 +2011,7 @@ resource "aws_alb_listener_rule" "static" {
   priority     = 100
 
   action {
-    type             = "forward"
+    type    = "forward"
     target_group_arn = aws_alb_target_group.test.arn
   }
 
@@ -2024,20 +2024,20 @@ resource "aws_alb_listener_rule" "static" {
 
 resource "aws_alb_listener" "front_end" {
   load_balancer_arn = aws_alb.alb_test.id
-  protocol          = "HTTP"
-  port              = "80"
+  protocol = "HTTP"
+  port     = "80"
 
   default_action {
     target_group_arn = aws_alb_target_group.test.id
-    type             = "forward"
+    type    = "forward"
   }
 }
 
 resource "aws_alb" "alb_test" {
-  name            = %[1]q
+  name   = %[1]q
   internal        = true
   security_groups = [aws_security_group.alb_test.id]
-  subnets         = aws_subnet.alb_test[*].id
+  subnets= aws_subnet.alb_test[*].id
 
   idle_timeout= 30
   enable_deletion_protection = false
@@ -2055,13 +2055,13 @@ resource "aws_alb_target_group" "test" {
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 }
 
@@ -2090,7 +2090,7 @@ resource "aws_vpc" "alb_test" {
 resource "aws_subnet" "alb_test" {
   count    = 2
   vpc_id   = aws_vpc.alb_test.id
-  cidr_block              = element(var.subnets, count.index)
+  cidr_block     = element(var.subnets, count.index)
   map_public_ip_on_launch = true
   availability_zone       = element(data.aws_availability_zones.available.names, count.index)
 
@@ -2155,8 +2155,8 @@ resource "aws_lb_listener_rule" "static" {
 
 resource "aws_lb_listener" "front_end" {
   load_balancer_arn = aws_lb.alb_test.id
-  protocol          = "HTTP"
-  port              = "80"
+  protocol = "HTTP"
+  port     = "80"
 
   default_action {
     type = "redirect"
@@ -2170,10 +2170,10 @@ resource "aws_lb_listener" "front_end" {
 }
 
 resource "aws_lb" "alb_test" {
-  name            = %[1]q
+  name   = %[1]q
   internal        = true
   security_groups = [aws_security_group.alb_test.id]
-  subnets         = aws_subnet.alb_test[*].id
+  subnets= aws_subnet.alb_test[*].id
 
   idle_timeout= 30
   enable_deletion_protection = false
@@ -2208,7 +2208,7 @@ resource "aws_vpc" "alb_test" {
 resource "aws_subnet" "alb_test" {
   count    = 2
   vpc_id   = aws_vpc.alb_test.id
-  cidr_block              = element(var.subnets, count.index)
+  cidr_block     = element(var.subnets, count.index)
   map_public_ip_on_launch = true
   availability_zone       = element(data.aws_availability_zones.available.names, count.index)
 
@@ -2268,8 +2268,8 @@ resource "aws_lb_listener_rule" "static" {
 
 resource "aws_lb_listener" "front_end" {
   load_balancer_arn = aws_lb.alb_test.id
-  protocol          = "HTTP"
-  port              = "80"
+  protocol = "HTTP"
+  port     = "80"
 
   default_action {
     type = "fixed-response"
@@ -2283,10 +2283,10 @@ resource "aws_lb_listener" "front_end" {
 }
 
 resource "aws_lb" "alb_test" {
-  name            = %[2]q
+  name   = %[2]q
   internal        = true
   security_groups = [aws_security_group.alb_test.id]
-  subnets         = aws_subnet.alb_test[*].id
+  subnets= aws_subnet.alb_test[*].id
 
   idle_timeout= 30
   enable_deletion_protection = false
@@ -2321,7 +2321,7 @@ resource "aws_vpc" "alb_test" {
 resource "aws_subnet" "alb_test" {
   count    = 2
   vpc_id   = aws_vpc.alb_test.id
-  cidr_block              = element(var.subnets, count.index)
+  cidr_block     = element(var.subnets, count.index)
   map_public_ip_on_launch = true
   availability_zone       = element(data.aws_availability_zones.available.names, count.index)
 
@@ -2363,7 +2363,7 @@ resource "aws_lb_listener_rule" "test" {
   priority     = 101
 
   action {
-    type             = "forward"
+    type    = "forward"
     target_group_arn = aws_lb_target_group.test.arn
   }
 
@@ -2383,7 +2383,7 @@ resource "aws_lb_listener_rule" "test" {
   priority     = 101
 
   action {
-    type             = "forward"
+    type    = "forward"
     target_group_arn = aws_lb_target_group.test.arn
   }
 
@@ -2396,12 +2396,12 @@ resource "aws_lb_listener_rule" "test" {
 
 resource "aws_lb_listener" "test2" {
   load_balancer_arn = aws_lb.test.id
-  protocol          = "HTTP"
-  port              = "8080"
+  protocol = "HTTP"
+  port     = "8080"
 
   default_action {
     target_group_arn = aws_lb_target_group.test.id
-    type             = "forward"
+    type    = "forward"
   }
 
   tags = {
@@ -2417,7 +2417,7 @@ resource "aws_lb_listener_rule" "first" {
   listener_arn = aws_lb_listener.test.arn
 
   action {
-    type             = "forward"
+    type    = "forward"
     target_group_arn = aws_lb_target_group.test.arn
   }
 
@@ -2437,7 +2437,7 @@ resource "aws_lb_listener_rule" "third" {
   priority     = 3
 
   action {
-    type             = "forward"
+    type    = "forward"
     target_group_arn = aws_lb_target_group.test.arn
   }
 
@@ -2462,7 +2462,7 @@ resource "aws_lb_listener_rule" "last" {
   listener_arn = aws_lb_listener.test.arn
 
   action {
-    type             = "forward"
+    type    = "forward"
     target_group_arn = aws_lb_target_group.test.arn
   }
 
@@ -2486,7 +2486,7 @@ resource "aws_lb_listener_rule" "last" {
   priority     = 7
 
   action {
-    type             = "forward"
+    type    = "forward"
     target_group_arn = aws_lb_target_group.test.arn
   }
 
@@ -2511,7 +2511,7 @@ resource "aws_lb_listener_rule" "parallelism" {
   listener_arn = aws_lb_listener.test.arn
 
   action {
-    type             = "forward"
+    type    = "forward"
     target_group_arn = aws_lb_target_group.test.arn
   }
 
@@ -2535,7 +2535,7 @@ resource "aws_lb_listener_rule" "priority50000" {
   priority     = 50000
 
   action {
-    type             = "forward"
+    type    = "forward"
     target_group_arn = aws_lb_target_group.test.arn
   }
 
@@ -2559,7 +2559,7 @@ resource "aws_lb_listener_rule" "priority50001" {
   listener_arn = aws_lb_listener.test.arn
 
   action {
-    type             = "forward"
+    type    = "forward"
     target_group_arn = aws_lb_target_group.test.arn
   }
 
@@ -2583,7 +2583,7 @@ resource "aws_lb_listener_rule" "priority50000" {
   priority     = 50000
 
   action {
-    type             = "forward"
+    type    = "forward"
     target_group_arn = aws_lb_target_group.test.arn
   }
 
@@ -2603,7 +2603,7 @@ resource "aws_lb_listener_rule" "priority50000_in_use" {
   priority     = 50000
 
   action {
-    type             = "forward"
+    type    = "forward"
     target_group_arn = aws_lb_target_group.test.arn
   }
 
@@ -2643,7 +2643,7 @@ resource "aws_lb_listener_rule" "test" {
   }
 
   action {
-    type             = "forward"
+    type    = "forward"
     target_group_arn = aws_lb_target_group.test.arn
   }
 
@@ -2659,21 +2659,21 @@ resource "aws_lb_listener_rule" "test" {
 }
 
 resource "aws_iam_server_certificate" "test" {
-  name             = %[1]q
+  name    = %[1]q
   certificate_body = "%[2]s"
   private_key      = "%[3]s"
 }
 
 resource "aws_lb_listener" "test" {
   load_balancer_arn = aws_lb.test.id
-  protocol          = "HTTPS"
-  port              = "443"
+  protocol = "HTTPS"
+  port     = "443"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
   certificate_arn   = aws_iam_server_certificate.test.arn
 
   default_action {
     target_group_arn = aws_lb_target_group.test.id
-    type             = "forward"
+    type    = "forward"
   }
 }
 
@@ -2683,14 +2683,14 @@ resource "aws_cognito_user_pool" "test" {
 
 resource "aws_cognito_user_pool_client" "test" {
   name   = %[1]q
-  user_pool_id          = aws_cognito_user_pool.test.id
+  user_pool_id = aws_cognito_user_pool.test.id
   generate_secret       = true
   allowed_oauth_flows_user_pool_client = true
   allowed_oauth_flows   = ["code", "implicit"]
   allowed_oauth_scopes  = ["phone", "email", "openid", "profile", "aws.cognito.signin.user.admin"]
-  callback_urls         = ["https://www.example.com/callback", "https://www.example.com/redirect"]
+  callback_urls= ["https://www.example.com/callback", "https://www.example.com/redirect"]
   default_redirect_uri  = "https://www.example.com/redirect"
-  logout_urls           = ["https://www.example.com/login"]
+  logout_urls  = ["https://www.example.com/login"]
 }
 
 resource "aws_cognito_user_pool_domain" "test" {
@@ -2711,10 +2711,10 @@ resource "aws_lb_listener_rule" "test" {
 
     authenticate_oidc {
       authorization_endpoint = "https://example.com/authorization_endpoint"
-      client_id              = "s6BhdRkqt3"
-      client_secret          = "7Fjfp0ZBr1KtDRbnfVdmIw"
+      client_id     = "s6BhdRkqt3"
+      client_secret = "7Fjfp0ZBr1KtDRbnfVdmIw"
       issuer  = "https://example.com"
-      token_endpoint         = "https://example.com/token_endpoint"
+      token_endpoint= "https://example.com/token_endpoint"
       user_info_endpoint     = "https://example.com/user_info_endpoint"
 
       authentication_request_extra_params = {
@@ -2724,7 +2724,7 @@ resource "aws_lb_listener_rule" "test" {
   }
 
   action {
-    type             = "forward"
+    type    = "forward"
     target_group_arn = aws_lb_target_group.test.arn
   }
 
@@ -2740,21 +2740,21 @@ resource "aws_lb_listener_rule" "test" {
 }
 
 resource "aws_iam_server_certificate" "test" {
-  name             = %[1]q
+  name    = %[1]q
   certificate_body = "%[2]s"
   private_key      = "%[3]s"
 }
 
 resource "aws_lb_listener" "test" {
   load_balancer_arn = aws_lb.test.id
-  protocol          = "HTTPS"
-  port              = "443"
+  protocol = "HTTPS"
+  port     = "443"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
   certificate_arn   = aws_iam_server_certificate.test.arn
 
   default_action {
     target_group_arn = aws_lb_target_group.test.id
-    type             = "forward"
+    type    = "forward"
   }
 
   tags = {
@@ -2788,10 +2788,10 @@ resource "aws_lb_listener_rule" "test" {
 
     authenticate_oidc {
       authorization_endpoint = "https://example.com/authorization_endpoint"
-      client_id              = "s6BhdRkqt3"
-      client_secret          = "7Fjfp0ZBr1KtDRbnfVdmIw"
+      client_id     = "s6BhdRkqt3"
+      client_secret = "7Fjfp0ZBr1KtDRbnfVdmIw"
       issuer  = "https://example.com"
-      token_endpoint         = "https://example.com/token_endpoint"
+      token_endpoint= "https://example.com/token_endpoint"
       user_info_endpoint     = "https://example.com/user_info_endpoint"
 
       authentication_request_extra_params = {
@@ -2801,8 +2801,8 @@ resource "aws_lb_listener_rule" "test" {
   }
 
   action {
-    order            = 2
-    type             = "forward"
+    order   = 2
+    type    = "forward"
     target_group_arn = aws_lb_target_group.test.arn
   }
 
@@ -2815,28 +2815,28 @@ resource "aws_lb_listener_rule" "test" {
 
 resource "aws_iam_server_certificate" "test" {
   certificate_body = "%[2]s"
-  name             = var.rName
+  name    = var.rName
   private_key      = "%[3]s"
 }
 
 resource "aws_lb_listener" "test" {
   load_balancer_arn = aws_lb.test.id
-  protocol          = "HTTPS"
-  port              = "443"
+  protocol = "HTTPS"
+  port     = "443"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
   certificate_arn   = aws_iam_server_certificate.test.arn
 
   default_action {
     target_group_arn = aws_lb_target_group.test.id
-    type             = "forward"
+    type    = "forward"
   }
 }
 
 resource "aws_lb" "test" {
   internal        = true
-  name            = var.rName
+  name   = var.rName
   security_groups = [aws_security_group.test.id]
-  subnets         = aws_subnet.test[*].id
+  subnets= aws_subnet.test[*].id
 }
 
 resource "aws_lb_target_group" "test" {
@@ -2847,13 +2847,13 @@ resource "aws_lb_target_group" "test" {
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 }
 
@@ -2869,7 +2869,7 @@ resource "aws_subnet" "test" {
   count = 2
 
   availability_zone       = data.aws_availability_zones.available.names[count.index]
-  cidr_block              = "10.0.${count.index}.0/24"
+  cidr_block     = "10.0.${count.index}.0/24"
   map_public_ip_on_launch = true
   vpc_id   = aws_vpc.test.id
 
@@ -2937,7 +2937,7 @@ condition {
 
   http_header {
     http_header_name = "X-Clacks-Overhead"
-    values           = ["GNU Terry Pratchett"]
+    values  = ["GNU Terry Pratchett"]
   }
 }
 `)
@@ -3021,8 +3021,8 @@ resource "aws_lb_listener_rule" "static" {
 
 resource "aws_lb_listener" "front_end" {
   load_balancer_arn = aws_lb.alb_test.id
-  protocol          = "HTTP"
-  port              = "80"
+  protocol = "HTTP"
+  port     = "80"
 
   default_action {
     type = "fixed-response"
@@ -3036,10 +3036,10 @@ resource "aws_lb_listener" "front_end" {
 }
 
 resource "aws_lb" "alb_test" {
-  name            = %[2]q
+  name   = %[2]q
   internal        = true
   security_groups = [aws_security_group.alb_test.id]
-  subnets         = aws_subnet.alb_test[*].id
+  subnets= aws_subnet.alb_test[*].id
 
   idle_timeout= 30
   enable_deletion_protection = false
@@ -3074,7 +3074,7 @@ resource "aws_vpc" "alb_test" {
 resource "aws_subnet" "alb_test" {
   count    = 2
   vpc_id   = aws_vpc.alb_test.id
-  cidr_block              = element(var.subnets, count.index)
+  cidr_block     = element(var.subnets, count.index)
   map_public_ip_on_launch = true
   availability_zone       = element(data.aws_availability_zones.available.names, count.index)
 
@@ -3124,14 +3124,14 @@ func testAccListenerRuleConfig_conditionHTTPHeader(lbName string) string {
 condition {
   http_header {
     http_header_name = "X-Forwarded-For"
-    values           = ["192.168.1.*", "10.0.0.*"]
+    values  = ["192.168.1.*", "10.0.0.*"]
   }
 }
 
 condition {
   http_header {
     http_header_name = "Zz9~|_^.-+*'&%$#!0aA"
-    values           = ["RFC7230 Validity"]
+    values  = ["RFC7230 Validity"]
   }
 }
 `, lbName)
@@ -3160,7 +3160,7 @@ resource "aws_lb_listener_rule" "static" {
   condition {
     http_header {
       http_header_name = "Invalid@"
-      values           = ["RFC7230 Validity"]
+      values  = ["RFC7230 Validity"]
     }
   }
 }
@@ -3295,7 +3295,7 @@ condition {
 condition {
   http_header {
     http_header_name = "X-Forwarded-For"
-    values           = ["192.168.1.*"]
+    values  = ["192.168.1.*"]
   }
 }
 
@@ -3330,7 +3330,7 @@ condition {
 condition {
   http_header {
     http_header_name = "X-Forwarded-For"
-    values           = ["192.168.2.*"]
+    values  = ["192.168.2.*"]
   }
 }
 
@@ -3361,7 +3361,7 @@ resource "aws_lb_listener_rule" "test" {
   priority     = 100
 
   action {
-    type             = "forward"
+    type    = "forward"
     target_group_arn = aws_lb_target_group.test.arn
   }
 
@@ -3385,7 +3385,7 @@ resource "aws_lb_listener_rule" "test" {
   priority     = 100
 
   action {
-    type             = "forward"
+    type    = "forward"
     target_group_arn = aws_lb_target_group.test.arn
   }
 

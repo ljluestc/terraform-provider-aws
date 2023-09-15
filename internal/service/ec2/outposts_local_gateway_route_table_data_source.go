@@ -74,7 +74,7 @@ func dataSourceLocalGatewayRouteTableRead(ctx context.Context, d *schema.Resourc
 		map[string]string{
 			"local-gateway-id": d.Get("local_gateway_id").(string),
 			"outpost-arn":      d.Get("outpost_arn").(string),
-			"state":            d.Get("state").(string),
+			"state":   d.Get("state").(string),
 		},
 	)
 

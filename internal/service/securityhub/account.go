@@ -59,7 +59,7 @@ func ResourceAccount() *schema.Resource {
 				Default:  true,
 			},
 			"control_finding_generator": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: validation.StringInSlice(securityhub.ControlFindingGenerator_Values(), false),

@@ -22,27 +22,27 @@ import (
 
 func init() {
 	resource.AddTestSweepers("aws_servicecatalog_budget_resource_association", &resource.Sweeper{
-		Name:         "aws_servicecatalog_budget_resource_association",
+		Name:"aws_servicecatalog_budget_resource_association",
 		Dependencies: []string{},
-		F:            sweepBudgetResourceAssociations,
+		F:   sweepBudgetResourceAssociations,
 	})
 
 	resource.AddTestSweepers("aws_servicecatalog_constraint", &resource.Sweeper{
-		Name:         "aws_servicecatalog_constraint",
+		Name:"aws_servicecatalog_constraint",
 		Dependencies: []string{},
-		F:            sweepConstraints,
+		F:   sweepConstraints,
 	})
 
 	resource.AddTestSweepers("aws_servicecatalog_principal_portfolio_association", &resource.Sweeper{
-		Name:         "aws_servicecatalog_principal_portfolio_association",
+		Name:"aws_servicecatalog_principal_portfolio_association",
 		Dependencies: []string{},
-		F:            sweepPrincipalPortfolioAssociations,
+		F:   sweepPrincipalPortfolioAssociations,
 	})
 
 	resource.AddTestSweepers("aws_servicecatalog_product_portfolio_association", &resource.Sweeper{
-		Name:         "aws_servicecatalog_product_portfolio_association",
+		Name:"aws_servicecatalog_product_portfolio_association",
 		Dependencies: []string{},
-		F:            sweepProductPortfolioAssociations,
+		F:   sweepProductPortfolioAssociations,
 	})
 
 	resource.AddTestSweepers("aws_servicecatalog_product", &resource.Sweeper{
@@ -54,33 +54,33 @@ func init() {
 	})
 
 	resource.AddTestSweepers("aws_servicecatalog_provisioned_product", &resource.Sweeper{
-		Name:         "aws_servicecatalog_provisioned_product",
+		Name:"aws_servicecatalog_provisioned_product",
 		Dependencies: []string{},
-		F:            sweepProvisionedProducts,
+		F:   sweepProvisionedProducts,
 	})
 
 	resource.AddTestSweepers("aws_servicecatalog_provisioning_artifact", &resource.Sweeper{
-		Name:         "aws_servicecatalog_provisioning_artifact",
+		Name:"aws_servicecatalog_provisioning_artifact",
 		Dependencies: []string{},
-		F:            sweepProvisioningArtifacts,
+		F:   sweepProvisioningArtifacts,
 	})
 
 	resource.AddTestSweepers("aws_servicecatalog_service_action", &resource.Sweeper{
-		Name:         "aws_servicecatalog_service_action",
+		Name:"aws_servicecatalog_service_action",
 		Dependencies: []string{},
-		F:            sweepServiceActions,
+		F:   sweepServiceActions,
 	})
 
 	resource.AddTestSweepers("aws_servicecatalog_tag_option_resource_association", &resource.Sweeper{
-		Name:         "aws_servicecatalog_tag_option_resource_association",
+		Name:"aws_servicecatalog_tag_option_resource_association",
 		Dependencies: []string{},
-		F:            sweepTagOptionResourceAssociations,
+		F:   sweepTagOptionResourceAssociations,
 	})
 
 	resource.AddTestSweepers("aws_servicecatalog_tag_option", &resource.Sweeper{
-		Name:         "aws_servicecatalog_tag_option",
+		Name:"aws_servicecatalog_tag_option",
 		Dependencies: []string{},
-		F:            sweepTagOptions,
+		F:   sweepTagOptions,
 	})
 }
 

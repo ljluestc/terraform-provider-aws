@@ -29,21 +29,21 @@ func TestAccDynamoDBTableItemDataSource_basic(t *testing.T) {
 	"hashKey": {"S": "something"}
 }`
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck: func() {
-	acctest.PreCheck(ctx, t)
-	acctest.PreCheckPartitionHasService(t, dynamodb.EndpointsID)
-},
-ErrorCheck:acctest.ErrorCheck(t, dynamodb.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-Steps: []resource.TestStep{
-	{
-Config: testAccTableItemDataSourceConfig_basic(rName, hashKey, itemContent, key),
-Check: resource.ComposeTestCheckFunc(
-	acctest.CheckResourceAttrEquivalentJSON(dataSourceName, "item", itemContent),
-	resource.TestCheckResourceAttr(dataSourceName, "table_name", rName),
-),
-	},
-},
+		PreCheck: func() {
+			acctest.PreCheck(ctx, t)
+			acctest.PreCheckPartitionHasService(t, dynamodb.EndpointsID)
+		},
+		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+		Steps: []resource.TestStep{
+			{
+				Config: testAccTableItemDataSourceConfig_basic(rName, hashKey, itemContent, key),
+				Check: resource.ComposeTestCheckFunc(
+					acctest.CheckResourceAttrEquivalentJSON(dataSourceName, "item", itemContent),
+					resource.TestCheckResourceAttr(dataSourceName, "table_name", rName),
+				),
+			},
+		},
 	})
 }
 
@@ -70,22 +70,22 @@ func TestAccDynamoDBTableItemDataSource_projectionExpression(t *testing.T) {
 }`
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck: func() {
-	acctest.PreCheck(ctx, t)
-	acctest.PreCheckPartitionHasService(t, dynamodb.EndpointsID)
-},
-ErrorCheck:acctest.ErrorCheck(t, dynamodb.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-Steps: []resource.TestStep{
-	{
-Config: testAccTableItemDataSourceConfig_projectionExpression(rName, hashKey, itemContent, projectionExpression, key),
-Check: resource.ComposeTestCheckFunc(
-	acctest.CheckResourceAttrEquivalentJSON(dataSourceName, "item", expected),
-	resource.TestCheckResourceAttr(dataSourceName, "table_name", rName),
-	resource.TestCheckResourceAttr(dataSourceName, "projection_expression", projectionExpression),
-),
-	},
-},
+		PreCheck: func() {
+			acctest.PreCheck(ctx, t)
+			acctest.PreCheckPartitionHasService(t, dynamodb.EndpointsID)
+		},
+		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+		Steps: []resource.TestStep{
+			{
+				Config: testAccTableItemDataSourceConfig_projectionExpression(rName, hashKey, itemContent, projectionExpression, key),
+				Check: resource.ComposeTestCheckFunc(
+					acctest.CheckResourceAttrEquivalentJSON(dataSourceName, "item", expected),
+					resource.TestCheckResourceAttr(dataSourceName, "table_name", rName),
+					resource.TestCheckResourceAttr(dataSourceName, "projection_expression", projectionExpression),
+				),
+			},
+		},
 	})
 }
 
@@ -108,29 +108,29 @@ func TestAccDynamoDBTableItemDataSource_expressionAttributeNames(t *testing.T) {
 }`
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck: func() {
-	acctest.PreCheck(ctx, t)
-	acctest.PreCheckPartitionHasService(t, dynamodb.EndpointsID)
-},
-ErrorCheck:acctest.ErrorCheck(t, dynamodb.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-Steps: []resource.TestStep{
-	{
-Config: testAccTableItemDataSourceConfig_expressionAttributeNames(rName, hashKey, itemContent, key),
-Check: resource.ComposeTestCheckFunc(
-	acctest.CheckResourceAttrEquivalentJSON(dataSourceName, "item", expected),
-	resource.TestCheckResourceAttr(dataSourceName, "table_name", rName),
-	resource.TestCheckResourceAttr(dataSourceName, "projection_expression", "#P"),
-),
-	},
-},
+		PreCheck: func() {
+			acctest.PreCheck(ctx, t)
+			acctest.PreCheckPartitionHasService(t, dynamodb.EndpointsID)
+		},
+		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+		Steps: []resource.TestStep{
+			{
+				Config: testAccTableItemDataSourceConfig_expressionAttributeNames(rName, hashKey, itemContent, key),
+				Check: resource.ComposeTestCheckFunc(
+					acctest.CheckResourceAttrEquivalentJSON(dataSourceName, "item", expected),
+					resource.TestCheckResourceAttr(dataSourceName, "table_name", rName),
+					resource.TestCheckResourceAttr(dataSourceName, "projection_expression", "#P"),
+				),
+			},
+		},
 	})
 }
 
 func testAccTableItemDataSourceConfig_basic(tableName, hashKey, item string, key string) string {
 	return fmt.Sprintf(`
 resource "aws_dynamodb_table" "test" {
-  name           = %[1]q
+  name  = %[1]q
   read_capacity  = 10
   write_capacity = 10
   hash_key       = %[2]q
@@ -164,7 +164,7 @@ KEY
 func testAccTableItemDataSourceConfig_projectionExpression(tableName, hashKey, item, projectionExpression, key string) string {
 	return fmt.Sprintf(`
 resource "aws_dynamodb_table" "test" {
-  name           = %[1]q
+  name  = %[1]q
   read_capacity  = 10
   write_capacity = 10
   hash_key       = %[2]q
@@ -185,12 +185,12 @@ ITEM
 }
 
 data "aws_dynamodb_table_item" "test" {
-  table_name            = aws_dynamodb_table.test.name
+  table_name   = aws_dynamodb_table.test.name
   projection_expression = %[5]q
   key    = <<KEY
 %[6]s
 KEY
-  depends_on            = [aws_dynamodb_table_item.test]
+  depends_on   = [aws_dynamodb_table_item.test]
 }
 `, tableName, hashKey, hashKey, item, projectionExpression, key)
 }
@@ -198,7 +198,7 @@ KEY
 func testAccTableItemDataSourceConfig_expressionAttributeNames(tableName, hashKey, item string, key string) string {
 	return fmt.Sprintf(`
 resource "aws_dynamodb_table" "test" {
-  name           = %[1]q
+  name  = %[1]q
   read_capacity  = 10
   write_capacity = 10
   hash_key       = %[2]q
@@ -227,7 +227,7 @@ data "aws_dynamodb_table_item" "test" {
   key    = <<KEY
 %[5]s
 KEY
-  depends_on            = [aws_dynamodb_table_item.test]
+  depends_on   = [aws_dynamodb_table_item.test]
 }
 `, tableName, hashKey, hashKey, item, key)
 }

@@ -38,7 +38,7 @@ func ResourceContainer() *schema.Resource {
 		},
 		Schema: map[string]*schema.Schema{
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`^\w+$`), "must contain alphanumeric characters or underscores"),
@@ -65,7 +65,7 @@ func resourceContainerCreate(ctx context.Context, d *schema.ResourceData, meta i
 
 	input := &mediastore.CreateContainerInput{
 		ContainerName: aws.String(d.Get("name").(string)),
-		Tags:          getTagsIn(ctx),
+		Tags: getTagsIn(ctx),
 	}
 
 	resp, err := conn.CreateContainerWithContext(ctx, input)

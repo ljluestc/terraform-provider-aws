@@ -24,7 +24,7 @@ func DataSourceImage() *schema.Resource {
 		ReadWithoutTimeout: dataSourceImageRead,
 		Schema: map[string]*schema.Schema{
 			"image_digest": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Computed:      true,
 				Optional:      true,
 				AtLeastOneOf:  []string{"image_digest", "image_tag", "most_recent"},
@@ -39,7 +39,7 @@ func DataSourceImage() *schema.Resource {
 				Computed: true,
 			},
 			"image_tag": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				AtLeastOneOf:  []string{"image_digest", "image_tag", "most_recent"},
 				ConflictsWith: []string{"most_recent"},
@@ -50,13 +50,13 @@ func DataSourceImage() *schema.Resource {
 				Elem:     &schema.Schema{Type: schema.TypeString},
 			},
 			"most_recent": {
-				Type:          schema.TypeBool,
+				Type: schema.TypeBool,
 				Optional:      true,
 				AtLeastOneOf:  []string{"image_digest", "image_tag", "most_recent"},
 				ConflictsWith: []string{"image_digest", "image_tag"},
 			},
 			"registry_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: validation.NoZeroValues,

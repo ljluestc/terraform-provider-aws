@@ -29,10 +29,10 @@ func TestAccMemoryDBSubnetGroup_basic(t *testing.T) {
 	resourceName := "aws_memorydb_subnet_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:      acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSubnetGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckSubnetGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSubnetGroupConfig_basic(rName),
@@ -64,10 +64,10 @@ func TestAccMemoryDBSubnetGroup_disappears(t *testing.T) {
 	resourceName := "aws_memorydb_subnet_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:      acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSubnetGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckSubnetGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSubnetGroupConfig_basic(rName),
@@ -87,10 +87,10 @@ func TestAccMemoryDBSubnetGroup_nameGenerated(t *testing.T) {
 	resourceName := "aws_memorydb_subnet_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:      acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSubnetGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckSubnetGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSubnetGroupConfig_noName(rName),
@@ -110,10 +110,10 @@ func TestAccMemoryDBSubnetGroup_namePrefix(t *testing.T) {
 	resourceName := "aws_memorydb_subnet_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:      acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSubnetGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckSubnetGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSubnetGroupConfig_namePrefix(rName, "tftest-"),
@@ -133,10 +133,10 @@ func TestAccMemoryDBSubnetGroup_update_description(t *testing.T) {
 	resourceName := "aws_memorydb_subnet_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:      acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSubnetGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckSubnetGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSubnetGroupConfig_basic(rName),
@@ -172,10 +172,10 @@ func TestAccMemoryDBSubnetGroup_update_subnetIds(t *testing.T) {
 	resourceName := "aws_memorydb_subnet_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:      acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSubnetGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckSubnetGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSubnetGroupConfig_count(rName, 1),
@@ -229,10 +229,10 @@ func TestAccMemoryDBSubnetGroup_update_tags(t *testing.T) {
 	resourceName := "aws_memorydb_subnet_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:      acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSubnetGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckSubnetGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSubnetGroupConfig_tags0(rName),

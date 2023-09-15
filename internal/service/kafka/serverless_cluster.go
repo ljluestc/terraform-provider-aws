@@ -82,7 +82,7 @@ func ResourceServerlessCluster() *schema.Resource {
 				},
 			},
 			"cluster_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 64),
@@ -128,7 +128,7 @@ func resourceServerlessClusterCreate(ctx context.Context, d *schema.ResourceData
 		ClusterName: aws.String(name),
 		Serverless: &kafka.ServerlessRequest{
 			ClientAuthentication: expandServerlessClientAuthentication(d.Get("client_authentication").([]interface{})[0].(map[string]interface{})),
-			VpcConfigs:           expandVpcConfigs(d.Get("vpc_config").([]interface{})),
+			VpcConfigs:  expandVpcConfigs(d.Get("vpc_config").([]interface{})),
 		},
 		Tags: getTagsIn(ctx),
 	}

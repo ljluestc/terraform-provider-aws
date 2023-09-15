@@ -45,9 +45,9 @@ func ResourceAccelerator() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"attributes": {
-				Type:             schema.TypeList,
-				Optional:         true,
-				MaxItems:         1,
+				Type:    schema.TypeList,
+				Optional:true,
+				MaxItems:1,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
@@ -57,12 +57,12 @@ func ResourceAccelerator() *schema.Resource {
 							Default:  false,
 						},
 						"flow_logs_s3_bucket": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringLenBetween(0, 255),
 						},
 						"flow_logs_s3_prefix": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringLenBetween(0, 255),
 						},
@@ -87,7 +87,7 @@ func ResourceAccelerator() *schema.Resource {
 				Computed: true,
 			},
 			"ip_address_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Default:      globalaccelerator.IpAddressTypeIpv4,
 				ValidateFunc: validation.StringInSlice(globalaccelerator.IpAddressType_Values(), false),
@@ -138,10 +138,10 @@ func resourceAcceleratorCreate(ctx context.Context, d *schema.ResourceData, meta
 
 	name := d.Get("name").(string)
 	input := &globalaccelerator.CreateAcceleratorInput{
-		Enabled:          aws.Bool(d.Get("enabled").(bool)),
+		Enabled: aws.Bool(d.Get("enabled").(bool)),
 		IdempotencyToken: aws.String(id.UniqueId()),
-		Name:             aws.String(name),
-		Tags:             getTagsIn(ctx),
+		Name:    aws.String(name),
+		Tags:    getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("ip_address_type"); ok {
@@ -227,7 +227,7 @@ func resourceAcceleratorUpdate(ctx context.Context, d *schema.ResourceData, meta
 		input := &globalaccelerator.UpdateAcceleratorInput{
 			AcceleratorArn: aws.String(d.Id()),
 			Enabled:        aws.Bool(d.Get("enabled").(bool)),
-			Name:           aws.String(d.Get("name").(string)),
+			Name:  aws.String(d.Get("name").(string)),
 		}
 
 		if v, ok := d.GetOk("ip_address_type"); ok {

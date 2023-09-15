@@ -107,9 +107,9 @@ func resourceVPCPeeringConnectionCreate(ctx context.Context, d *schema.ResourceD
 	conn := meta.(*conns.AWSClient).EC2Conn(ctx)
 
 	input := &ec2.CreateVpcPeeringConnectionInput{
-		PeerVpcId:         aws.String(d.Get("peer_vpc_id").(string)),
+		PeerVpcId:aws.String(d.Get("peer_vpc_id").(string)),
 		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeVpcPeeringConnection),
-		VpcId:             aws.String(d.Get("vpc_id").(string)),
+		VpcId:    aws.String(d.Get("vpc_id").(string)),
 	}
 
 	if v, ok := d.GetOk("peer_owner_id"); ok {
@@ -315,7 +315,7 @@ func modifyVPCPeeringConnectionOptions(ctx context.Context, conn *ec2.EC2, d *sc
 	input := &ec2.ModifyVpcPeeringConnectionOptionsInput{
 		AccepterPeeringConnectionOptions:  accepterPeeringConnectionOptions,
 		RequesterPeeringConnectionOptions: requesterPeeringConnectionOptions,
-		VpcPeeringConnectionId:            aws.String(d.Id()),
+		VpcPeeringConnectionId:   aws.String(d.Id()),
 	}
 
 	log.Printf("[DEBUG] Modifying VPC Peering Connection Options: %s", input)

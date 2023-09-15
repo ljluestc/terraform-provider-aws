@@ -29,7 +29,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckReportGroup(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckReportGroupDestroy(ctx),
+CheckDestroy:    testAccCheckReportGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccReportGroupConfig_basic(rName),
@@ -44,8 +44,8 @@ func(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"delete_reports"},
 	},
@@ -65,7 +65,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckReportGroup(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckReportGroupDestroy(ctx),
+CheckDestroy:    testAccCheckReportGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccReportGroupConfig_s3Export(rName),
@@ -84,8 +84,8 @@ func(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"delete_reports"},
 	},
@@ -120,7 +120,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckReportGroup(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckReportGroupDestroy(ctx),
+CheckDestroy:    testAccCheckReportGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccReportGroupConfig_tags1(rName, "key1", "value1"),
@@ -132,8 +132,8 @@ func(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"delete_reports"},
 	},
@@ -172,7 +172,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckReportGroup(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckReportGroupDestroy(ctx),
+CheckDestroy:    testAccCheckReportGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccReportGroupConfig_delete(rName),
@@ -183,8 +183,8 @@ func(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"delete_reports"},
 	},
@@ -204,7 +204,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheckReportGroup(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckReportGroupDestroy(ctx),
+CheckDestroy:    testAccCheckReportGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccReportGroupConfig_basic(rName),
@@ -306,7 +306,7 @@ resource "aws_codebuild_report_group" "test" {
 func testAccReportGroupBasicS3ExportBaseConfig(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description    = %[1]q
   deletion_window_in_days = 7
 
   policy = <<POLICY
@@ -346,10 +346,10 @@ resource "aws_codebuild_report_group" "test" {
     type = "S3"
 
     s3_destination {
-      bucket              = aws_s3_bucket.test.id
+      bucket     = aws_s3_bucket.test.id
       encryption_disabled = false
       encryption_key      = aws_kms_key.test.arn
-      packaging           = "NONE"
+      packaging  = "NONE"
       path = "/some"
     }
   }
@@ -369,10 +369,10 @@ resource "aws_codebuild_report_group" "test" {
     type = "S3"
 
     s3_destination {
-      bucket              = aws_s3_bucket.test.id
+      bucket     = aws_s3_bucket.test.id
       encryption_key      = aws_kms_key.test.arn
       encryption_disabled = false
-      packaging           = "ZIP"
+      packaging  = "ZIP"
       path = "/some2"
     }
   }
@@ -421,8 +421,8 @@ resource "aws_codebuild_report_group" "test" {
 func testAccReportGroupConfig_delete(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_codebuild_report_group" "test" {
-  name           = %[1]q
-  type           = "TEST"
+  name  = %[1]q
+  type  = "TEST"
   delete_reports = true
 
   export_config {

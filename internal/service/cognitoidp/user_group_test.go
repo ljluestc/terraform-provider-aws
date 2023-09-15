@@ -30,7 +30,7 @@ func TestAccCognitoIDPUserGroup_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserGroupDestroy(ctx),
+CheckDestroy:    testAccCheckUserGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserGroupConfig_basic(poolName, groupName),
@@ -66,7 +66,7 @@ func TestAccCognitoIDPUserGroup_complex(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserGroupDestroy(ctx),
+CheckDestroy:    testAccCheckUserGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserGroupConfig_complex(poolName, groupName, "This is the user group description", 1),
@@ -106,7 +106,7 @@ func TestAccCognitoIDPUserGroup_roleARN(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserGroupDestroy(ctx),
+CheckDestroy:    testAccCheckUserGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserGroupConfig_roleARN(rName),
@@ -202,7 +202,7 @@ resource "aws_cognito_user_pool" "main" {
 }
 
 resource "aws_cognito_user_group" "main" {
-  name         = "%s"
+  name= "%s"
   user_pool_id = aws_cognito_user_pool.main.id
 }
 `, poolName, groupName)
@@ -232,10 +232,10 @@ resource "aws_iam_role" "group_role" {
       "Action": "sts:AssumeRoleWithWebIdentity",
       "Condition": {
         "StringEquals": {
-          "cognito-identity.amazonaws.com:aud": "${data.aws_region.current.name}:12345678-dead-beef-cafe-123456790ab"
+ "cognito-identity.amazonaws.com:aud": "${data.aws_region.current.name}:12345678-dead-beef-cafe-123456790ab"
         },
         "ForAnyValue:StringLike": {
-          "cognito-identity.amazonaws.com:amr": "authenticated"
+ "cognito-identity.amazonaws.com:amr": "authenticated"
         }
       }
     }
@@ -245,7 +245,7 @@ EOF
 }
 
 resource "aws_cognito_user_group" "main" {
-  name         = "%[2]s"
+  name= "%[2]s"
   user_pool_id = aws_cognito_user_pool.main.id
   description  = "%[3]s"
   precedence   = %[4]d
@@ -281,7 +281,7 @@ EOF
 }
 
 resource "aws_cognito_user_group" "main" {
-  name         = "%[1]s"
+  name= "%[1]s"
   user_pool_id = aws_cognito_user_pool.main.id
   role_arn     = aws_iam_role.group_role.arn
 }
@@ -315,7 +315,7 @@ EOF
 }
 
 resource "aws_cognito_user_group" "main" {
-  name         = "%[1]s"
+  name= "%[1]s"
   user_pool_id = aws_cognito_user_pool.main.id
   role_arn     = aws_iam_role.group_role_updated.arn
 }

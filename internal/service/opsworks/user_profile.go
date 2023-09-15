@@ -57,8 +57,8 @@ func resourceUserProfileCreate(ctx context.Context, d *schema.ResourceData, meta
 	iamUserARN := d.Get("user_arn").(string)
 	input := &opsworks.CreateUserProfileInput{
 		AllowSelfManagement: aws.Bool(d.Get("allow_self_management").(bool)),
-		IamUserArn:          aws.String(iamUserARN),
-		SshUsername:         aws.String(d.Get("ssh_username").(string)),
+		IamUserArn: aws.String(iamUserARN),
+		SshUsername:aws.String(d.Get("ssh_username").(string)),
 	}
 
 	if v, ok := d.GetOk("ssh_public_key"); ok {
@@ -106,9 +106,9 @@ func resourceUserProfileUpdate(ctx context.Context, d *schema.ResourceData, meta
 
 	input := &opsworks.UpdateUserProfileInput{
 		AllowSelfManagement: aws.Bool(d.Get("allow_self_management").(bool)),
-		IamUserArn:          aws.String(d.Get("user_arn").(string)),
+		IamUserArn: aws.String(d.Get("user_arn").(string)),
 		SshPublicKey:        aws.String(d.Get("ssh_public_key").(string)),
-		SshUsername:         aws.String(d.Get("ssh_username").(string)),
+		SshUsername:aws.String(d.Get("ssh_username").(string)),
 	}
 
 	_, err := conn.UpdateUserProfileWithContext(ctx, input)

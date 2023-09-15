@@ -39,7 +39,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInputDestroy(ctx),
+CheckDestroy:    testAccCheckInputDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInputConfig_basic(rName),
@@ -79,7 +79,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInputDestroy(ctx),
+CheckDestroy:    testAccCheckInputDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInputConfig_basic(rName1),
@@ -123,7 +123,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInputDestroy(ctx),
+CheckDestroy:    testAccCheckInputDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInputConfig_tags1(rName, "key1", "value1"),
@@ -172,7 +172,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInputDestroy(ctx),
+CheckDestroy:    testAccCheckInputDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInputConfig_basic(rName),

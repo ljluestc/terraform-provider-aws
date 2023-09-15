@@ -31,9 +31,9 @@ func testAccPortfolioShare_basic(t *testing.T) {
 			acctest.PreCheckAlternateAccount(t)
 			acctest.PreCheckPartitionHasService(t, servicecatalog.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckPortfolioShareDestroy(ctx),
+		CheckDestroy:    testAccCheckPortfolioShareDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPortfolioShareConfig_basic(rName, true),
@@ -85,9 +85,9 @@ func testAccPortfolioShare_sharePrincipals(t *testing.T) {
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 			acctest.PreCheckPartitionHasService(t, servicecatalog.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckPortfolioShareDestroy(ctx),
+		CheckDestroy:    testAccCheckPortfolioShareDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPortfolioShareConfig_sharePrincipals(rName, true),
@@ -128,9 +128,9 @@ func testAccPortfolioShare_organizationalUnit(t *testing.T) {
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 			acctest.PreCheckPartitionHasService(t, servicecatalog.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPortfolioShareDestroy(ctx),
+		CheckDestroy:    testAccCheckPortfolioShareDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPortfolioShareConfig_organizationalUnit(rName),
@@ -167,9 +167,9 @@ func testAccPortfolioShare_disappears(t *testing.T) {
 			acctest.PreCheckAlternateAccount(t)
 			acctest.PreCheckPartitionHasService(t, servicecatalog.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckPortfolioShareDestroy(ctx),
+		CheckDestroy:    testAccCheckPortfolioShareDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPortfolioShareConfig_basic(rName, true),
@@ -243,7 +243,7 @@ data "aws_caller_identity" "alternate" {
 }
 
 resource "aws_servicecatalog_portfolio" "test" {
-  name          = %[1]q
+  name = %[1]q
   description   = %[1]q
   provider_name = %[1]q
 }
@@ -268,7 +268,7 @@ resource "aws_servicecatalog_organizations_access" "test" {
 }
 
 resource "aws_servicecatalog_portfolio" "test" {
-  name          = %[1]q
+  name = %[1]q
   description   = %[1]q
   provider_name = %[1]q
 }
@@ -284,7 +284,7 @@ resource "aws_servicecatalog_portfolio_share" "test" {
   accept_language   = "en"
   portfolio_id      = aws_servicecatalog_portfolio.test.id
   share_tag_options = true
-  type              = "ORGANIZATIONAL_UNIT"
+  type     = "ORGANIZATIONAL_UNIT"
   principal_id      = aws_organizations_organizational_unit.test.arn
 }
 `, rName)
@@ -299,7 +299,7 @@ resource "aws_servicecatalog_organizations_access" "test" {
 }
 
 resource "aws_servicecatalog_portfolio" "test" {
-  name          = %[1]q
+  name = %[1]q
   description   = %[1]q
   provider_name = %[1]q
 }

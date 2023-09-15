@@ -75,7 +75,7 @@ func resourceConfigurationCreate(ctx context.Context, d *schema.ResourceData, me
 	conn := meta.(*conns.AWSClient).KafkaConn(ctx)
 
 	input := &kafka.CreateConfigurationInput{
-		Name:             aws.String(d.Get("name").(string)),
+		Name:    aws.String(d.Get("name").(string)),
 		ServerProperties: []byte(d.Get("server_properties").(string)),
 	}
 
@@ -161,7 +161,7 @@ func resourceConfigurationUpdate(ctx context.Context, d *schema.ResourceData, me
 	conn := meta.(*conns.AWSClient).KafkaConn(ctx)
 
 	input := &kafka.UpdateConfigurationInput{
-		Arn:              aws.String(d.Id()),
+		Arn:     aws.String(d.Id()),
 		ServerProperties: []byte(d.Get("server_properties").(string)),
 	}
 

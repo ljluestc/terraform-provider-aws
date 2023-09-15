@@ -24,7 +24,7 @@ func TestAccKafkaVPCConnectionDataSource_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.Kafka)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.Kafka),
+		ErrorCheck:      acctest.ErrorCheck(t, names.Kafka),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{

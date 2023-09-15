@@ -20,8 +20,8 @@ func TestAccMemoryDBClusterDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_memorydb_cluster.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:      acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -89,9 +89,9 @@ resource "aws_memorydb_cluster" "test" {
   name        = %[1]q
   node_type   = "db.t4g.small"
   num_shards  = 2
-  security_group_ids         = [aws_security_group.test.id]
+  security_group_ids= [aws_security_group.test.id]
   snapshot_retention_limit   = 7
-  subnet_group_name          = aws_memorydb_subnet_group.test.id
+  subnet_group_name = aws_memorydb_subnet_group.test.id
   tls_enabled = true
 
   tags = {

@@ -66,9 +66,9 @@ func resourceMonitor() *schema.Resource {
 				},
 			},
 			"internet_measurements_log_delivery": {
-				Type:             schema.TypeList,
-				Optional:         true,
-				MaxItems:         1,
+				Type:    schema.TypeList,
+				Optional:true,
+				MaxItems:1,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
@@ -87,9 +87,9 @@ func resourceMonitor() *schema.Resource {
 										Optional: true,
 									},
 									"log_delivery_status": {
-										Type:             schema.TypeString,
-										Optional:         true,
-										Default:          types.LogDeliveryStatusEnabled,
+										Type:    schema.TypeString,
+										Optional:true,
+										Default: types.LogDeliveryStatusEnabled,
 										ValidateDiagFunc: enum.Validate[types.LogDeliveryStatus](),
 									},
 								},
@@ -99,13 +99,13 @@ func resourceMonitor() *schema.Resource {
 				},
 			},
 			"max_city_networks_to_monitor": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				ValidateFunc: validation.IntBetween(1, 500000),
 				AtLeastOneOf: []string{"traffic_percentage_to_monitor", "max_city_networks_to_monitor"},
 			},
 			"monitor_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 255),
@@ -114,7 +114,7 @@ func resourceMonitor() *schema.Resource {
 				Type:     schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: verify.ValidARN,
 				},
 			},
@@ -130,7 +130,7 @@ func resourceMonitor() *schema.Resource {
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"traffic_percentage_to_monitor": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				ValidateFunc: validation.IntBetween(1, 100),
 				AtLeastOneOf: []string{"traffic_percentage_to_monitor", "max_city_networks_to_monitor"},
@@ -497,7 +497,7 @@ func flattenS3Config(apiObject *types.S3Config) []interface{} {
 	}
 
 	tfMap := map[string]interface{}{
-		"bucket_name":         aws.ToString(apiObject.BucketName),
+		"bucket_name":aws.ToString(apiObject.BucketName),
 		"log_delivery_status": string(apiObject.LogDeliveryStatus),
 	}
 

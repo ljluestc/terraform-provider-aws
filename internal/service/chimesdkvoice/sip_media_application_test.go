@@ -33,9 +33,9 @@ func TestAccChimeSDKVoiceSipMediaApplication_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckRegion(t, endpoints.UsEast1RegionID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, chimesdkvoice.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, chimesdkvoice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSipMediaApplicationDestroy(ctx),
+		CheckDestroy:    testAccCheckSipMediaApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSipMediaApplicationConfig_basic(rName),
@@ -68,9 +68,9 @@ func TestAccChimeSDKVoiceSipMediaApplication_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckRegion(t, endpoints.UsEast1RegionID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, chime.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, chime.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSipMediaApplicationDestroy(ctx),
+		CheckDestroy:    testAccCheckSipMediaApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSipMediaApplicationConfig_basic(rName),
@@ -98,9 +98,9 @@ func TestAccChimeSDKVoiceSipMediaApplication_update(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckRegion(t, endpoints.UsEast1RegionID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, chimesdkvoice.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, chimesdkvoice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSipMediaApplicationDestroy(ctx),
+		CheckDestroy:    testAccCheckSipMediaApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSipMediaApplicationConfig_basic(rName),
@@ -143,9 +143,9 @@ func TestAccChimeSDKVoiceSipMediaApplication_tags(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckRegion(t, endpoints.UsEast1RegionID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, chimesdkvoice.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, chimesdkvoice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSipMediaApplicationDestroy(ctx),
+		CheckDestroy:    testAccCheckSipMediaApplicationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSipMediaApplicationConfig_tags1(rName, "key1", "value1"),
@@ -257,12 +257,12 @@ EOF
 }
 
 resource "aws_lambda_function" "test" {
-  filename         = "test-fixtures/lambdatest.zip"
+  filename= "test-fixtures/lambdatest.zip"
   source_code_hash = filebase64sha256("test-fixtures/lambdatest.zip")
   function_name    = %[1]q
-  role             = aws_iam_role.test.arn
-  runtime          = "nodejs16.x"
-  handler          = "index.handler"
+  role    = aws_iam_role.test.arn
+  runtime = "nodejs16.x"
+  handler = "index.handler"
 }
 `, rName)
 }

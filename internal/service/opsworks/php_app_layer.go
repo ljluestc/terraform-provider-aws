@@ -13,7 +13,7 @@ import (
 
 func ResourcePHPAppLayer() *schema.Resource {
 	layerType := &opsworksLayerType{
-		TypeName:         opsworks.LayerTypePhpApp,
+		TypeName:opsworks.LayerTypePhpApp,
 		DefaultLayerName: "PHP App Server",
 
 		Attributes: map[string]*opsworksLayerTypeAttribute{},

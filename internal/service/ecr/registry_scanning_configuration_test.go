@@ -35,7 +35,7 @@ func testAccRegistryScanningConfiguration_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ecr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckRegistryScanningConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckRegistryScanningConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRegistryScanningConfigurationConfig_basic(),
@@ -64,7 +64,7 @@ func testAccRegistryScanningConfiguration_update(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ecr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckRegistryScanningConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckRegistryScanningConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRegistryScanningConfigurationConfig_oneRule(),

@@ -52,25 +52,25 @@ func ResourceKey() *schema.Resource {
 				Default:  false,
 			},
 			"custom_key_store_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 22),
 			},
 			"customer_master_key_spec": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Default:      kms.CustomerMasterKeySpecSymmetricDefault,
 				ValidateFunc: validation.StringInSlice(kms.CustomerMasterKeySpec_Values(), false),
 			},
 			"deletion_window_in_days": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				ValidateFunc: validation.IntBetween(7, 30),
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: validation.StringLenBetween(0, 8192),
@@ -90,7 +90,7 @@ func ResourceKey() *schema.Resource {
 				Computed: true,
 			},
 			"key_usage": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Default:      kms.KeyUsageTypeEncryptDecrypt,
@@ -103,12 +103,12 @@ func ResourceKey() *schema.Resource {
 				ForceNew: true,
 			},
 			"policy": {
-				Type:                  schema.TypeString,
-				Optional:              true,
-				Computed:              true,
+				Type:schema.TypeString,
+				Optional:     true,
+				Computed:     true,
 				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
 				DiffSuppressOnRefresh: true,
-				ValidateFunc:          validation.StringIsJSON,
+				ValidateFunc: validation.StringIsJSON,
 				StateFunc: func(v interface{}) string {
 					json, _ := structure.NormalizeJsonString(v)
 					return json
@@ -126,9 +126,9 @@ func resourceKeyCreate(ctx context.Context, d *schema.ResourceData, meta interfa
 
 	input := &kms.CreateKeyInput{
 		BypassPolicyLockoutSafetyCheck: aws.Bool(d.Get("bypass_policy_lockout_safety_check").(bool)),
-		CustomerMasterKeySpec:          aws.String(d.Get("customer_master_key_spec").(string)),
-		KeyUsage:                       aws.String(d.Get("key_usage").(string)),
-		Tags:                           getTagsIn(ctx),
+		CustomerMasterKeySpec: aws.String(d.Get("customer_master_key_spec").(string)),
+		KeyUsage:     aws.String(d.Get("key_usage").(string)),
+		Tags:getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -448,9 +448,9 @@ func updateKeyPolicy(ctx context.Context, conn *kms.KMS, keyID string, policy st
 
 		input := &kms.PutKeyPolicyInput{
 			BypassPolicyLockoutSafetyCheck: aws.Bool(bypassPolicyLockoutSafetyCheck),
-			KeyId:                          aws.String(keyID),
-			Policy:                         aws.String(policy),
-			PolicyName:                     aws.String(PolicyNameDefault),
+			KeyId:        aws.String(keyID),
+			Policy:       aws.String(policy),
+			PolicyName:   aws.String(PolicyNameDefault),
 		}
 
 		_, err = conn.PutKeyPolicyWithContext(ctx, input)

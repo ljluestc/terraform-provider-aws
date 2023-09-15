@@ -31,7 +31,7 @@ func TestAccKMSAlias_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, kms.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAliasDestroy(ctx),
+CheckDestroy:    testAccCheckAliasDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAliasConfig_name(rName),
@@ -62,7 +62,7 @@ func TestAccKMSAlias_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, kms.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAliasDestroy(ctx),
+CheckDestroy:    testAccCheckAliasDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAliasConfig_name(rName),
@@ -86,7 +86,7 @@ func TestAccKMSAlias_Name_generated(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, kms.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAliasDestroy(ctx),
+CheckDestroy:    testAccCheckAliasDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAliasConfig_nameGenerated(rName),
@@ -115,7 +115,7 @@ func TestAccKMSAlias_namePrefix(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, kms.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAliasDestroy(ctx),
+CheckDestroy:    testAccCheckAliasDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAliasConfig_namePrefix(rName, tfkms.AliasNamePrefix+"tf-acc-test-prefix-"),
@@ -146,7 +146,7 @@ func TestAccKMSAlias_updateKeyID(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, kms.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAliasDestroy(ctx),
+CheckDestroy:    testAccCheckAliasDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAliasConfig_name(rName),
@@ -185,7 +185,7 @@ func TestAccKMSAlias_multipleAliasesForSameKey(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, kms.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAliasDestroy(ctx),
+CheckDestroy:    testAccCheckAliasDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAliasConfig_multiple(rName),
@@ -217,7 +217,7 @@ func TestAccKMSAlias_arnDiffSuppress(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, kms.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAliasDestroy(ctx),
+CheckDestroy:    testAccCheckAliasDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAliasConfig_diffSuppress(rName),
@@ -233,8 +233,8 @@ ImportStateVerify: true,
 	},
 	{
 ExpectNonEmptyPlan: false,
-PlanOnly:           true,
-Config:             testAccAliasConfig_diffSuppress(rName),
+PlanOnly:  true,
+Config:    testAccAliasConfig_diffSuppress(rName),
 	},
 },
 	})
@@ -294,12 +294,12 @@ return nil
 func testAccAliasConfig_name(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description    = %[1]q
   deletion_window_in_days = 7
 }
 
 resource "aws_kms_alias" "test" {
-  name          = "alias/%[1]s"
+  name = "alias/%[1]s"
   target_key_id = aws_kms_key.test.id
 }
 `, rName)
@@ -308,7 +308,7 @@ resource "aws_kms_alias" "test" {
 func testAccAliasConfig_nameGenerated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description    = %[1]q
   deletion_window_in_days = 7
 }
 
@@ -321,7 +321,7 @@ resource "aws_kms_alias" "test" {
 func testAccAliasConfig_namePrefix(rName, namePrefix string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description    = %[1]q
   deletion_window_in_days = 7
 }
 
@@ -335,17 +335,17 @@ resource "aws_kms_alias" "test" {
 func testAccAliasConfig_updatedKeyID(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description    = %[1]q
   deletion_window_in_days = 7
 }
 
 resource "aws_kms_key" "test2" {
-  description             = "%[1]s-2"
+  description    = "%[1]s-2"
   deletion_window_in_days = 7
 }
 
 resource "aws_kms_alias" "test" {
-  name          = "alias/%[1]s"
+  name = "alias/%[1]s"
   target_key_id = aws_kms_key.test2.id
 }
 `, rName)
@@ -354,17 +354,17 @@ resource "aws_kms_alias" "test" {
 func testAccAliasConfig_multiple(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description    = %[1]q
   deletion_window_in_days = 7
 }
 
 resource "aws_kms_alias" "test" {
-  name          = "alias/%[1]s-1"
+  name = "alias/%[1]s-1"
   target_key_id = aws_kms_key.test.key_id
 }
 
 resource "aws_kms_alias" "test2" {
-  name          = "alias/%[1]s-2"
+  name = "alias/%[1]s-2"
   target_key_id = aws_kms_key.test.key_id
 }
 `, rName)
@@ -373,12 +373,12 @@ resource "aws_kms_alias" "test2" {
 func testAccAliasConfig_diffSuppress(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description    = %[1]q
   deletion_window_in_days = 7
 }
 
 resource "aws_kms_alias" "test" {
-  name          = "alias/%[1]s"
+  name = "alias/%[1]s"
   target_key_id = aws_kms_key.test.arn
 }
 `, rName)

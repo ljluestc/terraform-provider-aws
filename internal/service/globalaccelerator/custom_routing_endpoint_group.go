@@ -51,7 +51,7 @@ func ResourceCustomRoutingEndpointGroup() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"from_port": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Required:     true,
 							ValidateFunc: validation.IsPortNumber,
 						},
@@ -59,12 +59,12 @@ func ResourceCustomRoutingEndpointGroup() *schema.Resource {
 							Type:     schema.TypeSet,
 							Required: true,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: validation.StringInSlice(globalaccelerator.CustomRoutingProtocol_Values(), false),
 							},
 						},
 						"to_port": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Required:     true,
 							ValidateFunc: validation.IsPortNumber,
 						},
@@ -78,7 +78,7 @@ func ResourceCustomRoutingEndpointGroup() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"endpoint_id": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringLenBetween(1, 255),
 						},
@@ -86,14 +86,14 @@ func ResourceCustomRoutingEndpointGroup() *schema.Resource {
 				},
 			},
 			"endpoint_group_region": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidRegionName,
 			},
 			"listener_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,
@@ -109,8 +109,8 @@ func resourceCustomRoutingEndpointGroupCreate(ctx context.Context, d *schema.Res
 	input := &globalaccelerator.CreateCustomRoutingEndpointGroupInput{
 		DestinationConfigurations: expandCustomRoutingDestinationConfigurations(d.Get("destination_configuration").(*schema.Set).List()),
 		EndpointGroupRegion:       aws.String(meta.(*conns.AWSClient).Region),
-		IdempotencyToken:          aws.String(id.UniqueId()),
-		ListenerArn:               aws.String(d.Get("listener_arn").(string)),
+		IdempotencyToken: aws.String(id.UniqueId()),
+		ListenerArn:      aws.String(d.Get("listener_arn").(string)),
 	}
 
 	if v, ok := d.GetOk("endpoint_group_region"); ok {

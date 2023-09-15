@@ -39,7 +39,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckVocabularyDestroy(ctx),
+CheckDestroy:    testAccCheckVocabularyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVocabularyConfig_basic(rName, rName2, content, languageCode),
@@ -87,7 +87,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckVocabularyDestroy(ctx),
+CheckDestroy:    testAccCheckVocabularyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVocabularyConfig_basic(rName, rName2, content, languageCode),
@@ -122,7 +122,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckVocabularyDestroy(ctx),
+CheckDestroy:    testAccCheckVocabularyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVocabularyConfig_basic(rName, rName2, content, languageCode),
@@ -253,7 +253,7 @@ func testAccVocabularyConfig_base(rName string) string {
 resource "aws_connect_instance" "test" {
   identity_management_type = "CONNECT_MANAGED"
   inbound_calls_enabled    = true
-  instance_alias           = %[1]q
+  instance_alias  = %[1]q
   outbound_calls_enabled   = true
 }
 `, rName)
@@ -266,7 +266,7 @@ testAccVocabularyConfig_base(rName),
 fmt.Sprintf(`
 resource "aws_connect_vocabulary" "test" {
   instance_id   = aws_connect_instance.test.id
-  name          = %[1]q
+  name = %[1]q
   content       = %[2]q
   language_code = %[3]q
 
@@ -284,7 +284,7 @@ testAccVocabularyConfig_base(rName),
 fmt.Sprintf(`
 resource "aws_connect_vocabulary" "test" {
   instance_id   = aws_connect_instance.test.id
-  name          = %[1]q
+  name = %[1]q
   content       = %[2]q
   language_code = %[3]q
 
@@ -303,7 +303,7 @@ testAccVocabularyConfig_base(rName),
 fmt.Sprintf(`
 resource "aws_connect_vocabulary" "test" {
   instance_id   = aws_connect_instance.test.id
-  name          = %[1]q
+  name = %[1]q
   content       = %[2]q
   language_code = %[3]q
 

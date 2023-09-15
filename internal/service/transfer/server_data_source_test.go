@@ -146,7 +146,7 @@ POLICY
 
 resource "aws_transfer_server" "test" {
   identity_provider_type = "SERVICE_MANAGED"
-  logging_role           = aws_iam_role.test.arn
+  logging_role  = aws_iam_role.test.arn
 }
 
 data "aws_transfer_server" "test" {
@@ -257,7 +257,7 @@ resource "aws_transfer_server" "test" {
   identity_provider_type = "API_GATEWAY"
   url     = "https://${aws_api_gateway_rest_api.test.id}.execute-api.${data.aws_region.current.name}.amazonaws.com${aws_api_gateway_resource.test.path}"
   invocation_role        = aws_iam_role.test.arn
-  logging_role           = aws_iam_role.test.arn
+  logging_role  = aws_iam_role.test.arn
 }
 
 data "aws_transfer_server" "test" {

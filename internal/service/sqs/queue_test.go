@@ -42,7 +42,7 @@ func TestAccSQSQueue_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQueueDestroy(ctx),
+CheckDestroy:    testAccCheckQueueDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQueueConfig_name(rName),
@@ -88,7 +88,7 @@ func TestAccSQSQueue_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQueueDestroy(ctx),
+CheckDestroy:    testAccCheckQueueDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQueueConfig_name(rName),
@@ -111,7 +111,7 @@ func TestAccSQSQueue_Name_generated(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
-CheckDestroy:             testAccCheckQueueDestroy(ctx),
+CheckDestroy:    testAccCheckQueueDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQueueConfig_nameGenerated,
@@ -140,7 +140,7 @@ func TestAccSQSQueue_NameGenerated_fifoQueue(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
-CheckDestroy:             testAccCheckQueueDestroy(ctx),
+CheckDestroy:    testAccCheckQueueDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQueueConfig_nameGeneratedFIFO,
@@ -169,7 +169,7 @@ func TestAccSQSQueue_namePrefix(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQueueDestroy(ctx),
+CheckDestroy:    testAccCheckQueueDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQueueConfig_namePrefix("tf-acc-test-prefix-"),
@@ -198,7 +198,7 @@ func TestAccSQSQueue_NamePrefix_fifoQueue(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQueueDestroy(ctx),
+CheckDestroy:    testAccCheckQueueDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQueueConfig_namePrefixFIFO("tf-acc-test-prefix-"),
@@ -228,7 +228,7 @@ func TestAccSQSQueue_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQueueDestroy(ctx),
+CheckDestroy:    testAccCheckQueueDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQueueConfig_tags1(rName, "key1", "value1"),
@@ -274,7 +274,7 @@ func TestAccSQSQueue_update(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQueueDestroy(ctx),
+CheckDestroy:    testAccCheckQueueDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQueueConfig_name(rName),
@@ -358,7 +358,7 @@ func TestAccSQSQueue_Policy_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQueueDestroy(ctx),
+CheckDestroy:    testAccCheckQueueDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQueueConfig_policy(rName),
@@ -412,7 +412,7 @@ func TestAccSQSQueue_Policy_ignoreEquivalent(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQueueDestroy(ctx),
+CheckDestroy:    testAccCheckQueueDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQueueConfig_policyEquivalent(rName),
@@ -444,7 +444,7 @@ func TestAccSQSQueue_recentlyDeleted(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQueueDestroy(ctx),
+CheckDestroy:    testAccCheckQueueDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQueueConfig_name(rName),
@@ -474,7 +474,7 @@ func TestAccSQSQueue_redrivePolicy(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQueueDestroy(ctx),
+CheckDestroy:    testAccCheckQueueDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQueueConfig_redrivePolicy(rName),
@@ -504,7 +504,7 @@ func TestAccSQSQueue_redriveAllowPolicy(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQueueDestroy(ctx),
+CheckDestroy:    testAccCheckQueueDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQueueConfig_redriveAllowPolicy(rName),
@@ -534,7 +534,7 @@ func TestAccSQSQueue_fifoQueue(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQueueDestroy(ctx),
+CheckDestroy:    testAccCheckQueueDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQueueConfig_fifo(rName),
@@ -562,7 +562,7 @@ func TestAccSQSQueue_FIFOQueue_expectNameError(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQueueDestroy(ctx),
+CheckDestroy:    testAccCheckQueueDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config:      testAccQueueConfig_fifo(rName),
@@ -582,7 +582,7 @@ func TestAccSQSQueue_FIFOQueue_contentBasedDeduplication(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQueueDestroy(ctx),
+CheckDestroy:    testAccCheckQueueDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQueueConfig_fifoContentBasedDeduplication(rName),
@@ -611,7 +611,7 @@ func TestAccSQSQueue_FIFOQueue_highThroughputMode(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQueueDestroy(ctx),
+CheckDestroy:    testAccCheckQueueDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQueueConfig_fifoHighThroughputMode(rName, "null", "null"),
@@ -648,7 +648,7 @@ func TestAccSQSQueue_StandardQueue_expectContentBasedDeduplicationError(t *testi
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQueueDestroy(ctx),
+CheckDestroy:    testAccCheckQueueDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config:      testAccQueueConfig_standardExpectContentBasedDeduplicationError(rName),
@@ -668,7 +668,7 @@ func TestAccSQSQueue_encryption(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQueueDestroy(ctx),
+CheckDestroy:    testAccCheckQueueDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQueueConfig_encryption(rName, "null"),
@@ -716,7 +716,7 @@ func TestAccSQSQueue_managedEncryption(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQueueDestroy(ctx),
+CheckDestroy:    testAccCheckQueueDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQueueConfig_managedEncryption(rName, "null"),
@@ -758,7 +758,7 @@ func TestAccSQSQueue_zeroVisibilityTimeoutSeconds(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQueueDestroy(ctx),
+CheckDestroy:    testAccCheckQueueDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQueueConfig_zeroVisibilityTimeoutSeconds(rName),
@@ -787,7 +787,7 @@ func TestAccSQSQueue_defaultKMSDataKeyReusePeriodSeconds(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQueueDestroy(ctx),
+CheckDestroy:    testAccCheckQueueDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQueueConfig_defaultKMSDataKeyReusePeriodSeconds(rName),
@@ -946,8 +946,8 @@ func testAccQueueConfig_updated(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sqs_queue" "test" {
   name        = %[1]q
-  delay_seconds              = 90
-  max_message_size           = 2048
+  delay_seconds     = 90
+  max_message_size  = 2048
   message_retention_seconds  = 86400
   receive_wait_time_seconds  = 10
   visibility_timeout_seconds = 60
@@ -973,8 +973,8 @@ data "aws_caller_identity" "current" {}
 
 resource "aws_sqs_queue" "test" {
   name        = local.queue_name
-  delay_seconds              = 90
-  max_message_size           = 2048
+  delay_seconds     = 90
+  max_message_size  = 2048
   message_retention_seconds  = 86400
   receive_wait_time_seconds  = 10
   visibility_timeout_seconds = 60
@@ -992,7 +992,7 @@ resource "aws_sqs_queue" "test" {
       "Resource": "arn:${data.aws_partition.current.partition}:sqs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:${local.queue_name}",
       "Condition": {
         "ArnEquals": {
-          "aws:SourceArn": "${aws_sns_topic.test.arn}"
+ "aws:SourceArn": "${aws_sns_topic.test.arn}"
         }
       }
     }
@@ -1023,8 +1023,8 @@ data "aws_caller_identity" "current" {}
 
 resource "aws_sqs_queue" "test" {
   name        = %[1]q
-  delay_seconds              = 90
-  max_message_size           = 2048
+  delay_seconds     = 90
+  max_message_size  = 2048
   message_retention_seconds  = 86400
   receive_wait_time_seconds  = 10
   visibility_timeout_seconds = 60
@@ -1044,7 +1044,7 @@ resource "aws_sqs_queue" "test" {
       Resource = "arn:${data.aws_partition.current.partition}:sqs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:%[1]s"
       Condition = {
         ArnEquals = {
-          "aws:SourceArn" = aws_sns_topic.test.arn
+ "aws:SourceArn" = aws_sns_topic.test.arn
         }
       }
     }]
@@ -1073,8 +1073,8 @@ data "aws_caller_identity" "current" {}
 
 resource "aws_sqs_queue" "test" {
   name        = %[1]q
-  delay_seconds              = 90
-  max_message_size           = 2048
+  delay_seconds     = 90
+  max_message_size  = 2048
   message_retention_seconds  = 86400
   receive_wait_time_seconds  = 10
   visibility_timeout_seconds = 60
@@ -1094,7 +1094,7 @@ resource "aws_sqs_queue" "test" {
       Resource = "arn:${data.aws_partition.current.partition}:sqs:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:%[1]s"
       Condition = {
         ArnEquals = {
-          "aws:SourceArn" = aws_sns_topic.test.arn
+ "aws:SourceArn" = aws_sns_topic.test.arn
         }
       }
     }]
@@ -1113,7 +1113,7 @@ func testAccQueueConfig_redrivePolicy(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sqs_queue" "test" {
   name        = "%[1]s-1"
-  delay_seconds              = 0
+  delay_seconds     = 0
   visibility_timeout_seconds = 300
 
   redrive_policy = <<EOF
@@ -1134,7 +1134,7 @@ func testAccQueueConfig_redriveAllowPolicy(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sqs_queue" "test" {
   name        = "%[1]s-1"
-  delay_seconds              = 0
+  delay_seconds     = 0
   visibility_timeout_seconds = 300
 
   redrive_allow_policy = <<EOF
@@ -1163,7 +1163,7 @@ resource "aws_sqs_queue" "test" {
 func testAccQueueConfig_fifoContentBasedDeduplication(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sqs_queue" "test" {
-  name         = %[1]q
+  name= %[1]q
   fifo_queue   = true
   content_based_deduplication = true
 }
@@ -1193,7 +1193,7 @@ resource "aws_sqs_queue" "test" {
 func testAccQueueConfig_standardExpectContentBasedDeduplicationError(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_sqs_queue" "test" {
-  name         = %[1]q
+  name= %[1]q
   content_based_deduplication = true
 }
 `, rName)

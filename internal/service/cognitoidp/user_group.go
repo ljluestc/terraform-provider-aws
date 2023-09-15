@@ -38,12 +38,12 @@ func ResourceUserGroup() *schema.Resource {
 		// https://docs.aws.amazon.com/cognito-user-identity-pools/latest/APIReference/API_CreateGroup.html
 		Schema: map[string]*schema.Schema{
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 2048),
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validUserGroupName,
@@ -53,12 +53,12 @@ func ResourceUserGroup() *schema.Resource {
 				Optional: true,
 			},
 			"role_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"user_pool_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validUserPoolID,

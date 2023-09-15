@@ -26,7 +26,7 @@ func testAccGraph_basic(t *testing.T) {
 	resource.Test(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckGraphDestroy(ctx),
+CheckDestroy:    testAccCheckGraphDestroy(ctx),
 ErrorCheck:acctest.ErrorCheck(t, detective.EndpointsID),
 Steps: []resource.TestStep{
 	{
@@ -53,7 +53,7 @@ func testAccGraph_tags(t *testing.T) {
 	resource.Test(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckGraphDestroy(ctx),
+CheckDestroy:    testAccCheckGraphDestroy(ctx),
 ErrorCheck:acctest.ErrorCheck(t, detective.EndpointsID),
 Steps: []resource.TestStep{
 	{
@@ -110,7 +110,7 @@ func testAccGraph_disappears(t *testing.T) {
 	resource.Test(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckGraphDestroy(ctx),
+CheckDestroy:    testAccCheckGraphDestroy(ctx),
 ErrorCheck:acctest.ErrorCheck(t, detective.EndpointsID),
 Steps: []resource.TestStep{
 	{

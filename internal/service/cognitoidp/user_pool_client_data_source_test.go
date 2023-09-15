@@ -22,7 +22,7 @@ func TestAccCognitoIDPUserPoolClientDataSource_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolClientDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolClientDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolClientDataSourceConfig_basic(rName),

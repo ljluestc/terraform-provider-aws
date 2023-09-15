@@ -63,7 +63,7 @@ func ResourceTrustAnchor() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"acm_pca_arn": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: verify.ValidARN,
 									},
@@ -75,7 +75,7 @@ func ResourceTrustAnchor() *schema.Resource {
 							},
 						},
 						"source_type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringInSlice(trustAnchorTypeValues(types.TrustAnchorType("").Values()...), false),
 						},
@@ -145,7 +145,7 @@ func resourceTrustAnchorUpdate(ctx context.Context, d *schema.ResourceData, meta
 	if d.HasChangesExcept("tags", "tags_all") {
 		input := &rolesanywhere.UpdateTrustAnchorInput{
 			TrustAnchorId: aws.String(d.Id()),
-			Name:          aws.String(d.Get("name").(string)),
+			Name: aws.String(d.Get("name").(string)),
 			Source:        expandSource(d.Get("source").([]interface{})),
 		}
 

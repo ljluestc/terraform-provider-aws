@@ -68,7 +68,7 @@ func ResourceLink() *schema.Resource {
 				MinItems: 1,
 				MaxItems: 50,
 				Elem: &schema.Schema{
-					Type:             schema.TypeString,
+					Type:    schema.TypeString,
 					ValidateDiagFunc: enum.Validate[types.ResourceType](),
 				},
 			},
@@ -100,7 +100,7 @@ func resourceLinkCreate(ctx context.Context, d *schema.ResourceData, meta interf
 		LabelTemplate:  aws.String(d.Get("label_template").(string)),
 		ResourceTypes:  flex.ExpandStringyValueSet[types.ResourceType](d.Get("resource_types").(*schema.Set)),
 		SinkIdentifier: aws.String(d.Get("sink_identifier").(string)),
-		Tags:           getTagsIn(ctx),
+		Tags:  getTagsIn(ctx),
 	}
 
 	out, err := conn.CreateLink(ctx, in)

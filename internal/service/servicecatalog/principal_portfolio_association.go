@@ -51,7 +51,7 @@ func ResourcePrincipalPortfolioAssociation() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"accept_language": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Default:      AcceptLanguageEnglish,
@@ -68,7 +68,7 @@ func ResourcePrincipalPortfolioAssociation() *schema.Resource {
 				ForceNew: true,
 			},
 			"principal_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Default:      servicecatalog.PrincipalTypeIam,

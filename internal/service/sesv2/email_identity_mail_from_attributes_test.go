@@ -218,7 +218,7 @@ resource "aws_sesv2_email_identity" "test" {
 }
 
 resource "aws_sesv2_email_identity_mail_from_attributes" "test" {
-  email_identity         = aws_sesv2_email_identity.test.email_identity
+  email_identity= aws_sesv2_email_identity.test.email_identity
   behavior_on_mx_failure = %[2]q
   mail_from_domain       = %[3]q
 }

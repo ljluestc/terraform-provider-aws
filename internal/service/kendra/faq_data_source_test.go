@@ -25,8 +25,8 @@ func TestAccKendraFaqDataSource_basic(t *testing.T) {
 	rName5 := sdkacctest.RandomWithPrefix("resource-test-terraform")
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, backup.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, backup.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -71,7 +71,7 @@ func testAccFaqDataSourceConfig_basic(rName, rName2, rName3, rName4, rName5 stri
 		fmt.Sprintf(`
 resource "aws_kendra_faq" "test" {
   index_id      = aws_kendra_index.test.id
-  name          = %[1]q
+  name = %[1]q
   file_format   = "CSV"
   language_code = "en"
   role_arn      = aws_iam_role.test_faq.arn

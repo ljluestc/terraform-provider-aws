@@ -49,7 +49,7 @@ func ResourceHTTPNamespace() *schema.Resource {
 				Computed: true,
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validNamespaceName,
@@ -68,8 +68,8 @@ func resourceHTTPNamespaceCreate(ctx context.Context, d *schema.ResourceData, me
 	name := d.Get("name").(string)
 	input := &servicediscovery.CreateHttpNamespaceInput{
 		CreatorRequestId: aws.String(id.UniqueId()),
-		Name:             aws.String(name),
-		Tags:             getTagsIn(ctx),
+		Name:    aws.String(name),
+		Tags:    getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {

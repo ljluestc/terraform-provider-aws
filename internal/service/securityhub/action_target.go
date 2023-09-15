@@ -70,7 +70,7 @@ func resourceActionTargetCreate(ctx context.Context, d *schema.ResourceData, met
 
 	resp, err := conn.CreateActionTargetWithContext(ctx, &securityhub.CreateActionTargetInput{
 		Description: aws.String(description),
-		Id:          aws.String(identifier),
+		Id: aws.String(identifier),
 		Name:        aws.String(name),
 	})
 
@@ -132,7 +132,7 @@ func resourceActionTargetUpdate(ctx context.Context, d *schema.ResourceData, met
 	input := &securityhub.UpdateActionTargetInput{
 		ActionTargetArn: aws.String(d.Id()),
 		Description:     aws.String(d.Get("description").(string)),
-		Name:            aws.String(d.Get("name").(string)),
+		Name:   aws.String(d.Get("name").(string)),
 	}
 	if _, err := conn.UpdateActionTargetWithContext(ctx, input); err != nil {
 		return sdkdiag.AppendErrorf(diags, "updating Security Hub Action Target (%s): %s", d.Id(), err)

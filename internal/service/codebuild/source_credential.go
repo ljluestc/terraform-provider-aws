@@ -36,14 +36,14 @@ func ResourceSourceCredential() *schema.Resource {
 				Computed: true,
 			},
 			"auth_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
 func: validation.StringInSlice(codebuild.AuthType_Values(), false),
 			},
 			"server_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate

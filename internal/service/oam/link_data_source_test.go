@@ -83,12 +83,12 @@ resource "aws_oam_sink_policy" "test" {
         Effect   = "Allow"
         Resource = "*"
         Principal = {
-          "AWS" = "arn:${data.aws_partition.source.partition}:iam::${data.aws_caller_identity.source.account_id}:root"
+ "AWS" = "arn:${data.aws_partition.source.partition}:iam::${data.aws_caller_identity.source.account_id}:root"
         }
         Condition = {
-          "ForAnyValue:StringEquals" = {
-            "oam:ResourceTypes" = ["AWS::CloudWatch::Metric", "AWS::Logs::LogGroup"]
-          }
+ "ForAnyValue:StringEquals" = {
+   "oam:ResourceTypes" = ["AWS::CloudWatch::Metric", "AWS::Logs::LogGroup"]
+ }
         }
       }
     ]

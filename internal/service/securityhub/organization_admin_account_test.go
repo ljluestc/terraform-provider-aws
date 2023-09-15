@@ -28,7 +28,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, securityhub.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckOrganizationAdminAccountDestroy(ctx),
+CheckDestroy:    testAccCheckOrganizationAdminAccountDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccOrganizationAdminAccountConfig_self(),
@@ -57,7 +57,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, securityhub.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckOrganizationAdminAccountDestroy(ctx),
+CheckDestroy:    testAccCheckOrganizationAdminAccountDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccOrganizationAdminAccountConfig_self(),
@@ -85,7 +85,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, securityhub.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 3),
-CheckDestroy:             testAccCheckOrganizationAdminAccountDestroy(ctx),
+CheckDestroy:    testAccCheckOrganizationAdminAccountDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccOrganizationAdminAccountConfig_multiRegion(),

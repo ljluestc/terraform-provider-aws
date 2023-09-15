@@ -26,7 +26,7 @@ func testAccFindingAggregator_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, securityhub.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckFindingAggregatorDestroy(ctx),
+CheckDestroy:    testAccCheckFindingAggregatorDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccFindingAggregatorConfig_allRegions(),
@@ -69,7 +69,7 @@ func testAccFindingAggregator_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, securityhub.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckFindingAggregatorDestroy(ctx),
+CheckDestroy:    testAccCheckFindingAggregatorDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccFindingAggregatorConfig_allRegions(),

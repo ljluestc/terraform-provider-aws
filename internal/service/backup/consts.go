@@ -4,10 +4,10 @@
 package backup
 
 const (
-	frameworkStatusCompleted          = "COMPLETED"
+	frameworkStatusCompleted = "COMPLETED"
 	frameworkStatusCreationInProgress = "CREATE_IN_PROGRESS"
 	frameworkStatusDeletionInProgress = "DELETE_IN_PROGRESS"
-	frameworkStatusFailed             = "FAILED"
+	frameworkStatusFailed    = "FAILED"
 	frameworkStatusUpdateInProgress   = "UPDATE_IN_PROGRESS"
 )
 
@@ -31,11 +31,11 @@ func reportDeliveryChannelFormat_Values() []string {
 }
 
 const (
-	reportSettingTemplateJobReport                = "BACKUP_JOB_REPORT"
+	reportSettingTemplateJobReport       = "BACKUP_JOB_REPORT"
 	reportSettingTemplateControlComplianceReport  = "CONTROL_COMPLIANCE_REPORT"
-	reportSettingTemplateCopyJobReport            = "COPY_JOB_REPORT"
+	reportSettingTemplateCopyJobReport   = "COPY_JOB_REPORT"
 	reportSettingTemplateResourceComplianceReport = "RESOURCE_COMPLIANCE_REPORT"
-	reportSettingTemplateRestoreJobReport         = "RESTORE_JOB_REPORT"
+	reportSettingTemplateRestoreJobReport= "RESTORE_JOB_REPORT"
 )
 
 func reportSettingTemplate_Values() []string {

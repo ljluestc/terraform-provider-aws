@@ -27,9 +27,9 @@ func TestAccKMSReplicaKey_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckKeyDestroy(ctx),
+		CheckDestroy:    testAccCheckKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReplicaKeyConfig_basic(rName),
@@ -48,8 +48,8 @@ func TestAccKMSReplicaKey_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"deletion_window_in_days", "bypass_policy_lockout_safety_check"},
 			},
@@ -68,9 +68,9 @@ func TestAccKMSReplicaKey_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckKeyDestroy(ctx),
+		CheckDestroy:    testAccCheckKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReplicaKeyConfig_basic(rName),
@@ -98,9 +98,9 @@ func TestAccKMSReplicaKey_descriptionAndEnabled(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckKeyDestroy(ctx),
+		CheckDestroy:    testAccCheckKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReplicaKeyConfig_descriptionAndEnabled(rName1, rName2, false),
@@ -111,8 +111,8 @@ func TestAccKMSReplicaKey_descriptionAndEnabled(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"deletion_window_in_days", "bypass_policy_lockout_safety_check"},
 			},
@@ -149,9 +149,9 @@ func TestAccKMSReplicaKey_policy(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckKeyDestroy(ctx),
+		CheckDestroy:    testAccCheckKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReplicaKeyConfig_policy(rName, policy1, false),
@@ -162,8 +162,8 @@ func TestAccKMSReplicaKey_policy(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"deletion_window_in_days", "bypass_policy_lockout_safety_check"},
 			},
@@ -190,9 +190,9 @@ func TestAccKMSReplicaKey_tags(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 2)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckKeyDestroy(ctx),
+		CheckDestroy:    testAccCheckKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReplicaKeyConfig_tags1(rName, "key1", "value1"),
@@ -259,9 +259,9 @@ func TestAccKMSReplicaKey_twoReplicas(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckMultipleRegion(t, 3)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesMultipleRegions(ctx, t, 3),
-		CheckDestroy:             testAccCheckKeyDestroy(ctx),
+		CheckDestroy:    testAccCheckKeyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccReplicaKeyConfig_two(rName),
@@ -301,7 +301,7 @@ resource "aws_kms_key" "test" {
 
 resource "aws_kms_replica_key" "test" {
   description     = %[2]q
-  enabled         = %[3]t
+  enabled= %[3]t
   primary_key_arn = aws_kms_key.test.arn
 
   deletion_window_in_days = 7

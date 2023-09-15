@@ -108,7 +108,7 @@ func TestValidUserPoolID(t *testing.T) {
 	t.Parallel()
 
 	validValues := []string{
-		"eu-west-1_Foo123",         //lintignore:AWSAT003
+		"eu-west-1_Foo123",//lintignore:AWSAT003
 		"ap-southeast-2_BaRBaz987", //lintignore:AWSAT003
 	}
 

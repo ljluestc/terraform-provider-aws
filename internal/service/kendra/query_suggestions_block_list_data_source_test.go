@@ -61,7 +61,7 @@ Check: resource.ComposeTestCheckFunc(
 
 const testAccQuerySuggestionsBlockListDataSourceConfig_nonExistent = `
 data "aws_kendra_query_suggestions_block_list" "test" {
-  index_id         = "tf-acc-test-does-not-exist-kendra-id"
+  index_id= "tf-acc-test-does-not-exist-kendra-id"
   query_suggestions_block_list_id = "tf-acc-test-does-not-exist-kendra-id"
 }
 `
@@ -87,7 +87,7 @@ resource "aws_kendra_query_suggestions_block_list" "test" {
 }
 
 data "aws_kendra_query_suggestions_block_list" "test" {
-  index_id         = aws_kendra_index.test.id
+  index_id= aws_kendra_index.test.id
   query_suggestions_block_list_id = aws_kendra_query_suggestions_block_list.test.query_suggestions_block_list_id
 }
 `, rName2))

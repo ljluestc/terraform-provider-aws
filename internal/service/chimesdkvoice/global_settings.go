@@ -21,7 +21,7 @@ import (
 )
 
 const (
-	ResNameGlobalSettings            = "Global Settings"
+	ResNameGlobalSettings   = "Global Settings"
 	globalSettingsPropagationTimeout = 20 * time.Second
 )
 

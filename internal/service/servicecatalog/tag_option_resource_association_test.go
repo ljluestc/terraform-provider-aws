@@ -26,10 +26,10 @@ func TestAccServiceCatalogTagOptionResourceAssociation_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTagOptionResourceAssociationDestroy(ctx),
+		CheckDestroy:    testAccCheckTagOptionResourceAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTagOptionResourceAssociationConfig_basic(rName),
@@ -54,10 +54,10 @@ func TestAccServiceCatalogTagOptionResourceAssociation_disappears(t *testing.T) 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTagOptionResourceAssociationDestroy(ctx),
+		CheckDestroy:    testAccCheckTagOptionResourceAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTagOptionResourceAssociationConfig_basic(rName),
@@ -130,7 +130,7 @@ func testAccCheckTagOptionResourceAssociationExists(ctx context.Context, resourc
 func testAccTagOptionResourceAssociationConfig_base(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_servicecatalog_portfolio" "test" {
-  name          = %[1]q
+  name = %[1]q
   description   = %[1]q
   provider_name = %[1]q
 }

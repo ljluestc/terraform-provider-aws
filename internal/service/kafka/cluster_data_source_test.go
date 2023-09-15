@@ -23,7 +23,7 @@ func TestAccKafkaClusterDataSource_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, kafka.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckClusterDestroy(ctx),
+CheckDestroy:    testAccCheckClusterDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccClusterDataSourceConfig_basic(rName),
@@ -51,8 +51,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 func testAccClusterDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccClusterConfig_base(rName), fmt.Sprintf(`
 resource "aws_msk_cluster" "test" {
-  cluster_name           = %[1]q
-  kafka_version          = "2.8.1"
+  cluster_name  = %[1]q
+  kafka_version = "2.8.1"
   number_of_broker_nodes = 3
 
   broker_node_group_info {

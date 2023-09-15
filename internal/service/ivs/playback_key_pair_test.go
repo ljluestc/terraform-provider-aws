@@ -42,9 +42,9 @@ func testAccPlaybackKeyPair_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, ivs.EndpointsID)
 			testAccPlaybackKeyPairPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ivs.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, ivs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPlaybackKeyPairDestroy(ctx),
+		CheckDestroy:    testAccCheckPlaybackKeyPairDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPlaybackKeyPairConfig_basic(publicKeyPEM),
@@ -57,8 +57,8 @@ func testAccPlaybackKeyPair_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"public_key"},
 			},
@@ -83,9 +83,9 @@ func testAccPlaybackKeyPair_update(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, ivs.EndpointsID)
 			testAccPlaybackKeyPairPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ivs.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, ivs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPlaybackKeyPairDestroy(ctx),
+		CheckDestroy:    testAccCheckPlaybackKeyPairDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPlaybackKeyPairConfig_name(rName1, publicKeyPEM1),
@@ -122,9 +122,9 @@ func testAccPlaybackKeyPair_tags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, ivs.EndpointsID)
 			testAccPlaybackKeyPairPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ivs.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, ivs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPlaybackKeyPairDestroy(ctx),
+		CheckDestroy:    testAccCheckPlaybackKeyPairDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPlaybackKeyPairConfig_tags1(rName, publicKeyPEM, "key1", "value1"),
@@ -135,8 +135,8 @@ func testAccPlaybackKeyPair_tags(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"public_key"},
 			},
@@ -174,9 +174,9 @@ func testAccPlaybackKeyPair_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, ivs.EndpointsID)
 			testAccPlaybackKeyPairPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ivs.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, ivs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPlaybackKeyPairDestroy(ctx),
+		CheckDestroy:    testAccCheckPlaybackKeyPairDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPlaybackKeyPairConfig_basic(publicKey),

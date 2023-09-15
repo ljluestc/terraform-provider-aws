@@ -31,7 +31,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckSourceCredentialDestroy(ctx),
+CheckDestroy:    testAccCheckSourceCredentialDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSourceCredentialConfig_basic("PERSONAL_ACCESS_TOKEN", "GITHUB", token),
@@ -54,8 +54,8 @@ func(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"token", "user_name"},
 	},
@@ -75,7 +75,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckSourceCredentialDestroy(ctx),
+CheckDestroy:    testAccCheckSourceCredentialDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSourceCredentialConfig_basicAuth(token, "user1"),
@@ -97,8 +97,8 @@ func(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"token", "user_name"},
 	},
@@ -118,7 +118,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckSourceCredentialDestroy(ctx),
+CheckDestroy:    testAccCheckSourceCredentialDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSourceCredentialConfig_basic("PERSONAL_ACCESS_TOKEN", "GITHUB_ENTERPRISE", token),

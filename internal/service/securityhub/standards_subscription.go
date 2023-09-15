@@ -33,7 +33,7 @@ func ResourceStandardsSubscription() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"standards_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,

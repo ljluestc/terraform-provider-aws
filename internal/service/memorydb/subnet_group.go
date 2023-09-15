@@ -48,7 +48,7 @@ func ResourceSubnetGroup() *schema.Resource {
 				Default:  "Managed by Terraform",
 			},
 			"name": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -56,7 +56,7 @@ func ResourceSubnetGroup() *schema.Resource {
 				ValidateFunc:  validateResourceName(subnetGroupNameMaxLength),
 			},
 			"name_prefix": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -87,7 +87,7 @@ func resourceSubnetGroupCreate(ctx context.Context, d *schema.ResourceData, meta
 		Description:     aws.String(d.Get("description").(string)),
 		SubnetGroupName: aws.String(name),
 		SubnetIds:       flex.ExpandStringSet(d.Get("subnet_ids").(*schema.Set)),
-		Tags:            getTagsIn(ctx),
+		Tags:   getTagsIn(ctx),
 	}
 
 	log.Printf("[DEBUG] Creating MemoryDB Subnet Group: %s", input)

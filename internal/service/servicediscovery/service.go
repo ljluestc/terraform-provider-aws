@@ -61,7 +61,7 @@ func ResourceService() *schema.Resource {
 										Required: true,
 									},
 									"type": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ForceNew:     true,
 										ValidateFunc: validation.StringInSlice(servicediscovery.RecordType_Values(), false),
@@ -75,7 +75,7 @@ func ResourceService() *schema.Resource {
 							ForceNew: true,
 						},
 						"routing_policy": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ForceNew:     true,
 							Default:      servicediscovery.RoutingPolicyMultivalue,
@@ -104,7 +104,7 @@ func ResourceService() *schema.Resource {
 							Optional: true,
 						},
 						"type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.StringInSlice(servicediscovery.HealthCheckType_Values(), false),
@@ -141,7 +141,7 @@ func ResourceService() *schema.Resource {
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Computed:     true,
@@ -159,8 +159,8 @@ func resourceServiceCreate(ctx context.Context, d *schema.ResourceData, meta int
 	name := d.Get("name").(string)
 	input := &servicediscovery.CreateServiceInput{
 		CreatorRequestId: aws.String(id.UniqueId()),
-		Name:             aws.String(name),
-		Tags:             getTagsIn(ctx),
+		Name:    aws.String(name),
+		Tags:    getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {

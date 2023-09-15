@@ -51,7 +51,7 @@ func sweepClusters(region string) error {
 				id := aws.StringValue(v.Id)
 
 				_, err := conn.SetTerminationProtectionWithContext(ctx, &emr.SetTerminationProtectionInput{
-					JobFlowIds:           aws.StringSlice([]string{id}),
+					JobFlowIds:  aws.StringSlice([]string{id}),
 					TerminationProtected: aws.Bool(false),
 				})
 

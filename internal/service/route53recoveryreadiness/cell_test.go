@@ -28,7 +28,7 @@ func TestAccRoute53RecoveryReadinessCell_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53recoveryreadiness.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCellDestroy(ctx),
+CheckDestroy:    testAccCheckCellDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCellConfig_basic(rName),
@@ -58,7 +58,7 @@ func TestAccRoute53RecoveryReadinessCell_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53recoveryreadiness.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCellDestroy(ctx),
+CheckDestroy:    testAccCheckCellDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCellConfig_basic(rName),
@@ -83,7 +83,7 @@ func TestAccRoute53RecoveryReadinessCell_nestedCell(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53recoveryreadiness.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCellDestroy(ctx),
+CheckDestroy:    testAccCheckCellDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCellConfig_child(rNameChild),
@@ -133,7 +133,7 @@ func TestAccRoute53RecoveryReadinessCell_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53recoveryreadiness.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCellDestroy(ctx),
+CheckDestroy:    testAccCheckCellDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCellConfig_tags1(rName, "key1", "value1"),
@@ -178,7 +178,7 @@ func TestAccRoute53RecoveryReadinessCell_timeout(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53recoveryreadiness.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCellDestroy(ctx),
+CheckDestroy:    testAccCheckCellDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCellConfig_timeout(rName),

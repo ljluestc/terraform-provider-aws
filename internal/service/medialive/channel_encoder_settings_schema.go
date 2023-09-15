@@ -13,1526 +13,1526 @@ import (
 )
 
 func channelEncoderSettingsSchema() *schema.Schema {
-	return &schema.Schema{
-		Type:     schema.TypeList,
-		Required: true,
-		MaxItems: 1,
-		Elem: &schema.Resource{
-			Schema: map[string]*schema.Schema{
-				"audio_descriptions": {
-					Type:     schema.TypeSet,
-					Optional: true,
-					Elem: &schema.Resource{
-						Schema: map[string]*schema.Schema{
-							"audio_selector_name": {
-								Type:     schema.TypeString,
-								Required: true,
-							},
-							"name": {
-								Type:     schema.TypeString,
-								Required: true,
-							},
-							"audio_normalization_settings": {
-								Type:     schema.TypeList,
-								Optional: true,
-								MaxItems: 1,
-								Elem: &schema.Resource{
-									Schema: map[string]*schema.Schema{
-										"algorithm": {
-											Type:             schema.TypeString,
-											Optional:         true,
-											Computed:         true,
-											ValidateDiagFunc: enum.Validate[types.AudioNormalizationAlgorithm](),
-										},
-										"algorithm_control": {
-											Type:             schema.TypeString,
-											Optional:         true,
-											Computed:         true,
-											ValidateDiagFunc: enum.Validate[types.AudioNormalizationAlgorithmControl](),
-										},
-										"target_lkfs": {
-											Type:     schema.TypeFloat,
-											Optional: true,
-											Computed: true,
-										},
-									},
-								},
-							},
-							"audio_type": {
-								Type:             schema.TypeString,
-								Optional:         true,
-								Computed:         true,
-								ValidateDiagFunc: enum.Validate[types.AudioType](),
-							},
-							"audio_type_control": {
-								Type:             schema.TypeString,
-								Optional:         true,
-								Computed:         true,
-								ValidateDiagFunc: enum.Validate[types.AudioDescriptionAudioTypeControl](),
-							},
-							"audio_watermark_settings": {
-								Type:     schema.TypeList,
-								Optional: true,
-								MaxItems: 1,
-								Elem: &schema.Resource{
-									Schema: map[string]*schema.Schema{
-										"nielsen_watermarks_settings": {
-											Type:     schema.TypeList,
-											Optional: true,
-											Computed: true,
-											MaxItems: 1,
-											Elem: &schema.Resource{
-												Schema: map[string]*schema.Schema{
-													"nielsen_cbet_settings": {
-														Type:     schema.TypeList,
+return &schema.Schema{
+Type:     schema.TypeList,
+Required: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"audio_descriptions": {
+Type:     schema.TypeSet,
+Optional: true,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"audio_selector_name": {
+Type:     schema.TypeString,
+Required: true,
+},
+"name": {
+Type:     schema.TypeString,
+Required: true,
+},
+"audio_normalization_settings": {
+Type:     schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"algorithm": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.AudioNormalizationAlgorithm](),
+},
+"algorithm_control": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.AudioNormalizationAlgorithmControl](),
+},
+"target_lkfs": {
+Type:     schema.TypeFloat,
+Optional: true,
+Computed: true,
+},
+},
+},
+},
+"audio_type": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.AudioType](),
+},
+"audio_type_control": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.AudioDescriptionAudioTypeControl](),
+},
+"audio_watermark_settings": {
+Type:     schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"nielsen_watermarks_settings": {
+Type:     schema.TypeList,
+Optional: true,
+Computed: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"nielsen_cbet_settings": {
+Type:     schema.TypeList,
+Optional: true,
+Computed: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"cbet_check_digit_string": {
+Type:     schema.TypeString,
+Required: true,
+},
+"cbet_stepaside": {
+Type:    schema.TypeString,
+Required:true,
+ValidateDiagFunc: enum.Validate[types.NielsenWatermarksCbetStepaside](),
+},
+"csid": {
+Type:     schema.TypeString,
+Required: true,
+},
+},
+},
+},
+"nielsen_distribution_type": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.NielsenWatermarksDistributionTypes](),
+},
+"nielsen_naes_ii_nw_settings": {
+Type:     schema.TypeList,
+Optional: true,
+Computed: true,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"check_digit_string": {
+Type:     schema.TypeString,
+Required: true,
+},
+"sid": {
+Type:     schema.TypeFloat,
+Required: true,
+},
+},
+},
+},
+},
+},
+},
+},
+},
+},
+"codec_settings": {
+Type:     schema.TypeList,
+Optional: true,
+Computed: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"aac_settings": {
+Type:     schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"bitrate": {
+Type:     schema.TypeFloat,
+Optional: true,
+Computed: true,
+},
+"coding_mode": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.AacCodingMode](),
+},
+"input_type": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.AacInputType](),
+},
+"profile": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.AacProfile](),
+},
+"rate_control_mode": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.AacRateControlMode](),
+},
+"raw_format": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.AacRawFormat](),
+},
+"sample_rate": {
+Type:     schema.TypeFloat,
+Optional: true,
+Computed: true,
+},
+"spec": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.AacSpec](),
+},
+"vbr_quality": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.AacVbrQuality](),
+},
+},
+},
+},
+"ac3_settings": {
+Type:     schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"bitrate": {
+Type:     schema.TypeFloat,
+Optional: true,
+Computed: true,
+},
+"bitstream_mode": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.Ac3BitstreamMode](),
+},
+"coding_mode": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.Ac3CodingMode](),
+},
+"dialnorm": {
+Type:     schema.TypeInt,
+Optional: true,
+Computed: true,
+},
+"drc_profile": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.Ac3DrcProfile](),
+},
+"lfe_filter": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.Ac3LfeFilter](),
+},
+"metadata_control": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.Ac3MetadataControl](),
+},
+},
+},
+},
+"eac3_atmos_settings": {
+Type:     schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"bitrate": {
+Type:     schema.TypeFloat,
+Optional: true,
+Computed: true,
+},
+"coding_mode": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.Eac3AtmosCodingMode](),
+},
+"dialnorm": {
+Type:     schema.TypeFloat,
+Optional: true,
+Computed: true,
+},
+"drc_line": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.Eac3AtmosDrcLine](),
+},
+"drc_rf": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.Eac3AtmosDrcRf](),
+},
+"height_trim": {
+Type:     schema.TypeFloat,
+Optional: true,
+Computed: true,
+},
+"surround_trim": {
+Type:     schema.TypeFloat,
+Optional: true,
+Computed: true,
+},
+},
+},
+},
+"eac3_settings": {
+Type:     schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"attenuation_control": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.Eac3AttenuationControl](),
+},
+"bitrate": {
+Type:     schema.TypeFloat,
+Optional: true,
+Computed: true,
+},
+"bitstream_mode": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.Eac3BitstreamMode](),
+},
+"coding_mode": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.Eac3CodingMode](),
+},
+"dc_filter": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.Eac3DcFilter](),
+},
+"dialnorm": {
+Type:     schema.TypeInt,
+Optional: true,
+Computed: true,
+},
+"drc_line": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.Eac3DrcLine](),
+},
+"drc_rf": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.Eac3DrcRf](),
+},
+"lfe_control": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.Eac3LfeControl](),
+},
+"lfe_filter": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.Eac3LfeFilter](),
+},
+"lo_ro_center_mix_level": {
+Type:     schema.TypeFloat,
+Optional: true,
+Computed: true,
+},
+"lo_ro_surround_mix_level": {
+Type:     schema.TypeFloat,
+Optional: true,
+Computed: true,
+},
+"lt_rt_center_mix_level": {
+Type:     schema.TypeFloat,
+Optional: true,
+Computed: true,
+},
+"lt_rt_surround_mix_level": {
+Type:     schema.TypeFloat,
+Optional: true,
+Computed: true,
+},
+"metadata_control": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.Eac3MetadataControl](),
+},
+"passthrough_control": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.Eac3PassthroughControl](),
+},
+"phase_control": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.Eac3PhaseControl](),
+},
+"stereo_downmix": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.Eac3StereoDownmix](),
+},
+"surround_ex_mode": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.Eac3SurroundExMode](),
+},
+"surround_mode": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.Eac3SurroundMode](),
+},
+},
+},
+},
+"mp2_settings": {
+Type:     schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"bitrate": {
+Type:     schema.TypeFloat,
+Optional: true,
+Computed: true,
+},
+"coding_mode": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.Mp2CodingMode](),
+},
+"sample_rate": {
+Type:     schema.TypeFloat,
+Optional: true,
+Computed: true,
+},
+},
+},
+},
+"pass_through_settings": {
+Type:     schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{}, // no exported elements in this list
+},
+},
+"wav_settings": {
+Type:     schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"bit_depth": {
+Type:     schema.TypeFloat,
+Optional: true,
+Computed: true,
+},
+"coding_mode": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.WavCodingMode](),
+},
+"sample_rate": {
+Type:     schema.TypeFloat,
+Optional: true,
+Computed: true,
+},
+},
+},
+},
+},
+},
+},
+"language_code": {
+Type:     schema.TypeString,
+Optional: true,
+Computed: true,
+},
+"language_code_control": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.AudioDescriptionLanguageCodeControl](),
+},
+"remix_settings": {
+Type:     schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"channel_mappings": {
+Type:     schema.TypeSet,
+Required: true,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"input_channel_levels": {
+Type:     schema.TypeSet,
+Required: true,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"gain": {
+Type:     schema.TypeInt,
+Required: true,
+},
+"input_channel": {
+Type:     schema.TypeInt,
+Required: true,
+},
+},
+},
+},
+"output_channel": {
+Type:     schema.TypeInt,
+Required: true,
+},
+},
+},
+},
+"channels_in": {
+Type:     schema.TypeInt,
+Optional: true,
+Computed: true,
+},
+"channels_out": {
+Type:     schema.TypeInt,
+Optional: true,
+Computed: true,
+},
+},
+},
+},
+"stream_name": {
+Type:     schema.TypeString,
+Optional: true,
+Computed: true,
+},
+},
+},
+},
+"output_groups": {
+Type:     schema.TypeList,
+Required: true,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"output_group_settings": {
+Type:     schema.TypeList,
+Required: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"archive_group_settings": {
+Type:     schema.TypeList,
+Optional: true,
+Computed: true,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"destination": func() *schema.Schema {
+return destinationSchema()
+}(),
+"archive_cdn_settings": {
+Type:     schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"archive_s3_settings": {
+Type:     schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"canned_acl": {
+Type:    schema.TypeString,
+Optional:true,
+ValidateDiagFunc: enum.Validate[types.S3CannedAcl](),
+},
+},
+},
+},
+},
+},
+},
+"rollover_interval": {
+Type:     schema.TypeInt,
+Optional: true,
+},
+},
+},
+},
+"frame_capture_group_settings": {
+Type:     schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"destination": func() *schema.Schema {
+return destinationSchema()
+}(),
+"frame_capture_cdn_settings": {
+Type:     schema.TypeList,
+Optional: true,
+Computed: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"frame_capture_s3_settings": {
+Type:     schema.TypeList,
+Optional: true,
+Computed: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"canned_acl": {
+Type:    schema.TypeString,
+Optional:true,
+ValidateDiagFunc: enum.Validate[types.S3CannedAcl](),
+},
+},
+},
+},
+},
+},
+},
+},
+},
+},
+"hls_group_settings": {
+Type:     schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"destination": func() *schema.Schema {
+return destinationSchema()
+}(),
+"ad_markers": {
+Type:     schema.TypeList,
+Optional: true,
+Computed: true,
+Elem: &schema.Schema{
+Type:    schema.TypeString,
+ValidateDiagFunc: enum.Validate[types.HlsAdMarkers](),
+},
+},
+"base_url_content": {
+Type:     schema.TypeString,
+Optional: true,
+Computed: true,
+},
+"base_url_content1": {
+Type:     schema.TypeString,
+Optional: true,
+Computed: true,
+},
+"base_url_manifest": {
+Type:     schema.TypeString,
+Optional: true,
+Computed: true,
+},
+"base_url_manifest1": {
+Type:     schema.TypeString,
+Optional: true,
+Computed: true,
+},
+"caption_language_mappings": {
+Type:     schema.TypeSet,
+Optional: true,
+MaxItems: 4,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"caption_channel": {
+Type:     schema.TypeInt,
+Required: true,
+},
+"language_code": {
+Type:     schema.TypeString,
+Required: true,
+},
+"language_description": {
+Type:     schema.TypeString,
+Required: true,
+},
+},
+},
+},
+"caption_language_setting": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.HlsCaptionLanguageSetting](),
+},
+"client_cache": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.HlsClientCache](),
+},
+"codec_specification": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.HlsCodecSpecification](),
+},
+"constant_iv": {
+Type:     schema.TypeString,
+Optional: true,
+Computed: true,
+},
+"directory_structure": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.HlsDirectoryStructure](),
+},
+"discontinuity_tags": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.HlsDiscontinuityTags](),
+},
+"encryption_type": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.HlsEncryptionType](),
+},
+"hls_cdn_settings": {
+Type:     schema.TypeList,
+Optional: true,
+Computed: true,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"hls_akamai_settings": {
+Type:     schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"connection_retry_interval": func() *schema.Schema {
+return connectionRetryIntervalSchema()
+}(),
+"filecache_duration": func() *schema.Schema {
+return filecacheDurationSchema()
+}(),
+"http_transfer_mode": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.HlsAkamaiHttpTransferMode](),
+},
+"num_retries": func() *schema.Schema {
+return numRetriesSchema()
+}(),
+"restart_delay": func() *schema.Schema {
+return restartDelaySchema()
+}(),
+"salt": {
+Type:     schema.TypeString,
+Optional: true,
+Computed: true,
+},
+"token": {
+Type:     schema.TypeString,
+Optional: true,
+Computed: true,
+},
+},
+},
+},
+"hls_basic_put_settings": {
+Type:     schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"connection_retry_interval": func() *schema.Schema {
+return connectionRetryIntervalSchema()
+}(),
+"filecache_duration": func() *schema.Schema {
+return filecacheDurationSchema()
+}(),
+"num_retries": func() *schema.Schema {
+return numRetriesSchema()
+}(),
+"restart_delay": func() *schema.Schema {
+return restartDelaySchema()
+}(),
+},
+},
+},
+"hls_media_store_settings": {
+Type:     schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"connection_retry_interval": func() *schema.Schema {
+return connectionRetryIntervalSchema()
+}(),
+"filecache_duration": func() *schema.Schema {
+return filecacheDurationSchema()
+}(),
+"media_store_storage_class": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.HlsMediaStoreStorageClass](),
+},
+"num_retries": func() *schema.Schema {
+return numRetriesSchema()
+}(),
+"restart_delay": func() *schema.Schema {
+return restartDelaySchema()
+}(),
+},
+},
+},
+"hls_s3_settings": {
+Type:     schema.TypeList,
+Optional: true,
+Computed: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"canned_acl": {
+Type:    schema.TypeString,
+Optional:true,
+ValidateDiagFunc: enum.Validate[types.S3CannedAcl](),
+},
+},
+},
+},
+"hls_webdav_settings": {
+Type:     schema.TypeList,
+Optional: true,
+Computed: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"connection_retry_interval": func() *schema.Schema {
+return connectionRetryIntervalSchema()
+}(),
+"filecache_duration": func() *schema.Schema {
+return filecacheDurationSchema()
+}(),
+"http_transfer_mode": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.HlsWebdavHttpTransferMode](),
+},
+"num_retries": func() *schema.Schema {
+return numRetriesSchema()
+}(),
+"restart_delay": func() *schema.Schema {
+return restartDelaySchema()
+}(),
+},
+},
+},
+},
+},
+},
+"hls_id3_segment_tagging": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.HlsId3SegmentTaggingState](),
+},
+"iframe_only_playlists": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.IFrameOnlyPlaylistType](),
+},
+"incomplete_segment_behavior": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.HlsIncompleteSegmentBehavior](),
+},
+"index_n_segments": {
+Type:     schema.TypeInt,
+Optional: true,
+Computed: true,
+},
+"input_loss_action": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.InputLossActionForHlsOut](),
+},
+"iv_in_manifest": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.HlsIvInManifest](),
+},
+"iv_source": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.HlsIvSource](),
+},
+"keep_segments": {
+Type:     schema.TypeInt,
+Optional: true,
+Computed: true,
+},
+"key_format": {
+Type:     schema.TypeString,
+Optional: true,
+Computed: true,
+},
+"key_format_versions": {
+Type:     schema.TypeString,
+Optional: true,
+Computed: true,
+},
+"key_provider_settings": {
+Type:     schema.TypeList,
+Optional: true,
+Computed: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"static_key_settings": {
+Type:     schema.TypeList,
+Optional: true,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"static_key_value": {
+Type:     schema.TypeString,
+Required: true,
+},
+"key_provider_server": func() *schema.Schema {
+return inputLocationSchema()
+}(),
+},
+},
+},
+},
+},
+},
+"manifest_compression": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.HlsManifestCompression](),
+},
+"manifest_duration_format": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.HlsManifestDurationFormat](),
+},
+"min_segment_length": {
+Type:     schema.TypeInt,
+Optional: true,
+Computed: true,
+},
+"mode": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.HlsMode](),
+},
+"output_selection": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.HlsOutputSelection](),
+},
+"program_date_time": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.HlsProgramDateTime](),
+},
+"program_date_time_clock": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.HlsProgramDateTimeClock](),
+},
+"program_date_time_period": {
+Type:     schema.TypeInt,
+Optional: true,
+Computed: true,
+},
+"redundant_manifest": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.HlsRedundantManifest](),
+},
+"segment_length": {
+Type:     schema.TypeInt,
+Optional: true,
+Computed: true,
+},
+"segments_per_subdirectory": {
+Type:     schema.TypeInt,
+Optional: true,
+Computed: true,
+},
+"stream_inf_resolution": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.HlsStreamInfResolution](),
+},
+"timed_metadata_id3_frame": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.HlsTimedMetadataId3Frame](),
+},
+"timed_metadata_id3_period": {
+Type:     schema.TypeInt,
+Optional: true,
+Computed: true,
+},
+"timestamp_delta_milliseconds": {
+Type:     schema.TypeInt,
+Optional: true,
+Computed: true,
+},
+"ts_file_mode": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.HlsTsFileMode](),
+},
+},
+},
+},
+"media_package_group_settings": {
+Type:     schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"destination": func() *schema.Schema {
+return destinationSchema()
+}(),
+},
+},
+},
+"multiplex_group_settings": {
+Type:     schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{},
+},
+},
+"ms_smooth_group_settings": {
+Type:     schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"destination": func() *schema.Schema {
+return destinationSchema()
+}(),
+"acquisition_point_id": {
+Type:     schema.TypeString,
+Optional: true,
+Computed: true,
+},
+"audio_only_timecode_control": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.SmoothGroupAudioOnlyTimecodeControl](),
+},
+"certificate_mode": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.SmoothGroupCertificateMode](),
+},
+"connection_retry_interval": {
+Type:     schema.TypeInt,
+Optional: true,
+Computed: true,
+},
+"event_id": {
+Type:     schema.TypeString,
+Optional: true,
+Computed: true,
+},
+"event_id_mode": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.SmoothGroupEventIdMode](),
+},
+"event_stop_behavior": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.SmoothGroupEventStopBehavior](),
+},
+"filecache_duration": func() *schema.Schema {
+return filecacheDurationSchema()
+}(),
+"fragment_length": {
+Type:     schema.TypeInt,
+Optional: true,
+Computed: true,
+},
+"input_loss_action": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.InputLossActionForMsSmoothOut](),
+},
+"num_retries": func() *schema.Schema {
+return numRetriesSchema()
+}(),
+"restart_delay": func() *schema.Schema {
+return restartDelaySchema()
+}(),
+"segmentation_mode": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.SmoothGroupSegmentationMode](),
+},
+"send_delay_ms": {
+Type:     schema.TypeInt,
+Optional: true,
+Computed: true,
+},
+"sparse_track_type": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.SmoothGroupSparseTrackType](),
+},
+"stream_manifest_behavior": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.SmoothGroupStreamManifestBehavior](),
+},
+"timestamp_offset": {
+Type:     schema.TypeString,
+Optional: true,
+Computed: true,
+},
+"timestamp_offset_mode": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.SmoothGroupTimestampOffsetMode](),
+},
+},
+},
+},
+"rtmp_group_settings": {
+Type:     schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"ad_markers": {
+Type:     schema.TypeList,
+Optional: true,
+Elem: &schema.Schema{
+Type:    schema.TypeString,
+ValidateDiagFunc: enum.Validate[types.RtmpAdMarkers](),
+},
+},
+"authentication_scheme": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.AuthenticationScheme](),
+},
+"cache_full_behavior": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.RtmpCacheFullBehavior](),
+},
+"cache_length": {
+Type:     schema.TypeInt,
+Optional: true,
+Computed: true,
+},
+"caption_data": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.RtmpCaptionData](),
+},
+"input_loss_action": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.InputLossActionForRtmpOut](),
+},
+"restart_delay": func() *schema.Schema {
+return restartDelaySchema()
+}(),
+},
+},
+},
+"udp_group_settings": {
+Type:     schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"input_loss_action": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.InputLossActionForUdpOut](),
+},
+"timed_metadata_id3_frame": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.UdpTimedMetadataId3Frame](),
+},
+"timed_metadata_id3_period": {
+Type:     schema.TypeInt,
+Optional: true,
+Computed: true,
+},
+},
+},
+},
+},
+},
+},
+"outputs": {
+Type:     schema.TypeList,
+Required: true,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"output_settings": func() *schema.Schema {
+return outputSettingsSchema()
+}(),
+"audio_description_names": {
+Type:     schema.TypeSet,
+Optional: true,
+Elem: &schema.Schema{
+Type: schema.TypeString,
+},
+},
+"caption_description_names": {
+Type:     schema.TypeSet,
+Optional: true,
+Computed: true,
+Elem: &schema.Schema{
+Type: schema.TypeString,
+},
+},
+"output_name": {
+Type:     schema.TypeString,
+Optional: true,
+},
+"video_description_name": {
+Type:     schema.TypeString,
+Optional: true,
+},
+},
+},
+},
+"name": {
+Type:     schema.TypeString,
+Optional: true,
+},
+},
+},
+},
+"timecode_config": {
+Type:     schema.TypeList,
+Required: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"source": {
+Type:    schema.TypeString,
+Required:true,
+ValidateDiagFunc: enum.Validate[types.TimecodeConfigSource](),
+},
+"sync_threshold": {
+Type:     schema.TypeInt,
+Optional: true,
+Computed: true,
+},
+},
+},
+},
+"video_descriptions": {
+Type:     schema.TypeList,
+Optional: true,
+Computed: true,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"name": {
+Type:     schema.TypeString,
+Required: true,
+},
+"codec_settings": {
+Type:     schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"frame_capture_settings": {
+Type:     schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"capture_interval": {
+Type:     schema.TypeInt,
+Optional: true,
+Computed: true,
+},
+"capture_interval_units": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.FrameCaptureIntervalUnit](),
+},
+},
+},
+},
+"h264_settings": {
+Type:     schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"adaptive_quantization": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.H264AdaptiveQuantization](),
+},
+"afd_signaling": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.AfdSignaling](),
+},
+"bitrate": {
+Type:     schema.TypeInt,
+Optional: true,
+Computed: true,
+},
+"buf_fill_pct": {
+Type:     schema.TypeInt,
+Optional: true,
+Computed: true,
+},
+"buf_size": {
+Type:     schema.TypeInt,
+Optional: true,
+Computed: true,
+},
+"color_metadata": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.H264ColorMetadata](),
+},
+"entropy_encoding": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.H264EntropyEncoding](),
+},
+"filter_settings": {
+Type:     schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"temporal_filter_settings": {
+Type:     schema.TypeList,
+Optional: true,
+MaxItems: 1,
+Elem: &schema.Resource{
+Schema: map[string]*schema.Schema{
+"post_filter_sharpening": {
+Type:    schema.TypeString,
+Optional:true,
+ValidateDiagFunc: enum.Validate[types.TemporalFilterPostFilterSharpening](),
+},
+"strength": {
+Type:    schema.TypeString,
+Optional:true,
+ValidateDiagFunc: enum.Validate[types.TemporalFilterStrength](),
+},
+},
+},
+},
+},
+},
+},
+"fixed_afd": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.FixedAfd](),
+},
+"flicker_aq": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.H264FlickerAq](),
+},
+"force_field_pictures": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.H264ForceFieldPictures](),
+},
+"framerate_control": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.H264FramerateControl](),
+},
+"framerate_denominator": {
+Type:     schema.TypeInt,
+Optional: true,
+Computed: true,
+},
+"framerate_numerator": {
+Type:     schema.TypeInt,
+Optional: true,
+Computed: true,
+},
+"gop_b_reference": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.H264GopBReference](),
+},
+"gop_closed_cadence": {
+Type:     schema.TypeInt,
+Optional: true,
+Computed: true,
+},
+"gop_num_b_frames": {
+Type:     schema.TypeInt,
+Optional: true,
+Computed: true,
+},
+"gop_size": {
+Type:     schema.TypeFloat,
+Optional: true,
+Computed: true,
+},
+"gop_size_units": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.H264GopSizeUnits](),
+},
+"level": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.H264Level](),
+},
+"look_ahead_rate_control": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.H264LookAheadRateControl](),
+},
+"max_bitrate": {
+Type:     schema.TypeInt,
+Optional: true,
+Computed: true,
+},
+"min_i_interval": {
+Type:     schema.TypeInt,
+Optional: true,
+Computed: true,
+},
+"num_ref_frames": {
+Type:     schema.TypeInt,
+Optional: true,
+Computed: true,
+},
+"par_control": {
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
+ValidateDiagFunc: enum.Validate[types.H264ParControl](),
+},
+"par_denominator": {
+Type:     schema.TypeInt,
+Optional: true,
+Computed: true,
+},
+			"par_numerator": {
+														Type:     schema.TypeInt,
 														Optional: true,
 														Computed: true,
-														MaxItems: 1,
-														Elem: &schema.Resource{
-															Schema: map[string]*schema.Schema{
-																"cbet_check_digit_string": {
-																	Type:     schema.TypeString,
-																	Required: true,
-																},
-																"cbet_stepaside": {
-																	Type:             schema.TypeString,
-																	Required:         true,
-																	ValidateDiagFunc: enum.Validate[types.NielsenWatermarksCbetStepaside](),
-																},
-																"csid": {
-																	Type:     schema.TypeString,
-																	Required: true,
-																},
-															},
-														},
-													},
-													"nielsen_distribution_type": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.NielsenWatermarksDistributionTypes](),
-													},
-													"nielsen_naes_ii_nw_settings": {
-														Type:     schema.TypeList,
-														Optional: true,
-														Computed: true,
-														Elem: &schema.Resource{
-															Schema: map[string]*schema.Schema{
-																"check_digit_string": {
-																	Type:     schema.TypeString,
-																	Required: true,
-																},
-																"sid": {
-																	Type:     schema.TypeFloat,
-																	Required: true,
-																},
-															},
-														},
-													},
-												},
-											},
-										},
-									},
-								},
-							},
-							"codec_settings": {
-								Type:     schema.TypeList,
-								Optional: true,
-								Computed: true,
-								MaxItems: 1,
-								Elem: &schema.Resource{
-									Schema: map[string]*schema.Schema{
-										"aac_settings": {
-											Type:     schema.TypeList,
-											Optional: true,
-											MaxItems: 1,
-											Elem: &schema.Resource{
-												Schema: map[string]*schema.Schema{
-													"bitrate": {
-														Type:     schema.TypeFloat,
-														Optional: true,
-														Computed: true,
-													},
-													"coding_mode": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.AacCodingMode](),
-													},
-													"input_type": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.AacInputType](),
 													},
 													"profile": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.AacProfile](),
-													},
-													"rate_control_mode": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.AacRateControlMode](),
-													},
-													"raw_format": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.AacRawFormat](),
-													},
-													"sample_rate": {
-														Type:     schema.TypeFloat,
-														Optional: true,
-														Computed: true,
-													},
-													"spec": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.AacSpec](),
-													},
-													"vbr_quality": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.AacVbrQuality](),
-													},
-												},
-											},
-										},
-										"ac3_settings": {
-											Type:     schema.TypeList,
-											Optional: true,
-											MaxItems: 1,
-											Elem: &schema.Resource{
-												Schema: map[string]*schema.Schema{
-													"bitrate": {
-														Type:     schema.TypeFloat,
-														Optional: true,
-														Computed: true,
-													},
-													"bitstream_mode": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.Ac3BitstreamMode](),
-													},
-													"coding_mode": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.Ac3CodingMode](),
-													},
-													"dialnorm": {
-														Type:     schema.TypeInt,
-														Optional: true,
-														Computed: true,
-													},
-													"drc_profile": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.Ac3DrcProfile](),
-													},
-													"lfe_filter": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.Ac3LfeFilter](),
-													},
-													"metadata_control": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.Ac3MetadataControl](),
-													},
-												},
-											},
-										},
-										"eac3_atmos_settings": {
-											Type:     schema.TypeList,
-											Optional: true,
-											MaxItems: 1,
-											Elem: &schema.Resource{
-												Schema: map[string]*schema.Schema{
-													"bitrate": {
-														Type:     schema.TypeFloat,
-														Optional: true,
-														Computed: true,
-													},
-													"coding_mode": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.Eac3AtmosCodingMode](),
-													},
-													"dialnorm": {
-														Type:     schema.TypeFloat,
-														Optional: true,
-														Computed: true,
-													},
-													"drc_line": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.Eac3AtmosDrcLine](),
-													},
-													"drc_rf": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.Eac3AtmosDrcRf](),
-													},
-													"height_trim": {
-														Type:     schema.TypeFloat,
-														Optional: true,
-														Computed: true,
-													},
-													"surround_trim": {
-														Type:     schema.TypeFloat,
-														Optional: true,
-														Computed: true,
-													},
-												},
-											},
-										},
-										"eac3_settings": {
-											Type:     schema.TypeList,
-											Optional: true,
-											MaxItems: 1,
-											Elem: &schema.Resource{
-												Schema: map[string]*schema.Schema{
-													"attenuation_control": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.Eac3AttenuationControl](),
-													},
-													"bitrate": {
-														Type:     schema.TypeFloat,
-														Optional: true,
-														Computed: true,
-													},
-													"bitstream_mode": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.Eac3BitstreamMode](),
-													},
-													"coding_mode": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.Eac3CodingMode](),
-													},
-													"dc_filter": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.Eac3DcFilter](),
-													},
-													"dialnorm": {
-														Type:     schema.TypeInt,
-														Optional: true,
-														Computed: true,
-													},
-													"drc_line": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.Eac3DrcLine](),
-													},
-													"drc_rf": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.Eac3DrcRf](),
-													},
-													"lfe_control": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.Eac3LfeControl](),
-													},
-													"lfe_filter": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.Eac3LfeFilter](),
-													},
-													"lo_ro_center_mix_level": {
-														Type:     schema.TypeFloat,
-														Optional: true,
-														Computed: true,
-													},
-													"lo_ro_surround_mix_level": {
-														Type:     schema.TypeFloat,
-														Optional: true,
-														Computed: true,
-													},
-													"lt_rt_center_mix_level": {
-														Type:     schema.TypeFloat,
-														Optional: true,
-														Computed: true,
-													},
-													"lt_rt_surround_mix_level": {
-														Type:     schema.TypeFloat,
-														Optional: true,
-														Computed: true,
-													},
-													"metadata_control": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.Eac3MetadataControl](),
-													},
-													"passthrough_control": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.Eac3PassthroughControl](),
-													},
-													"phase_control": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.Eac3PhaseControl](),
-													},
-													"stereo_downmix": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.Eac3StereoDownmix](),
-													},
-													"surround_ex_mode": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.Eac3SurroundExMode](),
-													},
-													"surround_mode": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.Eac3SurroundMode](),
-													},
-												},
-											},
-										},
-										"mp2_settings": {
-											Type:     schema.TypeList,
-											Optional: true,
-											MaxItems: 1,
-											Elem: &schema.Resource{
-												Schema: map[string]*schema.Schema{
-													"bitrate": {
-														Type:     schema.TypeFloat,
-														Optional: true,
-														Computed: true,
-													},
-													"coding_mode": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.Mp2CodingMode](),
-													},
-													"sample_rate": {
-														Type:     schema.TypeFloat,
-														Optional: true,
-														Computed: true,
-													},
-												},
-											},
-										},
-										"pass_through_settings": {
-											Type:     schema.TypeList,
-											Optional: true,
-											MaxItems: 1,
-											Elem: &schema.Resource{
-												Schema: map[string]*schema.Schema{}, // no exported elements in this list
-											},
-										},
-										"wav_settings": {
-											Type:     schema.TypeList,
-											Optional: true,
-											MaxItems: 1,
-											Elem: &schema.Resource{
-												Schema: map[string]*schema.Schema{
-													"bit_depth": {
-														Type:     schema.TypeFloat,
-														Optional: true,
-														Computed: true,
-													},
-													"coding_mode": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.WavCodingMode](),
-													},
-													"sample_rate": {
-														Type:     schema.TypeFloat,
-														Optional: true,
-														Computed: true,
-													},
-												},
-											},
-										},
-									},
-								},
-							},
-							"language_code": {
-								Type:     schema.TypeString,
-								Optional: true,
-								Computed: true,
-							},
-							"language_code_control": {
-								Type:             schema.TypeString,
-								Optional:         true,
-								Computed:         true,
-								ValidateDiagFunc: enum.Validate[types.AudioDescriptionLanguageCodeControl](),
-							},
-							"remix_settings": {
-								Type:     schema.TypeList,
-								Optional: true,
-								MaxItems: 1,
-								Elem: &schema.Resource{
-									Schema: map[string]*schema.Schema{
-										"channel_mappings": {
-											Type:     schema.TypeSet,
-											Required: true,
-											Elem: &schema.Resource{
-												Schema: map[string]*schema.Schema{
-													"input_channel_levels": {
-														Type:     schema.TypeSet,
-														Required: true,
-														Elem: &schema.Resource{
-															Schema: map[string]*schema.Schema{
-																"gain": {
-																	Type:     schema.TypeInt,
-																	Required: true,
-																},
-																"input_channel": {
-																	Type:     schema.TypeInt,
-																	Required: true,
-																},
-															},
-														},
-													},
-													"output_channel": {
-														Type:     schema.TypeInt,
-														Required: true,
-													},
-												},
-											},
-										},
-										"channels_in": {
-											Type:     schema.TypeInt,
-											Optional: true,
-											Computed: true,
-										},
-										"channels_out": {
-											Type:     schema.TypeInt,
-											Optional: true,
-											Computed: true,
-										},
-									},
-								},
-							},
-							"stream_name": {
-								Type:     schema.TypeString,
-								Optional: true,
-								Computed: true,
-							},
-						},
-					},
-				},
-				"output_groups": {
-					Type:     schema.TypeList,
-					Required: true,
-					Elem: &schema.Resource{
-						Schema: map[string]*schema.Schema{
-							"output_group_settings": {
-								Type:     schema.TypeList,
-								Required: true,
-								MaxItems: 1,
-								Elem: &schema.Resource{
-									Schema: map[string]*schema.Schema{
-										"archive_group_settings": {
-											Type:     schema.TypeList,
-											Optional: true,
-											Computed: true,
-											Elem: &schema.Resource{
-												Schema: map[string]*schema.Schema{
-													"destination": func() *schema.Schema {
-														return destinationSchema()
-													}(),
-													"archive_cdn_settings": {
-														Type:     schema.TypeList,
-														Optional: true,
-														MaxItems: 1,
-														Elem: &schema.Resource{
-															Schema: map[string]*schema.Schema{
-																"archive_s3_settings": {
-																	Type:     schema.TypeList,
-																	Optional: true,
-																	MaxItems: 1,
-																	Elem: &schema.Resource{
-																		Schema: map[string]*schema.Schema{
-																			"canned_acl": {
-																				Type:             schema.TypeString,
-																				Optional:         true,
-																				ValidateDiagFunc: enum.Validate[types.S3CannedAcl](),
-																			},
-																		},
-																	},
-																},
-															},
-														},
-													},
-													"rollover_interval": {
-														Type:     schema.TypeInt,
-														Optional: true,
-													},
-												},
-											},
-										},
-										"frame_capture_group_settings": {
-											Type:     schema.TypeList,
-											Optional: true,
-											MaxItems: 1,
-											Elem: &schema.Resource{
-												Schema: map[string]*schema.Schema{
-													"destination": func() *schema.Schema {
-														return destinationSchema()
-													}(),
-													"frame_capture_cdn_settings": {
-														Type:     schema.TypeList,
-														Optional: true,
-														Computed: true,
-														MaxItems: 1,
-														Elem: &schema.Resource{
-															Schema: map[string]*schema.Schema{
-																"frame_capture_s3_settings": {
-																	Type:     schema.TypeList,
-																	Optional: true,
-																	Computed: true,
-																	MaxItems: 1,
-																	Elem: &schema.Resource{
-																		Schema: map[string]*schema.Schema{
-																			"canned_acl": {
-																				Type:             schema.TypeString,
-																				Optional:         true,
-																				ValidateDiagFunc: enum.Validate[types.S3CannedAcl](),
-																			},
-																		},
-																	},
-																},
-															},
-														},
-													},
-												},
-											},
-										},
-										"hls_group_settings": {
-											Type:     schema.TypeList,
-											Optional: true,
-											MaxItems: 1,
-											Elem: &schema.Resource{
-												Schema: map[string]*schema.Schema{
-													"destination": func() *schema.Schema {
-														return destinationSchema()
-													}(),
-													"ad_markers": {
-														Type:     schema.TypeList,
-														Optional: true,
-														Computed: true,
-														Elem: &schema.Schema{
-															Type:             schema.TypeString,
-															ValidateDiagFunc: enum.Validate[types.HlsAdMarkers](),
-														},
-													},
-													"base_url_content": {
-														Type:     schema.TypeString,
-														Optional: true,
-														Computed: true,
-													},
-													"base_url_content1": {
-														Type:     schema.TypeString,
-														Optional: true,
-														Computed: true,
-													},
-													"base_url_manifest": {
-														Type:     schema.TypeString,
-														Optional: true,
-														Computed: true,
-													},
-													"base_url_manifest1": {
-														Type:     schema.TypeString,
-														Optional: true,
-														Computed: true,
-													},
-													"caption_language_mappings": {
-														Type:     schema.TypeSet,
-														Optional: true,
-														MaxItems: 4,
-														Elem: &schema.Resource{
-															Schema: map[string]*schema.Schema{
-																"caption_channel": {
-																	Type:     schema.TypeInt,
-																	Required: true,
-																},
-																"language_code": {
-																	Type:     schema.TypeString,
-																	Required: true,
-																},
-																"language_description": {
-																	Type:     schema.TypeString,
-																	Required: true,
-																},
-															},
-														},
-													},
-													"caption_language_setting": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.HlsCaptionLanguageSetting](),
-													},
-													"client_cache": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.HlsClientCache](),
-													},
-													"codec_specification": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.HlsCodecSpecification](),
-													},
-													"constant_iv": {
-														Type:     schema.TypeString,
-														Optional: true,
-														Computed: true,
-													},
-													"directory_structure": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.HlsDirectoryStructure](),
-													},
-													"discontinuity_tags": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.HlsDiscontinuityTags](),
-													},
-													"encryption_type": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.HlsEncryptionType](),
-													},
-													"hls_cdn_settings": {
-														Type:     schema.TypeList,
-														Optional: true,
-														Computed: true,
-														Elem: &schema.Resource{
-															Schema: map[string]*schema.Schema{
-																"hls_akamai_settings": {
-																	Type:     schema.TypeList,
-																	Optional: true,
-																	MaxItems: 1,
-																	Elem: &schema.Resource{
-																		Schema: map[string]*schema.Schema{
-																			"connection_retry_interval": func() *schema.Schema {
-																				return connectionRetryIntervalSchema()
-																			}(),
-																			"filecache_duration": func() *schema.Schema {
-																				return filecacheDurationSchema()
-																			}(),
-																			"http_transfer_mode": {
-																				Type:             schema.TypeString,
-																				Optional:         true,
-																				Computed:         true,
-																				ValidateDiagFunc: enum.Validate[types.HlsAkamaiHttpTransferMode](),
-																			},
-																			"num_retries": func() *schema.Schema {
-																				return numRetriesSchema()
-																			}(),
-																			"restart_delay": func() *schema.Schema {
-																				return restartDelaySchema()
-																			}(),
-																			"salt": {
-																				Type:     schema.TypeString,
-																				Optional: true,
-																				Computed: true,
-																			},
-																			"token": {
-																				Type:     schema.TypeString,
-																				Optional: true,
-																				Computed: true,
-																			},
-																		},
-																	},
-																},
-																"hls_basic_put_settings": {
-																	Type:     schema.TypeList,
-																	Optional: true,
-																	MaxItems: 1,
-																	Elem: &schema.Resource{
-																		Schema: map[string]*schema.Schema{
-																			"connection_retry_interval": func() *schema.Schema {
-																				return connectionRetryIntervalSchema()
-																			}(),
-																			"filecache_duration": func() *schema.Schema {
-																				return filecacheDurationSchema()
-																			}(),
-																			"num_retries": func() *schema.Schema {
-																				return numRetriesSchema()
-																			}(),
-																			"restart_delay": func() *schema.Schema {
-																				return restartDelaySchema()
-																			}(),
-																		},
-																	},
-																},
-																"hls_media_store_settings": {
-																	Type:     schema.TypeList,
-																	Optional: true,
-																	MaxItems: 1,
-																	Elem: &schema.Resource{
-																		Schema: map[string]*schema.Schema{
-																			"connection_retry_interval": func() *schema.Schema {
-																				return connectionRetryIntervalSchema()
-																			}(),
-																			"filecache_duration": func() *schema.Schema {
-																				return filecacheDurationSchema()
-																			}(),
-																			"media_store_storage_class": {
-																				Type:             schema.TypeString,
-																				Optional:         true,
-																				Computed:         true,
-																				ValidateDiagFunc: enum.Validate[types.HlsMediaStoreStorageClass](),
-																			},
-																			"num_retries": func() *schema.Schema {
-																				return numRetriesSchema()
-																			}(),
-																			"restart_delay": func() *schema.Schema {
-																				return restartDelaySchema()
-																			}(),
-																		},
-																	},
-																},
-																"hls_s3_settings": {
-																	Type:     schema.TypeList,
-																	Optional: true,
-																	Computed: true,
-																	MaxItems: 1,
-																	Elem: &schema.Resource{
-																		Schema: map[string]*schema.Schema{
-																			"canned_acl": {
-																				Type:             schema.TypeString,
-																				Optional:         true,
-																				ValidateDiagFunc: enum.Validate[types.S3CannedAcl](),
-																			},
-																		},
-																	},
-																},
-																"hls_webdav_settings": {
-																	Type:     schema.TypeList,
-																	Optional: true,
-																	Computed: true,
-																	MaxItems: 1,
-																	Elem: &schema.Resource{
-																		Schema: map[string]*schema.Schema{
-																			"connection_retry_interval": func() *schema.Schema {
-																				return connectionRetryIntervalSchema()
-																			}(),
-																			"filecache_duration": func() *schema.Schema {
-																				return filecacheDurationSchema()
-																			}(),
-																			"http_transfer_mode": {
-																				Type:             schema.TypeString,
-																				Optional:         true,
-																				Computed:         true,
-																				ValidateDiagFunc: enum.Validate[types.HlsWebdavHttpTransferMode](),
-																			},
-																			"num_retries": func() *schema.Schema {
-																				return numRetriesSchema()
-																			}(),
-																			"restart_delay": func() *schema.Schema {
-																				return restartDelaySchema()
-																			}(),
-																		},
-																	},
-																},
-															},
-														},
-													},
-													"hls_id3_segment_tagging": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.HlsId3SegmentTaggingState](),
-													},
-													"iframe_only_playlists": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.IFrameOnlyPlaylistType](),
-													},
-													"incomplete_segment_behavior": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.HlsIncompleteSegmentBehavior](),
-													},
-													"index_n_segments": {
-														Type:     schema.TypeInt,
-														Optional: true,
-														Computed: true,
-													},
-													"input_loss_action": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.InputLossActionForHlsOut](),
-													},
-													"iv_in_manifest": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.HlsIvInManifest](),
-													},
-													"iv_source": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.HlsIvSource](),
-													},
-													"keep_segments": {
-														Type:     schema.TypeInt,
-														Optional: true,
-														Computed: true,
-													},
-													"key_format": {
-														Type:     schema.TypeString,
-														Optional: true,
-														Computed: true,
-													},
-													"key_format_versions": {
-														Type:     schema.TypeString,
-														Optional: true,
-														Computed: true,
-													},
-													"key_provider_settings": {
-														Type:     schema.TypeList,
-														Optional: true,
-														Computed: true,
-														MaxItems: 1,
-														Elem: &schema.Resource{
-															Schema: map[string]*schema.Schema{
-																"static_key_settings": {
-																	Type:     schema.TypeList,
-																	Optional: true,
-																	Elem: &schema.Resource{
-																		Schema: map[string]*schema.Schema{
-																			"static_key_value": {
-																				Type:     schema.TypeString,
-																				Required: true,
-																			},
-																			"key_provider_server": func() *schema.Schema {
-																				return inputLocationSchema()
-																			}(),
-																		},
-																	},
-																},
-															},
-														},
-													},
-													"manifest_compression": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.HlsManifestCompression](),
-													},
-													"manifest_duration_format": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.HlsManifestDurationFormat](),
-													},
-													"min_segment_length": {
-														Type:     schema.TypeInt,
-														Optional: true,
-														Computed: true,
-													},
-													"mode": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.HlsMode](),
-													},
-													"output_selection": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.HlsOutputSelection](),
-													},
-													"program_date_time": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.HlsProgramDateTime](),
-													},
-													"program_date_time_clock": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.HlsProgramDateTimeClock](),
-													},
-													"program_date_time_period": {
-														Type:     schema.TypeInt,
-														Optional: true,
-														Computed: true,
-													},
-													"redundant_manifest": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.HlsRedundantManifest](),
-													},
-													"segment_length": {
-														Type:     schema.TypeInt,
-														Optional: true,
-														Computed: true,
-													},
-													"segments_per_subdirectory": {
-														Type:     schema.TypeInt,
-														Optional: true,
-														Computed: true,
-													},
-													"stream_inf_resolution": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.HlsStreamInfResolution](),
-													},
-													"timed_metadata_id3_frame": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.HlsTimedMetadataId3Frame](),
-													},
-													"timed_metadata_id3_period": {
-														Type:     schema.TypeInt,
-														Optional: true,
-														Computed: true,
-													},
-													"timestamp_delta_milliseconds": {
-														Type:     schema.TypeInt,
-														Optional: true,
-														Computed: true,
-													},
-													"ts_file_mode": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.HlsTsFileMode](),
-													},
-												},
-											},
-										},
-										"media_package_group_settings": {
-											Type:     schema.TypeList,
-											Optional: true,
-											MaxItems: 1,
-											Elem: &schema.Resource{
-												Schema: map[string]*schema.Schema{
-													"destination": func() *schema.Schema {
-														return destinationSchema()
-													}(),
-												},
-											},
-										},
-										"multiplex_group_settings": {
-											Type:     schema.TypeList,
-											Optional: true,
-											MaxItems: 1,
-											Elem: &schema.Resource{
-												Schema: map[string]*schema.Schema{},
-											},
-										},
-										"ms_smooth_group_settings": {
-											Type:     schema.TypeList,
-											Optional: true,
-											MaxItems: 1,
-											Elem: &schema.Resource{
-												Schema: map[string]*schema.Schema{
-													"destination": func() *schema.Schema {
-														return destinationSchema()
-													}(),
-													"acquisition_point_id": {
-														Type:     schema.TypeString,
-														Optional: true,
-														Computed: true,
-													},
-													"audio_only_timecode_control": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.SmoothGroupAudioOnlyTimecodeControl](),
-													},
-													"certificate_mode": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.SmoothGroupCertificateMode](),
-													},
-													"connection_retry_interval": {
-														Type:     schema.TypeInt,
-														Optional: true,
-														Computed: true,
-													},
-													"event_id": {
-														Type:     schema.TypeString,
-														Optional: true,
-														Computed: true,
-													},
-													"event_id_mode": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.SmoothGroupEventIdMode](),
-													},
-													"event_stop_behavior": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.SmoothGroupEventStopBehavior](),
-													},
-													"filecache_duration": func() *schema.Schema {
-														return filecacheDurationSchema()
-													}(),
-													"fragment_length": {
-														Type:     schema.TypeInt,
-														Optional: true,
-														Computed: true,
-													},
-													"input_loss_action": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.InputLossActionForMsSmoothOut](),
-													},
-													"num_retries": func() *schema.Schema {
-														return numRetriesSchema()
-													}(),
-													"restart_delay": func() *schema.Schema {
-														return restartDelaySchema()
-													}(),
-													"segmentation_mode": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.SmoothGroupSegmentationMode](),
-													},
-													"send_delay_ms": {
-														Type:     schema.TypeInt,
-														Optional: true,
-														Computed: true,
-													},
-													"sparse_track_type": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.SmoothGroupSparseTrackType](),
-													},
-													"stream_manifest_behavior": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.SmoothGroupStreamManifestBehavior](),
-													},
-													"timestamp_offset": {
-														Type:     schema.TypeString,
-														Optional: true,
-														Computed: true,
-													},
-													"timestamp_offset_mode": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.SmoothGroupTimestampOffsetMode](),
-													},
-												},
-											},
-										},
-										"rtmp_group_settings": {
-											Type:     schema.TypeList,
-											Optional: true,
-											MaxItems: 1,
-											Elem: &schema.Resource{
-												Schema: map[string]*schema.Schema{
-													"ad_markers": {
-														Type:     schema.TypeList,
-														Optional: true,
-														Elem: &schema.Schema{
-															Type:             schema.TypeString,
-															ValidateDiagFunc: enum.Validate[types.RtmpAdMarkers](),
-														},
-													},
-													"authentication_scheme": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.AuthenticationScheme](),
-													},
-													"cache_full_behavior": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.RtmpCacheFullBehavior](),
-													},
-													"cache_length": {
-														Type:     schema.TypeInt,
-														Optional: true,
-														Computed: true,
-													},
-													"caption_data": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.RtmpCaptionData](),
-													},
-													"input_loss_action": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.InputLossActionForRtmpOut](),
-													},
-													"restart_delay": func() *schema.Schema {
-														return restartDelaySchema()
-													}(),
-												},
-											},
-										},
-										"udp_group_settings": {
-											Type:     schema.TypeList,
-											Optional: true,
-											MaxItems: 1,
-											Elem: &schema.Resource{
-												Schema: map[string]*schema.Schema{
-													"input_loss_action": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.InputLossActionForUdpOut](),
-													},
-													"timed_metadata_id3_frame": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.UdpTimedMetadataId3Frame](),
-													},
-													"timed_metadata_id3_period": {
-														Type:     schema.TypeInt,
-														Optional: true,
-														Computed: true,
-													},
-												},
-											},
-										},
-									},
-								},
-							},
-							"outputs": {
-								Type:     schema.TypeList,
-								Required: true,
-								Elem: &schema.Resource{
-									Schema: map[string]*schema.Schema{
-										"output_settings": func() *schema.Schema {
-											return outputSettingsSchema()
-										}(),
-										"audio_description_names": {
-											Type:     schema.TypeSet,
-											Optional: true,
-											Elem: &schema.Schema{
-												Type: schema.TypeString,
-											},
-										},
-										"caption_description_names": {
-											Type:     schema.TypeSet,
-											Optional: true,
-											Computed: true,
-											Elem: &schema.Schema{
-												Type: schema.TypeString,
-											},
-										},
-										"output_name": {
-											Type:     schema.TypeString,
-											Optional: true,
-										},
-										"video_description_name": {
-											Type:     schema.TypeString,
-											Optional: true,
-										},
-									},
-								},
-							},
-							"name": {
-								Type:     schema.TypeString,
-								Optional: true,
-							},
-						},
-					},
-				},
-				"timecode_config": {
-					Type:     schema.TypeList,
-					Required: true,
-					MaxItems: 1,
-					Elem: &schema.Resource{
-						Schema: map[string]*schema.Schema{
-							"source": {
-								Type:             schema.TypeString,
-								Required:         true,
-								ValidateDiagFunc: enum.Validate[types.TimecodeConfigSource](),
-							},
-							"sync_threshold": {
-								Type:     schema.TypeInt,
-								Optional: true,
-								Computed: true,
-							},
-						},
-					},
-				},
-				"video_descriptions": {
-					Type:     schema.TypeList,
-					Optional: true,
-					Computed: true,
-					Elem: &schema.Resource{
-						Schema: map[string]*schema.Schema{
-							"name": {
-								Type:     schema.TypeString,
-								Required: true,
-							},
-							"codec_settings": {
-								Type:     schema.TypeList,
-								Optional: true,
-								MaxItems: 1,
-								Elem: &schema.Resource{
-									Schema: map[string]*schema.Schema{
-										"frame_capture_settings": {
-											Type:     schema.TypeList,
-											Optional: true,
-											MaxItems: 1,
-											Elem: &schema.Resource{
-												Schema: map[string]*schema.Schema{
-													"capture_interval": {
-														Type:     schema.TypeInt,
-														Optional: true,
-														Computed: true,
-													},
-													"capture_interval_units": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.FrameCaptureIntervalUnit](),
-													},
-												},
-											},
-										},
-										"h264_settings": {
-											Type:     schema.TypeList,
-											Optional: true,
-											MaxItems: 1,
-											Elem: &schema.Resource{
-												Schema: map[string]*schema.Schema{
-													"adaptive_quantization": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.H264AdaptiveQuantization](),
-													},
-													"afd_signaling": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.AfdSignaling](),
-													},
-													"bitrate": {
-														Type:     schema.TypeInt,
-														Optional: true,
-														Computed: true,
-													},
-													"buf_fill_pct": {
-														Type:     schema.TypeInt,
-														Optional: true,
-														Computed: true,
-													},
-													"buf_size": {
-														Type:     schema.TypeInt,
-														Optional: true,
-														Computed: true,
-													},
-													"color_metadata": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.H264ColorMetadata](),
-													},
-													"entropy_encoding": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.H264EntropyEncoding](),
-													},
-													"filter_settings": {
-														Type:     schema.TypeList,
-														Optional: true,
-														MaxItems: 1,
-														Elem: &schema.Resource{
-															Schema: map[string]*schema.Schema{
-																"temporal_filter_settings": {
-																	Type:     schema.TypeList,
-																	Optional: true,
-																	MaxItems: 1,
-																	Elem: &schema.Resource{
-																		Schema: map[string]*schema.Schema{
-																			"post_filter_sharpening": {
-																				Type:             schema.TypeString,
-																				Optional:         true,
-																				ValidateDiagFunc: enum.Validate[types.TemporalFilterPostFilterSharpening](),
-																			},
-																			"strength": {
-																				Type:             schema.TypeString,
-																				Optional:         true,
-																				ValidateDiagFunc: enum.Validate[types.TemporalFilterStrength](),
-																			},
-																		},
-																	},
-																},
-															},
-														},
-													},
-													"fixed_afd": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.FixedAfd](),
-													},
-													"flicker_aq": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.H264FlickerAq](),
-													},
-													"force_field_pictures": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.H264ForceFieldPictures](),
-													},
-													"framerate_control": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.H264FramerateControl](),
-													},
-													"framerate_denominator": {
-														Type:     schema.TypeInt,
-														Optional: true,
-														Computed: true,
-													},
-													"framerate_numerator": {
-														Type:     schema.TypeInt,
-														Optional: true,
-														Computed: true,
-													},
-													"gop_b_reference": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.H264GopBReference](),
-													},
-													"gop_closed_cadence": {
-														Type:     schema.TypeInt,
-														Optional: true,
-														Computed: true,
-													},
-													"gop_num_b_frames": {
-														Type:     schema.TypeInt,
-														Optional: true,
-														Computed: true,
-													},
-													"gop_size": {
-														Type:     schema.TypeFloat,
-														Optional: true,
-														Computed: true,
-													},
-													"gop_size_units": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.H264GopSizeUnits](),
-													},
-													"level": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.H264Level](),
-													},
-													"look_ahead_rate_control": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.H264LookAheadRateControl](),
-													},
-													"max_bitrate": {
-														Type:     schema.TypeInt,
-														Optional: true,
-														Computed: true,
-													},
-													"min_i_interval": {
-														Type:     schema.TypeInt,
-														Optional: true,
-														Computed: true,
-													},
-													"num_ref_frames": {
-														Type:     schema.TypeInt,
-														Optional: true,
-														Computed: true,
-													},
-													"par_control": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
-														ValidateDiagFunc: enum.Validate[types.H264ParControl](),
-													},
-													"par_denominator": {
-														Type:     schema.TypeInt,
-														Optional: true,
-														Computed: true,
-													},
-													"par_numerator": {
-														Type:     schema.TypeInt,
-														Optional: true,
-														Computed: true,
-													},
-													"profile": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
+														Type:    schema.TypeString,
+														Optional:true,
+														Computed:true,
 														ValidateDiagFunc: enum.Validate[types.H264Profile](),
 													},
 													"quality_level": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
+														Type:    schema.TypeString,
+														Optional:true,
+														Computed:true,
 														ValidateDiagFunc: enum.Validate[types.H264QualityLevel](),
 													},
 													"qvbr_quality_level": {
@@ -1541,21 +1541,21 @@ func channelEncoderSettingsSchema() *schema.Schema {
 														Computed: true,
 													},
 													"rate_control_mode": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
+														Type:    schema.TypeString,
+														Optional:true,
+														Computed:true,
 														ValidateDiagFunc: enum.Validate[types.H264RateControlMode](),
 													},
 													"scan_type": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
+														Type:    schema.TypeString,
+														Optional:true,
+														Computed:true,
 														ValidateDiagFunc: enum.Validate[types.H264ScanType](),
 													},
 													"scene_change_detect": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
+														Type:    schema.TypeString,
+														Optional:true,
+														Computed:true,
 														ValidateDiagFunc: enum.Validate[types.H264SceneChangeDetect](),
 													},
 													"slices": {
@@ -1569,33 +1569,33 @@ func channelEncoderSettingsSchema() *schema.Schema {
 														Computed: true,
 													},
 													"spatial_aq": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
+														Type:    schema.TypeString,
+														Optional:true,
+														Computed:true,
 														ValidateDiagFunc: enum.Validate[types.H264SpatialAq](),
 													},
 													"subgop_length": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
+														Type:    schema.TypeString,
+														Optional:true,
+														Computed:true,
 														ValidateDiagFunc: enum.Validate[types.H264SubGopLength](),
 													},
 													"syntax": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
+														Type:    schema.TypeString,
+														Optional:true,
+														Computed:true,
 														ValidateDiagFunc: enum.Validate[types.H264Syntax](),
 													},
 													"temporal_aq": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
+														Type:    schema.TypeString,
+														Optional:true,
+														Computed:true,
 														ValidateDiagFunc: enum.Validate[types.H264TemporalAq](),
 													},
 													"timecode_insertion": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
+														Type:    schema.TypeString,
+														Optional:true,
+														Computed:true,
 														ValidateDiagFunc: enum.Validate[types.H264TimecodeInsertionBehavior](),
 													},
 												},
@@ -1608,47 +1608,47 @@ func channelEncoderSettingsSchema() *schema.Schema {
 											Elem: &schema.Resource{
 												Schema: map[string]*schema.Schema{
 													"framerate_denominator": {
-														Type:         schema.TypeInt,
+														Type:schema.TypeInt,
 														Required:     true,
 														ValidateFunc: validation.IntAtLeast(1),
 													},
 													"framerate_numerator": {
-														Type:         schema.TypeInt,
+														Type:schema.TypeInt,
 														Required:     true,
 														ValidateFunc: validation.IntAtLeast(1),
 													},
 													"adaptive_quantization": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
+														Type:    schema.TypeString,
+														Optional:true,
+														Computed:true,
 														ValidateDiagFunc: enum.Validate[types.H265AdaptiveQuantization](),
 													},
 													"afd_signaling": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
+														Type:    schema.TypeString,
+														Optional:true,
+														Computed:true,
 														ValidateDiagFunc: enum.Validate[types.AfdSignaling](),
 													},
 													"alternative_transfer_function": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
+														Type:    schema.TypeString,
+														Optional:true,
+														Computed:true,
 														ValidateDiagFunc: enum.Validate[types.H265AlternativeTransferFunction](),
 													},
 													"bitrate": {
-														Type:         schema.TypeInt,
+														Type:schema.TypeInt,
 														Required:     true,
 														ValidateFunc: validation.IntAtLeast(1),
 													},
 													"buf_size": {
-														Type:         schema.TypeInt,
+														Type:schema.TypeInt,
 														Optional:     true,
 														ValidateFunc: validation.IntAtLeast(1),
 													},
 													"color_metadata": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
+														Type:    schema.TypeString,
+														Optional:true,
+														Computed:true,
 														ValidateDiagFunc: enum.Validate[types.H265ColorMetadata](),
 													},
 													"color_space_settings": {
@@ -1680,13 +1680,13 @@ func channelEncoderSettingsSchema() *schema.Schema {
 																	Elem: &schema.Resource{
 																		Schema: map[string]*schema.Schema{
 																			"max_cll": {
-																				Type:         schema.TypeInt,
+																				Type:schema.TypeInt,
 																				Default:      0,
 																				Optional:     true,
 																				ValidateFunc: validation.IntAtLeast(0),
 																			},
 																			"max_fall": {
-																				Type:         schema.TypeInt,
+																				Type:schema.TypeInt,
 																				Default:      0,
 																				Optional:     true,
 																				ValidateFunc: validation.IntAtLeast(0),
@@ -1726,13 +1726,13 @@ func channelEncoderSettingsSchema() *schema.Schema {
 																	Elem: &schema.Resource{
 																		Schema: map[string]*schema.Schema{
 																			"post_filter_sharpening": {
-																				Type:             schema.TypeString,
-																				Optional:         true,
+																				Type:    schema.TypeString,
+																				Optional:true,
 																				ValidateDiagFunc: enum.Validate[types.TemporalFilterPostFilterSharpening](),
 																			},
 																			"strength": {
-																				Type:             schema.TypeString,
-																				Optional:         true,
+																				Type:    schema.TypeString,
+																				Optional:true,
 																				ValidateDiagFunc: enum.Validate[types.TemporalFilterStrength](),
 																			},
 																		},
@@ -1742,15 +1742,15 @@ func channelEncoderSettingsSchema() *schema.Schema {
 														},
 													},
 													"fixed_afd": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
+														Type:    schema.TypeString,
+														Optional:true,
+														Computed:true,
 														ValidateDiagFunc: enum.Validate[types.FixedAfd](),
 													},
 													"flicker_aq": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
+														Type:    schema.TypeString,
+														Optional:true,
+														Computed:true,
 														ValidateDiagFunc: enum.Validate[types.H265FlickerAq](),
 													},
 
@@ -1763,21 +1763,21 @@ func channelEncoderSettingsSchema() *schema.Schema {
 														Optional: true,
 													},
 													"gop_size_units": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
+														Type:    schema.TypeString,
+														Optional:true,
+														Computed:true,
 														ValidateDiagFunc: enum.Validate[types.H265GopSizeUnits](),
 													},
 													"level": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
+														Type:    schema.TypeString,
+														Optional:true,
+														Computed:true,
 														ValidateDiagFunc: enum.Validate[types.H265Level](),
 													},
 													"look_ahead_rate_control": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
+														Type:    schema.TypeString,
+														Optional:true,
+														Computed:true,
 														ValidateDiagFunc: enum.Validate[types.H265LookAheadRateControl](),
 													},
 													"max_bitrate": {
@@ -1797,9 +1797,9 @@ func channelEncoderSettingsSchema() *schema.Schema {
 														Optional: true,
 													},
 													"profile": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
+														Type:    schema.TypeString,
+														Optional:true,
+														Computed:true,
 														ValidateDiagFunc: enum.Validate[types.H265Profile](),
 													},
 													"qvbr_quality_level": {
@@ -1807,32 +1807,32 @@ func channelEncoderSettingsSchema() *schema.Schema {
 														Optional: true,
 													},
 													"rate_control_mode": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
+														Type:    schema.TypeString,
+														Optional:true,
+														Computed:true,
 														ValidateDiagFunc: enum.Validate[types.H265RateControlMode](),
 													},
 													"scan_type": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
+														Type:    schema.TypeString,
+														Optional:true,
+														Computed:true,
 														ValidateDiagFunc: enum.Validate[types.H265ScanType](),
 													},
 													"scene_change_detect": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
+														Type:    schema.TypeString,
+														Optional:true,
+														Computed:true,
 														ValidateDiagFunc: enum.Validate[types.H265SceneChangeDetect](),
 													},
 													"slices": {
-														Type:         schema.TypeInt,
+														Type:schema.TypeInt,
 														Optional:     true,
 														ValidateFunc: validation.IntAtLeast(1),
 													},
 													"tier": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
+														Type:    schema.TypeString,
+														Optional:true,
+														Computed:true,
 														ValidateDiagFunc: enum.Validate[types.H265Tier](),
 													},
 													"timecode_burnin_settings": {
@@ -1842,15 +1842,15 @@ func channelEncoderSettingsSchema() *schema.Schema {
 														Elem: &schema.Resource{
 															Schema: map[string]*schema.Schema{
 																"timecode_burnin_font_size": {
-																	Type:             schema.TypeString,
-																	Optional:         true,
-																	Computed:         true,
+																	Type:    schema.TypeString,
+																	Optional:true,
+																	Computed:true,
 																	ValidateDiagFunc: enum.Validate[types.TimecodeBurninFontSize](),
 																},
 																"timecode_burnin_position": {
-																	Type:             schema.TypeString,
-																	Optional:         true,
-																	Computed:         true,
+																	Type:    schema.TypeString,
+																	Optional:true,
+																	Computed:true,
 																	ValidateDiagFunc: enum.Validate[types.TimecodeBurninPosition](),
 																},
 																"prefix": {
@@ -1862,9 +1862,9 @@ func channelEncoderSettingsSchema() *schema.Schema {
 														},
 													},
 													"timecode_insertion": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
+														Type:    schema.TypeString,
+														Optional:true,
+														Computed:true,
 														ValidateDiagFunc: enum.Validate[types.H265TimecodeInsertionBehavior](),
 													},
 												},
@@ -1880,15 +1880,15 @@ func channelEncoderSettingsSchema() *schema.Schema {
 								Computed: true,
 							},
 							"respond_to_afd": {
-								Type:             schema.TypeString,
-								Optional:         true,
-								Computed:         true,
+								Type:    schema.TypeString,
+								Optional:true,
+								Computed:true,
 								ValidateDiagFunc: enum.Validate[types.VideoDescriptionRespondToAfd](),
 							},
 							"scaling_behavior": {
-								Type:             schema.TypeString,
-								Optional:         true,
-								Computed:         true,
+								Type:    schema.TypeString,
+								Optional:true,
+								Computed:true,
 								ValidateDiagFunc: enum.Validate[types.VideoDescriptionScalingBehavior](),
 							},
 							"sharpness": {
@@ -1939,8 +1939,8 @@ func channelEncoderSettingsSchema() *schema.Schema {
 								Required: true,
 							},
 							"accessibility": {
-								Type:             schema.TypeString,
-								Optional:         true,
+								Type:    schema.TypeString,
+								Optional:true,
 								ValidateDiagFunc: enum.Validate[types.AccessibilityType](),
 							},
 
@@ -1965,13 +1965,13 @@ func channelEncoderSettingsSchema() *schema.Schema {
 											Elem: &schema.Resource{
 												Schema: map[string]*schema.Schema{
 													"alignment": {
-														Type:             schema.TypeString,
-														Optional:         true,
+														Type:    schema.TypeString,
+														Optional:true,
 														ValidateDiagFunc: enum.Validate[types.BurnInAlignment](),
 													},
 													"background_color": {
-														Type:             schema.TypeString,
-														Optional:         true,
+														Type:    schema.TypeString,
+														Optional:true,
 														ValidateDiagFunc: enum.Validate[types.BurnInBackgroundColor](),
 													},
 													"background_opacity": {
@@ -1982,18 +1982,18 @@ func channelEncoderSettingsSchema() *schema.Schema {
 														return inputLocationSchema()
 													}(),
 													"font_color": {
-														Type:             schema.TypeString,
-														Optional:         true,
+														Type:    schema.TypeString,
+														Optional:true,
 														ValidateDiagFunc: enum.Validate[types.BurnInFontColor](),
 													},
 													"font_opacity": {
-														Type:         schema.TypeInt,
+														Type:schema.TypeInt,
 														Default:      0,
 														Optional:     true,
 														ValidateFunc: validation.IntAtLeast(0),
 													},
 													"font_resolution": {
-														Type:         schema.TypeInt,
+														Type:schema.TypeInt,
 														Default:      96,
 														Optional:     true,
 														ValidateFunc: validation.IntAtLeast(1),
@@ -2003,8 +2003,8 @@ func channelEncoderSettingsSchema() *schema.Schema {
 														Optional: true,
 													},
 													"outline_color": {
-														Type:             schema.TypeString,
-														Required:         true,
+														Type:    schema.TypeString,
+														Required:true,
 														ValidateDiagFunc: enum.Validate[types.BurnInOutlineColor](),
 													},
 													"outline_size": {
@@ -2012,12 +2012,12 @@ func channelEncoderSettingsSchema() *schema.Schema {
 														Optional: true,
 													},
 													"shadow_color": {
-														Type:             schema.TypeString,
-														Optional:         true,
+														Type:    schema.TypeString,
+														Optional:true,
 														ValidateDiagFunc: enum.Validate[types.BurnInShadowColor](),
 													},
 													"shadow_opacity": {
-														Type:         schema.TypeInt,
+														Type:schema.TypeInt,
 														Default:      0,
 														Optional:     true,
 														ValidateFunc: validation.IntAtLeast(0),
@@ -2031,8 +2031,8 @@ func channelEncoderSettingsSchema() *schema.Schema {
 														Optional: true,
 													},
 													"teletext_grid_control": {
-														Type:             schema.TypeString,
-														Required:         true,
+														Type:    schema.TypeString,
+														Required:true,
 														ValidateDiagFunc: enum.Validate[types.BurnInTeletextGridControl](),
 													},
 													"x_position": {
@@ -2053,17 +2053,17 @@ func channelEncoderSettingsSchema() *schema.Schema {
 											Elem: &schema.Resource{
 												Schema: map[string]*schema.Schema{
 													"alignment": {
-														Type:             schema.TypeString,
-														Optional:         true,
+														Type:    schema.TypeString,
+														Optional:true,
 														ValidateDiagFunc: enum.Validate[types.DvbSubDestinationAlignment](),
 													},
 													"background_color": {
-														Type:             schema.TypeString,
-														Optional:         true,
+														Type:    schema.TypeString,
+														Optional:true,
 														ValidateDiagFunc: enum.Validate[types.DvbSubDestinationBackgroundColor](),
 													},
 													"background_opacity": {
-														Type:         schema.TypeInt,
+														Type:schema.TypeInt,
 														Default:      0,
 														Optional:     true,
 														ValidateFunc: validation.IntAtLeast(0),
@@ -2072,17 +2072,17 @@ func channelEncoderSettingsSchema() *schema.Schema {
 														return inputLocationSchema()
 													}(),
 													"font_color": {
-														Type:             schema.TypeString,
-														Optional:         true,
+														Type:    schema.TypeString,
+														Optional:true,
 														ValidateDiagFunc: enum.Validate[types.DvbSubDestinationFontColor](),
 													},
 													"font_opacity": {
-														Type:         schema.TypeInt,
+														Type:schema.TypeInt,
 														Optional:     true,
 														ValidateFunc: validation.IntAtLeast(0),
 													},
 													"font_resolution": {
-														Type:         schema.TypeInt,
+														Type:schema.TypeInt,
 														Default:      96,
 														Optional:     true,
 														ValidateFunc: validation.IntAtLeast(1),
@@ -2093,8 +2093,8 @@ func channelEncoderSettingsSchema() *schema.Schema {
 														Computed: true,
 													},
 													"outline_color": {
-														Type:             schema.TypeString,
-														Optional:         true,
+														Type:    schema.TypeString,
+														Optional:true,
 														ValidateDiagFunc: enum.Validate[types.DvbSubDestinationOutlineColor](),
 													},
 													"outline_size": {
@@ -2102,12 +2102,12 @@ func channelEncoderSettingsSchema() *schema.Schema {
 														Optional: true,
 													},
 													"shadow_color": {
-														Type:             schema.TypeString,
-														Optional:         true,
+														Type:    schema.TypeString,
+														Optional:true,
 														ValidateDiagFunc: enum.Validate[types.DvbSubDestinationShadowColor](),
 													},
 													"shadow_opacity": {
-														Type:         schema.TypeInt,
+														Type:schema.TypeInt,
 														Default:      0,
 														Optional:     true,
 														ValidateFunc: validation.IntAtLeast(0),
@@ -2121,8 +2121,8 @@ func channelEncoderSettingsSchema() *schema.Schema {
 														Optional: true,
 													},
 													"teletext_grid_control": {
-														Type:             schema.TypeString,
-														Optional:         true,
+														Type:    schema.TypeString,
+														Optional:true,
 														ValidateDiagFunc: enum.Validate[types.DvbSubDestinationTeletextGridControl](),
 													},
 													"x_position": {
@@ -2147,8 +2147,8 @@ func channelEncoderSettingsSchema() *schema.Schema {
 														Optional: true,
 													},
 													"fill_line_gap": {
-														Type:             schema.TypeString,
-														Optional:         true,
+														Type:    schema.TypeString,
+														Optional:true,
 														ValidateDiagFunc: enum.Validate[types.EbuTtDFillLineGapControl](),
 													},
 													"font_family": {
@@ -2156,9 +2156,9 @@ func channelEncoderSettingsSchema() *schema.Schema {
 														Optional: true,
 													},
 													"style_control": {
-														Type:             schema.TypeString,
-														Optional:         true,
-														Computed:         true,
+														Type:    schema.TypeString,
+														Optional:true,
+														Computed:true,
 														ValidateDiagFunc: enum.Validate[types.EbuTtDDestinationStyleControl](),
 													},
 												},
@@ -2227,8 +2227,8 @@ func channelEncoderSettingsSchema() *schema.Schema {
 											Elem: &schema.Resource{
 												Schema: map[string]*schema.Schema{
 													"style_control": {
-														Type:             schema.TypeString,
-														Required:         true,
+														Type:    schema.TypeString,
+														Required:true,
 														ValidateDiagFunc: enum.Validate[types.TtmlDestinationStyleControl](),
 													},
 												},
@@ -2241,8 +2241,8 @@ func channelEncoderSettingsSchema() *schema.Schema {
 											Elem: &schema.Resource{
 												Schema: map[string]*schema.Schema{
 													"style_control": {
-														Type:             schema.TypeString,
-														Required:         true,
+														Type:    schema.TypeString,
+														Required:true,
 														ValidateDiagFunc: enum.Validate[types.WebvttDestinationStyleControl](),
 													},
 												},
@@ -2274,8 +2274,8 @@ func channelEncoderSettingsSchema() *schema.Schema {
 								Optional: true,
 							},
 							"input_end_action": {
-								Type:             schema.TypeString,
-								Optional:         true,
+								Type:    schema.TypeString,
+								Optional:true,
 								ValidateDiagFunc: enum.Validate[types.GlobalConfigurationInputEndAction](),
 							},
 							"input_loss_behavior": {
@@ -2297,8 +2297,8 @@ func channelEncoderSettingsSchema() *schema.Schema {
 										}(),
 
 										"input_loss_image_type": {
-											Type:             schema.TypeString,
-											Optional:         true,
+											Type:    schema.TypeString,
+											Optional:true,
 											ValidateDiagFunc: enum.Validate[types.InputLossImageType](),
 										},
 										"repeat_frame_msec": {
@@ -2309,18 +2309,18 @@ func channelEncoderSettingsSchema() *schema.Schema {
 								},
 							},
 							"output_locking_mode": {
-								Type:             schema.TypeString,
-								Optional:         true,
+								Type:    schema.TypeString,
+								Optional:true,
 								ValidateDiagFunc: enum.Validate[types.GlobalConfigurationOutputLockingMode](),
 							},
 							"output_timing_source": {
-								Type:             schema.TypeString,
-								Optional:         true,
+								Type:    schema.TypeString,
+								Optional:true,
 								ValidateDiagFunc: enum.Validate[types.GlobalConfigurationOutputTimingSource](),
 							},
 							"support_low_framerate_inputs": {
-								Type:             schema.TypeString,
-								Optional:         true,
+								Type:    schema.TypeString,
+								Optional:true,
 								ValidateDiagFunc: enum.Validate[types.GlobalConfigurationLowFramerateInputs](),
 							},
 						},
@@ -2350,8 +2350,8 @@ func channelEncoderSettingsSchema() *schema.Schema {
 								},
 							},
 							"motion_graphics_insertion": {
-								Type:             schema.TypeString,
-								Optional:         true,
+								Type:    schema.TypeString,
+								Optional:true,
 								ValidateDiagFunc: enum.Validate[types.MotionGraphicsInsertion](),
 							},
 						},
@@ -2368,8 +2368,8 @@ func channelEncoderSettingsSchema() *schema.Schema {
 								Optional: true,
 							},
 							"nielsen_pcm_to_id3_tagging": {
-								Type:             schema.TypeString,
-								Optional:         true,
+								Type:    schema.TypeString,
+								Optional:true,
 								ValidateDiagFunc: enum.Validate[types.NielsenPcmToId3TaggingState](),
 							},
 						},
@@ -2481,9 +2481,9 @@ func outputSettingsSchema() *schema.Schema {
 					Elem: &schema.Resource{
 						Schema: map[string]*schema.Schema{
 							"h265_packaging_type": {
-								Type:             schema.TypeString,
-								Optional:         true,
-								Computed:         true,
+								Type:    schema.TypeString,
+								Optional:true,
+								Computed:true,
 								ValidateDiagFunc: enum.Validate[types.MsSmoothH265PackagingType](),
 							},
 							"name_modifier": {
@@ -2512,9 +2512,9 @@ func outputSettingsSchema() *schema.Schema {
 						Schema: map[string]*schema.Schema{
 							"destination": destinationSchema(),
 							"certificate_mode": {
-								Type:             schema.TypeString,
-								Optional:         true,
-								Computed:         true,
+								Type:    schema.TypeString,
+								Optional:true,
+								Computed:true,
 								ValidateDiagFunc: enum.Validate[types.RtmpOutputCertificateMode](),
 							},
 							"connection_retry_interval": {
@@ -2565,9 +2565,9 @@ func outputSettingsSchema() *schema.Schema {
 											Computed: true,
 										},
 										"include_fec": {
-											Type:             schema.TypeString,
-											Optional:         true,
-											Computed:         true,
+											Type:    schema.TypeString,
+											Optional:true,
+											Computed:true,
 											ValidateDiagFunc: enum.Validate[types.FecOutputIncludeFec](),
 										},
 										"row_length": {
@@ -2608,15 +2608,15 @@ func hlsSettingsSchema() *schema.Schema {
 								return inputLocationSchema()
 							}(),
 							"audio_track_type": {
-								Type:             schema.TypeString,
-								Optional:         true,
-								Computed:         true,
+								Type:    schema.TypeString,
+								Optional:true,
+								Computed:true,
 								ValidateDiagFunc: enum.Validate[types.AudioOnlyHlsTrackType](),
 							},
 							"segment_type": {
-								Type:             schema.TypeString,
-								Optional:         true,
-								Computed:         true,
+								Type:    schema.TypeString,
+								Optional:true,
+								Computed:true,
 								ValidateDiagFunc: enum.Validate[types.AudioOnlyHlsSegmentType](),
 							},
 						},
@@ -2634,15 +2634,15 @@ func hlsSettingsSchema() *schema.Schema {
 								Computed: true,
 							},
 							"nielsen_id3_behavior": {
-								Type:             schema.TypeString,
-								Optional:         true,
-								Computed:         true,
+								Type:    schema.TypeString,
+								Optional:true,
+								Computed:true,
 								ValidateDiagFunc: enum.Validate[types.Fmp4NielsenId3Behavior](),
 							},
 							"timed_metadata_behavior": {
-								Type:             schema.TypeString,
-								Optional:         true,
-								Computed:         true,
+								Type:    schema.TypeString,
+								Optional:true,
+								Computed:true,
 								ValidateDiagFunc: enum.Validate[types.Fmp4TimedMetadataBehavior](),
 							},
 						},
@@ -2685,9 +2685,9 @@ func hlsSettingsSchema() *schema.Schema {
 											Computed: true,
 										},
 										"nielsen_id3_behavior": {
-											Type:             schema.TypeString,
-											Optional:         true,
-											Computed:         true,
+											Type:    schema.TypeString,
+											Optional:true,
+											Computed:true,
 											ValidateDiagFunc: enum.Validate[types.M3u8NielsenId3Behavior](),
 										},
 										"pat_interval": {
@@ -2696,9 +2696,9 @@ func hlsSettingsSchema() *schema.Schema {
 											Computed: true,
 										},
 										"pcr_control": {
-											Type:             schema.TypeString,
-											Optional:         true,
-											Computed:         true,
+											Type:    schema.TypeString,
+											Optional:true,
+											Computed:true,
 											ValidateDiagFunc: enum.Validate[types.M3u8PcrControl](),
 										},
 										"pcr_period": {
@@ -2727,9 +2727,9 @@ func hlsSettingsSchema() *schema.Schema {
 											Computed: true,
 										},
 										"scte35_behavior": {
-											Type:             schema.TypeString,
-											Optional:         true,
-											Computed:         true,
+											Type:    schema.TypeString,
+											Optional:true,
+											Computed:true,
 											ValidateDiagFunc: enum.Validate[types.M3u8Scte35Behavior](),
 										},
 										"scte35_pid": {
@@ -2738,9 +2738,9 @@ func hlsSettingsSchema() *schema.Schema {
 											Computed: true,
 										},
 										"timed_metadata_behavior": {
-											Type:             schema.TypeString,
-											Optional:         true,
-											Computed:         true,
+											Type:    schema.TypeString,
+											Optional:true,
+											Computed:true,
 											ValidateDiagFunc: enum.Validate[types.M3u8TimedMetadataBehavior](),
 										},
 										"timed_metadata_pid": {
@@ -2782,14 +2782,14 @@ func m2tsSettingsSchema() *schema.Schema {
 		Elem: &schema.Resource{
 			Schema: map[string]*schema.Schema{
 				"absent_input_audio_behavior": {
-					Type:             schema.TypeString,
-					Optional:         true,
-					Computed:         true,
+					Type:    schema.TypeString,
+					Optional:true,
+					Computed:true,
 					ValidateDiagFunc: enum.Validate[types.M2tsAbsentInputAudioBehavior](),
 				},
 				"arib": {
-					Type:             schema.TypeString,
-					Optional:         true,
+					Type:    schema.TypeString,
+					Optional:true,
 					ValidateDiagFunc: enum.Validate[types.M2tsArib](),
 				},
 				"arib_captions_pid": {
@@ -2798,13 +2798,13 @@ func m2tsSettingsSchema() *schema.Schema {
 					Computed: true,
 				},
 				"arib_captions_pid_control": {
-					Type:             schema.TypeString,
-					Optional:         true,
+					Type:    schema.TypeString,
+					Optional:true,
 					ValidateDiagFunc: enum.Validate[types.M2tsAribCaptionsPidControl](),
 				},
 				"audio_buffer_model": {
-					Type:             schema.TypeString,
-					Optional:         true,
+					Type:    schema.TypeString,
+					Optional:true,
 					ValidateDiagFunc: enum.Validate[types.M2tsAudioBufferModel](),
 				},
 				"audio_frames_per_pes": {
@@ -2817,8 +2817,8 @@ func m2tsSettingsSchema() *schema.Schema {
 					Computed: true,
 				},
 				"audio_stream_type": {
-					Type:             schema.TypeString,
-					Optional:         true,
+					Type:    schema.TypeString,
+					Optional:true,
 					ValidateDiagFunc: enum.Validate[types.M2tsAudioStreamType](),
 				},
 				"bitrate": {
@@ -2826,13 +2826,13 @@ func m2tsSettingsSchema() *schema.Schema {
 					Optional: true,
 				},
 				"buffer_model": {
-					Type:             schema.TypeString,
-					Optional:         true,
+					Type:    schema.TypeString,
+					Optional:true,
 					ValidateDiagFunc: enum.Validate[types.M2tsBufferModel](),
 				},
 				"cc_descriptor": {
-					Type:             schema.TypeString,
-					Optional:         true,
+					Type:    schema.TypeString,
+					Optional:true,
 					ValidateDiagFunc: enum.Validate[types.M2tsCcDescriptor](),
 				},
 				"dvb_nit_settings": {
@@ -2863,8 +2863,8 @@ func m2tsSettingsSchema() *schema.Schema {
 					Elem: &schema.Resource{
 						Schema: map[string]*schema.Schema{
 							"output_sdt": {
-								Type:             schema.TypeString,
-								Optional:         true,
+								Type:    schema.TypeString,
+								Optional:true,
 								ValidateDiagFunc: enum.Validate[types.DvbSdtOutputSdt](),
 							},
 							"rep_interval": {
@@ -2872,12 +2872,12 @@ func m2tsSettingsSchema() *schema.Schema {
 								Optional: true,
 							},
 							"service_name": {
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								Optional:     true,
 								ValidateFunc: validation.StringLenBetween(1, 256),
 							},
 							"service_provider_name": {
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								Optional:     true,
 								ValidateFunc: validation.StringLenBetween(1, 256),
 							},
@@ -2908,13 +2908,13 @@ func m2tsSettingsSchema() *schema.Schema {
 					Computed: true,
 				},
 				"ebif": {
-					Type:             schema.TypeString,
-					Optional:         true,
+					Type:    schema.TypeString,
+					Optional:true,
 					ValidateDiagFunc: enum.Validate[types.M2tsEbifControl](),
 				},
 				"ebp_audio_interval": {
-					Type:             schema.TypeString,
-					Optional:         true,
+					Type:    schema.TypeString,
+					Optional:true,
 					ValidateDiagFunc: enum.Validate[types.M2tsAudioInterval](),
 				},
 				"ebp_lookahead_ms": {
@@ -2922,8 +2922,8 @@ func m2tsSettingsSchema() *schema.Schema {
 					Optional: true,
 				},
 				"ebp_placement": {
-					Type:             schema.TypeString,
-					Optional:         true,
+					Type:    schema.TypeString,
+					Optional:true,
 					ValidateDiagFunc: enum.Validate[types.M2tsEbpPlacement](),
 				},
 				"ecm_pid": {
@@ -2931,8 +2931,8 @@ func m2tsSettingsSchema() *schema.Schema {
 					Optional: true,
 				},
 				"es_rate_in_pes": {
-					Type:             schema.TypeString,
-					Optional:         true,
+					Type:    schema.TypeString,
+					Optional:true,
 					ValidateDiagFunc: enum.Validate[types.M2tsEsRateInPes](),
 				},
 				"etv_platform_pid": {
@@ -2950,8 +2950,8 @@ func m2tsSettingsSchema() *schema.Schema {
 					Optional: true,
 				},
 				"klv": {
-					Type:             schema.TypeString,
-					Optional:         true,
+					Type:    schema.TypeString,
+					Optional:true,
 					ValidateDiagFunc: enum.Validate[types.M2tsKlv](),
 				},
 				"klv_data_pids": {
@@ -2960,8 +2960,8 @@ func m2tsSettingsSchema() *schema.Schema {
 					Computed: true,
 				},
 				"nielsen_id3_behavior": {
-					Type:             schema.TypeString,
-					Optional:         true,
+					Type:    schema.TypeString,
+					Optional:true,
 					ValidateDiagFunc: enum.Validate[types.M2tsNielsenId3Behavior](),
 				},
 				"null_packet_bitrate": {
@@ -2973,8 +2973,8 @@ func m2tsSettingsSchema() *schema.Schema {
 					Optional: true,
 				},
 				"pcr_control": {
-					Type:             schema.TypeString,
-					Optional:         true,
+					Type:    schema.TypeString,
+					Optional:true,
 					ValidateDiagFunc: enum.Validate[types.M2tsPcrControl](),
 				},
 				"pcr_period": {
@@ -2999,8 +2999,8 @@ func m2tsSettingsSchema() *schema.Schema {
 					Optional: true,
 				},
 				"rate_mode": {
-					Type:             schema.TypeString,
-					Optional:         true,
+					Type:    schema.TypeString,
+					Optional:true,
 					ValidateDiagFunc: enum.Validate[types.M2tsRateMode](),
 				},
 				"scte27_pids": {
@@ -3009,8 +3009,8 @@ func m2tsSettingsSchema() *schema.Schema {
 					Computed: true,
 				},
 				"scte35_control": {
-					Type:             schema.TypeString,
-					Optional:         true,
+					Type:    schema.TypeString,
+					Optional:true,
 					ValidateDiagFunc: enum.Validate[types.M2tsScte35Control](),
 				},
 				"scte35_pid": {
@@ -3019,13 +3019,13 @@ func m2tsSettingsSchema() *schema.Schema {
 					Computed: true,
 				},
 				"segmentation_markers": {
-					Type:             schema.TypeString,
-					Optional:         true,
+					Type:    schema.TypeString,
+					Optional:true,
 					ValidateDiagFunc: enum.Validate[types.M2tsSegmentationMarkers](),
 				},
 				"segmentation_style": {
-					Type:             schema.TypeString,
-					Optional:         true,
+					Type:    schema.TypeString,
+					Optional:true,
 					ValidateDiagFunc: enum.Validate[types.M2tsSegmentationStyle](),
 				},
 				"segmentation_time": {
@@ -3033,8 +3033,8 @@ func m2tsSettingsSchema() *schema.Schema {
 					Optional: true,
 				},
 				"timed_metadata_behavior": {
-					Type:             schema.TypeString,
-					Optional:         true,
+					Type:    schema.TypeString,
+					Optional:true,
 					ValidateDiagFunc: enum.Validate[types.M2tsTimedMetadataBehavior](),
 				},
 				"timed_metadata_pid": {
@@ -5793,9 +5793,9 @@ func flattenChannelEncoderSettings(apiObject *types.EncoderSettings) []interface
 		// TODO blackout_slate
 		"caption_descriptions": flattenCaptionDescriptions(apiObject.CaptionDescriptions),
 		// TODO feature_activations
-		"global_configuration":          flattenGlobalConfiguration(apiObject.GlobalConfiguration),
+		"global_configuration": flattenGlobalConfiguration(apiObject.GlobalConfiguration),
 		"motion_graphics_configuration": flattenMotionGraphicsConfiguration(apiObject.MotionGraphicsConfiguration),
-		"nielsen_configuration":         flattenNielsenConfiguration(apiObject.NielsenConfiguration),
+		"nielsen_configuration":flattenNielsenConfiguration(apiObject.NielsenConfiguration),
 	}
 
 	return []interface{}{m}
@@ -5810,17 +5810,17 @@ func flattenAudioDescriptions(od []types.AudioDescription) []interface{} {
 
 	for _, v := range od {
 		m := map[string]interface{}{
-			"audio_selector_name":          aws.ToString(v.AudioSelectorName),
-			"name":                         aws.ToString(v.Name),
+			"audio_selector_name": aws.ToString(v.AudioSelectorName),
+			"name":       aws.ToString(v.Name),
 			"audio_normalization_settings": flattenAudioNormalization(v.AudioNormalizationSettings),
-			"audio_type":                   v.AudioType,
-			"audio_type_control":           v.AudioTypeControl,
+			"audio_type": v.AudioType,
+			"audio_type_control":  v.AudioTypeControl,
 			"audio_watermark_settings":     flattenAudioWatermarkSettings(v.AudioWatermarkingSettings),
-			"codec_settings":               flattenAudioDescriptionsCodecSettings(v.CodecSettings),
-			"language_code":                aws.ToString(v.LanguageCode),
+			"codec_settings":      flattenAudioDescriptionsCodecSettings(v.CodecSettings),
+			"language_code":       aws.ToString(v.LanguageCode),
 			"language_code_control":        string(v.LanguageCodeControl),
-			"remix_settings":               flattenAudioDescriptionsRemixSettings(v.RemixSettings),
-			"stream_name":                  aws.ToString(v.StreamName),
+			"remix_settings":      flattenAudioDescriptionsRemixSettings(v.RemixSettings),
+			"stream_name":aws.ToString(v.StreamName),
 		}
 
 		ml = append(ml, m)
@@ -5839,8 +5839,8 @@ func flattenOutputGroups(op []types.OutputGroup) []interface{} {
 	for _, v := range op {
 		m := map[string]interface{}{
 			"output_group_settings": flattenOutputGroupSettings(v.OutputGroupSettings),
-			"outputs":               flattenOutputs(v.Outputs),
-			"name":                  aws.ToString(v.Name),
+			"outputs":      flattenOutputs(v.Outputs),
+			"name":aws.ToString(v.Name),
 		}
 
 		ol = append(ol, m)
@@ -5857,7 +5857,7 @@ func flattenOutputGroupSettings(os *types.OutputGroupSettings) []interface{} {
 	m := map[string]interface{}{
 		"archive_group_settings":       flattenOutputGroupSettingsArchiveGroupSettings(os.ArchiveGroupSettings),
 		"frame_capture_group_settings": flattenOutputGroupSettingsFrameCaptureGroupSettings(os.FrameCaptureGroupSettings),
-		"hls_group_settings":           flattenOutputGroupSettingsHLSGroupSettings(os.HlsGroupSettings),
+		"hls_group_settings":  flattenOutputGroupSettingsHLSGroupSettings(os.HlsGroupSettings),
 		"ms_smooth_group_settings":     flattenOutputGroupSettingsMsSmoothGroupSettings(os.MsSmoothGroupSettings),
 		"media_package_group_settings": flattenOutputGroupSettingsMediaPackageGroupSettings(os.MediaPackageGroupSettings),
 		"multiplex_group_settings": func(inner *types.MultiplexGroupSettings) []interface{} {
@@ -5884,8 +5884,8 @@ func flattenOutputs(os []types.Output) []interface{} {
 		m := map[string]interface{}{
 			"audio_description_names":   flex.FlattenStringValueSet(item.AudioDescriptionNames),
 			"caption_description_names": flex.FlattenStringValueSet(item.CaptionDescriptionNames),
-			"output_name":               aws.ToString(item.OutputName),
-			"output_settings":           flattenOutputsOutputSettings(item.OutputSettings),
+			"output_name":      aws.ToString(item.OutputName),
+			"output_settings":  flattenOutputsOutputSettings(item.OutputSettings),
 			"video_description_name":    aws.ToString(item.VideoDescriptionName),
 		}
 
@@ -5903,7 +5903,7 @@ func flattenOutputsOutputSettings(in *types.OutputSettings) []interface{} {
 	m := map[string]interface{}{
 		"archive_output_settings":       flattenOutputsOutputSettingsArchiveOutputSettings(in.ArchiveOutputSettings),
 		"frame_capture_output_settings": flattenOutputsOutputSettingsFrameCaptureOutputSettings(in.FrameCaptureOutputSettings),
-		"hls_output_settings":           flattenOutputsOutputSettingsHLSOutputSettings(in.HlsOutputSettings),
+		"hls_output_settings":  flattenOutputsOutputSettingsHLSOutputSettings(in.HlsOutputSettings),
 		"media_package_output_settings": func(inner *types.MediaPackageOutputSettings) []interface{} {
 			if inner == nil {
 				return nil
@@ -5935,7 +5935,7 @@ func flattenOutputsOutputSettingsArchiveOutputSettings(in *types.ArchiveOutputSe
 
 	m := map[string]interface{}{
 		"container_settings": flattenOutputsOutputSettingsArchiveOutputSettingsContainerSettings(in.ContainerSettings),
-		"extension":          aws.ToString(in.Extension),
+		"extension": aws.ToString(in.Extension),
 		"name_modifier":      aws.ToString(in.NameModifier),
 	}
 
@@ -6051,22 +6051,22 @@ func flattenStandardHLSSettingsM3u8Settings(in *types.M3u8Settings) []interface{
 
 	m := map[string]interface{}{
 		"audio_frames_per_pes":    int(in.AudioFramesPerPes),
-		"audio_pids":              aws.ToString(in.AudioPids),
-		"ecm_pid":                 aws.ToString(in.EcmPid),
+		"audio_pids":     aws.ToString(in.AudioPids),
+		"ecm_pid":        aws.ToString(in.EcmPid),
 		"nielsen_id3_behavior":    string(in.NielsenId3Behavior),
-		"pat_interval":            int(in.PatInterval),
-		"pcr_control":             string(in.PcrControl),
-		"pcr_period":              int(in.PcrPeriod),
-		"pcr_pid":                 aws.ToString(in.PcrPid),
-		"pmt_interval":            int(in.PmtInterval),
-		"pmt_pid":                 aws.ToString(in.PmtPid),
-		"program_num":             int(in.ProgramNum),
-		"scte35_behavior":         string(in.Scte35Behavior),
-		"scte35_pid":              aws.ToString(in.Scte35Pid),
+		"pat_interval":   int(in.PatInterval),
+		"pcr_control":    string(in.PcrControl),
+		"pcr_period":     int(in.PcrPeriod),
+		"pcr_pid":        aws.ToString(in.PcrPid),
+		"pmt_interval":   int(in.PmtInterval),
+		"pmt_pid":        aws.ToString(in.PmtPid),
+		"program_num":    int(in.ProgramNum),
+		"scte35_behavior":string(in.Scte35Behavior),
+		"scte35_pid":     aws.ToString(in.Scte35Pid),
 		"timed_metadata_behavior": string(in.TimedMetadataBehavior),
 		"timed_metadata_pid":      aws.ToString(in.TimedMetadataPid),
 		"transport_stream_id":     int(in.TransportStreamId),
-		"video_pid":               aws.ToString(in.VideoPid),
+		"video_pid":      aws.ToString(in.VideoPid),
 	}
 
 	return []interface{}{m}
@@ -6078,10 +6078,10 @@ func flattenOutputsOutputSettingsRtmpOutputSettings(in *types.RtmpOutputSettings
 	}
 
 	m := map[string]interface{}{
-		"destination":               flattenDestination(in.Destination),
-		"certificate_mode":          string(in.CertificateMode),
+		"destination":      flattenDestination(in.Destination),
+		"certificate_mode": string(in.CertificateMode),
 		"connection_retry_interval": int(in.ConnectionRetryInterval),
-		"num_retries":               int(in.NumRetries),
+		"num_retries":      int(in.NumRetries),
 	}
 
 	return []interface{}{m}
@@ -6094,8 +6094,8 @@ func flattenOutputsOutputSettingsUdpOutputSettings(in *types.UdpOutputSettings) 
 
 	m := map[string]interface{}{
 		"container_settings":  flattenOutputsOutputSettingsUdpOutputSettingsContainerSettings(in.ContainerSettings),
-		"destination":         flattenDestination(in.Destination),
-		"buffer_msec":         int(in.BufferMsec),
+		"destination":flattenDestination(in.Destination),
+		"buffer_msec":int(in.BufferMsec),
 		"fec_output_settings": flattenFecOutputSettings(in.FecOutputSettings),
 	}
 
@@ -6148,52 +6148,52 @@ func flattenM2tsSettings(in *types.M2tsSettings) []interface{} {
 
 	m := map[string]interface{}{
 		"absent_input_audio_behavior": string(in.AbsentInputAudioBehavior),
-		"arib":                        string(in.Arib),
-		"arib_captions_pid":           aws.ToString(in.AribCaptionsPid),
+		"arib":      string(in.Arib),
+		"arib_captions_pid":  aws.ToString(in.AribCaptionsPid),
 		"arib_captions_pid_control":   string(in.AribCaptionsPidControl),
-		"audio_buffer_model":          string(in.AudioBufferModel),
+		"audio_buffer_model": string(in.AudioBufferModel),
 		"audio_frames_per_pes":        int(in.AudioFramesPerPes),
-		"audio_pids":                  aws.ToString(in.AudioPids),
-		"audio_stream_type":           string(in.AudioStreamType),
-		"bitrate":                     int(in.Bitrate),
-		"buffer_model":                string(in.BufferModel),
-		"cc_descriptor":               string(in.CcDescriptor),
-		"dvb_nit_settings":            flattenDvbNitSettings(in.DvbNitSettings),
-		"dvb_sdt_settings":            flattenDvbSdtSettings(in.DvbSdtSettings),
-		"dvb_sub_pids":                aws.ToString(in.DvbSubPids),
-		"dvb_tdt_settings":            flattenDvbTdtSettings(in.DvbTdtSettings),
-		"dvb_teletext_pid":            aws.ToString(in.DvbTeletextPid),
-		"ebif":                        string(in.Ebif),
-		"ebp_audio_interval":          string(in.EbpAudioInterval),
-		"ebp_lookahead_ms":            int(in.EbpLookaheadMs),
-		"ebp_placement":               string(in.EbpPlacement),
-		"ecm_pid":                     aws.ToString(in.EcmPid),
-		"es_rate_in_pes":              string(in.EsRateInPes),
-		"etv_platform_pid":            aws.ToString(in.EtvPlatformPid),
-		"etv_signal_pid":              aws.ToString(in.EtvSignalPid),
-		"fragment_time":               in.FragmentTime,
-		"klv":                         string(in.Klv),
-		"klv_data_pids":               aws.ToString(in.KlvDataPids),
+		"audio_pids":aws.ToString(in.AudioPids),
+		"audio_stream_type":  string(in.AudioStreamType),
+		"bitrate":   int(in.Bitrate),
+		"buffer_model":       string(in.BufferModel),
+		"cc_descriptor":      string(in.CcDescriptor),
+		"dvb_nit_settings":   flattenDvbNitSettings(in.DvbNitSettings),
+		"dvb_sdt_settings":   flattenDvbSdtSettings(in.DvbSdtSettings),
+		"dvb_sub_pids":       aws.ToString(in.DvbSubPids),
+		"dvb_tdt_settings":   flattenDvbTdtSettings(in.DvbTdtSettings),
+		"dvb_teletext_pid":   aws.ToString(in.DvbTeletextPid),
+		"ebif":      string(in.Ebif),
+		"ebp_audio_interval": string(in.EbpAudioInterval),
+		"ebp_lookahead_ms":   int(in.EbpLookaheadMs),
+		"ebp_placement":      string(in.EbpPlacement),
+		"ecm_pid":   aws.ToString(in.EcmPid),
+		"es_rate_in_pes":     string(in.EsRateInPes),
+		"etv_platform_pid":   aws.ToString(in.EtvPlatformPid),
+		"etv_signal_pid":     aws.ToString(in.EtvSignalPid),
+		"fragment_time":      in.FragmentTime,
+		"klv":       string(in.Klv),
+		"klv_data_pids":      aws.ToString(in.KlvDataPids),
 		"nielsen_id3_behavior":        string(in.NielsenId3Behavior),
-		"null_packet_bitrate":         float32(in.NullPacketBitrate),
-		"pat_interval":                int(in.PatInterval),
-		"pcr_control":                 string(in.PcrControl),
-		"pcr_period":                  int(in.PcrPeriod),
-		"pcr_pid":                     aws.ToString(in.PcrPid),
-		"pmt_interval":                int(in.PmtInterval),
-		"pmt_pid":                     aws.ToString(in.PmtPid),
-		"program_num":                 int(in.ProgramNum),
-		"rate_mode":                   string(in.RateMode),
-		"scte27_pids":                 aws.ToString(in.Scte27Pids),
-		"scte35_control":              string(in.Scte35Control),
-		"scte35_pid":                  aws.ToString(in.Scte35Pid),
+		"null_packet_bitrate":float32(in.NullPacketBitrate),
+		"pat_interval":       int(in.PatInterval),
+		"pcr_control":        string(in.PcrControl),
+		"pcr_period":int(in.PcrPeriod),
+		"pcr_pid":   aws.ToString(in.PcrPid),
+		"pmt_interval":       int(in.PmtInterval),
+		"pmt_pid":   aws.ToString(in.PmtPid),
+		"program_num":        int(in.ProgramNum),
+		"rate_mode": string(in.RateMode),
+		"scte27_pids":        aws.ToString(in.Scte27Pids),
+		"scte35_control":     string(in.Scte35Control),
+		"scte35_pid":aws.ToString(in.Scte35Pid),
 		"segmentation_markers":        string(in.SegmentationMarkers),
-		"segmentation_style":          string(in.SegmentationStyle),
-		"segmentation_time":           in.SegmentationTime,
+		"segmentation_style": string(in.SegmentationStyle),
+		"segmentation_time":  in.SegmentationTime,
 		"timed_metadata_behavior":     string(in.TimedMetadataBehavior),
-		"timed_metadata_pid":          aws.ToString(in.TimedMetadataPid),
-		"transport_stream_id":         int(in.TransportStreamId),
-		"video_pid":                   aws.ToString(in.VideoPid),
+		"timed_metadata_pid": aws.ToString(in.TimedMetadataPid),
+		"transport_stream_id":int(in.TransportStreamId),
+		"video_pid": aws.ToString(in.VideoPid),
 	}
 
 	return []interface{}{m}
@@ -6219,9 +6219,9 @@ func flattenDvbSdtSettings(in *types.DvbSdtSettings) []interface{} {
 	}
 
 	m := map[string]interface{}{
-		"output_sdt":            string(in.OutputSdt),
-		"rep_interval":          int(in.RepInterval),
-		"service_name":          aws.ToString(in.ServiceName),
+		"output_sdt":   string(in.OutputSdt),
+		"rep_interval": int(in.RepInterval),
+		"service_name": aws.ToString(in.ServiceName),
 		"service_provider_name": aws.ToString(in.ServiceProviderName),
 	}
 
@@ -6246,7 +6246,7 @@ func flattenOutputGroupSettingsArchiveGroupSettings(as *types.ArchiveGroupSettin
 	}
 
 	m := map[string]interface{}{
-		"destination":          flattenDestination(as.Destination),
+		"destination": flattenDestination(as.Destination),
 		"archive_cdn_settings": flattenOutputGroupSettingsArchiveCDNSettings(as.ArchiveCdnSettings),
 		"rollover_interval":    int(as.RolloverInterval),
 	}
@@ -6260,7 +6260,7 @@ func flattenOutputGroupSettingsFrameCaptureGroupSettings(in *types.FrameCaptureG
 	}
 
 	m := map[string]interface{}{
-		"destination":                flattenDestination(in.Destination),
+		"destination":       flattenDestination(in.Destination),
 		"frame_capture_cdn_settings": flattenFrameCaptureCDNSettings(in.FrameCaptureCdnSettings),
 	}
 
@@ -6273,48 +6273,48 @@ func flattenOutputGroupSettingsHLSGroupSettings(in *types.HlsGroupSettings) []in
 	}
 
 	m := map[string]interface{}{
-		"destination":                  flattenDestination(in.Destination),
-		"ad_markers":                   flattenHLSAdMarkers(in.AdMarkers),
-		"base_url_content":             aws.ToString(in.BaseUrlContent),
-		"base_url_content1":            aws.ToString(in.BaseUrlContent1),
-		"base_url_manifest":            aws.ToString(in.BaseUrlManifest),
-		"base_url_manifest1":           aws.ToString(in.BaseUrlManifest1),
+		"destination":flattenDestination(in.Destination),
+		"ad_markers": flattenHLSAdMarkers(in.AdMarkers),
+		"base_url_content":    aws.ToString(in.BaseUrlContent),
+		"base_url_content1":   aws.ToString(in.BaseUrlContent1),
+		"base_url_manifest":   aws.ToString(in.BaseUrlManifest),
+		"base_url_manifest1":  aws.ToString(in.BaseUrlManifest1),
 		"caption_language_mappings":    flattenHLSCaptionLanguageMappings(in.CaptionLanguageMappings),
 		"caption_language_setting":     string(in.CaptionLanguageSetting),
-		"client_cache":                 string(in.ClientCache),
-		"codec_specification":          string(in.CodecSpecification),
-		"constant_iv":                  aws.ToString(in.ConstantIv),
-		"directory_structure":          string(in.DirectoryStructure),
-		"discontinuity_tags":           string(in.DiscontinuityTags),
-		"encryption_type":              string(in.EncryptionType),
-		"hls_cdn_settings":             flattenHLSCDNSettings(in.HlsCdnSettings),
+		"client_cache":        string(in.ClientCache),
+		"codec_specification": string(in.CodecSpecification),
+		"constant_iv":aws.ToString(in.ConstantIv),
+		"directory_structure": string(in.DirectoryStructure),
+		"discontinuity_tags":  string(in.DiscontinuityTags),
+		"encryption_type":     string(in.EncryptionType),
+		"hls_cdn_settings":    flattenHLSCDNSettings(in.HlsCdnSettings),
 		"hls_id3_segment_tagging":      string(in.HlsId3SegmentTagging),
 		"iframe_only_playlists":        string(in.IFrameOnlyPlaylists),
 		"incomplete_segment_behavior":  string(in.IncompleteSegmentBehavior),
-		"index_n_segments":             int(in.IndexNSegments),
-		"input_loss_action":            string(in.InputLossAction),
-		"iv_in_manifest":               string(in.IvInManifest),
-		"iv_source":                    string(in.IvSource),
-		"keep_segments":                int(in.KeepSegments),
-		"key_format":                   aws.ToString(in.KeyFormat),
-		"key_format_versions":          aws.ToString(in.KeyFormatVersions),
+		"index_n_segments":    int(in.IndexNSegments),
+		"input_loss_action":   string(in.InputLossAction),
+		"iv_in_manifest":      string(in.IvInManifest),
+		"iv_source":  string(in.IvSource),
+		"keep_segments":       int(in.KeepSegments),
+		"key_format": aws.ToString(in.KeyFormat),
+		"key_format_versions": aws.ToString(in.KeyFormatVersions),
 		"key_provider_settings":        flattenHLSKeyProviderSettings(in.KeyProviderSettings),
-		"manifest_compression":         string(in.ManifestCompression),
+		"manifest_compression":string(in.ManifestCompression),
 		"manifest_duration_format":     string(in.ManifestDurationFormat),
-		"min_segment_length":           int(in.MinSegmentLength),
-		"mode":                         string(in.Mode),
-		"output_selection":             string(in.OutputSelection),
-		"program_date_time":            string(in.ProgramDateTime),
+		"min_segment_length":  int(in.MinSegmentLength),
+		"mode":       string(in.Mode),
+		"output_selection":    string(in.OutputSelection),
+		"program_date_time":   string(in.ProgramDateTime),
 		"program_date_time_clock":      string(in.ProgramDateTimeClock),
 		"program_date_time_period":     int(in.ProgramDateTimePeriod),
-		"redundant_manifest":           string(in.RedundantManifest),
-		"segment_length":               int(in.SegmentLength),
+		"redundant_manifest":  string(in.RedundantManifest),
+		"segment_length":      int(in.SegmentLength),
 		"segments_per_subdirectory":    int(in.SegmentsPerSubdirectory),
 		"stream_inf_resolution":        string(in.StreamInfResolution),
 		"timed_metadata_id3_frame":     string(in.TimedMetadataId3Frame),
 		"timed_metadata_id3_period":    int(in.TimedMetadataId3Period),
 		"timestamp_delta_milliseconds": int(in.TimestampDeltaMilliseconds),
-		"ts_file_mode":                 string(in.TsFileMode),
+		"ts_file_mode":        string(in.TsFileMode),
 	}
 
 	return []interface{}{m}
@@ -6326,24 +6326,24 @@ func flattenOutputGroupSettingsMsSmoothGroupSettings(in *types.MsSmoothGroupSett
 	}
 
 	m := map[string]interface{}{
-		"destination":                 flattenDestination(in.Destination),
+		"destination":        flattenDestination(in.Destination),
 		"acquisition_point_id":        aws.ToString(in.AcquisitionPointId),
 		"audio_only_timecode_control": string(in.AudioOnlyTimecodeControl),
-		"certificate_mode":            string(in.CertificateMode),
+		"certificate_mode":   string(in.CertificateMode),
 		"connection_retry_interval":   int(in.ConnectionRetryInterval),
-		"event_id":                    aws.ToString(in.EventId),
-		"event_id_mode":               string(in.EventIdMode),
-		"event_stop_behavior":         string(in.EventStopBehavior),
-		"filecache_duration":          int(in.FilecacheDuration),
-		"fragment_length":             int(in.FragmentLength),
-		"input_loss_action":           string(in.InputLossAction),
-		"num_retries":                 int(in.NumRetries),
-		"restart_delay":               int(in.RestartDelay),
-		"segmentation_mode":           string(in.SegmentationMode),
-		"send_delay_ms":               int(in.SendDelayMs),
-		"sparse_track_type":           string(in.SparseTrackType),
+		"event_id":  aws.ToString(in.EventId),
+		"event_id_mode":      string(in.EventIdMode),
+		"event_stop_behavior":string(in.EventStopBehavior),
+		"filecache_duration": int(in.FilecacheDuration),
+		"fragment_length":    int(in.FragmentLength),
+		"input_loss_action":  string(in.InputLossAction),
+		"num_retries":        int(in.NumRetries),
+		"restart_delay":      int(in.RestartDelay),
+		"segmentation_mode":  string(in.SegmentationMode),
+		"send_delay_ms":      int(in.SendDelayMs),
+		"sparse_track_type":  string(in.SparseTrackType),
 		"stream_manifest_behavior":    string(in.StreamManifestBehavior),
-		"timestamp_offset":            aws.ToString(in.TimestampOffset),
+		"timestamp_offset":   aws.ToString(in.TimestampOffset),
 		"timestamp_offset_mode":       string(in.TimestampOffsetMode),
 	}
 
@@ -6391,7 +6391,7 @@ func flattenHLSCDNSettings(in *types.HlsCdnSettings) []interface{} {
 		"hls_akamai_settings":      flattenHLSAkamaiSettings(in.HlsAkamaiSettings),
 		"hls_basic_put_settings":   flattenHLSBasicPutSettings(in.HlsBasicPutSettings),
 		"hls_media_store_settings": flattenHLSMediaStoreSettings(in.HlsMediaStoreSettings),
-		"hls_s3_settings":          flattenHLSS3Settings(in.HlsS3Settings),
+		"hls_s3_settings": flattenHLSS3Settings(in.HlsS3Settings),
 		"hls_webdav_settings":      flattenHLSWebdavSettings(in.HlsWebdavSettings),
 	}
 
@@ -6407,10 +6407,10 @@ func flattenHLSAkamaiSettings(in *types.HlsAkamaiSettings) []interface{} {
 		"connection_retry_interval": int(in.ConnectionRetryInterval),
 		"filecache_duration":        int(in.FilecacheDuration),
 		"http_transfer_mode":        string(in.HttpTransferMode),
-		"num_retries":               int(in.NumRetries),
-		"restart_delay":             int(in.RestartDelay),
-		"salt":                      aws.ToString(in.Salt),
-		"token":                     aws.ToString(in.Token),
+		"num_retries":      int(in.NumRetries),
+		"restart_delay":    int(in.RestartDelay),
+		"salt":    aws.ToString(in.Salt),
+		"token":   aws.ToString(in.Token),
 	}
 
 	return []interface{}{m}
@@ -6424,8 +6424,8 @@ func flattenHLSBasicPutSettings(in *types.HlsBasicPutSettings) []interface{} {
 	m := map[string]interface{}{
 		"connection_retry_interval": int(in.ConnectionRetryInterval),
 		"filecache_duration":        int(in.FilecacheDuration),
-		"num_retries":               int(in.NumRetries),
-		"restart_delay":             int(in.RestartDelay),
+		"num_retries":      int(in.NumRetries),
+		"restart_delay":    int(in.RestartDelay),
 	}
 
 	return []interface{}{m}
@@ -6440,8 +6440,8 @@ func flattenHLSMediaStoreSettings(in *types.HlsMediaStoreSettings) []interface{}
 		"connection_retry_interval": int(in.ConnectionRetryInterval),
 		"filecache_duration":        int(in.FilecacheDuration),
 		"media_store_storage_class": string(in.MediaStoreStorageClass),
-		"num_retries":               int(in.NumRetries),
-		"restart_delay":             int(in.RestartDelay),
+		"num_retries":      int(in.NumRetries),
+		"restart_delay":    int(in.RestartDelay),
 	}
 
 	return []interface{}{m}
@@ -6480,8 +6480,8 @@ func flattenHLSWebdavSettings(in *types.HlsWebdavSettings) []interface{} {
 		"connection_retry_interval": int(in.ConnectionRetryInterval),
 		"filecache_duration":        int(in.FilecacheDuration),
 		"http_transfer_mode":        string(in.HttpTransferMode),
-		"num_retries":               int(in.NumRetries),
-		"restart_delay":             int(in.RestartDelay),
+		"num_retries":      int(in.NumRetries),
+		"restart_delay":    int(in.RestartDelay),
 	}
 
 	return []interface{}{m}
@@ -6518,7 +6518,7 @@ func flattenInputLocation(in *types.InputLocation) []interface{} {
 	}
 
 	m := map[string]interface{}{
-		"uri":            aws.ToString(in.Uri),
+		"uri":   aws.ToString(in.Uri),
 		"password_param": aws.ToString(in.PasswordParam),
 		"username":       aws.ToString(in.Username),
 	}
@@ -6556,13 +6556,13 @@ func flattenOutputGroupSettingsRtmpGroupSettings(rt *types.RtmpGroupSettings) []
 	}
 
 	m := map[string]interface{}{
-		"ad_markers":            flattenAdMakers(rt.AdMarkers),
+		"ad_markers":   flattenAdMakers(rt.AdMarkers),
 		"authentication_scheme": string(rt.AuthenticationScheme),
 		"cache_full_behavior":   string(rt.CacheFullBehavior),
-		"cache_length":          int(rt.CacheLength),
-		"caption_data":          string(rt.CaptionData),
+		"cache_length": int(rt.CacheLength),
+		"caption_data": string(rt.CaptionData),
 		"input_loss_action":     string(rt.InputLossAction),
-		"restart_delay":         int(rt.RestartDelay),
+		"restart_delay":int(rt.RestartDelay),
 	}
 
 	return []interface{}{m}
@@ -6574,7 +6574,7 @@ func flattenOutputGroupSettingsUdpGroupSettings(in *types.UdpGroupSettings) []in
 	}
 
 	m := map[string]interface{}{
-		"input_loss_action":         string(in.InputLossAction),
+		"input_loss_action":string(in.InputLossAction),
 		"timed_metadata_id3_frame":  string(in.TimedMetadataId3Frame),
 		"timed_metadata_id3_period": int(in.TimedMetadataId3Period),
 	}
@@ -6635,7 +6635,7 @@ func flattenTimecodeConfig(in *types.TimecodeConfig) []interface{} {
 	}
 
 	m := map[string]interface{}{
-		"source":         string(in.Source),
+		"source":string(in.Source),
 		"sync_threshold": int(in.SyncThreshold),
 	}
 
@@ -6651,13 +6651,13 @@ func flattenVideoDescriptions(tfList []types.VideoDescription) []interface{} {
 
 	for _, item := range tfList {
 		m := map[string]interface{}{
-			"name":             aws.ToString(item.Name),
+			"name":    aws.ToString(item.Name),
 			"codec_settings":   flattenVideoDescriptionsCodecSettings(item.CodecSettings),
-			"height":           int(item.Height),
+			"height":  int(item.Height),
 			"respond_to_afd":   string(item.RespondToAfd),
 			"scaling_behavior": string(item.ScalingBehavior),
 			"sharpness":        int(item.Sharpness),
-			"width":            int(item.Width),
+			"width":   int(item.Width),
 		}
 
 		out = append(out, m)
@@ -6672,7 +6672,7 @@ func flattenAvailBlanking(in *types.AvailBlanking) []interface{} {
 
 	m := map[string]interface{}{
 		"avail_blanking_image": flattenInputLocation(in.AvailBlankingImage),
-		"state":                string(in.State),
+		"state":       string(in.State),
 	}
 
 	return []interface{}{m}
@@ -6688,10 +6688,10 @@ func flattenCaptionDescriptions(tfList []types.CaptionDescription) []interface{}
 	for _, item := range tfList {
 		m := map[string]interface{}{
 			"caption_selector_name": aws.ToString(item.CaptionSelectorName),
-			"name":                  aws.ToString(item.Name),
-			"accessibility":         string(item.Accessibility),
+			"name":aws.ToString(item.Name),
+			"accessibility":string(item.Accessibility),
 			"destination_settings":  flattenCaptionDescriptionsCaptionDestinationSettings(item.DestinationSettings),
-			"language_code":         aws.ToString(item.LanguageCode),
+			"language_code":aws.ToString(item.LanguageCode),
 			"language_description":  aws.ToString(item.LanguageDescription),
 		}
 
@@ -6706,19 +6706,19 @@ func flattenCaptionDescriptionsCaptionDestinationSettings(in *types.CaptionDesti
 	}
 
 	m := map[string]interface{}{
-		"arib_destination_settings":                 []interface{}{}, // attribute has no exported fields
-		"burn_in_destination_settings":              flattenCaptionDescriptionsCaptionDestinationSettingsBurnInDestinationSettings(in.BurnInDestinationSettings),
-		"dvb_sub_destination_settings":              flattenCaptionDescriptionsCaptionDestinationSettingsDvbSubDestinationSettings(in.DvbSubDestinationSettings),
-		"ebu_tt_d_destination_settings":             flattenCaptionDescriptionsCaptionDestinationSettingsEbuTtDDestinationSettings(in.EbuTtDDestinationSettings),
-		"embedded_destination_settings":             []interface{}{}, // attribute has no exported fields
+		"arib_destination_settings":        []interface{}{}, // attribute has no exported fields
+		"burn_in_destination_settings":     flattenCaptionDescriptionsCaptionDestinationSettingsBurnInDestinationSettings(in.BurnInDestinationSettings),
+		"dvb_sub_destination_settings":     flattenCaptionDescriptionsCaptionDestinationSettingsDvbSubDestinationSettings(in.DvbSubDestinationSettings),
+		"ebu_tt_d_destination_settings":    flattenCaptionDescriptionsCaptionDestinationSettingsEbuTtDDestinationSettings(in.EbuTtDDestinationSettings),
+		"embedded_destination_settings":    []interface{}{}, // attribute has no exported fields
 		"embedded_plus_scte20_destination_settings": []interface{}{}, // attribute has no exported fields
 		"rtmp_caption_info_destination_settings":    []interface{}{}, // attribute has no exported fields
 		"scte20_plus_embedded_destination_settings": []interface{}{}, // attribute has no exported fields
-		"scte27_destination_settings":               []interface{}{}, // attribute has no exported fields
-		"smpte_tt_destination_settings":             []interface{}{}, // attribute has no exported fields
-		"teletext_destination_settings":             []interface{}{}, // attribute has no exported fields
-		"ttml_destination_settings":                 flattenCaptionDescriptionsCaptionDestinationSettingsTtmlDestinationSettings(in.TtmlDestinationSettings),
-		"webvtt_destination_settings":               flattenCaptionDescriptionsCaptionDestinationSettingsWebvttDestinationSettings(in.WebvttDestinationSettings),
+		"scte27_destination_settings":      []interface{}{}, // attribute has no exported fields
+		"smpte_tt_destination_settings":    []interface{}{}, // attribute has no exported fields
+		"teletext_destination_settings":    []interface{}{}, // attribute has no exported fields
+		"ttml_destination_settings":        flattenCaptionDescriptionsCaptionDestinationSettingsTtmlDestinationSettings(in.TtmlDestinationSettings),
+		"webvtt_destination_settings":      flattenCaptionDescriptionsCaptionDestinationSettingsWebvttDestinationSettings(in.WebvttDestinationSettings),
 	}
 
 	return []interface{}{m}
@@ -6730,23 +6730,23 @@ func flattenCaptionDescriptionsCaptionDestinationSettingsBurnInDestinationSettin
 	}
 
 	m := map[string]interface{}{
-		"alignment":             string(in.Alignment),
+		"alignment":    string(in.Alignment),
 		"background_color":      string(in.BackgroundColor),
 		"background_opacity":    int(in.BackgroundOpacity),
-		"font":                  flattenInputLocation(in.Font),
-		"font_color":            string(in.FontColor),
-		"font_opacity":          int(in.FontOpacity),
+		"font":flattenInputLocation(in.Font),
+		"font_color":   string(in.FontColor),
+		"font_opacity": int(in.FontOpacity),
 		"font_resolution":       int(in.FontResolution),
-		"font_size":             aws.ToString(in.FontSize),
-		"outline_color":         string(in.OutlineColor),
-		"outline_size":          int(in.OutlineSize),
-		"shadow_color":          string(in.ShadowColor),
+		"font_size":    aws.ToString(in.FontSize),
+		"outline_color":string(in.OutlineColor),
+		"outline_size": int(in.OutlineSize),
+		"shadow_color": string(in.ShadowColor),
 		"shadow_opacity":        int(in.ShadowOpacity),
 		"shadow_x_offset":       int(in.ShadowXOffset),
 		"shadow_y_offset":       int(in.ShadowYOffset),
 		"teletext_grid_control": string(in.TeletextGridControl),
-		"x_position":            int(in.XPosition),
-		"y_position":            int(in.YPosition),
+		"x_position":   int(in.XPosition),
+		"y_position":   int(in.YPosition),
 	}
 
 	return []interface{}{m}
@@ -6758,23 +6758,23 @@ func flattenCaptionDescriptionsCaptionDestinationSettingsDvbSubDestinationSettin
 	}
 
 	m := map[string]interface{}{
-		"alignment":             string(in.Alignment),
+		"alignment":    string(in.Alignment),
 		"background_color":      string(in.BackgroundColor),
 		"background_opacity":    int(in.BackgroundOpacity),
-		"font":                  flattenInputLocation(in.Font),
-		"font_color":            string(in.FontColor),
-		"font_opacity":          int(in.FontOpacity),
+		"font":flattenInputLocation(in.Font),
+		"font_color":   string(in.FontColor),
+		"font_opacity": int(in.FontOpacity),
 		"font_resolution":       int(in.FontResolution),
-		"font_size":             aws.ToString(in.FontSize),
-		"outline_color":         string(in.OutlineColor),
-		"outline_size":          int(in.OutlineSize),
-		"shadow_color":          string(in.ShadowColor),
+		"font_size":    aws.ToString(in.FontSize),
+		"outline_color":string(in.OutlineColor),
+		"outline_size": int(in.OutlineSize),
+		"shadow_color": string(in.ShadowColor),
 		"shadow_opacity":        int(in.ShadowOpacity),
 		"shadow_x_offset":       int(in.ShadowXOffset),
 		"shadow_y_offset":       int(in.ShadowYOffset),
 		"teletext_grid_control": string(in.TeletextGridControl),
-		"x_position":            int(in.XPosition),
-		"y_position":            int(in.YPosition),
+		"x_position":   int(in.XPosition),
+		"y_position":   int(in.YPosition),
 	}
 
 	return []interface{}{m}
@@ -6825,11 +6825,11 @@ func flattenGlobalConfiguration(apiObject *types.GlobalConfiguration) []interfac
 	}
 
 	m := map[string]interface{}{
-		"initial_audio_gain":           int(apiObject.InitialAudioGain),
-		"input_end_action":             string(apiObject.InputEndAction),
-		"input_loss_behavior":          flattenGlobalConfigurationInputLossBehavior(apiObject.InputLossBehavior),
-		"output_locking_mode":          string(apiObject.OutputLockingMode),
-		"output_timing_source":         string(apiObject.OutputTimingSource),
+		"initial_audio_gain":  int(apiObject.InitialAudioGain),
+		"input_end_action":    string(apiObject.InputEndAction),
+		"input_loss_behavior": flattenGlobalConfigurationInputLossBehavior(apiObject.InputLossBehavior),
+		"output_locking_mode": string(apiObject.OutputLockingMode),
+		"output_timing_source":string(apiObject.OutputTimingSource),
 		"support_low_framerate_inputs": string(apiObject.SupportLowFramerateInputs),
 	}
 
@@ -6883,7 +6883,7 @@ func flattenNielsenConfiguration(apiObject *types.NielsenConfiguration) []interf
 	}
 
 	m := map[string]interface{}{
-		"distributor_id":             aws.ToString(apiObject.DistributorId),
+		"distributor_id":    aws.ToString(apiObject.DistributorId),
 		"nielsen_pcm_to_id3_tagging": string(apiObject.NielsenPcmToId3Tagging),
 	}
 
@@ -6897,8 +6897,8 @@ func flattenVideoDescriptionsCodecSettings(in *types.VideoCodecSettings) []inter
 
 	m := map[string]interface{}{
 		"frame_capture_settings": flattenCodecSettingsFrameCaptureSettings(in.FrameCaptureSettings),
-		"h264_settings":          flattenCodecSettingsH264Settings(in.H264Settings),
-		"h265_settings":          flattenCodecSettingsH265Settings(in.H265Settings),
+		"h264_settings": flattenCodecSettingsH264Settings(in.H264Settings),
+		"h265_settings": flattenCodecSettingsH265Settings(in.H265Settings),
 	}
 
 	return []interface{}{m}
@@ -6924,43 +6924,43 @@ func flattenCodecSettingsH264Settings(in *types.H264Settings) []interface{} {
 
 	m := map[string]interface{}{
 		"adaptive_quantization":   string(in.AdaptiveQuantization),
-		"afd_signaling":           string(in.AfdSignaling),
-		"bitrate":                 int(in.Bitrate),
-		"buf_fill_pct":            int(in.BufFillPct),
-		"buf_size":                int(in.BufSize),
-		"color_metadata":          string(in.ColorMetadata),
+		"afd_signaling":  string(in.AfdSignaling),
+		"bitrate":        int(in.Bitrate),
+		"buf_fill_pct":   int(in.BufFillPct),
+		"buf_size":       int(in.BufSize),
+		"color_metadata": string(in.ColorMetadata),
 		"entropy_encoding":        string(in.EntropyEncoding),
-		"filter_settings":         flattenH264SettingsFilterSettings(in.FilterSettings),
-		"fixed_afd":               string(in.FixedAfd),
-		"flicker_aq":              string(in.FlickerAq),
+		"filter_settings":flattenH264SettingsFilterSettings(in.FilterSettings),
+		"fixed_afd":      string(in.FixedAfd),
+		"flicker_aq":     string(in.FlickerAq),
 		"force_field_pictures":    string(in.ForceFieldPictures),
 		"framerate_control":       string(in.FramerateControl),
 		"framerate_denominator":   int(in.FramerateDenominator),
 		"framerate_numerator":     int(in.FramerateNumerator),
-		"gop_b_reference":         string(in.GopBReference),
+		"gop_b_reference":string(in.GopBReference),
 		"gop_closed_cadence":      int(in.GopClosedCadence),
 		"gop_num_b_frames":        int(in.GopNumBFrames),
-		"gop_size":                in.GopSize,
-		"gop_size_units":          string(in.GopSizeUnits),
-		"level":                   string(in.Level),
+		"gop_size":       in.GopSize,
+		"gop_size_units": string(in.GopSizeUnits),
+		"level": string(in.Level),
 		"look_ahead_rate_control": string(in.LookAheadRateControl),
-		"max_bitrate":             int(in.MaxBitrate),
-		"min_i_interval":          int(in.MinIInterval),
-		"num_ref_frames":          int(in.NumRefFrames),
-		"par_control":             string(in.ParControl),
-		"par_denominator":         int(in.ParDenominator),
-		"par_numerator":           int(in.ParNumerator),
-		"profile":                 string(in.Profile),
-		"quality_level":           string(in.QualityLevel),
+		"max_bitrate":    int(in.MaxBitrate),
+		"min_i_interval": int(in.MinIInterval),
+		"num_ref_frames": int(in.NumRefFrames),
+		"par_control":    string(in.ParControl),
+		"par_denominator":int(in.ParDenominator),
+		"par_numerator":  int(in.ParNumerator),
+		"profile":        string(in.Profile),
+		"quality_level":  string(in.QualityLevel),
 		"qvbr_quality_level":      int(in.QvbrQualityLevel),
 		"rate_control_mode":       string(in.RateControlMode),
-		"scan_type":               string(in.ScanType),
+		"scan_type":      string(in.ScanType),
 		"scene_change_detect":     string(in.SceneChangeDetect),
-		"slices":                  int(in.Slices),
-		"spatial_aq":              string(in.SpatialAq),
-		"subgop_length":           string(in.SubgopLength),
-		"syntax":                  string(in.Syntax),
-		"temporal_aq":             string(in.TemporalAq),
+		"slices":int(in.Slices),
+		"spatial_aq":     string(in.SpatialAq),
+		"subgop_length":  string(in.SubgopLength),
+		"syntax":string(in.Syntax),
+		"temporal_aq":    string(in.TemporalAq),
 		"timecode_insertion":      string(in.TimecodeInsertion),
 	}
 
@@ -6986,7 +6986,7 @@ func flattenFilterSettingsTemporalFilterSettings(in *types.TemporalFilterSetting
 
 	m := map[string]interface{}{
 		"post_filter_sharpening": string(in.PostFilterSharpening),
-		"strength":               string(in.Strength),
+		"strength":      string(in.Strength),
 	}
 
 	return []interface{}{m}
@@ -6998,36 +6998,36 @@ func flattenCodecSettingsH265Settings(in *types.H265Settings) []interface{} {
 	}
 
 	m := map[string]interface{}{
-		"framerate_denominator":         int(in.FramerateDenominator),
-		"framerate_numerator":           int(in.FramerateNumerator),
-		"adaptive_quantization":         string(in.AdaptiveQuantization),
-		"afd_signaling":                 string(in.AfdSignaling),
+		"framerate_denominator":int(in.FramerateDenominator),
+		"framerate_numerator":  int(in.FramerateNumerator),
+		"adaptive_quantization":string(in.AdaptiveQuantization),
+		"afd_signaling":        string(in.AfdSignaling),
 		"alternative_transfer_function": string(in.AlternativeTransferFunction),
-		"bitrate":                       int(in.Bitrate),
-		"buf_size":                      int(in.BufSize),
-		"color_metadata":                string(in.ColorMetadata),
-		"color_space_settings":          flattenH265ColorSpaceSettings(in.ColorSpaceSettings),
-		"filter_settings":               flattenH265FilterSettings(in.FilterSettings),
-		"fixed_afd":                     string(in.FixedAfd),
-		"flicker_aq":                    string(in.FlickerAq),
-		"gop_closed_cadence":            int(in.GopClosedCadence),
-		"gop_size":                      in.GopSize,
-		"gop_size_units":                string(in.GopSizeUnits),
-		"level":                         string(in.Level),
+		"bitrate":     int(in.Bitrate),
+		"buf_size":    int(in.BufSize),
+		"color_metadata":       string(in.ColorMetadata),
+		"color_space_settings": flattenH265ColorSpaceSettings(in.ColorSpaceSettings),
+		"filter_settings":      flattenH265FilterSettings(in.FilterSettings),
+		"fixed_afd":   string(in.FixedAfd),
+		"flicker_aq":  string(in.FlickerAq),
+		"gop_closed_cadence":   int(in.GopClosedCadence),
+		"gop_size":    in.GopSize,
+		"gop_size_units":       string(in.GopSizeUnits),
+		"level":       string(in.Level),
 		"look_ahead_rate_control":       string(in.LookAheadRateControl),
-		"max_bitrate":                   int(in.MaxBitrate),
-		"min_i_interval":                int(in.MinIInterval),
-		"par_denominator":               int(in.ParDenominator),
-		"par_numerator":                 int(in.ParNumerator),
-		"profile":                       string(in.Profile),
-		"qvbr_quality_level":            int(in.QvbrQualityLevel),
-		"rate_control_mode":             string(in.RateControlMode),
-		"scan_type":                     string(in.ScanType),
-		"scene_change_detect":           string(in.SceneChangeDetect),
-		"slices":                        int(in.Slices),
-		"tier":                          string(in.Tier),
+		"max_bitrate": int(in.MaxBitrate),
+		"min_i_interval":       int(in.MinIInterval),
+		"par_denominator":      int(in.ParDenominator),
+		"par_numerator":        int(in.ParNumerator),
+		"profile":     string(in.Profile),
+		"qvbr_quality_level":   int(in.QvbrQualityLevel),
+		"rate_control_mode":    string(in.RateControlMode),
+		"scan_type":   string(in.ScanType),
+		"scene_change_detect":  string(in.SceneChangeDetect),
+		"slices":      int(in.Slices),
+		"tier":        string(in.Tier),
 		"timecode_burnin_settings":      flattenH265TimecodeBurninSettings(in.TimecodeBurninSettings),
-		"timecode_insertion":            string(in.TimecodeInsertion),
+		"timecode_insertion":   string(in.TimecodeInsertion),
 	}
 	return []interface{}{m}
 }
@@ -7089,7 +7089,7 @@ func flattenH265FilterSettingsTemporalFilterSettings(in *types.TemporalFilterSet
 
 	m := map[string]interface{}{
 		"post_filter_sharpening": in.PostFilterSharpening,
-		"strength":               string(in.Strength),
+		"strength":      string(in.Strength),
 	}
 
 	return []interface{}{m}
@@ -7103,7 +7103,7 @@ func flattenH265TimecodeBurninSettings(in *types.TimecodeBurninSettings) []inter
 	m := map[string]interface{}{
 		"timecode_burnin_font_size": string(in.FontSize),
 		"timecode_burnin_position":  string(in.Position),
-		"prefix":                    in.Prefix,
+		"prefix":  in.Prefix,
 	}
 
 	return []interface{}{m}
@@ -7115,7 +7115,7 @@ func flattenAudioNormalization(ns *types.AudioNormalizationSettings) []interface
 	}
 
 	m := map[string]interface{}{
-		"algorithm":         ns.Algorithm,
+		"algorithm":ns.Algorithm,
 		"algorithm_control": ns.AlgorithmControl,
 		"target_lkfs":       ns.TargetLkfs,
 	}
@@ -7174,14 +7174,14 @@ func flattenCodecSettingsAacSettings(in *types.AacSettings) []interface{} {
 	}
 
 	m := map[string]interface{}{
-		"bitrate":           in.Bitrate,
+		"bitrate":  in.Bitrate,
 		"coding_mode":       string(in.CodingMode),
 		"input_type":        string(in.InputType),
-		"profile":           string(in.Profile),
+		"profile":  string(in.Profile),
 		"rate_control_mode": string(in.RateControlMode),
 		"raw_format":        string(in.RawFormat),
 		"sample_rate":       in.SampleRate,
-		"spec":              string(in.Spec),
+		"spec":     string(in.Spec),
 		"vbr_quality":       string(in.VbrQuality),
 	}
 
@@ -7194,10 +7194,10 @@ func flattenCodecSettingsAc3Settings(in *types.Ac3Settings) []interface{} {
 	}
 
 	m := map[string]interface{}{
-		"bitrate":          in.Bitrate,
+		"bitrate": in.Bitrate,
 		"bitstream_mode":   string(in.BitstreamMode),
 		"coding_mode":      string(in.CodingMode),
-		"dialnorm":         int(in.Dialnorm),
+		"dialnorm":int(in.Dialnorm),
 		"drc_profile":      string(in.DrcProfile),
 		"lfe_filter":       string(in.LfeFilter),
 		"metadata_control": string(in.MetadataControl),
@@ -7231,25 +7231,25 @@ func flattenCodecSettingsEac3Settings(in *types.Eac3Settings) []interface{} {
 
 	m := map[string]interface{}{
 		"attenuation_control":      string(in.AttenuationControl),
-		"bitrate":                  float32(in.Bitrate),
-		"bitstream_mode":           string(in.BitstreamMode),
-		"coding_mode":              string(in.CodingMode),
-		"dc_filter":                string(in.DcFilter),
-		"dialnorm":                 int(in.Dialnorm),
-		"drc_line":                 string(in.DrcLine),
-		"drc_rf":                   string(in.DrcRf),
-		"lfe_control":              string(in.LfeControl),
-		"lfe_filter":               string(in.LfeFilter),
+		"bitrate":float32(in.Bitrate),
+		"bitstream_mode":  string(in.BitstreamMode),
+		"coding_mode":     string(in.CodingMode),
+		"dc_filter":       string(in.DcFilter),
+		"dialnorm":        int(in.Dialnorm),
+		"drc_line":        string(in.DrcLine),
+		"drc_rf": string(in.DrcRf),
+		"lfe_control":     string(in.LfeControl),
+		"lfe_filter":      string(in.LfeFilter),
 		"lo_ro_center_mix_level":   float32(in.LoRoCenterMixLevel),
 		"lo_ro_surround_mix_level": float32(in.LoRoSurroundMixLevel),
 		"lt_rt_center_mix_level":   float32(in.LtRtCenterMixLevel),
 		"lt_rt_surround_mix_level": float32(in.LtRtSurroundMixLevel),
-		"metadata_control":         string(in.MetadataControl),
+		"metadata_control":string(in.MetadataControl),
 		"passthrough_control":      string(in.PassthroughControl),
-		"phase_control":            string(in.PhaseControl),
-		"stereo_downmix":           string(in.StereoDownmix),
-		"surround_ex_mode":         string(in.SurroundExMode),
-		"surround_mode":            string(in.SurroundMode),
+		"phase_control":   string(in.PhaseControl),
+		"stereo_downmix":  string(in.StereoDownmix),
+		"surround_ex_mode":string(in.SurroundExMode),
+		"surround_mode":   string(in.SurroundMode),
 	}
 
 	return []interface{}{m}
@@ -7323,7 +7323,7 @@ func flattenInputChannelLevels(in []types.InputChannelLevel) []interface{} {
 	var out []interface{}
 	for _, item := range in {
 		m := map[string]interface{}{
-			"gain":          int(item.Gain),
+			"gain": int(item.Gain),
 			"input_channel": int(item.InputChannel),
 		}
 
@@ -7340,8 +7340,8 @@ func flattenNielsenCbetSettings(in *types.NielsenCBET) []interface{} {
 
 	m := map[string]interface{}{
 		"cbet_check_digit_string": aws.ToString(in.CbetCheckDigitString),
-		"cbet_stepaside":          string(in.CbetStepaside),
-		"csid":                    aws.ToString(in.Csid),
+		"cbet_stepaside": string(in.CbetStepaside),
+		"csid":  aws.ToString(in.Csid),
 	}
 
 	return []interface{}{m}
@@ -7354,7 +7354,7 @@ func flattenNielsenNaesIiNwSettings(in *types.NielsenNaesIiNw) []interface{} {
 
 	m := map[string]interface{}{
 		"check_digit_string": aws.ToString(in.CheckDigitString),
-		"sid":                float32(in.Sid),
+		"sid":       float32(in.Sid),
 	}
 
 	return []interface{}{m}

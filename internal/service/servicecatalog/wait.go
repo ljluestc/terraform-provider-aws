@@ -23,8 +23,8 @@ const (
 	ConstraintReadyTimeout     = 3 * time.Minute
 	ConstraintUpdateTimeout    = 3 * time.Minute
 	LaunchPathsReadyTimeout    = 3 * time.Minute
-	OrganizationsAccessStableTimeout          = 3 * time.Minute
-	PortfolioConstraintsReadyTimeout          = 3 * time.Minute
+	OrganizationsAccessStableTimeout = 3 * time.Minute
+	PortfolioConstraintsReadyTimeout = 3 * time.Minute
 	PortfolioCreateTimeout     = 30 * time.Minute
 	PortfolioDeleteTimeout     = 30 * time.Minute
 	PortfolioReadTimeout       = 10 * time.Minute
@@ -37,17 +37,17 @@ const (
 	ProductPortfolioAssociationDeleteTimeout  = 3 * time.Minute
 	ProductPortfolioAssociationReadTimeout    = 10 * time.Minute
 	ProductPortfolioAssociationReadyTimeout   = 3 * time.Minute
-	ProductReadTimeout         = 10 * time.Minute
+	ProductReadTimeout= 10 * time.Minute
 	ProductReadyTimeout        = 5 * time.Minute
 	ProductUpdateTimeout       = 5 * time.Minute
-	ProvisionedProductDeleteTimeout           = 30 * time.Minute
-	ProvisionedProductReadTimeout             = 10 * time.Minute
-	ProvisionedProductReadyTimeout            = 30 * time.Minute
-	ProvisionedProductUpdateTimeout           = 30 * time.Minute
-	ProvisioningArtifactDeleteTimeout         = 3 * time.Minute
-	ProvisioningArtifactReadTimeout           = 10 * time.Minute
-	ProvisioningArtifactReadyTimeout          = 3 * time.Minute
-	ProvisioningArtifactUpdateTimeout         = 3 * time.Minute
+	ProvisionedProductDeleteTimeout  = 30 * time.Minute
+	ProvisionedProductReadTimeout    = 10 * time.Minute
+	ProvisionedProductReadyTimeout   = 30 * time.Minute
+	ProvisionedProductUpdateTimeout  = 30 * time.Minute
+	ProvisioningArtifactDeleteTimeout= 3 * time.Minute
+	ProvisioningArtifactReadTimeout  = 10 * time.Minute
+	ProvisioningArtifactReadyTimeout = 3 * time.Minute
+	ProvisioningArtifactUpdateTimeout= 3 * time.Minute
 	ServiceActionDeleteTimeout = 3 * time.Minute
 	ServiceActionReadTimeout   = 10 * time.Minute
 	ServiceActionReadyTimeout  = 3 * time.Minute
@@ -61,7 +61,7 @@ const (
 	TagOptionUpdateTimeout     = 3 * time.Minute
 
 	MinTimeout  = 2 * time.Second
-	NotFoundChecks             = 5
+	NotFoundChecks    = 5
 	ContinuousTargetOccurrence = 2
 
 	StatusNotFound    = "NOT_FOUND"
@@ -80,7 +80,7 @@ Target:     []string{servicecatalog.StatusAvailable, StatusCreated},
 Refresh:    StatusProduct(ctx, conn, acceptLanguage, productID),
 Timeout:    timeout,
 ContinuousTargetOccurence: ContinuousTargetOccurrence,
-NotFoundChecks:            NotFoundChecks,
+NotFoundChecks:   NotFoundChecks,
 MinTimeout: MinTimeout,
 	}
 
@@ -248,7 +248,7 @@ Target:     []string{servicecatalog.StatusAvailable},
 Refresh:    StatusConstraint(ctx, conn, acceptLanguage, id),
 Timeout:    timeout,
 ContinuousTargetOccurence: ContinuousTargetOccurrence,
-NotFoundChecks:            NotFoundChecks,
+NotFoundChecks:   NotFoundChecks,
 MinTimeout: MinTimeout,
 	}
 
@@ -281,7 +281,7 @@ Target:     []string{servicecatalog.StatusAvailable},
 Refresh:    StatusProductPortfolioAssociation(ctx, conn, acceptLanguage, portfolioID, productID),
 Timeout:    timeout,
 ContinuousTargetOccurence: ContinuousTargetOccurrence,
-NotFoundChecks:            NotFoundChecks,
+NotFoundChecks:   NotFoundChecks,
 MinTimeout: MinTimeout,
 	}
 
@@ -408,7 +408,7 @@ Target:     []string{servicecatalog.StatusAvailable, StatusCreated},
 Refresh:    StatusProvisioningArtifact(ctx, conn, id, productID),
 Timeout:    timeout,
 ContinuousTargetOccurence: ContinuousTargetOccurrence,
-NotFoundChecks:            NotFoundChecks,
+NotFoundChecks:   NotFoundChecks,
 MinTimeout: MinTimeout,
 	}
 
@@ -445,7 +445,7 @@ Target:     []string{servicecatalog.StatusAvailable},
 Refresh:    StatusLaunchPaths(ctx, conn, acceptLanguage, productID),
 Timeout:    timeout,
 ContinuousTargetOccurence: ContinuousTargetOccurrence,
-NotFoundChecks:            NotFoundChecks,
+NotFoundChecks:   NotFoundChecks,
 MinTimeout: MinTimeout,
 	}
 
@@ -465,7 +465,7 @@ Target:     []string{servicecatalog.StatusAvailable},
 Refresh:    StatusProvisionedProduct(ctx, conn, acceptLanguage, id, name),
 Timeout:    timeout,
 ContinuousTargetOccurence: ContinuousTargetOccurrence,
-NotFoundChecks:            NotFoundChecks,
+NotFoundChecks:   NotFoundChecks,
 MinTimeout: MinTimeout,
 	}
 

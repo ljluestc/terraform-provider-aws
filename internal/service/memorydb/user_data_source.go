@@ -77,7 +77,7 @@ func dataSourceUserRead(ctx context.Context, d *schema.ResourceData, meta interf
 	if v := user.Authentication; v != nil {
 		authenticationMode := map[string]interface{}{
 			"password_count": aws.Int64Value(v.PasswordCount),
-			"type":           aws.StringValue(v.Type),
+			"type":  aws.StringValue(v.Type),
 		}
 
 		if err := d.Set("authentication_mode", []interface{}{authenticationMode}); err != nil {

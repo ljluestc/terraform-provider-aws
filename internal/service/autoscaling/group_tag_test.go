@@ -23,10 +23,10 @@ func TestAccAutoScalingGroupTag_basic(t *testing.T) {
 	resourceName := "aws_autoscaling_group_tag.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGroupTagDestroy(ctx),
+		CheckDestroy:    testAccCheckGroupTagDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGroupTagConfig_basic("key1", "value1"),
@@ -50,10 +50,10 @@ func TestAccAutoScalingGroupTag_disappears(t *testing.T) {
 	resourceName := "aws_autoscaling_group_tag.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGroupTagDestroy(ctx),
+		CheckDestroy:    testAccCheckGroupTagDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGroupTagConfig_basic("key1", "value1"),
@@ -72,10 +72,10 @@ func TestAccAutoScalingGroupTag_value(t *testing.T) {
 	resourceName := "aws_autoscaling_group_tag.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGroupTagDestroy(ctx),
+		CheckDestroy:    testAccCheckGroupTagDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGroupTagConfig_basic("key1", "value1"),

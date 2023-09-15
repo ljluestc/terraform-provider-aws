@@ -25,10 +25,10 @@ func TestAccRolesAnywhereProfile_basic(t *testing.T) {
 	resourceName := "aws_rolesanywhere_profile.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.RolesAnywhereEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.RolesAnywhereEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckProfileDestroy(ctx),
+		CheckDestroy:    testAccCheckProfileDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccProfileConfig_basic(rName, roleName),
@@ -56,10 +56,10 @@ func TestAccRolesAnywhereProfile_tags(t *testing.T) {
 	resourceName := "aws_rolesanywhere_profile.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.RolesAnywhereEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.RolesAnywhereEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckProfileDestroy(ctx),
+		CheckDestroy:    testAccCheckProfileDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccProfileConfig_tags1(rName, roleName, "key1", "value1"),
@@ -102,10 +102,10 @@ func TestAccRolesAnywhereProfile_disappears(t *testing.T) {
 	resourceName := "aws_rolesanywhere_profile.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.RolesAnywhereEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.RolesAnywhereEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckProfileDestroy(ctx),
+		CheckDestroy:    testAccCheckProfileDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccProfileConfig_basic(rName, roleName),
@@ -126,10 +126,10 @@ func TestAccRolesAnywhereProfile_enabled(t *testing.T) {
 	resourceName := "aws_rolesanywhere_profile.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.RolesAnywhereEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.RolesAnywhereEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckProfileDestroy(ctx),
+		CheckDestroy:    testAccCheckProfileDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccProfileConfig_enabled(rName, roleName, true),

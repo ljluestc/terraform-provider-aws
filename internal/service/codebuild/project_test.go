@@ -77,7 +77,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_basic(rName),
@@ -141,7 +141,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_visibility(rName, "PUBLIC_READ"),
@@ -190,7 +190,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_badgeEnabled(rName, true),
@@ -222,7 +222,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_buildTimeout(rName, 120),
@@ -261,7 +261,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_queuedTimeout(rName, 120),
@@ -302,7 +302,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config:      testAccProjectConfig_cache(rName, "", "S3"),
@@ -395,7 +395,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_description(rName, "description1"),
@@ -434,7 +434,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID, "efs"), //using efs.EndpointsID will import efs and make linters sad
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_fileSystemLocations(rName, "/mount1"),
@@ -489,7 +489,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_sourceVersion(rName, "master"),
@@ -515,7 +515,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_encryptionKey(rName),
@@ -546,7 +546,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_environmentVariableOne(rName, "KEY1", "VALUE1"),
@@ -601,7 +601,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_environmentVariableType(rName, codebuild.EnvironmentVariableTypePlaintext),
@@ -651,7 +651,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_environmentVariableOne(rName, "KEY1", ""),
@@ -706,7 +706,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_environmentCertificate(rName, oName),
@@ -737,7 +737,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_cloudWatchLogs(rName, codebuild.LogsConfigStatusTypeEnabled, "group-name", ""),
@@ -788,7 +788,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_s3Logs(rName, codebuild.LogsConfigStatusTypeEnabled, rName+"/build-log", false),
@@ -843,7 +843,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_buildBatch(rName, true, "BUILD_GENERAL1_SMALL", 10, 5),
@@ -892,7 +892,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_sourceGitCloneDepth(rName, 1),
@@ -931,7 +931,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_sourceGitSubmodulesCodeCommit(rName, true),
@@ -972,7 +972,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_sourceGitSubmodulesGitHub(rName, true),
@@ -1009,7 +1009,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_sourceGitSubmodulesGitHubEnterprise(rName, true),
@@ -1046,7 +1046,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_secondarySourcesGitSubmodulesCodeCommit(rName, true),
@@ -1055,12 +1055,12 @@ func(
 	testAccCheckProjectExists(ctx, resourceName, &project),
 	resource.TestCheckResourceAttr(resourceName, "secondary_sources.#", "2"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "secondary_sources.*", map[string]string{
-"source_identifier":         "secondarySource1",
+"source_identifier":"secondarySource1",
 "git_submodules_config.#":   "1",
 "git_submodules_config.0.fetch_submodules": "true",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "secondary_sources.*", map[string]string{
-"source_identifier":         "secondarySource2",
+"source_identifier":"secondarySource2",
 "git_submodules_config.#":   "1",
 "git_submodules_config.0.fetch_submodules": "true",
 	}),
@@ -1078,12 +1078,12 @@ func(
 	testAccCheckProjectExists(ctx, resourceName, &project),
 	resource.TestCheckResourceAttr(resourceName, "secondary_sources.#", "2"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "secondary_sources.*", map[string]string{
-"source_identifier":         "secondarySource1",
+"source_identifier":"secondarySource1",
 "git_submodules_config.#":   "1",
 "git_submodules_config.0.fetch_submodules": "false",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "secondary_sources.*", map[string]string{
-"source_identifier":         "secondarySource2",
+"source_identifier":"secondarySource2",
 "git_submodules_config.#":   "1",
 "git_submodules_config.0.fetch_submodules": "false",
 	}),
@@ -1113,7 +1113,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_secondarySourcesGitSubmodulesGitHub(rName, true),
@@ -1150,7 +1150,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_secondarySourcesGitSubmodulesGitHubEnterprise(rName, true),
@@ -1187,7 +1187,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_secondarySourceVersionsCodeCommit(rName),
@@ -1290,7 +1290,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_sourceBuildStatusGitHubEnterprise(rName),
@@ -1320,7 +1320,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_sourceInsecureSSL(rName, true),
@@ -1361,7 +1361,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_sourceReportBuildStatusBitbucket(rName, sourceLocation, true),
@@ -1400,7 +1400,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_sourceReportBuildStatusGitHub(rName, true),
@@ -1439,7 +1439,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_sourceReportBuildStatusGitHubEnterprise(rName, true),
@@ -1480,7 +1480,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_sourceTypeBitbucket(rName, sourceLocation),
@@ -1512,7 +1512,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_sourceTypeCodeCommit(rName),
@@ -1543,7 +1543,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_sourceTypeCodePipeline(rName),
@@ -1574,7 +1574,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_sourceTypeGitHubEnterprise(rName),
@@ -1605,7 +1605,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_sourceTypeS3(rName),
@@ -1642,7 +1642,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_sourceTypeNoSource(rName, "", rBuildspec),
@@ -1678,7 +1678,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config:      testAccProjectConfig_sourceTypeNoSource(rName, "", ""),
@@ -1704,7 +1704,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_tags(rName, "tag2", "tag2value"),
@@ -1747,7 +1747,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_vpc2(rName),
@@ -1800,7 +1800,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_windowsServer2019Container(rName),
@@ -1837,7 +1837,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_armContainer(rName),
@@ -1870,7 +1870,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_artifactsArtifactIdentifier(rName, artifactIdentifier1),
@@ -1911,7 +1911,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_artifactsEncryptionDisabled(rName, true),
@@ -1953,7 +1953,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_artifactsLocation(rName1, rName1),
@@ -1997,7 +1997,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_artifactsName(rName, name1),
@@ -2038,7 +2038,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_artifactsNamespaceType(rName, codebuild.ArtifactNamespaceBuildId),
@@ -2079,7 +2079,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_artifactsOverrideArtifactName(rName, true),
@@ -2120,7 +2120,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_artifactsPackaging(rName, codebuild.ArtifactPackagingZip),
@@ -2161,7 +2161,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_artifactsPath(rName, "path1"),
@@ -2205,7 +2205,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_artifactsType(rName, type1),
@@ -2246,7 +2246,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_artifactsBucketOwnerAccess(rName, "FULL"),
@@ -2287,7 +2287,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_secondaryArtifacts(rName),
@@ -2329,7 +2329,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_secondaryArtifactsArtifactIdentifier(rName, artifactIdentifier1),
@@ -2374,7 +2374,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_secondaryArtifactsOverrideArtifactName(rName, true),
@@ -2419,7 +2419,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_secondaryArtifactsEncryptionDisabled(rName, true),
@@ -2465,7 +2465,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_secondaryArtifactsLocation(rName1, rName1),
@@ -2516,7 +2516,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_secondaryArtifactsName(rName, name1),
@@ -2561,7 +2561,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_secondaryArtifactsNamespaceType(rName, codebuild.ArtifactNamespaceBuildId),
@@ -2606,7 +2606,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_secondaryArtifactsPackaging(rName, codebuild.ArtifactPackagingZip),
@@ -2654,7 +2654,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_secondaryArtifactsPath(rName, path1),
@@ -2699,7 +2699,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_secondaryArtifactsType(rName, codebuild.ArtifactsTypeS3),
@@ -2733,7 +2733,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_secondarySourcesCodeCommit(rName),
@@ -2794,7 +2794,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_concurrentBuildLimit(rName, 4),
@@ -2833,7 +2833,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_environmentRegistryCredential1(rName),
@@ -2871,7 +2871,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProjectDestroy(ctx),
+CheckDestroy:    testAccCheckProjectDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProjectConfig_basic(rName),
@@ -3059,7 +3059,7 @@ POLICY
 func testAccProjectConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -3069,7 +3069,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -3095,7 +3095,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -3111,7 +3111,7 @@ func testAccProjectConfig_visibilityResourceRole(rName, visibility string) strin
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
   name  = %[1]q
-  service_role         = aws_iam_role.test.arn
+  service_role= aws_iam_role.test.arn
   project_visibility   = %[3]q
   resource_access_role = aws_iam_role.test.arn
 
@@ -3122,7 +3122,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -3138,7 +3138,7 @@ func testAccProjectConfig_badgeEnabled(rName string, badgeEnabled bool) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
   badge_enabled = %[1]t
-  name          = %[2]q
+  name = %[2]q
   service_role  = aws_iam_role.test.arn
 
   artifacts {
@@ -3148,7 +3148,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -3164,7 +3164,7 @@ func testAccProjectConfig_buildTimeout(rName string, buildTimeout int) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
   build_timeout = %[1]d
-  name          = %[2]q
+  name = %[2]q
   service_role  = aws_iam_role.test.arn
 
   artifacts {
@@ -3174,7 +3174,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -3190,7 +3190,7 @@ func testAccProjectConfig_queuedTimeout(rName string, queuedTimeout int) string 
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
   queued_timeout = %[1]d
-  name           = %[2]q
+  name  = %[2]q
   service_role   = aws_iam_role.test.arn
 
   artifacts {
@@ -3200,7 +3200,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -3219,7 +3219,7 @@ resource "aws_s3_bucket" "test" {
 }
 
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -3229,7 +3229,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -3259,7 +3259,7 @@ resource "aws_s3_bucket" "test2" {
 }
 
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -3274,7 +3274,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -3291,7 +3291,7 @@ resource "aws_codebuild_project" "test" {
 func testAccProjectConfig_localCache(rName, modeType string) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -3306,7 +3306,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -3322,7 +3322,7 @@ func testAccProjectConfig_description(rName, description string) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
   description  = %[1]q
-  name         = %[2]q
+  name= %[2]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -3332,7 +3332,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -3347,7 +3347,7 @@ resource "aws_codebuild_project" "test" {
 func testAccProjectConfig_sourceVersion(rName, sourceVersion string) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -3357,7 +3357,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source_version = %[2]q
@@ -3374,13 +3374,13 @@ resource "aws_codebuild_project" "test" {
 func testAccProjectConfig_encryptionKey(rName string) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description    = %[1]q
   deletion_window_in_days = 7
 }
 
 resource "aws_codebuild_project" "test" {
   encryption_key = aws_kms_key.test.arn
-  name           = %[1]q
+  name  = %[1]q
   service_role   = aws_iam_role.test.arn
 
   artifacts {
@@ -3390,7 +3390,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -3405,7 +3405,7 @@ resource "aws_codebuild_project" "test" {
 func testAccProjectConfig_environmentVariableOne(rName, key1, value1 string) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -3415,7 +3415,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
 
     environment_variable {
       name  = %[2]q
@@ -3435,7 +3435,7 @@ resource "aws_codebuild_project" "test" {
 func testAccProjectConfig_environmentVariableTwo(rName, key1, value1, key2, value2 string) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -3445,7 +3445,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
 
     environment_variable {
       name  = %[2]q
@@ -3470,7 +3470,7 @@ resource "aws_codebuild_project" "test" {
 func testAccProjectConfig_environmentVariableZero(rName string) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -3480,7 +3480,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -3495,7 +3495,7 @@ resource "aws_codebuild_project" "test" {
 func testAccProjectConfig_environmentVariableType(rName, environmentVariableType string) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -3505,7 +3505,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
 
     environment_variable {
       name  = "SOME_KEY"
@@ -3544,7 +3544,7 @@ resource "aws_s3_object" "test" {
 }
 
 resource "aws_codebuild_project" "test" {
-  name         = %[2]q
+  name= %[2]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -3554,7 +3554,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
     certificate  = "${aws_s3_bucket.test.bucket}/${aws_s3_object.test.key}"
   }
 
@@ -3570,7 +3570,7 @@ resource "aws_codebuild_project" "test" {
 func testAccProjectConfig_environmentRegistryCredential1(rName string) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -3580,11 +3580,11 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
     image_pull_credentials_type = "SERVICE_ROLE"
 
     registry_credential {
-      credential          = aws_secretsmanager_secret_version.test.arn
+      credential = aws_secretsmanager_secret_version.test.arn
       credential_provider = "SECRETS_MANAGER"
     }
   }
@@ -3611,7 +3611,7 @@ resource "aws_secretsmanager_secret_version" "test" {
 func testAccProjectConfig_environmentRegistryCredential2(rName string) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -3621,11 +3621,11 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
     image_pull_credentials_type = "SERVICE_ROLE"
 
     registry_credential {
-      credential          = aws_secretsmanager_secret_version.test.arn
+      credential = aws_secretsmanager_secret_version.test.arn
       credential_provider = "SECRETS_MANAGER"
     }
   }
@@ -3652,7 +3652,7 @@ resource "aws_secretsmanager_secret_version" "test" {
 func testAccProjectConfig_cloudWatchLogs(rName, status, gName, sName string) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -3662,7 +3662,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -3685,7 +3685,7 @@ resource "aws_codebuild_project" "test" {
 func testAccProjectConfig_buildBatch(rName string, combineArtifacts bool, computeTypesAllowed string, maximumBuildsAllowed, timeoutInMins int) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -3695,7 +3695,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -3729,7 +3729,7 @@ resource "aws_s3_bucket" "test" {
 }
 
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -3739,7 +3739,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -3749,8 +3749,8 @@ resource "aws_codebuild_project" "test" {
 
   logs_config {
     s3_logs {
-      status              = %[2]q
-      location            = %[3]q
+      status     = %[2]q
+      location   = %[3]q
       encryption_disabled = %[4]t
     }
   }
@@ -3762,7 +3762,7 @@ resource "aws_codebuild_project" "test" {
 func testAccProjectConfig_sourceGitCloneDepth(rName string, gitCloneDepth int) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -3772,13 +3772,13 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
     git_clone_depth = %[2]d
     location        = "https://github.com/hashicorp/packer.git"
-    type            = "GITHUB"
+    type   = "GITHUB"
   }
 }
 `, rName, gitCloneDepth))
@@ -3788,7 +3788,7 @@ resource "aws_codebuild_project" "test" {
 func testAccProjectConfig_sourceGitSubmodulesCodeCommit(rName string, fetchSubmodules bool) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -3798,7 +3798,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -3817,7 +3817,7 @@ resource "aws_codebuild_project" "test" {
 func testAccProjectConfig_sourceGitSubmodulesGitHub(rName string, fetchSubmodules bool) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -3827,7 +3827,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -3846,7 +3846,7 @@ resource "aws_codebuild_project" "test" {
 func testAccProjectConfig_sourceGitSubmodulesGitHubEnterprise(rName string, fetchSubmodules bool) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -3856,7 +3856,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -3875,7 +3875,7 @@ resource "aws_codebuild_project" "test" {
 func testAccProjectConfig_secondarySourcesGitSubmodulesCodeCommit(rName string, fetchSubmodules bool) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -3885,7 +3885,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -3898,8 +3898,8 @@ resource "aws_codebuild_project" "test" {
   }
 
   secondary_sources {
-    location          = "https://git-codecommit.region-id.amazonaws.com/v1/repos/second-repo-name"
-    type              = "CODECOMMIT"
+    location = "https://git-codecommit.region-id.amazonaws.com/v1/repos/second-repo-name"
+    type     = "CODECOMMIT"
     source_identifier = "secondarySource1"
 
     git_submodules_config {
@@ -3908,8 +3908,8 @@ resource "aws_codebuild_project" "test" {
   }
 
   secondary_sources {
-    location          = "https://git-codecommit.region-id.amazonaws.com/v1/repos/third-repo-name"
-    type              = "CODECOMMIT"
+    location = "https://git-codecommit.region-id.amazonaws.com/v1/repos/third-repo-name"
+    type     = "CODECOMMIT"
     source_identifier = "secondarySource2"
 
     git_submodules_config {
@@ -3924,7 +3924,7 @@ resource "aws_codebuild_project" "test" {
 func testAccProjectConfig_secondarySourcesNone(rName string, fetchSubmodules bool) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -3934,7 +3934,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -3953,7 +3953,7 @@ resource "aws_codebuild_project" "test" {
 func testAccProjectConfig_secondarySourcesGitSubmodulesGitHub(rName string, fetchSubmodules bool) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -3963,7 +3963,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -3976,8 +3976,8 @@ resource "aws_codebuild_project" "test" {
   }
 
   secondary_sources {
-    location          = "https://github.com/hashicorp/terraform.git"
-    type              = "GITHUB"
+    location = "https://github.com/hashicorp/terraform.git"
+    type     = "GITHUB"
     source_identifier = "secondarySource1"
 
     git_submodules_config {
@@ -3986,8 +3986,8 @@ resource "aws_codebuild_project" "test" {
   }
 
   secondary_sources {
-    location          = "https://github.com/hashicorp/vault.git"
-    type              = "GITHUB"
+    location = "https://github.com/hashicorp/vault.git"
+    type     = "GITHUB"
     source_identifier = "secondarySource2"
 
     git_submodules_config {
@@ -4002,7 +4002,7 @@ resource "aws_codebuild_project" "test" {
 func testAccProjectConfig_secondarySourcesGitSubmodulesGitHubEnterprise(rName string, fetchSubmodules bool) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -4012,7 +4012,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -4025,8 +4025,8 @@ resource "aws_codebuild_project" "test" {
   }
 
   secondary_sources {
-    location          = "https://example.com/organization/repository-2.git"
-    type              = "GITHUB_ENTERPRISE"
+    location = "https://example.com/organization/repository-2.git"
+    type     = "GITHUB_ENTERPRISE"
     source_identifier = "secondarySource1"
 
     git_submodules_config {
@@ -4035,8 +4035,8 @@ resource "aws_codebuild_project" "test" {
   }
 
   secondary_sources {
-    location          = "https://example.com/organization/repository-3.git"
-    type              = "GITHUB_ENTERPRISE"
+    location = "https://example.com/organization/repository-3.git"
+    type     = "GITHUB_ENTERPRISE"
     source_identifier = "secondarySource2"
 
     git_submodules_config {
@@ -4051,7 +4051,7 @@ resource "aws_codebuild_project" "test" {
 func testAccProjectConfig_secondarySourceVersionsCodeCommit(rName string) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -4061,7 +4061,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -4070,14 +4070,14 @@ resource "aws_codebuild_project" "test" {
   }
 
   secondary_sources {
-    location          = "https://git-codecommit.region-id.amazonaws.com/v1/repos/second-repo-name"
-    type              = "CODECOMMIT"
+    location = "https://git-codecommit.region-id.amazonaws.com/v1/repos/second-repo-name"
+    type     = "CODECOMMIT"
     source_identifier = "secondarySource1"
   }
 
   secondary_sources {
-    location          = "https://git-codecommit.region-id.amazonaws.com/v1/repos/third-repo-name"
-    type              = "CODECOMMIT"
+    location = "https://git-codecommit.region-id.amazonaws.com/v1/repos/third-repo-name"
+    type     = "CODECOMMIT"
     source_identifier = "secondarySource2"
   }
 
@@ -4093,7 +4093,7 @@ resource "aws_codebuild_project" "test" {
 func testAccProjectConfig_secondarySourceVersionsCodeCommitUpdated(rName string) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -4103,7 +4103,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -4112,14 +4112,14 @@ resource "aws_codebuild_project" "test" {
   }
 
   secondary_sources {
-    location          = "https://git-codecommit.region-id.amazonaws.com/v1/repos/second-repo-name"
-    type              = "CODECOMMIT"
+    location = "https://git-codecommit.region-id.amazonaws.com/v1/repos/second-repo-name"
+    type     = "CODECOMMIT"
     source_identifier = "secondarySource1"
   }
 
   secondary_sources {
-    location          = "https://git-codecommit.region-id.amazonaws.com/v1/repos/third-repo-name"
-    type              = "CODECOMMIT"
+    location = "https://git-codecommit.region-id.amazonaws.com/v1/repos/third-repo-name"
+    type     = "CODECOMMIT"
     source_identifier = "secondarySource2"
   }
 
@@ -4140,7 +4140,7 @@ resource "aws_codebuild_project" "test" {
 func testAccProjectConfig_sourceInsecureSSL(rName string, insecureSSL bool) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -4150,13 +4150,13 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
     insecure_ssl = %[2]t
     location     = "https://github.com/hashicorp/packer.git"
-    type         = "GITHUB"
+    type= "GITHUB"
   }
 }
 `, rName, insecureSSL))
@@ -4166,7 +4166,7 @@ resource "aws_codebuild_project" "test" {
 func testAccProjectConfig_sourceReportBuildStatusBitbucket(rName, sourceLocation string, reportBuildStatus bool) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -4176,11 +4176,11 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
-    location            = %[2]q
+    location   = %[2]q
     report_build_status = %[3]t
     type = "BITBUCKET"
   }
@@ -4192,7 +4192,7 @@ resource "aws_codebuild_project" "test" {
 func testAccProjectConfig_sourceReportBuildStatusGitHub(rName string, reportBuildStatus bool) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -4202,11 +4202,11 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
-    location            = "https://github.com/hashicorp/packer.git"
+    location   = "https://github.com/hashicorp/packer.git"
     report_build_status = %[2]t
     type = "GITHUB"
   }
@@ -4218,7 +4218,7 @@ resource "aws_codebuild_project" "test" {
 func testAccProjectConfig_sourceReportBuildStatusGitHubEnterprise(rName string, reportBuildStatus bool) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -4228,11 +4228,11 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
-    location            = "https://example.com/organization/repository.git"
+    location   = "https://example.com/organization/repository.git"
     report_build_status = %[2]t
     type = "GITHUB_ENTERPRISE"
   }
@@ -4244,7 +4244,7 @@ resource "aws_codebuild_project" "test" {
 func testAccProjectConfig_sourceTypeBitbucket(rName, sourceLocation string) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -4254,7 +4254,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -4269,7 +4269,7 @@ resource "aws_codebuild_project" "test" {
 func testAccProjectConfig_sourceTypeCodeCommit(rName string) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -4279,7 +4279,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -4294,7 +4294,7 @@ resource "aws_codebuild_project" "test" {
 func testAccProjectConfig_sourceTypeCodePipeline(rName string) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -4304,7 +4304,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -4318,7 +4318,7 @@ resource "aws_codebuild_project" "test" {
 func testAccProjectConfig_sourceTypeGitHubEnterprise(rName string) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -4328,7 +4328,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -4353,7 +4353,7 @@ resource "aws_s3_object" "test" {
 }
 
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -4363,7 +4363,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -4378,7 +4378,7 @@ resource "aws_codebuild_project" "test" {
 func testAccProjectConfig_sourceTypeNoSource(rName string, rLocation string, rBuildspec string) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -4388,7 +4388,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -4404,7 +4404,7 @@ resource "aws_codebuild_project" "test" {
 func testAccProjectConfig_tags(rName, tagKey, tagValue string) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -4414,7 +4414,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -4450,7 +4450,7 @@ resource "aws_subnet" "test" {
 
   availability_zone = data.aws_availability_zones.available.names[count.index]
   cidr_block        = "10.0.0.0/24"
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
 
   tags = {
     Name = %[1]q
@@ -4463,7 +4463,7 @@ resource "aws_security_group" "test" {
 }
 
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -4473,7 +4473,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -4483,8 +4483,8 @@ resource "aws_codebuild_project" "test" {
 
   vpc_config {
     security_group_ids = [aws_security_group.test.id]
-    subnets            = aws_subnet.test[*].id
-    vpc_id             = aws_vpc.test.id
+    subnets   = aws_subnet.test[*].id
+    vpc_id    = aws_vpc.test.id
   }
 }
 `, rName))
@@ -4509,7 +4509,7 @@ resource "aws_subnet" "test" {
 
   availability_zone = data.aws_availability_zones.available.names[count.index]
   cidr_block        = "10.0.${count.index}.0/24"
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
 
   tags = {
     Name = %[1]q
@@ -4522,7 +4522,7 @@ resource "aws_security_group" "test" {
 }
 
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -4532,7 +4532,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -4542,8 +4542,8 @@ resource "aws_codebuild_project" "test" {
 
   vpc_config {
     security_group_ids = [aws_security_group.test.id]
-    subnets            = aws_subnet.test[*].id
-    vpc_id             = aws_vpc.test.id
+    subnets   = aws_subnet.test[*].id
+    vpc_id    = aws_vpc.test.id
   }
 }
 `, rName))
@@ -4553,7 +4553,7 @@ resource "aws_codebuild_project" "test" {
 func testAccProjectConfig_windowsServer2019Container(rName string) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -4563,7 +4563,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_MEDIUM"
     image        = "2"
-    type         = "WINDOWS_SERVER_2019_CONTAINER"
+    type= "WINDOWS_SERVER_2019_CONTAINER"
   }
 
   source {
@@ -4578,7 +4578,7 @@ resource "aws_codebuild_project" "test" {
 func testAccProjectConfig_armContainer(rName string) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -4588,7 +4588,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_LARGE"
     image        = "2"
-    type         = "ARM_CONTAINER"
+    type= "ARM_CONTAINER"
   }
 
   source {
@@ -4610,19 +4610,19 @@ resource "aws_s3_bucket" "test" {
 }
 
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
     artifact_identifier = %[2]q
-    location            = aws_s3_bucket.test.bucket
+    location   = aws_s3_bucket.test.bucket
     type = "S3"
   }
 
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -4644,19 +4644,19 @@ resource "aws_s3_bucket" "test" {
 }
 
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
     encryption_disabled = %[2]t
-    location            = aws_s3_bucket.test.bucket
+    location   = aws_s3_bucket.test.bucket
     type = "S3"
   }
 
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -4678,7 +4678,7 @@ resource "aws_s3_bucket" "test" {
 }
 
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -4689,7 +4689,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -4711,7 +4711,7 @@ resource "aws_s3_bucket" "test" {
 }
 
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -4723,7 +4723,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -4745,19 +4745,19 @@ resource "aws_s3_bucket" "test" {
 }
 
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
     location       = aws_s3_bucket.test.bucket
     namespace_type = %[2]q
-    type           = "S3"
+    type  = "S3"
   }
 
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -4779,7 +4779,7 @@ resource "aws_s3_bucket" "test" {
 }
 
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -4791,7 +4791,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -4813,7 +4813,7 @@ resource "aws_s3_bucket" "test" {
 }
 
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -4825,7 +4825,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -4847,7 +4847,7 @@ resource "aws_s3_bucket" "test" {
 }
 
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -4859,7 +4859,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -4881,7 +4881,7 @@ resource "aws_s3_bucket" "test" {
 }
 
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -4892,7 +4892,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -4914,19 +4914,19 @@ resource "aws_s3_bucket" "test" {
 }
 
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
     type = "S3"
-    location            = aws_s3_bucket.test.bucket
+    location   = aws_s3_bucket.test.bucket
     bucket_owner_access = %[2]q
   }
 
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -4948,7 +4948,7 @@ resource "aws_s3_bucket" "test" {
 }
 
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -4958,20 +4958,20 @@ resource "aws_codebuild_project" "test" {
 
   secondary_artifacts {
     artifact_identifier = "secondaryArtifact1"
-    location            = aws_s3_bucket.test.bucket
+    location   = aws_s3_bucket.test.bucket
     type = "S3"
   }
 
   secondary_artifacts {
     artifact_identifier = "secondaryArtifact2"
-    location            = aws_s3_bucket.test.bucket
+    location   = aws_s3_bucket.test.bucket
     type = "S3"
   }
 
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -4993,7 +4993,7 @@ resource "aws_s3_bucket" "test" {
 }
 
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -5004,7 +5004,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -5026,7 +5026,7 @@ resource "aws_s3_bucket" "test" {
 }
 
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -5036,14 +5036,14 @@ resource "aws_codebuild_project" "test" {
 
   secondary_artifacts {
     artifact_identifier = %[2]q
-    location            = aws_s3_bucket.test.bucket
+    location   = aws_s3_bucket.test.bucket
     type = "S3"
   }
 
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -5065,7 +5065,7 @@ resource "aws_s3_bucket" "test" {
 }
 
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -5076,14 +5076,14 @@ resource "aws_codebuild_project" "test" {
   secondary_artifacts {
     artifact_identifier = "secondaryArtifact1"
     encryption_disabled = %[2]t
-    location            = aws_s3_bucket.test.bucket
+    location   = aws_s3_bucket.test.bucket
     type = "S3"
   }
 
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -5105,7 +5105,7 @@ resource "aws_s3_bucket" "test" {
 }
 
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -5115,14 +5115,14 @@ resource "aws_codebuild_project" "test" {
 
   secondary_artifacts {
     artifact_identifier = "secondaryArtifact1"
-    location            = aws_s3_bucket.test.bucket
+    location   = aws_s3_bucket.test.bucket
     type = "S3"
   }
 
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -5144,7 +5144,7 @@ resource "aws_s3_bucket" "test" {
 }
 
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -5155,14 +5155,14 @@ resource "aws_codebuild_project" "test" {
   secondary_artifacts {
     artifact_identifier = "secondaryArtifact1"
     name = %[2]q
-    location            = aws_s3_bucket.test.bucket
+    location   = aws_s3_bucket.test.bucket
     type = "S3"
   }
 
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -5184,7 +5184,7 @@ resource "aws_s3_bucket" "test" {
 }
 
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -5195,14 +5195,14 @@ resource "aws_codebuild_project" "test" {
   secondary_artifacts {
     artifact_identifier = "secondaryArtifact1"
     namespace_type      = %[2]q
-    location            = aws_s3_bucket.test.bucket
+    location   = aws_s3_bucket.test.bucket
     type = "S3"
   }
 
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -5224,7 +5224,7 @@ resource "aws_s3_bucket" "test" {
 }
 
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -5242,7 +5242,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -5264,7 +5264,7 @@ resource "aws_s3_bucket" "test" {
 }
 
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -5274,15 +5274,15 @@ resource "aws_codebuild_project" "test" {
 
   secondary_artifacts {
     artifact_identifier = "secondaryArtifact1"
-    packaging           = %[2]q
-    location            = aws_s3_bucket.test.bucket
+    packaging  = %[2]q
+    location   = aws_s3_bucket.test.bucket
     type = "S3"
   }
 
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -5304,7 +5304,7 @@ resource "aws_s3_bucket" "test" {
 }
 
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -5315,14 +5315,14 @@ resource "aws_codebuild_project" "test" {
   secondary_artifacts {
     artifact_identifier = "secondaryArtifact1"
     path = %[2]q
-    location            = aws_s3_bucket.test.bucket
+    location   = aws_s3_bucket.test.bucket
     type = "S3"
   }
 
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -5344,7 +5344,7 @@ resource "aws_s3_bucket" "test" {
 }
 
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -5355,13 +5355,13 @@ resource "aws_codebuild_project" "test" {
   secondary_artifacts {
     artifact_identifier = "secondaryArtifact1"
     type = %[2]q
-    location            = aws_s3_bucket.test.bucket
+    location   = aws_s3_bucket.test.bucket
   }
 
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -5376,7 +5376,7 @@ resource "aws_codebuild_project" "test" {
 func testAccProjectConfig_secondarySourcesCodeCommit(rName string) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -5386,7 +5386,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -5395,14 +5395,14 @@ resource "aws_codebuild_project" "test" {
   }
 
   secondary_sources {
-    location          = "https://git-codecommit.region-id.amazonaws.com/v1/repos/second-repo-name"
-    type              = "CODECOMMIT"
+    location = "https://git-codecommit.region-id.amazonaws.com/v1/repos/second-repo-name"
+    type     = "CODECOMMIT"
     source_identifier = "secondarySource1"
   }
 
   secondary_sources {
-    location          = "https://git-codecommit.region-id.amazonaws.com/v1/repos/third-repo-name"
-    type              = "CODECOMMIT"
+    location = "https://git-codecommit.region-id.amazonaws.com/v1/repos/third-repo-name"
+    type     = "CODECOMMIT"
     source_identifier = "secondarySource2"
   }
 }
@@ -5413,7 +5413,7 @@ resource "aws_codebuild_project" "test" {
 func testAccProjectConfig_sourceBuildStatusGitHubEnterprise(rName string) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -5423,7 +5423,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -5445,7 +5445,7 @@ func testAccProjectConfig_concurrentBuildLimit(rName string, concurrentBuildLimi
 resource "aws_codebuild_project" "test" {
   concurrent_build_limit = %[1]d
   name    = %[2]q
-  service_role           = aws_iam_role.test.arn
+  service_role  = aws_iam_role.test.arn
 
   artifacts {
     type = "NO_ARTIFACTS"
@@ -5454,7 +5454,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {
@@ -5496,7 +5496,7 @@ resource "aws_internet_gateway" "test" {
 resource "aws_subnet" "public" {
   availability_zone = data.aws_availability_zones.available.names[0]
   cidr_block        = "10.0.0.0/24"
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
 
   tags = {
     Name = "%[1]s-public"
@@ -5517,15 +5517,15 @@ resource "aws_route_table_association" "public" {
 }
 
 resource "aws_route" "public" {
-  route_table_id         = aws_route_table.public.id
+  route_table_id= aws_route_table.public.id
   destination_cidr_block = "0.0.0.0/0"
-  gateway_id             = aws_internet_gateway.test.id
+  gateway_id    = aws_internet_gateway.test.id
 }
 
 resource "aws_subnet" "private" {
   availability_zone = data.aws_availability_zones.available.names[0]
   cidr_block        = "10.0.1.0/24"
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
 
   tags = {
     Name = "%[1]s-private"
@@ -5565,9 +5565,9 @@ resource "aws_route_table_association" "private" {
 }
 
 resource "aws_route" "private" {
-  route_table_id         = aws_route_table.private.id
+  route_table_id= aws_route_table.private.id
   destination_cidr_block = "0.0.0.0/0"
-  nat_gateway_id         = aws_nat_gateway.test.id
+  nat_gateway_id= aws_nat_gateway.test.id
 }
 
 resource "aws_security_group" "test" {
@@ -5576,7 +5576,7 @@ resource "aws_security_group" "test" {
 }
 
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -5586,7 +5586,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
 
     privileged_mode = true
   }
@@ -5598,14 +5598,14 @@ resource "aws_codebuild_project" "test" {
 
   vpc_config {
     security_group_ids = [aws_security_group.test.id]
-    subnets            = [aws_subnet.private.id]
-    vpc_id             = aws_vpc.test.id
+    subnets   = [aws_subnet.private.id]
+    vpc_id    = aws_vpc.test.id
   }
 
   file_system_locations {
     identifier    = "test"
     location      = "${aws_efs_file_system.test.dns_name}:/directory-path"
-    type          = "EFS"
+    type = "EFS"
     mount_point   = %[2]q
     mount_options = "nfsvers=4.1,rsize=1048576,wsize=1048576,hard,timeo=450,retrans=3"
   }

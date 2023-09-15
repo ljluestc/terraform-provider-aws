@@ -298,8 +298,8 @@ func (m *multiplexProgram) Update(ctx context.Context, req resource.UpdateReques
 	}
 
 	in := &medialive.UpdateMultiplexProgramInput{
-		MultiplexId:              aws.String(multiplexId),
-		ProgramName:              aws.String(programName),
+		MultiplexId:     aws.String(multiplexId),
+		ProgramName:     aws.String(programName),
 		MultiplexProgramSettings: mpSettings,
 	}
 
@@ -406,7 +406,7 @@ func (mps multiplexProgramSettingsObject) expand(ctx context.Context) (*mltypes.
 	data := mps[0]
 
 	l := &mltypes.MultiplexProgramSettings{
-		ProgramNumber:            int32(data.ProgramNumber.ValueInt64()),
+		ProgramNumber:   int32(data.ProgramNumber.ValueInt64()),
 		PreferredChannelPipeline: mltypes.PreferredChannelPipeline(data.PreferredChannelPipeline.ValueString()),
 	}
 
@@ -500,10 +500,10 @@ var (
 	}
 
 	multiplexProgramSettingsAttrs = map[string]attr.Type{
-		"program_number":             types.Int64Type,
+		"program_number":    types.Int64Type,
 		"preferred_channel_pipeline": types.StringType,
-		"service_descriptor":         types.ListType{ElemType: types.ObjectType{AttrTypes: serviceDescriptorAttrs}},
-		"video_settings":             types.ListType{ElemType: types.ObjectType{AttrTypes: videoSettingsAttrs}},
+		"service_descriptor":types.ListType{ElemType: types.ObjectType{AttrTypes: serviceDescriptorAttrs}},
+		"video_settings":    types.ListType{ElemType: types.ObjectType{AttrTypes: videoSettingsAttrs}},
 	}
 )
 
@@ -589,17 +589,17 @@ func ParseMultiplexProgramID(id string) (programName string, multiplexId string,
 }
 
 type resourceMultiplexProgramData struct {
-	ID                       types.String `tfsdk:"id"`
-	MultiplexID              types.String `tfsdk:"multiplex_id"`
+	ID     types.String `tfsdk:"id"`
+	MultiplexID     types.String `tfsdk:"multiplex_id"`
 	MultiplexProgramSettings types.List   `tfsdk:"multiplex_program_settings"`
-	ProgramName              types.String `tfsdk:"program_name"`
+	ProgramName     types.String `tfsdk:"program_name"`
 }
 
 type multiplexProgramSettings struct {
-	ProgramNumber            types.Int64  `tfsdk:"program_number"`
+	ProgramNumber   types.Int64  `tfsdk:"program_number"`
 	PreferredChannelPipeline types.String `tfsdk:"preferred_channel_pipeline"`
 	ServiceDescriptor        types.List   `tfsdk:"service_descriptor"`
-	VideoSettings            types.List   `tfsdk:"video_settings"`
+	VideoSettings   types.List   `tfsdk:"video_settings"`
 }
 
 type serviceDescriptor struct {

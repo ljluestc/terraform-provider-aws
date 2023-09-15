@@ -103,7 +103,7 @@ func resourcePullThroughCacheRuleDelete(ctx context.Context, d *schema.ResourceD
 	log.Printf("[DEBUG] Deleting ECR Pull Through Cache Rule: (%s)", d.Id())
 	_, err := conn.DeletePullThroughCacheRuleWithContext(ctx, &ecr.DeletePullThroughCacheRuleInput{
 		EcrRepositoryPrefix: aws.String(d.Id()),
-		RegistryId:          aws.String(d.Get("registry_id").(string)),
+		RegistryId: aws.String(d.Get("registry_id").(string)),
 	})
 
 	if tfawserr.ErrCodeEquals(err, ecr.ErrCodePullThroughCacheRuleNotFoundException) {

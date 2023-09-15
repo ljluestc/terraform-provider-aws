@@ -41,7 +41,7 @@ func ResourceConstraint() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"accept_language": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Default:      AcceptLanguageEnglish,
 				ValidateFunc: validation.StringInSlice(AcceptLanguage_Values(), false),
@@ -56,8 +56,8 @@ func ResourceConstraint() *schema.Resource {
 				Computed: true,
 			},
 			"parameters": {
-				Type:             schema.TypeString,
-				Required:         true,
+				Type:    schema.TypeString,
+				Required:true,
 				ValidateFunc:     validation.StringIsJSON,
 				DiffSuppressFunc: verify.SuppressEquivalentJSONDiffs,
 			},
@@ -76,7 +76,7 @@ func ResourceConstraint() *schema.Resource {
 				Computed: true,
 			},
 			"type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringInSlice(ConstraintType_Values(), false),
@@ -94,7 +94,7 @@ func resourceConstraintCreate(ctx context.Context, d *schema.ResourceData, meta 
 		Parameters:       aws.String(d.Get("parameters").(string)),
 		PortfolioId:      aws.String(d.Get("portfolio_id").(string)),
 		ProductId:        aws.String(d.Get("product_id").(string)),
-		Type:             aws.String(d.Get("type").(string)),
+		Type:    aws.String(d.Get("type").(string)),
 	}
 
 	if v, ok := d.GetOk("accept_language"); ok {

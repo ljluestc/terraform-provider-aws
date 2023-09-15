@@ -38,9 +38,9 @@ func TestAccVPCLatticeListener_defaultActionUpdate(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckListenerDestroy(ctx),
+		CheckDestroy:    testAccCheckListenerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccListenerConfig_fixedResponseHTTPS(rName),
@@ -90,9 +90,9 @@ func TestAccVPCLatticeListener_fixedResponseHTTP(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckListenerDestroy(ctx),
+		CheckDestroy:    testAccCheckListenerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccListenerConfig_fixedResponseHTTP(rName),
@@ -129,9 +129,9 @@ func TestAccVPCLatticeListener_fixedResponseHTTPS(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckListenerDestroy(ctx),
+		CheckDestroy:    testAccCheckListenerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccListenerConfig_fixedResponseHTTPS(rName),
@@ -169,9 +169,9 @@ func TestAccVPCLatticeListener_forwardHTTPTargetGroup(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckListenerDestroy(ctx),
+		CheckDestroy:    testAccCheckListenerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccListenerConfig_forwardTargetGroupHTTPServiceID(rName),
@@ -210,9 +210,9 @@ func TestAccVPCLatticeListener_forwardHTTPTargetGroupCustomPort(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckListenerDestroy(ctx),
+		CheckDestroy:    testAccCheckListenerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccListenerConfig_forwardTargetGroupHTTPServiceIDCustomPort(rName),
@@ -251,9 +251,9 @@ func TestAccVPCLatticeListener_forwardHTTPSTargetGroupARN(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckListenerDestroy(ctx),
+		CheckDestroy:    testAccCheckListenerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccListenerConfig_forwardTargetGroupHTTPServiceARN(rName),
@@ -293,9 +293,9 @@ func TestAccVPCLatticeListener_forwardHTTPSTargetGroupCustomPort(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckListenerDestroy(ctx),
+		CheckDestroy:    testAccCheckListenerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccListenerConfig_forwardTargetGroupHTTPSServiceIDCustomPort(rName),
@@ -337,9 +337,9 @@ func TestAccVPCLatticeListener_forwardHTTPMultipleTargetGroups(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckListenerDestroy(ctx),
+		CheckDestroy:    testAccCheckListenerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccListenerConfig_forwardMultiTargetGroupHTTP(rName, targetGroupName1),
@@ -381,9 +381,9 @@ func TestAccVPCLatticeListener_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckListenerDestroy(ctx),
+		CheckDestroy:    testAccCheckListenerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccListenerConfig_forwardTargetGroupHTTPServiceID(rName),
@@ -410,9 +410,9 @@ func TestAccVPCLatticeListener_tags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckListenerDestroy(ctx),
+		CheckDestroy:    testAccCheckListenerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccListenerConfig_tags1(rName, "key0", "value0"),
@@ -515,7 +515,7 @@ resource "aws_vpclattice_target_group" "test" {
   type = "INSTANCE"
 
   config {
-    port           = 80
+    port  = 80
     protocol       = "HTTP"
     vpc_identifier = aws_vpc.test.id
   }
@@ -527,7 +527,7 @@ func testAccListenerConfig_fixedResponseHTTP(rName string) string {
 	return acctest.ConfigCompose(testAccListenerConfig_basic(rName), fmt.Sprintf(`
 resource "aws_vpclattice_listener" "test" {
   name= %[1]q
-  protocol           = "HTTP"
+  protocol  = "HTTP"
   service_identifier = aws_vpclattice_service.test.id
   default_action {
     fixed_response {
@@ -542,7 +542,7 @@ func testAccListenerConfig_fixedResponseHTTPS(rName string) string {
 	return acctest.ConfigCompose(testAccListenerConfig_basic(rName), fmt.Sprintf(`
 resource "aws_vpclattice_listener" "test" {
   name= %[1]q
-  protocol           = "HTTPS"
+  protocol  = "HTTPS"
   service_identifier = aws_vpclattice_service.test.id
   default_action {
     fixed_response {
@@ -560,7 +560,7 @@ resource "aws_vpclattice_target_group" "test1" {
   type = "INSTANCE"
 
   config {
-    port           = 8080
+    port  = 8080
     protocol       = "HTTP"
     vpc_identifier = aws_vpc.test.id
   }
@@ -568,7 +568,7 @@ resource "aws_vpclattice_target_group" "test1" {
 
 resource "aws_vpclattice_listener" "test" {
   name= %[1]q
-  protocol           = "HTTP"
+  protocol  = "HTTP"
   service_identifier = aws_vpclattice_service.test.id
   default_action {
     forward {
@@ -590,7 +590,7 @@ func testAccListenerConfig_forwardTargetGroupHTTPServiceID(rName string) string 
 	return acctest.ConfigCompose(testAccListenerConfig_basic(rName), fmt.Sprintf(`
 resource "aws_vpclattice_listener" "test" {
   name= %[1]q
-  protocol           = "HTTP"
+  protocol  = "HTTP"
   service_identifier = aws_vpclattice_service.test.id
   default_action {
     forward {
@@ -609,7 +609,7 @@ func testAccListenerConfig_forwardTargetGroupHTTPServiceIDCustomPort(rName strin
 resource "aws_vpclattice_listener" "test" {
   name= %[1]q
   port= 8080
-  protocol           = "HTTP"
+  protocol  = "HTTP"
   service_identifier = aws_vpclattice_service.test.id
   default_action {
     forward {
@@ -644,7 +644,7 @@ func testAccListenerConfig_forwardTargetGroupHTTPSServiceID(rName string) string
 	return acctest.ConfigCompose(testAccListenerConfig_basic(rName), fmt.Sprintf(`
 resource "aws_vpclattice_listener" "test" {
   name= %[1]q
-  protocol           = "HTTPS"
+  protocol  = "HTTPS"
   service_identifier = aws_vpclattice_service.test.id
   default_action {
     forward {
@@ -662,7 +662,7 @@ func testAccListenerConfig_forwardTargetGroupHTTPSServiceIDCustomPort(rName stri
 resource "aws_vpclattice_listener" "test" {
   name= %[1]q
   port= 8443
-  protocol           = "HTTPS"
+  protocol  = "HTTPS"
   service_identifier = aws_vpclattice_service.test.id
   default_action {
     forward {
@@ -679,7 +679,7 @@ func testAccListenerConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccListenerConfig_basic(rName), fmt.Sprintf(`
 resource "aws_vpclattice_listener" "test" {
   name= %[1]q
-  protocol           = "HTTP"
+  protocol  = "HTTP"
   service_identifier = aws_vpclattice_service.test.id
   default_action {
     forward {
@@ -700,7 +700,7 @@ func testAccListenerConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 s
 	return acctest.ConfigCompose(testAccListenerConfig_basic(rName), fmt.Sprintf(`
 resource "aws_vpclattice_listener" "test" {
   name= %[1]q
-  protocol           = "HTTP"
+  protocol  = "HTTP"
   service_identifier = aws_vpclattice_service.test.id
   default_action {
     forward {

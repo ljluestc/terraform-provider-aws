@@ -24,19 +24,19 @@ func ResourceUserInGroup() *schema.Resource {
 		DeleteWithoutTimeout: resourceUserInGroupDelete,
 		Schema: map[string]*schema.Schema{
 			"group_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validUserGroupName,
 			},
 			"user_pool_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validUserPoolID,
 			},
 			"username": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 128),

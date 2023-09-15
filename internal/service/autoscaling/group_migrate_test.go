@@ -35,25 +35,25 @@ func TestGroupStateUpgradeV0(t *testing.T) {
 				"max_instance_lifetime":     "3600",
 			},
 			want: map[string]interface{}{
-				"capacity_rebalance":               "true",
+				"capacity_rebalance":      "true",
 				"health_check_grace_period":        "600",
 				"ignore_failed_scaling_activities": "false",
-				"max_instance_lifetime":            "3600",
+				"max_instance_lifetime":   "3600",
 			},
 		},
 		{
 			testName: "ignore_failed_scaling_activities set",
 			rawState: map[string]interface{}{
-				"capacity_rebalance":               "false",
+				"capacity_rebalance":      "false",
 				"health_check_grace_period":        "400",
 				"ignore_failed_scaling_activities": "true",
-				"max_instance_lifetime":            "36000",
+				"max_instance_lifetime":   "36000",
 			},
 			want: map[string]interface{}{
-				"capacity_rebalance":               "false",
+				"capacity_rebalance":      "false",
 				"health_check_grace_period":        "400",
 				"ignore_failed_scaling_activities": "true",
-				"max_instance_lifetime":            "36000",
+				"max_instance_lifetime":   "36000",
 			},
 		},
 	}

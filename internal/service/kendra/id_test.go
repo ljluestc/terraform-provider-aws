@@ -14,45 +14,45 @@ func TestExperienceParseResourceID(t *testing.T) {
 
 	testCases := []struct {
 		TestName        string
-		Input           string
+		Input  string
 		ExpectedId      string
 		ExpectedIndexId string
-		Error           bool
+		Error  bool
 	}{
 		{
 			TestName:        "empty",
-			Input:           "",
+			Input:  "",
 			ExpectedId:      "",
 			ExpectedIndexId: "",
-			Error:           true,
+			Error:  true,
 		},
 		{
 			TestName:        "Invalid ID",
-			Input:           "abcdefg12345678/",
+			Input:  "abcdefg12345678/",
 			ExpectedId:      "",
 			ExpectedIndexId: "",
-			Error:           true,
+			Error:  true,
 		},
 		{
 			TestName:        "Invalid ID separator",
-			Input:           "abcdefg12345678:qwerty09876",
+			Input:  "abcdefg12345678:qwerty09876",
 			ExpectedId:      "",
 			ExpectedIndexId: "",
-			Error:           true,
+			Error:  true,
 		},
 		{
 			TestName:        "Invalid ID with more than 1 separator",
-			Input:           "abcdefg12345678/qwerty09876/zxcvbnm123456",
+			Input:  "abcdefg12345678/qwerty09876/zxcvbnm123456",
 			ExpectedId:      "",
 			ExpectedIndexId: "",
-			Error:           true,
+			Error:  true,
 		},
 		{
 			TestName:        "Valid ID",
-			Input:           "abcdefg12345678/qwerty09876",
+			Input:  "abcdefg12345678/qwerty09876",
 			ExpectedId:      "abcdefg12345678",
 			ExpectedIndexId: "qwerty09876",
-			Error:           false,
+			Error:  false,
 		},
 	}
 
@@ -87,45 +87,45 @@ func TestQuerySuggestionsBlockListParseID(t *testing.T) {
 
 	testCases := []struct {
 		TestName        string
-		Input           string
+		Input  string
 		ExpectedId      string
 		ExpectedIndexId string
-		Error           bool
+		Error  bool
 	}{
 		{
 			TestName:        "empty",
-			Input:           "",
+			Input:  "",
 			ExpectedId:      "",
 			ExpectedIndexId: "",
-			Error:           true,
+			Error:  true,
 		},
 		{
 			TestName:        "Invalid ID",
-			Input:           "abcdefg12345678/",
+			Input:  "abcdefg12345678/",
 			ExpectedId:      "",
 			ExpectedIndexId: "",
-			Error:           true,
+			Error:  true,
 		},
 		{
 			TestName:        "Invalid ID separator",
-			Input:           "abcdefg12345678:qwerty09876",
+			Input:  "abcdefg12345678:qwerty09876",
 			ExpectedId:      "",
 			ExpectedIndexId: "",
-			Error:           true,
+			Error:  true,
 		},
 		{
 			TestName:        "Invalid ID with more than 1 separator",
-			Input:           "abcdefg12345678/qwerty09876/zxcvbnm123456",
+			Input:  "abcdefg12345678/qwerty09876/zxcvbnm123456",
 			ExpectedId:      "",
 			ExpectedIndexId: "",
-			Error:           true,
+			Error:  true,
 		},
 		{
 			TestName:        "Valid ID",
-			Input:           "abcdefg12345678/qwerty09876",
+			Input:  "abcdefg12345678/qwerty09876",
 			ExpectedId:      "abcdefg12345678",
 			ExpectedIndexId: "qwerty09876",
-			Error:           false,
+			Error:  false,
 		},
 	}
 
@@ -160,45 +160,45 @@ func TestThesaurusParseResourceID(t *testing.T) {
 
 	testCases := []struct {
 		TestName        string
-		Input           string
+		Input  string
 		ExpectedId      string
 		ExpectedIndexId string
-		Error           bool
+		Error  bool
 	}{
 		{
 			TestName:        "empty",
-			Input:           "",
+			Input:  "",
 			ExpectedId:      "",
 			ExpectedIndexId: "",
-			Error:           true,
+			Error:  true,
 		},
 		{
 			TestName:        "Invalid ID",
-			Input:           "abcdefg12345678/",
+			Input:  "abcdefg12345678/",
 			ExpectedId:      "",
 			ExpectedIndexId: "",
-			Error:           true,
+			Error:  true,
 		},
 		{
 			TestName:        "Invalid ID separator",
-			Input:           "abcdefg12345678:qwerty09876",
+			Input:  "abcdefg12345678:qwerty09876",
 			ExpectedId:      "",
 			ExpectedIndexId: "",
-			Error:           true,
+			Error:  true,
 		},
 		{
 			TestName:        "Invalid ID with more than 1 separator",
-			Input:           "abcdefg12345678/qwerty09876/zxcvbnm123456",
+			Input:  "abcdefg12345678/qwerty09876/zxcvbnm123456",
 			ExpectedId:      "",
 			ExpectedIndexId: "",
-			Error:           true,
+			Error:  true,
 		},
 		{
 			TestName:        "Valid ID",
-			Input:           "abcdefg12345678/qwerty09876",
+			Input:  "abcdefg12345678/qwerty09876",
 			ExpectedId:      "abcdefg12345678",
 			ExpectedIndexId: "qwerty09876",
-			Error:           false,
+			Error:  false,
 		},
 	}
 

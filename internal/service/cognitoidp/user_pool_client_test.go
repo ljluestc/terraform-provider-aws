@@ -28,10 +28,10 @@ func TestAccCognitoIDPUserPoolClient_basic(t *testing.T) {
 	resourceName := "aws_cognito_user_pool_client.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolClientDestroy(ctx),
+		CheckDestroy:    testAccCheckUserPoolClientDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserPoolClientConfig_basic(rName),
@@ -81,10 +81,10 @@ func TestAccCognitoIDPUserPoolClient_enableRevocation(t *testing.T) {
 	resourceName := "aws_cognito_user_pool_client.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolClientDestroy(ctx),
+		CheckDestroy:    testAccCheckUserPoolClientDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserPoolClientConfig_revocation(rName, true),
@@ -125,10 +125,10 @@ func TestAccCognitoIDPUserPoolClient_accessTokenValidity(t *testing.T) {
 	resourceName := "aws_cognito_user_pool_client.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolClientDestroy(ctx),
+		CheckDestroy:    testAccCheckUserPoolClientDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserPoolClientConfig_accessTokenValidity(rName, 5),
@@ -165,10 +165,10 @@ func TestAccCognitoIDPUserPoolClient_accessTokenValidity_error(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolClientDestroy(ctx),
+		CheckDestroy:    testAccCheckUserPoolClientDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccUserPoolClientConfig_accessTokenValidity(rName, 25),
@@ -193,10 +193,10 @@ func TestAccCognitoIDPUserPoolClient_idTokenValidity(t *testing.T) {
 	resourceName := "aws_cognito_user_pool_client.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolClientDestroy(ctx),
+		CheckDestroy:    testAccCheckUserPoolClientDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserPoolClientConfig_idTokenValidity(rName, 5),
@@ -233,10 +233,10 @@ func TestAccCognitoIDPUserPoolClient_idTokenValidity_error(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolClientDestroy(ctx),
+		CheckDestroy:    testAccCheckUserPoolClientDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccUserPoolClientConfig_idTokenValidity(rName, 25),
@@ -261,10 +261,10 @@ func TestAccCognitoIDPUserPoolClient_refreshTokenValidity(t *testing.T) {
 	resourceName := "aws_cognito_user_pool_client.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolClientDestroy(ctx),
+		CheckDestroy:    testAccCheckUserPoolClientDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserPoolClientConfig_refreshTokenValidity(rName, 60),
@@ -301,10 +301,10 @@ func TestAccCognitoIDPUserPoolClient_refreshTokenValidity_error(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolClientDestroy(ctx),
+		CheckDestroy:    testAccCheckUserPoolClientDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccUserPoolClientConfig_refreshTokenValidity(rName, 10*365+1),
@@ -325,10 +325,10 @@ func TestAccCognitoIDPUserPoolClient_tokenValidityUnits(t *testing.T) {
 	resourceName := "aws_cognito_user_pool_client.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolClientDestroy(ctx),
+		CheckDestroy:    testAccCheckUserPoolClientDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserPoolClientConfig_tokenValidityUnits(rName, "days"),
@@ -386,10 +386,10 @@ func TestAccCognitoIDPUserPoolClient_tokenValidityUnits_explicitDefaults(t *test
 	resourceName := "aws_cognito_user_pool_client.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolClientDestroy(ctx),
+		CheckDestroy:    testAccCheckUserPoolClientDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserPoolClientConfig_tokenValidityUnits_explicitDefaults(rName, "days"),
@@ -412,10 +412,10 @@ func TestAccCognitoIDPUserPoolClient_tokenValidityUnits_AccessToken(t *testing.T
 	resourceName := "aws_cognito_user_pool_client.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolClientDestroy(ctx),
+		CheckDestroy:    testAccCheckUserPoolClientDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserPoolClientConfig_tokenValidityUnits_Unit(rName, "access_token", "days"),
@@ -460,10 +460,10 @@ func TestAccCognitoIDPUserPoolClient_tokenValidityUnitsWTokenValidity(t *testing
 	resourceName := "aws_cognito_user_pool_client.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolClientDestroy(ctx),
+		CheckDestroy:    testAccCheckUserPoolClientDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserPoolClientConfig_tokenValidityUnitsTokenValidity(rName, "days"),
@@ -510,10 +510,10 @@ func TestAccCognitoIDPUserPoolClient_name(t *testing.T) {
 	resourceName := "aws_cognito_user_pool_client.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolClientDestroy(ctx),
+		CheckDestroy:    testAccCheckUserPoolClientDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserPoolClientConfig_name(rName, "name1"),
@@ -552,10 +552,10 @@ func TestAccCognitoIDPUserPoolClient_allFields(t *testing.T) {
 	resourceName := "aws_cognito_user_pool_client.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolClientDestroy(ctx),
+		CheckDestroy:    testAccCheckUserPoolClientDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserPoolClientConfig_allFields(rName, 300),
@@ -612,10 +612,10 @@ func TestAccCognitoIDPUserPoolClient_allFieldsUpdatingOneField(t *testing.T) {
 	resourceName := "aws_cognito_user_pool_client.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolClientDestroy(ctx),
+		CheckDestroy:    testAccCheckUserPoolClientDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserPoolClientConfig_allFields(rName, 300),
@@ -680,9 +680,9 @@ func TestAccCognitoIDPUserPoolClient_analyticsApplicationID(t *testing.T) {
 			testAccPreCheckIdentityProvider(ctx, t)
 			testAccPreCheckPinpointApp(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolClientDestroy(ctx),
+		CheckDestroy:    testAccCheckUserPoolClientDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserPoolClientConfig_analyticsApplicationID(rName),
@@ -748,9 +748,9 @@ func TestAccCognitoIDPUserPoolClient_analyticsWithARN(t *testing.T) {
 			testAccPreCheckIdentityProvider(ctx, t)
 			testAccPreCheckPinpointApp(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolClientDestroy(ctx),
+		CheckDestroy:    testAccCheckUserPoolClientDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserPoolClientConfig_analyticsARN(rName),
@@ -799,10 +799,10 @@ func TestAccCognitoIDPUserPoolClient_authSessionValidity(t *testing.T) {
 	resourceName := "aws_cognito_user_pool_client.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolClientDestroy(ctx),
+		CheckDestroy:    testAccCheckUserPoolClientDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserPoolClientConfig_authSessionValidity(rName, 3),
@@ -841,10 +841,10 @@ func TestAccCognitoIDPUserPoolClient_disappears(t *testing.T) {
 	resourceName := "aws_cognito_user_pool_client.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolClientDestroy(ctx),
+		CheckDestroy:    testAccCheckUserPoolClientDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserPoolClientConfig_basic(rName),
@@ -865,10 +865,10 @@ func TestAccCognitoIDPUserPoolClient_Disappears_userPool(t *testing.T) {
 	resourceName := "aws_cognito_user_pool_client.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolClientDestroy(ctx),
+		CheckDestroy:    testAccCheckUserPoolClientDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserPoolClientConfig_basic(rName),
@@ -889,10 +889,10 @@ func TestAccCognitoIDPUserPoolClient_emptySets(t *testing.T) {
 	resourceName := "aws_cognito_user_pool_client.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolClientDestroy(ctx),
+		CheckDestroy:    testAccCheckUserPoolClientDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserPoolClientConfig_emptySets(rName),
@@ -929,10 +929,10 @@ func TestAccCognitoIDPUserPoolClient_nulls(t *testing.T) {
 	resourceName := "aws_cognito_user_pool_client.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolClientDestroy(ctx),
+		CheckDestroy:    testAccCheckUserPoolClientDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserPoolClientConfig_nulls(rName),
@@ -976,7 +976,7 @@ func TestAccCognitoIDPUserPoolClient_frameworkMigration_nulls(t *testing.T) {
 			{
 				ExternalProviders: map[string]resource.ExternalProvider{
 					"aws": {
-						Source:            "hashicorp/aws",
+						Source:   "hashicorp/aws",
 						VersionConstraint: "4.59.0",
 					},
 				},
@@ -995,8 +995,8 @@ func TestAccCognitoIDPUserPoolClient_frameworkMigration_nulls(t *testing.T) {
 			},
 			{
 				ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-				Config:                   testAccUserPoolClientConfig_nulls(rName),
-				PlanOnly:                 true,
+				Config: testAccUserPoolClientConfig_nulls(rName),
+				PlanOnly:        true,
 			},
 		},
 	})
@@ -1016,7 +1016,7 @@ func TestAccCognitoIDPUserPoolClient_frameworkMigration_basic(t *testing.T) {
 			{
 				ExternalProviders: map[string]resource.ExternalProvider{
 					"aws": {
-						Source:            "hashicorp/aws",
+						Source:   "hashicorp/aws",
 						VersionConstraint: "4.59.0",
 					},
 				},
@@ -1027,8 +1027,8 @@ func TestAccCognitoIDPUserPoolClient_frameworkMigration_basic(t *testing.T) {
 			},
 			{
 				ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-				Config:                   testAccUserPoolClientConfig_basic(rName),
-				PlanOnly:                 true,
+				Config: testAccUserPoolClientConfig_basic(rName),
+				PlanOnly:        true,
 			},
 		},
 	})
@@ -1048,7 +1048,7 @@ func TestAccCognitoIDPUserPoolClient_frameworkMigration_emptySet(t *testing.T) {
 			{
 				ExternalProviders: map[string]resource.ExternalProvider{
 					"aws": {
-						Source:            "hashicorp/aws",
+						Source:   "hashicorp/aws",
 						VersionConstraint: "4.59.0",
 					},
 				},
@@ -1067,8 +1067,8 @@ func TestAccCognitoIDPUserPoolClient_frameworkMigration_emptySet(t *testing.T) {
 			},
 			{
 				ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-				Config:                   testAccUserPoolClientConfig_emptySets(rName),
-				PlanOnly:                 true,
+				Config: testAccUserPoolClientConfig_emptySets(rName),
+				PlanOnly:        true,
 			},
 		},
 	})
@@ -1172,7 +1172,7 @@ func testAccUserPoolClientConfig_revocation(rName string, revoke bool) string {
 		fmt.Sprintf(`
 resource "aws_cognito_user_pool_client" "test" {
   name     = %[1]q
-  user_pool_id            = aws_cognito_user_pool.test.id
+  user_pool_id   = aws_cognito_user_pool.test.id
   explicit_auth_flows     = ["ADMIN_NO_SRP_AUTH"]
   enable_token_revocation = %[2]t
 }
@@ -1184,7 +1184,7 @@ func testAccUserPoolClientConfig_accessTokenValidity(rName string, validity int)
 		testAccUserPoolClientBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_cognito_user_pool_client" "test" {
-  name         = %[1]q
+  name= %[1]q
   user_pool_id = aws_cognito_user_pool.test.id
 
   access_token_validity = %[2]d
@@ -1197,7 +1197,7 @@ func testAccUserPoolClientConfig_accessTokenValidityUnit(rName string, validity 
 		testAccUserPoolClientBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_cognito_user_pool_client" "test" {
-  name         = %[1]q
+  name= %[1]q
   user_pool_id = aws_cognito_user_pool.test.id
 
   access_token_validity = %[2]d
@@ -1214,7 +1214,7 @@ func testAccUserPoolClientConfig_idTokenValidity(rName string, validity int) str
 		testAccUserPoolClientBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_cognito_user_pool_client" "test" {
-  name         = %[1]q
+  name= %[1]q
   user_pool_id = aws_cognito_user_pool.test.id
 
   id_token_validity = %[2]d
@@ -1227,7 +1227,7 @@ func testAccUserPoolClientConfig_idTokenValidityUnit(rName string, validity int,
 		testAccUserPoolClientBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_cognito_user_pool_client" "test" {
-  name         = %[1]q
+  name= %[1]q
   user_pool_id = aws_cognito_user_pool.test.id
 
   id_token_validity = %[2]d
@@ -1244,7 +1244,7 @@ func testAccUserPoolClientConfig_refreshTokenValidity(rName string, refreshToken
 		testAccUserPoolClientBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_cognito_user_pool_client" "test" {
-  name         = %[1]q
+  name= %[1]q
   user_pool_id = aws_cognito_user_pool.test.id
 
   refresh_token_validity = %[2]d
@@ -1257,7 +1257,7 @@ func testAccUserPoolClientConfig_refreshTokenValidityUnit(rName string, refreshT
 		testAccUserPoolClientBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_cognito_user_pool_client" "test" {
-  name         = %[1]q
+  name= %[1]q
   user_pool_id = aws_cognito_user_pool.test.id
 
   refresh_token_validity = %[2]d
@@ -1274,7 +1274,7 @@ func testAccUserPoolClientConfig_tokenValidityUnits(rName, value string) string 
 		testAccUserPoolClientBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_cognito_user_pool_client" "test" {
-  name         = %[1]q
+  name= %[1]q
   user_pool_id = aws_cognito_user_pool.test.id
 
   token_validity_units {
@@ -1291,7 +1291,7 @@ func testAccUserPoolClientConfig_tokenValidityUnits_Unit(rName, unit, value stri
 		testAccUserPoolClientBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_cognito_user_pool_client" "test" {
-  name         = %[1]q
+  name= %[1]q
   user_pool_id = aws_cognito_user_pool.test.id
 
   token_validity_units {
@@ -1306,7 +1306,7 @@ func testAccUserPoolClientConfig_tokenValidityUnits_explicitDefaults(rName, valu
 		testAccUserPoolClientBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_cognito_user_pool_client" "test" {
-  name         = %[1]q
+  name= %[1]q
   user_pool_id = aws_cognito_user_pool.test.id
 
   token_validity_units {
@@ -1323,7 +1323,7 @@ func testAccUserPoolClientConfig_tokenValidityUnitsTokenValidity(rName, units st
 		testAccUserPoolClientBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_cognito_user_pool_client" "test" {
-  name              = %[1]q
+  name     = %[1]q
   user_pool_id      = aws_cognito_user_pool.test.id
   id_token_validity = 1
 
@@ -1341,7 +1341,7 @@ func testAccUserPoolClientConfig_name(rName, name string) string {
 		testAccUserPoolClientBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_cognito_user_pool_client" "test" {
-  name         = %[1]q
+  name= %[1]q
   user_pool_id = aws_cognito_user_pool.test.id
 }
 `, name))
@@ -1371,7 +1371,7 @@ resource "aws_cognito_user_pool_client" "test" {
 
   callback_urls        = ["https://www.example.com/redirect", "https://www.example.com/callback"]
   default_redirect_uri = "https://www.example.com/redirect"
-  logout_urls          = ["https://www.example.com/login"]
+  logout_urls = ["https://www.example.com/login"]
 }
 `, rName, refreshTokenValidity))
 }
@@ -1436,7 +1436,7 @@ func testAccUserPoolClientConfig_analyticsApplicationID(rName string) string {
 		testAccUserPoolClientAnalyticsBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_cognito_user_pool_client" "test" {
-  name         = %[1]q
+  name= %[1]q
   user_pool_id = aws_cognito_user_pool.test.id
 
   analytics_configuration {
@@ -1453,13 +1453,13 @@ func testAccUserPoolClientConfig_analyticsShareData(rName string, share bool) st
 		testAccUserPoolClientAnalyticsBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_cognito_user_pool_client" "test" {
-  name         = %[1]q
+  name= %[1]q
   user_pool_id = aws_cognito_user_pool.test.id
 
   analytics_configuration {
     application_id   = aws_pinpoint_app.analytics.application_id
     external_id      = %[1]q
-    role_arn         = aws_iam_role.analytics.arn
+    role_arn= aws_iam_role.analytics.arn
     user_data_shared = %[2]t
   }
 }
@@ -1471,7 +1471,7 @@ func testAccUserPoolClientConfig_analyticsARN(rName string) string {
 		testAccUserPoolClientAnalyticsBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_cognito_user_pool_client" "test" {
-  name         = %[1]q
+  name= %[1]q
   user_pool_id = aws_cognito_user_pool.test.id
 
   analytics_configuration {
@@ -1486,7 +1486,7 @@ func testAccUserPoolClientConfig_analyticsARNShareData(rName string, share bool)
 		testAccUserPoolClientAnalyticsBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_cognito_user_pool_client" "test" {
-  name         = %[1]q
+  name= %[1]q
   user_pool_id = aws_cognito_user_pool.test.id
 
   analytics_configuration {
@@ -1504,7 +1504,7 @@ func testAccUserPoolClientConfig_authSessionValidity(rName string, validity int)
 resource "aws_cognito_user_pool_client" "test" {
   name   = %[1]q
   auth_session_validity = %[2]d
-  user_pool_id          = aws_cognito_user_pool.test.id
+  user_pool_id = aws_cognito_user_pool.test.id
   explicit_auth_flows   = ["ADMIN_NO_SRP_AUTH"]
 }
 `, rName, validity))
@@ -1515,17 +1515,17 @@ func testAccUserPoolClientConfig_emptySets(rName string) string {
 		testAccUserPoolClientBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_cognito_user_pool_client" "test" {
-  name         = %[1]q
+  name= %[1]q
   user_pool_id = aws_cognito_user_pool.test.id
 
-  allowed_oauth_flows          = []
-  allowed_oauth_scopes         = []
+  allowed_oauth_flows = []
+  allowed_oauth_scopes= []
   callback_urls = []
-  explicit_auth_flows          = []
+  explicit_auth_flows = []
   logout_urls   = []
-  read_attributes              = []
+  read_attributes     = []
   supported_identity_providers = []
-  write_attributes             = []
+  write_attributes    = []
 }
 `, rName))
 }
@@ -1535,7 +1535,7 @@ func testAccUserPoolClientConfig_nulls(rName string) string {
 		testAccUserPoolClientBaseConfig(rName),
 		fmt.Sprintf(`
 resource "aws_cognito_user_pool_client" "test" {
-  name         = %[1]q
+  name= %[1]q
   user_pool_id = aws_cognito_user_pool.test.id
 }
 `, rName))

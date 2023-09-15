@@ -18,7 +18,7 @@ func TestAccSecurityHub_serial(t *testing.T) {
 	"disappears":   testAccAccount_disappears,
 	"EnableDefaultStandardsFalse": testAccAccount_enableDefaultStandardsFalse,
 	"MigrateV0":    testAccAccount_migrateV0,
-	"Full":         testAccAccount_full,
+	"Full":testAccAccount_full,
 	"RemoveControlFindingGeneratorDefaultValue": testAccAccount_removeControlFindingGeneratorDefaultValue,
 },
 "Member": {
@@ -32,7 +32,7 @@ func TestAccSecurityHub_serial(t *testing.T) {
 	"Name":        testAccActionTarget_Name,
 },
 "Insight": {
-	"basic":            testAccInsight_basic,
+	"basic":   testAccInsight_basic,
 	"disappears":       testAccInsight_disappears,
 	"DateFilters":      testAccInsight_DateFilters,
 	"GroupByAttribute": testAccInsight_GroupByAttribute,
@@ -40,7 +40,7 @@ func TestAccSecurityHub_serial(t *testing.T) {
 	"KeywordFilters":   testAccInsight_KeywordFilters,
 	"MapFilters":       testAccInsight_MapFilters,
 	"MultipleFilters":  testAccInsight_MultipleFilters,
-	"Name":             testAccInsight_Name,
+	"Name":    testAccInsight_Name,
 	"NumberFilters":    testAccInsight_NumberFilters,
 	"WorkflowStatus":   testAccInsight_WorkflowStatus,
 },

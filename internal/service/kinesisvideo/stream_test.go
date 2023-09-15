@@ -33,7 +33,7 @@ func TestAccKinesisVideoStream_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, kinesisvideo.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, kinesisvideo.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckStreamDestroy(ctx),
+CheckDestroy:    testAccCheckStreamDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccStreamConfig_basic(rInt1),
@@ -76,7 +76,7 @@ func TestAccKinesisVideoStream_options(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, kinesisvideo.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, kinesisvideo.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckStreamDestroy(ctx),
+CheckDestroy:    testAccCheckStreamDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccStreamConfig_options(rInt, rName1, "video/h264"),
@@ -119,7 +119,7 @@ func TestAccKinesisVideoStream_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, kinesisvideo.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, kinesisvideo.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckStreamDestroy(ctx),
+CheckDestroy:    testAccCheckStreamDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccStreamConfig_tags1(rInt, "key1", "value1"),
@@ -166,7 +166,7 @@ func TestAccKinesisVideoStream_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, kinesisvideo.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, kinesisvideo.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckStreamDestroy(ctx),
+CheckDestroy:    testAccCheckStreamDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccStreamConfig_basic(rInt),
@@ -280,7 +280,7 @@ resource "aws_kinesis_video_stream" "default" {
 func testAccStreamConfig_options(rInt int, rName, mediaType string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "default" {
-  description             = "KMS key 1"
+  description    = "KMS key 1"
   deletion_window_in_days = 7
 }
 
@@ -288,9 +288,9 @@ resource "aws_kinesis_video_stream" "default" {
   name = "terraform-kinesis-video-stream-test-%[1]d"
 
   data_retention_in_hours = 1
-  device_name             = "kinesis-video-device-name-%[2]s"
-  kms_key_id              = aws_kms_key.default.id
-  media_type              = "%[3]s"
+  device_name    = "kinesis-video-device-name-%[2]s"
+  kms_key_id     = aws_kms_key.default.id
+  media_type     = "%[3]s"
 }
 `, rInt, rName, mediaType)
 }

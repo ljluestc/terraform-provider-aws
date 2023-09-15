@@ -46,9 +46,9 @@ func resourceApplication() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"architecture": {
-				Type:             schema.TypeString,
-				Optional:         true,
-				Default:          types.ArchitectureX8664,
+				Type:    schema.TypeString,
+				Optional:true,
+				Default: types.ArchitectureX8664,
 				ValidateDiagFunc: enum.Validate[types.Architecture](),
 			},
 			"arn": {
@@ -83,7 +83,7 @@ func resourceApplication() *schema.Resource {
 							Default:  true,
 						},
 						"idle_timeout_minutes": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							Default:      15,
 							ValidateFunc: validation.IntBetween(1, 10080),
@@ -111,17 +111,17 @@ func resourceApplication() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"initial_capacity_config": {
-							Type:             schema.TypeList,
-							Optional:         true,
+							Type:    schema.TypeList,
+							Optional:true,
 							DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
-							MaxItems:         1,
+							MaxItems:1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"worker_configuration": {
-										Type:             schema.TypeList,
-										Optional:         true,
+										Type:    schema.TypeList,
+										Optional:true,
 										DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
-										MaxItems:         1,
+										MaxItems:1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"cpu": {
@@ -141,7 +141,7 @@ func resourceApplication() *schema.Resource {
 										},
 									},
 									"worker_count": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Required:     true,
 										ValidateFunc: validation.IntBetween(1, 1000000),
 									},
@@ -156,11 +156,11 @@ func resourceApplication() *schema.Resource {
 				},
 			},
 			"maximum_capacity": {
-				Type:             schema.TypeList,
-				Optional:         true,
-				Computed:         true,
+				Type:    schema.TypeList,
+				Optional:true,
+				Computed:true,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
-				MaxItems:         1,
+				MaxItems:1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"cpu": {
@@ -180,16 +180,16 @@ func resourceApplication() *schema.Resource {
 				},
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 64),
 			},
 			"network_configuration": {
-				Type:             schema.TypeList,
-				Optional:         true,
+				Type:    schema.TypeList,
+				Optional:true,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
-				MaxItems:         1,
+				MaxItems:1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"security_group_ids": {
@@ -233,9 +233,9 @@ func resourceApplicationCreate(ctx context.Context, d *schema.ResourceData, meta
 	input := &emrserverless.CreateApplicationInput{
 		ClientToken:  aws.String(id.UniqueId()),
 		ReleaseLabel: aws.String(d.Get("release_label").(string)),
-		Name:         aws.String(name),
-		Tags:         getTagsIn(ctx),
-		Type:         aws.String(d.Get("type").(string)),
+		Name:aws.String(name),
+		Tags:getTagsIn(ctx),
+		Type:aws.String(d.Get("type").(string)),
 	}
 
 	if v, ok := d.GetOk("architecture"); ok {

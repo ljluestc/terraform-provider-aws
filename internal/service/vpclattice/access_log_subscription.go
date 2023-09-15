@@ -43,9 +43,9 @@ func resourceAccessLogSubscription() *schema.Resource {
 				Computed: true,
 			},
 			"destination_arn": {
-				Type:             schema.TypeString,
-				Required:         true,
-				ForceNew:         true,
+				Type:    schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateFunc:     verify.ValidARN,
 				DiffSuppressFunc: suppressEquivalentCloudWatchLogsLogGroupARN,
 			},
@@ -54,9 +54,9 @@ func resourceAccessLogSubscription() *schema.Resource {
 				Computed: true,
 			},
 			"resource_identifier": {
-				Type:             schema.TypeString,
-				Required:         true,
-				ForceNew:         true,
+				Type:    schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				DiffSuppressFunc: suppressEquivalentIDOrARN,
 			},
 			names.AttrTags:    tftags.TagsSchema(),
@@ -78,7 +78,7 @@ func resourceAccessLogSubscriptionCreate(ctx context.Context, d *schema.Resource
 		ClientToken:        aws.String(id.UniqueId()),
 		DestinationArn:     aws.String(d.Get("destination_arn").(string)),
 		ResourceIdentifier: aws.String(d.Get("resource_identifier").(string)),
-		Tags:               getTagsIn(ctx),
+		Tags:      getTagsIn(ctx),
 	}
 
 	out, err := conn.CreateAccessLogSubscription(ctx, in)

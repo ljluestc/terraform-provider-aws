@@ -104,7 +104,7 @@ func ResourceGrant() *schema.Resource {
 				ForceNew: true,
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validGrantName,
@@ -114,7 +114,7 @@ func ResourceGrant() *schema.Resource {
 				Required: true,
 				ForceNew: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: validation.StringInSlice(kms.GrantOperation_Values(), false),
 				},
 			},
@@ -144,7 +144,7 @@ func resourceGrantCreate(ctx context.Context, d *schema.ResourceData, meta inter
 	keyID := d.Get("key_id").(string)
 	input := &kms.CreateGrantInput{
 		GranteePrincipal: aws.String(d.Get("grantee_principal").(string)),
-		KeyId:            aws.String(keyID),
+		KeyId:   aws.String(keyID),
 		Operations:       flex.ExpandStringSet(d.Get("operations").(*schema.Set)),
 	}
 

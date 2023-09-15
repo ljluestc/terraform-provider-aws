@@ -33,7 +33,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckWebhookDestroy(ctx),
+CheckDestroy:    testAccCheckWebhookDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccWebhookConfig_bitbucket(rName, sourceLocation),
@@ -48,8 +48,8 @@ func(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"secret"},
 	},
@@ -69,7 +69,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckWebhookDestroy(ctx),
+CheckDestroy:    testAccCheckWebhookDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccWebhookConfig_gitHub(rName),
@@ -84,8 +84,8 @@ func(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"secret"},
 	},
@@ -105,7 +105,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckWebhookDestroy(ctx),
+CheckDestroy:    testAccCheckWebhookDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccWebhookConfig_gitHubEnterprise(rName, "dev"),
@@ -120,8 +120,8 @@ func(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"secret"},
 	},
@@ -138,8 +138,8 @@ func(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"secret"},
 	},
@@ -159,7 +159,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckWebhookDestroy(ctx),
+CheckDestroy:    testAccCheckWebhookDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccWebhookConfig_buildType(rName, "BUILD"),
@@ -186,8 +186,8 @@ func(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"secret"},
 	},
@@ -207,7 +207,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckWebhookDestroy(ctx),
+CheckDestroy:    testAccCheckWebhookDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccWebhookConfig_branchFilter(rName, "master"),
@@ -226,8 +226,8 @@ func(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"secret"},
 	},
@@ -247,7 +247,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, codebuild.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckWebhookDestroy(ctx),
+CheckDestroy:    testAccCheckWebhookDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccWebhookConfig_filterGroup(rName),
@@ -278,8 +278,8 @@ ExcludeMatchedPattern: aws.Bool(false),
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"secret"},
 	},
@@ -402,7 +402,7 @@ resource "aws_codebuild_webhook" "test" {
 func testAccWebhookConfig_gitHubEnterprise(rName string, branchFilter string) string {
 	return acctest.ConfigCompose(testAccProjectConfig_Base_ServiceRole(rName), fmt.Sprintf(`
 resource "aws_codebuild_project" "test" {
-  name         = %[1]q
+  name= %[1]q
   service_role = aws_iam_role.test.arn
 
   artifacts {
@@ -412,7 +412,7 @@ resource "aws_codebuild_project" "test" {
   environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "2"
-    type         = "LINUX_CONTAINER"
+    type= "LINUX_CONTAINER"
   }
 
   source {

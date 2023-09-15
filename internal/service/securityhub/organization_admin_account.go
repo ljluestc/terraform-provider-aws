@@ -30,7 +30,7 @@ func ResourceOrganizationAdminAccount() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"admin_account_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidAccountID,

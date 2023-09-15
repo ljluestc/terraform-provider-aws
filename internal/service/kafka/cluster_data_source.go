@@ -55,7 +55,7 @@ func DataSourceCluster() *schema.Resource {
 				Computed: true,
 			},
 			"cluster_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringLenBetween(1, 64),
 			},

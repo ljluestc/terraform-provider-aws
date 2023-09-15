@@ -53,12 +53,12 @@ func ResourceCustomRoutingListener() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"from_port": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							ValidateFunc: validation.IsPortNumber,
 						},
 						"to_port": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							ValidateFunc: validation.IsPortNumber,
 						},

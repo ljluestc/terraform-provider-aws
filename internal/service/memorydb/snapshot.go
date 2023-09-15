@@ -116,13 +116,13 @@ func ResourceSnapshot() *schema.Resource {
 				// For the sake of consistency, force everyone to use ARN-s.
 				// To prevent confusion, the attribute is suffixed _arn rather
 				// than the _id implied by the API.
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"name": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -130,7 +130,7 @@ func ResourceSnapshot() *schema.Resource {
 				ValidateFunc:  validateResourceName(snapshotNameMaxLength),
 			},
 			"name_prefix": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -154,7 +154,7 @@ func resourceSnapshotCreate(ctx context.Context, d *schema.ResourceData, meta in
 	input := &memorydb.CreateSnapshotInput{
 		ClusterName:  aws.String(d.Get("cluster_name").(string)),
 		SnapshotName: aws.String(name),
-		Tags:         getTagsIn(ctx),
+		Tags:getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("kms_key_arn"); ok {
@@ -239,19 +239,19 @@ func flattenClusterConfiguration(v *memorydb.ClusterConfiguration) []interface{}
 	}
 
 	m := map[string]interface{}{
-		"description":              aws.StringValue(v.Description),
-		"engine_version":           aws.StringValue(v.EngineVersion),
+		"description":     aws.StringValue(v.Description),
+		"engine_version":  aws.StringValue(v.EngineVersion),
 		"maintenance_window":       aws.StringValue(v.MaintenanceWindow),
-		"name":                     aws.StringValue(v.Name),
-		"node_type":                aws.StringValue(v.NodeType),
-		"num_shards":               aws.Int64Value(v.NumShards),
+		"name":   aws.StringValue(v.Name),
+		"node_type":       aws.StringValue(v.NodeType),
+		"num_shards":      aws.Int64Value(v.NumShards),
 		"parameter_group_name":     aws.StringValue(v.ParameterGroupName),
-		"port":                     aws.Int64Value(v.Port),
+		"port":   aws.Int64Value(v.Port),
 		"snapshot_retention_limit": aws.Int64Value(v.SnapshotRetentionLimit),
-		"snapshot_window":          aws.StringValue(v.SnapshotWindow),
+		"snapshot_window": aws.StringValue(v.SnapshotWindow),
 		"subnet_group_name":        aws.StringValue(v.SubnetGroupName),
-		"topic_arn":                aws.StringValue(v.TopicArn),
-		"vpc_id":                   aws.StringValue(v.VpcId),
+		"topic_arn":       aws.StringValue(v.TopicArn),
+		"vpc_id": aws.StringValue(v.VpcId),
 	}
 
 	return []interface{}{m}

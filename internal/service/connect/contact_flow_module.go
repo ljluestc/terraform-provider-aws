@@ -49,9 +49,9 @@ Type:     schema.TypeString,
 Computed: true,
 	},
 	"content": {
-Type:             schema.TypeString,
-Optional:         true,
-Computed:         true,
+Type:    schema.TypeString,
+Optional:true,
+Computed:true,
 Validate
 func:     validation.StringIsJSON,
 ConflictsWith:    []string{"filename"},
@@ -69,13 +69,13 @@ Type:     schema.TypeString,
 Optional: true,
 	},
 	"description": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Validate
 func: validation.StringLenBetween(0, 500),
 	},
 	"filename": {
-Type:          schema.TypeString,
+Type: schema.TypeString,
 Optional:      true,
 ConflictsWith: []string{"content"},
 	},
@@ -84,7 +84,7 @@ Type:     schema.TypeString,
 Required: true,
 	},
 	"name": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 Validate
 func: validation.StringLenBetween(1, 127),
@@ -155,7 +155,7 @@ return diag.FromErr(err)
 
 	resp, err := conn.DescribeContactFlowModuleWithContext(ctx, &connect.DescribeContactFlowModuleInput{
 ContactFlowModuleId: aws.String(contactFlowModuleID),
-InstanceId:          aws.String(instanceID),
+InstanceId: aws.String(instanceID),
 	})
 
 	if !d.IsNewResource() && tfawserr.ErrCodeEquals(err, connect.ErrCodeResourceNotFoundException) {
@@ -197,8 +197,8 @@ return diag.FromErr(err)
 	if d.HasChanges("name", "description") {
 updateMetadataInput := &connect.UpdateContactFlowModuleMetadataInput{
 	ContactFlowModuleId: aws.String(contactFlowModuleID),
-	Description:         aws.String(d.Get("description").(string)),
-	InstanceId:          aws.String(instanceID),
+	Description:aws.String(d.Get("description").(string)),
+	InstanceId: aws.String(instanceID),
 	Name: aws.String(d.Get("name").(string)),
 }
 
@@ -212,7 +212,7 @@ if updateMetadataInputErr != nil {
 	if d.HasChanges("content", "content_hash", "filename") {
 updateContentInput := &connect.UpdateContactFlowModuleContentInput{
 	ContactFlowModuleId: aws.String(contactFlowModuleID),
-	InstanceId:          aws.String(instanceID),
+	InstanceId: aws.String(instanceID),
 }
 
 if v, ok := d.GetOk("filename"); ok {
@@ -252,7 +252,7 @@ return diag.FromErr(err)
 	log.Printf("[DEBUG] Deleting Connect Contact Flow Module : %s", contactFlowModuleID)
 	input := &connect.DeleteContactFlowModuleInput{
 ContactFlowModuleId: aws.String(contactFlowModuleID),
-InstanceId:          aws.String(instanceID),
+InstanceId: aws.String(instanceID),
 	}
 
 	_, deleteContactFlowModuleErr := conn.DeleteContactFlowModuleWithContext(ctx, input)

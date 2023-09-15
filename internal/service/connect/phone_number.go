@@ -44,14 +44,14 @@ func ResourcePhoneNumber() *schema.Resource {
 				Computed: true,
 			},
 			"country_code": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
 func: validation.StringInSlice(connect.PhoneNumberCountryCode_Values(), false),
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Validate
@@ -62,7 +62,7 @@ func: validation.StringLenBetween(1, 500),
 				Computed: true,
 			},
 			"prefix": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Validate
@@ -85,13 +85,13 @@ func: validPhoneNumberPrefix,
 				},
 			},
 			"target_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				Validate
 func: verify.ValidARN,
 			},
 			"type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
@@ -110,10 +110,10 @@ func resourcePhoneNumberCreate(ctx context.Context, d *schema.ResourceData, meta
 	targetArn := d.Get("target_arn").(string)
 	phoneNumberType := d.Get("type").(string)
 	input := &connect.SearchAvailablePhoneNumbersInput{
-		MaxResults:             aws.Int64(1),
+		MaxResults:    aws.Int64(1),
 		PhoneNumberCountryCode: aws.String(d.Get("country_code").(string)),
 		PhoneNumberType:        aws.String(phoneNumberType),
-		TargetArn:              aws.String(targetArn),
+		TargetArn:     aws.String(targetArn),
 	}
 
 	if v, ok := d.GetOk("prefix"); ok {

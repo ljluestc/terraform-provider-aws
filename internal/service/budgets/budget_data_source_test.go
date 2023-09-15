@@ -25,10 +25,10 @@ func TestAccBudgetsBudgetDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_budgets_budget.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, budgets.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, budgets.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBudgetDestroy(ctx),
+		CheckDestroy:    testAccCheckBudgetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBudgetDataSourceConfig_basic(rName),
@@ -47,7 +47,7 @@ func TestAccBudgetsBudgetDataSource_basic(t *testing.T) {
 func testAccBudgetDataSourceConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_budgets_budget" "test" {
-  name         = %[1]q
+  name= %[1]q
   budget_type  = "RI_UTILIZATION"
   limit_amount = "100.0"
   limit_unit   = "PERCENTAGE"

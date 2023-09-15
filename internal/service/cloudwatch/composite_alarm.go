@@ -70,23 +70,23 @@ func ResourceCompositeAlarm() *schema.Resource {
 				Set:      schema.HashString,
 				MaxItems: 5,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: verify.ValidARN,
 				},
 			},
 			"alarm_description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 1024),
 			},
 			"alarm_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(0, 255),
 			},
 			"alarm_rule": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringLenBetween(1, 10240),
 			},
@@ -100,7 +100,7 @@ func ResourceCompositeAlarm() *schema.Resource {
 				Set:      schema.HashString,
 				MaxItems: 5,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: verify.ValidARN,
 				},
 			},
@@ -110,7 +110,7 @@ func ResourceCompositeAlarm() *schema.Resource {
 				Set:      schema.HashString,
 				MaxItems: 5,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: verify.ValidARN,
 				},
 			},
@@ -264,7 +264,7 @@ func FindCompositeAlarmByName(ctx context.Context, conn *cloudwatch.CloudWatch, 
 func expandPutCompositeAlarmInput(ctx context.Context, d *schema.ResourceData) *cloudwatch.PutCompositeAlarmInput {
 	apiObject := &cloudwatch.PutCompositeAlarmInput{
 		ActionsEnabled: aws.Bool(d.Get("actions_enabled").(bool)),
-		Tags:           getTagsIn(ctx),
+		Tags:  getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("alarm_actions"); ok {
@@ -303,7 +303,7 @@ func expandPutCompositeAlarmInput(ctx context.Context, d *schema.ResourceData) *
 
 func flattenActionsSuppressor(alarm *cloudwatch.CompositeAlarm) map[string]interface{} {
 	actionsSuppressor := map[string]interface{}{
-		"alarm":            aws.StringValue(alarm.ActionsSuppressor),
+		"alarm":   aws.StringValue(alarm.ActionsSuppressor),
 		"extension_period": aws.Int64Value(alarm.ActionsSuppressorExtensionPeriod),
 		"wait_period":      aws.Int64Value(alarm.ActionsSuppressorWaitPeriod),
 	}

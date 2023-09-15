@@ -34,7 +34,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAgreementDestroy(ctx),
+CheckDestroy:    testAccCheckAgreementDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAgreementConfig_basic(rName, baseDirectory1),
@@ -47,8 +47,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"status"},
 	},
@@ -80,7 +80,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAgreementDestroy(ctx),
+CheckDestroy:    testAccCheckAgreementDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAgreementConfig_basic(rName, baseDirectory),
@@ -109,7 +109,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAgreementDestroy(ctx),
+CheckDestroy:    testAccCheckAgreementDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAgreementConfig_tags1(rName, baseDirectory, "key1", "value1"),
@@ -120,8 +120,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"status"},
 	},
@@ -269,7 +269,7 @@ resource "aws_transfer_agreement" "test" {
   base_directory     = %[1]q
   local_profile_id   = aws_transfer_profile.local.profile_id
   partner_profile_id = aws_transfer_profile.partner.profile_id
-  server_id          = aws_transfer_server.test.id
+  server_id = aws_transfer_server.test.id
 }
 `, baseDirectory))
 }
@@ -281,7 +281,7 @@ resource "aws_transfer_agreement" "test" {
   base_directory     = %[1]q
   local_profile_id   = aws_transfer_profile.local.profile_id
   partner_profile_id = aws_transfer_profile.partner.profile_id
-  server_id          = aws_transfer_server.test.id
+  server_id = aws_transfer_server.test.id
 
   tags = {
     %[2]q = %[3]q
@@ -297,7 +297,7 @@ resource "aws_transfer_agreement" "test" {
   base_directory     = %[1]q
   local_profile_id   = aws_transfer_profile.local.profile_id
   partner_profile_id = aws_transfer_profile.partner.profile_id
-  server_id          = aws_transfer_server.test.id
+  server_id = aws_transfer_server.test.id
 
   tags = {
     %[2]q = %[3]q

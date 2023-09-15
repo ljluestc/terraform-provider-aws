@@ -40,7 +40,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckKxEnvironmentDestroy(ctx),
+CheckDestroy:    testAccCheckKxEnvironmentDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccKxEnvironmentConfig_basic(rName),
@@ -76,7 +76,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckKxEnvironmentDestroy(ctx),
+CheckDestroy:    testAccCheckKxEnvironmentDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccKxEnvironmentConfig_basic(rName),
@@ -108,7 +108,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckKxEnvironmentDestroy(ctx),
+CheckDestroy:    testAccCheckKxEnvironmentDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccKxEnvironmentConfig_basic(rName),
@@ -145,7 +145,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckKxEnvironmentDestroy(ctx),
+CheckDestroy:    testAccCheckKxEnvironmentDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccKxEnvironmentConfig_description(rName, "description 1"),
@@ -182,7 +182,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckKxEnvironmentDestroy(ctx),
+CheckDestroy:    testAccCheckKxEnvironmentDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccKxEnvironmentConfig_dnsConfig(rName, "example.finspace.amazon.aws.com", "10.0.0.76"),
@@ -225,7 +225,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckKxEnvironmentDestroy(ctx),
+CheckDestroy:    testAccCheckKxEnvironmentDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccKxEnvironmentConfig_tgwConfig(rName, "100.64.0.0/26"),
@@ -257,7 +257,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckKxEnvironmentDestroy(ctx),
+CheckDestroy:    testAccCheckKxEnvironmentDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccKxEnvironmentConfig_attachmentNetworkACLConfig(rName, "100.64.0.0/26"),
@@ -334,7 +334,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckKxEnvironmentDestroy(ctx),
+CheckDestroy:    testAccCheckKxEnvironmentDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccKxEnvironmentConfig_tags1(rName, "key1", "value1"),

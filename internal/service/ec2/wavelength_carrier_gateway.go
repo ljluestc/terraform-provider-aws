@@ -64,7 +64,7 @@ func resourceCarrierGatewayCreate(ctx context.Context, d *schema.ResourceData, m
 
 	input := &ec2.CreateCarrierGatewayInput{
 		TagSpecifications: getTagSpecificationsIn(ctx, ec2.ResourceTypeCarrierGateway),
-		VpcId:             aws.String(d.Get("vpc_id").(string)),
+		VpcId:    aws.String(d.Get("vpc_id").(string)),
 	}
 
 	output, err := conn.CreateCarrierGatewayWithContext(ctx, input)

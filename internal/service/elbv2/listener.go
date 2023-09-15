@@ -71,7 +71,7 @@ func ResourceListener() *schema.Resource {
 				Computed: true,
 			},
 			"certificate_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: verify.ValidARN,
 			},
@@ -81,10 +81,10 @@ func ResourceListener() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"authenticate_cognito": {
-							Type:             schema.TypeList,
-							Optional:         true,
+							Type:    schema.TypeList,
+							Optional:true,
 							DiffSuppressFunc: suppressIfDefaultActionTypeNot(elbv2.ActionTypeEnumAuthenticateCognito),
-							MaxItems:         1,
+							MaxItems:1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"authentication_request_extra_params": {
@@ -117,7 +117,7 @@ func ResourceListener() *schema.Resource {
 										Computed: true,
 									},
 									"user_pool_arn": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: verify.ValidARN,
 									},
@@ -133,10 +133,10 @@ func ResourceListener() *schema.Resource {
 							},
 						},
 						"authenticate_oidc": {
-							Type:             schema.TypeList,
-							Optional:         true,
+							Type:    schema.TypeList,
+							Optional:true,
 							DiffSuppressFunc: suppressIfDefaultActionTypeNot(elbv2.ActionTypeEnumAuthenticateOidc),
-							MaxItems:         1,
+							MaxItems:1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"authentication_request_extra_params": {
@@ -197,10 +197,10 @@ func ResourceListener() *schema.Resource {
 							},
 						},
 						"fixed_response": {
-							Type:             schema.TypeList,
-							Optional:         true,
+							Type:    schema.TypeList,
+							Optional:true,
 							DiffSuppressFunc: suppressIfDefaultActionTypeNot(elbv2.ActionTypeEnumFixedResponse),
-							MaxItems:         1,
+							MaxItems:1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"content_type": {
@@ -219,7 +219,7 @@ func ResourceListener() *schema.Resource {
 										Optional: true,
 									},
 									"status_code": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										Computed:     true,
 										ValidateFunc: validation.StringMatch(regexache.MustCompile(`^[245]\d\d$`), ""),
@@ -228,10 +228,10 @@ func ResourceListener() *schema.Resource {
 							},
 						},
 						"forward": {
-							Type:             schema.TypeList,
-							Optional:         true,
+							Type:    schema.TypeList,
+							Optional:true,
 							DiffSuppressFunc: suppressIfDefaultActionTypeNot(elbv2.ActionTypeEnumForward),
-							MaxItems:         1,
+							MaxItems:1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"target_group": {
@@ -242,12 +242,12 @@ func ResourceListener() *schema.Resource {
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"arn": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ValidateFunc: verify.ValidARN,
 												},
 												"weight": {
-													Type:         schema.TypeInt,
+													Type:schema.TypeInt,
 													ValidateFunc: validation.IntBetween(0, 999),
 													Default:      1,
 													Optional:     true,
@@ -256,14 +256,14 @@ func ResourceListener() *schema.Resource {
 										},
 									},
 									"stickiness": {
-										Type:             schema.TypeList,
-										Optional:         true,
+										Type:    schema.TypeList,
+										Optional:true,
 										DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
-										MaxItems:         1,
+										MaxItems:1,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"duration": {
-													Type:         schema.TypeInt,
+													Type:schema.TypeInt,
 													Required:     true,
 													ValidateFunc: validation.IntBetween(1, 604800),
 												},
@@ -279,16 +279,16 @@ func ResourceListener() *schema.Resource {
 							},
 						},
 						"order": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							Computed:     true,
 							ValidateFunc: validation.IntBetween(1, 50000),
 						},
 						"redirect": {
-							Type:             schema.TypeList,
-							Optional:         true,
+							Type:    schema.TypeList,
+							Optional:true,
 							DiffSuppressFunc: suppressIfDefaultActionTypeNot(elbv2.ActionTypeEnumRedirect),
-							MaxItems:         1,
+							MaxItems:1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"host": {
@@ -333,8 +333,8 @@ func ResourceListener() *schema.Resource {
 							},
 						},
 						"target_group_arn": {
-							Type:             schema.TypeString,
-							Optional:         true,
+							Type:    schema.TypeString,
+							Optional:true,
 							DiffSuppressFunc: suppressIfDefaultActionTypeNot(elbv2.ActionTypeEnumForward),
 							ValidateFunc:     verify.ValidARN,
 						},
@@ -350,13 +350,13 @@ func ResourceListener() *schema.Resource {
 				},
 			},
 			"load_balancer_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"port": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				ValidateFunc: validation.IsPortNumber,
 			},
@@ -402,7 +402,7 @@ func resourceListenerCreate(ctx context.Context, d *schema.ResourceData, meta in
 	lbARN := d.Get("load_balancer_arn").(string)
 	input := &elbv2.CreateListenerInput{
 		LoadBalancerArn: aws.String(lbARN),
-		Tags:            getTagsIn(ctx),
+		Tags:   getTagsIn(ctx),
 	}
 
 	if alpnPolicy, ok := d.GetOk("alpn_policy"); ok {
@@ -753,9 +753,9 @@ func expandLbListenerAuthenticateCognitoConfig(l []interface{}) *elbv2.Authentic
 
 	config := &elbv2.AuthenticateCognitoActionConfig{
 		AuthenticationRequestExtraParams: flex.ExpandStringMap(tfMap["authentication_request_extra_params"].(map[string]interface{})),
-		UserPoolArn:                      aws.String(tfMap["user_pool_arn"].(string)),
-		UserPoolClientId:                 aws.String(tfMap["user_pool_client_id"].(string)),
-		UserPoolDomain:                   aws.String(tfMap["user_pool_domain"].(string)),
+		UserPoolArn:    aws.String(tfMap["user_pool_arn"].(string)),
+		UserPoolClientId:        aws.String(tfMap["user_pool_client_id"].(string)),
+		UserPoolDomain: aws.String(tfMap["user_pool_domain"].(string)),
 	}
 
 	if v, ok := tfMap["on_unauthenticated_request"].(string); ok && v != "" {
@@ -790,12 +790,12 @@ func expandAuthenticateOIDCConfig(l []interface{}) *elbv2.AuthenticateOidcAction
 
 	config := &elbv2.AuthenticateOidcActionConfig{
 		AuthenticationRequestExtraParams: flex.ExpandStringMap(tfMap["authentication_request_extra_params"].(map[string]interface{})),
-		AuthorizationEndpoint:            aws.String(tfMap["authorization_endpoint"].(string)),
-		ClientId:                         aws.String(tfMap["client_id"].(string)),
-		ClientSecret:                     aws.String(tfMap["client_secret"].(string)),
-		Issuer:                           aws.String(tfMap["issuer"].(string)),
-		TokenEndpoint:                    aws.String(tfMap["token_endpoint"].(string)),
-		UserInfoEndpoint:                 aws.String(tfMap["user_info_endpoint"].(string)),
+		AuthorizationEndpoint:   aws.String(tfMap["authorization_endpoint"].(string)),
+		ClientId:       aws.String(tfMap["client_id"].(string)),
+		ClientSecret:   aws.String(tfMap["client_secret"].(string)),
+		Issuer:aws.String(tfMap["issuer"].(string)),
+		TokenEndpoint:  aws.String(tfMap["token_endpoint"].(string)),
+		UserInfoEndpoint:        aws.String(tfMap["user_info_endpoint"].(string)),
 	}
 
 	if v, ok := tfMap["on_unauthenticated_request"].(string); ok && v != "" {
@@ -894,7 +894,7 @@ func expandLbListenerActionForwardConfigTargetGroups(l []interface{}) []*elbv2.T
 
 		group := &elbv2.TargetGroupTuple{
 			TargetGroupArn: aws.String(tfMap["arn"].(string)),
-			Weight:         aws.Int64(int64(tfMap["weight"].(int))),
+			Weight:aws.Int64(int64(tfMap["weight"].(int))),
 		}
 
 		groups = append(groups, group)
@@ -914,7 +914,7 @@ func expandLbListenerActionForwardConfigTargetGroupStickinessConfig(l []interfac
 	}
 
 	return &elbv2.TargetGroupStickinessConfig{
-		Enabled:         aws.Bool(tfMap["enabled"].(bool)),
+		Enabled:aws.Bool(tfMap["enabled"].(bool)),
 		DurationSeconds: aws.Int64(int64(tfMap["duration"].(int))),
 	}
 }
@@ -973,16 +973,16 @@ func flattenAuthenticateOIDCActionConfig(config *elbv2.AuthenticateOidcActionCon
 
 	m := map[string]interface{}{
 		"authentication_request_extra_params": aws.StringValueMap(config.AuthenticationRequestExtraParams),
-		"authorization_endpoint":              aws.StringValue(config.AuthorizationEndpoint),
-		"client_id":                           aws.StringValue(config.ClientId),
-		"client_secret":                       clientSecret,
-		"issuer":                              aws.StringValue(config.Issuer),
-		"on_unauthenticated_request":          aws.StringValue(config.OnUnauthenticatedRequest),
-		"scope":                               aws.StringValue(config.Scope),
-		"session_cookie_name":                 aws.StringValue(config.SessionCookieName),
-		"session_timeout":                     aws.Int64Value(config.SessionTimeout),
-		"token_endpoint":                      aws.StringValue(config.TokenEndpoint),
-		"user_info_endpoint":                  aws.StringValue(config.UserInfoEndpoint),
+		"authorization_endpoint":     aws.StringValue(config.AuthorizationEndpoint),
+		"client_id":aws.StringValue(config.ClientId),
+		"client_secret":     clientSecret,
+		"issuer":   aws.StringValue(config.Issuer),
+		"on_unauthenticated_request": aws.StringValue(config.OnUnauthenticatedRequest),
+		"scope":    aws.StringValue(config.Scope),
+		"session_cookie_name":        aws.StringValue(config.SessionCookieName),
+		"session_timeout":   aws.Int64Value(config.SessionTimeout),
+		"token_endpoint":    aws.StringValue(config.TokenEndpoint),
+		"user_info_endpoint":aws.StringValue(config.UserInfoEndpoint),
 	}
 
 	return []interface{}{m}
@@ -995,13 +995,13 @@ func flattenLbListenerActionAuthenticateCognitoConfig(config *elbv2.Authenticate
 
 	m := map[string]interface{}{
 		"authentication_request_extra_params": aws.StringValueMap(config.AuthenticationRequestExtraParams),
-		"on_unauthenticated_request":          aws.StringValue(config.OnUnauthenticatedRequest),
-		"scope":                               aws.StringValue(config.Scope),
-		"session_cookie_name":                 aws.StringValue(config.SessionCookieName),
-		"session_timeout":                     aws.Int64Value(config.SessionTimeout),
-		"user_pool_arn":                       aws.StringValue(config.UserPoolArn),
-		"user_pool_client_id":                 aws.StringValue(config.UserPoolClientId),
-		"user_pool_domain":                    aws.StringValue(config.UserPoolDomain),
+		"on_unauthenticated_request": aws.StringValue(config.OnUnauthenticatedRequest),
+		"scope":    aws.StringValue(config.Scope),
+		"session_cookie_name":        aws.StringValue(config.SessionCookieName),
+		"session_timeout":   aws.Int64Value(config.SessionTimeout),
+		"user_pool_arn":     aws.StringValue(config.UserPoolArn),
+		"user_pool_client_id":        aws.StringValue(config.UserPoolClientId),
+		"user_pool_domain":  aws.StringValue(config.UserPoolDomain),
 	}
 
 	return []interface{}{m}

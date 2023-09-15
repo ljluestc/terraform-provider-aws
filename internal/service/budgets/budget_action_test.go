@@ -28,10 +28,10 @@ func TestAccBudgetsBudgetAction_basic(t *testing.T) {
 	const thresholdValue = "1000000000"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, budgets.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, budgets.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, budgets.EndpointsID) },
+		ErrorCheck:      acctest.ErrorCheck(t, budgets.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBudgetActionDestroy(ctx),
+		CheckDestroy:    testAccCheckBudgetActionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBudgetActionConfig_basic(rName, budgets.ApprovalModelAutomatic, thresholdValue),
@@ -72,10 +72,10 @@ func TestAccBudgetsBudgetAction_triggeredAutomatic(t *testing.T) {
 	const thresholdValue = "100"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, budgets.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, budgets.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, budgets.EndpointsID) },
+		ErrorCheck:      acctest.ErrorCheck(t, budgets.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBudgetActionDestroy(ctx),
+		CheckDestroy:    testAccCheckBudgetActionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBudgetActionConfig_basic(rName, budgets.ApprovalModelAutomatic, thresholdValue),
@@ -116,10 +116,10 @@ func TestAccBudgetsBudgetAction_triggeredManual(t *testing.T) {
 	const thresholdValue = "100"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, budgets.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, budgets.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, budgets.EndpointsID) },
+		ErrorCheck:      acctest.ErrorCheck(t, budgets.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBudgetActionDestroy(ctx),
+		CheckDestroy:    testAccCheckBudgetActionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBudgetActionConfig_basic(rName, budgets.ApprovalModelManual, thresholdValue),
@@ -158,10 +158,10 @@ func TestAccBudgetsBudgetAction_disappears(t *testing.T) {
 	var conf budgets.Action
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, budgets.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, budgets.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, budgets.EndpointsID) },
+		ErrorCheck:      acctest.ErrorCheck(t, budgets.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBudgetActionDestroy(ctx),
+		CheckDestroy:    testAccCheckBudgetActionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBudgetActionConfig_basic(rName, budgets.ApprovalModelAutomatic, "100"),
@@ -260,18 +260,18 @@ resource "aws_budgets_budget_action" "test" {
   }
 
   subscriber {
-    address           = %[4]q
+    address  = %[4]q
     subscription_type = "EMAIL"
   }
 }
 
 resource "aws_budgets_budget" "test" {
-  name              = %[1]q
+  name     = %[1]q
   budget_type       = "USAGE"
   limit_amount      = "1.0"
   limit_unit        = "dollars"
   time_period_start = "2006-01-02_15:04"
-  time_unit         = "MONTHLY"
+  time_unit= "MONTHLY"
 }
 
 resource "aws_iam_policy" "test" {
@@ -307,7 +307,7 @@ resource "aws_iam_role" "test" {
       "Effect": "Allow",
       "Principal": {
         "Service": [
-          "budgets.${data.aws_partition.current.dns_suffix}"
+ "budgets.${data.aws_partition.current.dns_suffix}"
         ]
       },
       "Action": [

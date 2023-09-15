@@ -10,7 +10,7 @@ const (
 	AcceptLanguageJapanese = "jp"
 	AcceptLanguageChinese  = "zh"
 
-	ConstraintTypeLaunch         = "LAUNCH"
+	ConstraintTypeLaunch= "LAUNCH"
 	ConstraintTypeNotification   = "NOTIFICATION"
 	ConstraintTypeResourceUpdate = "RESOURCE_UPDATE"
 	ConstraintTypeStackset       = "STACKSET"

@@ -47,7 +47,7 @@ func ResourceWorkspace() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"account_access_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringInSlice(managedgrafana.AccountAccessType_Values(), false),
 			},
@@ -60,14 +60,14 @@ func ResourceWorkspace() *schema.Resource {
 				Required: true,
 				ForceNew: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: validation.StringInSlice(managedgrafana.AuthenticationProviderTypes_Values(), false),
 				},
 			},
 			"configuration": {
-				Type:             schema.TypeString,
-				Optional:         true,
-				Computed:         true,
+				Type:    schema.TypeString,
+				Optional:true,
+				Computed:true,
 				ValidateFunc:     validation.StringIsJSON,
 				DiffSuppressFunc: verify.SuppressEquivalentJSONDiffs,
 				StateFunc: func(v interface{}) string {
@@ -79,7 +79,7 @@ func ResourceWorkspace() *schema.Resource {
 				Type:     schema.TypeList,
 				Optional: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: validation.StringInSlice(managedgrafana.DataSourceType_Values(), false),
 				},
 			},
@@ -126,7 +126,7 @@ func ResourceWorkspace() *schema.Resource {
 				Type:     schema.TypeList,
 				Optional: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: validation.StringInSlice(managedgrafana.NotificationDestinationType_Values(), false),
 				},
 			},
@@ -140,12 +140,12 @@ func ResourceWorkspace() *schema.Resource {
 				Elem:     &schema.Schema{Type: schema.TypeString},
 			},
 			"permission_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringInSlice(managedgrafana.PermissionType_Values(), false),
 			},
 			"role_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: verify.ValidARN,
 			},
@@ -194,9 +194,9 @@ func resourceWorkspaceCreate(ctx context.Context, d *schema.ResourceData, meta i
 	input := &managedgrafana.CreateWorkspaceInput{
 		AccountAccessType:       aws.String(d.Get("account_access_type").(string)),
 		AuthenticationProviders: flex.ExpandStringList(d.Get("authentication_providers").([]interface{})),
-		ClientToken:             aws.String(id.UniqueId()),
-		PermissionType:          aws.String(d.Get("permission_type").(string)),
-		Tags:                    getTagsIn(ctx),
+		ClientToken:    aws.String(id.UniqueId()),
+		PermissionType: aws.String(d.Get("permission_type").(string)),
+		Tags:  getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("configuration"); ok {

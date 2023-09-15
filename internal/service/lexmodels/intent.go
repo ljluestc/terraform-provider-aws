@@ -59,20 +59,20 @@ func ResourceIntent() *schema.Resource {
 				Computed: true,
 			},
 			"conclusion_statement": {
-				Type:          schema.TypeList,
+				Type: schema.TypeList,
 				Optional:      true,
 				MinItems:      1,
 				MaxItems:      1,
 				ConflictsWith: []string{"follow_up_prompt"},
-				Elem:          statementResource,
+				Elem: statementResource,
 			},
 			"confirmation_prompt": {
-				Type:         schema.TypeList,
+				Type:schema.TypeList,
 				Optional:     true,
 				MinItems:     1,
 				MaxItems:     1,
 				RequiredWith: []string{"rejection_statement"},
-				Elem:         promptResource,
+				Elem:promptResource,
 			},
 			"create_version": {
 				Type:     schema.TypeBool,
@@ -84,7 +84,7 @@ func ResourceIntent() *schema.Resource {
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 200),
 			},
@@ -96,7 +96,7 @@ func ResourceIntent() *schema.Resource {
 				Elem:     codeHookResource,
 			},
 			"follow_up_prompt": {
-				Type:          schema.TypeList,
+				Type: schema.TypeList,
 				Optional:      true,
 				MinItems:      1,
 				MaxItems:      1,
@@ -135,7 +135,7 @@ func ResourceIntent() *schema.Resource {
 							Elem:     codeHookResource,
 						},
 						"type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringInSlice(lexmodelbuildingservice.FulfillmentActivityType_Values(), false),
 						},
@@ -160,12 +160,12 @@ func ResourceIntent() *schema.Resource {
 				Optional: true,
 			},
 			"rejection_statement": {
-				Type:         schema.TypeList,
+				Type:schema.TypeList,
 				Optional:     true,
 				MinItems:     1,
 				MaxItems:     1,
 				RequiredWith: []string{"confirmation_prompt"},
-				Elem:         statementResource,
+				Elem:statementResource,
 			},
 			"sample_utterances": {
 				Type:     schema.TypeSet,
@@ -173,7 +173,7 @@ func ResourceIntent() *schema.Resource {
 				MinItems: 0,
 				MaxItems: 1500,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: validation.StringLenBetween(1, 200),
 				},
 			},
@@ -185,7 +185,7 @@ func ResourceIntent() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"description": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Default:      "",
 							ValidateFunc: validation.StringLenBetween(0, 200),
@@ -199,13 +199,13 @@ func ResourceIntent() *schema.Resource {
 							),
 						},
 						"priority": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							Default:      0,
 							ValidateFunc: validation.IntBetween(0, 100),
 						},
 						"response_card": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringLenBetween(1, 50000),
 						},
@@ -215,12 +215,12 @@ func ResourceIntent() *schema.Resource {
 							MinItems: 1,
 							MaxItems: 10,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: validation.StringLenBetween(1, 200),
 							},
 						},
 						"slot_constraint": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringInSlice(lexmodelbuildingservice.SlotConstraint_Values(), false),
 						},
@@ -295,7 +295,7 @@ func resourceIntentCreate(ctx context.Context, d *schema.ResourceData, meta inte
 	input := &lexmodelbuildingservice.PutIntentInput{
 		CreateVersion: aws.Bool(d.Get("create_version").(bool)),
 		Description:   aws.String(d.Get("description").(string)),
-		Name:          aws.String(name),
+		Name: aws.String(name),
 	}
 
 	if v, ok := d.GetOk("conclusion_statement"); ok {
@@ -444,7 +444,7 @@ func resourceIntentUpdate(ctx context.Context, d *schema.ResourceData, meta inte
 		Checksum:      aws.String(d.Get("checksum").(string)),
 		CreateVersion: aws.Bool(d.Get("create_version").(bool)),
 		Description:   aws.String(d.Get("description").(string)),
-		Name:          aws.String(d.Id()),
+		Name: aws.String(d.Id()),
 	}
 
 	if v, ok := d.GetOk("conclusion_statement"); ok {
@@ -546,12 +546,12 @@ func resourceIntentDelete(ctx context.Context, d *schema.ResourceData, meta inte
 var codeHookResource = &schema.Resource{
 	Schema: map[string]*schema.Schema{
 		"message_version": {
-			Type:         schema.TypeString,
+			Type:schema.TypeString,
 			Required:     true,
 			ValidateFunc: validation.StringLenBetween(1, 5),
 		},
 		"uri": {
-			Type:         schema.TypeString,
+			Type:schema.TypeString,
 			Required:     true,
 			ValidateFunc: verify.ValidARN,
 		},
@@ -561,17 +561,17 @@ var codeHookResource = &schema.Resource{
 var messageResource = &schema.Resource{
 	Schema: map[string]*schema.Schema{
 		"content": {
-			Type:         schema.TypeString,
+			Type:schema.TypeString,
 			Required:     true,
 			ValidateFunc: validation.StringLenBetween(1, 1000),
 		},
 		"content_type": {
-			Type:         schema.TypeString,
+			Type:schema.TypeString,
 			Required:     true,
 			ValidateFunc: validation.StringInSlice(lexmodelbuildingservice.ContentType_Values(), false),
 		},
 		"group_number": {
-			Type:         schema.TypeInt,
+			Type:schema.TypeInt,
 			Optional:     true,
 			ValidateFunc: validation.IntBetween(1, 5),
 		},
@@ -581,7 +581,7 @@ var messageResource = &schema.Resource{
 var promptResource = &schema.Resource{
 	Schema: map[string]*schema.Schema{
 		"max_attempts": {
-			Type:         schema.TypeInt,
+			Type:schema.TypeInt,
 			Required:     true,
 			ValidateFunc: validation.IntBetween(1, 5),
 		},
@@ -593,7 +593,7 @@ var promptResource = &schema.Resource{
 			Elem:     messageResource,
 		},
 		"response_card": {
-			Type:         schema.TypeString,
+			Type:schema.TypeString,
 			Optional:     true,
 			ValidateFunc: validation.StringLenBetween(1, 50000),
 		},
@@ -610,7 +610,7 @@ var statementResource = &schema.Resource{
 			Elem:     messageResource,
 		},
 		"response_card": {
-			Type:         schema.TypeString,
+			Type:schema.TypeString,
 			Optional:     true,
 			ValidateFunc: validation.StringLenBetween(1, 50000),
 		},
@@ -621,7 +621,7 @@ func flattenCodeHook(hook *lexmodelbuildingservice.CodeHook) (flattened []map[st
 	return []map[string]interface{}{
 		{
 			"message_version": aws.StringValue(hook.MessageVersion),
-			"uri":             aws.StringValue(hook.Uri),
+			"uri":    aws.StringValue(hook.Uri),
 		},
 	}
 }
@@ -631,14 +631,14 @@ func expandCodeHook(rawObject interface{}) (hook *lexmodelbuildingservice.CodeHo
 
 	return &lexmodelbuildingservice.CodeHook{
 		MessageVersion: aws.String(m["message_version"].(string)),
-		Uri:            aws.String(m["uri"].(string)),
+		Uri:   aws.String(m["uri"].(string)),
 	}
 }
 
 func flattenFollowUpPrompt(followUp *lexmodelbuildingservice.FollowUpPrompt) (flattened []map[string]interface{}) {
 	return []map[string]interface{}{
 		{
-			"prompt":              flattenPrompt(followUp.Prompt),
+			"prompt":     flattenPrompt(followUp.Prompt),
 			"rejection_statement": flattenStatement(followUp.RejectionStatement),
 		},
 	}
@@ -648,7 +648,7 @@ func expandFollowUpPrompt(rawObject interface{}) (followUp *lexmodelbuildingserv
 	m := rawObject.([]interface{})[0].(map[string]interface{})
 
 	return &lexmodelbuildingservice.FollowUpPrompt{
-		Prompt:             expandPrompt(m["prompt"]),
+		Prompt:    expandPrompt(m["prompt"]),
 		RejectionStatement: expandStatement(m["rejection_statement"]),
 	}
 }
@@ -751,7 +751,7 @@ func expandPrompt(rawObject interface{}) (prompt *lexmodelbuildingservice.Prompt
 func flattenSlots(slots []*lexmodelbuildingservice.Slot) (flattenedSlots []map[string]interface{}) {
 	for _, slot := range slots {
 		flattenedSlot := map[string]interface{}{
-			"name":            aws.StringValue(slot.Name),
+			"name":   aws.StringValue(slot.Name),
 			"priority":        aws.Int64Value(slot.Priority),
 			"slot_constraint": aws.StringValue(slot.SlotConstraint),
 			"slot_type":       aws.StringValue(slot.SlotType),
@@ -796,7 +796,7 @@ func expandSlots(rawValues []interface{}) []*lexmodelbuildingservice.Slot {
 		}
 
 		slot := &lexmodelbuildingservice.Slot{
-			Name:           aws.String(value["name"].(string)),
+			Name:  aws.String(value["name"].(string)),
 			Priority:       aws.Int64(int64(value["priority"].(int))),
 			SlotConstraint: aws.String(value["slot_constraint"].(string)),
 			SlotType:       aws.String(value["slot_type"].(string)),

@@ -68,18 +68,18 @@ func ResourceConfigurationSetEventDestination() *schema.Resource {
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"default_dimension_value": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ValidateFunc: validation.StringLenBetween(1, 256),
 												},
 												"dimension_name": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ValidateFunc: validation.StringLenBetween(1, 256),
 												},
 												"dimension_value_source": {
-													Type:             schema.TypeString,
-													Required:         true,
+													Type:    schema.TypeString,
+													Required:true,
 													ValidateDiagFunc: enum.Validate[types.DimensionValueSource](),
 												},
 											},
@@ -105,12 +105,12 @@ func ResourceConfigurationSetEventDestination() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"delivery_stream_arn": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: verify.ValidARN,
 									},
 									"iam_role_arn": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: verify.ValidARN,
 									},
@@ -121,7 +121,7 @@ func ResourceConfigurationSetEventDestination() *schema.Resource {
 							Type:     schema.TypeList,
 							Required: true,
 							Elem: &schema.Schema{
-								Type:             schema.TypeString,
+								Type:    schema.TypeString,
 								ValidateDiagFunc: enum.Validate[types.EventType](),
 							},
 						},
@@ -138,7 +138,7 @@ func ResourceConfigurationSetEventDestination() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"application_arn": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: verify.ValidARN,
 									},
@@ -158,7 +158,7 @@ func ResourceConfigurationSetEventDestination() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"topic_arn": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: verify.ValidARN,
 									},

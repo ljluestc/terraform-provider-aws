@@ -50,18 +50,18 @@ func ResourceKxUser() *schema.Resource {
 				Computed: true,
 			},
 			"environment_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 32),
 			},
 			"iam_role": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 255),
@@ -87,7 +87,7 @@ func resourceKxUserCreate(ctx context.Context, d *schema.ResourceData, meta inte
 		UserName:      aws.String(d.Get("name").(string)),
 		EnvironmentId: aws.String(d.Get("environment_id").(string)),
 		IamRole:       aws.String(d.Get("iam_role").(string)),
-		Tags:          getTagsIn(ctx),
+		Tags: getTagsIn(ctx),
 	}
 
 	out, err := client.CreateKxUser(ctx, in)

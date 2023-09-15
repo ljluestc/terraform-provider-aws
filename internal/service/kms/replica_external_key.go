@@ -52,13 +52,13 @@ func ResourceReplicaExternalKey() *schema.Resource {
 				Default:  false,
 			},
 			"deletion_window_in_days": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				Default:      30,
 				ValidateFunc: validation.IntBetween(7, 30),
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 8192),
 			},
@@ -90,14 +90,14 @@ func ResourceReplicaExternalKey() *schema.Resource {
 				Computed: true,
 			},
 			"policy": {
-				Type:             schema.TypeString,
-				Optional:         true,
-				Computed:         true,
+				Type:    schema.TypeString,
+				Optional:true,
+				Computed:true,
 				DiffSuppressFunc: verify.SuppressEquivalentPolicyDiffs,
 				ValidateFunc:     validation.StringIsJSON,
 			},
 			"primary_key_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,
@@ -105,7 +105,7 @@ func ResourceReplicaExternalKey() *schema.Resource {
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"valid_to": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.IsRFC3339Time,
 			},
@@ -125,9 +125,9 @@ func resourceReplicaExternalKeyCreate(ctx context.Context, d *schema.ResourceDat
 	}
 
 	input := &kms.ReplicateKeyInput{
-		KeyId:         aws.String(strings.TrimPrefix(primaryKeyARN.Resource, "key/")),
+		KeyId:aws.String(strings.TrimPrefix(primaryKeyARN.Resource, "key/")),
 		ReplicaRegion: aws.String(meta.(*conns.AWSClient).Region),
-		Tags:          getTagsIn(ctx),
+		Tags: getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("bypass_policy_lockout_safety_check"); ok {

@@ -44,7 +44,7 @@ func ResourceGrant() *schema.Resource {
 				MinItems: 1,
 				MaxItems: len(licensemanager.AllowedOperation_Values()),
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: validation.StringInSlice(licensemanager.AllowedOperation_Values(), true),
 				},
 				Description: "Allowed operations for the grant. This is a subset of the allowed operations on the license.",
@@ -60,7 +60,7 @@ func ResourceGrant() *schema.Resource {
 				Description: "Home Region of the grant.",
 			},
 			"license_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,
@@ -77,7 +77,7 @@ func ResourceGrant() *schema.Resource {
 				Description: "Parent ARN.",
 			},
 			"principal": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,
@@ -103,7 +103,7 @@ func resourceGrantCreate(ctx context.Context, d *schema.ResourceData, meta inter
 	in := &licensemanager.CreateGrantInput{
 		AllowedOperations: aws.StringSlice(expandAllowedOperations(d.Get("allowed_operations").(*schema.Set).List())),
 		ClientToken:       aws.String(id.UniqueId()),
-		GrantName:         aws.String(d.Get("name").(string)),
+		GrantName:aws.String(d.Get("name").(string)),
 		HomeRegion:        aws.String(meta.(*conns.AWSClient).Region),
 		LicenseArn:        aws.String(d.Get("license_arn").(string)),
 		Principals:        aws.StringSlice([]string{d.Get("principal").(string)}),

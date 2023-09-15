@@ -170,7 +170,7 @@ func addNotificationConfigToGroupsWithTopic(ctx context.Context, conn *autoscali
 		opts := &autoscaling.PutNotificationConfigurationInput{
 			AutoScalingGroupName: group,
 			NotificationTypes:    nl,
-			TopicARN:             aws.String(topic),
+			TopicARN:    aws.String(topic),
 		}
 
 		_, err := conn.PutNotificationConfigurationWithContext(ctx, opts)
@@ -187,7 +187,7 @@ func removeNotificationConfigToGroupsWithTopic(ctx context.Context, conn *autosc
 	for _, group := range groups {
 		opts := &autoscaling.DeleteNotificationConfigurationInput{
 			AutoScalingGroupName: group,
-			TopicARN:             aws.String(topic),
+			TopicARN:    aws.String(topic),
 		}
 
 		_, err := conn.DeleteNotificationConfigurationWithContext(ctx, opts)

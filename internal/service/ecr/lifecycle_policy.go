@@ -43,7 +43,7 @@ func ResourceLifecyclePolicy() *schema.Resource {
 				ForceNew: true,
 			},
 			"policy": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringIsJSON,
@@ -200,8 +200,8 @@ type lifecyclePolicyRuleAction struct {
 }
 
 type lifecyclePolicyRule struct {
-	RulePriority *int64                        `locationName:"rulePriority" type:"integer" required:"true"`
-	Description  *string                       `locationName:"description" type:"string"`
+	RulePriority *int64      `locationName:"rulePriority" type:"integer" required:"true"`
+	Description  *string     `locationName:"description" type:"string"`
 	Selection    *lifecyclePolicyRuleSelection `locationName:"selection" type:"structure" required:"true"`
 	Action       *lifecyclePolicyRuleAction    `locationName:"action" type:"structure" required:"true"`
 }

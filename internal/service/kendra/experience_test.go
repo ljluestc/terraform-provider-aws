@@ -35,9 +35,9 @@ func TestAccKendraExperience_basic(t *testing.T) {
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckExperienceDestroy(ctx),
+		CheckDestroy:    testAccCheckExperienceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccExperienceConfig_basic(rName),
@@ -77,9 +77,9 @@ func TestAccKendraExperience_disappears(t *testing.T) {
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckExperienceDestroy(ctx),
+		CheckDestroy:    testAccCheckExperienceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccExperienceConfig_basic(rName),
@@ -108,9 +108,9 @@ func TestAccKendraExperience_Description(t *testing.T) {
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckExperienceDestroy(ctx),
+		CheckDestroy:    testAccCheckExperienceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccExperienceConfig_description(rName, "description1"),
@@ -166,9 +166,9 @@ func TestAccKendraExperience_Name(t *testing.T) {
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckExperienceDestroy(ctx),
+		CheckDestroy:    testAccCheckExperienceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccExperienceConfig_basic(rName1),
@@ -213,9 +213,9 @@ func TestAccKendraExperience_roleARN(t *testing.T) {
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckExperienceDestroy(ctx),
+		CheckDestroy:    testAccCheckExperienceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccExperienceConfig_basic(rName),
@@ -260,9 +260,9 @@ func TestAccKendraExperience_Configuration_ContentSourceConfiguration_DirectPutC
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckExperienceDestroy(ctx),
+		CheckDestroy:    testAccCheckExperienceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccExperienceConfig_configuration_contentSourceConfiguration_empty(rName),
@@ -315,9 +315,9 @@ func TestAccKendraExperience_Configuration_ContentSourceConfiguration_FaqIDs(t *
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckExperienceDestroy(ctx),
+		CheckDestroy:    testAccCheckExperienceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccExperienceConfig_configuration_contentSourceConfiguration_faqIDs(rName),
@@ -354,9 +354,9 @@ func TestAccKendraExperience_Configuration_ContentSourceConfiguration_updateFaqI
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckExperienceDestroy(ctx),
+		CheckDestroy:    testAccCheckExperienceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccExperienceConfig_configuration_contentSourceConfiguration_faqIDs(rName),
@@ -408,9 +408,9 @@ func TestAccKendraExperience_Configuration_UserIdentityConfiguration(t *testing.
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckExperienceDestroy(ctx),
+		CheckDestroy:    testAccCheckExperienceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccExperienceConfig_configuration_userIdentityConfiguration(rName, userId),
@@ -450,9 +450,9 @@ func TestAccKendraExperience_Configuration_ContentSourceConfigurationAndUserIden
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckExperienceDestroy(ctx),
+		CheckDestroy:    testAccCheckExperienceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccExperienceConfig_configuration_contentSourceConfigurationAndUserIdentityConfiguration(rName, userId),
@@ -494,9 +494,9 @@ func TestAccKendraExperience_Configuration_ContentSourceConfigurationWithUserIde
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckExperienceDestroy(ctx),
+		CheckDestroy:    testAccCheckExperienceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccExperienceConfig_configuration_contentSourceConfigurationAndUserIdentityConfiguration(rName, userId),
@@ -548,9 +548,9 @@ func TestAccKendraExperience_Configuration_UserIdentityConfigurationWithContentS
 			acctest.PreCheckOrganizationManagementAccount(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckExperienceDestroy(ctx),
+		CheckDestroy:    testAccCheckExperienceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccExperienceConfig_configuration_contentSourceConfigurationAndUserIdentityConfiguration(rName, userId),
@@ -565,8 +565,8 @@ func TestAccKendraExperience_Configuration_UserIdentityConfigurationWithContentS
 			},
 			{
 				// Since configuration.content_source_configuration is Optional+Computed, removal in the test config should not trigger changes
-				PlanOnly:           true,
-				Config:             testAccExperienceConfig_configuration_userIdentityConfiguration(rName, userId),
+				PlanOnly:  true,
+				Config:    testAccExperienceConfig_configuration_userIdentityConfiguration(rName, userId),
 				ExpectNonEmptyPlan: false,
 			},
 		},

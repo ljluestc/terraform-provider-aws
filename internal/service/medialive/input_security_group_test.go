@@ -39,7 +39,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInputSecurityGroupDestroy(ctx),
+CheckDestroy:    testAccCheckInputSecurityGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInputSecurityGroupConfig_basic(rName, "10.0.0.8/32"),
@@ -78,7 +78,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInputSecurityGroupDestroy(ctx),
+CheckDestroy:    testAccCheckInputSecurityGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInputSecurityGroupConfig_basic(rName, "10.0.0.8/32"),
@@ -121,7 +121,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInputSecurityGroupDestroy(ctx),
+CheckDestroy:    testAccCheckInputSecurityGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInputSecurityGroupConfig_tags1("key1", "value1"),
@@ -170,7 +170,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInputSecurityGroupDestroy(ctx),
+CheckDestroy:    testAccCheckInputSecurityGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInputSecurityGroupConfig_basic(rName, "10.0.0.8/32"),

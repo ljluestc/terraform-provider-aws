@@ -24,7 +24,7 @@ func testAccProductSubscription_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, securityhub.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAccountDestroy(ctx),
+CheckDestroy:    testAccCheckAccountDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 // We would like to use an AWS product subscription, but they are

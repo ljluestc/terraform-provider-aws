@@ -33,19 +33,19 @@ func ResourceWorkspaceAPIKey() *schema.Resource {
 				Computed: true,
 			},
 			"key_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 100),
 			},
 			"key_role": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringInSlice(managedgrafana.Role_Values(), false),
 			},
 			"seconds_to_live": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Required:     true,
 				ValidateFunc: validation.IntBetween(1, 2592000),
 			},

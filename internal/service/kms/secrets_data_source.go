@@ -33,7 +33,7 @@ func DataSourceSecrets() *schema.Resource {
 							Elem:     &schema.Schema{Type: schema.TypeString},
 						},
 						"encryption_algorithm": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringInSlice(kms.EncryptionAlgorithmSpec_Values(), false),
 						},

@@ -26,7 +26,7 @@ func TestAccMediaStoreContainer_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, mediastore.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckContainerDestroy(ctx),
+CheckDestroy:    testAccCheckContainerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccContainerConfig_basic(sdkacctest.RandString(5)),
@@ -52,7 +52,7 @@ func TestAccMediaStoreContainer_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, mediastore.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckContainerDestroy(ctx),
+CheckDestroy:    testAccCheckContainerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccContainerConfig_tags(rName, "foo", "bar", "fizz", "buzz"),

@@ -24,10 +24,10 @@ func TestAccServiceCatalogPrincipalPortfolioAssociation_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPrincipalPortfolioAssociationDestroy(ctx),
+		CheckDestroy:    testAccCheckPrincipalPortfolioAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPrincipalPortfolioAssociationConfig_basic(rName),
@@ -52,10 +52,10 @@ func TestAccServiceCatalogPrincipalPortfolioAssociation_iam_pattern(t *testing.T
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPrincipalPortfolioAssociationDestroy(ctx),
+		CheckDestroy:    testAccCheckPrincipalPortfolioAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPrincipalPortfolioAssociationConfig_iam_pattern(rName),
@@ -79,10 +79,10 @@ func TestAccServiceCatalogPrincipalPortfolioAssociation_disappears(t *testing.T)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckPrincipalPortfolioAssociationDestroy(ctx),
+		CheckDestroy:    testAccCheckPrincipalPortfolioAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccPrincipalPortfolioAssociationConfig_basic(rName),
@@ -109,7 +109,7 @@ func TestAccServiceCatalogPrincipalPortfolioAssociation_migrateV0(t *testing.T) 
 			{
 				ExternalProviders: map[string]resource.ExternalProvider{
 					"aws": {
-						Source:            "hashicorp/aws",
+						Source:   "hashicorp/aws",
 						VersionConstraint: "5.15.0",
 					},
 				},
@@ -122,7 +122,7 @@ func TestAccServiceCatalogPrincipalPortfolioAssociation_migrateV0(t *testing.T) 
 			},
 			{
 				ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-				Config:                   testAccPrincipalPortfolioAssociationConfig_basic(rName),
+				Config: testAccPrincipalPortfolioAssociationConfig_basic(rName),
 				Check: resource.ComposeTestCheckFunc(
 					testAccCheckPrincipalPortfolioAssociationExists(ctx, resourceName),
 				),
@@ -203,7 +203,7 @@ resource "aws_iam_role" "test" {
 }
 
 resource "aws_servicecatalog_portfolio" "test" {
-  name          = %[1]q
+  name = %[1]q
   provider_name = %[1]q
 }
 `, rName)

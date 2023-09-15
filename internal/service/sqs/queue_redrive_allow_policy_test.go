@@ -25,7 +25,7 @@ func TestAccSQSQueueRedriveAllowPolicy_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQueueDestroy(ctx),
+CheckDestroy:    testAccCheckQueueDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQueueRedriveAllowPolicyConfig_basic(rName),
@@ -61,7 +61,7 @@ func TestAccSQSQueueRedriveAllowPolicy_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQueueDestroy(ctx),
+CheckDestroy:    testAccCheckQueueDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQueueRedriveAllowPolicyConfig_basic(rName),
@@ -85,7 +85,7 @@ func TestAccSQSQueueRedriveAllowPolicy_Disappears_queue(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQueueDestroy(ctx),
+CheckDestroy:    testAccCheckQueueDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQueueRedriveAllowPolicyConfig_basic(rName),
@@ -110,7 +110,7 @@ func TestAccSQSQueueRedriveAllowPolicy_update(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, sqs.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQueueDestroy(ctx),
+CheckDestroy:    testAccCheckQueueDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQueueRedriveAllowPolicyConfig_basic(rName),

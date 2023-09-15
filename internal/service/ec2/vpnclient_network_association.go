@@ -66,7 +66,7 @@ func resourceClientVPNNetworkAssociationCreate(ctx context.Context, d *schema.Re
 	endpointID := d.Get("client_vpn_endpoint_id").(string)
 	input := &ec2.AssociateClientVpnTargetNetworkInput{
 		ClientVpnEndpointId: aws.String(endpointID),
-		SubnetId:            aws.String(d.Get("subnet_id").(string)),
+		SubnetId:   aws.String(d.Get("subnet_id").(string)),
 	}
 
 	log.Printf("[DEBUG] Creating EC2 Client VPN Network Association: %s", input)

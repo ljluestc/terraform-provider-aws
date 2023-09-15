@@ -30,7 +30,7 @@ PreCheck: func() {
 	acctest.PreCheckAlternateAccount(t)
 },
 ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-CheckDestroy:             testAccCheckMemberDestroy(ctx),
+CheckDestroy:    testAccCheckMemberDestroy(ctx),
 ErrorCheck:acctest.ErrorCheck(t, detective.EndpointsID),
 Steps: []resource.TestStep{
 	{
@@ -46,8 +46,8 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 Config:   testAccMemberConfig_basic(email),
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"disable_email_notification"},
 	},
@@ -67,7 +67,7 @@ PreCheck: func() {
 	acctest.PreCheckAlternateAccount(t)
 },
 ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-CheckDestroy:             testAccCheckMemberDestroy(ctx),
+CheckDestroy:    testAccCheckMemberDestroy(ctx),
 ErrorCheck:acctest.ErrorCheck(t, detective.EndpointsID),
 Steps: []resource.TestStep{
 	{
@@ -95,7 +95,7 @@ PreCheck: func() {
 	acctest.PreCheckAlternateAccount(t)
 },
 ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-CheckDestroy:             testAccCheckInvitationAccepterDestroy(ctx),
+CheckDestroy:    testAccCheckInvitationAccepterDestroy(ctx),
 ErrorCheck:acctest.ErrorCheck(t, detective.EndpointsID),
 Steps: []resource.TestStep{
 	{
@@ -122,8 +122,8 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 Config:   testAccMemberConfig_invitationMessage(email, true),
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"message", "disable_email_notification"},
 	},

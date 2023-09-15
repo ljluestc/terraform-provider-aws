@@ -44,36 +44,36 @@ func ResourceVPCDHCPOptions() *schema.Resource {
 				Computed: true,
 			},
 			"domain_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				AtLeastOneOf: []string{"domain_name", "domain_name_servers", "netbios_name_servers", "netbios_node_type", "ntp_servers"},
 			},
 			"domain_name_servers": {
-				Type:         schema.TypeList,
+				Type:schema.TypeList,
 				Optional:     true,
 				ForceNew:     true,
-				Elem:         &schema.Schema{Type: schema.TypeString},
+				Elem:&schema.Schema{Type: schema.TypeString},
 				AtLeastOneOf: []string{"domain_name", "domain_name_servers", "netbios_name_servers", "netbios_node_type", "ntp_servers"},
 			},
 			"netbios_name_servers": {
-				Type:         schema.TypeList,
+				Type:schema.TypeList,
 				Optional:     true,
 				ForceNew:     true,
-				Elem:         &schema.Schema{Type: schema.TypeString},
+				Elem:&schema.Schema{Type: schema.TypeString},
 				AtLeastOneOf: []string{"domain_name", "domain_name_servers", "netbios_name_servers", "netbios_node_type", "ntp_servers"},
 			},
 			"netbios_node_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				AtLeastOneOf: []string{"domain_name", "domain_name_servers", "netbios_name_servers", "netbios_node_type", "ntp_servers"},
 			},
 			"ntp_servers": {
-				Type:         schema.TypeList,
+				Type:schema.TypeList,
 				Optional:     true,
 				ForceNew:     true,
-				Elem:         &schema.Schema{Type: schema.TypeString},
+				Elem:&schema.Schema{Type: schema.TypeString},
 				AtLeastOneOf: []string{"domain_name", "domain_name_servers", "netbios_name_servers", "netbios_node_type", "ntp_servers"},
 			},
 			"owner_id": {
@@ -90,11 +90,11 @@ func ResourceVPCDHCPOptions() *schema.Resource {
 
 var (
 	optionsMap = newDHCPOptionsMap(map[string]string{
-		"domain_name":          "domain-name",
+		"domain_name": "domain-name",
 		"domain_name_servers":  "domain-name-servers",
 		"netbios_name_servers": "netbios-name-servers",
 		"netbios_node_type":    "netbios-node-type",
-		"ntp_servers":          "ntp-servers",
+		"ntp_servers": "ntp-servers",
 	})
 )
 
@@ -195,7 +195,7 @@ func resourceVPCDHCPOptionsDelete(ctx context.Context, d *schema.ResourceData, m
 		log.Printf("[INFO] Disassociating EC2 DHCP Options Set (%s) from VPC (%s)", d.Id(), vpcID)
 		_, err := conn.AssociateDhcpOptionsWithContext(ctx, &ec2.AssociateDhcpOptionsInput{
 			DhcpOptionsId: aws.String(DefaultDHCPOptionsID),
-			VpcId:         aws.String(vpcID),
+			VpcId:aws.String(vpcID),
 		})
 
 		if tfawserr.ErrCodeEquals(err, errCodeInvalidVPCIDNotFound) {

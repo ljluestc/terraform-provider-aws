@@ -29,7 +29,7 @@ func TestAccServiceCatalogPortfolio_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckServiceCatlaogPortfolioDestroy(ctx),
+CheckDestroy:    testAccCheckServiceCatlaogPortfolioDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPortfolioConfig_basic(name),
@@ -62,7 +62,7 @@ func TestAccServiceCatalogPortfolio_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckServiceCatlaogPortfolioDestroy(ctx),
+CheckDestroy:    testAccCheckServiceCatlaogPortfolioDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPortfolioConfig_basic(name),
@@ -86,7 +86,7 @@ func TestAccServiceCatalogPortfolio_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckServiceCatlaogPortfolioDestroy(ctx),
+CheckDestroy:    testAccCheckServiceCatlaogPortfolioDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPortfolioConfig_tags1(name, "key1", "value1"),
@@ -179,7 +179,7 @@ return nil
 func testAccPortfolioConfig_basic(name string) string {
 	return fmt.Sprintf(`
 resource "aws_servicecatalog_portfolio" "test" {
-  name          = "%s"
+  name = "%s"
   description   = "test-2"
   provider_name = "test-3"
 }
@@ -189,7 +189,7 @@ resource "aws_servicecatalog_portfolio" "test" {
 func testAccPortfolioConfig_tags1(name, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_servicecatalog_portfolio" "test" {
-  name          = %[1]q
+  name = %[1]q
   description   = "test-b"
   provider_name = "test-c"
 
@@ -203,7 +203,7 @@ resource "aws_servicecatalog_portfolio" "test" {
 func testAccPortfolioConfig_tags2(name, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_servicecatalog_portfolio" "test" {
-  name          = %[1]q
+  name = %[1]q
   description   = "test-only-change-me"
   provider_name = "test-c"
 

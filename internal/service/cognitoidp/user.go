@@ -65,7 +65,7 @@ func ResourceUser() *schema.Resource {
 			"desired_delivery_mediums": {
 				Type: schema.TypeSet,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: validation.StringInSlice(cognitoidentityprovider.DeliveryMediumType_Values(), false),
 				},
 				Optional: true,
@@ -84,7 +84,7 @@ func ResourceUser() *schema.Resource {
 				Computed: true,
 			},
 			"message_action": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringInSlice(cognitoidentityprovider.MessageActionType_Values(), false),
 			},
@@ -105,7 +105,7 @@ func ResourceUser() *schema.Resource {
 				ForceNew: true,
 			},
 			"username": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 128),
@@ -119,14 +119,14 @@ func ResourceUser() *schema.Resource {
 				Computed: true,
 			},
 			"password": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Sensitive:     true,
 				Optional:      true,
 				ValidateFunc:  validation.StringLenBetween(6, 256),
 				ConflictsWith: []string{"temporary_password"},
 			},
 			"temporary_password": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Sensitive:     true,
 				Optional:      true,
 				ValidateFunc:  validation.StringLenBetween(6, 256),
@@ -291,8 +291,8 @@ func resourceUserUpdate(ctx context.Context, d *schema.ResourceData, meta interf
 		}
 		if len(del) > 0 {
 			params := &cognitoidentityprovider.AdminDeleteUserAttributesInput{
-				Username:           aws.String(d.Get("username").(string)),
-				UserPoolId:         aws.String(d.Get("user_pool_id").(string)),
+				Username:  aws.String(d.Get("username").(string)),
+				UserPoolId:aws.String(d.Get("user_pool_id").(string)),
 				UserAttributeNames: expandUserAttributesDelete(del),
 			}
 			_, err := conn.AdminDeleteUserAttributesWithContext(ctx, params)

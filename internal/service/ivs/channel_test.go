@@ -35,9 +35,9 @@ func TestAccIVSChannel_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.IVS)
 			testAccChannelPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ivs.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, ivs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckChannelDestroy(ctx),
+		CheckDestroy:    testAccCheckChannelDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccChannelConfig_basic(),
@@ -71,9 +71,9 @@ func TestAccIVSChannel_tags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.IVS)
 			testAccChannelPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ivs.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, ivs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckChannelDestroy(ctx),
+		CheckDestroy:    testAccCheckChannelDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccChannelConfig_tags1("key1", "value1"),
@@ -125,9 +125,9 @@ func TestAccIVSChannel_update(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.IVS)
 			testAccChannelPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ivs.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, ivs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckChannelDestroy(ctx),
+		CheckDestroy:    testAccCheckChannelDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccChannelConfig_basic(),
@@ -167,9 +167,9 @@ func TestAccIVSChannel_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, ivs.EndpointsID)
 			testAccChannelPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ivs.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, ivs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckChannelDestroy(ctx),
+		CheckDestroy:    testAccCheckChannelDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccChannelConfig_basic(),
@@ -196,9 +196,9 @@ func TestAccIVSChannel_recordingConfiguration(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, ivs.EndpointsID)
 			testAccChannelPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, ivs.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, ivs.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckChannelDestroy(ctx),
+		CheckDestroy:    testAccCheckChannelDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccChannelConfig_recordingConfiguration(bucketName),
@@ -305,10 +305,10 @@ resource "aws_ivs_channel" "test" {
 func testAccChannelConfig_update(rName, authorized, latencyMode, channelType string) string {
 	return fmt.Sprintf(`
 resource "aws_ivs_channel" "test" {
-  name         = %[1]q
+  name= %[1]q
   authorized   = %[2]s
   latency_mode = %[3]q
-  type         = %[4]q
+  type= %[4]q
 }
 `, rName, authorized, latencyMode, channelType)
 }

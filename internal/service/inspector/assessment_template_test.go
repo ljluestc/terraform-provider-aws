@@ -29,7 +29,7 @@ func TestAccInspectorAssessmentTemplate_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, inspector.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTemplateDestroy(ctx),
+CheckDestroy:    testAccCheckTemplateDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAssessmentTemplateConfig_basic(rName),
@@ -62,7 +62,7 @@ func TestAccInspectorAssessmentTemplate_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, inspector.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTemplateDestroy(ctx),
+CheckDestroy:    testAccCheckTemplateDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAssessmentTemplateConfig_basic(rName),
@@ -86,7 +86,7 @@ func TestAccInspectorAssessmentTemplate_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, inspector.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTemplateDestroy(ctx),
+CheckDestroy:    testAccCheckTemplateDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAssessmentTemplateConfig_tags1(rName, "key1", "value1"),
@@ -143,7 +143,7 @@ func TestAccInspectorAssessmentTemplate_eventSubscription(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, inspector.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTemplateDestroy(ctx),
+CheckDestroy:    testAccCheckTemplateDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAssessmentTemplateConfig_eventSubscription(rName, event1),

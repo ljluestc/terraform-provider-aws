@@ -27,7 +27,7 @@ func DataSourceLaunchPaths() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"accept_language": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Default:      "en",
 				ValidateFunc: validation.StringInSlice(AcceptLanguage_Values(), false),

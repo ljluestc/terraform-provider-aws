@@ -61,8 +61,8 @@ func ResourceInputSecurityGroup() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"cidr": {
-							Type:             schema.TypeString,
-							Required:         true,
+							Type:    schema.TypeString,
+							Required:true,
 							ValidateDiagFunc: validation.ToDiagFunc(verify.ValidCIDRNetworkAddress),
 						},
 					},
@@ -84,7 +84,7 @@ func resourceInputSecurityGroupCreate(ctx context.Context, d *schema.ResourceDat
 	conn := meta.(*conns.AWSClient).MediaLiveClient(ctx)
 
 	in := &medialive.CreateInputSecurityGroupInput{
-		Tags:           getTagsIn(ctx),
+		Tags:  getTagsIn(ctx),
 		WhitelistRules: expandWhitelistRules(d.Get("whitelist_rules").(*schema.Set).List()),
 	}
 
@@ -181,11 +181,11 @@ func resourceInputSecurityGroupDelete(ctx context.Context, d *schema.ResourceDat
 
 func waitInputSecurityGroupCreated(ctx context.Context, conn *medialive.Client, id string, timeout time.Duration) (*medialive.DescribeInputSecurityGroupOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   []string{},
-		Target:                    enum.Slice(types.InputSecurityGroupStateIdle, types.InputSecurityGroupStateInUse),
-		Refresh:                   statusInputSecurityGroup(ctx, conn, id),
-		Timeout:                   timeout,
-		NotFoundChecks:            20,
+		Pending: []string{},
+		Target:  enum.Slice(types.InputSecurityGroupStateIdle, types.InputSecurityGroupStateInUse),
+		Refresh: statusInputSecurityGroup(ctx, conn, id),
+		Timeout: timeout,
+		NotFoundChecks:   20,
 		ContinuousTargetOccurence: 2,
 	}
 
@@ -199,11 +199,11 @@ func waitInputSecurityGroupCreated(ctx context.Context, conn *medialive.Client, 
 
 func waitInputSecurityGroupUpdated(ctx context.Context, conn *medialive.Client, id string, timeout time.Duration) (*medialive.DescribeInputSecurityGroupOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   enum.Slice(types.InputSecurityGroupStateUpdating),
-		Target:                    enum.Slice(types.InputSecurityGroupStateIdle, types.InputSecurityGroupStateInUse),
-		Refresh:                   statusInputSecurityGroup(ctx, conn, id),
-		Timeout:                   timeout,
-		NotFoundChecks:            20,
+		Pending: enum.Slice(types.InputSecurityGroupStateUpdating),
+		Target:  enum.Slice(types.InputSecurityGroupStateIdle, types.InputSecurityGroupStateInUse),
+		Refresh: statusInputSecurityGroup(ctx, conn, id),
+		Timeout: timeout,
+		NotFoundChecks:   20,
 		ContinuousTargetOccurence: 2,
 	}
 

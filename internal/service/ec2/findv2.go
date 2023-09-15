@@ -186,7 +186,7 @@ func findVPCMainRouteTableV2(ctx context.Context, conn *ec2.Client, id string) (
 	input := &ec2.DescribeRouteTablesInput{
 		Filters: buildAttributeFilterListV2(map[string]string{
 			"association.main": "true",
-			"vpc-id":           id,
+			"vpc-id":  id,
 		}),
 	}
 

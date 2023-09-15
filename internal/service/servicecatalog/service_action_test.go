@@ -27,10 +27,10 @@ func TestAccServiceCatalogServiceAction_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckServiceActionDestroy(ctx),
+		CheckDestroy:    testAccCheckServiceActionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccServiceActionConfig_basic(rName),
@@ -61,10 +61,10 @@ func TestAccServiceCatalogServiceAction_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckServiceActionDestroy(ctx),
+		CheckDestroy:    testAccCheckServiceActionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccServiceActionConfig_basic(rName),
@@ -85,10 +85,10 @@ func TestAccServiceCatalogServiceAction_update(t *testing.T) {
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckServiceActionDestroy(ctx),
+		CheckDestroy:    testAccCheckServiceActionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccServiceActionConfig_basic(rName),
@@ -175,7 +175,7 @@ func testAccServiceActionConfig_basic(rName string) string {
 resource "aws_servicecatalog_service_action" "test" {
   accept_language = "en"
   description     = %[1]q
-  name            = %[1]q
+  name   = %[1]q
 
   definition {
     name    = "AWS-RestartEC2Instance"

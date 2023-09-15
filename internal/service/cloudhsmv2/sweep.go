@@ -18,8 +18,8 @@ import (
 
 func init() {
 	resource.AddTestSweepers("aws_cloudhsm_v2_cluster", &resource.Sweeper{
-		Name:         "aws_cloudhsm_v2_cluster",
-		F:            sweepClusters,
+		Name:"aws_cloudhsm_v2_cluster",
+		F:   sweepClusters,
 		Dependencies: []string{"aws_cloudhsm_v2_hsm"},
 	})
 

@@ -35,7 +35,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckHoursOfOperationDestroy(ctx),
+CheckDestroy:    testAccCheckHoursOfOperationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccHoursOfOperationConfig_basic(rName, rName2, originalDescription),
@@ -46,10 +46,10 @@ func(
 	resource.TestCheckResourceAttr(resourceName, "config.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "config.*", map[string]string{
 "day":   "MONDAY",
-"end_time.#":           "1",
+"end_time.#":  "1",
 "end_time.0.hours":     "23",
 "end_time.0.minutes":   "8",
-"start_time.#":         "1",
+"start_time.#":"1",
 "start_time.0.hours":   "8",
 "start_time.0.minutes": "0",
 	}),
@@ -76,10 +76,10 @@ func(
 	resource.TestCheckResourceAttr(resourceName, "config.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "config.*", map[string]string{
 "day":   "MONDAY",
-"end_time.#":           "1",
+"end_time.#":  "1",
 "end_time.0.hours":     "23",
 "end_time.0.minutes":   "8",
-"start_time.#":         "1",
+"start_time.#":"1",
 "start_time.0.hours":   "8",
 "start_time.0.minutes": "0",
 	}),
@@ -111,7 +111,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckHoursOfOperationDestroy(ctx),
+CheckDestroy:    testAccCheckHoursOfOperationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccHoursOfOperationConfig_basic(rName, rName2, description),
@@ -121,10 +121,10 @@ func(
 	resource.TestCheckResourceAttr(resourceName, "config.#", "1"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "config.*", map[string]string{
 "day":   "MONDAY",
-"end_time.#":           "1",
+"end_time.#":  "1",
 "end_time.0.hours":     "23",
 "end_time.0.minutes":   "8",
-"start_time.#":         "1",
+"start_time.#":"1",
 "start_time.0.hours":   "8",
 "start_time.0.minutes": "0",
 	}),
@@ -143,19 +143,19 @@ func(
 	resource.TestCheckResourceAttr(resourceName, "config.#", "2"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "config.*", map[string]string{
 "day":   "MONDAY",
-"end_time.#":           "1",
+"end_time.#":  "1",
 "end_time.0.hours":     "23",
 "end_time.0.minutes":   "8",
-"start_time.#":         "1",
+"start_time.#":"1",
 "start_time.0.hours":   "8",
 "start_time.0.minutes": "0",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "config.*", map[string]string{
 "day":   "TUESDAY",
-"end_time.#":           "1",
+"end_time.#":  "1",
 "end_time.0.hours":     "21",
 "end_time.0.minutes":   "0",
-"start_time.#":         "1",
+"start_time.#":"1",
 "start_time.0.hours":   "9",
 "start_time.0.minutes": "0",
 	}),
@@ -180,7 +180,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckHoursOfOperationDestroy(ctx),
+CheckDestroy:    testAccCheckHoursOfOperationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccHoursOfOperationConfig_basic(rName, rName2, description),
@@ -234,7 +234,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckHoursOfOperationDestroy(ctx),
+CheckDestroy:    testAccCheckHoursOfOperationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccHoursOfOperationConfig_basic(rName, rName2, "Disappear"),
@@ -273,7 +273,7 @@ conn := acctest.Provider.Meta().(*conns.AWSClient).ConnectConn(ctx)
 
 params := &connect.DescribeHoursOfOperationInput{
 	HoursOfOperationId: aws.String(hoursOfOperationID),
-	InstanceId:         aws.String(instanceID),
+	InstanceId:aws.String(instanceID),
 }
 
 get
@@ -310,7 +310,7 @@ return err
 
 	params := &connect.DescribeHoursOfOperationInput{
 HoursOfOperationId: aws.String(hoursOfOperationID),
-InstanceId:         aws.String(instanceID),
+InstanceId:aws.String(instanceID),
 	}
 
 	_, err = conn.DescribeHoursOfOperationWithContext(ctx, params)
@@ -334,7 +334,7 @@ func testAccHoursOfOperationConfig_base(rName string) string {
 resource "aws_connect_instance" "test" {
   identity_management_type = "CONNECT_MANAGED"
   inbound_calls_enabled    = true
-  instance_alias           = %[1]q
+  instance_alias  = %[1]q
   outbound_calls_enabled   = true
 }
 `, rName)

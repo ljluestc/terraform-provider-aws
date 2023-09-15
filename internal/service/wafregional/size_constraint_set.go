@@ -127,7 +127,7 @@ func resourceSizeConstraintSetDelete(ctx context.Context, d *schema.ResourceData
 	_, err := wr.RetryWithToken(ctx,
 		func(token *string) (interface{}, error) {
 			req := &waf.DeleteSizeConstraintSetInput{
-				ChangeToken:         token,
+				ChangeToken:token,
 				SizeConstraintSetId: aws.String(d.Id()),
 			}
 			return conn.DeleteSizeConstraintSetWithContext(ctx, req)
@@ -147,9 +147,9 @@ func updateRegionalSizeConstraintSetResource(ctx context.Context, id string, old
 	_, err := wr.RetryWithToken(ctx,
 		func(token *string) (interface{}, error) {
 			req := &waf.UpdateSizeConstraintSetInput{
-				ChangeToken:         token,
+				ChangeToken:token,
 				SizeConstraintSetId: aws.String(id),
-				Updates:             tfwaf.DiffSizeConstraints(oldConstraints, newConstraints),
+				Updates:    tfwaf.DiffSizeConstraints(oldConstraints, newConstraints),
 			}
 
 			log.Printf("[INFO] Updating WAF Regional SizeConstraintSet: %s", req)

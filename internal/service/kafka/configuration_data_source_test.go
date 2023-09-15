@@ -20,10 +20,10 @@ func TestAccKafkaConfigurationDataSource_name(t *testing.T) {
 	resourceName := "aws_msk_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kafka.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, kafka.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigurationDestroy(ctx),
+		CheckDestroy:    testAccCheckConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigurationDataSourceConfig_name(rName),
@@ -44,7 +44,7 @@ func testAccConfigurationDataSourceConfig_name(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_msk_configuration" "test" {
   kafka_versions = ["2.1.0"]
-  name           = %[1]q
+  name  = %[1]q
 
   server_properties = <<PROPERTIES
 auto.create.topics.enable = true

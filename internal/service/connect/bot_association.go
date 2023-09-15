@@ -48,7 +48,7 @@ func ResourceBotAssociation() *schema.Resource {
 							ForceNew: true,
 						},
 						"name": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
 							Validate
@@ -66,7 +66,7 @@ func: validation.StringLenBetween(2, 50),
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"alias_arn": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							Validate
 func: verify.ValidARN,

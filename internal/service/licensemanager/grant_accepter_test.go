@@ -38,7 +38,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, licensemanager.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5FactoriesNamedAlternate(ctx, t, providers),
-CheckDestroy:             acctest.CheckWithNamedProviders(testAccCheckGrantAccepterDestroyWithProvider(ctx), providers),
+CheckDestroy:    acctest.CheckWithNamedProviders(testAccCheckGrantAccepterDestroyWithProvider(ctx), providers),
 Steps: []resource.TestStep{
 	{
 Config: testAccGrantAccepterConfig_basic(licenseARN, rName, principal, homeRegion),
@@ -56,7 +56,7 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-Config:            testAccGrantAccepterConfig_basic(licenseARN, rName, principal, homeRegion),
+Config:   testAccGrantAccepterConfig_basic(licenseARN, rName, principal, homeRegion),
 ResourceName:      resourceName,
 ImportState:       true,
 ImportStateVerify: true,
@@ -81,7 +81,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, licensemanager.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5FactoriesNamedAlternate(ctx, t, providers),
-CheckDestroy:             acctest.CheckWithNamedProviders(testAccCheckGrantAccepterDestroyWithProvider(ctx), providers),
+CheckDestroy:    acctest.CheckWithNamedProviders(testAccCheckGrantAccepterDestroyWithProvider(ctx), providers),
 Steps: []resource.TestStep{
 	{
 Config: testAccGrantAccepterConfig_basic(licenseARN, rName, principal, homeRegion),
@@ -184,7 +184,7 @@ resource "aws_licensemanager_grant" "test" {
   name= %[2]q
   allowed_operations = local.allowed_operations
   license_arn        = data.aws_licensemanager_received_license.test.license_arn
-  principal          = %[3]q
+  principal = %[3]q
 }
 `, licenseARN, rName, principal),
 	)

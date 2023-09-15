@@ -27,7 +27,7 @@ func ResourceInvitationAccepter() *schema.Resource {
 		},
 		Schema: map[string]*schema.Schema{
 			"graph_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,

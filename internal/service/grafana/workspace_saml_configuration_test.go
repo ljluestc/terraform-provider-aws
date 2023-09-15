@@ -24,9 +24,9 @@ func testAccWorkspaceSAMLConfiguration_basic(t *testing.T) {
 	workspaceResourceName := "aws_grafana_workspace.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, managedgrafana.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, managedgrafana.EndpointsID),
-		CheckDestroy:             nil,
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, managedgrafana.EndpointsID) },
+		ErrorCheck:      acctest.ErrorCheck(t, managedgrafana.EndpointsID),
+		CheckDestroy:    nil,
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -53,9 +53,9 @@ func testAccWorkspaceSAMLConfiguration_loginValidity(t *testing.T) {
 	workspaceResourceName := "aws_grafana_workspace.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, managedgrafana.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, managedgrafana.EndpointsID),
-		CheckDestroy:             nil,
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, managedgrafana.EndpointsID) },
+		ErrorCheck:      acctest.ErrorCheck(t, managedgrafana.EndpointsID),
+		CheckDestroy:    nil,
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -83,9 +83,9 @@ func testAccWorkspaceSAMLConfiguration_assertions(t *testing.T) {
 	workspaceResourceName := "aws_grafana_workspace.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, managedgrafana.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, managedgrafana.EndpointsID),
-		CheckDestroy:             nil,
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, managedgrafana.EndpointsID) },
+		ErrorCheck:      acctest.ErrorCheck(t, managedgrafana.EndpointsID),
+		CheckDestroy:    nil,
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -130,7 +130,7 @@ resource "aws_grafana_workspace_saml_configuration" "test" {
   editor_role_values      = ["editor"]
   idp_metadata_xml        = file("test-fixtures/idp_metadata.xml")
   login_validity_duration = 1440
-  workspace_id            = aws_grafana_workspace.test.id
+  workspace_id   = aws_grafana_workspace.test.id
 }
 `)
 }

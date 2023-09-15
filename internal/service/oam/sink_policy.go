@@ -48,9 +48,9 @@ func ResourceSinkPolicy() *schema.Resource {
 				Computed: true,
 			},
 			"policy": {
-				Type:                  schema.TypeString,
-				Required:              true,
-				ValidateFunc:          validation.StringIsJSON,
+				Type:schema.TypeString,
+				Required:     true,
+				ValidateFunc: validation.StringIsJSON,
 				DiffSuppressFunc:      verify.SuppressEquivalentJSONDiffs,
 				DiffSuppressOnRefresh: true,
 				StateFunc: func(v interface{}) string {
@@ -87,7 +87,7 @@ func resourceSinkPolicyPut(ctx context.Context, d *schema.ResourceData, meta int
 
 	in := &oam.PutSinkPolicyInput{
 		SinkIdentifier: aws.String(sinkIdentifier),
-		Policy:         aws.String(policy),
+		Policy:aws.String(policy),
 	}
 
 	_, err = conn.PutSinkPolicy(ctx, in)

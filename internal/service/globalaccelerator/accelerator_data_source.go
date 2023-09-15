@@ -247,15 +247,15 @@ return types.ListNull(elementType)
 }
 
 type dataSourceAcceleratorData struct {
-	ARN              fwtypes.ARN  `tfsdk:"arn"`
+	ARN     fwtypes.ARN  `tfsdk:"arn"`
 	Attributes       types.List   `tfsdk:"attributes"`
-	DnsName          types.String `tfsdk:"dns_name"`
+	DnsName types.String `tfsdk:"dns_name"`
 	DualStackDNSName types.String `tfsdk:"dual_stack_dns_name"`
-	Enabled          types.Bool   `tfsdk:"enabled"`
+	Enabled types.Bool   `tfsdk:"enabled"`
 	HostedZoneID     types.String `tfsdk:"hosted_zone_id"`
 	IDtypes.String `tfsdk:"id"`
 	IpAddressType    types.String `tfsdk:"ip_address_type"`
-	IpSets           types.List   `tfsdk:"ip_sets"`
-	Name             types.String `tfsdk:"name"`
-	Tags             types.Map    `tfsdk:"tags"`
+	IpSets  types.List   `tfsdk:"ip_sets"`
+	Name    types.String `tfsdk:"name"`
+	Tags    types.Map    `tfsdk:"tags"`
 }

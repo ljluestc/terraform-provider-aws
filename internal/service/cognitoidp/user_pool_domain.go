@@ -42,7 +42,7 @@ func ResourceUserPoolDomain() *schema.Resource {
 				Computed: true,
 			},
 			"certificate_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: verify.ValidARN,
 			},
@@ -59,7 +59,7 @@ func ResourceUserPoolDomain() *schema.Resource {
 				Computed: true,
 			},
 			"domain": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 63),

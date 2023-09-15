@@ -156,7 +156,7 @@ func updateRegexPatternSetPatternStringsWR(ctx context.Context, id string, oldPa
 			req := &waf.UpdateRegexPatternSetInput{
 				ChangeToken:       token,
 				RegexPatternSetId: aws.String(id),
-				Updates:           tfwaf.DiffRegexPatternSetPatternStrings(oldPatterns, newPatterns),
+				Updates:  tfwaf.DiffRegexPatternSetPatternStrings(oldPatterns, newPatterns),
 			}
 
 			return conn.UpdateRegexPatternSetWithContext(ctx, req)

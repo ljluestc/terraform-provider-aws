@@ -67,31 +67,31 @@ func ResourceKxCluster() *schema.Resource {
 								enum.Slice(types.AutoScalingMetricCpuUtilizationPercentage), true),
 						},
 						"max_node_count": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.IntBetween(1, 5),
 						},
 						"metric_target": {
-							Type:         schema.TypeFloat,
+							Type:schema.TypeFloat,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.FloatBetween(0, 100),
 						},
 						"min_node_count": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.IntBetween(1, 5),
 						},
 						"scale_in_cooldown_seconds": {
-							Type:         schema.TypeFloat,
+							Type:schema.TypeFloat,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.FloatBetween(0, 100000),
 						},
 						"scale_out_cooldown_seconds": {
-							Type:         schema.TypeFloat,
+							Type:schema.TypeFloat,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.FloatBetween(0, 100000),
@@ -105,9 +105,9 @@ func ResourceKxCluster() *schema.Resource {
 				ForceNew: true,
 			},
 			"az_mode": {
-				Type:             schema.TypeString,
-				Required:         true,
-				ForceNew:         true,
+				Type:    schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateDiagFunc: enum.Validate[types.KxAzMode](),
 			},
 			"cache_storage_configurations": {
@@ -117,13 +117,13 @@ func ResourceKxCluster() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"size": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.IntBetween(1200, 33600),
 						},
 						"type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.StringLenBetween(8, 10),
@@ -139,13 +139,13 @@ func ResourceKxCluster() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"node_count": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.IntBetween(1, 5),
 						},
 						"node_type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.StringLenBetween(1, 32),
@@ -161,19 +161,19 @@ func ResourceKxCluster() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"s3_bucket": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.StringLenBetween(3, 255),
 						},
 						"s3_key": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.StringLenBetween(3, 1024),
 						},
 						"s3_object_version": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.StringLenBetween(3, 63),
@@ -227,13 +227,13 @@ func ResourceKxCluster() *schema.Resource {
 							},
 						},
 						"changeset_id": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.StringLenBetween(1, 26),
 						},
 						"database_name": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.StringLenBetween(3, 63),
@@ -242,25 +242,25 @@ func ResourceKxCluster() *schema.Resource {
 				},
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 1000),
 			},
 			"environment_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 32),
 			},
 			"execution_role": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 1024),
 			},
 			"initialization_script": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 255),
@@ -270,13 +270,13 @@ func ResourceKxCluster() *schema.Resource {
 				Computed: true,
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(3, 63),
 			},
 			"release_label": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 16),
@@ -300,7 +300,7 @@ func ResourceKxCluster() *schema.Resource {
 								enum.Slice(types.KxSavedownStorageTypeSds01), true),
 						},
 						"size": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.IntBetween(10, 16000),
@@ -315,9 +315,9 @@ func ResourceKxCluster() *schema.Resource {
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"type": {
-				Type:             schema.TypeString,
-				Required:         true,
-				ForceNew:         true,
+				Type:    schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateDiagFunc: enum.Validate[types.KxClusterType](),
 			},
 			"vpc_configuration": {
@@ -328,7 +328,7 @@ func ResourceKxCluster() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"ip_address_type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.StringInSlice(enum.Slice(types.IPAddressTypeIpV4), true),
@@ -338,7 +338,7 @@ func ResourceKxCluster() *schema.Resource {
 							Required: true,
 							ForceNew: true,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: validation.StringLenBetween(1, 1024),
 							},
 						},
@@ -347,12 +347,12 @@ func ResourceKxCluster() *schema.Resource {
 							Required: true,
 							ForceNew: true,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: validation.StringLenBetween(1, 1024),
 							},
 						},
 						"vpc_id": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.StringLenBetween(1, 1024),
@@ -389,14 +389,14 @@ func resourceKxClusterCreate(ctx context.Context, d *schema.ResourceData, meta i
 	d.SetId(rID)
 
 	in := &finspace.CreateKxClusterInput{
-		EnvironmentId:         aws.String(environmentId),
-		ClusterName:           aws.String(clusterName),
-		ClusterType:           types.KxClusterType(d.Get("type").(string)),
-		ReleaseLabel:          aws.String(d.Get("release_label").(string)),
-		AzMode:                types.KxAzMode(d.Get("az_mode").(string)),
+		EnvironmentId:aws.String(environmentId),
+		ClusterName:  aws.String(clusterName),
+		ClusterType:  types.KxClusterType(d.Get("type").(string)),
+		ReleaseLabel: aws.String(d.Get("release_label").(string)),
+		AzMode:       types.KxAzMode(d.Get("az_mode").(string)),
 		CapacityConfiguration: expandCapacityConfiguration(d.Get("capacity_configuration").([]interface{})),
-		ClientToken:           aws.String(id.UniqueId()),
-		Tags:                  getTagsIn(ctx),
+		ClientToken:  aws.String(id.UniqueId()),
+		Tags:getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -573,11 +573,11 @@ func resourceKxClusterDelete(ctx context.Context, d *schema.ResourceData, meta i
 
 func waitKxClusterCreated(ctx context.Context, conn *finspace.Client, id string, timeout time.Duration) (*finspace.GetKxClusterOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   enum.Slice(types.KxClusterStatusPending, types.KxClusterStatusCreating),
-		Target:                    enum.Slice(types.KxClusterStatusRunning),
-		Refresh:                   statusKxCluster(ctx, conn, id),
-		Timeout:                   timeout,
-		NotFoundChecks:            20,
+		Pending: enum.Slice(types.KxClusterStatusPending, types.KxClusterStatusCreating),
+		Target:  enum.Slice(types.KxClusterStatusRunning),
+		Refresh: statusKxCluster(ctx, conn, id),
+		Timeout: timeout,
+		NotFoundChecks:   20,
 		ContinuousTargetOccurence: 2,
 	}
 

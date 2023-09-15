@@ -40,14 +40,14 @@ func ResourceSSHKey() *schema.Resource {
 			},
 
 			"server_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validServerID,
 			},
 
 			"user_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validUserName,
@@ -63,8 +63,8 @@ func resourceSSHKeyCreate(ctx context.Context, d *schema.ResourceData, meta inte
 	serverID := d.Get("server_id").(string)
 
 	createOpts := &transfer.ImportSshPublicKeyInput{
-		ServerId:         aws.String(serverID),
-		UserName:         aws.String(userName),
+		ServerId:aws.String(serverID),
+		UserName:aws.String(userName),
 		SshPublicKeyBody: aws.String(d.Get("body").(string)),
 	}
 

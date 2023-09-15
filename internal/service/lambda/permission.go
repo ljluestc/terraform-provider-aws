@@ -40,25 +40,25 @@ func ResourcePermission() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"action": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validPermissionAction(),
 			},
 			"event_source_token": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validPermissionEventSourceToken(),
 			},
 			"function_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validFunctionName(),
 			},
 			"function_url_auth_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringInSlice(lambda.FunctionUrlAuthType_Values(), false),
@@ -74,25 +74,25 @@ func ResourcePermission() *schema.Resource {
 				ForceNew: true,
 			},
 			"qualifier": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validQualifier(),
 			},
 			"source_account": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidAccountID,
 			},
 			"source_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"statement_id": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -100,7 +100,7 @@ func ResourcePermission() *schema.Resource {
 				ConflictsWith: []string{"statement_id_prefix"},
 			},
 			"statement_id_prefix": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,

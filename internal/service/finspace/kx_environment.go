@@ -68,12 +68,12 @@ func ResourceKxEnvironment() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"custom_dns_server_name": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringLenBetween(3, 255),
 						},
 						"custom_dns_server_ip": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.IsIPAddress,
 						},
@@ -81,7 +81,7 @@ func ResourceKxEnvironment() *schema.Resource {
 				},
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(1, 1000),
 			},
@@ -94,7 +94,7 @@ func ResourceKxEnvironment() *schema.Resource {
 				Computed: true,
 			},
 			"kms_key_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: verify.ValidARN,
 			},
@@ -103,7 +103,7 @@ func ResourceKxEnvironment() *schema.Resource {
 				Computed: true,
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringLenBetween(1, 255),
 			},
@@ -126,7 +126,7 @@ func ResourceKxEnvironment() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"cidr_block": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: validation.IsCIDR,
 									},
@@ -154,12 +154,12 @@ func ResourceKxEnvironment() *schema.Resource {
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"from": {
-													Type:         schema.TypeInt,
+													Type:schema.TypeInt,
 													Required:     true,
 													ValidateFunc: validation.IsPortNumber,
 												},
 												"to": {
-													Type:         schema.TypeInt,
+													Type:schema.TypeInt,
 													Required:     true,
 													ValidateFunc: validation.IsPortNumber,
 												},
@@ -167,17 +167,17 @@ func ResourceKxEnvironment() *schema.Resource {
 										},
 									},
 									"protocol": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: validation.StringLenBetween(1, 5),
 									},
 									"rule_action": {
-										Type:             schema.TypeString,
-										Required:         true,
+										Type:    schema.TypeString,
+										Required:true,
 										ValidateDiagFunc: enum.Validate[types.RuleAction](),
 									},
 									"rule_number": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Required:     true,
 										ValidateFunc: validation.IntBetween(1, 32766),
 									},
@@ -185,12 +185,12 @@ func ResourceKxEnvironment() *schema.Resource {
 							},
 						},
 						"routable_cidr_space": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.IsCIDR,
 						},
 						"transit_gateway_id": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringLenBetween(1, 32),
 						},
@@ -297,7 +297,7 @@ func resourceKxEnvironmentUpdate(ctx context.Context, d *schema.ResourceData, me
 
 	in := &finspace.UpdateKxEnvironmentInput{
 		EnvironmentId: aws.String(d.Id()),
-		Name:          aws.String(d.Get("name").(string)),
+		Name: aws.String(d.Get("name").(string)),
 	}
 
 	if d.HasChanges("description") {
@@ -405,11 +405,11 @@ func updateKxEnvironmentNetwork(ctx context.Context, d *schema.ResourceData, cli
 
 func waitKxEnvironmentCreated(ctx context.Context, conn *finspace.Client, id string, timeout time.Duration) (*finspace.GetKxEnvironmentOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   enum.Slice(types.EnvironmentStatusCreateRequested, types.EnvironmentStatusCreating),
-		Target:                    enum.Slice(types.EnvironmentStatusCreated),
-		Refresh:                   statusKxEnvironment(ctx, conn, id),
-		Timeout:                   timeout,
-		NotFoundChecks:            20,
+		Pending: enum.Slice(types.EnvironmentStatusCreateRequested, types.EnvironmentStatusCreating),
+		Target:  enum.Slice(types.EnvironmentStatusCreated),
+		Refresh: statusKxEnvironment(ctx, conn, id),
+		Timeout: timeout,
+		NotFoundChecks:   20,
 		ContinuousTargetOccurence: 2,
 	}
 

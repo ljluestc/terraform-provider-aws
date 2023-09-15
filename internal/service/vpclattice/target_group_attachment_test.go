@@ -31,9 +31,9 @@ func TestAccVPCLatticeTargetGroupAttachment_instance(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRegisterTargetsDestroy(ctx),
+		CheckDestroy:    testAccCheckRegisterTargetsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTargetGroupAttachmentConfig_instance(rName),
@@ -60,9 +60,9 @@ func TestAccVPCLatticeTargetGroupAttachment_ip(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRegisterTargetsDestroy(ctx),
+		CheckDestroy:    testAccCheckRegisterTargetsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTargetGroupAttachmentConfig_ip(rName),
@@ -89,9 +89,9 @@ func TestAccVPCLatticeTargetGroupAttachment_lambda(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRegisterTargetsDestroy(ctx),
+		CheckDestroy:    testAccCheckRegisterTargetsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTargetGroupAttachmentConfig_lambda(rName),
@@ -118,9 +118,9 @@ func TestAccVPCLatticeTargetGroupAttachment_alb(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRegisterTargetsDestroy(ctx),
+		CheckDestroy:    testAccCheckRegisterTargetsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTargetGroupAttachmentConfig_alb(rName),
@@ -145,9 +145,9 @@ func TestAccVPCLatticeTargetGroupAttachment_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckRegisterTargetsDestroy(ctx),
+		CheckDestroy:    testAccCheckRegisterTargetsDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTargetGroupAttachmentConfig_instance(rName),
@@ -164,7 +164,7 @@ func TestAccVPCLatticeTargetGroupAttachment_disappears(t *testing.T) {
 func testAccTargetGroupAttachmentConfig_baseInstance(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigLatestAmazonLinuxHVMEBSAMI(), acctest.ConfigVPCWithSubnets(rName, 1), fmt.Sprintf(`
 resource "aws_instance" "test" {
-  ami           = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+  ami  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t2.small"
   subnet_id     = aws_subnet.test[0].id
 
@@ -182,7 +182,7 @@ resource "aws_vpclattice_target_group" "test" {
   type = "INSTANCE"
 
   config {
-    port           = 80
+    port  = 80
     protocol       = "HTTP"
     vpc_identifier = aws_vpc.test.id
   }
@@ -205,7 +205,7 @@ resource "aws_vpclattice_target_group" "test" {
   type = "IP"
 
   config {
-    port           = 80
+    port  = 80
     protocol       = "HTTP"
     vpc_identifier = aws_vpc.test.id
   }
@@ -234,7 +234,7 @@ resource "aws_vpclattice_target_group" "test" {
 resource "aws_lambda_function" "test" {
   filename      = "test-fixtures/lambda.zip"
   function_name = %[1]q
-  role          = aws_iam_role.test.arn
+  role = aws_iam_role.test.arn
   handler       = "test.handler"
   runtime       = "python3.7"
 }
@@ -274,7 +274,7 @@ resource "aws_vpclattice_target_group" "test" {
   type = "ALB"
 
   config {
-    port           = 80
+    port  = 80
     protocol       = "HTTP"
     vpc_identifier = aws_vpc.test.id
   }
@@ -282,17 +282,17 @@ resource "aws_vpclattice_target_group" "test" {
 
 resource "aws_lb" "test" {
   name= %[1]q
-  internal           = true
+  internal  = true
   load_balancer_type = "application"
-  subnets            = aws_subnet.test[*].id
+  subnets   = aws_subnet.test[*].id
 
   enable_deletion_protection = false
 }
 
 resource "aws_lb_listener" "test" {
   load_balancer_arn = aws_lb.test.arn
-  port              = "80"
-  protocol          = "HTTP"
+  port     = "80"
+  protocol = "HTTP"
 
   default_action {
     type = "fixed-response"

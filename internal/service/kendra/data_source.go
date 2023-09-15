@@ -96,7 +96,7 @@ func ResourceDataSource() *schema.Resource {
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"key_path": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Optional:     true,
 													ValidateFunc: validation.StringLenBetween(1, 1024),
 												},
@@ -121,7 +121,7 @@ func ResourceDataSource() *schema.Resource {
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"s3_prefix": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Optional:     true,
 													ValidateFunc: validation.StringLenBetween(1, 1024),
 												},
@@ -134,7 +134,7 @@ func ResourceDataSource() *schema.Resource {
 										MinItems: 0,
 										MaxItems: 100,
 										Elem: &schema.Schema{
-											Type:         schema.TypeString,
+											Type:schema.TypeString,
 											ValidateFunc: validation.StringLenBetween(1, 150),
 										},
 									},
@@ -144,7 +144,7 @@ func ResourceDataSource() *schema.Resource {
 										MinItems: 0,
 										MaxItems: 100,
 										Elem: &schema.Schema{
-											Type:         schema.TypeString,
+											Type:schema.TypeString,
 											ValidateFunc: validation.StringLenBetween(1, 150),
 										},
 									},
@@ -154,7 +154,7 @@ func ResourceDataSource() *schema.Resource {
 										MinItems: 0,
 										MaxItems: 100,
 										Elem: &schema.Schema{
-											Type:         schema.TypeString,
+											Type:schema.TypeString,
 											ValidateFunc: validation.StringLenBetween(1, 150),
 										},
 									},
@@ -181,17 +181,17 @@ func ResourceDataSource() *schema.Resource {
 													Elem: &schema.Resource{
 														Schema: map[string]*schema.Schema{
 															"credentials": {
-																Type:         schema.TypeString,
+																Type:schema.TypeString,
 																Required:     true,
 																ValidateFunc: verify.ValidARN,
 															},
 															"host": {
-																Type:         schema.TypeString,
+																Type:schema.TypeString,
 																Required:     true,
 																ValidateFunc: validation.StringLenBetween(1, 253),
 															},
 															"port": {
-																Type:         schema.TypeInt,
+																Type:schema.TypeInt,
 																Required:     true,
 																ValidateFunc: validation.IntBetween(1, 65535),
 															},
@@ -202,7 +202,7 @@ func ResourceDataSource() *schema.Resource {
 										},
 									},
 									"crawl_depth": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										Default:      2,
 										ValidateFunc: validation.IntBetween(0, 10),
@@ -214,13 +214,13 @@ func ResourceDataSource() *schema.Resource {
 										ValidateFunc: validation.FloatBetween(0.000001, 50),
 									},
 									"max_links_per_page": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										Default:      100,
 										ValidateFunc: validation.IntBetween(1, 1000),
 									},
 									"max_urls_per_minute_crawl_rate": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										Default:      300,
 										ValidateFunc: validation.IntBetween(1, 300),
@@ -232,17 +232,17 @@ func ResourceDataSource() *schema.Resource {
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"credentials": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Optional:     true,
 													ValidateFunc: verify.ValidARN,
 												},
 												"host": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ValidateFunc: validation.StringLenBetween(1, 253),
 												},
 												"port": {
-													Type:         schema.TypeInt,
+													Type:schema.TypeInt,
 													Required:     true,
 													ValidateFunc: validation.IntBetween(1, 65535),
 												},
@@ -255,7 +255,7 @@ func ResourceDataSource() *schema.Resource {
 										MinItems: 0,
 										MaxItems: 100,
 										Elem: &schema.Schema{
-											Type:         schema.TypeString,
+											Type:schema.TypeString,
 											ValidateFunc: validation.StringLenBetween(1, 150),
 										},
 									},
@@ -265,7 +265,7 @@ func ResourceDataSource() *schema.Resource {
 										MinItems: 0,
 										MaxItems: 100,
 										Elem: &schema.Schema{
-											Type:         schema.TypeString,
+											Type:schema.TypeString,
 											ValidateFunc: validation.StringLenBetween(1, 150),
 										},
 									},
@@ -295,8 +295,8 @@ func ResourceDataSource() *schema.Resource {
 																},
 															},
 															"web_crawler_mode": {
-																Type:             schema.TypeString,
-																Optional:         true,
+																Type:    schema.TypeString,
+																Optional:true,
 																ValidateDiagFunc: enum.Validate[types.WebCrawlerMode](),
 															},
 														},
@@ -394,7 +394,7 @@ func ResourceDataSource() *schema.Resource {
 							return schema
 						}(),
 						"role_arn": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: verify.ValidARN,
 						},
@@ -410,7 +410,7 @@ func ResourceDataSource() *schema.Resource {
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(1, 1000),
 			},
@@ -451,7 +451,7 @@ func ResourceDataSource() *schema.Resource {
 				),
 			},
 			"role_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: verify.ValidARN,
 			},
@@ -464,9 +464,9 @@ func ResourceDataSource() *schema.Resource {
 				Computed: true,
 			},
 			"type": {
-				Type:             schema.TypeString,
-				Required:         true,
-				ForceNew:         true,
+				Type:    schema.TypeString,
+				Required:true,
+				ForceNew:true,
 				ValidateDiagFunc: enum.Validate[types.DataSourceType](),
 			},
 			"updated_at": {
@@ -492,7 +492,7 @@ func hookConfigurationSchema() *schema.Schema {
 					return schema
 				}(),
 				"lambda_arn": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Required:     true,
 					ValidateFunc: verify.ValidARN,
 				},
@@ -535,8 +535,8 @@ func documentAttributeConditionSchema() *schema.Schema {
 					return schema
 				}(),
 				"operator": {
-					Type:             schema.TypeString,
-					Required:         true,
+					Type:    schema.TypeString,
+					Required:true,
 					ValidateDiagFunc: enum.Validate[types.ConditionOperator](),
 				},
 			},
@@ -576,12 +576,12 @@ func documentAttributeValueSchema() *schema.Schema {
 					Type:     schema.TypeSet,
 					Optional: true,
 					Elem: &schema.Schema{
-						Type:         schema.TypeString,
+						Type:schema.TypeString,
 						ValidateFunc: validation.StringLenBetween(1, 2048),
 					},
 				},
 				"string_value": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Optional:     true,
 					ValidateFunc: validation.StringLenBetween(1, 2048),
 				},
@@ -820,11 +820,11 @@ func resourceDataSourceDelete(ctx context.Context, d *schema.ResourceData, meta 
 
 func waitDataSourceCreated(ctx context.Context, conn *kendra.Client, id, indexId string, timeout time.Duration) (*kendra.DescribeDataSourceOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   enum.Slice(types.DataSourceStatusCreating),
-		Target:                    enum.Slice(types.DataSourceStatusActive),
-		Timeout:                   timeout,
-		Refresh:                   statusDataSource(ctx, conn, id, indexId),
-		NotFoundChecks:            20,
+		Pending: enum.Slice(types.DataSourceStatusCreating),
+		Target:  enum.Slice(types.DataSourceStatusActive),
+		Timeout: timeout,
+		Refresh: statusDataSource(ctx, conn, id, indexId),
+		NotFoundChecks:   20,
 		ContinuousTargetOccurence: 2,
 	}
 
@@ -842,11 +842,11 @@ func waitDataSourceCreated(ctx context.Context, conn *kendra.Client, id, indexId
 
 func waitDataSourceUpdated(ctx context.Context, conn *kendra.Client, id, indexId string, timeout time.Duration) (*kendra.DescribeDataSourceOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   enum.Slice(types.DataSourceStatusUpdating),
-		Target:                    enum.Slice(types.DataSourceStatusActive),
-		Timeout:                   timeout,
-		Refresh:                   statusDataSource(ctx, conn, id, indexId),
-		NotFoundChecks:            20,
+		Pending: enum.Slice(types.DataSourceStatusUpdating),
+		Target:  enum.Slice(types.DataSourceStatusActive),
+		Timeout: timeout,
+		Refresh: statusDataSource(ctx, conn, id, indexId),
+		NotFoundChecks:   20,
 		ContinuousTargetOccurence: 2,
 	}
 
@@ -1291,7 +1291,7 @@ func expandDocumentAttributeCondition(tfList []interface{}) *types.DocumentAttri
 
 	result := &types.DocumentAttributeCondition{
 		ConditionDocumentAttributeKey: aws.String(tfMap["condition_document_attribute_key"].(string)),
-		Operator:                      types.ConditionOperator(tfMap["operator"].(string)),
+		Operator:    types.ConditionOperator(tfMap["operator"].(string)),
 	}
 
 	if v, ok := tfMap["condition_on_value"].([]interface{}); ok && len(v) > 0 {
@@ -1636,7 +1636,7 @@ func flattenDocumentAttributeCondition(apiObject *types.DocumentAttributeConditi
 
 	m := map[string]interface{}{
 		"condition_document_attribute_key": aws.ToString(apiObject.ConditionDocumentAttributeKey),
-		"operator":                         string(apiObject.Operator),
+		"operator":       string(apiObject.Operator),
 	}
 
 	if v := apiObject.ConditionOnValue; v != nil {

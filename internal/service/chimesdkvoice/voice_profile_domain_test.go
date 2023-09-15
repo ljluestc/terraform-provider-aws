@@ -52,7 +52,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, chimesdkvoice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckVoiceProfileDomainDestroy(ctx),
+CheckDestroy:    testAccCheckVoiceProfileDomainDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVoiceProfileDomainConfig_basic(rName),
@@ -87,7 +87,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, chimesdkvoice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckVoiceProfileDomainDestroy(ctx),
+CheckDestroy:    testAccCheckVoiceProfileDomainDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVoiceProfileDomainConfig_basic(rName),
@@ -117,7 +117,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, chimesdkvoice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckVoiceProfileDomainDestroy(ctx),
+CheckDestroy:    testAccCheckVoiceProfileDomainDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVoiceProfileDomainConfig_basic(rName1),
@@ -157,7 +157,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, chimesdkvoice.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckVoiceProfileDomainDestroy(ctx),
+CheckDestroy:    testAccCheckVoiceProfileDomainDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccVoiceProfileDomainConfig_tags1(rName, "key1", "value1"),
@@ -268,7 +268,7 @@ return nil
 func testAccVoiceProfileDomainConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = "TF Acceptance Test Voice Profile Domain"
+  description    = "TF Acceptance Test Voice Profile Domain"
   deletion_window_in_days = 7
 }
 
@@ -284,7 +284,7 @@ resource "aws_chimesdkvoice_voice_profile_domain" "test" {
 func testAccVoiceProfileDomainConfig_description(rName, description string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = "TF Acceptance Test Voice Profile Domain"
+  description    = "TF Acceptance Test Voice Profile Domain"
   deletion_window_in_days = 7
 }
 
@@ -301,7 +301,7 @@ resource "aws_chimesdkvoice_voice_profile_domain" "test" {
 func testAccVoiceProfileDomainConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = "TF Acceptance Test Voice Profile Domain"
+  description    = "TF Acceptance Test Voice Profile Domain"
   deletion_window_in_days = 7
 }
 
@@ -321,7 +321,7 @@ resource "aws_chimesdkvoice_voice_profile_domain" "test" {
 func testAccVoiceProfileDomainConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = "TF Acceptance Test Voice Profile Domain"
+  description    = "TF Acceptance Test Voice Profile Domain"
   deletion_window_in_days = 7
 }
 

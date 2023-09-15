@@ -101,7 +101,7 @@ conn := acctest.Provider.Meta().(*conns.AWSClient).KMSConn(ctx)
 
 input := &kms.EncryptInput{
 	KeyId:key.Arn,
-	Plaintext:           []byte(plaintext),
+	Plaintext:  []byte(plaintext),
 	EncryptionAlgorithm: aws.String("RSAES_OAEP_SHA_1"),
 }
 
@@ -167,7 +167,7 @@ return nil
 const testAccSecretsDataSourceConfig_key = `
 resource "aws_kms_key" "test" {
   deletion_window_in_days = 7
-  description             = "Testing the Terraform AWS KMS Secrets data_source"
+  description    = "Testing the Terraform AWS KMS Secrets data_source"
 }
 `
 
@@ -189,7 +189,7 @@ data "aws_kms_secrets" "test" {
 const testAccSecretsDataSourceConfig_asymmetricKey = `
 resource "aws_kms_key" "test" {
   deletion_window_in_days  = 7
-  description              = "Testing the Terraform AWS KMS Secrets data_source"
+  description     = "Testing the Terraform AWS KMS Secrets data_source"
   customer_master_key_spec = "RSA_2048"
 }
 `
@@ -199,7 +199,7 @@ func testAccSecretsDataSourceConfig_asymmetricSecret(payload string, keyid strin
 data "aws_kms_secrets" "test" {
   secret {
     name  = "secret1"
-    payload              = %[1]q
+    payload     = %[1]q
     encryption_algorithm = "RSAES_OAEP_SHA_1"
     key_id= %[2]q
   }

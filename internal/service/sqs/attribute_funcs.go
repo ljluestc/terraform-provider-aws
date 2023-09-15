@@ -21,7 +21,7 @@ import (
 type queueAttributeHandler struct {
 	AttributeName string
 	SchemaKey     string
-	ToSet         func(string, string) (string, error)
+	ToSetfunc(string, string) (string, error)
 }
 
 func (h *queueAttributeHandler) Upsert(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {

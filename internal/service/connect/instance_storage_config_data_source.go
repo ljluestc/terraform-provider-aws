@@ -22,19 +22,19 @@ func DataSourceInstanceStorageConfig() *schema.Resource {
 		ReadWithoutTimeout: dataSourceInstanceStorageConfigRead,
 		Schema: map[string]*schema.Schema{
 			"association_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				Validate
 func: validation.StringLenBetween(1, 100),
 			},
 			"instance_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				Validate
 func: validation.StringLenBetween(1, 100),
 			},
 			"resource_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				Validate
 func: validation.StringInSlice(connect.InstanceStorageResourceType_Values(), false),

@@ -37,7 +37,7 @@ func ResourceInvocation() *schema.Resource {
 				ForceNew: true,
 			},
 			"input": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringIsJSON,
 			},
@@ -58,7 +58,7 @@ func ResourceInvocation() *schema.Resource {
 				Elem:     &schema.Schema{Type: schema.TypeString},
 			},
 			"lifecycle_scope": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Default:      lifecycleScopeCreateOnly,
 				ValidateFunc: validation.StringInSlice(lifecycleScope_Values(), false),

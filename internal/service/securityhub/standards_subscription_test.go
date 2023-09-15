@@ -27,7 +27,7 @@ func testAccStandardsSubscription_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, securityhub.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckStandardsSubscriptionDestroy(ctx),
+CheckDestroy:    testAccCheckStandardsSubscriptionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccStandardsSubscriptionConfig_basic,
@@ -53,7 +53,7 @@ func testAccStandardsSubscription_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, securityhub.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckStandardsSubscriptionDestroy(ctx),
+CheckDestroy:    testAccCheckStandardsSubscriptionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccStandardsSubscriptionConfig_basic,

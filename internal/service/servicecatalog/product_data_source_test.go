@@ -25,7 +25,7 @@ func TestAccServiceCatalogProductDataSource_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProductDestroy(ctx),
+CheckDestroy:    testAccCheckProductDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProductDataSourceConfig_basic(rName, "beskrivning", "supportbeskrivning", domain, acctest.DefaultEmailAddress),
@@ -62,7 +62,7 @@ func TestAccServiceCatalogProductDataSource_physicalID(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProductDestroy(ctx),
+CheckDestroy:    testAccCheckProductDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProductDataSourceConfig_physicalID(rName, domain, acctest.DefaultEmailAddress),

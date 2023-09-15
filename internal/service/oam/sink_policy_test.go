@@ -39,9 +39,9 @@ func TestAccObservabilityAccessManagerSinkPolicy_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.ObservabilityAccessManagerEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.ObservabilityAccessManagerEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.ObservabilityAccessManagerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSinkPolicyDestroy(ctx),
+		CheckDestroy:    testAccCheckSinkPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSinkPolicyConfigBasic(rName),
@@ -98,9 +98,9 @@ func TestAccObservabilityAccessManagerSinkPolicy_update(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.ObservabilityAccessManagerEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.ObservabilityAccessManagerEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.ObservabilityAccessManagerEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSinkPolicyDestroy(ctx),
+		CheckDestroy:    testAccCheckSinkPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSinkPolicyConfigBasic(rName),
@@ -242,12 +242,12 @@ resource "aws_oam_sink_policy" "test" {
         Effect   = "Allow"
         Resource = "*"
         Principal = {
-          "AWS" = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"
+ "AWS" = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"
         }
         Condition = {
-          "ForAllValues:StringEquals" = {
-            "oam:ResourceTypes" = ["AWS::CloudWatch::Metric", "AWS::Logs::LogGroup"]
-          }
+ "ForAllValues:StringEquals" = {
+   "oam:ResourceTypes" = ["AWS::CloudWatch::Metric", "AWS::Logs::LogGroup"]
+ }
         }
       }
     ]
@@ -275,12 +275,12 @@ resource "aws_oam_sink_policy" "test" {
         Effect   = "Allow"
         Resource = "*"
         Principal = {
-          "AWS" = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"
+ "AWS" = "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"
         }
         Condition = {
-          "ForAllValues:StringEquals" = {
-            "oam:ResourceTypes" = "AWS::CloudWatch::Metric"
-          }
+ "ForAllValues:StringEquals" = {
+   "oam:ResourceTypes" = "AWS::CloudWatch::Metric"
+ }
         }
       }
     ]

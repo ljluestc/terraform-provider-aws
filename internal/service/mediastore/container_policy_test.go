@@ -27,10 +27,10 @@ func TestAccMediaStoreContainerPolicy_basic(t *testing.T) {
 	rName = strings.ReplaceAll(rName, "-", "_")
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, mediastore.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, mediastore.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckContainerPolicyDestroy(ctx),
+		CheckDestroy:    testAccCheckContainerPolicyDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccContainerPolicyConfig_basic(rName),
@@ -136,7 +136,7 @@ resource "aws_media_store_container_policy" "test" {
       Resource = "arn:${data.aws_partition.current.partition}:mediastore:${data.aws_region.current.name}:${data.aws_caller_identity.current.account_id}:container/${aws_media_store_container.test.name}/*"
       Condition = {
         Bool = {
-          "aws:SecureTransport" = "true"
+ "aws:SecureTransport" = "true"
         }
       }
     }]

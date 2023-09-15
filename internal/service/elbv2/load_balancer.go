@@ -63,9 +63,9 @@ func ResourceLoadBalancer() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"access_logs": {
-				Type:             schema.TypeList,
-				Optional:         true,
-				MaxItems:         1,
+				Type:    schema.TypeList,
+				Optional:true,
+				MaxItems:1,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
@@ -120,15 +120,15 @@ func ResourceLoadBalancer() *schema.Resource {
 				Computed: true,
 			},
 			"drop_invalid_header_fields": {
-				Type:             schema.TypeBool,
-				Optional:         true,
-				Default:          false,
+				Type:    schema.TypeBool,
+				Optional:true,
+				Default: false,
 				DiffSuppressFunc: suppressIfLBType("network"),
 			},
 			"enable_cross_zone_load_balancing": {
-				Type:             schema.TypeBool,
-				Optional:         true,
-				Default:          false,
+				Type:    schema.TypeBool,
+				Optional:true,
+				Default: false,
 				DiffSuppressFunc: suppressIfLBType(elbv2.LoadBalancerTypeEnumApplication),
 			},
 			"enable_deletion_protection": {
@@ -137,33 +137,33 @@ func ResourceLoadBalancer() *schema.Resource {
 				Default:  false,
 			},
 			"enable_http2": {
-				Type:             schema.TypeBool,
-				Optional:         true,
-				Default:          true,
+				Type:    schema.TypeBool,
+				Optional:true,
+				Default: true,
 				DiffSuppressFunc: suppressIfLBType(elbv2.LoadBalancerTypeEnumNetwork),
 			},
 			"enable_tls_version_and_cipher_suite_headers": {
-				Type:             schema.TypeBool,
-				Optional:         true,
-				Default:          false,
+				Type:    schema.TypeBool,
+				Optional:true,
+				Default: false,
 				DiffSuppressFunc: suppressIfLBTypeNot(elbv2.LoadBalancerTypeEnumApplication),
 			},
 			"enable_waf_fail_open": {
-				Type:             schema.TypeBool,
-				Optional:         true,
-				Default:          false,
+				Type:    schema.TypeBool,
+				Optional:true,
+				Default: false,
 				DiffSuppressFunc: suppressIfLBType(elbv2.LoadBalancerTypeEnumNetwork),
 			},
 			"enable_xff_client_port": {
-				Type:             schema.TypeBool,
-				Optional:         true,
-				Default:          false,
+				Type:    schema.TypeBool,
+				Optional:true,
+				Default: false,
 				DiffSuppressFunc: suppressIfLBTypeNot(elbv2.LoadBalancerTypeEnumApplication),
 			},
 			"idle_timeout": {
-				Type:             schema.TypeInt,
-				Optional:         true,
-				Default:          60,
+				Type:    schema.TypeInt,
+				Optional:true,
+				Default: 60,
 				DiffSuppressFunc: suppressIfLBType(elbv2.LoadBalancerTypeEnumNetwork),
 			},
 			"internal": {
@@ -173,20 +173,20 @@ func ResourceLoadBalancer() *schema.Resource {
 				Computed: true,
 			},
 			"ip_address_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Computed:     true,
 				Optional:     true,
 				ValidateFunc: validation.StringInSlice(elbv2.IpAddressType_Values(), false),
 			},
 			"load_balancer_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				ForceNew:     true,
 				Optional:     true,
 				Default:      elbv2.LoadBalancerTypeEnumApplication,
 				ValidateFunc: validation.StringInSlice(elbv2.LoadBalancerTypeEnum_Values(), false),
 			},
 			"name": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -194,16 +194,16 @@ func ResourceLoadBalancer() *schema.Resource {
 				ValidateFunc:  validName,
 			},
 			"name_prefix": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ForceNew:      true,
 				ConflictsWith: []string{"name"},
 				ValidateFunc:  validNamePrefix,
 			},
 			"preserve_host_header": {
-				Type:             schema.TypeBool,
-				Optional:         true,
-				Default:          false,
+				Type:    schema.TypeBool,
+				Optional:true,
+				Default: false,
 				DiffSuppressFunc: suppressIfLBTypeNot(elbv2.LoadBalancerTypeEnumApplication),
 			},
 			"security_groups": {
@@ -225,7 +225,7 @@ func ResourceLoadBalancer() *schema.Resource {
 							ForceNew: true,
 						},
 						"ipv6_address": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.IsIPv6Address,
@@ -235,7 +235,7 @@ func ResourceLoadBalancer() *schema.Resource {
 							Computed: true,
 						},
 						"private_ipv4_address": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.IsIPv4Address,
@@ -273,9 +273,9 @@ func ResourceLoadBalancer() *schema.Resource {
 				Computed: true,
 			},
 			"xff_header_processing_mode": {
-				Type:             schema.TypeString,
-				Optional:         true,
-				Default:          "append",
+				Type:    schema.TypeString,
+				Optional:true,
+				Default: "append",
 				DiffSuppressFunc: suppressIfLBTypeNot(elbv2.LoadBalancerTypeEnumApplication),
 				ValidateFunc: validation.StringInSlice([]string{
 					"append",
@@ -596,7 +596,7 @@ func resourceLoadBalancerUpdate(ctx context.Context, d *schema.ResourceData, met
 
 		params := &elbv2.SetSubnetsInput{
 			LoadBalancerArn: aws.String(d.Id()),
-			Subnets:         subnets,
+			Subnets:subnets,
 		}
 
 		_, err := conn.SetSubnetsWithContext(ctx, params)

@@ -31,7 +31,7 @@ func ResourceQueueRedriveAllowPolicy() *schema.Resource {
 				ForceNew: true,
 			},
 			"redrive_allow_policy": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringIsJSON,
 				StateFunc: func(v interface{}) string {

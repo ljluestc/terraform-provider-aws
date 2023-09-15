@@ -29,8 +29,8 @@ func testAccInvitationAccepter_basic(t *testing.T) {
 			acctest.PreCheckAlternateAccount(t)
 		},
 		ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-		CheckDestroy:             testAccCheckInvitationAccepterDestroy(ctx),
-		ErrorCheck:               acctest.ErrorCheck(t, detective.EndpointsID),
+		CheckDestroy:    testAccCheckInvitationAccepterDestroy(ctx),
+		ErrorCheck:      acctest.ErrorCheck(t, detective.EndpointsID),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInvitationAccepterConfig_basic(email),
@@ -39,7 +39,7 @@ func testAccInvitationAccepter_basic(t *testing.T) {
 				),
 			},
 			{
-				Config:            testAccInvitationAccepterConfig_basic(email),
+				Config:   testAccInvitationAccepterConfig_basic(email),
 				ResourceName:      resourceName,
 				ImportState:       true,
 				ImportStateVerify: true,

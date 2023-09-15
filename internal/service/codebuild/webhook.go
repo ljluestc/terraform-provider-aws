@@ -41,13 +41,13 @@ Required: true,
 ForceNew: true,
 	},
 	"build_type": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Validate
 func: validation.StringInSlice(codebuild.WebhookBuildType_Values(), false),
 	},
 	"branch_filter": {
-Type:          schema.TypeString,
+Type: schema.TypeString,
 Optional:      true,
 ConflictsWith: []string{"filter_group"},
 	},
@@ -62,7 +62,7 @@ Elem: &schema.Resource{
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"type": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 Validate
 func: validation.StringInSlice(codebuild.WebhookFilterType_Values(), false),
@@ -81,7 +81,7 @@ Required: true,
 },
 	},
 },
-Set:           resourceWebhookFilterHash,
+Set:  resourceWebhookFilterHash,
 ConflictsWith: []string{"branch_filter"},
 	},
 	"payload_url": {

@@ -23,7 +23,7 @@ func DataSourceBrokerNodes() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"cluster_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: verify.ValidARN,
 			},
@@ -102,11 +102,11 @@ func dataSourceBrokerNodesRead(ctx context.Context, d *schema.ResourceData, meta
 		brokerNodeInfo := apiObject.BrokerNodeInfo
 		tfMap := map[string]interface{}{
 			"attached_eni_id":       aws.StringValue(brokerNodeInfo.AttachedENIId),
-			"broker_id":             aws.Float64Value(brokerNodeInfo.BrokerId),
-			"client_subnet":         aws.StringValue(brokerNodeInfo.ClientSubnet),
+			"broker_id":    aws.Float64Value(brokerNodeInfo.BrokerId),
+			"client_subnet":aws.StringValue(brokerNodeInfo.ClientSubnet),
 			"client_vpc_ip_address": aws.StringValue(brokerNodeInfo.ClientVpcIpAddress),
-			"endpoints":             aws.StringValueSlice(brokerNodeInfo.Endpoints),
-			"node_arn":              aws.StringValue(apiObject.NodeARN),
+			"endpoints":    aws.StringValueSlice(brokerNodeInfo.Endpoints),
+			"node_arn":     aws.StringValue(apiObject.NodeARN),
 		}
 
 		tfList[i] = tfMap

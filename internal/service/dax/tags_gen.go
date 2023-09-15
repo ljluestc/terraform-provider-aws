@@ -126,7 +126,7 @@ func updateTags(ctx context.Context, conn daxiface.DAXAPI, identifier string, ol
 	if len(updatedTags) > 0 {
 		input := &dax.TagResourceInput{
 			ResourceName: aws.String(identifier),
-			Tags:         Tags(updatedTags),
+			Tags:Tags(updatedTags),
 		}
 
 		_, err := conn.TagResourceWithContext(ctx, input)

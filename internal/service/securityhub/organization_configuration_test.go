@@ -23,7 +23,7 @@ func testAccOrganizationConfiguration_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationManagementAccount(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, securityhub.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             acctest.CheckDestroyNoop,
+CheckDestroy:    acctest.CheckDestroyNoop,
 Steps: []resource.TestStep{
 	{
 Config: testAccOrganizationConfigurationConfig_basic(true),
@@ -58,7 +58,7 @@ func testAccOrganizationConfiguration_autoEnableStandards(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckOrganizationManagementAccount(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, securityhub.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             acctest.CheckDestroyNoop,
+CheckDestroy:    acctest.CheckDestroyNoop,
 Steps: []resource.TestStep{
 	{
 Config: testAccOrganizationConfigurationConfig_autoEnableStandards("DEFAULT"),
@@ -125,7 +125,7 @@ resource "aws_securityhub_organization_configuration" "test" {
 func testAccOrganizationConfigurationConfig_autoEnableStandards(autoEnableStandards string) string {
 	return acctest.ConfigCompose(testAccOrganizationConfigurationConfig_base, fmt.Sprintf(`
 resource "aws_securityhub_organization_configuration" "test" {
-  auto_enable           = true
+  auto_enable  = true
   auto_enable_standards = %[1]q
 
   depends_on = [aws_securityhub_organization_admin_account.test]

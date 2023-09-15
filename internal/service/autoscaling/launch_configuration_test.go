@@ -32,7 +32,7 @@ func TestAccAutoScalingLaunchConfiguration_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckLaunchConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLaunchConfigurationConfig_basic(rName),
@@ -78,7 +78,7 @@ func TestAccAutoScalingLaunchConfiguration_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckLaunchConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLaunchConfigurationConfig_basic(rName),
@@ -101,7 +101,7 @@ func TestAccAutoScalingLaunchConfiguration_Name_generated(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckLaunchConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLaunchConfigurationConfig_nameGenerated(),
@@ -129,7 +129,7 @@ func TestAccAutoScalingLaunchConfiguration_namePrefix(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckLaunchConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLaunchConfigurationConfig_namePrefix("tf-acc-test-prefix-"),
@@ -158,7 +158,7 @@ func TestAccAutoScalingLaunchConfiguration_withBlockDevices(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckLaunchConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLaunchConfigurationConfig_blockDevices(rName),
@@ -206,7 +206,7 @@ func TestAccAutoScalingLaunchConfiguration_withInstanceStoreAMI(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckLaunchConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLaunchConfigurationConfig_instanceStoreAMI(rName),
@@ -235,7 +235,7 @@ func TestAccAutoScalingLaunchConfiguration_RootBlockDevice_amiDisappears(t *test
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckLaunchConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLaunchConfigurationConfig_cofingRootBlockDeviceCopiedAMI(rName),
@@ -266,7 +266,7 @@ func TestAccAutoScalingLaunchConfiguration_RootBlockDevice_volumeSize(t *testing
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckLaunchConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLaunchConfigurationConfig_rootBlockDeviceVolumeSize(rName, 11),
@@ -303,7 +303,7 @@ func TestAccAutoScalingLaunchConfiguration_encryptedRootBlockDevice(t *testing.T
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckLaunchConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLaunchConfigurationConfig_encryptedRootBlockDevice(rName),
@@ -336,7 +336,7 @@ func TestAccAutoScalingLaunchConfiguration_withSpotPrice(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckLaunchConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLaunchConfigurationConfig_spotPrice(rName),
@@ -364,7 +364,7 @@ func TestAccAutoScalingLaunchConfiguration_withIAMProfile(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckLaunchConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLaunchConfigurationConfig_iamProfile(rName),
@@ -392,7 +392,7 @@ func TestAccAutoScalingLaunchConfiguration_withGP3(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckLaunchConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLaunchConfigurationConfig_gp3(rName),
@@ -432,7 +432,7 @@ func TestAccAutoScalingLaunchConfiguration_encryptedEBSBlockDevice(t *testing.T)
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckLaunchConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLaunchConfigurationConfig_encryptedEBSBlockDevice(rName, 9),
@@ -487,7 +487,7 @@ func TestAccAutoScalingLaunchConfiguration_metadataOptions(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckLaunchConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLaunchConfigurationConfig_metadataOptions(rName),
@@ -518,7 +518,7 @@ func TestAccAutoScalingLaunchConfiguration_EBS_noDevice(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckLaunchConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLaunchConfigurationConfig_ebsNoDevice(rName),
@@ -550,7 +550,7 @@ func TestAccAutoScalingLaunchConfiguration_userData(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckLaunchConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLaunchConfigurationConfig_userData(rName),
@@ -587,7 +587,7 @@ func TestAccAutoScalingLaunchConfiguration_AssociatePublicIPAddress_subnetFalseC
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckLaunchConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLaunchConfigurationConfig_associatePublicIPAddress(rName, false, ""),
@@ -619,7 +619,7 @@ func TestAccAutoScalingLaunchConfiguration_AssociatePublicIPAddress_subnetFalseC
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckLaunchConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLaunchConfigurationConfig_associatePublicIPAddress(rName, false, "false"),
@@ -651,7 +651,7 @@ func TestAccAutoScalingLaunchConfiguration_AssociatePublicIPAddress_subnetFalseC
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckLaunchConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLaunchConfigurationConfig_associatePublicIPAddress(rName, false, "true"),
@@ -683,7 +683,7 @@ func TestAccAutoScalingLaunchConfiguration_AssociatePublicIPAddress_subnetTrueCo
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckLaunchConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLaunchConfigurationConfig_associatePublicIPAddress(rName, true, ""),
@@ -715,7 +715,7 @@ func TestAccAutoScalingLaunchConfiguration_AssociatePublicIPAddress_subnetTrueCo
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckLaunchConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLaunchConfigurationConfig_associatePublicIPAddress(rName, true, "false"),
@@ -747,7 +747,7 @@ func TestAccAutoScalingLaunchConfiguration_AssociatePublicIPAddress_subnetTrueCo
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLaunchConfigurationDestroy(ctx),
+CheckDestroy:    testAccCheckLaunchConfigurationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLaunchConfigurationConfig_associatePublicIPAddress(rName, true, "true"),
@@ -867,7 +867,7 @@ return nil
 func testAccLaunchConfigurationConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigLatestAmazonLinuxHVMEBSAMI(), fmt.Sprintf(`
 resource "aws_launch_configuration" "test" {
-  name          = %[1]q
+  name = %[1]q
   image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t2.micro"
 }
@@ -896,7 +896,7 @@ resource "aws_launch_configuration" "test" {
 func testAccLaunchConfigurationConfig_blockDevices(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigLatestAmazonLinuxHVMEBSAMI(), fmt.Sprintf(`
 resource "aws_launch_configuration" "test" {
-  name          = %[1]q
+  name = %[1]q
   image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "m1.small"
 
@@ -964,13 +964,13 @@ func testAccLaunchConfigurationConfig_cofingRootBlockDeviceCopiedAMI(rName strin
 data "aws_region" "current" {}
 
 resource "aws_ami_copy" "test" {
-  name              = %[1]q
+  name     = %[1]q
   source_ami_id     = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   source_ami_region = data.aws_region.current.name
 }
 
 resource "aws_launch_configuration" "test" {
-  name          = %[1]q
+  name = %[1]q
   image_id      = aws_ami_copy.test.id
   instance_type = "t3.micro"
 
@@ -984,7 +984,7 @@ resource "aws_launch_configuration" "test" {
 func testAccLaunchConfigurationConfig_rootBlockDeviceVolumeSize(rName string, volumeSize int) string {
 	return acctest.ConfigCompose(acctest.ConfigLatestAmazonLinuxHVMEBSAMI(), fmt.Sprintf(`
 resource "aws_launch_configuration" "test" {
-  name          = %[1]q
+  name = %[1]q
   image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t3.micro"
 
@@ -998,7 +998,7 @@ resource "aws_launch_configuration" "test" {
 func testAccLaunchConfigurationConfig_encryptedRootBlockDevice(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigLatestAmazonLinuxHVMEBSAMI(), fmt.Sprintf(`
 resource "aws_launch_configuration" "test" {
-  name          = %[1]q
+  name = %[1]q
   image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t3.nano"
 
@@ -1014,7 +1014,7 @@ resource "aws_launch_configuration" "test" {
 func testAccLaunchConfigurationConfig_spotPrice(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigLatestAmazonLinuxHVMEBSAMI(), fmt.Sprintf(`
 resource "aws_launch_configuration" "test" {
-  name          = %[1]q
+  name = %[1]q
   image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t2.micro"
   spot_price    = "0.05"
@@ -1051,7 +1051,7 @@ resource "aws_iam_instance_profile" "test" {
 
 resource "aws_launch_configuration" "test" {
   name  = %[1]q
-  image_id             = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+  image_id    = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type        = "t2.nano"
   iam_instance_profile = aws_iam_instance_profile.test.name
 }
@@ -1061,7 +1061,7 @@ resource "aws_launch_configuration" "test" {
 func testAccLaunchConfigurationConfig_gp3(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigLatestAmazonLinuxHVMEBSAMI(), fmt.Sprintf(`
 resource "aws_launch_configuration" "test" {
-  name          = %[1]q
+  name = %[1]q
   image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t2.micro"
 
@@ -1084,7 +1084,7 @@ resource "aws_launch_configuration" "test" {
 func testAccLaunchConfigurationConfig_encryptedEBSBlockDevice(rName string, size int) string {
 	return acctest.ConfigCompose(acctest.ConfigLatestAmazonLinuxHVMEBSAMI(), fmt.Sprintf(`
 resource "aws_launch_configuration" "test" {
-  name          = %[1]q
+  name = %[1]q
   image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t2.micro"
 
@@ -1107,7 +1107,7 @@ func testAccLaunchConfigurationConfig_metadataOptions(rName string) string {
 resource "aws_launch_configuration" "test" {
   image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t3.nano"
-  name          = %[1]q
+  name = %[1]q
 
   metadata_options {
     http_endpoint= "enabled"
@@ -1121,7 +1121,7 @@ resource "aws_launch_configuration" "test" {
 func testAccLaunchConfigurationConfig_ebsNoDevice(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigLatestAmazonLinuxHVMEBSAMI(), fmt.Sprintf(`
 resource "aws_launch_configuration" "test" {
-  name          = %[1]q
+  name = %[1]q
   image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "m1.small"
 
@@ -1136,7 +1136,7 @@ resource "aws_launch_configuration" "test" {
 func testAccLaunchConfigurationConfig_userData(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigLatestAmazonLinuxHVMEBSAMI(), fmt.Sprintf(`
 resource "aws_launch_configuration" "test" {
-  name          = %[1]q
+  name = %[1]q
   image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t2.micro"
   user_data     = "foo:-with-character's"
@@ -1147,8 +1147,8 @@ resource "aws_launch_configuration" "test" {
 func testAccLaunchConfigurationConfig_userDataBase64(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigLatestAmazonLinuxHVMEBSAMI(), fmt.Sprintf(`
 resource "aws_launch_configuration" "test" {
-  name             = %[1]q
-  image_id         = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+  name    = %[1]q
+  image_id= data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type    = "t2.micro"
   user_data_base64 = base64encode("hello world")
 }
@@ -1174,7 +1174,7 @@ resource "aws_vpc" "test" {
 }
 
 resource "aws_subnet" "test" {
-  cidr_block              = "10.1.1.0/24"
+  cidr_block     = "10.1.1.0/24"
   vpc_id   = aws_vpc.test.id
   availability_zone       = data.aws_availability_zones.available.names[1]
   map_public_ip_on_launch = %[2]t
@@ -1185,7 +1185,7 @@ resource "aws_subnet" "test" {
 }
 
 resource "aws_launch_configuration" "test" {
-  name         = %[1]q
+  name= %[1]q
   image_id     = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type= data.aws_ec2_instance_type_offering.available.instance_type
   associate_public_ip_address = %[3]s
@@ -1193,8 +1193,8 @@ resource "aws_launch_configuration" "test" {
 
 resource "aws_autoscaling_group" "test" {
   vpc_zone_identifier  = [aws_subnet.test.id]
-  max_size             = 1
-  min_size             = 1
+  max_size    = 1
+  min_size    = 1
   desired_capacity     = 1
   name  = %[1]q
   launch_configuration = aws_launch_configuration.test.name

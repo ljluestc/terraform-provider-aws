@@ -20,8 +20,8 @@ func TestAccMemoryDBSnapshotDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_memorydb_snapshot.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:      acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -62,7 +62,7 @@ resource "aws_kms_key" "test" {}
 resource "aws_memorydb_snapshot" "test" {
   cluster_name = aws_memorydb_cluster.test.name
   kms_key_arn  = aws_kms_key.test.arn
-  name         = %[1]q
+  name= %[1]q
 
   tags = {
     Test = "test"

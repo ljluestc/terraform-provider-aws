@@ -39,9 +39,9 @@ func ResourceRepositoryPolicy() *schema.Resource {
 				ForceNew: true,
 			},
 			"policy": {
-				Type:                  schema.TypeString,
-				Required:              true,
-				ValidateFunc:          validation.StringIsJSON,
+				Type:schema.TypeString,
+				Required:     true,
+				ValidateFunc: validation.StringIsJSON,
 				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
 				DiffSuppressOnRefresh: true,
 				StateFunc: func(v interface{}) string {

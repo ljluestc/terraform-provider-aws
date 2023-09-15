@@ -57,13 +57,13 @@ Optional: true,
 Default:  false,
 	},
 	"deletion_window_in_days": {
-Type:         schema.TypeInt,
+Type:schema.TypeInt,
 Optional:     true,
 Default:      30,
 ValidateFunc: validation.IntBetween(7, 30),
 	},
 	"description": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ValidateFunc: validation.StringLenBetween(0, 8192),
 	},
@@ -98,8 +98,8 @@ ForceNew: true,
 	},
 	"policy": {
 Type:   schema.TypeString,
-Optional:              true,
-Computed:              true,
+Optional:     true,
+Computed:     true,
 DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
 DiffSuppressOnRefresh: true,
 ValidateFunc: validation.All(
@@ -114,7 +114,7 @@ StateFunc: func(v interface{}) string {
 	names.AttrTags:    tftags.TagsSchema(),
 	names.AttrTagsAll: tftags.TagsSchemaComputed(),
 	"valid_to": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ValidateFunc: validation.IsRFC3339Time,
 	},
@@ -129,8 +129,8 @@ func resourceExternalKeyCreate(ctx context.Context, d *schema.ResourceData, meta
 	input := &kms.CreateKeyInput{
 BypassPolicyLockoutSafetyCheck: aws.Bool(d.Get("bypass_policy_lockout_safety_check").(bool)),
 KeyUsage:        aws.String(kms.KeyUsageTypeEncryptDecrypt),
-Origin:          aws.String(kms.OriginTypeExternal),
-Tags:            getTagsIn(ctx),
+Origin: aws.String(kms.OriginTypeExternal),
+Tags:   getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -355,7 +355,7 @@ func importExternalKeyMaterial(ctx context.Context, conn *kms.KMS, keyID, keyMat
 	// Wait for propagation since KMS is eventually consistent.
 	outputRaw, err := tfresource.RetryWhenAWSErrCodeEquals(ctx, PropagationTimeout, func() (interface{}, error) {
 return conn.GetParametersForImportWithContext(ctx, &kms.GetParametersForImportInput{
-	KeyId:             aws.String(keyID),
+	KeyId:    aws.String(keyID),
 	WrappingAlgorithm: aws.String(kms.AlgorithmSpecRsaesOaepSha256),
 	WrappingKeySpec:   aws.String(kms.WrappingKeySpecRsa2048),
 })
@@ -388,7 +388,7 @@ return fmt.Errorf("encrypting key material: %w", err)
 	input := &kms.ImportKeyMaterialInput{
 EncryptedKeyMaterial: encryptedKeyMaterial,
 ExpirationModel:      aws.String(kms.ExpirationModelTypeKeyMaterialDoesNotExpire),
-ImportToken:          output.ImportToken,
+ImportToken: output.ImportToken,
 KeyId: aws.String(keyID),
 	}
 

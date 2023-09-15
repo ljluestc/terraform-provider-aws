@@ -28,13 +28,13 @@ func DataSourceLayerVersion() *schema.Resource {
 				Required: true,
 			},
 			"version": {
-				Type:          schema.TypeInt,
+				Type: schema.TypeInt,
 				Optional:      true,
 				Computed:      true,
 				ConflictsWith: []string{"compatible_runtimes"},
 			},
 			"compatible_runtime": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ValidateFunc:  validation.StringInSlice(lambda.Runtime_Values(), false),
 				ConflictsWith: []string{"version"},
@@ -83,7 +83,7 @@ func DataSourceLayerVersion() *schema.Resource {
 				Computed: true,
 			},
 			"compatible_architecture": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ValidateFunc:  validation.StringInSlice(lambda.Architecture_Values(), false),
 				ConflictsWith: []string{"version"},

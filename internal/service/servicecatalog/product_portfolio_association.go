@@ -37,7 +37,7 @@ func ResourceProductPortfolioAssociation() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"accept_language": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Default:      AcceptLanguageEnglish,

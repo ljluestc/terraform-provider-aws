@@ -254,20 +254,20 @@ func testAccTargetGroupDataSourceConfig_base(rName, resourceType string) string 
 	return acctest.ConfigCompose(acctest.ConfigVPCWithSubnets(rName, 2), fmt.Sprintf(`
 resource "aws_lb_listener" "test" {
   load_balancer_arn = aws_lb.test.id
-  protocol          = "HTTP"
-  port              = "80"
+  protocol = "HTTP"
+  port     = "80"
 
   default_action {
     target_group_arn = %[2]s.test.id
-    type             = "forward"
+    type    = "forward"
   }
 }
 
 resource "aws_lb" "test" {
-  name            = %[1]q
+  name   = %[1]q
   internal        = true
   security_groups = [aws_security_group.test.id]
-  subnets         = aws_subnet.test[*].id
+  subnets= aws_subnet.test[*].id
 
   idle_timeout= 30
   enable_deletion_protection = false
@@ -313,13 +313,13 @@ resource "aws_lb_target_group" "test" {
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 
   tags = {
@@ -347,17 +347,17 @@ resource "aws_lb_target_group" "test" {
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 
   stickiness {
-    type            = "app_cookie"
+    type   = "app_cookie"
     cookie_name     = "cookieName"
     cookie_duration = 600
   }
@@ -383,13 +383,13 @@ resource "aws_alb_target_group" "test" {
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 
   tags = {

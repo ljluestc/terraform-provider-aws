@@ -41,7 +41,7 @@ func ResourceFunctionURL() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"authorization_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringInSlice(lambda.FunctionUrlAuthType_Values(), false),
 			},
@@ -76,7 +76,7 @@ func ResourceFunctionURL() *schema.Resource {
 							Elem:     &schema.Schema{Type: schema.TypeString},
 						},
 						"max_age": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							ValidateFunc: validation.IntAtMost(86400),
 						},
@@ -104,7 +104,7 @@ func ResourceFunctionURL() *schema.Resource {
 				Computed: true,
 			},
 			"invoke_mode": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Default:      lambda.InvokeModeBuffered,
 				ValidateFunc: validation.StringInSlice(lambda.InvokeMode_Values(), false),
@@ -153,11 +153,11 @@ func resourceFunctionURLCreate(ctx context.Context, d *schema.ResourceData, meta
 
 	if v := d.Get("authorization_type").(string); v == lambda.FunctionUrlAuthTypeNone {
 		input := &lambda.AddPermissionInput{
-			Action:              aws.String("lambda:InvokeFunctionUrl"),
+			Action:     aws.String("lambda:InvokeFunctionUrl"),
 			FunctionName:        aws.String(name),
 			FunctionUrlAuthType: aws.String(v),
-			Principal:           aws.String("*"),
-			StatementId:         aws.String("FunctionURLAllowPublicAccess"),
+			Principal:  aws.String("*"),
+			StatementId:aws.String("FunctionURLAllowPublicAccess"),
 		}
 
 		if qualifier != "" {

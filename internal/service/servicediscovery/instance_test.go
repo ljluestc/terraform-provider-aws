@@ -30,9 +30,9 @@ func TestAccServiceDiscoveryInstance_private(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, servicediscovery.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, servicediscovery.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, servicediscovery.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckInstanceDestroy(ctx),
+		CheckDestroy:    testAccCheckInstanceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstanceConfig_private(rName, domainName, "AWS_INSTANCE_IPV4 = \"10.0.0.1\" \n    AWS_INSTANCE_IPV6 = \"2001:0db8:85a3:0000:0000:abcd:0001:2345\""),
@@ -76,9 +76,9 @@ func TestAccServiceDiscoveryInstance_public(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, servicediscovery.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, servicediscovery.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, servicediscovery.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckInstanceDestroy(ctx),
+		CheckDestroy:    testAccCheckInstanceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstanceConfig_public(rName, domainName, "AWS_INSTANCE_IPV4 = \"52.18.0.2\" \n    CUSTOM_KEY = \"this is a custom value\""),
@@ -122,9 +122,9 @@ func TestAccServiceDiscoveryInstance_http(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, servicediscovery.EndpointsID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, servicediscovery.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, servicediscovery.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckInstanceDestroy(ctx),
+		CheckDestroy:    testAccCheckInstanceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccInstanceConfig_http(rName, domainName, "AWS_EC2_INSTANCE_ID = aws_instance.test.id"),
@@ -213,7 +213,7 @@ func testAccCheckInstanceDestroy(ctx context.Context) resource.TestCheckFunc {
 func testAccInstanceConfig_base(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpc" "test" {
-  cidr_block           = "10.0.0.0/16"
+  cidr_block  = "10.0.0.0/16"
   enable_dns_support   = true
   enable_dns_hostnames = true
 
@@ -252,7 +252,7 @@ func testAccInstanceConfig_privateNamespace(rName, domainName string) string {
 resource "aws_service_discovery_private_dns_namespace" "test" {
   name        = %[2]q
   description = %[1]q
-  vpc         = aws_vpc.test.id
+  vpc= aws_vpc.test.id
 }
 
 resource "aws_service_discovery_service" "test" {
@@ -305,7 +305,7 @@ func testAccInstanceConfig_httpNamespace(rName, domainName string) string {
 	return acctest.ConfigCompose(acctest.ConfigLatestAmazonLinuxHVMEBSAMI(), fmt.Sprintf(`
 resource "aws_instance" "test" {
   instance_type = "t2.micro"
-  ami           = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+  ami  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
 
   tags = {
     Name = %[1]q
@@ -317,7 +317,7 @@ resource "aws_service_discovery_http_namespace" "test" {
 }
 
 resource "aws_service_discovery_service" "test" {
-  name         = %[1]q
+  name= %[1]q
   namespace_id = aws_service_discovery_http_namespace.test.id
 }`, rName, domainName))
 }

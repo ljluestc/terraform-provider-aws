@@ -86,9 +86,9 @@ func resourceVPCConnectionCreate(ctx context.Context, d *schema.ResourceData, me
 Authentication:   aws.String(d.Get("authentication").(string)),
 ClientSubnets:    flex.ExpandStringValueSet(d.Get("client_subnets").(*schema.Set)),
 SecurityGroups:   flex.ExpandStringValueSet(d.Get("security_groups").(*schema.Set)),
-Tags:             getTagsInV2(ctx),
+Tags:    getTagsInV2(ctx),
 TargetClusterArn: aws.String(d.Get("target_cluster_arn").(string)),
-VpcId:            aws.String(d.Get("vpc_id").(string)),
+VpcId:   aws.String(d.Get("vpc_id").(string)),
 	}
 
 	out, err := conn.CreateVpcConnection(ctx, in)
@@ -170,7 +170,7 @@ Pending:    enum.Slice(types.VpcConnectionStateCreating),
 Target:     enum.Slice(types.VpcConnectionStateAvailable),
 Refresh:    statusVPCConnection(ctx, conn, id),
 Timeout:    timeout,
-NotFoundChecks:            20,
+NotFoundChecks:   20,
 ContinuousTargetOccurence: 2,
 	}
 

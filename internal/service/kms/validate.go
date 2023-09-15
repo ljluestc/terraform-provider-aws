@@ -19,7 +19,7 @@ const (
 
 var (
 	aliasNameRegex     = regexache.MustCompile(`^` + aliasNameRegexPattern + `$`)
-	keyIdRegex         = regexache.MustCompile(`^` + verify.UUIDRegexPattern + `|` + multiRegionKeyIdPattern + `$`)
+	keyIdRegex= regexache.MustCompile(`^` + verify.UUIDRegexPattern + `|` + multiRegionKeyIdPattern + `$`)
 	keyIdResourceRegex = regexache.MustCompile(`^key/(` + verify.UUIDRegexPattern + `|` + multiRegionKeyIdPattern + `)$`)
 )
 

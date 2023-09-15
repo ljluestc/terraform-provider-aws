@@ -32,7 +32,7 @@ func TestAccServiceCatalogProvisionedProduct_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProvisionedProductDestroy(ctx),
+CheckDestroy:    testAccCheckProvisionedProductDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProvisionedProductConfig_basic(rName, domain, acctest.DefaultEmailAddress, "10.1.0.0/16"),
@@ -51,7 +51,7 @@ Check: resource.ComposeTestCheckFunc(
 	resource.TestCheckResourceAttr(resourceName, "outputs.#", "2"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "outputs.*", map[string]string{
 "description": "VPC ID",
-"key":         "VpcID",
+"key":"VpcID",
 	}),
 	resource.TestMatchTypeSetElemNestedAttrs(resourceName, "outputs.*", map[string]*regexp.Regexp{
 "value": regexache.MustCompile(`vpc-.+`),
@@ -93,7 +93,7 @@ func TestAccServiceCatalogProvisionedProduct_update(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProvisionedProductDestroy(ctx),
+CheckDestroy:    testAccCheckProvisionedProductDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProvisionedProductConfig_basic(rName, domain, acctest.DefaultEmailAddress, "10.1.0.0/16"),
@@ -118,7 +118,7 @@ Check: resource.ComposeTestCheckFunc(
 	resource.TestCheckResourceAttr(resourceName, "outputs.#", "2"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "outputs.*", map[string]string{
 "description": "VPC ID",
-"key":         "VpcID",
+"key":"VpcID",
 	}),
 	resource.TestMatchTypeSetElemNestedAttrs(resourceName, "outputs.*", map[string]*regexp.Regexp{
 "value": regexache.MustCompile(`vpc-.+`),
@@ -157,7 +157,7 @@ func TestAccServiceCatalogProvisionedProduct_stackSetProvisioningPreferences(t *
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProvisionedProductDestroy(ctx),
+CheckDestroy:    testAccCheckProvisionedProductDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProvisionedProductConfig_stackSetprovisioningPreferences(rName, domain, acctest.DefaultEmailAddress, "10.1.0.0/16", 1, 2),
@@ -222,7 +222,7 @@ func TestAccServiceCatalogProvisionedProduct_ProductName_update(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProvisionedProductDestroy(ctx),
+CheckDestroy:    testAccCheckProvisionedProductDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProvisionedProductConfig_productName(rName, domain, acctest.DefaultEmailAddress, "10.1.0.0/16", productName),
@@ -274,7 +274,7 @@ func TestAccServiceCatalogProvisionedProduct_ProvisioningArtifactName_update(t *
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProvisionedProductDestroy(ctx),
+CheckDestroy:    testAccCheckProvisionedProductDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 
@@ -308,7 +308,7 @@ func TestAccServiceCatalogProvisionedProduct_computedOutputs(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProvisionedProductDestroy(ctx),
+CheckDestroy:    testAccCheckProvisionedProductDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProvisionedProductConfig_computedOutputs(rName, domain, acctest.DefaultEmailAddress, "10.1.0.0/16"),
@@ -317,11 +317,11 @@ Check: resource.ComposeTestCheckFunc(
 	resource.TestCheckResourceAttr(resourceName, "outputs.#", "3"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "outputs.*", map[string]string{
 "description": "VPC ID",
-"key":         "VpcID",
+"key":"VpcID",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "outputs.*", map[string]string{
 "description": "VPC CIDR",
-"key":         "VPCPrimaryCIDR",
+"key":"VPCPrimaryCIDR",
 "value":       "10.1.0.0/16",
 	}),
 ),
@@ -333,11 +333,11 @@ Check: resource.ComposeTestCheckFunc(
 	resource.TestCheckResourceAttr(resourceName, "outputs.#", "3"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "outputs.*", map[string]string{
 "description": "VPC ID",
-"key":         "VpcID",
+"key":"VpcID",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "outputs.*", map[string]string{
 "description": "VPC CIDR",
-"key":         "VPCPrimaryCIDR",
+"key":"VPCPrimaryCIDR",
 "value":       "10.1.0.1/16",
 	}),
 ),
@@ -358,7 +358,7 @@ func TestAccServiceCatalogProvisionedProduct_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProvisionedProductDestroy(ctx),
+CheckDestroy:    testAccCheckProvisionedProductDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProvisionedProductConfig_basic(rName, domain, acctest.DefaultEmailAddress, "10.1.0.0/16"),
@@ -384,7 +384,7 @@ func TestAccServiceCatalogProvisionedProduct_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProvisionedProductDestroy(ctx),
+CheckDestroy:    testAccCheckProvisionedProductDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProvisionedProductConfig_tags(rName, "Name", rName, domain, acctest.DefaultEmailAddress),
@@ -416,7 +416,7 @@ func TestAccServiceCatalogProvisionedProduct_errorOnCreate(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProvisionedProductDestroy(ctx),
+CheckDestroy:    testAccCheckProvisionedProductDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config:      testAccProvisionedProductConfig_error(rName, domain, acctest.DefaultEmailAddress, "10.1.0.0/16"),
@@ -437,7 +437,7 @@ func TestAccServiceCatalogProvisionedProduct_errorOnUpdate(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProvisionedProductDestroy(ctx),
+CheckDestroy:    testAccCheckProvisionedProductDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProvisionedProductConfig_basic(rName, domain, acctest.DefaultEmailAddress, "10.1.0.0/16"),
@@ -470,7 +470,7 @@ continue
 	}
 
 	input := &servicecatalog.DescribeProvisionedProductInput{
-Id:             aws.String(rs.Primary.ID),
+Id:    aws.String(rs.Primary.ID),
 AcceptLanguage: aws.String(rs.Primary.Attributes["accept_language"]),
 	}
 	_, err := conn.DescribeProvisionedProductWithContext(ctx, input)
@@ -532,7 +532,7 @@ return nil
 func testAccProvisionedProductPortfolioBaseConfig(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_servicecatalog_portfolio" "test" {
-  name          = %[1]q
+  name = %[1]q
   description   = %[1]q
   provider_name = %[1]q
 }
@@ -541,7 +541,7 @@ resource "aws_servicecatalog_constraint" "test" {
   description  = %[1]q
   portfolio_id = aws_servicecatalog_product_portfolio_association.test.portfolio_id
   product_id   = aws_servicecatalog_product_portfolio_association.test.product_id
-  type         = "RESOURCE_UPDATE"
+  type= "RESOURCE_UPDATE"
 
   parameters = jsonencode({
     Version = "2.0"
@@ -602,10 +602,10 @@ resource "aws_s3_object" "test" {
     "Conditions" = {
       "IsEmptyParameter" = {
         "Fn::Equals" = [
-          {
-            "Ref" = "LeaveMeEmpty"
-          },
-          "",
+ {
+   "Ref" = "LeaveMeEmpty"
+ },
+ "",
         ]
       }
     }
@@ -615,7 +615,7 @@ resource "aws_s3_object" "test" {
         Type      = "AWS::EC2::VPC"
         Condition = "IsEmptyParameter"
         Properties = {
-          CidrBlock = { Ref = "VPCPrimaryCIDR" }
+ CidrBlock = { Ref = "VPCPrimaryCIDR" }
         }
       }
     }
@@ -624,7 +624,7 @@ resource "aws_s3_object" "test" {
       VpcID = {
         Description = "VPC ID"
         Value = {
-          Ref = "MyVPC"
+ Ref = "MyVPC"
         }
       }
     }
@@ -632,21 +632,21 @@ resource "aws_s3_object" "test" {
 }
 
 resource "aws_servicecatalog_product" "test" {
-  description         = %[1]q
-  distributor         = "distributör"
+  description= %[1]q
+  distributor= "distributör"
   name = %[1]q
   owner= "ägare"
   type = "CLOUD_FORMATION_TEMPLATE"
   support_description = %[1]q
   support_email       = %[3]q
-  support_url         = %[2]q
+  support_url= %[2]q
 
   provisioning_artifact_parameters {
     description  = "artefaktbeskrivning"
     disable_template_validation = true
-    name         = %[1]q
+    name= %[1]q
     template_url = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/${aws_s3_object.test.key}"
-    type         = "CLOUD_FORMATION_TEMPLATE"
+    type= "CLOUD_FORMATION_TEMPLATE"
   }
 
   tags = {
@@ -681,10 +681,10 @@ resource "aws_cloudformation_stack" "test" {
     "Conditions" = {
       "IsEmptyParameter" = {
         "Fn::Equals" = [
-          {
-            "Ref" = "LeaveMeEmpty"
-          },
-          "",
+ {
+   "Ref" = "LeaveMeEmpty"
+ },
+ "",
         ]
       }
     }
@@ -694,7 +694,7 @@ resource "aws_cloudformation_stack" "test" {
         Type      = "AWS::EC2::VPC"
         Condition = "IsEmptyParameter"
         Properties = {
-          CidrBlock = { Ref = "VPCPrimaryCIDR" }
+ CidrBlock = { Ref = "VPCPrimaryCIDR" }
         }
       }
     }
@@ -703,14 +703,14 @@ resource "aws_cloudformation_stack" "test" {
       VpcID = {
         Description = "VPC ID"
         Value = {
-          Ref = "MyVPC"
+ Ref = "MyVPC"
         }
       }
 
       VPCPrimaryCIDR = {
         Description = "VPC CIDR"
         Value = {
-          Ref = "VPCPrimaryCIDR"
+ Ref = "VPCPrimaryCIDR"
         }
       }
     }
@@ -718,21 +718,21 @@ resource "aws_cloudformation_stack" "test" {
 }
 
 resource "aws_servicecatalog_product" "test" {
-  description         = %[1]q
-  distributor         = "distributör"
+  description= %[1]q
+  distributor= "distributör"
   name = %[1]q
   owner= "ägare"
   type = "CLOUD_FORMATION_TEMPLATE"
   support_description = %[1]q
   support_email       = %[3]q
-  support_url         = %[2]q
+  support_url= %[2]q
 
   provisioning_artifact_parameters {
     description  = "artefaktbeskrivning"
     disable_template_validation = true
-    name         = %[1]q
+    name= %[1]q
     template_physical_id        = aws_cloudformation_stack.test.id
-    type         = "CLOUD_FORMATION_TEMPLATE"
+    type= "CLOUD_FORMATION_TEMPLATE"
   }
 
   tags = {
@@ -845,8 +845,8 @@ fmt.Sprintf(`
 resource "aws_servicecatalog_provisioning_artifact" "test" {
   product_id   = aws_servicecatalog_product.test.id
   template_url = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/${aws_s3_object.test.key}"
-  name         = %[3]q
-  type         = "CLOUD_FORMATION_TEMPLATE"
+  name= %[3]q
+  type= "CLOUD_FORMATION_TEMPLATE"
 }
 
 resource "aws_servicecatalog_provisioned_product" "test" {

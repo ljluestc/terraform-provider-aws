@@ -60,13 +60,13 @@ Elem: &schema.Resource{
 	Optional: true,
 },
 "first_name": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Optional:     true,
 	Validate
 func: validation.StringLenBetween(1, 100),
 },
 "last_name": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Optional:     true,
 	Validate
 func: validation.StringLenBetween(1, 100),
@@ -75,21 +75,21 @@ func: validation.StringLenBetween(1, 100),
 },
 	},
 	"instance_id": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ForceNew:     true,
 Validate
 func: validation.StringLenBetween(1, 100),
 	},
 	"name": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ForceNew:     true,
 Validate
 func: validation.StringLenBetween(1, 100),
 	},
 	"password": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Sensitive:    true,
 Validate
@@ -102,7 +102,7 @@ MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "after_contact_work_time_limit": {
-	Type:         schema.TypeInt,
+	Type:schema.TypeInt,
 	Optional:     true,
 	Validate
 func: validation.IntAtLeast(0),
@@ -112,7 +112,7 @@ func: validation.IntAtLeast(0),
 	Optional: true,
 },
 "desk_phone_number": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Optional:     true,
 	Validate
 func: validDeskPhoneNumber,
@@ -126,7 +126,7 @@ return true
 	},
 },
 "phone_type": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Required:     true,
 	Validate
 func: validation.StringInSlice(connect.PhoneType_Values(), false),
@@ -164,12 +164,12 @@ func resourceUserCreate(ctx context.Context, d *schema.ResourceData, meta interf
 	instanceID := d.Get("instance_id").(string)
 	name := d.Get("name").(string)
 	input := &connect.CreateUserInput{
-InstanceId:         aws.String(instanceID),
+InstanceId:aws.String(instanceID),
 PhoneConfig:        expandPhoneConfig(d.Get("phone_config").([]interface{})),
 RoutingProfileId:   aws.String(d.Get("routing_profile_id").(string)),
 SecurityProfileIds: flex.ExpandStringSet(d.Get("security_profile_ids").(*schema.Set)),
 Tags:getTagsIn(ctx),
-Username:           aws.String(name),
+Username:  aws.String(name),
 	}
 
 	if v, ok := d.GetOk("directory_user_id"); ok {
@@ -326,7 +326,7 @@ if err != nil {
 input := &connect.UpdateUserRoutingProfileInput{
 	InstanceId:       aws.String(instanceID),
 	RoutingProfileId: aws.String(d.Get("routing_profile_id").(string)),
-	UserId:           aws.String(userID),
+	UserId:  aws.String(userID),
 }
 
 _, err = conn.UpdateUserRoutingProfileWithContext(ctx, input)
@@ -339,9 +339,9 @@ if err != nil {
 	// updates to security_profile_ids
 	if d.HasChange("security_profile_ids") {
 input := &connect.UpdateUserSecurityProfilesInput{
-	InstanceId:         aws.String(instanceID),
+	InstanceId:aws.String(instanceID),
 	SecurityProfileIds: flex.ExpandStringSet(d.Get("security_profile_ids").(*schema.Set)),
-	UserId:             aws.String(userID),
+	UserId:    aws.String(userID),
 }
 
 _, err = conn.UpdateUserSecurityProfilesWithContext(ctx, input)

@@ -32,7 +32,7 @@ func TestAccELBV2Listener_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerDestroy(ctx),
+CheckDestroy:    testAccCheckListenerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerConfig_basic(rName),
@@ -70,7 +70,7 @@ func TestAccELBV2Listener_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerDestroy(ctx),
+CheckDestroy:    testAccCheckListenerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerConfig_tags1(rName, "key1", "value1"),
@@ -117,7 +117,7 @@ func TestAccELBV2Listener_forwardWeighted(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerDestroy(ctx),
+CheckDestroy:    testAccCheckListenerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerConfig_forwardWeighted(rName, rName2),
@@ -197,7 +197,7 @@ func TestAccELBV2Listener_Protocol_upd(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerDestroy(ctx),
+CheckDestroy:    testAccCheckListenerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerConfig_basicUdp(rName),
@@ -234,7 +234,7 @@ func TestAccELBV2Listener_backwardsCompatibility(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerDestroy(ctx),
+CheckDestroy:    testAccCheckListenerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerConfig_backwardsCompatibility(rName),
@@ -273,7 +273,7 @@ func TestAccELBV2Listener_Protocol_https(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerDestroy(ctx),
+CheckDestroy:    testAccCheckListenerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerConfig_https(rName, key, certificate),
@@ -317,7 +317,7 @@ t.Skip("skipping long-running test in short mode")
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerDestroy(ctx),
+CheckDestroy:    testAccCheckListenerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerConfig_arnGateway(rName),
@@ -349,7 +349,7 @@ t.Skip("skipping long-running test in short mode")
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerDestroy(ctx),
+CheckDestroy:    testAccCheckListenerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerConfig_protocolTLS(rName, key, certificate),
@@ -378,7 +378,7 @@ func TestAccELBV2Listener_redirect(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerDestroy(ctx),
+CheckDestroy:    testAccCheckListenerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerConfig_redirect(rName),
@@ -421,7 +421,7 @@ func TestAccELBV2Listener_fixedResponse(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerDestroy(ctx),
+CheckDestroy:    testAccCheckListenerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerConfig_fixedResponse(rName),
@@ -463,7 +463,7 @@ func TestAccELBV2Listener_cognito(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerDestroy(ctx),
+CheckDestroy:    testAccCheckListenerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerConfig_cognito(rName, key, certificate),
@@ -508,7 +508,7 @@ func TestAccELBV2Listener_oidc(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerDestroy(ctx),
+CheckDestroy:    testAccCheckListenerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerConfig_oidc(rName, key, certificate),
@@ -536,8 +536,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"default_action.0.authenticate_oidc.0.client_secret"},
 	},
@@ -557,7 +557,7 @@ func TestAccELBV2Listener_DefaultAction_order(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerDestroy(ctx),
+CheckDestroy:    testAccCheckListenerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerConfig_defaultActionOrder(rName, key, certificate),
@@ -569,8 +569,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"default_action.0.authenticate_oidc.0.client_secret"},
 	},
@@ -591,7 +591,7 @@ func TestAccELBV2Listener_DefaultAction_orderRecreates(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerDestroy(ctx),
+CheckDestroy:    testAccCheckListenerDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerConfig_defaultActionOrder(rName, key, certificate),
@@ -707,7 +707,7 @@ resource "aws_vpc" "test" {
 resource "aws_subnet" "test" {
   count = 2
 
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 2, count.index)
   availability_zone = data.aws_availability_zones.available.names[count.index]
 
@@ -746,20 +746,20 @@ func testAccListenerConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccListenerConfig_base(rName), fmt.Sprintf(`
 resource "aws_lb_listener" "test" {
   load_balancer_arn = aws_lb.test.id
-  protocol          = "HTTP"
-  port              = "80"
+  protocol = "HTTP"
+  port     = "80"
 
   default_action {
     target_group_arn = aws_lb_target_group.test.id
-    type             = "forward"
+    type    = "forward"
   }
 }
 
 resource "aws_lb" "test" {
-  name            = %[1]q
+  name   = %[1]q
   internal        = true
   security_groups = [aws_security_group.test.id]
-  subnets         = aws_subnet.test[*].id
+  subnets= aws_subnet.test[*].id
 
   idle_timeout= 30
   enable_deletion_protection = false
@@ -777,13 +777,13 @@ resource "aws_lb_target_group" "test" {
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 
   tags = {
@@ -797,8 +797,8 @@ func testAccListenerConfig_forwardWeighted(rName, rName2 string) string {
 	return acctest.ConfigCompose(testAccListenerConfig_base(rName), fmt.Sprintf(`
 resource "aws_lb_listener" "test" {
   load_balancer_arn = aws_lb.test.id
-  protocol          = "HTTP"
-  port              = "80"
+  protocol = "HTTP"
+  port     = "80"
 
   default_action {
     type = "forward"
@@ -818,10 +818,10 @@ resource "aws_lb_listener" "test" {
 }
 
 resource "aws_lb" "test" {
-  name            = %[1]q
+  name   = %[1]q
   internal        = true
   security_groups = [aws_security_group.test.id]
-  subnets         = aws_subnet.test[*].id
+  subnets= aws_subnet.test[*].id
 
   idle_timeout= 30
   enable_deletion_protection = false
@@ -839,13 +839,13 @@ resource "aws_lb_target_group" "test1" {
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 
   tags = {
@@ -861,13 +861,13 @@ resource "aws_lb_target_group" "test2" {
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 
   tags = {
@@ -881,8 +881,8 @@ func testAccListenerConfig_changeForwardWeightedStickiness(rName, rName2 string)
 	return acctest.ConfigCompose(testAccListenerConfig_base(rName), fmt.Sprintf(`
 resource "aws_lb_listener" "test" {
   load_balancer_arn = aws_lb.test.id
-  protocol          = "HTTP"
-  port              = "80"
+  protocol = "HTTP"
+  port     = "80"
 
   default_action {
     type = "forward"
@@ -907,10 +907,10 @@ resource "aws_lb_listener" "test" {
 }
 
 resource "aws_lb" "test" {
-  name            = %[1]q
+  name   = %[1]q
   internal        = true
   security_groups = [aws_security_group.test.id]
-  subnets         = aws_subnet.test[*].id
+  subnets= aws_subnet.test[*].id
 
   idle_timeout= 30
   enable_deletion_protection = false
@@ -928,13 +928,13 @@ resource "aws_lb_target_group" "test1" {
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 
   tags = {
@@ -950,13 +950,13 @@ resource "aws_lb_target_group" "test2" {
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 
   tags = {
@@ -970,20 +970,20 @@ func testAccListenerConfig_changeForwardWeightedToBasic(rName, rName2 string) st
 	return acctest.ConfigCompose(testAccListenerConfig_base(rName), fmt.Sprintf(`
 resource "aws_lb_listener" "test" {
   load_balancer_arn = aws_lb.test.id
-  protocol          = "HTTP"
-  port              = "80"
+  protocol = "HTTP"
+  port     = "80"
 
   default_action {
     target_group_arn = aws_lb_target_group.test1.arn
-    type             = "forward"
+    type    = "forward"
   }
 }
 
 resource "aws_lb" "test" {
-  name            = %[1]q
+  name   = %[1]q
   internal        = true
   security_groups = [aws_security_group.test.id]
-  subnets         = aws_subnet.test[*].id
+  subnets= aws_subnet.test[*].id
 
   idle_timeout= 30
   enable_deletion_protection = false
@@ -1001,13 +1001,13 @@ resource "aws_lb_target_group" "test1" {
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 
   tags = {
@@ -1023,13 +1023,13 @@ resource "aws_lb_target_group" "test2" {
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 
   tags = {
@@ -1043,20 +1043,20 @@ func testAccListenerConfig_basicUdp(rName string) string {
 	return acctest.ConfigCompose(testAccListenerConfig_base(rName), fmt.Sprintf(`
 resource "aws_lb_listener" "test" {
   load_balancer_arn = aws_lb.test.id
-  protocol          = "UDP"
-  port              = "514"
+  protocol = "UDP"
+  port     = "514"
 
   default_action {
     target_group_arn = aws_lb_target_group.test.id
-    type             = "forward"
+    type    = "forward"
   }
 }
 
 resource "aws_lb" "test" {
   name= %[1]q
-  internal           = false
+  internal  = false
   load_balancer_type = "network"
-  subnets            = aws_subnet.test[*].id
+  subnets   = aws_subnet.test[*].id
 
   idle_timeout= 30
   enable_deletion_protection = false
@@ -1096,20 +1096,20 @@ func testAccListenerConfig_backwardsCompatibility(rName string) string {
 	return acctest.ConfigCompose(testAccListenerConfig_base(rName), fmt.Sprintf(`
 resource "aws_alb_listener" "test" {
   load_balancer_arn = aws_alb.test.id
-  protocol          = "HTTP"
-  port              = "80"
+  protocol = "HTTP"
+  port     = "80"
 
   default_action {
     target_group_arn = aws_alb_target_group.test.id
-    type             = "forward"
+    type    = "forward"
   }
 }
 
 resource "aws_alb" "test" {
-  name            = %[1]q
+  name   = %[1]q
   internal        = true
   security_groups = [aws_security_group.test.id]
-  subnets         = aws_subnet.test[*].id
+  subnets= aws_subnet.test[*].id
 
   idle_timeout= 30
   enable_deletion_protection = false
@@ -1127,13 +1127,13 @@ resource "aws_alb_target_group" "test" {
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 
   tags = {
@@ -1147,22 +1147,22 @@ func testAccListenerConfig_https(rName, key, certificate string) string {
 	return acctest.ConfigCompose(testAccListenerConfig_base(rName), fmt.Sprintf(`
 resource "aws_lb_listener" "test" {
   load_balancer_arn = aws_lb.test.id
-  protocol          = "HTTPS"
-  port              = "443"
+  protocol = "HTTPS"
+  port     = "443"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
   certificate_arn   = aws_iam_server_certificate.test.arn
 
   default_action {
     target_group_arn = aws_lb_target_group.test.id
-    type             = "forward"
+    type    = "forward"
   }
 }
 
 resource "aws_lb" "test" {
-  name            = %[1]q
+  name   = %[1]q
   internal        = false
   security_groups = [aws_security_group.test.id]
-  subnets         = aws_subnet.test[*].id
+  subnets= aws_subnet.test[*].id
 
   idle_timeout= 30
   enable_deletion_protection = false
@@ -1180,13 +1180,13 @@ resource "aws_lb_target_group" "test" {
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 
   tags = {
@@ -1195,7 +1195,7 @@ resource "aws_lb_target_group" "test" {
 }
 
 resource "aws_iam_server_certificate" "test" {
-  name             = %[1]q
+  name    = %[1]q
   certificate_body = "%[2]s"
   private_key      = "%[3]s"
 }
@@ -1225,7 +1225,7 @@ resource "aws_vpc" "test" {
 resource "aws_subnet" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
   cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 2, 0)
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
 
   tags = {
     Name = %[1]q
@@ -1258,7 +1258,7 @@ resource "aws_lb_listener" "test" {
 
   default_action {
     target_group_arn = aws_lb_target_group.test.id
-    type             = "forward"
+    type    = "forward"
   }
 
   tags = {
@@ -1280,10 +1280,10 @@ resource "aws_acm_certificate" "test" {
 }
 
 resource "aws_lb" "test" {
-  internal           = true
+  internal  = true
   load_balancer_type = "network"
   name= %[1]q
-  subnets            = aws_subnet.test[*].id
+  subnets   = aws_subnet.test[*].id
 
   tags = {
     Name = %[1]q
@@ -1297,9 +1297,9 @@ resource "aws_lb_target_group" "test" {
   vpc_id   = aws_vpc.test.id
 
   health_check {
-    interval            = 10
+    interval   = 10
     port = "traffic-port"
-    protocol            = "TCP"
+    protocol   = "TCP"
     healthy_threshold   = 3
     unhealthy_threshold = 3
   }
@@ -1312,14 +1312,14 @@ resource "aws_lb_target_group" "test" {
 resource "aws_lb_listener" "test" {
   certificate_arn   = aws_acm_certificate.test.arn
   load_balancer_arn = aws_lb.test.arn
-  port              = "443"
-  protocol          = "TLS"
+  port     = "443"
+  protocol = "TLS"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
   alpn_policy       = "HTTP2Preferred"
 
   default_action {
     target_group_arn = aws_lb_target_group.test.arn
-    type             = "forward"
+    type    = "forward"
   }
 }
 `, rName, acctest.TLSPEMEscapeNewlines(certificate), acctest.TLSPEMEscapeNewlines(key)))
@@ -1329,8 +1329,8 @@ func testAccListenerConfig_redirect(rName string) string {
 	return acctest.ConfigCompose(testAccListenerConfig_base(rName), fmt.Sprintf(`
 resource "aws_lb_listener" "test" {
   load_balancer_arn = aws_lb.test.id
-  protocol          = "HTTP"
-  port              = "80"
+  protocol = "HTTP"
+  port     = "80"
 
   default_action {
     type = "redirect"
@@ -1344,10 +1344,10 @@ resource "aws_lb_listener" "test" {
 }
 
 resource "aws_lb" "test" {
-  name            = %[1]q
+  name   = %[1]q
   internal        = true
   security_groups = [aws_security_group.test.id]
-  subnets         = aws_subnet.test[*].id
+  subnets= aws_subnet.test[*].id
 
   idle_timeout= 30
   enable_deletion_protection = false
@@ -1363,8 +1363,8 @@ func testAccListenerConfig_fixedResponse(rName string) string {
 	return acctest.ConfigCompose(testAccListenerConfig_base(rName), fmt.Sprintf(`
 resource "aws_lb_listener" "test" {
   load_balancer_arn = aws_lb.test.id
-  protocol          = "HTTP"
-  port              = "80"
+  protocol = "HTTP"
+  port     = "80"
 
   default_action {
     type = "fixed-response"
@@ -1378,10 +1378,10 @@ resource "aws_lb_listener" "test" {
 }
 
 resource "aws_lb" "test" {
-  name            = %[1]q
+  name   = %[1]q
   internal        = true
   security_groups = [aws_security_group.test.id]
-  subnets         = aws_subnet.test[*].id
+  subnets= aws_subnet.test[*].id
 
   idle_timeout= 30
   enable_deletion_protection = false
@@ -1398,7 +1398,7 @@ func testAccListenerConfig_cognito(rName, key, certificate string) string {
 resource "aws_lb" "test" {
   name        = %[1]q
   internal    = false
-  security_groups            = [aws_security_group.test.id]
+  security_groups   = [aws_security_group.test.id]
   subnets     = aws_subnet.test[*].id
   enable_deletion_protection = false
 
@@ -1415,13 +1415,13 @@ resource "aws_lb_target_group" "test" {
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 
   tags = {
@@ -1447,14 +1447,14 @@ resource "aws_cognito_user_pool" "test" {
 
 resource "aws_cognito_user_pool_client" "test" {
   name   = %[1]q
-  user_pool_id          = aws_cognito_user_pool.test.id
+  user_pool_id = aws_cognito_user_pool.test.id
   generate_secret       = true
   allowed_oauth_flows_user_pool_client = true
   allowed_oauth_flows   = ["code", "implicit"]
   allowed_oauth_scopes  = ["phone", "email", "openid", "profile", "aws.cognito.signin.user.admin"]
-  callback_urls         = ["https://www.example.com/callback", "https://www.example.com/redirect"]
+  callback_urls= ["https://www.example.com/callback", "https://www.example.com/redirect"]
   default_redirect_uri  = "https://www.example.com/redirect"
-  logout_urls           = ["https://www.example.com/login"]
+  logout_urls  = ["https://www.example.com/login"]
 }
 
 resource "aws_cognito_user_pool_domain" "test" {
@@ -1463,15 +1463,15 @@ resource "aws_cognito_user_pool_domain" "test" {
 }
 
 resource "aws_iam_server_certificate" "test" {
-  name             = %[1]q
+  name    = %[1]q
   certificate_body = "%[2]s"
   private_key      = "%[3]s"
 }
 
 resource "aws_lb_listener" "test" {
   load_balancer_arn = aws_lb.test.id
-  protocol          = "HTTPS"
-  port              = "443"
+  protocol = "HTTPS"
+  port     = "443"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
   certificate_arn   = aws_iam_server_certificate.test.arn
 
@@ -1491,7 +1491,7 @@ resource "aws_lb_listener" "test" {
 
   default_action {
     target_group_arn = aws_lb_target_group.test.id
-    type             = "forward"
+    type    = "forward"
   }
 }
 `, rName, acctest.TLSPEMEscapeNewlines(certificate), acctest.TLSPEMEscapeNewlines(key)))
@@ -1502,7 +1502,7 @@ func testAccListenerConfig_oidc(rName, key, certificate string) string {
 resource "aws_lb" "test" {
   name        = %[1]q
   internal    = false
-  security_groups            = [aws_security_group.test.id]
+  security_groups   = [aws_security_group.test.id]
   subnets     = aws_subnet.test[*].id
   enable_deletion_protection = false
 
@@ -1519,13 +1519,13 @@ resource "aws_lb_target_group" "test" {
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 
   tags = {
@@ -1542,15 +1542,15 @@ resource "aws_internet_gateway" "test" {
 }
 
 resource "aws_iam_server_certificate" "test" {
-  name             = %[1]q
+  name    = %[1]q
   certificate_body = "%[2]s"
   private_key      = "%[3]s"
 }
 
 resource "aws_lb_listener" "test" {
   load_balancer_arn = aws_lb.test.id
-  protocol          = "HTTPS"
-  port              = "443"
+  protocol = "HTTPS"
+  port     = "443"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
   certificate_arn   = aws_iam_server_certificate.test.arn
 
@@ -1559,10 +1559,10 @@ resource "aws_lb_listener" "test" {
 
     authenticate_oidc {
       authorization_endpoint = "https://example.com/authorization_endpoint"
-      client_id              = "s6BhdRkqt3"
-      client_secret          = "7Fjfp0ZBr1KtDRbnfVdmIw"
+      client_id     = "s6BhdRkqt3"
+      client_secret = "7Fjfp0ZBr1KtDRbnfVdmIw"
       issuer  = "https://example.com"
-      token_endpoint         = "https://example.com/token_endpoint"
+      token_endpoint= "https://example.com/token_endpoint"
       user_info_endpoint     = "https://example.com/user_info_endpoint"
 
       authentication_request_extra_params = {
@@ -1573,7 +1573,7 @@ resource "aws_lb_listener" "test" {
 
   default_action {
     target_group_arn = aws_lb_target_group.test.id
-    type             = "forward"
+    type    = "forward"
   }
 }
 `, rName, acctest.TLSPEMEscapeNewlines(certificate), acctest.TLSPEMEscapeNewlines(key)))
@@ -1583,8 +1583,8 @@ func testAccListenerConfig_defaultActionOrder(rName, key, certificate string) st
 	return acctest.ConfigCompose(testAccListenerConfig_base(rName), fmt.Sprintf(`
 resource "aws_lb_listener" "test" {
   load_balancer_arn = aws_lb.test.id
-  protocol          = "HTTPS"
-  port              = "443"
+  protocol = "HTTPS"
+  port     = "443"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
   certificate_arn   = aws_iam_server_certificate.test.arn
 
@@ -1594,10 +1594,10 @@ resource "aws_lb_listener" "test" {
 
     authenticate_oidc {
       authorization_endpoint = "https://example.com/authorization_endpoint"
-      client_id              = "s6BhdRkqt3"
-      client_secret          = "7Fjfp0ZBr1KtDRbnfVdmIw"
+      client_id     = "s6BhdRkqt3"
+      client_secret = "7Fjfp0ZBr1KtDRbnfVdmIw"
       issuer  = "https://example.com"
-      token_endpoint         = "https://example.com/token_endpoint"
+      token_endpoint= "https://example.com/token_endpoint"
       user_info_endpoint     = "https://example.com/user_info_endpoint"
 
       authentication_request_extra_params = {
@@ -1607,23 +1607,23 @@ resource "aws_lb_listener" "test" {
   }
 
   default_action {
-    order            = 2
-    type             = "forward"
+    order   = 2
+    type    = "forward"
     target_group_arn = aws_lb_target_group.test.arn
   }
 }
 
 resource "aws_iam_server_certificate" "test" {
-  name             = %[1]q
+  name    = %[1]q
   certificate_body = "%[2]s"
   private_key      = "%[3]s"
 }
 
 resource "aws_lb" "test" {
   internal        = true
-  name            = %[1]q
+  name   = %[1]q
   security_groups = [aws_security_group.test.id]
-  subnets         = aws_subnet.test[*].id
+  subnets= aws_subnet.test[*].id
 
   tags = {
     Name = %[1]q
@@ -1638,13 +1638,13 @@ resource "aws_lb_target_group" "test" {
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 
   tags = {
@@ -1658,12 +1658,12 @@ func testAccListenerConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccListenerConfig_base(rName), fmt.Sprintf(`
 resource "aws_lb_listener" "test" {
   load_balancer_arn = aws_lb.test.id
-  protocol          = "HTTP"
-  port              = "80"
+  protocol = "HTTP"
+  port     = "80"
 
   default_action {
     target_group_arn = aws_lb_target_group.test.id
-    type             = "forward"
+    type    = "forward"
   }
 
   tags = {
@@ -1672,10 +1672,10 @@ resource "aws_lb_listener" "test" {
 }
 
 resource "aws_lb" "test" {
-  name            = %[1]q
+  name   = %[1]q
   internal        = true
   security_groups = [aws_security_group.test.id]
-  subnets         = aws_subnet.test[*].id
+  subnets= aws_subnet.test[*].id
 
   idle_timeout= 30
   enable_deletion_protection = false
@@ -1693,13 +1693,13 @@ resource "aws_lb_target_group" "test" {
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 
   tags = {
@@ -1713,12 +1713,12 @@ func testAccListenerConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 s
 	return acctest.ConfigCompose(testAccListenerConfig_base(rName), fmt.Sprintf(`
 resource "aws_lb_listener" "test" {
   load_balancer_arn = aws_lb.test.id
-  protocol          = "HTTP"
-  port              = "80"
+  protocol = "HTTP"
+  port     = "80"
 
   default_action {
     target_group_arn = aws_lb_target_group.test.id
-    type             = "forward"
+    type    = "forward"
   }
 
   tags = {
@@ -1728,10 +1728,10 @@ resource "aws_lb_listener" "test" {
 }
 
 resource "aws_lb" "test" {
-  name            = %[1]q
+  name   = %[1]q
   internal        = true
   security_groups = [aws_security_group.test.id]
-  subnets         = aws_subnet.test[*].id
+  subnets= aws_subnet.test[*].id
 
   idle_timeout= 30
   enable_deletion_protection = false
@@ -1749,13 +1749,13 @@ resource "aws_lb_target_group" "test" {
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 
   tags = {

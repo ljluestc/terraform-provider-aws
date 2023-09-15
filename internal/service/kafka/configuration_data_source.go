@@ -41,7 +41,7 @@ func DataSourceConfiguration() *schema.Resource {
 				Computed: true,
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringLenBetween(1, 64),
 			},

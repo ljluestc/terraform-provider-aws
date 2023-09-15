@@ -42,7 +42,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.ObservabilityAccessManagerEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-CheckDestroy:             testAccCheckLinkDestroy(ctx),
+CheckDestroy:    testAccCheckLinkDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLinkConfig_basic(rName),
@@ -86,7 +86,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.ObservabilityAccessManagerEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-CheckDestroy:             testAccCheckLinkDestroy(ctx),
+CheckDestroy:    testAccCheckLinkDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLinkConfig_basic(rName),
@@ -119,7 +119,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.ObservabilityAccessManagerEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-CheckDestroy:             testAccCheckLinkDestroy(ctx),
+CheckDestroy:    testAccCheckLinkDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLinkConfig_basic(rName),
@@ -178,7 +178,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.ObservabilityAccessManagerEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-CheckDestroy:             testAccCheckLinkDestroy(ctx),
+CheckDestroy:    testAccCheckLinkDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLinkConfig_tags1(rName, "key1", "value1"),
@@ -301,12 +301,12 @@ resource "aws_oam_sink_policy" "test" {
         Effect   = "Allow"
         Resource = "*"
         Principal = {
-          "AWS" = "arn:${data.aws_partition.source.partition}:iam::${data.aws_caller_identity.source.account_id}:root"
+ "AWS" = "arn:${data.aws_partition.source.partition}:iam::${data.aws_caller_identity.source.account_id}:root"
         }
         Condition = {
-          "ForAnyValue:StringEquals" = {
-            "oam:ResourceTypes" = ["AWS::CloudWatch::Metric", "AWS::Logs::LogGroup"]
-          }
+ "ForAnyValue:StringEquals" = {
+   "oam:ResourceTypes" = ["AWS::CloudWatch::Metric", "AWS::Logs::LogGroup"]
+ }
         }
       }
     ]
@@ -353,12 +353,12 @@ resource "aws_oam_sink_policy" "test" {
         Effect   = "Allow"
         Resource = "*"
         Principal = {
-          "AWS" = "arn:${data.aws_partition.source.partition}:iam::${data.aws_caller_identity.source.account_id}:root"
+ "AWS" = "arn:${data.aws_partition.source.partition}:iam::${data.aws_caller_identity.source.account_id}:root"
         }
         Condition = {
-          "ForAnyValue:StringEquals" = {
-            "oam:ResourceTypes" = ["AWS::CloudWatch::Metric", "AWS::Logs::LogGroup"]
-          }
+ "ForAnyValue:StringEquals" = {
+   "oam:ResourceTypes" = ["AWS::CloudWatch::Metric", "AWS::Logs::LogGroup"]
+ }
         }
       }
     ]
@@ -405,12 +405,12 @@ resource "aws_oam_sink_policy" "test" {
         Effect   = "Allow"
         Resource = "*"
         Principal = {
-          "AWS" = "arn:${data.aws_partition.source.partition}:iam::${data.aws_caller_identity.source.account_id}:root"
+ "AWS" = "arn:${data.aws_partition.source.partition}:iam::${data.aws_caller_identity.source.account_id}:root"
         }
         Condition = {
-          "ForAnyValue:StringEquals" = {
-            "oam:ResourceTypes" = ["AWS::CloudWatch::Metric", "AWS::Logs::LogGroup"]
-          }
+ "ForAnyValue:StringEquals" = {
+   "oam:ResourceTypes" = ["AWS::CloudWatch::Metric", "AWS::Logs::LogGroup"]
+ }
         }
       }
     ]
@@ -460,12 +460,12 @@ resource "aws_oam_sink_policy" "test" {
         Effect   = "Allow"
         Resource = "*"
         Principal = {
-          "AWS" = "arn:${data.aws_partition.source.partition}:iam::${data.aws_caller_identity.source.account_id}:root"
+ "AWS" = "arn:${data.aws_partition.source.partition}:iam::${data.aws_caller_identity.source.account_id}:root"
         }
         Condition = {
-          "ForAnyValue:StringEquals" = {
-            "oam:ResourceTypes" = ["AWS::CloudWatch::Metric", "AWS::Logs::LogGroup"]
-          }
+ "ForAnyValue:StringEquals" = {
+   "oam:ResourceTypes" = ["AWS::CloudWatch::Metric", "AWS::Logs::LogGroup"]
+ }
         }
       }
     ]

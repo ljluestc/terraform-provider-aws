@@ -110,7 +110,7 @@ resource "aws_lambda_function" "test" {
   filename      = "test-fixtures/lambdatest.zip"
   function_name = %[1]q
   handler       = "exports.example"
-  role          = aws_iam_role.lambda.arn
+  role = aws_iam_role.lambda.arn
   runtime       = "nodejs14.x"
 }
 
@@ -124,7 +124,7 @@ resource "aws_lambda_function_url" "test" {
     allow_methods     = ["*"]
     allow_headers     = ["date", "keep-alive"]
     expose_headers    = ["keep-alive", "date"]
-    max_age           = 86400
+    max_age  = 86400
   }
 }
 

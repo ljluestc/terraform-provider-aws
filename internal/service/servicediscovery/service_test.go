@@ -32,7 +32,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, servicediscovery.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckServiceDestroy(ctx),
+CheckDestroy:    testAccCheckServiceDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccServiceConfig_private(rName, 5),
@@ -54,8 +54,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"force_destroy"},
 	},
@@ -96,7 +96,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, servicediscovery.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckServiceDestroy(ctx),
+CheckDestroy:    testAccCheckServiceDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccServiceConfig_public(rName, 5, "/path"),
@@ -115,8 +115,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"force_destroy"},
 	},
@@ -160,7 +160,7 @@ func TestAccServiceDiscoveryService_private_http(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, servicediscovery.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, servicediscovery.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckServiceDestroy(ctx),
+CheckDestroy:    testAccCheckServiceDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccServiceConfig_private_http(rName),
@@ -173,8 +173,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"force_destroy"},
 	},
@@ -191,7 +191,7 @@ func TestAccServiceDiscoveryService_http(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, servicediscovery.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, servicediscovery.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckServiceDestroy(ctx),
+CheckDestroy:    testAccCheckServiceDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccServiceConfig_http(rName),
@@ -203,8 +203,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"force_destroy"},
 	},
@@ -221,7 +221,7 @@ func TestAccServiceDiscoveryService_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, servicediscovery.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, servicediscovery.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckServiceDestroy(ctx),
+CheckDestroy:    testAccCheckServiceDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccServiceConfig_http(rName),
@@ -244,7 +244,7 @@ func TestAccServiceDiscoveryService_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, servicediscovery.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, servicediscovery.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckServiceDestroy(ctx),
+CheckDestroy:    testAccCheckServiceDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccServiceConfig_tags1(rName, "key1", "value1"),
@@ -255,8 +255,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"force_destroy"},
 	},
@@ -453,7 +453,7 @@ resource "aws_service_discovery_service" "test" {
   health_check_config {
     failure_threshold = %[2]d
     resource_path     = %[3]q
-    type              = "HTTP"
+    type     = "HTTP"
   }
 }
 `, rName, th, path)
@@ -489,7 +489,7 @@ resource "aws_service_discovery_http_namespace" "test" {
 }
 
 resource "aws_service_discovery_service" "test" {
-  name         = %[1]q
+  name= %[1]q
   namespace_id = aws_service_discovery_http_namespace.test.id
 }
 `, rName)
@@ -502,7 +502,7 @@ resource "aws_service_discovery_http_namespace" "test" {
 }
 
 resource "aws_service_discovery_service" "test" {
-  name         = %[1]q
+  name= %[1]q
   namespace_id = aws_service_discovery_http_namespace.test.id
 
   tags = {
@@ -519,7 +519,7 @@ resource "aws_service_discovery_http_namespace" "test" {
 }
 
 resource "aws_service_discovery_service" "test" {
-  name         = %[1]q
+  name= %[1]q
   namespace_id = aws_service_discovery_http_namespace.test.id
 
   tags = {

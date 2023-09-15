@@ -61,12 +61,12 @@ func ResourceMetricAlarm() *schema.Resource {
 				},
 			},
 			"alarm_description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 1024),
 			},
 			"alarm_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 255),
@@ -76,34 +76,34 @@ func ResourceMetricAlarm() *schema.Resource {
 				Computed: true,
 			},
 			"comparison_operator": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringInSlice(cloudwatch.ComparisonOperator_Values(), false),
 			},
 			"datapoints_to_alarm": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				ValidateFunc: validation.IntAtLeast(1),
 			},
 			"dimensions": {
-				Type:          schema.TypeMap,
+				Type: schema.TypeMap,
 				Optional:      true,
-				Elem:          &schema.Schema{Type: schema.TypeString},
+				Elem: &schema.Schema{Type: schema.TypeString},
 				ConflictsWith: []string{"metric_query"},
 			},
 			"evaluate_low_sample_count_percentiles": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: validation.StringInSlice(lowSampleCountPercentiles_Values(), true),
 			},
 			"evaluation_periods": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Required:     true,
 				ValidateFunc: validation.IntAtLeast(1),
 			},
 			"extended_statistic": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ConflictsWith: []string{"statistic", "metric_query"},
 				ValidateFunc: validation.StringMatch(
@@ -125,29 +125,29 @@ func ResourceMetricAlarm() *schema.Resource {
 				},
 			},
 			"metric_name": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ConflictsWith: []string{"metric_query"},
 				ValidateFunc:  validation.StringLenBetween(1, 255),
 			},
 			"metric_query": {
-				Type:          schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional:      true,
 				ConflictsWith: []string{"metric_name"},
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"id": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringLenBetween(1, 255),
 						},
 						"account_id": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringLenBetween(1, 255),
 						},
 						"expression": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringLenBetween(1, 1024),
 						},
@@ -163,7 +163,7 @@ func ResourceMetricAlarm() *schema.Resource {
 										Elem:     &schema.Schema{Type: schema.TypeString},
 									},
 									"metric_name": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: validation.StringLenBetween(1, 255),
 									},
@@ -196,7 +196,7 @@ func ResourceMetricAlarm() *schema.Resource {
 										),
 									},
 									"unit": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: validation.StringInSlice(cloudwatch.StandardUnit_Values(), false),
 									},
@@ -224,7 +224,7 @@ func ResourceMetricAlarm() *schema.Resource {
 				},
 			},
 			"namespace": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ConflictsWith: []string{"metric_query"},
 				ValidateFunc: validation.All(
@@ -245,7 +245,7 @@ func ResourceMetricAlarm() *schema.Resource {
 				},
 			},
 			"period": {
-				Type:          schema.TypeInt,
+				Type: schema.TypeInt,
 				Optional:      true,
 				ConflictsWith: []string{"metric_query"},
 				ValidateFunc: validation.Any(
@@ -254,7 +254,7 @@ func ResourceMetricAlarm() *schema.Resource {
 				),
 			},
 			"statistic": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ConflictsWith: []string{"extended_statistic", "metric_query"},
 				ValidateFunc:  validation.StringInSlice(cloudwatch.Statistic_Values(), false),
@@ -262,24 +262,24 @@ func ResourceMetricAlarm() *schema.Resource {
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"threshold": {
-				Type:          schema.TypeFloat,
+				Type: schema.TypeFloat,
 				Optional:      true,
 				ConflictsWith: []string{"threshold_metric_id"},
 			},
 			"threshold_metric_id": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ConflictsWith: []string{"threshold"},
 				ValidateFunc:  validation.StringLenBetween(1, 255),
 			},
 			"treat_missing_data": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Default:      missingDataMissing,
 				ValidateFunc: validation.StringInSlice(missingData_Values(), true),
 			},
 			"unit": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringInSlice(cloudwatch.StandardUnit_Values(), false),
 			},
@@ -485,10 +485,10 @@ func FindMetricAlarmByName(ctx context.Context, conn *cloudwatch.CloudWatch, nam
 
 func expandPutMetricAlarmInput(ctx context.Context, d *schema.ResourceData) *cloudwatch.PutMetricAlarmInput {
 	apiObject := &cloudwatch.PutMetricAlarmInput{
-		AlarmName:          aws.String(d.Get("alarm_name").(string)),
+		AlarmName: aws.String(d.Get("alarm_name").(string)),
 		ComparisonOperator: aws.String(d.Get("comparison_operator").(string)),
 		EvaluationPeriods:  aws.Int64(int64(d.Get("evaluation_periods").(int))),
-		Tags:               getTagsIn(ctx),
+		Tags:      getTagsIn(ctx),
 		TreatMissingData:   aws.String(d.Get("treat_missing_data").(string)),
 	}
 
@@ -575,7 +575,7 @@ func flattenMetricAlarmMetrics(metrics []*cloudwatch.MetricDataQuery) []map[stri
 		metricQuery := map[string]interface{}{
 			"account_id":  aws.StringValue(mq.AccountId),
 			"expression":  aws.StringValue(mq.Expression),
-			"id":          aws.StringValue(mq.Id),
+			"id": aws.StringValue(mq.Id),
 			"label":       aws.StringValue(mq.Label),
 			"return_data": aws.BoolValue(mq.ReturnData),
 		}

@@ -51,7 +51,7 @@ func ResourceSchedule() *schema.Resource {
 				Computed: true,
 			},
 			"end_time": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: validScheduleTimestamp,
@@ -77,7 +77,7 @@ func ResourceSchedule() *schema.Resource {
 				ForceNew: true,
 			},
 			"start_time": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: validScheduleTimestamp,

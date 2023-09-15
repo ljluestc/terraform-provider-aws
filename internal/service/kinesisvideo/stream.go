@@ -104,7 +104,7 @@ func resourceStreamCreate(ctx context.Context, d *schema.ResourceData, meta inte
 	conn := meta.(*conns.AWSClient).KinesisVideoConn(ctx)
 
 	input := &kinesisvideo.CreateStreamInput{
-StreamName:           aws.String(d.Get("name").(string)),
+StreamName:  aws.String(d.Get("name").(string)),
 DataRetentionInHours: aws.Int64(int64(d.Get("data_retention_in_hours").(int))),
 Tags:  getTagsIn(ctx),
 	}

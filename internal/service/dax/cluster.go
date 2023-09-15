@@ -52,7 +52,7 @@ Type:     schema.TypeString,
 Computed: true,
 	},
 	"cluster_endpoint_encryption_type": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ForceNew:     true,
 ValidateFunc: validation.StringInSlice(dax.ClusterEndpointEncryptionType_Values(), false),
@@ -81,7 +81,7 @@ ValidateFunc: validation.All(
 ),
 	},
 	"iam_role_arn": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ForceNew:     true,
 ValidateFunc: verify.ValidARN,
@@ -216,11 +216,11 @@ func resourceClusterCreate(ctx context.Context, d *schema.ResourceData, meta int
 	input := &dax.CreateClusterInput{
 ClusterName:       aws.String(clusterName),
 IamRoleArn:        aws.String(iamRoleArn),
-NodeType:          aws.String(nodeType),
+NodeType: aws.String(nodeType),
 ReplicationFactor: aws.Int64(numNodes),
 SecurityGroupIds:  securityIds,
 SubnetGroupName:   aws.String(subnetGroupName),
-Tags:              getTagsIn(ctx),
+Tags:     getTagsIn(ctx),
 	}
 
 	// optionals can be defaulted by AWS
@@ -425,7 +425,7 @@ n := nraw.(int)
 if n < o {
 	log.Printf("[INFO] Decreasing nodes in DAX cluster %s from %d to %d", d.Id(), o, n)
 	_, err := conn.DecreaseReplicationFactorWithContext(ctx, &dax.DecreaseReplicationFactorInput{
-ClusterName:          aws.String(d.Id()),
+ClusterName: aws.String(d.Id()),
 NewReplicationFactor: aws.Int64(int64(nraw.(int))),
 	})
 	if err != nil {
@@ -436,7 +436,7 @@ return sdkdiag.AppendErrorf(diags, "increasing nodes in DAX cluster %s, error: %
 if n > o {
 	log.Printf("[INFO] Increasing nodes in DAX cluster %s from %d to %d", d.Id(), o, n)
 	_, err := conn.IncreaseReplicationFactorWithContext(ctx, &dax.IncreaseReplicationFactorInput{
-ClusterName:          aws.String(d.Id()),
+ClusterName: aws.String(d.Id()),
 NewReplicationFactor: aws.Int64(int64(nraw.(int))),
 	})
 	if err != nil {
@@ -480,8 +480,8 @@ if node.NodeId == nil || node.Endpoint == nil || node.Endpoint.Address == nil ||
 }
 nodeData = append(nodeData, map[string]interface{}{
 	"id": aws.StringValue(node.NodeId),
-	"address":           aws.StringValue(node.Endpoint.Address),
-	"port":              aws.Int64Value(node.Endpoint.Port),
+	"address":  aws.StringValue(node.Endpoint.Address),
+	"port":     aws.Int64Value(node.Endpoint.Port),
 	"availability_zone": aws.StringValue(node.AvailabilityZone),
 })
 	}

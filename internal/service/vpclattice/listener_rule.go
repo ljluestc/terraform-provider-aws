@@ -98,7 +98,7 @@ func ResourceListenerRule() *schema.Resource {
 													Required: true,
 												},
 												"weight": {
-													Type:         schema.TypeInt,
+													Type:schema.TypeInt,
 													ValidateFunc: validation.IntBetween(0, 999),
 													Default:      100,
 													Optional:     true,
@@ -122,17 +122,17 @@ func ResourceListenerRule() *schema.Resource {
 				ForceNew: true,
 			},
 			"match": {
-				Type:             schema.TypeList,
-				Required:         true,
-				MaxItems:         1,
+				Type:    schema.TypeList,
+				Required:true,
+				MaxItems:1,
 				DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"http_match": {
-							Type:             schema.TypeList,
-							Optional:         true,
+							Type:    schema.TypeList,
+							Optional:true,
 							DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
-							MaxItems:         1,
+							MaxItems:1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"method": {
@@ -140,11 +140,11 @@ func ResourceListenerRule() *schema.Resource {
 										Optional: true,
 									},
 									"header_matches": {
-										Type:             schema.TypeList,
-										Optional:         true,
+										Type:    schema.TypeList,
+										Optional:true,
 										DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
-										MinItems:         1,
-										MaxItems:         5,
+										MinItems:1,
+										MaxItems:5,
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"case_sensitive": {
@@ -152,9 +152,9 @@ func ResourceListenerRule() *schema.Resource {
 													Optional: true,
 												},
 												"match": {
-													Type:             schema.TypeList,
-													Required:         true,
-													MaxItems:         1,
+													Type:    schema.TypeList,
+													Required:true,
+													MaxItems:1,
 													DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 													Elem: &schema.Resource{
 														Schema: map[string]*schema.Schema{
@@ -217,13 +217,13 @@ func ResourceListenerRule() *schema.Resource {
 				},
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(3, 63),
 			},
 			"priority": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Required:     true,
 				ValidateFunc: validation.IntBetween(1, 100),
 			},
@@ -255,13 +255,13 @@ func resourceListenerRuleCreate(ctx context.Context, d *schema.ResourceData, met
 
 	name := d.Get("name").(string)
 	in := &vpclattice.CreateRuleInput{
-		Action:             expandRuleAction(d.Get("action").([]interface{})[0].(map[string]interface{})),
+		Action:    expandRuleAction(d.Get("action").([]interface{})[0].(map[string]interface{})),
 		ClientToken:        aws.String(id.UniqueId()),
 		ListenerIdentifier: aws.String(d.Get("listener_identifier").(string)),
-		Match:              expandRuleMatch(d.Get("match").([]interface{})[0].(map[string]interface{})),
-		Name:               aws.String(name),
+		Match:     expandRuleMatch(d.Get("match").([]interface{})[0].(map[string]interface{})),
+		Name:      aws.String(name),
 		ServiceIdentifier:  aws.String(d.Get("service_identifier").(string)),
-		Tags:               getTagsIn(ctx),
+		Tags:      getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("priority"); ok {

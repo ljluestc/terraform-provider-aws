@@ -36,7 +36,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCertificateDestroy(ctx),
+CheckDestroy:    testAccCheckCertificateDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCertificateConfig_basic(certificate, key, caCertificate),
@@ -50,8 +50,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"private_key", "certificate", "certificate_chain"},
 	},
@@ -74,7 +74,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCertificateDestroy(ctx),
+CheckDestroy:    testAccCheckCertificateDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCertificateConfig_certificate(caCertificate),
@@ -87,8 +87,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"private_key", "certificate", "certificate_chain"},
 	},
@@ -115,7 +115,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCertificateDestroy(ctx),
+CheckDestroy:    testAccCheckCertificateDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCertificateConfig_certificateChain(certificate, caCertificate),
@@ -128,8 +128,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"private_key", "certificate", "certificate_chain"},
 	},
@@ -152,7 +152,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCertificateDestroy(ctx),
+CheckDestroy:    testAccCheckCertificateDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCertificateConfig_certificatePrivateKey(certificate, key),
@@ -165,8 +165,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"private_key", "certificate", "certificate_chain"},
 	},
@@ -189,7 +189,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCertificateDestroy(ctx),
+CheckDestroy:    testAccCheckCertificateDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCertificateConfig_certificate(certificate),
@@ -218,7 +218,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCertificateDestroy(ctx),
+CheckDestroy:    testAccCheckCertificateDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCertificateConfig_tags1(certificate, "key1", "value1"),
@@ -229,8 +229,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"private_key", "certificate", "certificate_chain"},
 	},
@@ -270,7 +270,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCertificateDestroy(ctx),
+CheckDestroy:    testAccCheckCertificateDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCertificateConfig_description(certificate, "desc1"),
@@ -280,8 +280,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"private_key", "certificate", "certificate_chain"},
 	},
@@ -353,7 +353,7 @@ resource "aws_transfer_certificate" "test" {
   certificate       = %[1]q
   private_key       = %[2]q
   certificate_chain = %[3]q
-  usage             = "SIGNING"
+  usage    = "SIGNING"
 }
 `, certificate, privateKey, caCertificate)
 }
@@ -372,7 +372,7 @@ func testAccCertificateConfig_certificateChain(certificate, caCertificate string
 resource "aws_transfer_certificate" "test" {
   certificate       = %[1]q
   certificate_chain = %[2]q
-  usage             = "SIGNING"
+  usage    = "SIGNING"
 }
 `, certificate, caCertificate)
 }

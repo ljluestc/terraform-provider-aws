@@ -98,7 +98,7 @@ func TestAccDynamoDBKinesisStreamingDestination_Disappears_dynamoDBTable(t *test
 func testAccKinesisStreamingDestinationConfig_basic(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_dynamodb_table" "test" {
-  name           = %[1]q
+  name  = %[1]q
   read_capacity  = 10
   write_capacity = 10
   hash_key       = "hk"

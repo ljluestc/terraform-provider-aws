@@ -41,7 +41,7 @@ func ResourceBudget() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"account_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Computed:     true,
 				Optional:     true,
 				ForceNew:     true,
@@ -58,7 +58,7 @@ func ResourceBudget() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"auto_adjust_type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringInSlice(budgets.AutoAdjustType_Values(), false),
 						},
@@ -69,7 +69,7 @@ func ResourceBudget() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"budget_adjustment_period": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Required:     true,
 										ValidateFunc: validation.IntBetween(1, 60),
 									},
@@ -88,7 +88,7 @@ func ResourceBudget() *schema.Resource {
 				},
 			},
 			"budget_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringInSlice(budgets.BudgetType_Values(), false),
 			},
@@ -178,27 +178,27 @@ func ResourceBudget() *schema.Resource {
 				},
 			},
 			"limit_amount": {
-				Type:             schema.TypeString,
-				Optional:         true,
-				Computed:         true,
+				Type:    schema.TypeString,
+				Optional:true,
+				Computed:true,
 				DiffSuppressFunc: suppressEquivalentBudgetLimitAmount,
 				ConflictsWith:    []string{"planned_limit"},
 			},
 			"limit_unit": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ConflictsWith: []string{"planned_limit"},
 			},
 			"name": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
 				ConflictsWith: []string{"name_prefix"},
 			},
 			"name_prefix": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -210,12 +210,12 @@ func ResourceBudget() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"comparison_operator": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringInSlice(budgets.ComparisonOperator_Values(), false),
 						},
 						"notification_type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringInSlice(budgets.NotificationType_Values(), false),
 						},
@@ -228,7 +228,7 @@ func ResourceBudget() *schema.Resource {
 							Type:     schema.TypeSet,
 							Optional: true,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: verify.ValidARN,
 							},
 						},
@@ -237,7 +237,7 @@ func ResourceBudget() *schema.Resource {
 							Required: true,
 						},
 						"threshold_type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringInSlice(budgets.ThresholdType_Values(), false),
 						},
@@ -250,12 +250,12 @@ func ResourceBudget() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"amount": {
-							Type:             schema.TypeString,
-							Required:         true,
+							Type:    schema.TypeString,
+							Required:true,
 							DiffSuppressFunc: suppressEquivalentBudgetLimitAmount,
 						},
 						"start_time": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validTimePeriodTimestamp,
 						},
@@ -268,19 +268,19 @@ func ResourceBudget() *schema.Resource {
 				ConflictsWith: []string{"limit_amount", "limit_unit"},
 			},
 			"time_period_end": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Default:      "2087-06-15_00:00",
 				ValidateFunc: validTimePeriodTimestamp,
 			},
 			"time_period_start": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: validTimePeriodTimestamp,
 			},
 			"time_unit": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringInSlice(budgets.TimeUnit_Values(), false),
 			},
@@ -735,17 +735,17 @@ func flattenCostTypes(costTypes *budgets.CostTypes) []map[string]interface{} {
 	}
 
 	m := map[string]interface{}{
-		"include_credit":             aws.BoolValue(costTypes.IncludeCredit),
-		"include_discount":           aws.BoolValue(costTypes.IncludeDiscount),
+		"include_credit":    aws.BoolValue(costTypes.IncludeCredit),
+		"include_discount":  aws.BoolValue(costTypes.IncludeDiscount),
 		"include_other_subscription": aws.BoolValue(costTypes.IncludeOtherSubscription),
-		"include_recurring":          aws.BoolValue(costTypes.IncludeRecurring),
-		"include_refund":             aws.BoolValue(costTypes.IncludeRefund),
+		"include_recurring": aws.BoolValue(costTypes.IncludeRecurring),
+		"include_refund":    aws.BoolValue(costTypes.IncludeRefund),
 		"include_subscription":       aws.BoolValue(costTypes.IncludeSubscription),
-		"include_support":            aws.BoolValue(costTypes.IncludeSupport),
-		"include_tax":                aws.BoolValue(costTypes.IncludeTax),
-		"include_upfront":            aws.BoolValue(costTypes.IncludeUpfront),
-		"use_amortized":              aws.BoolValue(costTypes.UseAmortized),
-		"use_blended":                aws.BoolValue(costTypes.UseBlended),
+		"include_support":   aws.BoolValue(costTypes.IncludeSupport),
+		"include_tax":       aws.BoolValue(costTypes.IncludeTax),
+		"include_upfront":   aws.BoolValue(costTypes.IncludeUpfront),
+		"use_amortized":     aws.BoolValue(costTypes.UseAmortized),
+		"use_blended":       aws.BoolValue(costTypes.UseBlended),
 	}
 	return []map[string]interface{}{m}
 }
@@ -980,7 +980,7 @@ func expandBudgetNotificationsUnmarshal(notificationsRaw []interface{}) ([]*budg
 
 		notifications[i] = &budgets.Notification{
 			ComparisonOperator: aws.String(comparisonOperator),
-			Threshold:          aws.Float64(threshold),
+			Threshold: aws.Float64(threshold),
 			ThresholdType:      aws.String(thresholdType),
 			NotificationType:   aws.String(notificationType),
 		}
@@ -999,7 +999,7 @@ func expandSubscribers(rawList interface{}, subscriptionType string) []*budgets.
 	for _, addr := range addrs {
 		result = append(result, &budgets.Subscriber{
 			SubscriptionType: aws.String(subscriptionType),
-			Address:          addr,
+			Address: addr,
 		})
 	}
 	return result

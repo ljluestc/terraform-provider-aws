@@ -276,7 +276,7 @@ func TestAccKMSKeyDataSource_multiRegionConfigurationByID(t *testing.T) {
 func testAccKeyDataSourceConfig_byKeyARN(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description    = %[1]q
   deletion_window_in_days = 7
 }
 
@@ -289,7 +289,7 @@ data "aws_kms_key" "test" {
 func testAccKeyDataSourceConfig_byKeyID(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description    = %[1]q
   deletion_window_in_days = 7
 }
 
@@ -302,12 +302,12 @@ data "aws_kms_key" "test" {
 func testAccKeyDataSourceConfig_byAliasARN(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description    = %[1]q
   deletion_window_in_days = 7
 }
 
 resource "aws_kms_alias" "test" {
-  name          = "alias/%[1]s"
+  name = "alias/%[1]s"
   target_key_id = aws_kms_key.test.id
 }
 
@@ -320,12 +320,12 @@ data "aws_kms_key" "test" {
 func testAccKeyDataSourceConfig_byAliasID(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description    = %[1]q
   deletion_window_in_days = 7
 }
 
 resource "aws_kms_alias" "test" {
-  name          = "alias/%[1]s"
+  name = "alias/%[1]s"
   target_key_id = aws_kms_key.test.id
 }
 
@@ -338,8 +338,8 @@ data "aws_kms_key" "test" {
 func testAccKeyDataSourceConfig_grantToken(rName string) string {
 	return acctest.ConfigCompose(testAccGrantConfig_base(rName), fmt.Sprintf(`
 resource "aws_kms_grant" "test" {
-  name              = %[1]q
-  key_id            = aws_kms_key.test.key_id
+  name     = %[1]q
+  key_id   = aws_kms_key.test.key_id
   grantee_principal = aws_iam_role.test.arn
   operations        = ["DescribeKey"]
 }
@@ -354,9 +354,9 @@ data "aws_kms_key" "test" {
 func testAccKeyDataSourceConfig_multiRegionByARN(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description    = %[1]q
   deletion_window_in_days = 7
-  multi_region            = true
+  multi_region   = true
 }
 
 data "aws_kms_key" "test" {
@@ -368,9 +368,9 @@ data "aws_kms_key" "test" {
 func testAccKeyDataSourceConfig_multiRegionByID(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description    = %[1]q
   deletion_window_in_days = 7
-  multi_region            = true
+  multi_region   = true
 }
 
 data "aws_kms_key" "test" {

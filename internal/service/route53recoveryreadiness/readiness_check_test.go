@@ -38,7 +38,7 @@ Service:   "cloudwatch",
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53recoveryreadiness.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckReadinessCheckDestroy(ctx),
+CheckDestroy:    testAccCheckReadinessCheckDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccReadinessCheckConfig_basic(rName, rSetName, cwArn),
@@ -74,7 +74,7 @@ Service:   "cloudwatch",
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53recoveryreadiness.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckReadinessCheckDestroy(ctx),
+CheckDestroy:    testAccCheckReadinessCheckDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccReadinessCheckConfig_basic(rName, rSetName, cwArn),
@@ -104,7 +104,7 @@ Service:   "cloudwatch",
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53recoveryreadiness.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckReadinessCheckDestroy(ctx),
+CheckDestroy:    testAccCheckReadinessCheckDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccReadinessCheckConfig_tags1(rName, cwArn, "key1", "value1"),
@@ -157,7 +157,7 @@ Service:   "cloudwatch",
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, route53recoveryreadiness.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckReadinessCheckDestroy(ctx),
+CheckDestroy:    testAccCheckReadinessCheckDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccReadinessCheckConfig_timeout(rName, rSetName, cwArn),

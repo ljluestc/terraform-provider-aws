@@ -45,13 +45,13 @@ func resourceServiceNetwork() *schema.Resource {
 				Computed: true,
 			},
 			"auth_type": {
-				Type:             schema.TypeString,
-				Optional:         true,
-				Computed:         true,
+				Type:    schema.TypeString,
+				Optional:true,
+				Computed:true,
 				ValidateDiagFunc: enum.Validate[types.AuthType](),
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(3, 63),

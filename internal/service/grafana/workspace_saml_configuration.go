@@ -207,7 +207,7 @@ func resourceWorkspaceSAMLConfigurationUpsert(ctx context.Context, d *schema.Res
 	input := &managedgrafana.UpdateWorkspaceAuthenticationInput{
 		AuthenticationProviders: authenticationProviders,
 		SamlConfiguration:       samlConfiguration,
-		WorkspaceId:             aws.String(d.Id()),
+		WorkspaceId:    aws.String(d.Id()),
 	}
 
 	_, err = conn.UpdateWorkspaceAuthenticationWithContext(ctx, input)

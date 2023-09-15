@@ -53,7 +53,7 @@ resource "aws_cloudformation_stack" "test" {
       MyVPC = {
         Type = "AWS::EC2::VPC"
         Properties = {
-          CidrBlock = "10.1.0.0/16"
+ CidrBlock = "10.1.0.0/16"
         }
       }
     }
@@ -62,7 +62,7 @@ resource "aws_cloudformation_stack" "test" {
       VpcID = {
         Description = "VPC ID"
         Value = {
-          Ref = "MyVPC"
+ Ref = "MyVPC"
         }
       }
     }
@@ -70,17 +70,17 @@ resource "aws_cloudformation_stack" "test" {
 }
 
 resource "aws_servicecatalog_product" "test" {
-  description         = "beskrivning"
-  distributor         = "distributör"
+  description= "beskrivning"
+  distributor= "distributör"
   name = %[1]q
   owner= "ägare"
   type = "CLOUD_FORMATION_TEMPLATE"
   support_description = "supportbeskrivning"
   support_email       = %[3]q
-  support_url         = %[2]q
+  support_url= %[2]q
 
   provisioning_artifact_parameters {
-    description          = "artefaktbeskrivning"
+    description = "artefaktbeskrivning"
     name  = %[1]q
     template_physical_id = aws_cloudformation_stack.test.id
     type  = "CLOUD_FORMATION_TEMPLATE"
@@ -92,7 +92,7 @@ resource "aws_servicecatalog_product" "test" {
 }
 
 resource "aws_servicecatalog_portfolio" "test" {
-  name          = %[1]q
+  name = %[1]q
   provider_name = %[1]q
 }
 

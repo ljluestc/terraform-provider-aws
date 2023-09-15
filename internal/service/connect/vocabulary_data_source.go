@@ -37,7 +37,7 @@ func DataSourceVocabulary() *schema.Resource {
 				Computed: true,
 			},
 			"instance_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				Validate
 func: validation.StringLenBetween(1, 100),
@@ -51,7 +51,7 @@ func: validation.StringLenBetween(1, 100),
 				Computed: true,
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ExactlyOneOf: []string{"name", "vocabulary_id"},
@@ -62,7 +62,7 @@ func: validation.StringLenBetween(1, 100),
 			},
 			"tags": tftags.TagsSchemaComputed(),
 			"vocabulary_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ExactlyOneOf: []string{"vocabulary_id", "name"},

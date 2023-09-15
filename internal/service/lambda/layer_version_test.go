@@ -24,10 +24,10 @@ func TestAccLambdaLayerVersion_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, lambda.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, lambda.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLayerVersionDestroy(ctx),
+		CheckDestroy:    testAccCheckLayerVersionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLayerVersionConfig_basic(rName),
@@ -46,8 +46,8 @@ func TestAccLambdaLayerVersion_basic(t *testing.T) {
 			},
 
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"filename", "skip_destroy"},
 			},
@@ -61,10 +61,10 @@ func TestAccLambdaLayerVersion_update(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, lambda.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, lambda.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLayerVersionDestroy(ctx),
+		CheckDestroy:    testAccCheckLayerVersionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLayerVersionConfig_createBeforeDestroy(rName, "test-fixtures/lambdatest.zip"),
@@ -74,8 +74,8 @@ func TestAccLambdaLayerVersion_update(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"filename", "source_code_hash", "skip_destroy"},
 			},
@@ -96,10 +96,10 @@ func TestAccLambdaLayerVersion_sourceCodeHash(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, lambda.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, lambda.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLayerVersionDestroy(ctx),
+		CheckDestroy:    testAccCheckLayerVersionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLayerVersionConfig_sourceCodeHash(rName, "test-fixtures/lambdatest.zip"),
@@ -132,10 +132,10 @@ func TestAccLambdaLayerVersion_s3(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, lambda.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, lambda.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLayerVersionDestroy(ctx),
+		CheckDestroy:    testAccCheckLayerVersionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLayerVersionConfig_s3(rName),
@@ -143,8 +143,8 @@ func TestAccLambdaLayerVersion_s3(t *testing.T) {
 			},
 
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"s3_bucket", "s3_key", "skip_destroy"},
 			},
@@ -158,10 +158,10 @@ func TestAccLambdaLayerVersion_compatibleRuntimes(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, lambda.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, lambda.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLayerVersionDestroy(ctx),
+		CheckDestroy:    testAccCheckLayerVersionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLayerVersionConfig_compatibleRuntimes(rName),
@@ -172,8 +172,8 @@ func TestAccLambdaLayerVersion_compatibleRuntimes(t *testing.T) {
 			},
 
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"filename", "skip_destroy"},
 			},
@@ -187,10 +187,10 @@ func TestAccLambdaLayerVersion_compatibleArchitectures(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, lambda.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, lambda.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLayerVersionDestroy(ctx),
+		CheckDestroy:    testAccCheckLayerVersionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLayerVersionConfig_compatibleArchitecturesNone(rName),
@@ -223,8 +223,8 @@ func TestAccLambdaLayerVersion_compatibleArchitectures(t *testing.T) {
 			},
 
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"filename", "skip_destroy"},
 			},
@@ -239,10 +239,10 @@ func TestAccLambdaLayerVersion_description(t *testing.T) {
 	testDescription := "test description"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, lambda.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, lambda.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLayerVersionDestroy(ctx),
+		CheckDestroy:    testAccCheckLayerVersionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLayerVersionConfig_description(rName, testDescription),
@@ -253,8 +253,8 @@ func TestAccLambdaLayerVersion_description(t *testing.T) {
 			},
 
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"filename", "skip_destroy"},
 			},
@@ -269,10 +269,10 @@ func TestAccLambdaLayerVersion_licenseInfo(t *testing.T) {
 	testLicenseInfo := "MIT"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, lambda.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, lambda.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLayerVersionDestroy(ctx),
+		CheckDestroy:    testAccCheckLayerVersionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLayerVersionConfig_licenseInfo(rName, testLicenseInfo),
@@ -283,8 +283,8 @@ func TestAccLambdaLayerVersion_licenseInfo(t *testing.T) {
 			},
 
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"filename", "skip_destroy"},
 			},
@@ -298,10 +298,10 @@ func TestAccLambdaLayerVersion_skipDestroy(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, lambda.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, lambda.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             acctest.CheckDestroyNoop, // this purposely leaves dangling resources, since skip_destroy = true
+		CheckDestroy:    acctest.CheckDestroyNoop, // this purposely leaves dangling resources, since skip_destroy = true
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLayerVersionConfig_skipDestroy(rName, "nodejs14.x"),
@@ -408,7 +408,7 @@ resource "aws_lambda_layer_version" "test" {
 func testAccLayerVersionConfig_createBeforeDestroy(rName string, filename string) string {
 	return fmt.Sprintf(`
 resource "aws_lambda_layer_version" "test" {
-  filename         = %[1]q
+  filename= %[1]q
   layer_name       = %[2]q
   source_code_hash = filebase64sha256(%[1]q)
 
@@ -422,7 +422,7 @@ resource "aws_lambda_layer_version" "test" {
 func testAccLayerVersionConfig_sourceCodeHash(rName string, filename string) string {
 	return fmt.Sprintf(`
 resource "aws_lambda_layer_version" "test" {
-  filename         = %[1]q
+  filename= %[1]q
   layer_name       = %[2]q
   source_code_hash = filebase64sha256(%[1]q)
 }
@@ -504,8 +504,8 @@ resource "aws_lambda_layer_version" "test" {
 func testAccLayerVersionConfig_skipDestroy(rName, compatRuntime string) string {
 	return fmt.Sprintf(`
 resource "aws_lambda_layer_version" "test" {
-  filename            = "test-fixtures/lambdatest.zip"
-  layer_name          = %[1]q
+  filename   = "test-fixtures/lambdatest.zip"
+  layer_name = %[1]q
   compatible_runtimes = [%[2]q]
   skip_destroy        = true
 }

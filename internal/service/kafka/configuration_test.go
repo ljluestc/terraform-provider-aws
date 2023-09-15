@@ -27,10 +27,10 @@ func TestAccKafkaConfiguration_basic(t *testing.T) {
 	resourceName := "aws_msk_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kafka.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, kafka.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigurationDestroy(ctx),
+		CheckDestroy:    testAccCheckConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigurationConfig_basic(rName),
@@ -60,10 +60,10 @@ func TestAccKafkaConfiguration_disappears(t *testing.T) {
 	resourceName := "aws_msk_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kafka.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, kafka.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigurationDestroy(ctx),
+		CheckDestroy:    testAccCheckConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigurationConfig_basic(rName),
@@ -84,10 +84,10 @@ func TestAccKafkaConfiguration_description(t *testing.T) {
 	resourceName := "aws_msk_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kafka.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, kafka.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigurationDestroy(ctx),
+		CheckDestroy:    testAccCheckConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigurationConfig_description(rName, "description1"),
@@ -120,10 +120,10 @@ func TestAccKafkaConfiguration_kafkaVersions(t *testing.T) {
 	resourceName := "aws_msk_configuration.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kafka.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, kafka.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigurationDestroy(ctx),
+		CheckDestroy:    testAccCheckConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigurationConfig_versions(rName),
@@ -152,10 +152,10 @@ func TestAccKafkaConfiguration_serverProperties(t *testing.T) {
 	serverProperty2 := "auto.create.topics.enable = true"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, kafka.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, kafka.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigurationDestroy(ctx),
+		CheckDestroy:    testAccCheckConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConfigurationConfig_serverProperties(rName, serverProperty1),
@@ -272,7 +272,7 @@ func testAccConfigurationConfig_versions(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_msk_configuration" "test" {
   kafka_versions = ["2.6.0", "2.7.0"]
-  name           = %[1]q
+  name  = %[1]q
 
   server_properties = <<PROPERTIES
 auto.create.topics.enable = true

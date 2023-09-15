@@ -26,7 +26,7 @@ func TestAccKafkaConnectCustomPlugin_basic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, kafkaconnect.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, kafkaconnect.EndpointsID),
-CheckDestroy:             testAccCheckCustomPluginDestroy(ctx),
+CheckDestroy:    testAccCheckCustomPluginDestroy(ctx),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
@@ -63,7 +63,7 @@ func TestAccKafkaConnectCustomPlugin_disappears(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, kafkaconnect.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, kafkaconnect.EndpointsID),
-CheckDestroy:             testAccCheckCustomPluginDestroy(ctx),
+CheckDestroy:    testAccCheckCustomPluginDestroy(ctx),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
@@ -86,7 +86,7 @@ func TestAccKafkaConnectCustomPlugin_description(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, kafkaconnect.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, kafkaconnect.EndpointsID),
-CheckDestroy:             testAccCheckCustomPluginDestroy(ctx),
+CheckDestroy:    testAccCheckCustomPluginDestroy(ctx),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
@@ -113,7 +113,7 @@ func TestAccKafkaConnectCustomPlugin_objectVersion(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 PreCheck:  func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, kafkaconnect.EndpointsID) },
 ErrorCheck:acctest.ErrorCheck(t, kafkaconnect.EndpointsID),
-CheckDestroy:             testAccCheckCustomPluginDestroy(ctx),
+CheckDestroy:    testAccCheckCustomPluginDestroy(ctx),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 Steps: []resource.TestStep{
 	{
@@ -203,7 +203,7 @@ resource "aws_s3_object" "test" {
 func testAccCustomPluginConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccCustomPluginBaseConfig(rName, false), fmt.Sprintf(`
 resource "aws_mskconnect_custom_plugin" "test" {
-  name         = %[1]q
+  name= %[1]q
   content_type = "ZIP"
 
   location {
@@ -219,7 +219,7 @@ resource "aws_mskconnect_custom_plugin" "test" {
 func testAccCustomPluginConfig_description(rName string) string {
 	return acctest.ConfigCompose(testAccCustomPluginBaseConfig(rName, false), fmt.Sprintf(`
 resource "aws_mskconnect_custom_plugin" "test" {
-  name         = %[1]q
+  name= %[1]q
   content_type = "ZIP"
   description  = "testing"
 
@@ -236,7 +236,7 @@ resource "aws_mskconnect_custom_plugin" "test" {
 func testAccCustomPluginConfig_objectVersion(rName string) string {
 	return acctest.ConfigCompose(testAccCustomPluginBaseConfig(rName, true), fmt.Sprintf(`
 resource "aws_mskconnect_custom_plugin" "test" {
-  name         = %[1]q
+  name= %[1]q
   content_type = "ZIP"
   description  = "testing"
 

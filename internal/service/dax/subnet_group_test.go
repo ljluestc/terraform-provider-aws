@@ -24,10 +24,10 @@ func TestAccDAXSubnetGroup_basic(t *testing.T) {
 	resourceName := "aws_dax_subnet_group.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, dax.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, dax.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSubnetGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckSubnetGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSubnetGroupConfig_basic(rName),

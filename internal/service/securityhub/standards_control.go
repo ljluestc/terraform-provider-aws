@@ -33,7 +33,7 @@ func ResourceStandardsControl() *schema.Resource {
 			},
 
 			"control_status": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringInSlice(securityhub.ControlStatus_Values(), false),
 			},
@@ -71,7 +71,7 @@ func ResourceStandardsControl() *schema.Resource {
 			},
 
 			"standards_control_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,

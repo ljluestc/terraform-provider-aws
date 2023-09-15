@@ -42,7 +42,7 @@ func TestAccCognitoIDPUserPool_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolConfig_name(rName),
@@ -94,7 +94,7 @@ func TestAccCognitoIDPUserPool_deletionProtection(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolConfig_deletionProtection(rName, "ACTIVE"),
@@ -128,7 +128,7 @@ func TestAccCognitoIDPUserPool_recovery(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolConfig_accountRecoverySingle(rName),
@@ -191,7 +191,7 @@ func TestAccCognitoIDPUserPool_withAdminCreateUser(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolConfig_adminCreateConfiguration(rName),
@@ -231,7 +231,7 @@ func TestAccCognitoIDPUserPool_withAdminCreateUserAndPasswordPolicy(t *testing.T
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolConfig_adminCreateAndPasswordPolicy(rName),
@@ -259,7 +259,7 @@ func TestAccCognitoIDPUserPool_withAdvancedSecurityMode(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolConfig_advancedSecurityMode(rName, "OFF"),
@@ -298,7 +298,7 @@ func TestAccCognitoIDPUserPool_withDevice(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolConfig_deviceConfiguration(rName),
@@ -337,7 +337,7 @@ func TestAccCognitoIDPUserPool_withEmailVerificationMessage(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolConfig_emailVerificationMessage(rName, subject, message),
@@ -373,7 +373,7 @@ func TestAccCognitoIDPUserPool_MFA_sms(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolConfig_mfaConfigurationSMSConfiguration(rName),
@@ -422,7 +422,7 @@ func TestAccCognitoIDPUserPool_MFA_smsAndSoftwareTokenMFA(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolConfig_mfaConfigurationSMSConfigurationAndSoftwareTokenMFAConfigurationEnabled(rName, false),
@@ -473,7 +473,7 @@ func TestAccCognitoIDPUserPool_MFA_smsToSoftwareTokenMFA(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolConfig_mfaConfigurationSMSConfiguration(rName),
@@ -512,7 +512,7 @@ func TestAccCognitoIDPUserPool_MFA_softwareTokenMFA(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolConfig_mfaConfigurationSoftwareTokenMFAConfigurationEnabled(rName, true),
@@ -559,7 +559,7 @@ func TestAccCognitoIDPUserPool_MFA_softwareTokenMFAToSMS(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolConfig_mfaConfigurationSoftwareTokenMFAConfigurationEnabled(rName, true),
@@ -600,7 +600,7 @@ func TestAccCognitoIDPUserPool_smsAuthenticationMessage(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolConfig_smsAuthenticationMessage(rName, smsAuthenticationMessage1),
@@ -635,7 +635,7 @@ func TestAccCognitoIDPUserPool_sms(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolConfig_smsConfigurationExternalID(rName, "test"),
@@ -681,7 +681,7 @@ func TestAccCognitoIDPUserPool_SMS_snsRegion(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolConfig_smsConfigurationSNSRegion(rName, acctest.Region()),
@@ -711,7 +711,7 @@ func TestAccCognitoIDPUserPool_SMS_externalID(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolConfig_smsConfigurationExternalID(rName, "test"),
@@ -750,7 +750,7 @@ func TestAccCognitoIDPUserPool_SMS_snsCallerARN(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolConfig_smsConfigurationExternalID(rName, "test"),
@@ -790,7 +790,7 @@ func TestAccCognitoIDPUserPool_smsVerificationMessage(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolConfig_smsVerificationMessage(rName, smsVerificationMessage1),
@@ -824,7 +824,7 @@ func TestAccCognitoIDPUserPool_withEmail(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolConfig_emailConfiguration(rName),
@@ -861,7 +861,7 @@ t.Skip("'TEST_AWS_SES_VERIFIED_EMAIL_ARN' not set, skipping test.")
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolConfig_emailConfigurationSource(rName, replyTo, sourceARN, emailTo, "DEVELOPER"),
@@ -887,7 +887,7 @@ func TestAccCognitoIDPUserPool_withTags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolConfig_tags1(rName, "key1", "value1"),
@@ -931,7 +931,7 @@ func TestAccCognitoIDPUserPool_withAliasAttributes(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolConfig_aliasAttributes(rName),
@@ -970,7 +970,7 @@ func TestAccCognitoIDPUserPool_withUsernameAttributes(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolConfig_nameAttributes(rName),
@@ -1009,7 +1009,7 @@ func TestAccCognitoIDPUserPool_withPasswordPolicy(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolConfig_passwordPolicy(rName),
@@ -1054,7 +1054,7 @@ func TestAccCognitoIDPUserPool_withUsername(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolConfig_nameConfiguration(rName),
@@ -1092,7 +1092,7 @@ func TestAccCognitoIDPUserPool_withLambda(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolConfig_lambda(rName),
@@ -1163,7 +1163,7 @@ func TestAccCognitoIDPUserPool_WithLambda_email(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolConfig_lambdaEmailSender(rName),
@@ -1214,7 +1214,7 @@ func TestAccCognitoIDPUserPool_WithLambda_sms(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolConfig_lambdaSMSSender(rName),
@@ -1264,7 +1264,7 @@ func TestAccCognitoIDPUserPool_schemaAttributes(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolConfig_schemaAttributes(rName),
@@ -1272,10 +1272,10 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	testAccCheckUserPoolExists(ctx, resourceName, &pool1),
 	resource.TestCheckResourceAttr(resourceName, "schema.#", "2"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "schema.*", map[string]string{
-"attribute_data_type":            "String",
+"attribute_data_type":   "String",
 "developer_only_attribute":       "false",
-"mutable":         "false",
-"name":            "email",
+"mutable":"false",
+"name":   "email",
 "number_attribute_constraints.#": "0",
 "required":        "true",
 "string_attribute_constraints.#": "1",
@@ -1283,10 +1283,10 @@ Check: resource.ComposeAggregateTestCheckFunc(
 "string_attribute_constraints.0.max_length": "10",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "schema.*", map[string]string{
-"attribute_data_type":            "Boolean",
+"attribute_data_type":   "Boolean",
 "developer_only_attribute":       "true",
-"mutable":         "false",
-"name":            "mybool",
+"mutable":"false",
+"name":   "mybool",
 "number_attribute_constraints.#": "0",
 "required":        "false",
 "string_attribute_constraints.#": "0",
@@ -1300,10 +1300,10 @@ Check: resource.ComposeAggregateTestCheckFunc(
 	testAccCheckUserPoolNotRecreated(&pool1, &pool2),
 	resource.TestCheckResourceAttr(resourceName, "schema.#", "3"),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "schema.*", map[string]string{
-"attribute_data_type":            "String",
+"attribute_data_type":   "String",
 "developer_only_attribute":       "false",
-"mutable":         "false",
-"name":            "email",
+"mutable":"false",
+"name":   "email",
 "number_attribute_constraints.#": "0",
 "required":        "true",
 "string_attribute_constraints.#": "1",
@@ -1311,19 +1311,19 @@ Check: resource.ComposeAggregateTestCheckFunc(
 "string_attribute_constraints.0.max_length": "10",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "schema.*", map[string]string{
-"attribute_data_type":            "Boolean",
+"attribute_data_type":   "Boolean",
 "developer_only_attribute":       "true",
-"mutable":         "false",
-"name":            "mybool",
+"mutable":"false",
+"name":   "mybool",
 "number_attribute_constraints.#": "0",
 "required":        "false",
 "string_attribute_constraints.#": "0",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "schema.*", map[string]string{
-"attribute_data_type":            "Number",
+"attribute_data_type":   "Number",
 "developer_only_attribute":       "false",
-"mutable":         "true",
-"name":            "mynondevnumber",
+"mutable":"true",
+"name":   "mynondevnumber",
 "number_attribute_constraints.#": "1",
 "number_attribute_constraints.0.min_value": "2",
 "number_attribute_constraints.0.max_value": "6",
@@ -1349,7 +1349,7 @@ func TestAccCognitoIDPUserPool_schemaAttributesRemoved(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolConfig_schemaAttributesUpdated(rName, "mybool"),
@@ -1370,7 +1370,7 @@ func TestAccCognitoIDPUserPool_schemaAttributesModified(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolConfig_schemaAttributesUpdated(rName, "mybool"),
@@ -1394,7 +1394,7 @@ func TestAccCognitoIDPUserPool_schemaAttributesStringAttributeConstraints(t *tes
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 // Omit optional "string_attribute_constraints" schema argument to verify a persistent
@@ -1423,7 +1423,7 @@ func TestAccCognitoIDPUserPool_withVerificationMessageTemplate(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolConfig_verificationMessageTemplate(rName),
@@ -1482,7 +1482,7 @@ func TestAccCognitoIDPUserPool_update(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolConfig_update(rName, optionalMfa, authenticationMessage),
@@ -1568,7 +1568,7 @@ func TestAccCognitoIDPUserPool_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolConfig_name(rName),
@@ -1591,7 +1591,7 @@ func TestAccCognitoIDPUserPool_withUserAttributeUpdateSettings(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config:      testAccUserPoolConfig_userAttributeUpdateSettings(rName, "invalid_value"),
@@ -1707,7 +1707,7 @@ resource "aws_iam_role" "test" {
       Action = "sts:AssumeRole"
       Condition = {
         "StringEquals" = {
-          "sts:ExternalId" = %[2]q
+ "sts:ExternalId" = %[2]q
         }
       }
 
@@ -1894,7 +1894,7 @@ func testAccUserPoolConfig_mfaConfiguration(rName string, mfaConfiguration strin
 	return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   mfa_configuration = %[2]q
-  name              = %[1]q
+  name     = %[1]q
 }
 `, rName, mfaConfiguration)
 }
@@ -1903,7 +1903,7 @@ func testAccUserPoolConfig_mfaConfigurationSMSConfiguration(rName string) string
 	return acctest.ConfigCompose(testAccUserPoolSMSConfigurationConfig_base(rName, "test"), fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   mfa_configuration = "ON"
-  name              = %[1]q
+  name     = %[1]q
 
   account_recovery_setting {
     recovery_mechanism {
@@ -1924,7 +1924,7 @@ func testAccUserPoolConfig_mfaConfigurationSMSConfigurationAndSoftwareTokenMFACo
 	return acctest.ConfigCompose(testAccUserPoolSMSConfigurationConfig_base(rName, "test"), fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   mfa_configuration = "ON"
-  name              = %[1]q
+  name     = %[1]q
 
   account_recovery_setting {
     recovery_mechanism {
@@ -1949,7 +1949,7 @@ func testAccUserPoolConfig_mfaConfigurationSoftwareTokenMFAConfigurationEnabled(
 	return fmt.Sprintf(`
 resource "aws_cognito_user_pool" "test" {
   mfa_configuration = "ON"
-  name              = %[1]q
+  name     = %[1]q
 
   account_recovery_setting {
     recovery_mechanism {
@@ -2075,7 +2075,7 @@ resource "aws_cognito_user_pool" "test" {
 
   email_configuration {
     reply_to_email_address = %[2]q
-    source_arn             = %[3]q
+    source_arn    = %[3]q
     from_email_address     = %[4]q
     email_sending_account  = %[5]q
     configuration_set      = aws_ses_configuration_set.test.name
@@ -2099,7 +2099,7 @@ func testAccUserPoolConfig_aliasAttributesUpdated(rName string) string {
 resource "aws_cognito_user_pool" "test" {
   name = %[1]q
 
-  alias_attributes         = ["email", "preferred_username"]
+  alias_attributes= ["email", "preferred_username"]
   auto_verified_attributes = ["email"]
 }
 `, rName)
@@ -2230,13 +2230,13 @@ EOF
 resource "aws_lambda_function" "test" {
   filename      = "test-fixtures/lambdatest.zip"
   function_name = %[1]q
-  role          = aws_iam_role.test.arn
+  role = aws_iam_role.test.arn
   handler       = "exports.example"
   runtime       = "nodejs16.x"
 }
 
 resource "aws_kms_key" "test" {
-  description             = %[1]q
+  description    = %[1]q
   deletion_window_in_days = 7
 
   policy = <<POLICY
@@ -2266,14 +2266,14 @@ resource "aws_cognito_user_pool" "test" {
   name = %[1]q
 
   lambda_config {
-    create_auth_challenge          = aws_lambda_function.test.arn
+    create_auth_challenge = aws_lambda_function.test.arn
     custom_message  = aws_lambda_function.test.arn
-    define_auth_challenge          = aws_lambda_function.test.arn
-    post_authentication            = aws_lambda_function.test.arn
-    post_confirmation              = aws_lambda_function.test.arn
-    pre_authentication             = aws_lambda_function.test.arn
+    define_auth_challenge = aws_lambda_function.test.arn
+    post_authentication   = aws_lambda_function.test.arn
+    post_confirmation     = aws_lambda_function.test.arn
+    pre_authentication    = aws_lambda_function.test.arn
     pre_sign_up     = aws_lambda_function.test.arn
-    pre_token_generation           = aws_lambda_function.test.arn
+    pre_token_generation  = aws_lambda_function.test.arn
     user_migration  = aws_lambda_function.test.arn
     verify_auth_challenge_response = aws_lambda_function.test.arn
   }
@@ -2286,7 +2286,7 @@ func testAccUserPoolConfig_lambdaUpdated(name string) string {
 resource "aws_lambda_function" "second" {
   filename      = "test-fixtures/lambdatest.zip"
   function_name = "%[1]s_second"
-  role          = aws_iam_role.test.arn
+  role = aws_iam_role.test.arn
   handler       = "exports.example"
   runtime       = "nodejs16.x"
 }
@@ -2295,14 +2295,14 @@ resource "aws_cognito_user_pool" "test" {
   name = %[1]q
 
   lambda_config {
-    create_auth_challenge          = aws_lambda_function.second.arn
+    create_auth_challenge = aws_lambda_function.second.arn
     custom_message  = aws_lambda_function.second.arn
-    define_auth_challenge          = aws_lambda_function.second.arn
-    post_authentication            = aws_lambda_function.second.arn
-    post_confirmation              = aws_lambda_function.second.arn
-    pre_authentication             = aws_lambda_function.second.arn
+    define_auth_challenge = aws_lambda_function.second.arn
+    post_authentication   = aws_lambda_function.second.arn
+    post_confirmation     = aws_lambda_function.second.arn
+    pre_authentication    = aws_lambda_function.second.arn
     pre_sign_up     = aws_lambda_function.second.arn
-    pre_token_generation           = aws_lambda_function.second.arn
+    pre_token_generation  = aws_lambda_function.second.arn
     user_migration  = aws_lambda_function.second.arn
     verify_auth_challenge_response = aws_lambda_function.second.arn
   }
@@ -2332,7 +2332,7 @@ func testAccUserPoolConfig_lambdaEmailSenderUpdated(name string) string {
 resource "aws_lambda_function" "second" {
   filename      = "test-fixtures/lambdatest.zip"
   function_name = "%[1]s_second"
-  role          = aws_iam_role.test.arn
+  role = aws_iam_role.test.arn
   handler       = "exports.example"
   runtime       = "nodejs16.x"
 }
@@ -2386,7 +2386,7 @@ func testAccUserPoolConfig_lambdaSMSSenderUpdated(name string) string {
 resource "aws_lambda_function" "second" {
   filename      = "test-fixtures/lambdatest.zip"
   function_name = "%[1]s_second"
-  role          = aws_iam_role.test.arn
+  role = aws_iam_role.test.arn
   handler       = "exports.example"
   runtime       = "nodejs16.x"
 }
@@ -2524,11 +2524,11 @@ resource "aws_cognito_user_pool" "test" {
 
   verification_message_template {
     default_email_option  = "CONFIRM_WITH_LINK"
-    email_message         = "foo {####} bar"
+    email_message= "foo {####} bar"
     email_message_by_link = "{##foobar##}"
-    email_subject         = "foobar {####}"
+    email_subject= "foobar {####}"
     email_subject_by_link = "foobar"
-    sms_message           = "{####} baz"
+    sms_message  = "{####} baz"
   }
 }
 `, name)
@@ -2572,7 +2572,7 @@ resource "aws_iam_role" "test" {
       "Action": "sts:AssumeRole",
       "Condition": {
         "StringEquals": {
-          "sts:ExternalId": "${data.aws_caller_identity.current.account_id}"
+ "sts:ExternalId": "${data.aws_caller_identity.current.account_id}"
         }
       }
     }

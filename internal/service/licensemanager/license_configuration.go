@@ -55,7 +55,7 @@ Optional: true,
 Default:  false,
 	},
 	"license_counting_type": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ForceNew:     true,
 ValidateFunc: validation.StringInSlice(licensemanager.LicenseCountingType_Values(), false),
@@ -65,7 +65,7 @@ Type:     schema.TypeList,
 Optional: true,
 ForceNew: true,
 Elem: &schema.Schema{
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	ValidateFunc: validation.StringMatch(regexache.MustCompile("^#([^=]+)=(.+)$"), "Expected format is #RuleType=RuleValue"),
 },
 	},
@@ -156,7 +156,7 @@ func resourceLicenseConfigurationUpdate(ctx context.Context, d *schema.ResourceD
 
 	if d.HasChangesExcept("tags", "tags_all") {
 input := &licensemanager.UpdateLicenseConfigurationInput{
-	Description:             aws.String(d.Get("description").(string)),
+	Description:    aws.String(d.Get("description").(string)),
 	LicenseConfigurationArn: aws.String(d.Id()),
 	LicenseCountHardLimit:   aws.Bool(d.Get("license_count_hard_limit").(bool)),
 	Name:     aws.String(d.Get("name").(string)),

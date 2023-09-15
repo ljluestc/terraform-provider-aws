@@ -135,7 +135,7 @@ func updateTags(ctx context.Context, conn elbv2iface.ELBV2API, identifier string
 	if len(updatedTags) > 0 {
 		input := &elbv2.AddTagsInput{
 			ResourceArns: aws.StringSlice([]string{identifier}),
-			Tags:         Tags(updatedTags),
+			Tags:Tags(updatedTags),
 		}
 
 		_, err := conn.AddTagsWithContext(ctx, input)

@@ -46,7 +46,7 @@ func ResourceProduct() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"accept_language": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Default:      AcceptLanguageEnglish,
 				ValidateFunc: validation.StringInSlice(AcceptLanguage_Values(), false),
@@ -123,7 +123,7 @@ func ResourceProduct() *schema.Resource {
 							},
 						},
 						"type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.StringInSlice(servicecatalog.ProvisioningArtifactType_Values(), false),
@@ -153,7 +153,7 @@ func ResourceProduct() *schema.Resource {
 			names.AttrTags:    tftags.TagsSchema(),
 			names.AttrTagsAll: tftags.TagsSchemaComputed(),
 			"type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringInSlice(servicecatalog.ProductType_Values(), false),
 			},
@@ -169,8 +169,8 @@ func resourceProductCreate(ctx context.Context, d *schema.ResourceData, meta int
 
 	input := &servicecatalog.CreateProductInput{
 		IdempotencyToken: aws.String(id.UniqueId()),
-		Name:             aws.String(d.Get("name").(string)),
-		Owner:            aws.String(d.Get("owner").(string)),
+		Name:    aws.String(d.Get("name").(string)),
+		Owner:   aws.String(d.Get("owner").(string)),
 		ProductType:      aws.String(d.Get("type").(string)),
 		ProvisioningArtifactParameters: expandProvisioningArtifactParameters(
 			d.Get("provisioning_artifact_parameters").([]interface{})[0].(map[string]interface{}),

@@ -16,18 +16,18 @@ func resourceProvisionedConcurrencyConfigV0() *schema.Resource {
 	return &schema.Resource{
 		Schema: map[string]*schema.Schema{
 			"function_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.NoZeroValues,
 			},
 			"provisioned_concurrent_executions": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Required:     true,
 				ValidateFunc: validation.IntAtLeast(1),
 			},
 			"qualifier": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.NoZeroValues,

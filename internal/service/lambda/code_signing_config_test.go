@@ -28,7 +28,7 @@ func TestAccLambdaCodeSigningConfig_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCodeSigningConfigDestroy(ctx),
+CheckDestroy:    testAccCheckCodeSigningConfigDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCodeSigningConfigConfig_basic(),
@@ -59,7 +59,7 @@ func TestAccLambdaCodeSigningConfig_updatePolicy(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCodeSigningConfigDestroy(ctx),
+CheckDestroy:    testAccCheckCodeSigningConfigDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCodeSigningConfigConfig_basic(),
@@ -96,7 +96,7 @@ func TestAccLambdaCodeSigningConfig_updatePublishers(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCodeSigningConfigDestroy(ctx),
+CheckDestroy:    testAccCheckCodeSigningConfigDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCodeSigningConfigConfig_basic(),

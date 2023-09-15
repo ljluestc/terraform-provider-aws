@@ -19,8 +19,8 @@ func TestAccCognitoIDPUserPoolSigningCertificateDataSource_basic(t *testing.T) {
 	datasourceName := "data.aws_cognito_user_pool_signing_certificate.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -46,7 +46,7 @@ resource "aws_cognito_identity_provider" "test" {
   provider_type = "SAML"
 
   provider_details = {
-    MetadataFile          = file("./test-fixtures/saml-metadata.xml")
+    MetadataFile = file("./test-fixtures/saml-metadata.xml")
     SSORedirectBindingURI = "https://terraform-dev-ed.my.salesforce.com/idp/endpoint/HttpRedirect"
   }
 

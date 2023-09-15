@@ -21,8 +21,8 @@ func TestAccECRRepositoryDataSource_basic(t *testing.T) {
 	dataSourceName := "data.aws_ecr_repository.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ecr.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ecr.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -49,8 +49,8 @@ func TestAccECRRepositoryDataSource_encryption(t *testing.T) {
 	dataSourceName := "data.aws_ecr_repository.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ecr.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ecr.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -74,8 +74,8 @@ func TestAccECRRepositoryDataSource_encryption(t *testing.T) {
 func TestAccECRRepositoryDataSource_nonExistent(t *testing.T) {
 	ctx := acctest.Context(t)
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, ecr.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, ecr.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -118,7 +118,7 @@ resource "aws_ecr_repository" "test" {
 
   encryption_configuration {
     encryption_type = "KMS"
-    kms_key         = aws_kms_key.test.arn
+    kms_key= aws_kms_key.test.arn
   }
 }
 

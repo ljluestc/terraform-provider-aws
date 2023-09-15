@@ -29,7 +29,7 @@ func TestAccECRRepositoryPolicy_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ecr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckRepositoryPolicyDestroy(ctx),
+CheckDestroy:    testAccCheckRepositoryPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRepositoryPolicyConfig_basic(rName),
@@ -68,7 +68,7 @@ func TestAccECRRepositoryPolicy_IAM_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ecr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckRepositoryPolicyDestroy(ctx),
+CheckDestroy:    testAccCheckRepositoryPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRepositoryPolicyConfig_iamRole(rName),
@@ -97,7 +97,7 @@ func TestAccECRRepositoryPolicy_IAM_principalOrder(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ecr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckRepositoryPolicyDestroy(ctx),
+CheckDestroy:    testAccCheckRepositoryPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRepositoryPolicyConfig_iamRoleOrderJSONEncode(rName),
@@ -130,7 +130,7 @@ func TestAccECRRepositoryPolicy_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ecr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckRepositoryPolicyDestroy(ctx),
+CheckDestroy:    testAccCheckRepositoryPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRepositoryPolicyConfig_basic(rName),
@@ -153,7 +153,7 @@ func TestAccECRRepositoryPolicy_Disappears_repository(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ecr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckRepositoryPolicyDestroy(ctx),
+CheckDestroy:    testAccCheckRepositoryPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRepositoryPolicyConfig_basic(rName),
@@ -393,11 +393,11 @@ resource "aws_ecr_repository_policy" "test" {
       Effect = "Allow"
       Principal = {
         AWS = [
-          aws_iam_role.test1.arn,
-          aws_iam_role.test3.arn,
-          aws_iam_role.test2.arn,
-          aws_iam_role.test4.arn,
-          aws_iam_role.test5.arn,
+ aws_iam_role.test1.arn,
+ aws_iam_role.test3.arn,
+ aws_iam_role.test2.arn,
+ aws_iam_role.test4.arn,
+ aws_iam_role.test5.arn,
         ]
       }
     }]
@@ -421,11 +421,11 @@ resource "aws_ecr_repository_policy" "test" {
       Effect = "Allow"
       Principal = {
         AWS = [
-          aws_iam_role.test1.arn,
-          aws_iam_role.test5.arn,
-          aws_iam_role.test4.arn,
-          aws_iam_role.test2.arn,
-          aws_iam_role.test3.arn,
+ aws_iam_role.test1.arn,
+ aws_iam_role.test5.arn,
+ aws_iam_role.test4.arn,
+ aws_iam_role.test2.arn,
+ aws_iam_role.test3.arn,
         ]
       }
     }]

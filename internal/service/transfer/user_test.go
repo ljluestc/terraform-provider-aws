@@ -29,7 +29,7 @@ func testAccUser_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserDestroy(ctx),
+CheckDestroy:    testAccCheckUserDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserConfig_basic(rName),
@@ -61,7 +61,7 @@ func testAccUser_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserDestroy(ctx),
+CheckDestroy:    testAccCheckUserDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserConfig_basic(rName),
@@ -85,7 +85,7 @@ func testAccUser_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserDestroy(ctx),
+CheckDestroy:    testAccCheckUserDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserConfig_tags1(rName, "key1", "value1"),
@@ -131,7 +131,7 @@ func testAccUser_posix(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserDestroy(ctx),
+CheckDestroy:    testAccCheckUserDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserConfig_posix(rName),
@@ -172,7 +172,7 @@ func testAccUser_modifyWithOptions(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserDestroy(ctx),
+CheckDestroy:    testAccCheckUserDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserConfig_options(rName1),
@@ -210,7 +210,7 @@ func testAccUser_UserName_Validation(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserDestroy(ctx),
+CheckDestroy:    testAccCheckUserDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config:      testAccUserConfig_nameValidation(rName, "!@#$%^"),
@@ -221,9 +221,9 @@ Config:      testAccUserConfig_nameValidation(rName, sdkacctest.RandString(2)),
 ExpectError: regexache.MustCompile(`Invalid "user_name": `),
 	},
 	{
-Config:             testAccUserConfig_nameValidation(rName, sdkacctest.RandString(33)),
+Config:    testAccUserConfig_nameValidation(rName, sdkacctest.RandString(33)),
 ExpectNonEmptyPlan: true,
-PlanOnly:           true,
+PlanOnly:  true,
 	},
 	{
 Config:      testAccUserConfig_nameValidation(rName, sdkacctest.RandString(101)),
@@ -234,9 +234,9 @@ Config:      testAccUserConfig_nameValidation(rName, "-abcdef"),
 ExpectError: regexache.MustCompile(`Invalid "user_name": `),
 	},
 	{
-Config:             testAccUserConfig_nameValidation(rName, "valid_username"),
+Config:    testAccUserConfig_nameValidation(rName, "valid_username"),
 ExpectNonEmptyPlan: true,
-PlanOnly:           true,
+PlanOnly:  true,
 	},
 },
 	})
@@ -256,7 +256,7 @@ func testAccUser_homeDirectoryMappings(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserDestroy(ctx),
+CheckDestroy:    testAccCheckUserDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserConfig_homeDirectoryMappings(rName, entry1, target1),
@@ -513,8 +513,8 @@ data "aws_iam_policy_document" "test" {
 resource "aws_transfer_user" "test" {
   server_id      = aws_transfer_server.test.id
   user_name      = "tftestuser"
-  role           = aws_iam_role.test.arn
-  policy         = data.aws_iam_policy_document.test.json
+  role  = aws_iam_role.test.arn
+  policy= data.aws_iam_policy_document.test.json
   home_directory = "/home/tftestuser"
 
   tags = {
@@ -570,8 +570,8 @@ data "aws_iam_policy_document" "test" {
 resource "aws_transfer_user" "test" {
   server_id      = aws_transfer_server.test.id
   user_name      = "tftestuser"
-  role           = aws_iam_role.test.arn
-  policy         = data.aws_iam_policy_document.test.json
+  role  = aws_iam_role.test.arn
+  policy= data.aws_iam_policy_document.test.json
   home_directory = "/test"
 
   tags = {
@@ -629,8 +629,8 @@ data "aws_iam_policy_document" "test" {
 resource "aws_transfer_user" "test" {
   server_id      = aws_transfer_server.test.id
   user_name      = "tftestuser2"
-  role           = aws_iam_role.test.arn
-  policy         = data.aws_iam_policy_document.test.json
+  role  = aws_iam_role.test.arn
+  policy= data.aws_iam_policy_document.test.json
   home_directory = "/home/tftestuser2"
 
   tags = {
@@ -645,8 +645,8 @@ func testAccUserConfig_homeDirectoryMappings(rName, entry, target string) string
 resource "aws_transfer_user" "test" {
   home_directory_type = "LOGICAL"
   role = aws_iam_role.test.arn
-  server_id           = aws_transfer_server.test.id
-  user_name           = "tftestuser"
+  server_id  = aws_transfer_server.test.id
+  user_name  = "tftestuser"
 
   home_directory_mappings {
     entry  = %[2]q
@@ -665,8 +665,8 @@ func testAccUserConfig_homeDirectoryMappingsUpdate(rName, entry1, target1, entry
 resource "aws_transfer_user" "test" {
   home_directory_type = "LOGICAL"
   role = aws_iam_role.test.arn
-  server_id           = aws_transfer_server.test.id
-  user_name           = "tftestuser"
+  server_id  = aws_transfer_server.test.id
+  user_name  = "tftestuser"
 
   home_directory_mappings {
     entry  = %[2]q
@@ -746,8 +746,8 @@ resource "aws_transfer_user" "test" {
   role      = aws_iam_role.test.arn
 
   posix_profile {
-    gid            = 1001
-    uid            = 1001
+    gid   = 1001
+    uid   = 1001
     secondary_gids = [1000, 1002]
   }
 

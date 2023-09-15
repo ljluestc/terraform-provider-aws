@@ -32,7 +32,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLambda
+CheckDestroy:    testAccCheckLambda
 functionAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
@@ -70,7 +70,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLambda
+CheckDestroy:    testAccCheckLambda
 functionAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
@@ -192,7 +192,7 @@ function" "test" {
   filename      = "test-fixtures/lambdatest.zip"
   
 function_name = %[1]q
-  role          = aws_iam_role.test.arn
+  role = aws_iam_role.test.arn
   handler       = "exports.handler"
   runtime       = "nodejs14.x"
 }
@@ -220,7 +220,7 @@ EOF
 resource "aws_connect_instance" "test" {
   identity_management_type = "CONNECT_MANAGED"
   inbound_calls_enabled    = true
-  instance_alias           = %[2]q
+  instance_alias  = %[2]q
   outbound_calls_enabled   = true
 }
 `, rName, rName2)

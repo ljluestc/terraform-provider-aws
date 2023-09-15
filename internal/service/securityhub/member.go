@@ -43,7 +43,7 @@ func ResourceMember() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"account_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidAccountID,

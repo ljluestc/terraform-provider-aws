@@ -53,7 +53,7 @@ func (r *resourceSecurityGroupEgressRule) deleteSecurityGroupRule(ctx context.Co
 	conn := r.Meta().EC2Conn(ctx)
 
 	_, err := conn.RevokeSecurityGroupEgressWithContext(ctx, &ec2.RevokeSecurityGroupEgressInput{
-		GroupId:              flex.StringFromFramework(ctx, data.SecurityGroupID),
+		GroupId:     flex.StringFromFramework(ctx, data.SecurityGroupID),
 		SecurityGroupRuleIds: flex.StringSliceFromFramework(ctx, data.ID),
 	})
 

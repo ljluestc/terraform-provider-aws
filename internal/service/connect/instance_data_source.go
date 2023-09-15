@@ -54,13 +54,13 @@ Type:     schema.TypeBool,
 Computed: true,
 	},
 	"instance_alias": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Computed:     true,
 ExactlyOneOf: []string{"instance_alias", "instance_id"},
 	},
 	"instance_id": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Computed:     true,
 ExactlyOneOf: []string{"instance_id", "instance_alias"},
@@ -118,14 +118,14 @@ if instanceSummary == nil {
 
 matchedInstance = &connect.Instance{
 	Arn:     instanceSummary.Arn,
-	CreatedTime:            instanceSummary.CreatedTime,
+	CreatedTime:   instanceSummary.CreatedTime,
 	Id:      instanceSummary.Id,
 	IdentityManagementType: instanceSummary.IdentityManagementType,
 	InboundCallsEnabled:    instanceSummary.InboundCallsEnabled,
-	InstanceAlias:          instanceSummary.InstanceAlias,
-	InstanceStatus:         instanceSummary.InstanceStatus,
+	InstanceAlias: instanceSummary.InstanceAlias,
+	InstanceStatus:instanceSummary.InstanceStatus,
 	OutboundCallsEnabled:   instanceSummary.OutboundCallsEnabled,
-	ServiceRole:            instanceSummary.ServiceRole,
+	ServiceRole:   instanceSummary.ServiceRole,
 }
 	}
 

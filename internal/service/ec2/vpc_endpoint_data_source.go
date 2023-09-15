@@ -155,7 +155,7 @@ func dataSourceVPCEndpointRead(ctx context.Context, d *schema.ResourceData, meta
 		Filters: BuildAttributeFilterList(
 			map[string]string{
 				"vpc-endpoint-state": d.Get("state").(string),
-				"vpc-id":             d.Get("vpc_id").(string),
+				"vpc-id":    d.Get("vpc_id").(string),
 				"service-name":       d.Get("service_name").(string),
 			},
 		),

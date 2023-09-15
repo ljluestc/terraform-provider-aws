@@ -192,7 +192,7 @@ func createVPCEndpointSecurityGroupAssociation(ctx context.Context, conn *ec2.EC
 
 func deleteVPCEndpointSecurityGroupAssociation(ctx context.Context, conn *ec2.EC2, vpcEndpointID, securityGroupID string) error {
 	input := &ec2.ModifyVpcEndpointInput{
-		VpcEndpointId:          aws.String(vpcEndpointID),
+		VpcEndpointId: aws.String(vpcEndpointID),
 		RemoveSecurityGroupIds: aws.StringSlice([]string{securityGroupID}),
 	}
 

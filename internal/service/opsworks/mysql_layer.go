@@ -13,7 +13,7 @@ import (
 
 func ResourceMySQLLayer() *schema.Resource {
 	layerType := &opsworksLayerType{
-		TypeName:         opsworks.LayerTypeDbMaster,
+		TypeName:opsworks.LayerTypeDbMaster,
 		DefaultLayerName: "MySQL",
 
 		Attributes: map[string]*opsworksLayerTypeAttribute{

@@ -50,9 +50,9 @@ func testAccCustomKeyStore_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, kms.EndpointsID)
 			testAccCustomKeyStoresPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCustomKeyStoreDestroy(ctx),
+		CheckDestroy:    testAccCheckCustomKeyStoreDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCustomKeyStoreConfig_basic(rName, clusterId, trustAnchorCertificate),
@@ -62,8 +62,8 @@ func testAccCustomKeyStore_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"key_store_password"},
 			},
@@ -98,9 +98,9 @@ func testAccCustomKeyStore_update(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, kms.EndpointsID)
 			testAccCustomKeyStoresPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCustomKeyStoreDestroy(ctx),
+		CheckDestroy:    testAccCheckCustomKeyStoreDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCustomKeyStoreConfig_basic(fmt.Sprintf("%s-updated", rName), clusterId, trustAnchorCertificate),
@@ -141,9 +141,9 @@ func testAccCustomKeyStore_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, kms.EndpointsID)
 			testAccCustomKeyStoresPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, kms.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, kms.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCustomKeyStoreDestroy(ctx),
+		CheckDestroy:    testAccCheckCustomKeyStoreDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCustomKeyStoreConfig_basic(rName, clusterId, trustAnchorCertificate),

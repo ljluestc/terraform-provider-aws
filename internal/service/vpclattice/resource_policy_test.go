@@ -38,7 +38,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckResourcePolicyDestroy(ctx),
+CheckDestroy:    testAccCheckResourcePolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccResourcePolicyConfig_basic(rName),
@@ -72,7 +72,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckResourcePolicyDestroy(ctx),
+CheckDestroy:    testAccCheckResourcePolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccResourcePolicyConfig_basic(rName),

@@ -28,31 +28,31 @@ func TestAccDynamoDBContributorInsights_basic(t *testing.T) {
 	resourceName := "aws_dynamodb_contributor_insights.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, dynamodb.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckContributorInsightsDestroy(ctx),
-Steps: []resource.TestStep{
-	{
-Config: testAccContributorInsightsConfig_basic(rName, ""),
-Check: resource.ComposeAggregateTestCheckFunc(
-	testAccCheckContributorInsightsExists(ctx, resourceName, &conf),
-	resource.TestCheckResourceAttr(resourceName, "table_name", rName),
-),
-	},
-	{
-ResourceName:      resourceName,
-ImportState:       true,
-ImportStateVerify: true,
-	},
-	{
-Config: testAccContributorInsightsConfig_basic(rName, indexName),
-Check: resource.ComposeAggregateTestCheckFunc(
-	testAccCheckContributorInsightsExists(ctx, resourceName, &conf),
-	resource.TestCheckResourceAttr(resourceName, "index_name", indexName),
-),
-	},
-},
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+		CheckDestroy:             testAccCheckContributorInsightsDestroy(ctx),
+		Steps: []resource.TestStep{
+			{
+				Config: testAccContributorInsightsConfig_basic(rName, ""),
+				Check: resource.ComposeAggregateTestCheckFunc(
+					testAccCheckContributorInsightsExists(ctx, resourceName, &conf),
+					resource.TestCheckResourceAttr(resourceName, "table_name", rName),
+				),
+			},
+			{
+				ResourceName:      resourceName,
+				ImportState:       true,
+				ImportStateVerify: true,
+			},
+			{
+				Config: testAccContributorInsightsConfig_basic(rName, indexName),
+				Check: resource.ComposeAggregateTestCheckFunc(
+					testAccCheckContributorInsightsExists(ctx, resourceName, &conf),
+					resource.TestCheckResourceAttr(resourceName, "index_name", indexName),
+				),
+			},
+		},
 	})
 }
 
@@ -63,27 +63,27 @@ func TestAccDynamoDBContributorInsights_disappears(t *testing.T) {
 	resourceName := "aws_dynamodb_contributor_insights.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-PreCheck:  func() { acctest.PreCheck(ctx, t) },
-ErrorCheck:acctest.ErrorCheck(t, dynamodb.EndpointsID),
-ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckContributorInsightsDestroy(ctx),
-Steps: []resource.TestStep{
-	{
-Config: testAccContributorInsightsConfig_basic(rName, ""),
-Check: resource.ComposeAggregateTestCheckFunc(
-	testAccCheckContributorInsightsExists(ctx, resourceName, &conf),
-	acctest.CheckResourceDisappears(ctx, acctest.Provider, tfdynamodb.ResourceContributorInsights(), resourceName),
-),
-ExpectNonEmptyPlan: true,
-	},
-},
+		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:               acctest.ErrorCheck(t, dynamodb.EndpointsID),
+		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
+		CheckDestroy:             testAccCheckContributorInsightsDestroy(ctx),
+		Steps: []resource.TestStep{
+			{
+				Config: testAccContributorInsightsConfig_basic(rName, ""),
+				Check: resource.ComposeAggregateTestCheckFunc(
+					testAccCheckContributorInsightsExists(ctx, resourceName, &conf),
+					acctest.CheckResourceDisappears(ctx, acctest.Provider, tfdynamodb.ResourceContributorInsights(), resourceName),
+				),
+				ExpectNonEmptyPlan: true,
+			},
+		},
 	})
 }
 
 func testAccContributorInsightsBaseConfig(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_dynamodb_table" "test" {
-  name           = %[1]q
+  name  = %[1]q
   read_capacity  = 2
   write_capacity = 2
   hash_key       = %[1]q
@@ -94,7 +94,7 @@ resource "aws_dynamodb_table" "test" {
   }
 
   global_secondary_index {
-    name            = "%[1]s-index"
+    name   = "%[1]s-index"
     hash_key        = %[1]q
     projection_type = "ALL"
     read_capacity   = 1
@@ -115,70 +115,70 @@ resource "aws_dynamodb_contributor_insights" "test" {
 
 func testAccCheckContributorInsightsExists(ctx context.Context, n string, ci *dynamodb.DescribeContributorInsightsOutput) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-rs, ok := s.RootModule().Resources[n]
-if !ok {
-	return fmt.Errorf("not found: %s", n)
-}
+		rs, ok := s.RootModule().Resources[n]
+		if !ok {
+			return fmt.Errorf("not found: %s", n)
+		}
 
-if rs.Primary.ID == "" {
-	return fmt.Errorf("no DynamodDB Contributor Insights ID is set")
-}
+		if rs.Primary.ID == "" {
+			return fmt.Errorf("no DynamodDB Contributor Insights ID is set")
+		}
 
-conn := acctest.Provider.Meta().(*conns.AWSClient).DynamoDBConn(ctx)
+		conn := acctest.Provider.Meta().(*conns.AWSClient).DynamoDBConn(ctx)
 
-tableName, indexName, err := tfdynamodb.DecodeContributorInsightsID(rs.Primary.ID)
-if err != nil {
-	return err
-}
+		tableName, indexName, err := tfdynamodb.DecodeContributorInsightsID(rs.Primary.ID)
+		if err != nil {
+			return err
+		}
 
-output, err := tfdynamodb.FindContributorInsights(ctx, conn, tableName, indexName)
-if err != nil {
-	return err
-}
+		output, err := tfdynamodb.FindContributorInsights(ctx, conn, tableName, indexName)
+		if err != nil {
+			return err
+		}
 
-ci = output
+		ci = output
 
-return nil
+		return nil
 	}
 }
 
 func testAccCheckContributorInsightsDestroy(ctx context.Context) resource.TestCheckFunc {
 	return func(s *terraform.State) error {
-conn := acctest.Provider.Meta().(*conns.AWSClient).DynamoDBConn(ctx)
+		conn := acctest.Provider.Meta().(*conns.AWSClient).DynamoDBConn(ctx)
 
-for _, rs := range s.RootModule().Resources {
-	if rs.Type != "aws_dynamodb_contributor_insights" {
-continue
-	}
+		for _, rs := range s.RootModule().Resources {
+			if rs.Type != "aws_dynamodb_contributor_insights" {
+				continue
+			}
 
-	log.Printf("[DEBUG] Checking if DynamoDB Contributor Insights %s exists", rs.Primary.ID)
+			log.Printf("[DEBUG] Checking if DynamoDB Contributor Insights %s exists", rs.Primary.ID)
 
-	tableName, indexName, err := tfdynamodb.DecodeContributorInsightsID(rs.Primary.ID)
-	if err != nil {
-return err
-	}
+			tableName, indexName, err := tfdynamodb.DecodeContributorInsightsID(rs.Primary.ID)
+			if err != nil {
+				return err
+			}
 
-	in := &dynamodb.DescribeContributorInsightsInput{
-TableName: aws.String(tableName),
-	}
+			in := &dynamodb.DescribeContributorInsightsInput{
+				TableName: aws.String(tableName),
+			}
 
-	if indexName != "" {
-in.IndexName = aws.String(indexName)
-	}
+			if indexName != "" {
+				in.IndexName = aws.String(indexName)
+			}
 
-	_, err = tfdynamodb.FindContributorInsights(ctx, conn, tableName, indexName)
-	if err == nil {
-return fmt.Errorf("the DynamoDB Contributor Insights %s still exists. Failing", rs.Primary.ID)
-	}
+			_, err = tfdynamodb.FindContributorInsights(ctx, conn, tableName, indexName)
+			if err == nil {
+				return fmt.Errorf("the DynamoDB Contributor Insights %s still exists. Failing", rs.Primary.ID)
+			}
 
-	// Verify the error is what we want
-	if tfresource.NotFound(err) {
-return nil
-	}
+			// Verify the error is what we want
+			if tfresource.NotFound(err) {
+				return nil
+			}
 
-	return err
-}
+			return err
+		}
 
-return nil
+		return nil
 	}
 }

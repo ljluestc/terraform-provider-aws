@@ -84,7 +84,7 @@ Optional: true,
 Computed: true,
 	},
 	"final_snapshot_name": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ValidateFunc: validateResourceName(snapshotNameMaxLength),
 	},
@@ -93,19 +93,19 @@ ValidateFunc: validateResourceName(snapshotNameMaxLength),
 // For the sake of consistency, force everyone to use ARN-s.
 // To prevent confusion, the attribute is suffixed _arn rather
 // than the _id implied by the API.
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ForceNew:     true,
 ValidateFunc: verify.ValidARN,
 	},
 	"maintenance_window": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Computed:     true,
 ValidateFunc: verify.ValidOnceAWeekWindowFormat,
 	},
 	"name": {
-Type:          schema.TypeString,
+Type: schema.TypeString,
 Optional:      true,
 Computed:      true,
 ForceNew:      true,
@@ -113,7 +113,7 @@ ConflictsWith: []string{"name_prefix"},
 ValidateFunc:  validateResourceName(clusterNameMaxLength),
 	},
 	"name_prefix": {
-Type:          schema.TypeString,
+Type: schema.TypeString,
 Optional:      true,
 Computed:      true,
 ForceNew:      true,
@@ -125,13 +125,13 @@ Type:     schema.TypeString,
 Required: true,
 	},
 	"num_replicas_per_shard": {
-Type:         schema.TypeInt,
+Type:schema.TypeInt,
 Optional:     true,
 Default:      1,
 ValidateFunc: validation.IntBetween(0, 5),
 	},
 	"num_shards": {
-Type:         schema.TypeInt,
+Type:schema.TypeInt,
 Optional:     true,
 Default:      1,
 ValidateFunc: validation.IntAtLeast(1),
@@ -198,7 +198,7 @@ Computed: true,
 },
 	},
 	"snapshot_arns": {
-Type:          schema.TypeList,
+Type: schema.TypeList,
 Optional:      true,
 ForceNew:      true,
 ConflictsWith: []string{"snapshot_name"},
@@ -211,25 +211,25 @@ validation.StringDoesNotContainAny(","),
 },
 	},
 	"snapshot_name": {
-Type:          schema.TypeString,
+Type: schema.TypeString,
 Optional:      true,
 ForceNew:      true,
 ConflictsWith: []string{"snapshot_arns"},
 	},
 	"snapshot_retention_limit": {
-Type:         schema.TypeInt,
+Type:schema.TypeInt,
 Computed:     true,
 Optional:     true,
 ValidateFunc: validation.IntBetween(0, 35),
 	},
 	"snapshot_window": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Computed:     true,
 ValidateFunc: verify.ValidOnceADayWindowFormat,
 	},
 	"sns_topic_arn": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ValidateFunc: verify.ValidARN,
 	},
@@ -277,12 +277,12 @@ func resourceClusterCreate(ctx context.Context, d *schema.ResourceData, meta int
 	input := &memorydb.CreateClusterInput{
 ACLName:  aws.String(d.Get("acl_name").(string)),
 AutoMinorVersionUpgrade: aws.Bool(d.Get("auto_minor_version_upgrade").(bool)),
-ClusterName:             aws.String(name),
+ClusterName:    aws.String(name),
 NodeType: aws.String(d.Get("node_type").(string)),
 NumReplicasPerShard:     aws.Int64(int64(d.Get("num_replicas_per_shard").(int))),
 NumShards:aws.Int64(int64(d.Get("num_shards").(int))),
 Tags:     getTagsIn(ctx),
-TLSEnabled:              aws.Bool(d.Get("tls_enabled").(bool)),
+TLSEnabled:     aws.Bool(d.Get("tls_enabled").(bool)),
 	}
 
 	if v, ok := d.GetOk("data_tiering"); ok {
@@ -619,8 +619,8 @@ continue
 	nodeSet.Add(map[string]interface{}{
 "availability_zone": aws.StringValue(node.AvailabilityZone),
 "create_time":       aws.TimeValue(node.CreateTime).Format(time.RFC3339),
-"endpoint":          flattenEndpoint(node.Endpoint),
-"name":              aws.StringValue(node.Name),
+"endpoint": flattenEndpoint(node.Endpoint),
+"name":     aws.StringValue(node.Name),
 	})
 }
 

@@ -49,18 +49,18 @@ func ResourceProvisionedConcurrencyConfig() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"function_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.NoZeroValues,
 			},
 			"provisioned_concurrent_executions": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Required:     true,
 				ValidateFunc: validation.IntAtLeast(1),
 			},
 			"qualifier": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.NoZeroValues,
@@ -85,9 +85,9 @@ func resourceProvisionedConcurrencyConfigCreate(ctx context.Context, d *schema.R
 	qualifier := d.Get("qualifier").(string)
 
 	input := &lambda.PutProvisionedConcurrencyConfigInput{
-		FunctionName:                    aws.String(functionName),
+		FunctionName:  aws.String(functionName),
 		ProvisionedConcurrentExecutions: aws.Int64(int64(d.Get("provisioned_concurrent_executions").(int))),
-		Qualifier:                       aws.String(qualifier),
+		Qualifier:     aws.String(qualifier),
 	}
 
 	_, err := conn.PutProvisionedConcurrencyConfigWithContext(ctx, input)
@@ -157,9 +157,9 @@ func resourceProvisionedConcurrencyConfigUpdate(ctx context.Context, d *schema.R
 	qualifier := parts[1]
 
 	input := &lambda.PutProvisionedConcurrencyConfigInput{
-		FunctionName:                    aws.String(functionName),
+		FunctionName:  aws.String(functionName),
 		ProvisionedConcurrentExecutions: aws.Int64(int64(d.Get("provisioned_concurrent_executions").(int))),
-		Qualifier:                       aws.String(qualifier),
+		Qualifier:     aws.String(qualifier),
 	}
 
 	_, err = conn.PutProvisionedConcurrencyConfigWithContext(ctx, input)

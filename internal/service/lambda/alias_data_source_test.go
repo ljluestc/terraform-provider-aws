@@ -21,8 +21,8 @@ func TestAccLambdaAliasDataSource_basic(t *testing.T) {
 	resourceName := "aws_lambda_alias.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, lambda.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, lambda.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -100,12 +100,12 @@ resource "aws_lambda_function" "test" {
   function_name = %[1]q
   handler       = "exports.example"
   publish       = true
-  role          = aws_iam_role.lambda.arn
+  role = aws_iam_role.lambda.arn
   runtime       = "nodejs16.x"
 }
 
 resource "aws_lambda_alias" "test" {
-  name             = "test"
+  name    = "test"
   function_name    = aws_lambda_function.test.function_name
   function_version = "1"
 }
@@ -115,7 +115,7 @@ resource "aws_lambda_alias" "test" {
 func testAccAliasDataSourceConfig_basic(rName string) string {
 	return testAccAliasDataSourceConfig_base(rName) + `
 data "aws_lambda_alias" "test" {
-  name          = aws_lambda_alias.test.name
+  name = aws_lambda_alias.test.name
   function_name = aws_lambda_alias.test.function_name
 }
 `

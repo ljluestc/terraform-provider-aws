@@ -48,7 +48,7 @@ func ResourceACL() *schema.Resource {
 				Computed: true,
 			},
 			"name": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -56,7 +56,7 @@ func ResourceACL() *schema.Resource {
 				ValidateFunc:  validateResourceName(aclNameMaxLength),
 			},
 			"name_prefix": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -69,7 +69,7 @@ func ResourceACL() *schema.Resource {
 				Type:     schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: validation.StringLenBetween(1, userNameMaxLength),
 				},
 			},

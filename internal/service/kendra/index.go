@@ -68,13 +68,13 @@ func ResourceIndex() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"query_capacity_units": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Computed:     true,
 							Optional:     true,
 							ValidateFunc: validation.IntAtLeast(0),
 						},
 						"storage_capacity_units": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Computed:     true,
 							Optional:     true,
 							ValidateFunc: validation.IntAtLeast(0),
@@ -87,7 +87,7 @@ func ResourceIndex() *schema.Resource {
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(1, 1000),
 			},
@@ -100,7 +100,7 @@ func ResourceIndex() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"name": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringLenBetween(1, 30),
 						},
@@ -129,15 +129,15 @@ func ResourceIndex() *schema.Resource {
 										Optional: true,
 									},
 									"importance": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Computed:     true,
 										Optional:     true,
 										ValidateFunc: validation.IntBetween(1, 10),
 									},
 									"rank_order": {
-										Type:             schema.TypeString,
-										Computed:         true,
-										Optional:         true,
+										Type:    schema.TypeString,
+										Computed:true,
+										Optional:true,
 										ValidateDiagFunc: enum.Validate[types.Order](),
 									},
 									"values_importance_map": {
@@ -180,18 +180,18 @@ func ResourceIndex() *schema.Resource {
 							},
 						},
 						"type": {
-							Type:             schema.TypeString,
-							Required:         true,
+							Type:    schema.TypeString,
+							Required:true,
 							ValidateDiagFunc: enum.Validate[types.DocumentAttributeValueType](),
 						},
 					},
 				},
 			},
 			"edition": {
-				Type:             schema.TypeString,
-				Optional:         true,
-				ForceNew:         true,
-				Default:          string(types.IndexEditionEnterpriseEdition),
+				Type:    schema.TypeString,
+				Optional:true,
+				ForceNew:true,
+				Default: string(types.IndexEditionEnterpriseEdition),
 				ValidateDiagFunc: enum.Validate[types.IndexEdition](),
 			},
 			"error_message": {
@@ -246,7 +246,7 @@ func ResourceIndex() *schema.Resource {
 				),
 			},
 			"role_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: verify.ValidARN,
 			},
@@ -258,7 +258,7 @@ func ResourceIndex() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"kms_key_id": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.StringLenBetween(1, 2048),
@@ -275,9 +275,9 @@ func ResourceIndex() *schema.Resource {
 				Computed: true,
 			},
 			"user_context_policy": {
-				Type:             schema.TypeString,
-				Optional:         true,
-				Default:          string(types.UserContextPolicyAttributeFilter),
+				Type:    schema.TypeString,
+				Optional:true,
+				Default: string(types.UserContextPolicyAttributeFilter),
 				ValidateDiagFunc: enum.Validate[types.UserContextPolicy](),
 			},
 			"user_group_resolution_configuration": {
@@ -287,8 +287,8 @@ func ResourceIndex() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"user_group_resolution_mode": {
-							Type:             schema.TypeString,
-							Required:         true,
+							Type:    schema.TypeString,
+							Required:true,
 							ValidateDiagFunc: enum.Validate[types.UserGroupResolutionMode](),
 						},
 					},
@@ -307,12 +307,12 @@ func ResourceIndex() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"group_attribute_field": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: validation.StringLenBetween(1, 2048),
 									},
 									"user_name_attribute_field": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: validation.StringLenBetween(1, 2048),
 									},
@@ -326,27 +326,27 @@ func ResourceIndex() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"claim_regex": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: validation.StringLenBetween(1, 100),
 									},
 									"group_attribute_field": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: validation.StringLenBetween(1, 100),
 									},
 									"issuer": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: validation.StringLenBetween(1, 65),
 									},
 									"key_location": {
-										Type:             schema.TypeString,
-										Required:         true,
+										Type:    schema.TypeString,
+										Required:true,
 										ValidateDiagFunc: enum.Validate[types.KeyLocation](),
 									},
 									"secrets_manager_arn": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: verify.ValidARN,
 									},
@@ -362,7 +362,7 @@ func ResourceIndex() *schema.Resource {
 										),
 									},
 									"user_name_attribute_field": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: validation.StringLenBetween(1, 100),
 									},
@@ -1016,7 +1016,7 @@ func flattenIndexStatistics(indexStatistics *types.IndexStatistics) []interface{
 	}
 
 	values := map[string]interface{}{
-		"faq_statistics":           flattenFaqStatistics(indexStatistics.FaqStatistics),
+		"faq_statistics":  flattenFaqStatistics(indexStatistics.FaqStatistics),
 		"text_document_statistics": flattenTextDocumentStatistics(indexStatistics.TextDocumentStatistics),
 	}
 
@@ -1041,7 +1041,7 @@ func flattenTextDocumentStatistics(textDocumentStatistics *types.TextDocumentSta
 	}
 
 	values := map[string]interface{}{
-		"indexed_text_bytes":           aws.ToInt64(&textDocumentStatistics.IndexedTextBytes),
+		"indexed_text_bytes":  aws.ToInt64(&textDocumentStatistics.IndexedTextBytes),
 		"indexed_text_documents_count": aws.ToInt32(&textDocumentStatistics.IndexedTextDocumentsCount),
 	}
 

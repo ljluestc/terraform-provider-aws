@@ -30,7 +30,7 @@ func TestAccGlobalAcceleratorCustomRoutingAccelerator_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCustomRoutingAcceleratorDestroy(ctx),
+CheckDestroy:    testAccCheckCustomRoutingAcceleratorDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCustomRoutingAcceleratorConfig_basic(rName),
@@ -71,7 +71,7 @@ func TestAccGlobalAcceleratorCustomRoutingAccelerator_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCustomRoutingAcceleratorDestroy(ctx),
+CheckDestroy:    testAccCheckCustomRoutingAcceleratorDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCustomRoutingAcceleratorConfig_basic(rName),
@@ -94,7 +94,7 @@ func TestAccGlobalAcceleratorCustomRoutingAccelerator_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCustomRoutingAcceleratorDestroy(ctx),
+CheckDestroy:    testAccCheckCustomRoutingAcceleratorDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCustomRoutingAcceleratorConfig_tags1(rName, "key1", "value1"),
@@ -141,7 +141,7 @@ func TestAccGlobalAcceleratorCustomRoutingAccelerator_update(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckCustomRoutingAcceleratorDestroy(ctx),
+CheckDestroy:    testAccCheckCustomRoutingAcceleratorDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccCustomRoutingAcceleratorConfig_basic(rName1),

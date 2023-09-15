@@ -30,7 +30,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckBotAssociationDestroy(ctx),
+CheckDestroy:    testAccCheckBotAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccBotAssociationConfig_v1Basic(rName, rName2),
@@ -65,7 +65,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckBotAssociationDestroy(ctx),
+CheckDestroy:    testAccCheckBotAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccBotAssociationConfig_v1Basic(rName, rName2),
@@ -159,7 +159,7 @@ func testAccBotV1AssociationConfigBase(rName, rName2 string) string {
 	return fmt.Sprintf(`
 resource "aws_lex_intent" "test" {
   create_version = true
-  name           = %[1]q
+  name  = %[1]q
   fulfillment_activity {
     type = "ReturnIntent"
   }
@@ -187,14 +187,14 @@ resource "aws_lex_bot" "test" {
     intent_version = "1"
   }
   child_directed   = false
-  name             = %[1]q
+  name    = %[1]q
   process_behavior = "BUILD"
 }
 
 resource "aws_connect_instance" "test" {
   identity_management_type = "CONNECT_MANAGED"
   inbound_calls_enabled    = true
-  instance_alias           = %[2]q
+  instance_alias  = %[2]q
   outbound_calls_enabled   = true
 }
   `, rName, rName2)

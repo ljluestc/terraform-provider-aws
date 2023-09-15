@@ -27,10 +27,10 @@ func TestAccCognitoIDPUser_basic(t *testing.T) {
 	resourceName := "aws_cognito_user.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserDestroy(ctx),
+		CheckDestroy:    testAccCheckUserDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserConfig_basic(rUserPoolName, rUserName),
@@ -69,10 +69,10 @@ func TestAccCognitoIDPUser_disappears(t *testing.T) {
 	resourceName := "aws_cognito_user.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserDestroy(ctx),
+		CheckDestroy:    testAccCheckUserDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserConfig_basic(rUserPoolName, rUserName),
@@ -97,10 +97,10 @@ func TestAccCognitoIDPUser_temporaryPassword(t *testing.T) {
 	clientResourceName := "aws_cognito_user_pool_client.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserDestroy(ctx),
+		CheckDestroy:    testAccCheckUserDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserConfig_temporaryPassword(rUserPoolName, rClientName, rUserName, rUserPassword),
@@ -154,10 +154,10 @@ func TestAccCognitoIDPUser_password(t *testing.T) {
 	clientResourceName := "aws_cognito_user_pool_client.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserDestroy(ctx),
+		CheckDestroy:    testAccCheckUserDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserConfig_password(rUserPoolName, rClientName, rUserName, rUserPassword),
@@ -207,10 +207,10 @@ func TestAccCognitoIDPUser_attributes(t *testing.T) {
 	resourceName := "aws_cognito_user.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserDestroy(ctx),
+		CheckDestroy:    testAccCheckUserDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserConfig_attributes(rUserPoolName, rUserName),
@@ -256,10 +256,10 @@ func TestAccCognitoIDPUser_enabled(t *testing.T) {
 	resourceName := "aws_cognito_user.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserDestroy(ctx),
+		CheckDestroy:    testAccCheckUserDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserConfig_enable(rUserPoolName, rUserName, false),
@@ -451,7 +451,7 @@ resource "aws_cognito_user_pool_client" "test" {
 
 resource "aws_cognito_user" "test" {
   user_pool_id       = aws_cognito_user_pool.test.id
-  username           = %[3]q
+  username  = %[3]q
   temporary_password = %[4]q
 }
 `, userPoolName, clientName, userName, password)

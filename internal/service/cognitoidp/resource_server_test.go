@@ -30,10 +30,10 @@ func TestAccCognitoIDPResourceServer_basic(t *testing.T) {
 	resourceName := "aws_cognito_resource_server.main"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourceServerDestroy(ctx),
+		CheckDestroy:    testAccCheckResourceServerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResourceServerConfig_basic(identifier, name1, poolName),
@@ -73,10 +73,10 @@ func TestAccCognitoIDPResourceServer_scope(t *testing.T) {
 	resourceName := "aws_cognito_resource_server.main"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourceServerDestroy(ctx),
+		CheckDestroy:    testAccCheckResourceServerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResourceServerConfig_scope(identifier, name, poolName),
@@ -184,7 +184,7 @@ func testAccResourceServerConfig_basic(identifier string, name string, poolName 
 	return fmt.Sprintf(`
 resource "aws_cognito_resource_server" "main" {
   identifier   = "%s"
-  name         = "%s"
+  name= "%s"
   user_pool_id = aws_cognito_user_pool.main.id
 }
 

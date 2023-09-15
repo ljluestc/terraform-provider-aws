@@ -49,7 +49,7 @@ Type:     schema.TypeString,
 Computed: true,
 	},
 	"home_directory": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ValidateFunc: validation.StringLenBetween(0, 1024),
 	},
@@ -59,12 +59,12 @@ Optional: true,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "entry": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Required:     true,
 	ValidateFunc: validation.StringLenBetween(0, 1024),
 },
 "target": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Required:     true,
 	ValidateFunc: validation.StringLenBetween(0, 1024),
 },
@@ -72,15 +72,15 @@ Elem: &schema.Resource{
 },
 	},
 	"home_directory_type": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Default:      transfer.HomeDirectoryTypePath,
 ValidateFunc: validation.StringInSlice(transfer.HomeDirectoryType_Values(), false),
 	},
 	"policy": {
 Type:   schema.TypeString,
-Optional:              true,
-ValidateFunc:          verify.ValidIAMPolicyJSON,
+Optional:     true,
+ValidateFunc: verify.ValidIAMPolicyJSON,
 DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
 DiffSuppressOnRefresh: true,
 StateFunc: func(v interface{}) string {
@@ -111,12 +111,12 @@ Elem: &schema.Resource{
 },
 	},
 	"role": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ValidateFunc: verify.ValidARN,
 	},
 	"server_id": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ForceNew:     true,
 ValidateFunc: validServerID,
@@ -124,7 +124,7 @@ ValidateFunc: validServerID,
 	names.AttrTags:    tftags.TagsSchema(),
 	names.AttrTagsAll: tftags.TagsSchemaComputed(),
 	"user_name": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ForceNew:     true,
 ValidateFunc: validUserName,
@@ -416,8 +416,8 @@ return []interface{}{}
 	}
 
 	m := map[string]interface{}{
-"gid":            aws.Int64Value(posixUser.Gid),
-"uid":            aws.Int64Value(posixUser.Uid),
+"gid":   aws.Int64Value(posixUser.Gid),
+"uid":   aws.Int64Value(posixUser.Uid),
 "secondary_gids": aws.Int64ValueSlice(posixUser.SecondaryGids),
 	}
 

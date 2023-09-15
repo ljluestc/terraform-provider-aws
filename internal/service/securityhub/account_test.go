@@ -27,10 +27,10 @@ func testAccAccount_basic(t *testing.T) {
 	}
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, securityhub.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, securityhub.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAccountDestroy(ctx),
+		CheckDestroy:    testAccCheckAccountDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAccountConfig_basic,
@@ -42,8 +42,8 @@ func testAccAccount_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"enable_default_standards"},
 			},
@@ -56,10 +56,10 @@ func testAccAccount_disappears(t *testing.T) {
 	resourceName := "aws_securityhub_account.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, securityhub.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, securityhub.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAccountDestroy(ctx),
+		CheckDestroy:    testAccCheckAccountDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAccountConfig_basic,
@@ -78,10 +78,10 @@ func testAccAccount_enableDefaultStandardsFalse(t *testing.T) {
 	resourceName := "aws_securityhub_account.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, securityhub.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, securityhub.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAccountDestroy(ctx),
+		CheckDestroy:    testAccCheckAccountDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAccountConfig_enableDefaultStandardsFalse,
@@ -100,10 +100,10 @@ func testAccAccount_full(t *testing.T) {
 
 	resource.Test(t, resource.TestCase{
 		// control_finding_generator not supported in AWS GovCloud.
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionNot(t, endpoints.AwsUsGovPartitionID) },
-		ErrorCheck:               acctest.ErrorCheck(t, securityhub.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionNot(t, endpoints.AwsUsGovPartitionID) },
+		ErrorCheck:      acctest.ErrorCheck(t, securityhub.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAccountDestroy(ctx),
+		CheckDestroy:    testAccCheckAccountDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAccountConfig_full(false, "STANDARD_CONTROL"),
@@ -137,7 +137,7 @@ func testAccAccount_migrateV0(t *testing.T) {
 			{
 				ExternalProviders: map[string]resource.ExternalProvider{
 					"aws": {
-						Source:            "hashicorp/aws",
+						Source:   "hashicorp/aws",
 						VersionConstraint: "4.59.0",
 					},
 				},
@@ -149,8 +149,8 @@ func testAccAccount_migrateV0(t *testing.T) {
 			},
 			{
 				ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-				Config:                   testAccAccountConfig_basic,
-				PlanOnly:                 true,
+				Config: testAccAccountConfig_basic,
+				PlanOnly:        true,
 			},
 		},
 	})
@@ -174,7 +174,7 @@ func testAccAccount_removeControlFindingGeneratorDefaultValue(t *testing.T) {
 			{
 				ExternalProviders: map[string]resource.ExternalProvider{
 					"aws": {
-						Source:            "hashicorp/aws",
+						Source:   "hashicorp/aws",
 						VersionConstraint: "5.13.0",
 					},
 				},
@@ -189,8 +189,8 @@ func testAccAccount_removeControlFindingGeneratorDefaultValue(t *testing.T) {
 			},
 			{
 				ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-				Config:                   testAccAccountConfig_basic,
-				PlanOnly:                 true,
+				Config: testAccAccountConfig_basic,
+				PlanOnly:        true,
 			},
 		},
 	})

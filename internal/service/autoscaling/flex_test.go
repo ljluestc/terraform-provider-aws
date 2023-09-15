@@ -18,7 +18,7 @@ func TestExpandStepAdjustments(t *testing.T) {
 		map[string]interface{}{
 			"metric_interval_lower_bound": "1.0",
 			"metric_interval_upper_bound": "2.0",
-			"scaling_adjustment":          1,
+			"scaling_adjustment": 1,
 		},
 	}
 	parameters, err := ExpandStepAdjustments(expanded)

@@ -76,7 +76,7 @@ func ResourceIdentityProvider() *schema.Resource {
 			},
 
 			"provider_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringInSlice(cognitoidentityprovider.IdentityProviderTypeType_Values(), false),

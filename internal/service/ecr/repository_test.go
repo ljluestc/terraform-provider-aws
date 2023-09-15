@@ -31,7 +31,7 @@ func TestAccECRRepository_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ecr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckRepositoryDestroy(ctx),
+CheckDestroy:    testAccCheckRepositoryDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRepositoryConfig_basic(rName),
@@ -65,7 +65,7 @@ func TestAccECRRepository_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ecr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckRepositoryDestroy(ctx),
+CheckDestroy:    testAccCheckRepositoryDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRepositoryConfig_basic(rName),
@@ -89,7 +89,7 @@ func TestAccECRRepository_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ecr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckRepositoryDestroy(ctx),
+CheckDestroy:    testAccCheckRepositoryDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRepositoryConfig_tags1(rName, "key1", "value1"),
@@ -135,7 +135,7 @@ func TestAccECRRepository_immutability(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ecr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckRepositoryDestroy(ctx),
+CheckDestroy:    testAccCheckRepositoryDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRepositoryConfig_immutability(rName),
@@ -164,7 +164,7 @@ func TestAccECRRepository_Image_scanning(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ecr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckRepositoryDestroy(ctx),
+CheckDestroy:    testAccCheckRepositoryDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRepositoryConfig_imageScanningConfiguration(rName, true),
@@ -182,8 +182,8 @@ ImportStateVerify: true,
 	},
 	{
 // Test that the removal of the non-default image_scanning_configuration causes plan changes
-Config:             testAccRepositoryConfig_basic(rName),
-PlanOnly:           true,
+Config:    testAccRepositoryConfig_basic(rName),
+PlanOnly:  true,
 ExpectNonEmptyPlan: true,
 	},
 	{
@@ -197,8 +197,8 @@ Check: resource.ComposeTestCheckFunc(
 	},
 	{
 // Test that the removal of the default image_scanning_configuration doesn't cause any plan changes
-Config:             testAccRepositoryConfig_basic(rName),
-PlanOnly:           true,
+Config:    testAccRepositoryConfig_basic(rName),
+PlanOnly:  true,
 ExpectNonEmptyPlan: false,
 	},
 },
@@ -216,7 +216,7 @@ func TestAccECRRepository_Encryption_kms(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ecr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckRepositoryDestroy(ctx),
+CheckDestroy:    testAccCheckRepositoryDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccRepositoryConfig_encryptionKMSDefaultkey(rName),
@@ -262,7 +262,7 @@ func TestAccECRRepository_Encryption_aes256(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, ecr.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckRepositoryDestroy(ctx),
+CheckDestroy:    testAccCheckRepositoryDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 // Test that the addition of the default encryption_configuration doesn't recreation in the next step
@@ -455,7 +455,7 @@ resource "aws_ecr_repository" "test" {
 
   encryption_configuration {
     encryption_type = "KMS"
-    kms_key         = aws_kms_key.test.arn
+    kms_key= aws_kms_key.test.arn
   }
 }
 `, rName)

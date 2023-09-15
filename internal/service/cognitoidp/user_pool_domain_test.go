@@ -27,10 +27,10 @@ func TestAccCognitoIDPUserPoolDomain_basic(t *testing.T) {
 	resourceName := "aws_cognito_user_pool_domain.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDomainDestroy(ctx),
+		CheckDestroy:    testAccCheckUserPoolDomainDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserPoolDomainConfig_basic(rName),
@@ -60,10 +60,10 @@ func TestAccCognitoIDPUserPoolDomain_disappears(t *testing.T) {
 	resourceName := "aws_cognito_user_pool_domain.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDomainDestroy(ctx),
+		CheckDestroy:    testAccCheckUserPoolDomainDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserPoolDomainConfig_basic(rName),
@@ -90,10 +90,10 @@ func TestAccCognitoIDPUserPoolDomain_custom(t *testing.T) {
 	resourceName := "aws_cognito_user_pool_domain.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDomainDestroy(ctx),
+		CheckDestroy:    testAccCheckUserPoolDomainDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserPoolDomainConfig_custom(rootDomain, domain, poolName),
@@ -133,10 +133,10 @@ func TestAccCognitoIDPUserPoolDomain_customCertUpdate(t *testing.T) {
 	cognitoPoolResourceName := "aws_cognito_user_pool_domain.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
-		ErrorCheck:               acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckRegion(t, endpoints.UsEast1RegionID) },
+		ErrorCheck:      acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckUserPoolDomainDestroy(ctx),
+		CheckDestroy:    testAccCheckUserPoolDomainDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccUserPoolDomainConfig_customCertUpdate(rootDomain, domain, poolName, acmInitialValidationResourceName),
@@ -258,7 +258,7 @@ resource "aws_cognito_user_pool" "test" {
 func testAccUserPoolDomainConfig_custom(rootDomain string, domain string, poolName string) string {
 	return fmt.Sprintf(`
 data "aws_route53_zone" "test" {
-  name         = %[1]q
+  name= %[1]q
   private_zone = false
 }
 
@@ -269,15 +269,15 @@ resource "aws_acm_certificate" "test" {
 
 resource "aws_route53_record" "test" {
   allow_overwrite = true
-  name            = tolist(aws_acm_certificate.test.domain_validation_options)[0].resource_record_name
-  records         = [tolist(aws_acm_certificate.test.domain_validation_options)[0].resource_record_value]
-  ttl             = 60
-  type            = tolist(aws_acm_certificate.test.domain_validation_options)[0].resource_record_type
-  zone_id         = data.aws_route53_zone.test.zone_id
+  name   = tolist(aws_acm_certificate.test.domain_validation_options)[0].resource_record_name
+  records= [tolist(aws_acm_certificate.test.domain_validation_options)[0].resource_record_value]
+  ttl    = 60
+  type   = tolist(aws_acm_certificate.test.domain_validation_options)[0].resource_record_type
+  zone_id= data.aws_route53_zone.test.zone_id
 }
 
 resource "aws_acm_certificate_validation" "test" {
-  certificate_arn         = aws_acm_certificate.test.arn
+  certificate_arn= aws_acm_certificate.test.arn
   validation_record_fqdns = [aws_route53_record.test.fqdn]
 }
 
@@ -287,7 +287,7 @@ resource "aws_cognito_user_pool" "test" {
 
 resource "aws_cognito_user_pool_domain" "test" {
   certificate_arn = aws_acm_certificate_validation.test.certificate_arn
-  domain          = aws_acm_certificate.test.domain_name
+  domain = aws_acm_certificate.test.domain_name
   user_pool_id    = aws_cognito_user_pool.test.id
 }
 `, rootDomain, domain, poolName)
@@ -296,7 +296,7 @@ resource "aws_cognito_user_pool_domain" "test" {
 func testAccUserPoolDomainConfig_customCertUpdate(rootDomain string, domain string, poolName string, appliedCertValidation string) string {
 	return fmt.Sprintf(`
 data "aws_route53_zone" "test" {
-  name         = %[1]q
+  name= %[1]q
   private_zone = false
 }
 
@@ -312,28 +312,28 @@ resource "aws_acm_certificate" "updated" {
 
 resource "aws_route53_record" "initial_test" {
   allow_overwrite = true
-  name            = tolist(aws_acm_certificate.initial.domain_validation_options)[0].resource_record_name
-  records         = [tolist(aws_acm_certificate.initial.domain_validation_options)[0].resource_record_value]
-  ttl             = 60
-  type            = tolist(aws_acm_certificate.initial.domain_validation_options)[0].resource_record_type
-  zone_id         = data.aws_route53_zone.test.zone_id
+  name   = tolist(aws_acm_certificate.initial.domain_validation_options)[0].resource_record_name
+  records= [tolist(aws_acm_certificate.initial.domain_validation_options)[0].resource_record_value]
+  ttl    = 60
+  type   = tolist(aws_acm_certificate.initial.domain_validation_options)[0].resource_record_type
+  zone_id= data.aws_route53_zone.test.zone_id
 }
 
 resource "aws_route53_record" "updated_test" {
   allow_overwrite = true
-  name            = tolist(aws_acm_certificate.updated.domain_validation_options)[0].resource_record_name
-  records         = [tolist(aws_acm_certificate.updated.domain_validation_options)[0].resource_record_value]
-  ttl             = 60
-  type            = tolist(aws_acm_certificate.updated.domain_validation_options)[0].resource_record_type
-  zone_id         = data.aws_route53_zone.test.zone_id
+  name   = tolist(aws_acm_certificate.updated.domain_validation_options)[0].resource_record_name
+  records= [tolist(aws_acm_certificate.updated.domain_validation_options)[0].resource_record_value]
+  ttl    = 60
+  type   = tolist(aws_acm_certificate.updated.domain_validation_options)[0].resource_record_type
+  zone_id= data.aws_route53_zone.test.zone_id
 }
 
 resource "aws_acm_certificate_validation" "initial_test" {
-  certificate_arn         = aws_acm_certificate.initial.arn
+  certificate_arn= aws_acm_certificate.initial.arn
   validation_record_fqdns = [aws_route53_record.initial_test.fqdn]
 }
 resource "aws_acm_certificate_validation" "updated_test" {
-  certificate_arn         = aws_acm_certificate.updated.arn
+  certificate_arn= aws_acm_certificate.updated.arn
   validation_record_fqdns = [aws_route53_record.updated_test.fqdn]
 }
 
@@ -343,7 +343,7 @@ resource "aws_cognito_user_pool" "test" {
 
 resource "aws_cognito_user_pool_domain" "test" {
   certificate_arn = %[4]s.certificate_arn
-  domain          = aws_acm_certificate.initial.domain_name
+  domain = aws_acm_certificate.initial.domain_name
   user_pool_id    = aws_cognito_user_pool.test.id
 }
 `, rootDomain, domain, poolName, appliedCertValidation)

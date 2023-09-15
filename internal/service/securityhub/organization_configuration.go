@@ -33,7 +33,7 @@ func ResourceOrganizationConfiguration() *schema.Resource {
 				Required: true,
 			},
 			"auto_enable_standards": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: validation.StringInSlice(securityhub.AutoEnableStandards_Values(), false),

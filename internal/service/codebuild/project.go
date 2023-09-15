@@ -58,7 +58,7 @@ Elem: &schema.Resource{
 	Optional: true,
 },
 "bucket_owner_access": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Optional:     true,
 	Validate
 func: validation.StringInSlice(codebuild.BucketOwnerAccess_Values(), false),
@@ -120,7 +120,7 @@ func: validation.StringInSlice(codebuild.ArtifactPackaging_Values(), false),
 	Optional: true,
 },
 "type": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Required:     true,
 	Validate
 func: validation.StringInSlice(codebuild.ArtifactsType_Values(), false),
@@ -153,13 +153,13 @@ Schema: map[string]*schema.Schema{
 Type:     schema.TypeList,
 Optional: true,
 Elem: &schema.Schema{
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Validate
 func: validation.StringInSlice(codebuild.ComputeType_Values(), false),
 },
 	},
 	"maximum_builds_allowed": {
-Type:         schema.TypeInt,
+Type:schema.TypeInt,
 Optional:     true,
 Validate
 func: validation.IntBetween(1, 100),
@@ -168,13 +168,13 @@ func: validation.IntBetween(1, 100),
 	},
 },
 "service_role": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Required:     true,
 	Validate
 func: verify.ValidARN,
 },
 "timeout_in_mins": {
-	Type:         schema.TypeInt,
+	Type:schema.TypeInt,
 	Optional:     true,
 	Validate
 func: validation.IntBetween(5, 480),
@@ -183,15 +183,15 @@ func: validation.IntBetween(5, 480),
 },
 	},
 	"cache": {
-Type:             schema.TypeList,
-Optional:         true,
-MaxItems:         1,
+Type:    schema.TypeList,
+Optional:true,
+MaxItems:1,
 DiffSuppress
 func: verify.SuppressMissingOptionalConfigurationBlock,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "type": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Optional:     true,
 	Default:      codebuild.CacheTypeNoCache,
 	Validate
@@ -205,7 +205,7 @@ func: validation.StringInSlice(codebuild.CacheType_Values(), false),
 	Type:     schema.TypeList,
 	Optional: true,
 	Elem: &schema.Schema{
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Validate
 func: validation.StringInSlice(codebuild.CacheMode_Values(), false),
 	},
@@ -214,13 +214,13 @@ func: validation.StringInSlice(codebuild.CacheMode_Values(), false),
 },
 	},
 	"concurrent_build_limit": {
-Type:         schema.TypeInt,
+Type:schema.TypeInt,
 Optional:     true,
 Validate
 func: validation.IntAtLeast(1),
 	},
 	"description": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Computed:     true,
 Validate
@@ -238,7 +238,7 @@ MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "compute_type": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Required:     true,
 	Validate
 func: validation.StringInSlice(codebuild.ComputeType_Values(), false),
@@ -257,7 +257,7 @@ Type:     schema.TypeString,
 Required: true,
 	},
 	"type": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Validate
 func: validation.StringInSlice(codebuild.EnvironmentVariableType_Values(), false),
@@ -271,13 +271,13 @@ Default:      codebuild.EnvironmentVariableTypePlaintext,
 	Required: true,
 },
 "type": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Required:     true,
 	Validate
 func: validation.StringInSlice(codebuild.EnvironmentType_Values(), false),
 },
 "image_pull_credentials_type": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Optional:     true,
 	Default:      codebuild.ImagePullCredentialsTypeCodebuild,
 	Validate
@@ -289,7 +289,7 @@ func: validation.StringInSlice(codebuild.ImagePullCredentialsType_Values(), fals
 	Default:  false,
 },
 "certificate": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Optional:     true,
 	Validate
 func: validation.StringMatch(regexache.MustCompile(`\.(pem|zip)$`), "must end in .pem or .zip"),
@@ -305,7 +305,7 @@ Type:     schema.TypeString,
 Required: true,
 	},
 	"credential_provider": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 Validate
 func: validation.StringInSlice(codebuild.CredentialProviderType_Values(), false),
@@ -338,7 +338,7 @@ Elem: &schema.Resource{
 	Optional: true,
 },
 "type": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Optional:     true,
 	Default:      codebuild.FileSystemTypeEfs,
 	Validate
@@ -360,7 +360,7 @@ Elem: &schema.Resource{
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"status": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Default:      codebuild.LogsConfigStatusTypeEnabled,
 Validate
@@ -386,20 +386,20 @@ func: verify.SuppressMissingOptionalConfigurationBlock,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"bucket_owner_access": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Validate
 func: validation.StringInSlice(codebuild.BucketOwnerAccess_Values(), false),
 	},
 	"status": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Default:      codebuild.LogsConfigStatusTypeDisabled,
 Validate
 func: validation.StringInSlice(codebuild.LogsConfigStatusType_Values(), false),
 	},
 	"location": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Validate
 func: validProjectS3LogsLocation,
@@ -420,7 +420,7 @@ DiffSuppress
 func: verify.SuppressMissingOptionalConfigurationBlock,
 	},
 	"name": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ForceNew:     true,
 Validate
@@ -438,7 +438,7 @@ Elem: &schema.Resource{
 	Optional: true,
 },
 "bucket_owner_access": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Optional:     true,
 	Validate
 func: validation.StringInSlice(codebuild.BucketOwnerAccess_Values(), false),
@@ -453,7 +453,7 @@ func: validation.StringInSlice(codebuild.BucketOwnerAccess_Values(), false),
 	Optional: true,
 },
 "namespace_type": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Optional:     true,
 	Validate
 func: validation.StringInSlice(codebuild.ArtifactNamespace_Values(), false),
@@ -465,7 +465,7 @@ func: validation.StringInSlice(codebuild.ArtifactNamespace_Values(), false),
 	Default:  false,
 },
 "packaging": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Optional:     true,
 	Validate
 func: validation.StringInSlice(codebuild.ArtifactPackaging_Values(), false),
@@ -480,7 +480,7 @@ func: validation.StringInSlice(codebuild.ArtifactPackaging_Values(), false),
 	Required: true,
 },
 "type": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Required:     true,
 	Validate
 func: validation.StringInSlice(codebuild.ArtifactsType_Values(), false),
@@ -503,13 +503,13 @@ Elem: &schema.Resource{
 	Optional: true,
 },
 "type": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Required:     true,
 	Validate
 func: validation.StringInSlice(codebuild.SourceType_Values(), false),
 },
 "git_clone_depth": {
-	Type:         schema.TypeInt,
+	Type:schema.TypeInt,
 	Optional:     true,
 	Validate
 func: validation.IntAtLeast(0),
@@ -577,7 +577,7 @@ Elem: &schema.Resource{
 },
 	},
 	"service_role": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 Validate
 func: verify.ValidARN,
@@ -597,13 +597,13 @@ Elem: &schema.Resource{
 	Optional: true,
 },
 "type": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Required:     true,
 	Validate
 func: validation.StringInSlice(codebuild.SourceType_Values(), false),
 },
 "git_clone_depth": {
-	Type:         schema.TypeInt,
+	Type:schema.TypeInt,
 	Optional:     true,
 	Validate
 func: validation.IntAtLeast(0),
@@ -654,7 +654,7 @@ Type:     schema.TypeString,
 Optional: true,
 	},
 	"project_visibility": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Default:      codebuild.ProjectVisibilityTypePrivate,
 Validate
@@ -665,20 +665,20 @@ Type:     schema.TypeString,
 Computed: true,
 	},
 	"resource_access_role": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Validate
 func: verify.ValidARN,
 	},
 	"build_timeout": {
-Type:         schema.TypeInt,
+Type:schema.TypeInt,
 Optional:     true,
 Default:      60,
 Validate
 func: validation.IntBetween(5, 480),
 	},
 	"queued_timeout": {
-Type:         schema.TypeInt,
+Type:schema.TypeInt,
 Optional:     true,
 Default:      480,
 Validate
@@ -769,13 +769,13 @@ if aws.StringValue(projectSource.Location) != "" {
 	}
 
 	input := &codebuild.CreateProjectInput{
-Environment:         projectEnv,
+Environment:projectEnv,
 Name: aws.String(d.Get("name").(string)),
-Source:              &projectSource,
-Artifacts:           &projectArtifacts,
+Source:     &projectSource,
+Artifacts:  &projectArtifacts,
 SecondaryArtifacts:  projectSecondaryArtifacts,
 SecondarySources:    projectSecondarySources,
-LogsConfig:          projectLogsConfig,
+LogsConfig: projectLogsConfig,
 BuildBatchConfig:    projectBatchConfig,
 FileSystemLocations: projectFileSystemLocations,
 Tags: getTagsIn(ctx),
@@ -1303,7 +1303,7 @@ func expandProjectSourceData(data map[string]interface{}) codebuild.ProjectSourc
 Buildspec:     aws.String(data["buildspec"].(string)),
 GitCloneDepth: aws.Int64(int64(data["git_clone_depth"].(int))),
 InsecureSsl:   aws.Bool(data["insecure_ssl"].(bool)),
-Type:          aws.String(sourceType),
+Type: aws.String(sourceType),
 	}
 
 	if data["source_identifier"] != nil {
@@ -1826,7 +1826,7 @@ return []interface{}{}
 	}
 
 	values := map[string]interface{}{
-"credential":          aws.StringValue(registryCredential.Credential),
+"credential": aws.StringValue(registryCredential.Credential),
 "credential_provider": aws.StringValue(registryCredential.CredentialProvider),
 	}
 
@@ -1856,8 +1856,8 @@ func flattenProjectSource(source *codebuild.ProjectSource) []interface{} {
 
 func flattenProjectSourceData(source *codebuild.ProjectSource) interface{} {
 	m := map[string]interface{}{
-"buildspec":           aws.StringValue(source.Buildspec),
-"location":            aws.StringValue(source.Location),
+"buildspec":  aws.StringValue(source.Buildspec),
+"location":   aws.StringValue(source.Location),
 "git_clone_depth":     int(aws.Int64Value(source.GitCloneDepth)),
 "insecure_ssl":        aws.BoolValue(source.InsecureSsl),
 "report_build_status": aws.BoolValue(source.ReportBuildStatus),

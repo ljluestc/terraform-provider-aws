@@ -69,7 +69,7 @@ func ResourcePolicy() *schema.Resource {
 				Computed: true,
 			},
 			"min_adjustment_magnitude": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				ValidateFunc: validation.IntAtLeast(1),
 			},
@@ -79,7 +79,7 @@ func ResourcePolicy() *schema.Resource {
 				ForceNew: true,
 			},
 			"policy_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Default:      PolicyTypeSimpleScaling, // preserve AWS's default to make validation easier.
 				ValidateFunc: validation.StringInSlice(PolicyType_Values(), false),
@@ -91,13 +91,13 @@ func ResourcePolicy() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"max_capacity_breach_behavior": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Default:      autoscaling.PredictiveScalingMaxCapacityBreachBehaviorHonorMaxCapacity,
 							ValidateFunc: validation.StringInSlice(autoscaling.PredictiveScalingMaxCapacityBreachBehavior_Values(), false),
 						},
 						"max_capacity_buffer": {
-							Type:         nullable.TypeNullableInt,
+							Type:nullable.TypeNullableInt,
 							Optional:     true,
 							ValidateFunc: nullable.ValidateTypeStringNullableIntBetween(0, 100),
 						},
@@ -108,7 +108,7 @@ func ResourcePolicy() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"customized_capacity_metric_specification": {
-										Type:          schema.TypeList,
+										Type: schema.TypeList,
 										Optional:      true,
 										MaxItems:      1,
 										ConflictsWith: []string{"predictive_scaling_configuration.0.metric_specification.0.predefined_load_metric_specification"},
@@ -122,7 +122,7 @@ func ResourcePolicy() *schema.Resource {
 										},
 									},
 									"customized_load_metric_specification": {
-										Type:          schema.TypeList,
+										Type: schema.TypeList,
 										Optional:      true,
 										MaxItems:      1,
 										ConflictsWith: []string{"predictive_scaling_configuration.0.metric_specification.0.predefined_load_metric_specification"},
@@ -136,7 +136,7 @@ func ResourcePolicy() *schema.Resource {
 										},
 									},
 									"customized_scaling_metric_specification": {
-										Type:          schema.TypeList,
+										Type: schema.TypeList,
 										Optional:      true,
 										MaxItems:      1,
 										ConflictsWith: []string{"predictive_scaling_configuration.0.metric_specification.0.predefined_scaling_metric_specification"},
@@ -150,14 +150,14 @@ func ResourcePolicy() *schema.Resource {
 										},
 									},
 									"predefined_load_metric_specification": {
-										Type:          schema.TypeList,
+										Type: schema.TypeList,
 										Optional:      true,
 										MaxItems:      1,
 										ConflictsWith: []string{"predictive_scaling_configuration.0.metric_specification.0.customized_load_metric_specification"},
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"predefined_metric_type": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ValidateFunc: validation.StringInSlice(autoscaling.PredefinedLoadMetricType_Values(), false),
 												},
@@ -175,7 +175,7 @@ func ResourcePolicy() *schema.Resource {
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"predefined_metric_type": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ValidateFunc: validation.StringInSlice(autoscaling.PredefinedMetricPairType_Values(), false),
 												},
@@ -187,14 +187,14 @@ func ResourcePolicy() *schema.Resource {
 										},
 									},
 									"predefined_scaling_metric_specification": {
-										Type:          schema.TypeList,
+										Type: schema.TypeList,
 										Optional:      true,
 										MaxItems:      1,
 										ConflictsWith: []string{"predictive_scaling_configuration.0.metric_specification.0.customized_scaling_metric_specification"},
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"predefined_metric_type": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ValidateFunc: validation.StringInSlice(autoscaling.PredefinedScalingMetricType_Values(), false),
 												},
@@ -213,13 +213,13 @@ func ResourcePolicy() *schema.Resource {
 							},
 						},
 						"mode": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Default:      autoscaling.PredictiveScalingModeForecastOnly,
 							ValidateFunc: validation.StringInSlice(autoscaling.PredictiveScalingMode_Values(), false),
 						},
 						"scheduling_buffer_time": {
-							Type:         nullable.TypeNullableInt,
+							Type:nullable.TypeNullableInt,
 							Optional:     true,
 							ValidateFunc: nullable.ValidateTypeStringNullableIntAtLeast(0),
 						},
@@ -227,12 +227,12 @@ func ResourcePolicy() *schema.Resource {
 				},
 			},
 			"scaling_adjustment": {
-				Type:          schema.TypeInt,
+				Type: schema.TypeInt,
 				Optional:      true,
 				ConflictsWith: []string{"step_adjustment"},
 			},
 			"step_adjustment": {
-				Type:          schema.TypeSet,
+				Type: schema.TypeSet,
 				Optional:      true,
 				ConflictsWith: []string{"scaling_adjustment"},
 				Elem: &schema.Resource{
@@ -260,14 +260,14 @@ func ResourcePolicy() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"customized_metric_specification": {
-							Type:          schema.TypeList,
+							Type: schema.TypeList,
 							Optional:      true,
 							MaxItems:      1,
 							ConflictsWith: []string{"target_tracking_configuration.0.predefined_metric_specification"},
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"metric_dimension": {
-										Type:          schema.TypeList,
+										Type: schema.TypeList,
 										Optional:      true,
 										ConflictsWith: []string{"target_tracking_configuration.0.customized_metric_specification.0.metrics"},
 										Elem: &schema.Resource{
@@ -284,28 +284,28 @@ func ResourcePolicy() *schema.Resource {
 										},
 									},
 									"metric_name": {
-										Type:          schema.TypeString,
+										Type: schema.TypeString,
 										Optional:      true,
 										ConflictsWith: []string{"target_tracking_configuration.0.customized_metric_specification.0.metrics"},
 									},
 									"metrics": {
-										Type:          schema.TypeSet,
+										Type: schema.TypeSet,
 										Optional:      true,
 										ConflictsWith: []string{"target_tracking_configuration.0.customized_metric_specification.0.metric_dimension", "target_tracking_configuration.0.customized_metric_specification.0.metric_name", "target_tracking_configuration.0.customized_metric_specification.0.namespace", "target_tracking_configuration.0.customized_metric_specification.0.statistic", "target_tracking_configuration.0.customized_metric_specification.0.unit"},
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"expression": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Optional:     true,
 													ValidateFunc: validation.StringLenBetween(1, 2047),
 												},
 												"id": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ValidateFunc: validation.StringLenBetween(1, 255),
 												},
 												"label": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Optional:     true,
 													ValidateFunc: validation.StringLenBetween(1, 2047),
 												},
@@ -349,7 +349,7 @@ func ResourcePolicy() *schema.Resource {
 																},
 															},
 															"stat": {
-																Type:         schema.TypeString,
+																Type:schema.TypeString,
 																Required:     true,
 																ValidateFunc: validation.StringLenBetween(1, 100),
 															},
@@ -369,17 +369,17 @@ func ResourcePolicy() *schema.Resource {
 										},
 									},
 									"namespace": {
-										Type:          schema.TypeString,
+										Type: schema.TypeString,
 										Optional:      true,
 										ConflictsWith: []string{"target_tracking_configuration.0.customized_metric_specification.0.metrics"},
 									},
 									"statistic": {
-										Type:          schema.TypeString,
+										Type: schema.TypeString,
 										Optional:      true,
 										ConflictsWith: []string{"target_tracking_configuration.0.customized_metric_specification.0.metrics"},
 									},
 									"unit": {
-										Type:          schema.TypeString,
+										Type: schema.TypeString,
 										Optional:      true,
 										ConflictsWith: []string{"target_tracking_configuration.0.customized_metric_specification.0.metrics"},
 									},
@@ -392,7 +392,7 @@ func ResourcePolicy() *schema.Resource {
 							Default:  false,
 						},
 						"predefined_metric_specification": {
-							Type:          schema.TypeList,
+							Type: schema.TypeList,
 							Optional:      true,
 							MaxItems:      1,
 							ConflictsWith: []string{"target_tracking_configuration.0.customized_metric_specification"},
@@ -429,17 +429,17 @@ func customizedMetricDataQuerySchema() *schema.Schema {
 		Elem: &schema.Resource{
 			Schema: map[string]*schema.Schema{
 				"expression": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Optional:     true,
 					ValidateFunc: validation.StringLenBetween(1, 1023),
 				},
 				"id": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Required:     true,
 					ValidateFunc: validation.StringLenBetween(1, 255),
 				},
 				"label": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Optional:     true,
 					ValidateFunc: validation.StringLenBetween(1, 2047),
 				},
@@ -483,7 +483,7 @@ func customizedMetricDataQuerySchema() *schema.Schema {
 								},
 							},
 							"stat": {
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								Required:     true,
 								ValidateFunc: validation.StringLenBetween(1, 100),
 							},
@@ -595,7 +595,7 @@ func resourcePolicyDelete(ctx context.Context, d *schema.ResourceData, meta inte
 	log.Printf("[INFO] Deleting Auto Scaling Policy: %s", d.Id())
 	_, err := conn.DeletePolicyWithContext(ctx, &autoscaling.DeletePolicyInput{
 		AutoScalingGroupName: aws.String(d.Get("autoscaling_group_name").(string)),
-		PolicyName:           aws.String(d.Id()),
+		PolicyName:  aws.String(d.Id()),
 	})
 
 	if tfawserr.ErrMessageContains(err, ErrCodeValidationError, "not found") {
@@ -628,7 +628,7 @@ func resourcePolicyImport(ctx context.Context, d *schema.ResourceData, meta inte
 func FindScalingPolicy(ctx context.Context, conn *autoscaling.AutoScaling, asgName, policyName string) (*autoscaling.ScalingPolicy, error) {
 	input := &autoscaling.DescribePoliciesInput{
 		AutoScalingGroupName: aws.String(asgName),
-		PolicyNames:          aws.StringSlice([]string{policyName}),
+		PolicyNames: aws.StringSlice([]string{policyName}),
 	}
 	var output []*autoscaling.ScalingPolicy
 
@@ -676,8 +676,8 @@ func FindScalingPolicy(ctx context.Context, conn *autoscaling.AutoScaling, asgNa
 func getPutScalingPolicyInput(d *schema.ResourceData) (*autoscaling.PutScalingPolicyInput, error) {
 	var params = &autoscaling.PutScalingPolicyInput{
 		AutoScalingGroupName: aws.String(d.Get("autoscaling_group_name").(string)),
-		Enabled:              aws.Bool(d.Get("enabled").(bool)),
-		PolicyName:           aws.String(d.Get("name").(string)),
+		Enabled:     aws.Bool(d.Get("enabled").(bool)),
+		PolicyName:  aws.String(d.Get("name").(string)),
 	}
 
 	// get policy_type first as parameter support depends on policy type
@@ -894,7 +894,7 @@ func expandPredictiveScalingConfig(predictiveScalingConfigSlice []interface{}) *
 	predictiveScalingConfig := &autoscaling.PredictiveScalingConfiguration{
 		MetricSpecifications:      expandPredictiveScalingMetricSpecifications(predictiveScalingConfigFlat["metric_specification"].([]interface{})),
 		MaxCapacityBreachBehavior: aws.String(predictiveScalingConfigFlat["max_capacity_breach_behavior"].(string)),
-		Mode:                      aws.String(predictiveScalingConfigFlat["mode"].(string)),
+		Mode:    aws.String(predictiveScalingConfigFlat["mode"].(string)),
 	}
 	if v, null, _ := nullable.Int(predictiveScalingConfigFlat["max_capacity_buffer"].(string)).Value(); !null {
 		predictiveScalingConfig.MaxCapacityBuffer = aws.Int64(v)
@@ -917,7 +917,7 @@ func expandPredictiveScalingMetricSpecifications(metricSpecificationsSlice []int
 		PredefinedLoadMetricSpecification:     expandPredefinedLoadMetricSpecification(metricSpecificationsFlat["predefined_load_metric_specification"].([]interface{})),
 		PredefinedMetricPairSpecification:     expandPredefinedMetricPairSpecification(metricSpecificationsFlat["predefined_metric_pair_specification"].([]interface{})),
 		PredefinedScalingMetricSpecification:  expandPredefinedScalingMetricSpecification(metricSpecificationsFlat["predefined_scaling_metric_specification"].([]interface{})),
-		TargetValue:                           aws.Float64(metricSpecificationsFlat["target_value"].(float64)),
+		TargetValue:aws.Float64(metricSpecificationsFlat["target_value"].(float64)),
 	}
 	return []*autoscaling.PredictiveScalingMetricSpecification{metricSpecification}
 }

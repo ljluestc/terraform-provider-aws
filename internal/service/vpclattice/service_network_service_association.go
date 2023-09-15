@@ -75,15 +75,15 @@ Elem: &schema.Resource{
 },
 	},
 	"service_identifier": {
-Type:             schema.TypeString,
-Required:         true,
-ForceNew:         true,
+Type:    schema.TypeString,
+Required:true,
+ForceNew:true,
 DiffSuppressFunc: suppressEquivalentIDOrARN,
 	},
 	"service_network_identifier": {
-Type:             schema.TypeString,
-Required:         true,
-ForceNew:         true,
+Type:    schema.TypeString,
+Required:true,
+ForceNew:true,
 DiffSuppressFunc: suppressEquivalentIDOrARN,
 	},
 	"status": {
@@ -106,7 +106,7 @@ func resourceServiceNetworkServiceAssociationCreate(ctx context.Context, d *sche
 	conn := meta.(*conns.AWSClient).VPCLatticeClient(ctx)
 
 	in := &vpclattice.CreateServiceNetworkServiceAssociationInput{
-ClientToken:              aws.String(id.UniqueId()),
+ClientToken:     aws.String(id.UniqueId()),
 ServiceIdentifier:        aws.String(d.Get("service_identifier").(string)),
 ServiceNetworkIdentifier: aws.String(d.Get("service_network_identifier").(string)),
 Tags:      getTagsIn(ctx),
@@ -221,7 +221,7 @@ Pending:    enum.Slice(types.ServiceNetworkVpcAssociationStatusCreateInProgress)
 Target:     enum.Slice(types.ServiceNetworkVpcAssociationStatusActive),
 Refresh:    statusServiceNetworkServiceAssociation(ctx, conn, id),
 Timeout:    timeout,
-NotFoundChecks:            20,
+NotFoundChecks:   20,
 ContinuousTargetOccurence: 2,
 	}
 

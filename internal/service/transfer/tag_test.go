@@ -20,10 +20,10 @@ func testAccTag_basic(t *testing.T) {
 	resourceName := "aws_transfer_tag.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, transfer.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, transfer.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTagDestroy(ctx),
+		CheckDestroy:    testAccCheckTagDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTagConfig_basic(rName, "key1", "value1"),
@@ -48,10 +48,10 @@ func testAccTag_disappears(t *testing.T) {
 	resourceName := "aws_transfer_tag.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, transfer.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, transfer.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTagDestroy(ctx),
+		CheckDestroy:    testAccCheckTagDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTagConfig_basic(rName, "key1", "value1"),
@@ -71,10 +71,10 @@ func testAccTag_value(t *testing.T) {
 	resourceName := "aws_transfer_tag.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, transfer.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, transfer.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTagDestroy(ctx),
+		CheckDestroy:    testAccCheckTagDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTagConfig_basic(rName, "key1", "value1"),
@@ -107,10 +107,10 @@ func testAccTag_system(t *testing.T) {
 	resourceName := "aws_transfer_tag.test"
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, transfer.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, transfer.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTagDestroy(ctx),
+		CheckDestroy:    testAccCheckTagDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTagConfig_basic(rName, "aws:transfer:customHostname", "abc.example.com"),
@@ -145,7 +145,7 @@ resource "aws_transfer_server" "test" {
 
 resource "aws_transfer_tag" "test" {
   resource_arn = aws_transfer_server.test.arn
-  key          = %[2]q
+  key = %[2]q
   value        = %[3]q
 }
 `, rName, key, value)

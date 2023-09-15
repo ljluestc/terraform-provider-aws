@@ -233,7 +233,7 @@ func TestAccLambdaPermission_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPermissionDestroy(ctx),
+CheckDestroy:    testAccCheckPermissionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPermissionConfig_basic(rName),
@@ -270,7 +270,7 @@ func TestAccLambdaPermission_principalOrgID(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPermissionDestroy(ctx),
+CheckDestroy:    testAccCheckPermissionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPermissionConfig_orgID(rName),
@@ -303,7 +303,7 @@ func TestAccLambdaPermission_statementIDDuplicate(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPermissionDestroy(ctx),
+CheckDestroy:    testAccCheckPermissionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config:      testAccPermissionConfig_statementIDDuplicate(rName),
@@ -330,7 +330,7 @@ t.Skip("skipping long-running test in short mode")
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPermissionDestroy(ctx),
+CheckDestroy:    testAccCheckPermissionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPermissionConfig_rawFunctionName(rName),
@@ -363,7 +363,7 @@ func TestAccLambdaPermission_statementIDPrefix(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPermissionDestroy(ctx),
+CheckDestroy:    testAccCheckPermissionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPermissionConfig_statementIDPrefix(rName, "AllowExecutionWithStatementIdPrefix-"),
@@ -399,7 +399,7 @@ func TestAccLambdaPermission_qualifier(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPermissionDestroy(ctx),
+CheckDestroy:    testAccCheckPermissionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPermissionConfig_qualifier(rName),
@@ -432,7 +432,7 @@ func TestAccLambdaPermission_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPermissionDestroy(ctx),
+CheckDestroy:    testAccCheckPermissionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPermissionConfig_basic(rName),
@@ -467,7 +467,7 @@ func TestAccLambdaPermission_multiplePerms(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPermissionDestroy(ctx),
+CheckDestroy:    testAccCheckPermissionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPermissionConfig_multiplePerms(funcName, roleName),
@@ -539,7 +539,7 @@ func TestAccLambdaPermission_s3(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPermissionDestroy(ctx),
+CheckDestroy:    testAccCheckPermissionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPermissionConfig_s3(rName),
@@ -576,7 +576,7 @@ func TestAccLambdaPermission_sns(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPermissionDestroy(ctx),
+CheckDestroy:    testAccCheckPermissionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPermissionConfig_sns(rName),
@@ -613,7 +613,7 @@ func TestAccLambdaPermission_iamRole(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPermissionDestroy(ctx),
+CheckDestroy:    testAccCheckPermissionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPermissionConfig_iamRole(rName),
@@ -647,7 +647,7 @@ func TestAccLambdaPermission_FunctionURLs_iam(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPermissionDestroy(ctx),
+CheckDestroy:    testAccCheckPermissionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPermissionConfig_functionURLsIAM(rName),
@@ -683,7 +683,7 @@ func TestAccLambdaPermission_FunctionURLs_none(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, lambda.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPermissionDestroy(ctx),
+CheckDestroy:    testAccCheckPermissionDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPermissionConfig_functionURLsNone(rName),
@@ -777,7 +777,7 @@ func testAccPermissionConfig_base(rName string) string {
 resource "aws_lambda_function" "test" {
   filename      = "test-fixtures/lambdatest.zip"
   function_name = %[1]q
-  role          = aws_iam_role.test.arn
+  role = aws_iam_role.test.arn
   handler       = "exports.handler"
   runtime       = "nodejs16.x"
 }
@@ -808,9 +808,9 @@ func testAccPermissionConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccPermissionConfig_base(rName), `
 resource "aws_lambda_permission" "test" {
   statement_id       = "AllowExecutionFromCloudWatch"
-  action             = "lambda:InvokeFunction"
+  action    = "lambda:InvokeFunction"
   function_name      = aws_lambda_function.test.arn
-  principal          = "events.amazonaws.com"
+  principal = "events.amazonaws.com"
   event_source_token = "test-event-source-token"
 }
 `)
@@ -819,18 +819,18 @@ resource "aws_lambda_permission" "test" {
 func testAccPermissionConfig_statementIDDuplicate(rName string) string {
 	return acctest.ConfigCompose(testAccPermissionConfig_base(rName), `
 resource "aws_lambda_permission" "test1" {
-  action             = "lambda:InvokeFunction"
+  action    = "lambda:InvokeFunction"
   event_source_token = "test-event-source-token"
   function_name      = aws_lambda_function.test.arn
-  principal          = "events.amazonaws.com"
+  principal = "events.amazonaws.com"
   statement_id       = "AllowExecutionFromCloudWatch"
 }
 
 resource "aws_lambda_permission" "test2" {
-  action             = "lambda:InvokeFunction"
+  action    = "lambda:InvokeFunction"
   event_source_token = "test-event-source-token"
   function_name      = aws_lambda_function.test.arn
-  principal          = "events.amazonaws.com"
+  principal = "events.amazonaws.com"
   statement_id       = "AllowExecutionFromCloudWatch"
 }
 `)
@@ -851,9 +851,9 @@ func testAccPermissionConfig_statementIDPrefix(rName, prefix string) string {
 	return acctest.ConfigCompose(testAccPermissionConfig_base(rName), fmt.Sprintf(`
 resource "aws_lambda_permission" "test" {
   statement_id_prefix = %[1]q
-  action              = "lambda:InvokeFunction"
+  action     = "lambda:InvokeFunction"
   function_name       = aws_lambda_function.test.arn
-  principal           = "events.amazonaws.com"
+  principal  = "events.amazonaws.com"
 }
 `, prefix))
 }
@@ -863,7 +863,7 @@ func testAccPermissionConfig_qualifier(rName string) string {
 	return acctest.ConfigCompose(testAccPermissionConfig_base(rName), fmt.Sprintf(`
 resource "aws_lambda_permission" "test" {
   statement_id   = "AllowExecutionWithQualifier"
-  action         = "lambda:InvokeFunction"
+  action= "lambda:InvokeFunction"
   function_name  = aws_lambda_function.test.arn
   principal      = "events.amazonaws.com"
   source_account = "111122223333"
@@ -872,7 +872,7 @@ resource "aws_lambda_permission" "test" {
 }
 
 resource "aws_lambda_alias" "test" {
-  name             = %[1]q
+  name    = %[1]q
   description      = "a sample description"
   function_name    = aws_lambda_function.test.arn
   function_version = "$LATEST"
@@ -899,7 +899,7 @@ resource "aws_lambda_permission" "%s" {
 resource "aws_lambda_function" "test" {
   filename      = "test-fixtures/lambdatest.zip"
   function_name = "%s"
-  role          = aws_iam_role.iam_for_lambda.arn
+  role = aws_iam_role.iam_for_lambda.arn
   handler       = "exports.handler"
   runtime       = "nodejs16.x"
 }
@@ -997,9 +997,9 @@ data "aws_organizations_organization" "test" {}
 
 resource "aws_lambda_permission" "test" {
   statement_id       = "AllowExecutionFromCloudWatch"
-  action             = "lambda:InvokeFunction"
+  action    = "lambda:InvokeFunction"
   function_name      = aws_lambda_function.test.arn
-  principal          = "*"
+  principal = "*"
   principal_org_id   = data.aws_organizations_organization.test.id
   event_source_token = "test-event-source-token"
 }
@@ -1013,11 +1013,11 @@ var testPolicy = []byte(`{
     {
       "Condition": {
         "StringEquals": {
-          "AWS:SourceAccount": "319201112229",
-          "lambda:EventSourceToken": "test-event-source-token"
+ "AWS:SourceAccount": "319201112229",
+ "lambda:EventSourceToken": "test-event-source-token"
         },
         "ArnLike": {
-          "AWS:SourceArn": "arn:aws:events:eu-west-1:319201112229:rule/RunDaily"
+ "AWS:SourceArn": "arn:aws:events:eu-west-1:319201112229:rule/RunDaily"
         }
       },
       "Action": "lambda:InvokeFunction",
@@ -1055,10 +1055,10 @@ var testOrgPolicy = []byte(`{
 func testAccPermissionConfig_functionURLsIAM(rName string) string {
 	return acctest.ConfigCompose(testAccPermissionConfig_base(rName), `
 resource "aws_lambda_permission" "test" {
-  statement_id           = "AllowExecutionWithIAM"
+  statement_id  = "AllowExecutionWithIAM"
   action  = "lambda:InvokeFunctionUrl"
-  function_name          = aws_lambda_function.test.arn
-  principal              = "*"
+  function_name = aws_lambda_function.test.arn
+  principal     = "*"
   function_url_auth_type = "AWS_IAM"
 }
 `)
@@ -1067,10 +1067,10 @@ resource "aws_lambda_permission" "test" {
 func testAccPermissionConfig_functionURLsNone(rName string) string {
 	return acctest.ConfigCompose(testAccPermissionConfig_base(rName), `
 resource "aws_lambda_permission" "test" {
-  statement_id           = "AllowExecutionFromWithoutAuth"
+  statement_id  = "AllowExecutionFromWithoutAuth"
   action  = "lambda:InvokeFunctionUrl"
-  function_name          = aws_lambda_function.test.arn
-  principal              = "*"
+  function_name = aws_lambda_function.test.arn
+  principal     = "*"
   function_url_auth_type = "NONE"
 }
 `)

@@ -45,7 +45,7 @@ func ResourceListener() *schema.Resource {
 				ForceNew: true,
 			},
 			"client_affinity": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Default:      globalaccelerator.ClientAffinityNone,
 				ValidateFunc: validation.StringInSlice(globalaccelerator.ClientAffinity_Values(), false),
@@ -58,12 +58,12 @@ func ResourceListener() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"from_port": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							ValidateFunc: validation.IsPortNumber,
 						},
 						"to_port": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							ValidateFunc: validation.IsPortNumber,
 						},
@@ -71,7 +71,7 @@ func ResourceListener() *schema.Resource {
 				},
 			},
 			"protocol": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringInSlice(globalaccelerator.Protocol_Values(), false),
 			},
@@ -88,7 +88,7 @@ func resourceListenerCreate(ctx context.Context, d *schema.ResourceData, meta in
 		ClientAffinity:   aws.String(d.Get("client_affinity").(string)),
 		IdempotencyToken: aws.String(id.UniqueId()),
 		PortRanges:       expandPortRanges(d.Get("port_range").(*schema.Set).List()),
-		Protocol:         aws.String(d.Get("protocol").(string)),
+		Protocol:aws.String(d.Get("protocol").(string)),
 	}
 
 	resp, err := conn.CreateListenerWithContext(ctx, input)

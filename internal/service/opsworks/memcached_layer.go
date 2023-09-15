@@ -13,7 +13,7 @@ import (
 
 func ResourceMemcachedLayer() *schema.Resource {
 	layerType := &opsworksLayerType{
-		TypeName:         opsworks.LayerTypeMemcached,
+		TypeName:opsworks.LayerTypeMemcached,
 		DefaultLayerName: "Memcached",
 
 		Attributes: map[string]*opsworksLayerTypeAttribute{

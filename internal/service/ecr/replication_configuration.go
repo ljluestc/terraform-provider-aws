@@ -52,12 +52,12 @@ func ResourceReplicationConfiguration() *schema.Resource {
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"region": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ValidateFunc: verify.ValidRegionName,
 												},
 												"registry_id": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ValidateFunc: verify.ValidAccountID,
 												},
@@ -76,7 +76,7 @@ func ResourceReplicationConfiguration() *schema.Resource {
 													Required: true,
 												},
 												"filter_type": {
-													Type:         schema.TypeString,
+													Type:schema.TypeString,
 													Required:     true,
 													ValidateFunc: validation.StringInSlice(ecr.RepositoryFilterType_Values(), false),
 												},

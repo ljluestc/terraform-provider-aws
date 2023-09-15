@@ -69,8 +69,8 @@ func ResourceContactList() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"default_subscription_status": {
-							Type:             schema.TypeString,
-							Required:         true,
+							Type:    schema.TypeString,
+							Required:true,
 							ValidateDiagFunc: enum.Validate[types.SubscriptionStatus](),
 						},
 						"description": {
@@ -103,7 +103,7 @@ func resourceContactListCreate(ctx context.Context, d *schema.ResourceData, meta
 
 	in := &sesv2.CreateContactListInput{
 		ContactListName: aws.String(d.Get("contact_list_name").(string)),
-		Tags:            getTagsIn(ctx),
+		Tags:   getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {

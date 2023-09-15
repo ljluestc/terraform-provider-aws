@@ -55,12 +55,12 @@ func ResourceAssessmentTemplate() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"event": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringInSlice(inspector.Event_Values(), false),
 						},
 						"topic_arn": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: verify.ValidARN,
 						},

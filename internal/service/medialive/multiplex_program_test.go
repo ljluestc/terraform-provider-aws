@@ -88,9 +88,9 @@ func testAccMultiplexProgram_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.MediaLiveEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.MediaLiveEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMultiplexProgramDestroy(ctx),
+		CheckDestroy:    testAccCheckMultiplexProgramDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMultiplexProgramConfig_basic(rName),
@@ -103,8 +103,8 @@ func testAccMultiplexProgram_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"multiplex_id"},
 			},
@@ -127,9 +127,9 @@ func testAccMultiplexProgram_update(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.MediaLiveEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.MediaLiveEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMultiplexProgramDestroy(ctx),
+		CheckDestroy:    testAccCheckMultiplexProgramDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMultiplexProgramConfig_update(rName, 100000),
@@ -172,9 +172,9 @@ func testAccMultiplexProgram_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, names.MediaLiveEndpointID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.MediaLiveEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckMultiplexProgramDestroy(ctx),
+		CheckDestroy:    testAccCheckMultiplexProgramDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccMultiplexProgramConfig_basic(rName),
@@ -276,7 +276,7 @@ resource "aws_medialive_multiplex_program" "test" {
   multiplex_id = aws_medialive_multiplex.test.id
 
   multiplex_program_settings {
-    program_number             = 1
+    program_number    = 1
     preferred_channel_pipeline = "CURRENTLY_ACTIVE"
 
     video_settings {
@@ -296,7 +296,7 @@ resource "aws_medialive_multiplex_program" "test" {
   multiplex_id = aws_medialive_multiplex.test.id
 
   multiplex_program_settings {
-    program_number             = 1
+    program_number    = 1
     preferred_channel_pipeline = "CURRENTLY_ACTIVE"
 
     video_settings {

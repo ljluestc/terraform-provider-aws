@@ -37,9 +37,9 @@ func TestAccFinSpaceKxDatabase_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:      acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKxDatabaseDestroy(ctx),
+		CheckDestroy:    testAccCheckKxDatabaseDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKxDatabaseConfig_basic(rName),
@@ -72,9 +72,9 @@ func TestAccFinSpaceKxDatabase_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:      acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKxDatabaseDestroy(ctx),
+		CheckDestroy:    testAccCheckKxDatabaseDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKxDatabaseConfig_basic(rName),
@@ -103,9 +103,9 @@ func TestAccFinSpaceKxDatabase_description(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:      acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKxDatabaseDestroy(ctx),
+		CheckDestroy:    testAccCheckKxDatabaseDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKxDatabaseConfig_description(rName, "description 1"),
@@ -140,9 +140,9 @@ func TestAccFinSpaceKxDatabase_tags(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:      acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKxDatabaseDestroy(ctx),
+		CheckDestroy:    testAccCheckKxDatabaseDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKxDatabaseConfig_tags1(rName, "key1", "value1"),
@@ -247,7 +247,7 @@ func testAccKxDatabaseConfig_basic(rName string) string {
 		testAccKxDatabaseConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_finspace_kx_database" "test" {
-  name           = %[1]q
+  name  = %[1]q
   environment_id = aws_finspace_kx_environment.test.id
 }
 `, rName))
@@ -258,7 +258,7 @@ func testAccKxDatabaseConfig_description(rName, description string) string {
 		testAccKxDatabaseConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_finspace_kx_database" "test" {
-  name           = %[1]q
+  name  = %[1]q
   environment_id = aws_finspace_kx_environment.test.id
   description    = %[2]q
 }
@@ -270,7 +270,7 @@ func testAccKxDatabaseConfig_tags1(rName, tagKey1, tagValue1 string) string {
 		testAccKxDatabaseConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_finspace_kx_database" "test" {
-  name           = %[1]q
+  name  = %[1]q
   environment_id = aws_finspace_kx_environment.test.id
 
   tags = {
@@ -285,7 +285,7 @@ func testAccKxDatabaseConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2
 		testAccKxDatabaseConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_finspace_kx_database" "test" {
-  name           = %[1]q
+  name  = %[1]q
   environment_id = aws_finspace_kx_environment.test.id
 
   tags = {

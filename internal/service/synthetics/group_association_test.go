@@ -26,10 +26,10 @@ func TestAccSyntheticsGroupAssociation_basic(t *testing.T) {
 	var groupSummary synthetics.GroupSummary
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, synthetics.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, synthetics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGroupAssociationDestroy(ctx),
+		CheckDestroy:    testAccCheckGroupAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGroupAssociationConfig_basic(rName),
@@ -57,10 +57,10 @@ func TestAccSyntheticsGroupAssociation_disappears(t *testing.T) {
 	var groupSummary synthetics.GroupSummary
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, synthetics.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, synthetics.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckGroupAssociationDestroy(ctx),
+		CheckDestroy:    testAccCheckGroupAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccGroupAssociationConfig_basic(rName),

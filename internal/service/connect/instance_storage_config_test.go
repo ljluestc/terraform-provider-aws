@@ -33,7 +33,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInstanceStorageConfigDestroy(ctx),
+CheckDestroy:    testAccCheckInstanceStorageConfigDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInstanceStorageConfigConfig_basic(rName, rName2),
@@ -74,7 +74,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInstanceStorageConfigDestroy(ctx),
+CheckDestroy:    testAccCheckInstanceStorageConfigDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInstanceStorageConfigConfig_kinesisFirehoseConfig_firehoseARN(rName, rName2, rName3, rName4, "first"),
@@ -123,7 +123,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInstanceStorageConfigDestroy(ctx),
+CheckDestroy:    testAccCheckInstanceStorageConfigDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInstanceStorageConfigConfig_kinesisStreamConfig_streamARN(rName, rName2, rName3, "first"),
@@ -175,7 +175,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInstanceStorageConfigDestroy(ctx),
+CheckDestroy:    testAccCheckInstanceStorageConfigDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInstanceStorageConfigConfig_kinesisVideoStreamConfig_prefixRetention(rName, originalPrefix, retention),
@@ -235,7 +235,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInstanceStorageConfigDestroy(ctx),
+CheckDestroy:    testAccCheckInstanceStorageConfigDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInstanceStorageConfigConfig_kinesisVideoStreamConfig_prefixRetention(rName, prefix, originalRetention),
@@ -290,7 +290,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInstanceStorageConfigDestroy(ctx),
+CheckDestroy:    testAccCheckInstanceStorageConfigDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInstanceStorageConfigConfig_kinesisVideoStreamConfig_encryptionConfig(rName, "first"),
@@ -343,7 +343,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInstanceStorageConfigDestroy(ctx),
+CheckDestroy:    testAccCheckInstanceStorageConfigDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInstanceStorageConfigConfig_S3Config_bucketName(rName, rName2, rName3, "first"),
@@ -394,7 +394,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInstanceStorageConfigDestroy(ctx),
+CheckDestroy:    testAccCheckInstanceStorageConfigDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInstanceStorageConfigConfig_S3Config_bucketPrefix(rName, rName2, originalBucketPrefix),
@@ -442,7 +442,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInstanceStorageConfigDestroy(ctx),
+CheckDestroy:    testAccCheckInstanceStorageConfigDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInstanceStorageConfigConfig_S3Config_encryptionConfig(rName, rName2, "first"),
@@ -496,7 +496,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckInstanceStorageConfigDestroy(ctx),
+CheckDestroy:    testAccCheckInstanceStorageConfigDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInstanceStorageConfigConfig_basic(rName, rName2),
@@ -598,7 +598,7 @@ func testAccInstanceStorageConfigConfig_base(rName string) string {
 resource "aws_connect_instance" "test" {
   identity_management_type = "CONNECT_MANAGED"
   inbound_calls_enabled    = true
-  instance_alias           = %[1]q
+  instance_alias  = %[1]q
   outbound_calls_enabled   = true
 }
 `, rName)
@@ -651,7 +651,7 @@ resource "aws_iam_role" "firehose" {
       "Action": "sts:AssumeRole",
       "Condition": {
         "StringEquals": {
-          "sts:ExternalId": "${data.aws_caller_identity.current.account_id}"
+ "sts:ExternalId": "${data.aws_caller_identity.current.account_id}"
         }
       }
     }
@@ -800,7 +800,7 @@ func testAccInstanceStorageConfigConfig_kinesisVideoStreamConfig_prefixRetention
 testAccInstanceStorageConfigConfig_base(rName),
 fmt.Sprintf(`
 resource "aws_kms_key" "test" {
-  description             = "KMS Key"
+  description    = "KMS Key"
   deletion_window_in_days = 10
 }
 
@@ -815,7 +815,7 @@ resource "aws_connect_instance_storage_config" "test" {
 
       encryption_config {
         encryption_type = "KMS"
-        key_id          = aws_kms_key.test.arn
+        key_id = aws_kms_key.test.arn
       }
     }
     storage_type = "KINESIS_VIDEO_STREAM"
@@ -834,12 +834,12 @@ locals {
 }
 
 resource "aws_kms_key" "test" {
-  description             = "KMS Key"
+  description    = "KMS Key"
   deletion_window_in_days = 10
 }
 
 resource "aws_kms_key" "test2" {
-  description             = "KMS Key 2"
+  description    = "KMS Key 2"
   deletion_window_in_days = 10
 }
 
@@ -854,7 +854,7 @@ resource "aws_connect_instance_storage_config" "test" {
 
       encryption_config {
         encryption_type = "KMS"
-        key_id          = local.select_key == "first" ? aws_kms_key.test.arn : aws_kms_key.test2.arn
+        key_id = local.select_key == "first" ? aws_kms_key.test.arn : aws_kms_key.test2.arn
       }
     }
     storage_type = "KINESIS_VIDEO_STREAM"
@@ -932,12 +932,12 @@ locals {
 }
 
 resource "aws_kms_key" "test" {
-  description             = "KMS Key for Bucket 1"
+  description    = "KMS Key for Bucket 1"
   deletion_window_in_days = 10
 }
 
 resource "aws_kms_key" "test2" {
-  description             = "KMS Key for Bucket 2"
+  description    = "KMS Key for Bucket 2"
   deletion_window_in_days = 10
 }
 
@@ -970,7 +970,7 @@ resource "aws_connect_instance_storage_config" "test" {
 
       encryption_config {
         encryption_type = "KMS"
-        key_id          = local.select_key == "first" ? aws_kms_key.test.arn : aws_kms_key.test2.arn
+        key_id = local.select_key == "first" ? aws_kms_key.test.arn : aws_kms_key.test2.arn
       }
     }
     storage_type = "S3"

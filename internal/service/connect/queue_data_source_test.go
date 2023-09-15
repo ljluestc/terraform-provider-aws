@@ -91,7 +91,7 @@ func testAccQueueBaseDataSourceConfig(rName, rName2, outboundCallerConfigName st
 resource "aws_connect_instance" "test" {
   identity_management_type = "CONNECT_MANAGED"
   inbound_calls_enabled    = true
-  instance_alias           = %[1]q
+  instance_alias  = %[1]q
   outbound_calls_enabled   = true
 }
 
@@ -101,9 +101,9 @@ data "aws_connect_hours_of_operation" "test" {
 }
 
 resource "aws_connect_queue" "test" {
-  instance_id           = aws_connect_instance.test.id
+  instance_id  = aws_connect_instance.test.id
   name   = %[2]q
-  description           = "Used to test queue data source"
+  description  = "Used to test queue data source"
   hours_of_operation_id = data.aws_connect_hours_of_operation.test.hours_of_operation_id
 
   outbound_caller_config {

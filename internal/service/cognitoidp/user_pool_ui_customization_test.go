@@ -32,7 +32,7 @@ func TestAccCognitoIDPUserPoolUICustomization_AllClients_CSS(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolUICustomizationDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolUICustomizationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolUICustomizationConfig_allClientsCSS(rName, css),
@@ -83,7 +83,7 @@ func TestAccCognitoIDPUserPoolUICustomization_AllClients_disappears(t *testing.T
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolUICustomizationDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolUICustomizationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolUICustomizationConfig_allClientsCSS(rName, css),
@@ -110,7 +110,7 @@ func TestAccCognitoIDPUserPoolUICustomization_AllClients_imageFile(t *testing.T)
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolUICustomizationDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolUICustomizationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolUICustomizationConfig_allClientsImage(rName, filename),
@@ -124,8 +124,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"image_file"},
 	},
@@ -141,8 +141,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"image_file"},
 	},
@@ -164,7 +164,7 @@ func TestAccCognitoIDPUserPoolUICustomization_AllClients_CSSAndImageFile(t *test
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolUICustomizationDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolUICustomizationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolUICustomizationConfig_allClientsCSSAndImage(rName, css, filename),
@@ -180,8 +180,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"image_file"},
 	},
@@ -209,8 +209,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"image_file"},
 	},
@@ -232,7 +232,7 @@ func TestAccCognitoIDPUserPoolUICustomization_Client_CSS(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolUICustomizationDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolUICustomizationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolUICustomizationConfig_clientCSS(rName, css),
@@ -283,7 +283,7 @@ func TestAccCognitoIDPUserPoolUICustomization_Client_disappears(t *testing.T) { 
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckIdentityProvider(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolUICustomizationDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolUICustomizationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolUICustomizationConfig_clientCSS(rName, css),
@@ -311,7 +311,7 @@ func TestAccCognitoIDPUserPoolUICustomization_Client_image(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolUICustomizationDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolUICustomizationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolUICustomizationConfig_clientImage(rName, filename),
@@ -325,8 +325,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"image_file"},
 	},
@@ -342,8 +342,8 @@ Check: resource.ComposeAggregateTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"image_file"},
 	},
@@ -367,7 +367,7 @@ func TestAccCognitoIDPUserPoolUICustomization_ClientAndAll_cSS(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolUICustomizationDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolUICustomizationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 // Test UI Customization settings shared by ALL and a specific client
@@ -440,7 +440,7 @@ func TestAccCognitoIDPUserPoolUICustomization_UpdateClientToAll_cSS(t *testing.T
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolUICustomizationDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolUICustomizationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolUICustomizationConfig_clientCSS(rName, css),
@@ -480,7 +480,7 @@ func TestAccCognitoIDPUserPoolUICustomization_UpdateAllToClient_cSS(t *testing.T
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, cognitoidentityprovider.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckUserPoolUICustomizationDestroy(ctx),
+CheckDestroy:    testAccCheckUserPoolUICustomizationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccUserPoolUICustomizationConfig_allClientsCSS(rName, css),
@@ -656,7 +656,7 @@ resource "aws_cognito_user_pool_domain" "test" {
 }
 
 resource "aws_cognito_user_pool_client" "test" {
-  name         = %[1]q
+  name= %[1]q
   user_pool_id = aws_cognito_user_pool.test.id
 }
 
@@ -683,7 +683,7 @@ resource "aws_cognito_user_pool_domain" "test" {
 }
 
 resource "aws_cognito_user_pool_client" "test" {
-  name         = %[1]q
+  name= %[1]q
   user_pool_id = aws_cognito_user_pool.test.id
 }
 
@@ -710,7 +710,7 @@ resource "aws_cognito_user_pool_domain" "test" {
 }
 
 resource "aws_cognito_user_pool_client" "test" {
-  name         = %[1]q
+  name= %[1]q
   user_pool_id = aws_cognito_user_pool.test.id
 }
 

@@ -25,7 +25,7 @@ func testAccActionTarget_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, securityhub.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckActionTargetDestroy(ctx),
+CheckDestroy:    testAccCheckActionTargetDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccActionTargetConfig_identifier("testaction"),
@@ -54,7 +54,7 @@ func testAccActionTarget_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, securityhub.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckActionTargetDestroy(ctx),
+CheckDestroy:    testAccCheckActionTargetDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccActionTargetConfig_identifier("testaction"),
@@ -76,7 +76,7 @@ func testAccActionTarget_Description(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, securityhub.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckActionTargetDestroy(ctx),
+CheckDestroy:    testAccCheckActionTargetDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccActionTargetConfig_description("description1"),
@@ -109,7 +109,7 @@ func testAccActionTarget_Name(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, securityhub.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckActionTargetDestroy(ctx),
+CheckDestroy:    testAccCheckActionTargetDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccActionTargetConfig_name("name1"),

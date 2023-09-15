@@ -135,7 +135,7 @@ resource "aws_lambda_function" "lambda" {
 
   filename      = "test-fixtures/lambda_invocation.zip"
   function_name = "%s"
-  role          = aws_iam_role.lambda_role.arn
+  role = aws_iam_role.lambda_role.arn
   handler       = "lambda_invocation.handler"
   runtime       = "nodejs16.x"
 
@@ -166,7 +166,7 @@ resource "aws_lambda_function" "lambda" {
 
   filename      = "test-fixtures/lambda_invocation.zip"
   function_name = "%s"
-  role          = aws_iam_role.lambda_role.arn
+  role = aws_iam_role.lambda_role.arn
   handler       = "lambda_invocation.handler"
   runtime       = "nodejs16.x"
   publish       = true
@@ -199,7 +199,7 @@ resource "aws_lambda_function" "lambda" {
 
   filename      = "test-fixtures/lambda_invocation.zip"
   function_name = "%s"
-  role          = aws_iam_role.lambda_role.arn
+  role = aws_iam_role.lambda_role.arn
   handler       = "lambda_invocation.handler"
   runtime       = "nodejs16.x"
   publish       = true

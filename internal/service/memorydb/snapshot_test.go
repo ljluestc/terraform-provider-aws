@@ -24,10 +24,10 @@ func TestAccMemoryDBSnapshot_basic(t *testing.T) {
 	resourceName := "aws_memorydb_snapshot.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:      acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSnapshotDestroy(ctx),
+		CheckDestroy:    testAccCheckSnapshotDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSnapshotConfig_basic(rName),
@@ -69,10 +69,10 @@ func TestAccMemoryDBSnapshot_disappears(t *testing.T) {
 	resourceName := "aws_memorydb_snapshot.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:      acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSnapshotDestroy(ctx),
+		CheckDestroy:    testAccCheckSnapshotDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSnapshotConfig_basic(rName),
@@ -92,10 +92,10 @@ func TestAccMemoryDBSnapshot_nameGenerated(t *testing.T) {
 	resourceName := "aws_memorydb_snapshot.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:      acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSnapshotDestroy(ctx),
+		CheckDestroy:    testAccCheckSnapshotDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSnapshotConfig_noName(rName),
@@ -115,10 +115,10 @@ func TestAccMemoryDBSnapshot_namePrefix(t *testing.T) {
 	resourceName := "aws_memorydb_snapshot.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:      acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSnapshotDestroy(ctx),
+		CheckDestroy:    testAccCheckSnapshotDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSnapshotConfig_namePrefix(rName, "tftest-"),
@@ -138,10 +138,10 @@ func TestAccMemoryDBSnapshot_create_withKMS(t *testing.T) {
 	resourceName := "aws_memorydb_snapshot.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:      acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSnapshotDestroy(ctx),
+		CheckDestroy:    testAccCheckSnapshotDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSnapshotConfig_kms(rName),
@@ -165,10 +165,10 @@ func TestAccMemoryDBSnapshot_update_tags(t *testing.T) {
 	resourceName := "aws_memorydb_snapshot.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
-		ErrorCheck:               acctest.ErrorCheck(t, memorydb.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
+		ErrorCheck:      acctest.ErrorCheck(t, memorydb.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSnapshotDestroy(ctx),
+		CheckDestroy:    testAccCheckSnapshotDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSnapshotConfig_tags0(rName),
@@ -311,7 +311,7 @@ func testAccSnapshotConfig_basic(rName string) string {
 		fmt.Sprintf(`
 resource "aws_memorydb_snapshot" "test" {
   cluster_name = aws_memorydb_cluster.test.name
-  name         = %[1]q
+  name= %[1]q
 
   tags = {
     Test = "test"
@@ -330,7 +330,7 @@ resource "aws_kms_key" "test" {}
 resource "aws_memorydb_snapshot" "test" {
   cluster_name = aws_memorydb_cluster.test.name
   kms_key_arn  = aws_kms_key.test.arn
-  name         = %[1]q
+  name= %[1]q
 }
 `, rName),
 	)
@@ -369,7 +369,7 @@ func testAccSnapshotConfig_tags0(rName string) string {
 		fmt.Sprintf(`
 resource "aws_memorydb_snapshot" "test" {
   cluster_name = aws_memorydb_cluster.test.name
-  name         = %[1]q
+  name= %[1]q
 }
 `, rName),
 	)
@@ -381,7 +381,7 @@ func testAccSnapshotConfig_tags1(rName, tag1Key, tag1Value string) string {
 		fmt.Sprintf(`
 resource "aws_memorydb_snapshot" "test" {
   cluster_name = aws_memorydb_cluster.test.name
-  name         = %[1]q
+  name= %[1]q
 
   tags = {
     %[2]q = %[3]q
@@ -397,7 +397,7 @@ func testAccSnapshotConfig_tags2(rName, tag1Key, tag1Value, tag2Key, tag2Value s
 		fmt.Sprintf(`
 resource "aws_memorydb_snapshot" "test" {
   cluster_name = aws_memorydb_cluster.test.name
-  name         = %[1]q
+  name= %[1]q
 
   tags = {
     %[2]q = %[3]q

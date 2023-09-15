@@ -35,7 +35,7 @@ func DataSourceInvocation() *schema.Resource {
 			},
 
 			"input": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringIsJSON,
 			},

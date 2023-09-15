@@ -20,8 +20,8 @@ func TestAccELBV2ListenerDataSource_basic(t *testing.T) {
 	dataSourceName2 := "data.aws_lb_listener.from_lb_and_port"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elbv2.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, elbv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -56,8 +56,8 @@ func TestAccELBV2ListenerDataSource_backwardsCompatibility(t *testing.T) {
 	dataSourceName2 := "data.aws_alb_listener.from_lb_and_port"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elbv2.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, elbv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -92,8 +92,8 @@ func TestAccELBV2ListenerDataSource_https(t *testing.T) {
 	dataSourceName2 := "data.aws_lb_listener.from_lb_and_port"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elbv2.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, elbv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -130,8 +130,8 @@ func TestAccELBV2ListenerDataSource_DefaultAction_forward(t *testing.T) {
 	resourceName := "aws_lb_listener.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elbv2.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, elbv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -149,20 +149,20 @@ func testAccListenerDataSourceConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccListenerConfig_base(rName), fmt.Sprintf(`
 resource "aws_lb_listener" "test" {
   load_balancer_arn = aws_lb.test.id
-  protocol          = "HTTP"
-  port              = "80"
+  protocol = "HTTP"
+  port     = "80"
 
   default_action {
     target_group_arn = aws_lb_target_group.test.id
-    type             = "forward"
+    type    = "forward"
   }
 }
 
 resource "aws_lb" "test" {
-  name            = %[1]q
+  name   = %[1]q
   internal        = true
   security_groups = [aws_security_group.test.id]
-  subnets         = aws_subnet.test[*].id
+  subnets= aws_subnet.test[*].id
 
   idle_timeout= 30
   enable_deletion_protection = false
@@ -180,13 +180,13 @@ resource "aws_lb_target_group" "test" {
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 }
 
@@ -196,7 +196,7 @@ data "aws_lb_listener" "test" {
 
 data "aws_lb_listener" "from_lb_and_port" {
   load_balancer_arn = aws_lb.test.arn
-  port              = aws_lb_listener.test.port
+  port     = aws_lb_listener.test.port
 }
 `, rName))
 }
@@ -205,20 +205,20 @@ func testAccListenerDataSourceConfig_backwardsCompatibility(rName string) string
 	return acctest.ConfigCompose(testAccListenerConfig_base(rName), fmt.Sprintf(`
 resource "aws_alb_listener" "test" {
   load_balancer_arn = aws_alb.test.id
-  protocol          = "HTTP"
-  port              = "80"
+  protocol = "HTTP"
+  port     = "80"
 
   default_action {
     target_group_arn = aws_alb_target_group.test.id
-    type             = "forward"
+    type    = "forward"
   }
 }
 
 resource "aws_alb" "test" {
-  name            = %[1]q
+  name   = %[1]q
   internal        = true
   security_groups = [aws_security_group.test.id]
-  subnets         = aws_subnet.test[*].id
+  subnets= aws_subnet.test[*].id
 
   idle_timeout= 30
   enable_deletion_protection = false
@@ -236,13 +236,13 @@ resource "aws_alb_target_group" "test" {
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 }
 
@@ -252,7 +252,7 @@ data "aws_alb_listener" "test" {
 
 data "aws_alb_listener" "from_lb_and_port" {
   load_balancer_arn = aws_alb.test.arn
-  port              = aws_alb_listener.test.port
+  port     = aws_alb_listener.test.port
 }
 `, rName))
 }
@@ -261,22 +261,22 @@ func testAccListenerDataSourceConfig_https(rName, certificate, key string) strin
 	return acctest.ConfigCompose(testAccListenerConfig_base(rName), fmt.Sprintf(`
 resource "aws_lb_listener" "test" {
   load_balancer_arn = aws_lb.test.id
-  protocol          = "HTTPS"
-  port              = "443"
+  protocol = "HTTPS"
+  port     = "443"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
   certificate_arn   = aws_iam_server_certificate.test.arn
 
   default_action {
     target_group_arn = aws_lb_target_group.test.id
-    type             = "forward"
+    type    = "forward"
   }
 }
 
 resource "aws_lb" "test" {
-  name            = %[1]q
+  name   = %[1]q
   internal        = false
   security_groups = [aws_security_group.test.id]
-  subnets         = aws_subnet.test[*].id
+  subnets= aws_subnet.test[*].id
 
   idle_timeout= 30
   enable_deletion_protection = false
@@ -296,13 +296,13 @@ resource "aws_lb_target_group" "test" {
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 }
 
@@ -316,7 +316,7 @@ resource "aws_internet_gateway" "gw" {
 }
 
 resource "aws_iam_server_certificate" "test" {
-  name             = %[1]q
+  name    = %[1]q
   certificate_body = "%[2]s"
   private_key      = "%[3]s"
 }
@@ -327,7 +327,7 @@ data "aws_lb_listener" "test" {
 
 data "aws_lb_listener" "from_lb_and_port" {
   load_balancer_arn = aws_lb.test.arn
-  port              = aws_lb_listener.test.port
+  port     = aws_lb_listener.test.port
 }
 `, rName, certificate, key))
 }
@@ -349,7 +349,7 @@ resource "aws_subnet" "test" {
 
   availability_zone = data.aws_availability_zones.available.names[count.index]
   cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 8, count.index)
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
 
   tags = {
     Name = %[1]q
@@ -379,8 +379,8 @@ resource "aws_lb_target_group" "test" {
 
 resource "aws_lb_listener" "test" {
   load_balancer_arn = aws_lb.test.id
-  port              = 80
-  protocol          = "HTTP"
+  port     = 80
+  protocol = "HTTP"
 
   default_action {
     type = "forward"

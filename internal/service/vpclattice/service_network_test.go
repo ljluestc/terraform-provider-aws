@@ -104,7 +104,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckServiceNetworkDestroy(ctx),
+CheckDestroy:    testAccCheckServiceNetworkDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccServiceNetworkConfig_basic(rName),
@@ -137,7 +137,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckServiceNetworkDestroy(ctx),
+CheckDestroy:    testAccCheckServiceNetworkDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccServiceNetworkConfig_basic(rName),
@@ -165,7 +165,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckServiceNetworkDestroy(ctx),
+CheckDestroy:    testAccCheckServiceNetworkDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccServiceNetworkConfig_full(rName),
@@ -195,7 +195,7 @@ func TestAccVPCLatticeServiceNetwork_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckServiceDestroy(ctx),
+CheckDestroy:    testAccCheckServiceDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccServiceNetworkConfig_tags1(rName, "key1", "value1"),

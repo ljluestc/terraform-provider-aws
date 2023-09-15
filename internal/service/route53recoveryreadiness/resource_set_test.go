@@ -34,10 +34,10 @@ func TestAccRoute53RecoveryReadinessResourceSet_basic(t *testing.T) {
 	resourceName := "aws_route53recoveryreadiness_resource_set.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, route53recoveryreadiness.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, route53recoveryreadiness.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourceSetDestroy(ctx),
+		CheckDestroy:    testAccCheckResourceSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResourceSetConfig_basic(rName, cwArn),
@@ -70,10 +70,10 @@ func TestAccRoute53RecoveryReadinessResourceSet_disappears(t *testing.T) {
 	resourceName := "aws_route53recoveryreadiness_resource_set.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, route53recoveryreadiness.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, route53recoveryreadiness.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourceSetDestroy(ctx),
+		CheckDestroy:    testAccCheckResourceSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResourceSetConfig_basic(rName, cwArn),
@@ -100,10 +100,10 @@ func TestAccRoute53RecoveryReadinessResourceSet_tags(t *testing.T) {
 	}.String()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, route53recoveryreadiness.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, route53recoveryreadiness.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourceSetDestroy(ctx),
+		CheckDestroy:    testAccCheckResourceSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResourceSetConfig_tags1(rName, cwArn, "key1", "value1"),
@@ -152,10 +152,10 @@ func TestAccRoute53RecoveryReadinessResourceSet_readinessScope(t *testing.T) {
 	}.String()
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, route53recoveryreadiness.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, route53recoveryreadiness.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourceSetDestroy(ctx),
+		CheckDestroy:    testAccCheckResourceSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResourceSetConfig_readinessScopes(rName, cwArn),
@@ -194,9 +194,9 @@ func TestAccRoute53RecoveryReadinessResourceSet_basicDNSTargetResource(t *testin
 			acctest.PreCheck(ctx, t)
 			testAccPreCheckResourceSet(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, route53recoveryreadiness.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, route53recoveryreadiness.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourceSetDestroy(ctx),
+		CheckDestroy:    testAccCheckResourceSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResourceSetConfig_basicDNSTarget(rName, domainName, hzArn, recordType, recordSetId),
@@ -235,9 +235,9 @@ func TestAccRoute53RecoveryReadinessResourceSet_dnsTargetResourceNLBTarget(t *te
 			acctest.PreCheck(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, route53recoveryreadiness.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, route53recoveryreadiness.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourceSetDestroy(ctx),
+		CheckDestroy:    testAccCheckResourceSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResourceSetConfig_dnsTargetNlbTarget(rName, hzArn),
@@ -275,9 +275,9 @@ func TestAccRoute53RecoveryReadinessResourceSet_dnsTargetResourceR53Target(t *te
 			acctest.PreCheck(ctx, t)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, route53recoveryreadiness.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, route53recoveryreadiness.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourceSetDestroy(ctx),
+		CheckDestroy:    testAccCheckResourceSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResourceSetConfig_dnsTargetR53Target(rName, hzArn, domainName, recordSetId),
@@ -310,10 +310,10 @@ func TestAccRoute53RecoveryReadinessResourceSet_timeout(t *testing.T) {
 	resourceName := "aws_route53recoveryreadiness_resource_set.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, route53recoveryreadiness.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, route53recoveryreadiness.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckResourceSetDestroy(ctx),
+		CheckDestroy:    testAccCheckResourceSetDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccResourceSetConfig_timeout(rName, cwArn),
@@ -405,7 +405,7 @@ resource "aws_lb" "test" {
     aws_subnet.test2.id,
   ]
 
-  load_balancer_type         = "network"
+  load_balancer_type= "network"
   internal    = true
   idle_timeout= 60
   enable_deletion_protection = false
@@ -421,13 +421,13 @@ data "aws_availability_zones" "available" {
 }
 
 resource "aws_subnet" "test1" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   cidr_block        = "10.0.1.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
 }
 
 resource "aws_subnet" "test2" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   cidr_block        = "10.0.2.0/24"
   availability_zone = data.aws_availability_zones.available.names[1]
 }
@@ -535,7 +535,7 @@ resource "aws_route53recoveryreadiness_resource_set" "test" {
 
       target_resource {
         nlb_resource {
-          arn = aws_lb.test.arn
+ arn = aws_lb.test.arn
         }
       }
     }
@@ -559,8 +559,8 @@ resource "aws_route53recoveryreadiness_resource_set" "test" {
 
       target_resource {
         r53_resource {
-          domain_name   = %[3]q
-          record_set_id = %[4]q
+ domain_name   = %[3]q
+ record_set_id = %[4]q
         }
       }
     }

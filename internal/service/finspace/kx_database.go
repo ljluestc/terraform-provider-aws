@@ -55,12 +55,12 @@ func ResourceKxDatabase() *schema.Resource {
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(1, 1000),
 			},
 			"environment_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 32),
@@ -70,7 +70,7 @@ func ResourceKxDatabase() *schema.Resource {
 				Computed: true,
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(3, 63),
@@ -97,7 +97,7 @@ func resourceKxDatabaseCreate(ctx context.Context, d *schema.ResourceData, meta 
 		DatabaseName:  aws.String(d.Get("name").(string)),
 		EnvironmentId: aws.String(d.Get("environment_id").(string)),
 		ClientToken:   aws.String(id.UniqueId()),
-		Tags:          getTagsIn(ctx),
+		Tags: getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {

@@ -25,10 +25,10 @@ func TestAccELBV2TargetGroupAttachment_basic(t *testing.T) {
 	targetGroupName := fmt.Sprintf("test-target-group-%s", sdkacctest.RandString(10))
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elbv2.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, elbv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupAttachmentDestroy(ctx),
+		CheckDestroy:    testAccCheckTargetGroupAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTargetGroupAttachmentConfig_idInstance(targetGroupName),
@@ -44,10 +44,10 @@ func TestAccELBV2TargetGroupAttachment_disappears(t *testing.T) {
 	ctx := acctest.Context(t)
 	targetGroupName := fmt.Sprintf("test-target-group-%s", sdkacctest.RandString(10))
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elbv2.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, elbv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupAttachmentDestroy(ctx),
+		CheckDestroy:    testAccCheckTargetGroupAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTargetGroupAttachmentConfig_idInstance(targetGroupName),
@@ -66,10 +66,10 @@ func TestAccELBV2TargetGroupAttachment_backwardsCompatibility(t *testing.T) {
 	targetGroupName := fmt.Sprintf("test-target-group-%s", sdkacctest.RandString(10))
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elbv2.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, elbv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupAttachmentDestroy(ctx),
+		CheckDestroy:    testAccCheckTargetGroupAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTargetGroupAttachmentConfig_backwardsCompatibility(targetGroupName),
@@ -86,10 +86,10 @@ func TestAccELBV2TargetGroupAttachment_port(t *testing.T) {
 	targetGroupName := fmt.Sprintf("test-target-group-%s", sdkacctest.RandString(10))
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elbv2.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, elbv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupAttachmentDestroy(ctx),
+		CheckDestroy:    testAccCheckTargetGroupAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTargetGroupAttachmentConfig_port(targetGroupName),
@@ -106,10 +106,10 @@ func TestAccELBV2TargetGroupAttachment_ipAddress(t *testing.T) {
 	targetGroupName := fmt.Sprintf("test-target-group-%s", sdkacctest.RandString(10))
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elbv2.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, elbv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupAttachmentDestroy(ctx),
+		CheckDestroy:    testAccCheckTargetGroupAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTargetGroupAttachmentConfig_idIPAddress(targetGroupName),
@@ -126,10 +126,10 @@ func TestAccELBV2TargetGroupAttachment_lambda(t *testing.T) {
 	targetGroupName := fmt.Sprintf("test-target-group-%s", sdkacctest.RandString(10))
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, elbv2.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, elbv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckTargetGroupAttachmentDestroy(ctx),
+		CheckDestroy:    testAccCheckTargetGroupAttachmentDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccTargetGroupAttachmentConfig_idLambda(targetGroupName),
@@ -263,7 +263,7 @@ func testAccTargetGroupAttachmentInstanceBaseConfig() string {
 data "aws_availability_zones" "available" {
   # t2.micro instance type is not available in these Availability Zones
   exclude_zone_ids = ["usw2-az4"]
-  state            = "available"
+  state   = "available"
 
   filter {
     name   = "opt-in-status"
@@ -287,7 +287,7 @@ data "aws_ami" "amzn-ami-minimal-hvm-ebs" {
 }
 
 resource "aws_instance" "test" {
-  ami           = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+  ami  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t2.micro"
   subnet_id     = aws_subnet.test.id
 }
@@ -295,7 +295,7 @@ resource "aws_instance" "test" {
 resource "aws_subnet" "test" {
   availability_zone = data.aws_availability_zones.available.names[0]
   cidr_block        = "10.0.1.0/24"
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
 
   tags = {
     Name = "tf-acc-test-lb-target-group-attachment"
@@ -340,7 +340,7 @@ resource "aws_lb_target_group" "test" {
 resource "aws_lb_target_group_attachment" "test" {
   target_group_arn = aws_lb_target_group.test.arn
   target_id        = aws_instance.test.id
-  port             = 80
+  port    = 80
 }
 `, rName)
 }
@@ -357,7 +357,7 @@ resource "aws_lb_target_group" "test" {
 resource "aws_alb_target_group_attachment" "test" {
   target_group_arn = aws_lb_target_group.test.arn
   target_id        = aws_instance.test.id
-  port             = 80
+  port    = 80
 }
 `, rName)
 }
@@ -375,7 +375,7 @@ resource "aws_lb_target_group" "test" {
 resource "aws_lb_target_group_attachment" "test" {
   availability_zone = aws_instance.test.availability_zone
   target_group_arn  = aws_lb_target_group.test.arn
-  target_id         = aws_instance.test.private_ip
+  target_id= aws_instance.test.private_ip
 }
 `, rName)
 }
@@ -401,13 +401,13 @@ resource "aws_lb_target_group" "test" {
 resource "aws_lambda_function" "test" {
   filename      = "test-fixtures/lambda_elb.zip"
   function_name = %[1]q
-  role          = aws_iam_role.test.arn
+  role = aws_iam_role.test.arn
   handler       = "lambda_elb.lambda_handler"
   runtime       = "python3.7"
 }
 
 resource "aws_lambda_alias" "test" {
-  name             = "test"
+  name    = "test"
   description      = "a sample description"
   function_name    = aws_lambda_function.test.function_name
   function_version = "$LATEST"

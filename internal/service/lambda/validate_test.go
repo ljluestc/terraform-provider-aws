@@ -12,7 +12,7 @@ func TestValidFunctionName(t *testing.T) {
 	t.Parallel()
 
 	validNames := []string{
-		"arn:aws:lambda:us-west-2:123456789012:function:ThumbNail",            //lintignore:AWSAT003,AWSAT005
+		"arn:aws:lambda:us-west-2:123456789012:function:ThumbNail",   //lintignore:AWSAT003,AWSAT005
 		"arn:aws-us-gov:lambda:us-west-2:123456789012:function:ThumbNail",     //lintignore:AWSAT003,AWSAT005
 		"arn:aws-us-gov:lambda:us-gov-west-1:123456789012:function:ThumbNail", //lintignore:AWSAT003,AWSAT005
 		"FunctionName",

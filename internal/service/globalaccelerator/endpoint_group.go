@@ -55,12 +55,12 @@ func ResourceEndpointGroup() *schema.Resource {
 							Computed: true,
 						},
 						"endpoint_id": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringLenBetween(1, 255),
 						},
 						"weight": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							ValidateFunc: validation.IntBetween(0, 255),
 						},
@@ -68,38 +68,38 @@ func ResourceEndpointGroup() *schema.Resource {
 				},
 			},
 			"endpoint_group_region": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidRegionName,
 			},
 			"health_check_interval_seconds": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				Default:      30,
 				ValidateFunc: validation.IntBetween(10, 30),
 			},
 			"health_check_path": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: validation.StringLenBetween(1, 255),
 			},
 			"health_check_port": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: validation.IsPortNumber,
 			},
 			"health_check_protocol": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Default:      globalaccelerator.HealthCheckProtocolTcp,
 				ValidateFunc: validation.StringInSlice(globalaccelerator.HealthCheckProtocol_Values(), false),
 			},
 			"listener_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,
@@ -111,12 +111,12 @@ func ResourceEndpointGroup() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"endpoint_port": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Required:     true,
 							ValidateFunc: validation.IsPortNumber,
 						},
 						"listener_port": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Required:     true,
 							ValidateFunc: validation.IsPortNumber,
 						},
@@ -124,13 +124,13 @@ func ResourceEndpointGroup() *schema.Resource {
 				},
 			},
 			"threshold_count": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				Default:      3,
 				ValidateFunc: validation.IntBetween(1, 10),
 			},
 			"traffic_dial_percentage": {
-				Type:         schema.TypeFloat,
+				Type:schema.TypeFloat,
 				Optional:     true,
 				Default:      100.0,
 				ValidateFunc: validation.FloatBetween(0.0, 100.0),
@@ -145,7 +145,7 @@ func resourceEndpointGroupCreate(ctx context.Context, d *schema.ResourceData, me
 	input := &globalaccelerator.CreateEndpointGroupInput{
 		EndpointGroupRegion: aws.String(meta.(*conns.AWSClient).Region),
 		IdempotencyToken:    aws.String(id.UniqueId()),
-		ListenerArn:         aws.String(d.Get("listener_arn").(string)),
+		ListenerArn:aws.String(d.Get("listener_arn").(string)),
 	}
 
 	if v, ok := d.GetOk("endpoint_configuration"); ok && v.(*schema.Set).Len() > 0 {

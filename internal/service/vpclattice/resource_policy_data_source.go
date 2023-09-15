@@ -16,43 +16,43 @@ import (
 
 // @SDKDataSource("aws_vpclattice_resource_policy", name="Resource Policy")
 func DataSourceResourcePolicy() *schema.Resource {
-	return &schema.Resource{
-		ReadWithoutTimeout: dataSourceResourcePolicyRead,
+return &schema.Resource{
+ReadWithoutTimeout: dataSourceResourcePolicyRead,
 
-		Schema: map[string]*schema.Schema{
-			"policy": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			"resource_arn": {
-				Type:         schema.TypeString,
-				Required:     true,
-				ValidateFunc: verify.ValidARN,
-			},
-		},
-	}
+Schema: map[string]*schema.Schema{
+"policy": {
+Type:     schema.TypeString,
+Computed: true,
+},
+"resource_arn": {
+Type:         schema.TypeString,
+Required:     true,
+ValidateFunc: verify.ValidARN,
+},
+},
+}
 }
 
 const (
-	DSNameResourcePolicy = "Resource Policy Data Source"
+DSNameResourcePolicy = "Resource Policy Data Source"
 )
 
 func dataSourceResourcePolicyRead(ctx context.Context, d *schema.ResourceData, meta interface{}) diag.Diagnostics {
-	conn := meta.(*conns.AWSClient).VPCLatticeClient(ctx)
+conn := meta.(*conns.AWSClient).VPCLatticeClient(ctx)
 
-	resourceArn := d.Get("resource_arn").(string)
+resourceArn := d.Get("resource_arn").(string)
 
-	out, err := findResourcePolicyByID(ctx, conn, resourceArn)
-	if err != nil {
-		return create.DiagError(names.VPCLattice, create.ErrActionReading, DSNameResourcePolicy, d.Id(), err)
-	}
+out, err := findResourcePolicyByID(ctx, conn, resourceArn)
+if err != nil {
+return create.DiagError(names.VPCLattice, create.ErrActionReading, DSNameResourcePolicy, d.Id(), err)
+}
 
-	if out == nil {
-		return create.DiagError(names.VPCLattice, create.ErrActionReading, DSNameResourcePolicy, d.Id(), err)
-	}
+if out == nil {
+return create.DiagError(names.VPCLattice, create.ErrActionReading, DSNameResourcePolicy, d.Id(), err)
+}
 
-	d.SetId(resourceArn)
-	d.Set("policy", out.Policy)
+d.SetId(resourceArn)
+d.Set("policy", out.Policy)
 
-	return nil
+return nil
 }

@@ -26,7 +26,7 @@ func DataSourceContactFlow() *schema.Resource {
 				Computed: true,
 			},
 			"contact_flow_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ExactlyOneOf: []string{"contact_flow_id", "name"},
@@ -44,7 +44,7 @@ func DataSourceContactFlow() *schema.Resource {
 				Required: true,
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ExactlyOneOf: []string{"name", "contact_flow_id"},

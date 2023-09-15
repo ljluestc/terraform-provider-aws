@@ -31,7 +31,7 @@ func DataSourceProduct() *schema.Resource {
 				Computed: true,
 			},
 			"accept_language": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Default:      "en",
 				ValidateFunc: validation.StringInSlice(AcceptLanguage_Values(), false),

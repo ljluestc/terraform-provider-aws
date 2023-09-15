@@ -48,7 +48,7 @@ Elem: &schema.Resource{
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"aws_kms_key_id": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ValidateFunc: verify.ValidARN,
 	},
@@ -66,12 +66,12 @@ Required: true,
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"catalog_encryption_mode": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ValidateFunc: validation.StringInSlice(glue.CatalogEncryptionMode_Values(), false),
 	},
 	"sse_aws_kms_key_id": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ValidateFunc: verify.ValidARN,
 	},

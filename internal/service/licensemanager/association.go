@@ -32,13 +32,13 @@ func ResourceAssociation() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"license_configuration_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"resource_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,

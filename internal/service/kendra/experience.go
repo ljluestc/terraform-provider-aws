@@ -74,7 +74,7 @@ func ResourceExperience() *schema.Resource {
 										MinItems: 1,
 										MaxItems: 100,
 										Elem: &schema.Schema{
-											Type:         schema.TypeString,
+											Type:schema.TypeString,
 											ValidateFunc: validation.StringMatch(regexache.MustCompile(`[0-9A-Za-z][0-9A-Za-z_-]*`), ""),
 										},
 									},
@@ -89,7 +89,7 @@ func ResourceExperience() *schema.Resource {
 										MinItems: 1,
 										MaxItems: 100,
 										Elem: &schema.Schema{
-											Type:         schema.TypeString,
+											Type:schema.TypeString,
 											ValidateFunc: validation.StringMatch(regexache.MustCompile(`[0-9A-Za-z][0-9A-Za-z_-]*`), ""),
 										},
 									},
@@ -107,7 +107,7 @@ func ResourceExperience() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"identity_attribute_name": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: validation.StringMatch(regexache.MustCompile(`[0-9A-Za-z][0-9A-Za-z_-]*`), ""),
 									},
@@ -118,7 +118,7 @@ func ResourceExperience() *schema.Resource {
 				},
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 1000),
 			},
@@ -143,7 +143,7 @@ func ResourceExperience() *schema.Resource {
 				Computed: true,
 			},
 			"index_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringMatch(regexache.MustCompile(`[0-9A-Za-z][0-9A-Za-z-]*`), ""),
@@ -157,7 +157,7 @@ func ResourceExperience() *schema.Resource {
 				),
 			},
 			"role_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: verify.ValidARN,
 			},
@@ -336,11 +336,11 @@ func resourceExperienceDelete(ctx context.Context, d *schema.ResourceData, meta 
 
 func waitExperienceCreated(ctx context.Context, conn *kendra.Client, id, indexId string, timeout time.Duration) error {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   enum.Slice(types.ExperienceStatusCreating),
-		Target:                    enum.Slice(types.ExperienceStatusActive),
-		Refresh:                   statusExperience(ctx, conn, id, indexId),
-		Timeout:                   timeout,
-		NotFoundChecks:            20,
+		Pending: enum.Slice(types.ExperienceStatusCreating),
+		Target:  enum.Slice(types.ExperienceStatusActive),
+		Refresh: statusExperience(ctx, conn, id, indexId),
+		Timeout: timeout,
+		NotFoundChecks:   20,
 		ContinuousTargetOccurence: 2,
 	}
 
@@ -356,11 +356,11 @@ func waitExperienceCreated(ctx context.Context, conn *kendra.Client, id, indexId
 
 func waitExperienceUpdated(ctx context.Context, conn *kendra.Client, id, indexId string, timeout time.Duration) error {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   []string{},
-		Target:                    enum.Slice(types.ExperienceStatusActive),
-		Refresh:                   statusExperience(ctx, conn, id, indexId),
-		Timeout:                   timeout,
-		NotFoundChecks:            20,
+		Pending: []string{},
+		Target:  enum.Slice(types.ExperienceStatusActive),
+		Refresh: statusExperience(ctx, conn, id, indexId),
+		Timeout: timeout,
+		NotFoundChecks:   20,
 		ContinuousTargetOccurence: 2,
 	}
 

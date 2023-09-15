@@ -57,13 +57,13 @@ func DataSourceUser() *schema.Resource {
 				},
 			},
 			"instance_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				Validate
 func: validation.StringLenBetween(1, 100),
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ExactlyOneOf: []string{"name", "user_id"},
@@ -105,7 +105,7 @@ func: validation.StringLenBetween(1, 100),
 			},
 			"tags": tftags.TagsSchemaComputed(),
 			"user_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ExactlyOneOf: []string{"user_id", "name"},

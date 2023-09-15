@@ -77,7 +77,7 @@ func() *schema.Schema {
 				},
 			},
 			"instance_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				Validate
 func: validation.StringLenBetween(1, 100),
@@ -87,7 +87,7 @@ func: validation.StringLenBetween(1, 100),
 				Computed: true,
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				Validate
 func: validation.StringLenBetween(1, 100),
@@ -218,7 +218,7 @@ func resourceUserHierarchyGroupUpdate(ctx context.Context, d *schema.ResourceDat
 		_, err = conn.UpdateUserHierarchyGroupNameWithContext(ctx, &connect.UpdateUserHierarchyGroupNameInput{
 			HierarchyGroupId: aws.String(userHierarchyGroupID),
 			InstanceId:       aws.String(instanceID),
-			Name:             aws.String(d.Get("name").(string)),
+			Name:    aws.String(d.Get("name").(string)),
 		})
 		if err != nil {
 			return diag.Errorf("updating User Hierarchy Group (%s): %s", d.Id(), err)

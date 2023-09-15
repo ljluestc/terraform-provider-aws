@@ -129,26 +129,26 @@ ForceNew: true,
 Required: true,
 	},
 	"port": {
-Type:         schema.TypeInt,
+Type:schema.TypeInt,
 Computed:     true,
 Optional:     true,
 ForceNew:     true,
 ValidateFunc: validation.IsPortNumber,
 	},
 	"protocol": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ForceNew:     true,
 ValidateFunc: validation.StringInSlice([]string{"HTTP", "HTTPS"}, true),
 	},
 	"service_arn": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Computed:     true,
 Optional:     true,
 AtLeastOneOf: []string{"service_arn", "service_identifier"},
 	},
 	"service_identifier": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Computed:     true,
 Optional:     true,
 AtLeastOneOf: []string{"service_arn", "service_identifier"},
@@ -169,10 +169,10 @@ func resourceListenerCreate(ctx context.Context, d *schema.ResourceData, meta in
 	conn := meta.(*conns.AWSClient).VPCLatticeClient(ctx)
 
 	in := &vpclattice.CreateListenerInput{
-Name:          aws.String(d.Get("name").(string)),
+Name: aws.String(d.Get("name").(string)),
 DefaultAction: expandDefaultAction(d.Get("default_action").([]interface{})),
 Protocol:      types.ListenerProtocol(d.Get("protocol").(string)),
-Tags:          getTagsIn(ctx),
+Tags: getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("port"); ok && v != nil {

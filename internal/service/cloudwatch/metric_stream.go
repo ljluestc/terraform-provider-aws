@@ -65,12 +65,12 @@ func ResourceMetricStream() *schema.Resource {
 							Type:     schema.TypeSet,
 							Optional: true,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: validation.StringLenBetween(1, 255),
 							},
 						},
 						"namespace": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringLenBetween(1, 255),
 						},
@@ -79,7 +79,7 @@ func ResourceMetricStream() *schema.Resource {
 				ConflictsWith: []string{"include_filter"},
 			},
 			"firehose_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: verify.ValidARN,
 			},
@@ -92,12 +92,12 @@ func ResourceMetricStream() *schema.Resource {
 							Type:     schema.TypeSet,
 							Optional: true,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: validation.StringLenBetween(1, 255),
 							},
 						},
 						"namespace": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringLenBetween(1, 255),
 						},
@@ -114,7 +114,7 @@ func ResourceMetricStream() *schema.Resource {
 				Computed: true,
 			},
 			"name": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -122,7 +122,7 @@ func ResourceMetricStream() *schema.Resource {
 				ValidateFunc:  validateMetricStreamName,
 			},
 			"name_prefix": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -130,12 +130,12 @@ func ResourceMetricStream() *schema.Resource {
 				ValidateFunc:  validateMetricStreamName,
 			},
 			"output_format": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringLenBetween(1, 255),
 			},
 			"role_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: verify.ValidARN,
 			},
@@ -177,12 +177,12 @@ func ResourceMetricStream() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"metric_name": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: validation.StringLenBetween(1, 255),
 									},
 									"namespace": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: validation.StringLenBetween(1, 255),
 									},
@@ -203,12 +203,12 @@ func resourceMetricStreamCreate(ctx context.Context, d *schema.ResourceData, met
 
 	name := create.Name(d.Get("name").(string), d.Get("name_prefix").(string))
 	input := &cloudwatch.PutMetricStreamInput{
-		FirehoseArn:                  aws.String(d.Get("firehose_arn").(string)),
+		FirehoseArn:aws.String(d.Get("firehose_arn").(string)),
 		IncludeLinkedAccountsMetrics: aws.Bool(d.Get("include_linked_accounts_metrics").(bool)),
-		Name:                         aws.String(name),
-		OutputFormat:                 aws.String(d.Get("output_format").(string)),
-		RoleArn:                      aws.String(d.Get("role_arn").(string)),
-		Tags:                         getTagsIn(ctx),
+		Name:       aws.String(name),
+		OutputFormat:        aws.String(d.Get("output_format").(string)),
+		RoleArn:    aws.String(d.Get("role_arn").(string)),
+		Tags:       getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("exclude_filter"); ok && v.(*schema.Set).Len() > 0 {
@@ -311,11 +311,11 @@ func resourceMetricStreamUpdate(ctx context.Context, d *schema.ResourceData, met
 
 	if d.HasChangesExcept("tags", "tags_all") {
 		input := &cloudwatch.PutMetricStreamInput{
-			FirehoseArn:                  aws.String(d.Get("firehose_arn").(string)),
+			FirehoseArn:aws.String(d.Get("firehose_arn").(string)),
 			IncludeLinkedAccountsMetrics: aws.Bool(d.Get("include_linked_accounts_metrics").(bool)),
-			Name:                         aws.String(d.Id()),
-			OutputFormat:                 aws.String(d.Get("output_format").(string)),
-			RoleArn:                      aws.String(d.Get("role_arn").(string)),
+			Name:       aws.String(d.Id()),
+			OutputFormat:        aws.String(d.Get("output_format").(string)),
+			RoleArn:    aws.String(d.Get("role_arn").(string)),
 		}
 
 		if v, ok := d.GetOk("exclude_filter"); ok && v.(*schema.Set).Len() > 0 {

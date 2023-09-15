@@ -37,7 +37,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_basic(rName),
@@ -90,7 +90,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckServiceDestroy(ctx),
+CheckDestroy:    testAccCheckServiceDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_basic(rName),
@@ -114,7 +114,7 @@ func TestAccVPCLatticeTargetGroup_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_tags1(rName, "key1", "value1"),
@@ -164,7 +164,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_lambda(rName),
@@ -200,7 +200,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_ip(rName),
@@ -281,7 +281,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_alb(rName),
@@ -369,7 +369,7 @@ resource "aws_vpclattice_target_group" "test" {
   type = "INSTANCE"
 
   config {
-    port           = 80
+    port  = 80
     protocol       = "HTTP"
     vpc_identifier = aws_vpc.test.id
   }
@@ -420,8 +420,8 @@ resource "aws_vpclattice_target_group" "test" {
   type = "IP"
 
   config {
-    port             = 443
-    protocol         = "HTTPS"
+    port    = 443
+    protocol= "HTTPS"
     vpc_identifier   = aws_vpc.test.id
     ip_address_type  = "IPV6"
     protocol_version = "HTTP2"
@@ -436,9 +436,9 @@ resource "aws_vpclattice_target_group" "test" {
         value = "200-299"
       }
 
-      path             = "/health"
-      port             = 8443
-      protocol         = "HTTPS"
+      path    = "/health"
+      port    = 8443
+      protocol= "HTTPS"
       protocol_version = "HTTP1"
     }
   }
@@ -453,8 +453,8 @@ resource "aws_vpclattice_target_group" "test" {
   type = "IP"
 
   config {
-    port             = 443
-    protocol         = "HTTPS"
+    port    = 443
+    protocol= "HTTPS"
     vpc_identifier   = aws_vpc.test.id
     ip_address_type  = "IPV6"
     protocol_version = "HTTP2"
@@ -469,9 +469,9 @@ resource "aws_vpclattice_target_group" "test" {
         value = "202"
       }
 
-      path             = "/health"
-      port             = 8443
-      protocol         = "HTTPS"
+      path    = "/health"
+      port    = 8443
+      protocol= "HTTPS"
       protocol_version = "HTTP2"
     }
   }
@@ -486,7 +486,7 @@ resource "aws_vpclattice_target_group" "test" {
   type = "ALB"
 
   config {
-    port           = 80
+    port  = 80
     protocol       = "HTTP"
     vpc_identifier = aws_vpc.test.id
   }

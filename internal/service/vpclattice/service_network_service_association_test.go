@@ -35,9 +35,9 @@ func TestAccVPCLatticeServiceNetworkServiceAssociation_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckServiceNetworkServiceAssociationDestroy(ctx),
+		CheckDestroy:    testAccCheckServiceNetworkServiceAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccServiceNetworkServiceAssociationConfig_basic(rName),
@@ -68,9 +68,9 @@ func TestAccVPCLatticeServiceNetworkServiceAssociation_arn(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckServiceNetworkServiceAssociationDestroy(ctx),
+		CheckDestroy:    testAccCheckServiceNetworkServiceAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccServiceNetworkServiceAssociationConfig_arn(rName),
@@ -101,9 +101,9 @@ func TestAccVPCLatticeServiceNetworkServiceAssociation_disappears(t *testing.T) 
 			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckServiceNetworkServiceAssociationDestroy(ctx),
+		CheckDestroy:    testAccCheckServiceNetworkServiceAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccServiceNetworkServiceAssociationConfig_basic(rName),
@@ -129,9 +129,9 @@ func TestAccVPCLatticeServiceNetworkServiceAssociation_tags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.VPCLatticeEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckServiceNetworkServiceAssociationDestroy(ctx),
+		CheckDestroy:    testAccCheckServiceNetworkServiceAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccServiceNetworkServiceAssociationConfig_tags1(rName, "key1", "value1"),
@@ -232,7 +232,7 @@ resource "aws_vpclattice_service_network" "test" {
 func testAccServiceNetworkServiceAssociationConfig_basic(rName string) string {
 	return acctest.ConfigCompose(testAccServiceNetworkServiceAssociationConfig_base(rName), `
 resource "aws_vpclattice_service_network_service_association" "test" {
-  service_identifier         = aws_vpclattice_service.test.id
+  service_identifier= aws_vpclattice_service.test.id
   service_network_identifier = aws_vpclattice_service_network.test.id
 }
 `)
@@ -241,7 +241,7 @@ resource "aws_vpclattice_service_network_service_association" "test" {
 func testAccServiceNetworkServiceAssociationConfig_arn(rName string) string {
 	return acctest.ConfigCompose(testAccServiceNetworkServiceAssociationConfig_base(rName), `
 resource "aws_vpclattice_service_network_service_association" "test" {
-  service_identifier         = aws_vpclattice_service.test.arn
+  service_identifier= aws_vpclattice_service.test.arn
   service_network_identifier = aws_vpclattice_service_network.test.arn
 }
 `)
@@ -250,7 +250,7 @@ resource "aws_vpclattice_service_network_service_association" "test" {
 func testAccServiceNetworkServiceAssociationConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return acctest.ConfigCompose(testAccServiceNetworkServiceAssociationConfig_base(rName), fmt.Sprintf(`
 resource "aws_vpclattice_service_network_service_association" "test" {
-  service_identifier         = aws_vpclattice_service.test.id
+  service_identifier= aws_vpclattice_service.test.id
   service_network_identifier = aws_vpclattice_service_network.test.id
 
   tags = {
@@ -263,7 +263,7 @@ resource "aws_vpclattice_service_network_service_association" "test" {
 func testAccServiceNetworkServiceAssociationConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return acctest.ConfigCompose(testAccServiceNetworkServiceAssociationConfig_base(rName), fmt.Sprintf(`
 resource "aws_vpclattice_service_network_service_association" "test" {
-  service_identifier         = aws_vpclattice_service.test.id
+  service_identifier= aws_vpclattice_service.test.id
   service_network_identifier = aws_vpclattice_service_network.test.id
 
   tags = {

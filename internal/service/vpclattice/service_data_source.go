@@ -58,13 +58,13 @@ func dataSourceService() *schema.Resource {
 				},
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ExactlyOneOf: []string{"name", "service_identifier"},
 			},
 			"service_identifier": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ExactlyOneOf: []string{"name", "service_identifier"},

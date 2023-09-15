@@ -36,7 +36,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.KendraEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQuerySuggestionsBlockListDestroy(ctx),
+CheckDestroy:    testAccCheckQuerySuggestionsBlockListDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQuerySuggestionsBlockListConfig_basic(rName),
@@ -78,7 +78,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.KendraEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQuerySuggestionsBlockListDestroy(ctx),
+CheckDestroy:    testAccCheckQuerySuggestionsBlockListDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQuerySuggestionsBlockListConfig_description(rName, "description1"),
@@ -128,7 +128,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.KendraEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQuerySuggestionsBlockListDestroy(ctx),
+CheckDestroy:    testAccCheckQuerySuggestionsBlockListDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQuerySuggestionsBlockListConfig_basic(rName1),
@@ -170,7 +170,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.KendraEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQuerySuggestionsBlockListDestroy(ctx),
+CheckDestroy:    testAccCheckQuerySuggestionsBlockListDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQuerySuggestionsBlockListConfig_basic(rName),
@@ -212,7 +212,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.KendraEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQuerySuggestionsBlockListDestroy(ctx),
+CheckDestroy:    testAccCheckQuerySuggestionsBlockListDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQuerySuggestionsBlockListConfig_basic(rName),
@@ -256,7 +256,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.KendraEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQuerySuggestionsBlockListDestroy(ctx),
+CheckDestroy:    testAccCheckQuerySuggestionsBlockListDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQuerySuggestionsBlockListConfig_basic(rName),
@@ -287,7 +287,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.KendraEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckQuerySuggestionsBlockListDestroy(ctx),
+CheckDestroy:    testAccCheckQuerySuggestionsBlockListDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccQuerySuggestionsBlockListConfig_tags1(rName, "key1", "value1"),

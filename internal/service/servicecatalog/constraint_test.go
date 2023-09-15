@@ -27,10 +27,10 @@ func TestAccServiceCatalogConstraint_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConstraintDestroy(ctx),
+		CheckDestroy:    testAccCheckConstraintDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConstraintConfig_basic(rName, rName),
@@ -61,10 +61,10 @@ func TestAccServiceCatalogConstraint_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConstraintDestroy(ctx),
+		CheckDestroy:    testAccCheckConstraintDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConstraintConfig_basic(rName, rName),
@@ -85,10 +85,10 @@ func TestAccServiceCatalogConstraint_update(t *testing.T) {
 	rName2 := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConstraintDestroy(ctx),
+		CheckDestroy:    testAccCheckConstraintDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccConstraintConfig_basic(rName, rName),
@@ -180,7 +180,7 @@ resource "aws_s3_object" "test" {
       MyVPC = {
         Type = "AWS::EC2::VPC"
         Properties = {
-          CidrBlock = "10.1.0.0/16"
+ CidrBlock = "10.1.0.0/16"
         }
       }
     }
@@ -189,7 +189,7 @@ resource "aws_s3_object" "test" {
       VpcID = {
         Description = "VPC ID"
         Value = {
-          Ref = "MyVPC"
+ Ref = "MyVPC"
         }
       }
     }
@@ -203,9 +203,9 @@ resource "aws_servicecatalog_product" "test" {
 
   provisioning_artifact_parameters {
     disable_template_validation = true
-    name         = %[1]q
+    name= %[1]q
     template_url = "https://${aws_s3_bucket.test.bucket_regional_domain_name}/${aws_s3_object.test.key}"
-    type         = "CLOUD_FORMATION_TEMPLATE"
+    type= "CLOUD_FORMATION_TEMPLATE"
   }
 
   tags = {
@@ -214,7 +214,7 @@ resource "aws_servicecatalog_product" "test" {
 }
 
 resource "aws_servicecatalog_portfolio" "test" {
-  name          = %[1]q
+  name = %[1]q
   provider_name = %[1]q
 }
 
@@ -235,7 +235,7 @@ resource "aws_servicecatalog_constraint" "test" {
   description  = %[2]q
   portfolio_id = aws_servicecatalog_product_portfolio_association.test.portfolio_id
   product_id   = aws_servicecatalog_product_portfolio_association.test.product_id
-  type         = "NOTIFICATION"
+  type= "NOTIFICATION"
 
   parameters = jsonencode({ "NotificationArns" : [aws_sns_topic.test.arn] })
 

@@ -49,7 +49,7 @@ func resourceVPCEndpointServiceAllowedPrincipalCreate(ctx context.Context, d *sc
 
 	output, err := conn.ModifyVpcEndpointServicePermissionsWithContext(ctx, &ec2.ModifyVpcEndpointServicePermissionsInput{
 AddAllowedPrincipals: aws.StringSlice([]string{principalARN}),
-ServiceId:            aws.String(serviceID),
+ServiceId:   aws.String(serviceID),
 	})
 
 	if err != nil {

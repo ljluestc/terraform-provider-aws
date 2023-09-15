@@ -32,9 +32,9 @@ func TestAccELBV2LoadBalancersDataSource_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckPartitionHasService(t, elbv2.EndpointsID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, elbv2.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, elbv2.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckLoadBalancerDestroy(ctx),
+		CheckDestroy:    testAccCheckLoadBalancerDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccLoadBalancersDataSourceConfig_basic(rName, lbName1, lbName2, sharedTagVal),
@@ -56,8 +56,8 @@ func testAccLoadBalancersDataSourceConfig_basic(rName, lbName1, lbName2, tagValu
 resource "aws_lb" "test1" {
   name= %[2]q
   load_balancer_type = "application"
-  internal           = true
-  subnets            = aws_subnet.test[*].id
+  internal  = true
+  subnets   = aws_subnet.test[*].id
 
   tags = {
     "Name"= %[2]q
@@ -68,8 +68,8 @@ resource "aws_lb" "test1" {
 resource "aws_lb" "test2" {
   name= %[3]q
   load_balancer_type = "application"
-  internal           = true
-  subnets            = aws_subnet.test[*].id
+  internal  = true
+  subnets   = aws_subnet.test[*].id
 
   tags = {
     "Name"= %[3]q

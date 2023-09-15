@@ -55,7 +55,7 @@ func ResourceRegistryScanningConfiguration() *schema.Resource {
 										),
 									},
 									"filter_type": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: validation.StringInSlice(ecr.ScanningRepositoryFilterType_Values(), false),
 									},
@@ -63,7 +63,7 @@ func ResourceRegistryScanningConfiguration() *schema.Resource {
 							},
 						},
 						"scan_frequency": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringInSlice(ecr.ScanFrequency_Values(), false),
 						},
@@ -71,7 +71,7 @@ func ResourceRegistryScanningConfiguration() *schema.Resource {
 				},
 			},
 			"scan_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringInSlice(ecr.ScanType_Values(), false),
 			},

@@ -54,18 +54,18 @@ func ResourcePortfolio() *schema.Resource {
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ValidateFunc: validation.StringLenBetween(0, 2000),
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringLenBetween(1, 100),
 			},
 			"provider_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringLenBetween(1, 50),
 			},
@@ -85,7 +85,7 @@ func resourcePortfolioCreate(ctx context.Context, d *schema.ResourceData, meta i
 		AcceptLanguage:   aws.String(AcceptLanguageEnglish),
 		DisplayName:      aws.String(name),
 		IdempotencyToken: aws.String(id.UniqueId()),
-		Tags:             getTagsIn(ctx),
+		Tags:    getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -141,7 +141,7 @@ func resourcePortfolioUpdate(ctx context.Context, d *schema.ResourceData, meta i
 
 	input := &servicecatalog.UpdatePortfolioInput{
 		AcceptLanguage: aws.String(AcceptLanguageEnglish),
-		Id:             aws.String(d.Id()),
+		Id:    aws.String(d.Id()),
 	}
 
 	if d.HasChange("accept_language") {
@@ -195,7 +195,7 @@ func resourcePortfolioDelete(ctx context.Context, d *schema.ResourceData, meta i
 func FindPortfolioByID(ctx context.Context, conn *servicecatalog.ServiceCatalog, id string) (*servicecatalog.DescribePortfolioOutput, error) {
 	input := &servicecatalog.DescribePortfolioInput{
 		AcceptLanguage: aws.String(AcceptLanguageEnglish),
-		Id:             aws.String(id),
+		Id:    aws.String(id),
 	}
 
 	output, err := conn.DescribePortfolioWithContext(ctx, input)

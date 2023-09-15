@@ -32,9 +32,9 @@ func TestAccChimeSDKVoiceSipRule_basic(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckRegion(t, endpoints.UsEast1RegionID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, chimesdkvoice.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, chimesdkvoice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSipRuleDestroy(ctx),
+		CheckDestroy:    testAccCheckSipRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSipRuleConfig_basic(rName),
@@ -70,9 +70,9 @@ func TestAccChimeSDKVoiceSipRule_disappears(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckRegion(t, endpoints.UsEast1RegionID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, chime.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, chime.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSipRuleDestroy(ctx),
+		CheckDestroy:    testAccCheckSipRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSipRuleConfig_basic(rName),
@@ -99,9 +99,9 @@ func TestAccChimeSDKVoiceSipRule_update(t *testing.T) {
 			acctest.PreCheck(ctx, t)
 			acctest.PreCheckRegion(t, endpoints.UsEast1RegionID)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, chimesdkvoice.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, chimesdkvoice.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckSipRuleDestroy(ctx),
+		CheckDestroy:    testAccCheckSipRuleDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccSipRuleConfig_update(rName),
@@ -211,12 +211,12 @@ resource "aws_chime_voice_connector" "test" {
 }
 
 resource "aws_lambda_function" "test" {
-  filename         = "test-fixtures/lambdatest.zip"
+  filename= "test-fixtures/lambdatest.zip"
   source_code_hash = filebase64sha256("test-fixtures/lambdatest.zip")
   function_name    = %[1]q
-  role             = aws_iam_role.test.arn
-  runtime          = "nodejs16.x"
-  handler          = "index.handler"
+  role    = aws_iam_role.test.arn
+  runtime = "nodejs16.x"
+  handler = "index.handler"
 }
 
 resource "aws_chimesdkvoice_sip_media_application" "test" {
@@ -235,7 +235,7 @@ func testAccSipRuleConfig_basic(rName string) string {
 		testAccSipRuleConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_chimesdkvoice_sip_rule" "test" {
-  name          = %[1]q
+  name = %[1]q
   disabled      = "false"
   trigger_type  = "RequestUriHostname"
   trigger_value = aws_chime_voice_connector.test.outbound_host_name
@@ -253,7 +253,7 @@ func testAccSipRuleConfig_update(rName string) string {
 		testAccSipRuleConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_chimesdkvoice_sip_rule" "test" {
-  name          = %[1]q
+  name = %[1]q
   disabled      = "true"
   trigger_type  = "RequestUriHostname"
   trigger_value = aws_chime_voice_connector.test.outbound_host_name

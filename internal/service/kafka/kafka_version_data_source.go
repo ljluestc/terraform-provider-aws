@@ -21,9 +21,9 @@ func DataSourceVersion() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"preferred_versions": {
-				Type:         schema.TypeList,
+				Type:schema.TypeList,
 				Optional:     true,
-				Elem:         &schema.Schema{Type: schema.TypeString},
+				Elem:&schema.Schema{Type: schema.TypeString},
 				ExactlyOneOf: []string{"version", "preferred_versions"},
 			},
 			"status": {
@@ -31,7 +31,7 @@ func DataSourceVersion() *schema.Resource {
 				Computed: true,
 			},
 			"version": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ExactlyOneOf: []string{"version", "preferred_versions"},

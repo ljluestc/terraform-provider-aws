@@ -24,9 +24,9 @@ func TestAccKafkaConnectConnector_basic(t *testing.T) {
 	resourceName := "aws_mskconnect_connector.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, kafkaconnect.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, kafkaconnect.EndpointsID),
-		CheckDestroy:             testAccCheckConnectorDestroy(ctx),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, kafkaconnect.EndpointsID) },
+		ErrorCheck:      acctest.ErrorCheck(t, kafkaconnect.EndpointsID),
+		CheckDestroy:    testAccCheckConnectorDestroy(ctx),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -86,9 +86,9 @@ func TestAccKafkaConnectConnector_disappears(t *testing.T) {
 	resourceName := "aws_mskconnect_connector.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, kafkaconnect.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, kafkaconnect.EndpointsID),
-		CheckDestroy:             testAccCheckConnectorDestroy(ctx),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, kafkaconnect.EndpointsID) },
+		ErrorCheck:      acctest.ErrorCheck(t, kafkaconnect.EndpointsID),
+		CheckDestroy:    testAccCheckConnectorDestroy(ctx),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -109,9 +109,9 @@ func TestAccKafkaConnectConnector_update(t *testing.T) {
 	resourceName := "aws_mskconnect_connector.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, kafkaconnect.EndpointsID) },
-		ErrorCheck:               acctest.ErrorCheck(t, kafkaconnect.EndpointsID),
-		CheckDestroy:             testAccCheckConnectorDestroy(ctx),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, kafkaconnect.EndpointsID) },
+		ErrorCheck:      acctest.ErrorCheck(t, kafkaconnect.EndpointsID),
+		CheckDestroy:    testAccCheckConnectorDestroy(ctx),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -284,7 +284,7 @@ resource "aws_vpc" "test" {
 }
 
 resource "aws_subnet" "test1" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   cidr_block        = "10.10.1.0/24"
   availability_zone = data.aws_availability_zones.available.names[0]
 
@@ -294,7 +294,7 @@ resource "aws_subnet" "test1" {
 }
 
 resource "aws_subnet" "test2" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   cidr_block        = "10.10.2.0/24"
   availability_zone = data.aws_availability_zones.available.names[1]
 
@@ -304,7 +304,7 @@ resource "aws_subnet" "test2" {
 }
 
 resource "aws_subnet" "test3" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   cidr_block        = "10.10.3.0/24"
   availability_zone = data.aws_availability_zones.available.names[2]
 
@@ -339,7 +339,7 @@ resource "aws_security_group" "test" {
 data "aws_region" "current" {}
 
 resource "aws_vpc_endpoint" "test" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   service_name      = "com.amazonaws.${data.aws_region.current.name}.s3"
   vpc_endpoint_type = "Interface"
 
@@ -394,8 +394,8 @@ EOF
 }
 
 resource "aws_msk_cluster" "test" {
-  cluster_name           = %[1]q
-  kafka_version          = "2.2.1"
+  cluster_name  = %[1]q
+  kafka_version = "2.2.1"
   number_of_broker_nodes = 3
 
   broker_node_group_info {
@@ -433,7 +433,7 @@ resource "aws_mskconnect_connector" "test" {
   connector_configuration = {
     "connector.class" = "com.github.jcustenborder.kafka.connect.simulator.SimulatorSinkConnector"
     "tasks.max"       = "1"
-    "topics"          = "t1"
+    "topics" = "t1"
   }
 
   kafka_cluster {
@@ -442,7 +442,7 @@ resource "aws_mskconnect_connector" "test" {
 
       vpc {
         security_groups = [aws_security_group.test.id]
-        subnets         = [aws_subnet.test1.id, aws_subnet.test2.id, aws_subnet.test3.id]
+        subnets= [aws_subnet.test1.id, aws_subnet.test2.id, aws_subnet.test3.id]
       }
     }
   }
@@ -503,7 +503,7 @@ resource "aws_mskconnect_connector" "test" {
   connector_configuration = {
     "connector.class" = "com.github.jcustenborder.kafka.connect.simulator.SimulatorSinkConnector"
     "tasks.max"       = "1"
-    "topics"          = "t1"
+    "topics" = "t1"
   }
 
   kafka_cluster {
@@ -512,7 +512,7 @@ resource "aws_mskconnect_connector" "test" {
 
       vpc {
         security_groups = [aws_security_group.test.id]
-        subnets         = [aws_subnet.test1.id, aws_subnet.test2.id, aws_subnet.test3.id]
+        subnets= [aws_subnet.test1.id, aws_subnet.test2.id, aws_subnet.test3.id]
       }
     }
   }
@@ -585,7 +585,7 @@ resource "aws_mskconnect_connector" "test" {
   connector_configuration = {
     "connector.class" = "com.github.jcustenborder.kafka.connect.simulator.SimulatorSinkConnector"
     "tasks.max"       = "1"
-    "topics"          = "t1"
+    "topics" = "t1"
   }
 
   kafka_cluster {
@@ -594,7 +594,7 @@ resource "aws_mskconnect_connector" "test" {
 
       vpc {
         security_groups = [aws_security_group.test.id]
-        subnets         = [aws_subnet.test1.id, aws_subnet.test2.id, aws_subnet.test3.id]
+        subnets= [aws_subnet.test1.id, aws_subnet.test2.id, aws_subnet.test3.id]
       }
     }
   }

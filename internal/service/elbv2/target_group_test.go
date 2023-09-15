@@ -97,7 +97,7 @@ func TestAccELBV2TargetGroup_backwardsCompatibility(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_backwardsCompatibility(rName),
@@ -141,7 +141,7 @@ func TestAccELBV2TargetGroup_ProtocolVersion_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_protocolVersion(rName, "HTTP2"),
@@ -195,7 +195,7 @@ func TestAccELBV2TargetGroup_ProtocolVersion_grpcHealthCheck(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_grpcProtocolVersion(rName),
@@ -220,7 +220,7 @@ func TestAccELBV2TargetGroup_ProtocolVersion_grpcUpdate(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_basic(rName, 200),
@@ -252,7 +252,7 @@ func TestAccELBV2TargetGroup_ipAddressType(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_ipAddressType(rName),
@@ -287,7 +287,7 @@ func TestAccELBV2TargetGroup_tls(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_protocolTLS(rName),
@@ -310,7 +310,7 @@ func TestAccELBV2TargetGroup_HealthCheck_tcpHTTPS(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_typeTCPHTTPHealthCheck(rName, "/healthz", 2),
@@ -370,7 +370,7 @@ func TestAccELBV2TargetGroup_attrsOnCreate(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_basic(rName, 0),
@@ -404,7 +404,7 @@ func TestAccELBV2TargetGroup_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_basic(rName, 200),
@@ -451,7 +451,7 @@ func TestAccELBV2TargetGroup_udp(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_basicUdp(rName),
@@ -484,7 +484,7 @@ func TestAccELBV2TargetGroup_ForceNew_name(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_basic(rNameBefore, 200),
@@ -515,7 +515,7 @@ func TestAccELBV2TargetGroup_ForceNew_port(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_basic(rName, 200),
@@ -546,7 +546,7 @@ func TestAccELBV2TargetGroup_ForceNew_protocol(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_basic(rName, 200),
@@ -577,7 +577,7 @@ func TestAccELBV2TargetGroup_ForceNew_vpc(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_basic(rName, 200),
@@ -606,7 +606,7 @@ func TestAccELBV2TargetGroup_Defaults_application(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_albDefaults(rName),
@@ -663,7 +663,7 @@ timeout  = 4
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config:      testAccTargetGroupConfig_nlbDefaults(rName, healthCheckInvalid1),
@@ -709,7 +709,7 @@ func TestAccELBV2TargetGroup_HealthCheck_enable(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_noHealthcheck(rName),
@@ -745,7 +745,7 @@ func TestAccELBV2TargetGroup_Name_generated(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_generatedName(rName),
@@ -767,7 +767,7 @@ func TestAccELBV2TargetGroup_Name_prefix(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_namePrefix(rName),
@@ -790,7 +790,7 @@ func TestAccELBV2TargetGroup_NetworkLB_tcpHealthCheckUpdated(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_typeTCP(rName),
@@ -853,7 +853,7 @@ func TestAccELBV2TargetGroup_networkLB_TargetGroupWithConnectionTermination(t *t
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_typeTCP(rName),
@@ -883,7 +883,7 @@ func TestAccELBV2TargetGroup_NetworkLB_targetGroupWithProxy(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_typeTCP(rName),
@@ -913,7 +913,7 @@ func TestAccELBV2TargetGroup_preserveClientIPValid(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_preserveClientIP(rName, true),
@@ -943,7 +943,7 @@ func TestAccELBV2TargetGroup_Geneve_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckGatewayLoadBalancer(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_protocolGeneve(rName),
@@ -979,7 +979,7 @@ func TestAccELBV2TargetGroup_Geneve_notSticky(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckGatewayLoadBalancer(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_protocolGeneve(rName),
@@ -1020,7 +1020,7 @@ func TestAccELBV2TargetGroup_Geneve_Sticky(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckGatewayLoadBalancer(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_protocolGeneveSticky(rName, "source_ip_dest_ip"),
@@ -1058,7 +1058,7 @@ func TestAccELBV2TargetGroup_Geneve_targetFailover(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheckGatewayLoadBalancer(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_protocolGeneveTargetFailover(rName, "rebalance"),
@@ -1116,7 +1116,7 @@ func TestAccELBV2TargetGroup_Stickiness_defaultALB(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_stickinessDefault(rName, "HTTP"),
@@ -1141,7 +1141,7 @@ func TestAccELBV2TargetGroup_Stickiness_defaultNLB(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_stickinessDefault(rName, "TCP"),
@@ -1182,7 +1182,7 @@ func TestAccELBV2TargetGroup_Stickiness_invalidALB(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config:      testAccTargetGroupConfig_stickinessValidity(rName, "HTTP", "source_ip", true),
@@ -1197,8 +1197,8 @@ Config:      testAccTargetGroupConfig_stickinessValidity(rName, "TLS", "lb_cooki
 ExpectError: regexache.MustCompile("Stickiness type 'lb_cookie' is not supported for target groups with"),
 	},
 	{
-Config:             testAccTargetGroupConfig_stickinessValidity(rName, "TCP_UDP", "lb_cookie", false),
-PlanOnly:           true,
+Config:    testAccTargetGroupConfig_stickinessValidity(rName, "TCP_UDP", "lb_cookie", false),
+PlanOnly:  true,
 ExpectNonEmptyPlan: true,
 	},
 },
@@ -1213,7 +1213,7 @@ func TestAccELBV2TargetGroup_Stickiness_invalidNLB(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config:      testAccTargetGroupConfig_stickinessValidity(rName, "TCP", "lb_cookie", true),
@@ -1245,7 +1245,7 @@ func TestAccELBV2TargetGroup_Stickiness_validALB(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_stickinessValidity(rName, "HTTP", "lb_cookie", true),
@@ -1281,7 +1281,7 @@ func TestAccELBV2TargetGroup_Stickiness_validNLB(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_stickinessValidity(rName, "TCP", "source_ip", false),
@@ -1333,7 +1333,7 @@ func TestAccELBV2TargetGroup_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_tags1(rName, "key1", "value1"),
@@ -1374,7 +1374,7 @@ func TestAccELBV2TargetGroup_Stickiness_updateAppEnabled(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_appStickiness(rName, false, false),
@@ -1463,7 +1463,7 @@ func TestAccELBV2TargetGroup_HealthCheck_update(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_basic(rName, 200),
@@ -1529,7 +1529,7 @@ func TestAccELBV2TargetGroup_Stickiness_updateEnabled(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_stickiness(rName, false, false),
@@ -1616,7 +1616,7 @@ func TestAccELBV2TargetGroup_HealthCheck_without(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_noHealthcheck(rName),
@@ -1642,7 +1642,7 @@ func TestAccELBV2TargetGroup_ALBAlias_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_albBasic(rName),
@@ -1688,7 +1688,7 @@ func TestAccELBV2TargetGroup_ALBAlias_changeNameForceNew(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_albBasic(rName),
@@ -1718,7 +1718,7 @@ func TestAccELBV2TargetGroup_ALBAlias_changePortForceNew(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_albBasic(rName),
@@ -1748,7 +1748,7 @@ func TestAccELBV2TargetGroup_ALBAlias_changeProtocolForceNew(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_albBasic(rName),
@@ -1778,7 +1778,7 @@ func TestAccELBV2TargetGroup_ALBAlias_changeVPCForceNew(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_albBasic(rName),
@@ -1806,7 +1806,7 @@ func TestAccELBV2TargetGroup_ALBAlias_generatedName(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_albGeneratedName(rName),
@@ -1828,7 +1828,7 @@ func TestAccELBV2TargetGroup_ALBAlias_lambda(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_albLambda(rName),
@@ -1864,7 +1864,7 @@ func TestAccELBV2TargetGroup_ALBAlias_lambdaMultiValueHeadersEnabled(t *testing.
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_albLambdaMultiValueHeadersEnabled(rName, true),
@@ -1914,7 +1914,7 @@ func TestAccELBV2TargetGroup_ALBAlias_missingPortProtocolVPC(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config:      testAccTargetGroupConfig_albMissingPort(rName),
@@ -1942,7 +1942,7 @@ func TestAccELBV2TargetGroup_ALBAlias_namePrefix(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_albNamePrefix(rName),
@@ -1965,7 +1965,7 @@ func TestAccELBV2TargetGroup_ALBAlias_setAndUpdateSlowStart(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_albUpdateSlowStart(rName, 30),
@@ -1995,7 +1995,7 @@ func TestAccELBV2TargetGroup_ALBAlias_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_albBasic(rName),
@@ -2028,7 +2028,7 @@ func TestAccELBV2TargetGroup_ALBAlias_updateHealthCheck(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_albBasic(rName),
@@ -2092,7 +2092,7 @@ func TestAccELBV2TargetGroup_ALBAlias_updateLoadBalancingAlgorithmType(t *testin
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_albLoadBalancingAlgorithm(rName, false, ""),
@@ -2135,7 +2135,7 @@ func TestAccELBV2TargetGroup_ALBAlias_updateLoadBalancingCrossZoneEnabled(t *tes
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_albLoadBalancingCrossZoneEnabled(rName, false, false),
@@ -2178,7 +2178,7 @@ func TestAccELBV2TargetGroup_ALBAlias_updateStickinessEnabled(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_albStickiness(rName, false, false),
@@ -2265,7 +2265,7 @@ func TestAccELBV2TargetGroup_Name_noDuplicates(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTargetGroupDestroy(ctx),
+CheckDestroy:    testAccCheckTargetGroupDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTargetGroupConfig_duplicateNameFirst(tgName),
@@ -2362,19 +2362,19 @@ resource "aws_lb_target_group" "test" {
   vpc_id   = aws_vpc.test.id
 
   deregistration_delay = 200
-  slow_start           = 0
+  slow_start  = 0
 
   # HTTP Only
 
   stickiness {
-    type            = "lb_cookie"
+    type   = "lb_cookie"
     cookie_duration = 10000
   }
 
   health_check {
-    interval            = 10
+    interval   = 10
     port = 8081
-    protocol            = "HTTP"
+    protocol   = "HTTP"
     healthy_threshold   = 3
     unhealthy_threshold = 3
   }
@@ -2403,22 +2403,22 @@ resource "aws_alb_target_group" "test" {
   vpc_id   = aws_vpc.test.id
 
   deregistration_delay = 200
-  slow_start           = 0
+  slow_start  = 0
 
   stickiness {
-    type            = "lb_cookie"
+    type   = "lb_cookie"
     cookie_duration = 10000
   }
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 
   tags = {
@@ -2525,22 +2525,22 @@ resource "aws_lb_target_group" "test" {
   vpc_id   = aws_vpc.test.id
 
   deregistration_delay = 200
-  slow_start           = 0
+  slow_start  = 0
 
   stickiness {
-    type            = "lb_cookie"
+    type   = "lb_cookie"
     cookie_duration = 10000
   }
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 
   tags = {
@@ -2567,22 +2567,22 @@ resource "aws_lb_target_group" "test" {
   vpc_id   = aws_vpc.test.id
 
   deregistration_delay = 200
-  slow_start           = 0
+  slow_start  = 0
 
   stickiness {
-    type            = "lb_cookie"
+    type   = "lb_cookie"
     cookie_duration = 10000
   }
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 
   tags = {
@@ -2604,28 +2604,28 @@ resource "aws_vpc" "test" {
 func testAccTargetGroupConfig_grpcProtocolVersion(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_lb_target_group" "test" {
-  name             = %[1]q
-  port             = 80
-  protocol         = "HTTP"
+  name    = %[1]q
+  port    = 80
+  protocol= "HTTP"
   protocol_version = "GRPC"
-  vpc_id           = aws_vpc.test2.id
+  vpc_id  = aws_vpc.test2.id
 
   deregistration_delay = 200
 
   stickiness {
-    type            = "lb_cookie"
+    type   = "lb_cookie"
     cookie_duration = 10000
   }
 
   health_check {
     path = "/Test.Check/healthcheck"
-    interval            = 60
+    interval   = 60
     port = 8080
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "0-99"
+    matcher    = "0-99"
   }
 
   tags = {
@@ -2654,29 +2654,29 @@ resource "aws_vpc" "test" {
 func testAccTargetGroupConfig_protocolVersion(rName, protocolVersion string) string {
 	return fmt.Sprintf(`
 resource "aws_lb_target_group" "test" {
-  name             = %[1]q
-  port             = 443
-  protocol         = "HTTPS"
+  name    = %[1]q
+  port    = 443
+  protocol= "HTTPS"
   protocol_version = %[2]q
-  vpc_id           = aws_vpc.test.id
+  vpc_id  = aws_vpc.test.id
 
   deregistration_delay = 200
-  slow_start           = 0
+  slow_start  = 0
 
   stickiness {
-    type            = "lb_cookie"
+    type   = "lb_cookie"
     cookie_duration = 10000
   }
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 
   tags = {
@@ -2714,9 +2714,9 @@ resource "aws_lb_target_group" "test" {
   ip_address_type = "ipv6"
 
   health_check {
-    interval            = 10
+    interval   = 10
     port = "traffic-port"
-    protocol            = "TCP"
+    protocol   = "TCP"
     healthy_threshold   = 3
     unhealthy_threshold = 3
   }
@@ -2745,9 +2745,9 @@ resource "aws_lb_target_group" "test" {
   vpc_id   = aws_vpc.test.id
 
   health_check {
-    interval            = 10
+    interval   = 10
     port = "traffic-port"
-    protocol            = "TCP"
+    protocol   = "TCP"
     healthy_threshold   = 3
     unhealthy_threshold = 3
   }
@@ -2765,8 +2765,8 @@ func testAccTargetGroupConfig_appStickiness(rName string, addAppStickinessBlock 
 	if addAppStickinessBlock {
 appSstickinessBlock = fmt.Sprintf(`
 stickiness {
-  enabled         = "%[1]t"
-  type            = "app_cookie"
+  enabled= "%[1]t"
+  type   = "app_cookie"
   cookie_name     = "Cookie"
   cookie_duration = 10000
 }
@@ -2786,13 +2786,13 @@ resource "aws_lb_target_group" "test" {
 
   health_check {
     path = "/health2"
-    interval            = 30
+    interval   = 30
     port = 8082
-    protocol            = "HTTPS"
-    timeout             = 4
+    protocol   = "HTTPS"
+    timeout    = 4
     healthy_threshold   = 4
     unhealthy_threshold = 4
-    matcher             = "200"
+    matcher    = "200"
   }
 }
 
@@ -2815,22 +2815,22 @@ resource "aws_lb_target_group" "test" {
   vpc_id   = aws_vpc.test.id
 
   deregistration_delay = %[2]d
-  slow_start           = 0
+  slow_start  = 0
 
   stickiness {
-    type            = "lb_cookie"
+    type   = "lb_cookie"
     cookie_duration = 10000
   }
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 
   tags = {
@@ -2936,7 +2936,7 @@ resource "aws_lb_target_group" "test" {
   vpc_id   = aws_vpc.test.id
 
   deregistration_delay = 200
-  slow_start           = 0
+  slow_start  = 0
 
   preserve_client_ip = %[2]t
 
@@ -2960,8 +2960,8 @@ func testAccTargetGroupConfig_stickiness(rName string, addStickinessBlock bool, 
 	if addStickinessBlock {
 stickinessBlock = fmt.Sprintf(`
 stickiness {
-  enabled         = "%[1]t"
-  type            = "lb_cookie"
+  enabled= "%[1]t"
+  type   = "lb_cookie"
   cookie_duration = 10000
 }
 `, enabled)
@@ -2980,13 +2980,13 @@ resource "aws_lb_target_group" "test" {
 
   health_check {
     path = "/health2"
-    interval            = 30
+    interval   = 30
     port = 8082
-    protocol            = "HTTPS"
-    timeout             = 4
+    protocol   = "HTTPS"
+    timeout    = 4
     healthy_threshold   = 4
     unhealthy_threshold = 4
-    matcher             = "200"
+    matcher    = "200"
   }
 }
 
@@ -3054,9 +3054,9 @@ resource "aws_lb_target_group" "test" {
   deregistration_delay = 200
 
   health_check {
-    interval            = 10
+    interval   = 10
     port = "traffic-port"
-    protocol            = "TCP"
+    protocol   = "TCP"
     healthy_threshold   = 3
     unhealthy_threshold = 3
   }
@@ -3087,10 +3087,10 @@ resource "aws_lb_target_group" "test" {
   deregistration_delay = 200
 
   health_check {
-    interval            = 20
+    interval   = 20
     port = "8081"
-    protocol            = "TCP"
-    timeout             = 15
+    protocol   = "TCP"
+    timeout    = 15
     healthy_threshold   = 4
     unhealthy_threshold = 5
   }
@@ -3121,12 +3121,12 @@ resource "aws_lb_target_group" "test" {
   health_check {
     healthy_threshold   = %[2]d
     unhealthy_threshold = %[2]d
-    timeout             = "10"
+    timeout    = "10"
     port = "443"
     path = "%[3]s"
-    protocol            = "HTTPS"
-    interval            = 30
-    matcher             = "200-399"
+    protocol   = "HTTPS"
+    interval   = 30
+    matcher    = "200-399"
   }
 
   tags = {
@@ -3156,9 +3156,9 @@ resource "aws_lb_target_group" "test" {
   deregistration_delay = 200
 
   health_check {
-    interval            = 10
+    interval   = 10
     port = "traffic-port"
-    protocol            = "TCP"
+    protocol   = "TCP"
     healthy_threshold   = 3
     unhealthy_threshold = 3
   }
@@ -3190,9 +3190,9 @@ resource "aws_lb_target_group" "test" {
   deregistration_delay   = 200
 
   health_check {
-    interval            = 10
+    interval   = 10
     port = "traffic-port"
-    protocol            = "TCP"
+    protocol   = "TCP"
     healthy_threshold   = 3
     unhealthy_threshold = 3
   }
@@ -3223,19 +3223,19 @@ resource "aws_lb_target_group" "test" {
   deregistration_delay = 200
 
   stickiness {
-    type            = "lb_cookie"
+    type   = "lb_cookie"
     cookie_duration = 10000
   }
 
   health_check {
     path = "/health2"
-    interval            = 30
+    interval   = 30
     port = 8082
-    protocol            = "HTTPS"
-    timeout             = 4
+    protocol   = "HTTPS"
+    timeout    = 4
     healthy_threshold   = 4
     unhealthy_threshold = 4
-    matcher             = "200"
+    matcher    = "200"
   }
 }
 
@@ -3260,19 +3260,19 @@ resource "aws_lb_target_group" "test" {
   deregistration_delay = 200
 
   stickiness {
-    type            = "lb_cookie"
+    type   = "lb_cookie"
     cookie_duration = 10000
   }
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 
   tags = {
@@ -3301,19 +3301,19 @@ resource "aws_lb_target_group" "test" {
   deregistration_delay = 200
 
   stickiness {
-    type            = "lb_cookie"
+    type   = "lb_cookie"
     cookie_duration = 10000
   }
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 
   tags = {
@@ -3350,19 +3350,19 @@ resource "aws_lb_target_group" "test" {
   deregistration_delay = 200
 
   stickiness {
-    type            = "lb_cookie"
+    type   = "lb_cookie"
     cookie_duration = 10000
   }
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 
   tags = {
@@ -3407,10 +3407,10 @@ resource "aws_lb_target_group" "test" {
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 80
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
   }
@@ -3427,7 +3427,7 @@ resource "aws_lb_target_group" "test" {
   vpc_id   = aws_vpc.test.id
 
   deregistration_delay = 200
-  slow_start           = 0
+  slow_start  = 0
 
   health_check {
     %[2]s
@@ -3459,19 +3459,19 @@ resource "aws_alb_target_group" "test" {
   deregistration_delay = 200
 
   stickiness {
-    type            = "lb_cookie"
+    type   = "lb_cookie"
     cookie_duration = 10000
   }
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 
   tags = {
@@ -3497,11 +3497,11 @@ resource "aws_alb_target_group" "test" {
 
   health_check {
     path = "/health"
-    interval            = 60
-    timeout             = 3
+    interval   = 60
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 }
 
@@ -3527,7 +3527,7 @@ func testAccTargetGroupConfig_albLambdaMultiValueHeadersEnabled(rName string, la
 resource "aws_alb_target_group" "test" {
   lambda_multi_value_headers_enabled = %[1]t
   name = %[2]q
-  target_type         = "lambda"
+  target_type= "lambda"
 }
 `, lambdaMultiValueHadersEnabled, rName)
 }
@@ -3644,8 +3644,8 @@ func testAccTargetGroupConfig_albStickiness(rName string, addStickinessBlock boo
 	if addStickinessBlock {
 stickinessBlock = fmt.Sprintf(`
 	  stickiness {
-	    enabled         = "%t"
-	    type            = "lb_cookie"
+	    enabled= "%t"
+	    type   = "lb_cookie"
 	    cookie_duration = 10000
 	  }`, enabled)
 	}
@@ -3663,13 +3663,13 @@ resource "aws_alb_target_group" "test" {
 
   health_check {
     path = "/health2"
-    interval            = 30
+    interval   = 30
     port = 8082
-    protocol            = "HTTPS"
-    timeout             = 4
+    protocol   = "HTTPS"
+    timeout    = 4
     healthy_threshold   = 4
     unhealthy_threshold = 4
-    matcher             = "200"
+    matcher    = "200"
   }
 }
 
@@ -3693,19 +3693,19 @@ resource "aws_alb_target_group" "test" {
   deregistration_delay = 200
 
   stickiness {
-    type            = "lb_cookie"
+    type   = "lb_cookie"
     cookie_duration = 10000
   }
 
   health_check {
     path = "/health2"
-    interval            = 30
+    interval   = 30
     port = 8082
-    protocol            = "HTTPS"
-    timeout             = 4
+    protocol   = "HTTPS"
+    timeout    = 4
     healthy_threshold   = 4
     unhealthy_threshold = 4
-    matcher             = "200"
+    matcher    = "200"
   }
 }
 
@@ -3727,22 +3727,22 @@ resource "aws_alb_target_group" "test" {
   vpc_id   = aws_vpc.test.id
 
   deregistration_delay = 200
-  slow_start           = %[2]d
+  slow_start  = %[2]d
 
   stickiness {
-    type            = "lb_cookie"
+    type   = "lb_cookie"
     cookie_duration = 10000
   }
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 
   tags = {
@@ -3770,19 +3770,19 @@ resource "aws_alb_target_group" "test" {
   deregistration_delay = 200
 
   stickiness {
-    type            = "lb_cookie"
+    type   = "lb_cookie"
     cookie_duration = 10000
   }
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 
   tags = {
@@ -3811,19 +3811,19 @@ resource "aws_alb_target_group" "test" {
   deregistration_delay = 200
 
   stickiness {
-    type            = "lb_cookie"
+    type   = "lb_cookie"
     cookie_duration = 10000
   }
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 
   tags = {
@@ -3851,19 +3851,19 @@ resource "aws_alb_target_group" "test" {
   deregistration_delay = 200
 
   stickiness {
-    type            = "lb_cookie"
+    type   = "lb_cookie"
     cookie_duration = 10000
   }
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 
   tags = {
@@ -3899,19 +3899,19 @@ resource "aws_alb_target_group" "test" {
   deregistration_delay = 200
 
   stickiness {
-    type            = "lb_cookie"
+    type   = "lb_cookie"
     cookie_duration = 10000
   }
 
   health_check {
     path = "/health"
-    interval            = 60
+    interval   = 60
     port = 8081
-    protocol            = "HTTP"
-    timeout             = 3
+    protocol   = "HTTP"
+    timeout    = 3
     healthy_threshold   = 3
     unhealthy_threshold = 3
-    matcher             = "200-299"
+    matcher    = "200-299"
   }
 
   tags = {

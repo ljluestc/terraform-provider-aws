@@ -67,7 +67,7 @@ func ResourceInstance() *schema.Resource {
 				Computed: true,
 			},
 			"directory_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				Validate
@@ -80,7 +80,7 @@ func: validation.StringLenBetween(12, 12),
 				Default:  true, //verified default result from ListInstanceAttributes()
 			},
 			"identity_management_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate
@@ -91,7 +91,7 @@ func: validation.StringInSlice(connect.DirectoryType_Values(), false),
 				Required: true,
 			},
 			"instance_alias": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				AtLeastOneOf: []string{"directory_id", "instance_alias"},
@@ -135,7 +135,7 @@ func resourceInstanceCreate(ctx context.Context, d *schema.ResourceData, meta in
 	conn := meta.(*conns.AWSClient).ConnectConn(ctx)
 
 	input := &connect.CreateInstanceInput{
-		ClientToken:            aws.String(id.UniqueId()),
+		ClientToken:   aws.String(id.UniqueId()),
 		IdentityManagementType: aws.String(d.Get("identity_management_type").(string)),
 		InboundCallsEnabled:    aws.Bool(d.Get("inbound_calls_enabled").(bool)),
 		OutboundCallsEnabled:   aws.Bool(d.Get("outbound_calls_enabled").(bool)),
@@ -268,7 +268,7 @@ func updateInstanceAttribute(ctx context.Context, conn *connect.Connect, instanc
 	input := &connect.UpdateInstanceAttributeInput{
 		AttributeType: aws.String(attributeType),
 		InstanceId:    aws.String(instanceID),
-		Value:         aws.String(value),
+		Value:aws.String(value),
 	}
 
 	_, err := conn.UpdateInstanceAttributeWithContext(ctx, input)

@@ -28,7 +28,7 @@ func TestAccMemoryDBACL_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckACLDestroy(ctx),
+CheckDestroy:    testAccCheckACLDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccACLConfig_basic(rName, []string{user1}, []string{user1}),
@@ -61,7 +61,7 @@ func TestAccMemoryDBACL_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckACLDestroy(ctx),
+CheckDestroy:    testAccCheckACLDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccACLConfig_basic(rName, nil, nil),
@@ -83,7 +83,7 @@ func TestAccMemoryDBACL_nameGenerated(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckACLDestroy(ctx),
+CheckDestroy:    testAccCheckACLDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccACLConfig_noName(),
@@ -105,7 +105,7 @@ func TestAccMemoryDBACL_namePrefix(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckACLDestroy(ctx),
+CheckDestroy:    testAccCheckACLDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccACLConfig_namePrefix("tftest-"),
@@ -128,7 +128,7 @@ func TestAccMemoryDBACL_update_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckACLDestroy(ctx),
+CheckDestroy:    testAccCheckACLDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccACLConfig_tags0(rName),
@@ -204,7 +204,7 @@ func TestAccMemoryDBACL_update_userNames(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(t) },
 ErrorCheck:acctest.ErrorCheck(t, memorydb.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckACLDestroy(ctx),
+CheckDestroy:    testAccCheckACLDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 // Empty ACL.
@@ -355,7 +355,7 @@ locals {
 }
 
 resource "aws_memorydb_user" "test" {
-  count         = length(local.user_names)
+  count= length(local.user_names)
   access_string = "on ~* &* +@all"
   user_name     = local.user_names[count.index]
 

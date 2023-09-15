@@ -56,18 +56,18 @@ func ResourceConnector() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"max_worker_count": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Required:     true,
 										ValidateFunc: validation.IntBetween(1, 10),
 									},
 									"mcu_count": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										Default:      1,
 										ValidateFunc: validation.IntInSlice([]int{1, 2, 4, 8}),
 									},
 									"min_worker_count": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Required:     true,
 										ValidateFunc: validation.IntBetween(1, 10),
 									},
@@ -79,7 +79,7 @@ func ResourceConnector() *schema.Resource {
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"cpu_utilization_percentage": {
-													Type:         schema.TypeInt,
+													Type:schema.TypeInt,
 													Optional:     true,
 													Computed:     true,
 													ValidateFunc: validation.IntBetween(1, 100),
@@ -95,7 +95,7 @@ func ResourceConnector() *schema.Resource {
 										Elem: &schema.Resource{
 											Schema: map[string]*schema.Schema{
 												"cpu_utilization_percentage": {
-													Type:         schema.TypeInt,
+													Type:schema.TypeInt,
 													Optional:     true,
 													Computed:     true,
 													ValidateFunc: validation.IntBetween(1, 100),
@@ -114,13 +114,13 @@ func ResourceConnector() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"mcu_count": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Optional:     true,
 										Default:      1,
 										ValidateFunc: validation.IntInSlice([]int{1, 2, 4, 8}),
 									},
 									"worker_count": {
-										Type:         schema.TypeInt,
+										Type:schema.TypeInt,
 										Required:     true,
 										ValidateFunc: validation.IntBetween(1, 10),
 									},
@@ -138,7 +138,7 @@ func ResourceConnector() *schema.Resource {
 				ForceNew: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(0, 1024),
@@ -198,7 +198,7 @@ func ResourceConnector() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"authentication_type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ForceNew:     true,
 							Default:      kafkaconnect.KafkaClusterClientAuthenticationTypeNone,
@@ -215,7 +215,7 @@ func ResourceConnector() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"encryption_type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ForceNew:     true,
 							Default:      kafkaconnect.KafkaClusterEncryptionInTransitTypePlaintext,
@@ -315,7 +315,7 @@ func ResourceConnector() *schema.Resource {
 				},
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringLenBetween(1, 128),
@@ -334,7 +334,7 @@ func ResourceConnector() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"arn": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ForceNew:     true,
 										ValidateFunc: verify.ValidARN,
@@ -351,7 +351,7 @@ func ResourceConnector() *schema.Resource {
 				},
 			},
 			"service_execution_role_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,
@@ -368,7 +368,7 @@ func ResourceConnector() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"arn": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: verify.ValidARN,
@@ -390,15 +390,15 @@ func resourceConnectorCreate(ctx context.Context, d *schema.ResourceData, meta i
 
 	name := d.Get("name").(string)
 	input := &kafkaconnect.CreateConnectorInput{
-		Capacity:                         expandCapacity(d.Get("capacity").([]interface{})[0].(map[string]interface{})),
-		ConnectorConfiguration:           flex.ExpandStringMap(d.Get("connector_configuration").(map[string]interface{})),
-		ConnectorName:                    aws.String(name),
-		KafkaCluster:                     expandCluster(d.Get("kafka_cluster").([]interface{})[0].(map[string]interface{})),
+		Capacity:       expandCapacity(d.Get("capacity").([]interface{})[0].(map[string]interface{})),
+		ConnectorConfiguration:  flex.ExpandStringMap(d.Get("connector_configuration").(map[string]interface{})),
+		ConnectorName:  aws.String(name),
+		KafkaCluster:   expandCluster(d.Get("kafka_cluster").([]interface{})[0].(map[string]interface{})),
 		KafkaClusterClientAuthentication: expandClusterClientAuthentication(d.Get("kafka_cluster_client_authentication").([]interface{})[0].(map[string]interface{})),
 		KafkaClusterEncryptionInTransit:  expandClusterEncryptionInTransit(d.Get("kafka_cluster_encryption_in_transit").([]interface{})[0].(map[string]interface{})),
-		KafkaConnectVersion:              aws.String(d.Get("kafkaconnect_version").(string)),
-		Plugins:                          expandPlugins(d.Get("plugin").(*schema.Set).List()),
-		ServiceExecutionRoleArn:          aws.String(d.Get("service_execution_role_arn").(string)),
+		KafkaConnectVersion:     aws.String(d.Get("kafkaconnect_version").(string)),
+		Plugins:        expandPlugins(d.Get("plugin").(*schema.Set).List()),
+		ServiceExecutionRoleArn: aws.String(d.Get("service_execution_role_arn").(string)),
 	}
 
 	if v, ok := d.GetOk("description"); ok {

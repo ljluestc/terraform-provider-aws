@@ -50,12 +50,12 @@ func ResourceConnector() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"compression": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringInSlice(transfer.CompressionEnum_Values(), false),
 						},
 						"encryption_algorithm": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringInSlice(transfer.EncryptionAlg_Values(), false),
 						},
@@ -64,12 +64,12 @@ func ResourceConnector() *schema.Resource {
 							Required: true,
 						},
 						"mdn_response": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringInSlice(transfer.MdnResponse_Values(), false),
 						},
 						"mdn_signing_algorithm": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							ValidateFunc: validation.StringInSlice(transfer.MdnSigningAlg_Values(), false),
 						},
@@ -82,7 +82,7 @@ func ResourceConnector() *schema.Resource {
 							Required: true,
 						},
 						"signing_algorithm": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringInSlice(transfer.SigningAlg_Values(), false),
 						},

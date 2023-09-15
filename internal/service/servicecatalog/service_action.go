@@ -40,7 +40,7 @@ func ResourceServiceAction() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"accept_language": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Default:      AcceptLanguageEnglish,
 				ValidateFunc: validation.StringInSlice(AcceptLanguage_Values(), false),
@@ -60,13 +60,13 @@ func ResourceServiceAction() *schema.Resource {
 							Required: true,
 						},
 						"parameters": { // ServiceActionDefinitionKeyParameters
-							Type:             schema.TypeString,
-							Optional:         true,
+							Type:    schema.TypeString,
+							Optional:true,
 							ValidateFunc:     validation.StringIsJSON,
 							DiffSuppressFunc: suppressEquivalentJSONEmptyNilDiffs,
 						},
 						"type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Default:      servicecatalog.ServiceActionDefinitionTypeSsmAutomation,
 							ForceNew:     true,
@@ -98,7 +98,7 @@ func resourceServiceActionCreate(ctx context.Context, d *schema.ResourceData, me
 
 	input := &servicecatalog.CreateServiceActionInput{
 		IdempotencyToken: aws.String(id.UniqueId()),
-		Name:             aws.String(d.Get("name").(string)),
+		Name:    aws.String(d.Get("name").(string)),
 		Definition:       expandServiceActionDefinition(d.Get("definition").([]interface{})[0].(map[string]interface{})),
 		DefinitionType:   aws.String(d.Get("definition.0.type").(string)),
 	}

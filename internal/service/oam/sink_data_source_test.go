@@ -32,7 +32,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.ObservabilityAccessManagerEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckSinkDestroy(ctx),
+CheckDestroy:    testAccCheckSinkDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccSinkDataSourceConfig_basic(rName),

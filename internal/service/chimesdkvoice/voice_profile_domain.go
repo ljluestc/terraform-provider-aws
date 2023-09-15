@@ -54,7 +54,7 @@ Type:     schema.TypeString,
 Computed: true,
 	},
 	names.AttrDescription: {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 ValidateFunc: validation.StringLenBetween(0, 1024),
 	},
@@ -78,7 +78,7 @@ MinItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "kms_key_arn": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Required:     true,
 	ValidateFunc: verify.ValidARN,
 },

@@ -28,10 +28,10 @@ func TestAccServiceCatalogProductPortfolioAssociation_basic(t *testing.T) {
 	domain := fmt.Sprintf("http://%s", acctest.RandomDomainName())
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckProductPortfolioAssociationDestroy(ctx),
+		CheckDestroy:    testAccCheckProductPortfolioAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccProductPortfolioAssociationConfig_basic(rName, domain, acctest.DefaultEmailAddress),
@@ -58,10 +58,10 @@ func TestAccServiceCatalogProductPortfolioAssociation_disappears(t *testing.T) {
 	domain := fmt.Sprintf("http://%s", acctest.RandomDomainName())
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, servicecatalog.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckProductPortfolioAssociationDestroy(ctx),
+		CheckDestroy:    testAccCheckProductPortfolioAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccProductPortfolioAssociationConfig_basic(rName, domain, acctest.DefaultEmailAddress),
@@ -143,7 +143,7 @@ resource "aws_cloudformation_stack" "test" {
       MyVPC = {
         Type = "AWS::EC2::VPC"
         Properties = {
-          CidrBlock = "10.1.0.0/16"
+ CidrBlock = "10.1.0.0/16"
         }
       }
     }
@@ -152,7 +152,7 @@ resource "aws_cloudformation_stack" "test" {
       VpcID = {
         Description = "VPC ID"
         Value = {
-          Ref = "MyVPC"
+ Ref = "MyVPC"
         }
       }
     }
@@ -160,17 +160,17 @@ resource "aws_cloudformation_stack" "test" {
 }
 
 resource "aws_servicecatalog_product" "test" {
-  description         = "beskrivning"
-  distributor         = "distributör"
+  description= "beskrivning"
+  distributor= "distributör"
   name = %[1]q
   owner= "ägare"
   type = "CLOUD_FORMATION_TEMPLATE"
   support_description = "supportbeskrivning"
   support_email       = %[3]q
-  support_url         = %[2]q
+  support_url= %[2]q
 
   provisioning_artifact_parameters {
-    description          = "artefaktbeskrivning"
+    description = "artefaktbeskrivning"
     name  = %[1]q
     template_physical_id = aws_cloudformation_stack.test.id
     type  = "CLOUD_FORMATION_TEMPLATE"
@@ -182,7 +182,7 @@ resource "aws_servicecatalog_product" "test" {
 }
 
 resource "aws_servicecatalog_portfolio" "test" {
-  name          = %[1]q
+  name = %[1]q
   provider_name = %[1]q
 }
 `, rName, domain, email)

@@ -96,7 +96,7 @@ func resourceAliasCreate(ctx context.Context, d *schema.ResourceData, meta inter
 		Description:     aws.String(d.Get("description").(string)),
 		FunctionName:    aws.String(functionName),
 		FunctionVersion: aws.String(d.Get("function_version").(string)),
-		Name:            aws.String(aliasName),
+		Name:   aws.String(aliasName),
 		RoutingConfig:   expandAliasRoutingConfiguration(d.Get("routing_config").([]interface{})),
 	}
 
@@ -120,7 +120,7 @@ func resourceAliasRead(ctx context.Context, d *schema.ResourceData, meta interfa
 
 	params := &lambda.GetAliasInput{
 		FunctionName: aws.String(d.Get("function_name").(string)),
-		Name:         aws.String(d.Get("name").(string)),
+		Name:aws.String(d.Get("name").(string)),
 	}
 
 	aliasConfiguration, err := conn.GetAliasWithContext(ctx, params)
@@ -158,7 +158,7 @@ func resourceAliasDelete(ctx context.Context, d *schema.ResourceData, meta inter
 
 	params := &lambda.DeleteAliasInput{
 		FunctionName: aws.String(d.Get("function_name").(string)),
-		Name:         aws.String(d.Get("name").(string)),
+		Name:aws.String(d.Get("name").(string)),
 	}
 
 	_, err := conn.DeleteAliasWithContext(ctx, params)
@@ -181,7 +181,7 @@ func resourceAliasUpdate(ctx context.Context, d *schema.ResourceData, meta inter
 		Description:     aws.String(d.Get("description").(string)),
 		FunctionName:    aws.String(d.Get("function_name").(string)),
 		FunctionVersion: aws.String(d.Get("function_version").(string)),
-		Name:            aws.String(d.Get("name").(string)),
+		Name:   aws.String(d.Get("name").(string)),
 		RoutingConfig:   expandAliasRoutingConfiguration(d.Get("routing_config").([]interface{})),
 	}
 

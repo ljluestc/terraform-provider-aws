@@ -114,7 +114,7 @@ fmt.Sprintf(`
 resource "aws_connect_user" "test" {
   instance_id        = aws_connect_instance.test.id
   name= %[1]q
-  password           = "Password123"
+  password  = "Password123"
   routing_profile_id = data.aws_connect_routing_profile.test.routing_profile_id
   hierarchy_group_id = aws_connect_user_hierarchy_group.parent.hierarchy_group_id
 
@@ -132,7 +132,7 @@ resource "aws_connect_user" "test" {
   phone_config {
     after_contact_work_time_limit = 0
     auto_accept    = true
-    desk_phone_number             = "+112345678913"
+    desk_phone_number    = "+112345678913"
     phone_type     = "DESK_PHONE"
   }
 

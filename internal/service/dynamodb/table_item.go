@@ -49,8 +49,8 @@ Optional: true,
 	},
 	"item": {
 Type:   schema.TypeString,
-Required:              true,
-ValidateFunc:          validateTableItem,
+Required:     true,
+ValidateFunc: validateTableItem,
 DiffSuppressFunc:      verify.SuppressEquivalentJSONDiffs,
 DiffSuppressOnRefresh: true,
 	},
@@ -149,7 +149,7 @@ updates[k] = &dynamodb.AttributeValueUpdate{
 _, err = conn.UpdateItemWithContext(ctx, &dynamodb.UpdateItemInput{
 	AttributeUpdates: updates,
 	TableName:        aws.String(tableName),
-	Key:              newQueryKey,
+	Key:     newQueryKey,
 })
 if err != nil {
 	return sdkdiag.AppendErrorf(diags, "updating DynamoDB Table Item (%s): %s", d.Id(), err)
@@ -247,7 +247,7 @@ func FindTableItem(ctx context.Context, conn *dynamodb.DynamoDB, tableName strin
 	in := &dynamodb.GetItemInput{
 TableName:      aws.String(tableName),
 ConsistentRead: aws.Bool(true),
-Key:            key,
+Key:   key,
 	}
 
 	out, err := conn.GetItemWithContext(ctx, in)

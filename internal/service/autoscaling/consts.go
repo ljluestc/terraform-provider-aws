@@ -64,8 +64,8 @@ func DesiredCapacityType_Values() []string {
 
 const (
 	PolicyTypePredictiveScaling     = "PredictiveScaling"
-	PolicyTypeSimpleScaling         = "SimpleScaling"
-	PolicyTypeStepScaling           = "StepScaling"
+	PolicyTypeSimpleScaling= "SimpleScaling"
+	PolicyTypeStepScaling  = "StepScaling"
 	PolicyTypeTargetTrackingScaling = "TargetTrackingScaling"
 )
 

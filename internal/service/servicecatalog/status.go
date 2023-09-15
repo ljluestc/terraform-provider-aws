@@ -275,7 +275,7 @@ func StatusProvisioningArtifact(ctx context.Context, conn *servicecatalog.Servic
 	return func() (interface{}, string, error) {
 		input := &servicecatalog.DescribeProvisioningArtifactInput{
 			ProvisioningArtifactId: aws.String(id),
-			ProductId:              aws.String(productID),
+			ProductId:     aws.String(productID),
 		}
 
 		output, err := conn.DescribeProvisioningArtifactWithContext(ctx, input)

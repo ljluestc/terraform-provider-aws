@@ -37,7 +37,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccChecklistenerRuleDestroy(ctx),
+CheckDestroy:    testAccChecklistenerRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerRuleConfig_basic(rName),
@@ -70,7 +70,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccChecklistenerRuleDestroy(ctx),
+CheckDestroy:    testAccChecklistenerRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerRuleConfig_fixedResponse(rName),
@@ -100,7 +100,7 @@ func TestAccVPCLatticeListenerRule_methodMatch(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccChecklistenerRuleDestroy(ctx),
+CheckDestroy:    testAccChecklistenerRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerRuleConfig_methodMatch(rName),
@@ -129,7 +129,7 @@ func TestAccVPCLatticeListenerRule_tags(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, names.VPCLatticeEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccChecklistenerRuleDestroy(ctx),
+CheckDestroy:    testAccChecklistenerRuleDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerRuleConfig_tags1(rName, "key1", "value1"),
@@ -233,7 +233,7 @@ resource "aws_vpclattice_target_group" "test" {
   type = "INSTANCE"
 
   config {
-    port           = 80
+    port  = 80
     protocol       = "HTTP"
     vpc_identifier = aws_vpc.test.id
   }
@@ -241,7 +241,7 @@ resource "aws_vpclattice_target_group" "test" {
 
 resource "aws_vpclattice_listener" "test" {
   name= %[1]q
-  protocol           = "HTTP"
+  protocol  = "HTTP"
   service_identifier = aws_vpclattice_service.test.id
   default_action {
     fixed_response {
@@ -258,23 +258,23 @@ resource "aws_vpclattice_listener_rule" "test" {
   name = %[1]q
   listener_identifier = aws_vpclattice_listener.test.listener_id
   service_identifier  = aws_vpclattice_service.test.id
-  priority            = 20
+  priority   = 20
   match {
     http_match {
 
       header_matches {
-        name           = "example-header"
+        name  = "example-header"
         case_sensitive = false
 
         match {
-          exact = "example-contains"
+ exact = "example-contains"
         }
       }
 
       path_match {
         case_sensitive = true
         match {
-          prefix = "/example-path"
+ prefix = "/example-path"
         }
       }
     }
@@ -301,13 +301,13 @@ resource "aws_vpclattice_listener_rule" "test" {
   name = %[1]q
   listener_identifier = aws_vpclattice_listener.test.listener_id
   service_identifier  = aws_vpclattice_service.test.id
-  priority            = 10
+  priority   = 10
   match {
     http_match {
       path_match {
         case_sensitive = false
         match {
-          exact = "/example-path"
+ exact = "/example-path"
         }
       }
     }
@@ -327,13 +327,13 @@ resource "aws_vpclattice_listener_rule" "test" {
   name = %[1]q
   listener_identifier = aws_vpclattice_listener.test.listener_id
   service_identifier  = aws_vpclattice_service.test.id
-  priority            = 30
+  priority   = 30
   match {
     http_match {
       path_match {
         case_sensitive = false
         match {
-          prefix = "/example-path"
+ prefix = "/example-path"
         }
       }
     }
@@ -356,13 +356,13 @@ resource "aws_vpclattice_listener_rule" "test" {
   name = %[1]q
   listener_identifier = aws_vpclattice_listener.test.listener_id
   service_identifier  = aws_vpclattice_service.test.id
-  priority            = 30
+  priority   = 30
   match {
     http_match {
       path_match {
         case_sensitive = false
         match {
-          prefix = "/example-path"
+ prefix = "/example-path"
         }
       }
     }
@@ -386,25 +386,25 @@ resource "aws_vpclattice_listener_rule" "test" {
   name = %[1]q
   listener_identifier = aws_vpclattice_listener.test.listener_id
   service_identifier  = aws_vpclattice_service.test.id
-  priority            = 40
+  priority   = 40
   match {
     http_match {
 
       method = "POST"
 
       header_matches {
-        name           = "example-header"
+        name  = "example-header"
         case_sensitive = false
 
         match {
-          contains = "example-contains"
+ contains = "example-contains"
         }
       }
 
       path_match {
         case_sensitive = true
         match {
-          prefix = "/example-path"
+ prefix = "/example-path"
         }
       }
 

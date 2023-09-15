@@ -36,7 +36,7 @@ func ResourceScramSecretAssociation() *schema.Resource {
 		},
 		Schema: map[string]*schema.Schema{
 			"cluster_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,
@@ -45,7 +45,7 @@ func ResourceScramSecretAssociation() *schema.Resource {
 				Type:     schema.TypeSet,
 				Required: true,
 				Elem: &schema.Schema{
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					ValidateFunc: verify.ValidARN,
 				},
 			},

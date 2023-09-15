@@ -54,7 +54,7 @@ func ResourceGrantAccepter() *schema.Resource {
 				Description: "License ARN.",
 			},
 			"grant_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: verify.ValidARN,

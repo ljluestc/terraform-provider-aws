@@ -35,7 +35,7 @@ func DataSourceListener() *schema.Resource {
 				Computed: true,
 			},
 			"arn": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ConflictsWith: []string{"load_balancer_arn", "port"},
@@ -252,13 +252,13 @@ func DataSourceListener() *schema.Resource {
 				},
 			},
 			"load_balancer_arn": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ConflictsWith: []string{"arn"},
 			},
 			"port": {
-				Type:          schema.TypeInt,
+				Type: schema.TypeInt,
 				Optional:      true,
 				Computed:      true,
 				ConflictsWith: []string{"arn"},

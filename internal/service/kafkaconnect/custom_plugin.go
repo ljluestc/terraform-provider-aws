@@ -41,7 +41,7 @@ func ResourceCustomPlugin() *schema.Resource {
 				Computed: true,
 			},
 			"content_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringInSlice(kafkaconnect.CustomPluginContentType_Values(), false),
@@ -70,7 +70,7 @@ func ResourceCustomPlugin() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"bucket_arn": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ForceNew:     true,
 										ValidateFunc: verify.ValidARN,

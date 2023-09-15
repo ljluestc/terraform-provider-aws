@@ -26,7 +26,7 @@ func testAccStandardsControl_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, securityhub.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             nil, //lintignore:AT001
+CheckDestroy:    nil, //lintignore:AT001
 Steps: []resource.TestStep{
 	{
 Config: testAccStandardsControlConfig_basic(),
@@ -56,7 +56,7 @@ func testAccStandardsControl_disabledControlStatus(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, securityhub.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             nil, //lintignore:AT001
+CheckDestroy:    nil, //lintignore:AT001
 Steps: []resource.TestStep{
 	{
 Config: testAccStandardsControlConfig_disabledStatus(),
@@ -77,7 +77,7 @@ func testAccStandardsControl_enabledControlStatusAndDisabledReason(t *testing.T)
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, securityhub.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             nil, //lintignore:AT001
+CheckDestroy:    nil, //lintignore:AT001
 Steps: []resource.TestStep{
 	{
 Config:      testAccStandardsControlConfig_enabledStatus(),

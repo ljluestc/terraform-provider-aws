@@ -13,7 +13,7 @@ import (
 
 func ResourceStaticWebLayer() *schema.Resource {
 	layerType := &opsworksLayerType{
-		TypeName:         opsworks.LayerTypeWeb,
+		TypeName:opsworks.LayerTypeWeb,
 		DefaultLayerName: "Static Web Server",
 
 		Attributes: map[string]*opsworksLayerTypeAttribute{},

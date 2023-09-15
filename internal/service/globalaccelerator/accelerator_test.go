@@ -29,10 +29,10 @@ func TestAccGlobalAcceleratorAccelerator_basic(t *testing.T) {
 	dnsNameRegex := regexache.MustCompile(`^a[0-9a-f]{16}\.awsglobalaccelerator\.com$`)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAcceleratorDestroy(ctx),
+		CheckDestroy:    testAccCheckAcceleratorDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAcceleratorConfig_basic(rName),
@@ -72,10 +72,10 @@ func TestAccGlobalAcceleratorAccelerator_ipAddressType_dualStack(t *testing.T) {
 	dualStackDNSNameRegex := regexache.MustCompile(`^a[0-9a-f]{16}\.dualstack\.awsglobalaccelerator\.com$`)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAcceleratorDestroy(ctx),
+		CheckDestroy:    testAccCheckAcceleratorDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAcceleratorConfig_ipAddressTypeDualStack(rName),
@@ -109,10 +109,10 @@ func TestAccGlobalAcceleratorAccelerator_byoip(t *testing.T) {
 	matches := 0
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccCheckBYOIPExists(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t); testAccCheckBYOIPExists(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAcceleratorDestroy(ctx),
+		CheckDestroy:    testAccCheckAcceleratorDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAcceleratorConfig_byoip(rName, requestedAddr),
@@ -156,10 +156,10 @@ func TestAccGlobalAcceleratorAccelerator_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAcceleratorDestroy(ctx),
+		CheckDestroy:    testAccCheckAcceleratorDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAcceleratorConfig_basic(rName),
@@ -180,10 +180,10 @@ func TestAccGlobalAcceleratorAccelerator_update(t *testing.T) {
 	newName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAcceleratorDestroy(ctx),
+		CheckDestroy:    testAccCheckAcceleratorDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAcceleratorConfig_enabled(rName, false),
@@ -229,10 +229,10 @@ func TestAccGlobalAcceleratorAccelerator_attributes(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAcceleratorDestroy(ctx),
+		CheckDestroy:    testAccCheckAcceleratorDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAcceleratorConfig_attributes(rName, false, "flow-logs/"),
@@ -289,10 +289,10 @@ func TestAccGlobalAcceleratorAccelerator_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAcceleratorDestroy(ctx),
+		CheckDestroy:    testAccCheckAcceleratorDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAcceleratorConfig_tags1(rName, "key1", "value1"),
@@ -447,7 +447,7 @@ resource "aws_globalaccelerator_accelerator" "test" {
 func testAccAcceleratorConfig_byoip(rName string, ipAddress string) string {
 	return fmt.Sprintf(`
 resource "aws_globalaccelerator_accelerator" "test" {
-  name         = %[1]q
+  name= %[1]q
   ip_addresses = [%[2]q]
 }
 `, rName, ipAddress)
@@ -456,7 +456,7 @@ resource "aws_globalaccelerator_accelerator" "test" {
 func testAccAcceleratorConfig_ipAddressTypeDualStack(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_globalaccelerator_accelerator" "test" {
-  name            = %[1]q
+  name   = %[1]q
   ip_address_type = "DUAL_STACK"
 }
 `, rName)
@@ -465,9 +465,9 @@ resource "aws_globalaccelerator_accelerator" "test" {
 func testAccAcceleratorConfig_enabled(rName string, enabled bool) string {
 	return fmt.Sprintf(`
 resource "aws_globalaccelerator_accelerator" "test" {
-  name            = %[1]q
+  name   = %[1]q
   ip_address_type = "IPV4"
-  enabled         = %[2]t
+  enabled= %[2]t
 }
 `, rName, enabled)
 }
@@ -480,9 +480,9 @@ resource "aws_s3_bucket" "test" {
 }
 
 resource "aws_globalaccelerator_accelerator" "test" {
-  name            = %[1]q
+  name   = %[1]q
   ip_address_type = "IPV4"
-  enabled         = false
+  enabled= false
 
   attributes {
     flow_logs_enabled   = %[2]t
@@ -496,9 +496,9 @@ resource "aws_globalaccelerator_accelerator" "test" {
 func testAccAcceleratorConfig_tags1(rName, tagKey1, tagValue1 string) string {
 	return fmt.Sprintf(`
 resource "aws_globalaccelerator_accelerator" "test" {
-  name            = %[1]q
+  name   = %[1]q
   ip_address_type = "IPV4"
-  enabled         = false
+  enabled= false
 
   tags = {
     %[2]q = %[3]q
@@ -510,9 +510,9 @@ resource "aws_globalaccelerator_accelerator" "test" {
 func testAccAcceleratorConfig_tags2(rName, tagKey1, tagValue1, tagKey2, tagValue2 string) string {
 	return fmt.Sprintf(`
 resource "aws_globalaccelerator_accelerator" "test" {
-  name            = %[1]q
+  name   = %[1]q
   ip_address_type = "IPV4"
-  enabled         = false
+  enabled= false
 
   tags = {
     %[2]q = %[3]q

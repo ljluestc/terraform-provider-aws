@@ -134,7 +134,7 @@ func DataSourceReceivedLicense() *schema.Resource {
 			},
 			"license_arn": {
 				Required:     true,
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				ValidateFunc: verify.ValidARN,
 			},
 			"license_metadata": {

@@ -124,7 +124,7 @@ func testAccRoutingProfileBaseDataSourceConfig(rName, rName2, rName3, rName4 str
 resource "aws_connect_instance" "test" {
   identity_management_type = "CONNECT_MANAGED"
   inbound_calls_enabled    = true
-  instance_alias           = %[1]q
+  instance_alias  = %[1]q
   outbound_calls_enabled   = true
 }
 
@@ -134,16 +134,16 @@ data "aws_connect_hours_of_operation" "test" {
 }
 
 resource "aws_connect_queue" "default_outbound_queue" {
-  instance_id           = aws_connect_instance.test.id
+  instance_id  = aws_connect_instance.test.id
   name   = %[2]q
-  description           = "Default Outbound Queue for Routing Profiles"
+  description  = "Default Outbound Queue for Routing Profiles"
   hours_of_operation_id = data.aws_connect_hours_of_operation.test.hours_of_operation_id
 }
 
 resource "aws_connect_queue" "test" {
-  instance_id           = aws_connect_instance.test.id
+  instance_id  = aws_connect_instance.test.id
   name   = %[3]q
-  description           = "Additional queue to routing profile queue config"
+  description  = "Additional queue to routing profile queue config"
   hours_of_operation_id = data.aws_connect_hours_of_operation.test.hours_of_operation_id
 }
 

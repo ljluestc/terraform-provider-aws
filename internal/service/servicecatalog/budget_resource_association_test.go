@@ -26,10 +26,10 @@ func TestAccServiceCatalogBudgetResourceAssociation_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, "budgets") },
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID, "budgets"),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, "budgets") },
+		ErrorCheck:      acctest.ErrorCheck(t, servicecatalog.EndpointsID, "budgets"),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBudgetResourceAssociationDestroy(ctx),
+		CheckDestroy:    testAccCheckBudgetResourceAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBudgetResourceAssociationConfig_basic(rName),
@@ -54,10 +54,10 @@ func TestAccServiceCatalogBudgetResourceAssociation_disappears(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, "budgets") },
-		ErrorCheck:               acctest.ErrorCheck(t, servicecatalog.EndpointsID, "budgets"),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); acctest.PreCheckPartitionHasService(t, "budgets") },
+		ErrorCheck:      acctest.ErrorCheck(t, servicecatalog.EndpointsID, "budgets"),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckBudgetResourceAssociationDestroy(ctx),
+		CheckDestroy:    testAccCheckBudgetResourceAssociationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccBudgetResourceAssociationConfig_basic(rName),
@@ -130,18 +130,18 @@ func testAccCheckBudgetResourceAssociationExists(ctx context.Context, resourceNa
 func testAccBudgetResourceAssociationConfig_base(rName, budgetType, limitAmount, limitUnit, timePeriodStart, timeUnit string) string {
 	return fmt.Sprintf(`
 resource "aws_servicecatalog_portfolio" "test" {
-  name          = %[1]q
+  name = %[1]q
   description   = %[1]q
   provider_name = %[1]q
 }
 
 resource "aws_budgets_budget" "test" {
-  name              = %[1]q
+  name     = %[1]q
   budget_type       = %[2]q
   limit_amount      = %[3]q
   limit_unit        = %[4]q
   time_period_start = %[5]q
-  time_unit         = %[6]q
+  time_unit= %[6]q
 }
 `, rName, budgetType, limitAmount, limitUnit, timePeriodStart, timeUnit)
 }

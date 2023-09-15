@@ -48,9 +48,9 @@ func TestAccFinSpaceKxCluster_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 			testAccPreCheckManagedKxLicenseEnabled(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:      acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKxClusterDestroy(ctx),
+		CheckDestroy:    testAccCheckKxClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKxClusterConfig_basic(rName),
@@ -85,9 +85,9 @@ func TestAccFinSpaceKxCluster_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 			testAccPreCheckManagedKxLicenseEnabled(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:      acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKxClusterDestroy(ctx),
+		CheckDestroy:    testAccCheckKxClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKxClusterConfig_basic(rName),
@@ -117,9 +117,9 @@ func TestAccFinSpaceKxCluster_description(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 			testAccPreCheckManagedKxLicenseEnabled(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:      acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKxClusterDestroy(ctx),
+		CheckDestroy:    testAccCheckKxClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKxClusterConfig_description(rName, "cluster description"),
@@ -148,9 +148,9 @@ func TestAccFinSpaceKxCluster_database(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 			testAccPreCheckManagedKxLicenseEnabled(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:      acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKxClusterDestroy(ctx),
+		CheckDestroy:    testAccCheckKxClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKxClusterConfig_database(rName),
@@ -179,9 +179,9 @@ func TestAccFinSpaceKxCluster_cacheConfigurations(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 			testAccPreCheckManagedKxLicenseEnabled(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:      acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKxClusterDestroy(ctx),
+		CheckDestroy:    testAccCheckKxClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKxClusterConfig_cacheConfigurations(rName),
@@ -211,9 +211,9 @@ func TestAccFinSpaceKxCluster_code(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 			testAccPreCheckManagedKxLicenseEnabled(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:      acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKxClusterDestroy(ctx),
+		CheckDestroy:    testAccCheckKxClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKxClusterConfig_code(rName, codePath),
@@ -241,9 +241,9 @@ func TestAccFinSpaceKxCluster_multiAZ(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 			testAccPreCheckManagedKxLicenseEnabled(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:      acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKxClusterDestroy(ctx),
+		CheckDestroy:    testAccCheckKxClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKxClusterConfig_multiAZ(rName),
@@ -272,9 +272,9 @@ func TestAccFinSpaceKxCluster_rdb(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 			testAccPreCheckManagedKxLicenseEnabled(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:      acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKxClusterDestroy(ctx),
+		CheckDestroy:    testAccCheckKxClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKxClusterConfig_rdb(rName),
@@ -303,9 +303,9 @@ func TestAccFinSpaceKxCluster_executionRole(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 			testAccPreCheckManagedKxLicenseEnabled(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:      acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKxClusterDestroy(ctx),
+		CheckDestroy:    testAccCheckKxClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKxClusterConfig_executionRole(rName),
@@ -334,9 +334,9 @@ func TestAccFinSpaceKxCluster_autoScaling(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 			testAccPreCheckManagedKxLicenseEnabled(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:      acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKxClusterDestroy(ctx),
+		CheckDestroy:    testAccCheckKxClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKxClusterConfig_autoScaling(rName),
@@ -368,9 +368,9 @@ func TestAccFinSpaceKxCluster_initializationScript(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 			testAccPreCheckManagedKxLicenseEnabled(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:      acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKxClusterDestroy(ctx),
+		CheckDestroy:    testAccCheckKxClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKxClusterConfig_initScript(rName, codePath, initScriptPath),
@@ -398,9 +398,9 @@ func TestAccFinSpaceKxCluster_commandLineArgs(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 			testAccPreCheckManagedKxLicenseEnabled(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:      acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKxClusterDestroy(ctx),
+		CheckDestroy:    testAccCheckKxClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKxClusterConfig_commandLineArgs1(rName, "arg1", "value1"),
@@ -430,9 +430,9 @@ func TestAccFinSpaceKxCluster_tags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, finspace.ServiceID)
 			testAccPreCheckManagedKxLicenseEnabled(t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, finspace.ServiceID),
+		ErrorCheck:      acctest.ErrorCheck(t, finspace.ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckKxClusterDestroy(ctx),
+		CheckDestroy:    testAccCheckKxClusterDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccKxClusterConfig_tags1(rName, "key1", "value1"),
@@ -588,13 +588,13 @@ resource "aws_kms_key_policy" "test" {
 }
 
 resource "aws_vpc" "test" {
-  cidr_block           = "172.31.0.0/16"
+  cidr_block  = "172.31.0.0/16"
   enable_dns_hostnames = true
 }
 
 resource "aws_subnet" "test" {
   vpc_id= aws_vpc.test.id
-  cidr_block           = "172.31.32.0/20"
+  cidr_block  = "172.31.32.0/20"
   availability_zone_id = aws_finspace_kx_environment.test.availability_zones[0]
 }
 
@@ -626,9 +626,9 @@ data "aws_route_tables" "rts" {
 }
 
 resource "aws_route" "r" {
-  route_table_id         = tolist(data.aws_route_tables.rts.ids)[0]
+  route_table_id= tolist(data.aws_route_tables.rts.ids)[0]
   destination_cidr_block = "0.0.0.0/0"
-  gateway_id             = aws_internet_gateway.test.id
+  gateway_id    = aws_internet_gateway.test.id
 }
 `, rName)
 }
@@ -642,7 +642,7 @@ resource "aws_finspace_kx_cluster" "test" {
   environment_id       = aws_finspace_kx_environment.test.id
   type  = "HDB"
   release_label        = "1.0"
-  az_mode              = "SINGLE"
+  az_mode     = "SINGLE"
   availability_zone_id = aws_finspace_kx_environment.test.availability_zones[0]
   capacity_configuration {
     node_count = 2
@@ -650,9 +650,9 @@ resource "aws_finspace_kx_cluster" "test" {
   }
 
   vpc_configuration {
-    vpc_id             = aws_vpc.test.id
+    vpc_id    = aws_vpc.test.id
     security_group_ids = [aws_security_group.test.id]
-    subnet_ids         = [aws_subnet.test.id]
+    subnet_ids= [aws_subnet.test.id]
     ip_address_type    = "IP_V4"
   }
 }
@@ -665,9 +665,9 @@ func testAccKxClusterConfig_description(rName, description string) string {
 		fmt.Sprintf(`
 resource "aws_finspace_kx_cluster" "test" {
   name  = %[1]q
-  description          = %[2]q
+  description = %[2]q
   environment_id       = aws_finspace_kx_environment.test.id
-  az_mode              = "SINGLE"
+  az_mode     = "SINGLE"
   availability_zone_id = aws_finspace_kx_environment.test.availability_zones[0]
   type  = "HDB"
   release_label        = "1.0"
@@ -677,9 +677,9 @@ resource "aws_finspace_kx_cluster" "test" {
   }
 
   vpc_configuration {
-    vpc_id             = aws_vpc.test.id
+    vpc_id    = aws_vpc.test.id
     security_group_ids = [aws_security_group.test.id]
-    subnet_ids         = [aws_subnet.test.id]
+    subnet_ids= [aws_subnet.test.id]
     ip_address_type    = "IP_V4"
   }
 }
@@ -693,7 +693,7 @@ func testAccKxClusterConfig_commandLineArgs1(rName, arg1, val1 string) string {
 resource "aws_finspace_kx_cluster" "test" {
   name  = %[1]q
   environment_id       = aws_finspace_kx_environment.test.id
-  az_mode              = "SINGLE"
+  az_mode     = "SINGLE"
   availability_zone_id = aws_finspace_kx_environment.test.availability_zones[0]
   type  = "HDB"
   release_label        = "1.0"
@@ -703,9 +703,9 @@ resource "aws_finspace_kx_cluster" "test" {
   }
 
   vpc_configuration {
-    vpc_id             = aws_vpc.test.id
+    vpc_id    = aws_vpc.test.id
     security_group_ids = [aws_security_group.test.id]
-    subnet_ids         = [aws_subnet.test.id]
+    subnet_ids= [aws_subnet.test.id]
     ip_address_type    = "IP_V4"
   }
 
@@ -724,7 +724,7 @@ resource "aws_finspace_kx_cluster" "test" {
   name  = %[1]q
   environment_id       = aws_finspace_kx_environment.test.id
   type  = "HDB"
-  az_mode              = "SINGLE"
+  az_mode     = "SINGLE"
   availability_zone_id = aws_finspace_kx_environment.test.availability_zones[0]
   release_label        = "1.0"
   capacity_configuration {
@@ -733,9 +733,9 @@ resource "aws_finspace_kx_cluster" "test" {
   }
 
   vpc_configuration {
-    vpc_id             = aws_vpc.test.id
+    vpc_id    = aws_vpc.test.id
     security_group_ids = [aws_security_group.test.id]
-    subnet_ids         = [aws_subnet.test.id]
+    subnet_ids= [aws_subnet.test.id]
     ip_address_type    = "IP_V4"
   }
 
@@ -754,7 +754,7 @@ resource "aws_finspace_kx_cluster" "test" {
   name  = %[1]q
   environment_id       = aws_finspace_kx_environment.test.id
   type  = "HDB"
-  az_mode              = "SINGLE"
+  az_mode     = "SINGLE"
   availability_zone_id = aws_finspace_kx_environment.test.availability_zones[0]
   release_label        = "1.0"
   capacity_configuration {
@@ -763,9 +763,9 @@ resource "aws_finspace_kx_cluster" "test" {
   }
 
   vpc_configuration {
-    vpc_id             = aws_vpc.test.id
+    vpc_id    = aws_vpc.test.id
     security_group_ids = [aws_security_group.test.id]
-    subnet_ids         = [aws_subnet.test.id]
+    subnet_ids= [aws_subnet.test.id]
     ip_address_type    = "IP_V4"
   }
 
@@ -782,7 +782,7 @@ func testAccKxClusterConfig_database(rName string) string {
 		testAccKxClusterConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_finspace_kx_database" "test" {
-  name           = %[1]q
+  name  = %[1]q
   environment_id = aws_finspace_kx_environment.test.id
 }
 
@@ -791,7 +791,7 @@ resource "aws_finspace_kx_cluster" "test" {
   environment_id       = aws_finspace_kx_environment.test.id
   type  = "HDB"
   release_label        = "1.0"
-  az_mode              = "SINGLE"
+  az_mode     = "SINGLE"
   availability_zone_id = aws_finspace_kx_environment.test.availability_zones[0]
 
   database {
@@ -804,9 +804,9 @@ resource "aws_finspace_kx_cluster" "test" {
   }
 
   vpc_configuration {
-    vpc_id             = aws_vpc.test.id
+    vpc_id    = aws_vpc.test.id
     security_group_ids = [aws_security_group.test.id]
-    subnet_ids         = [aws_subnet.test.id]
+    subnet_ids= [aws_subnet.test.id]
     ip_address_type    = "IP_V4"
   }
 }
@@ -818,7 +818,7 @@ func testAccKxClusterConfig_cacheConfigurations(rName string) string {
 		testAccKxClusterConfigBase(rName),
 		fmt.Sprintf(`
 resource "aws_finspace_kx_database" "test" {
-  name           = %[1]q
+  name  = %[1]q
   environment_id = aws_finspace_kx_environment.test.id
 }
 
@@ -827,7 +827,7 @@ resource "aws_finspace_kx_cluster" "test" {
   environment_id       = aws_finspace_kx_environment.test.id
   type  = "HDB"
   release_label        = "1.0"
-  az_mode              = "SINGLE"
+  az_mode     = "SINGLE"
   availability_zone_id = aws_finspace_kx_environment.test.availability_zones[0]
 
   cache_storage_configurations {
@@ -849,9 +849,9 @@ resource "aws_finspace_kx_cluster" "test" {
   }
 
   vpc_configuration {
-    vpc_id             = aws_vpc.test.id
+    vpc_id    = aws_vpc.test.id
     security_group_ids = [aws_security_group.test.id]
-    subnet_ids         = [aws_subnet.test.id]
+    subnet_ids= [aws_subnet.test.id]
     ip_address_type    = "IP_V4"
   }
 }
@@ -939,7 +939,7 @@ resource "aws_finspace_kx_cluster" "test" {
   environment_id       = aws_finspace_kx_environment.test.id
   type  = "HDB"
   release_label        = "1.0"
-  az_mode              = "SINGLE"
+  az_mode     = "SINGLE"
   availability_zone_id = aws_finspace_kx_environment.test.availability_zones[0]
   capacity_configuration {
     node_count = 2
@@ -947,9 +947,9 @@ resource "aws_finspace_kx_cluster" "test" {
   }
 
   vpc_configuration {
-    vpc_id             = aws_vpc.test.id
+    vpc_id    = aws_vpc.test.id
     security_group_ids = [aws_security_group.test.id]
-    subnet_ids         = [aws_subnet.test.id]
+    subnet_ids= [aws_subnet.test.id]
     ip_address_type    = "IP_V4"
   }
 
@@ -967,20 +967,20 @@ func testAccKxClusterConfig_multiAZ(rName string) string {
 		fmt.Sprintf(`
 resource "aws_subnet" "test2" {
   vpc_id= aws_vpc.test.id
-  cidr_block           = "172.31.16.0/20"
+  cidr_block  = "172.31.16.0/20"
   availability_zone_id = aws_finspace_kx_environment.test.availability_zones[1]
 }
 
 resource "aws_subnet" "test3" {
   vpc_id= aws_vpc.test.id
-  cidr_block           = "172.31.64.0/20"
+  cidr_block  = "172.31.64.0/20"
   availability_zone_id = aws_finspace_kx_environment.test.availability_zones[2]
 }
 
 resource "aws_finspace_kx_cluster" "test" {
-  name           = %[1]q
+  name  = %[1]q
   environment_id = aws_finspace_kx_environment.test.id
-  type           = "HDB"
+  type  = "HDB"
   release_label  = "1.0"
   az_mode        = "MULTI"
   capacity_configuration {
@@ -989,9 +989,9 @@ resource "aws_finspace_kx_cluster" "test" {
   }
 
   vpc_configuration {
-    vpc_id             = aws_vpc.test.id
+    vpc_id    = aws_vpc.test.id
     security_group_ids = [aws_security_group.test.id]
-    subnet_ids         = [aws_subnet.test.id, aws_subnet.test2.id, aws_subnet.test3.id]
+    subnet_ids= [aws_subnet.test.id, aws_subnet.test2.id, aws_subnet.test3.id]
     ip_address_type    = "IP_V4"
   }
 }
@@ -1007,7 +1007,7 @@ resource "aws_finspace_kx_cluster" "test" {
   environment_id       = aws_finspace_kx_environment.test.id
   type  = "RDB"
   release_label        = "1.0"
-  az_mode              = "SINGLE"
+  az_mode     = "SINGLE"
   availability_zone_id = aws_finspace_kx_environment.test.availability_zones[0]
 
   savedown_storage_configuration {
@@ -1021,9 +1021,9 @@ resource "aws_finspace_kx_cluster" "test" {
   }
 
   vpc_configuration {
-    vpc_id             = aws_vpc.test.id
+    vpc_id    = aws_vpc.test.id
     security_group_ids = [aws_security_group.test.id]
-    subnet_ids         = [aws_subnet.test.id]
+    subnet_ids= [aws_subnet.test.id]
     ip_address_type    = "IP_V4"
   }
 }
@@ -1059,8 +1059,8 @@ resource "aws_iam_role" "test" {
         Effect = "Allow"
         Sid    = ""
         Principal = {
-          "Service" : "prod.finspacekx.aws.internal",
-          "AWS" : "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"
+ "Service" : "prod.finspacekx.aws.internal",
+ "AWS" : "arn:${data.aws_partition.current.partition}:iam::${data.aws_caller_identity.current.account_id}:root"
         }
       },
     ]
@@ -1072,7 +1072,7 @@ resource "aws_finspace_kx_cluster" "test" {
   environment_id       = aws_finspace_kx_environment.test.id
   type  = "HDB"
   release_label        = "1.0"
-  az_mode              = "SINGLE"
+  az_mode     = "SINGLE"
   availability_zone_id = aws_finspace_kx_environment.test.availability_zones[0]
   execution_role       = aws_iam_role.test.arn
 
@@ -1082,9 +1082,9 @@ resource "aws_finspace_kx_cluster" "test" {
   }
 
   vpc_configuration {
-    vpc_id             = aws_vpc.test.id
+    vpc_id    = aws_vpc.test.id
     security_group_ids = [aws_security_group.test.id]
-    subnet_ids         = [aws_subnet.test.id]
+    subnet_ids= [aws_subnet.test.id]
     ip_address_type    = "IP_V4"
   }
 }
@@ -1100,7 +1100,7 @@ resource "aws_finspace_kx_cluster" "test" {
   environment_id       = aws_finspace_kx_environment.test.id
   type  = "HDB"
   release_label        = "1.0"
-  az_mode              = "SINGLE"
+  az_mode     = "SINGLE"
   availability_zone_id = aws_finspace_kx_environment.test.availability_zones[0]
   capacity_configuration {
     node_count = 3
@@ -1108,18 +1108,18 @@ resource "aws_finspace_kx_cluster" "test" {
   }
 
   auto_scaling_configuration {
-    min_node_count             = 3
-    max_node_count             = 5
+    min_node_count    = 3
+    max_node_count    = 5
     auto_scaling_metric        = "CPU_UTILIZATION_PERCENTAGE"
-    metric_target              = 25.0
+    metric_target     = 25.0
     scale_in_cooldown_seconds  = 30.0
     scale_out_cooldown_seconds = 30.0
   }
 
   vpc_configuration {
-    vpc_id             = aws_vpc.test.id
+    vpc_id    = aws_vpc.test.id
     security_group_ids = [aws_security_group.test.id]
-    subnet_ids         = [aws_subnet.test.id]
+    subnet_ids= [aws_subnet.test.id]
     ip_address_type    = "IP_V4"
   }
 }
@@ -1203,7 +1203,7 @@ resource "aws_s3_object" "object" {
 }
 
 resource "aws_finspace_kx_database" "test" {
-  name           = %[1]q
+  name  = %[1]q
   environment_id = aws_finspace_kx_environment.test.id
 }
 
@@ -1211,7 +1211,7 @@ resource "aws_finspace_kx_cluster" "test" {
   name   = %[1]q
   environment_id        = aws_finspace_kx_environment.test.id
   type   = "HDB"
-  release_label         = "1.0"
+  release_label= "1.0"
   az_mode= "SINGLE"
   availability_zone_id  = aws_finspace_kx_environment.test.availability_zones[0]
   initialization_script = %[3]q
@@ -1221,9 +1221,9 @@ resource "aws_finspace_kx_cluster" "test" {
   }
 
   vpc_configuration {
-    vpc_id             = aws_vpc.test.id
+    vpc_id    = aws_vpc.test.id
     security_group_ids = [aws_security_group.test.id]
-    subnet_ids         = [aws_subnet.test.id]
+    subnet_ids= [aws_subnet.test.id]
     ip_address_type    = "IP_V4"
   }
 

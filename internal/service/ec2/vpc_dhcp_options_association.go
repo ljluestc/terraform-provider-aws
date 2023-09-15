@@ -55,7 +55,7 @@ func resourceVPCDHCPOptionsAssociationPut(ctx context.Context, d *schema.Resourc
 	id := VPCDHCPOptionsAssociationCreateResourceID(dhcpOptionsID, vpcID)
 	input := &ec2.AssociateDhcpOptionsInput{
 		DhcpOptionsId: aws.String(dhcpOptionsID),
-		VpcId:         aws.String(vpcID),
+		VpcId:aws.String(vpcID),
 	}
 
 	log.Printf("[DEBUG] Creating EC2 VPC DHCP Options Set Association: %s", input)
@@ -121,7 +121,7 @@ func resourceVPCDHCPOptionsAssociationDelete(ctx context.Context, d *schema.Reso
 	log.Printf("[DEBUG] Deleting EC2 VPC DHCP Options Set Association: %s", d.Id())
 	_, err = conn.AssociateDhcpOptionsWithContext(ctx, &ec2.AssociateDhcpOptionsInput{
 		DhcpOptionsId: aws.String(DefaultDHCPOptionsID),
-		VpcId:         aws.String(vpcID),
+		VpcId:aws.String(vpcID),
 	})
 
 	if tfawserr.ErrCodeEquals(err, errCodeInvalidVPCIDNotFound) {

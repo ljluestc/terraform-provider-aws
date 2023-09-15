@@ -103,7 +103,7 @@ MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "az_distribution": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Optional:     true,
 	ForceNew:     true,
 	Default:      kafka.BrokerAZDistributionDefault,
@@ -177,7 +177,7 @@ MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "type": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Optional:     true,
 	Computed:     true,
 	ValidateFunc: validation.StringInSlice(PublicAccessType_Values(), false),
@@ -229,7 +229,7 @@ Optional: true,
 	// Minimum and maximum for this varies between broker type
 	// https://docs.aws.amazon.com/msk/latest/developerguide/msk-provision-throughput.html
 	"volume_throughput": {
-Type:         schema.TypeInt,
+Type:schema.TypeInt,
 Optional:     true,
 ValidateFunc: validation.IntBetween(250, 2375),
 	},
@@ -284,7 +284,7 @@ Schema: map[string]*schema.Schema{
 Type:     schema.TypeSet,
 Optional: true,
 Elem: &schema.Schema{
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	ValidateFunc: verify.ValidARN,
 },
 	},
@@ -299,25 +299,25 @@ Elem: &schema.Schema{
 },
 	},
 	"cluster_name": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ForceNew:     true,
 ValidateFunc: validation.StringLenBetween(1, 64),
 	},
 	"configuration_info": {
-Type:             schema.TypeList,
-Optional:         true,
+Type:    schema.TypeList,
+Optional:true,
 DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
-MaxItems:         1,
+MaxItems:1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "arn": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Required:     true,
 	ValidateFunc: verify.ValidARN,
 },
 "revision": {
-	Type:         schema.TypeInt,
+	Type:schema.TypeInt,
 	Required:     true,
 	ValidateFunc: validation.IntAtLeast(0),
 },
@@ -336,7 +336,7 @@ MaxItems: 1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "encryption_at_rest_kms_key_arn": {
-	Type:         schema.TypeString,
+	Type:schema.TypeString,
 	Optional:     true,
 	Computed:     true,
 	ForceNew:     true,
@@ -349,7 +349,7 @@ Elem: &schema.Resource{
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"client_broker": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Default:      kafka.ClientBrokerTls,
 ValidateFunc: validation.StringInSlice(kafka.ClientBroker_Values(), false),
@@ -369,21 +369,21 @@ Default:  true,
 DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
 	},
 	"enhanced_monitoring": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Default:      kafka.EnhancedMonitoringDefault,
 ValidateFunc: validation.StringInSlice(kafka.EnhancedMonitoring_Values(), true),
 	},
 	"kafka_version": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Required:     true,
 ValidateFunc: validation.StringLenBetween(1, 64),
 	},
 	"logging_info": {
-Type:             schema.TypeList,
-Optional:         true,
+Type:    schema.TypeList,
+Optional:true,
 DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
-MaxItems:         1,
+MaxItems:1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "broker_logs": {
@@ -393,10 +393,10 @@ Elem: &schema.Resource{
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"cloudwatch_logs": {
-Type:             schema.TypeList,
-Optional:         true,
+Type:    schema.TypeList,
+Optional:true,
 DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
-MaxItems:         1,
+MaxItems:1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "enabled": {
@@ -411,10 +411,10 @@ Elem: &schema.Resource{
 },
 	},
 	"firehose": {
-Type:             schema.TypeList,
-Optional:         true,
+Type:    schema.TypeList,
+Optional:true,
 DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
-MaxItems:         1,
+MaxItems:1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "delivery_stream": {
@@ -429,10 +429,10 @@ Elem: &schema.Resource{
 },
 	},
 	"s3": {
-Type:             schema.TypeList,
-Optional:         true,
+Type:    schema.TypeList,
+Optional:true,
 DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
-MaxItems:         1,
+MaxItems:1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "bucket": {
@@ -461,10 +461,10 @@ Type:     schema.TypeInt,
 Required: true,
 	},
 	"open_monitoring": {
-Type:             schema.TypeList,
-Optional:         true,
+Type:    schema.TypeList,
+Optional:true,
 DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
-MaxItems:         1,
+MaxItems:1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "prometheus": {
@@ -474,10 +474,10 @@ Elem: &schema.Resource{
 	Elem: &schema.Resource{
 Schema: map[string]*schema.Schema{
 	"jmx_exporter": {
-Type:             schema.TypeList,
-Optional:         true,
+Type:    schema.TypeList,
+Optional:true,
 DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
-MaxItems:         1,
+MaxItems:1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "enabled_in_broker": {
@@ -488,10 +488,10 @@ Elem: &schema.Resource{
 },
 	},
 	"node_exporter": {
-Type:             schema.TypeList,
-Optional:         true,
+Type:    schema.TypeList,
+Optional:true,
 DiffSuppressFunc: verify.SuppressMissingOptionalConfigurationBlock,
-MaxItems:         1,
+MaxItems:1,
 Elem: &schema.Resource{
 	Schema: map[string]*schema.Schema{
 "enabled_in_broker": {
@@ -508,7 +508,7 @@ Elem: &schema.Resource{
 },
 	},
 	"storage_mode": {
-Type:         schema.TypeString,
+Type:schema.TypeString,
 Optional:     true,
 Computed:     true,
 ValidateFunc: validation.StringInSlice(kafka.StorageMode_Values(), true),
@@ -532,7 +532,7 @@ func resourceClusterCreate(ctx context.Context, d *schema.ResourceData, meta int
 
 	name := d.Get("cluster_name").(string)
 	input := &kafka.CreateClusterInput{
-ClusterName:         aws.String(name),
+ClusterName:aws.String(name),
 KafkaVersion:        aws.String(d.Get("kafka_version").(string)),
 NumberOfBrokerNodes: aws.Int64(int64(d.Get("number_of_broker_nodes").(int))),
 Tags: getTagsIn(ctx),
@@ -738,7 +738,7 @@ if err := refreshClusterVersion(ctx, d, meta); err != nil {
 
 	if d.HasChange("broker_node_group_info.0.instance_type") {
 input := &kafka.UpdateBrokerTypeInput{
-	ClusterArn:         aws.String(d.Id()),
+	ClusterArn:aws.String(d.Id()),
 	CurrentVersion:     aws.String(d.Get("current_version").(string)),
 	TargetInstanceType: aws.String(d.Get("broker_node_group_info.0.instance_type").(string)),
 }
@@ -796,7 +796,7 @@ if err := refreshClusterVersion(ctx, d, meta); err != nil {
 	if d.HasChange("number_of_broker_nodes") {
 input := &kafka.UpdateBrokerCountInput{
 	ClusterArn: aws.String(d.Id()),
-	CurrentVersion:            aws.String(d.Get("current_version").(string)),
+	CurrentVersion:   aws.String(d.Get("current_version").(string)),
 	TargetNumberOfBrokerNodes: aws.Int64(int64(d.Get("number_of_broker_nodes").(int))),
 }
 
@@ -820,7 +820,7 @@ if err := refreshClusterVersion(ctx, d, meta); err != nil {
 
 	if d.HasChanges("enhanced_monitoring", "logging_info", "open_monitoring") {
 input := &kafka.UpdateMonitoringInput{
-	ClusterArn:         aws.String(d.Id()),
+	ClusterArn:aws.String(d.Id()),
 	CurrentVersion:     aws.String(d.Get("current_version").(string)),
 	EnhancedMonitoring: aws.String(d.Get("enhanced_monitoring").(string)),
 }
@@ -881,7 +881,7 @@ if err := refreshClusterVersion(ctx, d, meta); err != nil {
 
 	if d.HasChange("kafka_version") {
 input := &kafka.UpdateClusterKafkaVersionInput{
-	ClusterArn:         aws.String(d.Id()),
+	ClusterArn:aws.String(d.Id()),
 	CurrentVersion:     aws.String(d.Get("current_version").(string)),
 	TargetKafkaVersion: aws.String(d.Get("kafka_version").(string)),
 }

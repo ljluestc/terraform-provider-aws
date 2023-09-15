@@ -27,7 +27,7 @@ func TestAccLicenseManagerAssociation_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, licensemanager.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAssociationDestroy(ctx),
+CheckDestroy:    testAccCheckAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAssociationConfig_basic(rName),
@@ -55,7 +55,7 @@ func TestAccLicenseManagerAssociation_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, licensemanager.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckAssociationDestroy(ctx),
+CheckDestroy:    testAccCheckAssociationDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccAssociationConfig_basic(rName),
@@ -127,7 +127,7 @@ return nil
 func testAccAssociationConfig_basic(rName string) string {
 	return acctest.ConfigCompose(acctest.ConfigLatestAmazonLinuxHVMEBSAMI(), fmt.Sprintf(`
 resource "aws_instance" "test" {
-  ami           = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
+  ami  = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t2.micro"
 
   tags = {
@@ -142,7 +142,7 @@ resource "aws_licensemanager_license_configuration" "test" {
 
 resource "aws_licensemanager_association" "test" {
   license_configuration_arn = aws_licensemanager_license_configuration.test.id
-  resource_arn              = aws_instance.test.arn
+  resource_arn     = aws_instance.test.arn
 }
 `, rName))
 }

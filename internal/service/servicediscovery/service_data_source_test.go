@@ -116,7 +116,7 @@ resource "aws_service_discovery_http_namespace" "test" {
 }
 
 resource "aws_service_discovery_service" "test" {
-  name         = %[1]q
+  name= %[1]q
   namespace_id = aws_service_discovery_http_namespace.test.id
 
   tags = {
@@ -125,7 +125,7 @@ resource "aws_service_discovery_service" "test" {
 }
 
 data "aws_service_discovery_service" "test" {
-  name         = aws_service_discovery_service.test.name
+  name= aws_service_discovery_service.test.name
   namespace_id = aws_service_discovery_http_namespace.test.id
 }
 `, rName)
@@ -164,7 +164,7 @@ resource "aws_service_discovery_service" "test" {
 }
 
 data "aws_service_discovery_service" "test" {
-  name         = aws_service_discovery_service.test.name
+  name= aws_service_discovery_service.test.name
   namespace_id = aws_service_discovery_private_dns_namespace.test.id
 }
 `, rName)
@@ -195,12 +195,12 @@ resource "aws_service_discovery_service" "test" {
   health_check_config {
     failure_threshold = 5
     resource_path     = "/path"
-    type              = "HTTP"
+    type     = "HTTP"
   }
 }
 
 data "aws_service_discovery_service" "test" {
-  name         = aws_service_discovery_service.test.name
+  name= aws_service_discovery_service.test.name
   namespace_id = aws_service_discovery_public_dns_namespace.test.id
 }
 `, rName)

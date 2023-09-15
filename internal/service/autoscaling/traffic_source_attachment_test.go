@@ -27,7 +27,7 @@ func TestAccAutoScalingTrafficSourceAttachment_elb(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTrafficSourceAttachmentDestroy(ctx),
+CheckDestroy:    testAccCheckTrafficSourceAttachmentDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTrafficSourceAttachmentConfig_elb(rName),
@@ -48,7 +48,7 @@ func TestAccAutoScalingTrafficSourceAttachment_albTargetGroup(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTrafficSourceAttachmentDestroy(ctx),
+CheckDestroy:    testAccCheckTrafficSourceAttachmentDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTrafficSourceAttachmentConfig_targetGroup(rName),
@@ -69,7 +69,7 @@ func TestAccAutoScalingTrafficSourceAttachment_vpcLatticeTargetGroup(t *testing.
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTrafficSourceAttachmentDestroy(ctx),
+CheckDestroy:    testAccCheckTrafficSourceAttachmentDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTrafficSourceAttachmentConfig_vpcLatticeTargetGrpoup(rName),
@@ -91,7 +91,7 @@ func TestAccAutoScalingTrafficSourceAttachment_multipleELBs(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTrafficSourceAttachmentDestroy(ctx),
+CheckDestroy:    testAccCheckTrafficSourceAttachmentDestroy(ctx),
 Steps: []resource.TestStep{
 	// Create all the ELBs first.
 	{
@@ -121,7 +121,7 @@ func TestAccAutoScalingTrafficSourceAttachment_multipleVPCLatticeTargetGroups(t 
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTrafficSourceAttachmentDestroy(ctx),
+CheckDestroy:    testAccCheckTrafficSourceAttachmentDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccTrafficSourceAttachmentConfig_vpcLatticeBase(rName, 5),
@@ -150,7 +150,7 @@ func TestAccAutoScalingTrafficSourceAttachment_multipleALBTargetGroups(t *testin
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckTrafficSourceAttachmentDestroy(ctx),
+CheckDestroy:    testAccCheckTrafficSourceAttachmentDestroy(ctx),
 Steps: []resource.TestStep{
 	// Create all the target groups first.
 	{
@@ -235,7 +235,7 @@ resource "aws_elb" "test" {
   listener {
     instance_port     = 8000
     instance_protocol = "http"
-    lb_port           = 80
+    lb_port  = 80
     lb_protocol       = "http"
   }
 }
@@ -244,9 +244,9 @@ resource "aws_autoscaling_group" "test" {
   availability_zones        = data.aws_availability_zones.available.names
   max_size   = 1
   min_size   = 0
-  desired_capacity          = 0
+  desired_capacity = 0
   health_check_grace_period = 300
-  force_delete              = true
+  force_delete     = true
   name       = %[1]q
   launch_configuration      = aws_launch_configuration.test.name
 
@@ -275,7 +275,7 @@ resource "aws_lb_target_group" "test" {
 }
 
 resource "aws_launch_configuration" "test" {
-  name          = %[1]q
+  name = %[1]q
   image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t2.micro"
 }
@@ -284,9 +284,9 @@ resource "aws_autoscaling_group" "test" {
   vpc_zone_identifier       = aws_subnet.test[*].id
   max_size   = 1
   min_size   = 0
-  desired_capacity          = 0
+  desired_capacity = 0
   health_check_grace_period = 300
-  force_delete              = true
+  force_delete     = true
   name       = %[1]q
   launch_configuration      = aws_launch_configuration.test.name
 
@@ -311,14 +311,14 @@ resource "aws_vpclattice_target_group" "test" {
   type = "INSTANCE"
 
   config {
-    port           = 80
+    port  = 80
     protocol       = "HTTP"
     vpc_identifier = aws_vpc.test.id
   }
 }
 
 resource "aws_launch_configuration" "test" {
-  name          = %[1]q
+  name = %[1]q
   image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t2.micro"
 }
@@ -327,9 +327,9 @@ resource "aws_autoscaling_group" "test" {
   vpc_zone_identifier       = aws_subnet.test[*].id
   max_size   = 1
   min_size   = 0
-  desired_capacity          = 0
+  desired_capacity = 0
   health_check_grace_period = 300
-  force_delete              = true
+  force_delete     = true
   name       = %[1]q
   launch_configuration      = aws_launch_configuration.test.name
 

@@ -13,7 +13,7 @@ import (
 
 func ResourceRailsAppLayer() *schema.Resource {
 	layerType := &opsworksLayerType{
-		TypeName:         opsworks.LayerTypeRailsApp,
+		TypeName:opsworks.LayerTypeRailsApp,
 		DefaultLayerName: "Rails App Server",
 
 		Attributes: map[string]*opsworksLayerTypeAttribute{

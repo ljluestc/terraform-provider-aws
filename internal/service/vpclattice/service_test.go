@@ -253,7 +253,7 @@ func testAccServiceConfig_full(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_vpclattice_service" "test" {
   name= %[1]q
-  auth_type          = "AWS_IAM"
+  auth_type = "AWS_IAM"
   custom_domain_name = "example.com"
 }
 `, rName)

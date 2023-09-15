@@ -11,11 +11,11 @@ const (
 	ResNameIdentityProvider  = "Identity Provider"
 	ResNameResourceServer    = "Resource Server"
 	ResNameRiskConfiguration = "Risk Configuration"
-	ResNameUserGroup         = "User Group"
+	ResNameUserGroup= "User Group"
 	ResNameUserPoolClient    = "User Pool Client"
 	ResNameUserPoolDomain    = "User Pool Domain"
-	ResNameUserPool          = "User Pool"
-	ResNameUser              = "User"
+	ResNameUserPool = "User Pool"
+	ResNameUser     = "User"
 )
 
 const (

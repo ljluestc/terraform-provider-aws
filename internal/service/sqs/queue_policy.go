@@ -16,7 +16,7 @@ func ResourceQueuePolicy() *schema.Resource {
 	h := &queueAttributeHandler{
 		AttributeName: sqs.QueueAttributeNamePolicy,
 		SchemaKey:     "policy",
-		ToSet:         verify.PolicyToSet,
+		ToSet:verify.PolicyToSet,
 	}
 
 	//lintignore:R011
@@ -35,9 +35,9 @@ func ResourceQueuePolicy() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"policy": {
-				Type:                  schema.TypeString,
-				Required:              true,
-				ValidateFunc:          validation.StringIsJSON,
+				Type:schema.TypeString,
+				Required:     true,
+				ValidateFunc: validation.StringIsJSON,
 				DiffSuppressFunc:      verify.SuppressEquivalentPolicyDiffs,
 				DiffSuppressOnRefresh: true,
 				StateFunc: func(v interface{}) string {

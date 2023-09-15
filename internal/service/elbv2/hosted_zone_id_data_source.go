@@ -97,12 +97,12 @@ func DataSourceHostedZoneID() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"region": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: verify.ValidRegionName,
 			},
 			"load_balancer_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Default:      elbv2.LoadBalancerTypeEnumApplication,
 				ValidateFunc: validation.StringInSlice([]string{elbv2.LoadBalancerTypeEnumApplication, elbv2.LoadBalancerTypeEnumNetwork}, false),

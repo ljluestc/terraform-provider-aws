@@ -40,7 +40,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckKxUserDestroy(ctx),
+CheckDestroy:    testAccCheckKxUserDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccKxUserConfig_basic(rName, userName),
@@ -76,7 +76,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckKxUserDestroy(ctx),
+CheckDestroy:    testAccCheckKxUserDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccKxUserConfig_basic(rName, userName),
@@ -108,7 +108,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckKxUserDestroy(ctx),
+CheckDestroy:    testAccCheckKxUserDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccKxUserConfig_basic(rName, userName),
@@ -144,7 +144,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, finspace.ServiceID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckKxUserDestroy(ctx),
+CheckDestroy:    testAccCheckKxUserDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccKxUserConfig_tags1(rName, userName, "key1", "value1"),
@@ -248,7 +248,7 @@ resource "aws_iam_role" "test" {
         Effect = "Allow"
         Sid    = ""
         Principal = {
-          Service = "ec2.amazonaws.com"
+ Service = "ec2.amazonaws.com"
         }
       },
     ]
@@ -267,7 +267,7 @@ func testAccKxUserConfig_basic(rName, userName string) string {
 testAccKxUserConfigBase(rName),
 fmt.Sprintf(`
 resource "aws_finspace_kx_user" "test" {
-  name           = %[1]q
+  name  = %[1]q
   environment_id = aws_finspace_kx_environment.test.id
   iam_role       = aws_iam_role.test.arn
 }
@@ -288,7 +288,7 @@ resource "aws_iam_role" "updated" {
         Effect = "Allow"
         Sid    = ""
         Principal = {
-          Service = "ec2.amazonaws.com"
+ Service = "ec2.amazonaws.com"
         }
       },
     ]
@@ -296,7 +296,7 @@ resource "aws_iam_role" "updated" {
 }
 
 resource "aws_finspace_kx_user" "test" {
-  name           = %[2]q
+  name  = %[2]q
   environment_id = aws_finspace_kx_environment.test.id
   iam_role       = aws_iam_role.updated.arn
 }
@@ -308,7 +308,7 @@ func testAccKxUserConfig_tags1(rName, userName, tagKey1, tagValue1 string) strin
 testAccKxUserConfigBase(rName),
 fmt.Sprintf(`
 resource "aws_finspace_kx_user" "test" {
-  name           = %[1]q
+  name  = %[1]q
   environment_id = aws_finspace_kx_environment.test.id
   iam_role       = aws_iam_role.test.arn
   tags = {
@@ -324,7 +324,7 @@ func testAccKxUserConfig_tags2(rName, userName, tagKey1, tagValue1, tagKey2, tag
 testAccKxUserConfigBase(rName),
 fmt.Sprintf(`
 resource "aws_finspace_kx_user" "test" {
-  name           = %[1]q
+  name  = %[1]q
   environment_id = aws_finspace_kx_environment.test.id
   iam_role       = aws_iam_role.test.arn
   tags = {

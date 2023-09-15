@@ -28,7 +28,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, securityhub.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5FactoriesAlternate(ctx, t),
-CheckDestroy:             testAccCheckInviteAccepterDestroy(ctx),
+CheckDestroy:    testAccCheckInviteAccepterDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccInviteAccepterConfig_basic(acctest.DefaultEmailAddress),
@@ -37,7 +37,7 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-Config:            testAccInviteAccepterConfig_basic(acctest.DefaultEmailAddress),
+Config:   testAccInviteAccepterConfig_basic(acctest.DefaultEmailAddress),
 ResourceName:      resourceName,
 ImportState:       true,
 ImportStateVerify: true,

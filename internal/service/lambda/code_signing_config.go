@@ -44,7 +44,7 @@ func ResourceCodeSigningConfig() *schema.Resource {
 							MinItems: 1,
 							MaxItems: 20,
 							Elem: &schema.Schema{
-								Type:         schema.TypeString,
+								Type:schema.TypeString,
 								ValidateFunc: verify.ValidARN,
 							},
 							Set: schema.HashString,
@@ -78,7 +78,7 @@ func ResourceCodeSigningConfig() *schema.Resource {
 				Computed: true,
 			},
 			"description": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ValidateFunc: validation.StringLenBetween(0, 256),
 			},

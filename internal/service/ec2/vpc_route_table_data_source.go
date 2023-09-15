@@ -201,7 +201,7 @@ return sdkdiag.AppendErrorf(diags, "one of route_table_id, vpc_id, subnet_id, ga
 	}
 	req.Filters = BuildAttributeFilterList(
 map[string]string{
-	"route-table-id":         rtbId.(string),
+	"route-table-id":rtbId.(string),
 	"vpc-id":  vpcId.(string),
 	"association.subnet-id":  subnetId.(string),
 	"association.gateway-id": gatewayId.(string),

@@ -32,7 +32,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPhoneNumberDestroy(ctx),
+CheckDestroy:    testAccCheckPhoneNumberDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPhoneNumberConfig_basic(rName),
@@ -70,7 +70,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPhoneNumberDestroy(ctx),
+CheckDestroy:    testAccCheckPhoneNumberDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPhoneNumberConfig_description(rName, description),
@@ -102,7 +102,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPhoneNumberDestroy(ctx),
+CheckDestroy:    testAccCheckPhoneNumberDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPhoneNumberConfig_prefix(rName, prefix),
@@ -115,8 +115,8 @@ func(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"prefix"},
 	},
@@ -137,7 +137,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPhoneNumberDestroy(ctx),
+CheckDestroy:    testAccCheckPhoneNumberDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPhoneNumberConfig_targetARN(rName, rName2, "first"),
@@ -176,7 +176,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPhoneNumberDestroy(ctx),
+CheckDestroy:    testAccCheckPhoneNumberDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPhoneNumberConfig_tags1(rName, "key1", "value1"),
@@ -227,7 +227,7 @@ PreCheck:
 func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, connect.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckPhoneNumberDestroy(ctx),
+CheckDestroy:    testAccCheckPhoneNumberDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccPhoneNumberConfig_basic(rName),
@@ -314,7 +314,7 @@ func testAccPhoneNumberConfig_base(rName string) string {
 resource "aws_connect_instance" "test" {
   identity_management_type = "CONNECT_MANAGED"
   inbound_calls_enabled    = true
-  instance_alias           = %[1]q
+  instance_alias  = %[1]q
   outbound_calls_enabled   = true
 }
 `, rName)
@@ -328,7 +328,7 @@ testAccPhoneNumberConfig_base(rName),
 resource "aws_connect_phone_number" "test" {
   target_arn   = aws_connect_instance.test.arn
   country_code = "US"
-  type         = "DID"
+  type= "DID"
 }
 `)
 }
@@ -341,7 +341,7 @@ fmt.Sprintf(`
 resource "aws_connect_phone_number" "test" {
   target_arn   = aws_connect_instance.test.arn
   country_code = "US"
-  type         = "DID"
+  type= "DID"
   description  = %[1]q
 }
 `, description))
@@ -355,7 +355,7 @@ fmt.Sprintf(`
 resource "aws_connect_phone_number" "test" {
   target_arn   = aws_connect_instance.test.arn
   country_code = "US"
-  type         = "DID"
+  type= "DID"
   prefix       = %[1]q
 }
 `, prefix))
@@ -373,14 +373,14 @@ locals {
 resource "aws_connect_instance" "test2" {
   identity_management_type = "CONNECT_MANAGED"
   inbound_calls_enabled    = true
-  instance_alias           = %[1]q
+  instance_alias  = %[1]q
   outbound_calls_enabled   = true
 }
 
 resource "aws_connect_phone_number" "test" {
   target_arn   = local.select_target_arn == "first" ? aws_connect_instance.test.arn : aws_connect_instance.test2.arn
   country_code = "US"
-  type         = "DID"
+  type= "DID"
 }
 `, rName2, selectTargetArn))
 }
@@ -393,7 +393,7 @@ fmt.Sprintf(`
 resource "aws_connect_phone_number" "test" {
   target_arn   = aws_connect_instance.test.arn
   country_code = "US"
-  type         = "DID"
+  type= "DID"
 
   tags = {
     %[1]q = %[2]q
@@ -410,7 +410,7 @@ fmt.Sprintf(`
 resource "aws_connect_phone_number" "test" {
   target_arn   = aws_connect_instance.test.arn
   country_code = "US"
-  type         = "DID"
+  type= "DID"
 
   tags = {
     %[1]q = %[2]q

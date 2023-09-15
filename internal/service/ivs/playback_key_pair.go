@@ -76,7 +76,7 @@ func resourcePlaybackKeyPairCreate(ctx context.Context, d *schema.ResourceData, 
 
 	in := &ivs.ImportPlaybackKeyPairInput{
 		PublicKeyMaterial: aws.String(d.Get("public_key").(string)),
-		Tags:              getTagsIn(ctx),
+		Tags:     getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("name"); ok {

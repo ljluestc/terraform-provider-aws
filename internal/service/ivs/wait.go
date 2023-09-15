@@ -17,7 +17,7 @@ Pending:    []string{},
 Target:     []string{statusNormal},
 Refresh:    statusPlaybackKeyPair(ctx, conn, id),
 Timeout:    timeout,
-NotFoundChecks:            20,
+NotFoundChecks:   20,
 ContinuousTargetOccurence: 2,
 	}
 
@@ -51,7 +51,7 @@ Pending:    []string{ivs.RecordingConfigurationStateCreating},
 Target:     []string{ivs.RecordingConfigurationStateActive},
 Refresh:    statusRecordingConfiguration(ctx, conn, id),
 Timeout:    timeout,
-NotFoundChecks:            20,
+NotFoundChecks:   20,
 ContinuousTargetOccurence: 2,
 	}
 
@@ -85,7 +85,7 @@ Pending:    []string{},
 Target:     []string{statusNormal},
 Refresh:    statusChannel(ctx, conn, id, nil),
 Timeout:    timeout,
-NotFoundChecks:            20,
+NotFoundChecks:   20,
 ContinuousTargetOccurence: 2,
 	}
 
@@ -103,7 +103,7 @@ Pending:    []string{statusChangePending},
 Target:     []string{statusUpdated},
 Refresh:    statusChannel(ctx, conn, id, updateDetails),
 Timeout:    timeout,
-NotFoundChecks:            20,
+NotFoundChecks:   20,
 ContinuousTargetOccurence: 2,
 	}
 

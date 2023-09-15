@@ -45,7 +45,7 @@ func sweepRepositories(region string) error {
 
 			_, err = conn.DeleteRepositoryWithContext(ctx, &ecr.DeleteRepositoryInput{
 				// We should probably sweep repositories even if there are images.
-				Force:          aws.Bool(true),
+				Force: aws.Bool(true),
 				RegistryId:     repository.RegistryId,
 				RepositoryName: repository.RepositoryName,
 			})

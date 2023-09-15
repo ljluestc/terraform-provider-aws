@@ -34,9 +34,9 @@ func TestAccKendraThesaurus_basic(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.KendraEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckThesaurusDestroy(ctx),
+		CheckDestroy:    testAccCheckThesaurusDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccThesaurusConfig_basic(rName),
@@ -77,9 +77,9 @@ func TestAccKendraThesaurus_disappears(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.KendraEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckThesaurusDestroy(ctx),
+		CheckDestroy:    testAccCheckThesaurusDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccThesaurusConfig_basic(rName),
@@ -108,9 +108,9 @@ func TestAccKendraThesaurus_tags(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.KendraEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckThesaurusDestroy(ctx),
+		CheckDestroy:    testAccCheckThesaurusDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccThesaurusConfig_tags1(rName, "key1", "value1"),
@@ -161,9 +161,9 @@ func TestAccKendraThesaurus_description(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.KendraEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckThesaurusDestroy(ctx),
+		CheckDestroy:    testAccCheckThesaurusDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccThesaurusConfig_description(rName, "description1"),
@@ -211,9 +211,9 @@ func TestAccKendraThesaurus_name(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.KendraEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckThesaurusDestroy(ctx),
+		CheckDestroy:    testAccCheckThesaurusDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccThesaurusConfig_basic(rName1),
@@ -253,9 +253,9 @@ func TestAccKendraThesaurus_roleARN(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.KendraEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckThesaurusDestroy(ctx),
+		CheckDestroy:    testAccCheckThesaurusDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccThesaurusConfig_basic(rName),
@@ -295,9 +295,9 @@ func TestAccKendraThesaurus_sourceS3Path(t *testing.T) {
 			acctest.PreCheckPartitionHasService(t, names.KendraEndpointID)
 			testAccPreCheck(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckThesaurusDestroy(ctx),
+		CheckDestroy:    testAccCheckThesaurusDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccThesaurusConfig_basic(rName),

@@ -40,7 +40,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckChannelDestroy(ctx),
+CheckDestroy:    testAccCheckChannelDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccChannelConfig_basic(rName),
@@ -70,8 +70,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"start_channel"},
 	},
@@ -97,7 +97,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckChannelDestroy(ctx),
+CheckDestroy:    testAccCheckChannelDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccChannelConfig_caption_descriptions(rName, 100),
@@ -128,8 +128,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"start_channel"},
 	},
@@ -155,7 +155,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckChannelDestroy(ctx),
+CheckDestroy:    testAccCheckChannelDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccChannelConfig_m2tsSettings(rName),
@@ -184,22 +184,22 @@ Check: resource.ComposeTestCheckFunc(
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "encoder_settings.0.output_groups.0.outputs.0.output_settings.0.archive_output_settings.0.container_settings.0.m2ts_settings.*", map[string]string{
 "audio_buffer_model":        "ATSC",
-"buffer_model":              "MULTIPLEX",
+"buffer_model":     "MULTIPLEX",
 "rate_mode":  "CBR",
 "audio_pids": "200",
-"dvb_sub_pids":              "300",
-"arib_captions_pid":         "100",
+"dvb_sub_pids":     "300",
+"arib_captions_pid":"100",
 "arib_captions_pid_control": "AUTO",
 "video_pid":  "101",
-"fragment_time":             "1.92",
+"fragment_time":    "1.92",
 "program_num":"1",
-"segmentation_time":         "1.92",
+"segmentation_time":"1.92",
 	}),
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"start_channel"},
 	},
@@ -225,7 +225,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckChannelDestroy(ctx),
+CheckDestroy:    testAccCheckChannelDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccChannelConfig_udpOutputSettings(rName),
@@ -260,8 +260,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"start_channel"},
 	},
@@ -287,7 +287,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckChannelDestroy(ctx),
+CheckDestroy:    testAccCheckChannelDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccChannelConfig_msSmoothOutputSettings(rName),
@@ -320,8 +320,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"start_channel"},
 	},
@@ -347,7 +347,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckChannelDestroy(ctx),
+CheckDestroy:    testAccCheckChannelDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccChannelConfig_audioDescriptionCodecSettings(rName),
@@ -371,7 +371,7 @@ Check: resource.ComposeTestCheckFunc(
 "audio_selector_name": "audio_1",
 "name": "audio_1",
 "codec_settings.0.aac_settings.0.rate_control_mode": string(types.AacRateControlModeCbr),
-"codec_settings.0.aac_settings.0.bitrate":           "192000",
+"codec_settings.0.aac_settings.0.bitrate":  "192000",
 "codec_settings.0.aac_settings.0.sample_rate":       "48000",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "encoder_settings.0.audio_descriptions.*", map[string]string{
@@ -406,7 +406,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckChannelDestroy(ctx),
+CheckDestroy:    testAccCheckChannelDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccChannelConfig_videoDescriptionCodecSettingsH264Settings(rName),
@@ -431,59 +431,59 @@ Check: resource.ComposeTestCheckFunc(
 "name": rName,
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "encoder_settings.0.video_descriptions.*", map[string]string{
-"name":             "test-video-name",
+"name":    "test-video-name",
 "respond_to_afd":   "NONE",
 "scaling_behavior": "DEFAULT",
 "sharpness":        "100",
-"height":           "720",
-"width":            "1280",
+"height":  "720",
+"width":   "1280",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "encoder_settings.0.video_descriptions.0.codec_settings.0.h264_settings.*", map[string]string{
 "adaptive_quantization":   "LOW",
-"afd_signaling":           "NONE",
+"afd_signaling":  "NONE",
 "bitrate":  "5400000",
-"buf_fill_pct":            "90",
+"buf_fill_pct":   "90",
 "buf_size": "10800000",
-"color_metadata":          "IGNORE",
+"color_metadata": "IGNORE",
 "entropy_encoding":        "CABAC",
-"filter_settings":         "",
+"filter_settings":"",
 "fixed_afd":"",
-"flicker_aq":              "ENABLED",
+"flicker_aq":     "ENABLED",
 "force_field_pictures":    "DISABLED",
 "framerate_control":       "SPECIFIED",
 "framerate_denominator":   "1",
 "framerate_numerator":     "50",
-"gop_b_reference":         "DISABLED",
+"gop_b_reference":"DISABLED",
 "gop_closed_cadence":      "1",
 "gop_num_b_frames":        "1",
 "gop_size": "1.92",
-"gop_size_units":          "SECONDS",
+"gop_size_units": "SECONDS",
 "level":    "H264_LEVEL_AUTO",
 "look_ahead_rate_control": "HIGH",
-"max_bitrate":             "0",
-"min_i_interval":          "0",
-"num_ref_frames":          "3",
-"par_control":             "INITIALIZE_FROM_SOURCE",
-"par_denominator":         "0",
-"par_numerator":           "0",
+"max_bitrate":    "0",
+"min_i_interval": "0",
+"num_ref_frames": "3",
+"par_control":    "INITIALIZE_FROM_SOURCE",
+"par_denominator":"0",
+"par_numerator":  "0",
 "profile":  "HIGH",
-"quality_level":           "",
+"quality_level":  "",
 "qvbr_quality_level":      "0",
 "rate_control_mode":       "CBR",
 "scan_type":"PROGRESSIVE",
 "scene_change_detect":     "DISABLED",
 "slices":   "1",
-"spatial_aq":              "0",
-"subgop_length":           "FIXED",
+"spatial_aq":     "0",
+"subgop_length":  "FIXED",
 "syntax":   "DEFAULT",
-"temporal_aq":             "ENABLED",
+"temporal_aq":    "ENABLED",
 "timecode_insertion":      "PIC_TIMING_SEI",
 	}),
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"start_channel"},
 	},
@@ -509,7 +509,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckChannelDestroy(ctx),
+CheckDestroy:    testAccCheckChannelDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccChannelConfig_videoDescriptionCodecSettingsH265Settings(rName),
@@ -534,29 +534,29 @@ Check: resource.ComposeTestCheckFunc(
 "name": rName,
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "encoder_settings.0.video_descriptions.*", map[string]string{
-"name":             "test-video-name",
+"name":    "test-video-name",
 "respond_to_afd":   "NONE",
 "scaling_behavior": "DEFAULT",
 "sharpness":        "100",
-"height":           "720",
-"width":            "1280",
+"height":  "720",
+"width":   "1280",
 	}),
 	resource.TestCheckTypeSetElemNestedAttrs(resourceName, "encoder_settings.0.video_descriptions.0.codec_settings.0.h265_settings.*", map[string]string{
 "adaptive_quantization":   "LOW",
-"afd_signaling":           "FIXED",
+"afd_signaling":  "FIXED",
 "bitrate":  "5400000",
 "buf_size": "20000000",
-"color_metadata":          "IGNORE",
+"color_metadata": "IGNORE",
 "fixed_afd":"AFD_0000",
-"flicker_aq":              "ENABLED",
+"flicker_aq":     "ENABLED",
 "framerate_denominator":   "1",
 "framerate_numerator":     "50",
 "gop_closed_cadence":      "1",
 "gop_size": "1.92",
-"gop_size_units":          "SECONDS",
+"gop_size_units": "SECONDS",
 "level":    "H265_LEVEL_AUTO",
 "look_ahead_rate_control": "HIGH",
-"min_i_interval":          "6",
+"min_i_interval": "6",
 "profile":  "MAIN_10BIT",
 "rate_control_mode":       "CBR",
 "scan_type":"PROGRESSIVE",
@@ -580,8 +580,8 @@ Check: resource.ComposeTestCheckFunc(
 ),
 	},
 	{
-ResourceName:            resourceName,
-ImportState:             true,
+ResourceName:   resourceName,
+ImportState:    true,
 ImportStateVerify:       true,
 ImportStateVerifyIgnore: []string{"start_channel"},
 	},
@@ -607,7 +607,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckChannelDestroy(ctx),
+CheckDestroy:    testAccCheckChannelDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccChannelConfig_hls(rName),
@@ -659,7 +659,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckChannelDestroy(ctx),
+CheckDestroy:    testAccCheckChannelDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccChannelConfig_start(rName, true),
@@ -698,7 +698,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckChannelDestroy(ctx),
+CheckDestroy:    testAccCheckChannelDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccChannelConfig_update(rName, rName, "AVC", "HD"),
@@ -776,7 +776,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckChannelDestroy(ctx),
+CheckDestroy:    testAccCheckChannelDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccChannelConfig_tags1(rName, "key1", "value1"),
@@ -825,7 +825,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.MediaLiveEndpointID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckChannelDestroy(ctx),
+CheckDestroy:    testAccCheckChannelDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccChannelConfig_basic(rName),
@@ -943,7 +943,7 @@ resource "aws_iam_role" "test" {
         Effect = "Allow"
         Sid    = ""
         Principal = {
-          Service = "medialive.amazonaws.com"
+ Service = "medialive.amazonaws.com"
         }
       },
     ]
@@ -963,11 +963,11 @@ resource "aws_iam_role_policy" "test" {
     Statement = [
       {
         Action = [
-          "ec2:*",
-          "s3:*",
-          "mediastore:*",
-          "mediaconnect:*",
-          "cloudwatch:*",
+ "ec2:*",
+ "s3:*",
+ "mediastore:*",
+ "mediaconnect:*",
+ "cloudwatch:*",
         ]
         Effect   = "Allow"
         Resource = "*"
@@ -1022,19 +1022,19 @@ testAccChannelConfig_baseS3(rName),
 testAccChannelConfig_baseMultiplex(rName),
 fmt.Sprintf(`
 resource "aws_medialive_channel" "test" {
-  name          = %[1]q
+  name = %[1]q
   channel_class = "STANDARD"
   role_arn      = aws_iam_role.test.arn
 
   input_specification {
-    codec            = "AVC"
+    codec   = "AVC"
     input_resolution = "HD"
     maximum_bitrate  = "MAX_20_MBPS"
   }
 
   input_attachments {
     input_attachment_name = "example-input1"
-    input_id              = aws_medialive_input.test.id
+    input_id     = aws_medialive_input.test.id
   }
 
   destinations {
@@ -1066,28 +1066,28 @@ resource "aws_medialive_channel" "test" {
     output_groups {
       output_group_settings {
         archive_group_settings {
-          destination {
-            destination_ref_id = %[1]q
-          }
+ destination {
+   destination_ref_id = %[1]q
+ }
         }
       }
 
       outputs {
-        output_name             = "test-output-name"
+        output_name    = "test-output-name"
         video_description_name  = "test-video-name"
         audio_description_names = [%[1]q]
         output_settings {
-          archive_output_settings {
-            name_modifier = "_1"
-            extension     = "m2ts"
-            container_settings {
-              m2ts_settings {
+ archive_output_settings {
+   name_modifier = "_1"
+   extension     = "m2ts"
+   container_settings {
+     m2ts_settings {
  audio_buffer_model = "ATSC"
  buffer_model       = "MULTIPLEX"
- rate_mode          = "CBR"
-              }
-            }
-          }
+ rate_mode = "CBR"
+     }
+   }
+ }
         }
       }
     }
@@ -1102,19 +1102,19 @@ testAccChannelConfig_base(rName),
 testAccChannelConfig_baseMultiplex(rName),
 fmt.Sprintf(`
 resource "aws_medialive_channel" "test" {
-  name          = %[1]q
+  name = %[1]q
   channel_class = "STANDARD"
   role_arn      = aws_iam_role.test.arn
 
   input_specification {
-    codec            = "AVC"
+    codec   = "AVC"
     input_resolution = "HD"
     maximum_bitrate  = "MAX_20_MBPS"
   }
 
   input_attachments {
     input_attachment_name = "example-input1"
-    input_id              = aws_medialive_input.test.id
+    input_id     = aws_medialive_input.test.id
   }
 
   destinations {
@@ -1146,34 +1146,34 @@ resource "aws_medialive_channel" "test" {
     output_groups {
       output_group_settings {
         udp_group_settings {
-          input_loss_action = "DROP_TS"
+ input_loss_action = "DROP_TS"
         }
       }
 
       outputs {
-        output_name             = "test-output-name"
+        output_name    = "test-output-name"
         video_description_name  = "test-video-name"
         audio_description_names = [%[1]q]
         output_settings {
-          udp_output_settings {
-            destination {
-              destination_ref_id = %[1]q
-            }
+ udp_output_settings {
+   destination {
+     destination_ref_id = %[1]q
+   }
 
-            fec_output_settings {
-              include_fec  = "COLUMN_AND_ROW"
-              column_depth = 5
-              row_length   = 5
-            }
+   fec_output_settings {
+     include_fec  = "COLUMN_AND_ROW"
+     column_depth = 5
+     row_length   = 5
+   }
 
-            container_settings {
-              m2ts_settings {
+   container_settings {
+     m2ts_settings {
  audio_buffer_model = "ATSC"
  buffer_model       = "MULTIPLEX"
- rate_mode          = "CBR"
-              }
-            }
-          }
+ rate_mode = "CBR"
+     }
+   }
+ }
         }
       }
     }
@@ -1188,19 +1188,19 @@ testAccChannelConfig_base(rName),
 testAccChannelConfig_baseMultiplex(rName),
 fmt.Sprintf(`
 resource "aws_medialive_channel" "test" {
-  name          = %[1]q
+  name = %[1]q
   channel_class = "STANDARD"
   role_arn      = aws_iam_role.test.arn
 
   input_specification {
-    codec            = "AVC"
+    codec   = "AVC"
     input_resolution = "HD"
     maximum_bitrate  = "MAX_20_MBPS"
   }
 
   input_attachments {
     input_attachment_name = "example-input1"
-    input_id              = aws_medialive_input.test.id
+    input_id     = aws_medialive_input.test.id
   }
 
   destinations {
@@ -1232,21 +1232,21 @@ resource "aws_medialive_channel" "test" {
     output_groups {
       output_group_settings {
         ms_smooth_group_settings {
-          audio_only_timecode_control = "USE_CONFIGURED_CLOCK"
-          destination {
-            destination_ref_id = %[1]q
-          }
+ audio_only_timecode_control = "USE_CONFIGURED_CLOCK"
+ destination {
+   destination_ref_id = %[1]q
+ }
         }
       }
 
       outputs {
-        output_name             = "test-output-name"
+        output_name    = "test-output-name"
         video_description_name  = "test-video-name"
         audio_description_names = [%[1]q]
         output_settings {
-          ms_smooth_output_settings {
-            name_modifier = %[1]q
-          }
+ ms_smooth_output_settings {
+   name_modifier = %[1]q
+ }
         }
       }
     }
@@ -1262,19 +1262,19 @@ testAccChannelConfig_baseS3(rName),
 testAccChannelConfig_baseMultiplex(rName),
 fmt.Sprintf(`
 resource "aws_medialive_channel" "test" {
-  name          = %[1]q
+  name = %[1]q
   channel_class = "STANDARD"
   role_arn      = aws_iam_role.test.arn
 
   input_specification {
-    codec            = "AVC"
+    codec   = "AVC"
     input_resolution = "HD"
     maximum_bitrate  = "MAX_20_MBPS"
   }
 
   input_attachments {
     input_attachment_name = "example-input1"
-    input_id              = aws_medialive_input.test.id
+    input_id     = aws_medialive_input.test.id
   }
 
   destinations {
@@ -1299,7 +1299,7 @@ resource "aws_medialive_channel" "test" {
       name = %[1]q
       codec_settings {
         aac_settings {
-          rate_control_mode = "CBR"
+ rate_control_mode = "CBR"
         }
       }
     }
@@ -1311,36 +1311,36 @@ resource "aws_medialive_channel" "test" {
     output_groups {
       output_group_settings {
         archive_group_settings {
-          destination {
-            destination_ref_id = %[1]q
-          }
+ destination {
+   destination_ref_id = %[1]q
+ }
         }
       }
 
       outputs {
-        output_name             = "test-output-name"
+        output_name    = "test-output-name"
         video_description_name  = "test-video-name"
         audio_description_names = [%[1]q]
         output_settings {
-          archive_output_settings {
-            name_modifier = "_1"
-            extension     = "m2ts"
-            container_settings {
-              m2ts_settings {
+ archive_output_settings {
+   name_modifier = "_1"
+   extension     = "m2ts"
+   container_settings {
+     m2ts_settings {
  audio_buffer_model        = "ATSC"
- buffer_model              = "MULTIPLEX"
+ buffer_model     = "MULTIPLEX"
  rate_mode  = "CBR"
  audio_pids = 200
- dvb_sub_pids              = 300
- arib_captions_pid         = 100
+ dvb_sub_pids     = 300
+ arib_captions_pid= 100
  arib_captions_pid_control = "AUTO"
  video_pid  = 101
- fragment_time             = 1.92
+ fragment_time    = 1.92
  program_num= 1
- segmentation_time         = 1.92
-              }
-            }
-          }
+ segmentation_time= 1.92
+     }
+   }
+ }
         }
       }
     }
@@ -1356,19 +1356,19 @@ testAccChannelConfig_baseS3(rName),
 testAccChannelConfig_baseMultiplex(rName),
 fmt.Sprintf(`
 resource "aws_medialive_channel" "test" {
-  name          = %[1]q
+  name = %[1]q
   channel_class = "STANDARD"
   role_arn      = aws_iam_role.test.arn
 
   input_specification {
-    codec            = "AVC"
+    codec   = "AVC"
     input_resolution = "HD"
     maximum_bitrate  = "MAX_20_MBPS"
   }
 
   input_attachments {
     input_attachment_name = "example-input1"
-    input_id              = aws_medialive_input.test.id
+    input_id     = aws_medialive_input.test.id
   }
 
   destinations {
@@ -1393,9 +1393,9 @@ resource "aws_medialive_channel" "test" {
       name = "audio_1"
       codec_settings {
         aac_settings {
-          rate_control_mode = "CBR"
-          bitrate           = 192000
-          sample_rate       = 48000
+ rate_control_mode = "CBR"
+ bitrate  = 192000
+ sample_rate       = 48000
         }
       }
     }
@@ -1406,7 +1406,7 @@ resource "aws_medialive_channel" "test" {
 
       codec_settings {
         ac3_settings {
-          bitrate = 384000
+ bitrate = 384000
         }
       }
     }
@@ -1418,28 +1418,28 @@ resource "aws_medialive_channel" "test" {
     output_groups {
       output_group_settings {
         archive_group_settings {
-          destination {
-            destination_ref_id = %[1]q
-          }
+ destination {
+   destination_ref_id = %[1]q
+ }
         }
       }
 
       outputs {
-        output_name             = "test-output-name"
+        output_name    = "test-output-name"
         video_description_name  = "test-video-name"
         audio_description_names = ["audio_1", "audio_2"]
         output_settings {
-          archive_output_settings {
-            name_modifier = "_1"
-            extension     = "m2ts"
-            container_settings {
-              m2ts_settings {
+ archive_output_settings {
+   name_modifier = "_1"
+   extension     = "m2ts"
+   container_settings {
+     m2ts_settings {
  audio_buffer_model = "ATSC"
  buffer_model       = "MULTIPLEX"
- rate_mode          = "CBR"
-              }
-            }
-          }
+ rate_mode = "CBR"
+     }
+   }
+ }
         }
       }
     }
@@ -1455,19 +1455,19 @@ testAccChannelConfig_baseS3(rName),
 testAccChannelConfig_baseMultiplex(rName),
 fmt.Sprintf(`
 resource "aws_medialive_channel" "test" {
-  name          = %[1]q
+  name = %[1]q
   channel_class = "STANDARD"
   role_arn      = aws_iam_role.test.arn
 
   input_specification {
-    codec            = "AVC"
+    codec   = "AVC"
     input_resolution = "HD"
     maximum_bitrate  = "MAX_20_MBPS"
   }
 
   input_attachments {
     input_attachment_name = "example-input1"
-    input_id              = aws_medialive_input.test.id
+    input_id     = aws_medialive_input.test.id
   }
 
   destinations {
@@ -1492,51 +1492,51 @@ resource "aws_medialive_channel" "test" {
       name = %[1]q
       codec_settings {
         aac_settings {
-          rate_control_mode = "CBR"
+ rate_control_mode = "CBR"
         }
       }
     }
 
     video_descriptions {
-      name             = "test-video-name"
+      name    = "test-video-name"
       respond_to_afd   = "NONE"
       sharpness        = 100
       scaling_behavior = "DEFAULT"
-      width            = 1280
-      height           = 720
+      width   = 1280
+      height  = 720
       codec_settings {
         h264_settings {
-          afd_signaling           = "NONE"
-          color_metadata          = "IGNORE"
-          adaptive_quantization   = "LOW"
-          bitrate  = "5400000"
-          buf_size = "10800000"
-          buf_fill_pct            = 90
-          entropy_encoding        = "CABAC"
-          flicker_aq              = "ENABLED"
-          force_field_pictures    = "DISABLED"
-          framerate_control       = "SPECIFIED"
-          framerate_numerator     = 50
-          framerate_denominator   = 1
-          gop_b_reference         = "DISABLED"
-          gop_closed_cadence      = 1
-          gop_num_b_frames        = 1
-          gop_size = 1.92
-          gop_size_units          = "SECONDS"
-          subgop_length           = "FIXED"
-          scan_type= "PROGRESSIVE"
-          level    = "H264_LEVEL_AUTO"
-          look_ahead_rate_control = "HIGH"
-          num_ref_frames          = 3
-          par_control             = "INITIALIZE_FROM_SOURCE"
-          profile  = "HIGH"
-          rate_control_mode       = "CBR"
-          syntax   = "DEFAULT"
-          scene_change_detect     = "ENABLED"
-          slices   = 1
-          spatial_aq              = "ENABLED"
-          temporal_aq             = "ENABLED"
-          timecode_insertion      = "PIC_TIMING_SEI"
+ afd_signaling  = "NONE"
+ color_metadata = "IGNORE"
+ adaptive_quantization   = "LOW"
+ bitrate  = "5400000"
+ buf_size = "10800000"
+ buf_fill_pct   = 90
+ entropy_encoding        = "CABAC"
+ flicker_aq     = "ENABLED"
+ force_field_pictures    = "DISABLED"
+ framerate_control       = "SPECIFIED"
+ framerate_numerator     = 50
+ framerate_denominator   = 1
+ gop_b_reference= "DISABLED"
+ gop_closed_cadence      = 1
+ gop_num_b_frames        = 1
+ gop_size = 1.92
+ gop_size_units = "SECONDS"
+ subgop_length  = "FIXED"
+ scan_type= "PROGRESSIVE"
+ level    = "H264_LEVEL_AUTO"
+ look_ahead_rate_control = "HIGH"
+ num_ref_frames = 3
+ par_control    = "INITIALIZE_FROM_SOURCE"
+ profile  = "HIGH"
+ rate_control_mode       = "CBR"
+ syntax   = "DEFAULT"
+ scene_change_detect     = "ENABLED"
+ slices   = 1
+ spatial_aq     = "ENABLED"
+ temporal_aq    = "ENABLED"
+ timecode_insertion      = "PIC_TIMING_SEI"
         }
       }
     }
@@ -1544,28 +1544,28 @@ resource "aws_medialive_channel" "test" {
     output_groups {
       output_group_settings {
         archive_group_settings {
-          destination {
-            destination_ref_id = %[1]q
-          }
+ destination {
+   destination_ref_id = %[1]q
+ }
         }
       }
 
       outputs {
-        output_name             = "test-output-name"
+        output_name    = "test-output-name"
         video_description_name  = "test-video-name"
         audio_description_names = [%[1]q]
         output_settings {
-          archive_output_settings {
-            name_modifier = "_1"
-            extension     = "m2ts"
-            container_settings {
-              m2ts_settings {
+ archive_output_settings {
+   name_modifier = "_1"
+   extension     = "m2ts"
+   container_settings {
+     m2ts_settings {
  audio_buffer_model = "ATSC"
  buffer_model       = "MULTIPLEX"
- rate_mode          = "CBR"
-              }
-            }
-          }
+ rate_mode = "CBR"
+     }
+   }
+ }
         }
       }
     }
@@ -1581,19 +1581,19 @@ testAccChannelConfig_baseS3(rName),
 testAccChannelConfig_baseMultiplex(rName),
 fmt.Sprintf(`
 resource "aws_medialive_channel" "test" {
-  name          = %[1]q
+  name = %[1]q
   channel_class = "STANDARD"
   role_arn      = aws_iam_role.test.arn
 
   input_specification {
-    codec            = "AVC"
+    codec   = "AVC"
     input_resolution = "HD"
     maximum_bitrate  = "MAX_20_MBPS"
   }
 
   input_attachments {
     input_attachment_name = "example-input1"
-    input_id              = aws_medialive_input.test.id
+    input_id     = aws_medialive_input.test.id
   }
 
   destinations {
@@ -1618,71 +1618,71 @@ resource "aws_medialive_channel" "test" {
       name = %[1]q
       codec_settings {
         aac_settings {
-          rate_control_mode = "CBR"
+ rate_control_mode = "CBR"
         }
       }
     }
 
     video_descriptions {
-      name             = "test-video-name"
+      name    = "test-video-name"
       respond_to_afd   = "NONE"
       sharpness        = 100
       scaling_behavior = "DEFAULT"
-      width            = 1280
-      height           = 720
+      width   = 1280
+      height  = 720
       codec_settings {
         h265_settings {
-          bitrate  = "5400000"
-          buf_size = "20000000"
+ bitrate  = "5400000"
+ buf_size = "20000000"
 
-          framerate_numerator   = 50
-          framerate_denominator = 1
+ framerate_numerator   = 50
+ framerate_denominator = 1
 
-          color_metadata        = "IGNORE"
-          adaptive_quantization = "LOW"
+ color_metadata        = "IGNORE"
+ adaptive_quantization = "LOW"
 
-          flicker_aq = "ENABLED"
+ flicker_aq = "ENABLED"
 
-          afd_signaling = "FIXED"
-          fixed_afd     = "AFD_0000"
+ afd_signaling = "FIXED"
+ fixed_afd     = "AFD_0000"
 
-          gop_closed_cadence = 1
-          gop_size           = 1.92
-          gop_size_units     = "SECONDS"
-          min_i_interval     = 6
-          scan_type          = "PROGRESSIVE"
+ gop_closed_cadence = 1
+ gop_size  = 1.92
+ gop_size_units     = "SECONDS"
+ min_i_interval     = 6
+ scan_type = "PROGRESSIVE"
 
-          level    = "H265_LEVEL_AUTO"
-          look_ahead_rate_control = "HIGH"
-          profile  = "MAIN_10BIT"
+ level    = "H265_LEVEL_AUTO"
+ look_ahead_rate_control = "HIGH"
+ profile  = "MAIN_10BIT"
 
-          rate_control_mode   = "CBR"
-          scene_change_detect = "ENABLED"
+ rate_control_mode   = "CBR"
+ scene_change_detect = "ENABLED"
 
-          slices = 2
-          tier   = "HIGH"
+ slices = 2
+ tier   = "HIGH"
 
-          timecode_insertion = "DISABLED"
+ timecode_insertion = "DISABLED"
 
-          color_space_settings {
-            hdr10_settings {
-              max_cll  = 16
-              max_fall = 16
-            }
-          }
+ color_space_settings {
+   hdr10_settings {
+     max_cll  = 16
+     max_fall = 16
+   }
+ }
 
-          filter_settings {
-            temporal_filter_settings {
-              post_filter_sharpening = "AUTO"
-              strength= "STRENGTH_1"
-            }
-          }
+ filter_settings {
+   temporal_filter_settings {
+     post_filter_sharpening = "AUTO"
+     strength= "STRENGTH_1"
+   }
+ }
 
-          timecode_burnin_settings {
-            timecode_burnin_font_size = "SMALL_16"
-            timecode_burnin_position  = "BOTTOM_CENTER"
-            prefix     = "terraform-test"
-          }
+ timecode_burnin_settings {
+   timecode_burnin_font_size = "SMALL_16"
+   timecode_burnin_position  = "BOTTOM_CENTER"
+   prefix     = "terraform-test"
+ }
         }
       }
     }
@@ -1690,28 +1690,28 @@ resource "aws_medialive_channel" "test" {
     output_groups {
       output_group_settings {
         archive_group_settings {
-          destination {
-            destination_ref_id = %[1]q
-          }
+ destination {
+   destination_ref_id = %[1]q
+ }
         }
       }
 
       outputs {
-        output_name             = %[1]q
+        output_name    = %[1]q
         video_description_name  = "test-video-name"
         audio_description_names = [%[1]q]
         output_settings {
-          archive_output_settings {
-            name_modifier = "_1"
-            extension     = "m2ts"
-            container_settings {
-              m2ts_settings {
+ archive_output_settings {
+   name_modifier = "_1"
+   extension     = "m2ts"
+   container_settings {
+     m2ts_settings {
  audio_buffer_model = "ATSC"
  buffer_model       = "MULTIPLEX"
- rate_mode          = "CBR"
-              }
-            }
-          }
+ rate_mode = "CBR"
+     }
+   }
+ }
         }
       }
     }
@@ -1727,19 +1727,19 @@ testAccChannelConfig_baseS3(rName),
 testAccChannelConfig_baseMultiplex(rName),
 fmt.Sprintf(`
 resource "aws_medialive_channel" "test" {
-  name          = %[1]q
+  name = %[1]q
   channel_class = "STANDARD"
   role_arn      = aws_iam_role.test.arn
 
   input_specification {
-    codec            = "AVC"
+    codec   = "AVC"
     input_resolution = "HD"
     maximum_bitrate  = "MAX_20_MBPS"
   }
 
   input_attachments {
     input_attachment_name = "example-input1"
-    input_id              = aws_medialive_input.test.id
+    input_id     = aws_medialive_input.test.id
   }
 
   destinations {
@@ -1771,28 +1771,28 @@ resource "aws_medialive_channel" "test" {
     output_groups {
       output_group_settings {
         hls_group_settings {
-          destination {
-            destination_ref_id = %[1]q
-          }
+ destination {
+   destination_ref_id = %[1]q
+ }
         }
       }
 
       outputs {
-        output_name             = "test-output-name"
+        output_name    = "test-output-name"
         video_description_name  = "test-video-name"
         audio_description_names = [%[1]q]
         output_settings {
-          hls_output_settings {
-            name_modifier       = "_1"
-            h265_packaging_type = "HVC1"
-            hls_settings {
-              standard_hls_settings {
+ hls_output_settings {
+   name_modifier       = "_1"
+   h265_packaging_type = "HVC1"
+   hls_settings {
+     standard_hls_settings {
  m3u8_settings {
    audio_frames_per_pes = 4
  }
-              }
-            }
-          }
+     }
+   }
+ }
         }
       }
     }
@@ -1808,19 +1808,19 @@ testAccChannelConfig_baseS3(rName),
 testAccChannelConfig_baseMultiplex(rName),
 fmt.Sprintf(`
 resource "aws_medialive_channel" "test" {
-  name          = %[1]q
+  name = %[1]q
   channel_class = "STANDARD"
   role_arn      = aws_iam_role.test.arn
 
   input_specification {
-    codec            = "AVC"
+    codec   = "AVC"
     input_resolution = "HD"
     maximum_bitrate  = "MAX_20_MBPS"
   }
 
   input_attachments {
     input_attachment_name = "example-input1"
-    input_id              = aws_medialive_input.test.id
+    input_id     = aws_medialive_input.test.id
 
     input_settings {
       caption_selector {
@@ -1866,7 +1866,7 @@ resource "aws_medialive_channel" "test" {
 
       destination_settings {
         dvb_sub_destination_settings {
-          font_resolution = %[2]d
+ font_resolution = %[2]d
         }
       }
     }
@@ -1874,9 +1874,9 @@ resource "aws_medialive_channel" "test" {
     output_groups {
       output_group_settings {
         archive_group_settings {
-          destination {
-            destination_ref_id = %[1]q
-          }
+ destination {
+   destination_ref_id = %[1]q
+ }
         }
       }
 
@@ -1886,17 +1886,17 @@ resource "aws_medialive_channel" "test" {
         audio_description_names   = ["test-audio-name"]
         caption_description_names = ["test-caption-name"]
         output_settings {
-          archive_output_settings {
-            name_modifier = "_1"
-            extension     = "m2ts"
-            container_settings {
-              m2ts_settings {
+ archive_output_settings {
+   name_modifier = "_1"
+   extension     = "m2ts"
+   container_settings {
+     m2ts_settings {
  audio_buffer_model = "ATSC"
  buffer_model       = "MULTIPLEX"
- rate_mode          = "CBR"
-              }
-            }
-          }
+ rate_mode = "CBR"
+     }
+   }
+ }
         }
       }
     }
@@ -1912,20 +1912,20 @@ testAccChannelConfig_baseS3(rName),
 testAccChannelConfig_baseMultiplex(rName),
 fmt.Sprintf(`
 resource "aws_medialive_channel" "test" {
-  name          = %[1]q
+  name = %[1]q
   channel_class = "STANDARD"
   role_arn      = aws_iam_role.test.arn
   start_channel = %[2]t
 
   input_specification {
-    codec            = "AVC"
+    codec   = "AVC"
     input_resolution = "HD"
     maximum_bitrate  = "MAX_20_MBPS"
   }
 
   input_attachments {
     input_attachment_name = "example-input1"
-    input_id              = aws_medialive_input.test.id
+    input_id     = aws_medialive_input.test.id
   }
 
   destinations {
@@ -1957,28 +1957,28 @@ resource "aws_medialive_channel" "test" {
     output_groups {
       output_group_settings {
         archive_group_settings {
-          destination {
-            destination_ref_id = %[1]q
-          }
+ destination {
+   destination_ref_id = %[1]q
+ }
         }
       }
 
       outputs {
-        output_name             = "test-output-name"
+        output_name    = "test-output-name"
         video_description_name  = "test-video-name"
         audio_description_names = [%[1]q]
         output_settings {
-          archive_output_settings {
-            name_modifier = "_1"
-            extension     = "m2ts"
-            container_settings {
-              m2ts_settings {
+ archive_output_settings {
+   name_modifier = "_1"
+   extension     = "m2ts"
+   container_settings {
+     m2ts_settings {
  audio_buffer_model = "ATSC"
  buffer_model       = "MULTIPLEX"
- rate_mode          = "CBR"
-              }
-            }
-          }
+ rate_mode = "CBR"
+     }
+   }
+ }
         }
       }
     }
@@ -1994,19 +1994,19 @@ testAccChannelConfig_baseS3(rName),
 testAccChannelConfig_baseMultiplex(rName),
 fmt.Sprintf(`
 resource "aws_medialive_channel" "test" {
-  name          = %[2]q
+  name = %[2]q
   channel_class = "STANDARD"
   role_arn      = aws_iam_role.test.arn
 
   input_specification {
-    codec            = %[3]q
+    codec   = %[3]q
     input_resolution = %[4]q
     maximum_bitrate  = "MAX_20_MBPS"
   }
 
   input_attachments {
     input_attachment_name = "example-input1"
-    input_id              = aws_medialive_input.test.id
+    input_id     = aws_medialive_input.test.id
   }
 
   destinations {
@@ -2038,28 +2038,28 @@ resource "aws_medialive_channel" "test" {
     output_groups {
       output_group_settings {
         archive_group_settings {
-          destination {
-            destination_ref_id = "destination1"
-          }
+ destination {
+   destination_ref_id = "destination1"
+ }
         }
       }
 
       outputs {
-        output_name             = "test-output-name"
+        output_name    = "test-output-name"
         video_description_name  = "test-video-name"
         audio_description_names = ["test-audio-description"]
         output_settings {
-          archive_output_settings {
-            name_modifier = "_1"
-            extension     = "m2ts"
-            container_settings {
-              m2ts_settings {
+ archive_output_settings {
+   name_modifier = "_1"
+   extension     = "m2ts"
+   container_settings {
+     m2ts_settings {
  audio_buffer_model = "ATSC"
  buffer_model       = "MULTIPLEX"
- rate_mode          = "CBR"
-              }
-            }
-          }
+ rate_mode = "CBR"
+     }
+   }
+ }
         }
       }
     }
@@ -2075,19 +2075,19 @@ testAccChannelConfig_baseS3(rName),
 testAccChannelConfig_baseMultiplex(rName),
 fmt.Sprintf(`
 resource "aws_medialive_channel" "test" {
-  name          = %[1]q
+  name = %[1]q
   channel_class = "STANDARD"
   role_arn      = aws_iam_role.test.arn
 
   input_specification {
-    codec            = "AVC"
+    codec   = "AVC"
     input_resolution = "HD"
     maximum_bitrate  = "MAX_20_MBPS"
   }
 
   input_attachments {
     input_attachment_name = "example-input1"
-    input_id              = aws_medialive_input.test.id
+    input_id     = aws_medialive_input.test.id
   }
 
   destinations {
@@ -2119,28 +2119,28 @@ resource "aws_medialive_channel" "test" {
     output_groups {
       output_group_settings {
         archive_group_settings {
-          destination {
-            destination_ref_id = %[1]q
-          }
+ destination {
+   destination_ref_id = %[1]q
+ }
         }
       }
 
       outputs {
-        output_name             = "test-output-name"
+        output_name    = "test-output-name"
         video_description_name  = "test-video-name"
         audio_description_names = [%[1]q]
         output_settings {
-          archive_output_settings {
-            name_modifier = "_1"
-            extension     = "m2ts"
-            container_settings {
-              m2ts_settings {
+ archive_output_settings {
+   name_modifier = "_1"
+   extension     = "m2ts"
+   container_settings {
+     m2ts_settings {
  audio_buffer_model = "ATSC"
  buffer_model       = "MULTIPLEX"
- rate_mode          = "CBR"
-              }
-            }
-          }
+ rate_mode = "CBR"
+     }
+   }
+ }
         }
       }
     }
@@ -2160,19 +2160,19 @@ testAccChannelConfig_baseS3(rName),
 testAccChannelConfig_baseMultiplex(rName),
 fmt.Sprintf(`
 resource "aws_medialive_channel" "test" {
-  name          = %[1]q
+  name = %[1]q
   channel_class = "STANDARD"
   role_arn      = aws_iam_role.test.arn
 
   input_specification {
-    codec            = "AVC"
+    codec   = "AVC"
     input_resolution = "HD"
     maximum_bitrate  = "MAX_20_MBPS"
   }
 
   input_attachments {
     input_attachment_name = "example-input1"
-    input_id              = aws_medialive_input.test.id
+    input_id     = aws_medialive_input.test.id
   }
 
   destinations {
@@ -2204,28 +2204,28 @@ resource "aws_medialive_channel" "test" {
     output_groups {
       output_group_settings {
         archive_group_settings {
-          destination {
-            destination_ref_id = %[1]q
-          }
+ destination {
+   destination_ref_id = %[1]q
+ }
         }
       }
 
       outputs {
-        output_name             = "test-output-name"
+        output_name    = "test-output-name"
         video_description_name  = "test-video-name"
         audio_description_names = [%[1]q]
         output_settings {
-          archive_output_settings {
-            name_modifier = "_1"
-            extension     = "m2ts"
-            container_settings {
-              m2ts_settings {
+ archive_output_settings {
+   name_modifier = "_1"
+   extension     = "m2ts"
+   container_settings {
+     m2ts_settings {
  audio_buffer_model = "ATSC"
  buffer_model       = "MULTIPLEX"
- rate_mode          = "CBR"
-              }
-            }
-          }
+ rate_mode = "CBR"
+     }
+   }
+ }
         }
       }
     }

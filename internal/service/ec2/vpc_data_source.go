@@ -136,10 +136,10 @@ func dataSourceVPCRead(ctx context.Context, d *schema.ResourceData, meta interfa
 	input := &ec2.DescribeVpcsInput{
 		Filters: BuildAttributeFilterList(
 			map[string]string{
-				"cidr":            d.Get("cidr_block").(string),
+				"cidr":   d.Get("cidr_block").(string),
 				"dhcp-options-id": d.Get("dhcp_options_id").(string),
 				"isDefault":       isDefaultStr,
-				"state":           d.Get("state").(string),
+				"state":  d.Get("state").(string),
 			},
 		),
 	}
@@ -209,7 +209,7 @@ func dataSourceVPCRead(ctx context.Context, d *schema.ResourceData, meta interfa
 		association := map[string]interface{}{
 			"association_id": aws.StringValue(v.AssociationId),
 			"cidr_block":     aws.StringValue(v.CidrBlock),
-			"state":          aws.StringValue(v.CidrBlockState.State),
+			"state": aws.StringValue(v.CidrBlockState.State),
 		}
 		cidrAssociations = append(cidrAssociations, association)
 	}

@@ -70,7 +70,7 @@ func ResourceTargetGroup() *schema.Resource {
 				Default:  false,
 			},
 			"deregistration_delay": {
-				Type:         nullable.TypeNullableInt,
+				Type:nullable.TypeNullableInt,
 				Optional:     true,
 				Default:      300,
 				ValidateFunc: nullable.ValidateTypeStringNullableIntBetween(0, 3600),
@@ -88,7 +88,7 @@ func ResourceTargetGroup() *schema.Resource {
 							Default:  true,
 						},
 						"healthy_threshold": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							Default:      3,
 							ValidateFunc: validation.IntBetween(2, 10),
@@ -104,15 +104,15 @@ func ResourceTargetGroup() *schema.Resource {
 							Optional: true,
 						},
 						"path": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Computed:     true,
 							ValidateFunc: validTargetGroupHealthCheckPath,
 						},
 						"port": {
-							Type:             schema.TypeString,
-							Optional:         true,
-							Default:          "traffic-port",
+							Type:    schema.TypeString,
+							Optional:true,
+							Default: "traffic-port",
 							ValidateFunc:     validTargetGroupHealthCheckPort,
 							DiffSuppressFunc: suppressIfTargetType(elbv2.TargetTypeEnumLambda),
 						},
@@ -131,13 +131,13 @@ func ResourceTargetGroup() *schema.Resource {
 							DiffSuppressFunc: suppressIfTargetType(elbv2.TargetTypeEnumLambda),
 						},
 						"timeout": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							Computed:     true,
 							ValidateFunc: validation.IntBetween(2, 120),
 						},
 						"unhealthy_threshold": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							Default:      3,
 							ValidateFunc: validation.IntBetween(2, 10),
@@ -146,7 +146,7 @@ func ResourceTargetGroup() *schema.Resource {
 				},
 			},
 			"ip_address_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ForceNew:     true,
@@ -177,7 +177,7 @@ func ResourceTargetGroup() *schema.Resource {
 				}, false),
 			},
 			"name": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -185,27 +185,27 @@ func ResourceTargetGroup() *schema.Resource {
 				ValidateFunc:  validTargetGroupName,
 			},
 			"name_prefix": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ForceNew:      true,
 				ConflictsWith: []string{"name"},
 				ValidateFunc:  validTargetGroupNamePrefix,
 			},
 			"port": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.IntBetween(1, 65535),
 			},
 			"preserve_client_ip": {
-				Type:             nullable.TypeNullableBool,
-				Optional:         true,
-				Computed:         true,
+				Type:    nullable.TypeNullableBool,
+				Optional:true,
+				Computed:true,
 				DiffSuppressFunc: nullable.DiffSuppressNullableBool,
 				ValidateFunc:     nullable.ValidateTypeStringNullableBool,
 			},
 			"protocol": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringInSlice(elbv2.ProtocolEnum_Values(), true),
@@ -240,7 +240,7 @@ func ResourceTargetGroup() *schema.Resource {
 				Default:  false,
 			},
 			"slow_start": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				Default:      0,
 				ValidateFunc: validateSlowStart,
@@ -253,7 +253,7 @@ func ResourceTargetGroup() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"cookie_duration": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							Default:      86400,
 							ValidateFunc: validation.IntBetween(0, 604800),
@@ -278,9 +278,9 @@ func ResourceTargetGroup() *schema.Resource {
 							Type:     schema.TypeString,
 							Required: true,
 							ValidateFunc: validation.StringInSlice([]string{
-								"lb_cookie",               // Only for ALBs
-								"app_cookie",              // Only for ALBs
-								"source_ip",               // Only for NLBs
+								"lb_cookie",      // Only for ALBs
+								"app_cookie",     // Only for ALBs
+								"source_ip",      // Only for NLBs
 								"source_ip_dest_ip",       // Only for GWLBs
 								"source_ip_dest_ip_proto", // Only for GWLBs
 							}, false),
@@ -316,7 +316,7 @@ func ResourceTargetGroup() *schema.Resource {
 				},
 			},
 			"target_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Default:      elbv2.TargetTypeEnumInstance,
 				ForceNew:     true,
@@ -652,8 +652,8 @@ func resourceTargetGroupUpdate(ctx context.Context, d *schema.ResourceData, meta
 			healthCheck := healthChecks[0].(map[string]interface{})
 
 			params = &elbv2.ModifyTargetGroupInput{
-				TargetGroupArn:             aws.String(d.Id()),
-				HealthCheckEnabled:         aws.Bool(healthCheck["enabled"].(bool)),
+				TargetGroupArn:    aws.String(d.Id()),
+				HealthCheckEnabled:aws.Bool(healthCheck["enabled"].(bool)),
 				HealthCheckIntervalSeconds: aws.Int64(int64(healthCheck["interval"].(int))),
 				HealthyThresholdCount:      aws.Int64(int64(healthCheck["healthy_threshold"].(int))),
 				UnhealthyThresholdCount:    aws.Int64(int64(healthCheck["unhealthy_threshold"].(int))),
@@ -1221,12 +1221,12 @@ func flattenLbTargetGroupHealthCheck(targetGroup *elbv2.TargetGroup) []interface
 	}
 
 	m := map[string]interface{}{
-		"enabled":             aws.BoolValue(targetGroup.HealthCheckEnabled),
+		"enabled":    aws.BoolValue(targetGroup.HealthCheckEnabled),
 		"healthy_threshold":   int(aws.Int64Value(targetGroup.HealthyThresholdCount)),
-		"interval":            int(aws.Int64Value(targetGroup.HealthCheckIntervalSeconds)),
-		"port":                aws.StringValue(targetGroup.HealthCheckPort),
-		"protocol":            aws.StringValue(targetGroup.HealthCheckProtocol),
-		"timeout":             int(aws.Int64Value(targetGroup.HealthCheckTimeoutSeconds)),
+		"interval":   int(aws.Int64Value(targetGroup.HealthCheckIntervalSeconds)),
+		"port":       aws.StringValue(targetGroup.HealthCheckPort),
+		"protocol":   aws.StringValue(targetGroup.HealthCheckProtocol),
+		"timeout":    int(aws.Int64Value(targetGroup.HealthCheckTimeoutSeconds)),
 		"unhealthy_threshold": int(aws.Int64Value(targetGroup.UnhealthyThresholdCount)),
 	}
 

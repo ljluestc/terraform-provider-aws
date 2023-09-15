@@ -79,7 +79,7 @@ func resourceNetworkInterfaceSGAttachmentCreate(ctx context.Context, d *schema.R
 
 	input := &ec2.ModifyNetworkInterfaceAttributeInput{
 		NetworkInterfaceId: aws.String(networkInterfaceID),
-		Groups:             aws.StringSlice(groupIDs),
+		Groups:    aws.StringSlice(groupIDs),
 	}
 
 	log.Printf("[INFO] Modifying EC2 Network Interface: %s", input)
@@ -161,7 +161,7 @@ func resourceNetworkInterfaceSGAttachmentDelete(ctx context.Context, d *schema.R
 
 	input := &ec2.ModifyNetworkInterfaceAttributeInput{
 		NetworkInterfaceId: aws.String(networkInterfaceID),
-		Groups:             aws.StringSlice(groupIDs),
+		Groups:    aws.StringSlice(groupIDs),
 	}
 
 	log.Printf("[INFO] Modifying EC2 Network Interface: %s", input)

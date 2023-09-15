@@ -50,7 +50,7 @@ acctest.ConfigAvailableAZsNoOptIn(),
 acctest.AvailableEC2InstanceTypeForAvailabilityZone("data.aws_availability_zones.available.names[0]", "t3.micro", "t2.micro"),
 fmt.Sprintf(`
 resource "aws_launch_configuration" "test" {
-  name          = %[1]q
+  name = %[1]q
   image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = data.aws_ec2_instance_type_offering.available.instance_type
 }
@@ -58,8 +58,8 @@ resource "aws_launch_configuration" "test" {
 resource "aws_autoscaling_group" "test1" {
   availability_zones = [data.aws_availability_zones.available.names[0]]
   name= "%[1]s-1"
-  max_size           = 1
-  min_size           = 0
+  max_size  = 1
+  min_size  = 0
   health_check_type  = "EC2"
   desired_capacity   = 0
   force_delete       = true
@@ -82,8 +82,8 @@ resource "aws_autoscaling_group" "test1" {
 resource "aws_autoscaling_group" "test2" {
   availability_zones = [data.aws_availability_zones.available.names[1]]
   name= "%[1]s-2"
-  max_size           = 1
-  min_size           = 0
+  max_size  = 1
+  min_size  = 0
   health_check_type  = "EC2"
   desired_capacity   = 0
   force_delete       = true
@@ -106,8 +106,8 @@ resource "aws_autoscaling_group" "test2" {
 resource "aws_autoscaling_group" "test3" {
   availability_zones = [data.aws_availability_zones.available.names[2]]
   name= "%[1]s-3"
-  max_size           = 1
-  min_size           = 0
+  max_size  = 1
+  min_size  = 0
   health_check_type  = "EC2"
   desired_capacity   = 0
   force_delete       = true

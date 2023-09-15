@@ -34,10 +34,10 @@ func TestAccKendraDataSource_basic(t *testing.T) {
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataSourceDestroy(ctx),
+		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSourceConfig_basic(rName, rName2, rName3, rName4),
@@ -75,10 +75,10 @@ func TestAccKendraDataSource_disappears(t *testing.T) {
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataSourceDestroy(ctx),
+		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSourceConfig_basic(rName, rName2, rName3, rName4),
@@ -106,10 +106,10 @@ func TestAccKendraDataSource_name(t *testing.T) {
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataSourceDestroy(ctx),
+		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSourceConfig_basic(rName, rName2, rName3, rName4),
@@ -149,10 +149,10 @@ func TestAccKendraDataSource_description(t *testing.T) {
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataSourceDestroy(ctx),
+		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSourceConfig_description(rName, rName2, rName3, rName4, originalDescription),
@@ -208,10 +208,10 @@ func TestAccKendraDataSource_languageCode(t *testing.T) {
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataSourceDestroy(ctx),
+		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSourceConfig_languageCode(rName, rName2, rName3, rName4, originalLanguageCode),
@@ -252,10 +252,10 @@ func TestAccKendraDataSource_roleARN(t *testing.T) {
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataSourceDestroy(ctx),
+		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSourceConfig_roleARN(rName, rName2, rName3, rName4, rName5, rName6, rName7, "first"),
@@ -299,10 +299,10 @@ func TestAccKendraDataSource_schedule(t *testing.T) {
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataSourceDestroy(ctx),
+		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSourceConfig_schedule(rName, rName2, rName3, rName4, rName5, rName6, originalSchedule),
@@ -342,10 +342,10 @@ func TestAccKendraDataSource_tags(t *testing.T) {
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataSourceDestroy(ctx),
+		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSourceConfig_tags1(rName, rName2, rName3, rName4, "key1", "value1"),
@@ -394,10 +394,10 @@ func TestAccKendraDataSource_typeCustomCustomizeDiff(t *testing.T) {
 	rName5 := sdkacctest.RandomWithPrefix("resource-test-terraform")
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataSourceDestroy(ctx),
+		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config:      testAccDataSourceConfig_typeCustomConflictRoleARN(rName, rName2, rName3, rName4, rName5),
@@ -432,10 +432,10 @@ func TestAccKendraDataSource_Configuration_S3_Bucket(t *testing.T) {
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataSourceDestroy(ctx),
+		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSourceConfig_configurationS3Bucket(rName, rName2, rName3, rName4, rName5, rName6, rName7, rName8, "first"),
@@ -483,10 +483,10 @@ func TestAccKendraDataSource_Configuration_S3_AccessControlList(t *testing.T) {
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataSourceDestroy(ctx),
+		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSourceConfig_configurationS3AccessControlList(rName, rName2, rName3, rName4, rName5, rName6, "first"),
@@ -540,10 +540,10 @@ func TestAccKendraDataSource_Configuration_S3_DocumentsMetadataConfiguration(t *
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataSourceDestroy(ctx),
+		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSourceConfig_configurationS3DocumentsMetadataConfiguration(rName, rName2, rName3, rName4, rName5, rName6, originalS3Prefix),
@@ -595,10 +595,10 @@ func TestAccKendraDataSource_Configuration_S3_ExclusionInclusionPatternsPrefixes
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataSourceDestroy(ctx),
+		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSourceConfig_configurationS3ExclusionInclusionPatternsPrefixes1(rName, rName2, rName3, rName4, rName5, rName6),
@@ -660,10 +660,10 @@ func TestAccKendraDataSource_Configuration_WebCrawler_URLsSeedURLs(t *testing.T)
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataSourceDestroy(ctx),
+		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSourceConfig_configurationWebCrawlerConfigurationURLsSeedURLs(rName, rName2, rName3, rName4, rName5),
@@ -728,10 +728,10 @@ func TestAccKendraDataSource_Configuration_WebCrawler_URLsWebCrawlerMode(t *test
 	updatedWebCrawlerMode := string(types.WebCrawlerModeSubdomains)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataSourceDestroy(ctx),
+		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSourceConfig_configurationWebCrawlerConfigurationURLsWebCrawlerMode(rName, rName2, rName3, rName4, rName5, originalWebCrawlerMode),
@@ -792,10 +792,10 @@ func TestAccKendraDataSource_Configuration_WebCrawler_AuthenticationConfiguratio
 	port2 := 456
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataSourceDestroy(ctx),
+		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSourceConfig_configurationWebCrawlerConfigurationAuthenticationConfigurationBasicHostPort(rName, rName2, rName3, rName4, rName5, rName6, rName7, originalHost1, originalPort1),
@@ -861,10 +861,10 @@ func TestAccKendraDataSource_Configuration_WebCrawler_AuthenticationConfiguratio
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataSourceDestroy(ctx),
+		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSourceConfig_configurationWebCrawlerConfigurationAuthenticationConfigurationBasicCredentials(rName, rName2, rName3, rName4, rName5, rName6, rName7, "first"),
@@ -917,10 +917,10 @@ func TestAccKendraDataSource_Configuration_WebCrawler_CrawlDepth(t *testing.T) {
 	updatedCrawlDepth := 4
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataSourceDestroy(ctx),
+		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSourceConfig_configurationWebCrawlerConfigurationCrawlDepth(rName, rName2, rName3, rName4, rName5, originalCrawlDepth),
@@ -967,10 +967,10 @@ func TestAccKendraDataSource_Configuration_WebCrawler_MaxLinksPerPage(t *testing
 	updatedMaxLinksPerPage := 110
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataSourceDestroy(ctx),
+		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSourceConfig_configurationWebCrawlerConfigurationMaxLinksPerPage(rName, rName2, rName3, rName4, rName5, originalMaxLinksPerPage),
@@ -1017,10 +1017,10 @@ func TestAccKendraDataSource_Configuration_WebCrawler_MaxURLsPerMinuteCrawlRate(
 	updatedMaxUrlsPerMinuteCrawlRate := 250
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataSourceDestroy(ctx),
+		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSourceConfig_configurationWebCrawlerConfigurationMaxURLsPerMinuteCrawlRate(rName, rName2, rName3, rName4, rName5, originalMaxUrlsPerMinuteCrawlRate),
@@ -1070,10 +1070,10 @@ func TestAccKendraDataSource_Configuration_WebCrawler_ProxyConfigurationCredenti
 	originalPort1 := 123
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataSourceDestroy(ctx),
+		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSourceConfig_configurationWebCrawlerConfigurationProxyConfigurationHostPort(rName, rName2, rName3, rName4, rName5, rName6, rName7, originalHost1, originalPort1),
@@ -1136,10 +1136,10 @@ func TestAccKendraDataSource_Configuration_WebCrawler_ProxyConfigurationHostPort
 	updatedPort1 := 234
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataSourceDestroy(ctx),
+		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSourceConfig_configurationWebCrawlerConfigurationProxyConfigurationHostPort(rName, rName2, rName3, rName4, rName5, rName6, rName7, originalHost1, originalPort1),
@@ -1194,10 +1194,10 @@ func TestAccKendraDataSource_Configuration_WebCrawler_URLExclusionInclusionPatte
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataSourceDestroy(ctx),
+		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSourceConfig_configurationWebCrawlerConfigurationURLExclusionInclusionPatterns(rName, rName2, rName3, rName4, rName5),
@@ -1250,10 +1250,10 @@ func TestAccKendraDataSource_Configuration_WebCrawler_URLsSiteMaps(t *testing.T)
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataSourceDestroy(ctx),
+		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSourceConfig_configurationWebCrawlerConfigurationURLsSiteMapsConfiguration(rName, rName2, rName3, rName4, rName5),
@@ -1306,10 +1306,10 @@ func TestAccKendraDataSource_CustomDocumentEnrichmentConfiguration_InlineConfigu
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataSourceDestroy(ctx),
+		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSourceConfig_customDocumentEnrichmentConfigurationInlineConfigurations1(rName, rName2, rName3, rName4, rName5, rName6),
@@ -1326,14 +1326,14 @@ func TestAccKendraDataSource_CustomDocumentEnrichmentConfiguration_InlineConfigu
 
 						"condition.#": "1",
 						"condition.0.condition_document_attribute_key":  "_document_title",
-						"condition.0.operator":                          string(types.ConditionOperatorEquals),
-						"condition.0.condition_on_value.#":              "1",
+						"condition.0.operator":        string(types.ConditionOperatorEquals),
+						"condition.0.condition_on_value.#":     "1",
 						"condition.0.condition_on_value.0.string_value": "foo",
 
-						"target.#":                               "1",
+						"target.#":    "1",
 						"target.0.target_document_attribute_key": "_category",
 						"target.0.target_document_attribute_value_deletion":       "false",
-						"target.0.target_document_attribute_value.#":              "1",
+						"target.0.target_document_attribute_value.#":     "1",
 						"target.0.target_document_attribute_value.0.string_value": "bar",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "type", string(types.DataSourceTypeS3)),
@@ -1359,14 +1359,14 @@ func TestAccKendraDataSource_CustomDocumentEnrichmentConfiguration_InlineConfigu
 
 						"condition.#": "1",
 						"condition.0.condition_document_attribute_key":  "_document_title",
-						"condition.0.operator":                          string(types.ConditionOperatorEquals),
-						"condition.0.condition_on_value.#":              "1",
+						"condition.0.operator":        string(types.ConditionOperatorEquals),
+						"condition.0.condition_on_value.#":     "1",
 						"condition.0.condition_on_value.0.string_value": "foo2",
 
-						"target.#":                               "1",
+						"target.#":    "1",
 						"target.0.target_document_attribute_key": "_category",
 						"target.0.target_document_attribute_value_deletion":       "true",
-						"target.0.target_document_attribute_value.#":              "1",
+						"target.0.target_document_attribute_value.#":     "1",
 						"target.0.target_document_attribute_value.0.string_value": "bar2",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "custom_document_enrichment_configuration.0.inline_configurations.*", map[string]string{
@@ -1374,14 +1374,14 @@ func TestAccKendraDataSource_CustomDocumentEnrichmentConfiguration_InlineConfigu
 
 						"condition.#": "1",
 						"condition.0.condition_document_attribute_key": "_created_at",
-						"condition.0.operator":                         string(types.ConditionOperatorEquals),
-						"condition.0.condition_on_value.#":             "1",
+						"condition.0.operator":       string(types.ConditionOperatorEquals),
+						"condition.0.condition_on_value.#":    "1",
 						"condition.0.condition_on_value.0.date_value":  "2006-01-02T15:04:05+00:00",
 
-						"target.#":                               "1",
+						"target.#":    "1",
 						"target.0.target_document_attribute_key": "_authors",
-						"target.0.target_document_attribute_value_deletion":              "false",
-						"target.0.target_document_attribute_value.#":                     "1",
+						"target.0.target_document_attribute_value_deletion":     "false",
+						"target.0.target_document_attribute_value.#":   "1",
 						"target.0.target_document_attribute_value.0.string_list_value.#": "2",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "type", string(types.DataSourceTypeS3)),
@@ -1407,14 +1407,14 @@ func TestAccKendraDataSource_CustomDocumentEnrichmentConfiguration_InlineConfigu
 
 						"condition.#": "1",
 						"condition.0.condition_document_attribute_key":  "_document_title",
-						"condition.0.operator":                          string(types.ConditionOperatorEquals),
-						"condition.0.condition_on_value.#":              "1",
+						"condition.0.operator":        string(types.ConditionOperatorEquals),
+						"condition.0.condition_on_value.#":     "1",
 						"condition.0.condition_on_value.0.string_value": "foo2",
 
-						"target.#":                               "1",
+						"target.#":    "1",
 						"target.0.target_document_attribute_key": "_category",
 						"target.0.target_document_attribute_value_deletion":       "true",
-						"target.0.target_document_attribute_value.#":              "1",
+						"target.0.target_document_attribute_value.#":     "1",
 						"target.0.target_document_attribute_value.0.string_value": "bar2",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "custom_document_enrichment_configuration.0.inline_configurations.*", map[string]string{
@@ -1422,14 +1422,14 @@ func TestAccKendraDataSource_CustomDocumentEnrichmentConfiguration_InlineConfigu
 
 						"condition.#": "1",
 						"condition.0.condition_document_attribute_key": "_created_at",
-						"condition.0.operator":                         string(types.ConditionOperatorEquals),
-						"condition.0.condition_on_value.#":             "1",
+						"condition.0.operator":       string(types.ConditionOperatorEquals),
+						"condition.0.condition_on_value.#":    "1",
 						"condition.0.condition_on_value.0.date_value":  "2006-01-02T15:04:05+00:00",
 
-						"target.#":                               "1",
+						"target.#":    "1",
 						"target.0.target_document_attribute_key": "_authors",
-						"target.0.target_document_attribute_value_deletion":              "false",
-						"target.0.target_document_attribute_value.#":                     "1",
+						"target.0.target_document_attribute_value_deletion":     "false",
+						"target.0.target_document_attribute_value.#":   "1",
 						"target.0.target_document_attribute_value.0.string_list_value.#": "2",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "custom_document_enrichment_configuration.0.inline_configurations.*", map[string]string{
@@ -1437,14 +1437,14 @@ func TestAccKendraDataSource_CustomDocumentEnrichmentConfiguration_InlineConfigu
 
 						"condition.#": "1",
 						"condition.0.condition_document_attribute_key": "_excerpt_page_number",
-						"condition.0.operator":                         string(types.ConditionOperatorGreaterThan),
-						"condition.0.condition_on_value.#":             "1",
+						"condition.0.operator":       string(types.ConditionOperatorGreaterThan),
+						"condition.0.condition_on_value.#":    "1",
 						"condition.0.condition_on_value.0.long_value":  "3",
 
-						"target.#":                               "1",
+						"target.#":    "1",
 						"target.0.target_document_attribute_key": "_document_title",
 						"target.0.target_document_attribute_value_deletion":       "true",
-						"target.0.target_document_attribute_value.#":              "1",
+						"target.0.target_document_attribute_value.#":     "1",
 						"target.0.target_document_attribute_value.0.string_value": "baz",
 					}),
 					resource.TestCheckResourceAttr(resourceName, "type", string(types.DataSourceTypeS3)),
@@ -1480,10 +1480,10 @@ func TestAccKendraDataSource_CustomDocumentEnrichmentConfiguration_ExtractionHoo
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataSourceDestroy(ctx),
+		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSourceConfig_customDocumentEnrichmentConfigurationExtractionHookConfigurationInvocationCondition(rName, rName2, rName3, rName4, rName5, rName6, rName7, rName8, rName9, rName10, originalOperator, originalStringValue),
@@ -1571,10 +1571,10 @@ func TestAccKendraDataSource_CustomDocumentEnrichmentConfiguration_ExtractionHoo
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataSourceDestroy(ctx),
+		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSourceConfig_customDocumentEnrichmentConfigurationExtractionHookConfigurationRoleARN(rName, rName2, rName3, rName4, rName5, rName6, rName7, rName8, rName9, rName10, rName11, "first"),
@@ -1648,10 +1648,10 @@ func TestAccKendraDataSource_CustomDocumentEnrichmentConfiguration_ExtractionHoo
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataSourceDestroy(ctx),
+		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSourceConfig_customDocumentEnrichmentConfigurationExtractionHookConfigurationS3Bucket(rName, rName2, rName3, rName4, rName5, rName6, rName7, rName8, rName9, rName10, rName11, "first"),
@@ -1725,10 +1725,10 @@ func TestAccKendraDataSource_CustomDocumentEnrichmentConfiguration_ExtractionHoo
 	resourceName := "aws_kendra_data_source.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.KendraEndpointID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.KendraEndpointID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckDataSourceDestroy(ctx),
+		CheckDestroy:    testAccCheckDataSourceDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccDataSourceConfig_customDocumentEnrichmentConfigurationExtractionHookConfigurationLambdaARN(rName, rName2, rName3, rName4, rName5, rName6, rName7, rName8, rName9, rName10, rName11, "first"),
@@ -1948,22 +1948,22 @@ resource "aws_iam_role" "test_data_source" {
       Version = "2012-10-17"
       Statement = [
         {
-          Action   = ["s3:GetObject"]
-          Effect   = "Allow"
-          Resource = "${aws_s3_bucket.test.arn}/*"
+ Action   = ["s3:GetObject"]
+ Effect   = "Allow"
+ Resource = "${aws_s3_bucket.test.arn}/*"
         },
         {
-          Action   = ["s3:ListBucket"]
-          Effect   = "Allow"
-          Resource = aws_s3_bucket.test.arn
+ Action   = ["s3:ListBucket"]
+ Effect   = "Allow"
+ Resource = aws_s3_bucket.test.arn
         },
         {
-          Action = [
-            "kendra:BatchPutDocument",
-            "kendra:BatchDeleteDocument",
-          ]
-          Effect   = "Allow"
-          Resource = aws_kendra_index.test.arn
+ Action = [
+   "kendra:BatchPutDocument",
+   "kendra:BatchDeleteDocument",
+ ]
+ Effect   = "Allow"
+ Resource = aws_kendra_index.test.arn
         },
       ]
     })
@@ -1986,12 +1986,12 @@ resource "aws_iam_role" "test_data_source" {
       Version = "2012-10-17"
       Statement = [
         {
-          Action = [
-            "kendra:BatchPutDocument",
-            "kendra:BatchDeleteDocument",
-          ]
-          Effect   = "Allow"
-          Resource = aws_kendra_index.test.arn
+ Action = [
+   "kendra:BatchPutDocument",
+   "kendra:BatchDeleteDocument",
+ ]
+ Effect   = "Allow"
+ Resource = aws_kendra_index.test.arn
         },
       ]
     })
@@ -2034,22 +2034,22 @@ resource "aws_iam_role" "test_data_source" {
       Version = "2012-10-17"
       Statement = [
         {
-          Action = [
-            "secretsmanager:GetSecretValue"
-          ]
-          Effect = "Allow"
-          Resource = [
-            aws_secretsmanager_secret.test.id,
-            aws_secretsmanager_secret.test2.id,
-          ]
+ Action = [
+   "secretsmanager:GetSecretValue"
+ ]
+ Effect = "Allow"
+ Resource = [
+   aws_secretsmanager_secret.test.id,
+   aws_secretsmanager_secret.test2.id,
+ ]
         },
         {
-          Action = [
-            "kendra:BatchPutDocument",
-            "kendra:BatchDeleteDocument",
-          ]
-          Effect   = "Allow"
-          Resource = aws_kendra_index.test.arn
+ Action = [
+   "kendra:BatchPutDocument",
+   "kendra:BatchDeleteDocument",
+ ]
+ Effect   = "Allow"
+ Resource = aws_kendra_index.test.arn
         },
       ]
     })
@@ -2086,7 +2086,7 @@ resource "aws_iam_role" "test_lambda" {
 resource "aws_lambda_function" "test" {
   filename      = "test-fixtures/lambdatest.zip"
   function_name = %[3]q
-  role          = aws_iam_role.test_lambda.arn
+  role = aws_iam_role.test_lambda.arn
   handler       = "exports.example"
   runtime       = "nodejs16.x"
 }
@@ -2102,22 +2102,22 @@ resource "aws_iam_role" "test_extraction_hook" {
       Version = "2012-10-17"
       Statement = [
         {
-          Action = [
-            "s3:GetObject",
-            "s3:PutObject",
-          ]
-          Effect   = "Allow"
-          Resource = "${aws_s3_bucket.test_extraction_hook.arn}/*"
+ Action = [
+   "s3:GetObject",
+   "s3:PutObject",
+ ]
+ Effect   = "Allow"
+ Resource = "${aws_s3_bucket.test_extraction_hook.arn}/*"
         },
         {
-          Action   = ["s3:ListBucket"]
-          Effect   = "Allow"
-          Resource = aws_s3_bucket.test_extraction_hook.arn
+ Action   = ["s3:ListBucket"]
+ Effect   = "Allow"
+ Resource = aws_s3_bucket.test_extraction_hook.arn
         },
         {
-          Action   = ["lambda:InvokeFunction"]
-          Effect   = "Allow"
-          Resource = aws_lambda_function.test.arn
+ Action   = ["lambda:InvokeFunction"]
+ Effect   = "Allow"
+ Resource = aws_lambda_function.test.arn
         },
       ]
     })
@@ -2157,9 +2157,9 @@ func testAccDataSourceConfig_languageCode(rName, rName2, rName3, rName4, languag
 		fmt.Sprintf(`
 resource "aws_kendra_data_source" "test" {
   index_id      = aws_kendra_index.test.id
-  name          = %[1]q
+  name = %[1]q
   language_code = %[2]q
-  type          = "CUSTOM"
+  type = "CUSTOM"
 }
 `, rName4, languageCode))
 }
@@ -2184,22 +2184,22 @@ resource "aws_iam_role" "test_data_source2" {
       Version = "2012-10-17"
       Statement = [
         {
-          Action   = ["s3:GetObject"]
-          Effect   = "Allow"
-          Resource = "${aws_s3_bucket.test.arn}/*"
+ Action   = ["s3:GetObject"]
+ Effect   = "Allow"
+ Resource = "${aws_s3_bucket.test.arn}/*"
         },
         {
-          Action   = ["s3:ListBucket"]
-          Effect   = "Allow"
-          Resource = aws_s3_bucket.test.arn
+ Action   = ["s3:ListBucket"]
+ Effect   = "Allow"
+ Resource = aws_s3_bucket.test.arn
         },
         {
-          Action = [
-            "kendra:BatchPutDocument",
-            "kendra:BatchDeleteDocument",
-          ]
-          Effect   = "Allow"
-          Resource = aws_kendra_index.test.arn
+ Action = [
+   "kendra:BatchPutDocument",
+   "kendra:BatchDeleteDocument",
+ ]
+ Effect   = "Allow"
+ Resource = aws_kendra_index.test.arn
         },
       ]
     })
@@ -2354,32 +2354,32 @@ resource "aws_iam_role" "test_data_source2" {
       Version = "2012-10-17"
       Statement = [
         {
-          Action   = ["s3:GetObject"]
-          Effect   = "Allow"
-          Resource = "${aws_s3_bucket.test.arn}/*"
+ Action   = ["s3:GetObject"]
+ Effect   = "Allow"
+ Resource = "${aws_s3_bucket.test.arn}/*"
         },
         {
-          Action   = ["s3:GetObject"]
-          Effect   = "Allow"
-          Resource = "${aws_s3_bucket.test2.arn}/*"
+ Action   = ["s3:GetObject"]
+ Effect   = "Allow"
+ Resource = "${aws_s3_bucket.test2.arn}/*"
         },
         {
-          Action   = ["s3:ListBucket"]
-          Effect   = "Allow"
-          Resource = aws_s3_bucket.test.arn
+ Action   = ["s3:ListBucket"]
+ Effect   = "Allow"
+ Resource = aws_s3_bucket.test.arn
         },
         {
-          Action   = ["s3:ListBucket"]
-          Effect   = "Allow"
-          Resource = aws_s3_bucket.test2.arn
+ Action   = ["s3:ListBucket"]
+ Effect   = "Allow"
+ Resource = aws_s3_bucket.test2.arn
         },
         {
-          Action = [
-            "kendra:BatchPutDocument",
-            "kendra:BatchDeleteDocument",
-          ]
-          Effect   = "Allow"
-          Resource = aws_kendra_index.test.arn
+ Action = [
+   "kendra:BatchPutDocument",
+   "kendra:BatchDeleteDocument",
+ ]
+ Effect   = "Allow"
+ Resource = aws_kendra_index.test.arn
         },
       ]
     })
@@ -2515,9 +2515,9 @@ resource "aws_kendra_data_source" "test" {
     web_crawler_configuration {
       urls {
         seed_url_configuration {
-          seed_urls = [
-            "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kendra_index"
-          ]
+ seed_urls = [
+   "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kendra_index"
+ ]
         }
       }
     }
@@ -2541,10 +2541,10 @@ resource "aws_kendra_data_source" "test" {
     web_crawler_configuration {
       urls {
         seed_url_configuration {
-          seed_urls = [
-            "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kendra_index",
-            "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kendra_faq"
-          ]
+ seed_urls = [
+   "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kendra_index",
+   "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kendra_faq"
+ ]
         }
       }
     }
@@ -2568,11 +2568,11 @@ resource "aws_kendra_data_source" "test" {
     web_crawler_configuration {
       urls {
         seed_url_configuration {
-          web_crawler_mode = %[2]q
+ web_crawler_mode = %[2]q
 
-          seed_urls = [
-            "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kendra_index"
-          ]
+ seed_urls = [
+   "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kendra_index"
+ ]
         }
       }
     }
@@ -2600,17 +2600,17 @@ resource "aws_kendra_data_source" "test" {
     web_crawler_configuration {
       authentication_configuration {
         basic_authentication {
-          credentials = aws_secretsmanager_secret.test.arn
-          host        = %[2]q
-          port        = %[3]d
+ credentials = aws_secretsmanager_secret.test.arn
+ host        = %[2]q
+ port        = %[3]d
         }
       }
 
       urls {
         seed_url_configuration {
-          seed_urls = [
-            "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kendra_index"
-          ]
+ seed_urls = [
+   "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kendra_index"
+ ]
         }
       }
     }
@@ -2638,23 +2638,23 @@ resource "aws_kendra_data_source" "test" {
     web_crawler_configuration {
       authentication_configuration {
         basic_authentication {
-          credentials = aws_secretsmanager_secret.test.arn
-          host        = %[2]q
-          port        = %[3]d
+ credentials = aws_secretsmanager_secret.test.arn
+ host        = %[2]q
+ port        = %[3]d
         }
 
         basic_authentication {
-          credentials = aws_secretsmanager_secret.test.arn
-          host        = %[4]q
-          port        = %[5]d
+ credentials = aws_secretsmanager_secret.test.arn
+ host        = %[4]q
+ port        = %[5]d
         }
       }
 
       urls {
         seed_url_configuration {
-          seed_urls = [
-            "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kendra_index"
-          ]
+ seed_urls = [
+   "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kendra_index"
+ ]
         }
       }
     }
@@ -2687,17 +2687,17 @@ resource "aws_kendra_data_source" "test" {
     web_crawler_configuration {
       authentication_configuration {
         basic_authentication {
-          credentials = local.select_credentials == "first" ? aws_secretsmanager_secret.test.arn : aws_secretsmanager_secret.test2.arn
-          host        = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kendra_index"
-          port        = "123"
+ credentials = local.select_credentials == "first" ? aws_secretsmanager_secret.test.arn : aws_secretsmanager_secret.test2.arn
+ host        = "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kendra_index"
+ port        = "123"
         }
       }
 
       urls {
         seed_url_configuration {
-          seed_urls = [
-            "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kendra_index"
-          ]
+ seed_urls = [
+   "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kendra_index"
+ ]
         }
       }
     }
@@ -2723,9 +2723,9 @@ resource "aws_kendra_data_source" "test" {
 
       urls {
         seed_url_configuration {
-          seed_urls = [
-            "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kendra_index"
-          ]
+ seed_urls = [
+   "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kendra_index"
+ ]
         }
       }
     }
@@ -2751,9 +2751,9 @@ resource "aws_kendra_data_source" "test" {
 
       urls {
         seed_url_configuration {
-          seed_urls = [
-            "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kendra_index"
-          ]
+ seed_urls = [
+   "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kendra_index"
+ ]
         }
       }
     }
@@ -2779,9 +2779,9 @@ resource "aws_kendra_data_source" "test" {
 
       urls {
         seed_url_configuration {
-          seed_urls = [
-            "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kendra_index"
-          ]
+ seed_urls = [
+   "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kendra_index"
+ ]
         }
       }
     }
@@ -2815,9 +2815,9 @@ resource "aws_kendra_data_source" "test" {
 
       urls {
         seed_url_configuration {
-          seed_urls = [
-            "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kendra_index"
-          ]
+ seed_urls = [
+   "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kendra_index"
+ ]
         }
       }
     }
@@ -2846,9 +2846,9 @@ resource "aws_kendra_data_source" "test" {
 
       urls {
         seed_url_configuration {
-          seed_urls = [
-            "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kendra_index"
-          ]
+ seed_urls = [
+   "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kendra_index"
+ ]
         }
       }
     }
@@ -2875,9 +2875,9 @@ resource "aws_kendra_data_source" "test" {
 
       urls {
         seed_url_configuration {
-          seed_urls = [
-            "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kendra_index"
-          ]
+ seed_urls = [
+   "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kendra_index"
+ ]
         }
       }
     }
@@ -2904,9 +2904,9 @@ resource "aws_kendra_data_source" "test" {
 
       urls {
         seed_url_configuration {
-          seed_urls = [
-            "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kendra_index"
-          ]
+ seed_urls = [
+   "https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/kendra_index"
+ ]
         }
       }
     }
@@ -2930,9 +2930,9 @@ resource "aws_kendra_data_source" "test" {
     web_crawler_configuration {
       urls {
         site_maps_configuration {
-          site_maps = [
-            "https://registry.terraform.io/sitemap.xml"
-          ]
+ site_maps = [
+   "https://registry.terraform.io/sitemap.xml"
+ ]
         }
       }
     }
@@ -2956,10 +2956,10 @@ resource "aws_kendra_data_source" "test" {
     web_crawler_configuration {
       urls {
         site_maps_configuration {
-          site_maps = [
-            "https://registry.terraform.io/sitemap.xml",
-            "https://www.terraform.io/sitemap.xml"
-          ]
+ site_maps = [
+   "https://registry.terraform.io/sitemap.xml",
+   "https://www.terraform.io/sitemap.xml"
+ ]
         }
       }
     }
@@ -2991,19 +2991,19 @@ resource "aws_kendra_data_source" "test" {
 
       condition {
         condition_document_attribute_key = "_document_title"
-        operator          = "Equals"
+        operator = "Equals"
 
         condition_on_value {
-          string_value = "foo"
+ string_value = "foo"
         }
       }
 
       target {
-        target_document_attribute_key            = "_category"
+        target_document_attribute_key   = "_category"
         target_document_attribute_value_deletion = false
 
         target_document_attribute_value {
-          string_value = "bar"
+ string_value = "bar"
         }
       }
     }
@@ -3035,19 +3035,19 @@ resource "aws_kendra_data_source" "test" {
 
       condition {
         condition_document_attribute_key = "_document_title"
-        operator          = "Equals"
+        operator = "Equals"
 
         condition_on_value {
-          string_value = "foo2"
+ string_value = "foo2"
         }
       }
 
       target {
-        target_document_attribute_key            = "_category"
+        target_document_attribute_key   = "_category"
         target_document_attribute_value_deletion = true
 
         target_document_attribute_value {
-          string_value = "bar2"
+ string_value = "bar2"
         }
       }
     }
@@ -3057,19 +3057,19 @@ resource "aws_kendra_data_source" "test" {
 
       condition {
         condition_document_attribute_key = "_created_at"
-        operator          = "Equals"
+        operator = "Equals"
 
         condition_on_value {
-          date_value = "2006-01-02T15:04:05+00:00"
+ date_value = "2006-01-02T15:04:05+00:00"
         }
       }
 
       target {
-        target_document_attribute_key            = "_authors"
+        target_document_attribute_key   = "_authors"
         target_document_attribute_value_deletion = false
 
         target_document_attribute_value {
-          string_list_value = ["foo", "baz"]
+ string_list_value = ["foo", "baz"]
         }
       }
     }
@@ -3101,19 +3101,19 @@ resource "aws_kendra_data_source" "test" {
 
       condition {
         condition_document_attribute_key = "_document_title"
-        operator          = "Equals"
+        operator = "Equals"
 
         condition_on_value {
-          string_value = "foo2"
+ string_value = "foo2"
         }
       }
 
       target {
-        target_document_attribute_key            = "_category"
+        target_document_attribute_key   = "_category"
         target_document_attribute_value_deletion = true
 
         target_document_attribute_value {
-          string_value = "bar2"
+ string_value = "bar2"
         }
       }
     }
@@ -3123,19 +3123,19 @@ resource "aws_kendra_data_source" "test" {
 
       condition {
         condition_document_attribute_key = "_created_at"
-        operator          = "Equals"
+        operator = "Equals"
 
         condition_on_value {
-          date_value = "2006-01-02T15:04:05+00:00"
+ date_value = "2006-01-02T15:04:05+00:00"
         }
       }
 
       target {
-        target_document_attribute_key            = "_authors"
+        target_document_attribute_key   = "_authors"
         target_document_attribute_value_deletion = false
 
         target_document_attribute_value {
-          string_list_value = ["foo", "baz"]
+ string_list_value = ["foo", "baz"]
         }
       }
     }
@@ -3145,19 +3145,19 @@ resource "aws_kendra_data_source" "test" {
 
       condition {
         condition_document_attribute_key = "_excerpt_page_number"
-        operator          = "GreaterThan"
+        operator = "GreaterThan"
 
         condition_on_value {
-          long_value = 3
+ long_value = 3
         }
       }
 
       target {
-        target_document_attribute_key            = "_document_title"
+        target_document_attribute_key   = "_document_title"
         target_document_attribute_value_deletion = true
 
         target_document_attribute_value {
-          string_value = "baz"
+ string_value = "baz"
         }
       }
     }
@@ -3193,10 +3193,10 @@ resource "aws_kendra_data_source" "test" {
 
       invocation_condition {
         condition_document_attribute_key = "_excerpt_page_number"
-        operator          = %[2]q
+        operator = %[2]q
 
         condition_on_value {
-          long_value = 3
+ long_value = 3
         }
       }
     }
@@ -3207,10 +3207,10 @@ resource "aws_kendra_data_source" "test" {
 
       invocation_condition {
         condition_document_attribute_key = "_document_title"
-        operator          = "Equals"
+        operator = "Equals"
 
         condition_on_value {
-          string_value = %[3]q
+ string_value = %[3]q
         }
       }
     }
@@ -3240,22 +3240,22 @@ resource "aws_iam_role" "test_extraction_hook2" {
       Version = "2012-10-17"
       Statement = [
         {
-          Action = [
-            "s3:GetObject",
-            "s3:PutObject",
-          ]
-          Effect   = "Allow"
-          Resource = "${aws_s3_bucket.test_extraction_hook.arn}/*"
+ Action = [
+   "s3:GetObject",
+   "s3:PutObject",
+ ]
+ Effect   = "Allow"
+ Resource = "${aws_s3_bucket.test_extraction_hook.arn}/*"
         },
         {
-          Action   = ["s3:ListBucket"]
-          Effect   = "Allow"
-          Resource = aws_s3_bucket.test_extraction_hook.arn
+ Action   = ["s3:ListBucket"]
+ Effect   = "Allow"
+ Resource = aws_s3_bucket.test_extraction_hook.arn
         },
         {
-          Action   = ["lambda:InvokeFunction"]
-          Effect   = "Allow"
-          Resource = aws_lambda_function.test.arn
+ Action   = ["lambda:InvokeFunction"]
+ Effect   = "Allow"
+ Resource = aws_lambda_function.test.arn
         },
       ]
     })
@@ -3283,10 +3283,10 @@ resource "aws_kendra_data_source" "test" {
 
       invocation_condition {
         condition_document_attribute_key = "_excerpt_page_number"
-        operator          = "Equals"
+        operator = "Equals"
 
         condition_on_value {
-          long_value = 3
+ long_value = 3
         }
       }
     }
@@ -3331,10 +3331,10 @@ resource "aws_kendra_data_source" "test" {
 
       invocation_condition {
         condition_document_attribute_key = "_excerpt_page_number"
-        operator          = "Equals"
+        operator = "Equals"
 
         condition_on_value {
-          long_value = 3
+ long_value = 3
         }
       }
     }
@@ -3356,7 +3356,7 @@ locals {
 resource "aws_lambda_function" "test2" {
   filename      = "test-fixtures/lambdatest.zip"
   function_name = %[1]q
-  role          = aws_iam_role.test_lambda.arn
+  role = aws_iam_role.test_lambda.arn
   handler       = "exports.example"
   runtime       = "nodejs16.x"
 }
@@ -3382,10 +3382,10 @@ resource "aws_kendra_data_source" "test" {
 
       invocation_condition {
         condition_document_attribute_key = "_excerpt_page_number"
-        operator          = "Equals"
+        operator = "Equals"
 
         condition_on_value {
-          long_value = 3
+ long_value = 3
         }
       }
     }

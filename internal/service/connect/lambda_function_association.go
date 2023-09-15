@@ -35,7 +35,7 @@ functionAssociationDelete,
 		Schema: map[string]*schema.Schema{
 			"
 function_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				Validate

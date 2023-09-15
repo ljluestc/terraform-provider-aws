@@ -25,10 +25,10 @@ func TestAccGlobalAcceleratorCustomRoutingEndpointGroup_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCustomRoutingEndpointGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckCustomRoutingEndpointGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCustomRoutingEndpointGroupConfig_basic(rName),
@@ -60,10 +60,10 @@ func TestAccGlobalAcceleratorCustomRoutingEndpointGroup_disappears(t *testing.T)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCustomRoutingEndpointGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckCustomRoutingEndpointGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCustomRoutingEndpointGroupConfig_basic(rName),
@@ -84,10 +84,10 @@ func TestAccGlobalAcceleratorCustomRoutingEndpointGroup_endpointConfiguration(t 
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCustomRoutingEndpointGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckCustomRoutingEndpointGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCustomRoutingEndpointGroupConfig_endpointConfiguration(rName),
@@ -120,10 +120,10 @@ func TestAccGlobalAcceleratorCustomRoutingEndpointGroup_endpointGroupRegion(t *t
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, globalaccelerator.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckCustomRoutingEndpointGroupDestroy(ctx),
+		CheckDestroy:    testAccCheckCustomRoutingEndpointGroupDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCustomRoutingEndpointGroupConfig_endpointGroupRegion(rName),
@@ -265,7 +265,7 @@ resource "aws_vpc" "test" {
 }
 
 resource "aws_subnet" "test" {
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
   availability_zone = data.aws_availability_zones.available.names[0]
   cidr_block        = "10.0.0.0/28"
 

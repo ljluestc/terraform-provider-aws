@@ -13,7 +13,7 @@ import (
 
 func ResourceHAProxyLayer() *schema.Resource {
 	layerType := &opsworksLayerType{
-		TypeName:         opsworks.LayerTypeLb,
+		TypeName:opsworks.LayerTypeLb,
 		DefaultLayerName: "HAProxy",
 
 		Attributes: map[string]*opsworksLayerTypeAttribute{

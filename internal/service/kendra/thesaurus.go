@@ -65,7 +65,7 @@ func ResourceThesaurus() *schema.Resource {
 				Required: true,
 			},
 			"role_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: verify.ValidARN,
 			},
@@ -108,10 +108,10 @@ func resourceThesaurusCreate(ctx context.Context, d *schema.ResourceData, meta i
 	input := &kendra.CreateThesaurusInput{
 		ClientToken:  aws.String(id.UniqueId()),
 		IndexId:      aws.String(d.Get("index_id").(string)),
-		Name:         aws.String(d.Get("name").(string)),
+		Name:aws.String(d.Get("name").(string)),
 		RoleArn:      aws.String(d.Get("role_arn").(string)),
 		SourceS3Path: expandSourceS3Path(d.Get("source_s3_path").([]interface{})),
-		Tags:         getTagsIn(ctx),
+		Tags:getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -305,11 +305,11 @@ func statusThesaurus(ctx context.Context, conn *kendra.Client, id, indexId strin
 
 func waitThesaurusCreated(ctx context.Context, conn *kendra.Client, id, indexId string, timeout time.Duration) (*kendra.DescribeThesaurusOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   enum.Slice(types.ThesaurusStatusCreating),
-		Target:                    enum.Slice(types.ThesaurusStatusActive),
-		Refresh:                   statusThesaurus(ctx, conn, id, indexId),
-		Timeout:                   timeout,
-		NotFoundChecks:            20,
+		Pending: enum.Slice(types.ThesaurusStatusCreating),
+		Target:  enum.Slice(types.ThesaurusStatusActive),
+		Refresh: statusThesaurus(ctx, conn, id, indexId),
+		Timeout: timeout,
+		NotFoundChecks:   20,
 		ContinuousTargetOccurence: 2,
 	}
 
@@ -326,11 +326,11 @@ func waitThesaurusCreated(ctx context.Context, conn *kendra.Client, id, indexId 
 
 func waitThesaurusUpdated(ctx context.Context, conn *kendra.Client, id, indexId string, timeout time.Duration) (*kendra.DescribeThesaurusOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   enum.Slice(types.QuerySuggestionsBlockListStatusUpdating),
-		Target:                    enum.Slice(types.QuerySuggestionsBlockListStatusActive),
-		Refresh:                   statusThesaurus(ctx, conn, id, indexId),
-		Timeout:                   timeout,
-		NotFoundChecks:            20,
+		Pending: enum.Slice(types.QuerySuggestionsBlockListStatusUpdating),
+		Target:  enum.Slice(types.QuerySuggestionsBlockListStatusActive),
+		Refresh: statusThesaurus(ctx, conn, id, indexId),
+		Timeout: timeout,
+		NotFoundChecks:   20,
 		ContinuousTargetOccurence: 2,
 	}
 

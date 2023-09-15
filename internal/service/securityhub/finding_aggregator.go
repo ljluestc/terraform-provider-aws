@@ -18,9 +18,9 @@ import (
 )
 
 const (
-	allRegions                = "ALL_REGIONS"
+	allRegions       = "ALL_REGIONS"
 	allRegionsExceptSpecified = "ALL_REGIONS_EXCEPT_SPECIFIED"
-	specifiedRegions          = "SPECIFIED_REGIONS"
+	specifiedRegions = "SPECIFIED_REGIONS"
 )
 
 // @SDKResource("aws_securityhub_finding_aggregator")

@@ -49,7 +49,7 @@ func ResourceFunctionEventInvokeConfig() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"destination": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: verify.ValidARN,
 									},
@@ -63,7 +63,7 @@ func ResourceFunctionEventInvokeConfig() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"destination": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: verify.ValidARN,
 									},
@@ -74,24 +74,24 @@ func ResourceFunctionEventInvokeConfig() *schema.Resource {
 				},
 			},
 			"function_name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.NoZeroValues,
 			},
 			"maximum_event_age_in_seconds": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				ValidateFunc: validation.IntBetween(60, 21600),
 			},
 			"maximum_retry_attempts": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				Default:      2,
 				ValidateFunc: validation.IntBetween(0, 2),
 			},
 			"qualifier": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.NoZeroValues,
@@ -114,7 +114,7 @@ func resourceFunctionEventInvokeConfigCreate(ctx context.Context, d *schema.Reso
 
 	input := &lambda.PutFunctionEventInvokeConfigInput{
 		DestinationConfig:    expandFunctionEventInvokeConfigDestinationConfig(d.Get("destination_config").([]interface{})),
-		FunctionName:         aws.String(functionName),
+		FunctionName:aws.String(functionName),
 		MaximumRetryAttempts: aws.Int64(int64(d.Get("maximum_retry_attempts").(int))),
 	}
 
@@ -214,7 +214,7 @@ func resourceFunctionEventInvokeConfigUpdate(ctx context.Context, d *schema.Reso
 
 	input := &lambda.PutFunctionEventInvokeConfigInput{
 		DestinationConfig:    expandFunctionEventInvokeConfigDestinationConfig(d.Get("destination_config").([]interface{})),
-		FunctionName:         aws.String(functionName),
+		FunctionName:aws.String(functionName),
 		MaximumRetryAttempts: aws.Int64(int64(d.Get("maximum_retry_attempts").(int))),
 	}
 

@@ -55,7 +55,7 @@ func ResourceProfile() *schema.Resource {
 				Computed: true,
 			},
 			"profile_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringInSlice(transfer.ProfileType_Values(), false),

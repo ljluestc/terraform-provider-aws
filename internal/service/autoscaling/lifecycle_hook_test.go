@@ -27,7 +27,7 @@ func TestAccAutoScalingLifecycleHook_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLifecycleHookDestroy(ctx),
+CheckDestroy:    testAccCheckLifecycleHookDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLifecycleHookConfig_basic(rName),
@@ -58,7 +58,7 @@ func TestAccAutoScalingLifecycleHook_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLifecycleHookDestroy(ctx),
+CheckDestroy:    testAccCheckLifecycleHookDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLifecycleHookConfig_basic(rName),
@@ -81,7 +81,7 @@ func TestAccAutoScalingLifecycleHook_omitDefaultResult(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, autoscaling.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckLifecycleHookDestroy(ctx),
+CheckDestroy:    testAccCheckLifecycleHookDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccLifecycleHookConfig_omitDefaultResult(rName),
@@ -156,15 +156,15 @@ acctest.ConfigAvailableAZsNoOptIn(),
 acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 fmt.Sprintf(`
 resource "aws_launch_configuration" "test" {
-  name          = %[1]q
+  name = %[1]q
   image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t1.micro"
 }
 
 resource "aws_sqs_queue" "test" {
   name       = %[1]q
-  delay_seconds             = 90
-  max_message_size          = 2048
+  delay_seconds    = 90
+  max_message_size = 2048
   message_retention_seconds = 86400
   receive_wait_time_seconds = 10
 }
@@ -206,8 +206,8 @@ resource "aws_autoscaling_group" "test" {
   max_size   = 5
   min_size   = 2
   health_check_grace_period = 300
-  health_check_type         = "ELB"
-  force_delete              = true
+  health_check_type= "ELB"
+  force_delete     = true
   termination_policies      = ["OldestInstance"]
   launch_configuration      = aws_launch_configuration.test.name
 }
@@ -215,7 +215,7 @@ resource "aws_autoscaling_group" "test" {
 resource "aws_autoscaling_lifecycle_hook" "test" {
   name    = %[1]q
   autoscaling_group_name = aws_autoscaling_group.test.name
-  default_result         = "CONTINUE"
+  default_result= "CONTINUE"
   heartbeat_timeout      = 2000
   lifecycle_transition   = "autoscaling:EC2_INSTANCE_LAUNCHING"
 
@@ -237,15 +237,15 @@ acctest.ConfigAvailableAZsNoOptIn(),
 acctest.ConfigLatestAmazonLinuxHVMEBSAMI(),
 fmt.Sprintf(`
 resource "aws_launch_configuration" "test" {
-  name          = %[1]q
+  name = %[1]q
   image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = "t1.micro"
 }
 
 resource "aws_sqs_queue" "test" {
   name       = %[1]q
-  delay_seconds             = 90
-  max_message_size          = 2048
+  delay_seconds    = 90
+  max_message_size = 2048
   message_retention_seconds = 86400
   receive_wait_time_seconds = 10
 }
@@ -287,8 +287,8 @@ resource "aws_autoscaling_group" "test" {
   max_size   = 5
   min_size   = 2
   health_check_grace_period = 300
-  health_check_type         = "ELB"
-  force_delete              = true
+  health_check_type= "ELB"
+  force_delete     = true
   termination_policies      = ["OldestInstance"]
   launch_configuration      = aws_launch_configuration.test.name
 }

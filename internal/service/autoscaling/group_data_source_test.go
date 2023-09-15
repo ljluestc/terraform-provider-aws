@@ -20,8 +20,8 @@ func TestAccAutoScalingGroupDataSource_basic(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -69,8 +69,8 @@ func TestAccAutoScalingGroupDataSource_launchTemplate(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -93,8 +93,8 @@ func TestAccAutoScalingGroupDataSource_mixedInstancesPolicy(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -131,8 +131,8 @@ func TestAccAutoScalingGroupDataSource_warmPool(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -157,8 +157,8 @@ func TestAccAutoScalingGroupDataSource_tags(t *testing.T) {
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, autoscaling.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, autoscaling.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		Steps: []resource.TestStep{
 			{
@@ -167,13 +167,13 @@ func TestAccAutoScalingGroupDataSource_tags(t *testing.T) {
 					resource.TestCheckResourceAttr(datasourceName, "tag.#", "2"),
 					resource.TestCheckResourceAttrPair(datasourceName, "tag.#", resourceName, "tag.#"),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "tag.*", map[string]string{
-						"key":                 "key1",
-						"value":               "value1",
+						"key":        "key1",
+						"value":      "value1",
 						"propagate_at_launch": "true",
 					}),
 					resource.TestCheckTypeSetElemNestedAttrs(resourceName, "tag.*", map[string]string{
-						"key":                 "key2",
-						"value":               "value2",
+						"key":        "key2",
+						"value":      "value2",
 						"propagate_at_launch": "false",
 					}),
 				),
@@ -199,10 +199,10 @@ resource "aws_autoscaling_group" "test" {
   max_size   = 0
   min_size   = 0
   health_check_grace_period = 300
-  health_check_type         = "ELB"
-  desired_capacity          = 0
-  enabled_metrics           = ["GroupDesiredCapacity"]
-  force_delete              = true
+  health_check_type= "ELB"
+  desired_capacity = 0
+  enabled_metrics  = ["GroupDesiredCapacity"]
+  force_delete     = true
   launch_configuration      = aws_launch_configuration.test.name
   availability_zones        = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1]]
 }
@@ -212,16 +212,16 @@ resource "aws_autoscaling_group" "no_match" {
   max_size   = 0
   min_size   = 0
   health_check_grace_period = 300
-  health_check_type         = "ELB"
-  desired_capacity          = 0
-  enabled_metrics           = ["GroupDesiredCapacity", "GroupStandbyInstances"]
-  force_delete              = true
+  health_check_type= "ELB"
+  desired_capacity = 0
+  enabled_metrics  = ["GroupDesiredCapacity", "GroupStandbyInstances"]
+  force_delete     = true
   launch_configuration      = aws_launch_configuration.test.name
   availability_zones        = [data.aws_availability_zones.available.names[0], data.aws_availability_zones.available.names[1]]
 }
 
 resource "aws_launch_configuration" "test" {
-  name          = %[1]q
+  name = %[1]q
   image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = data.aws_ec2_instance_type_offering.available.instance_type
 }
@@ -242,8 +242,8 @@ resource "aws_autoscaling_group" "test" {
   name= %[1]q
   availability_zones = [data.aws_availability_zones.available.names[0]]
   desired_capacity   = 0
-  max_size           = 0
-  min_size           = 0
+  max_size  = 0
+  min_size  = 0
 
   launch_template {
     id      = aws_launch_template.test.id
@@ -252,7 +252,7 @@ resource "aws_autoscaling_group" "test" {
 }
 
 resource "aws_launch_template" "test" {
-  name          = %[1]q
+  name = %[1]q
   image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = data.aws_ec2_instance_type_offering.available.instance_type
 }
@@ -273,17 +273,17 @@ resource "aws_autoscaling_group" "test" {
   name= %[1]q
   availability_zones = [data.aws_availability_zones.available.names[0]]
   desired_capacity   = 0
-  max_size           = 0
-  min_size           = 0
+  max_size  = 0
+  min_size  = 0
 
   mixed_instances_policy {
     instances_distribution {
-      on_demand_allocation_strategy            = "prioritized"
+      on_demand_allocation_strategy   = "prioritized"
       on_demand_base_capacity   = 1
       on_demand_percentage_above_base_capacity = 1
       spot_allocation_strategy  = "lowest-price"
       spot_instance_pools       = 2
-      spot_max_price            = "0.50"
+      spot_max_price   = "0.50"
     }
 
     launch_template {
@@ -305,7 +305,7 @@ resource "aws_autoscaling_group" "test" {
 }
 
 resource "aws_launch_template" "test" {
-  name          = %[1]q
+  name = %[1]q
   image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = data.aws_ec2_instance_type_offering.available.instance_type
 }
@@ -326,8 +326,8 @@ resource "aws_autoscaling_group" "test" {
   name= %[1]q
   availability_zones = [data.aws_availability_zones.available.names[0]]
   desired_capacity   = 0
-  max_size           = 0
-  min_size           = 0
+  max_size  = 0
+  min_size  = 0
 
   launch_template {
     id      = aws_launch_template.test.id
@@ -345,7 +345,7 @@ resource "aws_autoscaling_group" "test" {
 }
 
 resource "aws_launch_template" "test" {
-  name          = %[1]q
+  name = %[1]q
   image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = data.aws_ec2_instance_type_offering.available.instance_type
 }
@@ -366,8 +366,8 @@ resource "aws_autoscaling_group" "test" {
   name= %[1]q
   availability_zones = [data.aws_availability_zones.available.names[0]]
   desired_capacity   = 0
-  max_size           = 0
-  min_size           = 0
+  max_size  = 0
+  min_size  = 0
 
   launch_template {
     id      = aws_launch_template.test.id
@@ -388,7 +388,7 @@ resource "aws_autoscaling_group" "test" {
 }
 
 resource "aws_launch_template" "test" {
-  name          = %[1]q
+  name = %[1]q
   image_id      = data.aws_ami.amzn-ami-minimal-hvm-ebs.id
   instance_type = data.aws_ec2_instance_type_offering.available.instance_type
 }

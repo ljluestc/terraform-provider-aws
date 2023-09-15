@@ -63,7 +63,7 @@ func() *schema.Schema {
 				},
 			},
 			"instance_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				Validate
 func: validation.StringLenBetween(1, 100),
@@ -91,7 +91,7 @@ func userHierarchyLevelSchema() *schema.Schema {
 					Computed: true,
 				},
 				"name": {
-					Type:         schema.TypeString,
+					Type:schema.TypeString,
 					Required:     true,
 					Validate
 func: validation.StringLenBetween(1, 50),
@@ -109,7 +109,7 @@ func resourceUserHierarchyStructureCreate(ctx context.Context, d *schema.Resourc
 
 	input := &connect.UpdateUserHierarchyStructureInput{
 		HierarchyStructure: expandUserHierarchyStructure(d.Get("hierarchy_structure").([]interface{})),
-		InstanceId:         aws.String(instanceID),
+		InstanceId:aws.String(instanceID),
 	}
 
 	log.Printf("[DEBUG] Creating Connect User Hierarchy Structure %s", input)
@@ -166,7 +166,7 @@ func resourceUserHierarchyStructureUpdate(ctx context.Context, d *schema.Resourc
 	if d.HasChange("hierarchy_structure") {
 		_, err := conn.UpdateUserHierarchyStructureWithContext(ctx, &connect.UpdateUserHierarchyStructureInput{
 			HierarchyStructure: expandUserHierarchyStructure(d.Get("hierarchy_structure").([]interface{})),
-			InstanceId:         aws.String(instanceID),
+			InstanceId:aws.String(instanceID),
 		})
 
 		if err != nil {
@@ -185,7 +185,7 @@ func resourceUserHierarchyStructureDelete(ctx context.Context, d *schema.Resourc
 
 	_, err := conn.UpdateUserHierarchyStructureWithContext(ctx, &connect.UpdateUserHierarchyStructureInput{
 		HierarchyStructure: &connect.HierarchyStructureUpdate{},
-		InstanceId:         aws.String(instanceID),
+		InstanceId:aws.String(instanceID),
 	})
 
 	if err != nil {

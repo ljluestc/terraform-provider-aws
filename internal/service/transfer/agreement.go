@@ -35,7 +35,7 @@ func ResourceAgreement() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"access_role": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: verify.ValidARN,
 			},
@@ -88,8 +88,8 @@ func resourceAgreementCreate(ctx context.Context, d *schema.ResourceData, meta i
 		BaseDirectory:    aws.String(d.Get("base_directory").(string)),
 		LocalProfileId:   aws.String(d.Get("local_profile_id").(string)),
 		PartnerProfileId: aws.String(d.Get("partner_profile_id").(string)),
-		ServerId:         aws.String(serverID),
-		Tags:             getTagsIn(ctx),
+		ServerId:aws.String(serverID),
+		Tags:    getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {

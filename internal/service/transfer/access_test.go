@@ -31,9 +31,9 @@ func testAccAccess_s3_basic(t *testing.T) {
 			acctest.PreCheckDirectoryService(ctx, t)
 			acctest.PreCheckDirectoryServiceSimpleDirectory(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, transfer.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, transfer.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAccessDestroy(ctx),
+		CheckDestroy:    testAccCheckAccessDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAccessConfig_s3Basic(rName),
@@ -46,8 +46,8 @@ func testAccAccess_s3_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"role"},
 			},
@@ -77,9 +77,9 @@ func testAccAccess_efs_basic(t *testing.T) {
 			acctest.PreCheckDirectoryService(ctx, t)
 			acctest.PreCheckDirectoryServiceSimpleDirectory(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, transfer.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, transfer.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAccessDestroy(ctx),
+		CheckDestroy:    testAccCheckAccessDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAccessConfig_efsBasic(rName),
@@ -92,8 +92,8 @@ func testAccAccess_efs_basic(t *testing.T) {
 				),
 			},
 			{
-				ResourceName:            resourceName,
-				ImportState:             true,
+				ResourceName:   resourceName,
+				ImportState:    true,
 				ImportStateVerify:       true,
 				ImportStateVerifyIgnore: []string{"role"},
 			},
@@ -124,9 +124,9 @@ func testAccAccess_disappears(t *testing.T) {
 			acctest.PreCheckDirectoryService(ctx, t)
 			acctest.PreCheckDirectoryServiceSimpleDirectory(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, transfer.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, transfer.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAccessDestroy(ctx),
+		CheckDestroy:    testAccCheckAccessDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAccessConfig_s3Basic(rName),
@@ -153,9 +153,9 @@ func testAccAccess_s3_policy(t *testing.T) {
 			acctest.PreCheckDirectoryService(ctx, t)
 			acctest.PreCheckDirectoryServiceSimpleDirectory(ctx, t)
 		},
-		ErrorCheck:               acctest.ErrorCheck(t, transfer.EndpointsID),
+		ErrorCheck:      acctest.ErrorCheck(t, transfer.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckAccessDestroy(ctx),
+		CheckDestroy:    testAccCheckAccessDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccAccessConfig_s3ScopeDownPolicy(rName),
@@ -252,7 +252,7 @@ resource "aws_internet_gateway" "test" {
 
 resource "aws_subnet" "test" {
   vpc_id   = aws_vpc.test.id
-  cidr_block              = "10.0.0.0/24"
+  cidr_block     = "10.0.0.0/24"
   map_public_ip_on_launch = true
   availability_zone       = data.aws_availability_zones.available.names[0]
 
@@ -265,7 +265,7 @@ resource "aws_subnet" "test" {
 
 resource "aws_subnet" "test2" {
   vpc_id   = aws_vpc.test.id
-  cidr_block              = "10.0.1.0/24"
+  cidr_block     = "10.0.1.0/24"
   map_public_ip_on_launch = true
   availability_zone       = data.aws_availability_zones.available.names[1]
 
@@ -312,8 +312,8 @@ func testAccAccessBaseConfig_S3(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_transfer_server" "test" {
   identity_provider_type = "AWS_DIRECTORY_SERVICE"
-  directory_id           = aws_directory_service_directory.test.id
-  logging_role           = aws_iam_role.test.arn
+  directory_id  = aws_directory_service_directory.test.id
+  logging_role  = aws_iam_role.test.arn
 }
 
 resource "aws_s3_bucket" "test" {
@@ -329,20 +329,20 @@ resource "aws_iam_role_policy" "test" {
    "Version":"2012-10-17",
    "Statement":[
       {
-         "Sid":"AllowFullAccesstoCloudWatchLogs",
-         "Effect":"Allow",
-         "Action":[
-            "logs:*"
-         ],
-         "Resource":"*"
+"Sid":"AllowFullAccesstoCloudWatchLogs",
+"Effect":"Allow",
+"Action":[
+   "logs:*"
+],
+"Resource":"*"
       },
       {
-         "Sid":"AllowFullAccesstoS3",
-         "Effect":"Allow",
-         "Action":[
-            "s3:*"
-         ],
-         "Resource":"*"
+"Sid":"AllowFullAccesstoS3",
+"Effect":"Allow",
+"Action":[
+   "s3:*"
+],
+"Resource":"*"
       }
    ]
 }
@@ -401,19 +401,19 @@ resource "aws_transfer_access" "test" {
     "Version": "2012-10-17",
     "Statement": [
         {
-            "Sid": "AllowListingOfUserFolder",
-            "Action": [
+   "Sid": "AllowListingOfUserFolder",
+   "Action": [
  "s3:ListBucket"
-            ],
-            "Effect": "Allow",
-            "Resource": [
+   ],
+   "Effect": "Allow",
+   "Resource": [
  "arn:${data.aws_partition.current.partition}:s3:::$${transfer:HomeBucket}"
-            ]
+   ]
         },
         {
-            "Sid": "HomeDirObjectAccess",
-            "Effect": "Allow",
-            "Action": [
+   "Sid": "HomeDirObjectAccess",
+   "Effect": "Allow",
+   "Action": [
  "s3:PutObject",
  "s3:GetObject",
  "s3:DeleteObject",
@@ -421,8 +421,8 @@ resource "aws_transfer_access" "test" {
  "s3:GetObjectVersion",
  "s3:GetObjectACL",
  "s3:PutObjectACL"
-            ],
-            "Resource": "arn:${data.aws_partition.current.partition}:s3:::$${transfer:HomeDirectory}/*"
+   ],
+   "Resource": "arn:${data.aws_partition.current.partition}:s3:::$${transfer:HomeDirectory}/*"
         }
     ]
 }
@@ -434,8 +434,8 @@ func testAccAccessBaseConfig_efs(rName string) string {
 	return fmt.Sprintf(`
 resource "aws_transfer_server" "test" {
   identity_provider_type = "AWS_DIRECTORY_SERVICE"
-  directory_id           = aws_directory_service_directory.test.id
-  logging_role           = aws_iam_role.test.arn
+  directory_id  = aws_directory_service_directory.test.id
+  logging_role  = aws_iam_role.test.arn
   domain  = "EFS"
 }
 

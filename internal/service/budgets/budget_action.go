@@ -46,7 +46,7 @@ func ResourceBudgetAction() *schema.Resource {
 
 		Schema: map[string]*schema.Schema{
 			"account_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Computed:     true,
 				Optional:     true,
 				ForceNew:     true,
@@ -63,12 +63,12 @@ func ResourceBudgetAction() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"action_threshold_type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringInSlice(budgets.ThresholdType_Values(), false),
 						},
 						"action_threshold_value": {
-							Type:         schema.TypeFloat,
+							Type:schema.TypeFloat,
 							Required:     true,
 							ValidateFunc: validation.FloatBetween(0, 40000000000),
 						},
@@ -76,13 +76,13 @@ func ResourceBudgetAction() *schema.Resource {
 				},
 			},
 			"action_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ForceNew:     true,
 				ValidateFunc: validation.StringInSlice(budgets.ActionType_Values(), false),
 			},
 			"approval_model": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringInSlice(budgets.ApprovalModel_Values(), false),
 			},
@@ -118,7 +118,7 @@ func ResourceBudgetAction() *schema.Resource {
 										Elem:     &schema.Schema{Type: schema.TypeString},
 									},
 									"policy_arn": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: verify.ValidARN,
 									},
@@ -163,7 +163,7 @@ func ResourceBudgetAction() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"action_sub_type": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Required:     true,
 										ValidateFunc: validation.StringInSlice(budgets.ActionSubType_Values(), false),
 									},
@@ -184,12 +184,12 @@ func ResourceBudgetAction() *schema.Resource {
 				},
 			},
 			"execution_role_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"notification_type": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: validation.StringInSlice(budgets.NotificationType_Values(), false),
 			},
@@ -211,7 +211,7 @@ func ResourceBudgetAction() *schema.Resource {
 								validation.StringMatch(regexache.MustCompile(`(.*[\n\r\t\f\ ]?)*`), "Can't contain line breaks."),
 							)},
 						"subscription_type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringInSlice(budgets.SubscriptionType_Values(), false),
 						},
@@ -654,7 +654,7 @@ func flattenBudgetActionSSMActionDefinition(lt *budgets.SsmActionDefinition) []m
 	attrs := map[string]interface{}{
 		"action_sub_type": aws.StringValue(lt.ActionSubType),
 		"instance_ids":    flex.FlattenStringSet(lt.InstanceIds),
-		"region":          aws.StringValue(lt.Region),
+		"region": aws.StringValue(lt.Region),
 	}
 
 	return []map[string]interface{}{attrs}

@@ -48,13 +48,13 @@ func ResourceTrafficSourceAttachment() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"identifier": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.StringLenBetween(1, 2048),
 						},
 						"type": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.StringLenBetween(1, 2048),

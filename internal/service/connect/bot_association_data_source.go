@@ -34,7 +34,7 @@ func DataSourceBotAssociation() *schema.Resource {
 							Computed: true,
 						},
 						"name": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Required:     true,
 							ValidateFunc: validation.StringLenBetween(2, 50),
 						},

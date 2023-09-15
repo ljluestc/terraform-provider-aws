@@ -154,7 +154,7 @@ func flattenByteMatchTuplesWR(in []*waf.ByteMatchTuple) []interface{} {
 		m := map[string]interface{}{
 			"field_to_match":        []map[string]interface{}{fieldToMatchMap},
 			"positional_constraint": aws.StringValue(tuple.PositionalConstraint),
-			"target_string":         string(tuple.TargetString),
+			"target_string":string(tuple.TargetString),
 			"text_transformation":   aws.StringValue(tuple.TextTransformation),
 		}
 		tuples[i] = m
@@ -248,9 +248,9 @@ func diffByteMatchSetTuple(oldT, newT []interface{}) []*waf.ByteMatchSetUpdate {
 		updates = append(updates, &waf.ByteMatchSetUpdate{
 			Action: aws.String(waf.ChangeActionDelete),
 			ByteMatchTuple: &waf.ByteMatchTuple{
-				FieldToMatch:         tfwaf.ExpandFieldToMatch(tuple["field_to_match"].([]interface{})[0].(map[string]interface{})),
+				FieldToMatch:tfwaf.ExpandFieldToMatch(tuple["field_to_match"].([]interface{})[0].(map[string]interface{})),
 				PositionalConstraint: aws.String(tuple["positional_constraint"].(string)),
-				TargetString:         []byte(tuple["target_string"].(string)),
+				TargetString:[]byte(tuple["target_string"].(string)),
 				TextTransformation:   aws.String(tuple["text_transformation"].(string)),
 			},
 		})
@@ -262,9 +262,9 @@ func diffByteMatchSetTuple(oldT, newT []interface{}) []*waf.ByteMatchSetUpdate {
 		updates = append(updates, &waf.ByteMatchSetUpdate{
 			Action: aws.String(waf.ChangeActionInsert),
 			ByteMatchTuple: &waf.ByteMatchTuple{
-				FieldToMatch:         tfwaf.ExpandFieldToMatch(tuple["field_to_match"].([]interface{})[0].(map[string]interface{})),
+				FieldToMatch:tfwaf.ExpandFieldToMatch(tuple["field_to_match"].([]interface{})[0].(map[string]interface{})),
 				PositionalConstraint: aws.String(tuple["positional_constraint"].(string)),
-				TargetString:         []byte(tuple["target_string"].(string)),
+				TargetString:[]byte(tuple["target_string"].(string)),
 				TextTransformation:   aws.String(tuple["text_transformation"].(string)),
 			},
 		})

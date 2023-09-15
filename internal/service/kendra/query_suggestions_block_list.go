@@ -69,7 +69,7 @@ func ResourceQuerySuggestionsBlockList() *schema.Resource {
 				Computed: true,
 			},
 			"role_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: verify.ValidARN,
 			},
@@ -108,10 +108,10 @@ func resourceQuerySuggestionsBlockListCreate(ctx context.Context, d *schema.Reso
 	in := &kendra.CreateQuerySuggestionsBlockListInput{
 		ClientToken:  aws.String(id.UniqueId()),
 		IndexId:      aws.String(d.Get("index_id").(string)),
-		Name:         aws.String(d.Get("name").(string)),
+		Name:aws.String(d.Get("name").(string)),
 		RoleArn:      aws.String(d.Get("role_arn").(string)),
 		SourceS3Path: expandSourceS3Path(d.Get("source_s3_path").([]interface{})),
-		Tags:         getTagsIn(ctx),
+		Tags:getTagsIn(ctx),
 	}
 
 	if v, ok := d.GetOk("description"); ok {
@@ -305,11 +305,11 @@ func statusQuerySuggestionsBlockList(ctx context.Context, conn *kendra.Client, i
 
 func waitQuerySuggestionsBlockListCreated(ctx context.Context, conn *kendra.Client, id, indexId string, timeout time.Duration) (*kendra.DescribeQuerySuggestionsBlockListOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   enum.Slice(types.QuerySuggestionsBlockListStatusCreating),
-		Target:                    enum.Slice(types.QuerySuggestionsBlockListStatusActive),
-		Refresh:                   statusQuerySuggestionsBlockList(ctx, conn, id, indexId),
-		Timeout:                   timeout,
-		NotFoundChecks:            20,
+		Pending: enum.Slice(types.QuerySuggestionsBlockListStatusCreating),
+		Target:  enum.Slice(types.QuerySuggestionsBlockListStatusActive),
+		Refresh: statusQuerySuggestionsBlockList(ctx, conn, id, indexId),
+		Timeout: timeout,
+		NotFoundChecks:   20,
 		ContinuousTargetOccurence: 2,
 	}
 
@@ -326,11 +326,11 @@ func waitQuerySuggestionsBlockListCreated(ctx context.Context, conn *kendra.Clie
 
 func waitQuerySuggestionsBlockListUpdated(ctx context.Context, conn *kendra.Client, id, indexId string, timeout time.Duration) (*kendra.DescribeQuerySuggestionsBlockListOutput, error) {
 	stateConf := &retry.StateChangeConf{
-		Pending:                   enum.Slice(types.QuerySuggestionsBlockListStatusUpdating),
-		Target:                    enum.Slice(types.QuerySuggestionsBlockListStatusActive),
-		Refresh:                   statusQuerySuggestionsBlockList(ctx, conn, id, indexId),
-		Timeout:                   timeout,
-		NotFoundChecks:            20,
+		Pending: enum.Slice(types.QuerySuggestionsBlockListStatusUpdating),
+		Target:  enum.Slice(types.QuerySuggestionsBlockListStatusActive),
+		Refresh: statusQuerySuggestionsBlockList(ctx, conn, id, indexId),
+		Timeout: timeout,
+		NotFoundChecks:   20,
 		ContinuousTargetOccurence: 2,
 	}
 

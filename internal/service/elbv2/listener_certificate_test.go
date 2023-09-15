@@ -33,7 +33,7 @@ func TestAccELBV2ListenerCertificate_basic(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerCertificateDestroy(ctx),
+CheckDestroy:    testAccCheckListenerCertificateDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerCertificateConfig_basic(rName, key, certificate),
@@ -66,7 +66,7 @@ func TestAccELBV2ListenerCertificate_CertificateARN_underscores(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerCertificateDestroy(ctx),
+CheckDestroy:    testAccCheckListenerCertificateDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerCertificateConfig_arnUnderscores(rName, key, certificate),
@@ -101,7 +101,7 @@ certificates[i] = acctest.TLSRSAX509SelfSignedCertificatePEM(t, keys[i], "exampl
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerCertificateDestroy(ctx),
+CheckDestroy:    testAccCheckListenerCertificateDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerCertificateConfig_multiple(rName, keys, certificates),
@@ -169,7 +169,7 @@ func TestAccELBV2ListenerCertificate_disappears(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerCertificateDestroy(ctx),
+CheckDestroy:    testAccCheckListenerCertificateDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerCertificateConfig_basic(rName, key, certificate),
@@ -195,7 +195,7 @@ func TestAccELBV2ListenerCertificate_disappears_Listener(t *testing.T) {
 PreCheck:  func() { acctest.PreCheck(ctx, t) },
 ErrorCheck:acctest.ErrorCheck(t, elbv2.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckListenerCertificateDestroy(ctx),
+CheckDestroy:    testAccCheckListenerCertificateDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccListenerCertificateConfig_basic(rName, key, certificate),
@@ -293,7 +293,7 @@ resource "aws_subnet" "test" {
 
   availability_zone = data.aws_availability_zones.available.names[count.index]
   cidr_block        = "10.0.${count.index}.0/24"
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
 
   tags = {
     Name = "tf-acc-lb-listener-certificate-${count.index}"
@@ -313,21 +313,21 @@ resource "aws_lb" "test" {
 }
 
 resource "aws_iam_server_certificate" "test" {
-  name             = "%[1]s"
+  name    = "%[1]s"
   certificate_body = "%[2]s"
   private_key      = "%[3]s"
 }
 
 resource "aws_lb_listener" "test" {
   load_balancer_arn = aws_lb.test.arn
-  port              = "443"
-  protocol          = "HTTPS"
+  port     = "443"
+  protocol = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
   certificate_arn   = aws_iam_server_certificate.test.arn
 
   default_action {
     target_group_arn = aws_lb_target_group.test.arn
-    type             = "forward"
+    type    = "forward"
   }
 }
 `, rName, acctest.TLSPEMEscapeNewlines(certificate), acctest.TLSPEMEscapeNewlines(key))
@@ -366,7 +366,7 @@ resource "aws_subnet" "test" {
 
   availability_zone = data.aws_availability_zones.available.names[count.index]
   cidr_block        = cidrsubnet(aws_vpc.test.cidr_block, 8, count.index)
-  vpc_id            = aws_vpc.test.id
+  vpc_id   = aws_vpc.test.id
 
   tags = {
     Name = "tf-acc-lb-listener-certificate-${count.index}"
@@ -386,21 +386,21 @@ resource "aws_lb" "test" {
 }
 
 resource "aws_iam_server_certificate" "test" {
-  name             = replace("%[1]s", "-", "_")
+  name    = replace("%[1]s", "-", "_")
   certificate_body = "%[2]s"
   private_key      = "%[3]s"
 }
 
 resource "aws_lb_listener" "test" {
   load_balancer_arn = aws_lb.test.arn
-  port              = "443"
-  protocol          = "HTTPS"
+  port     = "443"
+  protocol = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
   certificate_arn   = aws_iam_server_certificate.test.arn
 
   default_action {
     target_group_arn = aws_lb_target_group.test.arn
-    type             = "forward"
+    type    = "forward"
   }
 }
 
@@ -429,13 +429,13 @@ resource "aws_lb_listener_certificate" "additional_2" {
 }
 
 resource "aws_iam_server_certificate" "additional_1" {
-  name             = "%[1]s-additional-1"
+  name    = "%[1]s-additional-1"
   certificate_body = "%[2]s"
   private_key      = "%[3]s"
 }
 
 resource "aws_iam_server_certificate" "additional_2" {
-  name             = "%[1]s-additional-2"
+  name    = "%[1]s-additional-2"
   certificate_body = "%[4]s"
   private_key      = "%[5]s"
 }
@@ -445,7 +445,7 @@ resource "aws_iam_server_certificate" "additional_2" {
 func testAccListenerCertificateConfig_multipleAddNew(rName string, keys, certificates []string) string {
 	return testAccListenerCertificateConfig_multiple(rName, keys, certificates) + fmt.Sprintf(`
 resource "aws_iam_server_certificate" "additional_3" {
-  name             = "%[1]s-additional-3"
+  name    = "%[1]s-additional-3"
   certificate_body = "%[2]s"
   private_key      = "%[3]s"
 }

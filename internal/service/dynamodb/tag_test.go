@@ -136,7 +136,7 @@ func testAccTagConfig_basic(rName string, key string, value string) string {
 	return fmt.Sprintf(`
 resource "aws_dynamodb_table" "test" {
   hash_key       = "TestTableHashKey"
-  name           = %[1]q
+  name  = %[1]q
   read_capacity  = 1
   write_capacity = 1
 
@@ -152,7 +152,7 @@ resource "aws_dynamodb_table" "test" {
 
 resource "aws_dynamodb_tag" "test" {
   resource_arn = aws_dynamodb_table.test.arn
-  key          = %[2]q
+  key = %[2]q
   value        = %[3]q
 }
 `, rName, key, value)
@@ -172,8 +172,8 @@ resource "aws_dynamodb_table" "test" {
   provider = "awsalternate"
 
   billing_mode     = "PAY_PER_REQUEST"
-  hash_key         = "TestTableHashKey"
-  name             = %[1]q
+  hash_key= "TestTableHashKey"
+  name    = %[1]q
   stream_enabled   = true
   stream_view_type = "NEW_AND_OLD_IMAGES"
 
@@ -189,7 +189,7 @@ resource "aws_dynamodb_table" "test" {
 
 resource "aws_dynamodb_tag" "test" {
   resource_arn = replace(aws_dynamodb_table.test.arn, data.aws_region.alternate.name, data.aws_region.current.name)
-  key          = "testkey"
+  key = "testkey"
   value        = "testvalue"
 }
 `, rName))

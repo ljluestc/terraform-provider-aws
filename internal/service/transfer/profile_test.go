@@ -32,7 +32,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProfileDestroy(ctx),
+CheckDestroy:    testAccCheckProfileDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProfileConfig_basic(rName),
@@ -71,7 +71,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProfileDestroy(ctx),
+CheckDestroy:    testAccCheckProfileDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProfileConfig_certificateIDs(rName, certificate, key),
@@ -103,7 +103,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProfileDestroy(ctx),
+CheckDestroy:    testAccCheckProfileDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProfileConfig_basic(rName),
@@ -131,7 +131,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, transfer.EndpointsID),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckProfileDestroy(ctx),
+CheckDestroy:    testAccCheckProfileDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccProfileConfig_tags1(rName, "key1", "value1"),
@@ -236,7 +236,7 @@ resource "aws_transfer_certificate" "test" {
 }
 
 resource "aws_transfer_profile" "test" {
-  as2_id          = %[1]q
+  as2_id = %[1]q
   certificate_ids = [aws_transfer_certificate.test.certificate_id]
   profile_type    = "LOCAL"
 }

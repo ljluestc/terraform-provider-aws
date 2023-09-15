@@ -116,7 +116,7 @@ func testAccListenerDataSourceConfig_one_tag(rName, tag_key, tag_value string) s
 	return acctest.ConfigCompose(testAccListenerDataSourceConfig_basic(rName), fmt.Sprintf(`
 resource "aws_vpclattice_listener" "test_tags" {
   name= %[1]q
-  protocol           = "HTTP"
+  protocol  = "HTTP"
   service_identifier = aws_vpclattice_service.test.id
 
   default_action {
@@ -151,7 +151,7 @@ resource "aws_vpclattice_target_group" "test" {
   type = "INSTANCE"
 
   config {
-    port           = 80
+    port  = 80
     protocol       = "HTTP"
     vpc_identifier = aws_vpc.test.id
   }
@@ -163,7 +163,7 @@ func testAccListenerDataSourceConfig_fixedResponseHTTP(rName string) string {
 	return acctest.ConfigCompose(testAccListenerDataSourceConfig_basic(rName), fmt.Sprintf(`
 resource "aws_vpclattice_listener" "test" {
   name= %[1]q
-  protocol           = "HTTP"
+  protocol  = "HTTP"
   service_identifier = aws_vpclattice_service.test.id
   default_action {
     fixed_response {
@@ -186,7 +186,7 @@ resource "aws_vpclattice_target_group" "test1" {
   type = "INSTANCE"
 
   config {
-    port           = 8080
+    port  = 8080
     protocol       = "HTTP"
     vpc_identifier = aws_vpc.test.id
   }
@@ -194,7 +194,7 @@ resource "aws_vpclattice_target_group" "test1" {
 
 resource "aws_vpclattice_listener" "test" {
   name= %[1]q
-  protocol           = "HTTP"
+  protocol  = "HTTP"
   service_identifier = aws_vpclattice_service.test.id
   default_action {
     forward {

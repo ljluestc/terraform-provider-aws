@@ -26,10 +26,10 @@ func TestAccTransferWorkflow_basic(t *testing.T) {
 	rName := sdkacctest.RandString(25)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, transfer.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, transfer.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWorkflowDestroy(ctx),
+		CheckDestroy:    testAccCheckWorkflowDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccWorkflowConfig_basic(rName),
@@ -66,10 +66,10 @@ func TestAccTransferWorkflow_onExceptionSteps(t *testing.T) {
 	rName := sdkacctest.RandString(25)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, transfer.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, transfer.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWorkflowDestroy(ctx),
+		CheckDestroy:    testAccCheckWorkflowDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccWorkflowConfig_onExceptionSteps(rName),
@@ -113,10 +113,10 @@ func TestAccTransferWorkflow_description(t *testing.T) {
 	rName := sdkacctest.RandString(25)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, transfer.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, transfer.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWorkflowDestroy(ctx),
+		CheckDestroy:    testAccCheckWorkflowDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccWorkflowConfig_description(rName, "testing"),
@@ -141,10 +141,10 @@ func TestAccTransferWorkflow_tags(t *testing.T) {
 	rName := sdkacctest.RandString(25)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, transfer.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, transfer.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWorkflowDestroy(ctx),
+		CheckDestroy:    testAccCheckWorkflowDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccWorkflowConfig_tags1(rName, "key1", "value1"),
@@ -187,10 +187,10 @@ func TestAccTransferWorkflow_disappears(t *testing.T) {
 	rName := sdkacctest.RandString(25)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, transfer.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, transfer.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWorkflowDestroy(ctx),
+		CheckDestroy:    testAccCheckWorkflowDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccWorkflowConfig_basic(rName),
@@ -211,10 +211,10 @@ func TestAccTransferWorkflow_allSteps(t *testing.T) {
 	rName := sdkacctest.RandString(25)
 
 	resource.Test(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, transfer.EndpointsID),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, transfer.EndpointsID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckWorkflowDestroy(ctx),
+		CheckDestroy:    testAccCheckWorkflowDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccWorkflowConfig_allSteps(rName),
@@ -440,7 +440,7 @@ func testAccWorkflowConfig_allSteps(rName string) string {
 resource "aws_lambda_function" "test" {
   filename      = "test-fixtures/lambdatest.zip"
   function_name = %[1]q
-  role          = aws_iam_role.iam_for_lambda.arn
+  role = aws_iam_role.iam_for_lambda.arn
   handler       = "index.handler"
   runtime       = "nodejs14.x"
 }
@@ -458,8 +458,8 @@ resource "aws_transfer_workflow" "test" {
       source_file_location = "$${original.file}"
       destination_file_location {
         s3_file_location {
-          bucket = "testing"
-          key    = "k1"
+ bucket = "testing"
+ key    = "k1"
         }
       }
       overwrite_existing = "TRUE"
@@ -483,8 +483,8 @@ resource "aws_transfer_workflow" "test" {
       source_file_location = "$${original.file}"
       destination_file_location {
         efs_file_location {
-          file_system_id = aws_efs_file_system.test.id
-          path           = "/test"
+ file_system_id = aws_efs_file_system.test.id
+ path  = "/test"
         }
       }
       type = "PGP"

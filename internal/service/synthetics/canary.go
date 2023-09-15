@@ -61,12 +61,12 @@ func ResourceCanary() *schema.Resource {
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"encryption_mode": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: validation.StringInSlice(synthetics.EncryptionMode_Values(), false),
 									},
 									"kms_key_arn": {
-										Type:         schema.TypeString,
+										Type:schema.TypeString,
 										Optional:     true,
 										ValidateFunc: verify.ValidARN,
 									},
@@ -93,12 +93,12 @@ func ResourceCanary() *schema.Resource {
 				Computed: true,
 			},
 			"execution_role_arn": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Required:     true,
 				ValidateFunc: verify.ValidARN,
 			},
 			"failure_retention_period": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				Default:      31,
 				ValidateFunc: validation.IntBetween(1, 455),
@@ -142,7 +142,7 @@ func ResourceCanary() *schema.Resource {
 							),
 						},
 						"timeout_in_seconds": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							ValidateFunc: validation.IntBetween(3, 14*60),
 							Default:      840,
@@ -155,19 +155,19 @@ func ResourceCanary() *schema.Resource {
 				Required: true,
 			},
 			"s3_bucket": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ConflictsWith: []string{"zip_file"},
 				RequiredWith:  []string{"s3_key"},
 			},
 			"s3_key": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ConflictsWith: []string{"zip_file"},
 				RequiredWith:  []string{"s3_bucket"},
 			},
 			"s3_version": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ConflictsWith: []string{"zip_file"},
 			},
@@ -205,7 +205,7 @@ func ResourceCanary() *schema.Resource {
 				Computed: true,
 			},
 			"success_retention_period": {
-				Type:         schema.TypeInt,
+				Type:schema.TypeInt,
 				Optional:     true,
 				Default:      31,
 				ValidateFunc: validation.IntBetween(1, 455),
@@ -260,7 +260,7 @@ func ResourceCanary() *schema.Resource {
 				},
 			},
 			"zip_file": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ConflictsWith: []string{"s3_bucket", "s3_key", "s3_version"},
 			},
@@ -278,9 +278,9 @@ func resourceCanaryCreate(ctx context.Context, d *schema.ResourceData, meta inte
 	input := &synthetics.CreateCanaryInput{
 		ArtifactS3Location: aws.String(d.Get("artifact_s3_location").(string)),
 		ExecutionRoleArn:   aws.String(d.Get("execution_role_arn").(string)),
-		Name:               aws.String(name),
+		Name:      aws.String(name),
 		RuntimeVersion:     aws.String(d.Get("runtime_version").(string)),
-		Tags:               getTagsIn(ctx),
+		Tags:      getTagsIn(ctx),
 	}
 
 	if code, err := expandCanaryCode(d); err != nil {
@@ -540,7 +540,7 @@ func resourceCanaryDelete(ctx context.Context, d *schema.ResourceData, meta inte
 
 	log.Printf("[DEBUG] Deleting Synthetics Canary: (%s)", d.Id())
 	_, err := conn.DeleteCanaryWithContext(ctx, &synthetics.DeleteCanaryInput{
-		Name:         aws.String(d.Id()),
+		Name:aws.String(d.Id()),
 		DeleteLambda: aws.Bool(d.Get("delete_lambda").(bool)),
 	})
 
@@ -678,7 +678,7 @@ func flattenCanarySchedule(canarySchedule *synthetics.CanaryScheduleOutput) []in
 	}
 
 	m := map[string]interface{}{
-		"expression":          aws.StringValue(canarySchedule.Expression),
+		"expression": aws.StringValue(canarySchedule.Expression),
 		"duration_in_seconds": aws.Int64Value(canarySchedule.DurationInSeconds),
 	}
 
@@ -735,9 +735,9 @@ func flattenCanaryVPCConfig(canaryVpcOutput *synthetics.VpcConfigOutput) []inter
 	}
 
 	m := map[string]interface{}{
-		"subnet_ids":         flex.FlattenStringSet(canaryVpcOutput.SubnetIds),
+		"subnet_ids":flex.FlattenStringSet(canaryVpcOutput.SubnetIds),
 		"security_group_ids": flex.FlattenStringSet(canaryVpcOutput.SecurityGroupIds),
-		"vpc_id":             aws.StringValue(canaryVpcOutput.VpcId),
+		"vpc_id":    aws.StringValue(canaryVpcOutput.VpcId),
 	}
 
 	return []interface{}{m}

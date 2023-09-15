@@ -34,7 +34,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.Kafka),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckClusterPolicyDestroy(ctx),
+CheckDestroy:    testAccCheckClusterPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccClusterPolicyConfig_basic(rName),
@@ -67,7 +67,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.Kafka),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckClusterPolicyDestroy(ctx),
+CheckDestroy:    testAccCheckClusterPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccClusterPolicyConfig_basic(rName),
@@ -95,7 +95,7 @@ PreCheck: func() {
 },
 ErrorCheck:acctest.ErrorCheck(t, names.Kafka),
 ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-CheckDestroy:             testAccCheckClusterPolicyDestroy(ctx),
+CheckDestroy:    testAccCheckClusterPolicyDestroy(ctx),
 Steps: []resource.TestStep{
 	{
 Config: testAccClusterPolicyConfig_basic(rName),

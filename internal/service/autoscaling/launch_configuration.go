@@ -178,21 +178,21 @@ func ResourceLaunchConfiguration() *schema.Resource {
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"http_endpoint": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Computed:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.StringInSlice([]string{autoscaling.InstanceMetadataEndpointStateEnabled, autoscaling.InstanceMetadataEndpointStateDisabled}, false),
 						},
 						"http_put_response_hop_limit": {
-							Type:         schema.TypeInt,
+							Type:schema.TypeInt,
 							Optional:     true,
 							Computed:     true,
 							ForceNew:     true,
 							ValidateFunc: validation.IntBetween(1, 64),
 						},
 						"http_tokens": {
-							Type:         schema.TypeString,
+							Type:schema.TypeString,
 							Optional:     true,
 							Computed:     true,
 							ForceNew:     true,
@@ -202,7 +202,7 @@ func ResourceLaunchConfiguration() *schema.Resource {
 				},
 			},
 			"name": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -210,7 +210,7 @@ func ResourceLaunchConfiguration() *schema.Resource {
 				ValidateFunc:  validation.StringLenBetween(1, 255),
 			},
 			"name_prefix": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				Computed:      true,
 				ForceNew:      true,
@@ -283,7 +283,7 @@ func ResourceLaunchConfiguration() *schema.Resource {
 				ForceNew: true,
 			},
 			"user_data": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ForceNew:      true,
 				ConflictsWith: []string{"user_data_base64"},
@@ -298,7 +298,7 @@ func ResourceLaunchConfiguration() *schema.Resource {
 				ValidateFunc: validation.StringLenBetween(1, 16384),
 			},
 			"user_data_base64": {
-				Type:          schema.TypeString,
+				Type: schema.TypeString,
 				Optional:      true,
 				ForceNew:      true,
 				ConflictsWith: []string{"user_data"},
@@ -323,9 +323,9 @@ func resourceLaunchConfigurationCreate(ctx context.Context, d *schema.ResourceDa
 
 	lcName := create.Name(d.Get("name").(string), d.Get("name_prefix").(string))
 	input := autoscaling.CreateLaunchConfigurationInput{
-		EbsOptimized:            aws.Bool(d.Get("ebs_optimized").(bool)),
-		ImageId:                 aws.String(d.Get("image_id").(string)),
-		InstanceType:            aws.String(d.Get("instance_type").(string)),
+		EbsOptimized:   aws.Bool(d.Get("ebs_optimized").(bool)),
+		ImageId:        aws.String(d.Get("image_id").(string)),
+		InstanceType:   aws.String(d.Get("instance_type").(string)),
 		LaunchConfigurationName: aws.String(lcName),
 	}
 

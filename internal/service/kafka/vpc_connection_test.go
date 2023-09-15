@@ -26,10 +26,10 @@ func TestAccKafkaVPCConnection_basic(t *testing.T) {
 	resourceName := "aws_msk_vpc_connection.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.Kafka),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.Kafka),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPCConnectionDestroy(ctx),
+		CheckDestroy:    testAccCheckVPCConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCConnectionConfig_basic(rName),
@@ -58,10 +58,10 @@ func TestAccKafkaVPCConnection_tags(t *testing.T) {
 	resourceName := "aws_msk_vpc_connection.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.Kafka),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.Kafka),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckVPCConnectionDestroy(ctx),
+		CheckDestroy:    testAccCheckVPCConnectionDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCConnectionConfig_tags1(rName, "key1", "value1"),
@@ -104,10 +104,10 @@ func TestAccKafkaVPCConnection_disappears(t *testing.T) {
 	resourceName := "aws_msk_vpc_connection.test"
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
-		ErrorCheck:               acctest.ErrorCheck(t, names.Kafka),
+		PreCheck:        func() { acctest.PreCheck(ctx, t); testAccPreCheck(ctx, t) },
+		ErrorCheck:      acctest.ErrorCheck(t, names.Kafka),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
-		CheckDestroy:             testAccCheckConfigurationDestroy(ctx),
+		CheckDestroy:    testAccCheckConfigurationDestroy(ctx),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccVPCConnectionConfig_basic(rName),
@@ -173,8 +173,8 @@ func testAccVPCConnectionConfig_base(rName string) string {
 		testAccClusterConfig_allowEveryoneNoACLFoundFalse(rName),
 		fmt.Sprintf(`
 resource "aws_msk_cluster" "test" {
-  cluster_name           = %[1]q
-  kafka_version          = "2.8.1"
+  cluster_name  = %[1]q
+  kafka_version = "2.8.1"
   number_of_broker_nodes = 3
 
   broker_node_group_info {
@@ -185,9 +185,9 @@ resource "aws_msk_cluster" "test" {
     connectivity_info {
       vpc_connectivity {
         client_authentication {
-          sasl {
-            iam = true
-          }
+ sasl {
+   iam = true
+ }
         }
       }
     }
@@ -225,7 +225,7 @@ resource "aws_vpc" "client" {
 resource "aws_subnet" "client" {
   count = 3
 
-  vpc_id            = aws_vpc.client.id
+  vpc_id   = aws_vpc.client.id
   availability_zone = data.aws_availability_zones.available.names[count.index]
   cidr_block        = cidrsubnet(aws_vpc.client.cidr_block, 8, count.index)
 
@@ -252,7 +252,7 @@ resource "aws_security_group" "client" {
 resource "aws_msk_vpc_connection" "test" {
   authentication     = "SASL_IAM"
   target_cluster_arn = aws_msk_cluster.test.arn
-  vpc_id             = aws_vpc.client.id
+  vpc_id    = aws_vpc.client.id
   client_subnets     = aws_subnet.client[*].id
   security_groups    = aws_security_group.client[*].id
 }
@@ -275,7 +275,7 @@ resource "aws_security_group" "client" {
 resource "aws_msk_vpc_connection" "test" {
   authentication     = "SASL_IAM"
   target_cluster_arn = aws_msk_cluster.test.arn
-  vpc_id             = aws_vpc.client.id
+  vpc_id    = aws_vpc.client.id
   client_subnets     = aws_subnet.client[*].id
   security_groups    = aws_security_group.client[*].id
 
@@ -302,7 +302,7 @@ resource "aws_security_group" "client" {
 resource "aws_msk_vpc_connection" "test" {
   authentication     = "SASL_IAM"
   target_cluster_arn = aws_msk_cluster.test.arn
-  vpc_id             = aws_vpc.client.id
+  vpc_id    = aws_vpc.client.id
   client_subnets     = aws_subnet.client[*].id
   security_groups    = aws_security_group.client[*].id
 

@@ -45,7 +45,7 @@ func ResourceUserPoolUICustomization() *schema.Resource {
 			},
 
 			"css": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				AtLeastOneOf: []string{"css", "image_file"},
 			},
@@ -56,7 +56,7 @@ func ResourceUserPoolUICustomization() *schema.Resource {
 			},
 
 			"image_file": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				AtLeastOneOf: []string{"image_file", "css"},
 			},

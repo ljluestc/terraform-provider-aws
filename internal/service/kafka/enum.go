@@ -4,14 +4,14 @@
 package kafka
 
 const (
-	ClusterOperationStatePending          = "PENDING"
+	ClusterOperationStatePending = "PENDING"
 	ClusterOperationStateUpdateComplete   = "UPDATE_COMPLETE"
 	ClusterOperationStateUpdateFailed     = "UPDATE_FAILED"
 	ClusterOperationStateUpdateInProgress = "UPDATE_IN_PROGRESS"
 )
 
 const (
-	PublicAccessTypeDisabled            = "DISABLED"
+	PublicAccessTypeDisabled   = "DISABLED"
 	PublicAccessTypeServiceProvidedEIPs = "SERVICE_PROVIDED_EIPS"
 )
 

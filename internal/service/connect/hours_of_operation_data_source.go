@@ -84,7 +84,7 @@ func DataSourceHoursOfOperation() *schema.Resource {
 				Computed: true,
 			},
 			"hours_of_operation_id": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ExactlyOneOf: []string{"hours_of_operation_id", "name"},
@@ -94,7 +94,7 @@ func DataSourceHoursOfOperation() *schema.Resource {
 				Required: true,
 			},
 			"name": {
-				Type:         schema.TypeString,
+				Type:schema.TypeString,
 				Optional:     true,
 				Computed:     true,
 				ExactlyOneOf: []string{"name", "hours_of_operation_id"},
